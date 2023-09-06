@@ -581,6 +581,8 @@ public class Generate_Code_For_Method {
 	}
 
 	void generateCodeForMethod(final @NotNull BaseEvaFunction gf, final @NotNull GenerateResultEnv aFileGen) {
+		//var xx = gc.a_lookup(gf);
+		//xx.onFileGen(aFileGen);
 		// TODO separate into method and method_header??
 		C2C_CodeForMethod cfm = new C2C_CodeForMethod(this, gf, aFileGen);
 
