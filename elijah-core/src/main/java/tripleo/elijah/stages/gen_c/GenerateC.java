@@ -44,7 +44,6 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
  * Created 10/8/20 7:13 AM
  */
 public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimension {
-	static final         boolean                         MANUAL_DISABLED = false;
 	private static final String                          PHASE           = "GenerateC";
 	final                GI_Repo                         _repo           = new GI_Repo(this);
 	final                CompilationEnclosure            ce;
