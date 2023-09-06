@@ -3,7 +3,10 @@ package tripleo.elijah.stateful.annotation.processor;
 import com.google.auto.service.AutoService;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.processing.*;
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
@@ -19,7 +22,7 @@ import java.util.stream.Collectors;
 
 @SupportedAnnotationTypes("tripleo.elijah.stateful.annotation.processor.StatefulProperty")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-@AutoService(Processor.class)
+@AutoService(StatefulProcessor.class)
 public class StatefulProcessor extends AbstractProcessor {
 
 	@Override
@@ -66,6 +69,8 @@ public class StatefulProcessor extends AbstractProcessor {
 		String builderClassName       = className + "__ST";
 		String builderSimpleClassName = builderClassName.substring(lastDot + 1);
 
+		System.err.println("6969 " + builderClassName);
+
 		JavaFileObject builderFile = processingEnv.getFiler().createSourceFile(builderClassName);
 		try (PrintWriter out = new PrintWriter(builderFile.openWriter())) {
 
@@ -74,11 +79,11 @@ public class StatefulProcessor extends AbstractProcessor {
 		}
 	}
 
-	private static void extracted(final Map<String, String> setterMap,
-								  final String packageName,
-								  final PrintWriter out,
-								  final String builderSimpleClassName,
-								  final String simpleClassName) {
+	private void extracted(final Map<String, String> setterMap,
+						   final String packageName,
+						   final PrintWriter out,
+						   final String builderSimpleClassName,
+						   final String simpleClassName) {
 		if (packageName != null) {
 			out.print("package ");
 			out.print(packageName);
