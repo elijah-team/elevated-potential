@@ -1,6 +1,6 @@
 package tripleo.elijah.world.impl;
 
-import lombok.Getter;
+//import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.CompilationEnclosure;
 import tripleo.elijah.comp.notation.GN_PL_Run2;
@@ -13,7 +13,7 @@ public class DefaultWorldModule implements WorldModule {
 	private final OS_Module   mod;
 	private       ModuleThing thing;
 
-	@Getter
+//	@Getter
 	private GN_PL_Run2.GenerateFunctionsRequest rq;
 
 	public DefaultWorldModule(final OS_Module aMod, final @NotNull CompilationEnclosure ce) {
