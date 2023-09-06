@@ -628,7 +628,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
 			return dc4._resolveAlias(aAliasStatement);
 		}
 
-		public DeduceTypes2.PromiseExpectation<GenType> promiseExpectation(final BaseEvaFunction aBgf, final String aFunctionResultType) {
+		public PromiseExpectation<GenType> promiseExpectation(final BaseEvaFunction aBgf, final String aFunctionResultType) {
 			return dc4.promiseExpectation(aBgf, aFunctionResultType);
 		}
 

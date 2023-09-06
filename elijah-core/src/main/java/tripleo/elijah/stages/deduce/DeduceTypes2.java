@@ -1937,67 +1937,6 @@ public class DeduceTypes2 {
 		}
 	}
 
-	public class PromiseExpectation<B> {
-
-		private final ExpectationBase base;
-		private final String          desc;
-		private       boolean         _printed;
-		private       long            counter;
-		private       B               result;
-		private       boolean         satisfied;
-
-		public PromiseExpectation(ExpectationBase aBase, String aDesc) {
-			base = aBase;
-			desc = aDesc;
-		}
-
-		public void fail() {
-			if (!_printed) {
-				LOG.err(String.format("Expectation (%s, %d) not met: %s", DeduceTypes2.this, counter, desc));
-				_printed = true;
-			}
-		}
-
-		public boolean isSatisfied() {
-			return satisfied;
-		}
-
-		public void satisfy(B aResult) {
-			final String satisfied_already = satisfied ? " already" : "";
-			//assert !satisfied;
-			if (!satisfied) {
-				result    = aResult;
-				satisfied = true;
-				LOG.info(String.format("Expectation (%s, %d)%s met: %s %s", DeduceTypes2.this, counter, satisfied_already, desc, base.expectationString()));
-			}
-		}
-
-		public void setCounter(long aCounter) {
-			counter = aCounter;
-
-///////			LOG.info(String.format("Expectation (%s, %d) set: %s %s", DeduceTypes2.this, counter, desc, base.expectationString()));
-		}
-	}
-
-	class PromiseExpectations {
-		long counter = 0;
-
-		@NotNull List<PromiseExpectation> exp = new ArrayList<>();
-
-		public void add(@NotNull PromiseExpectation aExpectation) {
-			counter++;
-			aExpectation.setCounter(counter);
-			exp.add(aExpectation);
-		}
-
-		public void check() {
-			for (@NotNull PromiseExpectation promiseExpectation : exp) {
-				if (!promiseExpectation.isSatisfied())
-					promiseExpectation.fail();
-			}
-		}
-	}
-
 	class Resolve_each_typename {
 
 		private final DeduceTypes2 dt2;
@@ -2522,7 +2461,7 @@ public class DeduceTypes2 {
 		}
 
 		public PromiseExpectations new_PromiseExpectations(final DeduceTypes2 aDeduceTypes2) {
-			return aDeduceTypes2.new PromiseExpectations();
+			return new PromiseExpectations();
 		}
 
 		public List<IDeduceResolvable> new_ArrayList__IDeduceResolvable() {
@@ -2578,7 +2517,7 @@ public class DeduceTypes2 {
 		}
 
 		public <B> PromiseExpectation<B> new_PromiseExpectation(final ExpectationBase aBase, final String aDesc, final DeduceTypes2 aDeduceTypes2) {
-			return aDeduceTypes2.new PromiseExpectation<B>(aBase, aDesc);
+			return new PromiseExpectation<B>(aDeduceTypes2, aBase, aDesc);
 		}
 
 		public Implement_Calls_ new_Implement_Calls_(final BaseEvaFunction aGeneratedFunction, final Context aFdCtx, final InstructionArgument aI2, final ProcTableEntry aFn1, final int aPc, final DeduceTypes2 aDeduceTypes2) {
