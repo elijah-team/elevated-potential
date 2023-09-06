@@ -36,12 +36,32 @@
 -->
 		</dependency>
 
+
 		<dependency>
 			<groupId>tripleo.elijah</groupId>
 			<artifactId>tripleo.elijah.stateful-processor</artifactId>
 			<version>0.9.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
+
+
+
+		<dependency>
+			<groupId>tripleo.elijah</groupId>
+			<artifactId>annotation-processing</artifactId>
+			<version>0.9.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+
+
+
+
+
+
+
+
 
 		<!-- https://search.maven.org/artifact/io.reactivex.rxjava3/rxjava/3.1.0/jar -->
 		<dependency>
