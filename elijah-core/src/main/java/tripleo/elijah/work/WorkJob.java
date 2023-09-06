@@ -14,6 +14,8 @@ package tripleo.elijah.work;
  */
 public interface WorkJob {
 
+	// TODO Maybe WorkJob<T> with an announce(T)?
+
 	boolean isDone();
 
 	void run(WorkManager aWorkManager);

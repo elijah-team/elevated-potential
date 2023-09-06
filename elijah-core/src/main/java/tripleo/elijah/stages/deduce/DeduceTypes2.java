@@ -1990,7 +1990,7 @@ public class DeduceTypes2 {
 		public void action_USER_CLASS(@NotNull final TypeTableEntry typeTableEntry, @NotNull final OS_Type aAttached) {
 			final ClassStatement c = aAttached.getClassOf();
 			assert c != null;
-			phase.onClass(c, cc -> typeTableEntry.resolve(cc));
+			phase.onClass(c, typeTableEntry::resolve);
 		}
 	}
 
@@ -2011,6 +2011,8 @@ public class DeduceTypes2 {
 
 		@Override
 		public void run(final WorkManager aWorkManager) {
+			// README coll seems out of place here
+
 			// TODO assumes result is in the same file as this (DeduceTypes2)
 
 			if (workJob instanceof WlGenerateFunction) {
