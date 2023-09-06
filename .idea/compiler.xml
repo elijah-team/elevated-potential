@@ -20,6 +20,7 @@
         <module name="main" />
         <module name="tripleo.elijah.reactive" />
         <module name="annotation-processing" />
+        <module name="tripleo.elijah.stateful-processor" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

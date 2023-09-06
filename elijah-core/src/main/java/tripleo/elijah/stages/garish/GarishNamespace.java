@@ -12,6 +12,14 @@ import tripleo.elijah.world.impl.DefaultLivingNamespace;
 import tripleo.util.buffer.Buffer;
 
 public class GarishNamespace {
+	private final LivingNamespace _lc;
+
+	@Contract(pure = true)
+	public GarishNamespace(final LivingNamespace aLivingClass) {
+		_lc = aLivingClass;
+		//_lc.setGarish(this);
+	}
+
 	public @NotNull BufferTabbedOutputStream getImplBuffer(final @NotNull EvaNamespace ignoredX,
 														   final String class_name,
 														   final int class_code) {
@@ -33,14 +41,6 @@ public class GarishNamespace {
 		tos.flush();
 		tos.close();
 		return tos;
-	}
-
-	private final LivingNamespace _lc;
-
-	@Contract(pure = true)
-	public GarishNamespace(final LivingNamespace aLivingClass) {
-		_lc = aLivingClass;
-		//_lc.setGarish(this);
 	}
 
 	public void garish(final GenerateC aGenerateC, final GenerateResult gr, final @NotNull GenerateResultSink aResultSink) {

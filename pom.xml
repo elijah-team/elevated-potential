@@ -43,6 +43,7 @@
 		-->
 		<module>tripleo-small</module>
 		<module>elijah-stateful</module>
+		<module>elijah-stateful-processor</module>
 		<module>tripleo-reactive</module>
 		<module>elijah-core</module>
 <!--		<module>typeinf</module>-->
