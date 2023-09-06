@@ -48,7 +48,7 @@ public class GarishNamespace {
 		final EvaNamespace           x   = dln.evaNode();
 
 		if (x.generatedAlready)
-			throw new IllegalStateException("Error");
+			throw new IllegalStateException("GarishNamespace generated already");
 
 		// TODO do we need `self' parameters for namespace?
 
