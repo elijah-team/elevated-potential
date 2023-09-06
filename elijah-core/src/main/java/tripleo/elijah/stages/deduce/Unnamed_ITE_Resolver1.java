@@ -53,51 +53,54 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 	}
 
 	public void resolve_ident_table_entry2() {
-		@Nullable InstructionArgument itex = _inj().new_IdentIA(ite.getIndex(), generatedFunction);
+		@Nullable InstructionArgument instructionArgument = new IdentIA(ite.getIndex(), generatedFunction);
+
 		{
-			while (itex != null && itex instanceof IdentIA) {
-				@NotNull IdentTableEntry itee = ((IdentIA) itex).getEntry();
+			// FIXME begging for recursion
+			while (instructionArgument != null && instructionArgument instanceof IdentIA identIA) {
+				@NotNull IdentTableEntry runningEntry = identIA.getEntry();
 
 				@Nullable BaseTableEntry x = null;
-				if (itee.getBacklink() instanceof IntegerIA) {
-					@NotNull VariableTableEntry vte = ((IntegerIA) itee.getBacklink()).getEntry();
-					x = vte;
+				final InstructionArgument runningEntryBacklink = runningEntry.getBacklink();
+				if (runningEntryBacklink instanceof final IntegerIA runningEntryBacklinkVar) {
+					x = runningEntryBacklinkVar.getEntry();
 //					if (vte.constructable_pte != null)
-					itex = null;
-				} else if (itee.getBacklink() instanceof IdentIA) {
-					x    = ((IdentIA) itee.getBacklink()).getEntry();
-					itex = ((IdentTableEntry) x).getBacklink();
-				} else if (itee.getBacklink() instanceof ProcIA) {
-					x = ((ProcIA) itee.getBacklink()).getEntry();
-//					if (itee.getCallablePTE() == null)
+					instructionArgument = null;
+				} else if (runningEntryBacklink instanceof final IdentIA runningEntryBacklinkIdent) {
+					x    = runningEntryBacklinkIdent.getEntry();
+					instructionArgument = ((IdentTableEntry) x).getBacklink();
+				} else if (runningEntryBacklink instanceof final ProcIA runningEntryBacklinkProc) {
+					x = runningEntryBacklinkProc.getEntry();
+//					if (runningEntry.getCallablePTE() == null)
 //						// turned out to be wrong (by double calling), so let's wrap it
-//						itee.setCallablePTE((ProcTableEntry) x);
-					itex = null; //((ProcTableEntry) x).backlink;
-				} else if (itee.getBacklink() == null) {
-					itex = null;
-					x    = null;
+//						runningEntry.setCallablePTE((ProcTableEntry) x);
+					// TODO Proc cannot have backlink??
+					instructionArgument = null; //((ProcTableEntry) x).backlink;
+				} else if (runningEntryBacklink == null) {
+					instructionArgument = null;
+					x                   = null;
 				}
 
 				if (x != null) {
-//					LOG.err("162 Adding FoundParent for "+itee);
-//					LOG.err(String.format("1656 %s \n\t %s \n\t%s", x, itee, itex));
-					x.addStatusListener(new FoundParent(x, itee, itee.getIdent().getContext(), generatedFunction)); // TODO context??
+//					LOG.info("162 Adding FoundParent for "+runningEntry);
+//					LOG.info(String.format("1656 %s \n\t %s \n\t%s", x, runningEntry, instructionArgument));
+					x.addStatusListener(new FoundParent(x, runningEntry, runningEntry.getIdent().getContext(), generatedFunction)); // TODO context??
 				}
 			}
 		}
+
 		if (ite.hasResolvedElement()) {
 			_done = true;
-			var e = ite.getResolvedElement();
-			_resolve_result = _inj().new_ITE_Resolver_Result(e);
+			final OS_Element e = ite.getResolvedElement();
+			_resolve_result = new ITE_Resolver_Result(e);
 			return;
 		}
 
 		ite.calculateResolvedElement();
 
-		if (ite.getResolvedElement() != null) {
-			//ite.resolveExpectation.satisfy(ite.getResolvedElement());
-
-			var re = ite.getResolvedElement();
+		final OS_Element re = ite.getResolvedElement();
+		if (re != null) {
+			//ite.resolveExpectation.satisfy(re);
 
 			var de3_ite = ite.getDeduceElement3(ite._deduceTypes2(), ite.__gf);
 
