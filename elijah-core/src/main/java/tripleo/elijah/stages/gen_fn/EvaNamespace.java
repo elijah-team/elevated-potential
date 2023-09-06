@@ -9,17 +9,20 @@
 package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.nextgen.reactive.DefaultReactive;
+import tripleo.elijah.nextgen.reactive.Reactive;
 import tripleo.elijah.stages.gen_generic.CodeGenerator;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.Maybe;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.world.impl.DefaultLivingNamespace;
+
+import java.util.function.Consumer;
 
 /**
  * Created 12/22/20 5:39 PM
@@ -108,6 +111,19 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 	@Override
 	public OS_Module module() {
 		return module;
+	}
+
+	private _Reactive_EvaNamespace reactiveEvaNamespace = new _Reactive_EvaNamespace();
+
+	public Reactive reactive() {
+		return reactiveEvaNamespace;
+	}
+
+	class _Reactive_EvaNamespace extends DefaultReactive {
+		@Override
+		public <T> void addListener(final Consumer<T> t) {
+			throw new UnintendedUseException();
+		}
 	}
 }
 
