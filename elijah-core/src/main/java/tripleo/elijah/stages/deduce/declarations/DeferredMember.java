@@ -25,14 +25,12 @@ import tripleo.elijah.util.NotImplementedException;
  * Created 6/27/21 1:41 AM
  */
 public class DeferredMember {
-	private final     DeferredObject<EvaNode, Void, Void>       externalRef = new DeferredObject<>();
-	@Getter
-	private final IInvocation                               invocation;
-	@Getter
-	private final DeduceElementWrapper                      parent;
 	private final     DeferredObject<GenType, Diagnostic, Void> typePromise = new DeferredObject<>();
-	@lombok.Getter
-	private final VariableStatementImpl                     variableStatement;
+	private final     DeferredObject<EvaNode, Void, Void>       externalRef = new DeferredObject<>();
+
+	@Getter private final IInvocation                               invocation;
+	@Getter private final DeduceElementWrapper                      parent;
+	@Getter private final VariableStatementImpl                     variableStatement;
 
 	public DeferredMember(DeduceElementWrapper aParent, IInvocation aInvocation, VariableStatementImpl aVariableStatement) {
 		parent            = aParent;
