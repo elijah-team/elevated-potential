@@ -106,14 +106,6 @@ public class OutputStrategyC {
 	public @NotNull OSC_NFC nameForClass1(@NotNull EvaClass aEvaClass, GenerateResult.@NotNull TY aTy) {
 		if (aEvaClass.module().isPrelude()) {
 			// We are dealing with the Prelude
-/*
-			StringBuilder sb = new StringBuilder();
-			sb.append("/Prelude/");
-			sb.append("Prelude");
-			appendExtension(aTy, sb);
-*/
-			//return sb.toString();
-
 			return new OSC_NFC("Prelude", "Prelude", "", Extension0(aTy));
 		}
 

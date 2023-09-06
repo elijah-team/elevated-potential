@@ -36,7 +36,7 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 			System.out.println("twice for " + generateC);
 	}
 
-	private void onFileGen(final @NotNull GenerateResultEnv aFileGen) {
+	public void onFileGen(final @NotNull GenerateResultEnv aFileGen) {
 		if (gf.getFD() == null) assert false; //return; // FIXME why? when?
 		Generate_Code_For_Method gcfm = new Generate_Code_For_Method(generateC, generateC.LOG);
 		gcfm.generateCodeForMethod(deduced(gf), aFileGen);
