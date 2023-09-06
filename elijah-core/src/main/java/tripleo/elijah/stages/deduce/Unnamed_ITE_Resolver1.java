@@ -516,13 +516,13 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 
 		private void type_is_null_and_attached_is_null_vte() {
 			//LOG.err("2842 attached == null for "+((VariableTableEntry) bte).type);
-			@NotNull DeduceTypes2.PromiseExpectation<GenType> pe = dt2.promiseExpectation((VariableTableEntry) bte, "Null USER type attached resolved");
+			@NotNull PromiseExpectation<GenType> pe = dt2.promiseExpectation((VariableTableEntry) bte, "Null USER type attached resolved");
 			VTE_TypePromises.found_parent(pe, generatedFunction, ((VariableTableEntry) bte), ite, dt2);
 		}
 
 		private void type_is_null_and_attached_is_null_ite(final IdentTableEntry ite) {
-			int                                      y  = 2;
-			DeduceTypes2.PromiseExpectation<GenType> pe = dt2.promiseExpectation(ite, "Null USER type attached resolved");
+			int                         y  = 2;
+			PromiseExpectation<GenType> pe = dt2.promiseExpectation(ite, "Null USER type attached resolved");
 //			ite.onType(phase, _inj().new_OnType() {
 //
 //				@Override

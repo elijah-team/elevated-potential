@@ -720,7 +720,7 @@ public class Resolve_Ident_IA {
 			final boolean[] is_set = {false};
 
 			if (!rp) {
-				final DeduceTypes2.PromiseExpectation<OS_Element> pe1 = deduceTypes2.promiseExpectation(identTableEntry, "DeduceElementIdent getResolvedElement");
+				final PromiseExpectation<OS_Element> pe1 = deduceTypes2.promiseExpectation(identTableEntry, "DeduceElementIdent getResolvedElement");
 
 //				assert _resolvedElementPromise.isResolved();
 

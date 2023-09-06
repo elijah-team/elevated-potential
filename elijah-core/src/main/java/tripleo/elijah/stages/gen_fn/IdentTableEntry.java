@@ -51,7 +51,7 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 	public                 boolean                                         fefi                       = false;
 	public @NotNull        Map<Integer, TypeTableEntry>                    potentialTypes             = new HashMap<Integer, TypeTableEntry>();
 	public                 boolean                                         preUpdateStatusListenerAdded;
-	public                 DeduceTypes2.PromiseExpectation<String>         resolveExpectation;
+	public                 PromiseExpectation<String>  				       resolveExpectation;
 	public                 TypeTableEntry                                  type;
 	private                DR_Ident                                        _ident;
 	InstructionArgument backlink;
