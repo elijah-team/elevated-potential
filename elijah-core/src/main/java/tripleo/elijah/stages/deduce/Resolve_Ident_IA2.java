@@ -328,8 +328,8 @@ class Resolve_Ident_IA2 {
 				if (ite.getBacklink() != null) {
 					InstructionArgument backlink = ite.getBacklink();
 					if (backlink instanceof final @NotNull IntegerIA integerIA) {
-						@NotNull VariableTableEntry                    vte = integerIA.getEntry();
-						final DeduceTypes2.PromiseExpectation<GenType> pe  = deduceTypes2.promiseExpectation(vte, "TypePromise for vte " + vte);
+						@NotNull VariableTableEntry       vte = integerIA.getEntry();
+						final PromiseExpectation<GenType> pe  = deduceTypes2.promiseExpectation(vte, "TypePromise for vte " + vte);
 						vte.typePromise().then(new DoneCallback<GenType>() {
 							@Override
 							public void onDone(@NotNull GenType result) {

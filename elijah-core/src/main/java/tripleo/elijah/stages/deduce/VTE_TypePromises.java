@@ -69,7 +69,7 @@ public enum VTE_TypePromises {
 		});
 	}
 
-	static void found_parent(final @NotNull DeduceTypes2.PromiseExpectation<GenType> aPromiseExpectation,
+	static void found_parent(final @NotNull PromiseExpectation<GenType> aPromiseExpectation,
 							 final @NotNull BaseEvaFunction generatedFunction,
 							 final @NotNull VariableTableEntry aBte,
 							 final @NotNull IdentTableEntry ite,

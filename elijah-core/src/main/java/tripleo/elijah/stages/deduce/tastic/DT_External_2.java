@@ -170,7 +170,7 @@ public class DT_External_2 implements DT_External {
 
 			pte.onFunctionInvocation((@NotNull FunctionInvocation functionInvocation) -> {
 				functionInvocation.generateDeferred().done((@NotNull BaseEvaFunction bgf) -> {
-					@NotNull DeduceTypes2.PromiseExpectation<GenType> pe = dc.promiseExpectation(bgf, "Function Result type");
+					@NotNull PromiseExpectation<GenType> pe = dc.promiseExpectation(bgf, "Function Result type");
 					bgf.typePromise().then((@NotNull GenType result) -> {
 						pe.satisfy(result);
 						@NotNull TypeTableEntry tte = generatedFunction.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, result.getResolved()); // TODO there has to be a better way

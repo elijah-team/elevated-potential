@@ -175,7 +175,7 @@ class Resolve_Variable_Table_Entry {
 			aGenType.setCi(modi);
 			aGenType.setNode(wlgf.getResult());
 
-			DeduceTypes2.@NotNull PromiseExpectation<GenType> pe = deduceTypes2.promiseExpectation(/*pot.genType.node*/new DeduceTypes2.ExpectationBase() {
+			@NotNull PromiseExpectation<GenType> pe = deduceTypes2.promiseExpectation(/*pot.genType.node*/new DeduceTypes2.ExpectationBase() {
 				@Override
 				public @NotNull String expectationString() {
 					return "FuncType..."; // TODO
