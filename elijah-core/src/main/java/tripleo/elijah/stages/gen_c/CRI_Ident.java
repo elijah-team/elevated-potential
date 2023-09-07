@@ -116,7 +116,7 @@ class CRI_Ident {
 
 			if (!skip[0]) {
 				short state = 1;
-				if (ite.externalRef != null) {
+				if (ite.externalRef() != null) {
 					state = 2;
 				}
 				switch (state) {
@@ -144,19 +144,22 @@ class CRI_Ident {
 					if ((resolved_element instanceof VariableStatementImpl)) {
 						final String text2 = ((VariableStatementImpl) resolved_element).getName();
 
-						final EvaNode externalRef = ite.externalRef;
-						if (externalRef instanceof EvaNamespace) {
-							final String text3 = String.format("zN%d_instance", ((EvaNamespace) externalRef).getCode());
-							addRef.accept(new CReference.Reference(text3, CReference.Ref.LITERAL, null));
-						} else if (externalRef instanceof EvaClass) {
-							assert false;
-							final String text3 = String.format("zN%d_instance", ((EvaClass) externalRef).getCode());
-							addRef.accept(new CReference.Reference(text3, CReference.Ref.LITERAL, null));
-						} else
-							throw new IllegalStateException();
+						ite.onExternalRef((final EvaNode externalRef) -> {
+							if (externalRef instanceof EvaNamespace) {
+								final String text3 = String.format("zN%d_instance", ((EvaNamespace) externalRef).getCode());
+								addRef.accept(new CReference.Reference(text3, CReference.Ref.LITERAL, null));
+							} else if (externalRef instanceof EvaClass) {
+								assert false;
+								final String text3 = String.format("zN%d_instance", ((EvaClass) externalRef).getCode());
+								addRef.accept(new CReference.Reference(text3, CReference.Ref.LITERAL, null));
+							} else {
+								throw new IllegalStateException();
+							}
+						});
 						addRef.accept(new CReference.Reference(text2, CReference.Ref.MEMBER, aValue));
-					} else
+					} else {
 						throw new NotImplementedException();
+					}
 					break;
 				}
 			}
