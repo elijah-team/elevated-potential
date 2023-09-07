@@ -19,6 +19,7 @@ import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah.stages.deduce.ClassInvocation;
 import tripleo.elijah.stages.deduce.FunctionInvocation;
 import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_ProcTableEntry;
+import tripleo.elijah.stages.gen_c.statements.ReasonedStringListStatement;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
@@ -655,27 +656,41 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 					reference = new CReference(_repo, ce);
 					final IdentIA ia2 = (IdentIA) pte.expression_num;
 					reference.getIdentIAPath(ia2, Generate_Code_For_Method.AOG.GET, null);
-					final List<String> sll = getAssignmentValueArgs(inst, gf, LOG);
+					final GetAssignmentValueArgsStatement ava = getAssignmentValueArgs(inst, gf, LOG);
+					final List<String>                    sll                 = ava.stringList();
 					reference.args(sll);
 					String path = reference.build();
 					sb.append(Emit.emit("/*807*/") + path);
 
 					final IExpression ptex = pte.__debug_expression;
-					if (ptex instanceof IdentExpression) {
-						sb.append(Emit.emit("/*803*/"));
-						sb.append(((IdentExpression) ptex).getText());
+					if (ptex instanceof IdentExpression aIdentExpression) {
+						var z = new ReasonedStringListStatement();
+
+						z.append(Emit.emit("/*803*/"), "emit-code");
+						z.append(aIdentExpression.getText(), "ptex");
+
+						sb.append(z.getText());
 					} else if (ptex instanceof ProcedureCallExpression) {
-						sb.append(Emit.emit("/*806*/"));
-						sb.append(ptex.getLeft()); // TODO Qualident, IdentExpression, DotExpression
+						var z = new ReasonedStringListStatement();
+
+						z.append(Emit.emit("/*806*/"), "emit-code");
+						z.append(ptex.getLeft().toString()/*FIXME 09/07*/, "ptex"); // TODO Qualident, IdentExpression, DotExpression
+
+						sb.append(z.getText());
 					}
 				}
 				if (true /*reference == null*/) {
-					sb.append(Emit.emit("/*810*/") + "(");
-					{
-						final List<String> sll = getAssignmentValueArgs(inst, gf, LOG);
-						sb.append(Helpers.String_join(", ", sll));
-					}
-					sb.append(");");
+					var z = new ReasonedStringListStatement();
+
+					final GetAssignmentValueArgsStatement ava = getAssignmentValueArgs(inst, gf, LOG);
+					final List<String>                    sll = ava.stringList();
+
+					z.append(Emit.emit("/*810*/"), "emit-code");
+					z.append("(", "open-brace");
+					z.append(ava, "GetAssignmentValueArgsStatement");
+					z.append(");", "close-brace");
+
+					sb.append(z.getText());
 				}
 				return sb.toString();
 			}
@@ -684,38 +699,44 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 			}
 		}
 
-		@NotNull
-		List<String> getAssignmentValueArgs(final @NotNull Instruction inst, final @NotNull BaseEvaFunction gf, @NotNull ElLog LOG) {
+		GetAssignmentValueArgsStatement getAssignmentValueArgs(final @NotNull Instruction inst, final @NotNull BaseEvaFunction gf, @NotNull ElLog LOG) {
+			var gavas = new GetAssignmentValueArgsStatement(inst);
+
 			final int          args_size = inst.getArgsSize();
-			final List<String> sll       = new ArrayList<String>();
+
 			for (int i = 1; i < args_size; i++) {
 				final InstructionArgument ia = inst.getArg(i);
 				final int                 y  = 2;
-//			LOG.err("7777 " +ia);
-				if (ia instanceof ConstTableIA) {
-					final ConstantTableEntry constTableEntry = gf.getConstTableEntry(((ConstTableIA) ia).getIndex());
-					sll.add(const_to_string(constTableEntry.initialValue));
-				} else if (ia instanceof IntegerIA) {
-					final VariableTableEntry variableTableEntry = gf.getVarTableEntry(((IntegerIA) ia).getIndex());
-					sll.add(Emit.emit("/*853*/") + _zone.get(variableTableEntry, gf).getRealTargetName());
-				} else if (ia instanceof IdentIA) {
-					String          path = gf.getIdentIAPathNormal((IdentIA) ia);    // return x.y.z
-					IdentTableEntry ite  = gf.getIdentTableEntry(to_int(ia));
+
+				//LOG.err("7777 " + ia);
+
+				if (ia instanceof final ConstTableIA constTableIA) {
+					final ConstantTableEntry constTableEntry = gf.getConstTableEntry(constTableIA.getIndex());
+					gavas.add_string(const_to_string(constTableEntry.initialValue));
+				} else if (ia instanceof final IntegerIA integerIA) {
+					final VariableTableEntry variableTableEntry = gf.getVarTableEntry(integerIA.getIndex());
+					gavas.add_string(Emit.emit("/*853*/") + _zone.get(variableTableEntry, gf).getRealTargetName());
+				} else if (ia instanceof final IdentIA identIA) {
+					final String          path = gf.getIdentIAPathNormal(identIA);    // return x.y.z
+					final IdentTableEntry ite  = identIA.getEntry();
+
 					if (ite.getStatus() == BaseTableEntry.Status.UNKNOWN) {
-						sll.add(String.format("%s is UNKNOWN", path));
+						gavas.add_string(String.format("%s is UNKNOWN", path));
 					} else {
 						final CReference reference = new CReference(_repo, ce);
-						reference.getIdentIAPath((IdentIA) ia, Generate_Code_For_Method.AOG.GET, null);
-						String path2 = reference.build();                        // return ZP105get_z(vvx.vmy)
+						reference.getIdentIAPath(identIA, Generate_Code_For_Method.AOG.GET, null);
+						final String path2 = reference.build();                        // return ZP105get_z(vvx.vmy)
+
 						if (path.equals(path2)) {
 							// should always fail
 							//throw new AssertionError();
 							LOG.err(String.format("864 should always fail but didn't %s %s", path, path2));
 						}
-//					assert ident != null;
-//					IdentTableEntry ite = gf.getIdentTableEntry(((IdentIA) ia).getIndex());
-//					sll.add(Emit.emit("/*748*/")+""+ite.getIdent().getText());
-						sll.add(Emit.emit("/*748*/") + path2);
+
+						//assert ident != null;
+						//IdentTableEntry ite = gf.getIdentTableEntry(((IdentIA) ia).getIndex());
+						//sll.add(Emit.emit("/*748*/")+""+ite.getIdent().getText());
+						gavas.add_string(Emit.emit("/*748*/") + path2);
 						LOG.info("743 " + path2 + " " + path);
 					}
 				} else if (ia instanceof ProcIA) {
@@ -725,7 +746,8 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 					throw new IllegalStateException("Cant be here: Invalid InstructionArgument");
 				}
 			}
-			return sll;
+
+			return gavas;
 		}
 
 		// TODO look at me
@@ -734,7 +756,8 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 			@NotNull ProcTableEntry pte       = gf.getProcTableEntry(((ProcIA) _arg0).index());
 			final CtorReference     reference = new CtorReference();
 			reference.getConstructorPath(pte.expression_num, gf);
-			@NotNull List<String> x = getAssignmentValueArgs(aInstruction, gf, LOG);
+			final GetAssignmentValueArgsStatement ava = getAssignmentValueArgs(aInstruction, gf, LOG);
+			@NotNull List<String>                 x   = ava.stringList();
 			reference.args(x);
 			return reference.build(aClsinv);
 		}
@@ -910,8 +933,6 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 
 		return gr2;
 	}
-
-
 }
 
 //
