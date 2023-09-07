@@ -22,11 +22,9 @@ public class NG_OutputClass implements NG_OutputItem {
 		final EvaClass x = garishClass.getLiving().evaNode();
 
 		final BufferTabbedOutputStream tos = garishClass.getClassBuffer(generateC);
-
 		var implText = new NG_OutputClassStatement(tos, x.module(), GenerateResult.TY.IMPL);
 
 		final BufferTabbedOutputStream tosHdr = garishClass.getHeaderBuffer(generateC);
-
 		var headerText = new NG_OutputClassStatement(tosHdr, x.module(), GenerateResult.TY.HEADER);
 
 		return List_of(implText, headerText);
@@ -40,7 +38,7 @@ public class NG_OutputClass implements NG_OutputItem {
 	}
 
 	public void setClass(final GarishClass aGarishClass, final GenerateC aGenerateC) {
-		this.garishClass = aGarishClass;
-		generateC        = aGenerateC;
+		garishClass = aGarishClass;
+		generateC   = aGenerateC;
 	}
 }
