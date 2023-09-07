@@ -622,11 +622,13 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
 		}
 
 		private void __doLogic0__FormalArgListItem(final @NotNull FormalArgListItem fali) {
-			dt2._inj().new_FT_FCA_FormalArgListItem(fali, generatedFunction)._FunctionCall_Args_doLogic0(vte, vte1, errSink);
+			// TODO 09/07 DEW??
+			new FT_FCA_FormalArgListItem(fali, generatedFunction)._FunctionCall_Args_doLogic0(vte, vte1, errSink);
 		}
 
 		private void __doLogic0__VariableStatement(final @NotNull VariableStatementImpl vs) {
-			dt2._inj().new_FT_FCA_VariableStatement(vs, generatedFunction)._FunctionCall_Args_doLogic0(vte, vte1, e_text, p);
+			// TODO 09/07 DEW??
+			new FT_FCA_VariableStatement(vs, generatedFunction)._FunctionCall_Args_doLogic0(vte, vte1, e_text, p);
 		}
 
 		public void doLogic(@NotNull List<TypeTableEntry> potentialTypes) {
