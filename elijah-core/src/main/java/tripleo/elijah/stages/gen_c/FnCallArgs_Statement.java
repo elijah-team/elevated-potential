@@ -47,7 +47,8 @@ class FnCallArgs_Statement implements EG_Statement {
 		z.append("(", "open-brace");
 
 		// VERIFY alias evaluation
-		final List<String> sll = getAssignmentValue.getAssignmentValueArgs(inst, gf, generateC.LOG);
+		final GetAssignmentValueArgsStatement ava = getAssignmentValue.getAssignmentValueArgs(inst, gf, generateC.LOG);
+		final List<String>                    sll                 = ava.stringList();
 		// VERIFY template usage
 		z.append(Helpers.String_join(", ", sll), "get-assignment-value-args");
 
