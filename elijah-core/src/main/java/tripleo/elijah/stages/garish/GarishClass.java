@@ -32,7 +32,7 @@ public class GarishClass {
 		final EvaClass              x   = dlc.evaNode();
 		final GarishClass_Generator xg  = x.generator();
 
-		if (!x.generatedAlready) {
+		if (!xg.generatedAlready()) {
 			xg.provide(aResultSink, this, gr, aGenerateC);
 		}
 	}
