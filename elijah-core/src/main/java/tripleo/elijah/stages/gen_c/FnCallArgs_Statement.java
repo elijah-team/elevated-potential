@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.IdentExpression;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import tripleo.elijah.stages.gen_c.statements.ReasonedStringListStatement;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.gen_fn.ProcTableEntry;
 import tripleo.elijah.stages.instructions.Instruction;
@@ -33,26 +34,27 @@ class FnCallArgs_Statement implements EG_Statement {
 
 	@Override
 	public @NotNull String getText() {
-		final StringBuilder sb = new StringBuilder();
+		var z = new ReasonedStringListStatement();
 
 		// VERIFY computed. immediate
 		final IdentExpression ptex = (IdentExpression) pte.__debug_expression;
 
 		// VERIFY template usage
-		sb.append(ptex.getText());
+		z.append(ptex.getText(), "pte-expression");
 
 		// VERIFY template push
-		sb.append(Emit.emit("/*671*/") + "(");
+		z.append(Emit.emit("/*671*/"), "emit-code");
+		z.append("(", "open-brace");
 
 		// VERIFY alias evaluation
 		final List<String> sll = getAssignmentValue.getAssignmentValueArgs(inst, gf, generateC.LOG);
 		// VERIFY template usage
-		sb.append(Helpers.String_join(", ", sll));
+		z.append(Helpers.String_join(", ", sll), "get-assignment-value-args");
 
 		// VERIFY template push
-		sb.append(")");
+		z.append(")", "close-brace");
 
 		// VERIFY EG_St:  <here> && getText() -> <~>
-		return sb.toString();
+		return z.getText();
 	}
 }

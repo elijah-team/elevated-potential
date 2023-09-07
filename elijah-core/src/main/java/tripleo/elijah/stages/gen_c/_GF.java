@@ -11,6 +11,7 @@ import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_ProcTableEntry;
 import tripleo.elijah.stages.deduce.post_bytecode.IDeduceElement3;
+import tripleo.elijah.stages.gen_c.statements.ReasonedStringListStatement;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.gen_fn.ProcTableEntry;
 import tripleo.elijah.stages.instructions.*;
@@ -24,16 +25,6 @@ import static tripleo.elijah.stages.gen_c.Generate_Code_For_Method.AOG.GET;
 public enum _GF {
 	;
 
-	@Contract("null, _ -> fail")
-	public static @NotNull EG_Statement forDeduceElement3(final IDeduceElement3 deduceElement3, final @NotNull GenerateC gc) {
-		//return deduceElement3.();
-		if (deduceElement3 instanceof final @NotNull DeduceElement3_ProcTableEntry de_pte) {
-			return forDeduceElement3_ProcTableEntry(de_pte, gc);
-		}
-
-		throw new NotImplementedException();
-	}
-
 	private static @NotNull EG_Statement forDeduceElement3_ProcTableEntry(@NotNull final DeduceElement3_ProcTableEntry de_pte, final @NotNull GenerateC gc) {
 		final EG_SingleStatement beginning;
 		final EG_SingleStatement ending;
@@ -41,74 +32,76 @@ public enum _GF {
 		final boolean            indent = false;
 		final EX_Explanation     explanation;
 
-
 		final ProcTableEntry pte = de_pte.getTablePrincipal();
 
 		final BaseEvaFunction gf          = de_pte.getGeneratedFunction();
 		final Instruction     instruction = de_pte.getInstruction();
 
-		final StringBuilder sb = XXX_YYY.dispatch(pte, new XXX_YYY() {
+		final EG_Statement sb = __Pte_Dispatch.dispatch(pte, new __Pte_Dispatch() {
+			// README funny thing is, this is a class vv
 			@Override
-			public @NotNull StringBuilder itsABoy(final IExpression expression) {
+			public @NotNull EG_Statement statementForExpression(final IExpression expression) {
+				var z = new ReasonedStringListStatement();
+
 				final IdentExpression ptex = (IdentExpression) expression;
 				final String          text = ptex.getText();
 
 				@Nullable final InstructionArgument xx = gf.vte_lookup(text);
 				assert xx != null;
 
-				final String       realTargetName = gc.getRealTargetName((IntegerIA) xx, GET);
 				final List<String> sl3            = gc.getArgumentStrings(() -> new InstructionFixedList(instruction));
 
-				final StringBuilder sb = new StringBuilder();
-				sb.append(Emit.emit("/*424*/"));
-				sb.append(realTargetName);
-				sb.append('(');
-				sb.append(Helpers.String_join(", ", sl3));
-				sb.append(");");
+				z.append(Emit.emit("/*424*/"), "emit-code");
+				z.append(() -> gc.getRealTargetName((IntegerIA) xx, GET), "real-target-name");
+				z.append("(", "open-brace");
+				z.append(Helpers.String_join(", ", sl3), "arguments");
+				z.append(");", "close-brace");
 
-				return sb;
+				return z;
 			}
 
 			@Override
-			public @NotNull StringBuilder itsAGirl(final InstructionArgument expression_num) {
-				final IdentIA identIA = (IdentIA) expression_num;
+			public @NotNull EG_Statement statementForExpressionNum(final InstructionArgument expression_num) {
+				var z = new ReasonedStringListStatement();
 
-				final CReference reference = new CReference(gc.repo(), gc.ce);
-				reference.getIdentIAPath(identIA, GET, null);
-				final List<String> sl3 = gc.getArgumentStrings(() -> new InstructionFixedList(instruction));
-				reference.args(sl3);
-				final @NotNull String path = reference.build();
+				z.append(Emit.emit("/*427-1*/"), "emit-code");
+				z.append(() -> {
+					final IdentIA identIA = (IdentIA) expression_num;
 
-				final StringBuilder sb = new StringBuilder();
-				sb.append(Emit.emit("/*427-1*/"));
-				sb.append(path);
-				sb.append(";");
+					final CReference reference = new CReference(gc.repo(), gc.ce);
+					reference.getIdentIAPath(identIA, Generate_Code_For_Method.AOG.GET, null);
+					final List<String> sl3 = gc.getArgumentStrings(() -> new InstructionFixedList(instruction));
+					reference.args(sl3);
+					final @NotNull String path = reference.build();
 
-				return sb;
+					return path;
+				}, "path");
+				z.append(";", "close-semi");
+
+				return z;
 			}
 		});
 
 		beginning   = new EG_SingleStatement("", EX_Explanation.withMessage("forDeduceElement3_ProcTableEntry >> beginning"));
 		ending      = new EG_SingleStatement("", EX_Explanation.withMessage("forDeduceElement3_ProcTableEntry >> ending"));
 		explanation = new EX_ProcTableEntryExplanation(de_pte);
-		middle      = new EG_SingleStatement(sb.toString(), explanation);
+		middle      = sb;
 
 		final EG_CompoundStatement stmt = new EG_CompoundStatement(beginning, ending, middle, indent, explanation);
-		//new EX_TableEntryExplanation();
 		return stmt;
 	}
 
-	interface XXX_YYY {
-		static StringBuilder dispatch(@NotNull final ProcTableEntry pte, final @NotNull XXX_YYY xy) {
+	interface __Pte_Dispatch {
+		static EG_Statement dispatch(@NotNull final ProcTableEntry pte, final @NotNull _GF.__Pte_Dispatch xy) {
 			if (pte.expression_num == null) {
-				return xy.itsABoy(pte.__debug_expression);
+				return xy.statementForExpression(pte.__debug_expression);
 			} else {
-				return xy.itsAGirl(pte.expression_num);
+				return xy.statementForExpressionNum(pte.expression_num);
 			}
 		}
 
-		StringBuilder itsABoy(IExpression expression);
+		EG_Statement statementForExpression(IExpression expression);
 
-		StringBuilder itsAGirl(InstructionArgument expreesion_num);
+		EG_Statement statementForExpressionNum(InstructionArgument expreesion_num);
 	}
 }
