@@ -660,6 +660,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
 		}
 	}
 
+			dt2._inj().new_FT_FCA_FormalArgListItem(fali, generatedFunction)._FunctionCall_Args_doLogic0(vte, vte1, errSink);
 }
 
 //
