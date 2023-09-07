@@ -7,6 +7,7 @@ import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.lang.i.OS_Element;
 import tripleo.elijah.lang.i.PropertyStatement;
+import tripleo.elijah.lang.i.VariableStatement;
 import tripleo.elijah.lang.impl.VariableStatementImpl;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.IdentIA;
@@ -131,8 +132,8 @@ class CRI_Ident {
 							givs.setItem(item);
 							x = givs.getText();
 						}
-						if (x == null && resolved_element instanceof VariableStatementImpl) {
-							x = ((VariableStatementImpl) resolved_element).getName();
+						if (x == null && resolved_element instanceof VariableStatement vs) {
+							x = vs.getName();
 						}
 						text[0] = x;
 					} else {
