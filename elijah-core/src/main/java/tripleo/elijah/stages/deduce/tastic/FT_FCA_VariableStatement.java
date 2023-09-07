@@ -18,10 +18,8 @@ public class FT_FCA_VariableStatement {
 		generatedFunction = aGeneratedFunction;
 	}
 
-	public void doLogic0(final @NotNull String e_text,
-						 final @NotNull Promise<GenType, Void, Void> p,
-						 final @NotNull VariableTableEntry vte1,
-						 final @NotNull VariableTableEntry vte) {
+	public void _FunctionCall_Args_doLogic0(final @NotNull VariableTableEntry vte, final @NotNull VariableTableEntry vte1, final @NotNull String e_text,
+											final @NotNull Promise<GenType, Void, Void> p) {
 		assert vs.getName().equals(e_text);
 
 		@Nullable InstructionArgument vte2_ia = generatedFunction.vte_lookup(vs.getName());
