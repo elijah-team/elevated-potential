@@ -188,7 +188,7 @@ public class DeduceTypes2 {
 													final @NotNull VariableStatementImpl aVariableStatement,
 													final @NotNull IdentTableEntry ite) {
 		@NotNull DeferredMember dm = Objects.requireNonNull(deferred_member(aParent, aInvocation, aVariableStatement));
-		dm.externalRef().then(result -> ite.externalRef = result);
+		dm.externalRef().then(ite::setExternalRef);
 		return dm;
 	}
 
