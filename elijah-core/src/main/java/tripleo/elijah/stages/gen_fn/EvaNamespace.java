@@ -14,6 +14,7 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;
 import tripleo.elijah.nextgen.reactive.Reactive;
+import tripleo.elijah.stages.garish.GarishNamespace_Generator;
 import tripleo.elijah.stages.gen_generic.CodeGenerator;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
@@ -118,6 +119,12 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 	public Reactive reactive() {
 		return reactiveEvaNamespace;
 	}
+
+	public GarishNamespace_Generator generator() {
+		return _gng;
+	}
+
+	private final GarishNamespace_Generator _gng = new GarishNamespace_Generator(this);
 
 	class _Reactive_EvaNamespace extends DefaultReactive {
 		@Override
