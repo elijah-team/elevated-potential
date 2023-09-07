@@ -140,13 +140,13 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 					// which will have a container which will be either be a function,
 					// statement (semantic block, loop, match, etc) or a EvaContainerNC
 					int     y  = 2;
-					EvaNode er = identTableEntry.externalRef;
+					EvaNode er = identTableEntry.externalRef(); // FIXME move to onExternalRef
 					if (er instanceof final @NotNull EvaContainerNC nc) {
-						assert nc instanceof EvaNamespace;
-						EvaNamespace ns = (EvaNamespace) nc;
-//						if (ns.isInstance()) {}
-						state = 1;
-						code  = nc.getCode();
+						if (!(nc instanceof EvaNamespace ns)) { throw new AssertionError(); } else {
+							//if (ns.isInstance()) {}
+							state = 1;
+							code  = nc.getCode();
+						}
 					}
 				}
 			}
