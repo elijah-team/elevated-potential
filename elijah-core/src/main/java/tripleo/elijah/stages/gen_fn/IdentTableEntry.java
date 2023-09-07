@@ -318,6 +318,21 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 		return __gf;
 	}
 
+	public void setExternalRef(final EvaNode aResult) {
+		externalRef = aResult;
+		_onExternalRef.resolve(aResult);
+	}
+
+	public EvaNode externalRef() {
+		return externalRef;
+	}
+
+	public void onExternalRef(final DoneCallback<EvaNode> cb) {
+		_onExternalRef.then(cb);
+	}
+
+	private final Eventual<EvaNode> _onExternalRef = new Eventual<>();
+
 	public class _Reactive_IDTE extends DefaultReactive {
 		@Override
 		public <IdentTableEntry> void addListener(final Consumer<IdentTableEntry> t) {
