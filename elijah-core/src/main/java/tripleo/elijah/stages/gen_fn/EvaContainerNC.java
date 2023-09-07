@@ -51,7 +51,9 @@ public abstract class EvaContainerNC extends AbstractDependencyTracker implement
 		classMap.put(aClassStatement, aEvaClass);
 	}
 
-	public void addFunction(FunctionDef functionDef, EvaFunction generatedFunction) {
+	public void addFunction(@NotNull EvaFunction generatedFunction) {
+		var functionDef = generatedFunction.getFD();
+
 		if (functionMap.containsKey(functionDef))
 			throw new IllegalStateException("Function already generated"); // TODO there can be overloads, although we don't handle that yet
 
