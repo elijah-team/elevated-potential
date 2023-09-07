@@ -11,10 +11,8 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.Compilation1;
-import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.__Compilation1;
 import tripleo.elijah.comp.IO;
-import tripleo.elijah.comp.i.CompilationFlow;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.lang.i.OS_Module;
@@ -26,7 +24,7 @@ import tripleo.elijah.stages.deduce.fluffy.impl.FluffyCompImpl;
 import java.util.List;
 import java.util.Map;
 
-public class CompilationImpl extends Compilation1 {
+public class CompilationImpl extends __Compilation1 {
 
 	private final @NotNull FluffyCompImpl _fluffyComp;
 	private @Nullable      EOT_OutputTree _output_tree = null;
@@ -40,15 +38,15 @@ public class CompilationImpl extends Compilation1 {
 		return new DefaultCompilationAccess(this);
 	}
 
-	@Override
-	public void fakeFlow(final List<CompilerInput> aInputs, final @NotNull CompilationFlow aFlow) {
-		getCompilationEnclosure().getPipelineAccessPromise()
-				.then(pa -> {
-					get_pa().setCompilerInput(aInputs);
-
-					aFlow.run(this);
-				});
-	}
+	//@Override
+	//public void fakeFlow(final List<CompilerInput> aInputs, final @NotNull CompilationFlow aFlow) {
+	//	getCompilationEnclosure().getPipelineAccessPromise()
+	//			.then(pa -> {
+	//				get_pa().setCompilerInput(aInputs);
+	//
+	//				aFlow.run(this);
+	//			});
+	//}
 
 	@Override
 	public @NotNull FluffyComp getFluffy() {

@@ -35,7 +35,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public abstract class Compilation1 implements Compilation {
+public abstract class __Compilation1 implements Compilation {
 
 	public final    CIS                               _cis    = new CIS();
 	public final    CompilationConfig                 cfg     = new CompilationConfig();
@@ -47,7 +47,7 @@ public abstract class Compilation1 implements Compilation {
 	private final   CompFactory                       _con    = new CompFactory() {
 		@Override
 		public @NotNull EIT_ModuleInput createModuleInput(final OS_Module aModule) {
-			return new EIT_ModuleInput(aModule, Compilation1.this);
+			return new EIT_ModuleInput(aModule, __Compilation1.this);
 		}
 
 		@Override
@@ -175,7 +175,7 @@ public abstract class Compilation1 implements Compilation {
 
 			@Override
 			public @NotNull Compilation getCompilation() {
-				return Compilation1.this;
+				return __Compilation1.this;
 			}
 
 			@Override
@@ -328,7 +328,7 @@ public abstract class Compilation1 implements Compilation {
 		return _repo;
 	}
 
-	public Compilation1(final ErrSink errSink, final IO io) {
+	public __Compilation1(final ErrSink errSink, final IO io) {
 		this.errSink            = errSink;
 		this.io                 = io;
 		this._compilationNumber = new Random().nextInt(Integer.MAX_VALUE);
