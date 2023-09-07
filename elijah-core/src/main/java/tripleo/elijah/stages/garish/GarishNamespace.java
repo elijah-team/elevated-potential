@@ -44,20 +44,13 @@ public class GarishNamespace {
 	}
 
 	public void garish(final GenerateC aGenerateC, final GenerateResult gr, final @NotNull GenerateResultSink aResultSink) {
-		final DefaultLivingNamespace dln = (DefaultLivingNamespace) _lc;
-		final EvaNamespace           x   = dln.evaNode();
+		final DefaultLivingNamespace    dln = (DefaultLivingNamespace) _lc;
+		final EvaNamespace              x   = dln.evaNode();
+		final GarishNamespace_Generator xg  = x.generator();
 
-		if (x.generatedAlready)
-			throw new IllegalStateException("GarishNamespace generated already");
-
-		// TODO do we need `self' parameters for namespace?
-
-		if (x.varTable.size() > 0) { // TODO should we let this through?
-//			aResultSink.addNamespace_0(this, result.tos().getBuffer(), result.tosHdr().getBuffer());
-			aResultSink.addNamespace_1(this, gr, aGenerateC);
+		if (!x.generatedAlready) {
+			xg.provide(aResultSink, this, gr, aGenerateC);
 		}
-
-		x.generatedAlready = true;
 	}
 
 	public @NotNull BufferTabbedOutputStream getHeaderBuffer(final @NotNull GenerateC aGenerateC,

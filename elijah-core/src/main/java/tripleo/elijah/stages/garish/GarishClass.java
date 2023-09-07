@@ -19,25 +19,22 @@ import tripleo.elijah.world.i.LivingClass;
 import java.util.Map;
 
 public class GarishClass {
+	private final LivingClass _lc;
+
+	@Contract(pure = true)
+	public GarishClass(final LivingClass aLivingClass) {
+		_lc = aLivingClass;
+		//_lc.setGarish(this);
+	}
 
 	public void garish(final GenerateC aGenerateC, final GenerateResult gr, final @NotNull GenerateResultSink aResultSink) {
-		final LivingClass dlc = _lc;
-		final EvaClass    x   = dlc.evaNode();
+		final LivingClass           dlc = _lc;
+		final EvaClass              x   = dlc.evaNode();
+		final GarishClass_Generator xg  = x.generator();
 
-		if (x.generatedAlready)
-			return; ///////////////////////////////////////////////////////////////////////////////////////throw new IllegalStateException("Error");
-
-		switch (x.getKlass().getType()) {
-		// Don't generate class definition for these three
-		case INTERFACE:
-		case SIGNATURE:
-		case ABSTRACT:
-			return;
+		if (!x.generatedAlready) {
+			xg.provide(aResultSink, this, gr, aGenerateC);
 		}
-
-		//aResultSink.addClass_0(this, tos.getBuffer(), tosHdr.getBuffer());
-		aResultSink.addClass_1(this, gr, aGenerateC);
-		x.generatedAlready = true;
 	}
 
 	public @NotNull BufferTabbedOutputStream getClassBuffer(final @NotNull GenerateC aGenerateC) {
@@ -50,14 +47,6 @@ public class GarishClass {
 		final int    class_code = evaClass.getCode();
 
 		return getClassBuffer(evaClass, decl, class_name, class_code);
-	}
-
-	private final LivingClass _lc;
-
-	@Contract(pure = true)
-	public GarishClass(final LivingClass aLivingClass) {
-		_lc = aLivingClass;
-		//_lc.setGarish(this);
 	}
 
 	public @NotNull BufferTabbedOutputStream getClassBuffer(final @NotNull EvaClass x,
@@ -176,7 +165,7 @@ public class GarishClass {
 		return _lc;
 	}
 
-/*
+	/*
 	@Contract(pure = true)
 	public void logProgress(final GARISH_CLASS_LOG_PROGRESS aCode, final EvaClass aEvaClass, final Buffer aBuffer) {
 		if (aCode == GARISH_CLASS_LOG_PROGRESS.IMPL) {

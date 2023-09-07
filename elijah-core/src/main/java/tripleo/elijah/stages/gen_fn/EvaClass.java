@@ -10,7 +10,6 @@ package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.comp.i.ICompilationBus;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.OS_BuiltinType;
@@ -19,15 +18,12 @@ import tripleo.elijah.lang.types.OS_UnknownType;
 import tripleo.elijah.lang.types.OS_UserClassType;
 import tripleo.elijah.nextgen.query.Mode;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;
-import tripleo.elijah.nextgen.reactive.Reactivable;
 import tripleo.elijah.nextgen.reactive.Reactive;
-import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.garish.GarishClass_Generator;
 import tripleo.elijah.stages.gen_generic.CodeGenerator;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.util.Operation;
@@ -349,6 +345,13 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 	public Reactive reactive() {
 		return reactiveEvaClass;
 	}
+
+	public GarishClass_Generator generator() {
+		return _gcg;
+	}
+
+	// TODO Reactive??
+	private final GarishClass_Generator _gcg = new GarishClass_Generator(this);
 
 	public class _Reactive_EvaClass extends DefaultReactive {
 		@Override
