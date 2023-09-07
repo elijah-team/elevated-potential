@@ -83,7 +83,7 @@ public class WlGenerateFunction implements WorkJob {
 						if (result.getFunction(functionDef) == null) {
 							cr.registerFunction1(gf);
 							//gf.setCode(generateFunctions.module.getCompilation().nextFunctionCode());
-							result.addFunction(functionDef, gf);
+							result.addFunction(gf);
 						}
 						gf.setClass(result);
 					}
@@ -94,7 +94,7 @@ public class WlGenerateFunction implements WorkJob {
 					if (result.getFunction(functionDef) == null) {
 						cr.registerClass1(result);
 //							gf.setCode(generateFunctions.module.getCompilation().nextFunctionCode());
-						result.addFunction(functionDef, gf);
+						result.addFunction(gf);
 					}
 					gf.setClass(result);
 				});
