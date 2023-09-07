@@ -35,16 +35,16 @@ import java.util.function.Consumer;
  * Created 9/12/20 10:27 PM
  */
 public class IdentTableEntry extends BaseTableEntry1 implements Constructable, TableEntryIV, DeduceTypes2.ExpectationBase, IDeduceResolvable {
-	public final           DeferredObject<OS_Element, ResolveError, Void>  _p_resolvedElementPromise  = new DeferredObject<>();
-	protected final        DeferredObject<InstructionArgument, Void, Void> _p_backlinkSet             = new DeferredObject<InstructionArgument, Void, Void>();
-	protected final        DeferredObject<ProcTableEntry, Void, Void>      _p_constructableDeferred   = new DeferredObject<>();
-	private final          DeferredObject<GenType, Void, Void>             _p_fefiDone                = new DeferredObject<GenType, Void, Void>();
+	public final    DeferredObject<OS_Element, ResolveError, Void>  _p_resolvedElementPromise = new DeferredObject<>();
+	private final DeferredObject<InstructionArgument, Void, Void> _p_backlinkSet           = new DeferredObject<InstructionArgument, Void, Void>();
+	private final DeferredObject<ProcTableEntry, Void, Void>      _p_constructableDeferred = new DeferredObject<>();
+	private final DeferredObject<GenType, Void, Void>             _p_fefiDone              = new DeferredObject<GenType, Void, Void>();
 	private final          DeferredObject<IdentTableEntry, Void, Void>     _p_resolveListenersPromise = new DeferredObject<>();
 	private final          DeduceElementIdent                              dei                        = new DeduceElementIdent(this);
 	private final @NotNull EvaExpression<IdentExpression>                  ident;
-	private final          int                                             index;
-	private final          Context                                         pc;
-	private final          BaseEvaFunction                                 _definedFunction;
+	private final          int             index;
+	private final          Context         context;
+	private final          BaseEvaFunction _definedFunction;
 	public                 EvaNode                                         externalRef;
 	private                EvaNode                                         resolvedType;
 	public                 ProcTableEntry                                  constructable_pte;
@@ -70,21 +70,14 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 		potentialTypes.put(instructionIndex, tte);
 	}
 
-	public IdentTableEntry(final int index, final IdentExpression ident, Context pc, final BaseEvaFunction aBaseEvaFunction) {
-		this.index = index;
-		this.ident = new EvaExpression<>(ident, this);
-		this.pc    = pc;
+	public IdentTableEntry(final int index, final IdentExpression ident, Context context, final BaseEvaFunction aBaseEvaFunction) {
+		this.index   = index;
+		this.ident   = new EvaExpression<>(ident, this);
+		this.context = context;
 
 		this._definedFunction = aBaseEvaFunction;
 
-		addStatusListener(new StatusListener() {
-			@Override
-			public void onChange(@NotNull IElementHolder eh, Status newStatus) {
-				if (newStatus == Status.KNOWN) {
-					setResolvedElement(eh.getElement());
-				}
-			}
-		});
+		addStatusListener(new __StatusListener__ITE_SetResolvedElement());
 		setupResolve();
 
 		_p_resolvedElementPromise.then(this::resolveLanguageLevelConstruct);
@@ -171,7 +164,7 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 	}
 
 	public Context getPC() {
-		return pc;
+		return context;
 	}
 
 	@Override
@@ -374,6 +367,15 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 
 	public EvaExpression<IdentExpression> evaExpression() {
 		return ident;
+	}
+
+	private class __StatusListener__ITE_SetResolvedElement implements StatusListener {
+		@Override
+		public void onChange(@NotNull IElementHolder eh, Status newStatus) {
+			if (newStatus == Status.KNOWN) {
+				setResolvedElement(eh.getElement());
+			}
+		}
 	}
 }
 //
