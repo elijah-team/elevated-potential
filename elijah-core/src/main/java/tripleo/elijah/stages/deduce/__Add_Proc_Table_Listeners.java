@@ -75,11 +75,11 @@ public class __Add_Proc_Table_Listeners {
 			@NotNull ElObjectType type = DecideElObjectType.getElObjectType(el);
 
 			switch (type) {
-			case NAMESPACE:
+			case NAMESPACE -> {
 				@NotNull GenType genType = deduceTypes2._inj().new_GenTypeImpl((NamespaceStatement) el);
 				generatedFunction.addDependentType(genType);
-				break;
-			case CLASS:
+			}
+			case CLASS -> {
 				if (idte.type != null && idte.type.genType != null) {
 					assert idte.type.genType.getResolved() != null;
 					generatedFunction.addDependentType(idte.type.genType);
@@ -87,8 +87,8 @@ public class __Add_Proc_Table_Listeners {
 					@NotNull GenType genType2 = deduceTypes2._inj().new_GenTypeImpl((ClassStatement) el);
 					generatedFunction.addDependentType(genType2);
 				}
-				break;
-			case FUNCTION:
+			}
+			case FUNCTION -> {
 				@Nullable IdentIA identIA2 = null;
 				if (pte.expression_num instanceof IdentIA)
 					identIA2 = (IdentIA) pte.expression_num;
@@ -98,39 +98,33 @@ public class __Add_Proc_Table_Listeners {
 					if (procTableEntry == pte) tripleo.elijah.util.Stupidity.println_err_2("940 procTableEntry == pte");
 					if (procTableEntry != null) {
 						// TODO doesn't seem like we need this
-						procTableEntry.onFunctionInvocation(new DoneCallback<FunctionInvocation>() {
+						procTableEntry.onFunctionInvocation(functionInvocation -> {
+							ClassInvocation     ci  = functionInvocation.getClassInvocation();
+							NamespaceInvocation nsi = functionInvocation.getNamespaceInvocation();
+							// do we register?? probably not
+							assert ci != null || nsi != null;
+							@NotNull FunctionInvocation fi = deduceTypes2.newFunctionInvocation((FunctionDef) el, pte, ci != null ? ci : nsi, deduceTypes2.phase);
 
-							@Override
-							public void onDone(@NotNull FunctionInvocation functionInvocation) {
-								ClassInvocation     ci  = functionInvocation.getClassInvocation();
-								NamespaceInvocation nsi = functionInvocation.getNamespaceInvocation();
-								// do we register?? probably not
-								assert ci != null || nsi != null;
-								@NotNull FunctionInvocation fi = deduceTypes2.newFunctionInvocation((FunctionDef) el, pte, ci != null ? ci : nsi, deduceTypes2.phase);
-
-								{
-									if (functionInvocation.getClassInvocation() == fi.getClassInvocation() &&
-											functionInvocation.getFunction() == fi.getFunction() &&
-											functionInvocation.pte == fi.pte)
-										tripleo.elijah.util.Stupidity.println_err_2("955 It seems like we are generating the same thing...");
-									else {
-										int ok = 2;
-									}
-
+							{
+								if (functionInvocation.getClassInvocation() == fi.getClassInvocation() &&
+										functionInvocation.getFunction() == fi.getFunction() &&
+										functionInvocation.pte == fi.pte)
+									tripleo.elijah.util.Stupidity.println_err_2("955 It seems like we are generating the same thing...");
+								else {
+									int ok = 2;
 								}
-								generatedFunction.addDependentFunction(fi);
+
 							}
+							generatedFunction.addDependentFunction(fi);
 						});
 						// END
 					}
 				}
-				break;
-			case CONSTRUCTOR:
+			}
+			case CONSTRUCTOR -> {
 				int y = 2;
-				break;
-			default:
-				deduceTypes2.LOG.err(String.format("228 Don't know what to do %s %s", type, el));
-				break;
+			}
+			default -> deduceTypes2.LOG.err(String.format("228 Don't know what to do %s %s", type, el));
 			}
 		}
 	}
