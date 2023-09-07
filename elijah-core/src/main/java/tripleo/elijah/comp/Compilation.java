@@ -56,7 +56,7 @@ public interface Compilation {
 
 	void feedInputs(@NotNull List<CompilerInput> inputs, CompilerController controller);
 
-	void fakeFlow(List<CompilerInput> aInputs, CompilationFlow aFlow);
+	//void fakeFlow(List<CompilerInput> aInputs, CompilationFlow aFlow);
 
 	void feedCmdLine(@NotNull List<String> args) throws Exception;
 
