@@ -626,7 +626,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
 		}
 
 		private void __doLogic0__VariableStatement(final @NotNull VariableStatementImpl vs) {
-			dt2._inj().new_FT_FCA_VariableStatement(vs, generatedFunction).doLogic0(e_text, p, vte1, vte);
+			dt2._inj().new_FT_FCA_VariableStatement(vs, generatedFunction)._FunctionCall_Args_doLogic0(vte, vte1, e_text, p);
 		}
 
 		public void doLogic(@NotNull List<TypeTableEntry> potentialTypes) {
