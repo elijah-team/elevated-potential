@@ -48,7 +48,7 @@ public class GarishNamespace {
 		final EvaNamespace              x   = dln.evaNode();
 		final GarishNamespace_Generator xg  = x.generator();
 
-		if (!x.generatedAlready) {
+		if (!xg.generatedAlready()) {
 			xg.provide(aResultSink, this, gr, aGenerateC);
 		}
 	}

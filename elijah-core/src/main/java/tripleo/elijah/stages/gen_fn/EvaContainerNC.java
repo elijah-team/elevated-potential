@@ -38,7 +38,6 @@ public abstract class EvaContainerNC extends AbstractDependencyTracker implement
 	private final   Dependency                                 dependency           = new Dependency(this);
 	public @NotNull Map<ClassStatement, EvaClass>              classMap             = new HashMap<ClassStatement, EvaClass>();
 	public @NotNull Map<FunctionDef, EvaFunction>              functionMap          = new HashMap<FunctionDef, EvaFunction>();
-	public          boolean                                    generatedAlready     = false;
 	public @NotNull List<VarTableEntry>                        varTable             = new ArrayList<VarTableEntry>();
 	@NotNull        Multimap<FunctionDef, FunctionMapDeferred> functionMapDeferreds = ArrayListMultimap.create();
 	private         int                                        code                 = 0;
