@@ -30,4 +30,8 @@ public class GarishNamespace_Generator {
 
 		generatedAlready = true;
 	}
+
+	public boolean generatedAlready() {
+		return generatedAlready;
+	}
 }

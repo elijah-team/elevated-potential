@@ -34,4 +34,8 @@ public class GarishClass_Generator {
 		aResultSink.addClass_1(aGarishClass, aGr, aGenerateC);
 		generatedAlready = true;
 	}
+
+	public boolean generatedAlready() {
+		return generatedAlready;
+	}
 }
