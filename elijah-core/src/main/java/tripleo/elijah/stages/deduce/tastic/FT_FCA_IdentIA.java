@@ -116,117 +116,52 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
 		final @Nullable InstructionArgument vte_ia = generatedFunction.vte_lookup(e_text);
 //		LOG.info("10000 "+vte_ia);
 		if (vte_ia != null) {
-			final @NotNull VariableTableEntry  vte1 = generatedFunction.getVarTableEntry(to_int(vte_ia));
-			final Promise<GenType, Void, Void> p    = VTE_TypePromises.do_assign_call_args_ident_vte_promise(aTte, vte1);
-			@NotNull Runnable runnable = new Runnable() {
-				boolean isDone;
-
-				private void __doLogic0__FormalArgListItem(final @NotNull FormalArgListItem fali) {
-					dt2._inj().new_FT_FCA_FormalArgListItem(fali, generatedFunction).doLogic0(vte, vte1, errSink);
-				}
-
-				private void __doLogic0__VariableStatement(final @NotNull VariableStatementImpl vs) {
-					dt2._inj().new_FT_FCA_VariableStatement(vs, generatedFunction).doLogic0(e_text, p, vte1, vte);
-				}
-
-				public void doLogic(@NotNull List<TypeTableEntry> potentialTypes) {
-					switch (potentialTypes.size()) {
-					case 1:
-						doLogic1(potentialTypes);
-						break;
-					case 0:
-						doLogic0();
-						break;
-					default:
-						doLogic_default(potentialTypes);
-						break;
-					}
-				}
-
-				private void doLogic_default(final @NotNull List<TypeTableEntry> potentialTypes) {
-					// TODO hopefully this works
-					final @NotNull List<TypeTableEntry> potentialTypes1 = potentialTypes.stream()
-							.filter(input -> input.getAttached() != null)
-							.collect(Collectors.toList());
-
-					// prevent infinite recursion
-					if (potentialTypes1.size() < potentialTypes.size())
-						doLogic(potentialTypes1);
-					else
-						FTFnCallArgs.LOG.info("913 Don't know");
-				}
-
-				private void doLogic0() {
-					// README moved up here to elimiate work
-					if (p.isResolved()) {
-						System.out.printf("890-1 Already resolved type: vte1.type = %s, gf = %s %n", vte1.getType(), generatedFunction);
-						return;
-					}
-					LookupResultList     lrl  = ctx.lookup(e_text);
-					@Nullable OS_Element best = lrl.chooseBest(null);
-					if (best instanceof @NotNull final FormalArgListItem fali) {
-						__doLogic0__FormalArgListItem(fali);
-					} else if (best instanceof final @NotNull VariableStatementImpl vs) {
-						__doLogic0__VariableStatement(vs);
-					} else {
-						int y = 2;
-						FTFnCallArgs.LOG.err("543 " + best.getClass().getName());
-						throw new NotImplementedException();
-					}
-				}
-
-				private void doLogic1(final @NotNull List<TypeTableEntry> potentialTypes) {
-//						tte.attached = ll.get(0).attached;
-//						vte.addPotentialType(instructionIndex, ll.get(0));
-					if (p.isResolved()) {
-						FTFnCallArgs.LOG.info(String.format("1047 (vte already resolved) %s vte1.type = %s, gf = %s, tte1 = %s %n", vte1.getName(), vte1.getType(), generatedFunction, potentialTypes.get(0)));
-						return;
-					}
-
-					final OS_Type attached = potentialTypes.get(0).getAttached();
-					if (attached == null) return;
-					switch (attached.getType()) {
-					case USER:
-						vte1.getType().setAttached(attached); // !!
-						break;
-					case USER_CLASS:
-						final GenType gt = vte1.getGenType();
-						gt.setResolved(attached);
-						vte1.resolveType(gt);
-						break;
-					default:
-						errSink.reportWarning("Unexpected value: " + attached.getType());
-//							throw new IllegalStateException("Unexpected value: " + attached.getType());
-					}
-				}
-
-				@Override
-				public void run() {
-					if (isDone) return;
-					final @NotNull List<TypeTableEntry> ll = dc.getPotentialTypesVte((EvaFunction) generatedFunction, vte_ia);
-					doLogic(ll);
-					isDone = true;
-				}
-			};
-			dc.onFinish(runnable);
+			__vte_ia__not_null(vte, generatedFunction, vte_ia, aTte, dt2, errSink, e_text, ctx, dc);
 		} else {
-			int                      ia   = generatedFunction.addIdentTableEntry(aExpression, ctx);
-			@NotNull IdentTableEntry idte = generatedFunction.getIdentTableEntry(ia);
-			idte.addPotentialType(aInstructionIndex, aTte); // TODO DotExpression??
-			final int ii = aI;
-			idte.onType(dc.getPhase(), new OnType() {
-				@Override
-				public void noTypeFound() {
-					FTFnCallArgs.LOG.err("719 no type found " + generatedFunction.getIdentIAPathNormal(dt2._inj().new_IdentIA(ia, generatedFunction)));
-				}
-
-				@Override
-				public void typeDeduced(@NotNull OS_Type aType) {
-					aPte.setArgType(ii, aType); // TODO does this belong here or in FunctionInvocation?
-					aTte.setAttached(aType); // since we know that tte.attached is always null here
-				}
-			});
+			__vte_ia__is_null(aInstructionIndex, aPte, aI, aExpression, generatedFunction, ctx, aTte, dc, dt2);
 		}
+	}
+
+	private void __vte_ia__is_null(final int aInstructionIndex,
+								   final @NotNull ProcTableEntry aPte,
+								   final int aI,
+								   final @NotNull IdentExpression aExpression,
+								   final @NotNull BaseEvaFunction generatedFunction,
+								   final Context ctx,
+								   final TypeTableEntry aTte,
+								   final DeduceTypes2.@NotNull DeduceClient4 dc,
+								   final DeduceTypes2 dt2) {
+		int                      ia   = generatedFunction.addIdentTableEntry(aExpression, ctx);
+		@NotNull IdentTableEntry idte = generatedFunction.getIdentTableEntry(ia);
+		idte.addPotentialType(aInstructionIndex, aTte); // TODO DotExpression??
+		final int ii = aI;
+		idte.onType(dc.getPhase(), new OnType() {
+			@Override
+			public void noTypeFound() {
+				FTFnCallArgs.LOG.err("719 no type found " + generatedFunction.getIdentIAPathNormal(dt2._inj().new_IdentIA(ia, generatedFunction)));
+			}
+
+			@Override
+			public void typeDeduced(@NotNull OS_Type aType) {
+				aPte.setArgType(ii, aType); // TODO does this belong here or in FunctionInvocation?
+				aTte.setAttached(aType); // since we know that tte.attached is always null here
+			}
+		});
+	}
+
+	private void __vte_ia__not_null(final @NotNull VariableTableEntry vte,
+									final @NotNull BaseEvaFunction generatedFunction,
+									final @NotNull InstructionArgument vte_ia,
+									final TypeTableEntry aTte,
+									final DeduceTypes2 dt2,
+									final ErrSink errSink,
+									final String e_text,
+									final Context ctx,
+									final DeduceTypes2.@NotNull DeduceClient4 dc) {
+		final @NotNull VariableTableEntry  vte1 = generatedFunction.getVarTableEntry(to_int(vte_ia));
+		final Promise<GenType, Void, Void> p    = VTE_TypePromises.do_assign_call_args_ident_vte_promise(aTte, vte1);
+		@NotNull Runnable runnable = new __FT_FCA_IdentIA_Runnable(dt2, generatedFunction, vte, vte1, errSink, e_text, p, ctx, dc, vte_ia);
+		dc.onFinish(runnable);
 	}
 
 	private void __loop1__PROCEDURE_CALL(final ProcTableEntry pte, final @NotNull ProcedureCallExpression pce, final @NotNull FT_FCA_Ctx fdctx) {
@@ -660,7 +595,119 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
 		}
 	}
 
+	private class __FT_FCA_IdentIA_Runnable implements Runnable {
+		private final DeduceTypes2 dt2;
+		private final @NotNull BaseEvaFunction                     generatedFunction;
+		private final @NotNull VariableTableEntry                  vte;
+		private final @NotNull VariableTableEntry                  vte1;
+		private final          ErrSink                             errSink;
+		private final          String                       e_text;
+		private final          Promise<GenType, Void, Void> p;
+		private final          Context                      ctx;
+		private final          DeduceTypes2.@NotNull DeduceClient4 dc;
+		private final @NotNull InstructionArgument                 vte_ia;
+							   boolean                             isDone;
+
+		public __FT_FCA_IdentIA_Runnable(final DeduceTypes2 aDt2, final @NotNull BaseEvaFunction aGeneratedFunction, final @NotNull VariableTableEntry aVte, final @NotNull VariableTableEntry aVte1, final ErrSink aErrSink, final String aE_text, final Promise<GenType, Void, Void> aP, final Context aCtx, final DeduceTypes2.@NotNull DeduceClient4 aDc, final @NotNull InstructionArgument aVte_ia) {
+			dt2               = aDt2;
+			generatedFunction = aGeneratedFunction;
+			vte               = aVte;
+			vte1              = aVte1;
+			errSink           = aErrSink;
+			e_text            = aE_text;
+			p                 = aP;
+			ctx               = aCtx;
+			dc                = aDc;
+			vte_ia            = aVte_ia;
+		}
+
+		private void __doLogic0__FormalArgListItem(final @NotNull FormalArgListItem fali) {
 			dt2._inj().new_FT_FCA_FormalArgListItem(fali, generatedFunction)._FunctionCall_Args_doLogic0(vte, vte1, errSink);
+		}
+
+		private void __doLogic0__VariableStatement(final @NotNull VariableStatementImpl vs) {
+			dt2._inj().new_FT_FCA_VariableStatement(vs, generatedFunction).doLogic0(e_text, p, vte1, vte);
+		}
+
+		public void doLogic(@NotNull List<TypeTableEntry> potentialTypes) {
+			switch (potentialTypes.size()) {
+			case 1:
+				doLogic1(potentialTypes);
+				break;
+			case 0:
+				doLogic0();
+				break;
+			default:
+				doLogic_default(potentialTypes);
+				break;
+			}
+		}
+
+		private void doLogic_default(final @NotNull List<TypeTableEntry> potentialTypes) {
+			// TODO hopefully this works
+			final @NotNull List<TypeTableEntry> potentialTypes1 = potentialTypes.stream()
+					.filter(input -> input.getAttached() != null)
+					.collect(Collectors.toList());
+
+			// prevent infinite recursion
+			if (potentialTypes1.size() < potentialTypes.size())
+				doLogic(potentialTypes1);
+			else
+				FTFnCallArgs.LOG.info("913 Don't know");
+		}
+
+		private void doLogic0() {
+			// README moved up here to elimiate work
+			if (p.isResolved()) {
+				System.out.printf("890-1 Already resolved type: vte1.type = %s, gf = %s %n", vte1.getType(), generatedFunction);
+				return;
+			}
+			LookupResultList     lrl  = ctx.lookup(e_text);
+			@Nullable OS_Element best = lrl.chooseBest(null);
+			if (best instanceof @NotNull final FormalArgListItem fali) {
+				__doLogic0__FormalArgListItem(fali);
+			} else if (best instanceof final @NotNull VariableStatementImpl vs) {
+				__doLogic0__VariableStatement(vs);
+			} else {
+				int y = 2;
+				FTFnCallArgs.LOG.err("543 " + best.getClass().getName());
+				throw new NotImplementedException();
+			}
+		}
+
+		private void doLogic1(final @NotNull List<TypeTableEntry> potentialTypes) {
+//						tte.attached = ll.get(0).attached;
+//						vte.addPotentialType(instructionIndex, ll.get(0));
+			if (p.isResolved()) {
+				FTFnCallArgs.LOG.info(String.format("1047 (vte already resolved) %s vte1.type = %s, gf = %s, tte1 = %s %n", vte1.getName(), vte1.getType(), generatedFunction, potentialTypes.get(0)));
+				return;
+			}
+
+			final OS_Type attached = potentialTypes.get(0).getAttached();
+			if (attached == null) return;
+			switch (attached.getType()) {
+			case USER:
+				vte1.getType().setAttached(attached); // !!
+				break;
+			case USER_CLASS:
+				final GenType gt = vte1.getGenType();
+				gt.setResolved(attached);
+				vte1.resolveType(gt);
+				break;
+			default:
+				errSink.reportWarning("Unexpected value: " + attached.getType());
+//							throw new IllegalStateException("Unexpected value: " + attached.getType());
+			}
+		}
+
+		@Override
+		public void run() {
+			if (isDone) return;
+			final @NotNull List<TypeTableEntry> ll = dc.getPotentialTypesVte((EvaFunction) generatedFunction, vte_ia);
+			doLogic(ll);
+			isDone = true;
+		}
+	}
 }
 
 //
