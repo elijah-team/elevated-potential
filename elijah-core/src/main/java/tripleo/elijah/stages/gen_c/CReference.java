@@ -58,11 +58,11 @@ public class CReference {
 		refs.add(new Reference(text, type));
 	}
 
-	private @Nullable String rtext = null;
+	private SpecialText rtext = null;
 
-	void addRef(final String text, final Ref type, final String aValue) {
-		refs.add(new Reference(text, type, aValue));
-	}
+	//void addRef(final String text, final Ref type, final String aValue) {
+	//	refs.add(new Reference(text, type, aValue));
+	//}
 
 	/**
 	 * Call before you call build
@@ -185,16 +185,12 @@ public class CReference {
 		return String_join("->", texts);
 	}
 
-	public void getIdentIAPath(final @NotNull IdentIA aIa, final BaseEvaFunction aGf, final Generate_Code_For_Method.@NotNull AOG aGet, final String aO) {
-		getIdentIAPath(aIa, aGet, aO);
-	}
-
 	enum Connector {
 		DBL_COLON, DOT, INVALID,
 		POINTER, UNKNOWN
 	}
 
-	public @NotNull String getIdentIAPath(final @NotNull IdentIA ia2, final Generate_Code_For_Method.@NotNull AOG aog, final String aValue) {
+	public SpecialText getIdentIAPath(final @NotNull IdentIA ia2, final Generate_Code_For_Method.@NotNull AOG aog, final String aValue) {
 		final BaseEvaFunction           generatedFunction = ia2.gf;
 		final List<InstructionArgument> s                 = _getIdentIAPathList(ia2);
 		refs = new ArrayList<Reference>(s.size());
@@ -272,9 +268,9 @@ public class CReference {
 					})
 					.collect(Collectors.toList());
 			System.err.println("219219 " + items);
-			rtext = String_join(".", itms);
+			rtext = SpecialText.compose(itms);
 		} else {
-			rtext = String_join(".", sl);
+			rtext = SpecialText.compose(sl);
 		}
 		return rtext;
 	}
