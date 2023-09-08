@@ -17,8 +17,10 @@ dependencies {
     api 'org.reactivestreams:reactive-streams:1.0.4'
     api 'commons-codec:commons-codec:1.15'
     api 'antlr:antlr:2.7.7'
-    providedCompile project(':tripleo.elijah.stateful-processor')
-    providedCompile project(':annotation-processing')
+    //providedCompile
+    project(':tripleo.elijah.stateful-processor')
+    //providedCompile
+    project(':annotation-processing')
 }
 
 description = 'elijah-core'

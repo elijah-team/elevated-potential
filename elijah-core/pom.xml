@@ -113,6 +113,17 @@
 			<artifactId>jdeferred-core</artifactId>
 			<version>2.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>tripleo.elijah</groupId>
+			<artifactId>tripleo.elijah.core</artifactId>
+			<version>0.9.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>tripleo.elijah</groupId>
+			<artifactId>tripleo.elijah.stateful-processor</artifactId>
+			<version>0.9.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
