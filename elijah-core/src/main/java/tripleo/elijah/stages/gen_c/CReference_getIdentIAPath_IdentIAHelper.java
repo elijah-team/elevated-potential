@@ -178,6 +178,8 @@ class CReference_getIdentIAPath_IdentIAHelper {
 			assert cr.isSet();
 			assert !cr.isAnti();
 
+			assert this.code == cr.getCode();
+
 			our_code = cr.getCode(); //this.code;
 		}
 
