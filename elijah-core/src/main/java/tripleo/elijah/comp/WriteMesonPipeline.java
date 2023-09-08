@@ -23,8 +23,8 @@ import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
 import tripleo.elijah.stages.gen_generic.DoubleLatch;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
-import tripleo.util.io.CharSink;
-import tripleo.util.io.FileCharSink;
+import tripleo.elijah.util.io.CharSink;
+import tripleo.elijah.util.io.FileCharSink;
 
 import java.io.IOException;
 import java.util.LinkedList;
