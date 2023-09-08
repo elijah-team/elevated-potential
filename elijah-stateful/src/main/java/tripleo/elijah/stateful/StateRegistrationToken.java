@@ -1,5 +1,8 @@
 package tripleo.elijah.stateful;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 public final class StateRegistrationToken {
@@ -26,8 +29,9 @@ public final class StateRegistrationToken {
 		return Objects.hash(token);
 	}
 
+	@Contract(pure = true)
 	@Override
-	public String toString() {
+	public @NotNull String toString() {
 		return "StateRegistrationToken[" +
 				"token=" + token + ']';
 	}
