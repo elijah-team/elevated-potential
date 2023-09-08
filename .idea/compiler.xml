@@ -25,6 +25,30 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="annotations" target="17" />
+      <module name="elijah-v2.annotation-processing" target="1.8" />
+      <module name="elijah-v2.annotation-processing.main" target="1.8" />
+      <module name="elijah-v2.annotation-processing.test" target="1.8" />
+      <module name="elijah-v2.annotation-user" target="1.8" />
+      <module name="elijah-v2.annotation-user.main" target="1.8" />
+      <module name="elijah-v2.annotation-user.test" target="1.8" />
+      <module name="elijah-v2.buildSrc" target="17" />
+      <module name="elijah-v2.buildSrc.main" target="17" />
+      <module name="elijah-v2.buildSrc.test" target="17" />
+      <module name="elijah-v2.tripleo.elijah.core" target="1.8" />
+      <module name="elijah-v2.tripleo.elijah.core.main" target="1.8" />
+      <module name="elijah-v2.tripleo.elijah.core.test" target="1.8" />
+      <module name="elijah-v2.tripleo.elijah.reactive" target="1.8" />
+      <module name="elijah-v2.tripleo.elijah.reactive.main" target="1.8" />
+      <module name="elijah-v2.tripleo.elijah.reactive.test" target="1.8" />
+      <module name="elijah-v2.tripleo.elijah.stateful" target="1.8" />
+      <module name="elijah-v2.tripleo.elijah.stateful-processor" target="1.8" />
+      <module name="elijah-v2.tripleo.elijah.stateful-processor.main" target="1.8" />
+      <module name="elijah-v2.tripleo.elijah.stateful-processor.test" target="1.8" />
+      <module name="elijah-v2.tripleo.elijah.stateful.main" target="1.8" />
+      <module name="elijah-v2.tripleo.elijah.stateful.test" target="1.8" />
+      <module name="elijah-v2.tripleo.small" target="1.8" />
+      <module name="elijah-v2.tripleo.small.main" target="1.8" />
+      <module name="elijah-v2.tripleo.small.test" target="1.8" />
       <module name="japkit-examples-simpledto" target="17" />
       <module name="java-compiler-gen" target="17" />
       <module name="tripleo.elijah.typeinf" target="17" />
