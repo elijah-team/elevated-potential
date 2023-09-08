@@ -122,7 +122,7 @@ public class ProcTableEntry extends BaseTableEntry implements TableEntryIV {
 			break;
 		case 3:
 			if (_p_completeDeferred.isPending())
-				_p_completeDeferred.resolve(new Ok());
+				_p_completeDeferred.resolve(Ok.instance());
 			break;
 		default:
 			throw new NotImplementedException();
