@@ -191,6 +191,11 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 				final Multimap<NG_OutputRequest, EG_Statement> mfss = ArrayListMultimap.create();
 				var                                            cot  = st.c.getOutputTree();
 
+				var ce = st.c.getCompilationEnclosure();
+				for (NG_OutputRequest or : ors1) {
+					ce.AssertOutFile(or);
+				}
+
 				// README combine output requests into file requests
 				for (NG_OutputRequest or : ors1) {
 					mfss.put(or, or.statement());

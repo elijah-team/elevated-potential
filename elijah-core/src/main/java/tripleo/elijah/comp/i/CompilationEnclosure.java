@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 import io.reactivex.rxjava3.subjects.Subject;
+import org.apache.commons.lang3.tuple.Triple;
 import org.jdeferred2.Promise;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.Contract;
@@ -18,12 +19,15 @@ import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.comp.internal.CompilerDriver;
 import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah.nextgen.reactive.Reactivable;
 import tripleo.elijah.nextgen.reactive.Reactive;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah.pre_world.Mirror_EntryPoint;
 import tripleo.elijah.stages.gen_fn.IClassGenerator;
 import tripleo.elijah.stages.inter.ModuleThing;
+import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.world.i.WorldModule;
 
 import java.util.ArrayList;
@@ -231,10 +235,7 @@ public class CompilationEnclosure {
 		return this.getCompilation().getCompilationClosure();
 	}
 
-	@Contract(pure = true)
-	public CompilerDriver getCompilationDriver() {
-		return getCompilationBus().getCompilationDriver();
-	}
+	private final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> outFileAssertions = new ArrayList<>();
 
 	@Contract(pure = true)
 	public ICompilationBus getCompilationBus() {
@@ -320,6 +321,17 @@ public class CompilationEnclosure {
 
 	public void addModuleListener(final ModuleListener aModuleListener) {
 		_moduleListeners.add(aModuleListener);
+	}
+
+	private final @NonNull OFA ofa = new OFA(/*outFileAssertions*/);
+
+	public void addEntryPoint(final @NotNull Mirror_EntryPoint aMirrorEntryPoint, final IClassGenerator dcg) {
+		aMirrorEntryPoint.generate(dcg);
+	}
+
+	@Contract(pure = true)
+	public CompilerDriver getCompilationDriver() {
+		return getCompilationBus().getCompilerDriver();
 	}
 
 	public void addModule(final WorldModule aWorldModule) {
