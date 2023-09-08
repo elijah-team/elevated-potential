@@ -75,7 +75,7 @@ public class OutputStrategyC {
 			var          name0      = ("Prelude");
 			var          filename   = "";
 			final String extension0 = Extension0(aTy);
-			return new OFC_NFN(lsp0, name0, filename, extension0).getFilename();
+			return new OSC_NFN(lsp0, name0, filename, extension0).getFilename();
 		}
 		String filename;
 		if (generatedNamespace.getNamespaceStatement().getKind() == NamespaceTypes.MODULE) {
@@ -100,7 +100,7 @@ public class OutputStrategyC {
 
 		final String extension0 = Extension0(aTy);
 
-		return new OFC_NFN(lsp0, name0, filename, extension0).getFilename();
+		return new OSC_NFN(lsp0, name0, filename, extension0).getFilename();
 	}
 
 	public @NotNull OSC_NFC nameForClass1(@NotNull EvaClass aEvaClass, GenerateResult.@NotNull TY aTy) {
@@ -281,7 +281,7 @@ public class OutputStrategyC {
 	}
 
 	public EOT_OutputFile.FileNameProvider nameForNamespace1(final @NotNull EvaNamespace aX, final GenerateResult.@NotNull TY aTy) {
-		return new OFC_NFN_(aX, aTy);
+		return new OSC_NFN_(aX, aTy);
 	}
 
 	public @NotNull OSC_NFCo nameForConstructor1(final @NotNull EvaConstructor aGf, final GenerateResult.@NotNull TY aTy) {
@@ -299,22 +299,14 @@ public class OutputStrategyC {
 		return null;
 	}
 
-	public class OFC_NFN implements EOT_OutputFile.FileNameProvider {
+	public class OSC_NFN implements EOT_OutputFile.FileNameProvider {
 		private final @Nullable String s;
 		private final @Nullable String lsp0;
 		private final @Nullable String name0;
 		private final @Nullable String filename;
 		private final @Nullable String extension0;
 
-		public OFC_NFN(final String aS) {
-			s          = aS;
-			lsp0       = null;
-			name0      = null;
-			filename   = null;
-			extension0 = null;
-		}
-
-		public OFC_NFN(final String aLsp0, final String aName0, final String aFilename, final String aExtension0) {
+		public OSC_NFN(final String aLsp0, final String aName0, final String aFilename, final String aExtension0) {
 			s          = null;
 			lsp0       = aLsp0;
 			name0      = aName0;
@@ -337,10 +329,10 @@ public class OutputStrategyC {
 		}
 	}
 
-	public class OFC_NFN_ implements EOT_OutputFile.FileNameProvider {
+	public class OSC_NFN_ implements EOT_OutputFile.FileNameProvider {
 		private final @Nullable String s;
 
-		public OFC_NFN_(final EvaNamespace aX, final GenerateResult.TY aTy) {
+		public OSC_NFN_(final EvaNamespace aX, final GenerateResult.TY aTy) {
 			s = nameForNamespace(aX, aTy);
 		}
 
