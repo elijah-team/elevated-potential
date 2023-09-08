@@ -46,6 +46,7 @@ import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.work.WorkJob;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
+import tripleo.elijah.world.i.WorldModule;
 
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -207,7 +208,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		deferredMemberFunctions.add(aDeferredMemberFunction);
 	}
 
-	public @NotNull DeduceTypes2 deduceModule(final @NotNull OS_Module aMod) {
+	public @NotNull DeduceTypes2 deduceModule(final @NotNull WorldModule aMod) {
 		return deduceModule(aMod, this.generatedClasses, Compilation.gitlabCIVerbosity());
 	}
 
@@ -245,8 +246,10 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 
 //	public List<ElLog> deduceLogs = new ArrayList<ElLog>();
 
-	public @NotNull DeduceTypes2 deduceModule(@NotNull OS_Module m, @NotNull Iterable<EvaNode> lgf, ElLog.Verbosity verbosity) {
-		final @NotNull DeduceTypes2 deduceTypes2 = _inj().new_DeduceTypes2(m, this, verbosity);
+	public @NotNull DeduceTypes2 deduceModule(@NotNull WorldModule wm, @NotNull Iterable<EvaNode> lgf, ElLog.Verbosity verbosity) {
+		var mod = wm.module();
+
+		final @NotNull DeduceTypes2 deduceTypes2 = _inj().new_DeduceTypes2(mod, this, verbosity);
 //		LOG.err("196 DeduceTypes "+deduceTypes2.getFileName());
 		{
 			final List<EvaNode> p = _inj().new_ArrayList__EvaNode();
@@ -259,7 +262,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 //				.collect(Collectors.toList()));
 
 		for (EvaNode evaNode : generatedClasses.copy()) {
-			if (evaNode.module() != m) continue;
+			if (evaNode.module() != mod) continue;
 
 			if (evaNode instanceof final @NotNull EvaClass evaClass) {
 

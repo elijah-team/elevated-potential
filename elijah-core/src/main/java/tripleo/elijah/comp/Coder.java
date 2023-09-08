@@ -4,9 +4,9 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
+import tripleo.elijah.world.i.WorldModule;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class Coder {
 		codeRegistrar = aCodeRegistrar;
 	}
 
-	public void codeNode(final EvaNode generatedNode, final OS_Module mod) {
+	public void codeNode(final EvaNode generatedNode, final WorldModule mod) {
 		final Coder coder = this;
 
 		if (generatedNode instanceof final @NotNull EvaFunction generatedFunction) {
@@ -56,16 +56,18 @@ public class Coder {
 		codeRegistrar.registerNamespace(generatedNamespace);
 	}
 
-	public void codeNodes(final OS_Module mod, final @NotNull List<EvaNode> resolved_nodes, final EvaNode generatedNode) {
+	public void codeNodes(final WorldModule wm, final @NotNull List<EvaNode> resolved_nodes, final EvaNode generatedNode) {
+		var mod = wm.module();
+		
 		if (generatedNode instanceof final @NotNull EvaFunction generatedFunction) {
-			codeNodeFunction(generatedFunction, mod);
+			codeNodeFunction(generatedFunction, wm);
 		} else if (generatedNode instanceof final @NotNull EvaClass generatedClass) {
 			// assert generatedClass.getCode() == 0;
 			if (generatedClass.getLiving().getCode() == 0) {
 				codeNodeClass(generatedClass, wm);
 			}
 
-			setClassmapNodeCodes(generatedClass.classMap, mod);
+			setClassmapNodeCodes(generatedClass.classMap, wm);
 
 			extractNodes_toResolvedNodes(generatedClass.functionMap, resolved_nodes);
 		} else if (generatedNode instanceof final @NotNull EvaNamespace generatedNamespace) {
@@ -73,16 +75,13 @@ public class Coder {
 				codeNodeNamespace(generatedNamespace, wm);
 			}
 
-			if (generatedNamespace.getCode() != 0)
-				codeNodeNamespace(generatedNamespace, mod);
-
-			setClassmapNodeCodes(generatedNamespace.classMap, mod);
+			setClassmapNodeCodes(generatedNamespace.classMap, wm);
 
 			extractNodes_toResolvedNodes(generatedNamespace.functionMap, resolved_nodes);
 		}
 	}
 
-	private void setClassmapNodeCodes(@NotNull final Map<ClassStatement, EvaClass> aClassMap, final OS_Module mod) {
+	private void setClassmapNodeCodes(@NotNull final Map<ClassStatement, EvaClass> aClassMap, final WorldModule mod) {
 		aClassMap.values().forEach(generatedClass -> codeNodeClass(generatedClass, mod));
 	}
 }

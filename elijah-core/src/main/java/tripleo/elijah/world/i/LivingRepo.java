@@ -42,6 +42,10 @@ public interface LivingRepo {
 
 	LivingFunction getFunction(BaseEvaFunction aBaseEvaFunction);
 
+	List<WorldModule> modules();
+
+	void addModule2(WorldModule aWorldModule);
+
 	enum Add {MAIN_CLASS, MAIN_FUNCTION, NONE}
 
 	OS_Package makePackage(Qualident aPkgName);

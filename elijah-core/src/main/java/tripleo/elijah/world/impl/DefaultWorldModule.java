@@ -1,20 +1,19 @@
 package tripleo.elijah.world.impl;
 
-//import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.CompilationEnclosure;
 import tripleo.elijah.comp.notation.GN_PL_Run2;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.stages.inter.ModuleThing;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.world.i.WorldModule;
 
 public class DefaultWorldModule implements WorldModule {
 	private final OS_Module   mod;
 	private       ModuleThing thing;
 
-//	@Getter
-	private GN_PL_Run2.GenerateFunctionsRequest rq;
+	//private GN_PL_Run2.GenerateFunctionsRequest rq;
 
 	public DefaultWorldModule(final OS_Module aMod, final @NotNull CompilationEnclosure ce) {
 		this(aMod);
@@ -22,13 +21,17 @@ public class DefaultWorldModule implements WorldModule {
 		setThing(mt);
 	}
 
-	public DefaultWorldModule(final OS_Module aMod, final GN_PL_Run2.GenerateFunctionsRequest aRq) {
-		mod = aMod;
-		rq  = aRq;
-	}
-
 	public DefaultWorldModule(final OS_Module aModule) {
 		mod = aModule;
+	}
+
+	public DefaultWorldModule(final OS_Module aMod, final GN_PL_Run2.GenerateFunctionsRequest aRq) {
+		mod = aMod;
+//		rq  = aRq;
+	}
+
+	public void setThing(final ModuleThing aThing) {
+		thing = aThing;
 	}
 
 	@Override
@@ -43,18 +46,16 @@ public class DefaultWorldModule implements WorldModule {
 
 	@Override
 	public GN_PL_Run2.GenerateFunctionsRequest rq() {
-		return rq;
-	}
-
-	public void setRq(final GN_PL_Run2.GenerateFunctionsRequest aRq) {
-		rq = aRq;
+		//	return rq;
+		throw new NotImplementedException("Unexpected");
 	}
 
 	public ModuleThing thing() {
 		return thing;
 	}
 
-	public void setThing(final ModuleThing aThing) {
-		thing = aThing;
+	public void setRq(final GN_PL_Run2.GenerateFunctionsRequest aRq) {
+		//rq = aRq;
+		throw new NotImplementedException("Unexpected");
 	}
 }

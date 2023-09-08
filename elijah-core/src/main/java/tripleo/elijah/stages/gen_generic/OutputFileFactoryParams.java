@@ -8,30 +8,24 @@ import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.logging.ElLog;
 
 public class OutputFileFactoryParams {
-	private final CompilationEnclosure compilationEnclsure;
-	private final ErrSink              errSink;
-	private final OS_Module            mod;
-	private final ElLog.Verbosity      verbosity;
+	private final CompilationEnclosure compilationEnclosure;
+	private final WorldModule          mod;
 
 	@Contract(pure = true)
-	public OutputFileFactoryParams(final OS_Module aMod,
+	public OutputFileFactoryParams(final WorldModule aMod,
 								   final CompilationEnclosure aCompilationEnclsure) {
-		mod                 = aMod;
-		compilationEnclsure = aCompilationEnclsure;
-		//
-		errSink   = compilationEnclsure.getCompilationClosure().errSink();
-		verbosity = compilationEnclsure.getCompilationAccess().testSilence();
-	}
+		mod = aMod;
 
-	public CompilationEnclosure getCompilationEnclosure() {
-		return compilationEnclsure;
-	}
+		//if (mod.ce != null) //!!
 
-	public ErrSink getErrSink() {
-		return errSink;
+		compilationEnclosure = aCompilationEnclsure;
 	}
 
 	public OS_Module getMod() {
+		return mod.module();
+	}
+
+	public WorldModule getWorldMod() {
 		return mod;
 	}
 

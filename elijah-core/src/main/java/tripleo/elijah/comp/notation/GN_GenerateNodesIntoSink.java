@@ -12,20 +12,13 @@ package tripleo.elijah.comp.notation;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.work.WorkManager;
 import tripleo.elijah.world.i.WorldModule;
 
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class GN_GenerateNodesIntoSink implements GN_Notable, CompilationEnclosure.ModuleListener {
 	private final GN_GenerateNodesIntoSinkEnv env;
-
-	@Contract(value = "_ -> new", pure = true)
-	@SuppressWarnings("unused")
-	public static @NotNull GN_Notable getFactoryEnv(GN_Env aEnv) {
-		return new GN_GenerateNodesIntoSink((GN_GenerateNodesIntoSinkEnv) aEnv);
-	}
 
 	public GN_GenerateNodesIntoSink(final GN_GenerateNodesIntoSinkEnv aEnv) {
 		env = aEnv;
@@ -33,11 +26,18 @@ public class GN_GenerateNodesIntoSink implements GN_Notable, CompilationEnclosur
 		env.pa().getCompilationEnclosure().addModuleListener(this);
 	}
 
+	@Contract(value = "_ -> new", pure = true)
+	@SuppressWarnings("unused")
+	public static @NotNull GN_Notable getFactoryEnv(GN_Env aEnv) {
+		return new GN_GenerateNodesIntoSink((GN_GenerateNodesIntoSinkEnv) aEnv);
+	}
+
 	@Override
 	public void run() {
-		final WorkManager wm = new WorkManager();
+		final WorkManager       wm   = new WorkManager();
+		final List<WorldModule> mods = env.moduleList().getMods();
 
-		env.moduleList().getMods().stream().collect(Collectors.toList()).forEach(mod -> {
+		mods.stream().forEach(mod -> {
 			run_one_mod(mod, wm);
 		});
 
@@ -46,13 +46,11 @@ public class GN_GenerateNodesIntoSink implements GN_Notable, CompilationEnclosur
 		env.pa().getAccessBus().resolveGenerateResult(env.gr());
 	}
 
-	private void run_one_mod(final OS_Module mod, final WorkManager wm) {
-		final String lang = env.getLang(mod);
-		if (lang == null) return;
-		final GM_GenerateModuleRequest gmr  = new GM_GenerateModuleRequest(this, mod, env);
+	private void run_one_mod(final WorldModule wm, final WorkManager wmgr) {
+		final GM_GenerateModuleRequest gmr  = new GM_GenerateModuleRequest(this, wm, env);
 		final GM_GenerateModule        gm   = new GM_GenerateModule(gmr);
-		final GM_GenerateModuleResult  ggmr = gm.getModuleResult(wm, env.resultSink1());
-		ggmr.doResult(wm);
+		final GM_GenerateModuleResult  ggmr = gm.getModuleResult(wmgr, env.resultSink1());
+		ggmr.doResult(wmgr);
 	}
 
 	public GN_GenerateNodesIntoSinkEnv _env() {
@@ -62,6 +60,7 @@ public class GN_GenerateNodesIntoSink implements GN_Notable, CompilationEnclosur
 	@Override
 	public void listen(final @NotNull WorldModule module) {
 		var wm = new WorkManager();
-		run_one_mod(module.module(), wm);
+		run_one_mod(module, wm);
+		wm.drain();
 	}
 }

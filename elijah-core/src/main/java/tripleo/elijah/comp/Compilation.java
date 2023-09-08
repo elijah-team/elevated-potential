@@ -50,7 +50,7 @@ public interface Compilation {
 
 	CompFactory con();
 
-	void eachModule(Consumer<OS_Module> object);
+	void eachModule(Consumer<WorldModule> object);
 
 	int errorCount();
 

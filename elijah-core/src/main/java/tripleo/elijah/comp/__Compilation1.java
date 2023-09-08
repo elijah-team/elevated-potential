@@ -106,8 +106,10 @@ public abstract class __Compilation1 implements Compilation {
 	}
 
 	@Override
-	public void eachModule(final @NotNull Consumer<OS_Module> object) {
-		for (OS_Module mod : modules) {
+	public void eachModule(final @NotNull Consumer<WorldModule> object) {
+		var modules1 = livingRepo().modules();
+
+		for (final WorldModule mod : modules1) {
 			object.accept(mod);
 		}
 	}
