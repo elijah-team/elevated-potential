@@ -14,10 +14,7 @@ import tripleo.elijah.comp.AccessBus;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.comp.internal.CB_Output;
-import tripleo.elijah.comp.internal.CR_State;
-import tripleo.elijah.comp.internal.CompilationRunner;
-import tripleo.elijah.comp.internal.CompilerDriver;
+import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah.nextgen.reactive.Reactivable;
@@ -25,6 +22,7 @@ import tripleo.elijah.nextgen.reactive.Reactive;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah.pre_world.Mirror_EntryPoint;
 import tripleo.elijah.stages.gen_fn.IClassGenerator;
+import tripleo.elijah.stages.generate.OutputStrategyC;
 import tripleo.elijah.stages.inter.ModuleThing;
 import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
 import tripleo.elijah.util.NotImplementedException;
@@ -37,7 +35,7 @@ import java.util.Map;
 
 public class CompilationEnclosure {
 	public final  DeferredObject<IPipelineAccess, Void, Void> pipelineAccessPromise = new DeferredObject<>();
-	private final CB_Output _cbOutput = new CB_Output();
+	private final CB_Output                                   _cbOutput             = new CB_ListBackedOutput();
 	private final Compilation compilation;
 	private final DeferredObject<AccessBus, Void, Void>       accessBusPromise      = new DeferredObject<>();
 	private final Map<OS_Module, ModuleThing> moduleThings = new HashMap<>();
@@ -255,11 +253,6 @@ public class CompilationEnclosure {
 		compilationRunner = aCompilationRunner;
 	}
 
-	@Contract(pure = true)
-	public CompilerDriver getCompilerDriver() {
-		return compilerDriver;
-	}
-
 	public void setCompilerDriver(final CompilerDriver aCompilerDriver) {
 		compilerDriver = aCompilerDriver;
 	}
@@ -335,6 +328,8 @@ public class CompilationEnclosure {
 	}
 
 	public void addModule(final WorldModule aWorldModule) {
+		getCompilation().livingRepo().addModule2(aWorldModule); // ?? 09/08
+
 		// TODO Reactive pattern (aka something ala ReplaySubject)
 		for (final ModuleListener moduleListener : _moduleListeners) {
 			moduleListener.listen(aWorldModule);
