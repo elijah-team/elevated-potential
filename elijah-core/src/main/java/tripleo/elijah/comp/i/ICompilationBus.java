@@ -11,7 +11,7 @@ public interface ICompilationBus {
 
 	IProgressSink defaultProgressSink();
 
-	CompilerDriver getCompilationDriver();
+	CompilerDriver getCompilerDriver();
 
 	void inst(ILazyCompilerInstructions aLazyCompilerInstructions);
 
