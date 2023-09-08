@@ -66,8 +66,8 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 	private @NotNull
 	final DeducePhaseInjector __inj = new DeducePhaseInjector();
 
-	public final @NotNull  ICodeRegistrar                               codeRegistrar;
-	public final @NotNull  GeneratedClasses                             generatedClasses;
+	public final @NotNull  GeneratedClasses generatedClasses;
+	private final @NotNull ICodeRegistrar   codeRegistrar;
 	public final @NotNull  GeneratePhase                                generatePhase;
 	private final @NotNull ICompilationAccess                           ca;
 	private final          Map<NamespaceStatement, NamespaceInvocation> namespaceInvocationMap  = _inj().new_HashMap__NamespaceInvocationMap();

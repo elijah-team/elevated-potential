@@ -376,7 +376,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		@NotNull FunctionInvocation fi2 = aDeduceTypes2._phase().newFunctionInvocation(WorldGlobals.defaultVirtualCtor, pte, invocation);
 
 		// FIXME use `q'
-		final WlGenerateDefaultCtor wldc = aDeduceTypes2._inj().new_WlGenerateDefaultCtor(aDeduceTypes2.getGenerateFunctions(invocation.getKlass().getContext().module()), fi2, aDeduceTypes2.creationContext(), aDeduceTypes2._phase().codeRegistrar);
+		final WlGenerateDefaultCtor wldc = aDeduceTypes2._inj().new_WlGenerateDefaultCtor(aDeduceTypes2.getGenerateFunctions(invocation.getKlass().getContext().module()), fi2, aDeduceTypes2.creationContext(), aDeduceTypes2._phase().getCodeRegistrar());
 		wldc.run(null);
 		BaseEvaFunction ef = wldc.getResult();
 
@@ -439,7 +439,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 			q.enqueue_ctor(generateFunctions, fi, constructorName1);
 			break;
 		case 4:
-			q.enqueue_function(generateFunctions, fi, phase.codeRegistrar);
+			q.enqueue_function(generateFunctions, fi, phase.getCodeRegistrar());
 			break;
 		default:
 			throw new NotImplementedException();
@@ -474,7 +474,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 
 		final NamespaceInvocation nsi = phase.registerNamespaceInvocation(aParent);
 
-		final ICodeRegistrar cr = phase.codeRegistrar;
+		final ICodeRegistrar cr = phase.getCodeRegistrar();
 
 		q.enqueue_namespace(() -> phase.generatePhase.getGenerateFunctions(module1), nsi, phase.generatedClasses, cr);
 		q.enqueue_function(() -> phase.generatePhase.getGenerateFunctions(module1), fi, cr);
@@ -546,14 +546,14 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		@Override
 		public void enqueue_ctor(final GenerateFunctions generateFunctions1, final @NotNull FunctionInvocation fi, final IdentExpression aConstructorName) {
 			//assert generateFunctions1 == generateFunctions;
-			final WlGenerateCtor wlgf = deduceTypes2._inj().new_WlGenerateCtor(generateFunctions, fi, aConstructorName, deduceTypes2.phase.codeRegistrar);
+			final WlGenerateCtor wlgf = deduceTypes2._inj().new_WlGenerateCtor(generateFunctions, fi, aConstructorName, deduceTypes2.phase.getCodeRegistrar());
 			wl.addJob(wlgf);
 		}
 
 		@Override
 		public void enqueue_default_ctor(final GenerateFunctions generateFunctions1, final @NotNull FunctionInvocation fi) {
 			//assert generateFunctions1 == generateFunctions;
-			final WlGenerateDefaultCtor wlgf = deduceTypes2._inj().new_WlGenerateDefaultCtor(generateFunctions, fi, deduceTypes2.creationContext(), deduceTypes2._phase().codeRegistrar);
+			final WlGenerateDefaultCtor wlgf = deduceTypes2._inj().new_WlGenerateDefaultCtor(generateFunctions, fi, deduceTypes2.creationContext(), deduceTypes2._phase().getCodeRegistrar());
 			wl.addJob(wlgf);
 		}
 

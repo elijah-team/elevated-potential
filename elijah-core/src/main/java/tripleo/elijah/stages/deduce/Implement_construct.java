@@ -384,7 +384,7 @@ public class Implement_construct {
 						}
 					}
 				}
-				WlGenerateCtor gen = _inj().new_WlGenerateCtor(generateFunctions, pte.getFunctionInvocation(), cc.getNameNode(), deduceTypes2._phase().codeRegistrar);
+				WlGenerateCtor gen = _inj().new_WlGenerateCtor(generateFunctions, pte.getFunctionInvocation(), cc.getNameNode(), deduceTypes2._phase().getCodeRegistrar());
 				gen.run(null);
 				final EvaConstructor gc = gen.getResult();
 				classInvocation.resolveDeferred().then(result -> {
