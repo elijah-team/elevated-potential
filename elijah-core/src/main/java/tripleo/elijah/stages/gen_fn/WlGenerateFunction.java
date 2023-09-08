@@ -8,17 +8,13 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.lang.i.NamespaceStatement;
 import tripleo.elijah.lang.i.OS_Element;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.deduce.Deduce_CreationClosure;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.deduce.NamespaceInvocation;
+import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.work.WorkJob;
 import tripleo.elijah.work.WorkManager;
@@ -77,26 +73,13 @@ public class WlGenerateFunction implements WorkJob {
 			if (parent instanceof NamespaceStatement) {
 				final NamespaceInvocation nsi = functionInvocation.getNamespaceInvocation();
 				assert nsi != null;
-				nsi.resolveDeferred().done(new DoneCallback<EvaNamespace>() {
-					@Override
-					public void onDone(@NotNull EvaNamespace result) {
-						if (result.getFunction(functionDef) == null) {
-							cr.registerFunction1(gf);
-							//gf.setCode(generateFunctions.module.getCompilation().nextFunctionCode());
-							result.addFunction(gf);
-						}
-						gf.setClass(result);
-					}
+				nsi.resolvePromise().done(result -> {
+					__registerNamespace(result, gf);
 				});
 			} else {
 				final ClassInvocation ci = functionInvocation.getClassInvocation();
 				ci.resolvePromise().done((EvaClass result) -> {
-					if (result.getFunction(functionDef) == null) {
-						cr.registerClass1(result);
-//							gf.setCode(generateFunctions.module.getCompilation().nextFunctionCode());
-						result.addFunction(gf);
-					}
-					gf.setClass(result);
+					__registerClass(result, gf);
 				});
 			}
 			result = gf;
@@ -106,6 +89,35 @@ public class WlGenerateFunction implements WorkJob {
 			result = (EvaFunction) functionInvocation.getGenerated();
 		}
 		_isDone = true;
+	}
+
+	private void __registerNamespace(final @NotNull EvaNamespace result, final @NotNull EvaFunction gf) {
+		if (result.getFunction(functionDef) == null) {
+			cr.registerNamespace(result);
+			//cr.registerFunction1(gf);
+			result.addFunction(gf);
+		}
+		result.functionMapDeferreds.put(functionDef, new FunctionMapDeferred() {
+			@Override
+			public void onNotify(final EvaFunction aGeneratedFunction) {
+				int y = 2;
+			}
+		});
+		gf.setClass(result);
+	}
+
+	private void __registerClass(final @NotNull EvaClass result, final @NotNull EvaFunction gf) {
+		if (result.getFunction(functionDef) == null) {
+			cr.registerClass1(result);
+			result.addFunction(gf);
+		}
+		result.functionMapDeferreds.put(functionDef, new FunctionMapDeferred() {
+			@Override
+			public void onNotify(final EvaFunction aGeneratedFunction) {
+				int y = 2;
+			}
+		});
+		gf.setClass(result);
 	}
 }
 
