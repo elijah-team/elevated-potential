@@ -166,8 +166,8 @@ class Resolve_Variable_Table_Entry {
 			assert pte != null;
 			callable_pte = pte;
 			@NotNull FunctionInvocation fi = phase.newFunctionInvocation(fd1, pte, modi);
-			wl.addJob(deduceTypes2._inj().new_WlGenerateNamespace(gen, modi, phase.generatedClasses, phase.codeRegistrar)); // TODO hope this works (for more than one)
-			final @Nullable WlGenerateFunction wlgf = deduceTypes2._inj().new_WlGenerateFunction(gen, fi, phase.codeRegistrar);
+			wl.addJob(deduceTypes2._inj().new_WlGenerateNamespace(gen, modi, phase.generatedClasses, phase.getCodeRegistrar())); // TODO hope this works (for more than one)
+			final @Nullable WlGenerateFunction wlgf = deduceTypes2._inj().new_WlGenerateFunction(gen, fi, phase.getCodeRegistrar());
 			wl.addJob(wlgf);
 			wm.addJobs(wl);
 			wm.drain(); // TODO here?

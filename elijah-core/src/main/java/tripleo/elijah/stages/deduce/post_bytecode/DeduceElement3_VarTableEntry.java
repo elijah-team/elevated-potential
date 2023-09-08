@@ -82,7 +82,7 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 
 				xci = aDeducePhase.registerClassInvocation(xci);
 				@NotNull GenerateFunctions gf  = aDeducePhase.generatePhase.getGenerateFunctions(xci.getKlass().getContext().module());
-				WlGenerateClass            wgc = dt2._inj().new_WlGenerateClass(gf, xci, aDeducePhase.generatedClasses, aDeducePhase.codeRegistrar);
+				WlGenerateClass            wgc = dt2._inj().new_WlGenerateClass(gf, xci, aDeducePhase.generatedClasses, aDeducePhase.getCodeRegistrar());
 				wgc.run(null); // !
 				potentialType.genType.setCi(xci); // just for completeness
 				potentialType.resolve(wgc.getResult());
