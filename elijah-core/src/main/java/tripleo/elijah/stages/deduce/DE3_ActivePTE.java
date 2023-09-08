@@ -1,6 +1,7 @@
 package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.Eventual;
 import tripleo.elijah.comp.notation.GM_GenerateModule;
 import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
 import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
@@ -81,25 +82,31 @@ class DE3_ActivePTE implements DE3_Active {
 
 							var resultSink = generateC.resultSink;
 
-							var fg         = getResultEnv(generateC, resultSink);
+							var efg = getResultEnv(generateC, resultSink);
 
 							final DeducePhase deducePhase = deduceTypes2._phase();
 
-							__do_001(generateC, node, deducePhase, resultSink, fg);
+							__do_001(generateC, node, deducePhase, resultSink, efg);
 						});
 		}
 	}
 
 	@NotNull
-	private GenerateResultEnv getResultEnv(final @NotNull GenerateC generateC, final GenerateResultSink resultSink) {
+	private Eventual<GenerateResultEnv> getResultEnv(final @NotNull GenerateC generateC, final GenerateResultSink resultSink) {
+		Eventual<GenerateResultEnv> R = new Eventual<>();
+
+		// TODO isn't there an onFileGen somewhere?
 		final GenerateResultEnv[] fg0        = {generateC.getFileGen()};
 
 		assert fg0[0] != null;
 		if (fg0[0] == null) {
 			generateC._ce().getPipelineAccessPromise().then(pa -> {
-				var env = new GN_GenerateNodesIntoSinkEnv(List_of(),
+				// FIXME as written, this will do nothing
+				// TODO also highlt suspicious that this is never called
+
+				var env = new GN_GenerateNodesIntoSinkEnv(List_of(), // !!
 														  new DefaultGenerateResultSink(pa),
-														  new EIT_ModuleList(List_of()),
+														  new EIT_ModuleList(/*List_of()*/), // !!
 														  ElLog.Verbosity.VERBOSE,
 														  new Old_GenerateResult(),
 														  pa,
@@ -110,33 +117,37 @@ class DE3_ActivePTE implements DE3_Active {
 				var tt  = new GM_GenerateModuleRequest(new GN_GenerateNodesIntoSink(env), mod, env);
 				var t   = new GM_GenerateModule(tt);
 				fg0[0] = new GenerateResultEnv(resultSink, new Old_GenerateResult(), new WorkManager(), new WorkList(), t);
+
+				R.resolve(fg0[0]);
 			});
+		} else {
+			R.resolve(fg0[0]);
 		}
 
-		var fg = fg0[0];
-		assert fg != null;
-		return fg;
+		return R;
 	}
 
 	private void __do_001(final @NotNull GenerateFiles generateC,
 						  final EvaClass node,
 						  final DeducePhase deducePhase,
 						  final GenerateResultSink resultSink,
-						  final GenerateResultEnv fg) {
-		final DeducePhase.GeneratedClasses classes = deducePhase.generatedClasses;
-		final int                          size1   = classes.size();
-		final GenerateResult               x       = generateC.resultsFromNodes(List_of(node), _inj().new_WorkManager(), resultSink, fg);
-		final int                          size2   = classes.size();
+						  final @NotNull Eventual<GenerateResultEnv> efg) {
+		efg.then(fg -> {
+			final DeducePhase.GeneratedClasses classes = deducePhase.generatedClasses;
+			final int                          size1   = classes.size();
+			final GenerateResult               x       = generateC.resultsFromNodes(List_of(node), _inj().new_WorkManager(), resultSink, fg);
+			final int                          size2   = classes.size();
 
-		if (size2 > size1) {
-			logProgress(3047, "" + (size2 - size1) + " results generated for " + node.identityString());
-		} else {
-			logProgress(3046, "no results generated for " + node.identityString());
-		}
+			if (size2 > size1) {
+				logProgress(3047, "" + (size2 - size1) + " results generated for " + node.identityString());
+			} else {
+				logProgress(3046, "no results generated for " + node.identityString());
+			}
 
-		for (Old_GenerateResultItem result : x.results()) {
-			logProgress(3045, "" + result);
-		}
+			for (Old_GenerateResultItem result : x.results()) {
+				logProgress(3045, "" + result);
+			}
+		});
 	}
 
 	private void logProgress(final int code, final String message) {
