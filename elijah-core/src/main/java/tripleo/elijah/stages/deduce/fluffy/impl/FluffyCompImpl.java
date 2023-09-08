@@ -16,7 +16,7 @@ public class FluffyCompImpl implements FluffyComp {
 
 	private final CompilationImpl _comp;
 
-	public static boolean isMainClassEntryPoint(@NotNull final ClassItem input) {
+	public static boolean isMainClassEntryPoint(@NotNull final OS_Element2 input) {
 		// TODO 08/27 Use understanding/~ processor for this
 		final FunctionDef fd = (FunctionDef) input;
 		return MainClassEntryPoint.is_main_function_with_no_args(fd);
