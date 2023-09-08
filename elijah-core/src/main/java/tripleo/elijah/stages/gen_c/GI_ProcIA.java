@@ -118,7 +118,7 @@ class GI_ProcIA implements GenerateC_Item {
 			final WlGenerateCtor wlgf = new WlGenerateCtor(de_pte.deduceTypes2().getGenerateFunctions(de_pte.getPrincipal().getContext().module()),
 														   fi,
 														   null,
-														   de_pte.deduceTypes2().phase.codeRegistrar);
+														   de_pte.deduceTypes2().phase.getCodeRegistrar());
 			wlgf.run(null);
 			generated = wlgf.getResult();
 

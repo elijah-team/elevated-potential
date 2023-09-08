@@ -477,11 +477,11 @@ public class DeduceTypes2 {
 		}
 		if (genType.getNode() == null) {
 			if (genType.getCi() instanceof ClassInvocation) {
-				WlGenerateClass gen = _inj().new_WlGenerateClass(getGenerateFunctions(module), (ClassInvocation) genType.getCi(), phase.generatedClasses, phase.codeRegistrar);
+				WlGenerateClass gen = _inj().new_WlGenerateClass(getGenerateFunctions(module), (ClassInvocation) genType.getCi(), phase.generatedClasses, phase.getCodeRegistrar());
 				gen.run(null);
 				genType.setNode(gen.getResult());
 			} else if (genType.getCi() instanceof NamespaceInvocation) {
-				WlGenerateNamespace gen = _inj().new_WlGenerateNamespace(getGenerateFunctions(module), (NamespaceInvocation) genType.getCi(), phase.generatedClasses, phase.codeRegistrar);
+				WlGenerateNamespace gen = _inj().new_WlGenerateNamespace(getGenerateFunctions(module), (NamespaceInvocation) genType.getCi(), phase.generatedClasses, phase.getCodeRegistrar());
 				gen.run(null);
 				genType.setNode(gen.getResult());
 			}
@@ -2216,203 +2216,6 @@ public class DeduceTypes2 {
 		return _defaultCreationContext;
 	}
 
-	class Dependencies {
-		final WorkList    wl = _inj().new_WorkList();
-		final WorkManager wm;
-
-		Dependencies(final WorkManager aWm) {
-			wm = aWm;
-		}
-
-		public void subscribeFunctions(final @NotNull Subject<FunctionInvocation> aDependentFunctionSubject) {
-			aDependentFunctionSubject.subscribe(new Observer<FunctionInvocation>() {
-				@Override
-				public void onSubscribe(@NonNull final Disposable d) {
-
-				}
-
-				@Override
-				public void onNext(@NonNull final @NotNull FunctionInvocation aFunctionInvocation) {
-					action_function(aFunctionInvocation);
-				}
-
-				@Override
-				public void onError(@NonNull final Throwable e) {
-
-				}
-
-				@Override
-				public void onComplete() {
-
-				}
-			});
-		}
-
-		public void action_function(@NotNull FunctionInvocation aDependentFunction) {
-			final FunctionDef        function = aDependentFunction.getFunction();
-			WorkJob                  gen;
-			final @NotNull OS_Module mod;
-			if (function == WorldGlobals.defaultVirtualCtor) {
-				ClassInvocation ci = aDependentFunction.getClassInvocation();
-				if (ci == null) {
-					NamespaceInvocation ni = aDependentFunction.getNamespaceInvocation();
-					assert ni != null;
-					mod = ni.getNamespace().getContext().module();
-
-					ni.resolvePromise().then(result -> result.dependentFunctions().add(aDependentFunction));
-				} else {
-					mod = ci.getKlass().getContext().module();
-					ci.resolvePromise().then(result -> result.dependentFunctions().add(aDependentFunction));
-				}
-				final @NotNull GenerateFunctions gf = getGenerateFunctions(mod);
-				gen = _inj().new_WlGenerateDefaultCtor(gf, aDependentFunction, creationContext(), phase.codeRegistrar);
-			} else {
-				mod = function.getContext().module();
-				final @NotNull GenerateFunctions gf = getGenerateFunctions(mod);
-				gen = _inj().new_WlGenerateFunction(gf, aDependentFunction, phase.codeRegistrar);
-			}
-			wl.addJob(gen);
-			List<BaseEvaFunction> coll = new ArrayList<>();
-			wl.addJob(_inj().new_WlDeduceFunction(gen, coll, DeduceTypes2.this));
-			wm.addJobs(wl);
-		}
-
-		public void subscribeTypes(final @NotNull Subject<GenType> aDependentTypesSubject) {
-			aDependentTypesSubject.subscribe(new Observer<GenType>() {
-				@Override
-				public void onSubscribe(@NonNull final Disposable d) {
-				}
-
-				@Override
-				public void onError(final Throwable aThrowable) {
-				}
-
-				@Override
-				public void onComplete() {
-				}
-
-				@Override
-				public void onNext(final @NotNull GenType aGenType) {
-					action_type(aGenType);
-				}
-			});
-		}
-
-		public void action_type(@NotNull GenType genType) {
-			// TODO work this out further, maybe like a Deepin flavor
-			if (genType.getResolvedn() != null) {
-				@NotNull OS_Module               mod = genType.getResolvedn().getContext().module();
-				final @NotNull GenerateFunctions gf  = phase.generatePhase.getGenerateFunctions(mod);
-				NamespaceInvocation              ni  = phase.registerNamespaceInvocation(genType.getResolvedn());
-				@NotNull WlGenerateNamespace     gen = _inj().new_WlGenerateNamespace(gf, ni, phase.generatedClasses, phase.codeRegistrar);
-
-				assert genType.getCi() == null || genType.getCi() == ni;
-				genType.setCi(ni);
-
-				wl.addJob(gen);
-
-				ni.resolvePromise().then(result -> {
-					genType.setNode(result);
-					result.dependentTypes().add(genType);
-				});
-			} else if (genType.getResolved() != null) {
-				if (genType.getFunctionInvocation() != null) {
-					action_function(genType.getFunctionInvocation());
-					return;
-				}
-
-				final ClassStatement             c   = genType.getResolved().getClassOf();
-				final @NotNull OS_Module         mod = c.getContext().module();
-				final @NotNull GenerateFunctions gf  = phase.generatePhase.getGenerateFunctions(mod);
-				@Nullable ClassInvocation        ci;
-				if (genType.getCi() == null) {
-					ci = _inj().new_ClassInvocation(c, null, new ReadySupplier_1<>(DeduceTypes2.this));
-					ci = phase.registerClassInvocation(ci);
-
-					genType.setCi(ci);
-				} else {
-					assert genType.getCi() instanceof ClassInvocation;
-					ci = (ClassInvocation) genType.getCi();
-				}
-
-				final Promise<ClassDefinition, Diagnostic, Void> pcd = phase.generateClass(gf, ci);
-
-				pcd.then(result -> {
-					final EvaClass genclass = result.getNode();
-
-					genType.setNode(genclass);
-					genclass.dependentTypes().add(genType);
-				});
-			}
-			//
-			wm.addJobs(wl);
-		}
-	}
-
-	public class Zero {
-		private final Map<Object, IDeduceElement3> l = new HashMap<>();
-
-		public DeduceElement3_Function get(final DeduceTypes2 aDeduceTypes2, final BaseEvaFunction aGeneratedFunction) {
-			if (l.containsKey(aGeneratedFunction)) {
-				return (DeduceElement3_Function) l.get(aGeneratedFunction);
-			}
-
-			final DeduceElement3_Function de3 = _inj().new_DeduceElement3_Function(aDeduceTypes2, aGeneratedFunction);
-			l.put(aGeneratedFunction, de3);
-			return de3;
-		}
-
-		public DeduceElement3_ProcTableEntry get(final ProcTableEntry pte, final BaseEvaFunction aGeneratedFunction, final DeduceTypes2 aDeduceTypes2) {
-			if (l.containsKey(pte)) {
-				return (DeduceElement3_ProcTableEntry) l.get(pte);
-			}
-
-			final DeduceElement3_ProcTableEntry de3 = _inj().new_DeduceElement3_ProcTableEntry(pte, aDeduceTypes2, aGeneratedFunction);
-			l.put(pte, de3);
-			return de3;
-		}
-
-		public DeduceElement3_VariableTableEntry get(final VariableTableEntry vte, final BaseEvaFunction aGeneratedFunction) {
-			if (l.containsKey(vte)) {
-				return (DeduceElement3_VariableTableEntry) l.get(vte);
-			}
-
-			final DeduceElement3_VariableTableEntry de3 = _inj().new_DeduceElement3_VariableTableEntry(vte, DeduceTypes2.this, aGeneratedFunction);
-			l.put(vte, de3);
-			return de3;
-		}
-
-		public DeduceElement3_IdentTableEntry getIdent(final IdentTableEntry ite, final BaseEvaFunction aGeneratedFunction, final DeduceTypes2 aDeduceTypes2) {
-			if (l.containsKey(ite)) {
-				return (DeduceElement3_IdentTableEntry) l.get(ite);
-			}
-
-			final DeduceElement3_IdentTableEntry de3 = _inj().new_DeduceElement3_IdentTableEntry(ite);
-			de3.setDeduceTypes(aDeduceTypes2, aGeneratedFunction);
-			l.put(ite, de3);
-			return de3;
-		}
-
-		// TODO search living classes?
-		public @NotNull List<EvaClass> findClassesFor(ClassStatement classStatement) {
-			List<EvaClass> c = _inj().new_LinkedList__EvaClass();
-
-			for (Map.Entry<Object, IDeduceElement3> entry : l.entrySet()) {
-				if (entry.getKey() instanceof EvaFunction evaFunction) {
-					if (evaFunction.getFD().getParent() == classStatement) {
-						var cls = (EvaClass) entry.getValue().generatedFunction().getGenClass();
-
-						assert cls.getKlass() == classStatement;
-
-						c.add(cls);
-					}
-				}
-			}
-
-			return c;
-		}
-	}
-
 	public static class DeduceTypes2Injector {
 		public List<DE3_Active> new_ArrayList__DE3_Active() {
 			return new ArrayList<>();
@@ -2972,6 +2775,203 @@ public class DeduceTypes2 {
 
 		public WlGenerateFunction new_WlGenerateFunction(final OS_Module aModule, final FunctionInvocation aDependentFunction, final Deduce_CreationClosure aCl) {
 			return new WlGenerateFunction(aModule, aDependentFunction, aCl);
+		}
+	}
+
+	public class Zero {
+		private final Map<Object, IDeduceElement3> l = new HashMap<>();
+
+		public DeduceElement3_Function get(final DeduceTypes2 aDeduceTypes2, final BaseEvaFunction aGeneratedFunction) {
+			if (l.containsKey(aGeneratedFunction)) {
+				return (DeduceElement3_Function) l.get(aGeneratedFunction);
+			}
+
+			final DeduceElement3_Function de3 = _inj().new_DeduceElement3_Function(aDeduceTypes2, aGeneratedFunction);
+			l.put(aGeneratedFunction, de3);
+			return de3;
+		}
+
+		public DeduceElement3_ProcTableEntry get(final ProcTableEntry pte, final BaseEvaFunction aGeneratedFunction, final DeduceTypes2 aDeduceTypes2) {
+			if (l.containsKey(pte)) {
+				return (DeduceElement3_ProcTableEntry) l.get(pte);
+			}
+
+			final DeduceElement3_ProcTableEntry de3 = _inj().new_DeduceElement3_ProcTableEntry(pte, aDeduceTypes2, aGeneratedFunction);
+			l.put(pte, de3);
+			return de3;
+		}
+
+		public DeduceElement3_VariableTableEntry get(final VariableTableEntry vte, final BaseEvaFunction aGeneratedFunction) {
+			if (l.containsKey(vte)) {
+				return (DeduceElement3_VariableTableEntry) l.get(vte);
+			}
+
+			final DeduceElement3_VariableTableEntry de3 = _inj().new_DeduceElement3_VariableTableEntry(vte, DeduceTypes2.this, aGeneratedFunction);
+			l.put(vte, de3);
+			return de3;
+		}
+
+		public DeduceElement3_IdentTableEntry getIdent(final IdentTableEntry ite, final BaseEvaFunction aGeneratedFunction, final DeduceTypes2 aDeduceTypes2) {
+			if (l.containsKey(ite)) {
+				return (DeduceElement3_IdentTableEntry) l.get(ite);
+			}
+
+			final DeduceElement3_IdentTableEntry de3 = _inj().new_DeduceElement3_IdentTableEntry(ite);
+			de3.setDeduceTypes(aDeduceTypes2, aGeneratedFunction);
+			l.put(ite, de3);
+			return de3;
+		}
+
+		// TODO search living classes?
+		public @NotNull List<EvaClass> findClassesFor(ClassStatement classStatement) {
+			List<EvaClass> c = _inj().new_LinkedList__EvaClass();
+
+			for (Map.Entry<Object, IDeduceElement3> entry : l.entrySet()) {
+				if (entry.getKey() instanceof EvaFunction evaFunction) {
+					if (evaFunction.getFD().getParent() == classStatement) {
+						var cls = (EvaClass) entry.getValue().generatedFunction().getGenClass();
+
+						assert cls.getKlass() == classStatement;
+
+						c.add(cls);
+					}
+				}
+			}
+
+			return c;
+		}
+	}
+
+	class Dependencies {
+		final WorkList    wl = _inj().new_WorkList();
+		final WorkManager wm;
+
+		Dependencies(final WorkManager aWm) {
+			wm = aWm;
+		}
+
+		public void subscribeFunctions(final @NotNull Subject<FunctionInvocation> aDependentFunctionSubject) {
+			aDependentFunctionSubject.subscribe(new Observer<FunctionInvocation>() {
+				@Override
+				public void onSubscribe(@NonNull final Disposable d) {
+
+				}
+
+				@Override
+				public void onNext(@NonNull final @NotNull FunctionInvocation aFunctionInvocation) {
+					action_function(aFunctionInvocation);
+				}
+
+				@Override
+				public void onError(@NonNull final Throwable e) {
+
+				}
+
+				@Override
+				public void onComplete() {
+
+				}
+			});
+		}
+
+		public void action_type(@NotNull GenType genType) {
+			// TODO work this out further, maybe like a Deepin flavor
+			if (genType.getResolvedn() != null) {
+				@NotNull OS_Module               mod = genType.getResolvedn().getContext().module();
+				final @NotNull GenerateFunctions gf  = phase.generatePhase.getGenerateFunctions(mod);
+				NamespaceInvocation              ni  = phase.registerNamespaceInvocation(genType.getResolvedn());
+				@NotNull WlGenerateNamespace     gen = _inj().new_WlGenerateNamespace(gf, ni, phase.generatedClasses, phase.getCodeRegistrar());
+
+				assert genType.getCi() == null || genType.getCi() == ni;
+				genType.setCi(ni);
+
+				wl.addJob(gen);
+
+				ni.resolvePromise().then(result -> {
+					genType.setNode(result);
+					result.dependentTypes().add(genType);
+				});
+			} else if (genType.getResolved() != null) {
+				if (genType.getFunctionInvocation() != null) {
+					action_function(genType.getFunctionInvocation());
+					return;
+				}
+
+				final ClassStatement             c   = genType.getResolved().getClassOf();
+				final @NotNull OS_Module         mod = c.getContext().module();
+				final @NotNull GenerateFunctions gf  = phase.generatePhase.getGenerateFunctions(mod);
+				@Nullable ClassInvocation        ci;
+				if (genType.getCi() == null) {
+					ci = _inj().new_ClassInvocation(c, null, new ReadySupplier_1<>(DeduceTypes2.this));
+					ci = phase.registerClassInvocation(ci);
+
+					genType.setCi(ci);
+				} else {
+					assert genType.getCi() instanceof ClassInvocation;
+					ci = (ClassInvocation) genType.getCi();
+				}
+
+				final Promise<ClassDefinition, Diagnostic, Void> pcd = phase.generateClass(gf, ci);
+
+				pcd.then(result -> {
+					final EvaClass genclass = result.getNode();
+
+					genType.setNode(genclass);
+					genclass.dependentTypes().add(genType);
+				});
+			}
+			//
+			wm.addJobs(wl);
+		}
+
+		public void subscribeTypes(final @NotNull Subject<GenType> aDependentTypesSubject) {
+			aDependentTypesSubject.subscribe(new Observer<GenType>() {
+				@Override
+				public void onSubscribe(@NonNull final Disposable d) {
+				}
+
+				@Override
+				public void onError(final Throwable aThrowable) {
+				}
+
+				@Override
+				public void onComplete() {
+				}
+
+				@Override
+				public void onNext(final @NotNull GenType aGenType) {
+					action_type(aGenType);
+				}
+			});
+		}
+
+		public void action_function(@NotNull FunctionInvocation aDependentFunction) {
+			final FunctionDef        function = aDependentFunction.getFunction();
+			WorkJob                  gen;
+			final @NotNull OS_Module mod;
+			if (function == WorldGlobals.defaultVirtualCtor) {
+				ClassInvocation ci = aDependentFunction.getClassInvocation();
+				if (ci == null) {
+					NamespaceInvocation ni = aDependentFunction.getNamespaceInvocation();
+					assert ni != null;
+					mod = ni.getNamespace().getContext().module();
+
+					ni.resolvePromise().then(result -> result.dependentFunctions().add(aDependentFunction));
+				} else {
+					mod = ci.getKlass().getContext().module();
+					ci.resolvePromise().then(result -> result.dependentFunctions().add(aDependentFunction));
+				}
+				final @NotNull GenerateFunctions gf = getGenerateFunctions(mod);
+				gen = _inj().new_WlGenerateDefaultCtor(gf, aDependentFunction, creationContext(), phase.getCodeRegistrar());
+			} else {
+				mod = function.getContext().module();
+				final @NotNull GenerateFunctions gf = getGenerateFunctions(mod);
+				gen = _inj().new_WlGenerateFunction(gf, aDependentFunction, phase.getCodeRegistrar());
+			}
+			wl.addJob(gen);
+			List<BaseEvaFunction> coll = new ArrayList<>();
+			wl.addJob(_inj().new_WlDeduceFunction(gen, coll, DeduceTypes2.this));
+			wm.addJobs(wl);
 		}
 	}
 

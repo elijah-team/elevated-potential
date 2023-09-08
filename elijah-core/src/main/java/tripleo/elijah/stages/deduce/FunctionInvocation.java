@@ -18,8 +18,6 @@ import tripleo.elijah.lang.i.ConstructorDef;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.lang.i.OS_Element;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.lang.impl.ConstructorDefImpl;
-import tripleo.elijah.stages.deduce.nextgen.DeduceCreationContext;
 import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_ProcTableEntry;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.work.WorkList;
@@ -195,7 +193,7 @@ public class FunctionInvocation implements IInvocation {
 				@NotNull WlGenerateNamespace wlgn = injector.new_WlGenerateNamespace(generatePhase.getGenerateFunctions(module),
 																					 namespaceInvocation,
 																					 deducePhase.generatedClasses,
-																					 deducePhase.codeRegistrar);
+																					 deducePhase.getCodeRegistrar());
 				wlgn.run(null);
 				int y = 2;
 			}

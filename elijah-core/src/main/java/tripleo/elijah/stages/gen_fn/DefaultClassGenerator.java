@@ -22,7 +22,7 @@ public class DefaultClassGenerator implements IClassGenerator {
 		deducePhase = aDeducePhase;
 
 		// transitive
-		cr          = deducePhase.codeRegistrar;
+		cr = deducePhase.getCodeRegistrar();
 
 		// creating
 		wl = new WorkList();

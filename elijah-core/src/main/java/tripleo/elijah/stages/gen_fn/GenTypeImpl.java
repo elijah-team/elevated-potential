@@ -168,7 +168,7 @@ public class GenTypeImpl implements GenType {
 				final FunctionInvocation fi = aDeduceTypes2._phase().newFunctionInvocation((BaseFunctionDef) funcExprType.getElement(),
 																						   null,
 																						   null);
-				WlGenerateFunction gen = new WlGenerateFunction(genf, fi, aDeduceTypes2._phase().codeRegistrar);
+				WlGenerateFunction gen = new WlGenerateFunction(genf, fi, aDeduceTypes2._phase().getCodeRegistrar());
 				gen.run(null);
 				node = gen.getResult();
 			} else if (resolved instanceof final @NotNull OS_FuncType funcType) {

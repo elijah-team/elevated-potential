@@ -11,7 +11,6 @@ package tripleo.elijah.comp;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.IPipelineAccess;
 import tripleo.elijah.comp.internal.CB_Output;
 import tripleo.elijah.comp.internal.CR_State;
@@ -159,7 +158,7 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 				int code = evaFunction.getCode();
 
 				if (code == 0) {
-					var cr = ce.getPipelineLogic().dp.codeRegistrar;
+					var cr = ce.getPipelineLogic().dp.getCodeRegistrar();
 					cr.registerFunction1(evaFunction);
 
 					code = evaFunction.getCode();
@@ -286,7 +285,7 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 			var ce = pa.getCompilationEnclosure();
 
 			if (code == 0) {
-				var cr = ce.getPipelineLogic().dp.codeRegistrar;
+				var cr = ce.getPipelineLogic().dp.getCodeRegistrar();
 				cr.registerFunction1(v);
 
 				code = v.getCode();
