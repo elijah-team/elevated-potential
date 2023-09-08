@@ -18,12 +18,14 @@ import tripleo.elijah.world.i.*;
 import java.util.*;
 
 public class DefaultLivingRepo implements LivingRepo {
+	private final          Map<String, OS_Package>                          _packages   = new HashMap<String, OS_Package>();
+	private final          List<WorldModule>                                _modules    = new ArrayList<>();
+	private final @NotNull List<LivingNode>                                 repo        = new ArrayList<>();
+	private final @NotNull Multimap<BaseEvaFunction, DefaultLivingFunction> functionMap = ArrayListMultimap.create();
+
 	private       int                                              _classCode    = 101;
 	private       int                                              _functionCode = 1001;
-	private final Map<String, OS_Package>                          _packages     = new HashMap<String, OS_Package>();
-	@NotNull      List<LivingNode>                                 repo          = new ArrayList<>();
 	private       int                                              _packageCode  = 1;
-	@NotNull      Multimap<BaseEvaFunction, DefaultLivingFunction> functionMap   = ArrayListMultimap.create();
 
 	@Override
 	public @NotNull DefaultLivingClass addClass(final @NotNull EvaClass aClass, final @NotNull Add addFlag) {
@@ -185,6 +187,16 @@ public class DefaultLivingRepo implements LivingRepo {
 	}
 
 	@Override
+	public List<WorldModule> modules() {
+		return _modules;
+	}
+
+	@Override
+	public void addModule2(final WorldModule aWorldModule) {
+		_modules.add(aWorldModule);
+	}
+
+	@Override
 	public OS_Package makePackage(final @NotNull Qualident pkg_name) {
 		final String pkg_name_s = pkg_name.toString();
 		if (!isPackage(pkg_name_s)) {
@@ -203,18 +215,6 @@ public class DefaultLivingRepo implements LivingRepo {
 	private int nextPackageCode() {
 		int i = _packageCode;
 		_packageCode++;
-		return i;
-	}
-
-	public int nextClassCode() {
-		int i = _classCode;
-		_classCode++;
-		return i;
-	}
-
-	public int nextFunctionCode() {
-		int i = _functionCode;
-		_functionCode++;
 		return i;
 	}
 
@@ -244,5 +244,17 @@ public class DefaultLivingRepo implements LivingRepo {
 		}
 
 		return lcs;
+	}
+
+	public int nextFunctionCode() {
+		int i = _functionCode;
+		_functionCode++;
+		return i;
+	}
+
+	public int nextClassCode() {
+		int i = _classCode;
+		_classCode++;
+		return i;
 	}
 }

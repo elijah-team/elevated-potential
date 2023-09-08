@@ -14,6 +14,7 @@ import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.util.Stupidity;
 import tripleo.elijah.work.WorkManager;
+import tripleo.elijah.world.i.WorldModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,24 +23,61 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class EIT_ModuleList {
+	private final List<WorldModule> mods;
 
-	// TODO use WorldModule here
-	public List<OS_Module> getMods() {
+	public EIT_ModuleList() {
+		mods = new ArrayList<>();
+	}
+
+	public List<WorldModule> getMods() {
 		return mods;
 	}
 
-	private final List<OS_Module> mods;
-//	private PipelineLogic __pl;
+	public void add(final WorldModule m) {
+		mods.add(m);
+	}
 
-	@Contract(pure = true)
-	public EIT_ModuleList(final List<OS_Module> aMods) {
-		mods = aMods;
+	public void process__PL(final Function<WorldModule, GenerateFunctions> ggf, final @NotNull PipelineLogic pipelineLogic) {
+		for (final WorldModule mod : mods) {
+			final @NotNull EntryPointList epl = null; //mod.entryPoints;
+
+
+			//
+			//
+			//
+			//
+			//
+			//
+			// imposed NULL 09/01
+			//
+			//
+			//
+			//
+			//
+			//
+			//
+
+
+			if (epl.size() == 0) {
+				continue;
+			}
+
+
+			final GenerateFunctions gfm = ggf.apply(mod);
+
+			final DeducePhase deducePhase = pipelineLogic.dp;
+			//final DeducePhase.@NotNull GeneratedClasses lgc            = deducePhase.generatedClasses;
+
+			final _ProcessParams plp = new _ProcessParams(mod, pipelineLogic, gfm, epl, deducePhase);
+
+			__process__PL__each(plp);
+		}
 	}
 
 	private void __process__PL__each(final @NotNull _ProcessParams plp) {
 		final List<EvaNode> resolved_nodes = new ArrayList<EvaNode>();
 
-		final OS_Module                    mod = plp.getMod();
+		final WorldModule mod = plp.getMod();
 		final DeducePhase.GeneratedClasses lgc = plp.getLgc();
 
 		// assert lgc.size() == 0;
@@ -81,48 +119,7 @@ public class EIT_ModuleList {
 //			}
 	}
 
-	public void add(final OS_Module m) {
-		mods.add(m);
-	}
-
-	public void process__PL(final @NotNull Function<OS_Module, GenerateFunctions> ggf, final @NotNull PipelineLogic pipelineLogic) {
-		for (final OS_Module mod : mods) {
-			final @NotNull EntryPointList epl = null; //mod.entryPoints;
-
-
-			//
-			//
-			//
-			//
-			//
-			//
-			// imposed NULL 09/01
-			//
-			//
-			//
-			//
-			//
-			//
-			//
-			
-			
-			if (epl.size() == 0) {
-				continue;
-			}
-
-
-			final GenerateFunctions gfm = ggf.apply(mod);
-
-			final DeducePhase deducePhase = pipelineLogic.dp;
-			//final DeducePhase.@NotNull GeneratedClasses lgc            = deducePhase.generatedClasses;
-
-			final _ProcessParams plp = new _ProcessParams(mod, pipelineLogic, gfm, epl, deducePhase);
-
-			__process__PL__each(plp);
-		}
-	}
-
-	public Stream<OS_Module> stream() {
+	public Stream<WorldModule> stream() {
 		return mods.stream();
 	}
 
@@ -131,11 +128,11 @@ public class EIT_ModuleList {
 		@NotNull
 		private final          EntryPointList    epl;
 		private final @NotNull GenerateFunctions gfm;
-		private final @NotNull OS_Module         mod;
+		private final          WorldModule       mod;
 		private final @NotNull PipelineLogic     pipelineLogic;
 
 		@Contract(pure = true)
-		private _ProcessParams(@NotNull final OS_Module aModule,
+		private _ProcessParams(@NotNull final WorldModule aModule,
 							   @NotNull final PipelineLogic aPipelineLogic,
 							   @NotNull final GenerateFunctions aGenerateFunctions,
 							   @NotNull final EntryPointList aEntryPointList,
@@ -171,7 +168,7 @@ public class EIT_ModuleList {
 		}
 
 		@Contract(pure = true)
-		public @NotNull OS_Module getMod() {
+		public WorldModule getMod() {
 			return mod;
 		}
 

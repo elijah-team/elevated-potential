@@ -33,6 +33,7 @@ import tripleo.elijah.stages.instructions.IntegerIA;
 import tripleo.elijah.stages.instructions.VariableTableType;
 import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.util.Helpers;
+import tripleo.elijah.world.impl.DefaultWorldModule;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -61,7 +62,7 @@ public class GetIdentIAPathTest_ForC {
 		ce.setCompilationAccess(new DefaultCompilationAccess(compilation));
 
 		GenerateResultEnv fileGen = null;
-		generateC = new GenerateC(new OutputFileFactoryParams(mod, ce), fileGen);
+		generateC = new GenerateC(new OutputFileFactoryParams(new DefaultWorldModule(mod), ce), fileGen);
 	}
 
 	@Ignore

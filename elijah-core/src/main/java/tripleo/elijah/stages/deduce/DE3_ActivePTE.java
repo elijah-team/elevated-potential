@@ -17,6 +17,7 @@ import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
+import tripleo.elijah.world.i.WorldModule;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -103,7 +104,9 @@ class DE3_ActivePTE implements DE3_Active {
 														  new Old_GenerateResult(),
 														  pa,
 														  pa.getCompilationEnclosure());
-				var mod = pte.__gf.getFD().getContext().module();
+
+				final WorldModule mod = (WorldModule) null; //pte.__gf.getFD().getContext().module();
+
 				var tt  = new GM_GenerateModuleRequest(new GN_GenerateNodesIntoSink(env), mod, env);
 				var t   = new GM_GenerateModule(tt);
 				fg0[0] = new GenerateResultEnv(resultSink, new Old_GenerateResult(), new WorkManager(), new WorkList(), t);

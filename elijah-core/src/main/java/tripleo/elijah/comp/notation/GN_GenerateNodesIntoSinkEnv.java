@@ -13,6 +13,8 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
 import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.world.i.WorldModule;
 
 import java.util.List;
 import java.util.Objects;
@@ -46,22 +48,31 @@ public record GN_GenerateNodesIntoSinkEnv(List<ProcessedNode> lgc,
 	}
 
 	@NotNull
-	static GenerateFiles getGenerateFiles(final OutputFileFactoryParams params,
-										  final @NotNull OS_Module mod,
-										  final Supplier<GenerateResultEnv> fgs) {
+	static GenerateFiles getGenerateFiles(final @NotNull OutputFileFactoryParams params,
+										  final @NotNull WorldModule wm,
+										  final @NotNull Supplier<GenerateResultEnv> fgs) {
+		final GenerateResultEnv fileGen;
+		final OS_Module         mod = wm.module();
+		
 		// TODO creates more than one GenerateC, look into this
+		// TODO ^^ validate this or not plz 09/07
+		
 		final String lang = getLang(mod);
-		GenerateResultEnv fileGen;
+		if (lang == null) {
+			throw new NotImplementedException();
+		}
+		
 		if (Objects.equals(lang, "c")) {
-			fileGen = fgs.get();
+			fileGen = fgs.get(); // FIXME "deep" implementation detail
 		} else {
 			fileGen = null;
 		}
-		return OutputFileFactory.create(Objects.requireNonNull(lang), params, fileGen);
+
+		return OutputFileFactory.create(lang, params, fileGen);
 	}
 
 	@Contract("_, _ -> new")
-	@NotNull OutputFileFactoryParams getParams(final OS_Module mod, final @NotNull GN_GenerateNodesIntoSink aGNGenerateNodesIntoSink) {
+	@NotNull OutputFileFactoryParams getParams(final WorldModule mod, final @NotNull GN_GenerateNodesIntoSink aGNGenerateNodesIntoSink) {
 		return new OutputFileFactoryParams(mod, aGNGenerateNodesIntoSink._env().ce());
 	}
 }

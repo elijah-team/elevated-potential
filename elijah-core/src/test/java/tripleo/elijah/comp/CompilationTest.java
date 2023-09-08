@@ -8,13 +8,17 @@
  */
 package tripleo.elijah.comp;
 
+import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.junit.Test;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.util.Stupidity;
 
 import java.io.File;
 import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import static tripleo.elijah.util.Helpers.List_of;
 
@@ -37,11 +41,15 @@ public class CompilationTest {
 
 		Assert.assertTrue(c.instructionCount() > 0);
 
-		c.modules()
+		c.livingRepo().modules()
 				.stream()
-				.forEach(mod -> tripleo.elijah.util.Stupidity.println_out_2(String.format("**48** %s %s", mod, mod.getFileName())));
-//		Assert.assertThat(c.modules.size(), new IsEqual<Integer>(3));
-		Assert.assertTrue(c.modules().size() > 2);
+				.forEach(wm -> {
+					var mod = wm.module();
+					Stupidity.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
+				});
+
+		assertThat(c.livingRepo().modules().size(), new IsEqual<Integer>(3));
+		Assert.assertTrue(c.livingRepo().modules().size() > 2);
 	}
 
 }
