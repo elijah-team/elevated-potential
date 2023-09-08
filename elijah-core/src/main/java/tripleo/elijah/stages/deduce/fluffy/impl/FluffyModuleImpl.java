@@ -4,10 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.entrypoints.MainClassEntryPoint;
-import tripleo.elijah.lang.i.ClassItem;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyLsp;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyMember;
@@ -26,8 +23,8 @@ public class FluffyModuleImpl implements FluffyModule {
 	 * @param ccs
 	 */
 	private static void faep_002(final @NotNull ClassStatement classStatement, final Consumer<ClassStatement> ccs) {
-		final Collection<ClassItem> x     = classStatement.findFunction("main");
-		final Stream<FunctionDef>   found = x.stream().filter(FluffyCompImpl::isMainClassEntryPoint).map(x7 -> (FunctionDef) x7);
+		final List<OS_Element2>   x     = classStatement.findFunction("main");
+		final Stream<FunctionDef> found = x.stream().filter(FluffyCompImpl::isMainClassEntryPoint).map(x7 -> (FunctionDef) x7);
 
 //		final int eps = aModule.entryPoints.size();
 
