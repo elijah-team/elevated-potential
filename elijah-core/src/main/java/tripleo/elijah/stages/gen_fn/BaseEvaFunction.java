@@ -489,8 +489,11 @@ public abstract class BaseEvaFunction extends AbstractDependencyTracker implemen
 		assert aNode instanceof EvaClass || aNode instanceof EvaNamespace;
 		genClass = aNode;
 
-		if (aNode instanceof EvaClass)
+		if (aNode instanceof EvaClass) {
 			_p_assignEvaClass.resolve((EvaClass) aNode);
+		} else {
+			throw new IllegalArgumentException("aNode is not EvaClass");
+		}
 	}
 
 	@Override

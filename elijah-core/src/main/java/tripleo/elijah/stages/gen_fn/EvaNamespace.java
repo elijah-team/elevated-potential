@@ -92,6 +92,8 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 
 	@Override
 	public void generateCode(final GenerateResultEnv aFileGen, final CodeGenerator aGgc) {
+		throw new NotImplementedException();
+	}
 
 	@Override
 	public int getCode() {
