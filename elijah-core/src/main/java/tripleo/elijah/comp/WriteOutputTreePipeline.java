@@ -82,7 +82,7 @@ public class WriteOutputTreePipeline implements PipelineMember {
 	}
 
 	private static void addLogs(final @NotNull List<EOT_OutputFile> l, final @NotNull IPipelineAccess aPa) {
-		final List<ElLog> logs = aPa.getCompilationEnclosure().getPipelineLogic().elLogs;
+		final List<ElLog> logs = aPa.getCompilationEnclosure().getPipelineLogic().getLogs();
 		final String      s1   = logs.get(0).getFileName();
 
 		for (final ElLog log : logs) {

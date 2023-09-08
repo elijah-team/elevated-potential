@@ -362,7 +362,7 @@ public abstract class __Compilation1 implements Compilation {
 
 	@Override
 	public CompilerBeginning beginning(final @NotNull CompilationRunner aCompilationRunner) {
-		return new CompilerBeginning(this, rootCI, _inputs, aCompilationRunner.progressSink, cfg());
+		return new CompilerBeginning(this, rootCI, _inputs, aCompilationRunner.getProgressSink(), cfg());
 	}
 
 }
