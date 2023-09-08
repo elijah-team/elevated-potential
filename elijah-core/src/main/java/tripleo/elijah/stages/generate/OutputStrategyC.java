@@ -343,6 +343,16 @@ public class OutputStrategyC {
 	}
 
 	public class OSC_NFC implements EOT_OutputFile.FileNameProvider {
+		@Override
+		public String toString() {
+			return "OSC_NFC{" +
+					"lsp='" + lsp + '\'' +
+					", dir='" + dir + '\'' +
+					", extension='" + extension + '\'' +
+					", basename='" + basename + '\'' +
+					'}';
+		}
+
 		String lsp;
 		String dir;
 		String extension;
@@ -360,9 +370,11 @@ public class OutputStrategyC {
 			StringBuilder sb = new StringBuilder();
 			sb.append("/");
 			sb.append(lsp);
-			sb.append("/");
-			sb.append(dir);
-			if (!(basename.equals(""))) {
+			if (dir != null && !dir.isEmpty()) {
+				sb.append("/");
+				sb.append(dir);
+			}
+			if (!basename.isEmpty()) {
 				sb.append("/");
 				sb.append(basename);
 			}
