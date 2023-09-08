@@ -6,6 +6,7 @@ import tripleo.elijah.comp.i.CompilationEnclosure;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.world.i.WorldModule;
 
 public class OutputFileFactoryParams {
 	private final CompilationEnclosure compilationEnclosure;
