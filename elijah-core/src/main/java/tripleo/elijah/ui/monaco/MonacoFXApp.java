@@ -1,14 +1,15 @@
-package tripleo.elijah;
+package tripleo.elijah.ui.monaco;
 
 import eu.mihosoft.monacofx.*;
 
 import javafx.application.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
+import javafx.stage.*;
+
 import org.jetbrains.annotations.NotNull;
 
-public class MaonacoFXApp extends Application {
+public class MonacoFXApp extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
@@ -40,4 +41,6 @@ public class MaonacoFXApp extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+
+
 }
