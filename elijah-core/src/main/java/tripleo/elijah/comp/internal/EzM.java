@@ -56,7 +56,7 @@ class EzM {
 
 				final CompilerInput input = p.input();
 
-				// FIXME stdlib.ez will not get it's hash for eample 07/03
+				// FIXME stdlib.ez will not get it's hash for example 07/03
 				if (input != null) {
 					input.accept_hash(hash.success());
 				} else {
