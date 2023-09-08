@@ -13,6 +13,8 @@ public class DefaultLivingClass implements LivingClass {
 	private final @Nullable EvaClass       _gc;
 	private @Nullable       GarishClass    _garish;
 
+	private int _code;
+
 	@Contract(pure = true)
 	public DefaultLivingClass(final ClassStatement aElement) {
 		_element = aElement;
@@ -32,17 +34,13 @@ public class DefaultLivingClass implements LivingClass {
 	}
 
 	@Override
-	public ClassStatement getElement() {
-		return _element;
+	public int getCode() {
+		return _code;
 	}
 
 	@Override
-	public int getCode() {
-		return _gc.getCode();
-	}
-
-	public EvaClass gc() {
-		return _gc;
+	public ClassStatement getElement() {
+		return _element;
 	}
 
 	@Override
@@ -55,8 +53,7 @@ public class DefaultLivingClass implements LivingClass {
 		return _garish;
 	}
 
-	//@Override
-	//public void setGarish(final GarishClass aGarishClass) {
-	//	_garish = aGarishClass;
-	//}
+	@Override public void setCode(final int aCode) {
+		_code = aCode;
+	}
 }

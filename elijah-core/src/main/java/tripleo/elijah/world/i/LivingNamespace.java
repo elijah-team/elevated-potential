@@ -18,5 +18,5 @@ public interface LivingNamespace extends LivingNode {
 
 	GarishNamespace getGarish();
 
-	//void setGarish(GarishClass aGarishClass);
+	void setCode(int aCode);
 }

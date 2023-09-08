@@ -29,8 +29,8 @@ public class DefaultLivingRepo implements LivingRepo {
 	public @NotNull DefaultLivingClass addClass(final @NotNull EvaClass aClass, final @NotNull Add addFlag) {
 		switch (addFlag) {
 		case NONE -> {
-			if (aClass.getCode() == 0) {
-				aClass.setCode(nextClassCode());
+			if (aClass.getLiving().getCode() == 0) {
+				aClass.getLiving().setCode(nextClassCode());
 			} else {
 				if (2 == 3) {
 					assert true;

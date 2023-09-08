@@ -13,5 +13,5 @@ public interface LivingClass extends LivingNode {
 
 	GarishClass getGarish();
 
-	//void setGarish(GarishClass aGarishClass);
+	void setCode(int aCode);
 }
