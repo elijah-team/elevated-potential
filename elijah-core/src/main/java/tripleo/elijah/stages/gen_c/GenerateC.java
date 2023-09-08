@@ -913,8 +913,13 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 
 
 	@Override
-	public GenerateResult resultsFromNodes(final @NotNull List<EvaNode> aNodes, final WorkManager wm, final @NotNull GenerateResultSink grs, @NotNull final GenerateResultEnv fg) {
+	public GenerateResult resultsFromNodes(final @NotNull List<EvaNode> aNodes,
+										   final @NotNull WorkManager wm,
+										   final @NotNull GenerateResultSink grs,
+										   final @NotNull GenerateResultEnv fg) {
 		final GenerateResult gr2 = fg.gr();
+
+		assert fg.resultSink() == grs;
 
 		for (final EvaNode generatedNode : aNodes) {
 			if (generatedNode instanceof final @NotNull EvaContainerNC nc) {
