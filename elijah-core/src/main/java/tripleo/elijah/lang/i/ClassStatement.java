@@ -1,10 +1,7 @@
 package tripleo.elijah.lang.i;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.contexts.ClassContext;
 import tripleo.elijah.lang.impl.InvariantStatement;
 import tripleo.elijah.lang2.ElElementVisitor;
@@ -29,7 +26,7 @@ public interface ClassStatement
 
 	FunctionDef funcDef();
 
-	Collection<tripleo.elijah.lang.i.ClassItem> findFunction(String string);
+	List<OS_Element2> findFunction(String string);
 
 	Collection<ConstructorDef> getConstructors();
 
@@ -40,6 +37,14 @@ public interface ClassStatement
 		// OS_Element
 	ClassContext getContext();
 
+	@Override
+	OS_Element getParent();
+
+	@Override
+	void visitGen(ElElementVisitor visit);
+
+	void setContext(ClassContext ctx);
+
 	IdentExpression getNameNode();
 
 	default List<ClassItem> getItems() {
@@ -49,15 +54,13 @@ public interface ClassStatement
 
 	String getName();
 
-	@Override
-	OS_Element getParent();
+	void setName(IdentExpression aCapitalX);
 
 	OS_Type getOS_Type();
 
 	OS_Package getPackageName();
 
-	@Override
-	void visitGen(ElElementVisitor visit);
+	void setPackageName(OS_Package aPackage1);
 
 	@Override
 	default void serializeTo(SmallWriter sw) {
@@ -74,33 +77,19 @@ public interface ClassStatement
 
 	PropertyStatement prop();
 
-	void setContext(ClassContext ctx);
-
 	void setHeader(ClassHeader aCh);
-
-	void setName(IdentExpression aCapitalX);
-
-	void setPackageName(OS_Package aPackage1);
 
 	StatementClosure statementClosure();
 
 	void walkAnnotations(AnnotationWalker aWalker);
 
-	public static final class __GetConstructorsHelper {
-		public static final Function<ClassItem, ConstructorDef> castClassItemToConstructor = new Function<ClassItem, ConstructorDef>() {
-			@Contract(value = "_ -> param1", pure = true)
-			@Nullable
-			@Override
-			public @org.jetbrains.annotations.Nullable ConstructorDef apply(@Nullable ClassItem input) {
-				return (ConstructorDef) input;
-			}
-		};
-		public static final Predicate<ClassItem>                selectForConstructors      = new Predicate<ClassItem>() {
-			@Contract(value = "null -> false", pure = true)
-			@Override
-			public boolean apply(@Nullable ClassItem input) {
-				return input instanceof ConstructorDef;
-			}
-		};
+	final class __GetConstructorsHelper {
+		public static ConstructorDef castClassItemToConstructor(@Nullable ClassItem input) {
+			return (ConstructorDef) input;
+		}
+
+		public static boolean selectForConstructors(final ClassItem input) {
+			return input instanceof ConstructorDef;
+		}
 	}
 }

@@ -8,10 +8,7 @@
  */
 package tripleo.elijah.lang.impl;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.contexts.ClassContext;
 import tripleo.elijah.lang.i.*;
@@ -24,13 +21,14 @@ import tripleo.elijah.util.NotImplementedException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a "class"
  * <p>
  * items -> ClassItems docstrings variables
  */
-public class ClassStatementImpl extends _CommonNC implements ClassItem, tripleo.elijah.lang.i.ClassStatement {
+public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassStatement {
 
 	static final  List<TypeName> emptyTypeNameList = ImmutableList.<TypeName>of();
 	private final OS_Element     parent;
@@ -106,36 +104,20 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, tripleo.
 	}
 
 	@Override
-	public @NotNull Collection<ClassItem> findFunction(final String name) {
-		return Collections2.filter(items, new Predicate<ClassItem>() {
-			@Override
-			public boolean apply(@Nullable final ClassItem item) {
-				if (item instanceof FunctionDef && !(item instanceof ConstructorDef))
-					if (((FunctionDef) item).name().equals(name))
-						return true;
-				return false;
-			}
-		});
+	public List<OS_Element2> findFunction(final String name) {
+		return items().stream()
+				.filter(item -> item instanceof FunctionDef && !(item instanceof ConstructorDef))
+				.filter(item -> item.name().equals(name))
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	public @NotNull Collection<ConstructorDef> getConstructors() {
-		final Collection<ClassItem> x = Collections2.filter(items, __GetConstructorsHelper.selectForConstructors);
-		final Collection<ConstructorDef> y = Collections2.transform(x,
-																	__GetConstructorsHelper.castClassItemToConstructor);
+		var y = items.stream()
+				.filter(__GetConstructorsHelper::selectForConstructors)
+				.map(__GetConstructorsHelper::castClassItemToConstructor)
+				.collect(Collectors.toList());
 		return y;
-	}
-
-	@Override
-	public @NotNull OS_Type getOS_Type() {
-		if (__cached_osType == null)
-			__cached_osType = new OS_UserClassType(this);
-		return __cached_osType;
-	}
-
-	@Override
-	public ClassTypes getType() {
-		return hdr.type();
 	}
 
 	@Override
@@ -146,10 +128,31 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, tripleo.
 			return hdr.genericPart().p();
 	}
 
-	@Override
-	public void setType(final ClassTypes aType) {
-//		_type = aType;
+	public void setGenericPart(TypeNameList genericPart) {
+//		this.genericPart = genericPart;
 		throw new NotImplementedException();
+	}
+
+	@Override // OS_Element
+	public ClassContext getContext() {
+		return (ClassContext) _a.getContext();
+	}
+
+	@Override
+	public OS_Element getParent() {
+		return parent;
+	}
+
+	@Override
+	public void visitGen(final @NotNull ElElementVisitor visit) {
+		visit.addClass(this); // TODO visitClass
+	}
+
+	// region inheritance
+
+	@Override
+	public void setContext(final ClassContext ctx) {
+		_a.setContext(ctx);
 	}
 
 	@Override
@@ -157,7 +160,31 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, tripleo.
 		return hdr.nameToken();
 	}
 
-	// region inheritance
+	@Override
+	public @NotNull OS_Type getOS_Type() {
+		if (__cached_osType == null)
+			__cached_osType = new OS_UserClassType(this);
+		return __cached_osType;
+	}
+
+	// endregion
+
+	// region annotations
+
+	@Override
+	public ClassTypes getType() {
+		return hdr.type();
+	}
+
+	// endregion
+
+	// region called from parser
+
+	@Override
+	public void setType(final ClassTypes aType) {
+//		_type = aType;
+		throw new NotImplementedException();
+	}
 
 	@Override
 	public @org.jetbrains.annotations.Nullable InvariantStatement invariantStatement() {
@@ -183,10 +210,6 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, tripleo.
 		return propertyStatement;
 	}
 
-	// endregion
-
-	// region annotations
-
 	@Override // OS_Container
 	public void add(final OS_Element anElement) {
 		if (!(anElement instanceof ClassItem))
@@ -194,45 +217,16 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, tripleo.
 		items.add((ClassItem) anElement);
 	}
 
-	// endregion
-
-	// region called from parser
-
-	@Override // OS_Element
-	public ClassContext getContext() {
-		return (ClassContext) _a.getContext();
-	}
-
-	@Override
-	public OS_Element getParent() {
-		return parent;
-	}
-
-	@Override
-	public @NotNull StatementClosure statementClosure() {
-		return new AbstractStatementClosure(this);
-	}
-
-	@Override
-	public void visitGen(final @NotNull ElElementVisitor visit) {
-		visit.addClass(this); // TODO visitClass
-	}
-
-	public void setGenericPart(TypeNameList genericPart) {
-//		this.genericPart = genericPart;
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public void setContext(final ClassContext ctx) {
-		_a.setContext(ctx);
-	}
-
 	@Override
 	public void setHeader(ClassHeader aCh) {
 		hdr = aCh;
 
 		getEnName().addUnderstanding(new ENU_ClassName());
+	}
+
+	@Override
+	public @NotNull StatementClosure statementClosure() {
+		return new AbstractStatementClosure(this);
 	}
 
 	@Override
@@ -264,19 +258,12 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, tripleo.
 		sw.fieldList("items", getItems());
 	}
 
-	@Override
-	public @NotNull String getName() {
-		if (hdr.nameToken() == null)
-			throw new IllegalStateException("null name");
-		return hdr.nameToken().getText();
-	}
-
-	// endregion
-
 	public void setInheritance(ClassInheritance inh) {
 //		_inh = inh;
 		throw new NotImplementedException();
 	}
+
+	// endregion
 
 	@Override
 	public String toString() {
@@ -287,6 +274,13 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, tripleo.
 		} else
 			package_name = "`'";
 		return String.format("<Class %s %s>", package_name, getName());
+	}
+
+	@Override
+	public @NotNull String getName() {
+		if (hdr.nameToken() == null)
+			throw new IllegalStateException("null name");
+		return hdr.nameToken().getText();
 	}
 
 	@Override
