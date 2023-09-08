@@ -93,6 +93,9 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 	@Override
 	public void generateCode(final GenerateResultEnv aFileGen, final CodeGenerator aGgc) {
 
+	@Override
+	public int getCode() {
+		return _living.getCode();
 	}
 
 	@Override
@@ -102,6 +105,10 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 				return new Maybe<>(varTableEntry, null);
 		}
 		return new Maybe<>(null, _def_VarNotFound);
+	}
+
+	@Override public void setCode(final int aCode) {
+		_living.setCode(aCode);
 	}
 
 	@Override
@@ -131,6 +138,10 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 		public <T> void addListener(final Consumer<T> t) {
 			throw new UnintendedUseException();
 		}
+	}
+
+	public DefaultLivingNamespace getLiving() {
+		return _living;
 	}
 }
 

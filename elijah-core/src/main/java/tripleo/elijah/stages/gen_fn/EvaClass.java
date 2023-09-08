@@ -27,6 +27,7 @@ import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.util.Operation;
+import tripleo.elijah.world.i.LivingClass;
 import tripleo.elijah.world.impl.DefaultLivingClass;
 
 import java.util.*;
@@ -238,6 +239,16 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 		aCodeGenerator.generate_class(aFileGen, this);
 	}
 
+	@Deprecated @Override
+	public int getCode() {
+		return _living.getCode();
+	}
+
+	@Override
+	public void setCode(final int aCode) {
+		_living.setCode(aCode);
+	}
+
 	@Override
 	public OS_Element getElement() {
 		return getKlass();
@@ -352,6 +363,10 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 
 	// TODO Reactive??
 	private final GarishClass_Generator _gcg = new GarishClass_Generator(this);
+
+	public LivingClass getLiving() {
+		return _living;
+	}
 
 	public class _Reactive_EvaClass extends DefaultReactive {
 		@Override
