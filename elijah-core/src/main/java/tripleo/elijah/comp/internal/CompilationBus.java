@@ -40,7 +40,7 @@ public class CompilationBus implements ICompilationBus {
 	}
 
 	@Override
-	public CompilerDriver getCompilationDriver() {
+	public CompilerDriver getCompilerDriver() {
 		return cd;
 	}
 
@@ -65,19 +65,34 @@ public class CompilationBus implements ICompilationBus {
 	}
 
 	public void runProcesses() {
-		List<ICompilationBus.CB_Process> processes = _processes;
-		int                              size      = 0;
+		int size = 0;
 
-		while (size < processes.size()) {
-			for (int i = size; i < processes.size(); i++) {
-				final ICompilationBus.CB_Process process = processes.get(i);
+		var monitor = new CB_Monitor() {
 
-				process.steps().stream().forEach(aCBAction -> aCBAction.execute());
+			// TODO/HACK queue then print after loop
+			//   also send to UI (UT_Controller)
+
+			@Override
+			public void reportFailure(final @NotNull CB_Action aCBAction, final @NotNull CB_Output aCB_output) {
+				System.err.println("FAILURE " + aCBAction.name() + " " + aCB_output.get());
 			}
 
-			size = processes.size();
+			@Override
+			public void reportSuccess(final @NotNull CB_Action aCBAction, final @NotNull CB_Output aCB_output) {
+				System.err.println("SUCCESS " + aCBAction.name() + " " + aCB_output.get());
+			}
+		};
+
+		while (size < _processes.size()) {
+			for (int i = size; i < _processes.size(); i++) {
+				final CB_Process process = _processes.get(i);
+
+				process.steps().stream().forEach(aCBAction -> aCBAction.execute(monitor));
+			}
+
+			size = _processes.size();
 		}
-		assert processes.size() == size;
+		assert _processes.size() == size;
 	}
 
 	static class SingleActionProcess implements CB_Process {
