@@ -4,9 +4,12 @@
 
 plugins {
     id 'tripleo.elijah.java-conventions'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 dependencies {
+    implementation 'eu.mihosoft.monacofx:monacofx:0.0.8'
+
     api project(':tripleo.small')
     api project(':tripleo.elijah.reactive')
     api project(':tripleo.elijah.stateful')
