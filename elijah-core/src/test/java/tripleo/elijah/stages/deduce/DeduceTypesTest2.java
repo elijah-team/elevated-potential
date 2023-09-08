@@ -14,6 +14,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.i.CompilationEnclosure;
 import tripleo.elijah.contexts.FunctionContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -78,7 +79,8 @@ public class DeduceTypesTest2 {
 		c.__cr = new CompilationRunner(aca);
 */
 
-		assert c.getCompilationEnclosure().getCompilationRunner().crState != null; // always true
+		final CompilationEnclosure ce = c.getCompilationEnclosure();
+		assert ce.getCompilationRunner().getCrState() != null; // always true
 
 		final DeducePhase  dp = b.getDeducePhase();
 
