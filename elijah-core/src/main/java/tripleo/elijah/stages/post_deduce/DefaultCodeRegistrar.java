@@ -16,26 +16,30 @@ public class DefaultCodeRegistrar implements ICodeRegistrar {
 
 	@Override
 	public void registerClass(final EvaClass aClass) {
-		compilation.livingRepo().addClass(aClass, LivingRepo.Add.MAIN_CLASS);
+		getLivingRepo().addClass(aClass, LivingRepo.Add.MAIN_CLASS);
+	}
+
+	private LivingRepo getLivingRepo() {
+		return compilation.livingRepo();
 	}
 
 	@Override
 	public void registerClass1(final EvaClass aClass) {
-		compilation.livingRepo().addClass(aClass, LivingRepo.Add.NONE);
+		getLivingRepo().addClass(aClass, LivingRepo.Add.NONE);
 	}
 
 	@Override
 	public void registerFunction(final BaseEvaFunction aFunction) {
-		compilation.livingRepo().addFunction(aFunction, LivingRepo.Add.MAIN_FUNCTION);
+		getLivingRepo().addFunction(aFunction, LivingRepo.Add.MAIN_FUNCTION);
 	}
 
 	@Override
 	public void registerFunction1(final BaseEvaFunction aFunction) {
-		compilation.livingRepo().addFunction(aFunction, LivingRepo.Add.NONE);
+		getLivingRepo().addFunction(aFunction, LivingRepo.Add.NONE);
 	}
 
 	@Override
 	public void registerNamespace(final EvaNamespace aNamespace) {
-		compilation.livingRepo().addNamespace(aNamespace, LivingRepo.Add.NONE);
+		getLivingRepo().addNamespace(aNamespace, LivingRepo.Add.NONE);
 	}
 }

@@ -167,16 +167,11 @@ public class WlGenerateCtor implements WorkJob {
 //		lgf.add(gf);
 
 			final ClassInvocation ci = functionInvocation.getClassInvocation();
-			ci.resolvePromise().done(new DoneCallback<EvaClass>() {
-				@Override
-				public void onDone(@NotNull EvaClass result) {
+			ci.resolvePromise().done(result -> {
+				codeRegistrar.registerFunction1(gf);
 
-					codeRegistrar.registerFunction1(gf);
-					//gf.setCode(generateFunctions.module.getCompilation().nextFunctionCode());
-
-					gf.setClass(result);
-					result.constructors.put(cd, gf);
-				}
+				gf.setClass(result);
+				result.constructors.put(cd, gf);
 			});
 
 			functionInvocation.generateDeferred().resolve(gf);
