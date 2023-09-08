@@ -160,7 +160,10 @@ public class USE {
 			}
 
 			final WorldModule R = new DefaultWorldModule(om.success());
+
 			fn2m.put(absolutePath, R);
+			//addModule(R.module(), R.module().getFileName());
+
 			s.close();
 			return Operation.success(R);
 		} catch (IOException aE) {
