@@ -1,7 +1,7 @@
 /**
  *
  */
-package tripleo.util.io;
+package tripleo.elijah.util.io;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.util.NotImplementedException;

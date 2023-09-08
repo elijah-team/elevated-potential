@@ -1,6 +1,6 @@
-package tripleo.util.io;
+package tripleo.elijah.util.io;
 
-import tripleo.util.Disposable;
+import tripleo.elijah.util.Disposable;
 
 public interface DisposableCharSink extends Disposable, CharSink, AutoCloseable {
 }

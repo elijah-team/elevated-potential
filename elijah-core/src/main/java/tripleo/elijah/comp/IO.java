@@ -10,9 +10,9 @@ package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.util.io.CharSource;
-import tripleo.util.io.DisposableCharSink;
-import tripleo.util.io.FileCharSink;
+import tripleo.elijah.util.io.CharSource;
+import tripleo.elijah.util.io.DisposableCharSink;
+import tripleo.elijah.util.io.FileCharSink;
 
 import java.io.*;
 import java.nio.file.Files;
