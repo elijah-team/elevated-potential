@@ -9,7 +9,7 @@ import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.nextgen.ER_Node;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.util.Operation;
-import tripleo.util.io.DisposableCharSink;
+import tripleo.elijah.util.io.DisposableCharSink;
 
 import java.io.File;
 import java.nio.file.Path;
