@@ -46,7 +46,7 @@ public class CR_FindCIs extends DefaultStateful implements CR_Action {
 			cci.accept(compilerInput.acceptance_ci(), _ps);
 		}
 
-		return Operation.success(new Ok());
+		return Operation.success(Ok.instance());
 	}
 
 	@Override
