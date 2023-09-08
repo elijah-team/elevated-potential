@@ -176,6 +176,13 @@ public class TestBasic {
 		Assert.assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
 		Assert.assertTrue(c.getOutputTree().getList().size() > 0);
 		Assert.assertTrue(c.getIO().recordedwrites.size() > 0);
+
+		var aofs = c.getCompilationEnclosure().OutputFileAsserts();
+		//for (Triple<CompilationEnclosure.AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> aof : Sets.newConcurrentHashSet(aofs)) {
+		//	System.err.println(aof);
+		//}
+
+		Assert.assertTrue(aofs.contains("/Prelude/Prelude.c"));
 	}
 
 	@Test
