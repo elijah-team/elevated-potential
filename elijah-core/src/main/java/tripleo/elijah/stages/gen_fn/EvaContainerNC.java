@@ -68,9 +68,8 @@ public abstract class EvaContainerNC extends AbstractDependencyTracker implement
 
 	public abstract void generateCode(GenerateResultEnv aFileGen, CodeGenerator aGgc);
 
-	public int getCode() {
-		return code;
-	}
+	@Deprecated
+	public abstract int getCode();
 
 	public @NotNull Dependency getDependency() {
 		return dependency;
@@ -122,9 +121,7 @@ public abstract class EvaContainerNC extends AbstractDependencyTracker implement
 		}
 	}
 
-	public void setCode(int aCode) {
-		code = aCode;
-	}
+	@Deprecated public abstract void setCode(int aCode);
 }
 
 //

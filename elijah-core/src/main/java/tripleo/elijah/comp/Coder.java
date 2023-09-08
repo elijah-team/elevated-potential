@@ -44,18 +44,21 @@ public class Coder {
 	public void codeNodeFunction(@NotNull final BaseEvaFunction generatedFunction, final OS_Module mod) {
 //		if (generatedFunction.getCode() == 0)
 //			generatedFunction.setCode(mod.parent.nextFunctionCode());
+		assert generatedFunction.getCode() == 0;
 		codeRegistrar.registerFunction(generatedFunction);
 	}
 
 	public void codeNodeClass(@NotNull final EvaClass generatedClass, final OS_Module mod) {
 //		if (generatedClass.getCode() == 0)
 //			generatedClass.setCode(mod.parent.nextClassCode());
+		assert generatedClass.getLiving().getCode() == 0;
 		codeRegistrar.registerClass(generatedClass);
 	}
 
 	public void codeNodeNamespace(@NotNull final EvaNamespace generatedNamespace, final OS_Module mod) {
 //		if (generatedNamespace.getCode() == 0)
 //			generatedNamespace.setCode(mod.parent.nextClassCode());
+		assert (generatedNamespace.getCode() == 0);
 		codeRegistrar.registerNamespace(generatedNamespace);
 	}
 
@@ -66,11 +69,14 @@ public class Coder {
 			//			assert generatedClass.getCode() == 0;
 			if (generatedClass.getCode() == 0)
 				codeNodeClass(generatedClass, mod);
+			if (generatedClass.getLiving().getCode() == 0) {
 
 			setClassmapNodeCodes(generatedClass.classMap, mod);
 
 			extractNodes_toResolvedNodes(generatedClass.functionMap, resolved_nodes);
 		} else if (generatedNode instanceof final @NotNull EvaNamespace generatedNamespace) {
+			if (generatedNamespace.getLiving().getCode() != 0) {
+			}
 
 			if (generatedNamespace.getCode() != 0)
 				codeNodeNamespace(generatedNamespace, mod);
