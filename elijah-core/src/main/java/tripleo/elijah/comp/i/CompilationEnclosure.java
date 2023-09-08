@@ -329,8 +329,49 @@ public class CompilationEnclosure {
 		}
 	}
 
-	public void addEntryPoint(final @NotNull Mirror_EntryPoint aMirrorEntryPoint, final IClassGenerator dcg) {
-		aMirrorEntryPoint.generate(dcg);
+	public void AssertOutFile(final @NotNull NG_OutputRequest aOutputRequest) {
+		var fileName = aOutputRequest.fileName();
+		if (fileName instanceof OutputStrategyC.OSC_NFC nfc) {
+			AssertOutFile_Class(nfc, aOutputRequest);
+		} else if (fileName instanceof OutputStrategyC.OSC_NFF nff) {
+			AssertOutFile_Function(nff, aOutputRequest);
+		} else if (fileName instanceof OutputStrategyC.OSC_NFN nfn) {
+			AssertOutFile_Namespace(nfn, aOutputRequest);
+		} else {
+			throw new NotImplementedException();
+		}
+	}
+
+	private void AssertOutFile_Class(final OutputStrategyC.OSC_NFC aNfc, final NG_OutputRequest aOutputRequest) {
+		outFileAssertions.add(Triple.of(AssOutFile.CLASS, aNfc, aOutputRequest));
+	}
+
+	private void AssertOutFile_Function(final OutputStrategyC.OSC_NFF aNff, final NG_OutputRequest aOutputRequest) {
+		outFileAssertions.add(Triple.of(AssOutFile.FUNCTION, aNff, aOutputRequest));
+	}
+
+	private void AssertOutFile_Namespace(final OutputStrategyC.OSC_NFN aNfn, final NG_OutputRequest aOutputRequest) {
+		outFileAssertions.add(Triple.of(AssOutFile.NAMESPACE, aNfn, aOutputRequest));
+	}
+
+	public @NonNull OFA OutputFileAsserts() {
+		return ofa;
+	}
+
+	public enum AssOutFile {CLASS, NAMESPACE, FUNCTION}
+
+	public class OFA {
+
+		//public OFA(final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> aOutFileAssertions) {
+		//_l = aOutFileAssertions;
+		//}
+
+		public boolean contains(String aFileName) {
+			for (Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> outFileAssertion : outFileAssertions) {
+				NotImplementedException.raise_stop();
+			}
+			return false;
+		}
 	}
 
 	@FunctionalInterface
