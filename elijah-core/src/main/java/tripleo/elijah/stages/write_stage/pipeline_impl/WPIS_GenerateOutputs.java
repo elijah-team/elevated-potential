@@ -97,11 +97,24 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 		this.st.pa.waitGenC(mod, cb);
 	}
 
+	interface Writable {
+		EOT_OutputFile.FileNameProvider filename();
+
+		EG_Statement statement();
+
+		List<EIT_Input> inputs();
+	}
+
+	@FunctionalInterface
+	public interface WPIS_GenerateOutputs_Behavior_PrintDBLString {
+		void print(String sps);
+	}
+
 	// TODO 09/04 Duplication madness
 	private static class MyWritable implements Writable {
-		final          Collection<EG_Statement> value;
-		final          String                   filename;
-		final @NotNull List<EG_Statement>       list;
+		final          Collection<EG_Statement>        value;
+		final          EOT_OutputFile.FileNameProvider filename;
+		final @NotNull List<EG_Statement>              list;
 		final @NotNull EG_SequenceStatement     statement;
 		private final  NG_OutputRequest         outputRequest;
 
@@ -116,7 +129,7 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 		}
 
 		@Override
-		public String filename() {
+		public EOT_OutputFile.FileNameProvider filename() {
 			return filename;
 		}
 
@@ -136,19 +149,6 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 			return Helpers.List_of(moduleInput);
 		}
 
-	}
-
-	@FunctionalInterface
-	public interface WPIS_GenerateOutputs_Behavior_PrintDBLString {
-		void print(String sps);
-	}
-
-	interface Writable {
-		String filename();
-
-		EG_Statement statement();
-
-		List<EIT_Input> inputs();
 	}
 
 	static class Default_WPIS_GenerateOutputs_Behavior_PrintDBLString implements WPIS_GenerateOutputs_Behavior_PrintDBLString {
@@ -179,11 +179,7 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 
 						EOT_OutputFile.FileNameProvider s = o.outName(outputStrategyC, oxt);
 
-						var or = new NG_OutputRequest(
-								s.getFilename(),
-								ox,
-								ox,
-								o);
+						var or = new NG_OutputRequest(s, ox, ox, o);
 						ors1.add(or);
 					}
 				}
@@ -208,7 +204,7 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 				}
 
 				for (Writable writable : writables) {
-					final String             filename   = writable.filename();
+					final String filename = writable.filename().getFilename();
 					final EG_Statement       statement0 = writable.statement();
 					final List<EG_Statement> list2      = relist3(statement0);
 					final EG_Statement       statement;
