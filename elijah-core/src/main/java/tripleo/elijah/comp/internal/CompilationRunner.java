@@ -1,7 +1,6 @@
 package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.*;
@@ -14,16 +13,15 @@ import tripleo.elijah.util.Operation;
 import java.util.function.Supplier;
 
 public class CompilationRunner extends _RegistrationTarget {
-	private final          Compilation                     _compilation;
-	public final           ICompilationBus                 cb;
-	public final           CR_State                        crState;
-	public final @NotNull  IProgressSink                   progressSink;
-	private final @NotNull CCI                             cci;
-	private final          EzM                             ezm = new EzM();
-	final                  CIS                             cis;
-
+	private final          Compilation     _compilation;
+	private final          ICompilationBus cb;
+	private final          CR_State        crState;
+	private final @NotNull IProgressSink   progressSink;
+	private final @NotNull CCI             cci;
+	private final          EzM             ezm = new EzM();
+	private final          CIS             cis;
 	private CB_StartCompilationRunnerAction startAction;
-	CR_FindCIs cr_find_cis;
+	private                CR_FindCIs cr_find_cis;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
 		_compilation = aca.getCompilation();
@@ -90,11 +88,7 @@ public class CompilationRunner extends _RegistrationTarget {
 		return oci;
 	}
 
-	public Compilation _accessCompilation() {
-		return _compilation;
-	}
-
-	public CR_Action cr_find_cis() {
+	public CR_FindCIs cr_find_cis() {
 		if (this.cr_find_cis == null) {
 			var beginning = _accessCompilation().beginning(this);
 			this.cr_find_cis = new CR_FindCIs(beginning);

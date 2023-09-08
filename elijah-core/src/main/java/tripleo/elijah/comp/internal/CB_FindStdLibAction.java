@@ -12,7 +12,7 @@ import tripleo.elijah.util.Operation;
 import java.util.ArrayList;
 import java.util.List;
 
-class CB_FindStdLibAction implements ICompilationBus.CB_Action {
+class CB_FindStdLibAction implements CB_Action {
 	private final     CompilationEnclosure  ce;
 	private final     CR_State              crState;
 	private final     List<CB_OutputString> o = new ArrayList<>(); // FIXME 07/01 how is this modified?
@@ -35,11 +35,15 @@ class CB_FindStdLibAction implements ICompilationBus.CB_Action {
 	}
 
 	@Override
-	public void execute() {
+	public void execute(CB_Monitor aMonitor) {
 		final String preludeName = Compilation.CompilationAlways.defaultPrelude();
 
-		if (findStdLib != null)
+		if (findStdLib != null) {
 			findStdLib.findStdLib(crState, preludeName, this::getPushItem);
+		}
+
+		aMonitor.reportSuccess(this, new CB_ListBackedOutput()); // FIXME
+		//aMonitor.reportSuccess(this, ce.getCB_Output());
 	}
 
 	private void getPushItem(final @NotNull Operation<CompilerInstructions> oci) {
@@ -66,7 +70,7 @@ class CB_FindStdLibAction implements ICompilationBus.CB_Action {
 	}
 
 	@Contract(value = " -> new", pure = true)
-	public ICompilationBus.@NotNull CB_Process process() {
+	public @NotNull CB_Process process() {
 		return new CompilationBus.SingleActionProcess(this);
 	}
 }

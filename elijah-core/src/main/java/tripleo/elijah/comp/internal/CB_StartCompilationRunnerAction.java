@@ -12,7 +12,7 @@ import java.util.List;
 
 import static tripleo.elijah.util.Helpers.List_of;
 
-class CB_StartCompilationRunnerAction implements ICompilationBus.CB_Action, ICompilationBus.CB_Process {
+class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	private final          CompilationRunner    compilationRunner;
 	private final          CompilerInstructions ci;
 	private final @NotNull IPipelineAccess      pa;
@@ -30,20 +30,20 @@ class CB_StartCompilationRunnerAction implements ICompilationBus.CB_Action, ICom
 
 	@Contract(value = " -> new", pure = true)
 	@NotNull
-	public ICompilationBus.CB_Process cb_Process() {
+	public CB_Process cb_Process() {
 		return this;
 	}
 
 	@Override
 	@NotNull
-	public List<ICompilationBus.CB_Action> steps() {
+	public List<CB_Action> steps() {
 		return List_of(
 				CB_StartCompilationRunnerAction.this
 					  );
 	}
 
 	@Override
-	public void execute() {
+	public void execute(CB_Monitor monitor) {
 		final CompilerDriver compilationDriver = pa
 				.getCompilationEnclosure()
 				.getCompilationDriver();
@@ -53,9 +53,14 @@ class CB_StartCompilationRunnerAction implements ICompilationBus.CB_Action, ICom
 		case SUCCESS -> {
 			final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
 
-			compilationRunnerStart.start(ci, compilationRunner.crState, o);
+			compilationRunnerStart.start(ci, compilationRunner.getCrState(), o);
+
+			monitor.reportSuccess(this, o);
 		}
-		case FAILURE, NOTHING -> throw new IllegalStateException("Error");
+		case FAILURE, NOTHING -> {
+			monitor.reportFailure(this, o);
+			throw new IllegalStateException("Error");
+		}
 		}
 	}
 
