@@ -33,7 +33,7 @@ class CB_FindCIs implements CB_Action {
 
 		for (final CR_Action action : crActionList) {
 			action.attach(compilationRunner);
-			action.execute(compilationRunner.crState, o);
+			action.execute(compilationRunner.getCrState(), o);
 		}
 
 		for (final CB_OutputString outputString : o.get()) {

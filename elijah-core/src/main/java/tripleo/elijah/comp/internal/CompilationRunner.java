@@ -96,6 +96,54 @@ public class CompilationRunner extends _RegistrationTarget {
 		return this.cr_find_cis;
 	}
 
+	boolean started;
+
+	public Compilation _accessCompilation() {
+		return _compilation;
+	}
+
+	public CR_State getCrState() {
+		return crState;
+	}
+
+	public IProgressSink getProgressSink() {
+		return progressSink;
+	}
+
+	public CIS getCis() {
+		return cis;
+	}
+
+	public void start(final CompilerInstructions ci, final @NotNull IPipelineAccess pa) {
+		// FIXME only run once 06/16
+		if (startAction == null) {
+			startAction = new CB_StartCompilationRunnerAction(this, pa, ci);
+			// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
+			cb.add(startAction.cb_Process());
+		}
+
+		if (!started) {
+			started = true;
+			CB_Monitor monitor = new CB_Monitor() {
+				@Override
+				public void reportFailure(final CB_Action aCBAction, final CB_Output aCB_output) {
+
+				}
+
+				@Override
+				public void reportSuccess(final CB_Action aCBAction, final CB_Output aCB_output) {
+
+				}
+			};
+
+			int bp = 2;
+
+			for (CB_Process process : cb.processes()) {
+				process.steps().forEach(s -> s.execute(monitor));
+			}
+		}
+	}
+
 	public enum ST {
 		;
 
@@ -168,15 +216,6 @@ public class CompilationRunner extends _RegistrationTarget {
 			public void setIdentity(final StateRegistrationToken aId) {
 				identity = aId;
 			}
-		}
-	}
-
-	public void start(final CompilerInstructions ci, final @NotNull IPipelineAccess pa) {
-		// FIXME only run once 06/16
-		if (startAction == null) {
-			startAction = new CB_StartCompilationRunnerAction(this, pa, ci);
-			// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
-			cb.add(startAction.cb_Process());
 		}
 	}
 }
