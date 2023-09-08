@@ -99,28 +99,6 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	}
 
 	@Override
-	public void serializeTo(final @NotNull SmallWriter sw) {
-		// TODO Auto-generated method stub
-
-		//public @NotNull Attached             _a             = new AttachedImpl();
-		//private final   Stack<Qualident>     packageNames_q = new Stack<Qualident>();
-		//public @NotNull List<EntryPoint>     entryPoints    = new ArrayList<EntryPoint>();
-		//private         IndexingStatement    indexingStatement;
-		//private LibraryStatementPart lsp;
-
-
-		sw.fieldString("filename", _fileName);
-		sw.fieldString("prelude", prelude != null ? prelude.getFileName() : "<unknown>");
-		sw.fieldString("parent", getCompilation().getCompilationNumberString());
-
-
-		//var l = sw.createList();int i=1;
-		//for (ModuleItem item : items) {
-		//	var r = sw.createRef(item);
-		//	sw.fieldRef("item%i".formatted(i++), r);
-		//}
-		sw.fieldList("items", items);
-	}	@Override
 	public @NotNull Compilation getCompilation() {
 		return parent;
 	}
@@ -173,14 +151,14 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 				if (MainClassEntryPoint.isMainClass(classStatement)) {
 					List<OS_Element2> x = classStatement.findFunction("main");
 
-					List<ClassStatement> entrypoints_stream = x.stream().filter(ci -> ci
-									instanceof FunctionDef).filter(fd ->
-																		   MainClassEntryPoint.is_main_function_with_no_args((FunctionDef) fd)).map(found1 ->
-																																							(ClassStatement) ((FunctionDef) found1).getParent())
+					List<ClassStatement> found = x.stream()
+							.filter(ci -> ci instanceof FunctionDef)
+							.filter(fd -> MainClassEntryPoint.is_main_function_with_no_args((FunctionDef) fd))
+							.map(found1 -> (ClassStatement) ((FunctionDef) found1).getParent())
 							.collect(Collectors.toList());
 
-					var       found = entrypoints_stream;
 					final int eps = entryPoints.size();
+
 					for (ClassStatement classItem : found) {
 						entryPoints.add(new MainClassEntryPoint((ClassStatement) classItem.getParent()));
 					}
@@ -269,7 +247,29 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 		visit.addModule(this); // visitModule
 	}
 
+	@Override
+	public void serializeTo(final @NotNull SmallWriter sw) {
+		// TODO Auto-generated method stub
 
+		//public @NotNull Attached             _a             = new AttachedImpl();
+		//private final   Stack<Qualident>     packageNames_q = new Stack<Qualident>();
+		//public @NotNull List<EntryPoint>     entryPoints    = new ArrayList<EntryPoint>();
+		//private         IndexingStatement    indexingStatement;
+		//private LibraryStatementPart lsp;
+
+
+		sw.fieldString("filename", _fileName);
+		sw.fieldString("prelude", prelude != null ? prelude.getFileName() : "<unknown>");
+		sw.fieldString("parent", getCompilation().getCompilationNumberString());
+
+
+		//var l = sw.createList();int i=1;
+		//for (ModuleItem item : items) {
+		//	var r = sw.createRef(item);
+		//	sw.fieldRef("item%i".formatted(i++), r);
+		//}
+		sw.fieldList("items", items);
+	}
 
 	@Override
 	public void setContext(final ModuleContext mctx) {
