@@ -16,8 +16,8 @@ import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.deduce.nextgen.DR_Item;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created 6/27/21 9:40 AM
@@ -25,7 +25,7 @@ import java.util.List;
 public class EvaFunction extends BaseEvaFunction implements GNCoded {
 	public final @Nullable FunctionDef fd;
 
-	public @NotNull List<DR_Item> _idents = new ArrayList<>();
+	public @NotNull Set<DR_Item> _idents = new HashSet<>();
 
 	public EvaFunction(final @Nullable FunctionDef functionDef) {
 		fd = functionDef;
