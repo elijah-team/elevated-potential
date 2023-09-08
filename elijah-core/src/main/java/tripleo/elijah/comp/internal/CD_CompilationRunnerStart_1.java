@@ -25,7 +25,7 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 		final @NotNull IPipelineAccess               pa  = crState.ca.getCompilation().getCompilationEnclosure().getPipelineAccess();
 		final @NotNull Compilation.CompilationConfig cfg = crState.ca.getCompilation().cfg();
 
-		final CompilerBeginning beginning = new CompilerBeginning(cr._accessCompilation(), aCompilerInstructions, pa.getCompilerInput(), cr.progressSink, cfg);
+		final CompilerBeginning beginning = new CompilerBeginning(cr._accessCompilation(), aCompilerInstructions, pa.getCompilerInput(), cr.getProgressSink(), cfg);
 
 		___start(crState, beginning, out);
 	}
@@ -40,7 +40,7 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 			crState.started = true;
 		}
 
-		final CR_FindCIs              f1 = crState.runner().cr_find_cis;
+		final CR_FindCIs f1 = crState.runner().cr_find_cis();
 		final CR_ProcessInitialAction f2 = new CR_ProcessInitialAction(beginning);
 		final CR_AlmostComplete       f3 = new CR_AlmostComplete();
 		final CR_RunBetterAction      f4 = new CR_RunBetterAction();

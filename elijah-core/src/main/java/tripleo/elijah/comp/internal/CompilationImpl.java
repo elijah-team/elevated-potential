@@ -76,7 +76,7 @@ public class CompilationImpl extends __Compilation1 {
 
 	@Override
 	public CompilerBeginning beginning(final @NotNull CompilationRunner compilationRunner) {
-		return new CompilerBeginning(this, rootCI, getInputs(), compilationRunner.progressSink, cfg());
+		return new CompilerBeginning(this, rootCI, getInputs(), compilationRunner.getProgressSink(), cfg());
 	}
 
 	public void testMapHooks(final List<IFunctionMapHook> aMapHooks) {

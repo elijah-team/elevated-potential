@@ -29,11 +29,19 @@ public class OutputFileFactoryParams {
 		return mod;
 	}
 
+	public CompilationEnclosure getCompilationEnclosure() {
+		return compilationEnclosure;
+	}
+
 	public PipelineLogic getPipelineLogic() {
 		return getCompilationEnclosure().getPipelineLogic();
 	}
 
+	public ErrSink getErrSink() {
+		return compilationEnclosure.getCompilationClosure().errSink();
+	}
+
 	public ElLog.Verbosity getVerbosity() {
-		return verbosity;
+		return compilationEnclosure.getCompilationAccess().testSilence();
 	}
 }
