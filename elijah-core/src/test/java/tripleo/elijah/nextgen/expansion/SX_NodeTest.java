@@ -11,6 +11,7 @@ import tripleo.elijah.stages.gen_generic.GenerateFiles;
 import tripleo.elijah.stages.gen_generic.OutputFileFactory;
 import tripleo.elijah.stages.gen_generic.OutputFileFactoryParams;
 import tripleo.elijah.test_help.Boilerplate;
+import tripleo.elijah.world.impl.DefaultWorldModule;
 
 import java.util.List;
 
@@ -27,7 +28,10 @@ public class SX_NodeTest extends TestCase {
 				.withFileName("filename.elijah")
 				.addToCompilation()
 				.build();
-		final OutputFileFactoryParams p    = new OutputFileFactoryParams(mod, comp.getCompilationEnclosure());
+
+		var wm = new DefaultWorldModule(mod, comp.getCompilationEnclosure());
+
+		final OutputFileFactoryParams p = new OutputFileFactoryParams(wm, comp.getCompilationEnclosure());
 		//final GenerateFiles           fgen = OutputFileFactory.create(CompilationAlways.defaultPrelude(), p, fileGen);
 
 /*

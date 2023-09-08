@@ -5,7 +5,6 @@ import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.PipelineLogic;
 import tripleo.elijah.comp.i.CompilationEnclosure;
 import tripleo.elijah.comp.i.IPipelineAccess;
-import tripleo.elijah.lang.i.OS_Module;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +17,7 @@ public class DeducePipelineImpl {
 	public DeducePipelineImpl(final @NotNull IPipelineAccess pa0) {
 		pa = pa0;
 
-		final Compilation c = pa.getCompilation();
-
-		addRunnable(_inj().new_PL_AddModules(c.modules()));
-
-		//for (final OS_Module module : c.modules) {
-		//	addRunnable(_inj().new_PL_AddModule(module));
-		//}
-
+		addRunnable(_inj().new_PL_AddModules(pa));
 		addRunnable(_inj().new_PL_EverythingBeforeGenerate());
 		addRunnable(_inj().new_PL_SaveGeneratedClasses(pa));
 	}
@@ -53,8 +45,8 @@ public class DeducePipelineImpl {
 	private final DeducePipelineImplInjector __inj = new DeducePipelineImplInjector();
 
 	static class DeducePipelineImplInjector {
-		public PipelineLogicRunnable new_PL_AddModules(final List<OS_Module> aModules) {
-			return new PL_AddModules(aModules);
+		public PipelineLogicRunnable new_PL_AddModules(final @NotNull IPipelineAccess aPipelineAccess) {
+			return new PL_AddModules(aPipelineAccess);
 		}
 
 		public PipelineLogicRunnable new_PL_EverythingBeforeGenerate() {

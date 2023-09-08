@@ -26,6 +26,7 @@ import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
 import tripleo.elijah.world.i.LivingClass;
 import tripleo.elijah.world.i.LivingNamespace;
+import tripleo.elijah.world.i.WorldModule;
 import tripleo.util.buffer.Buffer;
 
 import java.util.List;
@@ -57,17 +58,20 @@ class AmazingFunction implements Amazing {
 
 	void waitGenC(final GenerateC ggc) {
 		// TODO latch
-		pa.getAccessBus().subscribePipelineLogic(pl0 -> {
-			// FIXME check arguments
+		pa.getAccessBus().subscribePipelineLogic(aPipelineLogic -> {
+			// FIXME check arguments --> this doesn't seem like it will give the desired results
 			var env = new GN_GenerateNodesIntoSinkEnv(List_of(),
 													  new DefaultGenerateResultSink(pa),
-													  pl0.mods(),
+													  aPipelineLogic.mods(),
 													  ElLog.Verbosity.VERBOSE,
 													  new Old_GenerateResult(),
 													  pa,
 													  pa.getCompilationEnclosure());
 			//var mod = pte.__gf.getFD().getContext().module();
-			var generateModuleRequest = new GM_GenerateModuleRequest(new GN_GenerateNodesIntoSink(env), mod, env);
+
+			WorldModule wm = null;
+
+			var generateModuleRequest = new GM_GenerateModuleRequest(new GN_GenerateNodesIntoSink(env), wm, env);
 			var generateModule        = new GM_GenerateModule(generateModuleRequest);
 
 			var fileGen = new GenerateResultEnv(new MyGenerateResultSink(of), result, new WorkManager(), new WorkList(), generateModule);

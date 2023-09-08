@@ -23,6 +23,7 @@ import tripleo.elijah.stages.deduce.fluffy.impl.FluffyCompImpl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CompilationImpl extends __Compilation1 {
 
@@ -64,9 +65,13 @@ public class CompilationImpl extends __Compilation1 {
 		return _output_tree;
 	}
 
+	@Deprecated
 	@Override
 	public List<OS_Module> modules() {
-		return modules;
+		return livingRepo().modules()
+				.stream()
+				.map(wm -> wm.module())
+				.collect(Collectors.toList());
 	}
 
 	@Override

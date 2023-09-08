@@ -32,6 +32,7 @@ import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.Operation2;
 import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.world.impl.DefaultWorldModule;
 
 import static org.mockito.Mockito.mock;
 import static tripleo.elijah.util.Helpers.List_of;
@@ -85,7 +86,10 @@ public class DeduceTypesTest {
 
 		final ElLog.Verbosity verbosity = Compilation.gitlabCIVerbosity();
 		final DeducePhase     dp        = boilerplate.getDeducePhase();
-		final DeduceTypes2    d         = dp.deduceModule(mod, dp.generatedClasses, verbosity);
+
+		var wm = new DefaultWorldModule(mod, boilerplate.comp.getCompilationEnclosure());
+
+		final DeduceTypes2 d = dp.deduceModule(wm, dp.generatedClasses, verbosity);
 
 		//final @NotNull GenerateFunctions gf = boilerplate.pr.pipelineLogic().generatePhase.getGenerateFunctions(mod);
 
