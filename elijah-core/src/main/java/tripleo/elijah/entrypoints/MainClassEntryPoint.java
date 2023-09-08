@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created 6/14/21 7:28 AM
@@ -41,8 +42,8 @@ public class MainClassEntryPoint implements EntryPoint {
 	}
 
 	public MainClassEntryPoint(@NotNull ClassStatement aKlass) {
-		final Collection<ClassItem> main = aKlass.findFunction("main");
-		for (ClassItem classItem : main) {
+		final List<OS_Element2> main = aKlass.findFunction("main");
+		for (OS_Element2 classItem : main) {
 			FunctionDef    fd       = (FunctionDef) classItem;
 			boolean        return_type_is_null;
 			final TypeName typeName = fd.returnType();
