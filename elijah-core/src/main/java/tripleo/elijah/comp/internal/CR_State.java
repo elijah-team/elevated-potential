@@ -404,7 +404,7 @@ public class CR_State {
 
 	private CompilationRunner compilationRunner;
 
-	public ICompilationBus.CB_Action cur;
+	public CB_Action cur;
 
 	public ProcessRecord pr;
 
