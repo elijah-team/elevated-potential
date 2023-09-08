@@ -34,7 +34,7 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 							final @NotNull CompilerBeginning beginning,
 							final @NotNull CB_Output out) {
 		if (crState.started) {
-			boolean should_never_happen = true;
+			boolean should_never_happen = false; // :grin:
 			assert should_never_happen;
 		} else {
 			crState.started = true;
@@ -54,6 +54,7 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 			crActionResultList.add(res);
 		}
 
+		// TODO execute should do this automatically
 		for (int i = 0; i < crActionResultList.size(); i++) {
 			var                      action           = crActionList.get(i);
 			final Operation<Ok> booleanOperation = crActionResultList.get(i);
