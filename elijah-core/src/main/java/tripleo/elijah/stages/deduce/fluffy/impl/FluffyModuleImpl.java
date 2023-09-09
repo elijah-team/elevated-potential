@@ -4,13 +4,15 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.entrypoints.MainClassEntryPoint;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.i.ClassStatement;
+import tripleo.elijah.lang.i.FunctionDef;
+import tripleo.elijah.lang.i.OS_Element2;
+import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyLsp;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyMember;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyModule;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;

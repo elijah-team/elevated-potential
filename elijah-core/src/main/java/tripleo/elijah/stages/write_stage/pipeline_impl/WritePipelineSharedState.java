@@ -6,13 +6,10 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.IPipelineAccess;
-import tripleo.elijah.nextgen.output.NG_OutputItem;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.generate.ElSystem;
 import tripleo.util.buffer.Buffer;
-
-import java.util.List;
 
 /**
  * Really a record, but state is not all set at once

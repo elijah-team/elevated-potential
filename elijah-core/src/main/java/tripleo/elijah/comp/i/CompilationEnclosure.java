@@ -10,12 +10,11 @@ import org.jdeferred2.Promise;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.AccessBus;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.PipelineLogic;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.ER_Node;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah.nextgen.reactive.Reactivable;
 import tripleo.elijah.nextgen.reactive.Reactive;
@@ -25,13 +24,12 @@ import tripleo.elijah.stages.gen_fn.IClassGenerator;
 import tripleo.elijah.stages.generate.OutputStrategyC;
 import tripleo.elijah.stages.inter.ModuleThing;
 import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
+import tripleo.elijah.util.CompletableProcess;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.world.i.WorldModule;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
 public class CompilationEnclosure {
 	public final  DeferredObject<IPipelineAccess, Void, Void> pipelineAccessPromise = new DeferredObject<>();
@@ -115,6 +113,39 @@ public class CompilationEnclosure {
 			pa._setAccessBus(ab);
 
 			this.pa = pa;
+		});
+
+		compilation.world().addModuleProcess(new CompletableProcess<WorldModule>() {
+			@Override
+			public void add(final WorldModule item) {
+				// TODO Reactive pattern (aka something ala ReplaySubject)
+				for (final ModuleListener moduleListener : _moduleListeners) {
+					moduleListener.listen(item);
+				}
+			}
+
+			@Override
+			public void complete() {
+				// TODO Reactive pattern (aka something ala ReplaySubject)
+				for (final ModuleListener moduleListener : _moduleListeners) {
+					moduleListener.close();
+				}
+			}
+
+			@Override
+			public void error(final Diagnostic d) {
+
+			}
+
+			@Override
+			public void preComplete() {
+
+			}
+
+			@Override
+			public void start() {
+
+			}
 		});
 	}
 
@@ -327,15 +358,6 @@ public class CompilationEnclosure {
 		return getCompilationBus().getCompilerDriver();
 	}
 
-	public void addModule(final WorldModule aWorldModule) {
-		getCompilation().livingRepo().addModule2(aWorldModule); // ?? 09/08
-
-		// TODO Reactive pattern (aka something ala ReplaySubject)
-		for (final ModuleListener moduleListener : _moduleListeners) {
-			moduleListener.listen(aWorldModule);
-		}
-	}
-
 	public void AssertOutFile(final @NotNull NG_OutputRequest aOutputRequest) {
 		var fileName = aOutputRequest.fileName();
 		if (fileName instanceof OutputStrategyC.OSC_NFC nfc) {
@@ -365,9 +387,32 @@ public class CompilationEnclosure {
 		return ofa;
 	}
 
+	public void logProgress(final @NotNull CompProgress aCompProgress, final Object x) {
+		switch (aCompProgress) {
+		case __CP_OutputPath_renderNode -> {
+			ER_Node node = (ER_Node) x;
+
+			System.out.printf("** [__CP_OutputPath_renderNode] %s%n", node.getPath());
+		}
+		case __parseElijjahFile_InputRequest -> {
+			InputRequest aInputRequest = (InputRequest) x;
+			File         f             = aInputRequest.file();
+
+			System.out.printf("** [__parseElijjahFile_InputRequest] %s%n", f.getAbsolutePath());
+		}
+		default -> throw new IllegalStateException("Unexpected value: " + aCompProgress);
+		}
+	}
+
 	public enum AssOutFile {CLASS, NAMESPACE, FUNCTION}
 
-	public class OFA {
+	public interface ModuleListener {
+		void listen(WorldModule module);
+
+		void close();
+	}
+
+	public class OFA implements Iterable<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> {
 
 		//public OFA(final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> aOutFileAssertions) {
 		//_l = aOutFileAssertions;
@@ -375,15 +420,20 @@ public class CompilationEnclosure {
 
 		public boolean contains(String aFileName) {
 			for (Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> outFileAssertion : outFileAssertions) {
-				NotImplementedException.raise_stop();
+				final String containedFilename = outFileAssertion.getMiddle().getFilename();
+
+				if (containedFilename.equals(aFileName)) {
+					return true;
+				}
 			}
+
 			return false;
 		}
-	}
 
-	@FunctionalInterface
-	public interface ModuleListener {
-		void listen(WorldModule module);
+		@Override
+		public Iterator<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> iterator() {
+			return outFileAssertions.stream().iterator();
+		}
 	}
 }
 

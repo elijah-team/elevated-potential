@@ -11,8 +11,8 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.__Compilation1;
 import tripleo.elijah.comp.IO;
+import tripleo.elijah.comp.__Compilation1;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.lang.i.OS_Module;
@@ -74,9 +74,8 @@ public class CompilationImpl extends __Compilation1 {
 				.collect(Collectors.toList());
 	}
 
-	@Override
 	public CompilerBeginning beginning(final @NotNull CompilationRunner compilationRunner) {
-		return new CompilerBeginning(this, rootCI, getInputs(), compilationRunner.getProgressSink(), cfg());
+		return new CompilerBeginning(this, getRootCI(), getInputs(), compilationRunner.getProgressSink(), cfg());
 	}
 
 	public void testMapHooks(final List<IFunctionMapHook> aMapHooks) {
@@ -90,12 +89,12 @@ public class CompilationImpl extends __Compilation1 {
 
 	@Override
 	public USE use() {
-		return use;
+		return getUse();
 	}
 
 	@Override
 	public CIS _cis() {
-		return _cis;
+		return get_cis();
 	}
 }
 

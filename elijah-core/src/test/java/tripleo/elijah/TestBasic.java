@@ -13,13 +13,15 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.StdErrSink;
+import tripleo.elijah.comp.i.CompilationEnclosure;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.DefaultCompilerController;
@@ -29,6 +31,7 @@ import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
 import tripleo.elijah.stages.gen_c.Emit;
+import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
 import tripleo.elijah.util.Helpers;
 
 import java.io.File;
@@ -42,8 +45,8 @@ import static tripleo.elijah.util.Helpers.List_of;
  */
 public class TestBasic {
 
-	@Ignore
-	@Test
+	@Disabled
+	@org.junit.jupiter.api.Test
 	public final void testBasicParse() throws Exception {
 		final List<String> ez_files = Files.readLines(new File("test/basic/ez_files.txt"), Charsets.UTF_8);
 		final List<String> args     = new ArrayList<String>();
@@ -57,7 +60,7 @@ public class TestBasic {
 		Assert.assertEquals(0, c.errorCount());
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	public final void testBasic() throws Exception {
@@ -85,7 +88,7 @@ public class TestBasic {
 	}
 
 	//@Ignore
-	@Test
+	@org.junit.jupiter.api.Test
 	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	public final void testBasic_listfolders3() throws Exception {
 		String s = "test/basic/listfolders3/listfolders3.ez";
@@ -125,7 +128,7 @@ public class TestBasic {
 		}
 	}
 
-	@Test
+	@org.junit.jupiter.api.Test
 	public final void testBasic_listfolders3__() {
 		String s = "test/basic/listfolders3/listfolders3.ez";
 
@@ -145,8 +148,8 @@ public class TestBasic {
 		Assert.assertTrue(c.isPackage(qq.toString()));
 	}
 
-	@Ignore
-	@Test
+	@Disabled
+	@org.junit.jupiter.api.Test
 	public final void testBasic_listfolders4() throws Exception {
 		String s = "test/basic/listfolders4/listfolders4.ez";
 
@@ -161,31 +164,31 @@ public class TestBasic {
 		Assert.assertEquals(4, c.errorCount()); // TODO Error count obviously should be 0
 	}
 
-	@Test
+	@org.junit.jupiter.api.Test
 	public final void testBasic_fact1() throws Exception {
-		String s = "test/basic/fact1/main2";
+		final String        s  = "test/basic/fact1/main2";
+		final Compilation   c  = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
+		final CompilerInput i1 = new CompilerInput(s);
+		final CompilerInput i2 = new CompilerInput("-sO");
+		c.feedInputs(List_of(i1, i2), new DefaultCompilerController());
 
-		final ErrSink     eee = new StdErrSink();
-		final Compilation c   = new CompilationImpl(eee, new IO());
-
-		c.feedCmdLine(List_of(s, "-sO"));
-
-		if (c.errorCount() != 0)
+		if (c.errorCount() != 0) {
 			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
+		}
 
-		//Assert.assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
-		//Assert.assertTrue(c.getOutputTree().getList().size() > 0);
-		//Assert.assertTrue(c.getIO().recordedwrites.size() > 0);
+		Assert.assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
+		Assert.assertTrue(c.getOutputTree().getList().size() > 0);
+		Assert.assertTrue(c.getIO().recordedwrites.size() > 0);
 
 		var aofs = c.getCompilationEnclosure().OutputFileAsserts();
-		//for (Triple<CompilationEnclosure.AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> aof : Sets.newConcurrentHashSet(aofs)) {
-		//	System.err.println(aof);
-		//}
+		for (Triple<CompilationEnclosure.AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> aof : aofs) {
+			System.err.println(aof);
+		}
 
 		Assert.assertTrue(aofs.contains("/Prelude/Prelude.c"));
 	}
 
-	@Test
+	@org.junit.jupiter.api.Test
 	public final void testBasic_fact1_002() throws Exception {
 
 		testBasic_fact1 f = new testBasic_fact1();

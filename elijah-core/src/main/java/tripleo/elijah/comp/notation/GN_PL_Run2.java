@@ -3,21 +3,21 @@ package tripleo.elijah.comp.notation;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.Eventual;
+import tripleo.elijah.EventualRegister;
 import tripleo.elijah.comp.PipelineLogic;
 import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.entrypoints.EntryPoint;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_fn.DefaultClassGenerator;
+import tripleo.elijah.stages.gen_fn.IClassGenerator;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.stages.inter.ModuleThing;
 import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
-import java.util.List;
 import java.util.function.Consumer;
 
-public class GN_PL_Run2 implements GN_Notable {
+public class GN_PL_Run2 implements GN_Notable, @NotNull EventualRegister {
 	private final @NotNull WorldModule mod;
 	private final          PipelineLogic         pipelineLogic;
 	private final          CompilationEnclosure  ce;
@@ -45,6 +45,7 @@ public class GN_PL_Run2 implements GN_Notable {
 		worldModule.setRq(rq); // TODO never used
 
 		final Eventual<DeducePhase.GeneratedClasses> plgc = pipelineLogic.handle(rq);
+		plgc.register(pipelineLogic);
 
 		plgc.then(lgc -> {
 			final ICodeRegistrar cr             = dcg.getCodeRegistrar();
@@ -56,6 +57,22 @@ public class GN_PL_Run2 implements GN_Notable {
 
 			worldConsumer.accept(worldModule);
 		});
+
+		_finish();
+	}
+
+	private void _finish() {
+		pipelineLogic.checkFinishEventuals();
+	}
+
+	@Override
+	public <P> void register(final Eventual<P> e) {
+
+	}
+
+	@Override
+	public void checkFinishEventuals() {
+
 	}
 
 	public record GenerateFunctionsRequest(IClassGenerator classGenerator,

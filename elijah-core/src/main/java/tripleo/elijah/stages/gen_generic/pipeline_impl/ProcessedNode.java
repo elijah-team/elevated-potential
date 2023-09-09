@@ -2,7 +2,6 @@ package tripleo.elijah.stages.gen_generic.pipeline_impl;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.OS_Module;
-
 import tripleo.elijah.stages.gen_generic.GenerateFiles;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 

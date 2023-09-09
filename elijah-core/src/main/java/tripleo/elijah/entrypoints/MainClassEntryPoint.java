@@ -11,7 +11,6 @@ package tripleo.elijah.entrypoints;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
