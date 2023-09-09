@@ -1,9 +1,11 @@
 package tripleo.elijah.test_help;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang.i.IdentExpression;
+import tripleo.elijah.lang.i.OS_Type;
+import tripleo.elijah.lang.i.RegularTypeName;
+import tripleo.elijah.lang.impl.VariableSequenceImpl;
+import tripleo.elijah.lang.impl.VariableStatementImpl;
 import tripleo.elijah.lang.types.OS_UserType;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.gen_fn.TypeTableEntry;

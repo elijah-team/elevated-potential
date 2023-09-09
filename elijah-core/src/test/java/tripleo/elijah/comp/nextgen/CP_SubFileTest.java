@@ -1,8 +1,8 @@
 package tripleo.elijah.comp.nextgen;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.StdErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -14,7 +14,7 @@ public class CP_SubFileTest {
 
 	private CP_OutputPath op;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		final @NotNull CompilationImpl cc = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
 		op = new CP_OutputPath(cc);

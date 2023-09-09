@@ -9,8 +9,8 @@
 package tripleo.elijah.lang;
 
 import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.PipelineLogic;
 import tripleo.elijah.comp.StdErrSink;
@@ -28,7 +28,7 @@ import static tripleo.elijah.util.Helpers.List_of;
 
 public class TypeOfTypeNameTest {
 
-	@Ignore
+	@Disabled
 	@Test
 	public void typeOfSimpleQualident() throws ResolveError {
 		//
@@ -83,7 +83,7 @@ public class TypeOfTypeNameTest {
 		Assert.assertEquals(typeNameString, tn.toString());
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void typeOfComplexQualident() throws ResolveError {
 		//
@@ -137,7 +137,7 @@ public class TypeOfTypeNameTest {
 		Assert.assertEquals(typeNameString, tn.toString());
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void typeOfComplexQualident3() throws ResolveError {
 		//
@@ -206,8 +206,8 @@ public class TypeOfTypeNameTest {
 		Assert.assertEquals(typeNameString, tn.toString());
 	}
 
-	@Ignore
-	@Test
+	@Disabled
+	@org.junit.jupiter.api.Test
 	public void typeOfComplexQualident2() throws ResolveError {
 		//
 		// CREATE MOCK

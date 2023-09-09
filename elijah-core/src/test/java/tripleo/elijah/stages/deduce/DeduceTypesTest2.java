@@ -11,8 +11,8 @@ package tripleo.elijah.stages.deduce;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.CompilationEnclosure;
 import tripleo.elijah.contexts.FunctionContext;
@@ -28,7 +28,7 @@ import java.util.Objects;
 
 import static tripleo.elijah.util.Helpers.List_of;
 
-@Ignore
+@Disabled
 public class DeduceTypesTest2 {
 
 	@Test
