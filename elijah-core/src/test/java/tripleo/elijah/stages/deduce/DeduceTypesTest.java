@@ -10,9 +10,9 @@ package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.contexts.FunctionContext;
 import tripleo.elijah.contexts.ModuleContext;
@@ -40,12 +40,12 @@ import static tripleo.elijah.util.Helpers.List_of;
 /**
  * Useless tests. We really want to know if a TypeName will resolve to the same types
  */
-@Ignore
+@Disabled
 public class DeduceTypesTest {
 
 	private GenType x;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		final Boilerplate boilerplate = new Boilerplate();
 		boilerplate.get();
@@ -114,7 +114,7 @@ public class DeduceTypesTest {
 	 * TODO This test fails beacause we are comparing a BUILT_IN vs a USER OS_Type.
 	 *   It fails because Integer is an interface and not a BUILT_IN
 	 */
-	@Test(expected = ResolveError.class)
+	@Test//(expected = ResolveError.class)
 	public void testDeduceIdentExpression1() {
 		final BuiltInTypes bi_integer = new OS_BuiltinType(BuiltInTypes.SystemInteger).getBType();
 		final BuiltInTypes inferred_t = x.getResolved().getBType();

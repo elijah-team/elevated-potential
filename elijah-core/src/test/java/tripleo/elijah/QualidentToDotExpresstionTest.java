@@ -1,10 +1,10 @@
 package tripleo.elijah;
 
 import org.junit.Assert;
-import org.junit.Test;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.lang.impl.*;
+import org.junit.jupiter.api.Test;
+import tripleo.elijah.lang.i.IExpression;
+import tripleo.elijah.lang.i.Qualident;
+import tripleo.elijah.lang.impl.QualidentImpl;
 import tripleo.elijah.util.Helpers;
 
 public class QualidentToDotExpresstionTest {

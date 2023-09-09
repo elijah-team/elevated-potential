@@ -9,9 +9,9 @@
 
 package tripleo.elijah.stages.generate;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.Compilation;
 
 public class ElSystemTest {
@@ -19,7 +19,7 @@ public class ElSystemTest {
 	ElSystem    sys;
 	Compilation c;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		//final StdErrSink eee = new StdErrSink();
 		//c = new Compilation(eee, new IO());
@@ -32,7 +32,7 @@ public class ElSystemTest {
 		//c.feedCmdLine(Helpers.List_of(f));
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void generateOutputs() {
 		OutputStrategy os = new OutputStrategy();

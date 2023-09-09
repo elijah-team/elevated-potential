@@ -8,7 +8,7 @@
  */
 package tripleo.elijah;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.StdErrSink;
@@ -28,7 +28,7 @@ public class Feb2021 {
 		c.feedCmdLine(List_of("test/feb2021/property/"));
 	}
 
-	@Test
+	@org.junit.jupiter.api.Test
 	public void testProperty2() throws Exception {
 		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
 
@@ -37,7 +37,7 @@ public class Feb2021 {
 		//Assert.assertEquals(100, c.errorCount());
 	}
 
-	@Test
+	@org.junit.jupiter.api.Test
 	public void testProperty3() throws Exception {
 		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
 
@@ -56,7 +56,7 @@ public class Feb2021 {
 	}
 
 	//	@Ignore
-	@Test
+	@org.junit.jupiter.api.Test
 	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	public void testHier() throws Exception {
 		Compilation c = new CompilationImpl(new StdErrSink(), new IO());

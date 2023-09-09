@@ -9,8 +9,8 @@
  */
 package tripleo.elijah.slir;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.OS_Package;
@@ -84,7 +84,7 @@ public class TestBasicSlir {
 //		Assert.assertEquals(5, c.errorCount()); // TODO Error count obviously should be 0
 //	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public final void testBasic_fact1() throws IOException {
 		String s0 = "test/basic/fact1";

@@ -1,8 +1,6 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.junit.Test;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.stages.gen_fn.EvaFunction;
+import org.junit.jupiter.api.Test;
 
 public class GenerateCTest {
 

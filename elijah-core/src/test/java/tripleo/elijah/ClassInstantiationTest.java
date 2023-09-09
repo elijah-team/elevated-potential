@@ -8,7 +8,7 @@
  */
 package tripleo.elijah;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.StdErrSink;
@@ -31,7 +31,7 @@ public class ClassInstantiationTest {
 		System.err.println("Errorcount is " + c.errorCount());
 	}
 
-	@Test
+	@org.junit.jupiter.api.Test
 	public void classInstantiation2() throws Exception {
 		String      f = "test/basic1/class_instantiation2/";
 		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
@@ -41,7 +41,7 @@ public class ClassInstantiationTest {
 		System.err.println("Errorcount is " + c.errorCount());
 	}
 
-	@Test
+	@org.junit.jupiter.api.Test
 	public void classInstantiation3() throws Exception {
 		String      f = "test/basic1/class_instantiation3/";
 		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
@@ -51,7 +51,7 @@ public class ClassInstantiationTest {
 		System.err.println("Errorcount is " + c.errorCount());
 	}
 
-	@Test
+	@org.junit.jupiter.api.Test
 	public void classInstantiation4() throws Exception {
 		String      f = "test/basic1/class_instantiation4/";
 		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
