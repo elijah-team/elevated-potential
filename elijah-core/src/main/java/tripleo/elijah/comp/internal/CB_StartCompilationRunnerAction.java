@@ -14,16 +14,16 @@ import static tripleo.elijah.util.Helpers.List_of;
 
 class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	private final          CompilationRunner    compilationRunner;
-	private final          CompilerInstructions ci;
+	private final          CompilerInstructions rootCI;
 	private final @NotNull IPipelineAccess      pa;
 
 	@Contract(pure = true)
 	public CB_StartCompilationRunnerAction(final CompilationRunner aCompilationRunner,
 										   final @NotNull IPipelineAccess aPa,
-										   final CompilerInstructions aCi) {
+										   final CompilerInstructions aRootCI) {
 		compilationRunner = aCompilationRunner;
 		pa                = aPa;
-		ci                = aCi;
+		rootCI = aRootCI;
 
 		o = pa.getCompilationEnclosure().getCB_Output(); //new CB_Output();
 	}
@@ -53,7 +53,10 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 		case SUCCESS -> {
 			final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
 
-			compilationRunnerStart.start(ci, compilationRunner.getCrState(), o);
+			final CR_State crState = compilationRunner.getCrState();
+			if (!crState.started) {
+				compilationRunnerStart.start(rootCI, crState, o);
+			}
 
 			monitor.reportSuccess(this, o);
 		}

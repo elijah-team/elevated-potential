@@ -104,9 +104,11 @@ class DE3_ActivePTE implements DE3_Active {
 				// FIXME as written, this will do nothing
 				// TODO also highlt suspicious that this is never called
 
+				final EIT_ModuleList moduleList = new EIT_ModuleList(/*List_of()*/);
+
 				var env = new GN_GenerateNodesIntoSinkEnv(List_of(), // !!
 														  new DefaultGenerateResultSink(pa),
-														  new EIT_ModuleList(/*List_of()*/), // !!
+														  moduleList, // !!
 														  ElLog.Verbosity.VERBOSE,
 														  new Old_GenerateResult(),
 														  pa,

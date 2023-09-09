@@ -8,6 +8,7 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.PipelineLogic;
@@ -17,6 +18,7 @@ import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.work.WorkManager;
 import tripleo.elijah.world.i.WorldModule;
 
@@ -30,14 +32,15 @@ public class GeneratePhase implements ReactiveDimension, CompilationEnclosure.Mo
 	private @NotNull
 	final PipelineLogic   pipelineLogic;
 	private @NotNull
-	final ElLog.Verbosity verbosity;
-	private @NotNull
 	final IPipelineAccess pa;
 
-	private final @NotNull Map<OS_Module, GenerateFunctions> generateFunctions = new HashMap<OS_Module, GenerateFunctions>();
+	@Getter
+	private final @NotNull ElLog.Verbosity                   verbosity;
+	@Getter
 	private final @NotNull WorkManager                       wm                = new WorkManager();
-
-	private @Nullable ICodeRegistrar codeRegistrar;
+	private final @NotNull Map<OS_Module, GenerateFunctions> generateFunctions = new HashMap<OS_Module, GenerateFunctions>();
+	@Getter
+	private @Nullable      ICodeRegistrar                    codeRegistrar;
 
 	public GeneratePhase(ElLog.Verbosity aVerbosity, final @NotNull IPipelineAccess aPa, PipelineLogic aPipelineLogic) {
 		verbosity     = aVerbosity;
@@ -45,8 +48,21 @@ public class GeneratePhase implements ReactiveDimension, CompilationEnclosure.Mo
 		pa = aPa;
 
 		pa.getCompilationEnclosure().addReactiveDimension(this);
+		//pa.getCompilationEnclosure().addModuleListener(this);
+	}
 
-		pa.getCompilationEnclosure().addModuleListener(this);
+	public void setCodeRegistrar(ICodeRegistrar aCodeRegistrar) {
+		codeRegistrar = aCodeRegistrar;
+	}
+
+	@Override
+	public void listen(final @NotNull WorldModule module) {
+		final GenerateFunctions x = getGenerateFunctions(module.module());
+	}
+
+	@Override
+	public void close() {
+		NotImplementedException.raise_stop();
 	}
 
 	@NotNull
@@ -59,28 +75,6 @@ public class GeneratePhase implements ReactiveDimension, CompilationEnclosure.Mo
 			generateFunctions.put(mod, Result);
 		}
 		return Result;
-	}
-
-	public ElLog.Verbosity getVerbosity() {
-		return verbosity;
-	}
-
-	public ICodeRegistrar getCodeRegistrar() {
-		return codeRegistrar;
-	}
-
-	public void setCodeRegistrar(ICodeRegistrar aCodeRegistrar) {
-		codeRegistrar = aCodeRegistrar;
-	}
-
-	@SuppressWarnings("LombokGetterMayBeUsed")
-	public WorkManager getWm() {
-		return wm;
-	}
-
-	@Override
-	public void listen(final @NotNull WorldModule module) {
-		final GenerateFunctions x = getGenerateFunctions(module.module());
 	}
 }
 

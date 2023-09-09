@@ -84,12 +84,6 @@ public class OStageProcess implements RuntimeProcess {
 		//env.re("(add-pipeline 'WriteMesonPipeline)");
 		env.re("(add-pipeline 'WriteMakefilePipeline)");
 		env.re("(add-pipeline 'WriteOutputTreePipeline)"); // TODO add error checking
-
-		ab.subscribePipelineLogic(pl -> {
-			final Compilation comp = ca.getCompilation();
-
-			comp.eachModule(pl::addModule);
-		});
 	}
 
 	@Override
@@ -105,4 +99,3 @@ public class OStageProcess implements RuntimeProcess {
 		}
 	}
 }
-

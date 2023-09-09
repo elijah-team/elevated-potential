@@ -11,6 +11,7 @@ import tripleo.elijah.stateful.StateRegistrationToken;
 import tripleo.elijah.stateful._RegistrationTarget;
 import tripleo.elijah.util.Operation;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class CompilationRunner extends _RegistrationTarget {
@@ -25,7 +26,8 @@ public class CompilationRunner extends _RegistrationTarget {
 	@Getter
 	private final          CIS             cis;
 	private                CB_StartCompilationRunnerAction startAction;
-	private                CR_FindCIs cr_find_cis;
+	private                CR_FindCIs                      cr_find_cis;
+	private                CR_AlmostComplete               _CR_AlmostComplete;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
 		_compilation = aca.getCompilation();
@@ -94,7 +96,7 @@ public class CompilationRunner extends _RegistrationTarget {
 
 	public CR_FindCIs cr_find_cis() {
 		if (this.cr_find_cis == null) {
-			var beginning = _accessCompilation().beginning(this);
+			var beginning = _accessCompilation().con().createBeginning(this);
 			this.cr_find_cis = new CR_FindCIs(beginning);
 		}
 		return this.cr_find_cis;
@@ -104,16 +106,35 @@ public class CompilationRunner extends _RegistrationTarget {
 		return _compilation;
 	}
 
-	public void start(final CompilerInstructions ci, final @NotNull IPipelineAccess pa) {
+	public void start(final CompilerInstructions aRootCI, final @NotNull IPipelineAccess pa) {
 		// FIXME only run once 06/16
 		if (startAction == null) {
-			startAction = new CB_StartCompilationRunnerAction(this, pa, ci);
+			startAction = new CB_StartCompilationRunnerAction(this, pa, aRootCI);
 			// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
 			cb.add(startAction.cb_Process());
 		}
 
-		// FIXME 09/09 this is wrong. (too complicated)
-		((DefaultCompilationBus) cb).runProcesses();
+		startAction.execute(new CB_Monitor() {
+			@Override
+			public void reportFailure(final CB_Action aCBAction, final CB_Output aCB_output) {
+				System.err.println(aCB_output.get());
+			}
+
+			@Override
+			public void reportSuccess(final CB_Action aCBAction, final CB_Output aCB_output) {
+				final List<CB_OutputString> x = aCB_output.get();
+				for (CB_OutputString xx : x) {
+					System.err.println("127 " + xx.getText());
+				}
+			}
+		});
+	}
+
+	public CR_AlmostComplete cr_AlmostComplete() {
+		if (this._CR_AlmostComplete == null) {
+			this._CR_AlmostComplete = new CR_AlmostComplete();
+		}
+		return _CR_AlmostComplete;
 	}
 
 	public enum ST {

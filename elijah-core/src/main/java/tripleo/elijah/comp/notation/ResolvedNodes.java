@@ -18,15 +18,10 @@ class ResolvedNodes {
 		cr = aCr;
 	}
 
-	public void init(final DeducePhase.GeneratedClasses c) {
-		__processNodes(c, resolved_nodes, cr);
-	}
+	public void init(final DeducePhase.@NotNull GeneratedClasses c) {
+		System.err.println("2222 " + c);
 
-	@SuppressWarnings("TypeMayBeWeakened")
-	private void __processNodes(final DeducePhase.@NotNull GeneratedClasses lgc,
-								final @NotNull List<EvaNode> resolved_nodes,
-								final @NotNull ICodeRegistrar cr) {
-		for (final EvaNode evaNode : lgc) {
+		for (final EvaNode evaNode : c) {
 			if (!(evaNode instanceof final @NotNull GNCoded coded)) {
 				throw new IllegalStateException("node must be coded");
 			}

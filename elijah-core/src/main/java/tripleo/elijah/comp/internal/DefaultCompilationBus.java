@@ -1,17 +1,20 @@
 package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.DebugFlags;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.util.Stupidity;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import static tripleo.elijah.util.Helpers.List_of;
 
 public class DefaultCompilationBus implements ICompilationBus {
-	public final @NotNull  CompilerDriver   cd;
+	@lombok.Getter
+	private final @NotNull CompilerDriver   compilerDriver;
 	private final @NotNull Compilation      c;
 	private final @NotNull List<CB_Process> _processes           = new ArrayList<>();
 	private final @NotNull IProgressSink    _defaultProgressSink = new IProgressSink() {
@@ -20,13 +23,13 @@ public class DefaultCompilationBus implements ICompilationBus {
 			Stupidity.println_err_2(aProgressSinkComponent.printErr(aCode, aType, aParams));
 		}
 	};
-	public                 CB_FindCIs              cb_findCIs;
+	public                 CB_FindCIs       cb_findCIs;
 
 	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
-		c  = ace.getCompilationAccess().getCompilation();
-		cd = new CompilerDriver(this);
+		c              = ace.getCompilationAccess().getCompilation();
+		compilerDriver = new CompilerDriver(this);
 
-		ace.setCompilerDriver(cd);
+		ace.setCompilerDriver(compilerDriver);
 	}
 
 	@Override
@@ -35,18 +38,13 @@ public class DefaultCompilationBus implements ICompilationBus {
 	}
 
 	@Override
-	public IProgressSink defaultProgressSink() {
-		return _defaultProgressSink;
-	}
-
-	@Override
-	public CompilerDriver getCompilerDriver() {
-		return cd;
-	}
-
-	@Override
 	public void add(final @NotNull CB_Process aProcess) {
 		_processes.add(aProcess);
+	}
+
+	@Override
+	public IProgressSink defaultProgressSink() {
+		return _defaultProgressSink;
 	}
 
 	@Override
@@ -79,23 +77,66 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 			@Override
 			public void reportSuccess(final @NotNull CB_Action aCBAction, final @NotNull CB_Output aCB_output) {
-				System.err.println("SUCCESS " + aCBAction.name() + " " + aCB_output.get());
+				final String header = "SUCCESS " + aCBAction.name();
+				println(header);
+				for (int i = 0; i < header.length() + 2; i++) {
+					print("=");
+				}
+				println();
+
+				final List<CB_OutputString> outputStrings = aCB_output.get();
+				for (CB_OutputString outputString : outputStrings) {
+					println(" " + outputString.getText());
+				}
+				println();
+			}
+
+			void println(String s) {
+				System.err.println(s);
+			}
+
+			void print(String s) {
+				System.err.print(s);
+			}
+
+			void println() {
+				System.err.println();
 			}
 		};
 
 		while (size < _processes.size()) {
-			for (int i = size; i < _processes.size(); i++) {
+			int i;
+			for (i = size; i < _processes.size(); i++) {
 				final CB_Process process = _processes.get(i);
 
-				process.steps().stream().forEach(aCBAction -> aCBAction.execute(monitor));
+				if (DebugFlags._DefaultCompilationBus) {
+					final String name;
+
+					if (process instanceof SingleActionProcess sap) {
+						name = sap.a.name();
+					} else {
+						name = process.getClass().getName();
+					}
+
+					System.err.println(MessageFormat.format("DefaultCompilationBus i={0} size={1} {2}", i, size, name));
+				}
+
+				for (CB_Action action : process.steps()) {
+					action.execute(monitor);
+				}
 			}
 
+			int old_size = size;
 			size = _processes.size();
+			if (DebugFlags._DefaultCompilationBus) {
+				System.err.println(MessageFormat.format("DefaultCompilationBus reset size old_size={0} new_size={1} last={2}", old_size, size, i));
+			}
 		}
 		assert _processes.size() == size;
 	}
 
 	static class SingleActionProcess implements CB_Process {
+		// README tape
 		private final CB_Action a;
 
 		public SingleActionProcess(final CB_Action aAction) {

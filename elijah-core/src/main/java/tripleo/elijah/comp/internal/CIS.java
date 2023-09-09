@@ -15,9 +15,13 @@ public class CIS implements Observer<CompilerInstructions> {
 	public        CompilerInstructionsObserver  _cio;
 	private final Subject<CompilerInstructions> compilerInstructionsSubject = ReplaySubject.<CompilerInstructions>create();
 	public        IProgressSink                 ps;
+	//private boolean started;
 
 	public void almostComplete() {
+		//if (!started) {
+		//	started = true;
 		_cio.almostComplete();
+		//}
 	}
 
 	@Override

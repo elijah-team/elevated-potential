@@ -80,7 +80,7 @@ public class Boilerplate {
 
 			var generateNodesIntoSink = new GN_GenerateNodesIntoSink(generateNodesIntoSinkEnv);
 
-			var worldModule = new DefaultWorldModule(mod);
+			var worldModule = new DefaultWorldModule(mod, ce);
 			var workManager = new WorkManager();
 			var workList    = new WorkList();
 

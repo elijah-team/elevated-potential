@@ -9,10 +9,10 @@
 package tripleo.elijah.comp;
 
 import io.reactivex.rxjava3.annotations.NonNull;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.Eventual;
 import tripleo.elijah.EventualRegister;
-import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.comp.i.CompilationEnclosure;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.IPipelineAccess;
@@ -31,10 +31,7 @@ import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -43,12 +40,14 @@ import java.util.function.Consumer;
 public class PipelineLogic implements @NotNull EventualRegister {
 	public final @NotNull  DeducePhase                                            dp;
 	public final @NotNull  GeneratePhase                                          generatePhase;
-	private final @NonNull List<ElLog>                                            elLogs = new LinkedList<>();
-	private final @NonNull EIT_ModuleList                                         mods   = new EIT_ModuleList();
-	private final @NonNull ModuleCompletableProcess                               mcp    = new ModuleCompletableProcess();
-	private final @NonNull Map<OS_Module, Eventual<DeducePhase.GeneratedClasses>> modMap = new HashMap<>();
+	private final @NonNull List<ElLog>                                            elLogs     = new LinkedList<>();
+	private final @NonNull EIT_ModuleList                                         mods       = new EIT_ModuleList();
+	private final @NonNull ModuleCompletableProcess                               mcp        = new ModuleCompletableProcess();
+	private final @NonNull Map<OS_Module, Eventual<DeducePhase.GeneratedClasses>> modMap     = new HashMap<>();
 	private final @NonNull IPipelineAccess                                        pa;
+	@Getter
 	private final @NonNull ElLog.Verbosity                                        verbosity;
+	private                List<Eventual<?>>                                      _eventuals = new ArrayList<>();
 
 
 	public PipelineLogic(final IPipelineAccess aPa, final @NotNull ICompilationAccess ca) {
@@ -68,11 +67,26 @@ public class PipelineLogic implements @NotNull EventualRegister {
 				final OS_Module         mod = module.module();
 				final GenerateFunctions gfm = getGenerateFunctions(mod);
 
-				gfm.generateFromEntryPoints(module.rq());
+				final GN_PL_Run2.GenerateFunctionsRequest rq = module.rq();
+				if (rq != null) {
+					gfm.generateFromEntryPoints(rq);
 
-				final DeducePhase.@NotNull GeneratedClasses lgc = dp.generatedClasses;
+					// ---
 
-				modMap.get(mod).resolve(lgc);
+					final Eventual<DeducePhase.GeneratedClasses> eventual = modMap.get(mod);
+
+					if (eventual != null) {
+						final DeducePhase.@NotNull GeneratedClasses lgc = dp.generatedClasses;
+						eventual.resolve(lgc);
+					} else {
+						NotImplementedException.raise_stop();
+					}
+				}
+			}
+
+			@Override
+			public void close() {
+				NotImplementedException.raise_stop();
 			}
 		});
 	}
@@ -83,14 +97,14 @@ public class PipelineLogic implements @NotNull EventualRegister {
 	}
 
 	public Eventual<DeducePhase.GeneratedClasses> handle(final GN_PL_Run2.@NotNull GenerateFunctionsRequest rq) {
-		final OS_Module          mod         = rq.mod();
-		final DefaultWorldModule worldModule = new DefaultWorldModule(mod, rq);
+		final OS_Module          mod = rq.mod();
+		final DefaultWorldModule wm  = rq.worldModule();
+
+		assert wm != null;
 
 		final Eventual<DeducePhase.GeneratedClasses> p = new Eventual<>();
 		p.register(this);
 		modMap.put(mod, p);
-
-		pa.getCompilationEnclosure().addModule(worldModule);
 
 		return p;
 	}
@@ -101,10 +115,6 @@ public class PipelineLogic implements @NotNull EventualRegister {
 
 	public void addModule(WorldModule m) {
 		mods.add(m);
-	}
-
-	public ElLog.Verbosity getVerbosity() {
-		return verbosity;
 	}
 
 	public @NotNull EIT_ModuleList mods() {
@@ -121,12 +131,22 @@ public class PipelineLogic implements @NotNull EventualRegister {
 
 	@Override
 	public <P> void register(final Eventual<P> e) {
-		NotImplementedException.raise_stop();
+		_eventuals.add(e);
 	}
 
 	@Override
-	public void check() {
-		NotImplementedException.raise_stop();
+	public void checkFinishEventuals() {
+		int y = 0;
+		for (Eventual<?> eventual : _eventuals) {
+			if (eventual.isResolved()) {
+			} else {
+				System.err.println("[PipelineLogic::checkEventual] failed for " + eventual.description());
+			}
+		}
+	}
+
+	public @NonNull IPipelineAccess _pa() {
+		return pa;
 	}
 
 	public final class ModuleCompletableProcess implements CompletableProcess<WorldModule> {

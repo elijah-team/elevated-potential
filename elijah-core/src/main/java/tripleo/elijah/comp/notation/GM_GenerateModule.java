@@ -2,7 +2,6 @@ package tripleo.elijah.comp.notation;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.OS_Module;
-
 import tripleo.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah.stages.gen_fn.EvaNode;
 import tripleo.elijah.stages.gen_generic.GenerateFiles;

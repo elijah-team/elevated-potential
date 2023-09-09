@@ -10,7 +10,7 @@ import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.world.i.LivingNamespace;
 
-import static tripleo.elijah.ReactiveFlag.MANUAL_DISABLED;
+import static tripleo.elijah.DebugFlags.MANUAL_DISABLED;
 
 public class WhyNotGarish_Namespace implements WhyNotGarish_Item {
 	private final EvaNamespace                             en;

@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;
+import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.CompilationEnclosure;
 import tripleo.elijah.comp.i.IPipelineAccess;
 import tripleo.elijah.lang.i.OS_Module;
@@ -13,11 +14,11 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.world.i.WorldModule;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public record GN_GenerateNodesIntoSinkEnv(List<ProcessedNode> lgc,
@@ -59,16 +60,18 @@ public record GN_GenerateNodesIntoSinkEnv(List<ProcessedNode> lgc,
 		
 		final String lang = getLang(mod);
 		if (lang == null) {
-			throw new NotImplementedException();
+			System.err.println("lang==null for " + mod.getFileName());
+			//throw new NotImplementedException();
 		}
 		
 		if (Objects.equals(lang, "c")) {
 			fileGen = fgs.get(); // FIXME "deep" implementation detail
 		} else {
-			fileGen = null;
+			//fileGen = null;
+			fileGen = fgs.get();
 		}
 
-		return OutputFileFactory.create(lang, params, fileGen);
+		return OutputFileFactory.create(Optional.ofNullable(lang).orElse(Compilation.CompilationAlways.defaultPrelude()), params, fileGen);
 	}
 
 	@Contract("_, _ -> new")

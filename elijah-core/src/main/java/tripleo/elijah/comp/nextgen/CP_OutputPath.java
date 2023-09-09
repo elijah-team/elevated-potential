@@ -6,6 +6,7 @@ import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.nextgen.ER_Node;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.util.Operation;
@@ -141,6 +142,8 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	public @NotNull Operation<Boolean> renderNode(final @NotNull ER_Node node) {
 		final Path         path = node.getPath();
 		final EG_Statement seq  = node.getStatement();
+
+		c.getCompilationEnclosure().logProgress(CompProgress.__CP_OutputPath_renderNode, node);
 
 		System.out.println("401b Writing path: " + path.toFile());
 		path.getParent().toFile().mkdirs();

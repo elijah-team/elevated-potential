@@ -8,7 +8,8 @@ import tripleo.elijah.comp.nextgen.CP_Paths;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.inputtree.EIT_Input;
 import tripleo.elijah.nextgen.inputtree.EIT_ModuleInput;
-import tripleo.elijah.nextgen.output.*;
+import tripleo.elijah.nextgen.output.NG_OutputItem;
+import tripleo.elijah.nextgen.output.NG_OutputStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_Naming;
 import tripleo.elijah.nextgen.outputstatement.EG_SequenceStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
@@ -16,7 +17,9 @@ import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
 import tripleo.elijah.stages.gen_c.GenerateC;
-import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
+import tripleo.elijah.stages.gen_fn.EvaClass;
+import tripleo.elijah.stages.gen_fn.EvaNamespace;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.generate.OutputStrategy;
 import tripleo.elijah.stages.generate.OutputStrategyC;
@@ -37,7 +40,7 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 		GenerateResult result = st.getGr();
 
 		final SPrintStream sps = new SPrintStream();
-		//DebugBuffersLogic.debug_buffers_logic(result, sps);
+		DebugBuffersLogic.debug_buffers_logic(result, sps);
 
 		final Default_WPIS_GenerateOutputs_Behavior_PrintDBLString printDBLString = new Default_WPIS_GenerateOutputs_Behavior_PrintDBLString();
 		printDBLString.print(sps.getString());

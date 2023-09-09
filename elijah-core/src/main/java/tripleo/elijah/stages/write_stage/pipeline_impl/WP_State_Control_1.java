@@ -2,6 +2,9 @@ package tripleo.elijah.stages.write_stage.pipeline_impl;
 
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Purpose: to hold an exception for each {@link WP_Indiviual_Step}
+ */
 public class WP_State_Control_1 implements WP_State_Control {
 	private @Nullable Exception e;
 
@@ -15,7 +18,7 @@ public class WP_State_Control_1 implements WP_State_Control {
 		e = ee;
 	}
 
-	// TODO DiagnosticException
+	// TODO DiagnosticException == ExceptionDiagnostic
 	@Override
 	public Exception getException() {
 		return e;

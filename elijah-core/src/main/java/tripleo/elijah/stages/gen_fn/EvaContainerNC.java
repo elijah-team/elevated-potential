@@ -20,8 +20,10 @@ import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.lang.i.VariableStatement;
 import tripleo.elijah.stages.deduce.FunctionMapDeferred;
 import tripleo.elijah.stages.deduce.RegisterClassInvocation_env;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
+import tripleo.elijah.stages.gen_generic.CodeGenerator;
+import tripleo.elijah.stages.gen_generic.Dependency;
+import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
+import tripleo.elijah.stages.gen_generic.IDependencyReferent;
 import tripleo.elijah.util.Maybe;
 
 import java.io.PrintStream;
