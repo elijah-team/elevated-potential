@@ -14,7 +14,7 @@ import tripleo.elijah.stateful.StateRegistrationToken;
 import tripleo.elijah.stateful.annotation.processor.StatefulProperty;
 
 @StatefulProperty
-class ExitGetType implements State {
+public class ExitGetType implements State {
 	private StateRegistrationToken identity;
 
 	@Override
