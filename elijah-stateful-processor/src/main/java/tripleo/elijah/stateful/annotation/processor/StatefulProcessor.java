@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class StatefulProcessor extends AbstractProcessor {
 
 	@Override
-	public boolean process(@NotNull Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		for (TypeElement annotation : annotations) {
 
 			Set<? extends Element> annotatedElements = roundEnv.getElementsAnnotatedWith(annotation);
@@ -94,7 +94,7 @@ public class StatefulProcessor extends AbstractProcessor {
 		out.println("import tripleo.elijah.stateful.*;\n");
 		out.println();
 
-		out.print("/*public*/ enum ");
+		out.print("public enum ");
 		out.print(builderSimpleClassName);
 		out.println(" {");
 		out.println("  ;");
