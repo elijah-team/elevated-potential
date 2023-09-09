@@ -15,10 +15,8 @@
 package tripleo.elijah.lang.impl;
 
 import antlr.Token;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import org.eclipse.jdt.annotation.Nullable;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.contexts.ModuleContext;
@@ -26,7 +24,9 @@ import tripleo.elijah.entrypoints.EntryPoint;
 import tripleo.elijah.entrypoints.MainClassEntryPoint;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.stages.deduce.fluffy.impl.FluffyModuleImpl;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.Stupidity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,6 +45,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	private         String               _fileName;
 	private         LibraryStatementPart lsp;
 	private         Compilation          parent;
+	private         FluffyModuleImpl     _fluffy;
 
 	@Override
 	public void add(final OS_Element anElement) {
@@ -58,18 +59,9 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 
 	@Override // OS_Container
 	public @NotNull List<OS_Element2> items() {
-		final Collection<ModuleItem> c = Collections2.filter(getItems(), new Predicate<ModuleItem>() {
-			@Override
-			public boolean apply(@org.checkerframework.checker.nullness.qual.Nullable final ModuleItem input) {
-				final boolean b = input instanceof OS_Element2;
-				return b;
-			}
-		});
-		final ArrayList<OS_Element2> a = new ArrayList<OS_Element2>();
-		for (final ModuleItem moduleItem : c) {
-			a.add((OS_Element2) moduleItem);
-		}
-		return a;
+		final var c = getItems().stream().filter(input -> input instanceof OS_Element2);
+
+		return c.collect(Collectors.toList());
 	}
 
 	@Override
@@ -141,13 +133,14 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 
 	@Override
 	public void postConstruct() {
+		var fluffy = getFluffy();
+
 		find_multiple_items();
 		//
 		// FIND ALL ENTRY POINTS (should only be one per module)
 		//
 		for (final ModuleItem item : items) {
-			if (item instanceof ClassStatement) {
-				ClassStatement classStatement = (ClassStatement) item;
+			if (item instanceof final ClassStatement classStatement) {
 				if (MainClassEntryPoint.isMainClass(classStatement)) {
 					List<OS_Element2> x = classStatement.findFunction("main");
 
@@ -164,12 +157,19 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 					}
 					assert entryPoints.size() == eps || entryPoints.size() == eps + 1; // TODO this will fail one day
 
-					tripleo.elijah.util.Stupidity.println_out_2("243 " + entryPoints + " " + _fileName);
+					Stupidity.println_out_2("243 " + entryPoints + " " + _fileName);
 //					break; // allow for "extend" class
 				}
 			}
 
 		}
+	}
+
+	private FluffyModuleImpl getFluffy() {
+		if (_fluffy == null) {
+			_fluffy = new FluffyModuleImpl(this, getCompilation());
+		}
+		return _fluffy;
 	}
 
 	private void find_multiple_items() {
