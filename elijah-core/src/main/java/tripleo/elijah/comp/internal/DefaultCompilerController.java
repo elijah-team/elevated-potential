@@ -2,23 +2,21 @@ package tripleo.elijah.comp.internal;
 
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.Stupidity;
 
 import java.util.List;
 
 public class DefaultCompilerController implements CompilerController {
 	List<String> args;
-	String[]     args2;
 	private Compilation c;
-	CompilationBus      cb;
+	ICompilationBus cb;
 	List<CompilerInput> inputs;
 
 	@Override
 	public void _setInputs(final Compilation aCompilation, final List<CompilerInput> aInputs) {
 		c      = aCompilation;
-		inputs = aInputs;
-	}
-
-	public void _setInputs(final List<CompilerInput> aInputs) {
 		inputs = aInputs;
 	}
 
@@ -28,34 +26,33 @@ public class DefaultCompilerController implements CompilerController {
 
 	@Override
 	public void printUsage() {
-		tripleo.elijah.util.Stupidity.println_out_2("Usage: eljc [--showtree] [-sE|O] <directory or .ez file names>");
+		Stupidity.println_out_2("Usage: eljc [--showtree] [-sE|O] <directory or .ez file names>");
 	}
 
 	@Override
-	public void processOptions() {
+	public Operation<Ok> processOptions() {
 		final OptionsProcessor             op                   = new ApacheOptionsProcessor();
 		final CompilerInstructionsObserver cio                  = new CompilerInstructionsObserver(c);
-		final DefaultCompilationAccess     ca                   = new DefaultCompilationAccess(c);
+
 		final CompilationEnclosure         compilationEnclosure = c.getCompilationEnclosure();
 
-		compilationEnclosure.setCompilationAccess(ca);
+		compilationEnclosure.setCompilationAccess(c.con().createCompilationAccess());
+		compilationEnclosure.setCompilationBus(c.con().createCompilationBus());//new CompilationBus(compilationEnclosure));
 
-		cb = new CompilationBus(compilationEnclosure);
-
-		compilationEnclosure.setCompilationBus(cb);
+		cb = c.getCompilationEnclosure().getCompilationBus();
 
 		c._cis()._cio = cio;
 
-		try {
-			args2 = op.process(c, inputs, cb);
-		} catch (final Exception e) {
-			c.getErrSink().exception(e);
-			throw new RuntimeException(e);
-		}
+		return op.process(c, inputs, cb); // TODO 09/08 Make this more complicated
 	}
 
 	@Override
 	public void runner() {
+		runner(new _DefaultCon());
+	}
+
+	@Override
+	public void runner(final Con con) {
 		c.subscribeCI(c._cis()._cio);
 
 		final CompilationEnclosure ce = c.getCompilationEnclosure();
@@ -63,10 +60,8 @@ public class DefaultCompilerController implements CompilerController {
 		final ICompilationAccess compilationAccess = ce.getCompilationAccess();
 		assert compilationAccess != null;
 
-		final CR_State          crState = new CR_State(compilationAccess);
-		final CompilationRunner cr      = new CompilationRunner(compilationAccess, crState);
+		var cr = con.newCompilationRunner(compilationAccess);
 
-		crState.setRunner(cr);
 		ce.setCompilationRunner(cr);
 
 		hook(cr);
@@ -79,8 +74,24 @@ public class DefaultCompilerController implements CompilerController {
 		}
 
 		cb.add(new CB_FindCIs(cr, inputs));
-		cb.add(new CB_FindStdLibAction(ce, crState).process());
+		cb.add(new CB_FindStdLibAction(ce, cr).process());
 
-		cb.runProcesses();
+		((DefaultCompilationBus) cb).runProcesses();
+	}
+
+	public interface Con {
+		CompilationRunner newCompilationRunner(ICompilationAccess aCompilationAccess);
+	}
+
+	public class _DefaultCon implements Con {
+		@Override
+		public CompilationRunner newCompilationRunner(final ICompilationAccess compilationAccess) {
+			final CR_State          crState = new CR_State(compilationAccess);
+			final CompilationRunner cr      = new CompilationRunner(compilationAccess, crState);
+
+			crState.setRunner(cr);
+
+			return cr;
+		}
 	}
 }

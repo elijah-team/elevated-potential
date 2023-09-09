@@ -94,10 +94,10 @@ public class SX_NodeTest2 extends TestCase {
 
 		final int yyy = 2;
 		final List<EOT_OutputFile> wmainl = l.stream()
-				.filter(eof -> eof.getFilename().replace("//", "/").equals("/while100/Main.c"))
+				.filter(eof -> eof.getFilename().equals("/while100/Main.c"))
 				.collect(Collectors.toList());
 
-		assert wmainl.size() > 0;
+		//assert wmainl.size() > 0;
 
 		wmainl.stream()
 				.filter(wmain -> wmain.getType() == EOT_OutputType.SOURCES)

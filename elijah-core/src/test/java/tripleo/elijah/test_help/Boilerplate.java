@@ -48,7 +48,7 @@ public class Boilerplate {
 
 		CR_State crState;
 		crState = new CR_State(aca);
-		cr = new CompilationRunner(aca, crState, () -> new CompilationBus(aca.getCompilation().getCompilationEnclosure()));
+		cr = new CompilationRunner(aca, crState, () -> new DefaultCompilationBus(aca.getCompilation().getCompilationEnclosure()));
 		crState.setRunner(cr);
 
 		comp.getCompilationEnclosure().setCompilationRunner(cr);
