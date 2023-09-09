@@ -1,6 +1,10 @@
 package tripleo.elijah.comp.internal;
 
-import tripleo.elijah.comp.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.ApacheOptionsProcessor;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.CompilerInstructionsObserver;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
@@ -52,7 +56,7 @@ public class DefaultCompilerController implements CompilerController {
 	}
 
 	@Override
-	public void runner(final Con con) {
+	public void runner(final @NotNull Con con) {
 		c.subscribeCI(c._cis()._cio);
 
 		final CompilationEnclosure ce = c.getCompilationEnclosure();

@@ -13,13 +13,18 @@ import tripleo.elijah.lang.impl.OS_PackageImpl;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.gen_fn.EvaClass;
 import tripleo.elijah.stages.gen_fn.EvaNamespace;
+import tripleo.elijah.util.CompletableProcess;
+import tripleo.elijah.util.ObservableCompletableProcess;
 import tripleo.elijah.world.i.*;
 
 import java.util.*;
 
 public class DefaultLivingRepo implements LivingRepo {
+
+	private final @NotNull ObservableCompletableProcess<WorldModule> wmo = new ObservableCompletableProcess<>();
+
 	private final          Map<String, OS_Package>                          _packages   = new HashMap<String, OS_Package>();
-	private final          List<WorldModule>                                _modules    = new ArrayList<>();
+	private final          Set<WorldModule>                                 _modules    = new HashSet<>();
 	private final @NotNull List<LivingNode>                                 repo        = new ArrayList<>();
 	private final @NotNull Multimap<BaseEvaFunction, DefaultLivingFunction> functionMap = ArrayListMultimap.create();
 
@@ -94,7 +99,8 @@ public class DefaultLivingRepo implements LivingRepo {
 
 	@Override
 	public void addModule(final @NotNull OS_Module mod, final @NotNull String aFilename, final @NotNull Compilation aC) {
-		aC.addModule__(mod, aFilename);
+		System.out.println("LivingRepo::addModule >> " + aFilename);
+		//addModule2();
 	}
 
 	@Override
@@ -187,13 +193,28 @@ public class DefaultLivingRepo implements LivingRepo {
 	}
 
 	@Override
-	public List<WorldModule> modules() {
+	public Collection<WorldModule> modules() {
 		return _modules;
 	}
 
 	@Override
 	public void addModule2(final WorldModule aWorldModule) {
 		_modules.add(aWorldModule);
+
+		wmo.onNext(aWorldModule);
+	}
+
+	@Override
+	public void addModuleProcess(CompletableProcess<WorldModule> wmcp) {
+		wmo.subscribe(wmcp);
+	}
+
+	@Override
+	public @Nullable WorldModule getModule(final OS_Module aModule) {
+		return _modules.stream()
+				.filter(module -> module.module() == aModule)
+				.findFirst()
+				.orElse(null);
 	}
 
 	@Override

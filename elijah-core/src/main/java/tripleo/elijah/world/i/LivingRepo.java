@@ -9,10 +9,12 @@ import tripleo.elijah.lang.impl.BaseFunctionDef;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.gen_fn.EvaClass;
 import tripleo.elijah.stages.gen_fn.EvaNamespace;
+import tripleo.elijah.util.CompletableProcess;
 import tripleo.elijah.world.impl.DefaultLivingClass;
 import tripleo.elijah.world.impl.DefaultLivingFunction;
 import tripleo.elijah.world.impl.DefaultLivingNamespace;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface LivingRepo {
@@ -42,9 +44,13 @@ public interface LivingRepo {
 
 	LivingFunction getFunction(BaseEvaFunction aBaseEvaFunction);
 
-	List<WorldModule> modules();
+	Collection<WorldModule> modules();
 
 	void addModule2(WorldModule aWorldModule);
+
+	void addModuleProcess(CompletableProcess<WorldModule> wmcp);
+
+	WorldModule getModule(OS_Module aSuccess);
 
 	enum Add {MAIN_CLASS, MAIN_FUNCTION, NONE}
 

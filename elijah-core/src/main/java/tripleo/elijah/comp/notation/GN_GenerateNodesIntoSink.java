@@ -12,6 +12,7 @@ package tripleo.elijah.comp.notation;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.CompilationEnclosure;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.work.WorkManager;
 import tripleo.elijah.world.i.WorldModule;
 
@@ -41,7 +42,7 @@ public class GN_GenerateNodesIntoSink implements GN_Notable, CompilationEnclosur
 			run_one_mod(mod, wm);
 		});
 
-		wm.drain(); // TODO here??
+		wm.drain(); // README drain the WorkNanager that we created
 
 		env.pa().getAccessBus().resolveGenerateResult(env.gr());
 	}
@@ -62,5 +63,10 @@ public class GN_GenerateNodesIntoSink implements GN_Notable, CompilationEnclosur
 		var wm = new WorkManager();
 		run_one_mod(module, wm);
 		wm.drain();
+	}
+
+	@Override
+	public void close() {
+		NotImplementedException.raise_stop();
 	}
 }

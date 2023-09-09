@@ -1,6 +1,5 @@
 package tripleo.elijah.stages.deduce;
 
-import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;

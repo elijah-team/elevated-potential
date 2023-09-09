@@ -11,11 +11,13 @@ import tripleo.elijah.comp.InputRequest;
 import tripleo.elijah.comp.diagnostic.ExceptionDiagnostic;
 import tripleo.elijah.comp.diagnostic.FileNotFoundDiagnostic;
 import tripleo.elijah.comp.diagnostic.UnknownExceptionDiagnostic;
-import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.comp.queries.QuerySourceFileToModule;
 import tripleo.elijah.comp.queries.QuerySourceFileToModuleParams;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.query.Mode;
+import tripleo.elijah.util.CompletableProcess;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.Operation2;
@@ -31,7 +33,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import static tripleo.elijah.nextgen.query.Mode.FAILURE;
-import static tripleo.elijah.nextgen.query.Mode.SUCCESS;
 
 public class USE {
 	private static final FilenameFilter         accept_source_files = new FilenameFilter() {
@@ -43,41 +44,59 @@ public class USE {
 		}
 	};
 	private final        Compilation            c;
-	private final        ErrSink                errSink;
 	private final        Map<String, WorldModule> fn2m = new HashMap<String, WorldModule>();
+
+	private final Map<String, Operation2<WorldModule>> preludeMap = new HashMap<>();
 
 	@Contract(pure = true)
 	public USE(final Compilation aCompilation) {
 		c       = aCompilation;
-		errSink = c.getErrSink();
-	}
 
-	public void addModule(final OS_Module aModule, final String aFn) {
-		final WorldModule module = new DefaultWorldModule(aModule);
-		fn2m.put(aFn, module);
+		c.world().addModuleProcess(new CompletableProcess<WorldModule>() {
+			@Override
+			public void add(final WorldModule module) {
+				final String fn = module.module().getFileName();
+				fn2m.put(fn, module);
+			}
+
+			@Override
+			public void complete() {
+
+			}
+
+			@Override
+			public void error(final Diagnostic d) {
+
+			}
+
+			@Override
+			public void preComplete() {
+
+			}
+
+			@Override
+			public void start() {
+
+			}
+		});
 	}
 
 	private Operation2<WorldModule> parseElijjahFile(final @NotNull InputRequest aInputRequest) {
-		var owm = __parseElijjahFile(aInputRequest);
-		aInputRequest.setOp(owm);
-		return owm;
-	}
-
-	private Operation2<WorldModule> __parseElijjahFile(final @NotNull InputRequest aInputRequest) {
+		Operation2<WorldModule> owm;
 		final File f = aInputRequest.file();
 		final LibraryStatementPart lsp = aInputRequest.lsp();
 
-		//08/13 System.out.printf("   %s%n", f.getAbsolutePath());
+		c.getCompilationEnclosure().logProgress(CompProgress.__parseElijjahFile_InputRequest, aInputRequest);
 
 		if (f.exists()) {
 			final Operation2<WorldModule> om = realParseElijjahFile2(aInputRequest);
 
-			if (om.mode() == SUCCESS) {
+			if (om.mode() == Mode.SUCCESS) {
 				// TODO we dont know which prelude to find yet
 				final Operation2<WorldModule> pl = findPrelude(Compilation.CompilationAlways.defaultPrelude());
 
 				// NOTE Go: infectious, tedious; also slightly lazy
-				assert pl.mode() == SUCCESS;
+				assert pl.mode() == Mode.SUCCESS;
 
 				final WorldModule mm1 = om.success();
 				final OS_Module   mm  = mm1.module();
@@ -88,22 +107,21 @@ public class USE {
 					mm.setPrelude(pl.success().module()); // FIXME 08/31
 				}
 
-				return Operation2.success(mm1);
+				owm = Operation2.success(mm1);
+			} else if (om.failure() instanceof ExceptionDiagnostic) {
+				final Diagnostic e = om.failure();
+				owm = Operation2.failure(e);
 			} else {
-				// FIXME take a look at the later 06/19
-				if (om.failure() instanceof ExceptionDiagnostic) {
-					final Diagnostic e = om.failure();
-					return Operation2.failure(e);
-				}
-
 				final Diagnostic e = new UnknownExceptionDiagnostic(om);
-				return Operation2.failure(e);
+				owm = Operation2.failure(e);
 			}
 		} else {
 			final Diagnostic e = new FileNotFoundDiagnostic(f);
 
-			return Operation2.failure(e);
+			owm = Operation2.failure(e);
 		}
+		aInputRequest.setOp(owm);
+		return owm;
 	}
 
 	public Operation2<WorldModule> realParseElijjahFile2(final @NotNull InputRequest aInputRequest) {
@@ -111,6 +129,10 @@ public class USE {
 
 		try {
 			om = realParseElijjahFile(aInputRequest);
+
+			aInputRequest.setOp(Operation2.convert(om));
+			assert aInputRequest.op() != null;
+			assert aInputRequest.op().mode() == Mode.SUCCESS;
 		} catch (Exception aE) {
 			aE.printStackTrace();
 			return Operation2.failure(new ExceptionDiagnostic(aE));
@@ -118,10 +140,10 @@ public class USE {
 
 		switch (om.mode()) {
 		case SUCCESS:
-			return Operation2.success(om.success());
+			return Operation2.convert(om);
 		case FAILURE:
 			final Exception e = om.failure();
-			errSink.exception(e);
+			c.getErrSink().exception(e);
 			return Operation2.failure(new ExceptionDiagnostic(e));
 		default:
 			throw new IllegalStateException("Unexpected value: " + om.mode());
@@ -129,12 +151,9 @@ public class USE {
 	}
 
 	public Operation<WorldModule> realParseElijjahFile(final @NotNull InputRequest aInputRequest) {
-
-
 		var file   = aInputRequest.file();
 		var f      = aInputRequest.file().toString();
 		var do_out = aInputRequest.do_out();
-
 
 		try {
 			final String absolutePath = file.getCanonicalFile().toString();
@@ -149,7 +168,7 @@ public class USE {
 
 			final InputStream          s  = io.readFile(file);
 			final Operation<OS_Module> om = parseFile_(f, s, do_out);
-			if (om.mode() != SUCCESS) {
+			if (om.mode() != Mode.SUCCESS) {
 				final Exception e = om.failure();
 				assert e != null;
 
@@ -159,10 +178,8 @@ public class USE {
 				return Operation.failure(e);
 			}
 
-			final WorldModule R = new DefaultWorldModule(om.success());
-
-			fn2m.put(absolutePath, R);
-			//addModule(R.module(), R.module().getFileName());
+			final WorldModule R = new DefaultWorldModule(om.success(), c.getCompilationEnclosure());
+			c.world().addModule2(R);
 
 			s.close();
 			return Operation.success(R);
@@ -171,13 +188,23 @@ public class USE {
 		}
 	}
 
-	private Operation<OS_Module> parseFile_(final String f, final InputStream s, final boolean do_out) {
+	private @NotNull Operation<OS_Module> parseFile_(final String f, final InputStream s, final boolean do_out) {
 		final QuerySourceFileToModuleParams qp = new QuerySourceFileToModuleParams(do_out, s, f);
 		final QuerySourceFileToModule       q  = new QuerySourceFileToModule(qp, c);
 		return q.calculate();
 	}
 
 	public Operation2<WorldModule> findPrelude(final String prelude_name) {
+		if (preludeMap.containsKey(prelude_name)) {
+			return preludeMap.get(prelude_name);
+		}
+
+		var x = findPrelude2(prelude_name);
+		preludeMap.put(prelude_name, x);
+		return x;
+	}
+
+	private @NotNull Operation2<WorldModule> findPrelude2(final String prelude_name) {
 		final File local_prelude = new File("lib_elijjah/lib-" + prelude_name + "/Prelude.elijjah");
 
 		if (!(local_prelude.exists())) {
@@ -189,8 +216,8 @@ public class USE {
 			om.failure().report(System.out);
 			return om;
 		}
-		assert om.mode() == SUCCESS;
-		return Operation2.success(om.success());
+		assert om.mode() == Mode.SUCCESS;
+		return om;
 	}
 
 	public void use(final @NotNull CompilerInstructions compilerInstructions, final boolean do_out) {
@@ -213,7 +240,7 @@ public class USE {
 
 	private void use_internal(final @NotNull File dir, final boolean do_out, @NotNull LibraryStatementPart lsp) {
 		if (!dir.isDirectory()) {
-			errSink.reportError("9997 Not a directory " + dir);
+			c.getErrSink().reportError("9997 Not a directory " + dir);
 			return;
 		}
 		//

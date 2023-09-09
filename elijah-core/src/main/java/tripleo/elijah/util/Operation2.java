@@ -1,6 +1,7 @@
 package tripleo.elijah.util;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.diagnostic.ExceptionDiagnostic;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.nextgen.query.Mode;
 
@@ -32,6 +33,25 @@ public class Operation2<T> {
 
 		if (succ == exc)
 			throw new AssertionError();
+	}
+
+	public static <T> Operation2<T> convert(final @NotNull Operation<T> op) {
+		final Operation2<T> op2;
+
+		switch (op.mode()) {
+		case FAILURE -> {
+			op2 = Operation2.failure(new ExceptionDiagnostic(op.failure()));
+		}
+		case NOTHING -> {
+			throw new NotImplementedException();
+		}
+		case SUCCESS -> {
+			op2 = Operation2.success(op.success());
+		}
+		default -> throw new IllegalStateException("Unexpected value: " + op.mode());
+		}
+
+		return op2;
 	}
 
 	public Diagnostic failure() {

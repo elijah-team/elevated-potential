@@ -34,4 +34,16 @@ public class InputRequest { // TODO 09/08 Convert to record
 	public void setOp(final Operation2<WorldModule> aOwm) {
 		op = aOwm;
 	}
+
+	public Operation2<WorldModule> op() {
+		return op;
+	}
 }
+//public record InputRequest (File file, boolean do_out, @Nullable LibraryStatementPart lsp) {
+//	private       Operation2<WorldModule> op;
+//
+//	public void setOp(final Operation2<WorldModule> aOwm) {
+//		op = aOwm;
+//	}
+//
+//}

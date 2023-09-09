@@ -33,7 +33,6 @@ public class ModuleBuilder {
 		if (_addToCompilation) {
 			if (_fn == null) throw new IllegalStateException("Filename not set in ModuleBuilder");
 			mod.getCompilation().world().addModule(mod, _fn, mod.getCompilation());
-			//mod.getCompilation().addModule(mod, _fn);
 		}
 		return mod;
 	}

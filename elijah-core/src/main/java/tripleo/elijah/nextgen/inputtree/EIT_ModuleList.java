@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Coder;
 import tripleo.elijah.comp.PipelineLogic;
 import tripleo.elijah.entrypoints.EntryPointList;
-import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.deduce.DeducePhase;
 import tripleo.elijah.stages.gen_fn.EvaNode;
 import tripleo.elijah.stages.gen_fn.GenerateFunctions;
@@ -23,10 +22,9 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class EIT_ModuleList {
-	private final List<WorldModule> mods;
+	private final List<WorldModule> mods = new ArrayList<>();
 
 	public EIT_ModuleList() {
-		mods = new ArrayList<>();
 	}
 
 	public List<WorldModule> getMods() {

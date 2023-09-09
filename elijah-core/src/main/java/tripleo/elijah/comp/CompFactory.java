@@ -1,11 +1,11 @@
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.LibraryStatementPart;
 import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.ICompilationBus;
+import tripleo.elijah.comp.internal.CompilationRunner;
+import tripleo.elijah.comp.internal.CompilerBeginning;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.nextgen.inputtree.EIT_ModuleInput;
@@ -20,9 +20,9 @@ public interface CompFactory {
 
 	InputRequest createInputRequest(File aFile, final boolean aDo_out, final @Nullable LibraryStatementPart aLsp);
 
-	@Contract(value = "_ -> new", pure = true)
-	@NotNull ICompilationAccess createCompilationAccess();
+	ICompilationAccess createCompilationAccess();
 
 	ICompilationBus createCompilationBus();
 
+	CompilerBeginning createBeginning(CompilationRunner aCompilationRunner);
 }

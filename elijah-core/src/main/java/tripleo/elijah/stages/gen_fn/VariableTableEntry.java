@@ -20,7 +20,6 @@ import tripleo.elijah.stages.deduce.ClassInvocation;
 import tripleo.elijah.stages.deduce.DeduceLocalVariable;
 import tripleo.elijah.stages.deduce.DeduceTypeResolve;
 import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.deduce.nextgen.DR_Ident;
 import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_VariableTableEntry;
 import tripleo.elijah.stages.deduce.post_bytecode.PostBC_Processor;
 import tripleo.elijah.stages.instructions.VariableTableType;

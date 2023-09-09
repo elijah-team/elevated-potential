@@ -29,8 +29,8 @@ class CB_FindCIs implements CB_Action {
 
 	@Override
 	public void execute(CB_Monitor aMonitor) {
-/*
-		final List<CR_Action> crActionList = List_of(compilationRunner.cr_find_cis(), new CR_AlmostComplete());
+
+		final List<CR_Action> crActionList = List_of(compilationRunner.cr_find_cis(), compilationRunner.cr_AlmostComplete());
 
 		for (final CR_Action action : crActionList) {
 			action.attach(compilationRunner);
@@ -44,7 +44,6 @@ class CB_FindCIs implements CB_Action {
 
 		// TODO capture action outputs
 		aMonitor.reportSuccess(this, o);
-*/
 	}
 
 	@Contract(pure = true)

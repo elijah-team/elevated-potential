@@ -3,8 +3,8 @@ package tripleo.elijah.comp;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.util.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class CompilerInstructionsObserver implements Observer<CompilerInstructio
 
 	@Override
 	public void onError(@NonNull final Throwable e) {
-		NotImplementedException.raise();
+		throw new UnintendedUseException();
 	}
 
 	@Override
@@ -39,6 +39,6 @@ public class CompilerInstructionsObserver implements Observer<CompilerInstructio
 
 	@Override
 	public void onComplete() {
-		throw new IllegalStateException("Error");
+		throw new UnintendedUseException();
 	}
 }
