@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.Compilation;
@@ -15,12 +16,15 @@ import java.util.function.Supplier;
 public class CompilationRunner extends _RegistrationTarget {
 	private final          Compilation     _compilation;
 	private final          ICompilationBus cb;
+	@Getter
 	private final          CR_State        crState;
+	@Getter
 	private final @NotNull IProgressSink   progressSink;
 	private final @NotNull CCI             cci;
 	private final          EzM             ezm = new EzM();
+	@Getter
 	private final          CIS             cis;
-	private CB_StartCompilationRunnerAction startAction;
+	private                CB_StartCompilationRunnerAction startAction;
 	private                CR_FindCIs cr_find_cis;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
@@ -41,7 +45,7 @@ public class CompilationRunner extends _RegistrationTarget {
 		CompilationRunner.ST.register(this);
 	}
 
-	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState, final Supplier<CompilationBus> scb) {
+	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState, final Supplier<DefaultCompilationBus> scb) {
 		_compilation = aca.getCompilation();
 
 		_compilation.getCompilationEnclosure().setCompilationAccess(aca);
@@ -96,22 +100,8 @@ public class CompilationRunner extends _RegistrationTarget {
 		return this.cr_find_cis;
 	}
 
-	boolean started;
-
 	public Compilation _accessCompilation() {
 		return _compilation;
-	}
-
-	public CR_State getCrState() {
-		return crState;
-	}
-
-	public IProgressSink getProgressSink() {
-		return progressSink;
-	}
-
-	public CIS getCis() {
-		return cis;
 	}
 
 	public void start(final CompilerInstructions ci, final @NotNull IPipelineAccess pa) {
@@ -122,26 +112,8 @@ public class CompilationRunner extends _RegistrationTarget {
 			cb.add(startAction.cb_Process());
 		}
 
-		if (!started) {
-			started = true;
-			CB_Monitor monitor = new CB_Monitor() {
-				@Override
-				public void reportFailure(final CB_Action aCBAction, final CB_Output aCB_output) {
-
-				}
-
-				@Override
-				public void reportSuccess(final CB_Action aCBAction, final CB_Output aCB_output) {
-
-				}
-			};
-
-			int bp = 2;
-
-			for (CB_Process process : cb.processes()) {
-				process.steps().forEach(s -> s.execute(monitor));
-			}
-		}
+		// FIXME 09/09 this is wrong. (too complicated)
+		((DefaultCompilationBus) cb).runProcesses();
 	}
 
 	public enum ST {

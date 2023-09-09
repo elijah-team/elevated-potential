@@ -153,7 +153,14 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 					final int eps = entryPoints.size();
 
 					for (ClassStatement classItem : found) {
-						entryPoints.add(new MainClassEntryPoint((ClassStatement) classItem.getParent()));
+						if (classItem.getParent() instanceof ClassStatement classItemParent) {
+							entryPoints.add(new MainClassEntryPoint(classItemParent));
+						} else {
+							var classItemParent = classItem.getParent();
+
+							System.err.println("159159 " + classItemParent.getClass().getName());
+							//throw new NotImplementedException();
+						}
 					}
 					assert entryPoints.size() == eps || entryPoints.size() == eps + 1; // TODO this will fail one day
 

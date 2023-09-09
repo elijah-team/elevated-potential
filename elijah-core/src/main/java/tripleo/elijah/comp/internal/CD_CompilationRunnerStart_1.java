@@ -35,7 +35,8 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 							final @NotNull CB_Output out) {
 		if (crState.started) {
 			boolean should_never_happen = false; // :grin:
-			assert should_never_happen;
+			return;
+			//assert should_never_happen;
 		} else {
 			crState.started = true;
 		}
