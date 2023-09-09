@@ -10,7 +10,7 @@ import java.util.List;
 
 import static tripleo.elijah.util.Helpers.List_of;
 
-public class CompilationBus implements ICompilationBus {
+public class DefaultCompilationBus implements ICompilationBus {
 	public final @NotNull  CompilerDriver   cd;
 	private final @NotNull Compilation      c;
 	private final @NotNull List<CB_Process> _processes           = new ArrayList<>();
@@ -22,7 +22,7 @@ public class CompilationBus implements ICompilationBus {
 	};
 	public                 CB_FindCIs              cb_findCIs;
 
-	public CompilationBus(final @NotNull CompilationEnclosure ace) {
+	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
 		c  = ace.getCompilationAccess().getCompilation();
 		cd = new CompilerDriver(this);
 

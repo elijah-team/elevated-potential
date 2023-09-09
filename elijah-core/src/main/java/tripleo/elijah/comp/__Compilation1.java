@@ -9,6 +9,7 @@
 package tripleo.elijah.comp;
 
 import io.reactivex.rxjava3.core.Observer;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.CompilerInstructions;
@@ -62,6 +63,18 @@ public abstract class __Compilation1 implements Compilation {
 		@Override
 		public @NotNull InputRequest createInputRequest(final File aFile, final boolean aDo_out, final @Nullable LibraryStatementPart aLsp) {
 			return new InputRequest(aFile, aDo_out, aLsp);
+		}
+
+		@Contract(value = "_ -> new", pure = true)
+		@Override
+		public @NotNull ICompilationAccess createCompilationAccess() {
+			return new DefaultCompilationAccess(__Compilation1.this);
+		}
+
+		@Contract(" -> new")
+		@Override
+		public @NotNull ICompilationBus createCompilationBus() {
+			return new DefaultCompilationBus(Objects.requireNonNull(compilationEnclosure));
 		}
 	};
 	public @NotNull LivingRepo                        _repo   = new DefaultLivingRepo();
@@ -143,27 +156,20 @@ public abstract class __Compilation1 implements Compilation {
 	public void feedCmdLine(final @NotNull List<String> args) throws Exception {
 		final CompilerController controller = new DefaultCompilerController();
 
-		if (args.size() == 0) {
-			controller.printUsage();
-			//System.err.println("Usage: eljc [--showtree] [-sE|O] <directory or .ez file names>");
-			return;
-		}
-
 		final List<CompilerInput> inputs = args.stream()
 				.map(s -> {
 					final CompilerInput input = new CompilerInput(s);
+
+					// TODO 09/08 check this
 					if (s.equals(input.getInp())) {
 						input.setSourceRoot();
 					}
+
 					return input;
 				})
 				.collect(Collectors.toList());
 
-		_inputs = inputs;
-
-		controller._setInputs(this, inputs);
-		controller.processOptions();
-		controller.runner();
+		feedInputs(inputs, controller);
 	}
 
 	@Override

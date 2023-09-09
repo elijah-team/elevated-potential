@@ -5,9 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.ci.LibraryStatementPartImpl;
-import tripleo.elijah.comp.CompFactory;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.IO;
+import tripleo.elijah.comp.InputRequest;
 import tripleo.elijah.comp.diagnostic.ExceptionDiagnostic;
 import tripleo.elijah.comp.diagnostic.FileNotFoundDiagnostic;
 import tripleo.elijah.comp.diagnostic.UnknownExceptionDiagnostic;
@@ -57,13 +57,13 @@ public class USE {
 		fn2m.put(aFn, module);
 	}
 
-	private Operation2<WorldModule> parseElijjahFile(final CompFactory.@NotNull InputRequest aInputRequest) {
+	private Operation2<WorldModule> parseElijjahFile(final @NotNull InputRequest aInputRequest) {
 		var owm = __parseElijjahFile(aInputRequest);
 		aInputRequest.setOp(owm);
 		return owm;
 	}
 
-	private Operation2<WorldModule> __parseElijjahFile(final CompFactory.@NotNull InputRequest aInputRequest) {
+	private Operation2<WorldModule> __parseElijjahFile(final @NotNull InputRequest aInputRequest) {
 		final File f = aInputRequest.file();
 		final LibraryStatementPart lsp = aInputRequest.lsp();
 
@@ -106,7 +106,7 @@ public class USE {
 		}
 	}
 
-	public Operation2<WorldModule> realParseElijjahFile2(final CompFactory.@NotNull InputRequest aInputRequest) {
+	public Operation2<WorldModule> realParseElijjahFile2(final @NotNull InputRequest aInputRequest) {
 		final Operation<WorldModule> om;
 
 		try {
@@ -128,7 +128,7 @@ public class USE {
 		}
 	}
 
-	public Operation<WorldModule> realParseElijjahFile(final CompFactory.@NotNull InputRequest aInputRequest) {
+	public Operation<WorldModule> realParseElijjahFile(final @NotNull InputRequest aInputRequest) {
 
 
 		var file   = aInputRequest.file();

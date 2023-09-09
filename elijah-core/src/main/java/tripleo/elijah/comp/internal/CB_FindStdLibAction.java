@@ -18,12 +18,11 @@ class CB_FindStdLibAction implements CB_Action {
 	private final     List<CB_OutputString> o = new ArrayList<>(); // FIXME 07/01 how is this modified?
 	private @Nullable CD_FindStdLib         findStdLib;
 
-	public CB_FindStdLibAction(final CompilationEnclosure aCe, final CR_State aCrState) {
+	public CB_FindStdLibAction(final CompilationEnclosure aCe, final @NotNull CompilationRunner aCr) {
 		ce      = aCe;
-		crState = aCrState;
+		crState = aCr.getCrState();
 
-		//findStdLib =
-		obtain();
+		obtain(); // TODO 09/08 Make this more complicated
 	}
 
 	private void obtain() {
@@ -71,6 +70,6 @@ class CB_FindStdLibAction implements CB_Action {
 
 	@Contract(value = " -> new", pure = true)
 	public @NotNull CB_Process process() {
-		return new CompilationBus.SingleActionProcess(this);
+		return new DefaultCompilationBus.SingleActionProcess(this);
 	}
 }

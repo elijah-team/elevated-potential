@@ -17,8 +17,8 @@ public class CompilerDriver {
 
 	private /*static*/ boolean initialized;
 
-	public CompilerDriver(final CompilationBus aCompilationBus) {
-		cb = aCompilationBus;
+	public CompilerDriver(final DefaultCompilationBus aDefaultCompilationBus) {
+		cb = aDefaultCompilationBus;
 
 		if (!initialized) {
 			defaults.put(Compilation.CompilationAlways.Tokens.COMPILATION_RUNNER_START, new CD_CompilationRunnerStart_1());
