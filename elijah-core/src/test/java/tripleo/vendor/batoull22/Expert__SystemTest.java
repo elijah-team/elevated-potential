@@ -1,14 +1,14 @@
 package tripleo.vendor.batoull22;
 
-import org.junit.Ignore;
-import tripleo.elijah.util.Operation;
+import org.junit.jupiter.api.Disabled;
 import tripleo.elijah.nextgen.query.Mode;
+import tripleo.elijah.util.Operation;
 
 import static org.junit.Assert.assertNotSame;
 
 public class Expert__SystemTest {
 
-	@Ignore
+	@Disabled
 	public void testOpenfile() {
 		final EK_ExpertSystem i = new EK_ExpertSystem();
 

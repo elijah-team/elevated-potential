@@ -11,7 +11,7 @@ package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.lang.i.DotExpression;
 import tripleo.elijah.lang.i.IExpression;
 import tripleo.elijah.lang.i.IdentExpression;
@@ -40,7 +40,7 @@ public class DotExpressionToStackTest {
 		Assert.assertEquals(c, s.pop());
 	}
 
-	@Test
+	@org.junit.jupiter.api.Test
 	public void test_dot_expression_to_stack2() {
 //		DeduceTypes2 dt2 = new DeduceTypes2(null);
 		//

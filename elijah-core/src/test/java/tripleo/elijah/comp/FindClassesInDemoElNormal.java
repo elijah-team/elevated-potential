@@ -9,7 +9,7 @@
 package tripleo.elijah.comp;
 
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.entrypoints.MainClassEntryPoint;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class FindClassesInDemoElNormal {
 
-	@Test
+	@org.junit.jupiter.api.Test
 	public final void testParseFile() throws Exception {
 		final List<String> args = tripleo.elijah.util.Helpers.List_of("test/demo-el-normal", "test/demo-el-normal/main2", "-sE");
 		final ErrSink      eee  = new StdErrSink();

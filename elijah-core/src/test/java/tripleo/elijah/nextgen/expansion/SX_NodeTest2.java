@@ -2,8 +2,8 @@ package tripleo.elijah.nextgen.expansion;
 
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.StdErrSink;
@@ -23,7 +23,7 @@ import static tripleo.elijah.util.Helpers.List_of;
 
 public class SX_NodeTest2 extends TestCase {
 
-	@Ignore
+	@Disabled
 	@Test
 	public void testFullText() throws Exception {
 		final StdErrSink      errSink = new StdErrSink();

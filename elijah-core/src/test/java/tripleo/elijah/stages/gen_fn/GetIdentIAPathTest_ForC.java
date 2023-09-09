@@ -10,9 +10,9 @@ package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.StdErrSink;
 import tripleo.elijah.comp.i.CompilationEnclosure;
@@ -22,7 +22,6 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.gen_c.CReference;
 import tripleo.elijah.stages.gen_c.Emit;
-
 import tripleo.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah.stages.gen_c.Generate_Code_For_Method;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
@@ -47,7 +46,7 @@ public class GetIdentIAPathTest_ForC {
 	private CompilationImpl compilation;
 	private StdErrSink      errSink;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		mod = mock(OS_Module.class);
 		FunctionDef fd = mock(FunctionDef.class);
@@ -62,11 +61,11 @@ public class GetIdentIAPathTest_ForC {
 		ce.setCompilationAccess(new DefaultCompilationAccess(compilation));
 
 		GenerateResultEnv fileGen = null;
-		generateC = new GenerateC(new OutputFileFactoryParams(new DefaultWorldModule(mod), ce), fileGen);
+		generateC = new GenerateC(new OutputFileFactoryParams(new DefaultWorldModule(mod, ce), ce), fileGen);
 	}
 
-	@Ignore
-	@Test
+	@Disabled
+	@org.junit.jupiter.api.Test
 	public void testManualXDotFoo() {
 		@NotNull IdentExpression x_ident   = IdentExpression.forString("X");
 		@NotNull IdentExpression foo_ident = IdentExpression.forString("foo");
@@ -88,8 +87,8 @@ public class GetIdentIAPathTest_ForC {
 		Assert.assertEquals("vvx->vmfoo", x);
 	}
 
-	@Ignore
-	@Test
+	@Disabled
+	@org.junit.jupiter.api.Test
 	public void testManualXDotFoo2() {
 		@NotNull IdentExpression x_ident   = IdentExpression.forString("x");
 		@NotNull IdentExpression foo_ident = IdentExpression.forString("foo");
@@ -141,7 +140,7 @@ public class GetIdentIAPathTest_ForC {
 		Assert.assertEquals("vmx->vmfoo", x);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void testManualXDotFoo3() {
 		IdentExpression          x_ident   = Helpers.string_to_ident("x");
@@ -189,8 +188,8 @@ public class GetIdentIAPathTest_ForC {
 		return x;//reference.build();
 	}
 
-	@Ignore
-	@Test
+	@Disabled
+	@org.junit.jupiter.api.Test
 	public void testManualXDotFooWithFooBeingFunction() {
 		@NotNull IdentExpression x_ident   = Helpers.string_to_ident("x");
 		@NotNull IdentExpression foo_ident = Helpers.string_to_ident("foo");

@@ -10,12 +10,15 @@
 package tripleo.elijah.stages.gen_c;
 
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.contexts.ModuleContext;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang.impl.ClassStatementImpl;
+import tripleo.elijah.lang.impl.FunctionDefImpl;
+import tripleo.elijah.lang.impl.LookupResultListImpl;
+import tripleo.elijah.lang.impl.OS_ModuleImpl;
 import tripleo.elijah.stages.deduce.DeducePhase;
 import tripleo.elijah.stages.deduce.DeduceTypes2;
 import tripleo.elijah.stages.gen_fn.EvaFunction;
@@ -37,7 +40,7 @@ public class GetRealTargetNameTest {
 	EvaFunction gf;
 	OS_Module   mod;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		//mod = mock(OS_Module.class);
 		//FunctionDef fd = mock(FunctionDef.class);
@@ -54,7 +57,7 @@ public class GetRealTargetNameTest {
 		boilerPlate.get();
 	}
 
-	@Ignore
+	@Disabled
 	@Test // too complicated
 	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	public void testManualXDotFoo() {

@@ -9,8 +9,8 @@
 package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.*;
@@ -30,8 +30,8 @@ import static tripleo.elijah.util.Helpers.List_of;
  */
 public class TestIdentNormal {
 
-	@Ignore
-	@Test(expected = IllegalStateException.class) // TODO proves nothing
+	@Disabled
+	@Test//(expected = IllegalStateException.class) // TODO proves nothing
 	public void test() {
 
 		final FunctionDef fd   = mock(FunctionDef.class);
@@ -41,8 +41,6 @@ public class TestIdentNormal {
 		final Boilerplate boilerplate = new Boilerplate();
 		boilerplate.get();
 		boilerplate.getGenerateFiles(boilerplate.defaultMod());
-
-		final GeneratePhase generatePhase = boilerplate.pipelineLogic().generatePhase;
 
 		final GenerateFunctions generateFunctions = new GenerateFunctions(boilerplate.defaultMod(), boilerplate.pipelineLogic, boilerplate.comp.pa());
 
@@ -91,7 +89,7 @@ public class TestIdentNormal {
 		});
 	}
 
-	@Ignore
+	@Disabled
 	@Test // TODO just a mess
 	public void test2() {
 		final Boilerplate boilerplate = new Boilerplate();
