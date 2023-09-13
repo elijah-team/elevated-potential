@@ -1,14 +1,16 @@
 package tripleo.elijah.nextgen.expansion;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.gen_generic.OutputFileFactoryParams;
 import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
-public class SX_NodeTest extends TestCase {
+@SuppressWarnings("NewClassNamingConvention")
+public class SX_NodeTest {
 
+	@Test
 	public void testFullText() {
 		final Boilerplate b = new Boilerplate();
 		b.get();

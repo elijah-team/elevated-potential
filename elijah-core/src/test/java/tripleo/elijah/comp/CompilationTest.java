@@ -9,7 +9,6 @@
 package tripleo.elijah.comp;
 
 import org.hamcrest.core.IsEqual;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -18,7 +17,8 @@ import tripleo.elijah.util.Stupidity;
 import java.io.File;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tripleo.elijah.util.Helpers.List_of;
 
 /**
@@ -34,11 +34,11 @@ public class CompilationTest {
 
 		c.feedCmdLine(args);
 
-		Assert.assertTrue(c.getIO().recordedRead(new File("test/comp_test/main3/main3.ez")));
-		Assert.assertTrue(c.getIO().recordedRead(new File("test/comp_test/main3/main3.elijah")));
-		Assert.assertTrue(c.getIO().recordedRead(new File("test/comp_test/fact1.elijah")));
+		assertTrue(c.getIO().recordedRead(new File("test/comp_test/main3/main3.ez")));
+		assertTrue(c.getIO().recordedRead(new File("test/comp_test/main3/main3.elijah")));
+		assertTrue(c.getIO().recordedRead(new File("test/comp_test/fact1.elijah")));
 
-		Assert.assertTrue(c.instructionCount() > 0);
+		assertTrue(c.instructionCount() > 0);
 
 		c.livingRepo().modules()
 				.stream()
@@ -47,10 +47,10 @@ public class CompilationTest {
 					Stupidity.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
 				});
 
-		assertThat(c.livingRepo().modules().size(), new IsEqual<Integer>(12));
+		assertEquals(12, c.livingRepo().modules().size());
 
 		System.err.println("CompilationTest -- 53 " + c.livingRepo().modules().size());
-		Assert.assertTrue(c.livingRepo().modules().size() > 2);
+		assertTrue(c.livingRepo().modules().size() > 2);
 	}
 
 }

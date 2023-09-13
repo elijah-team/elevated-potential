@@ -8,7 +8,6 @@
  */
 package tripleo.elijah.comp;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -17,6 +16,9 @@ import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.util.Helpers;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * @author Tripleo
@@ -35,7 +37,7 @@ public class FindClassesInDemoElNormal {
 		for (final ClassStatement classStatement : aClassList) {
 			tripleo.elijah.util.Stupidity.println_out_2(classStatement.getPackageName().getName());
 		}
-		Assert.assertEquals(1, aClassList.size());  // NOTE this may change. be aware
+		assertEquals(1, aClassList.size());  // NOTE this may change. be aware
 	}
 
 
@@ -49,9 +51,9 @@ public class FindClassesInDemoElNormal {
 
 		// searches all modules for top-level Main's that are classes (only the first from each module though)
 		final List<ClassStatement> aClassList = c.findClass("Main");
-		Assert.assertEquals(1, aClassList.size());
+		assertEquals(1, aClassList.size());
 
-		Assert.assertFalse("isMainClass", MainClassEntryPoint.isMainClass(aClassList.get(0)));
+		assertFalse(MainClassEntryPoint.isMainClass(aClassList.get(0)), "isMainClass");
 	}
 
 }

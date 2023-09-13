@@ -9,7 +9,7 @@
 package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.Assert;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -34,6 +34,8 @@ import tripleo.elijah.util.Operation2;
 import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static tripleo.elijah.util.Helpers.List_of;
 
@@ -119,7 +121,7 @@ public class DeduceTypesTest {
 		final BuiltInTypes bi_integer = new OS_BuiltinType(BuiltInTypes.SystemInteger).getBType();
 		final BuiltInTypes inferred_t = x.getResolved().getBType();
 
-		Assert.assertEquals(bi_integer, inferred_t);
+		assertEquals(bi_integer, inferred_t);
 	}
 
 	/**
@@ -131,7 +133,7 @@ public class DeduceTypesTest {
 		final Qualident       tnq = new QualidentImpl();
 		tnq.append(Helpers.string_to_ident("Integer"));
 		tn.setName(tnq);
-		Assert.assertTrue(genTypeTypenameEquals(new OS_UserType(tn), x/*.getTypeName()*/));
+		assertTrue(genTypeTypenameEquals(new OS_UserType(tn), x/*.getTypeName()*/));
 	}
 
 	@Test
@@ -140,8 +142,8 @@ public class DeduceTypesTest {
 		final Qualident        tnq = new QualidentImpl();
 		tnq.append(Helpers.string_to_ident("Integer"));
 		tn.setName(tnq);
-		Assert.assertEquals(new OS_UserType(tn).getTypeName(), x.getTypeName().getTypeName());
-		Assert.assertTrue(genTypeTypenameEquals(new OS_UserType(tn), x));
+		assertEquals(new OS_UserType(tn).getTypeName(), x.getTypeName().getTypeName());
+		assertTrue(genTypeTypenameEquals(new OS_UserType(tn), x));
 	}
 
 	@Test
@@ -150,9 +152,9 @@ public class DeduceTypesTest {
 		final Qualident        tnq = new QualidentImpl();
 		tnq.append(Helpers.string_to_ident("Integer"));
 		tn.setName(tnq);
-		Assert.assertEquals(new OS_UserType(tn).getTypeName(), x.getTypeName().getTypeName());
-		Assert.assertTrue(genTypeTypenameEquals(new OS_UserType(tn), x));
-		Assert.assertEquals(new OS_UserType(tn).toString(), x.getTypeName().toString());
+		assertEquals(new OS_UserType(tn).getTypeName(), x.getTypeName().getTypeName());
+		assertTrue(genTypeTypenameEquals(new OS_UserType(tn), x));
+		assertEquals(new OS_UserType(tn).toString(), x.getTypeName().toString());
 	}
 
 	private boolean genTypeTypenameEquals(OS_Type aType, @NotNull GenType genType) {

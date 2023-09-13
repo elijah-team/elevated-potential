@@ -8,7 +8,7 @@ import tripleo.elijah.comp.StdErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.factory.comp.CompilationFactory;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CP_SubFileTest {
 

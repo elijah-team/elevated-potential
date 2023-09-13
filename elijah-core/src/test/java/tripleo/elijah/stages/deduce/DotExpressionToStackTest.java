@@ -10,7 +10,8 @@
 package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.Assert;
+
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.lang.i.DotExpression;
 import tripleo.elijah.lang.i.IExpression;
@@ -35,9 +36,9 @@ public class DotExpressionToStackTest {
 		//
 		@NotNull Stack<IExpression> s = DeduceLookupUtils.dot_expression_to_stack(de);
 //		IExpression[] sa = (IExpression[]) s.toArray();
-		Assert.assertEquals(a, s.pop());
-		Assert.assertEquals(b, s.pop());
-		Assert.assertEquals(c, s.pop());
+		assertEquals(a, s.pop());
+		assertEquals(b, s.pop());
+		assertEquals(c, s.pop());
 	}
 
 	@org.junit.jupiter.api.Test
@@ -57,10 +58,10 @@ public class DotExpressionToStackTest {
 		//
 		@NotNull Stack<IExpression> s = DeduceLookupUtils.dot_expression_to_stack(de);
 //		IExpression[] sa = (IExpression[]) s.toArray();
-		Assert.assertEquals(a, s.pop());
-		Assert.assertEquals(b, s.pop());
-		Assert.assertEquals(c, s.pop());
-		Assert.assertEquals(d, s.pop());
-		Assert.assertEquals(e, s.pop());
+		assertEquals(a, s.pop());
+		assertEquals(b, s.pop());
+		assertEquals(c, s.pop());
+		assertEquals(d, s.pop());
+		assertEquals(e, s.pop());
 	}
 }

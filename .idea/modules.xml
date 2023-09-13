@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/annotation-user/annotation-user.iml" filepath="$PROJECT_DIR$/annotation-user/annotation-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/javaparser-core/javaparser-core.iml" filepath="$PROJECT_DIR$/javaparser-core/javaparser-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/main/main.iml" filepath="$PROJECT_DIR$/src/main/main.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/test/test.iml" filepath="$PROJECT_DIR$/src/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/elijah-core/tripleo.elijah.core.iml" filepath="$PROJECT_DIR$/elijah-core/tripleo.elijah.core.iml" />
     </modules>
   </component>
 </project>

@@ -9,7 +9,8 @@
 package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.Assert;
+
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -84,7 +85,7 @@ public class GetIdentIAPathTest_ForC {
 		ite.setBacklink(new IntegerIA(int_index, gf));
 		IdentIA ident_ia = new IdentIA(ite_index, gf);
 		String  x        = getIdentIAPath(ident_ia, gf, generateC, compilation.getCompilationEnclosure());
-		Assert.assertEquals("vvx->vmfoo", x);
+		assertEquals("vvx->vmfoo", x);
 	}
 
 	@Disabled
@@ -134,10 +135,10 @@ public class GetIdentIAPathTest_ForC {
 		//
 		IdentIA ident_ia = (IdentIA) xx;
 		String  x        = getIdentIAPath(ident_ia, gf, generateC, compilation.getCompilationEnclosure());
-//		Assert.assertEquals("vvx->vmfoo", x);  // TODO real expectation, IOW output below is wrong
+//		assertEquals("vvx->vmfoo", x);  // TODO real expectation, IOW output below is wrong
 		// FIXME actually compiler should comlain that it can't find x
-		//Assert.assertEquals("->vmx->vmfoo", x);
-		Assert.assertEquals("vmx->vmfoo", x);
+		//assertEquals("->vmx->vmfoo", x);
+		assertEquals("vmx->vmfoo", x);
 	}
 
 	@Disabled
@@ -177,8 +178,8 @@ public class GetIdentIAPathTest_ForC {
 		ite.setResolvedElement(foo_vs);
 
 		String x = getIdentIAPath(ident_ia, gf, generateC, compilation.getCompilationEnclosure());
-//		Assert.assertEquals("vvx->vmfoo", x); // TODO real expectation
-		Assert.assertEquals("vvx->vmfoo", x);
+//		assertEquals("vvx->vmfoo", x); // TODO real expectation
+		assertEquals("vvx->vmfoo", x);
 	}
 
 	String getIdentIAPath(final @NotNull IdentIA ia2, EvaFunction generatedFunction, @NotNull GenerateC gc, CompilationEnclosure ce) {
@@ -260,7 +261,7 @@ public class GetIdentIAPathTest_ForC {
 
 		//verify(mod, ctx, mockContext);
 
-		Assert.assertEquals("Z-1foo(vvx)", x);
+		assertEquals("Z-1foo(vvx)", x);
 	}
 
 

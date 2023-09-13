@@ -49,9 +49,9 @@ public class TestBasicSlir {
 //		}
 //
 //		// README this needs changing when running make
-//		Assert.assertEquals(7, (int) errorCount.get(0)); // TODO Error count obviously should be 0
-//		Assert.assertEquals(20, (int) errorCount.get(1)); // TODO Error count obviously should be 0
-//		Assert.assertEquals(9, (int) errorCount.get(2)); // TODO Error count obviously should be 0
+//		assertEquals(7, (int) errorCount.get(0)); // TODO Error count obviously should be 0
+//		assertEquals(20, (int) errorCount.get(1)); // TODO Error count obviously should be 0
+//		assertEquals(9, (int) errorCount.get(2)); // TODO Error count obviously should be 0
 //	}
 //
 //	//		@Test
@@ -66,7 +66,7 @@ public class TestBasicSlir {
 //		if (c.errorCount() != 0)
 //			System.err.println(String.format("Error count should be 0 but is %d for %s", c.errorCount(), s));
 //
-//		Assert.assertEquals(5, c.errorCount()); // TODO Error count obviously should be 0
+//		assertEquals(5, c.errorCount()); // TODO Error count obviously should be 0
 //	}
 //
 //	//		@Test
@@ -81,7 +81,7 @@ public class TestBasicSlir {
 //		if (c.errorCount() != 0)
 //			System.err.println(String.format("Error count should be 0 but is %d for %s", c.errorCount(), s));
 //
-//		Assert.assertEquals(5, c.errorCount()); // TODO Error count obviously should be 0
+//		assertEquals(5, c.errorCount()); // TODO Error count obviously should be 0
 //	}
 
 	@Disabled
