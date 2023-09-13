@@ -1,20 +1,22 @@
 package tripleo.vendor.batoull22;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import tripleo.elijah.nextgen.query.Mode;
 import tripleo.elijah.util.Operation;
 
-import static org.junit.Assert.assertNotSame;
-
 public class Expert__SystemTest {
 
+	@Test
 	@Disabled
 	public void testOpenfile() {
 		final EK_ExpertSystem i = new EK_ExpertSystem();
 
 		final Operation<EK_Reader> ovo2 = i.openfile_2();
-		assertNotSame(ovo2.mode(), Mode.FAILURE);
-
+		Assertions.assertNotSame(ovo2.mode(), Mode.FAILURE);
 
 		final EK_Reader reader = ovo2.success();
 

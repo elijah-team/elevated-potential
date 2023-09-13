@@ -14,7 +14,6 @@ import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
-import org.junit.Assert;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.Compilation;
@@ -38,6 +37,8 @@ import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tripleo.elijah.util.Helpers.List_of;
 
 /**
@@ -57,7 +58,7 @@ public class TestBasic {
 
 		c.feedCmdLine(args);
 
-		Assert.assertEquals(0, c.errorCount());
+		assertEquals(0, c.errorCount());
 	}
 
 	@Disabled
@@ -82,9 +83,9 @@ public class TestBasic {
 		}
 
 		// README this needs changing when running make
-		Assert.assertEquals(7, (int) errorCount.get(0)); // TODO Error count obviously should be 0
-		Assert.assertEquals(20, (int) errorCount.get(1)); // TODO Error count obviously should be 0
-		Assert.assertEquals(9, (int) errorCount.get(2)); // TODO Error count obviously should be 0
+		assertEquals(7, (int) errorCount.get(0)); // TODO Error count obviously should be 0
+		assertEquals(20, (int) errorCount.get(1)); // TODO Error count obviously should be 0
+		assertEquals(9, (int) errorCount.get(2)); // TODO Error count obviously should be 0
 	}
 
 	//@Ignore
@@ -106,7 +107,7 @@ public class TestBasic {
 		if (c.errorCount() != 0)
 			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
 
-		//Assert.assertEquals(2, c.errorCount()); // TODO Error count obviously should be 0
+		//assertEquals(2, c.errorCount()); // TODO Error count obviously should be 0
 
 
 		final List<Pair<ErrSink.Errors, Object>> list = c.getErrSink().list();
@@ -145,7 +146,7 @@ public class TestBasic {
 
 		var qq = c.con().createQualident(List_of("std", "io"));
 
-		Assert.assertTrue(c.isPackage(qq.toString()));
+		assertTrue(c.isPackage(qq.toString()));
 	}
 
 	@Disabled
@@ -161,7 +162,7 @@ public class TestBasic {
 		if (c.errorCount() != 0)
 			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
 
-		Assert.assertEquals(4, c.errorCount()); // TODO Error count obviously should be 0
+		assertEquals(4, c.errorCount()); // TODO Error count obviously should be 0
 	}
 
 	@org.junit.jupiter.api.Test
@@ -176,16 +177,16 @@ public class TestBasic {
 			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
 		}
 
-		Assert.assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
-		Assert.assertTrue(c.getOutputTree().getList().size() > 0);
-		Assert.assertTrue(c.getIO().recordedwrites.size() > 0);
+		assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
+		assertTrue(c.getOutputTree().getList().size() > 0);
+		assertTrue(c.getIO().recordedwrites.size() > 0);
 
 		var aofs = c.getCompilationEnclosure().OutputFileAsserts();
 		for (Triple<CompilationEnclosure.AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> aof : aofs) {
 			System.err.println(aof);
 		}
 
-		Assert.assertTrue(aofs.contains("/Prelude/Prelude.c"));
+		assertTrue(aofs.contains("/Prelude/Prelude.c"));
 	}
 
 	@org.junit.jupiter.api.Test
@@ -194,7 +195,7 @@ public class TestBasic {
 		testBasic_fact1 f = new testBasic_fact1();
 		f.start();
 
-		//Assert.assertEquals(25, f.c.errorCount()); // TODO Error count obviously should be 0
+		//assertEquals(25, f.c.errorCount()); // TODO Error count obviously should be 0
 
 		var cot = f.c.getOutputTree();
 

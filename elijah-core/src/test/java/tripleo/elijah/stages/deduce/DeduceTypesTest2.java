@@ -10,7 +10,8 @@ package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.junit.Assert;
+
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.Compilation;
@@ -90,7 +91,7 @@ public class DeduceTypesTest2 {
 
 		final GenType x = DeduceLookupUtils.deduceExpression(d, x1, fc);
 		tripleo.elijah.util.Stupidity.println_out_2("-- deduceExpression >>" + x);
-//		Assert.assertEquals(new OS_BuiltInType(BuiltInTypes..SystemInteger).getBType(), x.getBType());
+//		assertEquals(new OS_BuiltInType(BuiltInTypes..SystemInteger).getBType(), x.getBType());
 //		final RegularTypeName tn = new RegularTypeNameImpl();
 		final VariableTypeName tn  = new VariableTypeNameImpl();
 		final Qualident        tnq = new QualidentImpl();
@@ -98,9 +99,9 @@ public class DeduceTypesTest2 {
 		tn.setName(tnq);
 		tn.setContext(fd.getContext());
 
-//		Assert.assertEquals(new OS_UserType(tn).getTypeName(), x.getTypeName());
-		Assert.assertTrue(genTypeEquals(d.resolve_type(new OS_UserType(tn), tn.getContext()), Objects.requireNonNull(x)));
-//		Assert.assertEquals(new OS_UserType(tn).toString(), x.toString());
+//		assertEquals(new OS_UserType(tn).getTypeName(), x.getTypeName());
+		assertTrue(genTypeEquals(d.resolve_type(new OS_UserType(tn), tn.getContext()), Objects.requireNonNull(x)));
+//		assertEquals(new OS_UserType(tn).toString(), x.toString());
 	}
 
 	private boolean genTypeEquals(@NotNull GenType a, @NotNull GenType b) {

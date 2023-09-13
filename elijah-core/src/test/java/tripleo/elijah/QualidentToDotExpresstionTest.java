@@ -1,6 +1,6 @@
 package tripleo.elijah;
 
-import org.junit.Assert;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.lang.i.IExpression;
 import tripleo.elijah.lang.i.Qualident;
@@ -17,6 +17,6 @@ public class QualidentToDotExpresstionTest {
 		q.append(tripleo.elijah.util.Helpers.string_to_ident("c"));
 		final IExpression e = Helpers.qualidentToDotExpression2(q);
 		tripleo.elijah.util.Stupidity.println_out_2(e);
-		Assert.assertEquals("a.b.c", e.toString());
+		assertEquals("a.b.c", e.toString());
 	}
 }

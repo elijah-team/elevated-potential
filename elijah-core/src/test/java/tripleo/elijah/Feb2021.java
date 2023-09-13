@@ -34,7 +34,7 @@ public class Feb2021 {
 
 		c.feedCmdLine(List_of("test/feb2021/property2/"));
 
-		//Assert.assertEquals(100, c.errorCount());
+		//assertEquals(100, c.errorCount());
 	}
 
 	@org.junit.jupiter.api.Test
@@ -43,7 +43,7 @@ public class Feb2021 {
 
 		c.feedCmdLine(List_of("test/feb2021/property3/"));
 
-		//Assert.assertEquals(100, c.errorCount());
+		//assertEquals(100, c.errorCount());
 	}
 
 	//	@Ignore
