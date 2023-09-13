@@ -11,7 +11,7 @@
 //import org.jdeferred2.impl.DeferredObject;
 //import org.jetbrains.annotations.Contract;
 //import org.jetbrains.annotations.NotNull;
-//import org.junit.Assert;
+//import static org.junit.jupiter.api.Assertions.*;
 //import org.junit.Ignore;
 //import org.junit.Test;
 //import tripleo.elijah.comp.*;
@@ -49,7 +49,7 @@
 //import java.util.Collection;
 //import java.util.List;
 //
-//import static org.junit.Assert.assertSame;
+//import static org.junit.assertSame;
 //import static tripleo.elijah.util.Helpers.List_of;
 //
 ///**
@@ -119,9 +119,9 @@
 //		flow.run(cc);
 //
 //
-//		Assert.assertEquals("Not all hooks ran", 4, st.ran_hooks.size());
+//		assertEquals("Not all hooks ran", 4, st.ran_hooks.size());
 //		Compilation c =null;
-//		Assert.assertEquals(16, c.errorCount());
+//		assertEquals(16, c.errorCount());
 //	}
 //
 //	@Test
@@ -386,19 +386,19 @@
 //						EvaFunction gf = aGeneratedFunctions.iterator().next();
 //
 //						int pc = 0;
-//						Assert.assertEquals(InstructionName.E, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.E, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.DECL, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.DECL, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.AGNK, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.AGNK, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.DECL, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.DECL, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.AGN, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.AGN, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.CALL, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.CALL, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.X, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.X, gf.getInstruction(pc).getName());
 //						pc++;
 //
 //						st.ran_hooks.add(this);
@@ -419,31 +419,31 @@
 //						EvaFunction gf = aGeneratedFunctions.iterator().next();
 //
 //						int pc = 0;
-//						Assert.assertEquals(InstructionName.E, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.E, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.DECL, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.DECL, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.AGNK, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.AGNK, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.ES, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.ES, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.DECL, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.DECL, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.AGNK, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.AGNK, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.JE, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.JE, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.CALLS, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.CALLS, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.CALLS, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.CALLS, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.JMP, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.JMP, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.XS, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.XS, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.AGN, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.AGN, gf.getInstruction(pc).getName());
 //						pc++;
-//						Assert.assertEquals(InstructionName.X, gf.getInstruction(pc).getName());
+//						assertEquals(InstructionName.X, gf.getInstruction(pc).getName());
 //						pc++;
 //
 //						st.ran_hooks.add(this);
@@ -468,8 +468,8 @@
 //							final VariableTableEntry vte = gf.getVarTableEntry(i);
 //							tripleo.elijah.util.Stupidity.println_out_2(String.format("8007 %s %s %s", vte.getName(), vte.getType(), vte.potentialTypes()));
 //							if (vte.getType().getAttached() != null) {
-//								Assert.assertNotEquals(OS_Type.Type.BUILT_IN, vte.getType().getAttached().getType());
-//								Assert.assertNotEquals(OS_Type.Type.USER, vte.getType().getAttached().getType());
+//								assertNotEquals(OS_Type.Type.BUILT_IN, vte.getType().getAttached().getType());
+//								assertNotEquals(OS_Type.Type.USER, vte.getType().getAttached().getType());
 //							}
 //						}
 //						tripleo.elijah.util.Stupidity.println_out_2("");
@@ -496,8 +496,8 @@
 //							final VariableTableEntry vte = gf.getVarTableEntry(i);
 //							tripleo.elijah.util.Stupidity.println_out_2(String.format("8008 %s %s %s", vte.getName(), vte.getType(), vte.potentialTypes()));
 //							if (vte.getType().getAttached() != null) {
-//								Assert.assertNotEquals(OS_Type.Type.BUILT_IN, vte.getType().getAttached().getType());
-//								Assert.assertNotEquals(OS_Type.Type.USER, vte.getType().getAttached().getType());
+//								assertNotEquals(OS_Type.Type.BUILT_IN, vte.getType().getAttached().getType());
+//								assertNotEquals(OS_Type.Type.USER, vte.getType().getAttached().getType());
 //							}
 //						}
 //						tripleo.elijah.util.Stupidity.println_out_2("");

@@ -8,7 +8,6 @@
  */
 package tripleo.elijah.lang;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.Compilation;
@@ -22,6 +21,7 @@ import tripleo.elijah.stages.deduce.ResolveError;
 import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.util.Helpers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static tripleo.elijah.util.Helpers.List_of;
@@ -80,7 +80,7 @@ public class TypeOfTypeNameTest {
 		final DeduceTypes2  deduceTypes2 = new DeduceTypes2(mod, pl.dp);
 		final TypeName      tn           = t.resolve(ctx, deduceTypes2);
 //		tripleo.elijah.util.Stupidity.println_out_2(tn);
-		Assert.assertEquals(typeNameString, tn.toString());
+		assertEquals(typeNameString, tn.toString());
 	}
 
 	@Disabled
@@ -134,7 +134,7 @@ public class TypeOfTypeNameTest {
 		final DeduceTypes2  deduceTypes2 = new DeduceTypes2(mod, pl.dp);
 		TypeName            tn           = t.resolve(ctx, deduceTypes2);
 //		tripleo.elijah.util.Stupidity.println_out_2(tn);
-		Assert.assertEquals(typeNameString, tn.toString());
+		assertEquals(typeNameString, tn.toString());
 	}
 
 	@Disabled
@@ -203,7 +203,7 @@ public class TypeOfTypeNameTest {
 
 		TypeName tn = t.resolve(ctx, deduceTypes2);
 //		tripleo.elijah.util.Stupidity.println_out_2(tn);
-		Assert.assertEquals(typeNameString, tn.toString());
+		assertEquals(typeNameString, tn.toString());
 	}
 
 	@Disabled
@@ -285,7 +285,7 @@ public class TypeOfTypeNameTest {
 		//
 		TypeName tn = t.resolve(ctx, deduceTypes2);
 //		tripleo.elijah.util.Stupidity.println_out_2(tn);
-		Assert.assertEquals(typeNameString, tn.toString());
+		assertEquals(typeNameString, tn.toString());
 	}
 
 }

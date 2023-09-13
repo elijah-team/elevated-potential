@@ -1,6 +1,5 @@
 package tripleo.elijah.nextgen.expansion;
 
-import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -21,11 +20,12 @@ import java.util.stream.Collectors;
 
 import static tripleo.elijah.util.Helpers.List_of;
 
-public class SX_NodeTest2 extends TestCase {
+@SuppressWarnings("NewClassNamingConvention")
+public class SX_NodeTest2 {
 
 	@Disabled
 	@Test
-	public void testFullText() throws Exception {
+	public void testFullText() {
 		final StdErrSink      errSink = new StdErrSink();
 		final IO              io      = new IO();
 		final CompilationImpl comp    = new CompilationImpl(errSink, io);

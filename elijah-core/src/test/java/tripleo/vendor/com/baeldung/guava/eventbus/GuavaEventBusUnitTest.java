@@ -1,10 +1,11 @@
 package tripleo.vendor.com.baeldung.guava.eventbus;
 
 import com.google.common.eventbus.EventBus;
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GuavaEventBusUnitTest {
 	private EventListener listener;
@@ -28,7 +29,7 @@ public class GuavaEventBusUnitTest {
 		listener.resetEventsHandled();
 
 		eventBus.post("String Event");
-		Assert.assertEquals(1, listener.getEventsHandled());
+		assertEquals(1, listener.getEventsHandled());
 	}
 
 	@org.junit.jupiter.api.Test
@@ -38,7 +39,7 @@ public class GuavaEventBusUnitTest {
 		CustomEvent customEvent = new CustomEvent("Custom Event");
 		eventBus.post(customEvent);
 
-		Assert.assertEquals(1, listener.getEventsHandled());
+		assertEquals(1, listener.getEventsHandled());
 	}
 
 	@Test
@@ -46,6 +47,6 @@ public class GuavaEventBusUnitTest {
 		listener.resetEventsHandled();
 
 		eventBus.post(12345);
-		Assert.assertEquals(1, listener.getEventsHandled());
+		assertEquals(1, listener.getEventsHandled());
 	}
 }

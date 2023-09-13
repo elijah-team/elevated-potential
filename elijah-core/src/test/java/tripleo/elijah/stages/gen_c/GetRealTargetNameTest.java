@@ -9,7 +9,7 @@
 
 package tripleo.elijah.stages.gen_c;
 
-import org.junit.Assert;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -112,7 +112,7 @@ public class GetRealTargetNameTest {
 		boilerPlate.getGenerateFiles(mod);
 
 		String x = ((GenerateC) boilerPlate.generateFiles).getRealTargetName(gf, ident_ia, Generate_Code_For_Method.AOG.GET, null);
-		Assert.assertEquals("vvx->vmfoo", x);
+		assertEquals("vvx->vmfoo", x);
 	}
 }
 
