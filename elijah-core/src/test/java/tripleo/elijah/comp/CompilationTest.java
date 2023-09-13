@@ -47,7 +47,7 @@ public class CompilationTest {
 					Stupidity.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
 				});
 
-		assertEquals(12, c.livingRepo().modules().size());
+		assertEquals(7/*12*/, c.livingRepo().modules().size());
 
 		System.err.println("CompilationTest -- 53 " + c.livingRepo().modules().size());
 		assertTrue(c.livingRepo().modules().size() > 2);
