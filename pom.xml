@@ -18,25 +18,25 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 
-		<jacoco.version>0.8.9</jacoco.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 		<downloadSources>true</downloadSources>
+
+		<jacoco.version>0.8.9</jacoco.version>
 		<guava.version>31.1-jre</guava.version>
+		<jdeferred.version>2.0.0</jdeferred.version>
+		<git-code-format-maven-plugin.version>4.3-SNAPSHOT</git-code-format-maven-plugin.version>
+		<maven-site-plugin.version>3.7.1</maven-site-plugin.version>
+		<maven-javadoc-plugin.version>3.0.0-M1</maven-javadoc-plugin.version>
 
 		<buffers.version>0.0.3</buffers.version>
 		<range.version>0.0.3b</range.version>
 
-		<maven-site-plugin.version>3.7.1</maven-site-plugin.version>
-		<maven-javadoc-plugin.version>3.0.0-M1</maven-javadoc-plugin.version>
-		<jdeferred.version>2.0.0</jdeferred.version>
-
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 	</properties>
 
 	<modules>
-
-			<module>annotation-processing</module>
-			<module>annotation-user</module>
+		<module>annotation-processing</module>
+		<module>annotation-user</module>
 		<!--
 			<module>elijah-compiler-gen</module>
 			<module>annotations</module>
@@ -46,7 +46,7 @@
 		<module>elijah-stateful-processor</module>
 		<module>tripleo-reactive</module>
 		<module>elijah-core</module>
-<!--		<module>typeinf</module>-->
+		<!--		<module>typeinf</module>-->
 	</modules>
 
 	<dependencies>
@@ -194,6 +194,51 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>com.cosium.code</groupId>
+				<artifactId>git-code-format-maven-plugin</artifactId>
+				<version>${git-code-format-maven-plugin.version}</version>
+				<executions>
+					<!-- On commit, format the modified files -->
+					<execution>
+						<id>install-formatter-hook</id>
+						<goals>
+							<goal>install-hooks</goal>
+						</goals>
+					</execution>
+					<!-- On Maven verify phase, fail if any file
+					(including unmodified) is badly formatted -->
+					<execution>
+						<id>validate-code-format</id>
+						<goals>
+							<goal>validate-code-format</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<!-- Enable https://github.com/google/google-java-format -->
+					<dependency>
+						<groupId>com.cosium.code</groupId>
+						<artifactId>google-java-format</artifactId>
+						<version>${git-code-format-maven-plugin.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<formatterOptions>
+						<!-- Use AOSP style instead of Google Style (4-space indentation). -->
+						<googleJavaFormat.aosp>false</googleJavaFormat.aosp>
+						<!-- Format the javadoc -->
+						<!--						<googleJavaFormat.formatJavadoc>true</googleJavaFormat.formatJavadoc>-->
+						<!-- Fix import order and remove any unused imports, but do no other formatting. -->
+						<!--						<googleJavaFormat.fixImportsOnly>false</googleJavaFormat.fixImportsOnly>-->
+						<!-- Do not fix the import order. Unused imports will still be removed. -->
+						<googleJavaFormat.skipSortingImports>false</googleJavaFormat.skipSortingImports>
+						<!-- Do not remove unused imports. Imports will still be sorted. -->
+						<googleJavaFormat.skipRemovingUnusedImports>false</googleJavaFormat.skipRemovingUnusedImports>
+					</formatterOptions>
+				</configuration>
+			</plugin>
+
 			<!--
 			<plugin>
 					<groupId>org.antlr</groupId>
