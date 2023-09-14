@@ -6,17 +6,21 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 import io.reactivex.rxjava3.subjects.Subject;
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.CompilerInstructionsObserver;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.IProgressSink;
+import tripleo.elijah.util.ObservableCompletableProcess;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 
 public class CIS implements Observer<CompilerInstructions> {
-
-	public        CompilerInstructionsObserver  _cio;
+	private final ObservableCompletableProcess<CompilerInstructions> ocp_ci = new ObservableCompletableProcess<>();
 	private final Subject<CompilerInstructions> compilerInstructionsSubject = ReplaySubject.<CompilerInstructions>create();
-	public        IProgressSink                 ps;
+	public  IProgressSink                ps;
+	private CompilerInstructionsObserver _cio;
+	private boolean                      FOO = true;
+
 
 	public @NotNull Operation<Ok> almostComplete() {
 		return _cio.almostComplete();
@@ -24,26 +28,53 @@ public class CIS implements Observer<CompilerInstructions> {
 
 	@Override
 	public void onSubscribe(@NonNull final Disposable d) {
-		compilerInstructionsSubject.onSubscribe(d);
-	}
-
-	@Override
-	public void onError(@NonNull final Throwable e) {
-		compilerInstructionsSubject.onError(e);
+		if (FOO) {
+			compilerInstructionsSubject.onSubscribe(d);
+		} else {
+			ocp_ci.onSubscribe(d);
+		}
 	}
 
 	@Override
 	public void onNext(@NonNull final CompilerInstructions aCompilerInstructions) {
-		compilerInstructionsSubject.onNext(aCompilerInstructions);
+		if (FOO) {
+			compilerInstructionsSubject.onNext(aCompilerInstructions);
+		} else {
+			ocp_ci.onNext(aCompilerInstructions);
+		}
+	}
+
+	@Override
+	public void onError(@NonNull final Throwable e) {
+		if (FOO) {
+			compilerInstructionsSubject.onError(e);
+		} else {
+			ocp_ci.onError(e);
+		}
 	}
 
 	@Override
 	public void onComplete() {
-		throw new IllegalStateException();
-		//compilerInstructionsSubject.onComplete();
+		throw new UnintendedUseException();
 	}
 
 	public void subscribe(final @NotNull Observer<CompilerInstructions> aCio) {
-		compilerInstructionsSubject.subscribe(aCio);
+		if (FOO) {
+			compilerInstructionsSubject.subscribe(aCio);
+		} else {
+			ocp_ci.subscribe(aCio);
+		}
+	}
+
+	public CompilerInstructionsObserver get_cio() {
+		return _cio;
+	}
+
+	public void set_cio(CompilerInstructionsObserver a_cio) {
+		_cio = a_cio;
+	}
+
+	public void subscribeTo(final Compilation aC) {
+		aC.subscribeCI(_cio);
 	}
 }
