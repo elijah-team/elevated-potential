@@ -19,6 +19,8 @@ import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.stages.deduce.IFunctionMapHook;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.Operation2;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
@@ -85,7 +87,7 @@ public interface Compilation {
 
 	String getProjectName();
 
-	void hasInstructions(List<CompilerInstructions> cis);
+	@NotNull Operation<Ok> hasInstructions(List<CompilerInstructions> cis);
 
 	void hasInstructions(@NotNull List<CompilerInstructions> cis,
 						 @NotNull IPipelineAccess pa);
