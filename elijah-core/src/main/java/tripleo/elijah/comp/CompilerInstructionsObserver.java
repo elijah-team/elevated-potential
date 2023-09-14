@@ -3,8 +3,11 @@ package tripleo.elijah.comp;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +20,8 @@ public class CompilerInstructionsObserver implements Observer<CompilerInstructio
 		compilation = aCompilation;
 	}
 
-	public void almostComplete() {
-		compilation.hasInstructions(l);
+	public @NotNull Operation<Ok> almostComplete() {
+		return compilation.hasInstructions(l);
 	}
 
 	@Override
