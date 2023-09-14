@@ -41,11 +41,11 @@ public class DefaultCompilerController implements CompilerController {
 		final CompilationEnclosure         compilationEnclosure = c.getCompilationEnclosure();
 
 		compilationEnclosure.setCompilationAccess(c.con().createCompilationAccess());
-		compilationEnclosure.setCompilationBus(c.con().createCompilationBus());//new CompilationBus(compilationEnclosure));
+		compilationEnclosure.setCompilationBus(c.con().createCompilationBus());
 
 		cb = c.getCompilationEnclosure().getCompilationBus();
 
-		c._cis()._cio = cio;
+		c._cis().set_cio(cio);
 
 		return op.process(c, inputs, cb); // TODO 09/08 Make this more complicated
 	}
@@ -57,7 +57,7 @@ public class DefaultCompilerController implements CompilerController {
 
 	@Override
 	public void runner(final @NotNull Con con) {
-		c.subscribeCI(c._cis()._cio);
+		c._cis().subscribeTo(c);
 
 		final CompilationEnclosure ce = c.getCompilationEnclosure();
 
