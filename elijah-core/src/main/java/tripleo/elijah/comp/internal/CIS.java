@@ -9,19 +9,17 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.CompilerInstructionsObserver;
 import tripleo.elijah.comp.i.IProgressSink;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
 
 public class CIS implements Observer<CompilerInstructions> {
 
 	public        CompilerInstructionsObserver  _cio;
 	private final Subject<CompilerInstructions> compilerInstructionsSubject = ReplaySubject.<CompilerInstructions>create();
 	public        IProgressSink                 ps;
-	//private boolean started;
 
-	public void almostComplete() {
-		//if (!started) {
-		//	started = true;
-		_cio.almostComplete();
-		//}
+	public @NotNull Operation<Ok> almostComplete() {
+		return _cio.almostComplete();
 	}
 
 	@Override

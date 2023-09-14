@@ -137,6 +137,10 @@ public class CompilationRunner extends _RegistrationTarget {
 		return _CR_AlmostComplete;
 	}
 
+	public CIS _cis() {
+		return cis;
+	}
+
 	public enum ST {
 		;
 

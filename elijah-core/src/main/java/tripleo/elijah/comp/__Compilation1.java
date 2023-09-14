@@ -26,9 +26,7 @@ import tripleo.elijah.lang.impl.QualidentImpl;
 import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
 import tripleo.elijah.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.stages.deduce.IFunctionMapHook;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah.world.impl.DefaultLivingRepo;
@@ -237,8 +235,9 @@ public abstract class __Compilation1 implements Compilation {
 	}
 
 	@Override
-	public void hasInstructions(final @NotNull List<CompilerInstructions> cis) {
+	public @NotNull Operation<Ok> hasInstructions(final @NotNull List<CompilerInstructions> cis) {
 		hasInstructions(cis, pa());
+		return Operation.success(Ok.instance());
 	}
 
 	@Override
