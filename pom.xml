@@ -43,7 +43,9 @@
 		-->
 		<module>tripleo-small</module>
 		<module>elijah-stateful</module>
+<!--
 		<module>elijah-stateful-processor</module>
+-->
 		<module>tripleo-reactive</module>
 		<module>elijah-core</module>
 		<!--		<module>typeinf</module>-->
@@ -58,11 +60,13 @@
 			<scope>provided</scope>
 		</dependency>
 
+<!--
 		<dependency>
 			<groupId>com.github.dritter-hd</groupId>
 			<artifactId>dlog</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+-->
 
 		<!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
 		<dependency>
@@ -194,20 +198,21 @@
 
 	<build>
 		<plugins>
+<!--
 			<plugin>
 				<groupId>com.cosium.code</groupId>
 				<artifactId>git-code-format-maven-plugin</artifactId>
 				<version>${git-code-format-maven-plugin.version}</version>
 				<executions>
-					<!-- On commit, format the modified files -->
+					&lt;!&ndash; On commit, format the modified files &ndash;&gt;
 					<execution>
 						<id>install-formatter-hook</id>
 						<goals>
 							<goal>install-hooks</goal>
 						</goals>
 					</execution>
-					<!-- On Maven verify phase, fail if any file
-					(including unmodified) is badly formatted -->
+					&lt;!&ndash; On Maven verify phase, fail if any file
+					(including unmodified) is badly formatted &ndash;&gt;
 					<execution>
 						<id>validate-code-format</id>
 						<goals>
@@ -216,7 +221,7 @@
 					</execution>
 				</executions>
 				<dependencies>
-					<!-- Enable https://github.com/google/google-java-format -->
+					&lt;!&ndash; Enable https://github.com/google/google-java-format &ndash;&gt;
 					<dependency>
 						<groupId>com.cosium.code</groupId>
 						<artifactId>google-java-format</artifactId>
@@ -225,19 +230,20 @@
 				</dependencies>
 				<configuration>
 					<formatterOptions>
-						<!-- Use AOSP style instead of Google Style (4-space indentation). -->
+						&lt;!&ndash; Use AOSP style instead of Google Style (4-space indentation). &ndash;&gt;
 						<googleJavaFormat.aosp>false</googleJavaFormat.aosp>
-						<!-- Format the javadoc -->
-						<!--						<googleJavaFormat.formatJavadoc>true</googleJavaFormat.formatJavadoc>-->
-						<!-- Fix import order and remove any unused imports, but do no other formatting. -->
-						<!--						<googleJavaFormat.fixImportsOnly>false</googleJavaFormat.fixImportsOnly>-->
-						<!-- Do not fix the import order. Unused imports will still be removed. -->
+						&lt;!&ndash; Format the javadoc &ndash;&gt;
+						&lt;!&ndash;						<googleJavaFormat.formatJavadoc>true</googleJavaFormat.formatJavadoc>&ndash;&gt;
+						&lt;!&ndash; Fix import order and remove any unused imports, but do no other formatting. &ndash;&gt;
+						&lt;!&ndash;						<googleJavaFormat.fixImportsOnly>false</googleJavaFormat.fixImportsOnly>&ndash;&gt;
+						&lt;!&ndash; Do not fix the import order. Unused imports will still be removed. &ndash;&gt;
 						<googleJavaFormat.skipSortingImports>false</googleJavaFormat.skipSortingImports>
-						<!-- Do not remove unused imports. Imports will still be sorted. -->
+						&lt;!&ndash; Do not remove unused imports. Imports will still be sorted. &ndash;&gt;
 						<googleJavaFormat.skipRemovingUnusedImports>false</googleJavaFormat.skipRemovingUnusedImports>
 					</formatterOptions>
 				</configuration>
 			</plugin>
+-->
 
 			<!--
 			<plugin>

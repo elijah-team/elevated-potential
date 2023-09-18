@@ -11,9 +11,9 @@ import tripleo.elijah.stages.instructions.IdentIA;
 import tripleo.elijah.stateful.DefaultStateful;
 import tripleo.elijah.stateful.State;
 import tripleo.elijah.stateful.StateRegistrationToken;
-import tripleo.elijah.stateful.annotation.processor.StatefulProperty;
+//import tripleo.elijah.stateful.annotation.processor.StatefulProperty;
 
-@StatefulProperty
+//@StatefulProperty
 public class ExitGetType implements State {
 	private StateRegistrationToken identity;
 
