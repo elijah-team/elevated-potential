@@ -5,9 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import com.github.dritter.hd.dlog.algebra.DataIterator;
-import com.github.dritter.hd.dlog.algebra.ParameterValue;
-import com.github.dritter.hd.dlog.algebra.TableIterator;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -92,7 +92,7 @@ public class USE {
 			final Operation2<WorldModule> om = realParseElijjahFile2(aInputRequest);
 
 			if (om.mode() == Mode.SUCCESS) {
-				// TODO we dont know which prelude to find yet
+				// TODO we don't know which prelude to find yet
 				final Operation2<WorldModule> pl = findPrelude(Compilation.CompilationAlways.defaultPrelude());
 
 				// NOTE Go: infectious, tedious; also slightly lazy
