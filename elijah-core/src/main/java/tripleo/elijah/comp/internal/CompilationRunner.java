@@ -1,18 +1,15 @@
 package tripleo.elijah.comp.internal;
 
-import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.Compilation;
+import lombok.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.stateful.DefaultStateful;
-import tripleo.elijah.stateful.State;
-import tripleo.elijah.stateful.StateRegistrationToken;
-import tripleo.elijah.stateful._RegistrationTarget;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah.stateful.*;
+import tripleo.elijah.util.*;
 
-import java.util.List;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
 public class CompilationRunner extends _RegistrationTarget {
 	private final          Compilation     _compilation;
@@ -139,6 +136,10 @@ public class CompilationRunner extends _RegistrationTarget {
 
 	public CIS _cis() {
 		return cis;
+	}
+
+	public CompilationEnclosure getCompilationEnclosure() {
+		return _accessCompilation().getCompilationEnclosure();
 	}
 
 	public enum ST {
