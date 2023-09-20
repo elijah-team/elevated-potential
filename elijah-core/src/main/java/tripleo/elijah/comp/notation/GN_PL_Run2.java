@@ -42,7 +42,7 @@ public class GN_PL_Run2 implements GN_Notable, @NotNull EventualRegister {
 		final DefaultWorldModule       worldModule = (DefaultWorldModule) mod;
 		final GenerateFunctionsRequest rq          = new GenerateFunctionsRequest(dcg, worldModule);
 
-		worldModule.setRq(rq); // TODO never used
+		worldModule.setRq(rq);
 
 		final Eventual<DeducePhase.GeneratedClasses> plgc = pipelineLogic.handle(rq);
 		plgc.register(pipelineLogic);

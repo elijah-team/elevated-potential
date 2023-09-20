@@ -1,6 +1,7 @@
 package tripleo.elijah.world.impl;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.*;
 import tripleo.elijah.comp.i.CompilationEnclosure;
 import tripleo.elijah.comp.notation.GN_PL_Run2;
 import tripleo.elijah.lang.i.OS_Module;
@@ -54,7 +55,16 @@ public class DefaultWorldModule implements WorldModule {
 	public void setRq(final GN_PL_Run2.GenerateFunctionsRequest aRq) {
 		rq = aRq;
 		//throw new NotImplementedException("Unexpected");
+
+		erq.resolve(rq);
 	}
+
+	@Override
+	public Eventual<GN_PL_Run2.GenerateFunctionsRequest> getErq() {
+		return erq;
+	}
+
+	Eventual<GN_PL_Run2.GenerateFunctionsRequest> erq = new Eventual<>();
 
 	@Override
 	public String toString() {

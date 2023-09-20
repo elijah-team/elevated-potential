@@ -53,7 +53,7 @@ class EzM {
 				} else {
 					System.err.println("***** 6262 " + f);
 
-					throw new NotImplementedException();
+//					throw new NotImplementedException();
 				}
 			}
 
