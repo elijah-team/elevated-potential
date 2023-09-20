@@ -10,12 +10,14 @@ import tripleo.elijah.world.i.WorldModule;
 
 public class DefaultWorldModule implements WorldModule {
 	private final OS_Module   mod;
+	private final CompilationEnclosure ce;
 	private       ModuleThing thing;
 
 	private GN_PL_Run2.GenerateFunctionsRequest rq;
 
-	public DefaultWorldModule(final OS_Module aMod, final @NotNull CompilationEnclosure ce) {
+	public DefaultWorldModule(final OS_Module aMod, final @NotNull CompilationEnclosure ace) {
 		mod = aMod;
+		ce = ace;
 		final ModuleThing mt = ce.addModuleThing(mod);
 		setThing(mt);
 	}
@@ -38,6 +40,11 @@ public class DefaultWorldModule implements WorldModule {
 	public GN_PL_Run2.GenerateFunctionsRequest rq() {
 		return rq;
 		//throw new NotImplementedException("Unexpected");
+	}
+
+	@Override
+	public EIT_ModuleInput getEITInput() {
+		return new EIT_ModuleInput(mod, ce.getCompilation());
 	}
 
 	public ModuleThing thing() {
