@@ -1,34 +1,29 @@
 package tripleo.elijah.comp.i;
 
-import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.annotations.*;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.subjects.ReplaySubject;
-import io.reactivex.rxjava3.subjects.Subject;
-import org.apache.commons.lang3.tuple.Triple;
-import org.jdeferred2.Promise;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import io.reactivex.rxjava3.subjects.*;
+import org.apache.commons.lang3.tuple.*;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.ER_Node;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
-import tripleo.elijah.nextgen.reactive.Reactivable;
-import tripleo.elijah.nextgen.reactive.Reactive;
-import tripleo.elijah.nextgen.reactive.ReactiveDimension;
-import tripleo.elijah.pre_world.Mirror_EntryPoint;
-import tripleo.elijah.stages.gen_fn.IClassGenerator;
-import tripleo.elijah.stages.generate.OutputStrategyC;
-import tripleo.elijah.stages.inter.ModuleThing;
-import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
-import tripleo.elijah.util.CompletableProcess;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.*;
+import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.pre_world.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.generate.*;
+import tripleo.elijah.stages.inter.*;
+import tripleo.elijah.stages.write_stage.pipeline_impl.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.world.i.*;
 
-import java.io.File;
+import java.io.*;
 import java.util.*;
 
 public class CompilationEnclosure {
@@ -399,6 +394,11 @@ public class CompilationEnclosure {
 			File         f             = aInputRequest.file();
 
 			System.out.printf("** [__parseElijjahFile_InputRequest] %s%n", f.getAbsolutePath());
+		}
+		case Compilation__hasInstructions__empty -> {
+			String absolutePath = (String)x;
+
+			System.err.println("No CIs found. Current dir is " + absolutePath);
 		}
 		default -> throw new IllegalStateException("Unexpected value: " + aCompProgress);
 		}
