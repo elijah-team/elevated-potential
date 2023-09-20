@@ -1,37 +1,25 @@
 package tripleo.elijah.stages.write_stage.pipeline_impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.comp.i.IPipelineAccess;
-import tripleo.elijah.comp.notation.GM_GenerateModule;
-import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.output.NG_OutputFunction;
-import tripleo.elijah.stages.garish.GarishClass;
-import tripleo.elijah.stages.garish.GarishNamespace;
-import tripleo.elijah.stages.gen_c.C2C_Result;
-import tripleo.elijah.stages.gen_c.GenerateC;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.nextgen.output.*;
+import tripleo.elijah.stages.garish.*;
+import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.GenerateFiles;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.work.WorkList;
-import tripleo.elijah.work.WorkManager;
-import tripleo.elijah.world.i.LivingClass;
-import tripleo.elijah.world.i.LivingNamespace;
-import tripleo.elijah.world.i.WorldModule;
-import tripleo.util.buffer.Buffer;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.work.*;
+import tripleo.elijah.world.i.*;
+import tripleo.util.buffer.*;
 
-import java.util.List;
+import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 class AmazingFunction implements Amazing {
 	private final NG_OutputFunction                of;
@@ -42,9 +30,9 @@ class AmazingFunction implements Amazing {
 	private final IPipelineAccess                  pa;
 
 	public AmazingFunction(final @NotNull BaseEvaFunction aBaseEvaFunction,
-						   final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems,
-						   final @NotNull GenerateResult aGenerateResult,
-						   final @NotNull IPipelineAccess aPa) {
+	                       final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems,
+	                       final @NotNull GenerateResult aGenerateResult,
+	                       final @NotNull IPipelineAccess aPa) {
 		// given
 		f      = aBaseEvaFunction;
 		mod    = aBaseEvaFunction.module();
@@ -60,17 +48,15 @@ class AmazingFunction implements Amazing {
 		// TODO latch
 		pa.getAccessBus().subscribePipelineLogic(aPipelineLogic -> {
 			// FIXME check arguments --> this doesn't seem like it will give the desired results
-			var env = new GN_GenerateNodesIntoSinkEnv(List_of(),
-													  new DefaultGenerateResultSink(pa),
-													  aPipelineLogic.mods(),
-													  ElLog.Verbosity.VERBOSE,
-													  new Old_GenerateResult(),
-													  pa,
-													  pa.getCompilationEnclosure());
-			//var mod = pte.__gf.getFD().getContext().module();
+			DefaultGenerateResultSink generateResultSink = new DefaultGenerateResultSink(pa);
+			EIT_ModuleList            eitModuleList      = aPipelineLogic.mods();
+			GenerateResult            gr                 = result; //new Old_GenerateResult();
+			CompilationEnclosure      ce                 = pa.getCompilationEnclosure();
 
-			var world = pa.getCompilationEnclosure().getCompilation().livingRepo();
-			var wm = world.findModule(mod);
+			var env = new GN_GenerateNodesIntoSinkEnv(List_of(), generateResultSink, eitModuleList, ElLog.Verbosity.VERBOSE, gr, pa, ce);
+
+			var world = ce.getCompilation().livingRepo();
+			var wm    = world.findModule(mod);
 
 			var generateModuleRequest = new GM_GenerateModuleRequest(new GN_GenerateNodesIntoSink(env), wm, env);
 			var generateModule        = new GM_GenerateModule(generateModuleRequest);
