@@ -1,6 +1,6 @@
 package tripleo.elijah.foo;
 
-import com.baeldung.annotation.processor.BuilderProperty;
+//import com.baeldung.annotation.processor.BuilderProperty;
 
 public class Personify {
 
@@ -12,7 +12,7 @@ public class Personify {
         return age;
     }
 
-    @BuilderProperty
+//    @BuilderProperty
     public void setAge(int age) {
         this.age = age;
     }
@@ -21,7 +21,7 @@ public class Personify {
         return name;
     }
 
-    @BuilderProperty
+//    @BuilderProperty
     public void setName(String name) {
         this.name = name;
     }
