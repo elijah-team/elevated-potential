@@ -1,7 +1,8 @@
 package tripleo.elijah.util;
 
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.diagnostic.Diagnostic;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.diagnostic.*;
+import tripleo.elijah.diagnostic.*;
 
 public class Maybe<T> {
 	public final @Nullable Diagnostic exc;
@@ -22,7 +23,19 @@ public class Maybe<T> {
 		this.exc = exc;
 	}
 
-	public boolean isException() {
+    public static <T> Maybe<T> of(@NotNull T t) {
+		return new Maybe<>(t, null);
+    }
+
+    public static <T> Maybe<T> of_exc(@NotNull Diagnostic d) {
+		return new Maybe<>(null, d);
+    }
+
+    public static <T> Maybe<T> of_exc(@NotNull Exception e) {
+		return new Maybe<>(null, new ExceptionDiagnostic(e));
+    }
+
+    public boolean isException() {
 		return exc != null;
 	}
 }
