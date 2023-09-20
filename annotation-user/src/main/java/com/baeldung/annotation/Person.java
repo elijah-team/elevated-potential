@@ -1,6 +1,6 @@
 package com.baeldung.annotation;
 
-import com.baeldung.annotation.processor.BuilderProperty;
+//import com.baeldung.annotation.processor.BuilderProperty;
 
 public class Person {
 
@@ -12,7 +12,7 @@ public class Person {
         return age;
     }
 
-    @BuilderProperty
+//    @BuilderProperty
     public void setAge(int age) {
         this.age = age;
     }
@@ -21,7 +21,7 @@ public class Person {
         return name;
     }
 
-    @BuilderProperty
+//    @BuilderProperty
     public void setName(String name) {
         this.name = name;
     }
