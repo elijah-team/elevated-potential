@@ -1,16 +1,11 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.ApacheOptionsProcessor;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.CompilerInstructionsObserver;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
-import tripleo.elijah.util.Stupidity;
+import tripleo.elijah.util.*;
 
-import java.util.List;
+import java.util.*;
 
 public class DefaultCompilerController implements CompilerController {
 	List<String> args;
@@ -70,12 +65,12 @@ public class DefaultCompilerController implements CompilerController {
 
 		hook(cr);
 
-		var inputTree = c.getInputTree();
-
-		for (CompilerInput input : inputs) {
-			if (input.isNull()) // README filter out args
-				inputTree.addNode(input);
-		}
+//		var inputTree = c.getInputTree();
+//
+//		for (CompilerInput input : inputs) {
+//			if (input.isNull()) // README filter out args
+//				inputTree.addNode(input);
+//		}
 
 		cb.add(new CB_FindCIs(cr, inputs));
 		cb.add(new CB_FindStdLibProcess(ce, cr));
