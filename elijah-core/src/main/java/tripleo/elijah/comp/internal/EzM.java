@@ -21,24 +21,23 @@ import static tripleo.elijah.nextgen.query.Mode.SUCCESS;
 class EzM {
 	@NotNull Operation<CompilerInstructions> parseEzFile1(final @NotNull SourceFileParserParams p) {
 		@NotNull final File f = p.f();
-		//logProgress(27, "   " + f.getAbsolutePath());
+
+		logProgress(27, f.getAbsolutePath());
+
 		if (!f.exists()) {
-
-
-			p.cc().errSink().reportError(
-					"File doesn't exist " + f.getAbsolutePath());
-
+			p.cc().errSink().reportError("File doesn't exist " + f.getAbsolutePath());
 
 			return Operation.failure(new FileNotFoundException());
-
 		} else {
 			final Operation<CompilerInstructions> om = realParseEzFile(p);
 			return om;
 		}
 	}
 
+	// TODO pass to ce or (not pa or) something
 	private void logProgress(final int code, final String message) {
-		final String x = "%d %s".formatted(code, message);
+		final String x = "[EzM] %d %s".formatted(code, message);
+//		if (code == 27) return;
 		System.out.println(x);
 	}
 

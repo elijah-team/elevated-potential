@@ -78,7 +78,7 @@ public class DefaultCompilerController implements CompilerController {
 		}
 
 		cb.add(new CB_FindCIs(cr, inputs));
-		cb.add(new CB_FindStdLibAction(ce, cr).process());
+		cb.add(new CB_FindStdLibProcess(ce, cr));
 
 		((DefaultCompilationBus) cb).runProcesses();
 	}

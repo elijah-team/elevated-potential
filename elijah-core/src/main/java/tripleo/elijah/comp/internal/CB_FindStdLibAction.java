@@ -1,16 +1,13 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.Compilation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.nextgen.query.Mode;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah.nextgen.query.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class CB_FindStdLibAction implements CB_Action {
 	private final     CompilationEnclosure  ce;
@@ -49,8 +46,10 @@ class CB_FindStdLibAction implements CB_Action {
 		if (oci.mode() == Mode.SUCCESS) {
 			final Compilation c = ce.getCompilation();
 
-			c.pushItem(oci.success());
-			c.use(oci.success(), true);
+			CompilerInstructions compilerInstructions = oci.success();
+
+			c.pushItem(compilerInstructions);
+			c.use(compilerInstructions, true);
 		} else {
 			throw new IllegalStateException(oci.failure());
 		}
