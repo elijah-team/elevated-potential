@@ -34,10 +34,23 @@ public class DefaultLivingRepo implements LivingRepo {
 
 	@Override
 	public @NotNull DefaultLivingClass addClass(final @NotNull EvaClass aClass, final @NotNull Add addFlag) {
+		DefaultLivingClass living = null;
+		boolean set = false;
+
 		switch (addFlag) {
 		case NONE -> {
-			if (aClass.getLiving().getCode() == 0) {
-				aClass.getLiving().setCode(nextClassCode());
+			LivingClass livingClass = aClass.getLiving();
+
+			if (livingClass == null) {
+				livingClass = new DefaultLivingClass(aClass);
+				aClass.setLiving(livingClass);
+				set = true;
+
+				living = (DefaultLivingClass) livingClass;
+			}
+
+			if (livingClass.getCode() == 0) {
+				livingClass.setCode(nextClassCode());
 			} else {
 				if (2 == 3) {
 					assert true;
@@ -56,8 +69,10 @@ public class DefaultLivingRepo implements LivingRepo {
 		}
 		}
 
-		final DefaultLivingClass living = new DefaultLivingClass(aClass);
-		aClass._living = living;
+		if (!set) {
+			living = new DefaultLivingClass(aClass);
+			aClass.setLiving(living);
+		}
 
 		repo.add(living);
 

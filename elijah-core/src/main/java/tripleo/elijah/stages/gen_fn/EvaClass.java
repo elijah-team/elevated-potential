@@ -37,7 +37,7 @@ import java.util.function.Consumer;
  * Created 10/29/20 4:26 AM
  */
 public class EvaClass extends EvaContainerNC implements GNCoded {
-	public          DefaultLivingClass                  _living;
+	private LivingClass _living;
 	private final   ClassStatement                      klass;
 	private final   OS_Module                           module;
 	public          ClassInvocation                     ci;
@@ -366,6 +366,10 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 
 	public LivingClass getLiving() {
 		return _living;
+	}
+
+	public void setLiving(LivingClass _living) {
+		this._living = _living;
 	}
 
 	public class _Reactive_EvaClass extends DefaultReactive {
