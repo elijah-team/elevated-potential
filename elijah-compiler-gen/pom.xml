@@ -4,7 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>tripleo.elijah</groupId>
+	<parent>
+		<groupId>tripleo.elijah</groupId>
+		<version>0.91.1-SNAPSHOT</version>
+		<artifactId>elijah-v2</artifactId>
+	</parent>
+
+	<name>${project.groupId}.${project.artifactId}</name>
 	<artifactId>elijah-compiler-gen</artifactId>
 	<version>0.9.1-SNAPSHOT</version>
 
