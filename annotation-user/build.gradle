@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies {
-    providedCompile project(':annotation-processing')
+//    providedCompile project(':annotation-processing')
 }
 
 description = 'annotation-user'
