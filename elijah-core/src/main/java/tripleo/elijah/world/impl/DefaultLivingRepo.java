@@ -233,6 +233,17 @@ public class DefaultLivingRepo implements LivingRepo {
 	}
 
 	@Override
+	public WorldModule findModule(OS_Module mod) {
+		//noinspection UnnecessaryLocalVariable
+		final WorldModule result = _modules.stream()
+				.filter(wm -> wm.module() == mod)
+				.findFirst()
+				.orElse(null);
+
+		return result;
+	}
+
+	@Override
 	public OS_Package makePackage(final @NotNull Qualident pkg_name) {
 		final String pkg_name_s = pkg_name.toString();
 		if (!isPackage(pkg_name_s)) {

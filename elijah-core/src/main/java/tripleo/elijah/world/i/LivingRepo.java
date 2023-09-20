@@ -52,6 +52,8 @@ public interface LivingRepo {
 
 	WorldModule getModule(OS_Module aSuccess);
 
+	WorldModule findModule(OS_Module mod);
+
 	enum Add {MAIN_CLASS, MAIN_FUNCTION, NONE}
 
 	OS_Package makePackage(Qualident aPkgName);
