@@ -1,22 +1,14 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.queries.QueryEzFileToModule;
-import tripleo.elijah.comp.queries.QueryEzFileToModuleParams;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.Operation;
-import tripleo.elijah.util.Stupidity;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.queries.*;
+import tripleo.elijah.util.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
-import static tripleo.elijah.nextgen.query.Mode.SUCCESS;
+import static tripleo.elijah.nextgen.query.Mode.*;
 
 class EzM {
 	@NotNull Operation<CompilerInstructions> parseEzFile1(final @NotNull SourceFileParserParams p) {
@@ -50,8 +42,8 @@ class EzM {
 			final Operation<CompilerInstructions> oci = realParseEzFile(f, s, file, p.cc().getCompilation());
 
 			if (/*false ||*/ oci.mode() == SUCCESS) {
-				Operation<String> hash = Helpers.getHashForFilename(p.f().toString());
-				//System.err.println("***** 166 " + hash.success());
+				Operation<String> hash = new CA_getHashForFile().apply(p.file_name(), p.f());
+				logProgress(166, hash.success());
 
 				final CompilerInput input = p.input();
 
@@ -60,6 +52,8 @@ class EzM {
 					input.accept_hash(hash.success());
 				} else {
 					System.err.println("***** 6262 " + f);
+
+					throw new NotImplementedException();
 				}
 			}
 
