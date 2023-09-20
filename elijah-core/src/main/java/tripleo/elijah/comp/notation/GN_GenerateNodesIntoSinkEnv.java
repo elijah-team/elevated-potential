@@ -25,7 +25,7 @@ public record GN_GenerateNodesIntoSinkEnv(List<ProcessedNode> lgc,
 										  GenerateResultSink resultSink1,
 										  EIT_ModuleList moduleList,
 										  ElLog.Verbosity verbosity,
-										  Old_GenerateResult gr,
+										  GenerateResult gr,
 										  IPipelineAccess pa,
 										  CompilationEnclosure ce) implements GN_Env {
 
