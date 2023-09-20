@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>tripleo.small</artifactId>
-	<name>tripleo-small</name>
+	<name>${project.groupId}.${project.artifactId}</name>
 	<description>tripleo-small</description>
 	<version>0.9.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
