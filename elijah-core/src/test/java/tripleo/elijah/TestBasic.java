@@ -46,7 +46,7 @@ import static tripleo.elijah.util.Helpers.List_of;
  */
 public class TestBasic {
 
-	private final boolean DISABLED = true;
+	private final boolean TestBasic_DISABLED = false;
 
 	@Disabled
 	@Test
@@ -98,14 +98,15 @@ public class TestBasic {
 
 		final Compilation c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
 
-		if (!DISABLED) {
+		if (!TestBasic_DISABLED) {
 			Emit.emitting = false;
 
-			c.feedInputs(
-					List_of(s, "-sO").stream()
-							.map(CompilerInput::new)
-							.collect(Collectors.toList()),
-					new DefaultCompilerController());
+			List<CompilerInput> inputs = List_of(s, "-sO").stream()
+					.map(CompilerInput::new)
+					.collect(Collectors.toList());
+			DefaultCompilerController controller = new DefaultCompilerController();
+
+			c.feedInputs(inputs, controller);
 
 			if (c.errorCount() != 0)
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
@@ -139,7 +140,7 @@ public class TestBasic {
 
 		final Compilation c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
 
-		if (!DISABLED) {
+		if (!TestBasic_DISABLED) {
 			c.feedInputs(
 					List_of(s, "-sE").stream() // -sD??
 							.map(CompilerInput::new)
@@ -183,7 +184,7 @@ public class TestBasic {
 			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
 		}
 
-		if (!DISABLED) {
+		if (!TestBasic_DISABLED) {
 			assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
 			assertTrue(c.getOutputTree().getList().size() > 0);
 			assertTrue(c.getIO().recordedwrites.size() > 0);
