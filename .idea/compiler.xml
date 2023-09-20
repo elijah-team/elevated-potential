@@ -3,18 +3,16 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+      <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
-        <module name="tripleo.elijah.stateful" />
-        <module name="annotation-processing" />
-        <module name="tripleo.elijah.reactive" />
-        <module name="tripleo.small" />
-        <module name="tripleo.elijah.core" />
-        <module name="annotation-user" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.m2/repository/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar" />
+        </processorPath>
+        <module name="elijah-v2.tripleo.elijah.core.main" />
+        <module name="elijah-v2.tripleo.elijah.core.test" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="1.8" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
