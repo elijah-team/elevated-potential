@@ -10,4 +10,6 @@ public interface WorldModule {
 	EIT_ModuleInput input();
 
 	GN_PL_Run2.GenerateFunctionsRequest rq();
+
+	EIT_ModuleInput getEITInput();
 }

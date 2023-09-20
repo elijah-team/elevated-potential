@@ -5,17 +5,18 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.world.i.*;
 
 import java.util.*;
 
 class Hooligan {
 	private static final Set<SmallWriter.SW_Ref> insides = new HashSet<>();
 
-	@NotNull SmallWriter1 __modules2(final @NotNull List<OS_Module> aModuleList) {
+	@NotNull SmallWriter1 __modules2(final Collection<WorldModule> aModuleList) {
 		var sw = new SmallWriter1();
 
-		for (OS_Module module : aModuleList) {
-			module.serializeTo(sw.newWriter(module));
+		for (WorldModule module : aModuleList) {
+			module.module().serializeTo(sw.newWriter(module.module()));
 		}
 
 		return sw;
