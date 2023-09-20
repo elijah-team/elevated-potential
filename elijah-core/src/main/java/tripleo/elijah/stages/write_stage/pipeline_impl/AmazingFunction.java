@@ -69,7 +69,8 @@ class AmazingFunction implements Amazing {
 													  pa.getCompilationEnclosure());
 			//var mod = pte.__gf.getFD().getContext().module();
 
-			WorldModule wm = null;
+			var world = pa.getCompilationEnclosure().getCompilation().livingRepo();
+			var wm = world.findModule(mod);
 
 			var generateModuleRequest = new GM_GenerateModuleRequest(new GN_GenerateNodesIntoSink(env), wm, env);
 			var generateModule        = new GM_GenerateModule(generateModuleRequest);
