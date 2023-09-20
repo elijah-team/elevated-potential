@@ -248,7 +248,10 @@ public abstract class __Compilation1 implements Compilation {
 
 		if (cis.size() == 0) {
 			// README IDEA misconfiguration
-			System.err.println("No CIs found. Current dir is " + new File(".").getAbsolutePath());
+			String absolutePath = new File(".").getAbsolutePath();
+
+			getCompilationEnclosure().logProgress(CompProgress.Compilation__hasInstructions__empty, absolutePath);
+
 			return;
 		}
 
