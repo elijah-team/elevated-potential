@@ -82,10 +82,6 @@ class ResolvedNodes {
 	}
 
 	public void part2() {
-		__processResolvedNodes(resolved_nodes, cr);
-	}
-
-	private void __processResolvedNodes(final @NotNull List<EvaNode> resolved_nodes, final ICodeRegistrar cr) {
 		resolved_nodes.stream()
 				.filter(evaNode -> evaNode instanceof GNCoded)
 				.map(evaNode -> (GNCoded) evaNode)

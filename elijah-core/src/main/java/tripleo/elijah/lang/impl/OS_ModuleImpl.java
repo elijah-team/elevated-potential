@@ -158,8 +158,8 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 						} else {
 							var classItemParent = classItem.getParent();
 
-							//System.err.println("159159 " + classItemParent.getClass().getName());
-							//throw new NotImplementedException();
+							System.err.println("159159 " + classItemParent.getClass().getName());
+							entryPoints.add(new MainClassEntryPoint(classItem));
 						}
 					}
 					assert entryPoints.size() == eps || entryPoints.size() == eps + 1; // TODO this will fail one day

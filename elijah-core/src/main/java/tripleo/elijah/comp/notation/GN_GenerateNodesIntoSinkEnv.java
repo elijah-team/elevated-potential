@@ -71,7 +71,8 @@ public record GN_GenerateNodesIntoSinkEnv(List<ProcessedNode> lgc,
 			fileGen = fgs.get();
 		}
 
-		return OutputFileFactory.create(Optional.ofNullable(lang).orElse(Compilation.CompilationAlways.defaultPrelude()), params, fileGen);
+		String lang1 = Optional.ofNullable(lang).orElse(Compilation.CompilationAlways.defaultPrelude());
+		return OutputFileFactory.create(lang1, params, fileGen);
 	}
 
 	@Contract("_, _ -> new")

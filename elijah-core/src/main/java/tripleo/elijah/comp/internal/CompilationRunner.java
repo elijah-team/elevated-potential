@@ -86,7 +86,10 @@ public class CompilationRunner extends _RegistrationTarget {
 	public @NotNull Operation<CompilerInstructions> realParseEzFile(final @NotNull SourceFileParserParams p) {
 		final Operation<CompilerInstructions> oci = ezm.realParseEzFile(p);
 
-		_compilation.getInputTree().setNodeOperation(p.input(), oci);
+		CompilerInput input = p.input();
+		if (input != null) {
+			_compilation.getInputTree().setNodeOperation(input, oci);
+		}
 
 		return oci;
 	}

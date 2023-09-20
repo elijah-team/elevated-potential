@@ -8,46 +8,69 @@
  */
 package tripleo.elijah.comp;
 
+import com.google.common.collect.*;
 import io.reactivex.rxjava3.annotations.NonNull;
-import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
-import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.IPipelineAccess;
-import tripleo.elijah.comp.internal.Provenance;
-import tripleo.elijah.comp.notation.GN_PL_Run2;
-import tripleo.elijah.comp.notation.GN_PL_Run2_Env;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
-import tripleo.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah.stages.gen_fn.GenerateFunctions;
-import tripleo.elijah.stages.gen_fn.GeneratePhase;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.CompletableProcess;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.world.i.WorldModule;
-import tripleo.elijah.world.impl.DefaultWorldModule;
+import lombok.*;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.world.i.*;
+import tripleo.elijah.world.impl.*;
 
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 /**
  * Created 12/30/20 2:14 AM
  */
 public class PipelineLogic implements @NotNull EventualRegister {
-	public final @NotNull  DeducePhase                                            dp;
-	public final @NotNull  GeneratePhase                                          generatePhase;
-	private final @NonNull List<ElLog>                                            elLogs     = new LinkedList<>();
-	private final @NonNull EIT_ModuleList                                         mods       = new EIT_ModuleList();
-	private final @NonNull ModuleCompletableProcess                               mcp        = new ModuleCompletableProcess();
-	private final @NonNull Map<OS_Module, Eventual<DeducePhase.GeneratedClasses>> modMap     = new HashMap<>();
-	private final @NonNull IPipelineAccess                                        pa;
+	public final @NotNull DeducePhase dp;
+	public final @NotNull GeneratePhase generatePhase;
+	private final @NonNull List<ElLog> elLogs = new LinkedList<>();
+	private final @NonNull EIT_ModuleList mods = new EIT_ModuleList();
+	private final @NonNull ModuleCompletableProcess mcp = new ModuleCompletableProcess();
+	private final @NonNull ModMap modMap = new ModMap();
+	private final @NonNull IPipelineAccess pa;
 	@Getter
-	private final @NonNull ElLog.Verbosity                                        verbosity;
-	private                List<Eventual<?>>                                      _eventuals = new ArrayList<>();
+	private final @NonNull ElLog.Verbosity verbosity;
+	private List<Eventual<?>> _eventuals = new ArrayList<>();
+
+	class ModMap {
+		private final Map<OS_Module, Eventual<DeducePhase.GeneratedClasses>> modMap = new HashMap<>();
+		private final Multimap<OS_Module, DoneCallback<Eventual<DeducePhase.GeneratedClasses>>> mmme = ArrayListMultimap.create();
+
+		public void then(OS_Module mod, DoneCallback<Eventual<DeducePhase.GeneratedClasses>> p) {
+			mmme.put(mod, p);
+
+			var x = modMap.get(mod);
+			if (x != null) {
+				p.onDone(x);
+			} else {
+				var e = new Eventual<DeducePhase.GeneratedClasses>();
+				e.then(lgc -> p.onDone(e));
+				modMap.put(mod, e);
+			}
+		}
+
+		public void put(OS_Module mod, Eventual<DeducePhase.GeneratedClasses> p) {
+			modMap.put(mod, p);
+			var x = mmme.get(mod);
+			for (DoneCallback<Eventual<DeducePhase.GeneratedClasses>> callback : x) {
+				callback.onDone(p);
+			}
+		}
+	}
 
 
 	public PipelineLogic(final IPipelineAccess aPa, final @NotNull ICompilationAccess ca) {
@@ -57,31 +80,26 @@ public class PipelineLogic implements @NotNull EventualRegister {
 		pa.install_notate(Provenance.PipelineLogic__nextModule, GN_PL_Run2.class, GN_PL_Run2_Env.class);
 
 		ca.setPipelineLogic(this);
-		verbosity     = ca.testSilence();
+		verbosity = ca.testSilence();
 		generatePhase = new GeneratePhase(verbosity, pa, this);
-		dp            = new DeducePhase(ca, pa, this);
+		dp = new DeducePhase(ca, pa, this);
 
 		pa.getCompilationEnclosure().addModuleListener(new CompilationEnclosure.ModuleListener() {
 			@Override
 			public void listen(final WorldModule module) {
-				final OS_Module         mod = module.module();
-				final GenerateFunctions gfm = getGenerateFunctions(mod);
+				module.getErq().then(rq -> {
+					final OS_Module mod = module.module();
+					final GenerateFunctions gfm = getGenerateFunctions(mod);
 
-				final GN_PL_Run2.GenerateFunctionsRequest rq = module.rq();
-				if (rq != null) {
 					gfm.generateFromEntryPoints(rq);
 
 					// ---
 
-					final Eventual<DeducePhase.GeneratedClasses> eventual = modMap.get(mod);
-
-					if (eventual != null) {
+					modMap.then(mod, (final Eventual<DeducePhase.GeneratedClasses> eventual) -> {
 						final DeducePhase.@NotNull GeneratedClasses lgc = dp.generatedClasses;
 						eventual.resolve(lgc);
-					} else {
-						NotImplementedException.raise_stop();
-					}
-				}
+					});
+				});
 			}
 
 			@Override
@@ -97,8 +115,8 @@ public class PipelineLogic implements @NotNull EventualRegister {
 	}
 
 	public Eventual<DeducePhase.GeneratedClasses> handle(final GN_PL_Run2.@NotNull GenerateFunctionsRequest rq) {
-		final OS_Module          mod = rq.mod();
-		final DefaultWorldModule wm  = rq.worldModule();
+		final OS_Module mod = rq.mod();
+		final DefaultWorldModule wm = rq.worldModule();
 
 		assert wm != null;
 
@@ -155,7 +173,7 @@ public class PipelineLogic implements @NotNull EventualRegister {
 		public void add(final @NotNull WorldModule aWorldModule) {
 			//System.err.printf("7070 %s %d%n", mod.getFileName(), mod.entryPoints.size());
 
-			final CompilationEnclosure  ce            = pa.getCompilationEnclosure();
+			final CompilationEnclosure ce = pa.getCompilationEnclosure();
 			final Consumer<WorldModule> worldConsumer = ce::noteAccept; // FIXME not data...
 			final GN_PL_Run2_Env pl_run2 = new GN_PL_Run2_Env(PipelineLogic.this, aWorldModule, ce, worldConsumer);
 
