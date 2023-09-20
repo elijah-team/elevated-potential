@@ -13,8 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.__Compilation1;
-import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.stages.deduce.IFunctionMapHook;
@@ -76,6 +75,11 @@ public class CompilationImpl extends __Compilation1 {
 
 	public CompilerBeginning beginning(final @NotNull CompilationRunner compilationRunner) {
 		return new CompilerBeginning(this, getRootCI(), getInputs(), compilationRunner.getProgressSink(), cfg());
+	}
+
+	@Override
+	public CompilerInputListener getCompilerInputListener() {
+		return cci_listener;
 	}
 
 	public void testMapHooks(final List<IFunctionMapHook> aMapHooks) {
