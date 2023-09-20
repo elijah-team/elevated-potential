@@ -1,33 +1,22 @@
 package tripleo.elijah.comp;
 
 import io.reactivex.rxjava3.core.Observer;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal.CIS;
-import tripleo.elijah.comp.internal.CompilationRunner;
-import tripleo.elijah.comp.internal.CompilerBeginning;
-import tripleo.elijah.comp.internal.USE;
-import tripleo.elijah.comp.nextgen.CP_Paths;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.lang.i.OS_Package;
-import tripleo.elijah.lang.i.Qualident;
-import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
-import tripleo.elijah.stages.deduce.IFunctionMapHook;
-import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
-import tripleo.elijah.util.Operation2;
-import tripleo.elijah.world.i.LivingRepo;
-import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.deduce.fluffy.i.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.world.i.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
+import java.util.*;
+import java.util.function.*;
 
 public interface Compilation {
 	static ElLog.@NotNull Verbosity gitlabCIVerbosity() {
@@ -126,6 +115,8 @@ public interface Compilation {
 	CompilationConfig cfg();
 
 	CompilerBeginning beginning(final CompilationRunner compilationRunner);
+
+	CCI cci_listener();
 
 	enum CompilationAlways {
 		;

@@ -9,32 +9,28 @@
 package tripleo.elijah.comp;
 
 import io.reactivex.rxjava3.core.Observer;
-import lombok.Getter;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.ci.LibraryStatementPart;
+import lombok.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.nextgen.CP_Paths;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.lang.i.OS_Package;
-import tripleo.elijah.lang.i.Qualident;
-import tripleo.elijah.lang.impl.QualidentImpl;
-import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleInput;
-import tripleo.elijah.stages.deduce.IFunctionMapHook;
+import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.nextgen.query.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.util.Maybe;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.LivingRepo;
-import tripleo.elijah.world.i.WorldModule;
-import tripleo.elijah.world.impl.DefaultLivingRepo;
+import tripleo.elijah.world.i.*;
+import tripleo.elijah.world.impl.*;
 
-import java.io.File;
+import java.io.*;
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
+import java.util.function.*;
+import java.util.stream.*;
+
+import static tripleo.elijah.util.Helpers.*;
 
 public abstract class __Compilation1 implements Compilation {
 	public final  Map<String, CompilerInstructions> fn2ci                = new HashMap<String, CompilerInstructions>();
@@ -45,12 +41,14 @@ public abstract class __Compilation1 implements Compilation {
 	@Getter
 	private final CompilationConfig                 cfg                  = new CompilationConfig();
 	@Getter
-	private final USE                               use                  = new USE(this);
-	private final CompilationEnclosure              compilationEnclosure = new CompilationEnclosure(this);
-	private final CP_Paths                          paths;
-	private final EIT_InputTree                     _input_tree          = new EIT_InputTree();
-	private final ErrSink                           errSink;
-	private final int                               _compilationNumber;
+	private final USE use = new USE(this);
+	private final CompilationEnclosure compilationEnclosure = new CompilationEnclosure(this);
+	private final CP_Paths paths;
+	private final EIT_InputTree _input_tree = new EIT_InputTree();
+	private final ErrSink errSink;
+	private final int _compilationNumber;
+	private final CompilerInputMaster master;
+	public CCI_Acceptor__CompilerInputListener cci_listener;
 	@Getter
 	private       CompilerInstructions              rootCI;
 	private       List<CompilerInput>               _inputs;
@@ -64,6 +62,23 @@ public abstract class __Compilation1 implements Compilation {
 		this._compilationNumber = new Random().nextInt(Integer.MAX_VALUE);
 
 		this.paths = new CP_Paths(this);
+
+		master = new CompilerInputMaster() {
+			private final List<CompilerInputListener> listeners = new ArrayList<>();
+
+			public void notifyChange(CompilerInput compilerInput, CompilerInput.CompilerInputField compilerInputField) {
+				for (CompilerInputListener listener : listeners) {
+					listener.baseNotify(compilerInput, compilerInputField);
+				}
+			}
+
+			public void addListener(CompilerInputListener a) {
+				listeners.add(a);
+			}
+		};
+
+		cci_listener = new CCI_Acceptor__CompilerInputListener(this);
+		master.addListener(cci_listener);
 	}
 
 	// TODO remove this 04/20
@@ -127,6 +142,12 @@ public abstract class __Compilation1 implements Compilation {
 			//} else if (aController instanceof UT_Controller uctl) {
 			//	uctl._setInputs(this, aCompilerInputs);
 		}
+
+		for (final CompilerInput compilerInput : _inputs) {
+			//	cci.accept(compilerInput.acceptance_ci(), _ps);
+			compilerInput.setMaster(master); // FIXME this is too much i think
+		}
+
 
 		aController.processOptions();
 		aController.runner();
@@ -346,6 +367,98 @@ public abstract class __Compilation1 implements Compilation {
 	@Override
 	public @NotNull CompilationConfig cfg() {
 		return cfg;
+	}
+
+	public /*static*/ class CCI_Acceptor__CompilerInputListener implements CompilerInputListener {
+		private final Compilation compilation;
+		private CCI cci;
+		private IProgressSink _ps;
+
+		public CCI_Acceptor__CompilerInputListener(Compilation compilation) {
+			this.compilation = compilation;
+		}
+
+		public void set(CCI aCci, IProgressSink aPs) {
+			cci = aCci;
+			_ps = aPs;
+		}
+
+		@Override
+		public void change(CompilerInput i, CompilerInput.CompilerInputField field) {
+			var inputTree = compilation.getInputTree();
+
+			compilation.getCompilationEnclosure().logProgress(CompProgress.__CCI_Acceptor__CompilerInputListener__change__logInput, i);
+
+			switch (field) {
+				case TY -> {
+
+					switch (i.ty()) {
+					case NULL -> {
+						int y2=2;
+						//inputTree.addNode(i); README obviously skip nulls
+					}
+					case SOURCE_ROOT -> {
+						int y3=2;
+						inputTree.addNode(i);
+					}
+					case ROOT -> {
+						inputTree.addNode(i);
+
+						final CompilationRunner cr = getCompilationEnclosure().getCompilationRunner();
+						final Maybe<ILazyCompilerInstructions> instructionsMaybe = i.acceptance_ci();
+						if (instructionsMaybe != null) {
+							var ci = instructionsMaybe.o.get();
+
+							assert ci != null;
+
+							cr._cis().onNext(ci);
+						}
+					}
+					// README has to wait for ACCEPT_CI, as it is assigned after `ty` is changed
+//						hasInstructions(List_of(i....));
+					case ARG -> {
+						// inputTree.addNode(i); README skip ARGS
+
+						// FIXME processOption here (ie apply compiler change)
+						int yyy = 2;
+					}
+				}
+				}
+				case ACCEPT_CI -> {
+					if (i.ty() == CompilerInput.Ty.ROOT) {
+						final CompilationRunner cr = getCompilationEnclosure().getCompilationRunner();
+						final Maybe<ILazyCompilerInstructions> instructionsMaybe = i.acceptance_ci();
+						if (instructionsMaybe != null) {
+							var ci = instructionsMaybe.o.get();
+
+							assert ci != null;
+
+							if (false) {
+								cr._cis().onNext(ci);
+								hasInstructions(List_of(i.acceptance_ci().o.get()));
+							}
+						}
+					}
+				}
+				case HASH -> {
+					int yy = 2;
+					// FIXME latch all create/commit inputs.txt -> should be Buffer!!
+				}
+				case DIRECTORY_RESULTS -> {
+					int y = 2;
+
+					if (i.getDirectoryResults() != null) {
+						List<Operation2<CompilerInstructions>> directoryResults = i.getDirectoryResults();
+
+						for (Operation2<CompilerInstructions> directoryResult : directoryResults) {
+							if (directoryResult.mode() == Mode.SUCCESS) {
+								cci.accept(new Maybe<>(ILazyCompilerInstructions.of(directoryResult.success()), null), _ps);
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	//public void setRootCI(CompilerInstructions aRootCI) {
