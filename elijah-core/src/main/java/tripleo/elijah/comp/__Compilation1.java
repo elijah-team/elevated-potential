@@ -33,13 +33,13 @@ import java.util.stream.*;
 import static tripleo.elijah.util.Helpers.*;
 
 public abstract class __Compilation1 implements Compilation {
-	public final  Map<String, CompilerInstructions> fn2ci                = new HashMap<String, CompilerInstructions>();
+	public final Map<String, CompilerInstructions> fn2ci = new HashMap<String, CompilerInstructions>();
 	@Getter
-	private final CIS                               _cis                 = new CIS();
-	private final CompFactory                       _con                 = new DefaultCompFactory();
-	private final LivingRepo                        _repo                = new DefaultLivingRepo();
+	private final CIS _cis = new CIS();
+	private final CompFactory _con = new DefaultCompFactory();
+	private final LivingRepo _repo = new DefaultLivingRepo();
 	@Getter
-	private final CompilationConfig                 cfg                  = new CompilationConfig();
+	private final CompilationConfig cfg = new CompilationConfig();
 	@Getter
 	private final USE use = new USE(this);
 	private final CompilationEnclosure compilationEnclosure = new CompilationEnclosure(this);
@@ -50,15 +50,15 @@ public abstract class __Compilation1 implements Compilation {
 	private final CompilerInputMaster master;
 	public CCI_Acceptor__CompilerInputListener cci_listener;
 	@Getter
-	private       CompilerInstructions              rootCI;
-	private       List<CompilerInput>               _inputs;
-	private       IPipelineAccess                   _pa;
-	private       IO                                io;
-	private       boolean                           _inside;
+	private CompilerInstructions rootCI;
+	private List<CompilerInput> _inputs;
+	private IPipelineAccess _pa;
+	private IO io;
+	private boolean _inside;
 
 	public __Compilation1(final ErrSink errSink, final IO io) {
-		this.errSink            = errSink;
-		this.io                 = io;
+		this.errSink = errSink;
+		this.io = io;
 		this._compilationNumber = new Random().nextInt(Integer.MAX_VALUE);
 
 		this.paths = new CP_Paths(this);
@@ -221,6 +221,13 @@ public abstract class __Compilation1 implements Compilation {
 	}
 
 	@Override
+	public void set_pa(IPipelineAccess a_pa) {
+		_pa = a_pa;
+
+		compilationEnclosure.pipelineAccessPromise.resolve(_pa);
+	}
+
+	@Override
 	public List<CompilerInput> getInputs() {
 		return _inputs;
 	}
@@ -263,7 +270,7 @@ public abstract class __Compilation1 implements Compilation {
 
 	@Override
 	public void hasInstructions(final @NotNull List<CompilerInstructions> cis,
-								final @NotNull IPipelineAccess pa) {
+	                            final @NotNull IPipelineAccess pa) {
 		assert cis.size() > 0; // FIXME this is corect. below is wrong (allows cis.size()==2)
 		//assert cis.size() == 1; // FIXME this is corect. below is wrong (allows cis.size()==2)
 
@@ -297,12 +304,6 @@ public abstract class __Compilation1 implements Compilation {
 		return _repo.hasPackage(pkg);
 	}
 
-	// endregion
-
-	//
-	// region CLASS AND FUNCTION CODES
-	//
-
 	@Override
 	public OS_Package makePackage(final Qualident pkg_name) {
 		return _repo.makePackage(pkg_name);
@@ -313,20 +314,11 @@ public abstract class __Compilation1 implements Compilation {
 		return new ModuleBuilder(this);
 	}
 
-	// endregion
-
 	@Override
 	public IPipelineAccess pa() {
 		//assert _pa != null;
 
 		return _pa;
-	}
-
-	@Override
-	public void set_pa(IPipelineAccess a_pa) {
-		_pa = a_pa;
-
-		compilationEnclosure.pipelineAccessPromise.resolve(_pa);
 	}
 
 	@Override
