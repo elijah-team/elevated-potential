@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>tripleo.elijah.typeinf</artifactId>
-	<name>elijah-typeinf</name>
+	<name>${project.groupId}.${project.artifactId}</name>
 	<description>elijah-typeinf</description>
 	<packaging>jar</packaging>
 	<version>0.9.1-SNAPSHOT</version>

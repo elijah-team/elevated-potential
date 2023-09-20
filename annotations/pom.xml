@@ -12,7 +12,7 @@
 	</parent>
 
 	<artifactId>annotations</artifactId>
-	<name>annotations</name>
+	<name>${project.groupId}.${project.artifactId}</name>
 	<description>annotations</description>
 	<packaging>jar</packaging>
 	<version>0.9.1-SNAPSHOT</version>

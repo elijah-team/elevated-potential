@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>tripleo.elijah.core</artifactId>
-	<name>elijah-core</name>
+	<name>${project.groupId}.${project.artifactId}</name>
 	<description>elijah-core</description>
 	<packaging>jar</packaging>
 	<version>0.9.1-SNAPSHOT</version>
