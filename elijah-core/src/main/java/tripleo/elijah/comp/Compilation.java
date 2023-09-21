@@ -1,5 +1,6 @@
 package tripleo.elijah.comp;
 
+import antlr.*;
 import io.reactivex.rxjava3.core.Observer;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
@@ -7,6 +8,9 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.lang2.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.deduce.*;
@@ -145,4 +149,78 @@ public interface Compilation {
 	USE use();
 
 	CIS _cis();
+
+	public class PCon {
+		public LibraryStatementPart newLibraryStatementPartImpl() {
+			return new LibraryStatementPartImpl();
+		}
+
+		public CompilerInstructions newCompilerInstructionsImpl() {
+			return new CompilerInstructionsImpl();
+		}
+
+		public IExpression newDotExpressionImpl(final IExpression aE1, final IdentExpression aE) {
+			return new DotExpressionImpl(aE1, aE);
+		}
+
+		public ProcedureCallExpression newProcedureCallExpressionImpl() {
+			return new ProcedureCallExpressionImpl();
+		}
+
+		public IExpression newStringExpressionImpl(final Token aS) {
+			return new StringExpressionImpl(aS);
+		}
+
+		public IExpression newCharLitExpressionImpl(final Token aC) {
+			return new CharLitExpressionImpl(aC);
+		}
+
+		public IExpression newNumericExpressionImpl(final Token aN) {
+			return new NumericExpressionImpl(aN);
+		}
+
+		public IExpression newFloatExpressionImpl(final Token aF) {
+			return new FloatExpressionImpl(aF);
+		}
+
+		public OS_Type newOS_BuiltinType(final BuiltInTypes aBuiltInTypes) {
+			return new OS_BuiltinType(aBuiltInTypes);
+		}
+
+		public ExpressionList newExpressionListImpl() {
+			return new ExpressionListImpl();
+		}
+
+		public GenerateStatement newGenerateStatementImpl() {
+			return new GenerateStatementImpl();
+		}
+
+		public IdentExpression newIdentExpressionImpl(final Token aR1, final String aFoo, final Context aCur) {
+			return new IdentExpressionImpl(aR1, aFoo, aCur);
+		}
+
+		public IExpression newGetItemExpressionImpl(final IExpression aEe, final IExpression aExpr) {
+			return new GetItemExpressionImpl(aEe, aExpr);
+		}
+
+		public IExpression newSetItemExpressionImpl(final GetItemExpression aEe, final IExpression aExpr) {
+			return new SetItemExpressionImpl(aEe, aExpr);
+		}
+
+		public IExpression newSubExpressionImpl(final IExpression aEe) {
+			return new SubExpressionImpl(aEe);
+		}
+
+		public Qualident newQualidentImpl() {
+			return new QualidentImpl();
+		}
+
+		public IExpression newListExpressionImpl() {
+			return new ListExpressionImpl();
+		}
+
+		public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aEk, final IExpression aE2) {
+			return ExpressionBuilder.build(aEe, aEk, aE2);
+		}
+	}
 }
