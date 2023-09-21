@@ -42,7 +42,7 @@ public class GN_GenerateNodesIntoSink implements GN_Notable, CompilationEnclosur
 			run_one_mod(mod, wm);
 		});
 
-		wm.drain(); // README drain the WorkNanager that we created
+		wm.drain(); // README drain the WorkManager that we created
 
 		env.pa().getAccessBus().resolveGenerateResult(env.gr());
 	}
