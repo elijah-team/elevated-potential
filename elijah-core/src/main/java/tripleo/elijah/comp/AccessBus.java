@@ -22,7 +22,7 @@ public class AccessBus {
 	private final Compilation                                    _c;
 	private final IPipelineAccess                                _pa;
 	private final stepA_mal.@NotNull MalEnv2                     env;
-	private final DeferredObject<Old_GenerateResult, Void, Void> generateResultPromise = new DeferredObject<>();
+	private final DeferredObject<GenerateResult, Void, Void> generateResultPromise = new DeferredObject<>();
 	private final DeferredObject<List<EvaNode>, Void, Void>      lgcPromise            = new DeferredObject<>();
 	private final Map<String, CR_State.PipelinePlugin>           pipelinePlugins       = new HashMap<>();
 
@@ -54,7 +54,7 @@ public class AccessBus {
 		return _pa;
 	}
 
-	public void resolveGenerateResult(final Old_GenerateResult aGenerateResult) {
+	public void resolveGenerateResult(final GenerateResult aGenerateResult) {
 		generateResultPromise.resolve(aGenerateResult);
 	}
 
