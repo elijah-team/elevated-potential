@@ -81,7 +81,7 @@ class EzM {
 		}
 
 		try {
-			final Operation<CompilerInstructions> cio = parseEzFile_(f, s);
+			final Operation<CompilerInstructions> cio = parseEzFile_(f, s, c);
 
 			if (cio.mode() != SUCCESS) {
 				final Exception e = cio.failure();
@@ -109,8 +109,8 @@ class EzM {
 		}
 	}
 
-	private Operation<CompilerInstructions> parseEzFile_(final String f, final InputStream s) {
-		final QueryEzFileToModuleParams qp = new QueryEzFileToModuleParams(f, s);
+	private Operation<CompilerInstructions> parseEzFile_(final String f, final InputStream s, final Compilation aCompilation) {
+		final QueryEzFileToModuleParams qp = new QueryEzFileToModuleParams(f, s, aCompilation);
 		return new QueryEzFileToModule(qp).calculate();
 	}
 }
