@@ -8,17 +8,17 @@
  */
 package tripleo.elijah.comp;
 
-import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.util.Stupidity;
+import org.junit.jupiter.api.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.world.i.*;
 
-import java.io.File;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tripleo.elijah.util.Helpers.List_of;
+import static org.junit.jupiter.api.Assertions.*;
+import static tripleo.elijah.util.Helpers.*;
 
 /**
  * @author Tripleo(envy)
@@ -39,17 +39,18 @@ public class CompilationTest {
 
 		assertTrue(c.instructionCount() > 0);
 
-		c.world().modules()
-				.stream()
+		Collection<WorldModule> worldModules = c.world().modules();
+
+		worldModules.stream()
 				.forEach(wm -> {
 					var mod = wm.module();
 					Stupidity.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
 				});
 
-		assertEquals(7/*12*/, c.world().modules().size());
+		assertEquals(7/*12*/, worldModules.size());
 
-		System.err.println("CompilationTest -- 53 " + c.world().modules().size());
-		assertTrue(c.world().modules().size() > 2);
+		System.err.println("CompilationTest -- 53 " + worldModules.size());
+		assertTrue(worldModules.size() > 2);
 	}
 
 }
