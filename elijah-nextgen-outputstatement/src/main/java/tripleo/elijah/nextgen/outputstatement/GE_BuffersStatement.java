@@ -2,7 +2,6 @@ package tripleo.elijah.nextgen.outputstatement;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.Helpers;
 import tripleo.util.buffer.Buffer;
 
 import java.util.Collection;
@@ -24,7 +23,7 @@ public class GE_BuffersStatement implements EG_Statement {
 
 	@Override
 	public @NotNull String getText() {
-		return Helpers.String_join("\n\n", entry.getValue()
+		return __.String_join("\n\n", entry.getValue()
 				.stream()
 				//.filter(entry)
 				.map(buffer -> buffer.getText())
