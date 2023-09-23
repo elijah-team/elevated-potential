@@ -1,31 +1,24 @@
 package tripleo.elijah.stages.deduce.pipeline_impl;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.comp.i.IPipelineAccess;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.util.CompletableProcess;
-import tripleo.elijah.world.i.WorldModule;
-
-import java.util.Collection;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.world.i.*;
 
 class PL_AddModules implements PipelineLogicRunnable {
-	private final Collection<WorldModule> ml;
-
 	private final Eventual<PipelineLogic> plp = new Eventual<>();
 
 	@Contract(pure = true)
 	public PL_AddModules(final @NotNull IPipelineAccess aPipelineAccess) {
 		var w = aPipelineAccess.getCompilation().world();
 
-		w.addModuleProcess(new CompletableProcess<WorldModule>() {
+		w.addModuleProcess(new CompletableProcess<>() {
 			@Override
 			public void add(final WorldModule item) {
-				plp.then(pipelineLogic -> {
-					pipelineLogic.addModule(item);
-				});
+				plp.then(pipelineLogic -> pipelineLogic.addModule(item));
 			}
 
 			@Override
@@ -48,8 +41,6 @@ class PL_AddModules implements PipelineLogicRunnable {
 
 			}
 		});
-
-		ml = aPipelineAccess.getCompilation().world().modules();
 	}
 
 	@Override
