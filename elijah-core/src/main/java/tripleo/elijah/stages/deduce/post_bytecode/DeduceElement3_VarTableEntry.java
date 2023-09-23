@@ -1,18 +1,16 @@
 package tripleo.elijah.stages.deduce.post_bytecode;
 
-import com.google.common.base.Preconditions;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ReadySupplier_1;
+import com.google.common.base.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.AliasStatementImpl;
+import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Stupidity;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 
-import java.util.List;
+import java.util.*;
 
 public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 	private final EvaContainer.VarTableEntry _principal;
@@ -83,9 +81,11 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 				xci = aDeducePhase.registerClassInvocation(xci);
 				@NotNull GenerateFunctions gf  = aDeducePhase.generatePhase.getGenerateFunctions(xci.getKlass().getContext().module());
 				WlGenerateClass            wgc = dt2._inj().new_WlGenerateClass(gf, xci, aDeducePhase.generatedClasses, aDeducePhase.getCodeRegistrar());
+
+				wgc.setConsumer(potentialType::resolve);
+
 				wgc.run(null); // !
 				potentialType.genType.setCi(xci); // just for completeness
-				potentialType.resolve(wgc.getResult());
 				sc = true;
 			} else if (attachedType == OS_Type.Type.BUILT_IN) {
 				// README be explicit about doing nothing
