@@ -348,15 +348,24 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 			@Override
 			public void run() {
 				WlGenerateClass gen = _inj().new_WlGenerateClass(gf, ci, generatedClasses, codeRegistrar);
+
+				final EvaClass[] genclass1 = new EvaClass[1];
+
+				gen.setConsumer(x -> {
+					genclass1[0] = x;
+				});
+
 				gen.run(wm);
 
 				final ClassDefinition cd       = _inj().new_ClassDefinition(ci);
-				final EvaClass        genclass = gen.getResult();
-				if (genclass != null) {
+
+				if (genclass1[0] != null) {
+					final EvaClass        genclass = genclass1[0];
+
 					cd.setNode(genclass);
 					ret.resolve(cd);
 				} else {
-					ret.reject(_inj().new_CouldntGenerateClass(cd, gf, ci));
+					ret.reject(_inj().new_CouldntGenerateClass(gen, DeducePhase.this));
 				}
 			}
 		});
