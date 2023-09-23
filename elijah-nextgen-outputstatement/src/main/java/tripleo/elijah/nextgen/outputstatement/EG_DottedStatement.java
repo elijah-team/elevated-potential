@@ -1,7 +1,6 @@
 package tripleo.elijah.nextgen.outputstatement;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.Helpers;
 
 import java.util.List;
 
@@ -23,6 +22,6 @@ public class EG_DottedStatement implements EG_Statement {
 
 	@Override
 	public @NotNull String getText() {
-		return Helpers.String_join(separator, stringList);
+		return __.String_join(separator, stringList);
 	}
 }
