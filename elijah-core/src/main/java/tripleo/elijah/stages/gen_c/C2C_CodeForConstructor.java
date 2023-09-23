@@ -2,12 +2,10 @@ package tripleo.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah.stages.gen_fn.EvaConstructor;
-import tripleo.elijah.stages.gen_fn.EvaContainerNC;
-import tripleo.elijah.stages.gen_fn.EvaNamespace;
+import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
+import tripleo.elijah.util.BufferTabbedOutputStream;
 import tripleo.util.buffer.Buffer;
 
 import java.util.List;
@@ -15,24 +13,26 @@ import java.util.List;
 import static tripleo.elijah.util.Helpers.List_of;
 
 class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
-	final         GenerateResult           gr;
-	private final Generate_Code_For_Method generateCodeForMethod;
-	private final GenerateResultEnv             fileGen;
-	private final EvaConstructor           gf;
-	private final WhyNotGarish_Constructor yf;
+	final                  GenerateResult           gr;
+	private final          Generate_Code_For_Method generateCodeForMethod;
+	//	private final GenerateResultEnv             fileGen;
+	private final          EvaConstructor           gf;
+	private final @NotNull WhyNotGarish_Constructor yf;
 	EG_Statement st;
 	private boolean    _calculated;
 	private C2C_Result buf;
 	private C2C_Result bufHdr;
 
-	public C2C_CodeForConstructor(final Generate_Code_For_Method aGenerateCodeForMethod, final EvaConstructor aGf, final GenerateResultEnv aFileGen, final @NotNull WhyNotGarish_Constructor aYf) {
+	public C2C_CodeForConstructor(final Generate_Code_For_Method aGenerateCodeForMethod,
+	                              final @NotNull GenerateResultEnv aFileGen,
+	                              final @NotNull WhyNotGarish_Constructor aYf) {
 		generateCodeForMethod = aGenerateCodeForMethod;
 
 		this.yf = aYf;
 
-		gf      = aYf.cheat();
-		fileGen = aFileGen;
-		gr      = fileGen.gr();
+		gf = aYf.cheat();
+//		fileGen = aFileGen;
+		gr = aFileGen.gr();
 	}
 
 	@Override
@@ -42,62 +42,70 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 	}
 
 	private void calculate() {
+		BufferTabbedOutputStream tos = generateCodeForMethod.tos;
+		BufferTabbedOutputStream tosHdr = generateCodeForMethod.tosHdr;
+		calculate(tos, tosHdr);
+	}
+
+	private void calculate(BufferTabbedOutputStream tos, BufferTabbedOutputStream tosHdr) {
 		if (_calculated == false) {
 			// TODO this code is only correct for classes and not meant for namespaces
-			final EvaClass x = (EvaClass) gf.getGenClass();
-			switch (x.getKlass().getType()) {
-			// Don't generate class definition for these three
-			case INTERFACE:
-			case SIGNATURE:
-			case ABSTRACT:
-				return;
+			EvaNode genClass = gf.getGenClass();
+
+			if (genClass instanceof EvaClass x) {
+				switch (x.getKlass().getType()) {
+					// Don't generate class definition for these three
+					case INTERFACE:
+					case SIGNATURE:
+					case ABSTRACT:
+						return;
+				}
+				final CClassDecl decl = new CClassDecl(x);
+				decl.evaluatePrimitive();
+
+				final String class_name = GenerateC.GetTypeName.forGenClass(x);
+				final int    class_code = x.getCode();
+
+				assert gf.cd != null;
+				final String constructorName_ = gf.cd.name();
+				final String constructorName;
+				if (constructorName_.equals("<>"))
+					constructorName = "";
+				else
+					constructorName = constructorName_;
+
+				final C2C_CodeForConstructor_Statement xx = new C2C_CodeForConstructor_Statement(class_name, class_code, constructorName, decl, x);
+				xx.getTextInto(tos); // README created because non-recursive interpreter
+				this.st = xx;
+
+				var gmh = new Generate_Method_Header(yf.cheat(), generateCodeForMethod.gc, generateCodeForMethod.gc.LOG);
+				generateCodeForMethod.action_invariant(yf, gmh);
+
+				tos.put_string_ln("return R;");
+				tos.dec_tabs();
+
+				assert !decl.prim;
+
+				tos.put_string_ln(String.format("} // class %s%s", decl.prim ? "box " : "", x.getName()));
+				tos.put_string_ln("");
+
+				final String header_string = getHeaderString(x, class_name, class_code, constructorName);
+
+				tosHdr.put_string_ln(String.format("%s;", header_string));
+
+				tos.flush();
+				tos.close();
+				tosHdr.flush();
+				tosHdr.close();
+
+				final Buffer buf1    = tos.getBuffer();
+				final Buffer bufHdr1 = tosHdr.getBuffer();
+
+				buf    = new Default_C2C_Result(buf1, GenerateResult.TY.IMPL, "C2C_CodeForConstructor IMPL", yf);
+				bufHdr = new Default_C2C_Result(bufHdr1, GenerateResult.TY.HEADER, "C2C_CodeForConstructor HEADER", yf);
+
+				_calculated = true;
 			}
-			final CClassDecl decl = new CClassDecl(x);
-			decl.evaluatePrimitive();
-
-			final String class_name = GenerateC.GetTypeName.forGenClass(x);
-			final int    class_code = x.getCode();
-
-			assert gf.cd != null;
-			final String constructorName_ = gf.cd.name();
-			final String constructorName;
-			if (constructorName_.equals("<>"))
-				constructorName = "";
-			else
-				constructorName = constructorName_;
-
-			final C2C_CodeForConstructor_Statement xx = new C2C_CodeForConstructor_Statement(class_name, class_code, constructorName, decl, x);
-			xx.getTextInto(generateCodeForMethod.tos); // README created because non-recursive interpreter
-			this.st = xx;
-
-			var gmh = new Generate_Method_Header(yf.cheat(), generateCodeForMethod.gc, generateCodeForMethod.gc.LOG);
-			generateCodeForMethod.action_invariant(yf, gmh);
-
-			generateCodeForMethod.tos.put_string_ln("return R;");
-			generateCodeForMethod.tos.dec_tabs();
-
-			assert !decl.prim;
-
-			generateCodeForMethod.tos.put_string_ln(String.format("} // class %s%s", decl.prim ? "box " : "", x.getName()));
-			generateCodeForMethod.tos.put_string_ln("");
-
-			final String header_string = getHeaderString(x, class_name, class_code, constructorName);
-
-			generateCodeForMethod.tosHdr.put_string_ln(String.format("%s;", header_string));
-
-			generateCodeForMethod.tos.flush();
-			generateCodeForMethod.tos.close();
-			generateCodeForMethod.tosHdr.flush();
-			generateCodeForMethod.tosHdr.close();
-
-			final Buffer buf1    = generateCodeForMethod.tos.getBuffer();
-			final Buffer bufHdr1 = generateCodeForMethod.tosHdr.getBuffer();
-
-			buf    = new Default_C2C_Result(buf1, GenerateResult.TY.IMPL, "C2C_CodeForConstructor IMPL", yf);
-			bufHdr = new Default_C2C_Result(bufHdr1, GenerateResult.TY.HEADER, "C2C_CodeForConstructor HEADER", yf);
-
-			_calculated = true;
-
 		}
 	}
 

@@ -564,7 +564,7 @@ public class Generate_Code_For_Method {
 
 		var yf = gc.a_lookup(gf);
 
-		final C2C_CodeForConstructor cfm = new C2C_CodeForConstructor(this, gf, fileGen, yf);
+		final C2C_CodeForConstructor cfm = new C2C_CodeForConstructor(this, fileGen, yf);
 
 		//cfm.calculate();
 		var rs = cfm.getResults();
@@ -578,6 +578,17 @@ public class Generate_Code_For_Method {
 		if (!MANUAL_DISABLED) {
 			gcfc.respondTo(this.gc);
 		}
+	}
+
+	public void generateCodeForMethod2(final @NotNull BaseEvaFunction gf, final @NotNull GenerateResultEnv aFileGen) {
+		assert gf.deducedAlready;
+
+		generateCodeForMethod(/*deduced*/(gf), aFileGen);
+	}
+	public void generateCodeForMethod2(final @NotNull EvaConstructor gf, final @NotNull GenerateResultEnv aFileGen) {
+		assert gf.deducedAlready;
+
+		generateCodeForMethod(/*deduced*/(gf), aFileGen);
 	}
 
 	void generateCodeForMethod(final @NotNull BaseEvaFunction gf, final @NotNull GenerateResultEnv aFileGen) {

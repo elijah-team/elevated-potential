@@ -46,7 +46,7 @@ import static tripleo.elijah.util.Helpers.List_of;
  */
 public class TestBasic {
 
-	private final boolean DISABLED = true;
+	private final boolean DISABLED = false;
 
 	@Disabled
 	@Test

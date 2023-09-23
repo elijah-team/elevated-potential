@@ -383,25 +383,7 @@ public class CompilationEnclosure {
 	}
 
 	public void logProgress(final @NotNull CompProgress aCompProgress, final Object x) {
-		switch (aCompProgress) {
-		case __CP_OutputPath_renderNode -> {
-			ER_Node node = (ER_Node) x;
-
-			System.out.printf("** [__CP_OutputPath_renderNode] %s%n", node.getPath());
-		}
-		case __parseElijjahFile_InputRequest -> {
-			InputRequest aInputRequest = (InputRequest) x;
-			File         f             = aInputRequest.file();
-
-			System.out.printf("** [__parseElijjahFile_InputRequest] %s%n", f.getAbsolutePath());
-		}
-		case Compilation__hasInstructions__empty -> {
-			String absolutePath = (String)x;
-
-			System.err.println("No CIs found. Current dir is " + absolutePath);
-		}
-		default -> throw new IllegalStateException("Unexpected value: " + aCompProgress);
-		}
+		aCompProgress.deprecated_print(x, System.out, System.err);
 	}
 
 	public enum AssOutFile {CLASS, NAMESPACE, FUNCTION}
