@@ -9,52 +9,36 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Multimap;
-import org.apache.commons.lang3.tuple.Pair;
-import org.jdeferred2.DoneCallback;
-import org.jdeferred2.Promise;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.IPipelineAccess;
-import tripleo.elijah.diagnostic.Diagnostic;
+import com.google.common.collect.*;
+import org.apache.commons.lang3.tuple.*;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.types.OS_UnknownType;
-import tripleo.elijah.nextgen.ClassDefinition;
-import tripleo.elijah.nextgen.diagnostic.CouldntGenerateClass;
-import tripleo.elijah.nextgen.reactive.ReactiveDimension;
-import tripleo.elijah.stages.deduce.declarations.DeferredMember;
-import tripleo.elijah.stages.deduce.declarations.DeferredMemberFunction;
-import tripleo.elijah.stages.deduce.nextgen.DR_Ident;
-import tripleo.elijah.stages.deduce.nextgen.DR_Item;
-import tripleo.elijah.stages.deduce.nextgen.DR_ProcCall;
-import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.nextgen.*;
+import tripleo.elijah.nextgen.diagnostic.*;
+import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.stages.deduce.declarations.*;
+import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.stages.post_deduce.DefaultCodeRegistrar;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.post_deduce.*;
 import tripleo.elijah.stateful.*;
-import tripleo.elijah.util.Maybe;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.work.WorkJob;
-import tripleo.elijah.work.WorkList;
-import tripleo.elijah.work.WorkManager;
-import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.util.*;
+import tripleo.elijah.work.*;
+import tripleo.elijah.world.i.*;
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.concurrent.*;
+import java.util.function.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 /**
  * Created 12/24/20 3:59 AM
