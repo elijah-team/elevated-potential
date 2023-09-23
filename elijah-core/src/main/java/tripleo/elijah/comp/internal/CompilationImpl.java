@@ -78,6 +78,11 @@ public class CompilationImpl extends __Compilation1 {
 		return new CompilerBeginning(this, getRootCI(), getInputs(), compilationRunner.getProgressSink(), cfg());
 	}
 
+	@Override
+	public CCI_Acceptor__CompilerInputListener cci_listener() {
+		return this.cci_listener;
+	}
+
 	public void testMapHooks(final List<IFunctionMapHook> aMapHooks) {
 		//pipelineLogic.dp.
 	}

@@ -433,9 +433,9 @@ public abstract class __Compilation1 implements Compilation {
 
 							assert ci != null;
 
-							if (false) {
+							if (true || false) {
 								cr._cis().onNext(ci);
-								hasInstructions(List_of(i.acceptance_ci().o.get()));
+//								hasInstructions(List_of(i.acceptance_ci().o.get()));
 							}
 						}
 					}

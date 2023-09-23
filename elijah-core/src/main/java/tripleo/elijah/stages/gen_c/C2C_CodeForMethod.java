@@ -14,7 +14,7 @@ import static tripleo.elijah.util.Helpers.List_of;
 public class C2C_CodeForMethod implements Generate_Code_For_Method.C2C_Results {
 	private final GenerateResult           gr;
 	private final Generate_Code_For_Method generateCodeForMethod;
-	private final GenerateResultEnv        fileGen;
+//	private final GenerateResultEnv        fileGen;
 	private       boolean                  _calculated;
 	private       C2C_Result               buf;
 	private       C2C_Result               bufHdr;
@@ -22,8 +22,8 @@ public class C2C_CodeForMethod implements Generate_Code_For_Method.C2C_Results {
 
 	public C2C_CodeForMethod(final @NotNull Generate_Code_For_Method aGenerateCodeForMethod, final BaseEvaFunction aGf, final GenerateResultEnv aFileGen) {
 		generateCodeForMethod = aGenerateCodeForMethod;
-		fileGen               = aFileGen;
-		gr                    = fileGen.gr();
+//		fileGen               = aFileGen;
+		gr                    = aFileGen.gr();
 
 		final GenerateC gc = aGenerateCodeForMethod.gc;
 		whyNotGarishFunction = gc.a_lookup(aGf);

@@ -20,6 +20,7 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 	private final EvaConstructor                                gf;
 	private final GenerateC                                     generateC;
 	private final DeferredObject<GenerateResultEnv, Void, Void> fileGenPromise = new DeferredObject<>();
+	private List<C2C_Result>                                    _c2c_results;
 
 	public WhyNotGarish_Constructor(final EvaConstructor aGf, final GenerateC aGenerateC) {
 		gf        = aGf;
@@ -36,12 +37,14 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 
 
 		// TODO separate into method and method_header??
-		final C2C_CodeForConstructor cfm = new C2C_CodeForConstructor(gcfm, gf, aFileGen, yf);
+		final C2C_CodeForConstructor cfm = new C2C_CodeForConstructor(gcfm, aFileGen, yf);
 
 		//cfm.calculate();
 		final List<C2C_Result> rs   = cfm.getResults();
 		final GenerateResult   gr   = new Old_GenerateResult();
 		final GCFC             gcfc = new GCFC(rs, gf, gr); // TODO 08/12 preload this??
+
+		_c2c_results = rs;
 
 		gf.reactive().add(gcfc);
 
@@ -137,5 +140,9 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 			generateC.LOG.err(x.toString());
 			throw new NotImplementedException();
 		}
+	}
+
+	public List<C2C_Result> getResults() {
+		return _c2c_results;
 	}
 }

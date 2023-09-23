@@ -116,7 +116,7 @@ public interface Compilation {
 
 	CompilerBeginning beginning(final CompilationRunner compilationRunner);
 
-	CCI cci_listener();
+	__Compilation1.CCI_Acceptor__CompilerInputListener cci_listener();
 
 	enum CompilationAlways {
 		;

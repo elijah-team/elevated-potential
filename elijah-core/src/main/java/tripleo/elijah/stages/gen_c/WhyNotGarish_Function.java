@@ -43,7 +43,8 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 	}
 
 	@Contract(pure = true)
-	private @Nullable BaseEvaFunction deduced(final @NotNull BaseEvaFunction aEvaFunction) {
+	@Nullable
+	public BaseEvaFunction deduced(final @NotNull BaseEvaFunction aEvaFunction) {
 		final GM_GenerateModule generateModule = generateC.getFileGen().gmgm();
 		final DeducePhase       deducePhase    = generateModule.gmr().env().pa().getCompilationEnclosure().getPipelineLogic().dp;
 

@@ -106,7 +106,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		cc.resolveFileGenPromise(aFileGen);
 	}
 
-	WhyNotGarish_Function a_lookup(final BaseEvaFunction aGf) {
+	public WhyNotGarish_Function a_lookup(final BaseEvaFunction aGf) {
 		if (a_directory.containsKey(aGf)) {
 			return (WhyNotGarish_Function) a_directory.get(aGf);
 		}
@@ -116,7 +116,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		return ncf;
 	}
 
-	WhyNotGarish_Constructor a_lookup(final EvaConstructor aGf) {
+	public WhyNotGarish_Constructor a_lookup(final EvaConstructor aGf) {
 		if (a_directory.containsKey(aGf)) {
 			return (WhyNotGarish_Constructor) a_directory.get(aGf);
 		}
@@ -411,6 +411,10 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 
 		LOG.err(String.format("783 %s %s", value.getClass().getName(), value));
 		return String.valueOf(value);
+	}
+
+	public ElLog _LOG() {
+		return LOG;
 	}
 
 	enum GetTypeName {
