@@ -5,7 +5,7 @@ import com.google.common.collect.Multimap;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.entrypoints.MainClassEntryPoint;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.BaseFunctionDef;
@@ -18,6 +18,8 @@ import tripleo.elijah.util.ObservableCompletableProcess;
 import tripleo.elijah.world.i.*;
 
 import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
 public class DefaultLivingRepo implements LivingRepo {
 
@@ -115,7 +117,12 @@ public class DefaultLivingRepo implements LivingRepo {
 	@Override
 	public void addModule(final @NotNull OS_Module mod, final @NotNull String aFilename, final @NotNull Compilation aC) {
 		System.out.println("LivingRepo::addModule >> " + aFilename);
-		//addModule2();
+
+		var t = aC.getCompilerInputListener();
+//		t.
+//		t.change(new EIT_ModuleInput(mod, aC), CompilerInput.CompilerInputField.DIRECTORY_RESULTS);
+
+//		aC._cis().onNext();
 	}
 
 	@Override
@@ -241,6 +248,28 @@ public class DefaultLivingRepo implements LivingRepo {
 				.orElse(null);
 
 		return result;
+	}
+
+	@Override
+	public void eachModule(Consumer<WorldModule> object) {
+		_modules.forEach(object::accept);
+	}
+
+	@Override
+	public List<ClassStatement> findClass(String aClassName) {
+		final List<ClassStatement> l = new ArrayList<>();
+		var modules1 = modules()
+				.stream()
+				.map(WorldModule::module)
+				.collect(Collectors.toList());
+
+		for (final OS_Module module : modules1) {
+			if (module.hasClass(aClassName)) {
+				l.add((ClassStatement) module.findClass(aClassName));
+			}
+		}
+
+		return l;
 	}
 
 	@Override

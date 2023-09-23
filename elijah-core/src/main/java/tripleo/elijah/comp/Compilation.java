@@ -13,14 +13,12 @@ import tripleo.elijah.lang.types.*;
 import tripleo.elijah.lang2.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.fluffy.i.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
 
 import java.util.*;
-import java.util.function.*;
 
 public interface Compilation {
 	static ElLog.@NotNull Verbosity gitlabCIVerbosity() {
@@ -33,19 +31,17 @@ public interface Compilation {
 	}
 
 	// TODO remove this 04/20
-	void addFunctionMapHook(IFunctionMapHook aFunctionMapHook);
+//	void addFunctionMapHook(IFunctionMapHook aFunctionMapHook);
 
 	CompilationEnclosure getCompilationEnclosure();
 
-	void setCompilationEnclosure(CompilationEnclosure aCompilationEnclosure);
+//	void setCompilationEnclosure(CompilationEnclosure aCompilationEnclosure);
 
-	void addModule__(@NotNull OS_Module module, @NotNull String fn);
+//	void addModule__(@NotNull OS_Module module, @NotNull String fn);
 
-	int compilationNumber();
+//	int compilationNumber();
 
 	CompFactory con();
-
-	void eachModule(Consumer<WorldModule> object);
 
 	int errorCount();
 
@@ -56,8 +52,6 @@ public interface Compilation {
 	void feedCmdLine(@NotNull List<String> args) throws Exception;
 
 	CompilationClosure getCompilationClosure();
-
-	List<ClassStatement> findClass(String aClassName);
 
 	Operation2<WorldModule> findPrelude(String prelude_name);
 
@@ -106,15 +100,11 @@ public interface Compilation {
 
 	LivingRepo world();
 
-	LivingRepo livingRepo();
-
 	CP_Paths paths();
 
 	EIT_InputTree getInputTree();
 
 	@NotNull EOT_OutputTree getOutputTree();
-
-	List<OS_Module> modules();
 
 	CompilationConfig cfg();
 
@@ -150,7 +140,7 @@ public interface Compilation {
 
 	CIS _cis();
 
-	public class PCon {
+	class PCon {
 		public LibraryStatementPart newLibraryStatementPartImpl() {
 			return new LibraryStatementPartImpl();
 		}

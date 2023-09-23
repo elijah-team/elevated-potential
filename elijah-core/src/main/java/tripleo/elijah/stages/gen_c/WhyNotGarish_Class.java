@@ -41,7 +41,7 @@ public class WhyNotGarish_Class implements WhyNotGarish_Item {
 			gcfc.respondTo(this.generateC);
 		}
 
-		var gc1 = generateC._ce().getCompilation().livingRepo().getClass(gc).getGarish();
+		var gc1 = generateC._ce().getCompilation().world().getClass(gc).getGarish();
 
 		final @NotNull GenerateResultSink sink = aFileGen.resultSink();
 
@@ -67,7 +67,7 @@ public class WhyNotGarish_Class implements WhyNotGarish_Item {
 		public void respondTo(final ReactiveDimension aDimension) {
 			if (aDimension instanceof GenerateC generateC) {
 				fileGenPromise.then(fileGen -> {
-					final LivingClass livingClass = generateC._ce().getCompilation().livingRepo().getClass(gc);
+					final LivingClass livingClass = generateC._ce().getCompilation().world().getClass(gc);
 
 					livingClass.getGarish().garish(generateC, fileGen.gr(), fileGen.resultSink());
 				});

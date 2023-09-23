@@ -77,11 +77,11 @@ public class DefaultGenerateResultSink implements GenerateResultSink {
 
 	@Override
 	public LivingClass getLivingClassForEva(final EvaClass aEvaClass) {
-		return pa.getCompilation().livingRepo().getClass(aEvaClass);
+		return pa.getCompilation().world().getClass(aEvaClass);
 	}
 
 	@Override
 	public LivingNamespace getLivingNamespaceForEva(final EvaNamespace aEvaNamespace) {
-		return pa.getCompilation().livingRepo().getNamespace(aEvaNamespace);
+		return pa.getCompilation().world().getNamespace(aEvaNamespace);
 	}
 }

@@ -134,7 +134,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return data;
 	}
 
-	public @NotNull CompilerInstructions ci  = pcon.newCompilerInstructionsImpl();
+	public @NotNull CompilerInstructions ci ;
 	@Nullable       Context              cur = null;
 
 	private static final long[] mk_tokenSet_2() {

@@ -20,7 +20,7 @@ public class DefaultCodeRegistrar implements ICodeRegistrar {
 	}
 
 	private LivingRepo getLivingRepo() {
-		return compilation.livingRepo();
+		return compilation.world();
 	}
 
 	@Override

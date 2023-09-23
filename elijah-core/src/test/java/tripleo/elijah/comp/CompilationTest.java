@@ -8,7 +8,6 @@
  */
 package tripleo.elijah.comp;
 
-import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -40,17 +39,17 @@ public class CompilationTest {
 
 		assertTrue(c.instructionCount() > 0);
 
-		c.livingRepo().modules()
+		c.world().modules()
 				.stream()
 				.forEach(wm -> {
 					var mod = wm.module();
 					Stupidity.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
 				});
 
-		assertEquals(7/*12*/, c.livingRepo().modules().size());
+		assertEquals(7/*12*/, c.world().modules().size());
 
-		System.err.println("CompilationTest -- 53 " + c.livingRepo().modules().size());
-		assertTrue(c.livingRepo().modules().size() > 2);
+		System.err.println("CompilationTest -- 53 " + c.world().modules().size());
+		assertTrue(c.world().modules().size() > 2);
 	}
 
 }
