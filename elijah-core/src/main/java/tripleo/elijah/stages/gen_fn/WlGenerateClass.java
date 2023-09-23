@@ -8,31 +8,39 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jdeferred2.DoneCallback;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah.stages.deduce.RegisterClassInvocation_env;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.util.Holder;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.work.WorkJob;
-import tripleo.elijah.work.WorkManager;
+import lombok.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.work.*;
+
+import java.util.function.*;
 
 /**
  * Created 5/16/21 12:41 AM
  */
 public class WlGenerateClass implements WorkJob {
+	@Getter
 	private final @NotNull ClassStatement               classStatement;
+	@Getter
 	private final @NotNull ClassInvocation              classInvocation;
+	@Getter
 	private final          GenerateFunctions            generateFunctions;
 	private final          DeducePhase.GeneratedClasses coll;
 	private final @NotNull RegisterClassInvocation_env  __passthru_env;
 	private       boolean        _isDone = false;
 	private final ICodeRegistrar cr;
+
 	private       EvaClass       Result;
+
+	public void setConsumer(Consumer<EvaClass> consumer) {
+		this.consumer = consumer;
+	}
+
+	private Consumer<EvaClass> consumer;
 
 	public WlGenerateClass(GenerateFunctions aGenerateFunctions,
 						   @NotNull ClassInvocation aClassInvocation,
@@ -63,10 +71,6 @@ public class WlGenerateClass implements WorkJob {
 		__passthru_env = aEnv;
 	}
 
-	public EvaClass getResult() {
-		return Result;
-	}
-
 	@Override
 	public boolean isDone() {
 		return _isDone;
@@ -75,6 +79,9 @@ public class WlGenerateClass implements WorkJob {
 	@Override
 	public void run(WorkManager aWorkManager) {
 		final DeferredObject<EvaClass, Void, Void> resolvePromise = classInvocation.resolveDeferred();
+
+		resolvePromise.then(x->{if (consumer != null) {consumer.accept(x);}});
+
 		switch (resolvePromise.state()) {
 		case PENDING:
 			@NotNull EvaClass kl = generateFunctions.generateClass(classStatement, classInvocation, __passthru_env);
@@ -82,21 +89,16 @@ public class WlGenerateClass implements WorkJob {
 
 			cr.registerClass1(kl);
 
-			if (coll != null)
-				coll.add(kl);
+			if (coll != null) {
+                coll.add(kl);
+            }
 
 			resolvePromise.resolve(kl);
 			Result = kl;
 			break;
 		case RESOLVED:
-			Holder<EvaClass> hgc = new Holder<EvaClass>();
-			resolvePromise.then(new DoneCallback<EvaClass>() {
-				@Override
-				public void onDone(EvaClass result) {
-//					assert result == kl;
-					hgc.set(result);
-				}
-			});
+			Holder<EvaClass> hgc = new Holder<>();
+			resolvePromise.then(hgc::set);
 			Result = hgc.get();
 			break;
 		case REJECTED:
