@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies {
-//    api project(':tripleo.small')
+    api project(':tripleo.small')
 //    compileOnly 'com.google.auto.service:auto-service:1.0-rc2'
 }
 
