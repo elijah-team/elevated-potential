@@ -2,13 +2,14 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.m2/repository/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar" />
         </processorPath>
-        <module name="elijah-v2.tripleo.elijah.core.test" />
         <module name="elijah-v2.tripleo.elijah.core.main" />
+        <module name="elijah-v2.tripleo.elijah.core.test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8" />
