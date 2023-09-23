@@ -16,6 +16,7 @@ import tripleo.elijah.world.impl.DefaultLivingNamespace;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.*;
 
 public interface LivingRepo {
 	DefaultLivingClass addClass(EvaClass aClass, Add addFlag);
@@ -53,6 +54,10 @@ public interface LivingRepo {
 	WorldModule getModule(OS_Module aSuccess);
 
 	WorldModule findModule(OS_Module mod);
+
+    void eachModule(Consumer<WorldModule> object);
+
+	List<ClassStatement> findClass(String main);
 
 	enum Add {MAIN_CLASS, MAIN_FUNCTION, NONE}
 

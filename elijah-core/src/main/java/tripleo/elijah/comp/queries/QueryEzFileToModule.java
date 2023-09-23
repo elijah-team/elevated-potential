@@ -28,6 +28,7 @@ public class QueryEzFileToModule {
 		lexer.setFilename(f);
 		final EzParser parser = new EzParser(lexer);
 		parser.pcon = params.pcon;
+		parser.ci = parser.pcon.newCompilerInstructionsImpl();
 		parser.setFilename(f);
 		try {
 			parser.program();

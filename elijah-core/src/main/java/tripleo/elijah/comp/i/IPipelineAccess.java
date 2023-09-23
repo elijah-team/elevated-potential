@@ -1,24 +1,20 @@
 package tripleo.elijah.comp.i;
 
-import org.jdeferred2.DoneCallback;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.NotNull;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.internal.Provenance;
-import tripleo.elijah.comp.notation.GN_Env;
-import tripleo.elijah.comp.notation.GN_Notable;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.output.NG_OutputItem;
-import tripleo.elijah.stages.gen_c.GenerateC;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah.stages.gen_fn.EvaNamespace;
-import tripleo.elijah.stages.gen_fn.EvaNode;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.output.*;
+import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.stages.logging.*;
 
-import java.util.List;
-import java.util.function.Consumer;
+import java.util.*;
+import java.util.function.*;
 
 public interface IPipelineAccess {
 	void _setAccessBus(AccessBus ab);

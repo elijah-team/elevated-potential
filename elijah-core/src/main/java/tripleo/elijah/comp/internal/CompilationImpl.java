@@ -65,9 +65,9 @@ public class CompilationImpl extends __Compilation1 {
 	}
 
 	@Deprecated
-	@Override
+//	@Override
 	public List<OS_Module> modules() {
-		return livingRepo().modules()
+		return this.world().modules()
 				.stream()
 				.map(wm -> wm.module())
 				.collect(Collectors.toList());

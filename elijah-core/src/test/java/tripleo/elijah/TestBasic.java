@@ -46,7 +46,7 @@ import static tripleo.elijah.util.Helpers.List_of;
  */
 public class TestBasic {
 
-	private final boolean TestBasic_DISABLED = false;
+	private final boolean TestBasic_DISABLED = true;
 
 	@Disabled
 	@Test
@@ -90,15 +90,15 @@ public class TestBasic {
 		assertEquals(9, (int) errorCount.get(2)); // TODO Error count obviously should be 0
 	}
 
-	//@Ignore
 	@Test
 	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
-	public final void testBasic_listfolders3() throws Exception {
+	public final void testBasic_listfolders3() {
 		String s = "test/basic/listfolders3/listfolders3.ez";
 
 		final Compilation c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
 
-		if (!TestBasic_DISABLED) {
+		//if (true || !TestBasic_DISABLED)
+		{
 			Emit.emitting = false;
 
 			List<CompilerInput> inputs = List_of(s, "-sO").stream()

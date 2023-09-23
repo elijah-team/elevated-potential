@@ -41,7 +41,7 @@ public class WhyNotGarish_Namespace implements WhyNotGarish_Item {
 			gcfn.respondTo(this.generateC);
 		}
 
-		var gn = generateC._ce().getCompilation().livingRepo().getNamespace(en).getGarish();
+		var gn = generateC._ce().getCompilation().world().getNamespace(en).getGarish();
 
 		final @NotNull GenerateResultSink sink = aFileGen.resultSink();
 
@@ -68,7 +68,7 @@ public class WhyNotGarish_Namespace implements WhyNotGarish_Item {
 		public void respondTo(final ReactiveDimension aDimension) {
 			if (aDimension instanceof GenerateC generateC) {
 				fileGenPromise.then(fileGen -> {
-					final LivingNamespace livingNamespace = generateC._ce().getCompilation().livingRepo().getNamespace(en);
+					final LivingNamespace livingNamespace = generateC._ce().getCompilation().world().getNamespace(en);
 
 					livingNamespace.getGarish().garish(generateC, fileGen.gr(), fileGen.resultSink());
 				});

@@ -49,7 +49,7 @@ class PL_AddModules implements PipelineLogicRunnable {
 			}
 		});
 
-		ml = aPipelineAccess.getCompilation().livingRepo().modules();
+		ml = aPipelineAccess.getCompilation().world().modules();
 	}
 
 	@Override
