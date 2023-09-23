@@ -33,7 +33,7 @@ public class FindClassesInDemoElNormal {
 
 		c.feedCmdLine(args);
 
-		final List<ClassStatement> aClassList = c.findClass("Main");
+		final List<ClassStatement> aClassList = c.world().findClass("Main");
 		for (final ClassStatement classStatement : aClassList) {
 			tripleo.elijah.util.Stupidity.println_out_2(classStatement.getPackageName().getName());
 		}
@@ -50,7 +50,7 @@ public class FindClassesInDemoElNormal {
 		c.feedCmdLine(args);
 
 		// searches all modules for top-level Main's that are classes (only the first from each module though)
-		final List<ClassStatement> aClassList = c.findClass("Main");
+		final List<ClassStatement> aClassList = c.world().findClass("Main");
 		assertEquals(1, aClassList.size());
 
 		assertFalse(MainClassEntryPoint.isMainClass(aClassList.get(0)), "isMainClass");

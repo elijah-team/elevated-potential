@@ -55,7 +55,7 @@ class AmazingFunction implements Amazing {
 
 			var env = new GN_GenerateNodesIntoSinkEnv(List_of(), generateResultSink, eitModuleList, ElLog.Verbosity.VERBOSE, gr, pa, ce);
 
-			var world = ce.getCompilation().livingRepo();
+			var world = ce.getCompilation().world();
 			var wm    = world.findModule(mod);
 
 			var generateModuleRequest = new GM_GenerateModuleRequest(new GN_GenerateNodesIntoSink(env), wm, env);

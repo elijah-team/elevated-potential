@@ -81,45 +81,37 @@ public abstract class __Compilation1 implements Compilation {
 		master.addListener(cci_listener);
 	}
 
+/*
 	// TODO remove this 04/20
 	@Override
 	public void addFunctionMapHook(final IFunctionMapHook aFunctionMapHook) {
 		getCompilationEnclosure().getCompilationAccess().addFunctionMapHook(aFunctionMapHook);
 	}
+*/
 
 	@Override
 	public CompilationEnclosure getCompilationEnclosure() {
 		return compilationEnclosure;
 	}
 
+/*
 	@Override
 	public void setCompilationEnclosure(final CompilationEnclosure aCompilationEnclosure) {
 		throw new NotImplementedException("Can't set CompilationEnclosure");
 		//compilationEnclosure = aCompilationEnclosure;
 	}
+*/
 
-	@Override
-	public void addModule__(final @NotNull OS_Module module, final @NotNull String fn) {
-
-	}
-
+/*
 	@Override
 	public int compilationNumber() {
 		return _compilationNumber;
 	}
+*/
 
 	@Override
 	public @NotNull CompFactory con() {
 		return _con;
-	}
-
-	@Override
-	public void eachModule(final @NotNull Consumer<WorldModule> object) {
-		var modules1 = livingRepo().modules();
-
-		for (final WorldModule mod : modules1) {
-			object.accept(mod);
-		}
 	}
 
 	@Override
@@ -194,23 +186,6 @@ public abstract class __Compilation1 implements Compilation {
 	}
 
 	@Override
-	public @NotNull List<ClassStatement> findClass(final String aClassName) {
-		final List<ClassStatement> l = new ArrayList<ClassStatement>();
-		var modules1 = world().modules()
-				.stream()
-				.map(wm -> wm.module())
-				.collect(Collectors.toList());
-
-		for (final OS_Module module : modules1) {
-			if (module.hasClass(aClassName)) {
-				l.add((ClassStatement) module.findClass(aClassName));
-			}
-		}
-
-		return l;
-	}
-
-	@Override
 	public Operation2<WorldModule> findPrelude(final String prelude_name) {
 		return use.findPrelude(prelude_name);
 	}
@@ -271,10 +246,10 @@ public abstract class __Compilation1 implements Compilation {
 	@Override
 	public void hasInstructions(final @NotNull List<CompilerInstructions> cis,
 	                            final @NotNull IPipelineAccess pa) {
-		assert cis.size() > 0; // FIXME this is corect. below is wrong (allows cis.size()==2)
+//		assert cis.size() > 0; // FIXME this is corect. below is wrong (allows cis.size()==2)
 		//assert cis.size() == 1; // FIXME this is corect. below is wrong (allows cis.size()==2)
 
-		if (cis.size() == 0) {
+		if (cis.isEmpty()) {
 			// README IDEA misconfiguration
 			String absolutePath = new File(".").getAbsolutePath();
 
@@ -338,11 +313,6 @@ public abstract class __Compilation1 implements Compilation {
 
 	@Override
 	public LivingRepo world() {
-		return _repo;
-	}
-
-	@Override
-	public LivingRepo livingRepo() {
 		return _repo;
 	}
 

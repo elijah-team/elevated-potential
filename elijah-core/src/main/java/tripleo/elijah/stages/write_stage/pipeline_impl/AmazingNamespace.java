@@ -25,7 +25,7 @@ class AmazingNamespace implements Amazing {
 
 	void waitGenC(final GenerateC ggc) {
 		var on = new NG_OutputNamespace();
-		on.setNamespace(compilation.livingRepo().getNamespace(n).getGarish(), ggc);
+		on.setNamespace(compilation.world().getNamespace(n).getGarish(), ggc);
 		itms.addItem(on);
 	}
 

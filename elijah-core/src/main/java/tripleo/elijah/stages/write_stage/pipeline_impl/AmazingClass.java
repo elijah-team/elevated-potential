@@ -25,7 +25,7 @@ class AmazingClass implements Amazing {
 
 	void waitGenC(final GenerateC ggc) {
 		var oc = new NG_OutputClass();
-		oc.setClass(compilation.livingRepo().getClass(c).getGarish(), ggc);
+		oc.setClass(compilation.world().getClass(c).getGarish(), ggc);
 		itms.addItem(oc);
 	}
 

@@ -3,7 +3,6 @@ package tripleo.elijah.stages.hooligan.pipeline_impl;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.nextgen.inputtree.EIT_Input;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 public class HooliganPipelineImpl {
 	public void run(final @NotNull Compilation compilation) {
 		final Hooligan              hooligan = new Hooligan();
-		final Collection<WorldModule> modules  = compilation.livingRepo().modules();
+		final Collection<WorldModule> modules  = compilation.world().modules();
 
 		final Hooligan.SmallWriter1 sw       = hooligan.__modules2(modules);
 		final EOT_OutputTree        cot      = compilation.getOutputTree();

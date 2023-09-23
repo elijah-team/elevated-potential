@@ -106,27 +106,27 @@ public interface EntryPointProcessor {
 
 		@Override
 		public void registerClass(final EvaClass aClass) {
-			compilation.livingRepo().addClass(aClass, LivingRepo.Add.MAIN_CLASS);
+			compilation.world().addClass(aClass, LivingRepo.Add.MAIN_CLASS);
 		}
 
 		@Override
 		public void registerClass1(final EvaClass aClass) {
-			compilation.livingRepo().addClass(aClass, LivingRepo.Add.NONE);
+			compilation.world().addClass(aClass, LivingRepo.Add.NONE);
 		}
 
 		@Override
 		public void registerFunction(final BaseEvaFunction aFunction) {
-			compilation.livingRepo().addFunction(aFunction, LivingRepo.Add.MAIN_FUNCTION);
+			compilation.world().addFunction(aFunction, LivingRepo.Add.MAIN_FUNCTION);
 		}
 
 		@Override
 		public void registerFunction1(final BaseEvaFunction aFunction) {
-			compilation.livingRepo().addFunction(aFunction, LivingRepo.Add.NONE);
+			compilation.world().addFunction(aFunction, LivingRepo.Add.NONE);
 		}
 
 		@Override
 		public void registerNamespace(final EvaNamespace aNamespace) {
-			compilation.livingRepo().addNamespace(aNamespace, LivingRepo.Add.NONE);
+			compilation.world().addNamespace(aNamespace, LivingRepo.Add.NONE);
 		}
 	}
 
