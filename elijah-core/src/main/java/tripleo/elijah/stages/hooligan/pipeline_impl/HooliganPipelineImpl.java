@@ -1,36 +1,59 @@
 package tripleo.elijah.stages.hooligan.pipeline_impl;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.nextgen.inputtree.EIT_Input;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 public class HooliganPipelineImpl {
 	public void run(final @NotNull Compilation compilation) {
-		final Hooligan              hooligan = new Hooligan();
-		final Collection<WorldModule> modules  = compilation.world().modules();
+		final Hooligan hooligan = new Hooligan();
 
-		final Hooligan.SmallWriter1 sw       = hooligan.__modules2(modules);
-		final EOT_OutputTree        cot      = compilation.getOutputTree();
-		final List<EIT_Input>       inputs   = inputs_for_modules(modules, compilation);
-		final String                text     = sw.getText();
-		final EG_Statement          seq      = EG_Statement.of(text, EX_Explanation.withMessage("modules-sw-writer"));
-		final EOT_OutputFile        off      = new EOT_OutputFile(inputs, "modules-sw-writer", EOT_OutputType.SWW, seq);
+		compilation.world().addModuleProcess(new CompletableProcess<WorldModule>() {
+			@Override
+			public void add(WorldModule item) {
+				// README ignored, we are taking list at end
+			}
 
-		cot.add(off);
-	}
+			@Override
+			public void complete() {
+				Collection<WorldModule> worldModules = compilation.world().modules();
 
-	private @NotNull List<EIT_Input> inputs_for_modules(final Collection<WorldModule> aModules, final Compilation c) {
-		return aModules.stream()
-				.map(WorldModule::getEITInput)
-				.collect(Collectors.toList());
+				final Hooligan.SmallWriter1 sw = hooligan.__modules2(worldModules);
+				final EOT_OutputTree cot = compilation.getOutputTree();
+
+				final List<EIT_Input> inputs = worldModules.stream()
+						.map(WorldModule::getEITInput)
+						.collect(Collectors.toList());
+
+				final String text = sw.getText();
+				final EG_Statement seq = EG_Statement.of(text, EX_Explanation.withMessage("modules-sw-writer"));
+				final EOT_OutputFile off = new EOT_OutputFile(inputs, "modules-sw-writer", EOT_OutputType.SWW, seq);
+
+				cot.add(off);
+			}
+
+			@Override
+			public void error(Diagnostic d) {
+
+			}
+
+			@Override
+			public void preComplete() {
+
+			}
+
+			@Override
+			public void start() {
+
+			}
+		});
 	}
 }
