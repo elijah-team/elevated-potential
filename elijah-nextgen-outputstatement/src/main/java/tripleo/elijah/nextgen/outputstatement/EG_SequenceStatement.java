@@ -1,7 +1,6 @@
 package tripleo.elijah.nextgen.outputstatement;
 
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.util.Helpers;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,7 +43,7 @@ public class EG_SequenceStatement implements EG_Statement {
 
 	@Override
 	public String getText() {
-		final String ltext = Helpers.String_join(" ", list.stream().map(st -> st.getText()).collect(Collectors.toList()));
+		final String ltext = __.String_join(" ", list.stream().map(st -> st.getText()).collect(Collectors.toList()));
 		if (beginning != null) {
 			return String.format("%s%s%s", beginning, ltext, ending);
 		} else {

@@ -5,6 +5,7 @@
 rootProject.name = 'elijah-v2'
 include(':tripleo.elijah.stateful')
 include(':tripleo.elijah.stateful-processor')
+include(':elijah-nextgen-outputstatement')
 include(':tripleo.elijah.core')
 include(':tripleo.small')
 include(':annotation-user')

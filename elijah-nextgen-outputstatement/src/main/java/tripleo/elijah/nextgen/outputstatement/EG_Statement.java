@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package tripleo.elijah.nextgen.outputstatement;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Tripleo Nova
@@ -29,5 +24,5 @@ public interface EG_Statement {
 
 	EX_Explanation getExplanation();
 
-	@Nullable String getText();
+	String getText();
 }
