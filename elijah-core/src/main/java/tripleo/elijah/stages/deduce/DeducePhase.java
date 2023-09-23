@@ -1186,6 +1186,10 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		public WorkJob new_WlGenerateClass(final GenerateFunctions aGenerateFunctions, final ClassInvocation aClassInvocation, final GeneratedClasses aGeneratedClasses, final ICodeRegistrar aCodeRegistrar, final RegisterClassInvocation_env aEnv) {
 			return new WlGenerateClass(aGenerateFunctions, aClassInvocation, aGeneratedClasses, aCodeRegistrar, aEnv);
 		}
+
+		public Diagnostic new_CouldntGenerateClass(WlGenerateClass gen, DeducePhase deducePhase) {
+			return new CouldntGenerateClass(gen, deducePhase);
+		}
 	}
 }
 
