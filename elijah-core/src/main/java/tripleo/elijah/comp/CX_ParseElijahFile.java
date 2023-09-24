@@ -1,7 +1,9 @@
 package tripleo.elijah.comp;
 
 import antlr.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.query.*;
@@ -15,33 +17,51 @@ import static tripleo.elijah.util.Stupidity.*;
 
 public class CX_ParseElijahFile {
 
-	public static Operation<OS_Module> parseAndCache(final ElijahSpec aSpec, final ElijahCache aElijahCache,
-			final String absolutePath, final Compilation compilation) {
-		final Operation<OS_Module> calm;
+	public static Operation<OS_Module> parseAndCache(final ElijahSpec aSpec,
+	                                                 final ElijahCache aElijahCache,
+	                                                 final String absolutePath,
+	                                                 final Compilation compilation) {
+		final @NotNull Operation<OS_Module> calm;
+
 		try {
-			calm = parseElijahFile_(aSpec, compilation, aElijahCache, new File(absolutePath), compilation);
+			final IO              io       = compilation.getIO();
+			final String          f        = aSpec.f();
+			final File            file     = aSpec.file();
+			final IO._IO_ReadFile readFile = io.readFile2(file);
+
+			try (final InputStream s = readFile.getInputStream()) {
+				calm = calculate(f, s, compilation, readFile.getLongPath1());
+
+				if (calm.mode() == Mode.FAILURE) {
+					final Exception e = calm.failure();
+					assert e != null;
+
+					println_err2(("parser exception: " + e));
+					e.printStackTrace(System.err);
+				} else {
+					aElijahCache.put(aSpec, absolutePath, calm.success());
+				}
+			}
+
+			return calm;
 		} catch (final IOException aE) {
 			return Operation.failure(aE);
 		}
-
-		if (calm.mode() == Mode.SUCCESS) {
-			aElijahCache.put(aSpec, absolutePath, calm.success());
-		}
-
-		return calm;
 	}
 
-	private static Operation<OS_Module> parseElijahFile(final ElijahSpec spec, final Compilation compilation) {
-		final var absolutePath = new File(spec.f()).getAbsolutePath(); // !!
-		return parseElijahFile(spec.f(), spec.s(), spec.do_out(), compilation, absolutePath);
+	private static Operation<OS_Module> calculate(final ElijahSpec spec, final Compilation compilation) {
+		final var absolutePath = spec.getLongPath2(); // !!
+		return calculate(spec.f(), spec.s(), compilation, absolutePath);
 	}
 
-	public static Operation<OS_Module> parseElijahFile(final String f, final InputStream s, final boolean do_out,
-			final Compilation compilation, final String absolutePath) {
+	private static Operation<OS_Module> calculate(final String f,
+	                                              final InputStream s,
+	                                              final Compilation compilation,
+	                                              final String absolutePath) {
 		final ElijjahLexer lexer = new ElijjahLexer(s);
 		lexer.setFilename(f);
 		final ElijjahParser parser = new ElijjahParser(lexer);
-		parser.out = new Out(f, compilation, do_out);
+		parser.out = new Out(f, compilation, false);
 		parser.setFilename(f);
 		try {
 			parser.program();
@@ -51,7 +71,9 @@ public class CX_ParseElijahFile {
 		final OS_Module module = parser.out.module();
 		parser.out = null;
 
-		module.setFileName(absolutePath);
+		var x = module.getFileName();
+		if (x == null)
+			module.setFileName(absolutePath);
 		return Operation.success(module);
 	}
 
