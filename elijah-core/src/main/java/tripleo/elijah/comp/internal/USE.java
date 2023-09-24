@@ -18,19 +18,19 @@ import java.util.regex.*;
 
 @SuppressWarnings("UnnecessaryLocalVariable")
 public class USE {
-	private static final FilenameFilter accept_source_files = (directory, file_name) -> {
+	private static final   FilenameFilter accept_source_files = (directory, file_name) -> {
 		final boolean matches = Pattern.matches(".+\\.elijah$", file_name)
 				|| Pattern.matches(".+\\.elijjah$", file_name);
 		return matches;
 	};
-	private final @NotNull Compilation c;
-	private final @NotNull ErrSink errSink;
+	private final @NotNull Compilation    c;
+	private final @NotNull ErrSink        errSink;
 
 	private final @NotNull ElijahCache elijahCache = new DefaultElijahCache();
 
 	@Contract(pure = true)
 	public USE(final @NotNull Compilation aCompilation) {
-		c = aCompilation;
+		c       = aCompilation;
 		errSink = c.getErrSink();
 	}
 
@@ -38,9 +38,11 @@ public class USE {
 		return new CY_FindPrelude(errSink, this).findPrelude(prelude_name);
 	}
 
-	private Operation2<OS_Module> parseElijjahFile(final @NotNull File f, final @NotNull String file_name,
-			final boolean do_out, final @NotNull LibraryStatementPart lsp) {
-		System.out.printf("   %s%n", f.getAbsolutePath());
+	private Operation2<OS_Module> parseElijjahFile(final @NotNull File f,
+	                                               final @NotNull String file_name,
+	                                               final boolean do_out,
+	                                               final @NotNull LibraryStatementPart lsp) {
+		this.c.getCompilationEnclosure().logProgress(CompProgress.USE__parseElijjahFile, f.getAbsolutePath());
 
 		if (!f.exists()) {
 			final Diagnostic e = new FileNotFoundDiagnostic(f);
@@ -54,27 +56,27 @@ public class USE {
 			om = realParseElijjahFile(file_name, f, do_out);
 
 			switch (om.mode()) {
-			case SUCCESS -> {
-				final OS_Module mm = om.success();
+				case SUCCESS -> {
+					final OS_Module mm = om.success();
 
-				// assert mm.getLsp() == null;
-				// assert mm.prelude == null;
+					// assert mm.getLsp() == null;
+					// assert mm.prelude == null;
 
-				if (mm.getLsp() == null) {
-					// TODO we don't know which prelude to find yet
-					final Operation2<OS_Module> pl = findPrelude(Compilation.CompilationAlways.defaultPrelude());
+					if (mm.getLsp() == null) {
+						// TODO we don't know which prelude to find yet
+						final Operation2<OS_Module> pl = findPrelude(Compilation.CompilationAlways.defaultPrelude());
 
-					// NOTE Go. infectious. tedious. also slightly lazy
-					assert pl.mode() == Mode.SUCCESS;
+						// NOTE Go. infectious. tedious. also slightly lazy
+						assert pl.mode() == Mode.SUCCESS;
 
-					mm.setLsp(lsp);
-					mm.setPrelude(pl.success());
+						mm.setLsp(lsp);
+						mm.setPrelude(pl.success());
+					}
+					return Operation2.success(mm);
 				}
-				return Operation2.success(mm);
-			}
-			default -> {
-				return om;
-			}
+				default -> {
+					return om;
+				}
 			}
 		} catch (final Exception aE) {
 			return Operation2.failure(new ExceptionDiagnostic(aE));
@@ -119,7 +121,7 @@ public class USE {
 		final File instruction_dir = new File(compilerInstructions.getFilename()).getParentFile();
 		for (final LibraryStatementPart lsp : compilerInstructions.getLibraryStatementParts()) {
 			final String dir_name = Helpers.remove_single_quotes_from_string(lsp.getDirName());
-			final File dir;// = new File(dir_name);
+			final File   dir;// = new File(dir_name);
 			if (dir_name.equals(".."))
 				dir = instruction_dir/* .getAbsoluteFile() */.getParentFile();
 			else
@@ -144,8 +146,8 @@ public class USE {
 			for (final File file : files) {
 //				final CompFactory.InputRequest inp = c.con().createInputRequest(file, do_out, lsp);
 
-				final String file_name = file.toString();
-				final Operation2<OS_Module> om = parseElijjahFile(file, file_name, do_out, lsp);
+				final String                file_name = file.toString();
+				final Operation2<OS_Module> om        = parseElijjahFile(file, file_name, do_out, lsp);
 
 				if (om.mode() == Mode.FAILURE) {
 					System.err.println("204 " + om.failure());
