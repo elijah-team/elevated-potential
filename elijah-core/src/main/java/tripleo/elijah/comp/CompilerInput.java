@@ -10,7 +10,7 @@ import java.io.*;
 import java.util.*;
 import java.util.regex.*;
 
-public class CompilerInput {
+public class CompilerInput extends __Extensionable {
     public enum CompilerInputField {
         TY, HASH, ACCEPT_CI, DIRECTORY_RESULTS
     }
@@ -24,7 +24,6 @@ public class CompilerInput {
 
     @Getter
     private final String                           inp;
-    private final Map<Object, Object>              exts = new HashMap<>();
     private       Maybe<ILazyCompilerInstructions> accept_ci;
     private       File                             dir_carrier;
     // @Getter(fluent)
@@ -73,13 +72,6 @@ public class CompilerInput {
         return dir_carrier;
     }
 
-    public Object getExt(Class<?> aClass) {
-        if (exts.containsKey(aClass)) {
-            return exts.get(aClass);
-        }
-        return null;
-    }
-
     public boolean isElijjahFile() {
         return Pattern.matches(".+\\.elijjah$", inp) || Pattern.matches(".+\\.elijah$", inp);
     }
@@ -95,10 +87,6 @@ public class CompilerInput {
 
     public boolean isSourceRoot() {
         return ty == Ty.SOURCE_ROOT;
-    }
-
-    public void putExt(Class<?> aClass, Object o) {
-        exts.put(aClass, o);
     }
 
     public void setArg() {
