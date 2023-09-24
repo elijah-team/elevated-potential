@@ -179,7 +179,7 @@ public class DefaultLivingRepo implements LivingRepo {
 
 	@Override
 	public void eachModule(Consumer<WorldModule> object) {
-		_modules.forEach(object::accept);
+		_modules.forEach(object);
 	}
 
 	@Override
@@ -187,11 +187,18 @@ public class DefaultLivingRepo implements LivingRepo {
 		final List<ClassStatement> l = new ArrayList<>();
 		var modules1 = modules().stream().map(WorldModule::module).collect(Collectors.toList());
 
+		var ll = modules1.stream()
+				.filter(m -> m.hasClass(aClassName))
+				.map(m -> (ClassStatement) m.findClass(aClassName))
+				.collect(Collectors.toList());
+
 		for (final OS_Module module : modules1) {
 			if (module.hasClass(aClassName)) {
 				l.add((ClassStatement) module.findClass(aClassName));
 			}
 		}
+
+		assert Objects.equals(l,ll);
 
 		return l;
 	}
