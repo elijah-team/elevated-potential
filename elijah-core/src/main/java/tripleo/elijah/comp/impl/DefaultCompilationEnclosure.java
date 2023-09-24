@@ -8,6 +8,7 @@ import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
@@ -24,38 +25,15 @@ import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
 
 import java.util.*;
+import java.util.function.*;
 
 public class DefaultCompilationEnclosure implements CompilationEnclosure {
-
-	public class OFA implements Iterable<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> {
-
-		// public OFA(final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider,
-		// NG_OutputRequest>> aOutFileAssertions) {
-		// _l = aOutFileAssertions;
-		// }
-
-		public boolean contains(String aFileName) {
-			for (Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> outFileAssertion : outFileAssertions) {
-				final String containedFilename = outFileAssertion.getMiddle().getFilename();
-
-				if (containedFilename.equals(aFileName)) {
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		@Override
-		public Iterator<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> iterator() {
-			return outFileAssertions.stream().iterator();
-		}
-	}
-
 	public final DeferredObject<IPipelineAccess, Void, Void> pipelineAccessPromise = new DeferredObject<>();
+
+	private final Eventual<CompilationRunner> ecr = new Eventual<>();
+	private final DeferredObject<AccessBus, Void, Void> accessBusPromise = new DeferredObject<>();
 	private final CB_Output _cbOutput = new CB_ListBackedOutput();
 	private final Compilation compilation;
-	private final DeferredObject<AccessBus, Void, Void> accessBusPromise = new DeferredObject<>();
 	private final Map<OS_Module, ModuleThing> moduleThings = new HashMap<>();
 	private final Subject<ReactiveDimension> dimensionSubject = ReplaySubject.<ReactiveDimension>create();
 	private final Subject<Reactivable> reactivableSubject = ReplaySubject.<Reactivable>create();
@@ -110,7 +88,6 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	private ICompilationBus compilationBus;
 	private CompilationRunner compilationRunner;
 	private CompilerDriver compilerDriver;
-
 	private List<CompilerInput> inp;
 
 	private IPipelineAccess pa;
@@ -291,11 +268,11 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	// @Contract(pure = true) //??
+
 	@Override
 	public CompilationClosure getCompilationClosure() {
 		return this.getCompilation().getCompilationClosure();
 	}
-
 	@Override
 	@Contract(pure = true)
 	public CompilerDriver getCompilationDriver() {
@@ -379,6 +356,8 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	@Override
 	public void setCompilationRunner(final CompilationRunner aCompilationRunner) {
 		compilationRunner = aCompilationRunner;
+
+		ecr.resolve(compilationRunner);
 	}
 
 	@Override
@@ -420,7 +399,13 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		pipelineAccessPromise.resolve(aPa);
 	}
 
+	@Override
+	public void waitCompilationRunner(Consumer<CompilationRunner> ccr) {
+		ecr.then(ccr::accept);
+	}
+
 	private class ModuleListener_ModuleCompletableProcess implements CompletableProcess<WorldModule> {
+
 		@Override
 		public void add(final WorldModule item) {
 			System.err.println("[ModuleListener_ModuleCompletableProcess] add " + item.module().getFileName());
@@ -430,7 +415,6 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 				moduleListener.listen(item);
 			}
 		}
-
 		@Override
 		public void complete() {
 			System.err.println("[ModuleListener_ModuleCompletableProcess] complete");
@@ -455,9 +439,34 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		public void start() {
 			System.err.println("[ModuleListener_ModuleCompletableProcess] start");
 		}
+
+	}
+
+	public class OFA implements Iterable<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> {
+
+		// public OFA(final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider,
+		// NG_OutputRequest>> aOutFileAssertions) {
+		// _l = aOutFileAssertions;
+		// }
+
+		public boolean contains(String aFileName) {
+			for (Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> outFileAssertion : outFileAssertions) {
+				final String containedFilename = outFileAssertion.getMiddle().getFilename();
+
+				if (containedFilename.equals(aFileName)) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		@Override
+		public Iterator<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> iterator() {
+			return outFileAssertions.stream().iterator();
+		}
 	}
 }
-
 //
 // vim:set shiftwidth=4 softtabstop=0 noexpandtab:
 //
