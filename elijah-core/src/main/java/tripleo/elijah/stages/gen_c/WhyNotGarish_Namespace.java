@@ -26,20 +26,19 @@ public class WhyNotGarish_Namespace implements WhyNotGarish_Item {
 			}
 		}
 	}
-	private final EvaNamespace                             en;
-	private final GenerateC                                generateC;
+
+	private final EvaNamespace en;
+	private final GenerateC generateC;
 
 	private final DeferredObject<GenerateResultEnv, Void, Void> fileGenPromise = new DeferredObject<>();
 
 	private final GCFN gcfn = new GCFN();
 
 	public WhyNotGarish_Namespace(final EvaNamespace aEn, final GenerateC aGenerateC) {
-		en        = aEn;
+		en = aEn;
 		generateC = aGenerateC;
 
-
 		en.reactive().add(gcfn);
-
 
 		fileGenPromise.then(this::onFileGen);
 	}

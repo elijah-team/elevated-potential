@@ -25,8 +25,8 @@ public class ProcedureCallExpressionImpl implements tripleo.elijah.lang.i.Proced
 	private ExpressionList args = new ExpressionListImpl();
 
 	/**
-	 * Make sure you call {@link #identifier} or {@link #setLeft(IExpression)}
-	 * and {@link #setArgs(ExpressionList)}
+	 * Make sure you call {@link #identifier} or {@link #setLeft(IExpression)} and
+	 * {@link #setArgs(ExpressionList)}
 	 */
 	public ProcedureCallExpressionImpl() {
 	}

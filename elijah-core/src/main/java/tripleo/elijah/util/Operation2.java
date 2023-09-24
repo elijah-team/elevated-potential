@@ -19,7 +19,7 @@ public class Operation2<T> {
 			op2 = Operation2.failure(new ExceptionDiagnostic(op.failure()));
 		}
 		case NOTHING -> {
-			throw new NotImplementedException();  //UnintendedUseException ??
+			throw new NotImplementedException(); // UnintendedUseException ??
 		}
 		case SUCCESS -> {
 			op2 = Operation2.success(op.success());
@@ -29,6 +29,7 @@ public class Operation2<T> {
 
 		return op2;
 	}
+
 	public static <T> @NotNull Operation2<T> failure(final Diagnostic aException) {
 		final Operation2<T> op = new Operation2<>(null, aException, Mode.FAILURE);
 		return op;
@@ -41,13 +42,13 @@ public class Operation2<T> {
 
 	private final Mode mode;
 
-	private final T    succ;
+	private final T succ;
 
 	private final Diagnostic exc;
 
 	public Operation2(final T aSuccess, final Diagnostic aException, final Mode aMode) {
 		succ = aSuccess;
-		exc  = aException;
+		exc = aException;
 		mode = aMode;
 
 		if (succ == exc)

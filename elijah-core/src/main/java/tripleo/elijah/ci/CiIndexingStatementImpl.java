@@ -13,17 +13,15 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.ExpressionList;
 import tripleo.elijah.lang.i.OS_Module;
 
-
 /**
  * @author Tripleo
- * <p>
- * Created 	Apr 15, 2020 at 4:59:21 AM
- * Created 1/8/21 7:19 AM
+ *         <p>
+ *         Created Apr 15, 2020 at 4:59:21 AM Created 1/8/21 7:19 AM
  */
 public class CiIndexingStatementImpl implements CiIndexingStatement {
 
-	private                 ExpressionList       exprs;
-	private                 Token                name;
+	private ExpressionList exprs;
+	private Token name;
 	private final @Nullable CompilerInstructions parent;
 
 	public CiIndexingStatementImpl(final CompilerInstructions module) {
@@ -31,7 +29,7 @@ public class CiIndexingStatementImpl implements CiIndexingStatement {
 	}
 
 	public CiIndexingStatementImpl(final OS_Module module) {
-		//this.parent = module;
+		// this.parent = module;
 		this.parent = null;
 	}
 

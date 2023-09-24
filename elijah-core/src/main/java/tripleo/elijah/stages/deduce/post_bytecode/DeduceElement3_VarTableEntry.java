@@ -16,18 +16,20 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 	private static class STOP extends Exception {
 
 	}
+
 	private static void noteNonsense(int code, String message) {
 		Stupidity.println_out_2(String.format("%d %s%n", code, message));
 	}
+
 	private static void noteNonsenseErr(int code, String message) {
 		Stupidity.println_err2(String.format("** [noteNonsenseErr] %d %s%n", code, message));
 	}
 
 	private final EvaContainer.VarTableEntry _principal;
 
-	private final DeduceTypes2               _deduceTypes2;
+	private final DeduceTypes2 _deduceTypes2;
 
-	public        RegisterClassInvocation_env __passthru;
+	public RegisterClassInvocation_env __passthru;
 
 	@Contract(pure = true)
 	public DeduceElement3_VarTableEntry(final EvaContainer.VarTableEntry aVarTableEntry) {
@@ -37,16 +39,14 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 
 	@Contract(pure = true)
 	public DeduceElement3_VarTableEntry(final @NotNull EvaContainer.VarTableEntry aVarTableEntry,
-										final @NotNull DeduceTypes2 aDeduceTypes2) {
-		_principal    = aVarTableEntry;
+			final @NotNull DeduceTypes2 aDeduceTypes2) {
+		_principal = aVarTableEntry;
 		_deduceTypes2 = aDeduceTypes2;
 	}
 
 	private void __one_potential(final @NotNull DeducePhase aDeducePhase,
-								 final EvaContainer.@NotNull VarTableEntry varTableEntry,
-								 final @NotNull List<TypeTableEntry> potentialTypes,
-								 final TypeName typeName,
-								 final @NotNull ClassInvocation ci) throws STOP {
+			final EvaContainer.@NotNull VarTableEntry varTableEntry, final @NotNull List<TypeTableEntry> potentialTypes,
+			final TypeName typeName, final @NotNull ClassInvocation ci) throws STOP {
 		boolean sc = false;
 
 		TypeTableEntry potentialType = potentialTypes.get(0);
@@ -54,7 +54,7 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 			assert potentialType.getAttached() != null;
 
 			final OS_Type.Type attachedType = potentialType.getAttached().getType();
-			//assert attachedType == OS_Type.Type.USER_CLASS;
+			// assert attachedType == OS_Type.Type.USER_CLASS;
 			if (attachedType != OS_Type.Type.USER_CLASS) {
 				final OS_Type att = potentialType.getAttached();
 				noteNonsense(105, String.valueOf(att));
@@ -80,10 +80,11 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 
 			var dt2 = deduceTypes2();
 
-			//System.err.println((__passthru));
+			// System.err.println((__passthru));
 
 			if (attachedType == OS_Type.Type.USER_CLASS) {
-				var xci = dt2._inj().new_ClassInvocation(potentialType.getAttached().getClassOf(), null, new ReadySupplier_1<>(dt2));
+				var xci = dt2._inj().new_ClassInvocation(potentialType.getAttached().getClassOf(), null,
+						new ReadySupplier_1<>(dt2));
 				var v = xci.genericPart().valueForKey(typeName);
 
 				if (v != null) {
@@ -91,8 +92,11 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 				}
 
 				xci = aDeducePhase.registerClassInvocation(xci);
-				@NotNull GenerateFunctions gf  = aDeducePhase.generatePhase.getGenerateFunctions(xci.getKlass().getContext().module());
-				WlGenerateClass            wgc = dt2._inj().new_WlGenerateClass(gf, xci, aDeducePhase.generatedClasses, aDeducePhase.getCodeRegistrar());
+				@NotNull
+				GenerateFunctions gf = aDeducePhase.generatePhase
+						.getGenerateFunctions(xci.getKlass().getContext().module());
+				WlGenerateClass wgc = dt2._inj().new_WlGenerateClass(gf, xci, aDeducePhase.generatedClasses,
+						aDeducePhase.getCodeRegistrar());
 
 				wgc.setConsumer(potentialType::resolve);
 
@@ -123,7 +127,8 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 		if (tn != null) {
 			if (tn instanceof final @NotNull NormalTypeName tn2) {
 
-				if (tn2.isNull()) return;
+				if (tn2.isNull())
+					return;
 
 				__zero_potential__1(varTableEntry, tn2);
 			} else
@@ -135,7 +140,7 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 	}
 
 	private void __zero_potential__1(final @NotNull EvaContainer.VarTableEntry varTableEntry,
-									 final @NotNull NormalTypeName aNormalTypeName) {
+			final @NotNull NormalTypeName aNormalTypeName) {
 		// 0. preflight
 		if (aNormalTypeName.isNull())
 			throw new NotImplementedException();
@@ -144,17 +149,17 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 		final String typeNameName = aNormalTypeName.getName();
 
 		// 2. stage 1
-		final LookupResultList lrl  = aNormalTypeName.getContext().lookup(typeNameName);
-		OS_Element             best = lrl.chooseBest(null);
+		final LookupResultList lrl = aNormalTypeName.getContext().lookup(typeNameName);
+		OS_Element best = lrl.chooseBest(null);
 
 		// 3. validation
 		if (best != null) {
 			// A)
 
-			//  4. handle special case here
+			// 4. handle special case here
 			while (best instanceof AliasStatementImpl) {
 				NotImplementedException.raise();
-				//assert false;
+				// assert false;
 				best = DeduceLookupUtils._resolveAlias((AliasStatementImpl) best, deduceTypes2());
 			}
 
@@ -164,7 +169,7 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 		} else {
 			// B)
 
-			//  4. do later...
+			// 4. do later...
 
 			// TODO shouldn't this already be calculated?
 			throw new NotImplementedException();
@@ -185,13 +190,13 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 	@Override
 	public BaseEvaFunction generatedFunction() {
 		throw new NotImplementedException();
-		//return null;
+		// return null;
 	}
 
 	@Override
 	public GenType genType() {
 		throw new NotImplementedException();
-		//return null;
+		// return null;
 	}
 
 	@Override
@@ -218,7 +223,7 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 		final EvaContainer.VarTableEntry varTableEntry = _principal;
 
 		final List<TypeTableEntry> potentialTypes = varTableEntry.potentialTypes;
-		final TypeName             typeName       = varTableEntry.typeName;
+		final TypeName typeName = varTableEntry.typeName;
 
 		try {
 			if (potentialTypes.size() == 0 && (varTableEntry.varType == null || typeName.isNull())) {

@@ -9,7 +9,7 @@ import java.io.PrintStream;
 import java.util.List;
 
 class Diagnostic_8887 implements GCFM_Diagnostic {
-	final         int      _code = 8887;
+	final int _code = 8887;
 	private final TypeName y;
 
 	Diagnostic_8887(final TypeName aY) {

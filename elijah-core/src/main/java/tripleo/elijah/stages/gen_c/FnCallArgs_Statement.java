@@ -13,18 +13,19 @@ import tripleo.elijah.util.Helpers;
 import java.util.List;
 
 class FnCallArgs_Statement implements EG_Statement {
-	private final GenerateC                    generateC;
+	private final GenerateC generateC;
 	private final GenerateC.GetAssignmentValue getAssignmentValue;
-	private final Instruction                  inst;
-	private final BaseEvaFunction              gf;
-	private final ProcTableEntry               pte;
+	private final Instruction inst;
+	private final BaseEvaFunction gf;
+	private final ProcTableEntry pte;
 
-	public FnCallArgs_Statement(final GenerateC aGenerateC, final GenerateC.GetAssignmentValue aGetAssignmentValue, final ProcTableEntry aPte, final Instruction aInst, final BaseEvaFunction aGf) {
-		generateC          = aGenerateC;
+	public FnCallArgs_Statement(final GenerateC aGenerateC, final GenerateC.GetAssignmentValue aGetAssignmentValue,
+			final ProcTableEntry aPte, final Instruction aInst, final BaseEvaFunction aGf) {
+		generateC = aGenerateC;
 		getAssignmentValue = aGetAssignmentValue;
-		pte                = aPte;
-		inst               = aInst;
-		gf                 = aGf;
+		pte = aPte;
+		inst = aInst;
+		gf = aGf;
 	}
 
 	@Override
@@ -48,14 +49,14 @@ class FnCallArgs_Statement implements EG_Statement {
 
 		// VERIFY alias evaluation
 		final GetAssignmentValueArgsStatement ava = getAssignmentValue.getAssignmentValueArgs(inst, gf, generateC.LOG);
-		final List<String>                    sll                 = ava.stringList();
+		final List<String> sll = ava.stringList();
 		// VERIFY template usage
 		z.append(Helpers.String_join(", ", sll), "get-assignment-value-args");
 
 		// VERIFY template push
 		z.append(")", "close-brace");
 
-		// VERIFY EG_St:  <here> && getText() -> <~>
+		// VERIFY EG_St: <here> && getText() -> <~>
 		return z.getText();
 	}
 }

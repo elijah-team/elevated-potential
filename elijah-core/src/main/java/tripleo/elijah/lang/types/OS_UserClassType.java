@@ -43,17 +43,23 @@ public class OS_UserClassType extends __Abstract_OS_Type {
 	}
 
 	@NotNull
-	public ClassInvocation resolvedUserClass(final @NotNull GenType genType, final TypeName aGenericTypeName, final @NotNull DeducePhase phase, final DeduceTypes2 deduceTypes2) {
-		final ClassStatement   best            = _classStatement;
-		@Nullable final String constructorName = null; // TODO what to do about this, nothing I guess
+	public ClassInvocation resolvedUserClass(final @NotNull GenType genType, final TypeName aGenericTypeName,
+			final @NotNull DeducePhase phase, final DeduceTypes2 deduceTypes2) {
+		final ClassStatement best = _classStatement;
+		@Nullable
+		final String constructorName = null; // TODO what to do about this, nothing I guess
 
-		@NotNull final List<TypeName> gp = best.getGenericPart();
-		@Nullable ClassInvocation     clsinv;
+		@NotNull
+		final List<TypeName> gp = best.getGenericPart();
+		@Nullable
+		ClassInvocation clsinv;
 		if (genType.getCi() == null) {
-			final Operation<ClassInvocation> oi = DeduceTypes2.ClassInvocationMake.withGenericPart(best, constructorName, (NormalTypeName) aGenericTypeName, deduceTypes2);
+			final Operation<ClassInvocation> oi = DeduceTypes2.ClassInvocationMake.withGenericPart(best,
+					constructorName, (NormalTypeName) aGenericTypeName, deduceTypes2);
 			assert oi.mode() == Mode.SUCCESS;
 			clsinv = oi.success();
-			if (clsinv == null) return null;
+			if (clsinv == null)
+				return null;
 			clsinv = phase.registerClassInvocation(clsinv);
 			genType.setCi(clsinv);
 		} else

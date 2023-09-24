@@ -35,13 +35,10 @@ public interface FuncTypeName extends TypeName {
 
 	void returnValue(TypeName rtn);
 
-
 	@Override
 	void setContext(Context context);
 
-
 	// @Override
 	void type(TypeModifiers typeModifiers);
-
 
 }

@@ -10,7 +10,8 @@ import java.util.List;
 
 class _EOT_OutputTree__Utils {
 
-	static @NotNull List<EG_Statement> _extractStatementSequenceFromAllOutputFiles(final @NotNull Collection<EOT_OutputFile> tt) {
+	static @NotNull List<EG_Statement> _extractStatementSequenceFromAllOutputFiles(
+			final @NotNull Collection<EOT_OutputFile> tt) {
 		List<EG_Statement> list2 = new ArrayList<>();
 		for (EOT_OutputFile of1 : tt) {
 			list2.addAll(_extractStatementSequenceFromOutputFile(of1));
@@ -18,7 +19,8 @@ class _EOT_OutputTree__Utils {
 		return list2;
 	}
 
-	private static @NotNull List<EG_Statement> _extractStatementSequenceFromOutputFile(final @NotNull EOT_OutputFile of1) {
+	private static @NotNull List<EG_Statement> _extractStatementSequenceFromOutputFile(
+			final @NotNull EOT_OutputFile of1) {
 		var llll = new ArrayList<EG_Statement>();
 
 		final EG_Statement sequence = of1.getStatementSequence();

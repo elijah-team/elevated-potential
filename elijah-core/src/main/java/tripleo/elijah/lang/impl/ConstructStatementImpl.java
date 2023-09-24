@@ -20,20 +20,20 @@ import tripleo.elijah.lang2.*;
  */
 public class ConstructStatementImpl implements tripleo.elijah.lang.i.ConstructStatement {
 	private final @Nullable ExpressionList _args;
-	private final @NotNull  IExpression    _expr;
-	private final @Nullable String         constructorName;
-	//	private OS_Type _type;
-	private final @NotNull  Context        context;
-	private final @NotNull  OS_Element     parent;
+	private final @NotNull IExpression _expr;
+	private final @Nullable String constructorName;
+	// private OS_Type _type;
+	private final @NotNull Context context;
+	private final @NotNull OS_Element parent;
 
 	public ConstructStatementImpl(@NotNull final OS_Element aParent, @NotNull final Context aContext,
-								  @NotNull final IExpression aExpr, @Nullable final String aConstructorName,
-								  @Nullable final ExpressionList aExpressionList) {
-		parent          = aParent;
-		context         = aContext;
-		_expr           = aExpr;
+			@NotNull final IExpression aExpr, @Nullable final String aConstructorName,
+			@Nullable final ExpressionList aExpressionList) {
+		parent = aParent;
+		context = aContext;
+		_expr = aExpr;
 		constructorName = aConstructorName;
-		_args           = aExpressionList;
+		_args = aExpressionList;
 	}
 
 //	@Override

@@ -10,5 +10,6 @@ import tripleo.elijah.stages.instructions.Instruction;
 public interface ITastic {
 	void do_assign_call(BaseEvaFunction aGeneratedFunction, Context aFdCtx, IdentTableEntry aIdte, int aIndex);
 
-	void do_assign_call(BaseEvaFunction aGeneratedFunction, Context aContext, VariableTableEntry aVte, Instruction aInstruction, final OS_Element aName);
+	void do_assign_call(BaseEvaFunction aGeneratedFunction, Context aContext, VariableTableEntry aVte,
+			Instruction aInstruction, final OS_Element aName);
 }

@@ -29,24 +29,26 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
-	static class Default_WPIS_GenerateOutputs_Behavior_PrintDBLString implements WPIS_GenerateOutputs_Behavior_PrintDBLString {
+	static class Default_WPIS_GenerateOutputs_Behavior_PrintDBLString
+			implements WPIS_GenerateOutputs_Behavior_PrintDBLString {
 		@Override
 		public void print(final String sps) {
 			System.err.println(sps);
 		}
 	}
+
 	// TODO 09/04 Duplication madness
 	private static class MyWritable implements Writable {
-		final          Collection<EG_Statement>        value;
-		final          EOT_OutputFile.FileNameProvider filename;
-		final @NotNull List<EG_Statement>              list;
-		final @NotNull EG_SequenceStatement     statement;
-		private final  NG_OutputRequest         outputRequest;
+		final Collection<EG_Statement> value;
+		final EOT_OutputFile.FileNameProvider filename;
+		final @NotNull List<EG_Statement> list;
+		final @NotNull EG_SequenceStatement statement;
+		private final NG_OutputRequest outputRequest;
 
 		public MyWritable(final Map.@NotNull Entry<NG_OutputRequest, Collection<EG_Statement>> aEntry) {
 			this.outputRequest = aEntry.getKey();
-			filename           = outputRequest.fileName();
-			value              = aEntry.getValue();
+			filename = outputRequest.fileName();
+			value = aEntry.getValue();
 
 			list = value.stream().toList();
 
@@ -88,13 +90,14 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 
 			return llll;
 		}
-		final   OutputStrategy         osg             = st.sys.outputStrategyCreator.get();
-		final   OutputStrategyC        outputStrategyC = new OutputStrategyC(osg);
-		final   List<NG_OutputRequest> ors1            = new ArrayList<>();
-		final   List<NG_OutputItem>    itms            = new ArrayList<>();
-		private int                    _readyCount;
 
-		private int                    _addTally;
+		final OutputStrategy osg = st.sys.outputStrategyCreator.get();
+		final OutputStrategyC outputStrategyC = new OutputStrategyC(osg);
+		final List<NG_OutputRequest> ors1 = new ArrayList<>();
+		final List<NG_OutputItem> itms = new ArrayList<>();
+		private int _readyCount;
+
+		private int _addTally;
 
 		public void addItem(final NG_OutputItem aOutputItem) {
 			itms.add(aOutputItem);
@@ -105,7 +108,7 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 					var oxs = o.getOutputs();
 					for (NG_OutputStatement ox : oxs) {
 						GenerateResult.TY oxt = ox.getTy();
-						String            oxb = ox.getText();
+						String oxb = ox.getText();
 
 						EOT_OutputFile.FileNameProvider s = o.outName(outputStrategyC, oxt);
 
@@ -115,7 +118,7 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 				}
 
 				final Multimap<NG_OutputRequest, EG_Statement> mfss = ArrayListMultimap.create();
-				var                                            cot  = st.c.getOutputTree();
+				var cot = st.c.getOutputTree();
 
 				var ce = st.c.getCompilationEnclosure();
 				for (NG_OutputRequest or : ors1) {
@@ -135,19 +138,21 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 
 				for (Writable writable : writables) {
 					final String filename = writable.filename().getFilename();
-					final EG_Statement       statement0 = writable.statement();
-					final List<EG_Statement> list2      = relist3(statement0);
-					final EG_Statement       statement;
+					final EG_Statement statement0 = writable.statement();
+					final List<EG_Statement> list2 = relist3(statement0);
+					final EG_Statement statement;
 
 					if (filename.endsWith(".h")) {
 						final String uuid = "elinc_%s".formatted(UUID.randomUUID().toString().replace('-', '_'));
 
-						var b = EG_Statement.of("#ifndef %s\n#define %s 1\n\n".formatted(uuid, uuid), EX_Explanation.withMessage("Header file prefix"));
+						var b = EG_Statement.of("#ifndef %s\n#define %s 1\n\n".formatted(uuid, uuid),
+								EX_Explanation.withMessage("Header file prefix"));
 
 						final List<EG_Statement> list3 = new ArrayList<>(list2.size() + 2);
 						list3.add(b);
 						list3.addAll(list2);
-						final EG_Statement e = EG_Statement.of("\n#endif\n", EX_Explanation.withMessage("Header file postfix"));
+						final EG_Statement e = EG_Statement.of("\n#endif\n",
+								EX_Explanation.withMessage("Header file postfix"));
 						list3.add(e);
 						statement = new EG_SequenceStatement(new EG_Naming("relist3"), list3);
 					} else {
@@ -178,9 +183,9 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 		EG_Statement statement();
 	}
 
-	private final List<NG_OutputRequest>   ors = new ArrayList<>();
+	private final List<NG_OutputRequest> ors = new ArrayList<>();
 
-	private       WritePipelineSharedState st;
+	private WritePipelineSharedState st;
 
 	private List<Amazing> amazings;
 
@@ -206,7 +211,9 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 		act0(st, result, cs, ns, fs);
 	}
 
-	private void act0(final @NotNull WritePipelineSharedState st, final GenerateResult result, final @NotNull List<EvaClass> cs, final @NotNull List<EvaNamespace> ns, final @NotNull List<BaseEvaFunction> fs) {
+	private void act0(final @NotNull WritePipelineSharedState st, final GenerateResult result,
+			final @NotNull List<EvaClass> cs, final @NotNull List<EvaNamespace> ns,
+			final @NotNull List<BaseEvaFunction> fs) {
 		final CP_Paths paths = st.c.paths();
 		paths.signalCalculateFinishParse(); // TODO maybe move this 06/22
 
@@ -219,11 +226,9 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 		}
 	}
 
-	private void act3(final GenerateResult result,
-					  final @NotNull List<EvaClass> cs,
-					  final @NotNull List<EvaNamespace> ns,
-					  final @NotNull List<BaseEvaFunction> fs,
-					  final @NotNull OutputItems itms) {
+	private void act3(final GenerateResult result, final @NotNull List<EvaClass> cs,
+			final @NotNull List<EvaNamespace> ns, final @NotNull List<BaseEvaFunction> fs,
+			final @NotNull OutputItems itms) {
 		final int totalCount = cs.size() + ns.size() + fs.size();
 		itms.readyCount(totalCount); // looks like it should work, but also looks like it won't
 

@@ -8,24 +8,26 @@ import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 
 class DeduceType3 implements DED {
-	public static IDeduceElement3 dispatch(final @NotNull IdentTableEntry aIdentTableEntry, final DeduceTypes2 aDeduceTypes2, final BaseEvaFunction aGeneratedFunction) {
+	public static IDeduceElement3 dispatch(final @NotNull IdentTableEntry aIdentTableEntry,
+			final DeduceTypes2 aDeduceTypes2, final BaseEvaFunction aGeneratedFunction) {
 		return aIdentTableEntry.getDeduceElement3(aDeduceTypes2, aGeneratedFunction);
 	}
+
 	public static IDeduceElement3 dispatch(final @NotNull VariableTableEntry aVariableTableEntry) {
 		return aVariableTableEntry.getDeduceElement3();
 	}
 
 	private final @Nullable IDeduceElement3 deduceElement3;
-	private final           Diagnostic      diagnostic;
+	private final Diagnostic diagnostic;
 
-	private       GenType _genType;
+	private GenType _genType;
 
 	private final OS_Type osType;
 
 	public DeduceType3(final IDeduceElement3 aDeduceElement3, final OS_Type aOSType, final Diagnostic aDiagnostic1) {
 		deduceElement3 = aDeduceElement3;
-		osType         = aOSType;
-		diagnostic     = aDiagnostic1;
+		osType = aOSType;
+		diagnostic = aDiagnostic1;
 	}
 
 //	public static IDeduceElement3 dispatch(final @NotNull IdentTableEntry aIdentTableEntry) {
@@ -38,13 +40,13 @@ class DeduceType3 implements DED {
 
 	public DeduceType3(final OS_Type aOSType, final Diagnostic aDiagnostic) {
 		deduceElement3 = null;
-		osType         = aOSType;
-		diagnostic     = aDiagnostic;
+		osType = aOSType;
+		diagnostic = aDiagnostic;
 	}
 
 	public GenType getGenType() {
 		if (_genType == null) {
-			//_genType          = _inj().new_GenTypeImpl();
+			// _genType = _inj().new_GenTypeImpl();
 			_genType = new GenTypeImpl();
 			_genType.setResolved(osType);
 		}
@@ -66,8 +68,8 @@ class DeduceType3 implements DED {
 
 		aErrSink.reportDiagnostic(diagnostic);
 	}
-	//private DeduceTypes2Injector _inj() {
-	//	return deduceTypes2()._inj();
-	//}
+	// private DeduceTypes2Injector _inj() {
+	// return deduceTypes2()._inj();
+	// }
 
 }

@@ -25,7 +25,8 @@ public class StdErrSink implements ErrSink {
 
 	private int _errorCount;
 
-	@NotNull List<Pair<Errors, Object>> _list = new java.util.ArrayList<>();
+	@NotNull
+	List<Pair<Errors, Object>> _list = new java.util.ArrayList<>();
 
 	@Override
 	public int errorCount() {
@@ -56,7 +57,7 @@ public class StdErrSink implements ErrSink {
 		if (diagnostic.severity() == Diagnostic.Severity.ERROR)
 			_errorCount++;
 		_list.add(Pair.of(Errors.DIAGNOSTIC, diagnostic));
-		//08/13 diagnostic.report(System.err);
+		// 08/13 diagnostic.report(System.err);
 	}
 
 	@Override

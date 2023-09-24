@@ -8,7 +8,8 @@ import java.util.List;
 class PromiseExpectations {
 	long counter = 0;
 
-	@NotNull List<PromiseExpectation> exp = new ArrayList<>();
+	@NotNull
+	List<PromiseExpectation> exp = new ArrayList<>();
 
 	public void add(@NotNull PromiseExpectation aExpectation) {
 		counter++;
@@ -17,7 +18,8 @@ class PromiseExpectations {
 	}
 
 	public void check() {
-		for (@NotNull PromiseExpectation promiseExpectation : exp) {
+		for (@NotNull
+		PromiseExpectation promiseExpectation : exp) {
 			if (!promiseExpectation.isSatisfied())
 				promiseExpectation.fail();
 		}

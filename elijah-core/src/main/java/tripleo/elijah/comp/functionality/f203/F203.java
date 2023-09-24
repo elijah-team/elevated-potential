@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 
 public class F203 {
 	public final @NotNull ChooseDirectoryNameBehavior cdn;
-	private final         ErrSink                     errSink;
-	final                 LocalDateTime               localDateTime = LocalDateTime.now();
+	private final ErrSink errSink;
+	final LocalDateTime localDateTime = LocalDateTime.now();
 
 	@Contract(pure = true)
 	public F203(final ErrSink aErrSink, final Compilation c) {
 		errSink = aErrSink;
 
-		//cdn = new<c.cfg._ChooseDirectoryNameBehavior>();
+		// cdn = new<c.cfg._ChooseDirectoryNameBehavior>();
 
 //		cdn = new ChooseCompilationNameBehavior(c);
 //		cdn = new ChooseHashDirectoryNameBehavior(c, localDateTime);

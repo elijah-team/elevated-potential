@@ -31,30 +31,32 @@ import static tripleo.elijah.util.Helpers.List_of;
 public class TestIdentNormal {
 
 	@Disabled
-	@Test//(expected = IllegalStateException.class) // TODO proves nothing
+	@Test // (expected = IllegalStateException.class) // TODO proves nothing
 	public void test() {
 
-		final FunctionDef fd   = mock(FunctionDef.class);
-		final Context     ctx1 = mock(Context.class);
-		final Context     ctx2 = mock(Context.class);
+		final FunctionDef fd = mock(FunctionDef.class);
+		final Context ctx1 = mock(Context.class);
+		final Context ctx2 = mock(Context.class);
 
 		final Boilerplate boilerplate = new Boilerplate();
 		boilerplate.get();
 		boilerplate.getGenerateFiles(boilerplate.defaultMod());
 
-		final GenerateFunctions generateFunctions = new GenerateFunctions(boilerplate.defaultMod(), boilerplate.pipelineLogic, boilerplate.comp.pa());
+		final GenerateFunctions generateFunctions = new GenerateFunctions(boilerplate.defaultMod(),
+				boilerplate.pipelineLogic, boilerplate.comp.pa());
 
-		final EvaFunction       generatedFunction = new EvaFunction(fd);
-		final VariableSequence  seq               = new VariableSequenceImpl(ctx1);
-		final VariableStatement vs                = new VariableStatementImpl(seq);
-		final IdentExpression   x                 = IdentExpression.forString("x");
+		final EvaFunction generatedFunction = new EvaFunction(fd);
+		final VariableSequence seq = new VariableSequenceImpl(ctx1);
+		final VariableStatement vs = new VariableStatementImpl(seq);
+		final IdentExpression x = IdentExpression.forString("x");
 		vs.setName(x);
-		final IdentExpression         foo = IdentExpression.forString("foo");
+		final IdentExpression foo = IdentExpression.forString("foo");
 		final ProcedureCallExpression pce = new ProcedureCallExpressionImpl();
 		pce.setLeft(new DotExpressionImpl(x, foo));
 
-		final InstructionArgument                s = generateFunctions.simplify_expression(pce, generatedFunction, ctx2);
-		@NotNull final List<InstructionArgument> l = BaseEvaFunction._getIdentIAPathList(s);
+		final InstructionArgument s = generateFunctions.simplify_expression(pce, generatedFunction, ctx2);
+		@NotNull
+		final List<InstructionArgument> l = BaseEvaFunction._getIdentIAPathList(s);
 		tripleo.elijah.util.Stupidity.println_out_2(String.valueOf(l));
 //      tripleo.elijah.util.Stupidity.println_out_2(generatedFunction.getIdentIAPathNormal());
 
@@ -72,11 +74,11 @@ public class TestIdentNormal {
 
 		final IdentIA identIA = new IdentIA(1, generatedFunction);
 
-		final DeducePhase  phase = boilerplate.getDeducePhase();
-		final DeduceTypes2 d2    = new DeduceTypes2(boilerplate.defaultMod(), phase);
+		final DeducePhase phase = boilerplate.getDeducePhase();
+		final DeduceTypes2 d2 = new DeduceTypes2(boilerplate.defaultMod(), phase);
 
 		final List<InstructionArgument> ss = BaseEvaFunction._getIdentIAPathList(identIA);
-		d2.resolveIdentIA2_(ctx2, null, ss/*identIA*/, generatedFunction, new FoundElement(phase) {
+		d2.resolveIdentIA2_(ctx2, null, ss/* identIA */, generatedFunction, new FoundElement(phase) {
 			@Override
 			public void foundElement(final OS_Element e) {
 				System.err.println(e);
@@ -97,18 +99,18 @@ public class TestIdentNormal {
 		final OS_Module mod = boilerplate.defaultMod();
 		boilerplate.getGenerateFiles(mod);
 
-		final Context     ctx2  = mock(Context.class);
+		final Context ctx2 = mock(Context.class);
 		final DeducePhase phase = boilerplate.getDeducePhase();
 
 		//
 		//
 		//
 
-		ClassStatement        cs       = new ClassStatementImpl(mod, mod.getContext());
+		ClassStatement cs = new ClassStatementImpl(mod, mod.getContext());
 		final IdentExpression capitalX = IdentExpression.forString("X");
 		cs.setName(capitalX);
-		FunctionDef fd   = new FunctionDefImpl(cs, cs.getContext());
-		Context     ctx1 = fd.getContext();
+		FunctionDef fd = new FunctionDefImpl(cs, cs.getContext());
+		Context ctx1 = fd.getContext();
 		fd.setName(IdentExpression.forString("main"));
 		FunctionDef fd2 = new FunctionDefImpl(cs, cs.getContext());
 		fd2.setName(IdentExpression.forString("foo"));
@@ -121,16 +123,16 @@ public class TestIdentNormal {
 		//
 		//
 
-		VariableSequence      seq = new VariableSequenceImpl(ctx1);
-		VariableStatement     vs  = seq.next();
-		final IdentExpression x   = IdentExpression.forString("x");
+		VariableSequence seq = new VariableSequenceImpl(ctx1);
+		VariableStatement vs = seq.next();
+		final IdentExpression x = IdentExpression.forString("x");
 		vs.setName(x);
 		ProcedureCallExpression pce2 = new ProcedureCallExpressionImpl();
 		pce2.setLeft(capitalX);
 		vs.initial(pce2);
 		IBinaryExpression e = ExpressionBuilder.build(x, ExpressionKind.ASSIGNMENT, pce2);
 
-		final IdentExpression   foo = IdentExpression.forString("foo");
+		final IdentExpression foo = IdentExpression.forString("foo");
 		ProcedureCallExpression pce = new ProcedureCallExpressionImpl();
 		pce.setLeft(new DotExpressionImpl(x, foo));
 
@@ -139,7 +141,7 @@ public class TestIdentNormal {
 		fd.add(new StatementWrapperImpl(pce2, ctx1, fd));
 		fd2.scope(new Scope3Impl(fd2));
 
-		final GeneratePhase     generatePhase     = boilerplate.pipelineLogic().generatePhase;
+		final GeneratePhase generatePhase = boilerplate.pipelineLogic().generatePhase;
 		final GenerateFunctions generateFunctions = boilerplate.pipelineLogic().generatePhase.getGenerateFunctions(mod);
 
 		fd2.add(new StatementWrapperImpl(pce, ctx2, fd2));
@@ -147,9 +149,9 @@ public class TestIdentNormal {
 		final ClassHeader ch = new ClassHeaderImpl(false, List_of());
 		cs.setHeader(ch);
 
-		ClassInvocation    ci   = phase.registerClassInvocation(cs);
-		ProcTableEntry     pte2 = null;
-		FunctionInvocation fi   = new FunctionInvocation(fd, pte2, ci, generatePhase);
+		ClassInvocation ci = phase.registerClassInvocation(cs);
+		ProcTableEntry pte2 = null;
+		FunctionInvocation fi = new FunctionInvocation(fd, pte2, ci, generatePhase);
 //		when(fd.returnType()).thenReturn(null);
 		final FormalArgList formalArgList = new FormalArgListImpl();
 //		when(fd.fal()).thenReturn(formalArgList);
@@ -157,11 +159,13 @@ public class TestIdentNormal {
 //		when(fd2.returnType()).thenReturn(null);
 		EvaFunction generatedFunction = generateFunctions.generateFunction(fd, cs, fi);
 
-/*
-		InstructionArgument es = generateFunctions.simplify_expression(e, generatedFunction, ctx2);
-
-		InstructionArgument s = generateFunctions.simplify_expression(pce, generatedFunction, ctx2);
-*/
+		/*
+		 * InstructionArgument es = generateFunctions.simplify_expression(e,
+		 * generatedFunction, ctx2);
+		 * 
+		 * InstructionArgument s = generateFunctions.simplify_expression(pce,
+		 * generatedFunction, ctx2);
+		 */
 
 		//
 		//
@@ -181,13 +185,13 @@ public class TestIdentNormal {
 		//
 		//
 
-
 		final DeduceTypes2 aDeduceTypes2 = null; // !! 08/28
-		ClassInvocation    invocation2   = new ClassInvocation(cs, null, new NULL_DeduceTypes2());
+		ClassInvocation invocation2 = new ClassInvocation(cs, null, new NULL_DeduceTypes2());
 		invocation2 = phase.registerClassInvocation(invocation2);
-		ProcTableEntry     pte3               = null;
-		FunctionInvocation fi2                = new FunctionInvocation(fd2, pte3, invocation2, generatePhase);
-		EvaFunction        generatedFunction2 = generateFunctions.generateFunction(fd2, fd2.getParent(), fi2);//new EvaFunction(fd2);
+		ProcTableEntry pte3 = null;
+		FunctionInvocation fi2 = new FunctionInvocation(fd2, pte3, invocation2, generatePhase);
+		EvaFunction generatedFunction2 = generateFunctions.generateFunction(fd2, fd2.getParent(), fi2);// new
+																										// EvaFunction(fd2);
 //		generatedFunction2.addVariableTableEntry("self", VariableTableType.SELF, null, null);
 //		final TypeTableEntry type = null;
 //		int res = generatedFunction2.addVariableTableEntry("Result", VariableTableType.RESULT, type, null);

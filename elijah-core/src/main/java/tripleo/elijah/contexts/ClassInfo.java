@@ -21,20 +21,20 @@ public class ClassInfo implements ContextInfo {
 	}
 
 	private final @Nullable ClassStatement classStatement;
-	private final           ClassInfoType  classInfoType;
+	private final ClassInfoType classInfoType;
 
 	private final @Nullable NormalTypeName typeName;
 
 	public ClassInfo(final ClassStatement aClassStatement, final ClassInfoType aClassInfoType) {
 		classStatement = aClassStatement;
-		classInfoType  = aClassInfoType;
-		typeName       = null;
+		classInfoType = aClassInfoType;
+		typeName = null;
 	}
 
 	public ClassInfo(final NormalTypeName aTypeName, final ClassInfoType aClassInfoType) {
 		classStatement = null;
-		classInfoType  = aClassInfoType;
-		typeName       = aTypeName;
+		classInfoType = aClassInfoType;
+		typeName = aTypeName;
 	}
 
 	public ClassInfoType getClassInfoType() {

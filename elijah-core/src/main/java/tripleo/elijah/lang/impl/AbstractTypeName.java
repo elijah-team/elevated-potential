@@ -14,13 +14,13 @@ import java.util.*;
 
 public abstract class AbstractTypeName implements NormalTypeName {
 
-	protected boolean       pr_out;
-	protected boolean       pr_constant;
-	protected boolean       pr_in;
-	protected Qualident     pr_name;
-	protected boolean       pr_reference;
+	protected boolean pr_out;
+	protected boolean pr_constant;
+	protected boolean pr_in;
+	protected Qualident pr_name;
+	protected boolean pr_reference;
 	protected TypeModifiers tm;
-	private   boolean       isNullable = false;
+	private boolean isNullable = false;
 
 	@Override
 	public boolean equals(final Object o) {

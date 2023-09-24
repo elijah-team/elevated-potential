@@ -28,18 +28,21 @@ public class EntryPointList {
 		eps.add(aEntryPoint);
 	}
 
-	public void generate(@NotNull final GenerateFunctions aGenerateFunctions, final DeducePhase aDeducePhase, @NotNull final Supplier<WorkManager> wm) {
+	public void generate(@NotNull final GenerateFunctions aGenerateFunctions, final DeducePhase aDeducePhase,
+			@NotNull final Supplier<WorkManager> wm) {
 		generateFromEntryPoints(aDeducePhase, aGenerateFunctions, wm.get());
 	}
 
-	public void generate2(final GenerateFunctions aGenerateFunctions, final DeducePhase deducePhase, @NotNull final Supplier<WorkManager> wm0) {
-		if (eps.size() == 0) return; // short circuit
-
+	public void generate2(final GenerateFunctions aGenerateFunctions, final DeducePhase deducePhase,
+			@NotNull final Supplier<WorkManager> wm0) {
+		if (eps.size() == 0)
+			return; // short circuit
 
 		final WorkList wl = new WorkList();
 
 		for (final EntryPoint entryPoint : eps) {
-			final EntryPointProcessor epp = EntryPointProcessor.dispatch(entryPoint, deducePhase, wl, aGenerateFunctions);
+			final EntryPointProcessor epp = EntryPointProcessor.dispatch(entryPoint, deducePhase, wl,
+					aGenerateFunctions);
 			epp.process();
 		}
 
@@ -49,16 +52,16 @@ public class EntryPointList {
 		wm.drain();
 	}
 
-	private void generateFromEntryPoints(final DeducePhase deducePhase,
-										 final GenerateFunctions aGenerateFunctions,
-										 final @NotNull WorkManager wm) {
-		if (eps.size() == 0) return; // short circuit
-
+	private void generateFromEntryPoints(final DeducePhase deducePhase, final GenerateFunctions aGenerateFunctions,
+			final @NotNull WorkManager wm) {
+		if (eps.size() == 0)
+			return; // short circuit
 
 		final WorkList wl = new WorkList();
 
 		for (final EntryPoint entryPoint : eps) {
-			final EntryPointProcessor epp = EntryPointProcessor.dispatch(entryPoint, deducePhase, wl, aGenerateFunctions);
+			final EntryPointProcessor epp = EntryPointProcessor.dispatch(entryPoint, deducePhase, wl,
+					aGenerateFunctions);
 			epp.process();
 		}
 

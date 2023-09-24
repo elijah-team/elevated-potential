@@ -30,6 +30,7 @@ public class MissingOptionException extends ParseException {
 	 * This exception {@code serialVersionUID}.
 	 */
 	private static final long serialVersionUID = 8161889051578563249L;
+
 	/**
 	 * Build the exception message from the specified list of options.
 	 *
@@ -55,10 +56,11 @@ public class MissingOptionException extends ParseException {
 	/**
 	 * The list of missing options and groups
 	 */
-	private              List missingOptions;
+	private List missingOptions;
 
 	/**
-	 * Constructs a new {@code MissingSelectedException} with the specified list of missing options.
+	 * Constructs a new {@code MissingSelectedException} with the specified list of
+	 * missing options.
 	 *
 	 * @param missingOptions the list of missing options and groups
 	 * @since 1.2
@@ -69,7 +71,8 @@ public class MissingOptionException extends ParseException {
 	}
 
 	/**
-	 * Construct a new {@code MissingSelectedException} with the specified detail message.
+	 * Construct a new {@code MissingSelectedException} with the specified detail
+	 * message.
 	 *
 	 * @param message the detail message
 	 */
@@ -80,8 +83,8 @@ public class MissingOptionException extends ParseException {
 	/**
 	 * Gets the list of options or option groups missing in the command line parsed.
 	 *
-	 * @return the missing options, consisting of String instances for simple options, and OptionGroup instances for
-	 * required option groups.
+	 * @return the missing options, consisting of String instances for simple
+	 *         options, and OptionGroup instances for required option groups.
 	 * @since 1.2
 	 */
 	public List getMissingOptions() {

@@ -22,31 +22,32 @@ import java.util.List;
  * Created 11/6/21 8:57 AM
  */
 public class SlirClass implements SlirElement {
-	private final           String            className;
-	private final           ClassStatement    classStatement;
-	private final           List<SlirElement> nodes = new ArrayList<SlirElement>();
-	private final @Nullable SlirElement       parent;
-	private final @Nullable SlirSourceFile    sourceFile;
-	private final           List<SlirElement> used  = new ArrayList<SlirElement>();
+	private final String className;
+	private final ClassStatement classStatement;
+	private final List<SlirElement> nodes = new ArrayList<SlirElement>();
+	private final @Nullable SlirElement parent;
+	private final @Nullable SlirSourceFile sourceFile;
+	private final List<SlirElement> used = new ArrayList<SlirElement>();
 
 	public SlirClass(final SlirElement aParent, final String aClassName, final ClassStatement aClassStatement) {
-		parent         = aParent;
-		sourceFile     = null; // TODO for now
-		className      = aClassName;
+		parent = aParent;
+		sourceFile = null; // TODO for now
+		className = aClassName;
 		classStatement = aClassStatement;
 	}
 
-	public SlirClass(final @NotNull SlirNamespaceNode aParent, final String aName, final ClassStatement aClassStatement) {
-		parent         = aParent;
-		sourceFile     = aParent.sourceFile();
-		className      = aName;
+	public SlirClass(final @NotNull SlirNamespaceNode aParent, final String aName,
+			final ClassStatement aClassStatement) {
+		parent = aParent;
+		sourceFile = aParent.sourceFile();
+		className = aName;
 		classStatement = aClassStatement;
 	}
 
 	public SlirClass(final SlirSourceFile aSourceFile, final String aClassName, final ClassStatement aClassStatement) {
-		parent         = null;
-		sourceFile     = aSourceFile;
-		className      = aClassName;
+		parent = null;
+		sourceFile = aSourceFile;
+		className = aClassName;
 		classStatement = aClassStatement;
 	}
 

@@ -7,7 +7,6 @@ public class GenerateCTest {
 	@Test
 	public void getRealTargetName() {
 
-
 //		fd = new FunctionDefImpl(element, context);
 //
 //		gf = new EvaFunction(fd);

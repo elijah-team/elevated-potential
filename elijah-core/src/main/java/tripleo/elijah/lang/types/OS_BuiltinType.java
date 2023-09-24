@@ -38,5 +38,3 @@ public class OS_BuiltinType extends __Abstract_OS_Type {
 		return Type.BUILT_IN;
 	}
 }
-
-

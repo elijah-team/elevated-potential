@@ -21,17 +21,18 @@ public class LibraryStatementPartImpl implements LibraryStatementPart {
 	public class Directive {
 
 		private final IExpression expression;
-		private final String      name;
+		private final String name;
 
 		public Directive(final @NotNull Token token_, final IExpression expression_) {
-			name       = token_.getText();
+			name = token_.getText();
 			expression = expression_;
 		}
 	}
-	private CompilerInstructions ci;
-	private String               dirName;
 
-	private String               name;
+	private CompilerInstructions ci;
+	private String dirName;
+
+	private String name;
 
 	private @Nullable List<Directive> dirs = null;
 

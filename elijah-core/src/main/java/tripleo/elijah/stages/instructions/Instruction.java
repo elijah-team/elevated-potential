@@ -20,8 +20,8 @@ import java.util.List;
 public class Instruction {
 	public DeduceElement deduceElement;
 	List<InstructionArgument> args;
-	private Context         context;
-	private int             index = -1;
+	private Context context;
+	private int index = -1;
 	private InstructionName name;
 
 	public Instruction() {
@@ -75,11 +75,7 @@ public class Instruction {
 
 	@Override
 	public @NotNull String toString() {
-		return "Instruction{" +
-				"name=" + name +
-				", index=" + index +
-				", args=" + args +
-				'}';
+		return "Instruction{" + "name=" + name + ", index=" + index + ", args=" + args + '}';
 	}
 
 //	public List<InstructionArgument> getArgs() {

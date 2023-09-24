@@ -23,10 +23,11 @@ import org.jetbrains.annotations.Nullable;
 /**
  * OptionBuilder allows the user to create Options using descriptive methods.
  * <p>
- * Details on the Builder pattern can be found at
- * <a href="http://c2.com/cgi-bin/wiki?BuilderPattern">http://c2.com/cgi-bin/wiki?BuilderPattern</a>.
+ * Details on the Builder pattern can be found at <a href=
+ * "http://c2.com/cgi-bin/wiki?BuilderPattern">http://c2.com/cgi-bin/wiki?BuilderPattern</a>.
  * <p>
- * This class is NOT thread safe. See <a href="https://issues.apache.org/jira/browse/CLI-209">CLI-209</a>
+ * This class is NOT thread safe. See
+ * <a href="https://issues.apache.org/jira/browse/CLI-209">CLI-209</a>
  *
  * @since 1.0
  * @deprecated since 1.3, use {@link Option#builder(String)} instead
@@ -37,39 +38,39 @@ public final class OptionBuilder {
 	/**
 	 * Option builder instance
 	 */
-	private static final     OptionBuilder INSTANCE = new OptionBuilder();
+	private static final OptionBuilder INSTANCE = new OptionBuilder();
 	/**
 	 * Long option
 	 */
-	private static @Nullable String        longOption;
+	private static @Nullable String longOption;
 	/**
 	 * Option description
 	 */
-	private static @Nullable String        description;
+	private static @Nullable String description;
 	/**
 	 * Argument name
 	 */
-	private static @Nullable String        argName;
+	private static @Nullable String argName;
 	/**
 	 * Is required?
 	 */
-	private static           boolean       required;
+	private static boolean required;
 	/**
 	 * The number of arguments
 	 */
-	private static           int           argCount = Option.UNINITIALIZED;
+	private static int argCount = Option.UNINITIALIZED;
 	/**
 	 * Option type
 	 */
-	private static           Class<?>      type;
+	private static Class<?> type;
 	/**
 	 * Option can have an optional argument value
 	 */
-	private static           boolean       optionalArg;
+	private static boolean optionalArg;
 	/**
 	 * Value separator for argument value
 	 */
-	private static           char          valueSeparator;
+	private static char valueSeparator;
 
 	static {
 		// ensure the consistency of the initial values
@@ -92,22 +93,26 @@ public final class OptionBuilder {
 	}
 
 	/**
-	 * Creates an Option using the current settings and with the specified Option {@code char}.
+	 * Creates an Option using the current settings and with the specified Option
+	 * {@code char}.
 	 *
 	 * @param opt the character representation of the Option
 	 * @return the Option instance
-	 * @throws IllegalArgumentException if {@code opt} is not a valid character. See Option.
+	 * @throws IllegalArgumentException if {@code opt} is not a valid character. See
+	 *                                  Option.
 	 */
 	public static Option create(final char opt) throws IllegalArgumentException {
 		return create(String.valueOf(opt));
 	}
 
 	/**
-	 * Creates an Option using the current settings and with the specified Option {@code char}.
+	 * Creates an Option using the current settings and with the specified Option
+	 * {@code char}.
 	 *
 	 * @param opt the {@code java.lang.String} representation of the Option
 	 * @return the Option instance
-	 * @throws IllegalArgumentException if {@code opt} is not a valid character. See Option.
+	 * @throws IllegalArgumentException if {@code opt} is not a valid character. See
+	 *                                  Option.
 	 */
 	public static @NotNull Option create(final String opt) throws IllegalArgumentException {
 		Option option;
@@ -144,7 +149,8 @@ public final class OptionBuilder {
 	}
 
 	/**
-	 * The next Option created will require an argument value if {@code hasArg} is true.
+	 * The next Option created will require an argument value if {@code hasArg} is
+	 * true.
 	 *
 	 * @param hasArg if true then the Option has an argument value
 	 * @return the OptionBuilder instance
@@ -184,7 +190,7 @@ public final class OptionBuilder {
 	 * @return the OptionBuilder instance
 	 */
 	public static OptionBuilder hasOptionalArg() {
-		OptionBuilder.argCount    = 1;
+		OptionBuilder.argCount = 1;
 		OptionBuilder.optionalArg = true;
 
 		return INSTANCE;
@@ -196,7 +202,7 @@ public final class OptionBuilder {
 	 * @return the OptionBuilder instance
 	 */
 	public static OptionBuilder hasOptionalArgs() {
-		OptionBuilder.argCount    = Option.UNLIMITED_VALUES;
+		OptionBuilder.argCount = Option.UNLIMITED_VALUES;
 		OptionBuilder.optionalArg = true;
 
 		return INSTANCE;
@@ -205,11 +211,12 @@ public final class OptionBuilder {
 	/**
 	 * The next Option can have the specified number of optional arguments.
 	 *
-	 * @param numArgs - the maximum number of optional arguments the next Option created can have.
+	 * @param numArgs - the maximum number of optional arguments the next Option
+	 *                created can have.
 	 * @return the OptionBuilder instance
 	 */
 	public static OptionBuilder hasOptionalArgs(final int numArgs) {
-		OptionBuilder.argCount    = numArgs;
+		OptionBuilder.argCount = numArgs;
 		OptionBuilder.optionalArg = true;
 
 		return INSTANCE;
@@ -242,13 +249,13 @@ public final class OptionBuilder {
 	 * Resets the member variables to their default values.
 	 */
 	private static void reset() {
-		description    = null;
-		argName        = null;
-		longOption     = null;
-		type           = String.class;
-		required       = false;
-		argCount       = Option.UNINITIALIZED;
-		optionalArg    = false;
+		description = null;
+		argName = null;
+		longOption = null;
+		type = String.class;
+		required = false;
+		argCount = Option.UNINITIALIZED;
+		optionalArg = false;
 		valueSeparator = (char) 0;
 	}
 
@@ -289,7 +296,8 @@ public final class OptionBuilder {
 	}
 
 	/**
-	 * The next Option created will have a value that will be an instance of {@code type}.
+	 * The next Option created will have a value that will be an instance of
+	 * {@code type}.
 	 *
 	 * @param newType the type of the Options argument value
 	 * @return the OptionBuilder instance
@@ -302,10 +310,11 @@ public final class OptionBuilder {
 	}
 
 	/**
-	 * The next Option created will have a value that will be an instance of {@code type}.
+	 * The next Option created will have a value that will be an instance of
+	 * {@code type}.
 	 * <p>
-	 * <b>Note:</b> this method is kept for binary compatibility and the input type is supposed to be a {@link Class}
-	 * object.
+	 * <b>Note:</b> this method is kept for binary compatibility and the input type
+	 * is supposed to be a {@link Class} object.
 	 *
 	 * @param newType the type of the Options argument value
 	 * @return the OptionBuilder instance
@@ -317,7 +326,8 @@ public final class OptionBuilder {
 	}
 
 	/**
-	 * The next Option created uses '{@code =}' as a means to separate argument values.
+	 * The next Option created uses '{@code =}' as a means to separate argument
+	 * values.
 	 *
 	 * <b>Example:</b>
 	 *
@@ -338,7 +348,8 @@ public final class OptionBuilder {
 	}
 
 	/**
-	 * The next Option created uses {@code sep} as a means to separate argument values.
+	 * The next Option created uses {@code sep} as a means to separate argument
+	 * values.
 	 * <p>
 	 * <b>Example:</b>
 	 *

@@ -10,9 +10,9 @@ import tripleo.elijah.world.i.*;
 import java.util.function.*;
 
 public interface CompilationFlow {
-	//static CompilationFlowMember findPrelude() {
-	//	return new CF_FindPrelude(aCopm);
-	//}
+	// static CompilationFlowMember findPrelude() {
+	// return new CF_FindPrelude(aCopm);
+	// }
 
 	class CF_FindPrelude implements CompilationFlowMember {
 		private final Consumer<Operation2<WorldModule>> copm;
@@ -74,7 +74,6 @@ public interface CompilationFlow {
 		return new CompilationFlowMember() {
 			@Override
 			public void doIt(final Compilation cc, final CompilationFlow flow) {
-
 
 			}
 		};

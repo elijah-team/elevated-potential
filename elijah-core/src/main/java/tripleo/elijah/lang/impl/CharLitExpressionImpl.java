@@ -22,8 +22,8 @@ import tripleo.elijah.util.*;
 public class CharLitExpressionImpl implements tripleo.elijah.lang.i.CharLitExpression {
 
 	OS_Type _type;
-	private final Token          char_lit_raw;
-	private       ExpressionList args;
+	private final Token char_lit_raw;
+	private ExpressionList args;
 
 	public CharLitExpressionImpl(final Token c) {
 		char_lit_raw = c;
@@ -106,7 +106,6 @@ public class CharLitExpressionImpl implements tripleo.elijah.lang.i.CharLitExpre
 	public void setType(final OS_Type deducedExpression) {
 		_type = deducedExpression;
 	}
-
 
 	@Override
 	public @NotNull String toString() {

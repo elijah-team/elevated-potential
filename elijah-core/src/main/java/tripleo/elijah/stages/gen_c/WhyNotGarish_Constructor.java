@@ -17,13 +17,13 @@ import tripleo.elijah.world.WorldGlobals;
 import java.util.List;
 
 public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
-	private final EvaConstructor                                gf;
-	private final GenerateC                                     generateC;
+	private final EvaConstructor gf;
+	private final GenerateC generateC;
 	private final DeferredObject<GenerateResultEnv, Void, Void> fileGenPromise = new DeferredObject<>();
 	private List<C2C_Result>                                    _c2c_results;
 
 	public WhyNotGarish_Constructor(final EvaConstructor aGf, final GenerateC aGenerateC) {
-		gf        = aGf;
+		gf = aGf;
 		generateC = aGenerateC;
 
 		fileGenPromise.then(this::onFileGen);
@@ -37,8 +37,8 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 	private void generateIdent(@NotNull IdentTableEntry identTableEntry, @NotNull GenerateResultEnv aFileGen) {
 		assert identTableEntry.isResolved();
 
-		final @NotNull EvaNode   x           = identTableEntry.resolvedType();
-		final WorkList           wl          = aFileGen.wl();
+		final @NotNull EvaNode x = identTableEntry.resolvedType();
+		final WorkList wl = aFileGen.wl();
 
 		if (x instanceof final EvaClass evaClass) {
 			generateC.generate_class(aFileGen, evaClass);
@@ -50,7 +50,8 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 		}
 	}
 
-	@NotNull String getConstructorNameText() {
+	@NotNull
+	String getConstructorNameText() {
 		final IdentExpression constructorName = gf.getFD().getNameNode();
 
 		final String constructorNameText;
@@ -75,17 +76,15 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 	void onFileGen(final @NotNull GenerateResultEnv aFileGen) {
 		final Generate_Code_For_Method gcfm = new Generate_Code_For_Method(generateC, generateC.elLog());
 
-
 		var yf = generateC.a_lookup(gf);
-
 
 		// TODO separate into method and method_header??
 		final C2C_CodeForConstructor cfm = new C2C_CodeForConstructor(gcfm, aFileGen, yf);
 
-		//cfm.calculate();
-		final List<C2C_Result> rs   = cfm.getResults();
-		final GenerateResult   gr   = new Old_GenerateResult();
-		final GCFC             gcfc = new GCFC(rs, gf, gr); // TODO 08/12 preload this??
+		// cfm.calculate();
+		final List<C2C_Result> rs = cfm.getResults();
+		final GenerateResult gr = new Old_GenerateResult();
+		final GCFC gcfc = new GCFC(rs, gf, gr); // TODO 08/12 preload this??
 
 		_c2c_results = rs;
 
@@ -107,8 +106,7 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 
 	public void postGenerateCodeForConstructor(final WorkList aWl, final GenerateResultEnv aFileGen) {
 		for (IdentTableEntry identTableEntry : gf.idte_list) {
-			//IdentTableEntry.;
-
+			// IdentTableEntry.;
 
 			identTableEntry.reactive().addResolveListener((IdentTableEntry x) -> {
 				generateIdent(x, aFileGen);

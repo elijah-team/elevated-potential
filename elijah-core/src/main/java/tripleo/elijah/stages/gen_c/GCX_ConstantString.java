@@ -11,14 +11,15 @@ import tripleo.elijah.util.NotImplementedException;
 
 public class GCX_ConstantString implements EG_Statement {
 
-	private final IExpression                  expression;
-	private final GenerateC                    generateC;
+	private final IExpression expression;
+	private final GenerateC generateC;
 	private final GenerateC.GetAssignmentValue getAssignmentValue;
 
-	public GCX_ConstantString(final GenerateC aGenerateC, final GenerateC.GetAssignmentValue aGetAssignmentValue, IExpression expression) {
-		generateC          = aGenerateC;
+	public GCX_ConstantString(final GenerateC aGenerateC, final GenerateC.GetAssignmentValue aGetAssignmentValue,
+			IExpression expression) {
+		generateC = aGenerateC;
 		getAssignmentValue = aGetAssignmentValue;
-		this.expression    = expression;
+		this.expression = expression;
 	}
 
 	@Override

@@ -21,18 +21,18 @@ public class Expert__SystemTest {
 		final EK_Reader reader = ovo2.success();
 
 		reader.readfile();
-		//reader.print();
+		// reader.print();
 		reader.closefile();
 
-		//System.out.println("------------------------");
+		// System.out.println("------------------------");
 		boolean f = i.Forwardchaining();
-		//System.out.println(" ");
+		// System.out.println(" ");
 		System.out.println("Result of Forwardchaining: " + f);
 
-		//System.out.println(" ");
-		//i.print();
+		// System.out.println(" ");
+		// i.print();
 
-		//System.out.println("------------------------");
+		// System.out.println("------------------------");
 		boolean b = i.Backwardchaining();
 		System.out.println("Result of Backwardchaining: " + b);
 		System.out.println(" ");

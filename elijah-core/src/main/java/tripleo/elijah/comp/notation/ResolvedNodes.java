@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class ResolvedNodes {
-	final         List<EvaNode>  resolved_nodes = new ArrayList<EvaNode>();
+	final List<EvaNode> resolved_nodes = new ArrayList<EvaNode>();
 	private final ICodeRegistrar cr;
 
 	public ResolvedNodes(final ICodeRegistrar aCr) {
@@ -33,7 +33,7 @@ class ResolvedNodes {
 			case CLASS -> {
 				final EvaClass evaClass = (EvaClass) evaNode;
 
-				//assert (evaClass.getCode() != 0);
+				// assert (evaClass.getCode() != 0);
 				if (evaClass.getCode() == 0) {
 					cr.registerClass1(evaClass);
 				}
@@ -42,7 +42,7 @@ class ResolvedNodes {
 //						generatedClass.setCode(mod.getCompilation().nextClassCode());
 				for (EvaClass evaClass2 : evaClass.classMap.values()) {
 					if (evaClass2.getCode() == 0) {
-						//evaClass2.setCode(mod.getCompilation().nextClassCode());
+						// evaClass2.setCode(mod.getCompilation().nextClassCode());
 						cr.registerClass1(evaClass2);
 					}
 				}
@@ -58,12 +58,12 @@ class ResolvedNodes {
 			case NAMESPACE -> {
 				final EvaNamespace evaNamespace = (EvaNamespace) evaNode;
 				if (coded.getCode() == 0) {
-					//coded.setCode(mod.getCompilation().nextClassCode());
+					// coded.setCode(mod.getCompilation().nextClassCode());
 					cr.registerNamespace(evaNamespace);
 				}
 				for (EvaClass evaClass3 : evaNamespace.classMap.values()) {
 					if (evaClass3.getCode() == 0) {
-						//evaClass.setCode(mod.getCompilation().nextClassCode());
+						// evaClass.setCode(mod.getCompilation().nextClassCode());
 						cr.registerClass1(evaClass3);
 					}
 				}
@@ -82,17 +82,15 @@ class ResolvedNodes {
 	}
 
 	public void part2() {
-		resolved_nodes.stream()
-				.filter(evaNode -> evaNode instanceof GNCoded)
-				.map(evaNode -> (GNCoded) evaNode)
-				.filter(coded -> coded.getCode() == 0)
-				.forEach(coded -> {
+		resolved_nodes.stream().filter(evaNode -> evaNode instanceof GNCoded).map(evaNode -> (GNCoded) evaNode)
+				.filter(coded -> coded.getCode() == 0).forEach(coded -> {
 					System.err.println("-*-*- __processResolvedNodes [NOT CODED] " + coded);
 					coded.register(cr);
 				});
 	}
 
-	public void part3(final @NotNull PipelineLogic pipelineLogic, final WorldModule mod, final DeducePhase.GeneratedClasses lgc) {
+	public void part3(final @NotNull PipelineLogic pipelineLogic, final WorldModule mod,
+			final DeducePhase.GeneratedClasses lgc) {
 		pipelineLogic.dp.deduceModule(mod, lgc, pipelineLogic.getVerbosity());
 	}
 }

@@ -50,7 +50,7 @@ public class GN_GenerateNodesIntoSink implements GN_Notable, CompilationEnclosur
 
 	@Override
 	public void run() {
-		final WorkManager       wm   = new WorkManager();
+		final WorkManager wm = new WorkManager();
 		final List<WorldModule> mods = env.moduleList().getMods();
 
 		mods.stream().forEach(mod -> {
@@ -63,9 +63,9 @@ public class GN_GenerateNodesIntoSink implements GN_Notable, CompilationEnclosur
 	}
 
 	private void run_one_mod(final WorldModule wm, final WorkManager wmgr) {
-		final GM_GenerateModuleRequest gmr  = new GM_GenerateModuleRequest(this, wm, env);
-		final GM_GenerateModule        gm   = new GM_GenerateModule(gmr);
-		final GM_GenerateModuleResult  ggmr = gm.getModuleResult(wmgr, env.resultSink1());
+		final GM_GenerateModuleRequest gmr = new GM_GenerateModuleRequest(this, wm, env);
+		final GM_GenerateModule gm = new GM_GenerateModule(gmr);
+		final GM_GenerateModuleResult ggmr = gm.getModuleResult(wmgr, env.resultSink1());
 		ggmr.doResult(wmgr);
 	}
 }

@@ -25,16 +25,16 @@ import java.util.List;
  */
 public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpression {
 
-	private final @NotNull EN_Name    name;
-	public                 Attached   _a;
-	private                OS_Element _resolvedElement;
+	private final @NotNull EN_Name name;
+	public Attached _a;
+	private OS_Element _resolvedElement;
 	OS_Type _type;
-	private Token  text;
+	private Token text;
 	private String _fileName;
 
 	public IdentExpressionImpl(final Token r1, String aFilename) {
 		this.text = r1;
-		this._a   = new AttachedImpl();
+		this._a = new AttachedImpl();
 
 		this.name = EN_Name.create(text.getText());
 
@@ -43,7 +43,7 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 
 	public IdentExpressionImpl(final Token r1, String aFilename, final @NotNull Context cur) {
 		this.text = r1;
-		this._a   = new AttachedImpl();
+		this._a = new AttachedImpl();
 		setContext(cur);
 
 		this.name = EN_Name.create(text.getText());
@@ -52,11 +52,9 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 		this._fileName = aFilename;
 	}
 
-
 	public @NotNull List<FormalArgListItem> getArgs() {
 		return null;
 	}
-
 
 	@Override
 	public int getColumn() {

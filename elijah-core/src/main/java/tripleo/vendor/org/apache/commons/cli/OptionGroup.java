@@ -107,7 +107,8 @@ public class OptionGroup implements Serializable {
 	 * Set the selected option of this group to {@code name}.
 	 *
 	 * @param option the option that is selected
-	 * @throws AlreadySelectedException if an option from this group has already been selected.
+	 * @throws AlreadySelectedException if an option from this group has already
+	 *                                  been selected.
 	 */
 	public void setSelected(final @Nullable Option option) throws AlreadySelectedException {
 		if (option == null) {

@@ -9,34 +9,34 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.diagnostic.ExceptionDiagnostic;
 
 public class ObservableCompletableProcess<T> implements Observer<T> {
-	//private       CompletableProcess<T> cpt;
+	// private CompletableProcess<T> cpt;
 	private final Subject<T> subject = ReplaySubject.<T>create();
 
 	public void almostComplete() {
-		//cpt.preComplete();
+		// cpt.preComplete();
 	}
 
 	@Override
 	public void onComplete() {
-		//cpt.complete();
+		// cpt.complete();
 	}
 
 	@Override
 	public void onError(@NonNull final Throwable e) {
 		subject.onError(e);
-		//cpt.error(new ExceptionDiagnostic((Exception) e));
+		// cpt.error(new ExceptionDiagnostic((Exception) e));
 	}
 
 	@Override
 	public void onNext(@NonNull final T aT) {
 		subject.onNext(aT);
-		//cpt.add(aT);
+		// cpt.add(aT);
 	}
 
 	@Override
 	public void onSubscribe(@NonNull final Disposable d) {
 		subject.onSubscribe(d);
-		//cpt.start();
+		// cpt.start();
 	}
 
 	public void subscribe(final @NotNull CompletableProcess<T> cp) {

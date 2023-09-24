@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class SlirSourceNode {
 	private final List<SlirElement> nodes = new ArrayList<SlirElement>();
-	private final SlirSourceFile    sourceFile;
+	private final SlirSourceFile sourceFile;
 
 	public SlirSourceNode(final SlirSourceFile aSourceFile) {
 		sourceFile = aSourceFile;

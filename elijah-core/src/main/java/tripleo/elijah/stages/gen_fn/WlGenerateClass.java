@@ -24,43 +24,39 @@ import java.util.function.*;
  */
 public class WlGenerateClass implements WorkJob {
 	@Getter
-	private final @NotNull ClassStatement               classStatement;
+	private final @NotNull ClassStatement classStatement;
 	@Getter
-	private final @NotNull ClassInvocation              classInvocation;
+	private final @NotNull ClassInvocation classInvocation;
 	@Getter
-	private final          GenerateFunctions            generateFunctions;
-	private final          DeducePhase.GeneratedClasses coll;
-	private final @NotNull RegisterClassInvocation_env  __passthru_env;
-	private       boolean        _isDone = false;
+	private final GenerateFunctions generateFunctions;
+	private final DeducePhase.GeneratedClasses coll;
+	private final @NotNull RegisterClassInvocation_env __passthru_env;
+	private boolean _isDone = false;
 	private final ICodeRegistrar cr;
 
-	private       EvaClass       Result;
+	private EvaClass Result;
 
 	private Consumer<EvaClass> consumer;
 
-	public WlGenerateClass(GenerateFunctions aGenerateFunctions,
-						   @NotNull ClassInvocation aClassInvocation,
-						   DeducePhase.GeneratedClasses coll,
-						   final ICodeRegistrar aCodeRegistrar) {
-		classStatement    = aClassInvocation.getKlass();
+	public WlGenerateClass(GenerateFunctions aGenerateFunctions, @NotNull ClassInvocation aClassInvocation,
+			DeducePhase.GeneratedClasses coll, final ICodeRegistrar aCodeRegistrar) {
+		classStatement = aClassInvocation.getKlass();
 		generateFunctions = aGenerateFunctions;
-		classInvocation   = aClassInvocation;
-		this.coll         = coll;
+		classInvocation = aClassInvocation;
+		this.coll = coll;
 
 		cr = aCodeRegistrar;
 
 		__passthru_env = null;
 	}
 
-	public WlGenerateClass(final GenerateFunctions aGenerateFunctions,
-						   final ClassInvocation aClassInvocation,
-						   final DeducePhase.GeneratedClasses coll,
-						   final ICodeRegistrar aCodeRegistrar,
-						   final RegisterClassInvocation_env aEnv) {
-		classStatement    = aClassInvocation.getKlass();
+	public WlGenerateClass(final GenerateFunctions aGenerateFunctions, final ClassInvocation aClassInvocation,
+			final DeducePhase.GeneratedClasses coll, final ICodeRegistrar aCodeRegistrar,
+			final RegisterClassInvocation_env aEnv) {
+		classStatement = aClassInvocation.getKlass();
 		generateFunctions = aGenerateFunctions;
-		classInvocation   = aClassInvocation;
-		this.coll         = coll;
+		classInvocation = aClassInvocation;
+		this.coll = coll;
 
 		cr = aCodeRegistrar;
 
@@ -76,18 +72,23 @@ public class WlGenerateClass implements WorkJob {
 	public void run(WorkManager aWorkManager) {
 		final DeferredObject<EvaClass, Void, Void> resolvePromise = classInvocation.resolveDeferred();
 
-		resolvePromise.then(x->{if (consumer != null) {consumer.accept(x);}});
+		resolvePromise.then(x -> {
+			if (consumer != null) {
+				consumer.accept(x);
+			}
+		});
 
 		switch (resolvePromise.state()) {
 		case PENDING:
-			@NotNull EvaClass kl = generateFunctions.generateClass(classStatement, classInvocation, __passthru_env);
-			//kl.setCode(generateFunctions.module.getCompilation().nextClassCode());
+			@NotNull
+			EvaClass kl = generateFunctions.generateClass(classStatement, classInvocation, __passthru_env);
+			// kl.setCode(generateFunctions.module.getCompilation().nextClassCode());
 
 			cr.registerClass1(kl);
 
 			if (coll != null) {
-                coll.add(kl);
-            }
+				coll.add(kl);
+			}
 
 			resolvePromise.resolve(kl);
 			Result = kl;

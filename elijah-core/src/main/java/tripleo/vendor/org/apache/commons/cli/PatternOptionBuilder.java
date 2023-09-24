@@ -26,8 +26,9 @@ import java.net.URL;
 import java.util.Date;
 
 /**
- * Allows Options to be created from a single String. The pattern contains various single character flags and via an
- * optional punctuation character, their expected type.
+ * Allows Options to be created from a single String. The pattern contains
+ * various single character flags and via an optional punctuation character,
+ * their expected type.
  *
  * <table border="1">
  * <caption>Overview of PatternOptionBuilder patterns</caption>
@@ -49,7 +50,8 @@ import java.util.Date;
  * </tr>
  * <tr>
  * <td>e%</td>
- * <td>-e [number] (creates Double/Long instance depending on existing of a '.')</td>
+ * <td>-e [number] (creates Double/Long instance depending on existing of a
+ * '.')</td>
  * </tr>
  * <tr>
  * <td>f/</td>
@@ -62,8 +64,8 @@ import java.util.Date;
  * </table>
  *
  * <p>
- * For example, the following allows command line flags of '-v -p string-value -f /dir/file'. The exclamation mark
- * precede a mandatory option.
+ * For example, the following allows command line flags of '-v -p string-value
+ * -f /dir/file'. The exclamation mark precede a mandatory option.
  * </p>
  *
  * <pre>
@@ -156,13 +158,15 @@ public class PatternOptionBuilder {
 	}
 
 	/**
-	 * Returns whether {@code ch} is a value code, i.e. whether it represents a class in a pattern.
+	 * Returns whether {@code ch} is a value code, i.e. whether it represents a
+	 * class in a pattern.
 	 *
 	 * @param ch the specified character
 	 * @return true if {@code ch} is a value code, otherwise false.
 	 */
 	public static boolean isValueCode(final char ch) {
-		return ch == '@' || ch == ':' || ch == '%' || ch == '+' || ch == '#' || ch == '<' || ch == '>' || ch == '*' || ch == '/' || ch == '!';
+		return ch == '@' || ch == ':' || ch == '%' || ch == '+' || ch == '#' || ch == '<' || ch == '>' || ch == '*'
+				|| ch == '/' || ch == '!';
 	}
 
 	/**
@@ -172,9 +176,9 @@ public class PatternOptionBuilder {
 	 * @return The {@link Options} instance
 	 */
 	public static @NotNull Options parsePattern(final @NotNull String pattern) {
-		char     opt      = ' ';
-		boolean  required = false;
-		Class<?> type     = null;
+		char opt = ' ';
+		boolean required = false;
+		Class<?> type = null;
 
 		final Options options = new Options();
 
@@ -185,12 +189,13 @@ public class PatternOptionBuilder {
 			// details about it
 			if (!isValueCode(ch)) {
 				if (opt != ' ') {
-					final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required).type(type).build();
+					final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required)
+							.type(type).build();
 
 					// we have a previous one to deal with
 					options.addOption(option);
 					required = false;
-					type     = null;
+					type = null;
 				}
 
 				opt = ch;
@@ -202,7 +207,8 @@ public class PatternOptionBuilder {
 		}
 
 		if (opt != ' ') {
-			final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required).type(type).build();
+			final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required).type(type)
+					.build();
 
 			// we have a final one to deal with
 			options.addOption(option);

@@ -20,21 +20,21 @@ import tripleo.elijah.util.Helpers;
  */
 public class PropertyStatementImpl implements PropertyStatement {
 
-	private final @NotNull Context         context;
-	private final          OS_Element      parent;
-	public                 FunctionDef     get_fn;
-	public                 FunctionDef     set_fn;
-	private                boolean         _get_is_abstract;
-	private                boolean         _set_is_abstract;
-	private                AccessNotation  access_note;
-	private                El_Category     category;
-	private                IdentExpression prop_name;
-	private                TypeName        typeName;
+	private final @NotNull Context context;
+	private final OS_Element parent;
+	public FunctionDef get_fn;
+	public FunctionDef set_fn;
+	private boolean _get_is_abstract;
+	private boolean _set_is_abstract;
+	private AccessNotation access_note;
+	private El_Category category;
+	private IdentExpression prop_name;
+	private TypeName typeName;
 
 	private EN_Name __n;
 
 	public PropertyStatementImpl(OS_Element parent, Context cur) {
-		this.parent  = parent;
+		this.parent = parent;
 		this.context = new PropertyStatementContext(cur, this);
 	}
 
@@ -74,7 +74,7 @@ public class PropertyStatementImpl implements PropertyStatement {
 		FunctionDef functionDef = new FunctionDefImpl(this, getContext());
 		functionDef.setName(Helpers.string_to_ident(String.format("<prop_set %s>", prop_name)));
 		functionDef.setSpecies(FunctionDef.Species.PROP_SET);
-		FormalArgList     fal  = new FormalArgListImpl();
+		FormalArgList fal = new FormalArgListImpl();
 		FormalArgListItem fali = fal.next();
 		fali.setName(Helpers.string_to_ident("Value"));
 		fali.setTypeName(this.typeName);
@@ -171,8 +171,8 @@ public class PropertyStatementImpl implements PropertyStatement {
 	public void setTypeName(TypeName typeName) {
 //		tripleo.elijah.util.Stupidity.println_err_2("** setting TypeName in PropertyStatement to "+typeName);
 		this.typeName = typeName;
-		this.set_fn   = createSetFunction();
-		this.get_fn   = createGetFunction();
+		this.set_fn = createSetFunction();
+		this.get_fn = createGetFunction();
 	}
 
 	@Override // OS_Element

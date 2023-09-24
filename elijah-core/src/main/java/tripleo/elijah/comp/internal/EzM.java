@@ -18,13 +18,16 @@ class EzM {
 		System.out.println(x);
 	}
 
-	private Operation<CompilerInstructions> parseEzFile_(final String f, final InputStream s, final Compilation aCompilation) {
+	private Operation<CompilerInstructions> parseEzFile_(final String f, final InputStream s,
+			final Compilation aCompilation) {
 		final QueryEzFileToModuleParams qp = new QueryEzFileToModuleParams(f, s, aCompilation);
 		return new QueryEzFileToModule(qp).calculate();
 	}
 
-	@NotNull Operation<CompilerInstructions> parseEzFile1(final @NotNull SourceFileParserParams p) {
-		@NotNull final File f = p.f();
+	@NotNull
+	Operation<CompilerInstructions> parseEzFile1(final @NotNull SourceFileParserParams p) {
+		@NotNull
+		final File f = p.f();
 
 		logProgress(27, f.getAbsolutePath());
 
@@ -38,15 +41,16 @@ class EzM {
 		}
 	}
 
-	@NotNull Operation<CompilerInstructions> realParseEzFile(final @NotNull SourceFileParserParams p) {
-		final String f    = p.file_name();
-		final File   file = p.f();
+	@NotNull
+	Operation<CompilerInstructions> realParseEzFile(final @NotNull SourceFileParserParams p) {
+		final String f = p.file_name();
+		final File file = p.f();
 
 		try {
-			final InputStream                     s   = p.cc().io().readFile(file);
+			final InputStream s = p.cc().io().readFile(file);
 			final Operation<CompilerInstructions> oci = realParseEzFile(f, s, file, p.cc().getCompilation());
 
-			if (/*false ||*/ oci.mode() == SUCCESS) {
+			if (/* false || */ oci.mode() == SUCCESS) {
 				Operation<String> hash = new CA_getHashForFile().apply(p.file_name(), p.f());
 				logProgress(166, hash.success());
 
@@ -68,20 +72,24 @@ class EzM {
 		}
 	}
 
-	@NotNull Operation<CompilerInstructions> realParseEzFile(final String f, final @Nullable InputStream s, final @NotNull File file, final @NotNull Compilation c) {
+	@NotNull
+	Operation<CompilerInstructions> realParseEzFile(final String f, final @Nullable InputStream s,
+			final @NotNull File file, final @NotNull Compilation c) {
 		final String absolutePath;
 		try {
 			absolutePath = file.getCanonicalFile().toString(); // TODO 04/10 hash this and "attach"
-			//queryDB.attach(compilerInput, new EzFileIdentity_Sha256($hash)); // ??
+			// queryDB.attach(compilerInput, new EzFileIdentity_Sha256($hash)); // ??
 		} catch (IOException aE) {
 			return Operation.failure(aE);
 		}
 
 		// TODO 04/10
-		// Cache<CompilerInput, CompilerInstructions> fn2ci /*EzFileIdentity??*/(MAP/*??*/, resolver is try stmt)
+		// Cache<CompilerInput, CompilerInstructions> fn2ci
+		// /*EzFileIdentity??*/(MAP/*??*/, resolver is try stmt)
 		if (c.fn2ci().containsKey(absolutePath)) { // don't parse twice
 			// TODO 04/10
-			// ...queryDB.attach(compilerInput, new EzFileIdentity_Sha256($hash)); // ?? fnci
+			// ...queryDB.attach(compilerInput, new EzFileIdentity_Sha256($hash)); // ??
+			// fnci
 			return Operation.success(c.fn2ci().get(absolutePath));
 		}
 
@@ -94,7 +102,7 @@ class EzM {
 
 				Stupidity.println_err_2(("parser exception: " + e));
 				e.printStackTrace(System.err);
-				//s.close();
+				// s.close();
 				return cio;
 			}
 

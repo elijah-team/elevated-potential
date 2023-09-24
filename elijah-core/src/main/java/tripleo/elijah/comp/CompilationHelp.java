@@ -17,7 +17,7 @@ import tripleo.elijah.comp.internal.CR_State;
 
 class DStageProcess implements RuntimeProcess {
 	private final ICompilationAccess ca;
-	private final ProcessRecord      pr;
+	private final ProcessRecord pr;
 
 	@Contract(pure = true)
 	public DStageProcess(final ICompilationAccess aCa, final ProcessRecord aPr) {
@@ -31,7 +31,7 @@ class DStageProcess implements RuntimeProcess {
 
 	@Override
 	public void prepare() {
-		//assert pr.stage == Stages.D; // FIXME
+		// assert pr.stage == Stages.D; // FIXME
 	}
 
 	@Override
@@ -57,7 +57,6 @@ final class EmptyProcess implements RuntimeProcess {
 
 	}
 }
-
 
 //
 //

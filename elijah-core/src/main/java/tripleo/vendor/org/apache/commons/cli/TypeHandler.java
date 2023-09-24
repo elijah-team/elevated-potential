@@ -27,8 +27,10 @@ import java.net.URL;
 import java.util.Date;
 
 /**
- * This is a temporary implementation. TypeHandler will handle the pluggableness of OptionTypes and it will direct all
- * of these types of conversion functionalities to ConvertUtils component in Commons already. BeanUtils I think.
+ * This is a temporary implementation. TypeHandler will handle the pluggableness
+ * of OptionTypes and it will direct all of these types of conversion
+ * functionalities to ConvertUtils component in Commons already. BeanUtils I
+ * think.
  */
 public class TypeHandler {
 	/**
@@ -49,10 +51,12 @@ public class TypeHandler {
 	/**
 	 * Returns the date represented by {@code str}.
 	 * <p>
-	 * This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
+	 * This method is not yet implemented and always throws an
+	 * {@link UnsupportedOperationException}.
 	 *
 	 * @param str the date string
-	 * @return The date if {@code str} is a valid date string, otherwise return null.
+	 * @return The date if {@code str} is a valid date string, otherwise return
+	 *         null.
 	 * @throws UnsupportedOperationException always
 	 */
 	public static Date createDate(final String str) {
@@ -72,7 +76,8 @@ public class TypeHandler {
 	/**
 	 * Returns the File[] represented by {@code str}.
 	 * <p>
-	 * This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
+	 * This method is not yet implemented and always throws an
+	 * {@link UnsupportedOperationException}.
 	 *
 	 * @param str the paths to the files
 	 * @return The File[] represented by {@code str}.
@@ -85,7 +90,8 @@ public class TypeHandler {
 	}
 
 	/**
-	 * Create a number from a String. If a . is present, it creates a Double, otherwise a Long.
+	 * Create a number from a String. If a . is present, it creates a Double,
+	 * otherwise a Long.
 	 *
 	 * @param str the value
 	 * @return the number represented by {@code str}
@@ -107,7 +113,8 @@ public class TypeHandler {
 	 *
 	 * @param classname the argument value
 	 * @return the initialized object
-	 * @throws ParseException if the class could not be found or the object could not be created
+	 * @throws ParseException if the class could not be found or the object could
+	 *                        not be created
 	 */
 	public static @NotNull Object createObject(final String classname) throws ParseException {
 		final Class<?> cl;
@@ -141,12 +148,14 @@ public class TypeHandler {
 	}
 
 	/**
-	 * Returns the {@code Object} of type {@code clazz} with the value of {@code str}.
+	 * Returns the {@code Object} of type {@code clazz} with the value of
+	 * {@code str}.
 	 *
 	 * @param str   the command line value
 	 * @param clazz the class representing the type of argument
 	 * @param <T>   type of argument
-	 * @return The instance of {@code clazz} initialized with the value of {@code str}.
+	 * @return The instance of {@code clazz} initialized with the value of
+	 *         {@code str}.
 	 * @throws ParseException if the value creation for the given class failed
 	 */
 	@SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz
@@ -186,7 +195,8 @@ public class TypeHandler {
 	 *
 	 * @param str the command line value
 	 * @param obj the type of argument
-	 * @return The instance of {@code obj} initialized with the value of {@code str}.
+	 * @return The instance of {@code obj} initialized with the value of
+	 *         {@code str}.
 	 * @throws ParseException if the value creation for the given object type failed
 	 */
 	public static Object createValue(final @NotNull String str, final Object obj) throws ParseException {

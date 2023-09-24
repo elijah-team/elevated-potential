@@ -12,7 +12,7 @@ public interface NamespaceStatement extends ModuleItem, StatementItem, FunctionI
 	}
 
 	@Override
-		// OS_Container
+	// OS_Container
 	void add(OS_Element anElement);
 
 	void addAccess(AccessNotation aAcs);
@@ -22,7 +22,7 @@ public interface NamespaceStatement extends ModuleItem, StatementItem, FunctionI
 	FunctionDef funcDef();
 
 	@Override
-		// OS_Element
+	// OS_Element
 	Context getContext();
 
 	List<ClassItem> getItems();
@@ -53,7 +53,7 @@ public interface NamespaceStatement extends ModuleItem, StatementItem, FunctionI
 	TypeAliasStatement typeAlias();
 
 	@Override
-		// OS_Element
+	// OS_Element
 	void visitGen(ElElementVisitor visit);
 
 	ProgramClosure XXX();

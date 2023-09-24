@@ -13,17 +13,17 @@ import tripleo.elijah.lang.i.IExpression;
 
 /**
  * @author Tripleo
- * <p>
- * Created Apr 19, 2020 at 00:32:00 AM
+ *         <p>
+ *         Created Apr 19, 2020 at 00:32:00 AM
  */
 public class InvariantStatementPartImpl implements tripleo.elijah.lang.i.InvariantStatementPart {
-	private       IExpression        expr;
-	private final Token              name;
+	private IExpression expr;
+	private final Token name;
 	private final InvariantStatement parent;
 
 	public InvariantStatementPartImpl(final InvariantStatement cr, final Token token) {
 		this.parent = cr;
-		this.name   = token;
+		this.name = token;
 	}
 
 	@Override

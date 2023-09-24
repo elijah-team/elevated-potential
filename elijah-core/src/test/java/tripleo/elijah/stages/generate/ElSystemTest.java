@@ -16,7 +16,7 @@ import tripleo.elijah.comp.Compilation;
 
 public class ElSystemTest {
 
-	ElSystem    sys;
+	ElSystem sys;
 	Compilation c;
 
 	@Disabled
@@ -24,21 +24,21 @@ public class ElSystemTest {
 	public void generateOutputs() {
 		OutputStrategy os = new OutputStrategy();
 		os.per(OutputStrategy.Per.PER_CLASS);
-		//sys.setOutputStrategy(os);
-		//sys.generateOutputs(c.pipelineLogic().gr);
+		// sys.setOutputStrategy(os);
+		// sys.generateOutputs(c.pipelineLogic().gr);
 	}
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		//final StdErrSink eee = new StdErrSink();
-		//c = new Compilation(eee, new IO());
+		// final StdErrSink eee = new StdErrSink();
+		// c = new Compilation(eee, new IO());
 		//
-		//final String f = "test/basic1/backlink3";
+		// final String f = "test/basic1/backlink3";
 		//
-		//sys = new ElSystem(c, OutputStrategy::new);
-		//sys.setCompilation(c);
+		// sys = new ElSystem(c, OutputStrategy::new);
+		// sys.setCompilation(c);
 		//
-		//c.feedCmdLine(Helpers.List_of(f));
+		// c.feedCmdLine(Helpers.List_of(f));
 	}
 }
 

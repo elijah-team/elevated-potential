@@ -21,8 +21,8 @@ public enum Main {
 	;
 
 	public static void main(final String[] args) throws Exception {
-		final Compilation  comp = new CompilationImpl(new StdErrSink(), new IO());
-		final List<String> ls1  = new ArrayList<String>();
+		final Compilation comp = new CompilationImpl(new StdErrSink(), new IO());
+		final List<String> ls1 = new ArrayList<String>();
 
 		ls1.addAll(Arrays.asList(args));
 

@@ -39,7 +39,7 @@ public interface ClassStatement
 	Collection<ConstructorDef> getConstructors();
 
 	@Override
-		// OS_Element
+	// OS_Element
 	ClassContext getContext();
 
 	@NotNull

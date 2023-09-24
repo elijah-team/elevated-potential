@@ -24,7 +24,7 @@ import tripleo.elijah.lang.i.IExpression;
 public class ToExpressionImpl extends BasicBinaryExpressionImpl implements tripleo.elijah.lang.i.ToExpression {
 
 	public ToExpressionImpl(final IExpression fromPart, final IExpression toPart) {
-		left  = fromPart;
+		left = fromPart;
 		right = toPart;
 		_kind = ExpressionKind.TO_EXPR;
 	}

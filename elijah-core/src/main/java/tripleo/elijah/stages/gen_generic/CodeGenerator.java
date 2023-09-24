@@ -8,7 +8,6 @@
  */
 package tripleo.elijah.stages.gen_generic;
 
-
 import tripleo.elijah.stages.gen_fn.EvaClass;
 import tripleo.elijah.stages.gen_fn.EvaNamespace;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
@@ -19,7 +18,8 @@ import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 public interface CodeGenerator {
 	void generate_class(GenerateResultEnv aFileGen, EvaClass x);
 
-	void generate_namespace(EvaNamespace aGeneratedNamespace, GenerateResult aGenerateResult, final GenerateResultSink aResultSink);
+	void generate_namespace(EvaNamespace aGeneratedNamespace, GenerateResult aGenerateResult,
+			final GenerateResultSink aResultSink);
 }
 
 //

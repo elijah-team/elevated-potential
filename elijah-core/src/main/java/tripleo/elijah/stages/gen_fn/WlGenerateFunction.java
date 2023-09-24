@@ -23,22 +23,25 @@ import tripleo.elijah.work.WorkManager;
  * Created 5/16/21 12:46 AM
  */
 public class WlGenerateFunction implements WorkJob {
-	private final          ICodeRegistrar     cr;
-	private final          GenerateFunctions  generateFunctions;
-	private final          FunctionDef        functionDef;
+	private final ICodeRegistrar cr;
+	private final GenerateFunctions generateFunctions;
+	private final FunctionDef functionDef;
 	private final @NotNull FunctionInvocation functionInvocation;
-	private                boolean            _isDone = false;
-	private @Nullable      EvaFunction        result;
+	private boolean _isDone = false;
+	private @Nullable EvaFunction result;
 
-	public WlGenerateFunction(GenerateFunctions aGenerateFunctions, @NotNull FunctionInvocation aFunctionInvocation, final ICodeRegistrar aCr) {
-		functionDef        = aFunctionInvocation.getFunction();
-		generateFunctions  = aGenerateFunctions;
+	public WlGenerateFunction(GenerateFunctions aGenerateFunctions, @NotNull FunctionInvocation aFunctionInvocation,
+			final ICodeRegistrar aCr) {
+		functionDef = aFunctionInvocation.getFunction();
+		generateFunctions = aGenerateFunctions;
 		functionInvocation = aFunctionInvocation;
-		cr                 = aCr;
+		cr = aCr;
 	}
 
-	public WlGenerateFunction(final OS_Module aModule, final FunctionInvocation aFunctionInvocation, final @NotNull Deduce_CreationClosure aCl) {
-		this(aCl.generatePhase().getGenerateFunctions(aModule), aFunctionInvocation, aCl.generatePhase().getCodeRegistrar());
+	public WlGenerateFunction(final OS_Module aModule, final FunctionInvocation aFunctionInvocation,
+			final @NotNull Deduce_CreationClosure aCl) {
+		this(aCl.generatePhase().getGenerateFunctions(aModule), aFunctionInvocation,
+				aCl.generatePhase().getCodeRegistrar());
 	}
 
 	private void __registerClass(final @NotNull EvaClass result, final @NotNull EvaFunction gf) {
@@ -58,7 +61,7 @@ public class WlGenerateFunction implements WorkJob {
 	private void __registerNamespace(final @NotNull EvaNamespace result, final @NotNull EvaFunction gf) {
 		if (result.getFunction(functionDef) == null) {
 			cr.registerNamespace(result);
-			//cr.registerFunction1(gf);
+			// cr.registerFunction1(gf);
 			result.addFunction(gf);
 		}
 		result.functionMapDeferreds.put(functionDef, new FunctionMapDeferred() {
@@ -81,18 +84,21 @@ public class WlGenerateFunction implements WorkJob {
 
 	@Override
 	public void run(WorkManager aWorkManager) {
-		if (_isDone) return;
+		if (_isDone)
+			return;
 
 		if (functionInvocation.getGenerated() == null) {
-			OS_Element           parent = functionDef.getParent();
-			@NotNull EvaFunction gf     = generateFunctions.generateFunction(functionDef, parent, functionInvocation);
+			OS_Element parent = functionDef.getParent();
+			@NotNull
+			EvaFunction gf = generateFunctions.generateFunction(functionDef, parent, functionInvocation);
 
 			{
 				int i = 0;
 				for (TypeTableEntry tte : functionInvocation.getArgs()) {
 					i = i + 1;
 					if (tte.getAttached() == null) {
-						tripleo.elijah.util.Stupidity.println_err_2(String.format("4949 null tte #%d %s in %s", i, tte, gf));
+						tripleo.elijah.util.Stupidity
+								.println_err_2(String.format("4949 null tte #%d %s in %s", i, tte, gf));
 					}
 				}
 			}

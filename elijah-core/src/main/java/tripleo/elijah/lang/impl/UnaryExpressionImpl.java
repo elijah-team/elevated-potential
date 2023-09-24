@@ -20,7 +20,7 @@ public class UnaryExpressionImpl extends AbstractExpression implements tripleo.e
 
 	public UnaryExpressionImpl(ExpressionKind aKind, IExpression aExpression) {
 		_kind = aKind;
-		left  = aExpression;
+		left = aExpression;
 	}
 
 	@Override

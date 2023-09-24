@@ -21,7 +21,7 @@ public class DeducePipeline implements PipelineMember {
 	private final @NotNull DeducePipelineImpl impl;
 
 	public DeducePipeline(final @NotNull IPipelineAccess pa) {
-		//logProgress("***** Hit DeducePipeline constructor");
+		// logProgress("***** Hit DeducePipeline constructor");
 		impl = new DeducePipelineImpl(pa);
 	}
 
@@ -31,7 +31,7 @@ public class DeducePipeline implements PipelineMember {
 
 	@Override
 	public void run(final CR_State aSt, final CB_Output aOutput) {
-		//logProgress("***** Hit DeducePipeline #run");
+		// logProgress("***** Hit DeducePipeline #run");
 		impl.run();
 	}
 }

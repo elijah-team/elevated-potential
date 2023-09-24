@@ -8,17 +8,18 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.world.i.LivingFunction;
 
 class GI_FunctionDef implements GenerateC_Item {
-	private final FunctionDef    _e;
-	private       LivingFunction _living;
-	private       EvaNode        _evaNode;
-	private final GI_Repo        _repo;
+	private final FunctionDef _e;
+	private LivingFunction _living;
+	private EvaNode _evaNode;
+	private final GI_Repo _repo;
 
 	public GI_FunctionDef(final FunctionDef aE, final GI_Repo aGIRepo) {
-		_e    = aE;
+		_e = aE;
 		_repo = aGIRepo;
 	}
 
-	EvaNode _re_is_FunctionDef(final @Nullable ProcTableEntry pte, final EvaClass a_cheat, final @NotNull IdentTableEntry ite) {
+	EvaNode _re_is_FunctionDef(final @Nullable ProcTableEntry pte, final EvaClass a_cheat,
+			final @NotNull IdentTableEntry ite) {
 		EvaNode resolved = null;
 		if (pte != null) {
 			final FunctionInvocation fi = pte.getFunctionInvocation();
@@ -57,6 +58,6 @@ class GI_FunctionDef implements GenerateC_Item {
 	@Override
 	public void setEvaNode(final EvaNode aEvaNode) {
 		_evaNode = aEvaNode;
-		_living  = _repo.generateC.ce.getCompilation().world().getFunction((BaseEvaFunction) _evaNode);
+		_living = _repo.generateC.ce.getCompilation().world().getFunction((BaseEvaFunction) _evaNode);
 	}
 }

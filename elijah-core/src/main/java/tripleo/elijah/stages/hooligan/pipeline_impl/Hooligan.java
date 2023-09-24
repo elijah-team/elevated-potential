@@ -11,14 +11,14 @@ import java.util.*;
 
 class Hooligan {
 	class SmallWriter1 {
-		final         Map<OS_Element, SmallWriter.SW_Ref> objMap1 = new HashMap<>();
-		private final Map<OS_Element, SmallWriter>        writers = new LinkedHashMap<>();
+		final Map<OS_Element, SmallWriter.SW_Ref> objMap1 = new HashMap<>();
+		private final Map<OS_Element, SmallWriter> writers = new LinkedHashMap<>();
 
 		public @NotNull String getText() {
 			var sb3 = new StringBuilder();
 
 			for (Map.Entry<OS_Element, SmallWriter> entry : writers.entrySet()) {
-				final OS_Module   module      = (OS_Module) entry.getKey();
+				final OS_Module module = (OS_Module) entry.getKey();
 				final SmallWriter smallWriter = entry.getValue();
 
 				sb3.append("(MODULE \"%s\"\n\n".formatted(module.getFileName()));
@@ -54,9 +54,10 @@ class Hooligan {
 	}
 
 	class SmallWriter2 implements SmallWriter {
-		final         Map<OS_Element, SW_Ref> objMap;// = new HashMap<>();
-		private final StringBuilder           sb      = new StringBuilder();
-		@NotNull      Set<SW_Ref>             insides = new HashSet<>();
+		final Map<OS_Element, SW_Ref> objMap;// = new HashMap<>();
+		private final StringBuilder sb = new StringBuilder();
+		@NotNull
+		Set<SW_Ref> insides = new HashSet<>();
 
 		SmallWriter2(final Map<OS_Element, SW_Ref> aObjMap) {
 			objMap = aObjMap;
@@ -74,10 +75,11 @@ class Hooligan {
 				return objMap.get(aFieldValue);
 			}
 
-			//aFieldValue.serializeTo(this);
+			// aFieldValue.serializeTo(this);
 			//
-			//sb.append("(field 'string \"%s\" \"%s\")\n".formatted("--ref--", aFieldValue));
-			//NotImplementedException.raise();
+			// sb.append("(field 'string \"%s\" \"%s\")\n".formatted("--ref--",
+			// aFieldValue));
+			// NotImplementedException.raise();
 
 			final SW_Ref swRef = new SW_Ref() {
 				final UUID uuid = UUID.randomUUID();
@@ -205,8 +207,8 @@ class Hooligan {
 
 	private static final Set<SmallWriter.SW_Ref> insides = new HashSet<>();
 
-
-	@NotNull SmallWriter1 __modules2(final Collection<WorldModule> aModuleList) {
+	@NotNull
+	SmallWriter1 __modules2(final Collection<WorldModule> aModuleList) {
 		var sw = new SmallWriter1();
 
 		for (WorldModule module : aModuleList) {

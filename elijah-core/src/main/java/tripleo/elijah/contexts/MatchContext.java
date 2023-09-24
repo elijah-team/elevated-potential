@@ -18,7 +18,7 @@ import tripleo.elijah.lang.impl.ContextImpl;
  * Created 9/24/20 6:11 PM
  */
 public class MatchContext extends ContextImpl {
-	private final Context          _parent;
+	private final Context _parent;
 	private final MatchConditional carrier;
 
 	public MatchContext(final Context aParent, final MatchConditional mc) {
@@ -32,20 +32,17 @@ public class MatchContext extends ContextImpl {
 	}
 
 	@Override
-	public LookupResultList lookup(final String name, final int level, final LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final String name, final int level, final LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
-/*
-		if (carrier.getIterName() != null) {
-			if (name.equals(carrier.getIterName())) { // reversed to prevent NPEs
-				IdentExpression ie = carrier.getIterNameToken();
-				Result.add(name, level, ie, this);
-			}
-		}
-*/
+		/*
+		 * if (carrier.getIterName() != null) { if (name.equals(carrier.getIterName()))
+		 * { // reversed to prevent NPEs IdentExpression ie =
+		 * carrier.getIterNameToken(); Result.add(name, level, ie, this); } }
+		 */
 
 //		throw new NotImplementedException(); // carrier.singleidentcontext
-
 
 		if (carrier.getParent() != null) {
 			final Context context = getParent();
@@ -53,7 +50,6 @@ public class MatchContext extends ContextImpl {
 				context.lookup(name, level + 1, Result, alreadySearched, false); // TODO test this
 		}
 		return Result;
-
 
 	}
 

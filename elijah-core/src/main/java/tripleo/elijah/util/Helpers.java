@@ -72,7 +72,8 @@ public enum Helpers {
 
 	// TODO this method is just ugly
 	@Nullable
-	public static String getHashForFilenameJava(@NotNull String aFilename, @NotNull ErrSink aErrSink) throws IOException {
+	public static String getHashForFilenameJava(@NotNull String aFilename, @NotNull ErrSink aErrSink)
+			throws IOException {
 		final MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("SHA-256");
@@ -81,10 +82,10 @@ public enum Helpers {
 			return null;
 		}
 
-		final File      file = new File(aFilename);
-		long            size = file.length();
-		byte[]          ba   = new byte[64 * 1024];  // README Counting on reasonable sizes here
-		FileInputStream bb   = null;
+		final File file = new File(aFilename);
+		long size = file.length();
+		byte[] ba = new byte[64 * 1024]; // README Counting on reasonable sizes here
+		FileInputStream bb = null;
 		try {
 			bb = new FileInputStream(file);
 
@@ -126,18 +127,15 @@ public enum Helpers {
 	}
 
 	public static <T> List<String> mapCollectionElementsToString(final List<T> instructionArguments) {
-		return instructionArguments.stream()
-				.map(x -> x.toString())
-				.collect(Collectors.toList());
+		return instructionArguments.stream().map(x -> x.toString()).collect(Collectors.toList());
 	}
 
 	public static void printXML(final Object obj, @NotNull final TabbedOutputStream tos) {
 		System.err.println("** XStream support has been disabled");
-/*
-		final XStream x = new XStream();
-		//x.setMode(XStream.ID_REFERENCES);
-		x.toXML(obj, tos.getStream());
-*/
+		/*
+		 * final XStream x = new XStream(); //x.setMode(XStream.ID_REFERENCES);
+		 * x.toXML(obj, tos.getStream());
+		 */
 	}
 
 	public static @Nullable IExpression qualidentToDotExpression2(@NotNull final List<IdentExpression> ts) {
@@ -145,14 +143,17 @@ public enum Helpers {
 	}
 
 	public static @Nullable IExpression qualidentToDotExpression2(@NotNull final List<IdentExpression> ts, int i) {
-		if (ts.size() == 1) return ts.get(0);
-		if (ts.size() == 0) return null;
+		if (ts.size() == 1)
+			return ts.get(0);
+		if (ts.size() == 0)
+			return null;
 		IExpression r = ts.get(0);
 //		int i=1;
 		while (ts.size() > i) {
 			final IExpression dotExpression = qualidentToDotExpression2(ts.subList(i, ts.size()), i + 1);
 			i++;
-			if (dotExpression == null) break;
+			if (dotExpression == null)
+				break;
 //			r.setRight(dotExpression);
 			r = new DotExpressionImpl(r, dotExpression);
 		}
@@ -176,7 +177,7 @@ public enum Helpers {
 				sb.append(part);
 				sb.append(separator);
 			}
-			final String ss        = sb.toString();
+			final String ss = sb.toString();
 			final String substring = separator.substring(0, ss.length() - separator.length());
 			return substring;
 		}

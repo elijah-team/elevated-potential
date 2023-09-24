@@ -32,9 +32,10 @@ public class DotExpressionToStackTest {
 		IdentExpression a = Helpers.string_to_ident("a");
 		//
 		DotExpression de2 = new DotExpressionImpl(b, c);
-		DotExpression de  = new DotExpressionImpl(a, de2);
+		DotExpression de = new DotExpressionImpl(a, de2);
 		//
-		@NotNull Stack<IExpression> s = DeduceLookupUtils.dot_expression_to_stack(de);
+		@NotNull
+		Stack<IExpression> s = DeduceLookupUtils.dot_expression_to_stack(de);
 //		IExpression[] sa = (IExpression[]) s.toArray();
 		assertEquals(a, s.pop());
 		assertEquals(b, s.pop());
@@ -54,9 +55,10 @@ public class DotExpressionToStackTest {
 		DotExpression de4 = new DotExpressionImpl(d, e);
 		DotExpression de3 = new DotExpressionImpl(c, de4);
 		DotExpression de2 = new DotExpressionImpl(b, de3);
-		DotExpression de  = new DotExpressionImpl(a, de2);
+		DotExpression de = new DotExpressionImpl(a, de2);
 		//
-		@NotNull Stack<IExpression> s = DeduceLookupUtils.dot_expression_to_stack(de);
+		@NotNull
+		Stack<IExpression> s = DeduceLookupUtils.dot_expression_to_stack(de);
 //		IExpression[] sa = (IExpression[]) s.toArray();
 		assertEquals(a, s.pop());
 		assertEquals(b, s.pop());

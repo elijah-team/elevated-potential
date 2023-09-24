@@ -19,14 +19,14 @@ import tripleo.elijah.lang.i.StatementClosure;
 
 public class BlockStatementImpl implements /* Statement, */ tripleo.elijah.lang.i.BlockStatement {
 
-	private final          FormalArgList    fal = new FormalArgListImpl();
-	final private          Scope            parent;
+	private final FormalArgList fal = new FormalArgListImpl();
+	final private Scope parent;
 	private final @NotNull StatementClosure scope;
-	private final          NormalTypeName   tn  = new RegularTypeNameImpl(); // FIXME
+	private final NormalTypeName tn = new RegularTypeNameImpl(); // FIXME
 
 	public BlockStatementImpl(final Scope aParent) {
 		parent = aParent;
-		scope  = new AbstractStatementClosure(parent);
+		scope = new AbstractStatementClosure(parent);
 	}
 
 	@Override

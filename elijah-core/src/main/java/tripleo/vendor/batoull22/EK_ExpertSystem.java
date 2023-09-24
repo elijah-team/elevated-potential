@@ -12,13 +12,13 @@ import java.util.Scanner;
  * @author batoul
  */
 public class EK_ExpertSystem {
-	public       EK_Fact                  goal;
-	public       Scanner                  input;
-	public final List<EK_Fact>            Listfacts = new ArrayList<EK_Fact>();
-	public final ArrayList<EK_Production> Listrule  = new ArrayList<>();
+	public EK_Fact goal;
+	public Scanner input;
+	public final List<EK_Fact> Listfacts = new ArrayList<EK_Fact>();
+	public final ArrayList<EK_Production> Listrule = new ArrayList<>();
 
-	//public static int countBackwardchaining=0;
-	//public static int countForwardchaining=0;
+	// public static int countBackwardchaining=0;
+	// public static int countForwardchaining=0;
 
 	void actualizeMerge(final EK_Production current_production, final @NotNull EK_Merge aEKMerge) {
 		Listfacts.add(aEKMerge.result());
@@ -39,12 +39,10 @@ public class EK_ExpertSystem {
 		checkBackwardchaining(goal);
 		return Listfacts.contains(goal);
 
-
 	}
 
 	boolean canAcceptMerge(final @NotNull EK_Merge aMerge2) {
-		return Listfacts.contains(aMerge2.first())
-				&& Listfacts.contains(aMerge2.second())
+		return Listfacts.contains(aMerge2.first()) && Listfacts.contains(aMerge2.second())
 				&& !Listfacts.contains(aMerge2.result());
 	}
 
@@ -61,9 +59,9 @@ public class EK_ExpertSystem {
 
 				if (m.result() == g) { // example A.B-->C
 					System.out.println("First case income : " + m.result());
-					//His right side fact
+					// His right side fact
 
-					final boolean hasFirst  = Listfacts.contains(m.first());
+					final boolean hasFirst = Listfacts.contains(m.first());
 					final boolean hasSecond = Listfacts.contains(m.second());
 
 					if (hasFirst && hasSecond) {
@@ -82,11 +80,11 @@ public class EK_ExpertSystem {
 					}
 					updateBackwardChaining(ep); // result.st()
 				}
-			}//end if (ch[4] == g)
+			} // end if (ch[4] == g)
 			else if (ep.isPush()) {
 				final EK_Push push = ep.getPush();
 
-				final EK_Fact resultant   = push.resultant();
+				final EK_Fact resultant = push.resultant();
 				final EK_Fact predicating = push.predicating();
 
 				if (resultant == g) { // example A-->C
@@ -102,7 +100,7 @@ public class EK_ExpertSystem {
 					}
 				}
 			}
-		}//end for
+		} // end for
 
 	}// end chekBackwardchaining
 
@@ -121,8 +119,10 @@ public class EK_ExpertSystem {
 				if (canAcceptMerge(merge)) {
 					actualizeMerge(current_production, merge);
 
-					if (Listfacts.contains(goal)) break;
-					else Forwardchaining(goal);
+					if (Listfacts.contains(goal))
+						break;
+					else
+						Forwardchaining(goal);
 				}
 			} else if (current_production.isPush()) {
 				final EK_Push push = current_production.getPush();
@@ -133,8 +133,10 @@ public class EK_ExpertSystem {
 					actualizePush(push, current_production);
 
 					// recurse
-					if (Listfacts.contains(goal)) break;
-					else Forwardchaining(goal);
+					if (Listfacts.contains(goal))
+						break;
+					else
+						Forwardchaining(goal);
 				}
 			}
 		}
@@ -155,11 +157,11 @@ public class EK_ExpertSystem {
 		System.out.println("rulelist:" + Listrule);
 		System.out.println("goal:" + goal);
 		System.out.println(" ");
-		//System.out.println( c);
-		//System.out.println( j);
+		// System.out.println( c);
+		// System.out.println( j);
 	}
 
-	//Interpretation of input
+	// Interpretation of input
 	public void proof(@NotNull String st) {
 		if (st.length() == 1) {
 			Listfacts.add(new EK_Fact(st.charAt(0)));

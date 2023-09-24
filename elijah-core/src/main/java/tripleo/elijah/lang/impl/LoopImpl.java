@@ -18,11 +18,11 @@ import java.util.List;
 
 public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 
-	private final Attached   _a = new AttachedImpl();
+	private final Attached _a = new AttachedImpl();
 	private final OS_Element parent;
 	IdentExpression iterName;
 	private IExpression expr;
-	private Scope3      scope3;
+	private Scope3 scope3;
 	private IExpression topart, frompart;
 	/**
 	 * @category type
@@ -141,7 +141,7 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 		visit.visitLoop(this);
 	}
 
-	//	@Override
+	// @Override
 	public void visitGen1(@NotNull ElElementVisitor visit) {
 		visit.visitLoop(this);
 	}

@@ -23,12 +23,12 @@ import tripleo.elijah.lang2.ElElementVisitor;
 public class WrappedStatementWrapper extends StatementWrapperImpl implements OS_Element {
 	class Wrapped extends AbstractExpression {
 
-		private final IExpression           expression;
+		private final IExpression expression;
 		private final VariableStatementImpl variableStatement;
 
 		public Wrapped(final VariableStatementImpl aVariableStatement, final IExpression aExpression) {
 			variableStatement = aVariableStatement;
-			expression        = aExpression;
+			expression = aExpression;
 		}
 
 		@Override
@@ -46,13 +46,15 @@ public class WrappedStatementWrapper extends StatementWrapperImpl implements OS_
 
 		}
 	}
-	private final          VariableStatementImpl vs;
 
-	private final @NotNull Wrapped               wrapped;
+	private final VariableStatementImpl vs;
 
-	public WrappedStatementWrapper(final IExpression aExpression, final Context aContext, final OS_Element aParent, final VariableStatementImpl aVs) {
+	private final @NotNull Wrapped wrapped;
+
+	public WrappedStatementWrapper(final IExpression aExpression, final Context aContext, final OS_Element aParent,
+			final VariableStatementImpl aVs) {
 		super(aExpression, aContext, aParent);
-		vs      = aVs;
+		vs = aVs;
 		wrapped = new Wrapped(aVs, aExpression);
 	}
 

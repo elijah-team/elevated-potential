@@ -77,9 +77,9 @@ public class DeduceUtils {
 			final ExpressionList args = pce.getArgs();
 			// See if candidate matches args
 			if (((LookupResult) o).getElement() instanceof final @NotNull ClassStatement klass) {
-				//o filter isCtor each (each args isCompat)
+				// o filter isCtor each (each args isCompat)
 
-				var ctors  = (klass.getItems().stream().filter(_inj().new_IsConstructor()));
+				var ctors = (klass.getItems().stream().filter(_inj().new_IsConstructor()));
 				var ctors2 = (ctors.filter(_inj().new_MatchFunctionArgs(pce)));
 
 				return !Lists.newArrayList(ctors2).isEmpty();
@@ -103,20 +103,19 @@ public class DeduceUtils {
 		@Override
 		public boolean test(final OS_Element o) {
 			assert o instanceof ClassItem;
-			//  TODO what about __call__ and __ctor__ for ClassStatement?
+			// TODO what about __call__ and __ctor__ for ClassStatement?
 //			tripleo.elijah.util.Stupidity.println_out_2("2000 "+o);
-			if (!(o instanceof FunctionDef)) return false;
+			if (!(o instanceof FunctionDef))
+				return false;
 			//
 			final ExpressionList args = pce.getArgs();
 			// See if candidate matches args
-			/*if (((LookupResult)o).getElement() instanceof FunctionDef)*/
+			/* if (((LookupResult)o).getElement() instanceof FunctionDef) */
 			{
-				//o filter isCtor each (each args isCompat)
-				final @NotNull FunctionDef fd = (FunctionDef) (/*(LookupResult)*/o)/*.getElement()*/;
-				final List<OS_Element2> matching_functions = fd.items()
-						.stream()
-						.filter(_inj().new_MatchArgs(pce.getArgs()))
-						.collect(Collectors.toList());
+				// o filter isCtor each (each args isCompat)
+				final @NotNull FunctionDef fd = (FunctionDef) (/* (LookupResult) */o)/* .getElement() */;
+				final List<OS_Element2> matching_functions = fd.items().stream()
+						.filter(_inj().new_MatchArgs(pce.getArgs())).collect(Collectors.toList());
 				return matching_functions.size() > 0;
 			}
 //			return false;

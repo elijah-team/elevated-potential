@@ -24,25 +24,26 @@ import java.util.function.*;
 public class ClassInvocation implements IInvocation {
 	public class CI_GenericPart {
 		private final @NotNull Map<TypeName, OS_Type> genericPart;
-		private final          boolean                isEmpty;
+		private final boolean isEmpty;
 
 		public CI_GenericPart(final @NotNull Collection<TypeName> genericPart1) {
 			if (!genericPart1.isEmpty()) {
 				genericPart = new HashMap<>(genericPart1.size());
 				for (TypeName typeName : genericPart1) {
-					genericPart.put(typeName, _inj().new_OS_UnknownType(null)); // FIXME 08/27 remove usage of UnknownType
+					genericPart.put(typeName, _inj().new_OS_UnknownType(null)); // FIXME 08/27 remove usage of
+																				// UnknownType
 				}
 				this.isEmpty = false;
 			} else {
-				genericPart  = Collections.emptyMap();
+				genericPart = Collections.emptyMap();
 				this.isEmpty = true;
 			}
 		}
 
 		public @NotNull Iterable<? extends Map.Entry<TypeName, OS_Type>> entrySet() {
-			//if (isEmpty) {
-			//	return new HashMap<TypeName, OS_Type>().entrySet();
-			//}
+			// if (isEmpty) {
+			// return new HashMap<TypeName, OS_Type>().entrySet();
+			// }
 			return genericPart.entrySet();
 		}
 
@@ -79,15 +80,17 @@ public class ClassInvocation implements IInvocation {
 			return realType;
 		}
 	}
-	private final @NotNull ClassStatement                       cls;
-	private final @NotNull Supplier<DeduceTypes2>               _dt2s;
-	private final          String                               constructorName;
-	private final          DeferredObject<EvaClass, Void, Void> resolvePromise = new DeferredObject<EvaClass, Void, Void>();
-	private                CI_GenericPart                       genericPart_;
 
-	public                 CI_Hint                              hint;
+	private final @NotNull ClassStatement cls;
+	private final @NotNull Supplier<DeduceTypes2> _dt2s;
+	private final String constructorName;
+	private final DeferredObject<EvaClass, Void, Void> resolvePromise = new DeferredObject<EvaClass, Void, Void>();
+	private CI_GenericPart genericPart_;
 
-	public ClassInvocation(@NotNull ClassStatement aClassStatement, String aConstructorName, final @NotNull Supplier<DeduceTypes2> aDeduceTypes2) {
+	public CI_Hint hint;
+
+	public ClassInvocation(@NotNull ClassStatement aClassStatement, String aConstructorName,
+			final @NotNull Supplier<DeduceTypes2> aDeduceTypes2) {
 		this._dt2s = aDeduceTypes2;
 
 		cls = aClassStatement;
@@ -100,8 +103,8 @@ public class ClassInvocation implements IInvocation {
 	}
 
 	public @NotNull String finalizedGenericPrintable() {
-		final String        name = getKlass().getName();
-		final StringBuilder sb   = new StringBuilder();
+		final String name = getKlass().getName();
+		final StringBuilder sb = new StringBuilder();
 
 		sb.append(name);
 		sb.append('[');

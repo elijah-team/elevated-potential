@@ -15,14 +15,15 @@ public class QualifiedImportStatement extends _BaseImportStatement {
 		public IdentList idents;
 
 		public Part(Qualident q3, IdentList il) {
-			base   = q3;
+			base = q3;
 			idents = il;
 		}
 	}
-	final         OS_Element parent;
+
+	final OS_Element parent;
 	private final List<Part> _parts = new ArrayList<Part>();
 
-	private       Context    _ctx;
+	private Context _ctx;
 
 	public QualifiedImportStatement(final OS_Element aParent) {
 		parent = aParent;

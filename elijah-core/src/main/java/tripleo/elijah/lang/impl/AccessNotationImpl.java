@@ -20,8 +20,8 @@ import tripleo.elijjah.*;
  */
 // TODO Does this need to be Element?
 public class AccessNotationImpl implements OS_Element, tripleo.elijah.lang.i.AccessNotation {
-	private Token        category;
-	private Token        shorthand;
+	private Token category;
+	private Token shorthand;
 	private TypeNameList tnl;
 
 	@Override
@@ -45,7 +45,7 @@ public class AccessNotationImpl implements OS_Element, tripleo.elijah.lang.i.Acc
 		sw.fieldToken("shorthand", shorthand);
 		var tnl1 = sw.createTypeNameList();
 		for (TypeName iterable_element : tnl.p()) {
-			//dszklmfk;
+			// dszklmfk;
 		}
 		sw.fieldTypenameList("typeNames", tnl1);
 

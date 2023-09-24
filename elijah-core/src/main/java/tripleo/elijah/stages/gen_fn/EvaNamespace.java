@@ -35,10 +35,11 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 			throw new UnintendedUseException();
 		}
 	}
-	public        DefaultLivingNamespace _living;
-	private final OS_Module              module;
 
-	private final NamespaceStatement     namespaceStatement;
+	public DefaultLivingNamespace _living;
+	private final OS_Module module;
+
+	private final NamespaceStatement namespaceStatement;
 
 	private _Reactive_EvaNamespace reactiveEvaNamespace = new _Reactive_EvaNamespace();
 
@@ -46,7 +47,7 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 
 	public EvaNamespace(NamespaceStatement aNamespaceStatement, OS_Module aModule) {
 		namespaceStatement = aNamespaceStatement;
-		module             = aModule;
+		module = aModule;
 	}
 
 	public void addAccessNotation(AccessNotationImpl an) {
@@ -61,7 +62,7 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 		fd.scope(scope3);
 		for (VarTableEntry varTableEntry : varTable) {
 			if (varTableEntry.initialValue != IExpression.UNASSIGNED) {
-				IExpression left  = varTableEntry.nameToken;
+				IExpression left = varTableEntry.nameToken;
 				IExpression right = varTableEntry.initialValue;
 
 				IExpression e = ExpressionBuilder.build(left, ExpressionKind.ASSIGNMENT, right);
@@ -142,7 +143,8 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 		aCr.registerNamespace(this);
 	}
 
-	@Override public void setCode(final int aCode) {
+	@Override
+	public void setCode(final int aCode) {
 		_living.setCode(aCode);
 	}
 }

@@ -21,7 +21,7 @@ import static tripleo.elijah.util.Helpers.List_of;
  */
 public class Feb2021 {
 
-	//	@Ignore
+	// @Ignore
 	@Test
 	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	public void testFunction() throws Exception {
@@ -30,7 +30,7 @@ public class Feb2021 {
 		c.feedCmdLine(List_of("test/feb2021/function/"));
 	}
 
-	//	@Ignore
+	// @Ignore
 	@org.junit.jupiter.api.Test
 	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	public void testHier() throws Exception {
@@ -52,7 +52,7 @@ public class Feb2021 {
 
 		c.feedCmdLine(List_of("test/feb2021/property2/"));
 
-		//assertEquals(100, c.errorCount());
+		// assertEquals(100, c.errorCount());
 	}
 
 	@org.junit.jupiter.api.Test
@@ -61,7 +61,7 @@ public class Feb2021 {
 
 		c.feedCmdLine(List_of("test/feb2021/property3/"));
 
-		//assertEquals(100, c.errorCount());
+		// assertEquals(100, c.errorCount());
 	}
 
 }

@@ -32,7 +32,7 @@ public class DefaultDeduceCreationContext implements DeduceCreationContext {
 	@Override
 	public Eventual<BaseEvaFunction> makeGenerated_fi__Eventual(final @NotNull FunctionInvocation aFunctionInvocation) {
 		final GeneratePhase generatePhase = getGeneratePhase();
-		final DeducePhase   deducePhase   = getDeducePhase();
+		final DeducePhase deducePhase = getDeducePhase();
 
 		final Deduce_CreationClosure cl = new Deduce_CreationClosure(deducePhase, this, deduceTypes2, generatePhase);
 

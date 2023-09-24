@@ -41,9 +41,8 @@ public class DefaultGenerateResultSink implements GenerateResultSink {
 	}
 
 	@Override
-	public void addClass_1(final @NotNull GarishClass aGarishClass,
-						   final @NotNull GenerateResult gr,
-						   final @NotNull GenerateC aGenerateC) {
+	public void addClass_1(final @NotNull GarishClass aGarishClass, final @NotNull GenerateResult gr,
+			final @NotNull GenerateC aGenerateC) {
 		NG_OutputClass o = new NG_OutputClass();
 		o.setClass(aGarishClass, aGenerateC);
 		pa.addOutput(o);
@@ -58,18 +57,18 @@ public class DefaultGenerateResultSink implements GenerateResultSink {
 
 	@Override
 	public void additional(final @NotNull GenerateResult aGenerateResult) {
-		//throw new IllegalStateException("Error");
+		// throw new IllegalStateException("Error");
 	}
 
 	@Override
-	public void addNamespace_0(final @NotNull GarishNamespace aGarishNamespace, final Buffer aImplBuffer, final Buffer aHeaderBuffer) {
+	public void addNamespace_0(final @NotNull GarishNamespace aGarishNamespace, final Buffer aImplBuffer,
+			final Buffer aHeaderBuffer) {
 		throw new IllegalStateException("Error");
 	}
 
 	@Override
-	public void addNamespace_1(final @NotNull GarishNamespace aGarishNamespace,
-							   final @NotNull GenerateResult gr,
-							   final @NotNull GenerateC aGenerateC) {
+	public void addNamespace_1(final @NotNull GarishNamespace aGarishNamespace, final @NotNull GenerateResult gr,
+			final @NotNull GenerateC aGenerateC) {
 		NG_OutputNamespace o = new NG_OutputNamespace();
 		o.setNamespace(aGarishNamespace, aGenerateC);
 		pa.addOutput(o);

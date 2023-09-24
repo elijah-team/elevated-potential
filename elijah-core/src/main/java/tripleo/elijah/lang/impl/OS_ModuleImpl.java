@@ -36,16 +36,16 @@ import java.util.stream.Collectors;
 
 public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.lang.i.OS_Module {
 
-	private final   Stack<Qualident>     packageNames_q = new Stack<Qualident>();
-	public @NotNull Attached             _a             = new AttachedImpl();
-	public @NotNull List<EntryPoint>     entryPoints    = new ArrayList<EntryPoint>();
-	public @NotNull List<ModuleItem>     items          = new ArrayList<ModuleItem>();
-	public          OS_Module            prelude;
-	private         IndexingStatement    indexingStatement;
-	private         String               _fileName;
-	private         LibraryStatementPart lsp;
-	private         Compilation          parent;
-	private         FluffyModuleImpl     _fluffy;
+	private final Stack<Qualident> packageNames_q = new Stack<Qualident>();
+	public @NotNull Attached _a = new AttachedImpl();
+	public @NotNull List<EntryPoint> entryPoints = new ArrayList<EntryPoint>();
+	public @NotNull List<ModuleItem> items = new ArrayList<ModuleItem>();
+	public OS_Module prelude;
+	private IndexingStatement indexingStatement;
+	private String _fileName;
+	private LibraryStatementPart lsp;
+	private Compilation parent;
+	private FluffyModuleImpl _fluffy;
 
 	@Override
 	public void add(final OS_Element anElement) {
@@ -188,8 +188,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 				if (MainClassEntryPoint.isMainClass(classStatement)) {
 					List<OS_Element2> x = classStatement.findFunction("main");
 
-					List<ClassStatement> found = x.stream()
-							.filter(ci -> ci instanceof FunctionDef)
+					List<ClassStatement> found = x.stream().filter(ci -> ci instanceof FunctionDef)
 							.filter(fd -> MainClassEntryPoint.is_main_function_with_no_args((FunctionDef) fd))
 							.map(found1 -> (ClassStatement) ((FunctionDef) found1).getParent())
 							.collect(Collectors.toList());
@@ -249,23 +248,21 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	public void serializeTo(final @NotNull SmallWriter sw) {
 		// TODO Auto-generated method stub
 
-		//public @NotNull Attached             _a             = new AttachedImpl();
-		//private final   Stack<Qualident>     packageNames_q = new Stack<Qualident>();
-		//public @NotNull List<EntryPoint>     entryPoints    = new ArrayList<EntryPoint>();
-		//private         IndexingStatement    indexingStatement;
-		//private LibraryStatementPart lsp;
-
+		// public @NotNull Attached _a = new AttachedImpl();
+		// private final Stack<Qualident> packageNames_q = new Stack<Qualident>();
+		// public @NotNull List<EntryPoint> entryPoints = new ArrayList<EntryPoint>();
+		// private IndexingStatement indexingStatement;
+		// private LibraryStatementPart lsp;
 
 		sw.fieldString("filename", _fileName);
 		sw.fieldString("prelude", prelude != null ? prelude.getFileName() : "<unknown>");
 		sw.fieldString("parent", getCompilation().getCompilationNumberString());
 
-
-		//var l = sw.createList();int i=1;
-		//for (ModuleItem item : items) {
-		//	var r = sw.createRef(item);
-		//	sw.fieldRef("item%i".formatted(i++), r);
-		//}
+		// var l = sw.createList();int i=1;
+		// for (ModuleItem item : items) {
+		// var r = sw.createRef(item);
+		// sw.fieldRef("item%i".formatted(i++), r);
+		// }
 		sw.fieldList("items", items);
 	}
 

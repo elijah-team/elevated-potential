@@ -9,7 +9,8 @@ import java.util.*;
 
 public interface Context {
 	class SearchList {
-		@NotNull List<Context> alreadySearched = new ArrayList<>();
+		@NotNull
+		List<Context> alreadySearched = new ArrayList<>();
 
 		public void add(Context c) {
 			alreadySearched.add(c);
@@ -29,12 +30,12 @@ public interface Context {
 	@NotNull
 	Compilation compilation();
 
-	@Nullable Context getParent();
+	@Nullable
+	Context getParent();
 
 	LookupResultList lookup(@NotNull String name);
 
-	LookupResultList lookup(String name, int level, LookupResultList Result, SearchList alreadySearched,
-							boolean one);
+	LookupResultList lookup(String name, int level, LookupResultList Result, SearchList alreadySearched, boolean one);
 
 	@NotNull
 	OS_Module module();

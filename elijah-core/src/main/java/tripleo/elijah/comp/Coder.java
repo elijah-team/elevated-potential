@@ -10,12 +10,11 @@ import java.util.*;
 import java.util.stream.*;
 
 public class Coder {
-	private static void extractNodes_toResolvedNodes(@NotNull final Map<FunctionDef, EvaFunction> aFunctionMap, @NotNull final List<EvaNode> resolved_nodes) {
-		aFunctionMap.values().stream().map(generatedFunction -> (generatedFunction.idte_list)
-						.stream()
-						.filter(IdentTableEntry::isResolved)
-						.map(IdentTableEntry::resolvedType)
-						.collect(Collectors.toList()))
+	private static void extractNodes_toResolvedNodes(@NotNull final Map<FunctionDef, EvaFunction> aFunctionMap,
+			@NotNull final List<EvaNode> resolved_nodes) {
+		aFunctionMap.values().stream()
+				.map(generatedFunction -> (generatedFunction.idte_list).stream().filter(IdentTableEntry::isResolved)
+						.map(IdentTableEntry::resolvedType).collect(Collectors.toList()))
 				.forEach(resolved_nodes::addAll);
 	}
 
@@ -53,9 +52,10 @@ public class Coder {
 		codeRegistrar.registerNamespace(generatedNamespace);
 	}
 
-	public void codeNodes(final WorldModule wm, final @NotNull List<EvaNode> resolved_nodes, final EvaNode generatedNode) {
+	public void codeNodes(final WorldModule wm, final @NotNull List<EvaNode> resolved_nodes,
+			final EvaNode generatedNode) {
 		var mod = wm.module();
-		
+
 		if (generatedNode instanceof final @NotNull EvaFunction generatedFunction) {
 			codeNodeFunction(generatedFunction, wm);
 		} else if (generatedNode instanceof final @NotNull EvaClass generatedClass) {

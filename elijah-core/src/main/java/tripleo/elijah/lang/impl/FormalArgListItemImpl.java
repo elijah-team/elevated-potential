@@ -16,8 +16,8 @@ import tripleo.elijah.util.*;
 
 public class FormalArgListItemImpl implements FormalArgListItem {
 
-	private           IdentExpression name;
-	private @Nullable TypeName        tn = null;
+	private IdentExpression name;
+	private @Nullable TypeName tn = null;
 
 	private EN_Name __n;
 

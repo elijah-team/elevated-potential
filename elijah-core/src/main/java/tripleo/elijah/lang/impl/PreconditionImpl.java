@@ -15,7 +15,7 @@ import tripleo.elijah.lang.i.IdentExpression;
  * Created 12/22/20 11:44 PM
  */
 public class PreconditionImpl implements tripleo.elijah.lang.i.Precondition {
-	private IExpression     expr;
+	private IExpression expr;
 	private IdentExpression id;
 
 	@Override

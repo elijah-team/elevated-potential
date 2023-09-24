@@ -23,8 +23,8 @@ import tripleo.elijah.stages.deduce.FunctionInvocation;
  * Created 6/27/21 9:45 AM
  */
 public class EvaConstructor extends BaseEvaFunction {
-	public final @Nullable ConstructorDef                       cd;
-	private final          Eventual<DeduceElement3_Constructor> _de3_Promise = new Eventual<>();
+	public final @Nullable ConstructorDef cd;
+	private final Eventual<DeduceElement3_Constructor> _de3_Promise = new Eventual<>();
 
 	public EvaConstructor(final @Nullable ConstructorDef aConstructorDef) {
 		cd = aConstructorDef;
@@ -36,7 +36,8 @@ public class EvaConstructor extends BaseEvaFunction {
 
 	@Override
 	public @NotNull FunctionDef getFD() {
-		if (cd == null) throw new IllegalStateException("No function");
+		if (cd == null)
+			throw new IllegalStateException("No function");
 		return cd;
 	}
 

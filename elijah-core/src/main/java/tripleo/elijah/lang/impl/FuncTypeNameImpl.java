@@ -13,10 +13,10 @@ import java.util.ArrayList;
  * Created 8/16/20 2:16 AM
  */
 public class FuncTypeNameImpl implements tripleo.elijah.lang.i.FuncTypeName {
-	private final     Context       _ctx;
-	public @Nullable  TypeNameList  _arglist     = null/* new TypeNameList() */;
-	private           TypeModifiers _modifiers;
-	private @Nullable TypeName      _returnValue = null /* new RegularTypeNameImpl() */; // TODO warning
+	private final Context _ctx;
+	public @Nullable TypeNameList _arglist = null/* new TypeNameList() */;
+	private TypeModifiers _modifiers;
+	private @Nullable TypeName _returnValue = null /* new RegularTypeNameImpl() */; // TODO warning
 
 	public FuncTypeNameImpl(final Context cur) {
 		_ctx = cur;
@@ -104,12 +104,11 @@ public class FuncTypeNameImpl implements tripleo.elijah.lang.i.FuncTypeName {
 		for (TypeName typeName : _arglist.p()) {
 			ls.add("%s".formatted(typeName.toString()));
 		}
-		return "function (" +
-				Helpers.String_join(", ", ls) +
-				//"_ctx=" + _ctx +
-				//", _arglist=" + _arglist +
-				//", _modifiers=" + _modifiers +
-				//", _returnValue=" + _returnValue +
+		return "function (" + Helpers.String_join(", ", ls) +
+		// "_ctx=" + _ctx +
+		// ", _arglist=" + _arglist +
+		// ", _modifiers=" + _modifiers +
+		// ", _returnValue=" + _returnValue +
 				')';
 	}
 

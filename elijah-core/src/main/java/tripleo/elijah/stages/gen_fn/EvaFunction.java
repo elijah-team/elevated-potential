@@ -37,7 +37,8 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 
 	@Override
 	public @NotNull FunctionDef getFD() {
-		if (fd != null) return fd;
+		if (fd != null)
+			return fd;
 		throw new IllegalStateException("No function");
 	}
 

@@ -19,7 +19,9 @@ import java.util.List;
 import java.util.function.*;
 
 public interface LivingRepo {
-	enum Add {MAIN_CLASS, MAIN_FUNCTION, NONE}
+	enum Add {
+		MAIN_CLASS, MAIN_FUNCTION, NONE
+	}
 
 	LivingClass addClass(ClassStatement cs);
 
@@ -31,7 +33,7 @@ public interface LivingRepo {
 
 	void addModule(OS_Module mod, String aFilename, final Compilation aC);
 
-	//DefaultLivingClass addClass(EvaClass aClass, Add aMainClass);
+	// DefaultLivingClass addClass(EvaClass aClass, Add aMainClass);
 
 	void addModule2(WorldModule aWorldModule);
 
@@ -55,7 +57,7 @@ public interface LivingRepo {
 
 	LivingFunction getFunction(BaseEvaFunction aBaseEvaFunction);
 
-    WorldModule getModule(OS_Module aSuccess);
+	WorldModule getModule(OS_Module aSuccess);
 
 	LivingNamespace getNamespace(EvaNamespace aEvaNamespace);
 

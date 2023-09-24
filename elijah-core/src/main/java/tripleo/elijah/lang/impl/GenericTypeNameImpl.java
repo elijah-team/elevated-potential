@@ -24,10 +24,10 @@ import java.io.File;
  * Created 8/16/20 7:42 AM
  */
 public class GenericTypeNameImpl implements tripleo.elijah.lang.i.GenericTypeName {
-	private final Context       _ctx;
-	private       Qualident     _typeName;
-	private       TypeName      constraint;
-	private       TypeModifiers modifiers;
+	private final Context _ctx;
+	private Qualident _typeName;
+	private TypeName constraint;
+	private TypeModifiers modifiers;
 
 	public GenericTypeNameImpl(final Context cur) {
 		_ctx = cur;

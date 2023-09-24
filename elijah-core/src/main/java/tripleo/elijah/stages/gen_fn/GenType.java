@@ -45,27 +45,29 @@ public interface GenType {
 			throw new IllegalStateException("invalid invocation");
 	}
 
-	static @Nullable GenType makeFromOSType(@NotNull OS_Type aVt, ClassInvocation.@NotNull CI_GenericPart aGenericPart, @NotNull DeduceTypes2 dt2, DeducePhase phase, @NotNull ElLog aLOG, @NotNull ErrSink errSink) {
+	static @Nullable GenType makeFromOSType(@NotNull OS_Type aVt, ClassInvocation.@NotNull CI_GenericPart aGenericPart,
+			@NotNull DeduceTypes2 dt2, DeducePhase phase, @NotNull ElLog aLOG, @NotNull ErrSink errSink) {
 		return makeGenTypeFromOSType(aVt, aGenericPart, aLOG, errSink, dt2, phase);
 	}
 
 	static @Nullable GenType makeGenTypeFromOSType(@NotNull OS_Type aType,
-												   ClassInvocation.@NotNull CI_GenericPart aGenericPart,
-												   @NotNull ElLog aLOG,
-												   @NotNull ErrSink errSink, @NotNull DeduceTypes2 dt2, DeducePhase phase) {
+			ClassInvocation.@NotNull CI_GenericPart aGenericPart, @NotNull ElLog aLOG, @NotNull ErrSink errSink,
+			@NotNull DeduceTypes2 dt2, DeducePhase phase) {
 		GenType gt = new GenTypeImpl();
 		gt.setTypeName(aType);
 		if (aType.getType() == OS_Type.Type.USER) {
 			final TypeName tn1 = aType.getTypeName();
-			if (tn1.isNull()) return null; // TODO Unknown, needs to resolve somewhere
+			if (tn1.isNull())
+				return null; // TODO Unknown, needs to resolve somewhere
 
 			assert tn1 instanceof NormalTypeName;
-			final NormalTypeName       tn  = (NormalTypeName) tn1;
-			final LookupResultList     lrl = tn.getContext().lookup(tn.getName());
-			final @Nullable OS_Element el  = lrl.chooseBest(null);
+			final NormalTypeName tn = (NormalTypeName) tn1;
+			final LookupResultList lrl = tn.getContext().lookup(tn.getName());
+			final @Nullable OS_Element el = lrl.chooseBest(null);
 
 			DeduceTypes2.ProcessElement.processElement(el, new DeduceTypes2.IElementProcessor() {
-				private void __hasElement__typeNameElement(final ClassContext.@NotNull OS_TypeNameElement typeNameElement) {
+				private void __hasElement__typeNameElement(
+						final ClassContext.@NotNull OS_TypeNameElement typeNameElement) {
 					assert aGenericPart != null;
 
 					final OS_Type x = aGenericPart.get(typeNameElement.getTypeName());
@@ -100,7 +102,7 @@ public interface GenType {
 
 				private void gotResolved(final @NotNull GenType gt) {
 					if (gt.getResolved().getClassOf().getGenericPart().size() != 0) {
-						//throw new AssertionError();
+						// throw new AssertionError();
 						aLOG.info("149 non-generic type " + tn1);
 					}
 					gt.genCI(null, dt2, errSink, phase); // TODO aGenericPart
@@ -136,12 +138,13 @@ public interface GenType {
 					if (gt.getResolved() != null)
 						gotResolved(gt);
 					else {
-						int y = 2; //05/22
+						int y = 2; // 05/22
 					}
 				}
 
 				private @NotNull Operation2<@NotNull OS_Element> preprocess(final OS_Element el) {
-					@Nullable OS_Element best = el;
+					@Nullable
+					OS_Element best = el;
 					try {
 						while (best instanceof AliasStatement) {
 							best = DeduceLookupUtils._resolveAlias2((AliasStatement) best, dt2);
@@ -158,9 +161,10 @@ public interface GenType {
 		return gt;
 	}
 
-	//@ensures Result.ci != null
-	//@ensures ResultgetResolved() != null
-	static @NotNull GenType of(NamespaceStatement aNamespaceStatement, @NotNull Supplier<NamespaceInvocation> aNamespaceInvocationSupplier) {
+	// @ensures Result.ci != null
+	// @ensures ResultgetResolved() != null
+	static @NotNull GenType of(NamespaceStatement aNamespaceStatement,
+			@NotNull Supplier<NamespaceInvocation> aNamespaceInvocationSupplier) {
 		final GenType genType = new GenTypeImpl(aNamespaceStatement);
 
 		final NamespaceInvocation nsi = aNamespaceInvocationSupplier.get();
@@ -178,10 +182,7 @@ public interface GenType {
 	@Override
 	boolean equals(Object aO);
 
-	ClassInvocation genCI(TypeName aGenericTypeName,
-						  DeduceTypes2 deduceTypes2,
-						  ErrSink errSink,
-						  DeducePhase phase);
+	ClassInvocation genCI(TypeName aGenericTypeName, DeduceTypes2 deduceTypes2, ErrSink errSink, DeducePhase phase);
 
 	void genCIForGenType2(DeduceTypes2 deduceTypes2);
 

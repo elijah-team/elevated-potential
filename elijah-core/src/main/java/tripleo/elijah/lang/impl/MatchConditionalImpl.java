@@ -21,8 +21,8 @@ import java.util.List;
 
 /**
  * @author Tripleo
- * <p>
- * Created Apr 15, 2020 at 10:11:16 PM
+ *         <p>
+ *         Created Apr 15, 2020 at 10:11:16 PM
  */
 public class MatchConditionalImpl implements MatchConditional, OS_Element, StatementItem, FunctionItem {
 
@@ -30,9 +30,9 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 
 		// private final List<FunctionItem> items = new ArrayList<FunctionItem>();
 		private final Context ___ctx = new MatchConditionalContext(// MatchConditional.this.getContext(), this);
-																   getParent().getParent().getContext(), this);
+				getParent().getParent().getContext(), this);
 		TypeName tn /* = new RegularTypeName() */;
-		private Scope3          scope3;
+		private Scope3 scope3;
 		// private List<Token> docstrings = new ArrayList<Token>();
 		private IdentExpression ident;
 
@@ -96,6 +96,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 			tn = typeName;
 		}
 	}
+
 	public class MatchConditionalPart2 implements MC1 {
 
 		private final Context ___ctx = new MatchConditionalContext(MatchConditionalImpl.this.getContext(), this);
@@ -103,7 +104,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 		// private final List<FunctionItem> items = new ArrayList<FunctionItem>();
 //		private List<Token> docstrings = new ArrayList<Token>();
 		private IExpression matching_expression;
-		private Scope3      scope3;
+		private Scope3 scope3;
 
 		@Override
 		public void add(final FunctionItem aItem) {
@@ -157,14 +158,15 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 
 		}
 	}
+
 	public class MatchConditionalPart3 implements MC1 {
 
 		private final Context ___ctx = new MatchConditionalContext(MatchConditionalImpl.this.getContext(), this);
 
 		// private final List<FunctionItem> items = new ArrayList<FunctionItem>();
-		private @Nullable List<Token>     docstrings = null;
-		private           IdentExpression matching_expression;
-		private           Scope3          scope3;
+		private @Nullable List<Token> docstrings = null;
+		private IdentExpression matching_expression;
+		private Scope3 scope3;
 
 		@Override
 		public void add(final FunctionItem aItem) {
@@ -214,14 +216,15 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 
 		}
 	}
+
 	// private final SingleIdentContext _ctx;
-	private final List<MC1>    parts = new ArrayList<MC1>();
+	private final List<MC1> parts = new ArrayList<MC1>();
 
-	private       MatchContext __ctx;
+	private MatchContext __ctx;
 
-	private       IExpression  expr;
+	private IExpression expr;
 
-	private       OS_Element   parent;
+	private OS_Element parent;
 
 	public MatchConditionalImpl(final OS_Element parent, final Context parentContext) {
 		this.parent = parent;

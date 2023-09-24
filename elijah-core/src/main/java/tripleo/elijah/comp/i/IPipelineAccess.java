@@ -37,7 +37,7 @@ public interface IPipelineAccess {
 
 	List<EvaClass> getActiveClasses();
 
-	//List<NG_OutputItem> getOutputs();
+	// List<NG_OutputItem> getOutputs();
 
 	List<BaseEvaFunction> getActiveFunctions();
 
@@ -57,7 +57,8 @@ public interface IPipelineAccess {
 
 	WritePipeline getWitePipeline();
 
-	void install_notate(Provenance aProvenance, Class<? extends GN_Notable> aRunClass, Class<? extends GN_Env> aEnvClass);
+	void install_notate(Provenance aProvenance, Class<? extends GN_Notable> aRunClass,
+			Class<? extends GN_Env> aEnvClass);
 
 	void notate(Provenance aProvenance, GN_Env aPlRun2);
 

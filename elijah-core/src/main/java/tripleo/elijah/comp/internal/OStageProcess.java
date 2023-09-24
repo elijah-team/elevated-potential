@@ -45,8 +45,8 @@ public class OStageProcess implements RuntimeProcess {
 		}
 	}
 
-	private       AccessBus          ab;
-	//private final ProcessRecord pr;
+	private AccessBus ab;
+	// private final ProcessRecord pr;
 	private final ICompilationAccess ca;
 
 	private stepA_mal.MalEnv2 env;
@@ -54,15 +54,14 @@ public class OStageProcess implements RuntimeProcess {
 	public OStageProcess(final ICompilationAccess aCa, final @NotNull ProcessRecord aPr) {
 		ca = aCa;
 
-		ca.getCompilation().getCompilationEnclosure().getAccessBusPromise()
-				.then(iab -> {
-					ab = aPr.ab();
+		ca.getCompilation().getCompilationEnclosure().getAccessBusPromise().then(iab -> {
+			ab = aPr.ab();
 
-					env = ab.env();
+			env = ab.env();
 
-					Preconditions.checkNotNull(ab);
-					env.set(new types.MalSymbol("add-pipeline"), new _AddPipeline__MAL(ab));
-				});
+			Preconditions.checkNotNull(ab);
+			env.set(new types.MalSymbol("add-pipeline"), new _AddPipeline__MAL(ab));
+		});
 
 	}
 
@@ -77,11 +76,10 @@ public class OStageProcess implements RuntimeProcess {
 		env.re("(add-pipeline 'HooliganPipeline)");
 		env.re("(add-pipeline 'EvaPipeline)");
 
-
 		env.re("(add-pipeline 'DeducePipeline)"); // FIXME note moved from ...
 
 		env.re("(add-pipeline 'WritePipeline)");
-		//env.re("(add-pipeline 'WriteMesonPipeline)");
+		// env.re("(add-pipeline 'WriteMesonPipeline)");
 		env.re("(add-pipeline 'WriteMakefilePipeline)");
 		env.re("(add-pipeline 'WriteOutputTreePipeline)"); // TODO add error checking
 	}

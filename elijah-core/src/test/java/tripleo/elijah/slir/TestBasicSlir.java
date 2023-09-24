@@ -23,7 +23,6 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.mock;
 
-
 /**
  * Created 11/6/21 8:11 AM
  */
@@ -88,13 +87,13 @@ public class TestBasicSlir {
 	@Test
 	public final void testBasic_fact1() throws IOException {
 		String s0 = "test/basic/fact1";
-		String s  = "test/basic/fact1/main2";
+		String s = "test/basic/fact1/main2";
 
 //		final Compilation c = new Compilation(new StdErrSink(), new IO());
 //
 //		c.feedCmdLine(List_of(s, "-sO"));
 
-		final RootSlirNode   rsn = new RootSlirNode(mock(Compilation.class));
+		final RootSlirNode rsn = new RootSlirNode(mock(Compilation.class));
 		final SlirSourceFile sf3 = new SlirSourceFile("lib_elijjah/lib-c/std.collections/collections.elijjah");
 		final SlirSourceFile sf2 = new SlirSourceFile("Prelude.elijah");
 		final SlirSourceFile sf0 = new SlirSourceFile(s0 + "/fact1.elijah");
@@ -113,7 +112,7 @@ public class TestBasicSlir {
 
 			final NormalImportStatement importStatement = new NormalImportStatement(mod);
 			importStatement.addNormalPart(Helpers.string_to_qualident("wprust.demo.fact"));
-			final SlirImportNode    sin1                  = sn1.addImport(importStatement);
+			final SlirImportNode sin1 = sn1.addImport(importStatement);
 			final SlirNamespaceNode fact_module_namespace = new SlirNamespaceNode(sf0, null, null);
 			fact_module_namespace.markUsed("factorial", SlirPos.ALIAS);
 			sin1.markImported(fact_module_namespace);
@@ -157,8 +156,8 @@ public class TestBasicSlir {
 			final OS_Module mod = new OS_ModuleImpl();
 			mod.setFileName(sf0.getFilename());
 
-			final OS_Package      packageStatement = new OS_PackageImpl(Helpers.string_to_qualident("wprust.demo.fact"), 2);
-			final SlirPackageNode sp1              = sn2.addPackage(packageStatement);
+			final OS_Package packageStatement = new OS_PackageImpl(Helpers.string_to_qualident("wprust.demo.fact"), 2);
+			final SlirPackageNode sp1 = sn2.addPackage(packageStatement);
 
 			// sp1/Main (class) is not live!
 
@@ -175,13 +174,13 @@ public class TestBasicSlir {
 			final OS_Module mod = new OS_ModuleImpl();
 			mod.setFileName(sf2.getFilename());
 
-			final OS_Package      packageStatement = new OS_PackageImpl(Helpers.string_to_qualident("Prelude"), 1);
-			final SlirPackageNode sp2              = sn3.addPackage(packageStatement);
+			final OS_Package packageStatement = new OS_PackageImpl(Helpers.string_to_qualident("Prelude"), 1);
+			final SlirPackageNode sp2 = sn3.addPackage(packageStatement);
 
-			final SlirClass prelude_arguments      = new SlirClass(sp2, "Arguments", null);
-			final SlirClass prelude_string         = new SlirClass(sp2, "Arguments", null);
+			final SlirClass prelude_arguments = new SlirClass(sp2, "Arguments", null);
+			final SlirClass prelude_string = new SlirClass(sp2, "Arguments", null);
 			final SlirAlias prelude_system_integer = new SlirAlias(sp2, "Arguments", null);
-			final SlirClass prelude_integer64      = new SlirClass(sp2, "Arguments", null);
+			final SlirClass prelude_integer64 = new SlirClass(sp2, "Arguments", null);
 
 			// TODO what to do now? check usages?
 		}
@@ -192,8 +191,8 @@ public class TestBasicSlir {
 			final OS_Module mod = new OS_ModuleImpl();
 			mod.setFileName(sf3.getFilename());
 
-			final OS_Package      packageStatement = new OS_PackageImpl(Helpers.string_to_qualident("std.collections"), 4);
-			final SlirPackageNode sp3              = sn4.addPackage(packageStatement);
+			final OS_Package packageStatement = new OS_PackageImpl(Helpers.string_to_qualident("std.collections"), 4);
+			final SlirPackageNode sp3 = sn4.addPackage(packageStatement);
 
 			final SlirClass collections_list = new SlirClass(sp3, "List", null);
 //			collections_list.specialize(List_of(prelude_string));

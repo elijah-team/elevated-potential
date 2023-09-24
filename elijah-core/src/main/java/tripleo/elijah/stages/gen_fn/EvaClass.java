@@ -43,13 +43,14 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 			throw new UnintendedUseException();
 		}
 	}
-	private LivingClass _living;
-	private final   ClassStatement                      klass;
-	private final   OS_Module                           module;
-	public          ClassInvocation                     ci;
-	public @NotNull Map<ConstructorDef, EvaConstructor> constructors                      = new HashMap<ConstructorDef, EvaConstructor>();
 
-	private         boolean                             resolve_var_table_entries_already = false;
+	private LivingClass _living;
+	private final ClassStatement klass;
+	private final OS_Module module;
+	public ClassInvocation ci;
+	public @NotNull Map<ConstructorDef, EvaConstructor> constructors = new HashMap<ConstructorDef, EvaConstructor>();
+
+	private boolean resolve_var_table_entries_already = false;
 
 	final _Reactive_EvaClass reactiveEvaClass = new _Reactive_EvaClass();
 
@@ -57,7 +58,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 	private final GarishClass_Generator _gcg = new GarishClass_Generator(this);
 
 	public EvaClass(ClassStatement aClassStatement, OS_Module aModule) {
-		klass  = aClassStatement;
+		klass = aClassStatement;
 		module = aModule;
 	}
 
@@ -77,7 +78,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 		fd.scope(scope3);
 		for (VarTableEntry varTableEntry : varTable) {
 			if (varTableEntry.initialValue != IExpression.UNASSIGNED) {
-				IExpression left  = varTableEntry.nameToken;
+				IExpression left = varTableEntry.nameToken;
 				IExpression right = varTableEntry.initialValue;
 
 				IExpression e = ExpressionBuilder.build(left, ExpressionKind.ASSIGNMENT, right);
@@ -108,24 +109,29 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 					if (potentialTypes.size() == 2) {
 						final ClassStatement resolvedClass1 = potentialTypes.get(0).getResolved().getClassOf();
 						final ClassStatement resolvedClass2 = potentialTypes.get(1).getResolved().getClassOf();
-						final OS_Module      prelude;
-						if (potentialTypes.get(1).getResolved() instanceof OS_BuiltinType && potentialTypes.get(0).getResolved() instanceof OS_UserClassType) {
+						final OS_Module prelude;
+						if (potentialTypes.get(1).getResolved() instanceof OS_BuiltinType
+								&& potentialTypes.get(0).getResolved() instanceof OS_UserClassType) {
 							OS_BuiltinType resolved = (OS_BuiltinType) potentialTypes.get(1).getResolved();
 
 							try {
-								@NotNull final GenType rt = ResolveType.resolve_type(resolvedClass1.getContext().module(), resolved, resolvedClass1.getContext(), aDeduceTypes2._LOG(), aDeduceTypes2);
-								int                    y  = 2;
+								@NotNull
+								final GenType rt = ResolveType.resolve_type(resolvedClass1.getContext().module(),
+										resolved, resolvedClass1.getContext(), aDeduceTypes2._LOG(), aDeduceTypes2);
+								int y = 2;
 
 								potentialTypes = Helpers.List_of(rt);
 							} catch (ResolveError aE) {
 								return Operation.failure(aE);
 							}
-						} else if (potentialTypes.get(0).getResolved() instanceof OS_BuiltinType && potentialTypes.get(1).getResolved() instanceof OS_UserClassType) {
+						} else if (potentialTypes.get(0).getResolved() instanceof OS_BuiltinType
+								&& potentialTypes.get(1).getResolved() instanceof OS_UserClassType) {
 							OS_BuiltinType resolved = (OS_BuiltinType) potentialTypes.get(0).getResolved();
 
 							try {
-								@NotNull final GenType rt = aDeduceTypes2.resolve_type(resolved, resolvedClass2.getContext());
-								int                    y  = 2;
+								@NotNull
+								final GenType rt = aDeduceTypes2.resolve_type(resolved, resolvedClass2.getContext());
+								int y = 2;
 
 								potentialTypes = Helpers.List_of(rt);
 							} catch (ResolveError aE) {
@@ -136,13 +142,15 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 							prelude = resolvedClass1.getContext().module().prelude();
 
 							// TODO might not work when we split up prelude
-							//  Thats why I was testing for package name before
+							// Thats why I was testing for package name before
 							if (resolvedClass1.getContext().module() == prelude
 									&& resolvedClass2.getContext().module() == prelude) {
 								// Favor String over ConstString
-								if (resolvedClass1.name().equals("ConstString") && resolvedClass2.name().equals("String")) {
+								if (resolvedClass1.name().equals("ConstString")
+										&& resolvedClass2.name().equals("String")) {
 									potentialTypes.remove(0);
-								} else if (resolvedClass2.name().equals("ConstString") && resolvedClass1.name().equals("String")) {
+								} else if (resolvedClass2.name().equals("ConstString")
+										&& resolvedClass1.name().equals("String")) {
 									potentialTypes.remove(1);
 								}
 							}
@@ -156,7 +164,8 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 								final OS_Type t = varTableEntry.varType;
 								if (t.getType() == OS_Type.Type.USER) {
 									try {
-										final @NotNull GenType genType = aDeduceTypes2.resolve_type(t, t.getTypeName().getContext());
+										final @NotNull GenType genType = aDeduceTypes2.resolve_type(t,
+												t.getTypeName().getContext());
 										if (genType.getResolved() instanceof OS_GenericTypeNameType) {
 											final ClassInvocation xxci = ((EvaClass) aEvaContainer).ci;
 
@@ -168,7 +177,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 										}
 									} catch (ResolveError aResolveError) {
 										aResolveError.printStackTrace();
-										//assert false;
+										// assert false;
 										return Operation.failure(aResolveError);
 									}
 								}
@@ -184,20 +193,23 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 				public Operation<List<GenType>> getPotentialTypes() {
 					List<GenType> potentialTypes = new ArrayList<>();
 					for (TypeTableEntry potentialType : varTableEntry.potentialTypes) {
-						int                    y = 2;
+						int y = 2;
 						final @NotNull GenType genType;
 						try {
 							if (potentialType.genType.getTypeName() == null) {
 								final OS_Type attached = potentialType.getAttached();
-								if (attached == null) continue;
+								if (attached == null)
+									continue;
 
 								genType = aDeduceTypes2.resolve_type(attached, aContext);
-								if (genType.getResolved() == null && genType.getTypeName().getType() == OS_Type.Type.USER_CLASS) {
+								if (genType.getResolved() == null
+										&& genType.getTypeName().getType() == OS_Type.Type.USER_CLASS) {
 									genType.setResolved(genType.getTypeName());
 									genType.setTypeName(null);
 								}
 							} else {
-								if (potentialType.genType.getResolved() == null && potentialType.genType.getResolvedn() == null) {
+								if (potentialType.genType.getResolved() == null
+										&& potentialType.genType.getResolvedn() == null) {
 									final OS_Type attached = potentialType.genType.getTypeName();
 
 									genType = aDeduceTypes2.resolve_type(attached, aContext);
@@ -226,20 +238,20 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 					return Operation.success(new ArrayList<>(set));
 				}
 			};
-			/*=======================================*/
-			/*=======================================*/
-			/*=======================================*/
-			/*=======================================*/
-			/*=======================================*/
-			/*=======================================*/
-			/*=======================================*/
-			/*=======================================*/
-			/*=======================================*/
-			/*=======================================*/
-			/*=======================================*/
-			/*=======================================*/
-			/*=======================================*/
-			/*=======================================*/
+			/* ======================================= */
+			/* ======================================= */
+			/* ======================================= */
+			/* ======================================= */
+			/* ======================================= */
+			/* ======================================= */
+			/* ======================================= */
+			/* ======================================= */
+			/* ======================================= */
+			/* ======================================= */
+			/* ======================================= */
+			/* ======================================= */
+			/* ======================================= */
+			/* ======================================= */
 			if (!varTableEntry._p_updatePotentialTypesCBPromise.isResolved()) {
 				varTableEntry._p_updatePotentialTypesCBPromise.resolve(varTableEntry.updatePotentialTypesCB);
 			}
@@ -255,7 +267,8 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 		return _gcg;
 	}
 
-	@Deprecated @Override
+	@Deprecated
+	@Override
 	public int getCode() {
 		return _living.getCode();
 	}
@@ -298,7 +311,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 		final List<String> ls = new ArrayList<String>();
 		for (Map.Entry<TypeName, OS_Type> entry : aGenericPart.entrySet()) { // TODO Is this guaranteed to be in order?
 			final OS_Type value = entry.getValue(); // This can be another ClassInvocation using GenType
-			final String  name;
+			final String name;
 
 			if (value instanceof OS_UnknownType) {
 				name = "?";
@@ -350,7 +363,8 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 	public boolean resolve_var_table_entries(@NotNull DeducePhase aDeducePhase) {
 		boolean Result = false;
 
-		if (resolve_var_table_entries_already) return true;
+		if (resolve_var_table_entries_already)
+			return true;
 
 		for (VarTableEntry varTableEntry : varTable) {
 			varTableEntry.getDeduceElement3().resolve_var_table_entries(aDeducePhase, ci);
@@ -371,12 +385,8 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 
 	@Override
 	public @NotNull String toString() {
-		return "EvaClass{" +
-				"klass=" + klass +
-				", code=" + getCode() +
-				", module=" + module.getFileName() +
-				", ci=" + ci.finalizedGenericPrintable() +
-				'}';
+		return "EvaClass{" + "klass=" + klass + ", code=" + getCode() + ", module=" + module.getFileName() + ", ci="
+				+ ci.finalizedGenericPrintable() + '}';
 	}
 }
 

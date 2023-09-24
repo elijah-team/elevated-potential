@@ -21,10 +21,10 @@ public class GenerateStatementImpl implements GenerateStatement {
 	public class Directive {
 
 		private final IExpression expression;
-		private final String      name;
+		private final String name;
 
 		public Directive(final @NotNull Token token_, final IExpression expression_) {
-			name       = token_.getText();
+			name = token_.getText();
 			expression = expression_;
 		}
 

@@ -4,7 +4,7 @@ import tripleo.elijah.diagnostic.Locatable;
 
 public interface NumericExpression extends IExpression, Locatable {
 	@Override
-		// IExpression
+	// IExpression
 	ExpressionKind getKind();
 
 	@Override
@@ -14,7 +14,7 @@ public interface NumericExpression extends IExpression, Locatable {
 	int getLine();
 
 	@Override
-		// IExpression
+	// IExpression
 	OS_Type getType();
 
 	int getValue();
@@ -26,14 +26,14 @@ public interface NumericExpression extends IExpression, Locatable {
 	String repr_();
 
 	@Override
-		// IExpression
+	// IExpression
 	void setKind(ExpressionKind aType);
 
 	@Override
 	void setLeft(IExpression aLeft);
 
 	@Override
-		// IExpression
+	// IExpression
 	void setType(OS_Type deducedExpression);
 
 	@Override

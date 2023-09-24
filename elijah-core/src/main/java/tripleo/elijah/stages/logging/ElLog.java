@@ -20,16 +20,17 @@ public class ElLog {
 	public enum Verbosity {
 		SILENT, VERBOSE
 	}
-	private final List<LogEntry> entries = new ArrayList<>();
-	private final Verbosity      verbose;
-	private final String         fileName;
 
-	private final String         phase;
+	private final List<LogEntry> entries = new ArrayList<>();
+	private final Verbosity verbose;
+	private final String fileName;
+
+	private final String phase;
 
 	public ElLog(String aFileName, Verbosity aVerbose, String aPhase) {
 		fileName = aFileName;
-		verbose  = aVerbose;
-		phase    = aPhase;
+		verbose = aVerbose;
+		phase = aPhase;
 	}
 
 	public void err(String aMessage) {

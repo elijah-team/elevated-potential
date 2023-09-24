@@ -22,14 +22,14 @@ import java.util.Set;
  * Created 3/4/22 7:14 AM
  */
 public class ClassDefinition {
-	private final ClassStatement      primary;
+	private final ClassStatement primary;
 	private final Set<ClassStatement> extended = new HashSet<ClassStatement>();
-	private       ClassInvocation     invocation;
-	private       EvaClass            node;
-	private       IComposable         composable;
+	private ClassInvocation invocation;
+	private EvaClass node;
+	private IComposable composable;
 
 	public ClassDefinition(final @NotNull ClassInvocation aClassInvocation) {
-		primary    = aClassInvocation.getKlass();
+		primary = aClassInvocation.getKlass();
 		invocation = aClassInvocation;
 	}
 

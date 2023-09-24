@@ -16,8 +16,8 @@ import tripleo.elijah.lang.i.OS_Type;
 
 /**
  * @author Tripleo
- * <p>
- * Created Apr 16, 2020 at 7:58:36 AM
+ *         <p>
+ *         Created Apr 16, 2020 at 7:58:36 AM
  */
 public class GetItemExpressionImpl extends AbstractExpression implements tripleo.elijah.lang.i.GetItemExpression { // TODO
 	// binary?
@@ -26,7 +26,7 @@ public class GetItemExpressionImpl extends AbstractExpression implements tripleo
 	public IExpression index; // TODO what about multidimensional arrays?
 
 	public GetItemExpressionImpl(final IExpression ee, final IExpression expr) {
-		this.left  = ee;
+		this.left = ee;
 		this.index = expr;
 		this._kind = ExpressionKind.GET_ITEM;
 	}

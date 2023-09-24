@@ -40,7 +40,8 @@ import static org.mockito.Mockito.mock;
 import static tripleo.elijah.util.Helpers.List_of;
 
 /**
- * Useless tests. We really want to know if a TypeName will resolve to the same types
+ * Useless tests. We really want to know if a TypeName will resolve to the same
+ * types
  */
 @Disabled
 public class DeduceTypesTest {
@@ -57,20 +58,20 @@ public class DeduceTypesTest {
 		boilerplate.get();
 		boilerplate.getGenerateFiles(boilerplate.defaultMod());
 
-		final OS_Module     mod  = boilerplate.defaultMod();
+		final OS_Module mod = boilerplate.defaultMod();
 		final ModuleContext mctx = new ModuleContext(mod);
 		mod.setContext(mctx);
 
 		final ClassStatement cs = new ClassStatementImpl(mod, mod.getContext());
-		final ClassHeader    ch = new ClassHeaderImpl(false, List_of());
+		final ClassHeader ch = new ClassHeaderImpl(false, List_of());
 		ch.setName(Helpers.string_to_ident("Test"));
 		cs.setHeader(ch);
 		final FunctionDef fd = cs.funcDef();
 		fd.setName(Helpers.string_to_ident("test"));
-		final Scope3           scope3 = new Scope3Impl(fd);
-		final VariableSequence vss    = scope3.statementClosure().varSeq(fd.getContext());
-		final VariableStatement vs      = vss.next();
-		final IdentExpression   x_ident = Helpers.string_to_ident("x");
+		final Scope3 scope3 = new Scope3Impl(fd);
+		final VariableSequence vss = scope3.statementClosure().varSeq(fd.getContext());
+		final VariableStatement vs = vss.next();
+		final IdentExpression x_ident = Helpers.string_to_ident("x");
 		x_ident.setContext(fd.getContext());
 		vs.setName(x_ident);
 		final Qualident qu = new QualidentImpl();
@@ -87,28 +88,27 @@ public class DeduceTypesTest {
 
 		mod.setPrelude(mod.getCompilation().findPrelude("c").success().module());
 
-		//final PipelineLogic pl           = boilerplate.pipelineLogic;
-
+		// final PipelineLogic pl = boilerplate.pipelineLogic;
 
 		final ElLog.Verbosity verbosity = Compilation.gitlabCIVerbosity();
-		final DeducePhase     dp        = boilerplate.getDeducePhase();
+		final DeducePhase dp = boilerplate.getDeducePhase();
 
 		var wm = new DefaultWorldModule(mod, boilerplate.comp.getCompilationEnclosure());
 
 		final DeduceTypes2 d = dp.deduceModule(wm, dp.generatedClasses, verbosity);
 
-		//final @NotNull GenerateFunctions gf = boilerplate.pr.pipelineLogic().generatePhase.getGenerateFunctions(mod);
+		// final @NotNull GenerateFunctions gf =
+		// boilerplate.pr.pipelineLogic().generatePhase.getGenerateFunctions(mod);
 
 		final BaseEvaFunction bgf = mock(BaseEvaFunction.class);
 
-		final IdentTableEntry                ite     = new IdentTableEntry(0, x1, x1.getContext(), bgf);
-		final DeduceElementIdent             dei     = new DeduceElementIdent(ite);
+		final IdentTableEntry ite = new IdentTableEntry(0, x1, x1.getContext(), bgf);
+		final DeduceElementIdent dei = new DeduceElementIdent(ite);
 		final DeduceElement3_IdentTableEntry de3_ite = ite.getDeduceElement3(d, bgf);
-
 
 		final Operation2<WorldModule> fpl0 = boilerplate.comp.findPrelude("c");
 		assert fpl0.mode() == Mode.SUCCESS;
-		//final Operation2<OS_Module>   fpl  = boilerplate.comp.findPrelude("c");
+		// final Operation2<OS_Module> fpl = boilerplate.comp.findPrelude("c");
 		mod.setPrelude(fpl0.success().module());
 
 		final DeduceElement3_IdentTableEntry xxx = DeduceLookupUtils.deduceExpression2(de3_ite, fc);
@@ -118,9 +118,9 @@ public class DeduceTypesTest {
 
 	/**
 	 * TODO This test fails beacause we are comparing a BUILT_IN vs a USER OS_Type.
-	 *   It fails because Integer is an interface and not a BUILT_IN
+	 * It fails because Integer is an interface and not a BUILT_IN
 	 */
-	@Test//(expected = ResolveError.class)
+	@Test // (expected = ResolveError.class)
 	public void testDeduceIdentExpression1() {
 		final BuiltInTypes bi_integer = new OS_BuiltinType(BuiltInTypes.SystemInteger).getBType();
 		final BuiltInTypes inferred_t = x.getResolved().getBType();
@@ -133,17 +133,17 @@ public class DeduceTypesTest {
 	 */
 	@Test
 	public void testDeduceIdentExpression2() {
-		final RegularTypeName tn  = new RegularTypeNameImpl();
-		final Qualident       tnq = new QualidentImpl();
+		final RegularTypeName tn = new RegularTypeNameImpl();
+		final Qualident tnq = new QualidentImpl();
 		tnq.append(Helpers.string_to_ident("Integer"));
 		tn.setName(tnq);
-		assertTrue(genTypeTypenameEquals(new OS_UserType(tn), x/*.getTypeName()*/));
+		assertTrue(genTypeTypenameEquals(new OS_UserType(tn), x/* .getTypeName() */));
 	}
 
 	@Test
 	public void testDeduceIdentExpression3() {
-		final VariableTypeName tn  = new VariableTypeNameImpl();
-		final Qualident        tnq = new QualidentImpl();
+		final VariableTypeName tn = new VariableTypeNameImpl();
+		final Qualident tnq = new QualidentImpl();
 		tnq.append(Helpers.string_to_ident("Integer"));
 		tn.setName(tnq);
 		assertEquals(new OS_UserType(tn).getTypeName(), x.getTypeName().getTypeName());
@@ -152,8 +152,8 @@ public class DeduceTypesTest {
 
 	@Test
 	public void testDeduceIdentExpression4() {
-		final VariableTypeName tn  = new VariableTypeNameImpl();
-		final Qualident        tnq = new QualidentImpl();
+		final VariableTypeName tn = new VariableTypeNameImpl();
+		final Qualident tnq = new QualidentImpl();
 		tnq.append(Helpers.string_to_ident("Integer"));
 		tn.setName(tnq);
 		assertEquals(new OS_UserType(tn).getTypeName(), x.getTypeName().getTypeName());

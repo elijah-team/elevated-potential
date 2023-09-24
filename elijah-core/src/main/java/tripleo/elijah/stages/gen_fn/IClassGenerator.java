@@ -14,11 +14,11 @@ public interface IClassGenerator {
 
 	DeducePhase.GeneratedClasses getGeneratedClasses();
 
-	FunctionInvocation newFunctionInvocation(FunctionDef fd,
-											 ProcTableEntry pte,
-											 ClassInvocation ci);
+	FunctionInvocation newFunctionInvocation(FunctionDef fd, ProcTableEntry pte, ClassInvocation ci);
 
-	@Nullable @org.jetbrains.annotations.Nullable ClassInvocation registerClassInvocation(ClassStatement cs, String className);
+	@Nullable
+	@org.jetbrains.annotations.Nullable
+	ClassInvocation registerClassInvocation(ClassStatement cs, String className);
 
 	void submitGenerateClass(ClassInvocation ci, GenerateFunctions gf);
 

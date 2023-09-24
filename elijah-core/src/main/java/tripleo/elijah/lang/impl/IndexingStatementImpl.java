@@ -18,15 +18,15 @@ import java.util.List;
 
 /**
  * @author Tripleo
- * <p>
- * Created Apr 15, 2020 at 4:59:21 AM
+ *         <p>
+ *         Created Apr 15, 2020 at 4:59:21 AM
  */
 public class IndexingStatementImpl implements tripleo.elijah.lang.i.IndexingStatement {
 
-	private       ExpressionList     exprs;
+	private ExpressionList exprs;
 	private final List<IndexingItem> items = new ArrayList<IndexingItem>();
-	private       Token              name;
-	private final OS_Module          parent;
+	private Token name;
+	private final OS_Module parent;
 
 	public IndexingStatementImpl(final OS_Module aModule) {
 		parent = aModule;

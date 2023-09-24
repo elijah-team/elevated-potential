@@ -10,9 +10,10 @@ import tripleo.elijjah.*;
 
 import java.io.*;
 
-	public class CX_ParseElijahFile {
+public class CX_ParseElijahFile {
 
-	public static Operation<OS_Module> parseAndCache(final ElijahSpec aSpec, final ElijahCache aElijahCache, final String absolutePath, final Compilation compilation) {
+	public static Operation<OS_Module> parseAndCache(final ElijahSpec aSpec, final ElijahCache aElijahCache,
+			final String absolutePath, final Compilation compilation) {
 		final Operation<OS_Module> calm;
 		try {
 			calm = parseElijahFile_(aSpec, compilation, aElijahCache, new File(absolutePath), compilation);
@@ -32,7 +33,8 @@ import java.io.*;
 		return parseElijahFile(spec.f(), spec.s(), spec.do_out(), compilation, absolutePath);
 	}
 
-	public static Operation<OS_Module> parseElijahFile(final String f, final InputStream s, final boolean do_out, final Compilation compilation, final String absolutePath) {
+	public static Operation<OS_Module> parseElijahFile(final String f, final InputStream s, final boolean do_out,
+			final Compilation compilation, final String absolutePath) {
 		final ElijjahLexer lexer = new ElijjahLexer(s);
 		lexer.setFilename(f);
 		final ElijjahParser parser = new ElijjahParser(lexer);
@@ -50,17 +52,14 @@ import java.io.*;
 		return Operation.success(module);
 	}
 
-	private static Operation<OS_Module> parseElijahFile_(final ElijahSpec spec,
-	                                                     final Compilation aCompilation,
-	                                                     final ElijahCache aElijahCache,
-	                                                     final File      file   ,
-	                                                     final Compilation c) throws IOException {
+	private static Operation<OS_Module> parseElijahFile_(final ElijahSpec spec, final Compilation aCompilation,
+			final ElijahCache aElijahCache, final File file, final Compilation c) throws IOException {
 		final IO io = aCompilation.getIO();
 
 		// tree add something
 
-		final String    f      = spec.f();
-		final boolean   do_out = spec.do_out();
+		final String f = spec.f();
+		final boolean do_out = spec.do_out();
 		final OS_Module R;
 
 		try (final InputStream s = io.readFile(file)) {

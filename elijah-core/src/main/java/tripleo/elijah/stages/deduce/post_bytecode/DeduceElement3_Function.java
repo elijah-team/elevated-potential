@@ -26,12 +26,13 @@ public class DeduceElement3_Function implements IDeduceElement3 {
 		unitType.setTypeName(new OS_BuiltinType(BuiltInTypes.Unit));
 	}
 
-	private final GenType         _gt;
-	private final DeduceTypes2    deduceTypes2;
+	private final GenType _gt;
+	private final DeduceTypes2 deduceTypes2;
 	private final BaseEvaFunction generatedFunction;
 
-	public DeduceElement3_Function(final @NotNull DeduceTypes2 aDeduceTypes2, final BaseEvaFunction aGeneratedFunction) {
-		deduceTypes2      = aDeduceTypes2;
+	public DeduceElement3_Function(final @NotNull DeduceTypes2 aDeduceTypes2,
+			final BaseEvaFunction aGeneratedFunction) {
+		deduceTypes2 = aDeduceTypes2;
 		generatedFunction = aGeneratedFunction;
 
 		_gt = _inj().new_GenTypeImpl();
@@ -49,7 +50,7 @@ public class DeduceElement3_Function implements IDeduceElement3 {
 	@Override
 	public DED elementDiscriminator() {
 		throw new NotImplementedException();
-		//return null;
+		// return null;
 	}
 
 	@Override
@@ -65,7 +66,7 @@ public class DeduceElement3_Function implements IDeduceElement3 {
 	@Override
 	public OS_Element getPrincipal() {
 		throw new NotImplementedException();
-		//return null;
+		// return null;
 	}
 
 	@Override
@@ -86,7 +87,8 @@ public class DeduceElement3_Function implements IDeduceElement3 {
 	@Nullable
 	public GenType resolve_function_return_type_int(final @NotNull ErrSink errSink) {
 		// MODERNIZATION Does this have any affinity with DeferredMember?
-		@Nullable final InstructionArgument vte_index = generatedFunction.vte_lookup("Result");
+		@Nullable
+		final InstructionArgument vte_index = generatedFunction.vte_lookup("Result");
 		if (vte_index != null) {
 			final @NotNull VariableTableEntry vte = generatedFunction.getVarTableEntry(DeduceTypes2.to_int(vte_index));
 
@@ -94,8 +96,10 @@ public class DeduceElement3_Function implements IDeduceElement3 {
 				vte.resolveType(vte.getType().genType); // TODO doesn't fit pattern of returning and then setting
 				return vte.getType().genType;
 			} else {
-				@NotNull Collection<TypeTableEntry> pot1 = vte.potentialTypes();
-				@NotNull ArrayList<TypeTableEntry>  pot  = new ArrayList<TypeTableEntry>(pot1);
+				@NotNull
+				Collection<TypeTableEntry> pot1 = vte.potentialTypes();
+				@NotNull
+				ArrayList<TypeTableEntry> pot = new ArrayList<TypeTableEntry>(pot1);
 
 				switch (pot.size()) {
 				case 1:

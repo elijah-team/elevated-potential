@@ -20,8 +20,8 @@ import tripleo.elijah.lang.impl.ContextImpl;
  */
 public class PropertyStatementContext extends ContextImpl {
 
-	private final Context           _parent;
-	public        PropertyStatement carrier;
+	private final Context _parent;
+	public PropertyStatement carrier;
 
 	public PropertyStatementContext(final Context aParent, final OS_Element element) {
 		this._parent = aParent;
@@ -34,7 +34,8 @@ public class PropertyStatementContext extends ContextImpl {
 	}
 
 	@Override
-	public LookupResultList lookup(final @NotNull String name, final int level, final @NotNull LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final @NotNull String name, final int level, final @NotNull LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
 		if (name.equals("get")) {

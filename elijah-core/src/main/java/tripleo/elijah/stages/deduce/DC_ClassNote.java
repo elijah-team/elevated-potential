@@ -5,14 +5,15 @@ import tripleo.elijah.stages.gen_fn.*;
 
 class DC_ClassNote {
 	static class DC_ClassNote_DT2 {
-		private final DeduceTypes2    deduceTypes2;
+		private final DeduceTypes2 deduceTypes2;
 		private final BaseEvaFunction generatedFunction;
 		private final IdentTableEntry ite;
 
-		public DC_ClassNote_DT2(final IdentTableEntry aIte, final BaseEvaFunction aGeneratedFunction, final DeduceTypes2 aDeduceTypes2) {
-			ite               = aIte;
+		public DC_ClassNote_DT2(final IdentTableEntry aIte, final BaseEvaFunction aGeneratedFunction,
+				final DeduceTypes2 aDeduceTypes2) {
+			ite = aIte;
 			generatedFunction = aGeneratedFunction;
-			deduceTypes2      = aDeduceTypes2;
+			deduceTypes2 = aDeduceTypes2;
 		}
 
 		public DeduceTypes2 getDeduceTypes2() {
@@ -27,15 +28,16 @@ class DC_ClassNote {
 			return ite;
 		}
 	}
-	private final DeduceCentral    central;
-	private final Context          ctx;
-	private final ClassStatement   e;
 
-	private       DC_ClassNote_DT2 dc_classNote_dt2;
+	private final DeduceCentral central;
+	private final Context ctx;
+	private final ClassStatement e;
+
+	private DC_ClassNote_DT2 dc_classNote_dt2;
 
 	public DC_ClassNote(final ClassStatement aE, final Context aCtx, final DeduceCentral aCentral) {
-		e       = aE;
-		ctx     = aCtx;
+		e = aE;
+		ctx = aCtx;
 		central = aCentral;
 	}
 

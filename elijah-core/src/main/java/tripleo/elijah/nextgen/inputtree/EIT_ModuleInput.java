@@ -15,12 +15,12 @@ import java.util.List;
 
 public class EIT_ModuleInput implements EIT_Input {
 	private final Compilation c;
-	private final OS_Module   module;
+	private final OS_Module module;
 
 	@Contract(pure = true)
 	public EIT_ModuleInput(final OS_Module aModule, final Compilation aC) {
 		module = aModule;
-		c      = aC;
+		c = aC;
 	}
 
 	public @NotNull SM_Module computeSourceModel() {
@@ -42,28 +42,24 @@ public class EIT_ModuleInput implements EIT_Input {
 		return sm;
 	}
 
-/*
-	public void doGenerate(final List<EvaNode> nodes,
-						   final WorkManager wm,
-						   final @NotNull Consumer<GenerateResult> resultConsumer,
-						   final CompilationEnclosure ce) {
-		// 0. get lang
-		final String lang = langOfModule();
-
-		// 1. find Generator (GenerateFiles) eg. GenerateC
-		final OutputFileFactoryParams p             = new OutputFileFactoryParams(module, ce);
-		final GenerateFiles           generateFiles = OutputFileFactory.create(lang, p);
-
-		// 2. query results
-		final GenerateResult gr2 = generateFiles.resultsFromNodes(nodes, wm, ((GenerateC) generateFiles).resultSink);
-
-		// 3. #drain workManager -> README part of workflow. may change later as appropriate
-		wm.drain();
-
-		// 4. tail process results
-		resultConsumer.accept(gr2);
-	}
-*/
+	/*
+	 * public void doGenerate(final List<EvaNode> nodes, final WorkManager wm,
+	 * final @NotNull Consumer<GenerateResult> resultConsumer, final
+	 * CompilationEnclosure ce) { // 0. get lang final String lang = langOfModule();
+	 * 
+	 * // 1. find Generator (GenerateFiles) eg. GenerateC final
+	 * OutputFileFactoryParams p = new OutputFileFactoryParams(module, ce); final
+	 * GenerateFiles generateFiles = OutputFileFactory.create(lang, p);
+	 * 
+	 * // 2. query results final GenerateResult gr2 =
+	 * generateFiles.resultsFromNodes(nodes, wm, ((GenerateC)
+	 * generateFiles).resultSink);
+	 * 
+	 * // 3. #drain workManager -> README part of workflow. may change later as
+	 * appropriate wm.drain();
+	 * 
+	 * // 4. tail process results resultConsumer.accept(gr2); }
+	 */
 
 	@Override
 	public @NotNull EIT_InputType getType() {
@@ -72,10 +68,11 @@ public class EIT_ModuleInput implements EIT_Input {
 
 	@NotNull
 	private String langOfModule() {
-		final LibraryStatementPart lsp  = module.getLsp();
-		final CompilerInstructions ci   = lsp.getInstructions();
-		final String               lang = ci.genLang() == null ? Compilation.CompilationAlways.defaultPrelude() : ci.genLang();
-		// DEFAULT(compiler-default), SPECIFIED(gen-clause: codePoint), INHERITED(cp) // CodePoint??
+		final LibraryStatementPart lsp = module.getLsp();
+		final CompilerInstructions ci = lsp.getInstructions();
+		final String lang = ci.genLang() == null ? Compilation.CompilationAlways.defaultPrelude() : ci.genLang();
+		// DEFAULT(compiler-default), SPECIFIED(gen-clause: codePoint), INHERITED(cp) //
+		// CodePoint??
 		return lang;
 	}
 }

@@ -13,17 +13,17 @@ import tripleo.elijah.stages.gen_fn.*;
 public class DG_ClassStatement implements DG_Item {
 	private final ClassStatement classStatement;
 	GenericElementHolder genericElementHolder;
-	private EvaClass           _evaNode;
-	private ClassInvocation    classInvocation;
+	private EvaClass _evaNode;
+	private ClassInvocation classInvocation;
 	private FunctionInvocation fi;
-	private ProcTableEntry     pte;
+	private ProcTableEntry pte;
 
 	public DG_ClassStatement(final ClassStatement aClassStatement) {
 		classStatement = aClassStatement;
 	}
 
 	public void attach(final FunctionInvocation aFi, final ProcTableEntry aPte) {
-		fi  = aFi;
+		fi = aFi;
 		pte = aPte;
 	}
 
@@ -34,13 +34,13 @@ public class DG_ClassStatement implements DG_Item {
 	public @NotNull ClassInvocation classInvocation() {
 		if (classInvocation == null) {
 			classInvocation = new ClassInvocation((classStatement), null, new NULL_DeduceTypes2()); // 08/28 !!
-			//classInvocation = _inj().new_ClassInvocation((classStatement), null);
+			// classInvocation = _inj().new_ClassInvocation((classStatement), null);
 		}
 		return classInvocation;
 	}
 
 	public @NotNull IElementHolder ConstructableElementHolder(final OS_Element aE, final VariableTableEntry aVte) {
-		//return _inj().new_ConstructableElementHolder(classStatement, aVte);
+		// return _inj().new_ConstructableElementHolder(classStatement, aVte);
 		return new ConstructableElementHolder(classStatement, aVte);
 	}
 
@@ -54,7 +54,7 @@ public class DG_ClassStatement implements DG_Item {
 
 	public @NotNull GenericElementHolder GenericElementHolder() {
 		if (genericElementHolder == null) {
-			//genericElementHolder = _inj().new_GenericElementHolder(classStatement);
+			// genericElementHolder = _inj().new_GenericElementHolder(classStatement);
 			genericElementHolder = new GenericElementHolder(classStatement);
 		}
 		return genericElementHolder;

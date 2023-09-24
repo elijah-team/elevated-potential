@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.text.MessageFormat;
 
 public class C_Assignment {
-	private String          left;
+	private String left;
 	private C_ProcedureCall right_pc;
 
 	public @NotNull String getString() {

@@ -11,17 +11,19 @@ public class DefaultCompilerController implements CompilerController {
 	public class _DefaultCon implements Con {
 		@Override
 		public CompilationRunner newCompilationRunner(final ICompilationAccess compilationAccess) {
-			final CR_State          crState = new CR_State(compilationAccess);
-			final CompilationRunner cr      = new CompilationRunner(compilationAccess, crState);
+			final CR_State crState = new CR_State(compilationAccess);
+			final CompilationRunner cr = new CompilationRunner(compilationAccess, crState);
 
 			crState.setRunner(cr);
 
 			return cr;
 		}
 	}
+
 	public interface Con {
 		CompilationRunner newCompilationRunner(ICompilationAccess aCompilationAccess);
 	}
+
 	List<String> args;
 	private Compilation c;
 
@@ -31,7 +33,7 @@ public class DefaultCompilerController implements CompilerController {
 
 	@Override
 	public void _setInputs(final Compilation aCompilation, final List<CompilerInput> aInputs) {
-		c      = aCompilation;
+		c = aCompilation;
 		inputs = aInputs;
 	}
 
@@ -46,10 +48,10 @@ public class DefaultCompilerController implements CompilerController {
 
 	@Override
 	public Operation<Ok> processOptions() {
-		final OptionsProcessor             op                   = new ApacheOptionsProcessor();
-		final CompilerInstructionsObserver cio                  = new CompilerInstructionsObserver(c);
+		final OptionsProcessor op = new ApacheOptionsProcessor();
+		final CompilerInstructionsObserver cio = new CompilerInstructionsObserver(c);
 
-		final CompilationEnclosure         compilationEnclosure = c.getCompilationEnclosure();
+		final CompilationEnclosure compilationEnclosure = c.getCompilationEnclosure();
 
 		compilationEnclosure.setCompilationAccess(c.con().createCompilationAccess());
 		compilationEnclosure.setCompilationBus(c.con().createCompilationBus());

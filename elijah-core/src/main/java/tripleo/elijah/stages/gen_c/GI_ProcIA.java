@@ -25,23 +25,23 @@ import java.util.List;
 import java.util.function.Consumer;
 
 class GI_ProcIA implements GenerateC_Item {
-	private final          GenerateC      gc;
+	private final GenerateC gc;
 	private final @NotNull ProcTableEntry pte;
-	private                EvaNode        _evaNode;
-	private final          ProcIA         carrier;
+	private EvaNode _evaNode;
+	private final ProcIA carrier;
 
 	public GI_ProcIA(final ProcIA aProcIA, final GenerateC aGenerateC) {
-		carrier  = aProcIA;
-		this.gc  = aGenerateC;
+		carrier = aProcIA;
+		this.gc = aGenerateC;
 		this.pte = carrier.getEntry();
 	}
 
-	public @NotNull Operation2<EG_Statement> action_CONSTRUCT(@NotNull Instruction aInstruction, @NotNull GenerateC gc) {
-		final ProcTableEntry       pte = carrier.getEntry();
-		final List<TypeTableEntry> x   = pte.getArgs();
-		final int                  y   = aInstruction.getArgsSize();
+	public @NotNull Operation2<EG_Statement> action_CONSTRUCT(@NotNull Instruction aInstruction,
+			@NotNull GenerateC gc) {
+		final ProcTableEntry pte = carrier.getEntry();
+		final List<TypeTableEntry> x = pte.getArgs();
+		final int y = aInstruction.getArgsSize();
 //		InstructionArgument z = instruction.getArg(1);
-
 
 		final ClassInvocation clsinv = pte.getClassInvocation();
 		if (pte.__debug_expression instanceof IdentExpression ie)
@@ -54,13 +54,15 @@ class GI_ProcIA implements GenerateC_Item {
 
 			if (target instanceof IdentIA) {
 				// how to tell between named ctors and just a path?
-				@NotNull final IdentTableEntry target2 = ((IdentIA) target).getEntry();
-				final String                   str     = target2.getIdent().getText();
+				@NotNull
+				final IdentTableEntry target2 = ((IdentIA) target).getEntry();
+				final String str = target2.getIdent().getText();
 
 				System.out.println("130  " + str);
 			}
 
-			final String s = MessageFormat.format("{0}{1};", Emit.emit("/*500*/"), getAssignmentValue(aInstruction, gc));
+			final String s = MessageFormat.format("{0}{1};", Emit.emit("/*500*/"),
+					getAssignmentValue(aInstruction, gc));
 
 			return Operation2.success(new EG_SingleStatement(s, EX_Explanation.withMessage("aaa")));
 		}
@@ -69,21 +71,23 @@ class GI_ProcIA implements GenerateC_Item {
 	}
 
 	public String getAssignmentValue(final @NotNull Instruction aInstruction, final @NotNull GenerateC gc) {
-		final BaseEvaFunction gf     = carrier.generatedFunction();
+		final BaseEvaFunction gf = carrier.generatedFunction();
 		final ClassInvocation clsinv = carrier.getEntry().getClassInvocation();
 
-		//return gc.getAssignmentValue(gf.getSelf(), aInstruction, clsinv, gf);
+		// return gc.getAssignmentValue(gf.getSelf(), aInstruction, clsinv, gf);
 
 		GenerateC.GetAssignmentValue gav = gc.new GetAssignmentValue();
 //		return gav.forClassInvocation(aInstruction, clsinv, gf, gc.LOG);
 
-		InstructionArgument     _arg0 = aInstruction.getArg(0);
-		@NotNull ProcTableEntry pte   = carrier.getEntry();
+		InstructionArgument _arg0 = aInstruction.getArg(0);
+		@NotNull
+		ProcTableEntry pte = carrier.getEntry();
 
 		final CtorReference reference = new CtorReference();
 		reference.getConstructorPath(pte.expression_num, gf);
 		final GetAssignmentValueArgsStatement ava = gav.getAssignmentValueArgs(aInstruction, gf, gc.LOG);
-		@NotNull List<String>                 x   = ava.stringList();
+		@NotNull
+		List<String> x = ava.stringList();
 		reference.args(x);
 		final String build = reference.build(clsinv);
 		return build;
@@ -98,27 +102,27 @@ class GI_ProcIA implements GenerateC_Item {
 		return getIdentIAPath_Proc(carrier.getEntry(), addRef);
 	}
 
-	public @Nullable String getIdentIAPath_Proc(final @NotNull ProcTableEntry pte, final @NotNull Consumer<Pair<String, CReference.Ref>> addRef) {
-		final String[]           text = new String[1];
-		final FunctionInvocation fi   = pte.getFunctionInvocation();
+	public @Nullable String getIdentIAPath_Proc(final @NotNull ProcTableEntry pte,
+			final @NotNull Consumer<Pair<String, CReference.Ref>> addRef) {
+		final String[] text = new String[1];
+		final FunctionInvocation fi = pte.getFunctionInvocation();
 
 		if (fi == null) {
 			tripleo.elijah.util.Stupidity.println_err_2("7777777777777777 fi getIdentIAPath_Proc " + pte);
 
-			return null;//throw new IllegalStateException();
+			return null;// throw new IllegalStateException();
 		}
 
-		/*final*/
-		BaseEvaFunction                     generated = fi.getGenerated();
-		final DeduceElement3_ProcTableEntry de_pte    = (DeduceElement3_ProcTableEntry) pte.getDeduceElement3();
+		/* final */
+		BaseEvaFunction generated = fi.getGenerated();
+		final DeduceElement3_ProcTableEntry de_pte = (DeduceElement3_ProcTableEntry) pte.getDeduceElement3();
 
 		if (generated == null) {
 			System.err.println("6464 " + fi.pte);
 
-			final WlGenerateCtor wlgf = new WlGenerateCtor(de_pte.deduceTypes2().getGenerateFunctions(de_pte.getPrincipal().getContext().module()),
-														   fi,
-														   null,
-														   de_pte.deduceTypes2().phase.getCodeRegistrar());
+			final WlGenerateCtor wlgf = new WlGenerateCtor(
+					de_pte.deduceTypes2().getGenerateFunctions(de_pte.getPrincipal().getContext().module()), fi, null,
+					de_pte.deduceTypes2().phase.getCodeRegistrar());
 			wlgf.run(null);
 			generated = wlgf.getResult();
 
@@ -126,7 +130,7 @@ class GI_ProcIA implements GenerateC_Item {
 				identTableEntry._fix_table(de_pte.deduceTypes2(), de_pte.generatedFunction());
 			}
 
-			//throw new IllegalStateException();
+			// throw new IllegalStateException();
 		}
 
 		if (generated instanceof EvaConstructor ec) {

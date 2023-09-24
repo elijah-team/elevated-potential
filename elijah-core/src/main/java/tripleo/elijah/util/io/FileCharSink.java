@@ -11,8 +11,8 @@ import java.io.OutputStream;
 
 /**
  * @author Tripleo(sb)
- * <p>
- * Created 	Dec 9, 2019 at 3:23:57 PM
+ *         <p>
+ *         Created Dec 9, 2019 at 3:23:57 PM
  */
 public class FileCharSink implements DisposableCharSink {
 
@@ -23,7 +23,9 @@ public class FileCharSink implements DisposableCharSink {
 		this.fos = fos;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see tripleo.util.io.CharSink#accept(char)
 	 */
 	@Override
@@ -36,7 +38,9 @@ public class FileCharSink implements DisposableCharSink {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see tripleo.util.io.CharSink#accept(java.lang.String)
 	 */
 	@Override
@@ -45,7 +49,7 @@ public class FileCharSink implements DisposableCharSink {
 			fos.write(string1.getBytes());
 		} catch (final IOException e) {
 			NotImplementedException.raise();
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 	}
 
@@ -55,7 +59,7 @@ public class FileCharSink implements DisposableCharSink {
 			fos.close();
 		} catch (final IOException aE) {
 			NotImplementedException.raise();
-			//aE.printStackTrace();
+			// aE.printStackTrace();
 		}
 	}
 

@@ -5,9 +5,6 @@ import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
 
-public record GenerateResultEnv(GenerateResultSink resultSink,
-								GenerateResult gr,
-								WorkManager wm,
-								WorkList wl,
-								GM_GenerateModule gmgm) {
+public record GenerateResultEnv(GenerateResultSink resultSink, GenerateResult gr, WorkManager wm, WorkList wl,
+		GM_GenerateModule gmgm) {
 }

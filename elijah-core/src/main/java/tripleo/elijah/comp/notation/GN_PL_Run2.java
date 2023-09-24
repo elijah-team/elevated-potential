@@ -15,9 +15,7 @@ import tripleo.elijah.world.impl.*;
 import java.util.function.*;
 
 public class GN_PL_Run2 implements GN_Notable, @NotNull EventualRegister {
-	public record GenerateFunctionsRequest(IClassGenerator classGenerator,
-										   DefaultWorldModule worldModule
-	) {
+	public record GenerateFunctionsRequest(IClassGenerator classGenerator, DefaultWorldModule worldModule) {
 		public ModuleThing mt() {
 			return worldModule.thing();
 		}
@@ -26,28 +24,28 @@ public class GN_PL_Run2 implements GN_Notable, @NotNull EventualRegister {
 			return worldModule.module();
 		}
 	}
+
 	@Contract("_ -> new")
 	@SuppressWarnings("unused")
 	public static @NotNull GN_PL_Run2 getFactoryEnv(GN_Env env1) {
 		var env = (GN_PL_Run2_Env) env1;
 		return new GN_PL_Run2(env.pipelineLogic(), env.mod(), env.ce(), env.worldConsumer());
 	}
+
 	private final @NotNull WorldModule mod;
-	private final          PipelineLogic         pipelineLogic;
-	private final          CompilationEnclosure  ce;
+	private final PipelineLogic pipelineLogic;
+	private final CompilationEnclosure ce;
 
-	private final          DefaultClassGenerator dcg;
+	private final DefaultClassGenerator dcg;
 
-	private final          Consumer<WorldModule> worldConsumer;
+	private final Consumer<WorldModule> worldConsumer;
 
 	@Contract(pure = true)
-	public GN_PL_Run2(final PipelineLogic aPipelineLogic,
-					  final @NotNull WorldModule aMod,
-					  final CompilationEnclosure aCe,
-					  final Consumer<WorldModule> aWorldConsumer) {
+	public GN_PL_Run2(final PipelineLogic aPipelineLogic, final @NotNull WorldModule aMod,
+			final CompilationEnclosure aCe, final Consumer<WorldModule> aWorldConsumer) {
 		pipelineLogic = aPipelineLogic;
-		mod           = aMod;
-		ce            = aCe;
+		mod = aMod;
+		ce = aCe;
 		worldConsumer = aWorldConsumer;
 
 		dcg = new DefaultClassGenerator(pipelineLogic.dp);
@@ -69,8 +67,8 @@ public class GN_PL_Run2 implements GN_Notable, @NotNull EventualRegister {
 
 	@Override
 	public void run() {
-		final DefaultWorldModule       worldModule = (DefaultWorldModule) mod;
-		final GenerateFunctionsRequest rq          = new GenerateFunctionsRequest(dcg, worldModule);
+		final DefaultWorldModule worldModule = (DefaultWorldModule) mod;
+		final GenerateFunctionsRequest rq = new GenerateFunctionsRequest(dcg, worldModule);
 
 		worldModule.setRq(rq);
 
@@ -78,8 +76,8 @@ public class GN_PL_Run2 implements GN_Notable, @NotNull EventualRegister {
 		plgc.register(pipelineLogic);
 
 		plgc.then(lgc -> {
-			final ICodeRegistrar cr             = dcg.getCodeRegistrar();
-			final ResolvedNodes  resolved_nodes2 = new ResolvedNodes(cr);
+			final ICodeRegistrar cr = dcg.getCodeRegistrar();
+			final ResolvedNodes resolved_nodes2 = new ResolvedNodes(cr);
 
 			resolved_nodes2.init(lgc);
 			resolved_nodes2.part2();

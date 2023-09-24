@@ -11,7 +11,7 @@ import java.util.List;
 
 public class GetAssignmentValueArgsStatement implements EG_Statement {
 	private final List<String> sll = new ArrayList<>();
-	private final Instruction  inst;
+	private final Instruction inst;
 
 	public GetAssignmentValueArgsStatement(final Instruction aInst) {
 		inst = aInst;
@@ -24,13 +24,13 @@ public class GetAssignmentValueArgsStatement implements EG_Statement {
 	@Override
 	public EX_Explanation getExplanation() {
 		throw new UnintendedUseException();
-		//return null;
+		// return null;
 	}
 
 	@Override
 	public @Nullable String getText() {
 		throw new UnintendedUseException();
-		//return null;
+		// return null;
 	}
 
 	public List<String> stringList() {

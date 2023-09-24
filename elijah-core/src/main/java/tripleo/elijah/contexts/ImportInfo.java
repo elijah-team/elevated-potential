@@ -21,19 +21,17 @@ public class ImportInfo implements ContextInfo {
 	// something else (I think I got it)
 
 	ImportStatement importStatement;
-	Qualident  importPart;
-	int        importPartIndex;
+	Qualident importPart;
+	int importPartIndex;
 
 	ImportType importType;
 
-	public ImportInfo(final ImportStatement aImportStatement,
-					  final Qualident aImportPart,
-					  final int aImportPartIndex,
-					  final ImportType aImportType) {
+	public ImportInfo(final ImportStatement aImportStatement, final Qualident aImportPart, final int aImportPartIndex,
+			final ImportType aImportType) {
 		importStatement = aImportStatement;
-		importPart      = aImportPart;
+		importPart = aImportPart;
 		importPartIndex = aImportPartIndex;
-		importType      = aImportType;
+		importType = aImportType;
 	}
 }
 

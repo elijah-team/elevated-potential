@@ -17,8 +17,8 @@ import tripleo.elijah.world.*;
 
 /**
  * @author Tripleo
- * <p>
- * Created Apr 16, 2020 at 7:34:07 AM
+ *         <p>
+ *         Created Apr 16, 2020 at 7:34:07 AM
  */
 public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elijah.lang.i.ConstructorDef {
 
@@ -28,7 +28,8 @@ public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elija
 
 //	private @Nullable TypeName rt;
 
-	public ConstructorDefImpl(final @Nullable IdentExpression aConstructorName, final _CommonNC aParent, final Context context) {
+	public ConstructorDefImpl(final @Nullable IdentExpression aConstructorName, final _CommonNC aParent,
+			final Context context) {
 		parent = (OS_Element) aParent;
 		if (parent != null) {
 			if (aParent instanceof OS_Container) {
@@ -72,7 +73,7 @@ public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elija
 	public void serializeTo(@NotNull SmallWriter sw) {
 		// TODO Auto-generated method stub
 		sw.fieldIdent("name", this.getNameNode());
-		//throw new NotImplementedException();
+		// throw new NotImplementedException();
 	}
 
 	@Override

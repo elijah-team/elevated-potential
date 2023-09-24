@@ -17,24 +17,22 @@ import java.util.stream.*;
 
 public class EIT_ModuleList {
 	private static class _ProcessParams {
-		private final @NotNull DeducePhase       deducePhase;
+		private final @NotNull DeducePhase deducePhase;
 		@NotNull
-		private final          EntryPointList    epl;
+		private final EntryPointList epl;
 		private final @NotNull GenerateFunctions gfm;
-		private final          WorldModule       mod;
-		private final @NotNull PipelineLogic     pipelineLogic;
+		private final WorldModule mod;
+		private final @NotNull PipelineLogic pipelineLogic;
 
 		@Contract(pure = true)
-		private _ProcessParams(@NotNull final WorldModule aModule,
-							   @NotNull final PipelineLogic aPipelineLogic,
-							   @NotNull final GenerateFunctions aGenerateFunctions,
-							   @NotNull final EntryPointList aEntryPointList,
-							   @NotNull final DeducePhase aDeducePhase) {
-			mod           = aModule;
+		private _ProcessParams(@NotNull final WorldModule aModule, @NotNull final PipelineLogic aPipelineLogic,
+				@NotNull final GenerateFunctions aGenerateFunctions, @NotNull final EntryPointList aEntryPointList,
+				@NotNull final DeducePhase aDeducePhase) {
+			mod = aModule;
 			pipelineLogic = aPipelineLogic;
-			gfm           = aGenerateFunctions;
-			epl           = aEntryPointList;
-			deducePhase   = aDeducePhase;
+			gfm = aGenerateFunctions;
+			epl = aEntryPointList;
+			deducePhase = aDeducePhase;
 		}
 
 		public void deduceModule() {
@@ -89,7 +87,7 @@ public class EIT_ModuleList {
 
 		plp.generate();
 
-		//assert lgc.size() == epl.size(); //hmm
+		// assert lgc.size() == epl.size(); //hmm
 
 		final ICodeRegistrar codeRegistrar = plp.pipelineLogic.generatePhase.getCodeRegistrar();
 		assert codeRegistrar != null;
@@ -103,7 +101,7 @@ public class EIT_ModuleList {
 
 		plp.deduceModule();
 
-		//PipelineLogic.resolveCheck(lgc);
+		// PipelineLogic.resolveCheck(lgc);
 
 //			for (final GeneratedNode gn : lgf) {
 //				if (gn instanceof EvaFunction) {
@@ -125,10 +123,10 @@ public class EIT_ModuleList {
 		return mods;
 	}
 
-	public void process__PL(final Function<WorldModule, GenerateFunctions> ggf, final @NotNull PipelineLogic pipelineLogic) {
+	public void process__PL(final Function<WorldModule, GenerateFunctions> ggf,
+			final @NotNull PipelineLogic pipelineLogic) {
 		for (final WorldModule mod : mods) {
-			final @NotNull EntryPointList epl = null; //mod.entryPoints;
-
+			final @NotNull EntryPointList epl = null; // mod.entryPoints;
 
 			//
 			//
@@ -145,16 +143,15 @@ public class EIT_ModuleList {
 			//
 			//
 
-
 			if (epl.size() == 0) {
 				continue;
 			}
 
-
 			final GenerateFunctions gfm = ggf.apply(mod);
 
 			final DeducePhase deducePhase = pipelineLogic.dp;
-			//final DeducePhase.@NotNull GeneratedClasses lgc            = deducePhase.generatedClasses;
+			// final DeducePhase.@NotNull GeneratedClasses lgc =
+			// deducePhase.generatedClasses;
 
 			final _ProcessParams plp = new _ProcessParams(mod, pipelineLogic, gfm, epl, deducePhase);
 

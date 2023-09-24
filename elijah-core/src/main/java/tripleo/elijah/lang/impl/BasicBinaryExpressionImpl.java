@@ -15,18 +15,18 @@ public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 
 	public @Nullable ExpressionKind _kind;
 	OS_Type _type;
-	public @Nullable IExpression    left;
-	public @Nullable IExpression    right;
-	private          ExpressionList args;
+	public @Nullable IExpression left;
+	public @Nullable IExpression right;
+	private ExpressionList args;
 
 	public BasicBinaryExpressionImpl() {
-		left  = null;
+		left = null;
 		right = null;
 		_kind = null;
 	}
 
 	public BasicBinaryExpressionImpl(final IExpression aLeft, final ExpressionKind aType, final IExpression aRight) {
-		left  = aLeft;
+		left = aLeft;
 		_kind = aType;
 		right = aRight;
 	}
@@ -67,7 +67,7 @@ public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 
 	@Override
 	public void set(final @NotNull IBinaryExpression aEx) {
-		left  = aEx.getLeft();
+		left = aEx.getLeft();
 		_kind = aEx.getKind();
 		right = aEx.getRight();
 	}
@@ -98,11 +98,10 @@ public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 
 	@Override
 	public void shift(final ExpressionKind aType) {
-		left  = new BasicBinaryExpressionImpl(left, _kind, right); // TODO
+		left = new BasicBinaryExpressionImpl(left, _kind, right); // TODO
 		_kind = aType;
 		right = null;
 	}
-
 
 	/*
 	 * (non-Javadoc)
@@ -111,7 +110,7 @@ public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 	 */
 	@Override
 	public String toString() {
-		final StringBuilder         sb  = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		final BasicBinaryExpression abe = this;
 		switch (abe.getKind()) {
 		case ASSIGNMENT:
@@ -345,9 +344,9 @@ public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 		case FLOAT:
 			throw new IllegalStateException();
 
-			//
-			// SINGLE EXPRESSIONS
-			//
+		//
+		// SINGLE EXPRESSIONS
+		//
 
 		case INCREMENT:
 			sb.append("++");

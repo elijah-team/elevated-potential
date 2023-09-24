@@ -13,7 +13,6 @@ import tripleo.elijah.lang.i.*;
 
 import java.text.*;
 
-
 /**
  * Created 8/6/20 5:59 PM
  */
@@ -44,7 +43,9 @@ public class OS_FuncExprType extends __Abstract_OS_Type {
 		return Type.FUNC_EXPR;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -52,7 +53,6 @@ public class OS_FuncExprType extends __Abstract_OS_Type {
 		return String.format("<OS_FuncExprType %s>", func_expr);
 	}
 }
-
 
 //
 //

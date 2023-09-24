@@ -17,13 +17,13 @@ import tripleo.elijah.lang.impl.VariableSequenceImpl;
 
 /**
  * @author Tripleo
- * <p>
- * Created 	Mar 26, 2020 at 6:13:58 AM
+ *         <p>
+ *         Created Mar 26, 2020 at 6:13:58 AM
  */
 public class FunctionContext extends ContextImpl implements Context {
 
-	private final @Nullable Context         _parent;
-	private final           BaseFunctionDef carrier;
+	private final @Nullable Context _parent;
+	private final BaseFunctionDef carrier;
 
 	public FunctionContext(final Context aParent, final BaseFunctionDef fd) {
 		_parent = aParent;
@@ -31,9 +31,9 @@ public class FunctionContext extends ContextImpl implements Context {
 	}
 
 	public FunctionContext(Context cur, FuncExpr pc) {
-		_parent = null;//aParent;
+		_parent = null;// aParent;
 		carrier = (BaseFunctionDef) pc;
-		//throw new IllegalStateException();
+		// throw new IllegalStateException();
 	}
 
 	@Override
@@ -42,14 +42,13 @@ public class FunctionContext extends ContextImpl implements Context {
 	}
 
 	@Override
-	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 		for (final FunctionItem item : carrier.getItems()) {
-			if (!(item instanceof ClassStatement) &&
-					!(item instanceof NamespaceStatement) &&
-					!(item instanceof FunctionDef) &&
-					!(item instanceof VariableSequenceImpl)
-			) continue;
+			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
+					&& !(item instanceof FunctionDef) && !(item instanceof VariableSequenceImpl))
+				continue;
 			if (item instanceof OS_Element2) {
 				if (((OS_Element2) item).name().equals(name)) {
 					Result.add(name, level, item, this);
@@ -68,7 +67,7 @@ public class FunctionContext extends ContextImpl implements Context {
 			}
 		}
 		if (carrier.getParent() != null) {
-			final Context context = getParent()/*carrier.getParent().getContext()*/;
+			final Context context = getParent()/* carrier.getParent().getContext() */;
 			if (!alreadySearched.contains(context) || !one)
 				return context.lookup(name, level + 1, Result, alreadySearched, false);
 		}

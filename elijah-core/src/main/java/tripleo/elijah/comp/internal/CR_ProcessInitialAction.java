@@ -9,7 +9,7 @@ import tripleo.elijah.util.Operation;
 
 public class CR_ProcessInitialAction implements CR_Action {
 	private final @NotNull CompilerInstructions rootCI;
-	private final          boolean              do_out;
+	private final boolean do_out;
 
 	@Contract(pure = true)
 	public CR_ProcessInitialAction(final @NotNull CompilerBeginning beginning) {

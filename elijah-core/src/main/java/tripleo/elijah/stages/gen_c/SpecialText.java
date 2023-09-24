@@ -8,7 +8,8 @@ import java.util.List;
 import static tripleo.elijah.util.Helpers.String_join;
 
 /**
- * (Unrealized) Intent: provide annotations in output code to show what generated text is generated from
+ * (Unrealized) Intent: provide annotations in output code to show what
+ * generated text is generated from
  */
 class SpecialText {
 	@Contract("_ -> new")

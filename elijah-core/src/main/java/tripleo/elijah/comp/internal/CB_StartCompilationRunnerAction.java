@@ -11,21 +11,20 @@ import java.util.*;
 import static tripleo.elijah.util.Helpers.*;
 
 class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
-	private final          CompilationRunner    compilationRunner;
-	private final          CompilerInstructions rootCI;
-	private final @NotNull IPipelineAccess      pa;
+	private final CompilationRunner compilationRunner;
+	private final CompilerInstructions rootCI;
+	private final @NotNull IPipelineAccess pa;
 
 	private final CB_Output o;
 
 	@Contract(pure = true)
 	public CB_StartCompilationRunnerAction(final CompilationRunner aCompilationRunner,
-										   final @NotNull IPipelineAccess aPa,
-										   final CompilerInstructions aRootCI) {
+			final @NotNull IPipelineAccess aPa, final CompilerInstructions aRootCI) {
 		compilationRunner = aCompilationRunner;
-		pa                = aPa;
+		pa = aPa;
 		rootCI = aRootCI;
 
-		o = pa.getCompilationEnclosure().getCB_Output(); //new CB_Output();
+		o = pa.getCompilationEnclosure().getCB_Output(); // new CB_Output();
 	}
 
 	@Contract(value = " -> new", pure = true)
@@ -36,10 +35,9 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 
 	@Override
 	public void execute(CB_Monitor monitor) {
-		final CompilerDriver compilationDriver = pa
-				.getCompilationEnclosure()
-				.getCompilationDriver();
-		final Operation<CompilerDriven> ocrsd = compilationDriver.get(Compilation.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
+		final CompilerDriver compilationDriver = pa.getCompilationEnclosure().getCompilationDriver();
+		final Operation<CompilerDriven> ocrsd = compilationDriver
+				.get(Compilation.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
 
 		switch (ocrsd.mode()) {
 		case SUCCESS -> {
@@ -74,8 +72,6 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	@Override
 	@NotNull
 	public List<CB_Action> steps() {
-		return List_of(
-				CB_StartCompilationRunnerAction.this
-					  );
+		return List_of(CB_StartCompilationRunnerAction.this);
 	}
 }

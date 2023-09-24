@@ -16,8 +16,8 @@ import static tripleo.elijah.util.Helpers.*;
 
 public class WriteMakefilePipeline implements PipelineMember, Consumer<Supplier<Old_GenerateResult>> {
 	class G {
-		final StringBuilder sb      = new StringBuilder();
-		final List<String>  objects = new ArrayList<>();
+		final StringBuilder sb = new StringBuilder();
+		final List<String> objects = new ArrayList<>();
 
 		public void add_object(final String obj) {
 			objects.add(obj);
@@ -56,9 +56,9 @@ public class WriteMakefilePipeline implements PipelineMember, Consumer<Supplier<
 
 			if (fn.endsWith(".c")) {
 				var fn2a = fn.split("/");
-				var fn2  = List.of(fn2a);
+				var fn2 = List.of(fn2a);
 
-				//08/13 System.out.println("115 "+fn2);
+				// 08/13 System.out.println("115 "+fn2);
 
 				var fn3 = fn2.subList(1, fn2.size() - 1);
 				var fn4 = Helpers.String_join("/", fn3);
@@ -85,8 +85,8 @@ public class WriteMakefilePipeline implements PipelineMember, Consumer<Supplier<
 
 	@Override
 	public void run(@NotNull CR_State st, CB_Output aOutput) throws Exception {
-		final Compilation c   = st.ca().getCompilation();
-		var               cot = c.getOutputTree();
+		final Compilation c = st.ca().getCompilation();
+		var cot = c.getOutputTree();
 
 		cot.recompute();
 		final List<EOT_OutputFile> list1 = cot.getList();
@@ -96,10 +96,9 @@ public class WriteMakefilePipeline implements PipelineMember, Consumer<Supplier<
 		cot.add(eof);
 	}
 
-	@NotNull EOT_OutputFile testable_part(final @NotNull List<EOT_OutputFile> list1) {
-		var list = list1.stream()
-				.filter(off -> off.getType() == EOT_OutputType.SOURCES)
-				.collect(Collectors.toList());
+	@NotNull
+	EOT_OutputFile testable_part(final @NotNull List<EOT_OutputFile> list1) {
+		var list = list1.stream().filter(off -> off.getType() == EOT_OutputType.SOURCES).collect(Collectors.toList());
 
 		var sb = new StringBuilder();
 
@@ -109,13 +108,13 @@ public class WriteMakefilePipeline implements PipelineMember, Consumer<Supplier<
 		sb.append("all:\n");
 //		sb.append("all:\n\tfalse");
 
-		//sb.append(Helpers.String_join("\n", list.stream().map(x->x.getFilename()).collect(Collectors.toList())));
+		// sb.append(Helpers.String_join("\n",
+		// list.stream().map(x->x.getFilename()).collect(Collectors.toList())));
 
-		final List<EOT_OutputFile> prelc   = new ArrayList<>();
+		final List<EOT_OutputFile> prelc = new ArrayList<>();
 		final List<EOT_OutputFile> stdlibc = new ArrayList<>();
 		final List<EOT_OutputFile> sourcec = new ArrayList<>();
-		final List<EOT_OutputFile> otherc  = new ArrayList<>();
-
+		final List<EOT_OutputFile> otherc = new ArrayList<>();
 
 		for (EOT_OutputFile off : list) {
 			var fn = off.getFilename();
@@ -124,7 +123,7 @@ public class WriteMakefilePipeline implements PipelineMember, Consumer<Supplier<
 				prelc.add(off);
 			} else if (fn.startsWith("/stdlib/")) {
 				stdlibc.add(off);
-			} else {//if (fn.startsWith("/stdlib/")) {
+			} else {// if (fn.startsWith("/stdlib/")) {
 				sourcec.add(off);
 			}
 		}
@@ -141,12 +140,10 @@ public class WriteMakefilePipeline implements PipelineMember, Consumer<Supplier<
 
 		var seq = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("the Makefile"));
 
-/*
-		var input_list = list1.stream()
-				.map(off -> off.getFilename())
-				.map(s -> new EIT_ModuleInput(string_to_module(s), null))
-				.collect(Collectors.toList());
-*/
+		/*
+		 * var input_list = list1.stream() .map(off -> off.getFilename()) .map(s -> new
+		 * EIT_ModuleInput(string_to_module(s), null)) .collect(Collectors.toList());
+		 */
 
 		final EOT_OutputFile eof = new EOT_OutputFile(List_of(), "Makefile", EOT_OutputType.BUILD, seq);
 		return eof;

@@ -25,9 +25,9 @@ import static tripleo.elijah.util.Helpers.*;
 public class VariableTypeNameImpl extends AbstractTypeName
 		implements NormalTypeName, tripleo.elijah.lang.i.VariableTypeName {
 
-	private Context      _ctx;
+	private Context _ctx;
 	// private OS_Type _resolved;
-	private OS_Element   _resolvedElement;
+	private OS_Element _resolvedElement;
 	private TypeNameList genericPart;
 
 	@Override

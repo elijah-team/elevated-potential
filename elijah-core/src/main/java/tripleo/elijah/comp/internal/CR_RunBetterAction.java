@@ -21,11 +21,10 @@ public class CR_RunBetterAction implements CR_Action {
 
 		@Contract("_, _, _, _ -> new")
 		@NotNull
-		public static RuntimeProcesses get(final @NotNull Stages stage,
-										   final @NotNull ICompilationAccess ca,
-										   final @NotNull IPipelineAccess aPa) {
-			final ProcessRecord    processRecord = aPa.getProcessRecord();
-			final RuntimeProcesses r             = new RuntimeProcesses(ca, processRecord);
+		public static RuntimeProcesses get(final @NotNull Stages stage, final @NotNull ICompilationAccess ca,
+				final @NotNull IPipelineAccess aPa) {
+			final ProcessRecord processRecord = aPa.getProcessRecord();
+			final RuntimeProcesses r = new RuntimeProcesses(ca, processRecord);
 
 			r.add(stage.getProcess(ca, processRecord));
 

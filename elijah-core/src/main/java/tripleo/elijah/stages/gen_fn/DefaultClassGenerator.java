@@ -13,9 +13,9 @@ import tripleo.elijah.work.WorkList;
 
 public class DefaultClassGenerator implements IClassGenerator {
 
-	private final          ICodeRegistrar cr;
-	private final          DeducePhase    deducePhase;
-	private final @NotNull WorkList       wl;
+	private final ICodeRegistrar cr;
+	private final DeducePhase deducePhase;
+	private final @NotNull WorkList wl;
 
 	public DefaultClassGenerator(DeducePhase aDeducePhase) {
 		// given
@@ -39,9 +39,8 @@ public class DefaultClassGenerator implements IClassGenerator {
 	}
 
 	@Override
-	public FunctionInvocation newFunctionInvocation(final FunctionDef fd,
-													final ProcTableEntry pte,
-													final @NotNull ClassInvocation ci) {
+	public FunctionInvocation newFunctionInvocation(final FunctionDef fd, final ProcTableEntry pte,
+			final @NotNull ClassInvocation ci) {
 		final @NotNull FunctionInvocation fi = deducePhase.newFunctionInvocation(fd, pte, ci);
 		return fi;
 	}

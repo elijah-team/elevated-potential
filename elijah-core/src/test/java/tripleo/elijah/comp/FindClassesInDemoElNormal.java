@@ -28,24 +28,25 @@ public class FindClassesInDemoElNormal {
 	@Test
 	public final void testListFolders() throws Exception {
 		final List<String> args = Helpers.List_of("test/demo-el-normal/listfolders/", "-sE");
-		final ErrSink      eee  = new StdErrSink();
-		final Compilation  c    = new CompilationImpl(eee, new IO());
+		final ErrSink eee = new StdErrSink();
+		final Compilation c = new CompilationImpl(eee, new IO());
 
 		c.feedCmdLine(args);
 
-		// searches all modules for top-level Main's that are classes (only the first from each module though)
+		// searches all modules for top-level Main's that are classes (only the first
+		// from each module though)
 		final List<ClassStatement> aClassList = c.world().findClass("Main");
 		assertEquals(1, aClassList.size());
 
 		assertFalse(MainClassEntryPoint.isMainClass(aClassList.get(0)), "isMainClass");
 	}
 
-
 	@org.junit.jupiter.api.Test
 	public final void testParseFile() throws Exception {
-		final List<String> args = tripleo.elijah.util.Helpers.List_of("test/demo-el-normal", "test/demo-el-normal/main2", "-sE");
-		final ErrSink      eee  = new StdErrSink();
-		final Compilation  c    = new CompilationImpl(eee, new IO());
+		final List<String> args = tripleo.elijah.util.Helpers.List_of("test/demo-el-normal",
+				"test/demo-el-normal/main2", "-sE");
+		final ErrSink eee = new StdErrSink();
+		final Compilation c = new CompilationImpl(eee, new IO());
 
 		c.feedCmdLine(args);
 
@@ -53,7 +54,7 @@ public class FindClassesInDemoElNormal {
 		for (final ClassStatement classStatement : aClassList) {
 			tripleo.elijah.util.Stupidity.println_out_2(classStatement.getPackageName().getName());
 		}
-		assertEquals(1, aClassList.size());  // NOTE this may change. be aware
+		assertEquals(1, aClassList.size()); // NOTE this may change. be aware
 	}
 
 }

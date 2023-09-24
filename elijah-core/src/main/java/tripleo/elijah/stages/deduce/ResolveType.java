@@ -30,16 +30,19 @@ public enum ResolveType {
 	static class ResolveTypeInjector {
 	}
 
-	private static void resolve_built_in(final @NotNull OS_Module module, final @NotNull OS_Type type, final @NotNull DeduceTypes2 dt2, final @NotNull GenType aR) throws ResolveError {
+	private static void resolve_built_in(final @NotNull OS_Module module, final @NotNull OS_Type type,
+			final @NotNull DeduceTypes2 dt2, final @NotNull GenType aR) throws ResolveError {
 		switch (type.getBType()) {
 		case SystemInteger: {
-			@NotNull String typeName = type.getBType().name();
+			@NotNull
+			String typeName = type.getBType().name();
 			assert typeName.equals("SystemInteger");
 			OS_Module prelude = module.prelude();
 			if (prelude == null) // README Assume `module' IS prelude
 				prelude = module;
-			final LookupResultList lrl  = prelude.getContext().lookup(typeName);
-			@Nullable OS_Element   best = lrl.chooseBest(null);
+			final LookupResultList lrl = prelude.getContext().lookup(typeName);
+			@Nullable
+			OS_Element best = lrl.chooseBest(null);
 			while (!(best instanceof ClassStatement)) {
 				if (best instanceof AliasStatementImpl) {
 					best = DeduceLookupUtils._resolveAlias2((AliasStatementImpl) best, dt2);
@@ -55,13 +58,15 @@ public enum ResolveType {
 			break;
 		}
 		case String_: {
-			@NotNull String typeName = type.getBType().name();
+			@NotNull
+			String typeName = type.getBType().name();
 			assert typeName.equals("String_");
 			OS_Module prelude = module.prelude();
 			if (prelude == null) // README Assume `module' IS prelude
 				prelude = module;
-			final LookupResultList lrl  = prelude.getContext().lookup("ConstString"); // TODO not sure about String
-			@Nullable OS_Element   best = lrl.chooseBest(null);
+			final LookupResultList lrl = prelude.getContext().lookup("ConstString"); // TODO not sure about String
+			@Nullable
+			OS_Element best = lrl.chooseBest(null);
 			while (!(best instanceof ClassStatement)) {
 				if (best instanceof AliasStatementImpl) {
 					best = DeduceLookupUtils._resolveAlias2((AliasStatementImpl) best, dt2);
@@ -77,13 +82,15 @@ public enum ResolveType {
 			break;
 		}
 		case SystemCharacter: {
-			@NotNull String typeName = type.getBType().name();
+			@NotNull
+			String typeName = type.getBType().name();
 			assert typeName.equals("SystemCharacter");
 			OS_Module prelude = module.prelude();
 			if (prelude == null) // README Assume `module' IS prelude
 				prelude = module;
-			final LookupResultList lrl  = prelude.getContext().lookup("SystemCharacter");
-			@Nullable OS_Element   best = lrl.chooseBest(null);
+			final LookupResultList lrl = prelude.getContext().lookup("SystemCharacter");
+			@Nullable
+			OS_Element best = lrl.chooseBest(null);
 			while (!(best instanceof ClassStatement)) {
 				if (best instanceof AliasStatementImpl) {
 					best = DeduceLookupUtils._resolveAlias2((AliasStatementImpl) best, dt2);
@@ -102,7 +109,7 @@ public enum ResolveType {
 			OS_Module prelude = module.prelude();
 			if (prelude == null) // README Assume `module' IS prelude
 				prelude = module;
-			final LookupResultList     lrl  = prelude.getContext().lookup("Boolean");
+			final LookupResultList lrl = prelude.getContext().lookup("Boolean");
 			final @Nullable OS_Element best = lrl.chooseBest(null);
 			aR.setResolved(((ClassStatement) best).getOS_Type()); // TODO might change to Type
 			break;
@@ -112,12 +119,10 @@ public enum ResolveType {
 		}
 	}
 
-	public static @NotNull GenType resolve_type(final @NotNull OS_Module module,
-												final @NotNull OS_Type type,
-												final Context ctx,
-												final @NotNull ElLog LOG,
-												final @NotNull DeduceTypes2 dt2) throws ResolveError {
-		@NotNull GenType R = new GenTypeImpl();
+	public static @NotNull GenType resolve_type(final @NotNull OS_Module module, final @NotNull OS_Type type,
+			final Context ctx, final @NotNull ElLog LOG, final @NotNull DeduceTypes2 dt2) throws ResolveError {
+		@NotNull
+		GenType R = new GenTypeImpl();
 		if (type.getType() != OS_Type.Type.USER_CLASS)
 			R.setTypeName(type);
 
@@ -135,7 +140,7 @@ public enum ResolveType {
 		case FUNCTION:
 			break;
 		case FUNC_EXPR:
-			R.setResolved(type);//((OS_FuncExprType)type).getElement();
+			R.setResolved(type);// ((OS_FuncExprType)type).getElement();
 			break;
 		default:
 			throw new IllegalStateException("565 Unexpected value: " + type.getType());
@@ -144,23 +149,19 @@ public enum ResolveType {
 		return R;
 	}
 
-	private static void resolve_user(final @NotNull IDeduceElement3 aDeduceElement3,
-									 final @NotNull OS_Type type1,
-									 final @NotNull ElLog LOG,
-									 final @NotNull Consumer<GenType> cgt) throws ResolveError {
+	private static void resolve_user(final @NotNull IDeduceElement3 aDeduceElement3, final @NotNull OS_Type type1,
+			final @NotNull ElLog LOG, final @NotNull Consumer<GenType> cgt) throws ResolveError {
 		final @NotNull OS_Type type = aDeduceElement3.genType().getResolved();
 		assert type1 == type;
 
-		//final @NotNull ElLog LOG;
+		// final @NotNull ElLog LOG;
 		final @NotNull DeduceTypes2 dt2 = aDeduceElement3.deduceTypes2();
 
 		resolve_user(type, LOG, dt2, cgt);
 	}
 
-	private static void resolve_user(final @NotNull OS_Type type,
-									 final @NotNull ElLog LOG,
-									 final @NotNull DeduceTypes2 dt2,
-									 final @NotNull Consumer<GenType> cgt) throws ResolveError {
+	private static void resolve_user(final @NotNull OS_Type type, final @NotNull ElLog LOG,
+			final @NotNull DeduceTypes2 dt2, final @NotNull Consumer<GenType> cgt) throws ResolveError {
 		final GenType ggg = new GenTypeImpl();
 
 		final TypeName tn1 = type.getTypeName();
@@ -173,22 +174,24 @@ public enum ResolveType {
 			if (tn != null) {
 				final LookupResultList lrl = DeduceLookupUtils.lookupExpression(tn, tn1.getContext(), dt2);
 
-				@Nullable OS_Element best = lrl.chooseBest(null);
+				@Nullable
+				OS_Element best = lrl.chooseBest(null);
 				while (best instanceof AliasStatementImpl) {
 					best = DeduceLookupUtils._resolveAlias2((AliasStatementImpl) best, dt2);
 				}
 
 				if (best == null) {
 					if (tn.asSimpleString().equals("Any")) {
-						/*return*/
+						/* return */
 						ggg.setResolved(new OS_AnyType()); // TODO not a class
 					}
 					throw new ResolveError(tn1, lrl);
 				}
 
 				if (best instanceof ClassContext.OS_TypeNameElement) {
-					/*return*/
-					ggg.setResolved(new OS_GenericTypeNameType((ClassContext.OS_TypeNameElement) best)); // TODO not a class
+					/* return */
+					ggg.setResolved(new OS_GenericTypeNameType((ClassContext.OS_TypeNameElement) best)); // TODO not a
+																											// class
 				} else
 					ggg.setResolved(((ClassStatement) best).getOS_Type());
 			}
@@ -199,7 +202,7 @@ public enum ResolveType {
 			throw new NotImplementedException();
 		case TYPE_OF: {
 			final TypeOfTypeName type_of = (TypeOfTypeName) tn1;
-			final Qualident      q       = type_of.typeOf();
+			final Qualident q = type_of.typeOf();
 			if (q.parts().size() == 1 && q.parts().get(0).getText().equals("self")) {
 				assert type_of.getContext() instanceof ClassContext;
 				ggg.setResolved(((ClassContext) type_of.getContext()).getCarrier().getOS_Type());
@@ -208,7 +211,7 @@ public enum ResolveType {
 
 		}
 //				throw new NotImplementedException();
-		break;
+			break;
 		default:
 			throw new IllegalStateException("414 Unexpected value: " + tn1.kindOfType());
 		}
@@ -216,10 +219,8 @@ public enum ResolveType {
 		cgt.accept(ggg);
 	}
 
-	private static void resolve_user2(final @NotNull OS_Type type,
-									  final @NotNull ElLog LOG,
-									  final @NotNull DeduceTypes2 dt2,
-									  final @NotNull Consumer<GenType> cgt) throws ResolveError {
+	private static void resolve_user2(final @NotNull OS_Type type, final @NotNull ElLog LOG,
+			final @NotNull DeduceTypes2 dt2, final @NotNull Consumer<GenType> cgt) throws ResolveError {
 		resolve_user(type, LOG, dt2, cgt);
 	}
 

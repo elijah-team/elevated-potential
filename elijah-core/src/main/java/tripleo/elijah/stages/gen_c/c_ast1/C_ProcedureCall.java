@@ -7,13 +7,11 @@ import java.util.List;
 
 public class C_ProcedureCall {
 	private List<String> args;
-	private String       targetName;
+	private String targetName;
 
 	public @NotNull String getString() {
 
-		final String str = targetName +
-				"(" +
-				Helpers.String_join(", ", args) + // FIXME
+		final String str = targetName + "(" + Helpers.String_join(", ", args) + // FIXME
 				")";
 		return str;
 	}

@@ -38,17 +38,16 @@ public class GetRealTargetNameTest {
 	private Boilerplate boilerPlate; // NOTE hmm. (reduce) boilerplate reductionism
 
 	EvaFunction gf;
-	OS_Module   mod;
+	OS_Module mod;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		//mod = mock(OS_Module.class);
-		//FunctionDef fd = mock(FunctionDef.class);
+		// mod = mock(OS_Module.class);
+		// FunctionDef fd = mock(FunctionDef.class);
 
-		final OS_Module      mod2 = new OS_ModuleImpl();
-		final ModuleContext  ctx  = new ModuleContext(mod2);
-		final ClassStatement cs   = new ClassStatementImpl(mod2, ctx);
-
+		final OS_Module mod2 = new OS_ModuleImpl();
+		final ModuleContext ctx = new ModuleContext(mod2);
+		final ClassStatement cs = new ClassStatementImpl(mod2, ctx);
 
 		FunctionDef fd = new FunctionDefImpl(cs, ctx);
 		gf = new EvaFunction(fd);
@@ -61,8 +60,8 @@ public class GetRealTargetNameTest {
 	@Test // too complicated
 	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	public void testManualXDotFoo() {
-		final XX              xx        = new XX();
-		final IdentExpression x_ident   = xx.ident("x");
+		final XX xx = new XX();
+		final IdentExpression x_ident = xx.ident("x");
 		final IdentExpression foo_ident = xx.ident("foo");
 
 		//
@@ -71,12 +70,12 @@ public class GetRealTargetNameTest {
 		// GenerateC#getRealTargetName doesn't use type information
 		// TODO but what if foo was a property instead of a member
 		//
-		final TypeTableEntry    tte       = xx.regularTypeName_specifyTableEntry(x_ident, gf, "X_Type");
-		final VariableStatement x_var     = xx.sequenceAndVarNamed(x_ident);
-		final int               int_index = gf.addVariableTableEntry("x", VariableTableType.VAR, tte, x_var);
-		final int               ite_index = gf.addIdentTableEntry(foo_ident, null);
-		final IdentIA           ident_ia  = new IdentIA(ite_index, gf);
-		final IntegerIA         integerIA = new IntegerIA(int_index, gf);
+		final TypeTableEntry tte = xx.regularTypeName_specifyTableEntry(x_ident, gf, "X_Type");
+		final VariableStatement x_var = xx.sequenceAndVarNamed(x_ident);
+		final int int_index = gf.addVariableTableEntry("x", VariableTableType.VAR, tte, x_var);
+		final int ite_index = gf.addIdentTableEntry(foo_ident, null);
+		final IdentIA ident_ia = new IdentIA(ite_index, gf);
+		final IntegerIA integerIA = new IntegerIA(int_index, gf);
 		ident_ia.setPrev(integerIA);
 
 		Emit.emitting = false;
@@ -88,9 +87,9 @@ public class GetRealTargetNameTest {
 		final OS_Module mod = boilerPlate.defaultMod();
 		mod.setParent(boilerPlate.comp);
 
-		final DeducePhase  phase        = boilerPlate.getDeducePhase();
+		final DeducePhase phase = boilerPlate.getDeducePhase();
 		final DeduceTypes2 deduceTypes2 = new DeduceTypes2(mod, phase);
-		final Context      ctx          = mock(Context.class);
+		final Context ctx = mock(Context.class);
 
 		(gf.getIdentTableEntry(0)).setDeduceTypes2(deduceTypes2, ctx, gf);
 
@@ -111,7 +110,8 @@ public class GetRealTargetNameTest {
 
 		boilerPlate.getGenerateFiles(mod);
 
-		String x = ((GenerateC) boilerPlate.generateFiles).getRealTargetName(gf, ident_ia, Generate_Code_For_Method.AOG.GET, null);
+		String x = ((GenerateC) boilerPlate.generateFiles).getRealTargetName(gf, ident_ia,
+				Generate_Code_For_Method.AOG.GET, null);
 		assertEquals("vvx->vmfoo", x);
 	}
 }

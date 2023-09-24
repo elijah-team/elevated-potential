@@ -14,8 +14,8 @@ import tripleo.elijah.lang.i.TypeName;
 
 /**
  * @author tripleo
- * <p>
- * Created Apr 16, 2020 at 8:42:54 AM
+ *         <p>
+ *         Created Apr 16, 2020 at 8:42:54 AM
  */
 public class TypeCastExpressionImpl extends AbstractExpression implements tripleo.elijah.lang.i.TypeCastExpression {
 

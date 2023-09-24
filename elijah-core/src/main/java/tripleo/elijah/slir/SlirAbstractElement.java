@@ -18,11 +18,11 @@ import tripleo.elijah.lang.i.OS_Element;
  * Created 11/6/21 8:42 AM
  */
 public class SlirAbstractElement implements SlirElement {
-	private final String  name;
+	private final String name;
 	private final SlirPos partOfSpeech;
 
 	public SlirAbstractElement(final String aName, final SlirPos aPartOfSpeech) {
-		name         = aName;
+		name = aName;
 		partOfSpeech = aPartOfSpeech;
 	}
 

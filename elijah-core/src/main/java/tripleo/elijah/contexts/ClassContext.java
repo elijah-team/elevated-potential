@@ -17,11 +17,10 @@ import java.util.*;
 
 import static tripleo.elijah.contexts.ClassInfo.ClassInfoType.*;
 
-
 /**
  * @author Tripleo
- * <p>
- * Created 	Mar 26, 2020 at 6:04:02 AM
+ *         <p>
+ *         Created Mar 26, 2020 at 6:04:02 AM
  */
 public class ClassContext extends ContextImpl implements Context {
 
@@ -63,8 +62,8 @@ public class ClassContext extends ContextImpl implements Context {
 	}
 
 	private final Context _parent;
-	private         boolean                       _didInheritance;
-	private final   ClassStatement                carrier;
+	private boolean _didInheritance;
+	private final ClassStatement carrier;
 
 	public @NotNull Map<TypeName, ClassStatement> _inheritance = new HashMap<>();
 
@@ -86,8 +85,8 @@ public class ClassContext extends ContextImpl implements Context {
 		if (!_didInheritance) {
 			for (final TypeName tn1 : carrier.classInheritance().tns()) {
 //				tripleo.elijah.util.Stupidity.println_out_2("1001 "+tn);
-				final NormalTypeName   tn  = (NormalTypeName) tn1;
-				final OS_Element       best;
+				final NormalTypeName tn = (NormalTypeName) tn1;
+				final OS_Element best;
 				final LookupResultList tnl = tn.getContext().lookup(tn.getName());
 //	    		tripleo.elijah.util.Stupidity.println_out_2("1002 "+tnl.results());
 				best = tnl.chooseBest(null);
@@ -104,16 +103,14 @@ public class ClassContext extends ContextImpl implements Context {
 	}
 
 	@Override
-	public LookupResultList lookup(final @NotNull String name, final int level, final @NotNull LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final @NotNull String name, final int level, final @NotNull LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 		for (final ClassItem item : carrier.getItems()) {
-			if (!(item instanceof ClassStatement) &&
-					!(item instanceof NamespaceStatement) &&
-					!(item instanceof BaseFunctionDef) &&
-					!(item instanceof VariableSequenceImpl) &&
-					!(item instanceof AliasStatement) &&
-					!(item instanceof PropertyStatement)
-			) continue;
+			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
+					&& !(item instanceof BaseFunctionDef) && !(item instanceof VariableSequenceImpl)
+					&& !(item instanceof AliasStatement) && !(item instanceof PropertyStatement))
+				continue;
 			if (item instanceof OS_Element2) {
 				if (((OS_Element2) item).name().equals(name)) {
 					Result.add(name, level, item, this);
@@ -129,9 +126,9 @@ public class ClassContext extends ContextImpl implements Context {
 		}
 
 		for (Map.Entry<TypeName, ClassStatement> entry : inheritance().entrySet()) {
-			final ClassStatement   best  = entry.getValue();
-			final LookupResultList lrl2  = best.getContext().lookup(name);
-			final OS_Element       best2 = lrl2.chooseBest(null);
+			final ClassStatement best = entry.getValue();
+			final LookupResultList lrl2 = best.getContext().lookup(name);
+			final OS_Element best2 = lrl2.chooseBest(null);
 
 			if (best2 != null)
 				Result.add(name, level, best2, this, new ClassInfo(best, INHERITED));
