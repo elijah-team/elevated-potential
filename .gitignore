@@ -15,3 +15,4 @@ build
 elijah-lang*txt
 /lib/**
 /buildSrc/**
+/.idea/uiDesigner.xml
