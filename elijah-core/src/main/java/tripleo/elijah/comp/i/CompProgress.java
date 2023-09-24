@@ -46,7 +46,7 @@ public enum CompProgress {
 			var code    = p.getLeft();
 			var message = p.getRight();
 
-			final String k = "[EzM] %d %s".formatted(code, message);
+			final String k = "[EzM] %d %s".formatted(code.value(), message);
 			switch (code) {
 				case EzM__parseEzFile1 -> {
 					int no=0;
