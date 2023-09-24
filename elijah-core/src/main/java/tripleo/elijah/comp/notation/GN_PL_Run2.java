@@ -12,12 +12,13 @@ import tripleo.elijah.stages.inter.*;
 import tripleo.elijah.world.i.*;
 import tripleo.elijah.world.impl.*;
 
+import java.util.*;
 import java.util.function.*;
 
-public class GN_PL_Run2 implements GN_Notable, @NotNull EventualRegister {
+public class GN_PL_Run2 implements GN_Notable, EventualRegister {
 	public record GenerateFunctionsRequest(IClassGenerator classGenerator, DefaultWorldModule worldModule) {
 		public ModuleThing mt() {
-			return worldModule.thing();
+			return Objects.requireNonNull(worldModule.thing());
 		}
 
 		public OS_Module mod() {
