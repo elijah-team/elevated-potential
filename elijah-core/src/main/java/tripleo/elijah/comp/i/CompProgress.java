@@ -28,7 +28,7 @@ public enum CompProgress {
 		@Override
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
 			InputRequest aInputRequest = (InputRequest) x;
-			File f = aInputRequest.file();
+			File         f             = aInputRequest.file();
 
 			out.printf("** [__parseElijjahFile_InputRequest] %s%n", f.getAbsolutePath());
 		}
@@ -42,14 +42,32 @@ public enum CompProgress {
 	}, EzM__logProgress {
 		@Override
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
-			var p = (Pair<Integer, String>) x;
-			var code = p.getLeft();
+			var p       = (Pair<IProgressSink.Codes, String>) x;
+			var code    = p.getLeft();
 			var message = p.getRight();
 
 			final String k = "[EzM] %d %s".formatted(code, message);
-//	        if (code == 27) return;
+			switch (code) {
+				case EzM__parseEzFile1 -> {
+					int no=0;
+//					return;
+					out.println(k);
+				}
+				case EzM__realParseEzFile -> {
+					int ignoreMe=-1;
+					out.println(k);
+				}
+				default -> {
+					out.println(k);
+				}
+			}
+		}
+	}, USE__parseElijjahFile {
+		@Override
+		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
+			String absolutePath = (String) x;
 
-			out.println(k);
+			out.printf("   %s%n", absolutePath);
 		}
 	};
 
