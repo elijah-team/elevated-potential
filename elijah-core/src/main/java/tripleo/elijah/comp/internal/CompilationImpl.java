@@ -13,6 +13,7 @@ import lombok.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.nextgen.*;
@@ -50,6 +51,7 @@ public class CompilationImpl implements Compilation {
 	private final          int                                 _compilationNumber;
 	private final          CompilerInputMaster                 master;
 	private final          Finally                             _finally;
+	private final          CK_ObjectTree                       objectTree;
 	public                 CCI_Acceptor__CompilerInputListener cci_listener;
 	private @Nullable      EOT_OutputTree                      _output_tree = null;
 	@Getter
@@ -66,6 +68,7 @@ public class CompilationImpl implements Compilation {
 		_compilationNumber   = new Random().nextInt(Integer.MAX_VALUE);
 		cfg                  = new CompilationConfig();
 		_con                 = new DefaultCompFactory(this);
+		objectTree           = _con.createObjectTree();
 		_repo                = new DefaultLivingRepo();
 		compilationEnclosure = new DefaultCompilationEnclosure(this);
 		_finally             = new Finally();
@@ -95,6 +98,11 @@ public class CompilationImpl implements Compilation {
 
 	public @NotNull ICompilationAccess _access() {
 		return new DefaultCompilationAccess(this);
+	}
+
+	@Override
+	public CK_ObjectTree getObjectTree() {
+		return objectTree;
 	}
 
 	@Override
@@ -385,35 +393,12 @@ public class CompilationImpl implements Compilation {
 		return _repo;
 	}
 
-	/*
-	 * // TODO remove this 04/20
-	 *
-	 * @Override public void addFunctionMapHook(final IFunctionMapHook
-	 * aFunctionMapHook) {
-	 * getCompilationEnclosure().getCompilationAccess().addFunctionMapHook(
-	 * aFunctionMapHook); }
-	 */
-
-	/*
-	 * @Override public void setCompilationEnclosure(final CompilationEnclosure
-	 * aCompilationEnclosure) { throw new
-	 * NotImplementedException("Can't set CompilationEnclosure");
-	 * //compilationEnclosure = aCompilationEnclosure; }
-	 */
-
-	/*
-	 * @Override public int compilationNumber() { return _compilationNumber; }
-	 */
-
-	/*
-	 * @Override public void fakeFlow(final List<CompilerInput> aInputs,
-	 * final @NotNull CompilationFlow aFlow) {
-	 * getCompilationEnclosure().getPipelineAccessPromise() .then(pa -> {
-	 * get_pa().setCompilerInput(aInputs);
-	 *
-	 * aFlow.run(this); }); }
-	 */
-
+	public static class DefaultObjectTree implements CK_ObjectTree {
+		@Override
+		public void asseverate(Object o, Asseverate asseveration) {
+			NotImplementedException.raise_stop();
+		}
+	}
 }
 
 //
