@@ -8,7 +8,7 @@ import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 
 public class GarishClass_Generator {
 	private final EvaClass carrier;
-	private       boolean  generatedAlready;
+	private boolean generatedAlready;
 
 	public GarishClass_Generator(final EvaClass aEvaClass) {
 		carrier = aEvaClass;
@@ -18,10 +18,8 @@ public class GarishClass_Generator {
 		return generatedAlready;
 	}
 
-	public void provide(final @NotNull GenerateResultSink aResultSink,
-						final @NotNull GarishClass aGarishClass,
-						final GenerateResult aGr,
-						final GenerateC aGenerateC) {
+	public void provide(final @NotNull GenerateResultSink aResultSink, final @NotNull GarishClass aGarishClass,
+			final GenerateResult aGr, final GenerateC aGenerateC) {
 		if (generatedAlready) {
 			return;
 		}
@@ -34,7 +32,7 @@ public class GarishClass_Generator {
 			return;
 		}
 
-		//aResultSink.addClass_0(this, tos.getBuffer(), tosHdr.getBuffer());
+		// aResultSink.addClass_0(this, tos.getBuffer(), tosHdr.getBuffer());
 		aResultSink.addClass_1(aGarishClass, aGr, aGenerateC);
 		generatedAlready = true;
 	}

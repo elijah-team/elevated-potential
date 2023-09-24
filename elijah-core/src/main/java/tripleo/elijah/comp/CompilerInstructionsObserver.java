@@ -11,7 +11,7 @@ import tripleo.elijah.util.*;
 import java.util.*;
 
 public class CompilerInstructionsObserver implements Observer<CompilerInstructions> {
-	private final Compilation                compilation;
+	private final Compilation compilation;
 	private final List<CompilerInstructions> l = new ArrayList<>();
 
 	public CompilerInstructionsObserver(final Compilation aCompilation) {
@@ -39,7 +39,7 @@ public class CompilerInstructionsObserver implements Observer<CompilerInstructio
 
 	@Override
 	public void onSubscribe(@NonNull final Disposable d) {
-		//Disposable x = d;
-		//NotImplementedException.raise();
+		// Disposable x = d;
+		// NotImplementedException.raise();
 	}
 }

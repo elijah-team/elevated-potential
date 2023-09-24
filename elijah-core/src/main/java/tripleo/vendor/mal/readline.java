@@ -14,45 +14,42 @@ import java.io.*;
 class readline {
 	public static class EOFException extends Exception {
 	}
-	public enum Mode {JNA, JAVA}
-	static @NotNull  Mode    mode          = Mode.JAVA;// Mode.JNA;
 
-	static @Nullable String  HISTORY_FILE  = null;
+	public enum Mode {
+		JNA, JAVA
+	}
 
-	static @NotNull  Boolean historyLoaded = false;
+	static @NotNull Mode mode = Mode.JAVA;// Mode.JNA;
 
-	//public static String jna_readline(final String prompt)
-	//throws EOFException, IOException {
-	//	if (!historyLoaded) {
-	//		loadHistory(HISTORY_FILE);
-	//	}
-	//	final String line = RLLibrary.INSTANCE.readline(prompt);
-	//	if (line == null) {
-	//		throw new EOFException();
-	//	}
-	//	RLLibrary.INSTANCE.add_history(line);
-	//	appendHistory(HISTORY_FILE, line);
-	//	return line;
-	//}
+	static @Nullable String HISTORY_FILE = null;
+
+	static @NotNull Boolean historyLoaded = false;
+
+	// public static String jna_readline(final String prompt)
+	// throws EOFException, IOException {
+	// if (!historyLoaded) {
+	// loadHistory(HISTORY_FILE);
+	// }
+	// final String line = RLLibrary.INSTANCE.readline(prompt);
+	// if (line == null) {
+	// throw new EOFException();
+	// }
+	// RLLibrary.INSTANCE.add_history(line);
+	// appendHistory(HISTORY_FILE, line);
+	// return line;
+	// }
 
 	static {
 		HISTORY_FILE = System.getProperty("user.home") + "/.mal-history";
 	}
 
-/*
-	public static void loadHistory(final String filename) {
-		final File file = new File(filename);
-		try {
-			final List<String> lines = Files.readLines(file,
-													   StandardCharsets.UTF_8);
-			for (final String line : lines) {
-				RLLibrary.INSTANCE.add_history(line);
-			}
-		} catch (final IOException e) {
-			// ignore
-		}
-	}
-*/
+	/*
+	 * public static void loadHistory(final String filename) { final File file = new
+	 * File(filename); try { final List<String> lines = Files.readLines(file,
+	 * StandardCharsets.UTF_8); for (final String line : lines) {
+	 * RLLibrary.INSTANCE.add_history(line); } } catch (final IOException e) { //
+	 * ignore } }
+	 */
 
 	public static void appendHistory(final @NotNull String filename, final String line) {
 		try {
@@ -66,37 +63,31 @@ class readline {
 	}
 
 	// Just java readline (no history, or line editing)
-	public static @NotNull String java_readline(final String prompt)
-	throws EOFException, IOException {
+	public static @NotNull String java_readline(final String prompt) throws EOFException, IOException {
 		System.out.print(prompt);
 		final BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
-		final String         line   = buffer.readLine();
+		final String line = buffer.readLine();
 		if (line == null) {
 			throw new EOFException();
 		}
 		return line;
 	}
 
-/*
-	public interface RLLibrary extends Library {
-		// Select a library to use.
-		// WARNING: GNU readline is GPL.
+	/*
+	 * public interface RLLibrary extends Library { // Select a library to use. //
+	 * WARNING: GNU readline is GPL.
+	 * 
+	 * // GNU readline (GPL) RLLibrary INSTANCE = (RLLibrary)
+	 * Native.loadLibrary("readline", RLLibrary.class); // Libedit (BSD) //
+	 * RLLibrary INSTANCE = (RLLibrary) // Native.loadLibrary("edit",
+	 * RLLibrary.class);
+	 * 
+	 * String readline(String prompt);
+	 * 
+	 * void add_history(String line); }
+	 */
 
-		// GNU readline (GPL)
-		RLLibrary INSTANCE = (RLLibrary)
-				Native.loadLibrary("readline", RLLibrary.class);
-		// Libedit (BSD)
-//            RLLibrary INSTANCE = (RLLibrary)
-//                Native.loadLibrary("edit", RLLibrary.class);
-
-		String readline(String prompt);
-
-		void add_history(String line);
-	}
-*/
-
-	public static @NotNull String readline(final String prompt)
-	throws EOFException, IOException {
+	public static @NotNull String readline(final String prompt) throws EOFException, IOException {
 		// if (mode == Mode.JNA) {
 		// return jna_readline(prompt);
 		// } else {

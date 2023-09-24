@@ -17,7 +17,7 @@ import tripleo.elijah.lang.i.OS_Element;
  */
 public interface DeduceElement {
 	DeclAnchor declAnchor();
-	//Promise<GenType, Diagnostic, Void> typePromise();
+	// Promise<GenType, Diagnostic, Void> typePromise();
 
 	OS_Element element();
 }

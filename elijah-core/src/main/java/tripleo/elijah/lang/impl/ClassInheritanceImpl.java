@@ -25,8 +25,7 @@ public class ClassInheritanceImpl implements tripleo.elijah.lang.i.ClassInherita
 	public @NotNull List<TypeName> tns = new LinkedList<>();
 
 	/**
-	 * Do nothing and wait for addAll or add.
-	 * Used by ClassBuilder
+	 * Do nothing and wait for addAll or add. Used by ClassBuilder
 	 */
 	public ClassInheritanceImpl() {
 	}

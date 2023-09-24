@@ -8,13 +8,13 @@ import tripleo.elijah.nextgen.*;
 import java.util.*;
 
 public class CP_Paths {
-	private final          Compilation   _c;
+	private final Compilation _c;
 	private final @NotNull CP_StdlibPath stdlibRoot;
-	private                CP_OutputPath outputRoot;
-	private @NotNull       List<ER_Node> outputNodes = new ArrayList<>();
+	private CP_OutputPath outputRoot;
+	private @NotNull List<ER_Node> outputNodes = new ArrayList<>();
 
 	public CP_Paths(final Compilation aC) {
-		_c         = aC;
+		_c = aC;
 		outputRoot = new CP_OutputPath(_c);
 		stdlibRoot = new CP_StdlibPath(_c);
 	}

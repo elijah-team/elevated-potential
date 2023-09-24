@@ -20,24 +20,24 @@ import java.util.List;
 public class IfConditionalImpl implements tripleo.elijah.lang.i.IfConditional {
 
 	// private final IfConditional sibling;
-	private final     List<IfConditional> parts = new ArrayList<IfConditional>();
+	private final List<IfConditional> parts = new ArrayList<IfConditional>();
 	// private final List<OS_Element> _items = new ArrayList<OS_Element>();
 //	final IfConditionalScope _scope = new IfConditionalScope(this);
-	private final     OS_Element          _parent;
-	private           IExpression         expr;
-	private @Nullable Context             _ctx;
-	private           Scope3              scope3;
+	private final OS_Element _parent;
+	private IExpression expr;
+	private @Nullable Context _ctx;
+	private Scope3 scope3;
 
 	public IfConditionalImpl(final @NotNull IfConditional ifExpression) {
 //		this.sibling = ifExpression;
 		//
-		this._ctx    = new IfConditionalContext(ifExpression.getCtx(), this, true);
+		this._ctx = new IfConditionalContext(ifExpression.getCtx(), this, true);
 		this._parent = ifExpression.getParent();
 	}
 
 	public IfConditionalImpl(final OS_Element _parent) {
 		this._parent = _parent;
-		this._ctx    = null;
+		this._ctx = null;
 //		this.sibling = null;
 	}
 

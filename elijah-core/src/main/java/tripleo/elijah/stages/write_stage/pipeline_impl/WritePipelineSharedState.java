@@ -15,18 +15,18 @@ import tripleo.util.buffer.Buffer;
  * Really a record, but state is not all set at once
  */
 public final class WritePipelineSharedState {
-	public  Compilation                            c;
-	public  IPipelineAccess                        pa;
-	public  GenerateResultSink                     grs;
-	public  Multimap<CompilerInstructions, String> lsp_outputs;
-	public  Multimap<String, Buffer>               mmb;
-	//public  List<NG_OutputItem>                    outputs;
-	public  ElSystem                               sys;
-	private GenerateResult                         gr;
+	public Compilation c;
+	public IPipelineAccess pa;
+	public GenerateResultSink grs;
+	public Multimap<CompilerInstructions, String> lsp_outputs;
+	public Multimap<String, Buffer> mmb;
+	// public List<NG_OutputItem> outputs;
+	public ElSystem sys;
+	private GenerateResult gr;
 
 	public WritePipelineSharedState(final @NotNull IPipelineAccess pa0) {
 		pa = pa0;
-		c  = pa0.getCompilation();
+		c = pa0.getCompilation();
 	}
 
 	@Contract(pure = true)

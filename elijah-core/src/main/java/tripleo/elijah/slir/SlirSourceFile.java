@@ -19,7 +19,7 @@ import tripleo.elijah.lang.i.*;
 public class SlirSourceFile {
 	public interface SourceFileTarget {
 		SourceFileType getType();
-		//String getFileName();
+		// String getFileName();
 	}
 
 	public enum SourceFileType {
@@ -86,7 +86,6 @@ public class SlirSourceFile {
 	public @Nullable SourceFileTarget getTarget() {
 		return null; // TODO implement me
 	}
-
 
 }
 

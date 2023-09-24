@@ -23,80 +23,79 @@ import java.util.*;
  * Created 3/5/22 4:55 PM
  */
 public class CouldntGenerateClass implements Diagnostic {
-    private final ClassDefinition classDefinition;
-    private final ClassInvocation classInvocation;
-    private final GenerateFunctions generateFunctions;
-    private final WlGenerateClass gen;
-    private final DeducePhase deducePhase;
+	private final ClassDefinition classDefinition;
+	private final ClassInvocation classInvocation;
+	private final GenerateFunctions generateFunctions;
+	private final WlGenerateClass gen;
+	private final DeducePhase deducePhase;
 
-    public CouldntGenerateClass(final ClassDefinition aClassDefinition,
-                                final GenerateFunctions aGenerateFunctions,
-                                final ClassInvocation aClassInvocation) {
-        classDefinition = aClassDefinition;
-        generateFunctions = aGenerateFunctions;
-        classInvocation = aClassInvocation;
+	public CouldntGenerateClass(final ClassDefinition aClassDefinition, final GenerateFunctions aGenerateFunctions,
+			final ClassInvocation aClassInvocation) {
+		classDefinition = aClassDefinition;
+		generateFunctions = aGenerateFunctions;
+		classInvocation = aClassInvocation;
 
-        gen = null;
-        deducePhase = null;
-    }
+		gen = null;
+		deducePhase = null;
+	}
 
-    public CouldntGenerateClass(WlGenerateClass gen, DeducePhase deducePhase) {
-        this.gen = gen;
-        this.deducePhase = deducePhase;
+	public CouldntGenerateClass(WlGenerateClass gen, DeducePhase deducePhase) {
+		this.gen = gen;
+		this.deducePhase = deducePhase;
 
-        classDefinition = null;
-        generateFunctions = null;
-        classInvocation = null;
-    }
+		classDefinition = null;
+		generateFunctions = null;
+		classInvocation = null;
+	}
 
-    @Override
-    public @NotNull String code() {
-        return "E2000";
-    }
+	@Override
+	public @NotNull String code() {
+		return "E2000";
+	}
 
-    public ClassDefinition getClassDefinition() {
-        if (gen != null) {
-            return null; // !!
-        } else {
-            return classDefinition;
-        }
-    }
+	public ClassDefinition getClassDefinition() {
+		if (gen != null) {
+			return null; // !!
+		} else {
+			return classDefinition;
+		}
+	}
 
-    public ClassInvocation getClassInvocation() {
-        if (gen != null) {
-            return gen.getClassInvocation();
-        } else {
-            return classInvocation;
-        }
-    }
+	public ClassInvocation getClassInvocation() {
+		if (gen != null) {
+			return gen.getClassInvocation();
+		} else {
+			return classInvocation;
+		}
+	}
 
-    public GenerateFunctions getGenerateFunctions() {
-        if (gen != null) {
-            return gen.getGenerateFunctions();
-        } else {
-            return generateFunctions;
-        }
-    }
+	public GenerateFunctions getGenerateFunctions() {
+		if (gen != null) {
+			return gen.getGenerateFunctions();
+		} else {
+			return generateFunctions;
+		}
+	}
 
-    @Override
-    public @NotNull Locatable primary() {
-        return null;
-    }
+	@Override
+	public @NotNull Locatable primary() {
+		return null;
+	}
 
-    @Override
-    public void report(final PrintStream stream) {
-        NotImplementedException.raise();
-    }
+	@Override
+	public void report(final PrintStream stream) {
+		NotImplementedException.raise();
+	}
 
-    @Override
-    public @NotNull List<Locatable> secondary() {
-        return null;
-    }
+	@Override
+	public @NotNull List<Locatable> secondary() {
+		return null;
+	}
 
-    @Override
-    public @NotNull Severity severity() {
-        return Severity.ERROR;
-    }
+	@Override
+	public @NotNull Severity severity() {
+		return Severity.ERROR;
+	}
 }
 
 //

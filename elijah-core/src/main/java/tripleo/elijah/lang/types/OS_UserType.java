@@ -5,7 +5,6 @@ import tripleo.elijah.lang.i.*;
 
 import java.text.*;
 
-
 public class OS_UserType extends __Abstract_OS_Type {
 	private final TypeName typeName;
 
@@ -42,12 +41,11 @@ public class OS_UserType extends __Abstract_OS_Type {
 	public @Nullable OS_Type resolve(final @NotNull Context ctx) {
 		assert ctx != null;
 
-		final LookupResultList r    = ctx.lookup(getTypeName().toString()); // TODO
-		final OS_Element       best = r.chooseBest(null);
+		final LookupResultList r = ctx.lookup(getTypeName().toString()); // TODO
+		final OS_Element best = r.chooseBest(null);
 
-
-		if (best == null) return null; // FIXME 07/03
-
+		if (best == null)
+			return null; // FIXME 07/03
 
 		return ((ClassStatement) best).getOS_Type();
 	}
@@ -57,4 +55,3 @@ public class OS_UserType extends __Abstract_OS_Type {
 		return asString();
 	}
 }
-

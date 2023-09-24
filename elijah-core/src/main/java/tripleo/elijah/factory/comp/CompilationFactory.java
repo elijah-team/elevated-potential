@@ -20,7 +20,7 @@ public enum CompilationFactory {
 
 	public static @NotNull CompilationImpl mkCompilation2(final List<IFunctionMapHook> aMapHooks) {
 		final StdErrSink errSink = new StdErrSink();
-		final IO         io      = new IO();
+		final IO io = new IO();
 
 		final @NotNull CompilationImpl c = mkCompilation(errSink, io);
 

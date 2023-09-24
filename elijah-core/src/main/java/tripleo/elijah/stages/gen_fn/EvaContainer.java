@@ -34,28 +34,30 @@ public interface EvaContainer extends EvaNode {
 	class VarTableEntry {
 		public static class ConnectionPair {
 			public final VariableTableEntry vte;
-			final        EvaConstructor     constructor;
+			final EvaConstructor constructor;
 
 			@Contract(pure = true)
 			public ConnectionPair(final VariableTableEntry aVte, final EvaConstructor aConstructor) {
-				vte         = aVte;
+				vte = aVte;
 				constructor = aConstructor;
 			}
 		}
+
 		public interface UpdatePotentialTypesCB {
 			Operation<Boolean> call(final @NotNull EvaContainer aEvaContainer);
 		}
-		public final           IExpression                                        initialValue;
-		public final @NotNull  IdentExpression                                    nameToken;
-		public final           VariableStatement                                  vs;
-		private final          DeferredObject<OS_Type, Void, Void>                _p_resolve_varType               = new DeferredObject<>();
-		private final @NotNull OS_Element                                         parent;
-		private final          RegisterClassInvocation_env                        passthruEnv;
-		public @NotNull        List<ConnectionPair>                               connectionPairs                  = new ArrayList<>();
-		public @NotNull        List<TypeTableEntry>                               potentialTypes                   = new ArrayList<TypeTableEntry>();
-		public                 TypeName                                           typeName;
-		public @NotNull        DeferredObject<UpdatePotentialTypesCB, Void, Void> _p_updatePotentialTypesCBPromise = new DeferredObject<>();
-		public                 OS_Type                                            varType;
+
+		public final IExpression initialValue;
+		public final @NotNull IdentExpression nameToken;
+		public final VariableStatement vs;
+		private final DeferredObject<OS_Type, Void, Void> _p_resolve_varType = new DeferredObject<>();
+		private final @NotNull OS_Element parent;
+		private final RegisterClassInvocation_env passthruEnv;
+		public @NotNull List<ConnectionPair> connectionPairs = new ArrayList<>();
+		public @NotNull List<TypeTableEntry> potentialTypes = new ArrayList<TypeTableEntry>();
+		public TypeName typeName;
+		public @NotNull DeferredObject<UpdatePotentialTypesCB, Void, Void> _p_updatePotentialTypesCBPromise = new DeferredObject<>();
+		public OS_Type varType;
 
 		UpdatePotentialTypesCB updatePotentialTypesCB;
 
@@ -63,34 +65,29 @@ public interface EvaContainer extends EvaNode {
 
 		DeduceElement3_VarTableEntry _de3;
 
-		public VarTableEntry(final VariableStatement aVs,
-							 final @NotNull IdentExpression aNameToken,
-							 final IExpression aInitialValue,
-							 final @NotNull TypeName aTypeName,
-							 final @NotNull OS_Element aElement) {
-			vs           = aVs;
-			nameToken    = aNameToken;
+		public VarTableEntry(final VariableStatement aVs, final @NotNull IdentExpression aNameToken,
+				final IExpression aInitialValue, final @NotNull TypeName aTypeName,
+				final @NotNull OS_Element aElement) {
+			vs = aVs;
+			nameToken = aNameToken;
 			initialValue = aInitialValue;
-			typeName     = aTypeName;
-			varType      = new OS_UserType(typeName);
-			parent       = aElement;
+			typeName = aTypeName;
+			varType = new OS_UserType(typeName);
+			parent = aElement;
 
 			passthruEnv = null;
 			_de3 = new DeduceElement3_VarTableEntry(this);
 		}
 
-		public VarTableEntry(final VariableStatement aVs,
-							 final IdentExpression aNameToken,
-							 final IExpression aInitialValue,
-							 final TypeName aTypeName,
-							 final OS_Element aParent,
-							 final RegisterClassInvocation_env aPassthruEnv) {
-			vs           = aVs;
-			nameToken    = aNameToken;
+		public VarTableEntry(final VariableStatement aVs, final IdentExpression aNameToken,
+				final IExpression aInitialValue, final TypeName aTypeName, final OS_Element aParent,
+				final RegisterClassInvocation_env aPassthruEnv) {
+			vs = aVs;
+			nameToken = aNameToken;
 			initialValue = aInitialValue;
-			typeName     = aTypeName;
-			varType      = new OS_UserType(typeName);
-			parent       = aParent;
+			typeName = aTypeName;
+			varType = new OS_UserType(typeName);
+			parent = aParent;
 
 			passthruEnv = aPassthruEnv;
 
@@ -127,7 +124,9 @@ public interface EvaContainer extends EvaNode {
 		}
 
 		public void resolve(@NotNull EvaNode aResolvedType) {
-			tripleo.elijah.util.Stupidity.println_out_2(String.format("** [GeneratedContainer 56] resolving VarTableEntry %s to %s", nameToken, aResolvedType.identityString()));
+			tripleo.elijah.util.Stupidity
+					.println_out_2(String.format("** [GeneratedContainer 56] resolving VarTableEntry %s to %s",
+							nameToken, aResolvedType.identityString()));
 			_resolvedType = aResolvedType;
 		}
 
@@ -165,7 +164,8 @@ public interface EvaContainer extends EvaNode {
 
 	OS_Element getElement();
 
-	@NotNull Maybe<VarTableEntry> getVariable(String aVarName);
+	@NotNull
+	Maybe<VarTableEntry> getVariable(String aVarName);
 }
 
 //

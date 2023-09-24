@@ -22,10 +22,10 @@ import java.util.stream.*;
  */
 public class CantDecideType implements Diagnostic {
 	private final @NotNull Collection<TypeTableEntry> types;
-	private final          VariableTableEntry         vte;
+	private final VariableTableEntry vte;
 
 	public CantDecideType(VariableTableEntry aVte, @NotNull Collection<TypeTableEntry> aTypes) {
-		vte   = aVte;
+		vte = aVte;
 		types = aTypes;
 	}
 
@@ -40,7 +40,8 @@ public class CantDecideType implements Diagnostic {
 
 	@Override
 	public @NotNull Locatable primary() {
-		@NotNull VariableStatementImpl vs = (VariableStatementImpl) vte.getResolvedElement();
+		@NotNull
+		VariableStatementImpl vs = (VariableStatementImpl) vte.getResolvedElement();
 		return vs;
 	}
 
@@ -49,21 +50,18 @@ public class CantDecideType implements Diagnostic {
 		stream.printf("---[%s]---: %s%n", code(), message());
 		// linecache.print(primary);
 		for (Locatable sec : secondary()) {
-			//linecache.print(sec)
+			// linecache.print(sec)
 		}
 		stream.flush();
 	}
 
 	@Override
 	public @NotNull List<Locatable> secondary() {
-		final List<Locatable> c = types.stream()
-				.map((TypeTableEntry input) -> {
-						 //return input.attached.getElement(); // TODO All elements should be Locatable
-						 //return (TypeName)input.attached.getTypename();
-						 return (Locatable) null;
-					 }
-					)
-				.collect(Collectors.toList());
+		final List<Locatable> c = types.stream().map((TypeTableEntry input) -> {
+			// return input.attached.getElement(); // TODO All elements should be Locatable
+			// return (TypeName)input.attached.getTypename();
+			return (Locatable) null;
+		}).collect(Collectors.toList());
 
 		return c;
 	}

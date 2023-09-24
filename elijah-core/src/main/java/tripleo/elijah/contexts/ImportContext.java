@@ -23,8 +23,10 @@ import java.util.*;
 public class ImportContext extends ContextImpl implements Context {
 	protected class NPC {
 		static boolean isModuleNamespace(OS_Element ns) {
-			if (!(ns instanceof NamespaceStatement)) return false;
-			if (((NamespaceStatement) ns).getKind() == NamespaceTypes.MODULE) return true;
+			if (!(ns instanceof NamespaceStatement))
+				return false;
+			if (((NamespaceStatement) ns).getKind() == NamespaceTypes.MODULE)
+				return true;
 
 			return false;
 		}
@@ -35,11 +37,8 @@ public class ImportContext extends ContextImpl implements Context {
 			x = aX;
 		}
 
-		private void checkLast(final String name,
-							   final int level,
-							   final @NotNull LookupResultList Result,
-							   final @NotNull SearchList alreadySearched,
-							   final @NotNull Compilation compilation) {
+		private void checkLast(final String name, final int level, final @NotNull LookupResultList Result,
+				final @NotNull SearchList alreadySearched, final @NotNull Compilation compilation) {
 			final IdentExpression last = x.get(x.size() - 1);
 			if (last.getText().equals(name)) {
 				Qualident cl = new QualidentImpl();
@@ -53,7 +52,7 @@ public class ImportContext extends ContextImpl implements Context {
 					// README assert checks, then adds with proveneance
 
 					var pkg = compilation.getPackage(cl);
-					var pu  = new ENU_PackageRef(pkg);
+					var pu = new ENU_PackageRef(pkg);
 					EN_Name.assertUnderstanding(cl.parts().get(cl.parts().size() - 1), pu);
 
 					checkLastHelper(name, level, Result, alreadySearched, compilation, cl);
@@ -61,21 +60,19 @@ public class ImportContext extends ContextImpl implements Context {
 			}
 		}
 
-		private void checkLastHelper(final String name,
-									 final int level,
-									 final @NotNull LookupResultList Result,
-									 final @NotNull SearchList alreadySearched,
-									 final @NotNull Compilation compilation,
-									 final @NotNull Qualident cl) {
+		private void checkLastHelper(final String name, final int level, final @NotNull LookupResultList Result,
+				final @NotNull SearchList alreadySearched, final @NotNull Compilation compilation,
+				final @NotNull Qualident cl) {
 			final OS_Package aPackage = compilation.getPackage(cl);
-			//LogEvent.logEvent(4003 , ""+aPackage.getElements());
+			// LogEvent.logEvent(4003 , ""+aPackage.getElements());
 			for (final OS_Element element : aPackage.getElements()) {
-				//tripleo.elijah.util.Stupidity.println_err_2("4002 "+element);
+				// tripleo.elijah.util.Stupidity.println_err_2("4002 "+element);
 
-				if (!(element instanceof OS_Element2)) continue;
+				if (!(element instanceof OS_Element2))
+					continue;
 
 				if (isModuleNamespace(element)) {
-					//LogEvent.logEvent(4103, "");
+					// LogEvent.logEvent(4103, "");
 					final NamespaceContext namespaceContext = (NamespaceContext) element.getContext();
 					alreadySearched.add(namespaceContext);
 					LookupResultList xxx = namespaceContext.lookup(name, level, Result, alreadySearched, true);
@@ -89,8 +86,8 @@ public class ImportContext extends ContextImpl implements Context {
 
 					final String element_name = classOrNamespace_Element.name();
 					if (element_name.equals(name)) {
-						EN_Name.assertUnderstanding(enl2n, new ENU_LookupResult(Result, level, (alreadySearched.getList())));
-
+						EN_Name.assertUnderstanding(enl2n,
+								new ENU_LookupResult(Result, level, (alreadySearched.getList())));
 
 						Result.add(name, level, element, aPackage.getContext()); // TODO which context do we set it to?
 					}
@@ -98,11 +95,13 @@ public class ImportContext extends ContextImpl implements Context {
 			}
 		}
 	}
-	private final Context         _parent;
+
+	private final Context _parent;
 
 	private final ImportStatement carrier;
 
-	@NotNull Map<List<IdentExpression>, NPC> npcs = new LinkedHashMap();
+	@NotNull
+	Map<List<IdentExpression>, NPC> npcs = new LinkedHashMap();
 
 	public ImportContext(final Context aParent, final ImportStatement imp) {
 		_parent = aParent;
@@ -130,7 +129,8 @@ public class ImportContext extends ContextImpl implements Context {
 	}
 
 	@Override
-	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 		alreadySearched.add(this);
 //		tripleo.elijah.util.Stupidity.println_err_2("2002 "+importStatement.importList());
 		Compilation compilation = compilation();
@@ -141,7 +141,8 @@ public class ImportContext extends ContextImpl implements Context {
 //				LogEvent.logEvent(4003 , ""+aPackage.getElements());
 				for (final OS_Element element : aPackage.getElements()) {
 //					tripleo.elijah.util.Stupidity.println_err_2("4002 "+element);
-					if (element instanceof NamespaceStatement && ((NamespaceStatement) element).getKind() == NamespaceTypes.MODULE) {
+					if (element instanceof NamespaceStatement
+							&& ((NamespaceStatement) element).getKind() == NamespaceTypes.MODULE) {
 //		                LogEvent.logEvent(4103, "");
 						final NamespaceContext namespaceContext = (NamespaceContext) element.getContext();
 						alreadySearched.add(namespaceContext);
@@ -155,8 +156,8 @@ public class ImportContext extends ContextImpl implements Context {
 				}
 			} else {
 				// find directly imported elements
-				List<IdentExpression> x   = importStatementItem.parts();
-				NPC                   npc = getNonPackageComprehension(x);
+				List<IdentExpression> x = importStatementItem.parts();
+				NPC npc = getNonPackageComprehension(x);
 				npc.checkLast(name, level, Result, alreadySearched, compilation);
 			}
 		}

@@ -16,12 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ForwardingGenType implements GenType {
-	enum Mode {GENERATIONAL, NORMAL}
+	enum Mode {
+		GENERATIONAL, NORMAL
+	}
 
-	final @NotNull Mode    mode;
-	private final  GenType base;
+	final @NotNull Mode mode;
+	private final GenType base;
 
-	private final           List<setup_GenType_Action> list = new ArrayList<>();
+	private final List<setup_GenType_Action> list = new ArrayList<>();
 	private final @Nullable setup_GenType_Action_Arena g;
 
 	public ForwardingGenType(final GenType aGenType, final boolean aB) {
@@ -29,10 +31,10 @@ public class ForwardingGenType implements GenType {
 
 		if (aB) {
 			mode = Mode.GENERATIONAL;
-			g    = new setup_GenType_Action_Arena();
+			g = new setup_GenType_Action_Arena();
 		} else {
 			mode = Mode.NORMAL;
-			g    = null;
+			g = null;
 		}
 	}
 
@@ -51,14 +53,16 @@ public class ForwardingGenType implements GenType {
 	}
 
 	@Override
-	public ClassInvocation genCI(final TypeName aGenericTypeName, final DeduceTypes2 deduceTypes2, final ErrSink errSink, final DeducePhase phase) {
+	public ClassInvocation genCI(final TypeName aGenericTypeName, final DeduceTypes2 deduceTypes2,
+			final ErrSink errSink, final DeducePhase phase) {
 		return base.genCI(aGenericTypeName, deduceTypes2, errSink, phase);
 	}
 
 	@Override
 	public void genCIForGenType2(final @Nullable DeduceTypes2 deduceTypes2) {
-		if (deduceTypes2 == null) return;
-		//if (base.getCi() == null) return;
+		if (deduceTypes2 == null)
+			return;
+		// if (base.getCi() == null) return;
 
 		this.unsparkled();
 

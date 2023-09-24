@@ -19,34 +19,31 @@ import java.util.function.*;
 import static tripleo.elijah.util.Helpers.*;
 
 class DE3_ActivePTE implements DE3_Active {
-	private final          DeduceTypes2                      deduceTypes2;
-	private final @NotNull ProcTableEntry                    pte;
-	private final          ClassInvocation                   ci;
-	private final @NotNull List<Reactivable>                 ables;
-	private final          DeduceTypes2.DeduceTypes2Injector __inj;
+	private final DeduceTypes2 deduceTypes2;
+	private final @NotNull ProcTableEntry pte;
+	private final ClassInvocation ci;
+	private final @NotNull List<Reactivable> ables;
+	private final DeduceTypes2.DeduceTypes2Injector __inj;
 
-	public DE3_ActivePTE(final @NotNull DeduceTypes2 aDeduceTypes2,
-						 final @NotNull ProcTableEntry pte,
-						 final ClassInvocation classInvocation) {
+	public DE3_ActivePTE(final @NotNull DeduceTypes2 aDeduceTypes2, final @NotNull ProcTableEntry pte,
+			final ClassInvocation classInvocation) {
 		this.deduceTypes2 = aDeduceTypes2;
-		this.pte          = pte;
-		this.ci           = classInvocation;
+		this.pte = pte;
+		this.ci = classInvocation;
 
 		this.__inj = aDeduceTypes2._inj();
 
 		this.ables = _inj().new_ArrayList__Ables();
 	}
 
-	private void __do_001(final @NotNull GenerateFiles generateC,
-						  final EvaClass node,
-						  final DeducePhase deducePhase,
-						  final GenerateResultSink resultSink,
-						  final @NotNull Eventual<GenerateResultEnv> efg) {
+	private void __do_001(final @NotNull GenerateFiles generateC, final EvaClass node, final DeducePhase deducePhase,
+			final GenerateResultSink resultSink, final @NotNull Eventual<GenerateResultEnv> efg) {
 		efg.then(fg -> {
 			final DeducePhase.GeneratedClasses classes = deducePhase.generatedClasses;
-			final int                          size1   = classes.size();
-			final GenerateResult               x       = generateC.resultsFromNodes(List_of(node), _inj().new_WorkManager(), resultSink, fg);
-			final int                          size2   = classes.size();
+			final int size1 = classes.size();
+			final GenerateResult x = generateC.resultsFromNodes(List_of(node), _inj().new_WorkManager(), resultSink,
+					fg);
+			final int size2 = classes.size();
 
 			if (size2 > size1) {
 				logProgress(3047, "" + (size2 - size1) + " results generated for " + node.identityString());
@@ -75,11 +72,12 @@ class DE3_ActivePTE implements DE3_Active {
 	}
 
 	@NotNull
-	private Eventual<GenerateResultEnv> getResultEnv(final @NotNull GenerateC generateC, final GenerateResultSink resultSink) {
+	private Eventual<GenerateResultEnv> getResultEnv(final @NotNull GenerateC generateC,
+			final GenerateResultSink resultSink) {
 		Eventual<GenerateResultEnv> R = new Eventual<>();
 
 		// TODO isn't there an onFileGen somewhere?
-		final GenerateResultEnv[] fg0        = {generateC.getFileGen()};
+		final GenerateResultEnv[] fg0 = { generateC.getFileGen() };
 
 		assert fg0[0] != null;
 		if (fg0[0] == null) {
@@ -87,21 +85,18 @@ class DE3_ActivePTE implements DE3_Active {
 				// FIXME as written, this will do nothing
 				// TODO also highlt suspicious that this is never called
 
-				final EIT_ModuleList moduleList = new EIT_ModuleList(/*List_of()*/);
+				final EIT_ModuleList moduleList = new EIT_ModuleList(/* List_of() */);
 
 				var env = new GN_GenerateNodesIntoSinkEnv(List_of(), // !!
-														  new DefaultGenerateResultSink(pa),
-														  moduleList, // !!
-														  ElLog.Verbosity.VERBOSE,
-														  new Old_GenerateResult(),
-														  pa,
-														  pa.getCompilationEnclosure());
+						new DefaultGenerateResultSink(pa), moduleList, // !!
+						ElLog.Verbosity.VERBOSE, new Old_GenerateResult(), pa, pa.getCompilationEnclosure());
 
-				final WorldModule mod = (WorldModule) null; //pte.__gf.getFD().getContext().module();
+				final WorldModule mod = (WorldModule) null; // pte.__gf.getFD().getContext().module();
 
-				var tt  = new GM_GenerateModuleRequest(new GN_GenerateNodesIntoSink(env), mod, env);
-				var t   = new GM_GenerateModule(tt);
-				fg0[0] = new GenerateResultEnv(resultSink, new Old_GenerateResult(), new WorkManager(), new WorkList(), t);
+				var tt = new GM_GenerateModuleRequest(new GN_GenerateNodesIntoSink(env), mod, env);
+				var t = new GM_GenerateModule(tt);
+				fg0[0] = new GenerateResultEnv(resultSink, new Old_GenerateResult(), new WorkManager(), new WorkList(),
+						t);
 
 				R.resolve(fg0[0]);
 			});
@@ -124,24 +119,23 @@ class DE3_ActivePTE implements DE3_Active {
 				}); // FIXME bug: points to `f'
 			}
 
-			//assert null != (pte.getClassInvocation());
+			// assert null != (pte.getClassInvocation());
 
 			if (pte.getClassInvocation() != null)
-				(pte.getClassInvocation()).resolvePromise()
-						.then(node -> {
-							if (generateC.resultSink == null) {
-								//assert false;
-								generateC.resultSink = _inj().new_DefaultGenerateResultSink(deduceTypes2.phase.pa);
-							}
+				(pte.getClassInvocation()).resolvePromise().then(node -> {
+					if (generateC.resultSink == null) {
+						// assert false;
+						generateC.resultSink = _inj().new_DefaultGenerateResultSink(deduceTypes2.phase.pa);
+					}
 
-							var resultSink = generateC.resultSink;
+					var resultSink = generateC.resultSink;
 
-							var efg = getResultEnv(generateC, resultSink);
+					var efg = getResultEnv(generateC, resultSink);
 
-							final DeducePhase deducePhase = deduceTypes2._phase();
+					final DeducePhase deducePhase = deduceTypes2._phase();
 
-							__do_001(generateC, node, deducePhase, resultSink, efg);
-						});
+					__do_001(generateC, node, deducePhase, resultSink, efg);
+				});
 		}
 	}
 

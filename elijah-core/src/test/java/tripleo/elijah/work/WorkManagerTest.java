@@ -19,15 +19,15 @@ public class WorkManagerTest {
 
 	static class AppendChar implements WorkJob {
 
-		private final          int          level;
-		private final          List<String> sink;
-		private final @NotNull String       state;
-		private                boolean      _done;
+		private final int level;
+		private final List<String> sink;
+		private final @NotNull String state;
+		private boolean _done;
 
 		public AppendChar(String s, int level, List<String> aSink) {
-			state      = s + (char) (level + 'A');
+			state = s + (char) (level + 'A');
 			this.level = level;
-			sink       = aSink;
+			sink = aSink;
 		}
 
 		@Override

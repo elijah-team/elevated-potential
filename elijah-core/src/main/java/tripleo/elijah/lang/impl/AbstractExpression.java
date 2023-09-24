@@ -21,12 +21,12 @@ public abstract class AbstractExpression implements IExpression {
 	public @Nullable IExpression left;
 
 	public AbstractExpression() {
-		left  = null;
+		left = null;
 		_kind = null;
 	}
 
 	public AbstractExpression(final IExpression aLeft, final ExpressionKind aType) {
-		left  = aLeft;
+		left = aLeft;
 		_kind = aType;
 	}
 

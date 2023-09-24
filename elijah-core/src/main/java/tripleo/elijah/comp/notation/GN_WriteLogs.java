@@ -14,14 +14,13 @@ import java.util.Map;
 
 public class GN_WriteLogs implements GN_Notable {
 	private final @NotNull ICompilationAccess ca;
-	//private final boolean            silent;
-	private final @NotNull List<ElLog>        logs;
+	// private final boolean silent;
+	private final @NotNull List<ElLog> logs;
 
 	@Contract(pure = true)
-	public GN_WriteLogs(final @NotNull ICompilationAccess aCa,
-						final @NotNull List<ElLog> aLogs) {
+	public GN_WriteLogs(final @NotNull ICompilationAccess aCa, final @NotNull List<ElLog> aLogs) {
 		ca = aCa;
-		//silent = aCa.testSilence() == ElLog.Verbosity.SILENT;
+		// silent = aCa.testSilence() == ElLog.Verbosity.SILENT;
 		logs = aLogs;
 	}
 

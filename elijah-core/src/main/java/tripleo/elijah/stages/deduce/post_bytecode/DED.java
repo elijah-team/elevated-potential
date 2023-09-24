@@ -108,19 +108,12 @@ public interface DED {
 	}
 
 	enum Kind {
-		DED_Kind_ConstantTableEntry,
-		DED_Kind_GeneratedFunction,
-		DED_Kind_IdentTableEntry,
-		DED_Kind_ProcTableEntry,
+		DED_Kind_ConstantTableEntry, DED_Kind_GeneratedFunction, DED_Kind_IdentTableEntry, DED_Kind_ProcTableEntry,
 		/*
-			DED_Kind_GeneratedFunction,
-			DED_Kind_GeneratedFunction,
-			DED_Kind_GeneratedFunction,
-			DED_Kind_GeneratedFunction,
+		 * DED_Kind_GeneratedFunction, DED_Kind_GeneratedFunction,
+		 * DED_Kind_GeneratedFunction, DED_Kind_GeneratedFunction,
 		 */
-		DED_Kind_Type,
-		DED_Kind_TypeTableEntry,
-		DED_Kind_VariableTableEntry, DED_Kind_VarTableEntry
+		DED_Kind_Type, DED_Kind_TypeTableEntry, DED_Kind_VariableTableEntry, DED_Kind_VarTableEntry
 	}
 
 	static @NotNull DED dispatch(final ConstantTableEntry aCte) {

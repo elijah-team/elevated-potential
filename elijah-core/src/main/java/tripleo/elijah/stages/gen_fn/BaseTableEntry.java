@@ -29,11 +29,13 @@ public abstract class BaseTableEntry {
 	public enum Status {
 		KNOWN, UNCHECKED, UNKNOWN
 	}
+
 	@FunctionalInterface
 	public interface StatusListener {
 		void onChange(IElementHolder eh, Status newStatus);
 	}
-	protected final DeferredObject2<OS_Element, Diagnostic, Void> _p_elementPromise  = new DeferredObject2<OS_Element, Diagnostic, Void>() {
+
+	protected final DeferredObject2<OS_Element, Diagnostic, Void> _p_elementPromise = new DeferredObject2<OS_Element, Diagnostic, Void>() {
 		@Override
 		public Deferred<OS_Element, Diagnostic, Void> resolve(final @Nullable OS_Element resolve) {
 			if (resolve == null) {
@@ -50,19 +52,19 @@ public abstract class BaseTableEntry {
 		}
 	};
 	private final List<StatusListener> statusListenerList = new ArrayList<StatusListener>();
-	protected     DeduceTypes2         __dt2;
-	public        BaseEvaFunction      __gf;
+	protected DeduceTypes2 __dt2;
+	public BaseEvaFunction __gf;
 
 	// region resolved_element
 
 	// region status
-	protected       Status                                        status             = Status.UNCHECKED;
+	protected Status status = Status.UNCHECKED;
 
 	DeduceTypeResolve typeResolve;
 
 	public void _fix_table(final DeduceTypes2 aDeduceTypes2, final @NotNull BaseEvaFunction aEvaFunction) {
 		__dt2 = aDeduceTypes2;
-		__gf  = aEvaFunction;
+		__gf = aEvaFunction;
 	}
 
 	public void addStatusListener(StatusListener sl) {
@@ -78,7 +80,7 @@ public abstract class BaseTableEntry {
 
 	public @Nullable OS_Element getResolvedElement() {
 		if (_p_elementPromise.isResolved()) {
-			final OS_Element[] xx = {null};
+			final OS_Element[] xx = { null };
 
 			_p_elementPromise.then(x -> xx[0] = x);
 
@@ -101,7 +103,7 @@ public abstract class BaseTableEntry {
 			_p_elementPromise.resolve(aResolved_element);
 	}
 
-	public void setStatus(Status newStatus, /*@NotNull*/ IElementHolder eh) {
+	public void setStatus(Status newStatus, /* @NotNull */ IElementHolder eh) {
 		status = newStatus;
 		assert newStatus != Status.KNOWN || eh != null && eh.getElement() != null;
 		for (int i = 0; i < statusListenerList.size(); i++) {

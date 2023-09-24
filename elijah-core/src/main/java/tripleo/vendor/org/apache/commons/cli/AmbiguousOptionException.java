@@ -31,7 +31,8 @@ public class AmbiguousOptionException extends UnrecognizedOptionException {
 	/**
 	 * This exception {@code serialVersionUID}.
 	 */
-	private static final   long               serialVersionUID = 5829816121277947229L;
+	private static final long serialVersionUID = 5829816121277947229L;
+
 	/**
 	 * Build the exception message from the specified list of options.
 	 *
@@ -39,7 +40,8 @@ public class AmbiguousOptionException extends UnrecognizedOptionException {
 	 * @param matchingOptions
 	 * @return
 	 */
-	private static @NotNull String createMessage(final String option, final @NotNull Collection<String> matchingOptions) {
+	private static @NotNull String createMessage(final String option,
+			final @NotNull Collection<String> matchingOptions) {
 		final StringBuilder buf = new StringBuilder("Ambiguous option: '");
 		buf.append(option);
 		buf.append("'  (could be: ");

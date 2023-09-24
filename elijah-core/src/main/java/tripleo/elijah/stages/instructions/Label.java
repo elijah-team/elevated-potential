@@ -15,7 +15,7 @@ import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
  */
 public class Label implements InstructionArgument {
 	private final BaseEvaFunction gf;
-	long   index;
+	long index;
 	String name;
 	private int number;
 

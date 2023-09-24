@@ -11,17 +11,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CompilerDriver {
-	private final ICompilationBus                  cb;
+	private final ICompilationBus cb;
 	private final Map<DriverToken, CompilerDriven> defaults = new HashMap<>();
-	private final Map<DriverToken, CompilerDriven> drivens  = new HashMap<>();
+	private final Map<DriverToken, CompilerDriven> drivens = new HashMap<>();
 
-	private /*static*/ boolean initialized;
+	private /* static */ boolean initialized;
 
 	public CompilerDriver(final DefaultCompilationBus aDefaultCompilationBus) {
 		cb = aDefaultCompilationBus;
 
 		if (!initialized) {
-			defaults.put(Compilation.CompilationAlways.Tokens.COMPILATION_RUNNER_START, new CD_CompilationRunnerStart_1());
+			defaults.put(Compilation.CompilationAlways.Tokens.COMPILATION_RUNNER_START,
+					new CD_CompilationRunnerStart_1());
 			defaults.put(Compilation.CompilationAlways.Tokens.COMPILATION_RUNNER_FIND_STDLIB2, new CD_FindStdLibImpl());
 			initialized = true;
 		}

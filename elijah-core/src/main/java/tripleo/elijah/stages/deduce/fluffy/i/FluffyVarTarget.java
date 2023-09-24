@@ -7,7 +7,9 @@ public interface FluffyVarTarget {
 	 * <br/>
 	 * ARGUMENT means a function argument (not used...)
 	 */
-	enum Ty {FUNCTION, MEMBER}
+	enum Ty {
+		FUNCTION, MEMBER
+	}
 
 	Ty getTy();
 

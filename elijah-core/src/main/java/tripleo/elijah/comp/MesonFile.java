@@ -13,18 +13,20 @@ import static tripleo.elijah.util.Helpers.*;
 
 class MesonFile implements EG_Statement {
 
-	private final WriteMesonPipeline                     writeMesonPipeline;
-	private final String                                 aSub_dir;
+	private final WriteMesonPipeline writeMesonPipeline;
+	private final String aSub_dir;
 	private final Multimap<CompilerInstructions, String> lsp_outputs;
-	private final CompilerInstructions                   compilerInstructions;
-	private final CP_Path                                path;
+	private final CompilerInstructions compilerInstructions;
+	private final CP_Path path;
 
-	MesonFile(final WriteMesonPipeline aWriteMesonPipeline, final String aASubDir, final Multimap<CompilerInstructions, String> aLspOutputs, final CompilerInstructions aCompilerInstructions, final CP_Path aPath) {
-		writeMesonPipeline   = aWriteMesonPipeline;
-		aSub_dir             = aASubDir;
-		lsp_outputs          = aLspOutputs;
+	MesonFile(final WriteMesonPipeline aWriteMesonPipeline, final String aASubDir,
+			final Multimap<CompilerInstructions, String> aLspOutputs, final CompilerInstructions aCompilerInstructions,
+			final CP_Path aPath) {
+		writeMesonPipeline = aWriteMesonPipeline;
+		aSub_dir = aASubDir;
+		lsp_outputs = aLspOutputs;
 		compilerInstructions = aCompilerInstructions;
-		path                 = aPath;
+		path = aPath;
 	}
 
 	@Override
@@ -43,15 +45,17 @@ class MesonFile implements EG_Statement {
 	@Override
 	public @NotNull String getText() {
 		final Collection<String> files_ = lsp_outputs.get(compilerInstructions);
-		final Set<String> files = files_.stream()
-				.filter(x -> x.endsWith(".c"))
+		final Set<String> files = files_.stream().filter(x -> x.endsWith(".c"))
 				.map(x -> String.format("\t'%s',", writeMesonPipeline.pullFileName(x)))
 				.collect(Collectors.toUnmodifiableSet());
 
 		final StringBuilder sb = new StringBuilder();
 		sb.append(String.format("%s_sources = files(\n%s\n)", aSub_dir, String_join("\n", files)));
 		sb.append("\n");
-		sb.append(String.format("%s = static_library('%s', %s_sources, install: false,)", aSub_dir, aSub_dir, aSub_dir)); // include_directories, dependencies: [],
+		sb.append(
+				String.format("%s = static_library('%s', %s_sources, install: false,)", aSub_dir, aSub_dir, aSub_dir)); // include_directories,
+																														// dependencies:
+																														// [],
 		sb.append("\n");
 		sb.append("\n");
 		sb.append(String.format("%s_dep = declare_dependency( link_with: %s )", aSub_dir, aSub_dir)); // include_directories

@@ -12,13 +12,11 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class CW_inputIsDirectory {
-	public void apply(final @NotNull CompilerInput input,
-					  final @NotNull CompilationClosure cc,
-					  final @NotNull File directory,
-					  final @NotNull Consumer<CompilerInput> x) {
+	public void apply(final @NotNull CompilerInput input, final @NotNull CompilationClosure cc,
+			final @NotNull File directory, final @NotNull Consumer<CompilerInput> x) {
 		input.setDirectory(directory);
 
-		final QuerySearchEzFiles                     q    = new QuerySearchEzFiles(cc);
+		final QuerySearchEzFiles q = new QuerySearchEzFiles(cc);
 		final List<Operation2<CompilerInstructions>> loci = q.process2(directory);
 
 		input.setDirectoryResults(loci);

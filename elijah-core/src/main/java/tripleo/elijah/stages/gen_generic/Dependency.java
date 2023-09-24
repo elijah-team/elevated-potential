@@ -24,10 +24,10 @@ import java.util.Set;
  * Created 9/13/21 4:00 AM
  */
 public class Dependency {
-	public final Set<Dependency>     deps = new HashSet<>();
+	public final Set<Dependency> deps = new HashSet<>();
 	public final IDependencyReferent referent;
-	public       DependencyRef       dref;
-	public       OS_Element          resolved;
+	public DependencyRef dref;
+	public OS_Element resolved;
 
 	public Dependency(IDependencyReferent aReferent) {
 		referent = aReferent;
@@ -42,17 +42,15 @@ public class Dependency {
 	}
 
 	public @NotNull String jsonString() {
-		final String sb = "{\".class\": \"Dependency\", " + "referent: " + referent + ", " +
-				"dref: " + (dref != null ? dref.jsonString() + ", " : "null, ") +
-				"deps: " + deps + ", " +
-				"resolved: " + resolved +/*+", "*/
+		final String sb = "{\".class\": \"Dependency\", " + "referent: " + referent + ", " + "dref: "
+				+ (dref != null ? dref.jsonString() + ", " : "null, ") + "deps: " + deps + ", " + "resolved: "
+				+ resolved + /* +", " */
 				"}";
 		return sb;
 	}
 
 	public void noteDependencies(AbstractDependencyTracker aDependencyTracker,
-								 @NotNull List<FunctionInvocation> aDependentFunctions,
-								 @NotNull List<GenType> aDependentTypes) {
+			@NotNull List<FunctionInvocation> aDependentFunctions, @NotNull List<GenType> aDependentTypes) {
 		for (FunctionInvocation dependentFunction : aDependentFunctions) {
 			final BaseEvaFunction generatedFunction = dependentFunction.getGenerated();
 			if (generatedFunction != null)
@@ -65,9 +63,12 @@ public class Dependency {
 			if (node != null)
 				deps.add(node.getDependency());
 			else {
-				tripleo.elijah.util.Stupidity.println_err_2("46 node is null " + (dependentType.getResolved() != null ? dependentType.getResolved() : dependentType.getResolvedn()));
+				tripleo.elijah.util.Stupidity.println_err_2(
+						"46 node is null " + (dependentType.getResolved() != null ? dependentType.getResolved()
+								: dependentType.getResolvedn()));
 				final Dependency d = new Dependency(null);
-				d.resolved = dependentType.getResolved() != null ? dependentType.getResolved().getClassOf() : dependentType.getResolvedn();
+				d.resolved = dependentType.getResolved() != null ? dependentType.getResolved().getClassOf()
+						: dependentType.getResolvedn();
 				deps.add(d);
 			}
 		}

@@ -10,13 +10,13 @@ import tripleo.elijah.util.*;
 import java.util.*;
 
 class CB_FindStdLibAction implements CB_Action {
-	private final     CompilationEnclosure  ce;
-	private final     CR_State              crState;
-	private final     List<CB_OutputString> o = new ArrayList<>(); // FIXME 07/01 how is this modified?
-	private @Nullable CD_FindStdLib         findStdLib;
+	private final CompilationEnclosure ce;
+	private final CR_State crState;
+	private final List<CB_OutputString> o = new ArrayList<>(); // FIXME 07/01 how is this modified?
+	private @Nullable CD_FindStdLib findStdLib;
 
 	public CB_FindStdLibAction(final CompilationEnclosure aCe, final @NotNull CompilationRunner aCr) {
-		ce      = aCe;
+		ce = aCe;
 		crState = aCr.getCrState();
 
 		obtain(); // TODO 09/08 Make this more complicated
@@ -31,7 +31,7 @@ class CB_FindStdLibAction implements CB_Action {
 		}
 
 		aMonitor.reportSuccess(this, new CB_ListBackedOutput()); // FIXME
-		//aMonitor.reportSuccess(this, ce.getCB_Output());
+		// aMonitor.reportSuccess(this, ce.getCB_Output());
 	}
 
 	private void getPushItem(final @NotNull Operation<CompilerInstructions> oci) { // TODO reason
@@ -54,7 +54,8 @@ class CB_FindStdLibAction implements CB_Action {
 	}
 
 	private void obtain() {
-		final Operation<CompilerDriven> x = ce.getCompilationDriver().get(Compilation.CompilationAlways.Tokens.COMPILATION_RUNNER_FIND_STDLIB2);
+		final Operation<CompilerDriven> x = ce.getCompilationDriver()
+				.get(Compilation.CompilationAlways.Tokens.COMPILATION_RUNNER_FIND_STDLIB2);
 
 		if (x.mode() == Mode.SUCCESS) {
 			findStdLib = (CD_FindStdLib) x.success();

@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class OS_PackageImpl implements tripleo.elijah.lang.i.OS_Package {
 	private final List<OS_Element> elements = new ArrayList<OS_Element>();
-	int       _code;
+	int _code;
 	Qualident _name;
 	private PackageContext _ctx;
 

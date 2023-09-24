@@ -20,8 +20,8 @@ import java.util.ArrayList;
  */
 public class CClassDecl {
 	private final EvaClass evaClass;
-	public        boolean  prim = false;
-	public        String   prim_decl;
+	public boolean prim = false;
+	public String prim_decl;
 
 	public CClassDecl(EvaClass aEvaClass) {
 		this.evaClass = aEvaClass;
@@ -34,8 +34,9 @@ public class CClassDecl {
 			public void annotation(@NotNull AnnotationPart anno) {
 				if (anno.annoClass().equals(Helpers.string_to_qualident("C.repr"))) {
 					if (anno.getExprs() != null) {
-						final ArrayList<IExpression> expressions = new ArrayList<IExpression>(anno.getExprs().expressions());
-						final IExpression            str0        = expressions.get(0);
+						final ArrayList<IExpression> expressions = new ArrayList<IExpression>(
+								anno.getExprs().expressions());
+						final IExpression str0 = expressions.get(0);
 						if (str0 instanceof StringExpression) {
 							final String str = ((StringExpression) str0).getText();
 							setDecl(str);

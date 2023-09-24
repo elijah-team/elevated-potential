@@ -11,11 +11,11 @@ import tripleo.elijah.util.*;
 import java.util.*;
 
 public class FT_FCA_FunctionDef {
-	private final FunctionDef  fd;
+	private final FunctionDef fd;
 	private final DeduceTypes2 _dt2;
 
 	public FT_FCA_FunctionDef(final FunctionDef aFd, final DeduceTypes2 aDt2) {
-		fd   = aFd;
+		fd = aFd;
 		_dt2 = aDt2;
 	}
 
@@ -23,22 +23,25 @@ public class FT_FCA_FunctionDef {
 		return _dt2._inj();
 	}
 
-	void loop2_i(@NotNull FT_FnCallArgs.DoAssignCall aDoAssignCall, final @NotNull ProcTableEntry pte, final @NotNull VariableTableEntry vte, final int instructionIndex) {
+	void loop2_i(@NotNull FT_FnCallArgs.DoAssignCall aDoAssignCall, final @NotNull ProcTableEntry pte,
+			final @NotNull VariableTableEntry vte, final int instructionIndex) {
 		final @Nullable IInvocation invocation;
 		if (fd.getParent() == aDoAssignCall.generatedFunction.getFD().getParent()) {
 			invocation = aDoAssignCall.dc.getInvocation((EvaFunction) aDoAssignCall.generatedFunction);
 		} else {
 			if (fd.getParent() instanceof NamespaceStatement) {
-				NamespaceInvocation ni = aDoAssignCall.dc.registerNamespaceInvocation((NamespaceStatement) fd.getParent());
+				NamespaceInvocation ni = aDoAssignCall.dc
+						.registerNamespaceInvocation((NamespaceStatement) fd.getParent());
 				invocation = ni;
 			} else if (fd.getParent() instanceof final @NotNull ClassStatement classStatement) {
-				@Nullable ClassInvocation     ci          = _inj().new_ClassInvocation(classStatement, null, new ReadySupplier_1<>(_dt2));
+				@Nullable
+				ClassInvocation ci = _inj().new_ClassInvocation(classStatement, null, new ReadySupplier_1<>(_dt2));
 				final @NotNull List<TypeName> genericPart = classStatement.getGenericPart();
 				if (genericPart.size() > 0) {
 					// TODO handle generic parameters somehow (getInvocationFromBacklink?)
 
 				}
-				ci         = aDoAssignCall.dc.registerClassInvocation(ci);
+				ci = aDoAssignCall.dc.registerClassInvocation(ci);
 				invocation = ci;
 			} else
 				throw new NotImplementedException();
@@ -61,7 +64,9 @@ public class FT_FCA_FunctionDef {
 					return; // type already found
 				}
 				// I'm not sure if below is ever called
-				@NotNull TypeTableEntry tte = aDoAssignCall.generatedFunction.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, aDoAssignCall.dc.gt(aType), pte.__debug_expression, pte);
+				@NotNull
+				TypeTableEntry tte = aDoAssignCall.generatedFunction.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT,
+						aDoAssignCall.dc.gt(aType), pte.__debug_expression, pte);
 				vte.addPotentialType(instructionIndex, tte);
 			}
 		});

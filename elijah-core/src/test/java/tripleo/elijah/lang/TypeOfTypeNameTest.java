@@ -34,9 +34,9 @@ public class TypeOfTypeNameTest {
 		//
 		// CREATE MOCKS
 		//
-		Context     ctx = mock(Context.class);
-		OS_Module   mod = mock(OS_Module.class);
-		Compilation c   = mock(Compilation.class);
+		Context ctx = mock(Context.class);
+		OS_Module mod = mock(OS_Module.class);
+		Compilation c = mock(Compilation.class);
 
 		//
 		// CREATE VARIABLES
@@ -75,9 +75,9 @@ public class TypeOfTypeNameTest {
 		boilerplate.get();
 		boilerplate.getGenerateFiles(boilerplate.defaultMod());
 
-		final PipelineLogic pl           = boilerplate.pipelineLogic;
-		final DeduceTypes2  deduceTypes2 = new DeduceTypes2(mod, pl.dp);
-		TypeName            tn           = t.resolve(ctx, deduceTypes2);
+		final PipelineLogic pl = boilerplate.pipelineLogic;
+		final DeduceTypes2 deduceTypes2 = new DeduceTypes2(mod, pl.dp);
+		TypeName tn = t.resolve(ctx, deduceTypes2);
 //		tripleo.elijah.util.Stupidity.println_out_2(tn);
 		assertEquals(typeNameString, tn.toString());
 	}
@@ -88,29 +88,29 @@ public class TypeOfTypeNameTest {
 		//
 		// CREATE MOCK
 		//
-		Context ctx  = mock(Context.class);
+		Context ctx = mock(Context.class);
 		Context ctx4 = mock(Context.class);
 
 		//
 		// CREATE VARIABLES
 		//
-		String       typeNameString1 = "AbstractFactory";
-		final String typeNameString  = "SystemInteger";
+		String typeNameString1 = "AbstractFactory";
+		final String typeNameString = "SystemInteger";
 
 		OS_Module mod = new OS_ModuleImpl();
 		mod.setParent(mock(Compilation.class));
 		Context mod_ctx = mod.getContext();
 
 		ClassStatement st_af = new ClassStatementImpl(mod, mod_ctx);
-		ClassHeader    ch    = new ClassHeaderImpl(false, List_of());
+		ClassHeader ch = new ClassHeaderImpl(false, List_of());
 		ch.setName(IdentExpression.forString("AbstractFactory"));
 		st_af.setHeader(ch);
 		ClassStatement sysint = new ClassStatementImpl(mod, mod_ctx);
-		ClassHeader    ch2    = new ClassHeaderImpl(false, List_of());
+		ClassHeader ch2 = new ClassHeaderImpl(false, List_of());
 		ch2.setName(IdentExpression.forString("SystemInteger"));
 		sysint.setHeader(ch2);
 
-		VariableSequence  vs    = new VariableSequenceImpl(st_af.getContext());
+		VariableSequence vs = new VariableSequenceImpl(st_af.getContext());
 		VariableStatement var_y = vs.next();
 		var_y.setName(IdentExpression.forString("y"));
 		RegularTypeName rtn_y = new RegularTypeNameImpl(ctx);
@@ -147,8 +147,8 @@ public class TypeOfTypeNameTest {
 		boilerplate.get();
 		boilerplate.getGenerateFiles(boilerplate.defaultMod());
 
-		final PipelineLogic pl           = boilerplate.pipelineLogic;
-		final DeduceTypes2  deduceTypes2 = new DeduceTypes2(mod, pl.dp);
+		final PipelineLogic pl = boilerplate.pipelineLogic;
+		final DeduceTypes2 deduceTypes2 = new DeduceTypes2(mod, pl.dp);
 
 //		when(mod.getFileName()).thenReturn("foo.elijah");
 		when(ctx.lookup("x")).thenReturn(lrl);
@@ -175,18 +175,18 @@ public class TypeOfTypeNameTest {
 		//
 		// CREATE VARIABLES
 		//
-		String       typeNameString1 = "package1.AbstractFactory";
-		final String typeNameString  = "SystemInteger";
+		String typeNameString1 = "package1.AbstractFactory";
+		final String typeNameString = "SystemInteger";
 
-		OS_Module mod     = new OS_ModuleImpl();
-		Context   mod_ctx = mod.getContext();
+		OS_Module mod = new OS_ModuleImpl();
+		Context mod_ctx = mod.getContext();
 
 		ClassStatement st_af = new ClassStatementImpl(mod, mod_ctx);
 		st_af.setName(IdentExpression.forString("AbstractFactory"));
 		final OS_Package package1 = new OS_PackageImpl(Helpers.string_to_qualident("package1"), 1);
 		st_af.setPackageName(package1);
 
-		VariableSequenceImpl  vs    = new VariableSequenceImpl(st_af.getContext());
+		VariableSequenceImpl vs = new VariableSequenceImpl(st_af.getContext());
 		VariableStatementImpl var_y = new VariableStatementImpl(vs);
 		var_y.setName(IdentExpression.forString("y"));
 		RegularTypeName rtn_y = new RegularTypeNameImpl(ctx);
@@ -225,8 +225,8 @@ public class TypeOfTypeNameTest {
 		boilerplate.get();
 		boilerplate.getGenerateFiles(boilerplate.defaultMod());
 
-		final PipelineLogic pl           = boilerplate.pipelineLogic;
-		final DeduceTypes2  deduceTypes2 = new DeduceTypes2(mod, pl.dp);
+		final PipelineLogic pl = boilerplate.pipelineLogic;
+		final DeduceTypes2 deduceTypes2 = new DeduceTypes2(mod, pl.dp);
 
 		TypeName tn = t.resolve(ctx, deduceTypes2);
 //		tripleo.elijah.util.Stupidity.println_out_2(tn);
@@ -239,9 +239,9 @@ public class TypeOfTypeNameTest {
 		//
 		// CREATE MOCKS
 		//
-		Context     ctx = mock(Context.class);
-		OS_Module   mod = mock(OS_Module.class);
-		Compilation c   = mock(Compilation.class);
+		Context ctx = mock(Context.class);
+		OS_Module mod = mock(OS_Module.class);
+		Compilation c = mock(Compilation.class);
 
 		//
 		// CREATE VARIABLES
@@ -281,9 +281,9 @@ public class TypeOfTypeNameTest {
 		boilerplate.get();
 		boilerplate.getGenerateFiles(boilerplate.defaultMod());
 
-		final PipelineLogic pl           = boilerplate.pipelineLogic;
-		final DeduceTypes2  deduceTypes2 = new DeduceTypes2(mod, pl.dp);
-		final TypeName      tn           = t.resolve(ctx, deduceTypes2);
+		final PipelineLogic pl = boilerplate.pipelineLogic;
+		final DeduceTypes2 deduceTypes2 = new DeduceTypes2(mod, pl.dp);
+		final TypeName tn = t.resolve(ctx, deduceTypes2);
 //		tripleo.elijah.util.Stupidity.println_out_2(tn);
 		assertEquals(typeNameString, tn.toString());
 	}

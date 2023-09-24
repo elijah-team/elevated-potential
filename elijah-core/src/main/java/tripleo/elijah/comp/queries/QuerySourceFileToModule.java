@@ -15,18 +15,18 @@ import tripleo.elijjah.ElijjahParser;
 import java.io.InputStream;
 
 public class QuerySourceFileToModule {
-	private final Compilation                   compilation;
+	private final Compilation compilation;
 	private final QuerySourceFileToModuleParams params;
 
 	public QuerySourceFileToModule(final QuerySourceFileToModuleParams aParams, final Compilation aCompilation) {
-		params      = aParams;
+		params = aParams;
 		compilation = aCompilation;
 	}
 
 	public @NotNull Operation<OS_Module> calculate() {
-		final String      f      = params.sourceFilename();
-		final InputStream s      = params.inputStream();
-		final boolean     do_out = params.do_out();
+		final String f = params.sourceFilename();
+		final InputStream s = params.inputStream();
+		final boolean do_out = params.do_out();
 
 		final ElijjahLexer lexer = new ElijjahLexer(s);
 		lexer.setFilename(f);
@@ -48,6 +48,5 @@ public class QuerySourceFileToModule {
 	public OS_Module load(final QueryDatabase qb) {
 		throw new NotImplementedException();
 	}
-
 
 }

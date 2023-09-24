@@ -74,12 +74,14 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	public abstract void provideFileGen(GenerateResultEnv fg);
 
 	public @NotNull Pair<String, TypeTableEntry> tte_for_result() {
-		@Nullable InstructionArgument result_index = getGf().vte_lookup("Result");
+		@Nullable
+		InstructionArgument result_index = getGf().vte_lookup("Result");
 		if (result_index == null) {
 			// if there is no Result, there should be Value
 			result_index = getGf().vte_lookup("Value");
 			// but Value might be passed in. If it is, discard value
-			@NotNull final VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
+			@NotNull
+			final VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
 			if (vte.getVtt() != VariableTableType.RESULT)
 				result_index = null;
 			if (result_index == null)
@@ -92,9 +94,11 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	}
 
 	public @NotNull TypeTableEntry tte_for_self() {
-		@Nullable final InstructionArgument result_index = getGf().vte_lookup("self");
-		final IntegerIA                     resultIA     = (IntegerIA) result_index;
-		@NotNull final VariableTableEntry   vte          = resultIA.getEntry();
+		@Nullable
+		final InstructionArgument result_index = getGf().vte_lookup("self");
+		final IntegerIA resultIA = (IntegerIA) result_index;
+		@NotNull
+		final VariableTableEntry vte = resultIA.getEntry();
 		assert vte.getVtt() == VariableTableType.SELF;
 
 		var tte1 = getGf().getTypeTableEntry(resultIA.getIndex());

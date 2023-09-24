@@ -8,8 +8,8 @@ import tripleo.elijah.lang.nextgen.names.i.*;
 
 /**
  * @author Tripleo
- * <p>
- * Created Mar 23, 2020 at 12:40:27 AM
+ *         <p>
+ *         Created Mar 23, 2020 at 12:40:27 AM
  */
 public interface OS_Element2 {
 

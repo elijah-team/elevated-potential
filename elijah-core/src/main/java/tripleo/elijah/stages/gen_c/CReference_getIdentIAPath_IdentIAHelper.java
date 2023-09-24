@@ -14,13 +14,13 @@ import java.util.List;
 
 class CReference_getIdentIAPath_IdentIAHelper {
 	class CodeResolver {
-		private int    code;
+		private int code;
 		private String reason;
 		private boolean is_set;
 		private boolean is_anti;
 
 		public void anti_provide(final int _code, final String _reason) {
-			code   = _code;
+			code = _code;
 			reason = _reason;
 			is_anti = true;
 		}
@@ -38,50 +38,55 @@ class CReference_getIdentIAPath_IdentIAHelper {
 		}
 
 		public void provide(final @NotNull EvaContainerNC aNc, final String aReason) {
-			code   = aNc.getCode();
+			code = aNc.getCode();
 			reason = aReason;
 			is_set = true;
 		}
 
 		public void provide(int _code, String _reason) {
-			code   = _code;
+			code = _code;
 			reason = _reason;
 			is_set = true;
 		}
 	}
+
 	interface ICodeResolver {
 		int getCode();
 	}
+
 	@Contract(pure = true)
 	private static void _act_AliasStatement() {
 		final int y = 2;
 		NotImplementedException.raise();
-		//			text = Emit.emit("/*167*/")+((AliasStatementImpl)resolved_element).name();
-		//			return _getIdentIAPath_IdentIAHelper(text, sl, i, sSize, _res)
+		// text = Emit.emit("/*167*/")+((AliasStatementImpl)resolved_element).name();
+		// return _getIdentIAPath_IdentIAHelper(text, sl, i, sSize, _res)
 	}
-	private final BaseEvaFunction     generatedFunction;
-	private final int                 i;
-	private final EvaNode             resolved;
-	private final OS_Element          resolved_element;
-	private final List<String>        sl;
+
+	private final BaseEvaFunction generatedFunction;
+	private final int i;
+	private final EvaNode resolved;
+	private final OS_Element resolved_element;
+	private final List<String> sl;
 	private final InstructionArgument ia_next;
 
-	private final int                 sSize;
+	private final int sSize;
 
-	private final String              value;
+	private final String value;
 
-	public        int                 code = -1;
+	public int code = -1;
 
 	@Contract(pure = true)
-	CReference_getIdentIAPath_IdentIAHelper(final InstructionArgument ia_next, final List<String> sl, final int i, final int sSize, final OS_Element resolved_element, final BaseEvaFunction generatedFunction, final EvaNode aResolved, final String aValue) {
-		this.ia_next           = ia_next;
-		this.sl                = sl;
-		this.i                 = i;
-		this.sSize             = sSize;
-		this.resolved_element  = resolved_element;
+	CReference_getIdentIAPath_IdentIAHelper(final InstructionArgument ia_next, final List<String> sl, final int i,
+			final int sSize, final OS_Element resolved_element, final BaseEvaFunction generatedFunction,
+			final EvaNode aResolved, final String aValue) {
+		this.ia_next = ia_next;
+		this.sl = sl;
+		this.i = i;
+		this.sSize = sSize;
+		this.resolved_element = resolved_element;
 		this.generatedFunction = generatedFunction;
-		resolved               = aResolved;
-		value                  = aValue;
+		resolved = aResolved;
+		value = aValue;
 	}
 
 	private boolean _act_ClassStatement(final @NotNull CReference aCReference, boolean b) {
@@ -96,8 +101,8 @@ class CReference_getIdentIAPath_IdentIAHelper {
 		// README might be calling reflect or Type or Name
 		// TODO what about named constructors -- should be called with construct keyword
 		if (getIa_next() instanceof IdentIA) {
-			final IdentTableEntry ite  = ((IdentIA) getIa_next()).getEntry();
-			final String          text = ite.getIdent().getText();
+			final IdentTableEntry ite = ((IdentIA) getIa_next()).getEntry();
+			final String text = ite.getIdent().getText();
 			if (text.equals("reflect")) {
 				b = true;
 				final String text2 = String.format("ZS%d_reflect", code);
@@ -134,14 +139,14 @@ class CReference_getIdentIAPath_IdentIAHelper {
 			tripleo.elijah.util.Stupidity.println_err("** 31161 not resolved " + getResolved_element());
 		}
 		// README Assuming this is for named constructors
-		final String text  = ((ConstructorDef) getResolved_element()).name();
+		final String text = ((ConstructorDef) getResolved_element()).name();
 		final String text2 = String.format("ZC%d%s", code, text);
 		aCReference.addRef(text2, CReference.Ref.CONSTRUCTOR);
 	}
 
 	private void _act_DefFunctionDef(final @NotNull CReference aCReference) {
 		final OS_Element parent = getResolved_element().getParent();
-		int        code   = -100;
+		int code = -100;
 
 		var cr = new CodeResolver();
 
@@ -152,11 +157,13 @@ class CReference_getIdentIAPath_IdentIAHelper {
 				{
 					code = nc.getCode();
 
-					cr.provide(nc, "_act_DefFunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-instanceof-EvaContainerNC");
+					cr.provide(nc,
+							"_act_DefFunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-instanceof-EvaContainerNC");
 				} else {
 					code = -2;
 
-					cr.anti_provide(-2, "_act_DefFunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-NOT-instanceof-EvaContainerNC");
+					cr.anti_provide(-2,
+							"_act_DefFunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-NOT-instanceof-EvaContainerNC");
 				}
 			} else {
 				assert false;
@@ -178,20 +185,20 @@ class CReference_getIdentIAPath_IdentIAHelper {
 //				text2 = String.format("ZT%d_%d", enclosing_function._a.getCode(), closure_index);
 		}
 		final DefFunctionDef defFunctionDef = (DefFunctionDef) getResolved_element();
-		final String         text2          = String.format("z%d%s", code, defFunctionDef.name());
+		final String text2 = String.format("z%d%s", code, defFunctionDef.name());
 		aCReference.addRef(text2, CReference.Ref.FUNCTION);
 	}
 
 	private void _act_FormalArgListItem(final @NotNull CReference aCReference, final @NotNull FormalArgListItem fali) {
-		final int    y     = 2;
+		final int y = 2;
 		final String text2 = "va" + fali.getNameToken().getText();
 		aCReference.addRef(text2, CReference.Ref.LOCAL); // TODO
 	}
 
 	private void _act_FunctionDef(final @NotNull CReference aCReference) {
-		final OS_Element parent        = getResolved_element().getParent();
-		int              our_code      = -1;
-		final EvaNode    resolved_node = getResolved();
+		final OS_Element parent = getResolved_element().getParent();
+		int our_code = -1;
+		final EvaNode resolved_node = getResolved();
 
 		var cr = new CodeResolver();
 
@@ -204,20 +211,22 @@ class CReference_getIdentIAPath_IdentIAHelper {
 					{
 						this.code = gc.getCode();
 
-						cr.provide(gc, "_act_FunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-instanceof-EvaContainerNC");
+						cr.provide(gc,
+								"_act_FunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-instanceof-EvaContainerNC");
 
 						assert this.code > 0;
 					} else {
 						this.code = -2;
 
-						cr.anti_provide(-2, "_act_FunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-NOT-instanceof-EvaContainerNC");
+						cr.anti_provide(-2,
+								"_act_FunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-NOT-instanceof-EvaContainerNC");
 					}
 				});
 
 				// TODO 09/06 maybe remove?
 				if (resolvedFunction.getGenClass() instanceof final @NotNull EvaNamespace generatedNamespace) {
 					// FIXME sometimes genClass is not called so above wont work,
-					//  so check if a code was set and use it here
+					// so check if a code was set and use it here
 					final int cc = generatedNamespace.getCode();
 					if (cc > 0) {
 						this.code = cc;
@@ -245,7 +254,7 @@ class CReference_getIdentIAPath_IdentIAHelper {
 
 			assert this.code == cr.getCode();
 
-			our_code = cr.getCode(); //this.code;
+			our_code = cr.getCode(); // this.code;
 		}
 
 		// TODO CodeProviderTarget/EG_Statement
@@ -254,12 +263,12 @@ class CReference_getIdentIAPath_IdentIAHelper {
 	}
 
 	private void _act_PropertyStatement(final @NotNull CReference aCReference) {
-		getSl().clear();  // don't we want all the text including from sl?
+		getSl().clear(); // don't we want all the text including from sl?
 
 		final PropertyStatement ps = (PropertyStatement) getResolved_element();
 
 		final GCS_Property_Get propertyGet = new GCS_Property_Get(ps);
-		final String           text2       = propertyGet.getText();
+		final String text2 = propertyGet.getText();
 
 		aCReference.addRef(text2, CReference.Ref.PROPERTY_GET);
 
@@ -274,7 +283,7 @@ class CReference_getIdentIAPath_IdentIAHelper {
 	}
 
 	boolean action(final CRI_Ident aCRI_ident, final @NotNull CReference aCReference) {
-		boolean          b               = false;
+		boolean b = false;
 		final OS_Element resolvedElement = getResolved_element();
 
 		if (resolvedElement instanceof ClassStatement) {

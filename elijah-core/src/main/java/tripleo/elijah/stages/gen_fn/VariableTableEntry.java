@@ -31,28 +31,30 @@ import java.util.Map;
 /**
  * Created 9/10/20 4:51 PM
  */
-public class VariableTableEntry extends BaseTableEntry1 implements Constructable, TableEntryIV, DeduceTypes2.ExpectationBase {
-	private final     DeferredObject2<GenType, Void, Void>       typeDeferred             = new DeferredObject2<GenType, Void, Void>();
-	private final     VariableTableType                          vtt;
-	private final     int                                        index;
-	private final     String                                     name;
-	private final     DeferredObject<ProcTableEntry, Void, Void> _p_constructableDeferred = new DeferredObject<>();
-	final @Nullable   VariableStatement                          _vs;
-	public            int                                        tempNum                  = -1;
-	private           TypeTableEntry                             type;
-	private @Nullable GenType                                    _resolveTypeCalled       = null;
-	private @NotNull  Map<Integer, TypeTableEntry>               potentialTypes           = new HashMap<Integer, TypeTableEntry>();
-	private           DeduceLocalVariable                        dlv                      = new DeduceLocalVariable(this);
-	private final     GenType                                    genType                  = new GenTypeImpl();
-	private           ProcTableEntry                             constructable_pte;
-	private           DeduceElement3_VariableTableEntry          _de3;
-	private           EvaNode                                    _resolvedType;
+public class VariableTableEntry extends BaseTableEntry1
+		implements Constructable, TableEntryIV, DeduceTypes2.ExpectationBase {
+	private final DeferredObject2<GenType, Void, Void> typeDeferred = new DeferredObject2<GenType, Void, Void>();
+	private final VariableTableType vtt;
+	private final int index;
+	private final String name;
+	private final DeferredObject<ProcTableEntry, Void, Void> _p_constructableDeferred = new DeferredObject<>();
+	final @Nullable VariableStatement _vs;
+	public int tempNum = -1;
+	private TypeTableEntry type;
+	private @Nullable GenType _resolveTypeCalled = null;
+	private @NotNull Map<Integer, TypeTableEntry> potentialTypes = new HashMap<Integer, TypeTableEntry>();
+	private DeduceLocalVariable dlv = new DeduceLocalVariable(this);
+	private final GenType genType = new GenTypeImpl();
+	private ProcTableEntry constructable_pte;
+	private DeduceElement3_VariableTableEntry _de3;
+	private EvaNode _resolvedType;
 
-	public VariableTableEntry(final int aIndex, final VariableTableType aVtt, final String aName, final TypeTableEntry aTTE, final OS_Element el) {
+	public VariableTableEntry(final int aIndex, final VariableTableType aVtt, final String aName,
+			final TypeTableEntry aTTE, final OS_Element el) {
 		this.index = aIndex;
-		this.name  = aName;
-		this.vtt   = aVtt;
-		this.type  = aTTE;
+		this.name = aName;
+		this.vtt = aVtt;
+		this.type = aTTE;
 		if (el instanceof VariableStatement vs) {
 			assert vtt == VariableTableType.VAR;
 
@@ -80,7 +82,9 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 
 	public void addPotentialType(final int instructionIndex, final @NotNull TypeTableEntry tte) {
 		if (!typeDeferred.isPending()) {
-			tripleo.elijah.util.Stupidity.println_err_2("62 addPotentialType while typeDeferred is already resolved " + this);//throw new AssertionError();
+			tripleo.elijah.util.Stupidity
+					.println_err_2("62 addPotentialType while typeDeferred is already resolved " + this);// throw new
+																											// AssertionError();
 			return;
 		}
 		//
@@ -92,7 +96,7 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 				v.setAttached(tte.getAttached());
 				type.genType.copy(tte.genType); // README don't lose information
 			} else if (tte.lifetime == TypeTableEntry.Type.TRANSIENT && v.lifetime == TypeTableEntry.Type.SPECIFIED) {
-				//v.attached = v.attached; // leave it as is
+				// v.attached = v.attached; // leave it as is
 			} else if (tte.lifetime == v.lifetime && v.getAttached() == tte.getAttached()) {
 				// leave as is
 			} else if (v.getAttached().equals(tte.getAttached())) {
@@ -106,8 +110,10 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 //				tripleo.elijah.util.Stupidity.println_err_2("v.attached: " + v.attached);
 //				tripleo.elijah.util.Stupidity.println_err_2("tte.attached: " + tte.attached);
 				tripleo.elijah.util.Stupidity.println_out_2("72 WARNING two types at the same location.");
-				if ((tte.getAttached() != null && tte.getAttached().getType() != OS_Type.Type.USER) || v.getAttached().getType() != OS_Type.Type.USER_CLASS) {
-					// TODO prefer USER_CLASS as we are assuming it is a resolved version of the other one
+				if ((tte.getAttached() != null && tte.getAttached().getType() != OS_Type.Type.USER)
+						|| v.getAttached().getType() != OS_Type.Type.USER_CLASS) {
+					// TODO prefer USER_CLASS as we are assuming it is a resolved version of the
+					// other one
 					if (tte.getAttached() == null)
 						tte.setAttached(v.getAttached());
 					else if (tte.getAttached().getType() == OS_Type.Type.USER_CLASS)
@@ -124,10 +130,7 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 
 	@Override
 	public @NotNull String expectationString() {
-		return "VariableTableEntry{" +
-				"index=" + index +
-				", name='" + name + '\'' +
-				"}";
+		return "VariableTableEntry{" + "index=" + index + ", name='" + name + '\'' + "}";
 	}
 
 //	public DeferredObject<GenType, Void, Void> typeDeferred() {
@@ -145,8 +148,8 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 	public @NotNull DeduceElement3_VariableTableEntry getDeduceElement3() {
 		if (_de3 == null) {
 			_de3 = new DeduceElement3_VariableTableEntry(this);
-			//_de3.generatedFunction = generatedFunction;
-			//_de3.deduceTypes2 = deduceTypes2;
+			// _de3.generatedFunction = generatedFunction;
+			// _de3.deduceTypes2 = deduceTypes2;
 		}
 		return _de3;
 	}
@@ -211,14 +214,15 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 		return _resolvedType;
 	}
 
-
 	public void resolveType(final @NotNull GenType aGenType) {
 		try {
 			if (_resolveTypeCalled != null) { // TODO what a hack
 				if (_resolveTypeCalled.getResolved() != null) {
 					if (!aGenType.equals(_resolveTypeCalled)) {
-						tripleo.elijah.util.Stupidity.println_err_2(String.format("** 130 Attempting to replace %s with %s in %s", _resolveTypeCalled.asString(), aGenType.asString(), this));
-						//					throw new AssertionError();
+						tripleo.elijah.util.Stupidity
+								.println_err_2(String.format("** 130 Attempting to replace %s with %s in %s",
+										_resolveTypeCalled.asString(), aGenType.asString(), this));
+						// throw new AssertionError();
 					}
 				} else {
 					_resolveTypeCalled = aGenType;
@@ -238,7 +242,8 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 //			var vte_ident = __gf.getIdent(this);
 		} finally {
 			getGenType().copy(aGenType);
-			// FIXME do we want to setStatus to KNOWN even without knowing here what the element may be??
+			// FIXME do we want to setStatus to KNOWN even without knowing here what the
+			// element may be??
 		}
 	}
 
@@ -268,7 +273,8 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 		this.constructable_pte = constructable_pte;
 	}
 
-	public void setDeduceTypes2(final DeduceTypes2 aDeduceTypes2, final Context aContext, final BaseEvaFunction aGeneratedFunction) {
+	public void setDeduceTypes2(final DeduceTypes2 aDeduceTypes2, final Context aContext,
+			final BaseEvaFunction aGeneratedFunction) {
 		getDlv().setDeduceTypes2(aDeduceTypes2, aContext, aGeneratedFunction);
 	}
 
@@ -320,7 +326,8 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 		addStatusListener(new StatusListener() {
 			@Override
 			public void onChange(final IElementHolder eh, final Status newStatus) {
-				if (newStatus != Status.KNOWN) return;
+				if (newStatus != Status.KNOWN)
+					return;
 
 				__gf.getIdent(VariableTableEntry.this).resolve();
 			}
@@ -330,14 +337,8 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 
 	@Override
 	public @NotNull String toString() {
-		return "VariableTableEntry{" +
-				"index=" + index +
-				", name='" + name + '\'' +
-				", status=" + status +
-				", type=" + type.index +
-				", vtt=" + getVtt() +
-				", potentialTypes=" + getPotentialTypes() +
-				'}';
+		return "VariableTableEntry{" + "index=" + index + ", name='" + name + '\'' + ", status=" + status + ", type="
+				+ type.index + ", vtt=" + getVtt() + ", potentialTypes=" + getPotentialTypes() + '}';
 	}
 
 	public boolean typeDeferred_isPending() {

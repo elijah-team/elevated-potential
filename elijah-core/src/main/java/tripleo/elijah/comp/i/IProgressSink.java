@@ -2,8 +2,7 @@ package tripleo.elijah.comp.i;
 
 public interface IProgressSink {
 	enum Codes {
-		LazyCompilerInstructions_inst(750),
-		DefaultCCI_accept(131);
+		LazyCompilerInstructions_inst(750), DefaultCCI_accept(131);
 
 		private final int value;
 

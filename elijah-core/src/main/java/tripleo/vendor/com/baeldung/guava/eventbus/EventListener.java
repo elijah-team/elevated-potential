@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("unused")
 public class EventListener {
 	private static final Logger LOG = LoggerFactory.getLogger(EventListener.class);
-	private static       int    eventsHandled;
+	private static int eventsHandled;
 
 	int getEventsHandled() {
 		return eventsHandled;

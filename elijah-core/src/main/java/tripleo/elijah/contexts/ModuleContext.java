@@ -16,8 +16,8 @@ import tripleo.elijah.lang.impl.ContextImpl;
 
 /**
  * @author Tripleo
- * <p>
- * Created 	Mar 26, 2020 at 6:33:31 AM
+ *         <p>
+ *         Created Mar 26, 2020 at 6:33:31 AM
  */
 public class ModuleContext extends ContextImpl implements Context {
 
@@ -37,7 +37,8 @@ public class ModuleContext extends ContextImpl implements Context {
 	}
 
 	@Override
-	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 		// TODO look all this up in a table, not by iteration
 		for (final ModuleItem item : carrier.getItems()) {
@@ -60,12 +61,12 @@ public class ModuleContext extends ContextImpl implements Context {
 //			}
 //			tripleo.elijah.util.Stupidity.println_err_2("101 Searching "+items.toString()+" for "+name);
 			//
-			if (!(item instanceof ClassStatement) &&
-					!(item instanceof NamespaceStatement) &&
-					!(item instanceof AliasStatementImpl) //&&
+			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
+					&& !(item instanceof AliasStatementImpl) // &&
 //				!(item instanceof VariableSequenceImpl)
-				// TODO what about imports
-			) continue;
+			// TODO what about imports
+			)
+				continue;
 			if (item instanceof OS_Element2) {
 //				LogEvent.logEvent(102, ((OS_Element2) item).name());
 				if (((OS_Element2) item).name().equals(name)) {
@@ -78,12 +79,12 @@ public class ModuleContext extends ContextImpl implements Context {
 				namespaceContext.lookup(name, level, Result, alreadySearched, true);
 			}
 		}
-		/*for (ModuleItem item : carrier.getItems()) {
-			if (item instanceof ImportStatement) {
-				final ImportStatement importStatement = (ImportStatement) item;
-				searchImports(name, level, Result, alreadySearched, importStatement);
-			}
-		}*/
+		/*
+		 * for (ModuleItem item : carrier.getItems()) { if (item instanceof
+		 * ImportStatement) { final ImportStatement importStatement = (ImportStatement)
+		 * item; searchImports(name, level, Result, alreadySearched, importStatement); }
+		 * }
+		 */
 //		tripleo.elijah.util.Stupidity.println_err_2("2003 "+carrier.getItems());
 		if (carrier.prelude() != null && alreadySearched.contains(carrier.prelude().getContext()))
 			return Result;
@@ -96,26 +97,25 @@ public class ModuleContext extends ContextImpl implements Context {
 		carrier = aCarrier;
 	}
 
-	/*private void searchImports(String name, int level, LookupResultList Result, List<ContextImpl> alreadySearched, ImportStatement importStatement) {
-//		tripleo.elijah.util.Stupidity.println_err_2("2002 "+importStatement.importList());
-		for (Qualident importStatementItem : importStatement.parts()) {
-//			tripleo.elijah.util.Stupidity.println_err_2("2005 "+importStatementItem);
-			if (carrier.parent.isPackage(importStatementItem.toString())) {
-				List<OS_Element> l = new ArrayList<>();
-				OS_Package aPackage = carrier.parent.getPackage(importStatementItem);
-				LogEvent.logEvent(4001 , ""+aPackage.getElements());
-				for (OS_Element element : aPackage.getElements()) {
-//					tripleo.elijah.util.Stupidity.println_err_2("4000 "+element);
-					if (element instanceof NamespaceStatement && ((NamespaceStatement) element).getKind() == NamespaceTypes.MODULE) {
-//		                LogEvent.logEvent(4103, "");
-						final NamespaceContext namespaceContext = (NamespaceContext) element.getContext();
-						alreadySearched.add(namespaceContext);
-						namespaceContext.lookup(name, level, Result, alreadySearched, true);
-					}
-				}
-			}
-		}
-	}*/
+	/*
+	 * private void searchImports(String name, int level, LookupResultList Result,
+	 * List<ContextImpl> alreadySearched, ImportStatement importStatement) { //
+	 * tripleo.elijah.util.Stupidity.println_err_2("2002 "+importStatement.
+	 * importList()); for (Qualident importStatementItem : importStatement.parts())
+	 * { //
+	 * tripleo.elijah.util.Stupidity.println_err_2("2005 "+importStatementItem); if
+	 * (carrier.parent.isPackage(importStatementItem.toString())) { List<OS_Element>
+	 * l = new ArrayList<>(); OS_Package aPackage =
+	 * carrier.parent.getPackage(importStatementItem); LogEvent.logEvent(4001 ,
+	 * ""+aPackage.getElements()); for (OS_Element element : aPackage.getElements())
+	 * { // tripleo.elijah.util.Stupidity.println_err_2("4000 "+element); if
+	 * (element instanceof NamespaceStatement && ((NamespaceStatement)
+	 * element).getKind() == NamespaceTypes.MODULE) { // LogEvent.logEvent(4103,
+	 * ""); final NamespaceContext namespaceContext = (NamespaceContext)
+	 * element.getContext(); alreadySearched.add(namespaceContext);
+	 * namespaceContext.lookup(name, level, Result, alreadySearched, true); } } } }
+	 * }
+	 */
 
 }
 

@@ -25,14 +25,18 @@ public class BufferTabbedOutputStream {
 
 	interface Att {
 	}
+
 	record AttStr(String s, List<Att> atts) {
 	}
+
 	int tabwidth = 0;
-	@NotNull TextBuffer   b       = new DefaultBuffer("");
+	@NotNull
+	TextBuffer b = new DefaultBuffer("");
 
-	@NotNull List<AttStr> las     = new ArrayList<>();
+	@NotNull
+	List<AttStr> las = new ArrayList<>();
 
-	private  boolean      _closed = false;
+	private boolean _closed = false;
 
 	private boolean do_tabs = false;
 
@@ -48,14 +52,15 @@ public class BufferTabbedOutputStream {
 		tabwidth--;
 	}
 
-	@NotNull String doIndent() {
+	@NotNull
+	String doIndent() {
 		var sb = new StringBuilder();
 
 		for (int i = 0; i < tabwidth; i++)
-			 b.append("\t");
+			b.append("\t");
 
 		for (int i = 0; i < tabwidth; i++)
-			 sb.append("\t");
+			sb.append("\t");
 		return sb.toString();
 	}
 

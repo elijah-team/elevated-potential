@@ -55,7 +55,8 @@ public interface Diagnostic {
 		};
 	}
 
-	@Nullable String code();
+	@Nullable
+	String code();
 
 	default Object get() {
 		return null;
@@ -66,10 +67,11 @@ public interface Diagnostic {
 
 	void report(PrintStream stream);
 
-    @NotNull
+	@NotNull
 	List<Locatable> secondary();
 
-    @Nullable Severity severity();
+	@Nullable
+	Severity severity();
 }
 
 //

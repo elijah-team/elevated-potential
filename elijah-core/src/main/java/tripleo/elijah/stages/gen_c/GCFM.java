@@ -13,10 +13,10 @@ import java.util.List;
 
 public class GCFM implements Reactivable {
 
-	private       Buffer          buf;
-	private       Buffer          bufHdr;
+	private Buffer buf;
+	private Buffer bufHdr;
 	private final BaseEvaFunction gf;
-	private final GenerateResult  gr;
+	private final GenerateResult gr;
 
 	public GCFM(final @NotNull List<C2C_Result> aRs, final BaseEvaFunction aGf, final GenerateResult aGr) {
 		gf = aGf;

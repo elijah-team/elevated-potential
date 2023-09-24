@@ -19,26 +19,26 @@ import java.util.List;
 
 public final class AbstractStatementClosure implements StatementClosure, StatementItem {
 
-	private OS_Element               _parent;
-	private BlockStatement           bs;
-	private ConstructStatement       ctex;
+	private OS_Element _parent;
+	private BlockStatement bs;
+	private ConstructStatement ctex;
 	// public IExpression constructExpression() {
 //		ctex=new ConstructStatementImpl(this.parent_scope);
 //		add(ctex);
 //		return ctex;
 //	}
-	private IfConditional            ifex;
-	final   List<StatementItem>      items = new ArrayList<StatementItem>();
-	private Loop                     loop;
-	final   Scope                    parent_scope;
-	private ProcedureCallExpression  pce;
+	private IfConditional ifex;
+	final List<StatementItem> items = new ArrayList<StatementItem>();
+	private Loop loop;
+	final Scope parent_scope;
+	private ProcedureCallExpression pce;
 	private AbstractStatementClosure pcex;
-	private VariableSequence         vsq;
-	private YieldExpression          yiex;
+	private VariableSequence vsq;
+	private YieldExpression yiex;
 
 	public AbstractStatementClosure(final @NotNull ClassStatement classStatement) {
 		// TODO check final member
-		_parent      = classStatement;
+		_parent = classStatement;
 		parent_scope = new AbstractScope2(_parent) {
 
 			@Override
@@ -66,7 +66,7 @@ public final class AbstractStatementClosure implements StatementClosure, Stateme
 
 	public AbstractStatementClosure(final Scope scope, final OS_Element parent1) {
 		parent_scope = scope;
-		_parent      = parent1;
+		_parent = parent1;
 	}
 
 	@Contract("_ -> param1")

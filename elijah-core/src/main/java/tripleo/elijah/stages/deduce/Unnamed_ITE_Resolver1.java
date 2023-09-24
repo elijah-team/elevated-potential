@@ -18,13 +18,16 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 		interface DT_Rule {
 			String ruleName();
 		}
+
 		record UIR1_Env() {
 		}
+
 		class UIR1_Rule implements DT_Rule {
 			private final OS_Type aTy;
 
 			UIR1_Rule(final OS_Type aATy, final @NotNull VariableStatement vs) {
-				@NotNull TypeName typ = vs.typeName();
+				@NotNull
+				TypeName typ = vs.typeName();
 
 				var aTypeName = vs.typeName();
 				assert (!aTypeName.isNull());
@@ -48,26 +51,30 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 				return "Unnamed_ITE_Resolver1::getTY2";
 			}
 		}
-		private final BaseTableEntry  bte;
 
-		private final Context         ctx;
+		private final BaseTableEntry bte;
+
+		private final Context ctx;
 
 		private final BaseEvaFunction generatedFunction;
 
 		private final IdentTableEntry ite;
 
 		@Contract(pure = true)
-		public FoundParent(BaseTableEntry aBte, IdentTableEntry aIte, Context aCtx, BaseEvaFunction aGeneratedFunction) {
-			bte               = aBte;
-			ite               = aIte;
-			ctx               = aCtx;
+		public FoundParent(BaseTableEntry aBte, IdentTableEntry aIte, Context aCtx,
+				BaseEvaFunction aGeneratedFunction) {
+			bte = aBte;
+			ite = aIte;
+			ctx = aCtx;
 			generatedFunction = aGeneratedFunction;
 		}
 
-		private @Nullable GenType getTY2(final @NotNull VariableStatementImpl aVariableStatement, @NotNull TypeName aTypeName, @NotNull OS_Type aTy) throws ResolveError {
+		private @Nullable GenType getTY2(final @NotNull VariableStatementImpl aVariableStatement,
+				@NotNull TypeName aTypeName, @NotNull OS_Type aTy) throws ResolveError {
 			if (aTy.getType() != OS_Type.Type.USER) {
 				assert false;
-				@NotNull GenType genType = _inj().new_GenTypeImpl();
+				@NotNull
+				GenType genType = _inj().new_GenTypeImpl();
 				genType.set(aTy);
 				return genType;
 			}
@@ -78,7 +85,8 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 				return r.product().success();
 			}
 
-			@Nullable GenType ty2 = null;
+			@Nullable
+			GenType ty2 = null;
 			if (bte instanceof VariableTableEntry vte) {
 				final TypeTableEntry vte_tte = vte.getType();
 				ty2 = _inj().new_GenTypeImpl();
@@ -86,16 +94,11 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 
 				// TODO why not just return this ^^? instead of copying
 
-/*
-				final OS_Type        attached = vte_tte.getAttached();
-				if (attached == null) {
-					type_is_null_and_attached_is_null_vte();
-					// ty2 will probably be null here
-				} else {
-					ty2 = _inj().new_GenTypeImpl();
-					ty2.set(attached);
-				}
-*/
+				/*
+				 * final OS_Type attached = vte_tte.getAttached(); if (attached == null) {
+				 * type_is_null_and_attached_is_null_vte(); // ty2 will probably be null here }
+				 * else { ty2 = _inj().new_GenTypeImpl(); ty2.set(attached); }
+				 */
 			} else if (bte instanceof IdentTableEntry) {
 				final TypeTableEntry tte = ((IdentTableEntry) bte).type;
 				if (tte != null) {
@@ -129,34 +132,40 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 		}
 
 		private void onChangeITE(@NotNull IdentTableEntry identTableEntry) {
-			final DT_Env         env      = _inj().new_DT_Env(dt2.LOG, dt2._errSink(), dt2.central());
+			final DT_Env env = _inj().new_DT_Env(dt2.LOG, dt2._errSink(), dt2.central());
 			final TypeTableEntry ite_type = identTableEntry.type;
 
 			if (ite_type != null) {
 				final OS_Type ty = ite_type.getAttached();
 
-				@Nullable OS_Element ele2 = null;
+				@Nullable
+				OS_Element ele2 = null;
 
 				try {
 					if (ty.getType() == OS_Type.Type.USER) {
-						@NotNull GenType ty2 = dt2.resolve_type(ty, ty.getTypeName().getContext());
-						OS_Element       ele;
+						@NotNull
+						GenType ty2 = dt2.resolve_type(ty, ty.getTypeName().getContext());
+						OS_Element ele;
 						if (ite_type.genType.getResolved() == null) {
 							if (ty2.getResolved().getType() == OS_Type.Type.USER_CLASS) {
 								ite_type.genType.copy(ty2);
 							}
 						}
 						ele = ty2.getResolved().getElement();
-						LookupResultList lrl = DeduceLookupUtils.lookupExpression(this.ite.getIdent(), ele.getContext(), dt2);
+						LookupResultList lrl = DeduceLookupUtils.lookupExpression(this.ite.getIdent(), ele.getContext(),
+								dt2);
 						ele2 = lrl.chooseBest(null);
 					} else
 						ele2 = ty.getClassOf(); // TODO might fail later (use getElement?)
 
-					@Nullable LookupResultList lrl = null;
+					@Nullable
+					LookupResultList lrl = null;
 
 					lrl = DeduceLookupUtils.lookupExpression(this.ite.getIdent(), ele2.getContext(), dt2);
-					@Nullable OS_Element best = lrl.chooseBest(null);
-					// README commented out because only firing for dir.listFiles, and we always use `best'
+					@Nullable
+					OS_Element best = lrl.chooseBest(null);
+					// README commented out because only firing for dir.listFiles, and we always use
+					// `best'
 //					if (best != ele2) LOG.err(String.format("2824 Divergent for %s, %s and %s", identTableEntry, best, ele2));;
 					this.ite.setStatus(BaseTableEntry.Status.KNOWN, dt2._inj().new_GenericElementHolder(best));
 				} catch (ResolveError aResolveError) {
@@ -166,26 +175,30 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 			} else {
 				if (!identTableEntry.fefi) {
 
-					final Found_Element_For_ITE fefi = dt2._inj().new_Found_Element_For_ITE(generatedFunction, ctx, env, dt2._inj().new_DeduceClient1(dt2));
+					final Found_Element_For_ITE fefi = dt2._inj().new_Found_Element_For_ITE(generatedFunction, ctx, env,
+							dt2._inj().new_DeduceClient1(dt2));
 					fefi.action(identTableEntry);
 					identTableEntry.fefi = true;
 					identTableEntry.onFefiDone(new DoneCallback<GenType>() {
 						@Override
 						public void onDone(final @NotNull GenType result) {
 							LookupResultList lrl = null;
-							OS_Element       ele2;
+							OS_Element ele2;
 							try {
-								lrl  = DeduceLookupUtils.lookupExpression(ite.getIdent(), result.getResolved().getClassOf().getContext(), dt2);
+								lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(),
+										result.getResolved().getClassOf().getContext(), dt2);
 								ele2 = lrl.chooseBest(null);
 
 								if (ele2 != null) {
-									ite.setStatus(BaseTableEntry.Status.KNOWN, dt2._inj().new_GenericElementHolder(ele2));
+									ite.setStatus(BaseTableEntry.Status.KNOWN,
+											dt2._inj().new_GenericElementHolder(ele2));
 									ite.resolveTypeToClass(result.getNode());
 
 									if (ite.getCallablePTE() != null) {
-										final @Nullable ProcTableEntry    pte        = ite.getCallablePTE();
-										final @NotNull IInvocation        invocation = result.getCi();
-										final @NotNull FunctionInvocation fi         = dt2.newFunctionInvocation((BaseFunctionDef) ele2, pte, invocation, dt2.phase);
+										final @Nullable ProcTableEntry pte = ite.getCallablePTE();
+										final @NotNull IInvocation invocation = result.getCi();
+										final @NotNull FunctionInvocation fi = dt2.newFunctionInvocation(
+												(BaseFunctionDef) ele2, pte, invocation, dt2.phase);
 
 										generatedFunction.addDependentFunction(fi);
 									}
@@ -196,7 +209,8 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 						}
 					});
 				}
-				// TODO we want to setStatus but have no USER or USER_CLASS to perform lookup with
+				// TODO we want to setStatus but have no USER or USER_CLASS to perform lookup
+				// with
 			}
 		}
 
@@ -204,18 +218,22 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 			if (aPte.getStatus() == BaseTableEntry.Status.KNOWN) { // TODO might be obvious
 				if (aPte.getFunctionInvocation() != null) {
 					FunctionInvocation fi = aPte.getFunctionInvocation();
-					FunctionDef        fd = fi.getFunction();
+					FunctionDef fd = fi.getFunction();
 					if (fd instanceof ConstructorDef) {
 						fi.generateDeferred().done(new DoneCallback<BaseEvaFunction>() {
 							@Override
 							public void onDone(BaseEvaFunction result) {
-								@NotNull EvaConstructor constructorDef = (EvaConstructor) result;
+								@NotNull
+								EvaConstructor constructorDef = (EvaConstructor) result;
 
-								@NotNull FunctionDef ele = constructorDef.getFD();
+								@NotNull
+								FunctionDef ele = constructorDef.getFD();
 
 								try {
-									LookupResultList     lrl  = DeduceLookupUtils.lookupExpression(ite.getIdent(), ele.getContext(), dt2);
-									@Nullable OS_Element best = lrl.chooseBest(null);
+									LookupResultList lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(),
+											ele.getContext(), dt2);
+									@Nullable
+									OS_Element best = lrl.chooseBest(null);
 									assert best != null;
 									ite.setStatus(BaseTableEntry.Status.KNOWN, _inj().new_GenericElementHolder(best));
 								} catch (ResolveError aResolveError) {
@@ -229,10 +247,12 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 					throw new NotImplementedException();
 			} else {
 				dt2.LOG.info("1621");
-				@Nullable LookupResultList lrl = null;
+				@Nullable
+				LookupResultList lrl = null;
 				try {
 					lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(), ctx, dt2);
-					@Nullable OS_Element best = lrl.chooseBest(null);
+					@Nullable
+					OS_Element best = lrl.chooseBest(null);
 					assert best != null;
 					ite.setResolvedElement(best);
 					dt2.found_element_for_ite(null, ite, best, ctx, dt2.central());
@@ -244,24 +264,29 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 		}
 
 		private void onChangeVTE(@NotNull VariableTableEntry vte) {
-			@NotNull List<TypeTableEntry> pot = dt2.getPotentialTypesVte(vte);
-			if (vte.getStatus() == BaseTableEntry.Status.KNOWN && vte.getType().getAttached() != null && vte.getResolvedElement() != null) {
+			@NotNull
+			List<TypeTableEntry> pot = dt2.getPotentialTypesVte(vte);
+			if (vte.getStatus() == BaseTableEntry.Status.KNOWN && vte.getType().getAttached() != null
+					&& vte.getResolvedElement() != null) {
 
 				final OS_Type ty = vte.getType().getAttached();
 
-				@Nullable OS_Element ele2 = null;
+				@Nullable
+				OS_Element ele2 = null;
 
 				try {
 					if (ty.getType() == OS_Type.Type.USER) {
-						@NotNull GenType ty2 = dt2.resolve_type(ty, ty.getTypeName().getContext());
-						OS_Element       ele;
+						@NotNull
+						GenType ty2 = dt2.resolve_type(ty, ty.getTypeName().getContext());
+						OS_Element ele;
 						if (vte.getType().genType.getResolved() == null) {
 							if (ty2.getResolved().getType() == OS_Type.Type.USER_CLASS) {
 								vte.getType().genType.copy(ty2);
 							}
 						}
 						ele = ty2.getResolved().getElement();
-						LookupResultList lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(), ele.getContext(), dt2);
+						LookupResultList lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(), ele.getContext(),
+								dt2);
 						ele2 = lrl.chooseBest(null);
 					} else
 						ele2 = ty.getElement();
@@ -270,16 +295,21 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 						vte.typePromise().then(new DoneCallback<GenType>() {
 							@Override
 							public void onDone(final @NotNull GenType result) {
-								OS_Element                 ele3 = result.getResolved().getClassOf();
-								@Nullable LookupResultList lrl  = null;
+								OS_Element ele3 = result.getResolved().getClassOf();
+								@Nullable
+								LookupResultList lrl = null;
 
 								try {
 									lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(), ele3.getContext(), dt2);
 
-									@Nullable OS_Element best = lrl.chooseBest(null);
-									// README commented out because only firing for dir.listFiles, and we always use `best'
-									//if (best != ele2) LOG.err(String.format("2824 Divergent for %s, %s and %s", ite, best, ele2));;
-									ite.setStatus(BaseTableEntry.Status.KNOWN, _inj().new_GenericElementHolderWithType(best, ty, dt2));
+									@Nullable
+									OS_Element best = lrl.chooseBest(null);
+									// README commented out because only firing for dir.listFiles, and we always use
+									// `best'
+									// if (best != ele2) LOG.err(String.format("2824 Divergent for %s, %s and %s",
+									// ite, best, ele2));;
+									ite.setStatus(BaseTableEntry.Status.KNOWN,
+											_inj().new_GenericElementHolderWithType(best, ty, dt2));
 								} catch (ResolveError aResolveError) {
 									aResolveError.printStackTrace();
 									dt2._errSink().reportDiagnostic(aResolveError);
@@ -287,19 +317,25 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 							}
 						});
 					} else {
-						@Nullable LookupResultList lrl  = DeduceLookupUtils.lookupExpression(ite.getIdent(), ele2.getContext(), dt2);
-						@Nullable OS_Element       best = lrl.chooseBest(null);
-						// README commented out because only firing for dir.listFiles, and we always use `best'
+						@Nullable
+						LookupResultList lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(), ele2.getContext(),
+								dt2);
+						@Nullable
+						OS_Element best = lrl.chooseBest(null);
+						// README commented out because only firing for dir.listFiles, and we always use
+						// `best'
 //					if (best != ele2) LOG.err(String.format("2824 Divergent for %s, %s and %s", ite, best, ele2));;
-						ite.setStatus(BaseTableEntry.Status.KNOWN, _inj().new_GenericElementHolderWithType(best, ty, dt2));
+						ite.setStatus(BaseTableEntry.Status.KNOWN,
+								_inj().new_GenericElementHolderWithType(best, ty, dt2));
 					}
 				} catch (ResolveError aResolveError) {
 					aResolveError.printStackTrace();
 					dt2._errSink().reportDiagnostic(aResolveError);
 				}
 			} else if (pot.size() == 1) {
-				TypeTableEntry    tte = pot.get(0);
-				@Nullable OS_Type ty  = tte.getAttached();
+				TypeTableEntry tte = pot.get(0);
+				@Nullable
+				OS_Type ty = tte.getAttached();
 				if (ty != null) {
 					switch (ty.getType()) {
 					case USER:
@@ -318,15 +354,19 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 		/* @ensures ite.type != null; */
 		private void postOnChange(@NotNull IElementHolder eh) {
 			if (ite.type == null && eh.getElement() instanceof final @NotNull VariableStatementImpl variableStatement) {
-				@NotNull TypeName typ = variableStatement.typeName();
-				@NotNull OS_Type  ty  = dt2._inj().new_OS_UserType(typ);
+				@NotNull
+				TypeName typ = variableStatement.typeName();
+				@NotNull
+				OS_Type ty = dt2._inj().new_OS_UserType(typ);
 
 				try {
-					@Nullable GenType ty2 = getTY2(variableStatement, typ, ty);
+					@Nullable
+					GenType ty2 = getTY2(variableStatement, typ, ty);
 
 					// no expression or TableEntryIV below
 					if (ty2 != null) {
-						final @NotNull TypeTableEntry tte = generatedFunction.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null);
+						final @NotNull TypeTableEntry tte = generatedFunction
+								.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null);
 						// trying to keep genType up to date
 
 						if (!ty.getTypeName().isNull())
@@ -334,7 +374,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 						tte.setAttached(ty2);
 
 						ite.type = tte;
-						if (/*!ty.getTypeName().isNull() &&*/ !ty2.isNull()) {
+						if (/* !ty.getTypeName().isNull() && */ !ty2.isNull()) {
 							boolean skip = false;
 
 							if (!ty.getTypeName().isNull()) {
@@ -356,7 +396,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 		}
 
 		private void type_is_null_and_attached_is_null_ite(final IdentTableEntry ite) {
-			int                         y  = 2;
+			int y = 2;
 			PromiseExpectation<GenType> pe = dt2.promiseExpectation(ite, "Null USER type attached resolved");
 //			ite.onType(phase, _inj().new_OnType() {
 //
@@ -372,7 +412,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 //
 //				}
 //			})
-			//;.done(new DoneCallback<GenType>() {
+			// ;.done(new DoneCallback<GenType>() {
 //				@Override
 //				public void onDone(GenType result) {
 //					pe.satisfy(result);
@@ -402,24 +442,28 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 		}
 
 		private void type_is_null_and_attached_is_null_vte() {
-			//LOG.err("2842 attached == null for "+((VariableTableEntry) bte).type);
-			@NotNull PromiseExpectation<GenType> pe = dt2.promiseExpectation((VariableTableEntry) bte, "Null USER type attached resolved");
+			// LOG.err("2842 attached == null for "+((VariableTableEntry) bte).type);
+			@NotNull
+			PromiseExpectation<GenType> pe = dt2.promiseExpectation((VariableTableEntry) bte,
+					"Null USER type attached resolved");
 			VTE_TypePromises.found_parent(pe, generatedFunction, ((VariableTableEntry) bte), ite, dt2);
 		}
 
 		private void vte_pot_size_is_1_USER_CLASS_TYPE(@NotNull VariableTableEntry vte, @Nullable OS_Type aTy) {
-			ClassStatement             klass = aTy.getClassOf();
-			@Nullable LookupResultList lrl   = null;
+			ClassStatement klass = aTy.getClassOf();
+			@Nullable
+			LookupResultList lrl = null;
 			try {
 				lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(), klass.getContext(), dt2);
-				@Nullable OS_Element best = lrl.chooseBest(null);
+				@Nullable
+				OS_Element best = lrl.chooseBest(null);
 //							ite.setStatus(BaseTableEntry.Status.KNOWN, best);
 				assert best != null;
 				ite.setResolvedElement(best);
 
-				final @NotNull GenType          genType  = dt2._inj().new_GenTypeImpl(klass);
-				final TypeName                  typeName = vte.getType().genType.getNonGenericTypeName();
-				final @Nullable ClassInvocation ci       = genType.genCI(typeName, dt2, dt2._errSink(), dt2.phase);
+				final @NotNull GenType genType = dt2._inj().new_GenTypeImpl(klass);
+				final TypeName typeName = vte.getType().genType.getNonGenericTypeName();
+				final @Nullable ClassInvocation ci = genType.genCI(typeName, dt2, dt2._errSink(), dt2.phase);
 //							resolve_vte_for_class(vte, klass);
 				ci.resolvePromise().done(new DoneCallback<EvaClass>() {
 					@Override
@@ -434,11 +478,13 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 
 		private void vte_pot_size_is_1_USER_TYPE(@NotNull VariableTableEntry vte, @Nullable OS_Type aTy) {
 			try {
-				@NotNull GenType ty2 = dt2.resolve_type(aTy, aTy.getTypeName().getContext());
+				@NotNull
+				GenType ty2 = dt2.resolve_type(aTy, aTy.getTypeName().getContext());
 				// TODO ite.setAttached(ty2) ??
-				OS_Element           ele  = ty2.getResolved().getElement();
-				LookupResultList     lrl  = DeduceLookupUtils.lookupExpression(ite.getIdent(), ele.getContext(), dt2);
-				@Nullable OS_Element best = lrl.chooseBest(null);
+				OS_Element ele = ty2.getResolved().getElement();
+				LookupResultList lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(), ele.getContext(), dt2);
+				@Nullable
+				OS_Element best = lrl.chooseBest(null);
 				ite.setStatus(BaseTableEntry.Status.KNOWN, dt2._inj().new_GenericElementHolder(best));
 //									ite.setResolvedElement(best);
 
@@ -450,20 +496,22 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 			}
 		}
 	}
-	private final DeduceTypes2    dt2;
-	private final Context         ctx;
+
+	private final DeduceTypes2 dt2;
+	private final Context ctx;
 	private final IdentTableEntry ite;
 
 	private final BaseEvaFunction generatedFunction;
-	private boolean             _done;
+	private boolean _done;
 
 	private ITE_Resolver_Result _resolve_result;
 
-	Unnamed_ITE_Resolver1(final DeduceTypes2 aDeduceTypes2, IdentTableEntry aIte, BaseEvaFunction aEvaFunction, Context aCtx) {
-		dt2               = aDeduceTypes2;
-		ctx               = aCtx;
+	Unnamed_ITE_Resolver1(final DeduceTypes2 aDeduceTypes2, IdentTableEntry aIte, BaseEvaFunction aEvaFunction,
+			Context aCtx) {
+		dt2 = aDeduceTypes2;
+		ctx = aCtx;
 		generatedFunction = aEvaFunction;
-		ite               = aIte;
+		ite = aIte;
 	}
 
 	private DeduceTypes2.DeduceTypes2Injector _inj() {
@@ -487,21 +535,24 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 	}
 
 	public void resolve_ident_table_entry2() {
-		@Nullable InstructionArgument instructionArgument = new IdentIA(ite.getIndex(), generatedFunction);
+		@Nullable
+		InstructionArgument instructionArgument = new IdentIA(ite.getIndex(), generatedFunction);
 
 		{
 			// FIXME begging for recursion
 			while (instructionArgument != null && instructionArgument instanceof IdentIA identIA) {
-				@NotNull IdentTableEntry runningEntry = identIA.getEntry();
+				@NotNull
+				IdentTableEntry runningEntry = identIA.getEntry();
 
-				@Nullable BaseTableEntry x = null;
+				@Nullable
+				BaseTableEntry x = null;
 				final InstructionArgument runningEntryBacklink = runningEntry.getBacklink();
 				if (runningEntryBacklink instanceof final IntegerIA runningEntryBacklinkVar) {
 					x = runningEntryBacklinkVar.getEntry();
 //					if (vte.constructable_pte != null)
 					instructionArgument = null;
 				} else if (runningEntryBacklink instanceof final IdentIA runningEntryBacklinkIdent) {
-					x    = runningEntryBacklinkIdent.getEntry();
+					x = runningEntryBacklinkIdent.getEntry();
 					instructionArgument = ((IdentTableEntry) x).getBacklink();
 				} else if (runningEntryBacklink instanceof final ProcIA runningEntryBacklinkProc) {
 					x = runningEntryBacklinkProc.getEntry();
@@ -509,16 +560,18 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 //						// turned out to be wrong (by double calling), so let's wrap it
 //						runningEntry.setCallablePTE((ProcTableEntry) x);
 					// TODO Proc cannot have backlink??
-					instructionArgument = null; //((ProcTableEntry) x).backlink;
+					instructionArgument = null; // ((ProcTableEntry) x).backlink;
 				} else if (runningEntryBacklink == null) {
 					instructionArgument = null;
-					x                   = null;
+					x = null;
 				}
 
 				if (x != null) {
 //					LOG.info("162 Adding FoundParent for "+runningEntry);
 //					LOG.info(String.format("1656 %s \n\t %s \n\t%s", x, runningEntry, instructionArgument));
-					x.addStatusListener(new FoundParent(x, runningEntry, runningEntry.getIdent().getContext(), generatedFunction)); // TODO context??
+					x.addStatusListener(
+							new FoundParent(x, runningEntry, runningEntry.getIdent().getContext(), generatedFunction)); // TODO
+																														// context??
 				}
 			}
 		}
@@ -534,7 +587,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 
 		final OS_Element re = ite.getResolvedElement();
 		if (re != null) {
-			//ite.resolveExpectation.satisfy(re);
+			// ite.resolveExpectation.satisfy(re);
 
 			var de3_ite = ite.getDeduceElement3(ite._deduceTypes2(), ite.__gf);
 
@@ -550,7 +603,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 				assert false;
 			}
 
-			_done           = true;
+			_done = true;
 			_resolve_result = _inj().new_ITE_Resolver_Result(re);
 			return;
 		}
@@ -558,7 +611,8 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 			ite.addStatusListener(new BaseTableEntry.StatusListener() {
 				@Override
 				public void onChange(final @NotNull IElementHolder eh, final BaseTableEntry.Status newStatus) {
-					if (newStatus != BaseTableEntry.Status.KNOWN) return;
+					if (newStatus != BaseTableEntry.Status.KNOWN)
+						return;
 
 					final OS_Element e = eh.getElement();
 					dt2.found_element_for_ite(generatedFunction, ite, e, ctx, dt2.central());

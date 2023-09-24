@@ -6,13 +6,13 @@ import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.gen_fn.VariableTableEntry;
 
 class ZoneVTE__1 implements ZoneVTE {
-	private final BaseEvaFunction    _g_gf;
+	private final BaseEvaFunction _g_gf;
 	private final VariableTableEntry _g_varTableEntry;
-	private       String             _realTargetName;
+	private String _realTargetName;
 
 	public ZoneVTE__1(final VariableTableEntry aVarTableEntry, final BaseEvaFunction aGf) {
 		_g_varTableEntry = aVarTableEntry;
-		_g_gf            = aGf;
+		_g_gf = aGf;
 	}
 
 	@NotNull

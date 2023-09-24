@@ -31,12 +31,7 @@ import tripleo.elijah.stages.instructions.*;
 
 public interface IDeduceElement3 {
 	enum DeduceElement3_Kind {
-		CLASS,
-		FUNCTION,
-		GEN_FN__CTE,
-		GEN_FN__GC_VTE,
-		GEN_FN__ITE,
-		GEN_FN__PTE,
+		CLASS, FUNCTION, GEN_FN__CTE, GEN_FN__GC_VTE, GEN_FN__ITE, GEN_FN__PTE,
 		// ...,
 		GEN_FN__VTE, NAMESPACE
 	}

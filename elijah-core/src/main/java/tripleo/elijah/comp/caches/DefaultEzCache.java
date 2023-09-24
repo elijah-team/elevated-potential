@@ -6,7 +6,7 @@ import tripleo.elijah.comp.specs.*;
 import java.util.*;
 
 public class DefaultEzCache implements EzCache {
-	final         Map<String, CompilerInstructions> fn2ci   = new HashMap<>();
+	final Map<String, CompilerInstructions> fn2ci = new HashMap<>();
 
 	@Override
 	public Optional<CompilerInstructions> get(final String absolutePath) {

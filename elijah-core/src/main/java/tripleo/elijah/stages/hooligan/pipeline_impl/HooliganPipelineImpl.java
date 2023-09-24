@@ -29,8 +29,7 @@ public class HooliganPipelineImpl {
 				final Hooligan.SmallWriter1 sw = hooligan.__modules2(worldModules);
 				final EOT_OutputTree cot = compilation.getOutputTree();
 
-				final List<EIT_Input> inputs = worldModules.stream()
-						.map(WorldModule::getEITInput)
+				final List<EIT_Input> inputs = worldModules.stream().map(WorldModule::getEITInput)
 						.collect(Collectors.toList());
 
 				final String text = sw.getText();

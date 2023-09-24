@@ -20,11 +20,11 @@ import tripleo.elijah.lang.i.ExpressionList;
 public class IndexingItemImpl implements tripleo.elijah.lang.i.IndexingItem {
 
 	private final ExpressionList expr;
-	private final Token          token;
+	private final Token token;
 
 	public IndexingItemImpl(final Token i1, final ExpressionList c1) {
 		this.token = i1;
-		this.expr  = c1;
+		this.expr = c1;
 	}
 
 }

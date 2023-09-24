@@ -12,20 +12,18 @@ import java.util.List;
 
 class __Pte_Dispatch_InstructionArgument_Statement extends ReasonedStringListStatement {
 	private final InstructionArgument expression_num;
-	private final Instruction         instruction;
-	private final BaseEvaFunction     gf;
-	private final GenerateC           gc;
+	private final Instruction instruction;
+	private final BaseEvaFunction gf;
+	private final GenerateC gc;
 
 	private final SpecialText[] xx;
 
 	public __Pte_Dispatch_InstructionArgument_Statement(final InstructionArgument aExpressionNum,
-														final Instruction aInstruction,
-														final BaseEvaFunction aGf,
-														final GenerateC aGc) {
+			final Instruction aInstruction, final BaseEvaFunction aGf, final GenerateC aGc) {
 		expression_num = aExpressionNum;
-		instruction    = aInstruction;
-		gf             = aGf;
-		gc             = aGc;
+		instruction = aInstruction;
+		gf = aGf;
+		gc = aGc;
 
 		var z = this;
 		xx = new SpecialText[1];

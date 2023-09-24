@@ -12,24 +12,24 @@ import java.util.regex.*;
 
 public class CompilerInput {
     public enum CompilerInputField {
-        TY,
-        HASH,
-        ACCEPT_CI, DIRECTORY_RESULTS
+        TY, HASH, ACCEPT_CI, DIRECTORY_RESULTS
     }
+
     public enum Ty {
-        NULL, /*guess we don't know yet*/
+        NULL, /* as is from command line/ */
         SOURCE_ROOT,
-        ROOT /*the base of the compilation*/,
-        ARG /*represents a compiler change (CC)*/
+        ROOT /* the base of the compilation */,
+        ARG /* represents a compiler change (CC) */
     }
+
     @Getter
-    private final String inp;
-    private final Map<Object, Object> exts = new HashMap<>();
-    private Maybe<ILazyCompilerInstructions> accept_ci;
-    private File dir_carrier;
-    //	@Getter(fluent)
-    private Ty ty;
-    private String hash;
+    private final String                           inp;
+    private final Map<Object, Object>              exts = new HashMap<>();
+    private       Maybe<ILazyCompilerInstructions> accept_ci;
+    private       File                             dir_carrier;
+    // @Getter(fluent)
+    private       Ty                               ty;
+    private       String                           hash;
 
     private CompilerInputMaster master;
 
@@ -39,7 +39,7 @@ public class CompilerInput {
 
     public CompilerInput(final String aS) {
         inp = aS;
-        ty = Ty.NULL;
+        ty  = Ty.NULL;
     }
 
     public void accept_ci(final Maybe<ILazyCompilerInstructions> compilerInstructionsMaybe) {
@@ -73,28 +73,25 @@ public class CompilerInput {
         return dir_carrier;
     }
 
-
     public Object getExt(Class<?> aClass) {
         if (exts.containsKey(aClass)) {
             return exts.get(aClass);
         }
         return null;
     }
+
     public boolean isElijjahFile() {
-        return Pattern.matches(".+\\.elijjah$", inp) ||
-                Pattern.matches(".+\\.elijah$", inp);
+        return Pattern.matches(".+\\.elijjah$", inp) || Pattern.matches(".+\\.elijah$", inp);
     }
 
-
     public boolean isEzFile() {
-        //new QuerySearchEzFiles.EzFilesFilter().accept()
+        // new QuerySearchEzFiles.EzFilesFilter().accept()
         return Pattern.matches(".+\\.ez$", inp);
     }
 
     public boolean isNull() {
         return ty == Ty.NULL;
     }
-
 
     public boolean isSourceRoot() {
         return ty == Ty.SOURCE_ROOT;
@@ -112,7 +109,7 @@ public class CompilerInput {
     }
 
     public void setDirectory(File f) {
-        ty = Ty.SOURCE_ROOT;
+        ty          = Ty.SOURCE_ROOT;
         dir_carrier = f;
 
         if (master != null)
@@ -125,6 +122,7 @@ public class CompilerInput {
         if (master != null)
             master.notifyChange(this, CompilerInputField.DIRECTORY_RESULTS);
     }
+
     public void setMaster(CompilerInputMaster master) {
         this.master = master;
     }
@@ -138,10 +136,7 @@ public class CompilerInput {
 
     @Override
     public String toString() {
-        return "CompilerInput{" +
-                "ty=" + ty +
-                ", inp='" + inp + '\'' +
-                '}';
+        return "CompilerInput{ty=%s, inp='%s'}".formatted(ty, inp);
     }
 
     public Ty ty() {

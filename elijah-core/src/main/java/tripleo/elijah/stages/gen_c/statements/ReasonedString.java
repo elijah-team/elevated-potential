@@ -5,7 +5,7 @@ class ReasonedString implements IReasonedString {
 	String reason;
 
 	public ReasonedString(final String aText, final String aReason) {
-		text   = aText;
+		text = aText;
 		reason = aReason;
 	}
 

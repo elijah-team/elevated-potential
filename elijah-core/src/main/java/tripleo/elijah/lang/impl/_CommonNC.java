@@ -19,16 +19,17 @@ import java.util.*;
  * Created 3/29/21 5:11 PM
  */
 public abstract class _CommonNC {
-	protected final  List<ClassItem>        items       = new ArrayList<ClassItem>();
-	private final    List<String>           mDocs       = new ArrayList<String>();
-	public @NotNull  Attached               _a          = new AttachedImpl();
-	protected        OS_Package             _packageName;
-	protected        IdentExpression        nameToken;
-	@Nullable        List<AnnotationClause> annotations = null;
+	protected final List<ClassItem> items = new ArrayList<ClassItem>();
+	private final List<String> mDocs = new ArrayList<String>();
+	public @NotNull Attached _a = new AttachedImpl();
+	protected OS_Package _packageName;
+	protected IdentExpression nameToken;
+	@Nullable
+	List<AnnotationClause> annotations = null;
 	// region ClassItem
-	private          AccessNotation         access_note;
-	private @NotNull List<AccessNotation>   accesses    = new ArrayList<AccessNotation>();
-	private          El_Category            category;
+	private AccessNotation access_note;
+	private @NotNull List<AccessNotation> accesses = new ArrayList<AccessNotation>();
+	private El_Category category;
 
 	protected EN_Name __common_nc__n;
 

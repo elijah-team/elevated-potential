@@ -27,12 +27,12 @@ import tripleo.elijah.lang2.ElElementVisitor;
 public class FunctionDefImpl extends BaseFunctionDef
 		implements Documentable, ClassItem, tripleo.elijah.lang.i.FunctionDef {
 
-	private final OS_Element        parent;
+	private final OS_Element parent;
 	// region constructor
-	private       FunctionModifiers _mod;
-	private       boolean           _isAbstract;
+	private FunctionModifiers _mod;
+	private boolean _isAbstract;
 	// region modifiers
-	private       OS_FuncType       osType;
+	private OS_FuncType osType;
 
 	// endregion
 	private @Nullable TypeName _returnType = null;

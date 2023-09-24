@@ -13,14 +13,14 @@ public class ModuleThing {
 	public record GeneralDescription(ES_Symbol aSymbol, @NotNull List<Object> aObjects) {
 	}
 
-	private final @NotNull List<EntryPoint>  entryPoints;
+	private final @NotNull List<EntryPoint> entryPoints;
 	private final @NotNull List<EvaFunction> evaFunctions = new ArrayList<>();
-	private final          OS_Module         mod;
+	private final OS_Module mod;
 
 	private GeneralDescription generalDescription;
 
 	public ModuleThing(final OS_Module aMod) {
-		mod         = aMod;
+		mod = aMod;
 		entryPoints = mod.entryPoints();
 	}
 

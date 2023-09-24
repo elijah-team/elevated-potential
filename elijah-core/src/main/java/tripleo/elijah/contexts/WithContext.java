@@ -18,7 +18,7 @@ import tripleo.elijah.lang.impl.VariableSequenceImpl;
  */
 public class WithContext extends ContextImpl {
 
-	private final Context       _parent;
+	private final Context _parent;
 	private final WithStatement carrier;
 
 	public WithContext(final WithStatement carrier, final Context _parent) {
@@ -26,22 +26,20 @@ public class WithContext extends ContextImpl {
 		this._parent = _parent;
 	}
 
-
 	@Override
 	public Context getParent() {
 		return _parent;
 	}
 
 	@Override
-	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
 		for (final FunctionItem item : carrier.getItems()) {
-			if (!(item instanceof ClassStatement) &&
-					!(item instanceof NamespaceStatement) &&
-					!(item instanceof FunctionDef) &&
-					!(item instanceof VariableSequenceImpl)
-			) continue;
+			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
+					&& !(item instanceof FunctionDef) && !(item instanceof VariableSequenceImpl))
+				continue;
 			if (item instanceof OS_Element2) {
 				if (((OS_Element2) item).name().equals(name)) {
 					Result.add(name, level, item, this);

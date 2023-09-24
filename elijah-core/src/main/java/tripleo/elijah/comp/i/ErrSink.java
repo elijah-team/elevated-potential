@@ -29,7 +29,7 @@ public interface ErrSink {
 
 	void reportDiagnostic(Diagnostic diagnostic);
 
-	/*@ ensures errorCount() == \old errorCount + 1*/
+	/* @ ensures errorCount() == \old errorCount + 1 */
 	void reportError(String s);
 
 	void reportWarning(String s);

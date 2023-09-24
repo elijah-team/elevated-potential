@@ -26,20 +26,19 @@ public class WhyNotGarish_Class implements WhyNotGarish_Item {
 			}
 		}
 	}
-	private final EvaClass                                 gc;
-	private final GenerateC                                generateC;
+
+	private final EvaClass gc;
+	private final GenerateC generateC;
 
 	private final DeferredObject<GenerateResultEnv, Void, Void> fileGenPromise = new DeferredObject<>();
 
 	private final GCFC gcfc = new GCFC();
 
 	public WhyNotGarish_Class(final EvaClass aGc, final GenerateC aGenerateC) {
-		gc        = aGc;
+		gc = aGc;
 		generateC = aGenerateC;
 
-
 		gc.reactive().add(gcfc);
-
 
 		fileGenPromise.then(this::onFileGen);
 	}

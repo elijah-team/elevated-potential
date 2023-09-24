@@ -8,8 +8,8 @@ import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.stages.hooligan.pipeline_impl.HooliganPipelineImpl;
 
 public class HooliganPipeline implements PipelineMember {
-	private final @NotNull IPipelineAccess      pa;
-	private final          HooliganPipelineImpl i = new HooliganPipelineImpl();
+	private final @NotNull IPipelineAccess pa;
+	private final HooliganPipelineImpl i = new HooliganPipelineImpl();
 
 	@Contract(pure = true)
 	public HooliganPipeline(@NotNull IPipelineAccess pa0) {

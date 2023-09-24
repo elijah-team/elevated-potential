@@ -15,6 +15,7 @@ public class OutputStrategy {
 	public enum By {
 		BY_EZ, BY_PACKAGE
 	}
+
 	public enum Name {
 		NAME_CLASS_NAME, NAME_Z_TYPE
 	}
@@ -23,7 +24,7 @@ public class OutputStrategy {
 		PER_CLASS, PER_MODULE, PER_PACKAGE, PER_PROGRAM
 	}
 
-	protected By  _by  = By.BY_EZ;
+	protected By _by = By.BY_EZ;
 
 	protected Per _per = Per.PER_MODULE;
 

@@ -4,26 +4,26 @@ package tripleo.elijah.foo;
 
 public class Personify {
 
-    private int age;
+	private int age;
 
-    private String name;
+	private String name;
 
-    public int getAge() {
-        return age;
-    }
+	public int getAge() {
+		return age;
+	}
 
-public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    //    @BuilderProperty
-    public void setAge(int age) {
-        this.age = age;
-    }
+	// @BuilderProperty
+	public void setAge(int age) {
+		this.age = age;
+	}
 
 //    @BuilderProperty
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

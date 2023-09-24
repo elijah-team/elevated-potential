@@ -33,7 +33,7 @@ import java.util.stream.*;
 public class CompilationImpl implements Compilation {
 
 	private final @NotNull FluffyCompImpl _fluffyComp;
-	private @Nullable      EOT_OutputTree _output_tree = null;
+	private @Nullable EOT_OutputTree _output_tree = null;
 
 	public final Map<String, CompilerInstructions> fn2ci = new HashMap<>();
 
@@ -67,8 +67,9 @@ public class CompilationImpl implements Compilation {
 	private List<CompilerInput> _inputs;
 	private IPipelineAccess _pa;
 	private IO io;
-	private       boolean _inside;
+	private boolean _inside;
 	private final Finally _finally = new Finally();
+
 	public CompilationImpl(final ErrSink aEee, final IO aIo) {
 		_fluffyComp = new FluffyCompImpl(this);
 
@@ -95,16 +96,20 @@ public class CompilationImpl implements Compilation {
 		cci_listener = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
 	}
+
 	public @NotNull ICompilationAccess _access() {
 		return new DefaultCompilationAccess(this);
 	}
+
 	@Override
 	public CIS _cis() {
 		return get_cis();
 	}
+
 	public CompilerBeginning beginning(final @NotNull CompilationRunner compilationRunner) {
 		return new CompilerBeginning(this, getRootCI(), getInputs(), compilationRunner.getProgressSink(), cfg());
 	}
+
 	@Override
 	public @NotNull CompilationConfig cfg() {
 		return cfg;
@@ -119,27 +124,28 @@ public class CompilationImpl implements Compilation {
 	public int errorCount() {
 		return errSink.errorCount();
 	}
+
 	@Override
 	public void feedCmdLine(final @NotNull List<String> args) throws Exception {
 		final CompilerController controller = new DefaultCompilerController();
 
-		final List<CompilerInput> inputs = args.stream()
-				.map(s -> {
-					final CompilerInput input = new CompilerInput(s);
+		final List<CompilerInput> inputs = args.stream().map(s -> {
+			final CompilerInput input = new CompilerInput(s);
 
-					// TODO 09/08 check this
-					if (s.equals(input.getInp())) {
-						input.setSourceRoot();
-					}
+			// TODO 09/08 check this
+			if (s.equals(input.getInp())) {
+				input.setSourceRoot();
+			}
 
-					return input;
-				})
-				.collect(Collectors.toList());
+			return input;
+		}).collect(Collectors.toList());
 
 		feedInputs(inputs, controller);
 	}
+
 	@Override
-	public void feedInputs(final @NotNull List<CompilerInput> aCompilerInputs, final @NotNull CompilerController aController) {
+	public void feedInputs(final @NotNull List<CompilerInput> aCompilerInputs,
+			final @NotNull CompilerController aController) {
 		if (aCompilerInputs.isEmpty()) {
 			aController.printUsage();
 			return;
@@ -151,14 +157,14 @@ public class CompilationImpl implements Compilation {
 		aController._setInputs(this, aCompilerInputs);
 
 		for (final CompilerInput compilerInput : _inputs) {
-			//	cci.accept(compilerInput.acceptance_ci(), _ps);
+			// cci.accept(compilerInput.acceptance_ci(), _ps);
 			compilerInput.setMaster(master); // FIXME this is too much i think
 		}
-
 
 		aController.processOptions();
 		aController.runner();
 	}
+
 	@Override
 	public Operation2<WorldModule> findPrelude(final String prelude_name) {
 		Operation2<OS_Module> prelude = use.findPrelude(prelude_name);
@@ -169,10 +175,12 @@ public class CompilationImpl implements Compilation {
 
 		return Operation2.success(prelude1);
 	}
+
 	@Override
 	public Map<String, CompilerInstructions> fn2ci() {
 		return fn2ci;
 	}
+
 	@Override
 	public IPipelineAccess get_pa() {
 		return _pa;
@@ -264,10 +272,10 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
-	public void hasInstructions(final @NotNull List<CompilerInstructions> cis,
-								final @NotNull IPipelineAccess pa) {
+	public void hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
 //		assert cis.size() > 0; // FIXME this is corect. below is wrong (allows cis.size()==2)
-		//assert cis.size() == 1; // FIXME this is corect. below is wrong (allows cis.size()==2)
+		// assert cis.size() == 1; // FIXME this is corect. below is wrong (allows
+		// cis.size()==2)
 
 		if (cis.isEmpty()) {
 			// README IDEA misconfiguration
@@ -312,10 +320,7 @@ public class CompilationImpl implements Compilation {
 	@Deprecated
 //	@Override
 	public List<OS_Module> modules() {
-		return this.world().modules()
-				.stream()
-				.map(WorldModule::module)
-				.collect(Collectors.toList());
+		return this.world().modules().stream().map(WorldModule::module).collect(Collectors.toList());
 	}
 
 	@Override
@@ -362,7 +367,7 @@ public class CompilationImpl implements Compilation {
 	}
 
 	public void testMapHooks(final List<IFunctionMapHook> ignoredAMapHooks) {
-		//pipelineLogic.dp.
+		// pipelineLogic.dp.
 	}
 
 	@Override
@@ -385,39 +390,33 @@ public class CompilationImpl implements Compilation {
 	}
 
 	/*
-	// TODO remove this 04/20
-	@Override
-	public void addFunctionMapHook(final IFunctionMapHook aFunctionMapHook) {
-		getCompilationEnclosure().getCompilationAccess().addFunctionMapHook(aFunctionMapHook);
-	}
-*/
+	 * // TODO remove this 04/20
+	 * 
+	 * @Override public void addFunctionMapHook(final IFunctionMapHook
+	 * aFunctionMapHook) {
+	 * getCompilationEnclosure().getCompilationAccess().addFunctionMapHook(
+	 * aFunctionMapHook); }
+	 */
 
-/*
-	@Override
-	public void setCompilationEnclosure(final CompilationEnclosure aCompilationEnclosure) {
-		throw new NotImplementedException("Can't set CompilationEnclosure");
-		//compilationEnclosure = aCompilationEnclosure;
-	}
-*/
+	/*
+	 * @Override public void setCompilationEnclosure(final CompilationEnclosure
+	 * aCompilationEnclosure) { throw new
+	 * NotImplementedException("Can't set CompilationEnclosure");
+	 * //compilationEnclosure = aCompilationEnclosure; }
+	 */
 
-/*
-	@Override
-	public int compilationNumber() {
-		return _compilationNumber;
-	}
-*/
+	/*
+	 * @Override public int compilationNumber() { return _compilationNumber; }
+	 */
 
-/*
-	@Override
-	public void fakeFlow(final List<CompilerInput> aInputs, final @NotNull CompilationFlow aFlow) {
-		getCompilationEnclosure().getPipelineAccessPromise()
-				.then(pa -> {
-					get_pa().setCompilerInput(aInputs);
-
-					aFlow.run(this);
-				});
-	}
-*/
+	/*
+	 * @Override public void fakeFlow(final List<CompilerInput> aInputs,
+	 * final @NotNull CompilationFlow aFlow) {
+	 * getCompilationEnclosure().getPipelineAccessPromise() .then(pa -> {
+	 * get_pa().setCompilerInput(aInputs);
+	 * 
+	 * aFlow.run(this); }); }
+	 */
 
 }
 

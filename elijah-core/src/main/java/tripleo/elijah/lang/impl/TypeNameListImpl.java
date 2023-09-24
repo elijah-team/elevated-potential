@@ -21,7 +21,8 @@ import java.util.List;
 
 public class TypeNameListImpl implements tripleo.elijah.lang.i.TypeNameList {
 
-	@NotNull List<TypeName> p = new ArrayList<TypeName>();
+	@NotNull
+	List<TypeName> p = new ArrayList<TypeName>();
 
 	@Override
 	public void add(final TypeName tn) {

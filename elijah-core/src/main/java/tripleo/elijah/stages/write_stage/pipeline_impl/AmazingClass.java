@@ -9,18 +9,17 @@ import tripleo.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah.stages.gen_fn.EvaClass;
 
 class AmazingClass implements Amazing {
-	private final OS_Module                        mod;
-	private final Compilation                      compilation;
+	private final OS_Module mod;
+	private final Compilation compilation;
 	private final WPIS_GenerateOutputs.OutputItems itms;
-	private final EvaClass                         c;
+	private final EvaClass c;
 
-	public AmazingClass(final @NotNull EvaClass c,
-						final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems,
-						final IPipelineAccess aPa) {
-		this.c              = c;
-		mod                 = c.module();
-		compilation         = mod.getCompilation();
-		itms                = aOutputItems;
+	public AmazingClass(final @NotNull EvaClass c, final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems,
+			final IPipelineAccess aPa) {
+		this.c = c;
+		mod = c.module();
+		compilation = mod.getCompilation();
+		itms = aOutputItems;
 	}
 
 	public OS_Module mod() {

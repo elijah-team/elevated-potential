@@ -9,7 +9,7 @@ import java.io.*;
 import java.nio.file.*;
 
 public class CP_StdlibPath implements CP_Path, _CP_RootPath {
-	private final Compilation                      c;
+	private final Compilation c;
 	private final DeferredObject<Path, Void, Void> _pathPromise = new DeferredObject<>();
 
 	public CP_StdlibPath(final Compilation aC) {

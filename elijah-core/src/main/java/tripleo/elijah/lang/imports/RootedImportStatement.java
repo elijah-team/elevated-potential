@@ -12,15 +12,15 @@ import java.util.*;
  * Created 8/7/20 2:09 AM
  */
 public class RootedImportStatement extends _BaseImportStatement {
-	private Context       _ctx;
+	private Context _ctx;
 	private QualidentList importList = new QualidentListImpl(); // remove final for ImportStatementBuilder
-	final   OS_Element    parent;
+	final OS_Element parent;
 	/**
 	 * Used in from syntax
 	 *
 	 * @category from
 	 */
-	private Qualident     root;
+	private Qualident root;
 
 	public RootedImportStatement(final OS_Element aParent) {
 		parent = aParent;

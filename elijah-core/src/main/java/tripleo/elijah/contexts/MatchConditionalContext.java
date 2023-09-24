@@ -18,7 +18,7 @@ import tripleo.elijah.lang.impl.VariableSequenceImpl;
  * Created 10/6/20 4:22 PM
  */
 public class MatchConditionalContext extends ContextImpl {
-	private final Context                  _parent;
+	private final Context _parent;
 	private final MatchConditionalImpl.MC1 carrier;
 
 	public MatchConditionalContext(final Context parent, final MatchConditionalImpl.MC1 part) {
@@ -32,7 +32,8 @@ public class MatchConditionalContext extends ContextImpl {
 	}
 
 	@Override
-	public LookupResultList lookup(final @NotNull String name, final int level, final @NotNull LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final @NotNull String name, final int level, final @NotNull LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
 		if (carrier instanceof final MatchConditionalImpl.@NotNull MatchArm_TypeMatch carrier2) {
@@ -41,11 +42,9 @@ public class MatchConditionalContext extends ContextImpl {
 		}
 
 		for (final FunctionItem item : carrier.getItems()) {
-			if (!(item instanceof ClassStatement) &&
-					!(item instanceof NamespaceStatement) &&
-					!(item instanceof FunctionDef) &&
-					!(item instanceof VariableSequenceImpl)
-			) continue;
+			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
+					&& !(item instanceof FunctionDef) && !(item instanceof VariableSequenceImpl))
+				continue;
 			if (item instanceof OS_Element2) {
 				if (((OS_Element2) item).name().equals(name)) {
 					Result.add(name, level, item, this);
@@ -59,7 +58,7 @@ public class MatchConditionalContext extends ContextImpl {
 			}
 		}
 
-		/*if (carrier.getParent() != null)*/
+		/* if (carrier.getParent() != null) */
 		{
 			final Context context = getParent();
 			if (!alreadySearched.contains(context) || !one)

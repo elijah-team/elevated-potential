@@ -17,8 +17,7 @@ public enum OutputFileFactory {
 
 	@Contract("_, _, _ -> new")
 	public static @NotNull GenerateFiles create(final @NotNull String lang,
-												final @NotNull OutputFileFactoryParams params,
-												final GenerateResultEnv aFileGen) {
+			final @NotNull OutputFileFactoryParams params, final GenerateResultEnv aFileGen) {
 		if (Objects.equals(lang, "c")) {
 			final OS_Module mod = params.getMod();
 

@@ -18,11 +18,11 @@ import tripleo.elijah.stages.gen_fn.IElementHolder;
  */
 public class ConstructableElementHolder implements IElementHolder {
 	private final Constructable constructable;
-	private final OS_Element    element;
+	private final OS_Element element;
 
 	@Contract(pure = true)
 	public ConstructableElementHolder(OS_Element aElement, Constructable aConstructable) {
-		element       = aElement;
+		element = aElement;
 		constructable = aConstructable;
 	}
 

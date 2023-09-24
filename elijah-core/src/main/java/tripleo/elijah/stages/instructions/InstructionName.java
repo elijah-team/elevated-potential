@@ -12,14 +12,8 @@ package tripleo.elijah.stages.instructions;
  * Created 9/10/20 3:33 PM
  */
 public enum InstructionName {
-	AGN, AGNF, AGNK, AGNT,
-	AS_CAST, CALL, CALLS, CAST_TO,
-	CONSTRUCT, DECL, E, ES,
-	IS_A, JE, JL,
-	JMP, JNE,
-	NOP,
-	PC,
-	RET, TRY,
+	AGN, AGNF, AGNK, AGNT, AS_CAST, CALL, CALLS, CAST_TO, CONSTRUCT, DECL, E, ES, IS_A, JE, JL, JMP, JNE, NOP, PC, RET,
+	TRY,
 
 	X, XS,
 

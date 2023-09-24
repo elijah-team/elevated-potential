@@ -14,9 +14,10 @@ import java.util.function.*;
 
 public interface PostBC_Processor {
 	abstract class __PostBC_Processor__VTE implements PostBC_Processor {
-		private static @NotNull DeduceType3 doNoTypeAttached__single_potential(final VariableTableEntry vte, final DeduceTypes2.@NotNull DeduceClient1 deduceTypes2) {
-			final OS_Type     attached = deduceTypes2.getPotentialTypesVte(vte).get(0).getAttached();
-			final DeduceType3 r        = new DeduceType3(attached, null);
+		private static @NotNull DeduceType3 doNoTypeAttached__single_potential(final VariableTableEntry vte,
+				final DeduceTypes2.@NotNull DeduceClient1 deduceTypes2) {
+			final OS_Type attached = deduceTypes2.getPotentialTypesVte(vte).get(0).getAttached();
+			final DeduceType3 r = new DeduceType3(attached, null);
 
 			// ... ZeroPotentialDiagnostic
 			final ZeroPotentialDiagnostic zpd = new ZeroPotentialDiagnostic();
@@ -25,7 +26,8 @@ public interface PostBC_Processor {
 			return r;
 		}
 
-		private static @NotNull DeduceType3 doNoTypeAttached__zero_potential(final @NotNull VariableTableEntry vte, final @NotNull Supplier<CantDecideType> cdt) {
+		private static @NotNull DeduceType3 doNoTypeAttached__zero_potential(final @NotNull VariableTableEntry vte,
+				final @NotNull Supplier<CantDecideType> cdt) {
 			// invariant: potential_size == 0
 
 			final DeduceType3 r;
@@ -53,11 +55,13 @@ public interface PostBC_Processor {
 
 		@Override
 		public @Nullable DeduceType3 doNoTypeAttached(final @NotNull ErrSink errSink1) {
-			@NotNull final DeduceType3       r;
-			final DeduceTypes2.DeduceClient1 deduceTypes2   = deduceTypes2();
-			final VariableTableEntry         vte            = vte();
-			final Supplier<CantDecideType>   cdt            = () -> deduceTypes2._inj().new_CantDecideType(vte, vte.potentialTypes());
-			final int                        potential_size = vte.potentialTypes().size();
+			@NotNull
+			final DeduceType3 r;
+			final DeduceTypes2.DeduceClient1 deduceTypes2 = deduceTypes2();
+			final VariableTableEntry vte = vte();
+			final Supplier<CantDecideType> cdt = () -> deduceTypes2._inj().new_CantDecideType(vte,
+					vte.potentialTypes());
+			final int potential_size = vte.potentialTypes().size();
 
 			switch (potential_size) {
 			case 0: // potential_size == 0
@@ -75,8 +79,7 @@ public interface PostBC_Processor {
 		}
 
 		private @NotNull DeduceType3 doNoTypeAttached__numerous_potential(final @NotNull IDeduceElement3 de3,
-																		  final @NotNull Supplier<CantDecideType> cdt,
-																		  final @NotNull ErrSink errSink1) {
+				final @NotNull Supplier<CantDecideType> cdt, final @NotNull ErrSink errSink1) {
 			// TODO Check type compatibility (--> what does this mean?)
 			// TODO can inline more things here when ready/bored
 
@@ -94,8 +97,8 @@ public interface PostBC_Processor {
 			// 3. craft and return r-value
 			final DeduceElement3_ConstantTableEntry rr = (DeduceElement3_ConstantTableEntry) DeduceType3.dispatch(vte);
 			rr.deduceElement3 = de3;
-			rr.osType         = null;
-			rr.diagnostic     = diagnostic;
+			rr.osType = null;
+			rr.diagnostic = diagnostic;
 
 			final DeduceType3 r = new DeduceType3(de3, null, diagnostic);
 			return r;
@@ -119,14 +122,13 @@ public interface PostBC_Processor {
 			return dty;
 		}
 
-		private Promise<DeduceType3, Diagnostic, Void> postBC_getTypeFor_VTE(final @NotNull VariableTableEntry vte, final Context fd_ctx, final ErrSink errSink) {
-			final DeduceType3                r;
-			final DeduceTypes2.DeduceClient1 deduceClient1     = deduceTypes2();
-			final OS_Type                    vte_type_attached = vte.getType().getAttached();
-
+		private Promise<DeduceType3, Diagnostic, Void> postBC_getTypeFor_VTE(final @NotNull VariableTableEntry vte,
+				final Context fd_ctx, final ErrSink errSink) {
+			final DeduceType3 r;
+			final DeduceTypes2.DeduceClient1 deduceClient1 = deduceTypes2();
+			final OS_Type vte_type_attached = vte.getType().getAttached();
 
 			final DeferredObject<DeduceType3, Diagnostic, Void> rr = new DeferredObject<DeduceType3, Diagnostic, Void>();
-
 
 			if (vte_type_attached == null) {
 				final DeduceType3 r2 = vte.getPostBC_Processor(fd_ctx, deduceClient1).doNoTypeAttached(errSink);
@@ -149,15 +151,16 @@ public interface PostBC_Processor {
 
 	class PostBC_Processor__VTE_ARG extends PostBC_Processor.__PostBC_Processor__VTE {
 		private final DeduceTypes2.DeduceClient1 deduceTypes2;
-		private final Context                    fd_ctx;
-		private final VariableTableEntry         variableTableEntry;
-		private final OS_Type                    vte_type_attached;
+		private final Context fd_ctx;
+		private final VariableTableEntry variableTableEntry;
+		private final OS_Type vte_type_attached;
 
-		public PostBC_Processor__VTE_ARG(final VariableTableEntry aVariableTableEntry, final Context aFd_ctx, final OS_Type aVte_type_attached, final DeduceTypes2.DeduceClient1 aDeduceTypes2) {
+		public PostBC_Processor__VTE_ARG(final VariableTableEntry aVariableTableEntry, final Context aFd_ctx,
+				final OS_Type aVte_type_attached, final DeduceTypes2.DeduceClient1 aDeduceTypes2) {
 			variableTableEntry = aVariableTableEntry;
-			fd_ctx             = aFd_ctx;
-			vte_type_attached  = aVte_type_attached;
-			deduceTypes2       = aDeduceTypes2;
+			fd_ctx = aFd_ctx;
+			vte_type_attached = aVte_type_attached;
+			deduceTypes2 = aDeduceTypes2;
 		}
 
 		@Override
@@ -192,15 +195,16 @@ public interface PostBC_Processor {
 
 	class PostBC_Processor__VTE_RESULT extends PostBC_Processor.__PostBC_Processor__VTE {
 		private final DeduceTypes2.DeduceClient1 deduceTypes2;
-		private final Context                    fd_ctx;
-		private final VariableTableEntry         variableTableEntry;
-		private final OS_Type                    vte_type_attached;
+		private final Context fd_ctx;
+		private final VariableTableEntry variableTableEntry;
+		private final OS_Type vte_type_attached;
 
-		public PostBC_Processor__VTE_RESULT(final VariableTableEntry aVariableTableEntry, final Context aFd_ctx, final OS_Type aVte_type_attached, final DeduceTypes2.DeduceClient1 aDeduceTypes2) {
+		public PostBC_Processor__VTE_RESULT(final VariableTableEntry aVariableTableEntry, final Context aFd_ctx,
+				final OS_Type aVte_type_attached, final DeduceTypes2.DeduceClient1 aDeduceTypes2) {
 			variableTableEntry = aVariableTableEntry;
-			fd_ctx             = aFd_ctx;
-			vte_type_attached  = aVte_type_attached;
-			deduceTypes2       = aDeduceTypes2;
+			fd_ctx = aFd_ctx;
+			vte_type_attached = aVte_type_attached;
+			deduceTypes2 = aDeduceTypes2;
 		}
 
 		@Override
@@ -208,10 +212,11 @@ public interface PostBC_Processor {
 			return fd_ctx;
 		}
 
-		//		@Override
-		//		public DeduceType3 getType(final _post_ByteCode aPost_byteCode, final ErrSink aErrSink1) {
-		//			return null;
-		//		}
+		// @Override
+		// public DeduceType3 getType(final _post_ByteCode aPost_byteCode, final ErrSink
+		// aErrSink1) {
+		// return null;
+		// }
 
 		@Override
 		protected DeduceTypes2.DeduceClient1 deduceTypes2() {
@@ -261,15 +266,16 @@ public interface PostBC_Processor {
 
 	class PostBC_Processor__VTE_SELF extends PostBC_Processor.__PostBC_Processor__VTE {
 		private final DeduceTypes2.DeduceClient1 deduceTypes2;
-		private final Context                    fd_ctx;
-		private final VariableTableEntry         variableTableEntry;
-		private final OS_Type                    vte_type_attached;
+		private final Context fd_ctx;
+		private final VariableTableEntry variableTableEntry;
+		private final OS_Type vte_type_attached;
 
-		public PostBC_Processor__VTE_SELF(final VariableTableEntry aVariableTableEntry, final Context aFd_ctx, final OS_Type aVte_type_attached, final DeduceTypes2.DeduceClient1 aDeduceTypes2) {
+		public PostBC_Processor__VTE_SELF(final VariableTableEntry aVariableTableEntry, final Context aFd_ctx,
+				final OS_Type aVte_type_attached, final DeduceTypes2.DeduceClient1 aDeduceTypes2) {
 			variableTableEntry = aVariableTableEntry;
-			fd_ctx             = aFd_ctx;
-			vte_type_attached  = aVte_type_attached;
-			deduceTypes2       = aDeduceTypes2;
+			fd_ctx = aFd_ctx;
+			vte_type_attached = aVte_type_attached;
+			deduceTypes2 = aDeduceTypes2;
 		}
 
 		@Override
@@ -277,35 +283,22 @@ public interface PostBC_Processor {
 			return fd_ctx;
 		}
 
-	/*
-			@Override
-			public DeduceType3 getType(final @NotNull _post_ByteCode aPost_byteCode, final ErrSink aErrSink1) {
-				DED dt3 = _inj().new_DED() {
-					public DED elementDiscriminator() {
-						return null;
-					}
-
-					public DeduceTypes2 deduceTypes2() {
-						return null;
-					}
-
-					public EvaFunction generatedFunction() {
-						return null;
-					}
-
-					public GenType genType() {
-						return null;
-					}
-
-					@Override
-					public Kind kind() {
-						return null;
-					}
-				};
-
-				return _inj().new_DeduceType3((IDeduceElement3) dt3, variableTableEntry.genType.resolved, null);
-			}
-	*/
+		/*
+		 * @Override public DeduceType3 getType(final @NotNull _post_ByteCode
+		 * aPost_byteCode, final ErrSink aErrSink1) { DED dt3 = _inj().new_DED() {
+		 * public DED elementDiscriminator() { return null; }
+		 * 
+		 * public DeduceTypes2 deduceTypes2() { return null; }
+		 * 
+		 * public EvaFunction generatedFunction() { return null; }
+		 * 
+		 * public GenType genType() { return null; }
+		 * 
+		 * @Override public Kind kind() { return null; } };
+		 * 
+		 * return _inj().new_DeduceType3((IDeduceElement3) dt3,
+		 * variableTableEntry.genType.resolved, null); }
+		 */
 
 		@Override
 		protected DeduceTypes2.DeduceClient1 deduceTypes2() {
@@ -334,15 +327,16 @@ public interface PostBC_Processor {
 
 	class PostBC_Processor__VTE_TEMP extends PostBC_Processor.__PostBC_Processor__VTE {
 		private final DeduceTypes2.DeduceClient1 deduceTypes2;
-		private final Context                    fd_ctx;
-		private final VariableTableEntry         variableTableEntry;
-		private final OS_Type                    vte_type_attached;
+		private final Context fd_ctx;
+		private final VariableTableEntry variableTableEntry;
+		private final OS_Type vte_type_attached;
 
-		public PostBC_Processor__VTE_TEMP(final VariableTableEntry aVariableTableEntry, final Context aFd_ctx, final OS_Type aVte_type_attached, final DeduceTypes2.DeduceClient1 aDeduceTypes2) {
+		public PostBC_Processor__VTE_TEMP(final VariableTableEntry aVariableTableEntry, final Context aFd_ctx,
+				final OS_Type aVte_type_attached, final DeduceTypes2.DeduceClient1 aDeduceTypes2) {
 			variableTableEntry = aVariableTableEntry;
-			fd_ctx             = aFd_ctx;
-			vte_type_attached  = aVte_type_attached;
-			deduceTypes2       = aDeduceTypes2;
+			fd_ctx = aFd_ctx;
+			vte_type_attached = aVte_type_attached;
+			deduceTypes2 = aDeduceTypes2;
 		}
 
 		@Override
@@ -350,12 +344,10 @@ public interface PostBC_Processor {
 			return fd_ctx;
 		}
 
-	/*
-			@Override
-			public DeduceType3 getType(final @NotNull _post_ByteCode aPost_byteCode, final ErrSink aErrSink1) {
-				return null;
-			}
-	*/
+		/*
+		 * @Override public DeduceType3 getType(final @NotNull _post_ByteCode
+		 * aPost_byteCode, final ErrSink aErrSink1) { return null; }
+		 */
 
 		@Override
 		protected DeduceTypes2.DeduceClient1 deduceTypes2() {
@@ -388,15 +380,16 @@ public interface PostBC_Processor {
 
 	class PostBC_Processor__VTE_VAR extends PostBC_Processor.__PostBC_Processor__VTE {
 		private final DeduceTypes2.DeduceClient1 deduceTypes2;
-		private final Context                    fd_ctx;
-		private final VariableTableEntry         variableTableEntry;
-		private final OS_Type                    vte_type_attached;
+		private final Context fd_ctx;
+		private final VariableTableEntry variableTableEntry;
+		private final OS_Type vte_type_attached;
 
-		public PostBC_Processor__VTE_VAR(final VariableTableEntry aVariableTableEntry, final Context aFd_ctx, final OS_Type aVte_type_attached, final DeduceTypes2.DeduceClient1 aDeduceTypes2) {
+		public PostBC_Processor__VTE_VAR(final VariableTableEntry aVariableTableEntry, final Context aFd_ctx,
+				final OS_Type aVte_type_attached, final DeduceTypes2.DeduceClient1 aDeduceTypes2) {
 			variableTableEntry = aVariableTableEntry;
-			fd_ctx             = aFd_ctx;
-			vte_type_attached  = aVte_type_attached;
-			deduceTypes2       = aDeduceTypes2;
+			fd_ctx = aFd_ctx;
+			vte_type_attached = aVte_type_attached;
+			deduceTypes2 = aDeduceTypes2;
 		}
 
 		@Override
@@ -411,11 +404,11 @@ public interface PostBC_Processor {
 
 		@Override
 		public Maybe<OS_Type> doHasTypeAttached() {
-			//Maybe<OS_Type> r;
+			// Maybe<OS_Type> r;
 
 			throw new IllegalStateException("xzxxxxxxxxxxxxxxxxxxxxxxxx not RESULT or SELF or ARG or TEMP, so VAR");
 
-			//return r;
+			// return r;
 		}
 
 		@Override
@@ -430,7 +423,8 @@ public interface PostBC_Processor {
 	}
 
 	@Contract("_, _, _ -> new")
-	static @NotNull PostBC_Processor make_VTE(@NotNull final VariableTableEntry aVariableTableEntry, final Context aFd_ctx, final DeduceTypes2.DeduceClient1 aDeduceTypes2) {
+	static @NotNull PostBC_Processor make_VTE(@NotNull final VariableTableEntry aVariableTableEntry,
+			final Context aFd_ctx, final DeduceTypes2.DeduceClient1 aDeduceTypes2) {
 		final OS_Type vte_type_attached = aVariableTableEntry.getType().getAttached();
 
 		switch (aVariableTableEntry.getVtt()) {
@@ -452,7 +446,8 @@ public interface PostBC_Processor {
 
 	Maybe<OS_Type> doHasTypeAttached();
 
-	@Nullable DeduceType3 doNoTypeAttached(final ErrSink errSink1);
+	@Nullable
+	DeduceType3 doNoTypeAttached(final ErrSink errSink1);
 
 	void doSetType(DeduceType3 aDeduceType3, ErrSink aErrSink1);
 

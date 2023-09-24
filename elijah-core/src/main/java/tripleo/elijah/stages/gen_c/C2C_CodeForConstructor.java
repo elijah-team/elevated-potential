@@ -11,24 +11,25 @@ import java.util.*;
 import static tripleo.elijah.util.Helpers.*;
 
 class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
-	final         GenerateResult           gr;
+	final GenerateResult gr;
 	private final Generate_Code_For_Method generateCodeForMethod;
-	private final GenerateResultEnv             fileGen;
-	private final EvaConstructor           gf;
+	private final GenerateResultEnv fileGen;
+	private final EvaConstructor gf;
 	private final WhyNotGarish_Constructor yf;
 	EG_Statement st;
-	private boolean    _calculated;
+	private boolean _calculated;
 	private C2C_Result buf;
 	private C2C_Result bufHdr;
 
-	public C2C_CodeForConstructor(final Generate_Code_For_Method aGenerateCodeForMethod, final EvaConstructor aGf, final GenerateResultEnv aFileGen, final @NotNull WhyNotGarish_Constructor aYf) {
+	public C2C_CodeForConstructor(final Generate_Code_For_Method aGenerateCodeForMethod, final EvaConstructor aGf,
+			final GenerateResultEnv aFileGen, final @NotNull WhyNotGarish_Constructor aYf) {
 		generateCodeForMethod = aGenerateCodeForMethod;
 
 		this.yf = aYf;
 
-		gf      = aYf.cheat();
+		gf = aYf.cheat();
 		fileGen = aFileGen;
-		gr      = fileGen.gr();
+		gr = fileGen.gr();
 	}
 
 	private void calculate() {
@@ -46,7 +47,7 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 			decl.evaluatePrimitive();
 
 			final String class_name = GenerateC.GetTypeName.forGenClass(x);
-			final int    class_code = x.getCode();
+			final int class_code = x.getCode();
 
 			assert gf.cd != null;
 			final String constructorName_ = gf.cd.name();
@@ -56,7 +57,8 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 			else
 				constructorName = constructorName_;
 
-			final C2C_CodeForConstructor_Statement xx = new C2C_CodeForConstructor_Statement(class_name, class_code, constructorName, decl, x);
+			final C2C_CodeForConstructor_Statement xx = new C2C_CodeForConstructor_Statement(class_name, class_code,
+					constructorName, decl, x);
 			xx.getTextInto(generateCodeForMethod.tos); // README created because non-recursive interpreter
 			this.st = xx;
 
@@ -68,7 +70,8 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 
 			assert !decl.prim;
 
-			generateCodeForMethod.tos.put_string_ln(String.format("} // class %s%s", decl.prim ? "box " : "", x.getName()));
+			generateCodeForMethod.tos
+					.put_string_ln(String.format("} // class %s%s", decl.prim ? "box " : "", x.getName()));
 			generateCodeForMethod.tos.put_string_ln("");
 
 			final String header_string = getHeaderString(x, class_name, class_code, constructorName);
@@ -80,10 +83,10 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 			generateCodeForMethod.tosHdr.flush();
 			generateCodeForMethod.tosHdr.close();
 
-			final Buffer buf1    = generateCodeForMethod.tos.getBuffer();
+			final Buffer buf1 = generateCodeForMethod.tos.getBuffer();
 			final Buffer bufHdr1 = generateCodeForMethod.tosHdr.getBuffer();
 
-			buf    = new Default_C2C_Result(buf1, GenerateResult.TY.IMPL, "C2C_CodeForConstructor IMPL", yf);
+			buf = new Default_C2C_Result(buf1, GenerateResult.TY.IMPL, "C2C_CodeForConstructor IMPL", yf);
 			bufHdr = new Default_C2C_Result(bufHdr1, GenerateResult.TY.HEADER, "C2C_CodeForConstructor HEADER", yf);
 
 			_calculated = true;
@@ -91,10 +94,12 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 		}
 	}
 
-	private String getHeaderString(final EvaClass x, final String class_name, final int class_code, final String constructorName) {
-		final String                 header_string;
-		final Generate_Method_Header gmh         = new Generate_Method_Header(gf, generateCodeForMethod.gc, generateCodeForMethod.LOG);
-		final String                 args_string = gmh.args_string;
+	private String getHeaderString(final EvaClass x, final String class_name, final int class_code,
+			final String constructorName) {
+		final String header_string;
+		final Generate_Method_Header gmh = new Generate_Method_Header(gf, generateCodeForMethod.gc,
+				generateCodeForMethod.LOG);
+		final String args_string = gmh.args_string;
 
 		// NOTE getGenClass is always a class or namespace, getParent can be a function
 		final EvaContainerNC parent = (EvaContainerNC) gf.getGenClass();

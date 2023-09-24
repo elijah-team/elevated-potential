@@ -27,9 +27,9 @@ public class CompilationTest {
 
 	@Test
 	public final void testEz() throws Exception {
-		final List<String> args = List_of("test/comp_test/main3", "-sE"/*, "-out"*/);
-		final ErrSink      eee  = new StdErrSink();
-		final Compilation  c    = new CompilationImpl(eee, new IO());
+		final List<String> args = List_of("test/comp_test/main3", "-sE"/* , "-out" */);
+		final ErrSink eee = new StdErrSink();
+		final Compilation c = new CompilationImpl(eee, new IO());
 
 		c.feedCmdLine(args);
 
@@ -44,13 +44,12 @@ public class CompilationTest {
 
 		Collection<WorldModule> worldModules = c.world().modules();
 
-		worldModules.stream()
-				.forEach(wm -> {
-					var mod = wm.module();
-					Stupidity.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
-				});
+		worldModules.stream().forEach(wm -> {
+			var mod = wm.module();
+			Stupidity.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
+		});
 
-		assertEquals(7/*12*/, worldModules.size());
+		assertEquals(7/* 12 */, worldModules.size());
 
 		System.err.println("CompilationTest -- 53 " + worldModules.size());
 		assertTrue(worldModules.size() > 2);

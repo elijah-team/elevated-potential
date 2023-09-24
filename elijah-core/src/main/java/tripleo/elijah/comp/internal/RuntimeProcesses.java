@@ -9,8 +9,8 @@ import tripleo.elijah.comp.i.RuntimeProcess;
 
 public class RuntimeProcesses {
 	private final @NotNull ICompilationAccess ca;
-	private final @NotNull ProcessRecord      pr;
-	private                RuntimeProcess     process;
+	private final @NotNull ProcessRecord pr;
+	private RuntimeProcess process;
 
 	@Contract(pure = true)
 	public RuntimeProcesses(final @NotNull ICompilationAccess aca, final @NotNull ProcessRecord aPr) {
@@ -24,21 +24,26 @@ public class RuntimeProcesses {
 
 	public void run_better(CR_State st, CB_Output output) throws Exception {
 		// do nothing. job over
-		if (ca.getStage() == Stages.E) return;
+		if (ca.getStage() == Stages.E)
+			return;
 
 		// rt.prepare();
-		//tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess [prepare] named " + process);
+		// tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess [prepare]
+		// named " + process);
 		process.prepare();
 
 		// rt.run();
-		//tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess [run    ] named " + process);
+		// tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess [run ]
+		// named " + process);
 		process.run(ca.getCompilation(), st, output);
 
 		// rt.postProcess(pr);
-		//tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess [postProcess] named " + process);
+		// tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess
+		// [postProcess] named " + process);
 		process.postProcess();
 
-		//tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess^ [postProcess/writeLogs]");
+		// tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess^
+		// [postProcess/writeLogs]");
 		pr.writeLogs();
 	}
 

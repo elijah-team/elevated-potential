@@ -26,8 +26,10 @@ public interface Compilation {
 
 		public enum Tokens {
 			;
-			public static final DriverToken COMPILATION_RUNNER_FIND_STDLIB2 = DriverToken.makeToken("COMPILATION_RUNNER_FIND_STDLIB2");
-			public static final DriverToken COMPILATION_RUNNER_START        = DriverToken.makeToken("COMPILATION_RUNNER_START");
+			public static final DriverToken COMPILATION_RUNNER_FIND_STDLIB2 = DriverToken
+					.makeToken("COMPILATION_RUNNER_FIND_STDLIB2");
+			public static final DriverToken COMPILATION_RUNNER_START = DriverToken
+					.makeToken("COMPILATION_RUNNER_START");
 		}
 
 		@NotNull
@@ -37,17 +39,18 @@ public interface Compilation {
 	}
 
 	class CompilationConfig {
-		public          boolean do_out;
-		public          boolean showTree = false;
-		public          boolean silent   = false;
-		public @NotNull Stages  stage    = Stages.O; // Output
+		public boolean do_out;
+		public boolean showTree = false;
+		public boolean silent = false;
+		public @NotNull Stages stage = Stages.O; // Output
 	}
 
 	// TODO remove this 04/20
 //	void addFunctionMapHook(IFunctionMapHook aFunctionMapHook);
 
 	class PCon {
-		public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aEk, final IExpression aE2) {
+		public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aEk,
+				final IExpression aE2) {
 			return ExpressionBuilder.build(aEe, aEk, aE2);
 		}
 
@@ -137,7 +140,7 @@ public interface Compilation {
 
 	CIS _cis();
 
-	//void fakeFlow(List<CompilerInput> aInputs, CompilationFlow aFlow);
+	// void fakeFlow(List<CompilerInput> aInputs, CompilationFlow aFlow);
 
 	CompilerBeginning beginning(final CompilationRunner compilationRunner);
 
@@ -167,7 +170,8 @@ public interface Compilation {
 
 	ErrSink getErrSink();
 
-	@NotNull FluffyComp getFluffy();
+	@NotNull
+	FluffyComp getFluffy();
 
 	@Contract(pure = true)
 	List<CompilerInput> getInputs();
@@ -176,7 +180,8 @@ public interface Compilation {
 
 	IO getIO();
 
-	@NotNull EOT_OutputTree getOutputTree();
+	@NotNull
+	EOT_OutputTree getOutputTree();
 
 	OS_Package getPackage(@NotNull Qualident pkg_name);
 
@@ -184,10 +189,10 @@ public interface Compilation {
 
 	CompilerInstructions getRootCI();
 
-	@NotNull Operation<Ok> hasInstructions(List<CompilerInstructions> cis);
+	@NotNull
+	Operation<Ok> hasInstructions(List<CompilerInstructions> cis);
 
-	void hasInstructions(@NotNull List<CompilerInstructions> cis,
-						 @NotNull IPipelineAccess pa);
+	void hasInstructions(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
 
 	@Deprecated
 	int instructionCount();
@@ -202,7 +207,7 @@ public interface Compilation {
 
 	CP_Paths paths();
 
-    void pushItem(CompilerInstructions aci);
+	void pushItem(CompilerInstructions aci);
 
 	Finally reports();
 

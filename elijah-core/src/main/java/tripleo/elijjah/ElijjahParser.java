@@ -22,582 +22,468 @@ import java.util.List;
 
 public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes {
 
-	public static final String[] _tokenNames  = {
-			"<0>",
-			"EOF",
-			"<2>",
-			"NULL_TREE_LOOKAHEAD",
-			"\"as\"",
-			"\"cast_to\"",
-			"\"package\"",
-			"\"indexing\"",
-			"IDENT",
-			"TOK_COLON",
-			"STRING_LITERAL",
-			"CHAR_LITERAL",
-			"NUM_INT",
-			"NUM_FLOAT",
-			"DOT",
-			"\"extend\"",
-			"\"class\"",
-			"LBRACK",
-			"RBRACK",
-			"\"const\"",
-			"\"struct\"",
-			"\"signature\"",
-			"\"interface\"",
-			"\"abstract\"",
-			"\"annotation\"",
-			"\"exception\"",
-			"LPAREN",
-			"RPAREN",
-			"LCURLY",
-			"RCURLY",
-			"\"type\"",
-			"BECOMES",
-			"BOR",
-			"ANNOT",
-			"\"namespace\"",
-			"\"from\"",
-			"\"import\"",
-			"COMMA",
-			"LT_",
-			"\"constructor\"",
-			"\"ctor\"",
-			"\"destructor\"",
-			"\"dtor\"",
-			"\"continue\"",
-			"\"break\"",
-			"\"return\"",
-			"\"with\"",
-			"\"pre\"",
-			"\"requires\"",
-			"\"post\"",
-			"\"ensures\"",
-			"\"def\"",
-			"\"immutable\"",
-			"TOK_ARROW",
-			"\"var\"",
-			"\"val\"",
-			"\"alias\"",
-			"\"yield\"",
-			"\"construct\"",
-			"SEMI",
-			"\"invariant\"",
-			"\"access\"",
-			"EQUAL",
-			"PLUS_ASSIGN",
-			"MINUS_ASSIGN",
-			"STAR_ASSIGN",
-			"DIV_ASSIGN",
-			"MOD_ASSIGN",
-			"SR_ASSIGN",
-			"BSR_ASSIGN",
-			"SL_ASSIGN",
-			"BAND_ASSIGN",
-			"BXOR_ASSIGN",
-			"BOR_ASSIGN",
-			"LOR",
-			"LAND",
-			"BXOR",
-			"BAND",
-			"NOT_EQUAL",
-			"GT",
-			"LE",
-			"GE",
-			"\"is_a\"",
-			"SL",
-			"SR",
-			"BSR",
-			"PLUS",
-			"MINUS",
-			"STAR",
-			"DIV",
-			"MOD",
-			"INC",
-			"DEC",
-			"BNOT",
-			"LNOT",
-			"\"true\"",
-			"\"false\"",
-			"\"this\"",
-			"\"null\"",
-			"\"function\"",
-			"\"procedure\"",
-			"\"if\"",
-			"\"else\"",
-			"\"elseif\"",
-			"\"match\"",
-			"\"case\"",
-			"\"while\"",
-			"\"do\"",
-			"\"iterate\"",
-			"\"to\"",
-			"\"generic\"",
-			"QUESTION",
-			"\"typeof\"",
-			"\"func\"",
-			"\"proc\"",
-			"\"in\"",
-			"\"out\"",
-			"\"ref\"",
-			"\"prop\"",
-			"\"property\"",
-			"\"get\"",
-			"\"set\"",
-			"WS",
-			"SL_COMMENT",
-			"ML_COMMENT",
-			"ESC",
-			"HEX_DIGIT",
-			"VOCAB",
-			"EXPONENT",
-			"FLOAT_SUFFIX"
-	};
-	public static final BitSet   _tokenSet_0  = new BitSet(mk_tokenSet_0());
-	public static final BitSet   _tokenSet_1  = new BitSet(mk_tokenSet_1());
-	public static final BitSet   _tokenSet_10 = new BitSet(mk_tokenSet_10());
-	public static final BitSet   _tokenSet_11 = new BitSet(mk_tokenSet_11());
-	public static final BitSet   _tokenSet_12 = new BitSet(mk_tokenSet_12());
-	public static final BitSet   _tokenSet_13 = new BitSet(mk_tokenSet_13());
-	public static final BitSet   _tokenSet_14 = new BitSet(mk_tokenSet_14());
-	public static final BitSet   _tokenSet_15 = new BitSet(mk_tokenSet_15());
-	public static final BitSet   _tokenSet_16 = new BitSet(mk_tokenSet_16());
-	public static final BitSet   _tokenSet_17 = new BitSet(mk_tokenSet_17());
-	public static final BitSet   _tokenSet_18 = new BitSet(mk_tokenSet_18());
-	public static final BitSet   _tokenSet_19 = new BitSet(mk_tokenSet_19());
-	public static final BitSet   _tokenSet_2  = new BitSet(mk_tokenSet_2());
-	public static final BitSet   _tokenSet_20 = new BitSet(mk_tokenSet_20());
-	public static final BitSet   _tokenSet_21 = new BitSet(mk_tokenSet_21());
-	public static final BitSet   _tokenSet_22 = new BitSet(mk_tokenSet_22());
-	public static final BitSet   _tokenSet_23 = new BitSet(mk_tokenSet_23());
-	public static final BitSet   _tokenSet_24 = new BitSet(mk_tokenSet_24());
-	public static final BitSet   _tokenSet_25 = new BitSet(mk_tokenSet_25());
-	public static final BitSet   _tokenSet_26 = new BitSet(mk_tokenSet_26());
-	public static final BitSet   _tokenSet_27 = new BitSet(mk_tokenSet_27());
-	public static final BitSet   _tokenSet_28 = new BitSet(mk_tokenSet_28());
-	public static final BitSet   _tokenSet_29 = new BitSet(mk_tokenSet_29());
-	public static final BitSet   _tokenSet_3  = new BitSet(mk_tokenSet_3());
-	public static final BitSet   _tokenSet_30 = new BitSet(mk_tokenSet_30());
-	public static final BitSet   _tokenSet_31 = new BitSet(mk_tokenSet_31());
-	public static final BitSet   _tokenSet_32 = new BitSet(mk_tokenSet_32());
-	public static final BitSet   _tokenSet_33 = new BitSet(mk_tokenSet_33());
-	public static final BitSet   _tokenSet_34 = new BitSet(mk_tokenSet_34());
-	public static final BitSet   _tokenSet_35 = new BitSet(mk_tokenSet_35());
-	public static final BitSet   _tokenSet_36 = new BitSet(mk_tokenSet_36());
-	public static final BitSet   _tokenSet_37 = new BitSet(mk_tokenSet_37());
-	public static final BitSet   _tokenSet_38 = new BitSet(mk_tokenSet_38());
-	public static final BitSet   _tokenSet_39 = new BitSet(mk_tokenSet_39());
-	public static final BitSet   _tokenSet_4  = new BitSet(mk_tokenSet_4());
-	public static final BitSet   _tokenSet_40 = new BitSet(mk_tokenSet_40());
-	public static final BitSet   _tokenSet_41 = new BitSet(mk_tokenSet_41());
-	public static final BitSet   _tokenSet_42 = new BitSet(mk_tokenSet_42());
-	public static final BitSet   _tokenSet_43 = new BitSet(mk_tokenSet_43());
-	public static final BitSet   _tokenSet_44 = new BitSet(mk_tokenSet_44());
-	public static final BitSet   _tokenSet_45 = new BitSet(mk_tokenSet_45());
-	public static final BitSet   _tokenSet_46 = new BitSet(mk_tokenSet_46());
-	public static final BitSet   _tokenSet_47 = new BitSet(mk_tokenSet_47());
-	public static final BitSet   _tokenSet_48 = new BitSet(mk_tokenSet_48());
-	public static final BitSet   _tokenSet_49 = new BitSet(mk_tokenSet_49());
-	public static final BitSet   _tokenSet_5  = new BitSet(mk_tokenSet_5());
-	public static final BitSet   _tokenSet_50 = new BitSet(mk_tokenSet_50());
-	public static final BitSet   _tokenSet_51 = new BitSet(mk_tokenSet_51());
-	public static final BitSet   _tokenSet_52 = new BitSet(mk_tokenSet_52());
-	public static final BitSet   _tokenSet_53 = new BitSet(mk_tokenSet_53());
-	public static final BitSet   _tokenSet_54 = new BitSet(mk_tokenSet_54());
-	public static final BitSet   _tokenSet_55 = new BitSet(mk_tokenSet_55());
-	public static final BitSet   _tokenSet_56 = new BitSet(mk_tokenSet_56());
-	public static final BitSet   _tokenSet_57 = new BitSet(mk_tokenSet_57());
-	public static final BitSet   _tokenSet_58 = new BitSet(mk_tokenSet_58());
-	public static final BitSet   _tokenSet_59 = new BitSet(mk_tokenSet_59());
-	public static final BitSet   _tokenSet_6  = new BitSet(mk_tokenSet_6());
-	public static final BitSet   _tokenSet_60 = new BitSet(mk_tokenSet_60());
-	public static final BitSet   _tokenSet_61 = new BitSet(mk_tokenSet_61());
-	public static final BitSet   _tokenSet_62 = new BitSet(mk_tokenSet_62());
-	public static final BitSet   _tokenSet_63 = new BitSet(mk_tokenSet_63());
-	public static final BitSet   _tokenSet_64 = new BitSet(mk_tokenSet_64());
-	public static final BitSet   _tokenSet_65 = new BitSet(mk_tokenSet_65());
-	public static final BitSet   _tokenSet_66 = new BitSet(mk_tokenSet_66());
-	public static final BitSet   _tokenSet_67 = new BitSet(mk_tokenSet_67());
-	public static final BitSet   _tokenSet_68 = new BitSet(mk_tokenSet_68());
-	public static final BitSet   _tokenSet_69 = new BitSet(mk_tokenSet_69());
-	public static final BitSet   _tokenSet_7  = new BitSet(mk_tokenSet_7());
-	public static final BitSet   _tokenSet_70 = new BitSet(mk_tokenSet_70());
-	public static final BitSet   _tokenSet_71 = new BitSet(mk_tokenSet_71());
-	public static final BitSet   _tokenSet_72 = new BitSet(mk_tokenSet_72());
-	public static final BitSet   _tokenSet_8  = new BitSet(mk_tokenSet_8());
-	public static final BitSet   _tokenSet_9  = new BitSet(mk_tokenSet_9());
+	public static final String[] _tokenNames = { "<0>", "EOF", "<2>", "NULL_TREE_LOOKAHEAD", "\"as\"", "\"cast_to\"",
+			"\"package\"", "\"indexing\"", "IDENT", "TOK_COLON", "STRING_LITERAL", "CHAR_LITERAL", "NUM_INT",
+			"NUM_FLOAT", "DOT", "\"extend\"", "\"class\"", "LBRACK", "RBRACK", "\"const\"", "\"struct\"",
+			"\"signature\"", "\"interface\"", "\"abstract\"", "\"annotation\"", "\"exception\"", "LPAREN", "RPAREN",
+			"LCURLY", "RCURLY", "\"type\"", "BECOMES", "BOR", "ANNOT", "\"namespace\"", "\"from\"", "\"import\"",
+			"COMMA", "LT_", "\"constructor\"", "\"ctor\"", "\"destructor\"", "\"dtor\"", "\"continue\"", "\"break\"",
+			"\"return\"", "\"with\"", "\"pre\"", "\"requires\"", "\"post\"", "\"ensures\"", "\"def\"", "\"immutable\"",
+			"TOK_ARROW", "\"var\"", "\"val\"", "\"alias\"", "\"yield\"", "\"construct\"", "SEMI", "\"invariant\"",
+			"\"access\"", "EQUAL", "PLUS_ASSIGN", "MINUS_ASSIGN", "STAR_ASSIGN", "DIV_ASSIGN", "MOD_ASSIGN",
+			"SR_ASSIGN", "BSR_ASSIGN", "SL_ASSIGN", "BAND_ASSIGN", "BXOR_ASSIGN", "BOR_ASSIGN", "LOR", "LAND", "BXOR",
+			"BAND", "NOT_EQUAL", "GT", "LE", "GE", "\"is_a\"", "SL", "SR", "BSR", "PLUS", "MINUS", "STAR", "DIV", "MOD",
+			"INC", "DEC", "BNOT", "LNOT", "\"true\"", "\"false\"", "\"this\"", "\"null\"", "\"function\"",
+			"\"procedure\"", "\"if\"", "\"else\"", "\"elseif\"", "\"match\"", "\"case\"", "\"while\"", "\"do\"",
+			"\"iterate\"", "\"to\"", "\"generic\"", "QUESTION", "\"typeof\"", "\"func\"", "\"proc\"", "\"in\"",
+			"\"out\"", "\"ref\"", "\"prop\"", "\"property\"", "\"get\"", "\"set\"", "WS", "SL_COMMENT", "ML_COMMENT",
+			"ESC", "HEX_DIGIT", "VOCAB", "EXPONENT", "FLOAT_SUFFIX" };
+	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
+	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
+	public static final BitSet _tokenSet_10 = new BitSet(mk_tokenSet_10());
+	public static final BitSet _tokenSet_11 = new BitSet(mk_tokenSet_11());
+	public static final BitSet _tokenSet_12 = new BitSet(mk_tokenSet_12());
+	public static final BitSet _tokenSet_13 = new BitSet(mk_tokenSet_13());
+	public static final BitSet _tokenSet_14 = new BitSet(mk_tokenSet_14());
+	public static final BitSet _tokenSet_15 = new BitSet(mk_tokenSet_15());
+	public static final BitSet _tokenSet_16 = new BitSet(mk_tokenSet_16());
+	public static final BitSet _tokenSet_17 = new BitSet(mk_tokenSet_17());
+	public static final BitSet _tokenSet_18 = new BitSet(mk_tokenSet_18());
+	public static final BitSet _tokenSet_19 = new BitSet(mk_tokenSet_19());
+	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());
+	public static final BitSet _tokenSet_20 = new BitSet(mk_tokenSet_20());
+	public static final BitSet _tokenSet_21 = new BitSet(mk_tokenSet_21());
+	public static final BitSet _tokenSet_22 = new BitSet(mk_tokenSet_22());
+	public static final BitSet _tokenSet_23 = new BitSet(mk_tokenSet_23());
+	public static final BitSet _tokenSet_24 = new BitSet(mk_tokenSet_24());
+	public static final BitSet _tokenSet_25 = new BitSet(mk_tokenSet_25());
+	public static final BitSet _tokenSet_26 = new BitSet(mk_tokenSet_26());
+	public static final BitSet _tokenSet_27 = new BitSet(mk_tokenSet_27());
+	public static final BitSet _tokenSet_28 = new BitSet(mk_tokenSet_28());
+	public static final BitSet _tokenSet_29 = new BitSet(mk_tokenSet_29());
+	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());
+	public static final BitSet _tokenSet_30 = new BitSet(mk_tokenSet_30());
+	public static final BitSet _tokenSet_31 = new BitSet(mk_tokenSet_31());
+	public static final BitSet _tokenSet_32 = new BitSet(mk_tokenSet_32());
+	public static final BitSet _tokenSet_33 = new BitSet(mk_tokenSet_33());
+	public static final BitSet _tokenSet_34 = new BitSet(mk_tokenSet_34());
+	public static final BitSet _tokenSet_35 = new BitSet(mk_tokenSet_35());
+	public static final BitSet _tokenSet_36 = new BitSet(mk_tokenSet_36());
+	public static final BitSet _tokenSet_37 = new BitSet(mk_tokenSet_37());
+	public static final BitSet _tokenSet_38 = new BitSet(mk_tokenSet_38());
+	public static final BitSet _tokenSet_39 = new BitSet(mk_tokenSet_39());
+	public static final BitSet _tokenSet_4 = new BitSet(mk_tokenSet_4());
+	public static final BitSet _tokenSet_40 = new BitSet(mk_tokenSet_40());
+	public static final BitSet _tokenSet_41 = new BitSet(mk_tokenSet_41());
+	public static final BitSet _tokenSet_42 = new BitSet(mk_tokenSet_42());
+	public static final BitSet _tokenSet_43 = new BitSet(mk_tokenSet_43());
+	public static final BitSet _tokenSet_44 = new BitSet(mk_tokenSet_44());
+	public static final BitSet _tokenSet_45 = new BitSet(mk_tokenSet_45());
+	public static final BitSet _tokenSet_46 = new BitSet(mk_tokenSet_46());
+	public static final BitSet _tokenSet_47 = new BitSet(mk_tokenSet_47());
+	public static final BitSet _tokenSet_48 = new BitSet(mk_tokenSet_48());
+	public static final BitSet _tokenSet_49 = new BitSet(mk_tokenSet_49());
+	public static final BitSet _tokenSet_5 = new BitSet(mk_tokenSet_5());
+	public static final BitSet _tokenSet_50 = new BitSet(mk_tokenSet_50());
+	public static final BitSet _tokenSet_51 = new BitSet(mk_tokenSet_51());
+	public static final BitSet _tokenSet_52 = new BitSet(mk_tokenSet_52());
+	public static final BitSet _tokenSet_53 = new BitSet(mk_tokenSet_53());
+	public static final BitSet _tokenSet_54 = new BitSet(mk_tokenSet_54());
+	public static final BitSet _tokenSet_55 = new BitSet(mk_tokenSet_55());
+	public static final BitSet _tokenSet_56 = new BitSet(mk_tokenSet_56());
+	public static final BitSet _tokenSet_57 = new BitSet(mk_tokenSet_57());
+	public static final BitSet _tokenSet_58 = new BitSet(mk_tokenSet_58());
+	public static final BitSet _tokenSet_59 = new BitSet(mk_tokenSet_59());
+	public static final BitSet _tokenSet_6 = new BitSet(mk_tokenSet_6());
+	public static final BitSet _tokenSet_60 = new BitSet(mk_tokenSet_60());
+	public static final BitSet _tokenSet_61 = new BitSet(mk_tokenSet_61());
+	public static final BitSet _tokenSet_62 = new BitSet(mk_tokenSet_62());
+	public static final BitSet _tokenSet_63 = new BitSet(mk_tokenSet_63());
+	public static final BitSet _tokenSet_64 = new BitSet(mk_tokenSet_64());
+	public static final BitSet _tokenSet_65 = new BitSet(mk_tokenSet_65());
+	public static final BitSet _tokenSet_66 = new BitSet(mk_tokenSet_66());
+	public static final BitSet _tokenSet_67 = new BitSet(mk_tokenSet_67());
+	public static final BitSet _tokenSet_68 = new BitSet(mk_tokenSet_68());
+	public static final BitSet _tokenSet_69 = new BitSet(mk_tokenSet_69());
+	public static final BitSet _tokenSet_7 = new BitSet(mk_tokenSet_7());
+	public static final BitSet _tokenSet_70 = new BitSet(mk_tokenSet_70());
+	public static final BitSet _tokenSet_71 = new BitSet(mk_tokenSet_71());
+	public static final BitSet _tokenSet_72 = new BitSet(mk_tokenSet_72());
+	public static final BitSet _tokenSet_8 = new BitSet(mk_tokenSet_8());
+	public static final BitSet _tokenSet_9 = new BitSet(mk_tokenSet_9());
 
 	private static final long[] mk_tokenSet_0() {
-		long[] data = {2L, 0L, 0L};
+		long[] data = { 2L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_1() {
-		long[] data = {72057722887045186L, 0L, 0L};
+		long[] data = { 72057722887045186L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_10() {
-		long[] data = {256L, 0L, 0L};
+		long[] data = { 256L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_11() {
-		long[] data = {671350784L, 0L, 0L};
+		long[] data = { 671350784L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_12() {
-		long[] data = {268959744L, 0L, 0L};
+		long[] data = { 268959744L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_13() {
-		long[] data = {403177472L, 0L, 0L};
+		long[] data = { 403177472L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_14() {
-		long[] data = {4503599695003904L, 0L, 0L};
+		long[] data = { 4503599695003904L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_15() {
-		long[] data = {72057722887045120L, 0L, 0L};
+		long[] data = { 72057722887045120L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_16() {
-		long[] data = {334561536L, 0L, 0L};
+		long[] data = { 334561536L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_17() {
-		long[] data = {536870912L, 0L, 0L};
+		long[] data = { 536870912L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_18() {
-		long[] data = {335691008L, 137317318656L, 0L, 0L};
+		long[] data = { 335691008L, 137317318656L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_19() {
-		long[] data = {-4611685736234451664L, 137438953471L, 0L, 0L};
+		long[] data = { -4611685736234451664L, 137438953471L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_2() {
-		long[] data = {-13933011413237902L, 54253477127258111L, 0L, 0L};
+		long[] data = { -13933011413237902L, 54253477127258111L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_20() {
-		long[] data = {4021714048290372864L, 54077555145179136L, 0L, 0L};
+		long[] data = { 4021714048290372864L, 54077555145179136L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_21() {
-		long[] data = {3587125479998062848L, 54043195528445952L, 0L, 0L};
+		long[] data = { 3587125479998062848L, 54043195528445952L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_22() {
-		long[] data = {2251825583587584L, 0L, 0L};
+		long[] data = { 2251825583587584L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_23() {
-		long[] data = {4163586232301486336L, 54043195528445952L, 0L, 0L};
+		long[] data = { 4163586232301486336L, 54043195528445952L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_24() {
-		long[] data = {4597752588120341760L, 54077555145179136L, 0L, 0L};
+		long[] data = { 4597752588120341760L, 54077555145179136L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_25() {
-		long[] data = {3587117233660855552L, 0L, 0L};
+		long[] data = { 3587117233660855552L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_26() {
-		long[] data = {2434195728517136640L, 0L, 0L};
+		long[] data = { 2434195728517136640L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_27() {
-		long[] data = {4163586369740456258L, 54043195528445952L, 0L, 0L};
+		long[] data = { 4163586369740456258L, 54043195528445952L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_28() {
-		long[] data = {4163586369740439874L, 54043195528445952L, 0L, 0L};
+		long[] data = { 4163586369740439874L, 54043195528445952L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_29() {
-		long[] data = {137842130944L, 0L, 0L};
+		long[] data = { 137842130944L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_3() {
-		long[] data = {4597752588120341826L, 54077555145179136L, 0L, 0L};
+		long[] data = { 4597752588120341826L, 54077555145179136L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_30() {
-		long[] data = {4172593438334369536L, 54043332845764608L, 0L, 0L};
+		long[] data = { 4172593438334369536L, 54043332845764608L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_31() {
-		long[] data = {486520701487660288L, 34359616733184L, 0L, 0L};
+		long[] data = { 486520701487660288L, 34359616733184L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_32() {
-		long[] data = {-3548704282779058896L, 34359738367999L, 0L, 0L};
+		long[] data = { -3548704282779058896L, 34359738367999L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_33() {
-		long[] data = {1062981454327954688L, 34359616733184L, 0L, 0L};
+		long[] data = { 1062981454327954688L, 34359616733184L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_34() {
-		long[] data = {-4925812092436622L, 270286346386407423L, 0L, 0L};
+		long[] data = { -4925812092436622L, 270286346386407423L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_35() {
-		long[] data = {486388760092228864L, 34359616733184L, 0L, 0L};
+		long[] data = { 486388760092228864L, 34359616733184L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_36() {
-		long[] data = {-3548704248419320528L, 69544110456831L, 0L, 0L};
+		long[] data = { -3548704248419320528L, 69544110456831L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_37() {
-		long[] data = {486520702024531200L, 34359616733184L, 0L, 0L};
+		long[] data = { 486520702024531200L, 34359616733184L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_38() {
-		long[] data = {-4925812158496910L, 270286346386407423L, 0L, 0L};
+		long[] data = { -4925812158496910L, 270286346386407423L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_39() {
-		long[] data = {1064670304188218624L, 34359616733184L, 0L, 0L};
+		long[] data = { 1064670304188218624L, 34359616733184L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_4() {
-		long[] data = {-422212465066126L, 270286346386407423L, 0L, 0L};
+		long[] data = { -422212465066126L, 270286346386407423L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_40() {
-		long[] data = {137707388928L, 0L, 0L};
+		long[] data = { 137707388928L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_41() {
-		long[] data = {486450332743482624L, 34359616733184L, 0L, 0L};
+		long[] data = { 486450332743482624L, 34359616733184L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_42() {
-		long[] data = {-3548774651523236560L, 34359738367999L, 0L, 0L};
+		long[] data = { -3548774651523236560L, 34359738367999L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_43() {
-		long[] data = {1062911085583777024L, 34359616733184L, 0L, 0L};
+		long[] data = { 1062911085583777024L, 34359616733184L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_44() {
-		long[] data = {-3548774617097437902L, 69544110456831L, 0L, 0L};
+		long[] data = { -3548774617097437902L, 69544110456831L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_45() {
-		long[] data = {-3548774617163498192L, 69544110456831L, 0L, 0L};
+		long[] data = { -3548774617163498192L, 69544110456831L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_46() {
-		long[] data = {488139183149006080L, 34359616733184L, 0L, 0L};
+		long[] data = { 488139183149006080L, 34359616733184L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_47() {
-		long[] data = {872561920L, 137317318656L, 0L, 0L};
+		long[] data = { 872561920L, 137317318656L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_48() {
-		long[] data = {4602256187813772610L, 54077555145179136L, 0L, 0L};
+		long[] data = { 4602256187813772610L, 54077555145179136L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_49() {
-		long[] data = {4163586232637177088L, 54043332845764608L, 0L, 0L};
+		long[] data = { 4163586232637177088L, 54043332845764608L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_5() {
-		long[] data = {4163586232301486402L, 54043195528445952L, 0L, 0L};
+		long[] data = { 4163586232301486402L, 54043195528445952L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_50() {
-		long[] data = {486415148371393792L, 34359616733184L, 0L, 0L};
+		long[] data = { 486415148371393792L, 34359616733184L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_51() {
-		long[] data = {-3547085767303234256L, 69544110456831L, 0L, 0L};
+		long[] data = { -3547085767303234256L, 69544110456831L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_52() {
-		long[] data = {-3547085801662972624L, 34359738367999L, 0L, 0L};
+		long[] data = { -3547085801662972624L, 34359738367999L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_53() {
-		long[] data = {4597752725559295744L, 54077555145179136L, 0L, 0L};
+		long[] data = { 4597752725559295744L, 54077555145179136L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_54() {
-		long[] data = {134217728L, 0L, 0L};
+		long[] data = { 134217728L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_55() {
-		long[] data = {-9223372034707292160L, 1023L, 0L, 0L};
+		long[] data = { -9223372034707292160L, 1023L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_56() {
-		long[] data = {-422212465066126L, 288230376151711743L, 0L, 0L};
+		long[] data = { -422212465066126L, 288230376151711743L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_57() {
-		long[] data = {335691008L, 274756272128L, 0L, 0L};
+		long[] data = { 335691008L, 274756272128L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_58() {
-		long[] data = {-4611685736771322576L, 137438953471L, 0L, 0L};
+		long[] data = { -4611685736771322576L, 137438953471L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_59() {
-		long[] data = {469908736L, 137317318656L, 0L, 0L};
+		long[] data = { 469908736L, 137317318656L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_6() {
-		long[] data = {72057723021525314L, 0L, 0L};
+		long[] data = { 72057723021525314L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_60() {
-		long[] data = {274877906944L, 229376L, 0L, 0L};
+		long[] data = { 274877906944L, 229376L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_61() {
-		long[] data = {524544L, 17944132844519424L, 0L, 0L};
+		long[] data = { 524544L, 17944132844519424L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_62() {
-		long[] data = {-3548836189814653648L, 69544110456831L, 0L, 0L};
+		long[] data = { -3548836189814653648L, 69544110456831L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_63() {
-		long[] data = {-4125296976477815504L, 34359738367999L, 0L, 0L};
+		long[] data = { -4125296976477815504L, 34359738367999L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_64() {
-		long[] data = {1064670304188218624L, 35184250454016L, 0L, 0L};
+		long[] data = { 1064670304188218624L, 35184250454016L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_65() {
-		long[] data = {-142L, 288230376151711743L, 0L, 0L};
+		long[] data = { -142L, 288230376151711743L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_66() {
-		long[] data = {137640952064L, 9147936743096320L, 0L, 0L};
+		long[] data = { 137640952064L, 9147936743096320L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_67() {
-		long[] data = {134742272L, 15762598695796736L, 0L, 0L};
+		long[] data = { 134742272L, 15762598695796736L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_68() {
-		long[] data = {-4925812158496910L, 63119938893643775L, 0L, 0L};
+		long[] data = { -4925812158496910L, 63119938893643775L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_69() {
-		long[] data = {-13933011413237902L, 63119938893643775L, 0L, 0L};
+		long[] data = { -13933011413237902L, 63119938893643775L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_7() {
-		long[] data = {-13933011413237902L, 54112739638902783L, 0L, 0L};
+		long[] data = { -13933011413237902L, 54112739638902783L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_70() {
-		long[] data = {524544L, 15762598695796736L, 0L, 0L};
+		long[] data = { 524544L, 15762598695796736L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_71() {
-		long[] data = {137573696256L, 9007199254740992L, 0L, 0L};
+		long[] data = { 137573696256L, 9007199254740992L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_72() {
-		long[] data = {137573171200L, 0L, 0L};
+		long[] data = { 137573171200L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_8() {
-		long[] data = {-422212531126414L, 54253477127258111L, 0L, 0L};
+		long[] data = { -422212531126414L, 54253477127258111L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_9() {
-		long[] data = {268435456L, 0L, 0L};
+		long[] data = { 268435456L, 0L, 0L };
 		return data;
 	}
 
 	public @Nullable Out out;
 
-	@Nullable Context cur;
+	@Nullable
+	Context cur;
 
-	@Nullable IExpression expr;
+	@Nullable
+	IExpression expr;
 
 	Scope3 sco;
 
@@ -629,14 +515,14 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 	public final AccessNotation accessNotation() throws RecognitionException, TokenStreamException {
 		AccessNotation acs;
 
-		Token        category   = null;
-		Token        shorthand  = null;
-		Token        category1  = null;
-		Token        shorthand1 = null;
-		TypeNameList tnl        = null;
+		Token category = null;
+		Token shorthand = null;
+		Token category1 = null;
+		Token shorthand1 = null;
+		TypeNameList tnl = null;
 		acs = new AccessNotationImpl();
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_access);
 			{
 				if ((LA(1) == STRING_LITERAL) && (LA(2) == IDENT || LA(2) == LCURLY)) {
@@ -718,13 +604,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 		ee = null;
 		ExpressionKind e2 = null;
-		IExpression    e3 = null;
+		IExpression e3 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = multiplicativeExpression();
 			{
-				_loop213:
-				do {
+				_loop213: do {
 					if ((LA(1) == PLUS || LA(1) == MINUS) && (_tokenSet_18.member(LA(2)))) {
 						{
 							switch (LA(1)) {
@@ -768,15 +653,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return ee;
 	}
 
-	public final AliasStatement aliasStatement(
-			OS_Element cont
-											  ) throws RecognitionException, TokenStreamException {
+	public final AliasStatement aliasStatement(OS_Element cont) throws RecognitionException, TokenStreamException {
 		AliasStatement pc;
 
 		IdentExpression i1 = null;
 		pc = new AliasStatementImpl(cont);
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_alias);
 			i1 = ident();
 			if (inputState.guessing == 0) {
@@ -804,11 +687,10 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		ee = null;
 		IExpression e3 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = equalityExpression();
 			{
-				_loop196:
-				do {
+				_loop196: do {
 					if ((LA(1) == BAND) && (_tokenSet_18.member(LA(2)))) {
 						match(BAND);
 						e3 = equalityExpression();
@@ -835,17 +717,16 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 	public final AnnotationClause annotation_clause() throws RecognitionException, TokenStreamException {
 		AnnotationClause a;
 
-		Qualident      q  = null;
+		Qualident q = null;
 		ExpressionList el = null;
 		a = new AnnotationClauseImpl();
 		AnnotationPart ap = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(ANNOT);
 			{
 				int _cnt34 = 0;
-				_loop34:
-				do {
+				_loop34: do {
 					if ((LA(1) == IDENT)) {
 						if (inputState.guessing == 0) {
 							ap = new AnnotationPartImpl();
@@ -904,11 +785,11 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		IExpression ee;
 
 		ee = null;
-		IExpression    e  = null;
-		IExpression    e2;
+		IExpression e = null;
+		IExpression e2;
 		ExpressionKind ek = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = conditionalExpression();
 			{
 				if ((_tokenSet_55.member(LA(1))) && (_tokenSet_18.member(LA(2)))) {
@@ -1024,14 +905,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return ee;
 	}
 
-	public final void caseConditional(
-			CaseConditional mc
-									 ) throws RecognitionException, TokenStreamException {
+	public final void caseConditional(CaseConditional mc) throws RecognitionException, TokenStreamException {
 
-		CaseContext ctx   = null;
+		CaseContext ctx = null;
 		IExpression expr1 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_case);
 			expr = expression();
 			if (inputState.guessing == 0) {
@@ -1039,11 +918,10 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 			}
 			match(LCURLY);
 			{
-				_loop255:
-				do {
+				_loop255: do {
 					if ((_tokenSet_18.member(LA(1)))) {
 						expr1 = expression();
-						sco   = scope3(mc);
+						sco = scope3(mc);
 						if (inputState.guessing == 0) {
 							mc.scope(sco, expr1);
 						}
@@ -1067,17 +945,16 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final @Nullable ClassHeader class_header(
-			List<AnnotationClause> as
-												   ) throws RecognitionException, TokenStreamException {
+	public final @Nullable ClassHeader class_header(List<AnnotationClause> as)
+			throws RecognitionException, TokenStreamException {
 		ClassHeader ch;
 
 		ch = null;
-		boolean         extends_   = false;
+		boolean extends_ = false;
 		IdentExpression class_name = null;
-		TypeNameList    tnl        = null;
+		TypeNameList tnl = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_extend: {
@@ -1170,12 +1047,9 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return ch;
 	}
 
-	public final void class_inheritance(
-			ClassHeader ch
-									   ) throws RecognitionException, TokenStreamException {
+	public final void class_inheritance(ClassHeader ch) throws RecognitionException, TokenStreamException {
 
-
-		try {      // for error handling
+		try { // for error handling
 			switch (LA(1)) {
 			case LPAREN: {
 				match(LPAREN);
@@ -1201,12 +1075,9 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void class_modifier(
-			ClassHeader ch
-									) throws RecognitionException, TokenStreamException {
+	public final void class_modifier(ClassHeader ch) throws RecognitionException, TokenStreamException {
 
-
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_struct: {
@@ -1272,20 +1143,17 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void classInheritance_(
-			ClassInheritance ci
-									   ) throws RecognitionException, TokenStreamException {
+	public final void classInheritance_(ClassInheritance ci) throws RecognitionException, TokenStreamException {
 
 		TypeName tn = null;
 
-		try {      // for error handling
+		try { // for error handling
 			tn = inhTypeName();
 			if (inputState.guessing == 0) {
 				ci.add(tn);
 			}
 			{
-				_loop54:
-				do {
+				_loop54: do {
 					if ((LA(1) == COMMA)) {
 						match(COMMA);
 						tn = inhTypeName();
@@ -1308,12 +1176,9 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void classInheritanceRuby(
-			ClassInheritance ci
-										  ) throws RecognitionException, TokenStreamException {
+	public final void classInheritanceRuby(ClassInheritance ci) throws RecognitionException, TokenStreamException {
 
-
-		try {      // for error handling
+		try { // for error handling
 			match(LT_);
 			classInheritance_(ci);
 		} catch (RecognitionException ex) {
@@ -1326,21 +1191,18 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void classScope(
-			ClassStatement cr
-								) throws RecognitionException, TokenStreamException {
+	public final void classScope(ClassStatement cr) throws RecognitionException, TokenStreamException {
 
-		AccessNotation         acs = null;
-		TypeAliasStatement     tal = null;
-		BaseFunctionDef        fd  = null;
-		List<AnnotationClause> as  = new ArrayList<AnnotationClause>();
-		AnnotationClause       a   = null;
+		AccessNotation acs = null;
+		TypeAliasStatement tal = null;
+		BaseFunctionDef fd = null;
+		List<AnnotationClause> as = new ArrayList<AnnotationClause>();
+		AnnotationClause a = null;
 
-		try {      // for error handling
+		try { // for error handling
 			docstrings(cr);
 			{
-				_loop29:
-				do {
+				_loop29: do {
 					switch (LA(1)) {
 					case LITERAL_constructor:
 					case LITERAL_ctor: {
@@ -1371,10 +1233,10 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 						break;
 					}
 					default:
-						if ((LA(1) == IDENT || LA(1) == ANNOT || LA(1) == LITERAL_def) && (_tokenSet_14.member(LA(2)))) {
+						if ((LA(1) == IDENT || LA(1) == ANNOT || LA(1) == LITERAL_def)
+								&& (_tokenSet_14.member(LA(2)))) {
 							{
-								_loop26:
-								do {
+								_loop26: do {
 									if ((LA(1) == ANNOT)) {
 										a = annotation_clause();
 										if (inputState.guessing == 0) {
@@ -1395,8 +1257,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							match(BECOMES);
 							match(IDENT);
 							{
-								_loop28:
-								do {
+								_loop28: do {
 									if ((LA(1) == BOR)) {
 										match(BOR);
 										match(IDENT);
@@ -1412,7 +1273,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 								cr.add(tal);
 							}
 						} else if ((_tokenSet_15.member(LA(1))) && (_tokenSet_16.member(LA(2)))) {
-							programStatement(/*cr.XXX(),*/ cr);
+							programStatement(/* cr.XXX(), */ cr);
 						} else {
 							break _loop29;
 						}
@@ -1443,18 +1304,17 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final @Nullable ClassStatement classStatement(
-			OS_Element parent, Context cctx, List<AnnotationClause> as
-														) throws RecognitionException, TokenStreamException {
+	public final @Nullable ClassStatement classStatement(OS_Element parent, Context cctx, List<AnnotationClause> as)
+			throws RecognitionException, TokenStreamException {
 		ClassStatement cls;
 
 		cls = null;
-		ClassContext    ctx = null;
-		IdentExpression i1  = null;
-		TypeNameList    tnl = null;
-		ClassHeader     ch  = null;
+		ClassContext ctx = null;
+		IdentExpression i1 = null;
+		TypeNameList tnl = null;
+		ClassHeader ch = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ch = class_header(as);
 			if (inputState.guessing == 0) {
 				cls = new ClassStatementImpl(parent, cctx);
@@ -1540,7 +1400,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 		ee = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = logicalOrExpression();
 		} catch (RecognitionException ex) {
 			if (inputState.guessing == 0) {
@@ -1562,7 +1422,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		Token f = null;
 		e = null;
 
-		try {      // for error handling
+		try { // for error handling
 			switch (LA(1)) {
 			case STRING_LITERAL: {
 				s = LT(1);
@@ -1611,14 +1471,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return e;
 	}
 
-	public final void constructExpression(
-			StatementClosure cr
-										 ) throws RecognitionException, TokenStreamException {
+	public final void constructExpression(StatementClosure cr) throws RecognitionException, TokenStreamException {
 
-		Qualident      q = null;
+		Qualident q = null;
 		ExpressionList o = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_construct);
 			q = qualident();
 			{
@@ -1677,15 +1535,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void constructorDef(
-			ClassStatement cr
-									) throws RecognitionException, TokenStreamException {
+	public final void constructorDef(ClassStatement cr) throws RecognitionException, TokenStreamException {
 
-		ConstructorDef  cd  = null;
-		IdentExpression x1  = null;
-		FormalArgList   fal = null;
+		ConstructorDef cd = null;
+		IdentExpression x1 = null;
+		FormalArgList fal = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_constructor: {
@@ -1742,20 +1598,19 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final @Nullable DefFunctionDef def_function_definition(
-			OS_Element parent, Context ctx, List<AnnotationClause> as
-																 ) throws RecognitionException, TokenStreamException {
+	public final @Nullable DefFunctionDef def_function_definition(OS_Element parent, Context ctx,
+			List<AnnotationClause> as) throws RecognitionException, TokenStreamException {
 		DefFunctionDef fd;
 
 		fd = null;
 		FunctionHeader fh = null;
-		IExpression    fb = null;
+		IExpression fb = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_def);
 			fh = function_header();
 			if (inputState.guessing == 0) {
-				fd  = new DefFunctionDefImpl(parent, ctx);
+				fd = new DefFunctionDefImpl(parent, ctx);
 				cur = fd.getContext();
 			}
 			fb = expression();
@@ -1785,15 +1640,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return fd;
 	}
 
-	public final void defFunctionDef(
-			DefFunctionDef fd
-									) throws RecognitionException, TokenStreamException {
+	public final void defFunctionDef(DefFunctionDef fd) throws RecognitionException, TokenStreamException {
 
-		FormalArgList   op = null;
-		TypeName        tn = null;
+		FormalArgList op = null;
+		TypeName tn = null;
 		IdentExpression i1 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_def);
 			i1 = ident();
 			op = opfal();
@@ -1848,14 +1701,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void destructorDef(
-			ClassStatement cr
-								   ) throws RecognitionException, TokenStreamException {
+	public final void destructorDef(ClassStatement cr) throws RecognitionException, TokenStreamException {
 
-		DestructorDef dd  = null;
+		DestructorDef dd = null;
 		FormalArgList fal = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_destructor: {
@@ -1895,13 +1746,11 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void docstrings(
-			@Nullable Documentable sc
-								) throws RecognitionException, TokenStreamException {
+	public final void docstrings(@Nullable Documentable sc) throws RecognitionException, TokenStreamException {
 
 		Token s1 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				boolean synPredMatched59 = false;
 				if (((LA(1) == STRING_LITERAL) && (_tokenSet_20.member(LA(2))))) {
@@ -1921,13 +1770,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 				if (synPredMatched59) {
 					{
 						int _cnt61 = 0;
-						_loop61:
-						do {
+						_loop61: do {
 							if ((LA(1) == STRING_LITERAL) && (_tokenSet_20.member(LA(2)))) {
 								s1 = LT(1);
 								match(STRING_LITERAL);
 								if (inputState.guessing == 0) {
-									if (sc != null) sc.addDocString(s1);
+									if (sc != null)
+										sc.addDocString(s1);
 								}
 							} else {
 								if (_cnt61 >= 1) {
@@ -1956,17 +1805,16 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final @Nullable IExpression dot_expression_or_procedure_call(
-			IExpression e1
-																	   ) throws RecognitionException, TokenStreamException {
+	public final @Nullable IExpression dot_expression_or_procedure_call(IExpression e1)
+			throws RecognitionException, TokenStreamException {
 		IExpression ee;
 
 		Token lp2 = null;
 		ee = null;
-		ExpressionList  el = null;
-		IdentExpression e  = null;
+		ExpressionList el = null;
+		IdentExpression e = null;
 
-		try {      // for error handling
+		try { // for error handling
 			e = ident();
 			if (inputState.guessing == 0) {
 				ee = new DotExpressionImpl(e1, e);
@@ -2032,12 +1880,9 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return ee;
 	}
 
-	public final void elseif_part(
-			IfConditional ifex
-								 ) throws RecognitionException, TokenStreamException {
+	public final void elseif_part(IfConditional ifex) throws RecognitionException, TokenStreamException {
 
-
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_elseif: {
@@ -2081,13 +1926,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 		ee = null;
 		ExpressionKind e2 = null;
-		IExpression    e3 = null;
+		IExpression e3 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = relationalExpression();
 			{
-				_loop200:
-				do {
+				_loop200: do {
 					if ((LA(1) == EQUAL || LA(1) == NOT_EQUAL) && (_tokenSet_18.member(LA(2)))) {
 						{
 							switch (LA(1)) {
@@ -2137,11 +1981,10 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		ee = null;
 		IExpression e3 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = andExpression();
 			{
-				_loop193:
-				do {
+				_loop193: do {
 					if ((LA(1) == BXOR) && (_tokenSet_18.member(LA(2)))) {
 						match(BXOR);
 						e3 = andExpression();
@@ -2170,7 +2013,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 		ee = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = assignmentExpression();
 		} catch (RecognitionException ex) {
 			if (inputState.guessing == 0) {
@@ -2188,14 +2031,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 		el = new ExpressionListImpl();
 
-		try {      // for error handling
+		try { // for error handling
 			expr = expression();
 			if (inputState.guessing == 0) {
 				el.next(expr);
 			}
 			{
-				_loop169:
-				do {
+				_loop169: do {
 					if ((LA(1) == COMMA)) {
 						match(COMMA);
 						expr = expression();
@@ -2224,7 +2066,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 		fal = new FormalArgListImpl();
 
-		try {      // for error handling
+		try { // for error handling
 			formalArgList_(fal);
 		} catch (RecognitionException ex) {
 			if (inputState.guessing == 0) {
@@ -2237,12 +2079,9 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return fal;
 	}
 
-	public final void formalArgList_(
-			FormalArgList fal
-									) throws RecognitionException, TokenStreamException {
+	public final void formalArgList_(FormalArgList fal) throws RecognitionException, TokenStreamException {
 
-
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case IDENT:
@@ -2252,8 +2091,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 				case LITERAL_ref: {
 					formalArgListItem_priv(fal.next());
 					{
-						_loop302:
-						do {
+						_loop302: do {
 							if ((LA(1) == COMMA)) {
 								match(COMMA);
 								formalArgListItem_priv(fal.next());
@@ -2283,14 +2121,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void formalArgListItem_priv(
-			FormalArgListItem fali
-											) throws RecognitionException, TokenStreamException {
+	public final void formalArgListItem_priv(FormalArgListItem fali) throws RecognitionException, TokenStreamException {
 
-		TypeName        tn = null;
-		IdentExpression i  = null;
+		TypeName tn = null;
+		IdentExpression i = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				{
 					if ((_tokenSet_70.member(LA(1))) && (_tokenSet_71.member(LA(2)))) {
@@ -2335,15 +2171,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void frobeIteration(
-			StatementClosure cr
-									) throws RecognitionException, TokenStreamException {
+	public final void frobeIteration(StatementClosure cr) throws RecognitionException, TokenStreamException {
 
-		Loop            loop = cr.loop();
-		LoopContext     ctx  = null;
-		IdentExpression i1   = null, i2 = null, i3 = null;
+		Loop loop = cr.loop();
+		LoopContext ctx = null;
+		IdentExpression i1 = null, i2 = null, i3 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_iterate);
 			if (inputState.guessing == 0) {
 				ctx = new LoopContext(cur, loop);
@@ -2481,16 +2315,14 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void funcExpr(
-			FuncExpr pc
-							  ) throws RecognitionException, TokenStreamException {
+	public final void funcExpr(FuncExpr pc) throws RecognitionException, TokenStreamException {
 
-		Scope3          sc  = null;
-		TypeName        tn  = null;
+		Scope3 sc = null;
+		TypeName tn = null;
 		FuncExprContext ctx = null;
-		FormalArgList   fal = null;
+		FormalArgList fal = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_function: {
@@ -2594,8 +2426,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 					}
 					match(BOR);
 					{
-						_loop241:
-						do {
+						_loop241: do {
 							if ((_tokenSet_35.member(LA(1))) && (_tokenSet_62.member(LA(2)))) {
 								statement(sc.statementClosure(), sc.getParent());
 							} else if ((_tokenSet_18.member(LA(1))) && (_tokenSet_63.member(LA(2)))) {
@@ -2604,7 +2435,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 									sc.statementWrapper(expr);
 								}
 							} else if ((LA(1) == LITERAL_extend || LA(1) == LITERAL_class)) {
-								classStatement(sc.getParent(), cur, null/*annotations*/);
+								classStatement(sc.getParent(), cur, null/* annotations */);
 							} else {
 								break _loop241;
 							}
@@ -2636,14 +2467,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final @Nullable FunctionBody function_body(
-			OS_Element parent
-													 ) throws RecognitionException, TokenStreamException {
+	public final @Nullable FunctionBody function_body(OS_Element parent)
+			throws RecognitionException, TokenStreamException {
 		FunctionBody fb;
 
 		fb = null;
 
-		try {      // for error handling
+		try { // for error handling
 			switch (LA(1)) {
 			case LCURLY: {
 				fb = function_body_mandatory(parent);
@@ -2693,17 +2523,16 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return fb;
 	}
 
-	public final FunctionBody function_body_mandatory(
-			OS_Element parent
-													 ) throws RecognitionException, TokenStreamException {
+	public final FunctionBody function_body_mandatory(OS_Element parent)
+			throws RecognitionException, TokenStreamException {
 		FunctionBody fb;
 
 		fb = new FunctionBodyImpl();
-		Scope3         sc  = new Scope3Impl(parent);
+		Scope3 sc = new Scope3Impl(parent);
 		ClassStatement cls = null;
 		fb.setScope3(sc);
 
-		try {      // for error handling
+		try { // for error handling
 			match(LCURLY);
 			docstrings(sc);
 			{
@@ -2802,14 +2631,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 				case LITERAL_do:
 				case LITERAL_iterate: {
 					{
-						_loop122:
-						do {
+						_loop122: do {
 							if ((_tokenSet_50.member(LA(1)))) {
 								{
 									switch (LA(1)) {
 									case LITERAL_extend:
 									case LITERAL_class: {
-										cls = classStatement(sc.getParent(), cur, null/*annotations*/);
+										cls = classStatement(sc.getParent(), cur, null/* annotations */);
 										if (inputState.guessing == 0) {
 											sc.add(cls);
 										}
@@ -2938,14 +2766,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return fb;
 	}
 
-	public final @Nullable BaseFunctionDef function_definition(
-			OS_Element parent, Context ctx, List<AnnotationClause> as
-															  ) throws RecognitionException, TokenStreamException {
+	public final @Nullable BaseFunctionDef function_definition(OS_Element parent, Context ctx,
+			List<AnnotationClause> as) throws RecognitionException, TokenStreamException {
 		BaseFunctionDef fd;
 
 		fd = null;
 
-		try {      // for error handling
+		try { // for error handling
 			switch (LA(1)) {
 			case LITERAL_def: {
 				fd = (BaseFunctionDef) def_function_definition(parent, ctx, as);
@@ -2980,11 +2807,11 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		FunctionHeader fh;
 
 		fh = new FunctionHeaderImpl();
-		IdentExpression i1  = null;
-		FormalArgList   fal = null;
-		TypeName        tn  = null;
+		IdentExpression i1 = null;
+		FormalArgList fal = null;
+		TypeName tn = null;
 
-		try {      // for error handling
+		try { // for error handling
 			i1 = ident();
 			if (inputState.guessing == 0) {
 				fh.setName(i1);
@@ -3087,15 +2914,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return fh;
 	}
 
-	public final Scope3 functionScope(
-			FunctionDef parent
-									 ) throws RecognitionException, TokenStreamException {
+	public final Scope3 functionScope(FunctionDef parent) throws RecognitionException, TokenStreamException {
 		Scope3 sc;
 
 		sc = new Scope3Impl(parent);
 		ClassStatement cls = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LCURLY);
 			docstrings(sc);
 			{
@@ -3138,14 +2963,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 				case LITERAL_do:
 				case LITERAL_iterate: {
 					{
-						_loop93:
-						do {
+						_loop93: do {
 							if ((_tokenSet_41.member(LA(1)))) {
 								{
 									switch (LA(1)) {
 									case LITERAL_extend:
 									case LITERAL_class: {
-										cls = classStatement(sc.getParent(), cur, null/*annotations*/);
+										cls = classStatement(sc.getParent(), cur, null/* annotations */);
 										if (inputState.guessing == 0) {
 											sc.add(cls);
 										}
@@ -3241,7 +3065,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 		tn = null;
 
-		try {      // for error handling
+		try { // for error handling
 			switch (LA(1)) {
 			case LITERAL_function:
 			case LITERAL_func: {
@@ -3272,11 +3096,11 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		FuncTypeName tn;
 
 		tn = new FuncTypeNameImpl(cur);
-		TypeName      rtn = null;
-		TypeNameList  tnl = null;
-		FormalArgList op  = null;
+		TypeName rtn = null;
+		TypeNameList tnl = null;
+		FormalArgList op = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_function: {
@@ -3325,8 +3149,10 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 				match(RPAREN);
 			}
 			if (inputState.guessing == 0) {
-				if (tnl != null) tn.argList(tnl);
-				else tn.argList(op);
+				if (tnl != null)
+					tn.argList(tnl);
+				else
+					tn.argList(op);
 			}
 			{
 				if ((LA(1) == TOK_COLON || LA(1) == TOK_ARROW) && (_tokenSet_61.member(LA(2)))) {
@@ -3370,10 +3196,10 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		FuncTypeName tn;
 
 		tn = new FuncTypeNameImpl(cur);
-		TypeNameList  tnl = null;
-		FormalArgList op  = null;
+		TypeNameList tnl = null;
+		FormalArgList op = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_procedure: {
@@ -3422,8 +3248,10 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 				match(RPAREN);
 			}
 			if (inputState.guessing == 0) {
-				if (tnl != null) tn.argList(tnl);
-				else tn.argList(op);
+				if (tnl != null)
+					tn.argList(tnl);
+				else
+					tn.argList(op);
 			}
 		} catch (RecognitionException ex) {
 			if (inputState.guessing == 0) {
@@ -3442,7 +3270,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		tn = new GenericTypeNameImpl(cur);
 		TypeName tn2 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_generic: {
@@ -3493,7 +3321,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		Token r1 = null;
 		id = null;
 
-		try {      // for error handling
+		try { // for error handling
 			r1 = LT(1);
 			match(IDENT);
 			if (inputState.guessing == 0) {
@@ -3516,14 +3344,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		IdentExpression s = null;
 		ail = new IdentListImpl();
 
-		try {      // for error handling
+		try { // for error handling
 			s = ident();
 			if (inputState.guessing == 0) {
 				ail.push(s);
 			}
 			{
-				_loop157:
-				do {
+				_loop157: do {
 					if ((LA(1) == COMMA)) {
 						match(COMMA);
 						s = ident();
@@ -3547,14 +3374,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return ail;
 	}
 
-	public final void ifConditional(
-			IfConditional ifex
-								   ) throws RecognitionException, TokenStreamException {
+	public final void ifConditional(IfConditional ifex) throws RecognitionException, TokenStreamException {
 
 		IfConditionalContext ifc_top = null, ifc = null;
-		IfConditional        else_   = null;
+		IfConditional else_ = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_if);
 			expr = expression();
 			if (inputState.guessing == 0) {
@@ -3569,8 +3394,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 				cur = cur.getParent();
 			}
 			{
-				_loop246:
-				do {
+				_loop246: do {
 					boolean synPredMatched245 = false;
 					if (((LA(1) == LITERAL_else || LA(1) == LITERAL_elseif) && (_tokenSet_57.member(LA(2))))) {
 						int _m245 = mark();
@@ -3601,11 +3425,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 					match(LITERAL_else);
 					if (inputState.guessing == 0) {
 						else_ = ifex.else_();
-						cur   = else_.getContext();
+						cur = else_.getContext();
 					}
 					sco = scope3(else_);
 					if (inputState.guessing == 0) {
-						if (else_ != null) else_.scope(sco);
+						if (else_ != null)
+							else_.scope(sco);
 					}
 					if (inputState.guessing == 0) {
 						cur = cur.getParent();
@@ -3670,14 +3495,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void importPart1(
-			AssigningImportStatement cr
-								 ) throws RecognitionException, TokenStreamException {
+	public final void importPart1(AssigningImportStatement cr) throws RecognitionException, TokenStreamException {
 
 		IdentExpression i1 = null;
-		Qualident       q1 = null;
+		Qualident q1 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			i1 = ident();
 			match(BECOMES);
 			q1 = qualident();
@@ -3694,14 +3517,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void importPart2(
-			QualifiedImportStatement cr
-								 ) throws RecognitionException, TokenStreamException {
+	public final void importPart2(QualifiedImportStatement cr) throws RecognitionException, TokenStreamException {
 
 		Qualident q3;
 		IdentList il = new IdentListImpl();
 
-		try {      // for error handling
+		try { // for error handling
 			q3 = qualident();
 			match(LCURLY);
 			il = identList2();
@@ -3719,13 +3540,11 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void importPart3(
-			NormalImportStatement cr
-								 ) throws RecognitionException, TokenStreamException {
+	public final void importPart3(NormalImportStatement cr) throws RecognitionException, TokenStreamException {
 
 		Qualident q2;
 
-		try {      // for error handling
+		try { // for error handling
 			q2 = qualident();
 			if (inputState.guessing == 0) {
 				cr.addNormalPart(q2);
@@ -3740,20 +3559,19 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final @Nullable ImportStatement importStatement(
-			OS_Element el
-														  ) throws RecognitionException, TokenStreamException {
+	public final @Nullable ImportStatement importStatement(OS_Element el)
+			throws RecognitionException, TokenStreamException {
 		ImportStatement pc;
 
 		pc = null;
 		ImportContext ctx = null;
 
-		try {      // for error handling
+		try { // for error handling
 			switch (LA(1)) {
 			case LITERAL_from: {
 				match(LITERAL_from);
 				if (inputState.guessing == 0) {
-					pc  = new RootedImportStatement(el);
+					pc = new RootedImportStatement(el);
 					ctx = new ImportContext(cur, pc);
 					pc.setContext(ctx);
 					cur = ctx;
@@ -3788,15 +3606,14 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 					}
 					if (synPredMatched40) {
 						if (inputState.guessing == 0) {
-							pc  = new AssigningImportStatement(el);
+							pc = new AssigningImportStatement(el);
 							ctx = new ImportContext(cur, pc);
 							pc.setContext(ctx);
 							cur = ctx;
 						}
 						importPart1((AssigningImportStatement) pc);
 						{
-							_loop42:
-							do {
+							_loop42: do {
 								if ((LA(1) == COMMA)) {
 									match(COMMA);
 									importPart1((AssigningImportStatement) pc);
@@ -3825,15 +3642,14 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 						}
 						if (synPredMatched44) {
 							if (inputState.guessing == 0) {
-								pc  = new QualifiedImportStatement(el);
+								pc = new QualifiedImportStatement(el);
 								ctx = new ImportContext(cur, pc);
 								pc.setContext(ctx);
 								cur = ctx;
 							}
 							importPart2((QualifiedImportStatement) pc);
 							{
-								_loop46:
-								do {
+								_loop46: do {
 									if ((LA(1) == COMMA)) {
 										match(COMMA);
 										importPart2((QualifiedImportStatement) pc);
@@ -3845,15 +3661,14 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							}
 						} else if ((LA(1) == IDENT) && (_tokenSet_27.member(LA(2)))) {
 							if (inputState.guessing == 0) {
-								pc  = new NormalImportStatement(el);
+								pc = new NormalImportStatement(el);
 								ctx = new ImportContext(cur, pc);
 								pc.setContext(ctx);
 								cur = ctx;
 							}
 							importPart3((NormalImportStatement) pc);
 							{
-								_loop48:
-								do {
+								_loop48: do {
 									if ((LA(1) == COMMA)) {
 										match(COMMA);
 										importPart3((NormalImportStatement) pc);
@@ -3892,11 +3707,10 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		ee = null;
 		IExpression e3 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = exclusiveOrExpression();
 			{
-				_loop190:
-				do {
+				_loop190: do {
 					if ((LA(1) == BOR) && (_tokenSet_18.member(LA(2)))) {
 						match(BOR);
 						e3 = exclusiveOrExpression();
@@ -3923,19 +3737,18 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 	public final @Nullable IndexingStatement indexingStatement() throws RecognitionException, TokenStreamException {
 		IndexingStatement idx;
 
-		Token          i1 = null;
+		Token i1 = null;
 		ExpressionList el = null;
 		idx = null;
 		IndexingItem item;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_indexing);
 			if (inputState.guessing == 0) {
 				idx = new IndexingStatementImpl(out.module());
 			}
 			{
-				_loop7:
-				do {
+				_loop7: do {
 					if ((LA(1) == IDENT)) {
 						i1 = LT(1);
 						match(IDENT);
@@ -3967,7 +3780,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 		tn = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_typeof: {
@@ -4001,18 +3814,15 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return tn;
 	}
 
-	public final void invariantStatement(
-			InvariantStatement cr
-										) throws RecognitionException, TokenStreamException {
+	public final void invariantStatement(InvariantStatement cr) throws RecognitionException, TokenStreamException {
 
-		Token                  i1  = null;
+		Token i1 = null;
 		InvariantStatementPart isp = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_invariant);
 			{
-				_loop173:
-				do {
+				_loop173: do {
 					if ((_tokenSet_18.member(LA(1)))) {
 						if (inputState.guessing == 0) {
 							isp = new InvariantStatementPartImpl(cr, i1);
@@ -4054,11 +3864,10 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		ee = null;
 		IExpression e3 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = inclusiveOrExpression();
 			{
-				_loop187:
-				do {
+				_loop187: do {
 					if ((LA(1) == LAND) && (_tokenSet_18.member(LA(2)))) {
 						match(LAND);
 						e3 = inclusiveOrExpression();
@@ -4088,11 +3897,10 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		ee = null;
 		IExpression e3 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = logicalAndExpression();
 			{
-				_loop184:
-				do {
+				_loop184: do {
 					if ((LA(1) == LOR) && (_tokenSet_18.member(LA(2)))) {
 						match(LOR);
 						e3 = logicalAndExpression();
@@ -4116,29 +3924,27 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return ee;
 	}
 
-	public final void matchConditional(
-			MatchConditional mc, OS_Element aParent
-									  ) throws RecognitionException, TokenStreamException {
+	public final void matchConditional(MatchConditional mc, OS_Element aParent)
+			throws RecognitionException, TokenStreamException {
 
-		MatchConditionalImpl.MatchArm_TypeMatch    mcp1 = null;
+		MatchConditionalImpl.MatchArm_TypeMatch mcp1 = null;
 		MatchConditionalImpl.MatchConditionalPart2 mcp2 = null;
 		MatchConditionalImpl.MatchConditionalPart3 mcp3 = null;
-		TypeName                                   tn   = null;
-		IdentExpression                            i1   = null;
-		MatchContext                               ctx  = null;
+		TypeName tn = null;
+		IdentExpression i1 = null;
+		MatchContext ctx = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_match);
 			expr = expression();
 			if (inputState.guessing == 0) {
-				/*mc.setParent(aParent);*/
+				/* mc.setParent(aParent); */
 				mc.expr(expr);
 			}
 			match(LCURLY);
 			{
 				int _cnt252 = 0;
-				_loop252:
-				do {
+				_loop252: do {
 					if ((LA(1) == IDENT) && (LA(2) == TOK_COLON)) {
 						if (inputState.guessing == 0) {
 							mcp1 = mc.typeMatch();
@@ -4210,14 +4016,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		IExpression ee;
 
 		ee = null;
-		IExpression    e3 = null;
+		IExpression e3 = null;
 		ExpressionKind e2 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = unaryExpression();
 			{
-				_loop217:
-				do {
+				_loop217: do {
 					if (((LA(1) >= STAR && LA(1) <= MOD)) && (_tokenSet_18.member(LA(2)))) {
 						{
 							switch (LA(1)) {
@@ -4268,21 +4073,18 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return ee;
 	}
 
-	public final void namespaceScope(
-			NamespaceStatement cr
-									) throws RecognitionException, TokenStreamException {
+	public final void namespaceScope(NamespaceStatement cr) throws RecognitionException, TokenStreamException {
 
-		AccessNotation         acs = null;
-		TypeAliasStatement     tal = null;
-		BaseFunctionDef        fd  = null;
-		List<AnnotationClause> as  = new ArrayList<AnnotationClause>();
-		AnnotationClause       a   = null;
+		AccessNotation acs = null;
+		TypeAliasStatement tal = null;
+		BaseFunctionDef fd = null;
+		List<AnnotationClause> as = new ArrayList<AnnotationClause>();
+		AnnotationClause a = null;
 
-		try {      // for error handling
+		try { // for error handling
 			docstrings(cr);
 			{
-				_loop72:
-				do {
+				_loop72: do {
 					if ((_tokenSet_26.member(LA(1)))) {
 						{
 							switch (LA(1)) {
@@ -4307,10 +4109,10 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 								break;
 							}
 							default:
-								if ((LA(1) == IDENT || LA(1) == ANNOT || LA(1) == LITERAL_def) && (_tokenSet_14.member(LA(2)))) {
+								if ((LA(1) == IDENT || LA(1) == ANNOT || LA(1) == LITERAL_def)
+										&& (_tokenSet_14.member(LA(2)))) {
 									{
-										_loop71:
-										do {
+										_loop71: do {
 											if ((LA(1) == ANNOT)) {
 												a = annotation_clause();
 												if (inputState.guessing == 0) {
@@ -4324,7 +4126,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 									}
 									fd = function_definition(cr, cr.getContext(), as);
 								} else if ((_tokenSet_15.member(LA(1))) && (_tokenSet_16.member(LA(2)))) {
-									programStatement(/*cr.XXX(),*/ cr);
+									programStatement(/* cr.XXX(), */ cr);
 								} else {
 									throw new NoViableAltException(LT(1), getFilename());
 								}
@@ -4361,15 +4163,14 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void namespaceStatement(
-			NamespaceStatement cls, List<AnnotationClause> as
-										) throws RecognitionException, TokenStreamException {
+	public final void namespaceStatement(NamespaceStatement cls, List<AnnotationClause> as)
+			throws RecognitionException, TokenStreamException {
 
-		AnnotationClause a   = null;
+		AnnotationClause a = null;
 		NamespaceContext ctx = null;
-		IdentExpression  i1  = null;
+		IdentExpression i1 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			if (inputState.guessing == 0) {
 				cls.addAnnotations(as);
 			}
@@ -4412,19 +4213,18 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final @Nullable FunctionDef normal_function_definition(
-			OS_Element parent, Context ctx, List<AnnotationClause> as
-																 ) throws RecognitionException, TokenStreamException {
+	public final @Nullable FunctionDef normal_function_definition(OS_Element parent, Context ctx,
+			List<AnnotationClause> as) throws RecognitionException, TokenStreamException {
 		FunctionDef fd;
 
 		fd = null;
 		FunctionHeader fh = null;
-		FunctionBody   fb = null;
+		FunctionBody fb = null;
 
-		try {      // for error handling
+		try { // for error handling
 			fh = function_header();
 			if (inputState.guessing == 0) {
-				fd  = new FunctionDefImpl(parent, ctx);
+				fd = new FunctionDefImpl(parent, ctx);
 				cur = fd.getContext();
 			}
 			fb = function_body(fd);
@@ -4451,7 +4251,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		tn = new RegularTypeNameImpl(cur);
 		TypeNameList rtn = null;
 
-		try {      // for error handling
+		try { // for error handling
 			regularQualifiers2(tn);
 			xy = qualident();
 			if (inputState.guessing == 0) {
@@ -4599,7 +4399,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 		fal = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LPAREN);
 			fal = formalArgList();
 			match(RPAREN);
@@ -4616,8 +4416,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 	public final void opt_semi() throws RecognitionException, TokenStreamException {
 
-
-		try {      // for error handling
+		try { // for error handling
 			{
 				if ((LA(1) == SEMI) && (_tokenSet_3.member(LA(2)))) {
 					match(SEMI);
@@ -4643,7 +4442,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		postc = new PostconditionImpl();
 		IdentExpression id = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				if ((LA(1) == IDENT) && (LA(2) == TOK_COLON)) {
 					id = ident();
@@ -4672,13 +4471,11 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return postc;
 	}
 
-	public final void postConditionSegment(
-			FunctionBody sc
-										  ) throws RecognitionException, TokenStreamException {
+	public final void postConditionSegment(FunctionBody sc) throws RecognitionException, TokenStreamException {
 
 		Postcondition po = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_post: {
@@ -4696,8 +4493,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 			}
 			match(LCURLY);
 			{
-				_loop101:
-				do {
+				_loop101: do {
 					if ((_tokenSet_18.member(LA(1)))) {
 						po = postcondition();
 						if (inputState.guessing == 0) {
@@ -4732,15 +4528,14 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		Token de = null;
 		ee = null;
 		TypeCastExpression tc = null;
-		TypeName           tn = null;
-		IExpression        e3 = null;
-		ExpressionList     el = null;
+		TypeName tn = null;
+		IExpression e3 = null;
+		ExpressionList el = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = primaryExpression();
 			{
-				_loop225:
-				do {
+				_loop225: do {
 					if ((LA(1) == DOT) && (LA(2) == IDENT)) {
 						match(DOT);
 						{
@@ -4750,7 +4545,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 						lb = LT(1);
 						match(LBRACK);
 						expr = expression();
-						rb   = LT(1);
+						rb = LT(1);
 						match(RBRACK);
 						if (inputState.guessing == 0) {
 							ee = new GetItemExpressionImpl(ee, expr);
@@ -4891,7 +4686,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		prec = new PreconditionImpl();
 		IdentExpression id = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				if ((LA(1) == IDENT) && (LA(2) == TOK_COLON)) {
 					id = ident();
@@ -4920,13 +4715,11 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return prec;
 	}
 
-	public final void preConditionSegment(
-			FunctionBody sc
-										 ) throws RecognitionException, TokenStreamException {
+	public final void preConditionSegment(FunctionBody sc) throws RecognitionException, TokenStreamException {
 
 		Precondition p = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_pre: {
@@ -4944,8 +4737,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 			}
 			match(LCURLY);
 			{
-				_loop97:
-				do {
+				_loop97: do {
 					if ((_tokenSet_18.member(LA(1)))) {
 						p = precondition();
 						if (inputState.guessing == 0) {
@@ -4972,11 +4764,11 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		IExpression ee;
 
 		ee = null;
-		FuncExpr        ppc = null;
-		IdentExpression e   = null;
-		ExpressionList  el  = null;
+		FuncExpr ppc = null;
+		IdentExpression e = null;
+		ExpressionList el = null;
 
-		try {      // for error handling
+		try { // for error handling
 			switch (LA(1)) {
 			case IDENT: {
 				ee = ident();
@@ -5056,14 +4848,14 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 	public final void program() throws RecognitionException, TokenStreamException {
 
-		ParserClosure pc   = out.closure();
+		ParserClosure pc = out.closure();
 		ModuleContext mctx = new ModuleContext(out.module());
 		out.module().setContext(mctx);
 		cur = mctx;
 		IndexingStatement idx = null;
-		OS_Package        pkg;
+		OS_Package pkg;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_indexing: {
@@ -5090,8 +4882,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 				}
 			}
 			{
-				_loop4:
-				do {
+				_loop4: do {
 					switch (LA(1)) {
 					case LITERAL_package: {
 						match(LITERAL_package);
@@ -5111,7 +4902,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 					case LITERAL_from:
 					case LITERAL_import:
 					case LITERAL_alias: {
-						programStatement(/*pc,*/ out.module());
+						programStatement(/* pc, */ out.module());
 						opt_semi();
 						break;
 					}
@@ -5136,16 +4927,15 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void programStatement(
-			/*ProgramClosure pc,*/  OS_Element cont
-									  ) throws RecognitionException, TokenStreamException {
+	public final void programStatement(/* ProgramClosure pc, */ OS_Element cont)
+			throws RecognitionException, TokenStreamException {
 
-		ImportStatement        imp = null;
-		AnnotationClause       a   = null;
-		List<AnnotationClause> as  = new ArrayList<AnnotationClause>();
-		AliasStatement         als = null;
+		ImportStatement imp = null;
+		AnnotationClause a = null;
+		List<AnnotationClause> as = new ArrayList<AnnotationClause>();
+		AliasStatement als = null;
 
-		try {      // for error handling
+		try { // for error handling
 			switch (LA(1)) {
 			case LITERAL_from:
 			case LITERAL_import: {
@@ -5157,8 +4947,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 			case ANNOT:
 			case LITERAL_namespace: {
 				{
-					_loop131:
-					do {
+					_loop131: do {
 						if ((LA(1) == ANNOT)) {
 							a = annotation_clause();
 							if (inputState.guessing == 0) {
@@ -5206,14 +4995,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void propertyStatement(
-			PropertyStatement ps
-									   ) throws RecognitionException, TokenStreamException {
+	public final void propertyStatement(PropertyStatement ps) throws RecognitionException, TokenStreamException {
 
 		IdentExpression prop_name = null;
-		TypeName        tn        = null;
+		TypeName tn = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_prop: {
@@ -5254,8 +5041,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 			}
 			match(LCURLY);
 			{
-				_loop313:
-				do {
+				_loop313: do {
 					switch (LA(1)) {
 					case LITERAL_get: {
 						match(LITERAL_get);
@@ -5331,14 +5117,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		q = new QualidentImpl();
 		IdentExpression r1 = null, r2 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			r1 = ident();
 			if (inputState.guessing == 0) {
 				q.append(r1);
 			}
 			{
-				_loop11:
-				do {
+				_loop11: do {
 					if ((LA(1) == DOT) && (LA(2) == IDENT)) {
 						d1 = LT(1);
 						match(DOT);
@@ -5364,20 +5149,17 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return q;
 	}
 
-	public final void qualidentList(
-			QualidentList qal
-								   ) throws RecognitionException, TokenStreamException {
+	public final void qualidentList(QualidentList qal) throws RecognitionException, TokenStreamException {
 
 		Qualident qid;
 
-		try {      // for error handling
+		try { // for error handling
 			qid = qualident();
 			if (inputState.guessing == 0) {
 				qal.add(qid);
 			}
 			{
-				_loop162:
-				do {
+				_loop162: do {
 					if ((LA(1) == COMMA)) {
 						match(COMMA);
 						qid = qualident();
@@ -5406,14 +5188,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		Qualident qid;
 		qal = new QualidentListImpl();
 
-		try {      // for error handling
+		try { // for error handling
 			qid = qualident();
 			if (inputState.guessing == 0) {
 				qal.add(qid);
 			}
 			{
-				_loop165:
-				do {
+				_loop165: do {
 					if ((LA(1) == COMMA)) {
 						match(COMMA);
 						qid = qualident();
@@ -5437,12 +5218,9 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return qal;
 	}
 
-	public final void regularQualifiers2(
-			NormalTypeName fp
-										) throws RecognitionException, TokenStreamException {
+	public final void regularQualifiers2(NormalTypeName fp) throws RecognitionException, TokenStreamException {
 
-
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_in: {
@@ -5527,16 +5305,15 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 		ee = null;
 		ExpressionKind e2 = null; // should never be null (below)
-		IExpression    e3 = null;
-		TypeName       tn = null;
+		IExpression e3 = null;
+		TypeName tn = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = shiftExpression();
 			{
 				if ((_tokenSet_7.member(LA(1))) && (_tokenSet_56.member(LA(2)))) {
 					{
-						_loop205:
-						do {
+						_loop205: do {
 							if ((_tokenSet_60.member(LA(1))) && (_tokenSet_18.member(LA(2)))) {
 								{
 									switch (LA(1)) {
@@ -5606,26 +5383,23 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return ee;
 	}
 
-	public final Scope3 scope3(
-			OS_Element parent
-							  ) throws RecognitionException, TokenStreamException {
+	public final Scope3 scope3(OS_Element parent) throws RecognitionException, TokenStreamException {
 		Scope3 sc;
 
 		sc = new Scope3Impl(parent);
 		ClassStatement cls = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LCURLY);
 			docstrings(sc);
 			{
-				_loop81:
-				do {
+				_loop81: do {
 					if ((_tokenSet_31.member(LA(1)))) {
 						{
 							switch (LA(1)) {
 							case LITERAL_extend:
 							case LITERAL_class: {
-								cls = classStatement(sc.getParent(), cur, null/*annotations*/);
+								cls = classStatement(sc.getParent(), cur, null/* annotations */);
 								if (inputState.guessing == 0) {
 									sc.add(cls);
 								}
@@ -5712,13 +5486,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 		ee = null;
 		ExpressionKind e2 = null;
-		IExpression    e3 = null;
+		IExpression e3 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			ee = additiveExpression();
 			{
-				_loop209:
-				do {
+				_loop209: do {
 					if (((LA(1) >= SL && LA(1) <= BSR)) && (_tokenSet_18.member(LA(2)))) {
 						{
 							switch (LA(1)) {
@@ -5769,14 +5542,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return ee;
 	}
 
-	public final void statement(
-			StatementClosure cr, OS_Element aParent
-							   ) throws RecognitionException, TokenStreamException {
+	public final void statement(StatementClosure cr, OS_Element aParent)
+			throws RecognitionException, TokenStreamException {
 
-		Qualident      q = null;
+		Qualident q = null;
 		ExpressionList o = null;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case IDENT:
@@ -5860,14 +5632,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void syntacticBlockScope(
-			OS_Element aParent
-										 ) throws RecognitionException, TokenStreamException {
+	public final void syntacticBlockScope(OS_Element aParent) throws RecognitionException, TokenStreamException {
 
-		SyntacticBlock        sb  = new SyntacticBlockImpl(aParent);
+		SyntacticBlock sb = new SyntacticBlockImpl(aParent);
 		SyntacticBlockContext ctx = null;
 
-		try {      // for error handling
+		try { // for error handling
 			if (inputState.guessing == 0) {
 				ctx = new SyntacticBlockContext(sb, cur);
 				sb.setContext(ctx);
@@ -5891,15 +5661,14 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final @Nullable TypeAliasStatement typeAlias(
-			OS_Element cont
-													   ) throws RecognitionException, TokenStreamException {
+	public final @Nullable TypeAliasStatement typeAlias(OS_Element cont)
+			throws RecognitionException, TokenStreamException {
 		TypeAliasStatement cr;
 
 		TypeAliasBuilder tab = new TypeAliasBuilder();
 		cr = null;
 
-		try {      // for error handling
+		try { // for error handling
 			typeAlias2(tab);
 			if (inputState.guessing == 0) {
 				tab.setParent(cont);
@@ -5917,14 +5686,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return cr;
 	}
 
-	public final void typeAlias2(
-			TypeAliasBuilder tab
-								) throws RecognitionException, TokenStreamException {
+	public final void typeAlias2(TypeAliasBuilder tab) throws RecognitionException, TokenStreamException {
 
-		Qualident       q = null;
+		Qualident q = null;
 		IdentExpression i = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_type);
 			match(LITERAL_alias);
 			i = ident();
@@ -5951,7 +5718,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 		cr = null;
 
-		try {      // for error handling
+		try { // for error handling
 			switch (LA(1)) {
 			case LITERAL_generic:
 			case QUESTION: {
@@ -5998,14 +5765,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		TypeName tn = null;
 		cr = new TypeNameListImpl();
 
-		try {      // for error handling
+		try { // for error handling
 			tn = typeName2();
 			if (inputState.guessing == 0) {
 				cr.add(tn);
 			}
 			{
-				_loop295:
-				do {
+				_loop295: do {
 					if ((LA(1) == COMMA)) {
 						match(COMMA);
 						tn = typeName2();
@@ -6034,7 +5800,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 		tn = new TypeOfTypeNameImpl(cur);
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_typeof);
 			xy = qualident();
 			if (inputState.guessing == 0) {
@@ -6058,7 +5824,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		ee = null;
 		IExpression e3 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			switch (LA(1)) {
 			case INC: {
 				match(INC);
@@ -6132,7 +5898,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		ee = null;
 		IExpression e3 = null;
 
-		try {      // for error handling
+		try { // for error handling
 			switch (LA(1)) {
 			case BNOT: {
 				match(BNOT);
@@ -6182,14 +5948,13 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return ee;
 	}
 
-	public final void varStmt(
-			StatementClosure cr, OS_Element aParent
-							 ) throws RecognitionException, TokenStreamException {
+	public final void varStmt(StatementClosure cr, OS_Element aParent)
+			throws RecognitionException, TokenStreamException {
 
 		VariableSequence vsq = null;
-		TypeName         tn  = null;
+		TypeName tn = null;
 
-		try {      // for error handling
+		try { // for error handling
 			if (inputState.guessing == 0) {
 				vsq = cr.varSeq(cur);
 			}
@@ -6221,8 +5986,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 			{
 				varStmt_i3(vsq.next());
 				{
-					_loop137:
-					do {
+					_loop137: do {
 						if ((LA(1) == COMMA)) {
 							match(COMMA);
 							varStmt_i3(vsq.next());
@@ -6316,14 +6080,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void varStmt_i(
-			VariableStatement vs
-							   ) throws RecognitionException, TokenStreamException {
+	public final void varStmt_i(VariableStatement vs) throws RecognitionException, TokenStreamException {
 
-		TypeName        tn = null;
-		IdentExpression i  = null;
+		TypeName tn = null;
+		IdentExpression i = null;
 
-		try {      // for error handling
+		try { // for error handling
 			i = ident();
 			if (inputState.guessing == 0) {
 				vs.setName(i);
@@ -6377,13 +6139,11 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void varStmt_i3(
-			VariableStatement vs
-								) throws RecognitionException, TokenStreamException {
+	public final void varStmt_i3(VariableStatement vs) throws RecognitionException, TokenStreamException {
 
 		IdentExpression i = null;
 
-		try {      // for error handling
+		try { // for error handling
 			i = ident();
 			if (inputState.guessing == 0) {
 				vs.setName(i);
@@ -6473,14 +6233,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void whileLoop(
-			StatementClosure cr
-							   ) throws RecognitionException, TokenStreamException {
+	public final void whileLoop(StatementClosure cr) throws RecognitionException, TokenStreamException {
 
-		Loop        loop = cr.loop();
+		Loop loop = cr.loop();
 		LoopContext ctx;
 
-		try {      // for error handling
+		try { // for error handling
 			{
 				switch (LA(1)) {
 				case LITERAL_while: {
@@ -6539,14 +6297,12 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		}
 	}
 
-	public final void withStatement(
-			OS_Element aParent
-								   ) throws RecognitionException, TokenStreamException {
+	public final void withStatement(OS_Element aParent) throws RecognitionException, TokenStreamException {
 
-		WithStatement ws  = new WithStatementImpl(aParent);
-		WithContext   ctx = null;
+		WithStatement ws = new WithStatementImpl(aParent);
+		WithContext ctx = null;
 
-		try {      // for error handling
+		try { // for error handling
 			match(LITERAL_with);
 			varStmt_i(ws.nextVarStmt());
 			{

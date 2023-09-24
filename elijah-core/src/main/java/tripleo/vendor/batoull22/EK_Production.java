@@ -10,7 +10,7 @@ import java.util.List;
 class EK_Production {
 
 	private final EK_Fact[] ch;
-	private final String    st;
+	private final String st;
 
 	@Contract(pure = true)
 	public EK_Production(final String aSt) {
@@ -30,10 +30,10 @@ class EK_Production {
 		}
 
 		EK_Fact[] ch = Arrays.asList(ch1.toArray()).toArray(new EK_Fact[0]);
-		//.stream()
-		//		.map((ch11) -> {return new EK_Fact((Character) ch11)
-		//				;}
-		//					 ).collect(Collectors.toList()).toArray(new EK_Fact[0]);
+		// .stream()
+		// .map((ch11) -> {return new EK_Fact((Character) ch11)
+		// ;}
+		// ).collect(Collectors.toList()).toArray(new EK_Fact[0]);
 		System.out.println("3737 " + Arrays.asList(ch));
 		EK_Factarray result = new EK_Factarray(st, ch);
 		return result;
@@ -45,7 +45,7 @@ class EK_Production {
 
 	public @NotNull EK_Push getPush() {
 		final EK_Fact predicating = ch[0];
-		final EK_Fact resultant   = ch[3];
+		final EK_Fact resultant = ch[3];
 		return new EK_Push(predicating, resultant);
 	}
 
@@ -54,11 +54,11 @@ class EK_Production {
 	}
 
 	public boolean isMerge() {
-		return ch.length >= 5;  // example A.B-->C;
+		return ch.length >= 5; // example A.B-->C;
 	}
 
 	public boolean isPush() {
-		return ch.length == 4;  // example A-->C;
+		return ch.length == 4; // example A-->C;
 	}
 
 	@Override

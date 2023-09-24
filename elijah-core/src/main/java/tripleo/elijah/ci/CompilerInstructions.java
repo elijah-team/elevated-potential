@@ -18,7 +18,8 @@ public interface CompilerInstructions {
 
 	void add(LibraryStatementPart libraryStatementPart);
 
-	@Nullable String genLang();
+	@Nullable
+	String genLang();
 
 	String getFilename();
 

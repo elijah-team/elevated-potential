@@ -38,5 +38,4 @@ public interface IfConditional extends StatementItem, FunctionItem, OS_Element {
 	@Override
 	void visitGen(ElElementVisitor visit);
 
-
 }

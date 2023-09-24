@@ -7,7 +7,6 @@ import tripleo.elijah.comp.internal.CR_State;
 
 public interface CD_CompilationRunnerStart extends CompilerDriven {
 
-	void start(final @NotNull CompilerInstructions aCompilerInstructions,
-			   final @NotNull CR_State crState,
-			   final @NotNull CB_Output out);
+	void start(final @NotNull CompilerInstructions aCompilerInstructions, final @NotNull CR_State crState,
+			final @NotNull CB_Output out);
 }

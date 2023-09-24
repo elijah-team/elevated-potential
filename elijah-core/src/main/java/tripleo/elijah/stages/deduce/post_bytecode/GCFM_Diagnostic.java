@@ -8,7 +8,8 @@ import java.io.PrintStream;
 import java.util.List;
 
 public interface GCFM_Diagnostic extends Diagnostic {
-	static @NotNull GCFM_Diagnostic forThis(final @NotNull String aMessage, final @NotNull String aCode, final @NotNull Severity aSeverity) {
+	static @NotNull GCFM_Diagnostic forThis(final @NotNull String aMessage, final @NotNull String aCode,
+			final @NotNull Severity aSeverity) {
 		return new GCFM_Diagnostic() {
 			@Override
 			public String _message() {

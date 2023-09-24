@@ -10,8 +10,8 @@ import java.io.*;
  * Created 8/16/20 7:42 AM
  */
 public class TypeOfTypeNameImpl implements TypeName, tripleo.elijah.lang.i.TypeOfTypeName {
-	private Context       _ctx;
-	private Qualident     _typeOf;
+	private Context _ctx;
+	private Qualident _typeOf;
 	private TypeModifiers modifiers;
 
 	public TypeOfTypeNameImpl(final Context cur) {
@@ -65,8 +65,8 @@ public class TypeOfTypeNameImpl implements TypeName, tripleo.elijah.lang.i.TypeO
 	@Override
 	public @Nullable TypeName resolve(@NotNull Context ctx, @NotNull DeduceTypes2 deduceTypes2) throws ResolveError {
 //		tripleo.elijah.util.Stupidity.println_out_2(_typeOf.toString());
-		LookupResultList lrl  = DeduceLookupUtils.lookupExpression(_typeOf, ctx, deduceTypes2);
-		OS_Element       best = lrl.chooseBest(null);
+		LookupResultList lrl = DeduceLookupUtils.lookupExpression(_typeOf, ctx, deduceTypes2);
+		OS_Element best = lrl.chooseBest(null);
 		if (best instanceof VariableStatement)
 			return ((VariableStatement) best).typeName();
 		return null;

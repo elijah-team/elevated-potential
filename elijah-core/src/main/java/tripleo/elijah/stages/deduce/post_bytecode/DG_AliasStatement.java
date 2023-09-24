@@ -14,14 +14,14 @@ import tripleo.elijah.stages.deduce.ResolveError;
 import tripleo.elijah.util.NotImplementedException;
 
 public class DG_AliasStatement implements DG_Item {
-	private final          AliasStatementImpl                          aliasStatement;
-	private @NotNull       DeferredObject<DG_Item, ResolveError, Void> _resolvePromise = new DeferredObject<>();
-	private                boolean                                     _resolveStarted;
-	private final @NotNull DeduceTypes2                                __dt2;
+	private final AliasStatementImpl aliasStatement;
+	private @NotNull DeferredObject<DG_Item, ResolveError, Void> _resolvePromise = new DeferredObject<>();
+	private boolean _resolveStarted;
+	private final @NotNull DeduceTypes2 __dt2;
 
 	public DG_AliasStatement(final AliasStatementImpl aAliasStatement, final @NotNull DeduceTypes2 aDt2) {
 		aliasStatement = aAliasStatement;
-		__dt2          = aDt2;
+		__dt2 = aDt2;
 	}
 
 	public Promise<DG_Item, ResolveError, Void> resolvePromise() {

@@ -18,16 +18,16 @@ import java.util.*;
 
 /**
  * @author Tripleo
- * <p>
- * Created Mar 30, 2020 at 7:41:52 AM
+ *         <p>
+ *         Created Mar 30, 2020 at 7:41:52 AM
  */
 public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 
 	private FuncExprContext _ctx;
-	//	private Scope3 scope3;
+	// private Scope3 scope3;
 	// private FormalArgList argList = new FormalArgListImpl();
-	private TypeName        _returnType;
-	private OS_Type         _type;
+	private TypeName _returnType;
+	private OS_Type _type;
 
 	public @NotNull List<FormalArgListItem> falis() {
 		return mFal.falis();
@@ -110,10 +110,10 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 	}
 
 	public void setArgs(final ExpressionList ael) {
-		//mFal = new FormalArgListImpl();
-		//for (IExpression iExpression : ael) {
-		//mFal.next().s
-		//}
+		// mFal = new FormalArgListImpl();
+		// for (IExpression iExpression : ael) {
+		// mFal.next().s
+		// }
 	}
 
 	@Override

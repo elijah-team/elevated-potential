@@ -18,7 +18,7 @@ import tripleo.elijah.lang.i.Scope3;
  */
 public class FunctionBodyEmptyImpl implements tripleo.elijah.lang.i.FunctionBodyEmpty, FunctionBody {
 	private boolean _isAbstract;
-	private Scope3  sco;
+	private Scope3 sco;
 
 	@Override
 	public void addPostCondition(Postcondition aPostcondition) {

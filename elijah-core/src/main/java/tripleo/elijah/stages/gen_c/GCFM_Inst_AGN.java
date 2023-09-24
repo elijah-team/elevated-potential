@@ -12,23 +12,21 @@ import java.util.function.Supplier;
 
 class GCFM_Inst_AGN implements GenerateC_Statement {
 
-	private final GenerateC                 gc;
-	private final Generate_Code_For_Method  generateCodeForMethod;
+	private final GenerateC gc;
+	private final Generate_Code_For_Method generateCodeForMethod;
 	private final WhyNotGarish_BaseFunction yf;
-	private final Instruction               instruction;
-	private final BaseEvaFunction           gf;
-	private       boolean                   _calculated;
+	private final Instruction instruction;
+	private final BaseEvaFunction gf;
+	private boolean _calculated;
 
 	private String _calculatedText;
 
-	public GCFM_Inst_AGN(final Generate_Code_For_Method aGenerateCodeForMethod,
-						 final GenerateC aGc,
-						 final WhyNotGarish_BaseFunction aGf,
-						 final Instruction aInstruction) {
+	public GCFM_Inst_AGN(final Generate_Code_For_Method aGenerateCodeForMethod, final GenerateC aGc,
+			final WhyNotGarish_BaseFunction aGf, final Instruction aInstruction) {
 		generateCodeForMethod = aGenerateCodeForMethod;
-		gc                    = aGc;
-		yf                    = aGf;
-		instruction           = aInstruction;
+		gc = aGc;
+		yf = aGf;
+		instruction = aInstruction;
 
 		this.gf = yf.cheat();
 	}
@@ -37,10 +35,11 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 	public String getText() {
 		if (!_calculated) {
 			final InstructionArgument target = instruction.getArg(0);
-			final InstructionArgument value  = instruction.getArg(1);
+			final InstructionArgument value = instruction.getArg(1);
 
 			if (target instanceof IntegerIA) {
-				final String realTarget      = gc.getRealTargetName(gf, (IntegerIA) target, Generate_Code_For_Method.AOG.ASSIGN);
+				final String realTarget = gc.getRealTargetName(gf, (IntegerIA) target,
+						Generate_Code_For_Method.AOG.ASSIGN);
 				final String assignmentValue = gc.getAssignmentValue(gf.getSelf(), value, gf);
 
 				var z = new ReasonedStringListStatement();
@@ -56,7 +55,8 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 
 				var zz = new ReasonedStringListStatement();
 				zz.append(Emit.emit("/*501*/"), "emit-code");
-				zz.append(()->gc.getRealTargetName(gf, (IdentIA) target, Generate_Code_For_Method.AOG.ASSIGN, assignmentValue), "real-target");
+				zz.append(() -> gc.getRealTargetName(gf, (IdentIA) target, Generate_Code_For_Method.AOG.ASSIGN,
+						assignmentValue), "real-target");
 
 				var z = new ReasonedStringListStatement();
 				z.append(Emit.emit("/*249*/"), "emit-code");
@@ -79,23 +79,26 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 			var z = new ReasonedStringListStatement();
 
 			final InstructionArgument target = instruction.getArg(0);
-			final InstructionArgument value  = instruction.getArg(1);
+			final InstructionArgument value = instruction.getArg(1);
 
 			if (target instanceof IntegerIA integerIA) {
-				final Supplier<String> realTargetSupplier      = () -> gc.getRealTargetName(gf, integerIA, Generate_Code_For_Method.AOG.ASSIGN);
+				final Supplier<String> realTargetSupplier = () -> gc.getRealTargetName(gf, integerIA,
+						Generate_Code_For_Method.AOG.ASSIGN);
 				final Supplier<String> assignmentValueSupplier = () -> gc.getAssignmentValue(gf.getSelf(), value, gf);
 
 				z.append(realTargetSupplier, "real-target-name");
 				z.append(assignmentValueSupplier, "assignment-value");
 
-				_calculatedText = String.format(Emit.emit("/*267*/") + "%s = %s;", realTargetSupplier.get(), assignmentValueSupplier.get());
+				_calculatedText = String.format(Emit.emit("/*267*/") + "%s = %s;", realTargetSupplier.get(),
+						assignmentValueSupplier.get());
 			} else {
 				final Supplier<String> assignmentValueSupplier = () -> gc.getAssignmentValue(gf.getSelf(), value, gf);
-				final Supplier<String> s                       = () -> gc.getRealTargetName(gf, (IdentIA) target, Generate_Code_For_Method.AOG.ASSIGN, assignmentValueSupplier.get());
+				final Supplier<String> s = () -> gc.getRealTargetName(gf, (IdentIA) target,
+						Generate_Code_For_Method.AOG.ASSIGN, assignmentValueSupplier.get());
 
 				final String realTargetName = s.get();
 
-				final String s2             = Emit.emit("/*501*/") + realTargetName;
+				final String s2 = Emit.emit("/*501*/") + realTargetName;
 
 				_calculatedText = String.format(Emit.emit("/*249*/") + "%s = %s;", s2, assignmentValueSupplier.get());
 			}

@@ -16,11 +16,11 @@ import tripleo.elijah.util.*;
 
 public class AliasStatementImpl extends __Access implements AliasStatement {
 	// private String name;
-	private       AccessNotation  access_note;
-	private       El_Category     category;
-	private final OS_Element      parent;
-	private       IExpression     expr;
-	private       IdentExpression nameToken;
+	private AccessNotation access_note;
+	private El_Category category;
+	private final OS_Element parent;
+	private IExpression expr;
+	private IdentExpression nameToken;
 
 	private EN_Name __n;
 
@@ -119,7 +119,6 @@ public class AliasStatementImpl extends __Access implements AliasStatement {
 	}
 
 	// endregion
-
 
 }
 

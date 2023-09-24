@@ -15,8 +15,8 @@ import tripleo.elijah.lang2.*;
 
 /**
  * @author Tripleo
- * <p>
- * Created Apr 16, 2020 at 7:35:50 AM
+ *         <p>
+ *         Created Apr 16, 2020 at 7:35:50 AM
  */
 public class DestructorDefImpl extends BaseFunctionDef implements tripleo.elijah.lang.i.DestructorDef {
 

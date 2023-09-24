@@ -17,12 +17,12 @@ import tripleo.elijah.stages.gen_fn.*;
  */
 public class IntegerIA implements InstructionArgument, Constructable {
 
-	public final  BaseEvaFunction gf;
-	private final int             index;
+	public final BaseEvaFunction gf;
+	private final int index;
 
 	public IntegerIA(final int anIndex, BaseEvaFunction aGeneratedFunction) {
 		index = anIndex;
-		gf    = aGeneratedFunction;
+		gf = aGeneratedFunction;
 	}
 
 	@Override
@@ -55,9 +55,7 @@ public class IntegerIA implements InstructionArgument, Constructable {
 
 	@Override
 	public @NotNull String toString() {
-		return "IntegerIA{" +
-				"index=" + index +
-				'}';
+		return "IntegerIA{" + "index=" + index + '}';
 	}
 }
 

@@ -42,9 +42,7 @@ public class FluffyCompImpl implements FluffyComp {
 	public void find_multiple_items(final @NotNull OS_Module aModule) {
 		final Multimap<String, ModuleItem> items_map = ArrayListMultimap.create(aModule.getItems().size(), 1);
 
-		aModule.getItems().stream()
-				.filter(Objects::nonNull)
-				.filter(x -> !(x instanceof ImportStatement))
+		aModule.getItems().stream().filter(Objects::nonNull).filter(x -> !(x instanceof ImportStatement))
 				.forEach(item -> {
 					// README likely for member functions.
 					// README Also note elijah has single namespace
@@ -58,9 +56,7 @@ public class FluffyCompImpl implements FluffyComp {
 			if (moduleItems.size() == 1)
 				continue;
 
-			final Collection<ElObjectType> t = moduleItems
-					.stream()
-					.map(DecideElObjectType::getElObjectType)
+			final Collection<ElObjectType> t = moduleItems.stream().map(DecideElObjectType::getElObjectType)
 					.collect(Collectors.toList());
 
 			final Set<ElObjectType> st = new HashSet<ElObjectType>(t);
@@ -82,9 +78,8 @@ public class FluffyCompImpl implements FluffyComp {
 				// FIXME 07/28 out of place
 
 				final String module_name = aModule.toString(); // TODO print module name or something
-				final String s = String.format(
-						"[Module#add] %s Already has a member by the name of %s",
-						module_name, key);
+				final String s = String.format("[Module#add] %s Already has a member by the name of %s", module_name,
+						key);
 				aModule.getCompilation().getErrSink().reportWarning(s);
 			}
 		}

@@ -25,17 +25,22 @@ import tripleo.elijah.world.i.*;
 import java.util.*;
 
 public class CompilationEnclosure {
-	public enum AssOutFile {CLASS, NAMESPACE, FUNCTION}
+	public enum AssOutFile {
+		CLASS, NAMESPACE, FUNCTION
+	}
+
 	public interface ModuleListener {
 		void close();
 
 		void listen(WorldModule module);
 	}
+
 	public class OFA implements Iterable<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> {
 
-		//public OFA(final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> aOutFileAssertions) {
-		//_l = aOutFileAssertions;
-		//}
+		// public OFA(final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider,
+		// NG_OutputRequest>> aOutFileAssertions) {
+		// _l = aOutFileAssertions;
+		// }
 
 		public boolean contains(String aFileName) {
 			for (Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> outFileAssertion : outFileAssertions) {
@@ -54,13 +59,14 @@ public class CompilationEnclosure {
 			return outFileAssertions.stream().iterator();
 		}
 	}
-	public final  DeferredObject<IPipelineAccess, Void, Void> pipelineAccessPromise = new DeferredObject<>();
-	private final CB_Output                                   _cbOutput             = new CB_ListBackedOutput();
+
+	public final DeferredObject<IPipelineAccess, Void, Void> pipelineAccessPromise = new DeferredObject<>();
+	private final CB_Output _cbOutput = new CB_ListBackedOutput();
 	private final Compilation compilation;
-	private final DeferredObject<AccessBus, Void, Void>       accessBusPromise      = new DeferredObject<>();
+	private final DeferredObject<AccessBus, Void, Void> accessBusPromise = new DeferredObject<>();
 	private final Map<OS_Module, ModuleThing> moduleThings = new HashMap<>();
-	private final Subject<ReactiveDimension> dimensionSubject   = ReplaySubject.<ReactiveDimension>create();
-	private final Subject<Reactivable>       reactivableSubject = ReplaySubject.<Reactivable>create();
+	private final Subject<ReactiveDimension> dimensionSubject = ReplaySubject.<ReactiveDimension>create();
+	private final Subject<Reactivable> reactivableSubject = ReplaySubject.<Reactivable>create();
 	private final List<ModuleListener> _moduleListeners = new ArrayList<>();
 	Observer<ReactiveDimension> dimensionObserver = new Observer<ReactiveDimension>() {
 		@Override
@@ -107,21 +113,21 @@ public class CompilationEnclosure {
 
 		}
 	};
-	private AccessBus           ab;
-	private ICompilationAccess  ca;
-	private ICompilationBus     compilationBus;
-	private CompilationRunner   compilationRunner;
-	private CompilerDriver      compilerDriver;
+	private AccessBus ab;
+	private ICompilationAccess ca;
+	private ICompilationBus compilationBus;
+	private CompilationRunner compilationRunner;
+	private CompilerDriver compilerDriver;
 
 	private List<CompilerInput> inp;
 
-	private IPipelineAccess     pa;
+	private IPipelineAccess pa;
 
-	private PipelineLogic       pipelineLogic;
+	private PipelineLogic pipelineLogic;
 
 	private final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> outFileAssertions = new ArrayList<>();
 
-	private final @NonNull OFA ofa = new OFA(/*outFileAssertions*/);
+	private final @NonNull OFA ofa = new OFA(/* outFileAssertions */);
 
 	public CompilationEnclosure(final Compilation aCompilation) {
 		compilation = aCompilation;
@@ -326,7 +332,7 @@ public class CompilationEnclosure {
 		return compilationBus;
 	}
 
-	//@Contract(pure = true) //??
+	// @Contract(pure = true) //??
 	public CompilationClosure getCompilationClosure() {
 		return this.getCompilation().getCompilationClosure();
 	}
@@ -387,7 +393,7 @@ public class CompilationEnclosure {
 		// throw new IllegalStateException("Error");
 
 		// aReactive.join();
-		System.err.println("reactiveJoin "+ aReactive.toString());
+		System.err.println("reactiveJoin " + aReactive.toString());
 	}
 
 	public void setCompilationAccess(@NotNull ICompilationAccess aca) {
@@ -413,7 +419,7 @@ public class CompilationEnclosure {
 	public void setPipelineLogic(final PipelineLogic aPipelineLogic) {
 		pipelineLogic = aPipelineLogic;
 
-		getPipelineAccessPromise().then(pa->pa.resolvePipelinePromise(aPipelineLogic));
+		getPipelineAccessPromise().then(pa -> pa.resolvePipelinePromise(aPipelineLogic));
 	}
 }
 

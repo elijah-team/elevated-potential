@@ -34,15 +34,15 @@ public class DeduceTypesTest2 {
 
 	static class ClassBuilder {
 
-		private @Nullable OS_Module _mod  = null;
-		private @Nullable String    _name = null;
+		private @Nullable OS_Module _mod = null;
+		private @Nullable String _name = null;
 
 		public @NotNull ClassStatement build() {
 			assert _mod != null;
 			assert _name != null;
 
 			final ClassStatement cs = new ClassStatementImpl(_mod, _mod.getContext());
-			final ClassHeader    ch = new ClassHeaderImpl(false, List_of());
+			final ClassHeader ch = new ClassHeaderImpl(false, List_of());
 			ch.setName(Helpers.string_to_ident(_name));
 			cs.setHeader(ch);
 
@@ -62,8 +62,7 @@ public class DeduceTypesTest2 {
 
 	private boolean genTypeEquals(@NotNull GenType a, @NotNull GenType b) {
 		// TODO hack
-		return a.getTypeName().isEqual(b.getTypeName()) &&
-				a.getResolved().isEqual(b.getResolved());
+		return a.getTypeName().isEqual(b.getTypeName()) && a.getResolved().isEqual(b.getResolved());
 	}
 
 	@Test
@@ -72,24 +71,18 @@ public class DeduceTypesTest2 {
 		b.get();
 		final Compilation c = b.comp;
 
-		//b.defaultMod();
-		final OS_Module mod = c.moduleBuilder()
-				.withPrelude("c")
-				.setContext()
-				.build();
+		// b.defaultMod();
+		final OS_Module mod = c.moduleBuilder().withPrelude("c").setContext().build();
 
 		mod.setParent(c); // !!??
 
-		final ClassStatement cs = new ClassBuilder()
-				.withModule(mod)
-				.withName("Test")
-				.build();
+		final ClassStatement cs = new ClassBuilder().withModule(mod).withName("Test").build();
 
 		final FunctionDef fd = cs.funcDef();
 		fd.setName((Helpers.string_to_ident("test")));
-		Scope3                 scope3 = new Scope3Impl(fd);
-		final VariableSequence vss    = scope3.varSeq();
-		final VariableStatement vs     = vss.next();
+		Scope3 scope3 = new Scope3Impl(fd);
+		final VariableSequence vss = scope3.varSeq();
+		final VariableStatement vs = vss.next();
 		vs.setName((Helpers.string_to_ident("x")));
 		final Qualident qu = new QualidentImpl();
 		qu.append(Helpers.string_to_ident("SystemInteger"));
@@ -107,17 +100,16 @@ public class DeduceTypesTest2 {
 		//
 		//
 
-/*
-		// Called Boilerplate##get
-		final ICompilationAccess aca = new DefaultCompilationAccess(c);
-		assert c.__cr == null;
-		c.__cr = new CompilationRunner(aca);
-*/
+		/*
+		 * // Called Boilerplate##get final ICompilationAccess aca = new
+		 * DefaultCompilationAccess(c); assert c.__cr == null; c.__cr = new
+		 * CompilationRunner(aca);
+		 */
 
 		final CompilationEnclosure ce = c.getCompilationEnclosure();
 		assert ce.getCompilationRunner().getCrState() != null; // always true
 
-		final DeducePhase  dp = b.getDeducePhase();
+		final DeducePhase dp = b.getDeducePhase();
 
 		var wm = new DefaultWorldModule(mod, ce);
 
@@ -127,8 +119,8 @@ public class DeduceTypesTest2 {
 		tripleo.elijah.util.Stupidity.println_out_2("-- deduceExpression >>" + x);
 //		assertEquals(new OS_BuiltInType(BuiltInTypes..SystemInteger).getBType(), x.getBType());
 //		final RegularTypeName tn = new RegularTypeNameImpl();
-		final VariableTypeName tn  = new VariableTypeNameImpl();
-		final Qualident        tnq = new QualidentImpl();
+		final VariableTypeName tn = new VariableTypeNameImpl();
+		final Qualident tnq = new QualidentImpl();
 		tnq.append(Helpers.string_to_ident("SystemInteger"));
 		tn.setName(tnq);
 		tn.setContext(fd.getContext());

@@ -14,7 +14,8 @@ import tripleo.elijah.lang2.*;
 public interface OS_Element {
 	Context getContext();
 
-	@Nullable OS_Element getParent();
+	@Nullable
+	OS_Element getParent();
 
 	void serializeTo(SmallWriter sw);
 

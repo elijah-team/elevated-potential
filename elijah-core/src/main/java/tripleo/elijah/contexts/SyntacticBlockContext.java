@@ -18,7 +18,7 @@ import tripleo.elijah.lang.impl.VariableSequenceImpl;
  */
 public class SyntacticBlockContext extends ContextImpl {
 
-	private final Context        _parent;
+	private final Context _parent;
 	private final SyntacticBlock carrier;
 
 	public SyntacticBlockContext(final SyntacticBlock carrier, final Context _parent) {
@@ -32,15 +32,14 @@ public class SyntacticBlockContext extends ContextImpl {
 	}
 
 	@Override
-	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
 		for (final FunctionItem item : carrier.getItems()) {
-			if (!(item instanceof ClassStatement) &&
-					!(item instanceof NamespaceStatement) &&
-					!(item instanceof FunctionDef) &&
-					!(item instanceof VariableSequenceImpl)
-			) continue;
+			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
+					&& !(item instanceof FunctionDef) && !(item instanceof VariableSequenceImpl))
+				continue;
 			if (item instanceof OS_Element2) {
 				if (((OS_Element2) item).name().equals(name)) {
 					Result.add(name, level, item, this);

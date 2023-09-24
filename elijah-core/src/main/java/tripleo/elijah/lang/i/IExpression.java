@@ -32,9 +32,9 @@ public interface IExpression {
 				|| expression instanceof FloatExpression || expression instanceof NumericExpression;
 	}
 
-	//@NotNull List<FormalArgListItem> getArgs();
+	// @NotNull List<FormalArgListItem> getArgs();
 	//
-	//void setArgs(ExpressionList ael);
+	// void setArgs(ExpressionList ael);
 
 	ExpressionKind getKind();
 

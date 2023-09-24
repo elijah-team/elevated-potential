@@ -13,12 +13,13 @@ import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.logging.ElLog;
 
 public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
-	private final BaseEvaFunction                               gf;
+	private final BaseEvaFunction gf;
 
-	private final GenerateC                                     generateC;
+	private final GenerateC generateC;
 	private final DeferredObject<GenerateResultEnv, Void, Void> fileGenPromise = new DeferredObject<>();
+
 	public WhyNotGarish_Function(final BaseEvaFunction aGf, final GenerateC aGenerateC) {
-		gf        = aGf;
+		gf = aGf;
 		generateC = aGenerateC;
 
 		fileGenPromise.then(this::onFileGen);
@@ -27,9 +28,10 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 	@Contract(pure = true)
 	private @Nullable BaseEvaFunction deduced(final @NotNull BaseEvaFunction aEvaFunction) {
 		final GM_GenerateModule generateModule = generateC.getFileGen().gmgm();
-		final DeducePhase       deducePhase    = generateModule.gmr().env().pa().getCompilationEnclosure().getPipelineLogic().dp;
+		final DeducePhase deducePhase = generateModule.gmr().env().pa().getCompilationEnclosure().getPipelineLogic().dp;
 
-		final DeduceTypes2 dt2 = deducePhase._inj().new_DeduceTypes2(aEvaFunction.module(), deducePhase, ElLog.Verbosity.VERBOSE);
+		final DeduceTypes2 dt2 = deducePhase._inj().new_DeduceTypes2(aEvaFunction.module(), deducePhase,
+				ElLog.Verbosity.VERBOSE);
 		dt2.deduceOneFunction((EvaFunction) aEvaFunction, deducePhase);
 
 		return aEvaFunction;
@@ -46,7 +48,8 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 	}
 
 	public void onFileGen(final @NotNull GenerateResultEnv aFileGen) {
-		if (gf.getFD() == null) assert false; //return; // FIXME why? when?
+		if (gf.getFD() == null)
+			assert false; // return; // FIXME why? when?
 		Generate_Code_For_Method gcfm = new Generate_Code_For_Method(generateC, generateC.LOG);
 		gcfm.generateCodeForMethod(deduced(gf), aFileGen);
 	}

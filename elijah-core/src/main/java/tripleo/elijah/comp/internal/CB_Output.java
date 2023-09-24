@@ -6,7 +6,8 @@ import tripleo.elijah.comp.i.CB_OutputString;
 import java.util.List;
 
 public interface CB_Output {
-	@NotNull List<CB_OutputString> get();
+	@NotNull
+	List<CB_OutputString> get();
 
 	void logProgress(int number, String text);
 

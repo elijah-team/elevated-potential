@@ -25,21 +25,23 @@ public class DefaultCompilationBus implements ICompilationBus {
 			return List_of(a);
 		}
 	}
+
 	@lombok.Getter
-	private final @NotNull CompilerDriver   compilerDriver;
-	private final @NotNull Compilation      c;
-	private final @NotNull List<CB_Process> _processes           = new ArrayList<>();
-	private final @NotNull IProgressSink    _defaultProgressSink = new IProgressSink() {
+	private final @NotNull CompilerDriver compilerDriver;
+	private final @NotNull Compilation c;
+	private final @NotNull List<CB_Process> _processes = new ArrayList<>();
+	private final @NotNull IProgressSink _defaultProgressSink = new IProgressSink() {
 		@Override
-		public void note(final Codes aCode, final @NotNull ProgressSinkComponent aProgressSinkComponent, final int aType, final Object[] aParams) {
+		public void note(final Codes aCode, final @NotNull ProgressSinkComponent aProgressSinkComponent,
+				final int aType, final Object[] aParams) {
 			Stupidity.println_err_2(aProgressSinkComponent.printErr(aCode, aType, aParams));
 		}
 	};
 
-	public                 CB_FindCIs       cb_findCIs;
+	public CB_FindCIs cb_findCIs;
 
 	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
-		c              = ace.getCompilationAccess().getCompilation();
+		c = ace.getCompilationAccess().getCompilation();
 		compilerDriver = new CompilerDriver(this);
 
 		ace.setCompilerDriver(compilerDriver);
@@ -62,7 +64,8 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 	@Override
 	public void inst(final @NotNull ILazyCompilerInstructions aLazyCompilerInstructions) {
-		_defaultProgressSink.note(IProgressSink.Codes.LazyCompilerInstructions_inst, ProgressSinkComponent.CompilationBus_, -1, new Object[]{aLazyCompilerInstructions.get()});
+		_defaultProgressSink.note(IProgressSink.Codes.LazyCompilerInstructions_inst,
+				ProgressSinkComponent.CompilationBus_, -1, new Object[] { aLazyCompilerInstructions.get() });
 	}
 
 	@Override
@@ -81,7 +84,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 		var monitor = new CB_Monitor() {
 
 			// TODO/HACK queue then print after loop
-			//   also send to UI (UT_Controller)
+			// also send to UI (UT_Controller)
 
 			void print(String s) {
 				System.err.print(s);
@@ -142,7 +145,8 @@ public class DefaultCompilationBus implements ICompilationBus {
 			int old_size = size;
 			size = _processes.size();
 			if (DebugFlags._DefaultCompilationBus) {
-				System.err.println(MessageFormat.format("DefaultCompilationBus reset size old_size={0} new_size={1} last={2}", old_size, size, i));
+				System.err.println(MessageFormat.format(
+						"DefaultCompilationBus reset size old_size={0} new_size={1} last={2}", old_size, size, i));
 			}
 		}
 		assert _processes.size() == size;

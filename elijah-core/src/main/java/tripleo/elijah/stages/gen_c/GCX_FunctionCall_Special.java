@@ -17,15 +17,16 @@ import java.util.List;
 import java.util.Map;
 
 public class GCX_FunctionCall_Special {
-	private final GenerateC       gc;
+	private final GenerateC gc;
 	private final BaseEvaFunction gf;
-	private final Instruction     instruction;
-	private final ProcTableEntry  pte;
+	private final Instruction instruction;
+	private final ProcTableEntry pte;
 
-	public GCX_FunctionCall_Special(final ProcTableEntry aPte, final @NotNull WhyNotGarish_BaseFunction aGf, final GenerateC aGc, final Instruction aInstruction) {
-		pte         = aPte;
-		gf          = aGf.cheat();
-		gc          = aGc;
+	public GCX_FunctionCall_Special(final ProcTableEntry aPte, final @NotNull WhyNotGarish_BaseFunction aGf,
+			final GenerateC aGc, final Instruction aInstruction) {
+		pte = aPte;
+		gf = aGf.cheat();
+		gc = aGc;
 		instruction = aInstruction;
 	}
 
@@ -36,11 +37,12 @@ public class GCX_FunctionCall_Special {
 
 		CReference reference = null;
 		if (pte.expression_num == null) {
-			final int                           y    = 2;
-			final IdentExpression               ptex = (IdentExpression) pte.__debug_expression;
-			final String                        text = ptex.getText();
-			@Nullable final InstructionArgument xx   = gf.vte_lookup(text);
-			final String                        xxx;
+			final int y = 2;
+			final IdentExpression ptex = (IdentExpression) pte.__debug_expression;
+			final String text = ptex.getText();
+			@Nullable
+			final InstructionArgument xx = gf.vte_lookup(text);
+			final String xxx;
 			if (xx != null) {
 				xxx = gc.getRealTargetName(gf, (IntegerIA) xx, Generate_Code_For_Method.AOG.GET);
 			} else {

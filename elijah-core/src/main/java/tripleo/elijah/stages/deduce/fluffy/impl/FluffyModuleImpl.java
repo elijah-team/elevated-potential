@@ -25,14 +25,13 @@ public class FluffyModuleImpl implements FluffyModule {
 	 * @param ccs
 	 */
 	private static void faep_002(final @NotNull ClassStatement classStatement, final Consumer<ClassStatement> ccs) {
-		final List<OS_Element2>   x     = classStatement.findFunction("main");
-		final Stream<FunctionDef> found = x.stream().filter(FluffyCompImpl::isMainClassEntryPoint).map(x7 -> (FunctionDef) x7);
+		final List<OS_Element2> x = classStatement.findFunction("main");
+		final Stream<FunctionDef> found = x.stream().filter(FluffyCompImpl::isMainClassEntryPoint)
+				.map(x7 -> (FunctionDef) x7);
 
 //		final int eps = aModule.entryPoints.size();
 
-		found
-				.map(aFunctionDef -> (ClassStatement) aFunctionDef.getParent())
-				.forEach(ccs);
+		found.map(aFunctionDef -> (ClassStatement) aFunctionDef.getParent()).forEach(ccs);
 
 //		assert aModule.entryPoints.size() == eps || aModule.entryPoints.size() == eps+1; // TODO this will fail one day
 
@@ -47,7 +46,7 @@ public class FluffyModuleImpl implements FluffyModule {
 	private FluffyModuleImplInjector __inj = new FluffyModuleImplInjector();
 
 	public FluffyModuleImpl(final OS_Module aModule, final Compilation aCompilation) {
-		module      = aModule;
+		module = aModule;
 		compilation = aCompilation;
 	}
 
@@ -62,8 +61,7 @@ public class FluffyModuleImpl implements FluffyModule {
 		//
 		final Consumer<ClassStatement> ccs = (x) -> module.entryPoints().add(_inj().new_MainClassEntryPoint(x));
 
-		module.getItems().stream()
-				.filter(item -> item instanceof ClassStatement)
+		module.getItems().stream().filter(item -> item instanceof ClassStatement)
 				.filter(classStatement -> MainClassEntryPoint.isMainClass((ClassStatement) classStatement))
 				.forEach(classStatement -> faep_002((ClassStatement) classStatement, ccs));
 	}

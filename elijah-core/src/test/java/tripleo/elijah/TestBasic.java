@@ -68,14 +68,14 @@ public class TestBasic {
 	@Test
 	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	public final void testBasic() throws Exception {
-		final List<String>          ez_files   = Files.readLines(new File("test/basic/ez_files.txt"), Charsets.UTF_8);
+		final List<String> ez_files = Files.readLines(new File("test/basic/ez_files.txt"), Charsets.UTF_8);
 		final Map<Integer, Integer> errorCount = new HashMap<Integer, Integer>();
-		int                         index      = 0;
+		int index = 0;
 
 		for (String s : ez_files) {
 //			List<String> args = List_of("test/basic", "-sO"/*, "-out"*/);
-			final ErrSink     eee = new StdErrSink();
-			final Compilation c   = new CompilationImpl(eee, new IO());
+			final ErrSink eee = new StdErrSink();
+			final Compilation c = new CompilationImpl(eee, new IO());
 
 			c.feedCmdLine(List_of(s, "-sO"));
 
@@ -93,8 +93,8 @@ public class TestBasic {
 
 	@Test
 	public final void testBasic_fact1() throws Exception {
-		final String        s  = "test/basic/fact1/main2";
-		final Compilation   c  = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
+		final String s = "test/basic/fact1/main2";
+		final Compilation c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
 		final CompilerInput i1 = new CompilerInput(s);
 		final CompilerInput i2 = new CompilerInput("-sO");
 		c.feedInputs(List_of(i1, i2), new DefaultCompilerController());
@@ -123,16 +123,15 @@ public class TestBasic {
 		testBasic_fact1 f = new testBasic_fact1();
 		f.start();
 
-		//assertEquals(25, f.c.errorCount()); // TODO Error count obviously should be 0
+		// assertEquals(25, f.c.errorCount()); // TODO Error count obviously should be 0
 
 		var cot = f.c.getOutputTree();
 
-
 		Multimap<String, EG_Statement> mms = ArrayListMultimap.create();
 
-
 		for (EOT_OutputFile outputFile : cot.getList()) {
-			if (outputFile.getType() != EOT_OutputType.SOURCES) continue;
+			if (outputFile.getType() != EOT_OutputType.SOURCES)
+				continue;
 
 			final String filename = outputFile.getFilename();
 			System.err.println(filename);
@@ -140,33 +139,31 @@ public class TestBasic {
 			var ss = outputFile.getStatementSequence();
 
 			mms.put(filename, ss);
-/*
-			if (ss instanceof EG_SequenceStatement seq) {
-				for (EG_Statement statement : seq._list()) {
-					var exp = statement.getExplanation();
-
-					String txt = statement.getText();
-				}
-			}
-
-			System.err.println(ss);
-*/
+			/*
+			 * if (ss instanceof EG_SequenceStatement seq) { for (EG_Statement statement :
+			 * seq._list()) { var exp = statement.getExplanation();
+			 * 
+			 * String txt = statement.getText(); } }
+			 * 
+			 * System.err.println(ss);
+			 */
 		}
 
 		List<Pair<String, String>> sspl = new ArrayList<>();
 
 		for (Map.Entry<String, Collection<EG_Statement>> entry : mms.asMap().entrySet()) {
 			var fn = entry.getKey();
-			var ss = Helpers.String_join("\n", (entry.getValue()).stream().map(st -> st.getText()).collect(Collectors.toList()));
+			var ss = Helpers.String_join("\n",
+					(entry.getValue()).stream().map(st -> st.getText()).collect(Collectors.toList()));
 
-			//System.out.println("216 "+fn+" "+ss);
+			// System.out.println("216 "+fn+" "+ss);
 
 			sspl.add(Pair.of(fn, ss));
 		}
 
 		System.err.println(sspl);
 
-		//System.err.println("nothing");
+		// System.err.println("nothing");
 	}
 
 	@Test
@@ -176,12 +173,11 @@ public class TestBasic {
 
 		final Compilation c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
 
-		//if (true || !TestBasic_DISABLED)
+		// if (true || !TestBasic_DISABLED)
 		{
 			Emit.emitting = false;
 
-			List<CompilerInput> inputs = List_of(s, "-sO").stream()
-					.map(CompilerInput::new)
+			List<CompilerInput> inputs = List_of(s, "-sO").stream().map(CompilerInput::new)
 					.collect(Collectors.toList());
 			DefaultCompilerController controller = new DefaultCompilerController();
 
@@ -190,8 +186,7 @@ public class TestBasic {
 			if (c.errorCount() != 0)
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
 
-			//assertEquals(2, c.errorCount()); // TODO Error count obviously should be 0
-
+			// assertEquals(2, c.errorCount()); // TODO Error count obviously should be 0
 
 			final List<Pair<ErrSink.Errors, Object>> list = c.getErrSink().list();
 
@@ -220,11 +215,8 @@ public class TestBasic {
 		final Compilation c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
 
 		if (!TestBasic_DISABLED) {
-			c.feedInputs(
-					List_of(s, "-sE").stream() // -sD??
-							.map(CompilerInput::new)
-							.collect(Collectors.toList()),
-					new DefaultCompilerController());
+			c.feedInputs(List_of(s, "-sE").stream() // -sD??
+					.map(CompilerInput::new).collect(Collectors.toList()), new DefaultCompilerController());
 
 			if (c.errorCount() != 0)
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
@@ -240,8 +232,8 @@ public class TestBasic {
 	public final void testBasic_listfolders4() throws Exception {
 		String s = "test/basic/listfolders4/listfolders4.ez";
 
-		final ErrSink     eee = new StdErrSink();
-		final Compilation c   = new CompilationImpl(eee, new IO());
+		final ErrSink eee = new StdErrSink();
+		final Compilation c = new CompilationImpl(eee, new IO());
 
 		c.feedCmdLine(List_of(s, "-sO"));
 
@@ -255,11 +247,11 @@ public class TestBasic {
 	@Test
 	public final void testBasicParse() throws Exception {
 		final List<String> ez_files = Files.readLines(new File("test/basic/ez_files.txt"), Charsets.UTF_8);
-		final List<String> args     = new ArrayList<String>();
+		final List<String> args = new ArrayList<String>();
 		args.addAll(ez_files);
 		args.add("-sE");
-		final ErrSink     eee = new StdErrSink();
-		final Compilation c   = new CompilationImpl(eee, new IO());
+		final ErrSink eee = new StdErrSink();
+		final Compilation c = new CompilationImpl(eee, new IO());
 
 		c.feedCmdLine(args);
 

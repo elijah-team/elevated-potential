@@ -28,15 +28,16 @@ import java.util.stream.*;
  */
 public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassStatement {
 
-	static final  List<TypeName> emptyTypeNameList = ImmutableList.<TypeName>of();
-	private final OS_Element     parent;
-	private       OS_Type        __cached_osType;
-	private       ClassHeader    hdr;
+	static final List<TypeName> emptyTypeNameList = ImmutableList.<TypeName>of();
+	private final OS_Element parent;
+	private OS_Type __cached_osType;
+	private ClassHeader hdr;
 
 	public ClassStatementImpl(final @NotNull OS_Element parentElement, final Context parentContext) {
 		parent = parentElement; // setParent
 
-		@NotNull final ElObjectType x = DecideElObjectType.getElObjectType(parentElement);
+		@NotNull
+		final ElObjectType x = DecideElObjectType.getElObjectType(parentElement);
 		switch (x) {
 		case MODULE:
 			final OS_Module module = (OS_Module) parentElement;
@@ -105,10 +106,8 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 
 	@Override
 	public List<OS_Element2> findFunction(final String name) {
-		return items().stream()
-				.filter(item -> item instanceof FunctionDef && !(item instanceof ConstructorDef))
-				.filter(item -> item.name().equals(name))
-				.collect(Collectors.toList());
+		return items().stream().filter(item -> item instanceof FunctionDef && !(item instanceof ConstructorDef))
+				.filter(item -> item.name().equals(name)).collect(Collectors.toList());
 	}
 
 	@Override
@@ -118,10 +117,8 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 
 	@Override
 	public @NotNull Collection<ConstructorDef> getConstructors() {
-		var y = items.stream()
-				.filter(__GetConstructorsHelper::selectForConstructors)
-				.map(__GetConstructorsHelper::castClassItemToConstructor)
-				.collect(Collectors.toList());
+		var y = items.stream().filter(__GetConstructorsHelper::selectForConstructors)
+				.map(__GetConstructorsHelper::castClassItemToConstructor).collect(Collectors.toList());
 		return y;
 	}
 
@@ -132,7 +129,8 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 
 	@Override
 	public @org.jetbrains.annotations.Nullable EN_Name getEnName() {
-		if (hdr == null) return null;
+		if (hdr == null)
+			return null;
 
 		return hdr.nameToken().getName();
 	}
@@ -214,7 +212,8 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 		// packagename parent
 
 		// header: annos genericPart inheritancePart (name)
-		// type: ABSTRACT, ANNOTATION, EXCEPTION, INTERFACE, NORMAL, SIGNATURE, STRUCTURE
+		// type: ABSTRACT, ANNOTATION, EXCEPTION, INTERFACE, NORMAL, SIGNATURE,
+		// STRUCTURE
 
 		sw.fieldIdent("name", hdr.nameToken());
 		sw.fieldString("type", getType().toString());

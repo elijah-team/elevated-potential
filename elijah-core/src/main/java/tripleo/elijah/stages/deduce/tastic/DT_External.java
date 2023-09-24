@@ -5,7 +5,7 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 
 public interface DT_External {
-	//void run();
+	// void run();
 
 	void actualise(DeduceTypes2 aDt2);
 

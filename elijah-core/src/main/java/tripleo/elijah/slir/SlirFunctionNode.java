@@ -18,19 +18,20 @@ import tripleo.elijah.lang.i.OS_Element;
  */
 public class SlirFunctionNode implements SlirElement {
 	private final FunctionDef functionDef;
-	private final String      functionName;
+	private final String functionName;
 	private final SlirElement parent;
 
 	public SlirFunctionNode(final SlirClass aSlirClass, final String aFunctionName, final FunctionDef aFunctionDef) {
-		parent       = aSlirClass;
+		parent = aSlirClass;
 		functionName = aFunctionName;
-		functionDef  = aFunctionDef;
+		functionDef = aFunctionDef;
 	}
 
-	public SlirFunctionNode(final SlirNamespaceNode aParent, final String aFunctionName, final FunctionDef aFunctionDef) {
-		parent       = aParent;
+	public SlirFunctionNode(final SlirNamespaceNode aParent, final String aFunctionName,
+			final FunctionDef aFunctionDef) {
+		parent = aParent;
 		functionName = aFunctionName;
-		functionDef  = aFunctionDef;
+		functionDef = aFunctionDef;
 	}
 
 	public void annotate(final SlirAnnotations aAnnotation) {

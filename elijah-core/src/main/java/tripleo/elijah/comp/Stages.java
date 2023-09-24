@@ -41,7 +41,7 @@ public enum Stages {
 		public void writeLogs(final @NotNull ICompilationAccess aCompilationAccess) {
 			aCompilationAccess.writeLogs();
 		}
-	},  // Output,  // ??
+	}, // Output, // ??
 	S("S") {
 		@Override
 		public RuntimeProcess getProcess(final ICompilationAccess aCa, final ProcessRecord aPr) {

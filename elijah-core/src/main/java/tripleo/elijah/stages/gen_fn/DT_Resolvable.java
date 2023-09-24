@@ -26,7 +26,8 @@ public interface DT_Resolvable {
 		};
 	}
 
-	static @NotNull DT_Resolvable from(@NotNull InstructionArgument aInstructionArgument, /*@NotNull*/ OS_Element aElement, FunctionInvocation aFunctionInvocation) {
+	static @NotNull DT_Resolvable from(@NotNull InstructionArgument aInstructionArgument,
+			/* @NotNull */ OS_Element aElement, FunctionInvocation aFunctionInvocation) {
 		return new DT_Resolvable() {
 			@Override
 			public Object deduceItem() {
@@ -45,9 +46,11 @@ public interface DT_Resolvable {
 		};
 	}
 
-	@Nullable Object deduceItem();
+	@Nullable
+	Object deduceItem();
 
-	@Nullable OS_Element element();
+	@Nullable
+	OS_Element element();
 
 	InstructionArgument instructionArgument();
 }

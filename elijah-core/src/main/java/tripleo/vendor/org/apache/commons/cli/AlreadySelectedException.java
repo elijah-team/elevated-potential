@@ -40,19 +40,21 @@ public class AlreadySelectedException extends ParseException {
 	private final Option option;
 
 	/**
-	 * Constructs a new {@code AlreadySelectedException} for the specified option group.
+	 * Constructs a new {@code AlreadySelectedException} for the specified option
+	 * group.
 	 *
 	 * @param group  the option group already selected
 	 * @param option the option that triggered the exception
 	 * @since 1.2
 	 */
 	public AlreadySelectedException(final @NotNull OptionGroup group, final @NotNull Option option) {
-		this("The option '" + option.getKey() + "' was specified but an option from this group " + "has already been selected: '" + group.getSelected() + "'",
-			 group, option);
+		this("The option '" + option.getKey() + "' was specified but an option from this group "
+				+ "has already been selected: '" + group.getSelected() + "'", group, option);
 	}
 
 	/**
-	 * Constructs a new {@code AlreadySelectedException} with the specified detail message.
+	 * Constructs a new {@code AlreadySelectedException} with the specified detail
+	 * message.
 	 *
 	 * @param message the detail message
 	 */
@@ -62,7 +64,7 @@ public class AlreadySelectedException extends ParseException {
 
 	private AlreadySelectedException(final String message, final OptionGroup group, final Option option) {
 		super(message);
-		this.group  = group;
+		this.group = group;
 		this.option = option;
 	}
 

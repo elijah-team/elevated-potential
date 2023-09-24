@@ -26,22 +26,24 @@ public class GM_GenerateModule {
 	}
 
 	public GM_GenerateModuleResult getModuleResult(final @NotNull WorkManager wm,
-												   final @NotNull GenerateResultSink aResultSink) {
-		final OS_Module                         mod                   = gmr.params().getMod();
+			final @NotNull GenerateResultSink aResultSink) {
+		final OS_Module mod = gmr.params().getMod();
 		final @NotNull GN_GenerateNodesIntoSink generateNodesIntoSink = gmr.generateNodesIntoSink();
 
-		final GenerateResult              gr1 = new Sub_GenerateResult();
-		final Supplier<GenerateResultEnv> fgs = () ->new GenerateResultEnv(aResultSink, gr1, wm, new WorkList() /*tautology*/, this);
+		final GenerateResult gr1 = new Sub_GenerateResult();
+		final Supplier<GenerateResultEnv> fgs = () -> new GenerateResultEnv(aResultSink, gr1, wm,
+				new WorkList() /* tautology */, this);
 
-		final @NotNull GenerateFiles            ggc                   = gmr.getGenerateFiles(fgs);
-		final List<ProcessedNode>               lgc                   = generateNodesIntoSink._env().lgc();
+		final @NotNull GenerateFiles ggc = gmr.getGenerateFiles(fgs);
+		final List<ProcessedNode> lgc = generateNodesIntoSink._env().lgc();
 
-		var fileGen = ((GenerateC)ggc).getFileGen();
+		var fileGen = ((GenerateC) ggc).getFileGen();
 
 		for (ProcessedNode processedNode : lgc) {
 			final EvaNode evaNode = ((ProcessedNode1) processedNode).getEvaNode();
 
-			if (!(processedNode.matchModule(mod))) continue; // README curious
+			if (!(processedNode.matchModule(mod)))
+				continue; // README curious
 
 			if (processedNode.isContainerNode()) {
 				processedNode.processContainer(ggc, fileGen);

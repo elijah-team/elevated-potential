@@ -15,7 +15,8 @@ public interface DefFunctionDef extends FunctionDef {
 	void postConstruct();
 
 	@Override
-	@Nullable TypeName returnType();
+	@Nullable
+	TypeName returnType();
 
 	@Override
 	default void serializeTo(SmallWriter sw) {
@@ -39,9 +40,9 @@ public interface DefFunctionDef extends FunctionDef {
 	@Override
 	void setReturnType(TypeName tn);
 
-	//@Override
-	//void visitGen(ElElementVisitor visit);
+	// @Override
+	// void visitGen(ElElementVisitor visit);
 
-	//@Override
-	//Context getContext();
+	// @Override
+	// Context getContext();
 }

@@ -8,15 +8,16 @@ import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 
 public class actionDECL_with_BUILT_IN implements EG_Statement {
 	private final WhyNotGarish_BaseFunction gf;
-	private final String                    target_name;
-	private final OS_Type                   x;
-	private final GenerateC                 gc;
+	private final String target_name;
+	private final OS_Type x;
+	private final GenerateC gc;
 
-	public actionDECL_with_BUILT_IN(final WhyNotGarish_BaseFunction aGf, final String aTargetName, final OS_Type aX, final GenerateC aGc) {
-		gf          = aGf;
+	public actionDECL_with_BUILT_IN(final WhyNotGarish_BaseFunction aGf, final String aTargetName, final OS_Type aX,
+			final GenerateC aGc) {
+		gf = aGf;
 		target_name = aTargetName;
-		x           = aX;
-		gc          = aGc;
+		x = aX;
+		gc = aGc;
 	}
 
 	@Override
@@ -29,7 +30,7 @@ public class actionDECL_with_BUILT_IN implements EG_Statement {
 		final Context context = gf.getFD().getContext();
 		assert context != null;
 		final OS_Type type = x.resolve(context);
-		final String  s1;
+		final String s1;
 		if (type.isUnitType()) {
 			// TODO still should not happen
 			s1 = String.format("/*%s is declared as the Unit type*/", target_name);

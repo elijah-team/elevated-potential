@@ -25,10 +25,12 @@ import java.util.*;
 /**
  * Main entry-point into the library.
  * <p>
- * Options represents a collection of {@link Option} objects, which describe the possible options for a command-line.
+ * Options represents a collection of {@link Option} objects, which describe the
+ * possible options for a command-line.
  * <p>
- * It may flexibly parse long and short options, with or without values. Additionally, it may parse only a portion of a
- * commandline, allowing for flexible multi-stage parsing.
+ * It may flexibly parse long and short options, with or without values.
+ * Additionally, it may parse only a portion of a commandline, allowing for
+ * flexible multi-stage parsing.
  *
  * @see org.apache.commons.cli;.CommandLine
  */
@@ -51,7 +53,8 @@ public class Options implements Serializable {
 	/**
 	 * a map of the required options
 	 */
-	// N.B. This can contain either a String (addOption) or an OptionGroup (addOptionGroup)
+	// N.B. This can contain either a String (addOption) or an OptionGroup
+	// (addOptionGroup)
 	// TODO this seems wrong
 	private final List<Object> requiredOpts = new ArrayList<>();
 
@@ -95,7 +98,8 @@ public class Options implements Serializable {
 	 * </p>
 	 *
 	 * @param opt         Short single-character name of the option.
-	 * @param hasArg      flag signalling if an argument is required after this option
+	 * @param hasArg      flag signalling if an argument is required after this
+	 *                    option
 	 * @param description Self-documenting description
 	 * @return the resulting Options instance
 	 */
@@ -130,11 +134,13 @@ public class Options implements Serializable {
 	 *
 	 * @param opt         Short single-character name of the option.
 	 * @param longOpt     Long multi-character name of the option.
-	 * @param hasArg      flag signalling if an argument is required after this option
+	 * @param hasArg      flag signalling if an argument is required after this
+	 *                    option
 	 * @param description Self-documenting description
 	 * @return the resulting Options instance
 	 */
-	public @NotNull Options addOption(final String opt, final String longOpt, final boolean hasArg, final String description) {
+	public @NotNull Options addOption(final String opt, final String longOpt, final boolean hasArg,
+			final String description) {
 		addOption(new Option(opt, longOpt, hasArg, description));
 		return this;
 	}
@@ -167,7 +173,8 @@ public class Options implements Serializable {
 	 * Add an option that contains a short-name and a long-name.
 	 *
 	 * <p>
-	 * The added option is set as required. It may be specified as requiring an argument. This method is a shortcut for:
+	 * The added option is set as required. It may be specified as requiring an
+	 * argument. This method is a shortcut for:
 	 * </p>
 	 *
 	 * <pre>
@@ -180,12 +187,14 @@ public class Options implements Serializable {
 	 *
 	 * @param opt         Short single-character name of the option.
 	 * @param longOpt     Long multi-character name of the option.
-	 * @param hasArg      flag signalling if an argument is required after this option
+	 * @param hasArg      flag signalling if an argument is required after this
+	 *                    option
 	 * @param description Self-documenting description
 	 * @return the resulting Options instance
 	 * @since 1.4
 	 */
-	public @NotNull Options addRequiredOption(final String opt, final String longOpt, final boolean hasArg, final String description) {
+	public @NotNull Options addRequiredOption(final String opt, final String longOpt, final boolean hasArg,
+			final String description) {
 		final Option option = new Option(opt, longOpt, hasArg, description);
 		option.setRequired(true);
 		addOption(option);
@@ -196,7 +205,8 @@ public class Options implements Serializable {
 	 * Gets the options with a long name starting with the name specified.
 	 *
 	 * @param opt the partial name of the option
-	 * @return the options matching the partial name specified, or an empty list if none matches
+	 * @return the options matching the partial name specified, or an empty list if
+	 *         none matches
 	 * @since 1.3
 	 */
 	public @NotNull List<String> getMatchingOptions(String opt) {
@@ -239,7 +249,8 @@ public class Options implements Serializable {
 	 * Gets the OptionGroup the {@code opt} belongs to.
 	 *
 	 * @param opt the option whose OptionGroup is being queried.
-	 * @return the OptionGroup if {@code opt} is part of an OptionGroup, otherwise return null
+	 * @return the OptionGroup if {@code opt} is part of an OptionGroup, otherwise
+	 *         return null
 	 */
 	public OptionGroup getOptionGroup(final @NotNull Option opt) {
 		return optionGroups.get(opt.getKey());
@@ -250,7 +261,8 @@ public class Options implements Serializable {
 	 *
 	 * @return a Collection of OptionGroup instances.
 	 */
-	@NotNull Collection<OptionGroup> getOptionGroups() {
+	@NotNull
+	Collection<OptionGroup> getOptionGroups() {
 		return new HashSet<>(optionGroups.values());
 	}
 
@@ -315,7 +327,8 @@ public class Options implements Serializable {
 	 *
 	 * @return the List of Options
 	 */
-	@NotNull List<Option> helpOptions() {
+	@NotNull
+	List<Option> helpOptions() {
 		return new ArrayList<>(shortOpts.values());
 	}
 

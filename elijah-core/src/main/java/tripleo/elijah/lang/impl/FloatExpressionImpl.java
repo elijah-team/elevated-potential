@@ -24,19 +24,17 @@ import java.util.*;
 public class FloatExpressionImpl implements tripleo.elijah.lang.i.FloatExpression {
 
 	OS_Type _type;
-	float   carrier;
+	float carrier;
 	private final Token n;
 
 	public FloatExpressionImpl(final @NotNull Token n) {
-		this.n  = n;
+		this.n = n;
 		carrier = Float.parseFloat(n.getText());
 	}
-
 
 	public @NotNull List<FormalArgListItem> getArgs() {
 		return null;
 	}
-
 
 	@Override
 	public @NotNull ExpressionKind getKind() {

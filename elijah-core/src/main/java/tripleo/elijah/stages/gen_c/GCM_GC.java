@@ -10,25 +10,27 @@ import tripleo.elijah.stages.instructions.VariableTableType;
 import tripleo.elijah.stages.logging.ElLog;
 
 class GCM_GC implements GCM_D {
-	private final GenerateC      gc;
+	private final GenerateC gc;
 	private final EvaConstructor gf;
-	private final ElLog          LOG;
+	private final ElLog LOG;
 
 	public GCM_GC(final EvaConstructor aGf, final ElLog aLOG, final GenerateC aGc) {
-		gf  = aGf;
+		gf = aGf;
 		LOG = aLOG;
-		gc  = aGc;
+		gc = aGc;
 	}
 
 	@Override
 	public String find_return_type(final Generate_Method_Header aGenerate_method_header__) {
-		final OS_Type        type;
+		final OS_Type type;
 		final TypeTableEntry tte;
-		String               returnType = null;
+		String returnType = null;
 
-		@Nullable final InstructionArgument result_index = gf.vte_lookup("self");
+		@Nullable
+		final InstructionArgument result_index = gf.vte_lookup("self");
 		if (result_index instanceof IntegerIA integerIA) {
-			@NotNull final VariableTableEntry vte = integerIA.getEntry();
+			@NotNull
+			final VariableTableEntry vte = integerIA.getEntry();
 			assert vte.getVtt() == VariableTableType.SELF;
 
 			// Get it from resolved

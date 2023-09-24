@@ -5,9 +5,8 @@ import tripleo.elijah.nextgen.query.Mode;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.Operation;
 
-public record EIT_Input_HashSourceFile_Triple(String hash,
-											  EIT_SourceOrigin source,
-											  String filename) implements EIT_Input {
+public record EIT_Input_HashSourceFile_Triple(String hash, EIT_SourceOrigin source, String filename)
+		implements EIT_Input {
 	public static @NotNull EIT_Input_HashSourceFile_Triple decode(final @NotNull String fn) {
 		// move to Builder...Operation...
 		// also CP_Filename hashPromise products

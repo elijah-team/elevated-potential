@@ -44,7 +44,7 @@ public class ExpressionBuilder {
 	}
 
 	public static @NotNull IBinaryExpression build(final IExpression left, final ExpressionKind aType,
-												   final IExpression aExpression) {
+			final IExpression aExpression) {
 		return new BasicBinaryExpressionImpl(left, aType, aExpression);
 	}
 

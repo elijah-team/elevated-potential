@@ -33,7 +33,8 @@ public class UnrecognizedOptionException extends ParseException {
 	private final String option;
 
 	/**
-	 * Constructs a new {@code UnrecognizedArgumentException} with the specified detail message.
+	 * Constructs a new {@code UnrecognizedArgumentException} with the specified
+	 * detail message.
 	 *
 	 * @param message the detail message
 	 */
@@ -42,7 +43,8 @@ public class UnrecognizedOptionException extends ParseException {
 	}
 
 	/**
-	 * Constructs a new {@code UnrecognizedArgumentException} with the specified option and detail message.
+	 * Constructs a new {@code UnrecognizedArgumentException} with the specified
+	 * option and detail message.
 	 *
 	 * @param message the detail message
 	 * @param option  the unrecognized option

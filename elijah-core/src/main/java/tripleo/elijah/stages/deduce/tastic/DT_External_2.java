@@ -14,38 +14,31 @@ import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;
 
 public class DT_External_2 implements DT_External {
-	private final IdentTableEntry                       ite;
+	private final IdentTableEntry ite;
 	private final DeferredObject<OS_Module, Void, Void> mod1Promise = new DeferredObject<>();
-	private final OS_Module                             module;
-	private       OS_Module                             mod1;
-	private final ProcTableEntry                        pte;
-	private final FT_FCA_IdentIA.FakeDC4                dc;
-	private final ElLog                                 LOG;
-	private final OS_Element                            resolved_element;
-	private final Context                               ctx;
-	private final BaseEvaFunction                       generatedFunction;
-	private final int                                   instructionIndex;
-	private final IdentIA                               identIA;
-	private final VariableTableEntry                    vte;
-
+	private final OS_Module module;
+	private OS_Module mod1;
+	private final ProcTableEntry pte;
+	private final FT_FCA_IdentIA.FakeDC4 dc;
+	private final ElLog LOG;
+	private final OS_Element resolved_element;
+	private final Context ctx;
+	private final BaseEvaFunction generatedFunction;
+	private final int instructionIndex;
+	private final IdentIA identIA;
+	private final VariableTableEntry vte;
 
 	private final DeferredObject2<OS_Element, ResolveError, Void> _p_resolvedElementPromise = new DeferredObject2<>();
 
-
-	public DT_External_2(final IdentTableEntry aIte,
-						 final OS_Module aModule,
-						 final ProcTableEntry aPte,
-						 final FT_FCA_IdentIA.FakeDC4 aDc,
-						 final ElLog aLOG,
-						 final Context aCtx,
-						 final BaseEvaFunction aGeneratedFunction,
-						 final int aInstructionIndex,
-						 final IdentIA aIdentIA,
-						 final VariableTableEntry aVte) {
+	public DT_External_2(final IdentTableEntry aIte, final OS_Module aModule, final ProcTableEntry aPte,
+			final FT_FCA_IdentIA.FakeDC4 aDc, final ElLog aLOG, final Context aCtx,
+			final BaseEvaFunction aGeneratedFunction, final int aInstructionIndex, final IdentIA aIdentIA,
+			final VariableTableEntry aVte) {
 		ite = aIte;
 		vte = aVte;
 
-		// README in essence, why is this set in the constructor? Isn't this what we are supposed to be doing?
+		// README in essence, why is this set in the constructor? Isn't this what we are
+		// supposed to be doing?
 		resolved_element = ite.getResolvedElement();
 
 		if (resolved_element != null) {
@@ -54,26 +47,23 @@ public class DT_External_2 implements DT_External {
 			mod1Promise.resolve(mod1);
 		}
 
-		module            = aModule;
-		pte               = aPte;
-		dc                = aDc;
-		LOG               = aLOG;
-		identIA           = aIdentIA;
-		ctx               = aCtx;
+		module = aModule;
+		pte = aPte;
+		dc = aDc;
+		LOG = aLOG;
+		identIA = aIdentIA;
+		ctx = aCtx;
 		generatedFunction = aGeneratedFunction;
-		instructionIndex  = aInstructionIndex;
+		instructionIndex = aInstructionIndex;
 
 		//
 
 		_p_resolvedElementPromise.then(this::onResolvedElement);
 	}
 
-	private /*static*/ void __make2_1__createFunctionInvocation(final ProcTableEntry pte__,
-																final FT_FCA_IdentIA.FakeDC4 dc__,
-																final ElLog LOG__,
-																final FunctionDef resolved_element,
-																final OS_Element parent,
-																final IInvocation invocation2) {
+	private /* static */ void __make2_1__createFunctionInvocation(final ProcTableEntry pte__,
+			final FT_FCA_IdentIA.FakeDC4 dc__, final ElLog LOG__, final FunctionDef resolved_element,
+			final OS_Element parent, final IInvocation invocation2) {
 		final @NotNull FunctionInvocation fi;
 		fi = dc.newFunctionInvocation(resolved_element, pte, invocation2);
 
@@ -89,7 +79,8 @@ public class DT_External_2 implements DT_External {
 		});
 	}
 
-	private /*static*/ void __make2_1__hasFunctionInvocation(final @NotNull ProcTableEntry pte, final @NotNull FunctionInvocation fi) {
+	private /* static */ void __make2_1__hasFunctionInvocation(final @NotNull ProcTableEntry pte,
+			final @NotNull FunctionInvocation fi) {
 		fi.generateDeferred().then((BaseEvaFunction ef) -> {
 			var result = _inj().new_GenTypeImpl();
 			result.setFunctionInvocation(fi);
@@ -123,12 +114,12 @@ public class DT_External_2 implements DT_External {
 
 	@Override
 	public void actualise(final @NotNull DeduceTypes2 aDt2) {
-		//if (mod1 != module) { // README this is kinda by construction
+		// if (mod1 != module) { // README this is kinda by construction
 		assert aDt2.module != module;
 
 		final IdentTableEntry ite1 = identIA.getEntry();
 
-		//assert ite._p_resolvedElementPromise.isResolved();
+		// assert ite._p_resolvedElementPromise.isResolved();
 
 		ite1._p_resolvedElementPromise.then((final @NotNull OS_Element orig_e) -> {
 			OS_Element e = orig_e;
@@ -154,10 +145,8 @@ public class DT_External_2 implements DT_External {
 				}
 			}
 
-			assert e == resolved_element1
-					|| /*HACK*/ resolved_element1 instanceof AliasStatementImpl
-					|| resolved_element1 == null
-					;
+			assert e == resolved_element1 || /* HACK */ resolved_element1 instanceof AliasStatementImpl
+					|| resolved_element1 == null;
 
 			if (e instanceof OS_Element2 el2) {
 				var name = el2.getEnName();
@@ -171,10 +160,13 @@ public class DT_External_2 implements DT_External {
 
 			pte.onFunctionInvocation((@NotNull FunctionInvocation functionInvocation) -> {
 				functionInvocation.generateDeferred().done((@NotNull BaseEvaFunction bgf) -> {
-					@NotNull PromiseExpectation<GenType> pe = dc.promiseExpectation(bgf, "Function Result type");
+					@NotNull
+					PromiseExpectation<GenType> pe = dc.promiseExpectation(bgf, "Function Result type");
 					bgf.typePromise().then((@NotNull GenType result) -> {
 						pe.satisfy(result);
-						@NotNull TypeTableEntry tte = generatedFunction.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, result.getResolved()); // TODO there has to be a better way
+						@NotNull
+						TypeTableEntry tte = generatedFunction.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT,
+								result.getResolved()); // TODO there has to be a better way
 						tte.genType.copy(result);
 						vte.addPotentialType(instructionIndex, tte);
 					});
@@ -220,7 +212,6 @@ public class DT_External_2 implements DT_External {
 					return;
 				}
 
-
 				IInvocation invocation2 = target0.declAnchor().getInvocation();
 				if (invocation2 instanceof ClassInvocation) {
 					invocation2 = dc.registerClassInvocation((ClassInvocation) invocation2);
@@ -242,7 +233,7 @@ public class DT_External_2 implements DT_External {
 
 	@Override
 	public OS_Module targetModule() { // [T1160118]
-		//assert mod1Promise.isResolved(); // !!
+		// assert mod1Promise.isResolved(); // !!
 		return mod1;
 	}
 
@@ -259,7 +250,7 @@ public class DT_External_2 implements DT_External {
 					final Context ctx2 = el.getContext();
 
 					final LookupResultList lrl = ctx2.lookup(ite.getIdent().getText());
-					final OS_Element       e   = lrl.chooseBest(null);
+					final OS_Element e = lrl.chooseBest(null);
 
 					if (e != null) {
 						_p_resolvedElementPromise.resolve(e);

@@ -30,26 +30,27 @@ import java.util.List;
  * Created 7/3/21 6:24 AM
  */
 public class WlGenerateCtor implements WorkJob {
-	private final @Nullable IdentExpression    constructorName;
-	private final           ICodeRegistrar     codeRegistrar;
-	private final @NotNull  GenerateFunctions  generateFunctions;
-	private final @NotNull  FunctionInvocation functionInvocation;
-	private                 boolean            _isDone = false;
-	private                 EvaConstructor     result;
+	private final @Nullable IdentExpression constructorName;
+	private final ICodeRegistrar codeRegistrar;
+	private final @NotNull GenerateFunctions generateFunctions;
+	private final @NotNull FunctionInvocation functionInvocation;
+	private boolean _isDone = false;
+	private EvaConstructor result;
 
 	@Contract(pure = true)
 	public WlGenerateCtor(@NotNull GenerateFunctions aGenerateFunctions,
-						  @NotNull FunctionInvocation aFunctionInvocation,
-						  @Nullable IdentExpression aConstructorName,
-						  final ICodeRegistrar aCodeRegistrar) {
-		generateFunctions  = aGenerateFunctions;
+			@NotNull FunctionInvocation aFunctionInvocation, @Nullable IdentExpression aConstructorName,
+			final ICodeRegistrar aCodeRegistrar) {
+		generateFunctions = aGenerateFunctions;
 		functionInvocation = aFunctionInvocation;
-		constructorName    = aConstructorName;
-		codeRegistrar      = aCodeRegistrar;
+		constructorName = aConstructorName;
+		codeRegistrar = aCodeRegistrar;
 	}
 
-	public WlGenerateCtor(final OS_Module aModule, final IdentExpression aNameNode, final FunctionInvocation aFunctionInvocation, final @NotNull Deduce_CreationClosure aCl) {
-		this(aCl.generatePhase().getGenerateFunctions(aModule), aFunctionInvocation, aNameNode, aCl.generatePhase().getCodeRegistrar());
+	public WlGenerateCtor(final OS_Module aModule, final IdentExpression aNameNode,
+			final FunctionInvocation aFunctionInvocation, final @NotNull Deduce_CreationClosure aCl) {
+		this(aCl.generatePhase().getGenerateFunctions(aModule), aFunctionInvocation, aNameNode,
+				aCl.generatePhase().getCodeRegistrar());
 	}
 
 	private boolean getPragma(String aAuto_construct) {
@@ -68,8 +69,8 @@ public class WlGenerateCtor implements WorkJob {
 	@Override
 	public void run(WorkManager aWorkManager) {
 		if (functionInvocation.generateDeferred().isPending()) {
-			final ClassStatement klass     = functionInvocation.getClassInvocation().getKlass();
-			Holder<EvaClass>     hGenClass = new Holder<>();
+			final ClassStatement klass = functionInvocation.getClassInvocation().getKlass();
+			Holder<EvaClass> hGenClass = new Holder<>();
 			functionInvocation.getClassInvocation().resolvePromise().then(new DoneCallback<EvaClass>() {
 				@Override
 				public void onDone(EvaClass result) {
@@ -82,7 +83,8 @@ public class WlGenerateCtor implements WorkJob {
 			ConstructorDef ccc = null;
 			if (constructorName != null) {
 				Collection<ConstructorDef> cs = klass.getConstructors();
-				for (@NotNull ConstructorDef c : cs) {
+				for (@NotNull
+				ConstructorDef c : cs) {
 					if (c.name().equals(constructorName.getText())) {
 						ccc = c;
 						break;
@@ -97,14 +99,15 @@ public class WlGenerateCtor implements WorkJob {
 				cd.scope(scope3);
 				for (EvaContainer.VarTableEntry varTableEntry : genClass.varTable) {
 					if (varTableEntry.initialValue != IExpression.UNASSIGNED) {
-						IExpression left  = varTableEntry.nameToken;
+						IExpression left = varTableEntry.nameToken;
 						IExpression right = varTableEntry.initialValue;
 
 						IExpression e = ExpressionBuilder.build(left, ExpressionKind.ASSIGNMENT, right);
 						scope3.add(new StatementWrapperImpl(e, cd.getContext(), cd));
 					} else {
 						if (true) {
-							scope3.add(new ConstructStatementImpl(cd, cd.getContext(), varTableEntry.nameToken, null, null));
+							scope3.add(new ConstructStatementImpl(cd, cd.getContext(), varTableEntry.nameToken, null,
+									null));
 						}
 					}
 				}
@@ -114,9 +117,9 @@ public class WlGenerateCtor implements WorkJob {
 			OS_Element classStatement_ = cd.getParent();
 			assert classStatement_ instanceof ClassStatement;
 
-			ClassStatement             classStatement = (ClassStatement) classStatement_;
-			Collection<ConstructorDef> cs             = classStatement.getConstructors();
-			ConstructorDef             c              = null;
+			ClassStatement classStatement = (ClassStatement) classStatement_;
+			Collection<ConstructorDef> cs = classStatement.getConstructors();
+			ConstructorDef c = null;
 			if (constructorName != null) {
 				for (ConstructorDef cc : cs) {
 					if (cc.name().equals(constructorName.getText())) {
@@ -126,7 +129,7 @@ public class WlGenerateCtor implements WorkJob {
 				}
 			} else {
 				// TODO match based on arguments
-				ProcTableEntry       pte  = functionInvocation.pte;
+				ProcTableEntry pte = functionInvocation.pte;
 				List<TypeTableEntry> args = pte.getArgs();
 				// isResolved -> GeneratedNode, etc or getAttached -> OS_Element
 				for (ConstructorDef cc : cs) {
@@ -163,7 +166,9 @@ public class WlGenerateCtor implements WorkJob {
 				}
 			}
 
-			@NotNull EvaConstructor gf = generateFunctions.generateConstructor(cd, (ClassStatement) classStatement_, functionInvocation);
+			@NotNull
+			EvaConstructor gf = generateFunctions.generateConstructor(cd, (ClassStatement) classStatement_,
+					functionInvocation);
 //		lgf.add(gf);
 
 			final ClassInvocation ci = functionInvocation.getClassInvocation();

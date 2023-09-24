@@ -62,14 +62,16 @@ public abstract class EvaContainerNC extends AbstractDependencyTracker implement
 			return null;
 		}
 	}
-	static @NotNull Diagnostic                                 _def_VarNotFound     = new VarNotFound();
-	private final   Dependency                                 dependency           = new Dependency(this);
-	public @NotNull Map<ClassStatement, EvaClass>              classMap             = new HashMap<ClassStatement, EvaClass>();
-	public @NotNull Map<FunctionDef, EvaFunction>              functionMap          = new HashMap<FunctionDef, EvaFunction>();
-	public @NotNull List<VarTableEntry>                        varTable             = new ArrayList<VarTableEntry>();
-	@NotNull        Multimap<FunctionDef, FunctionMapDeferred> functionMapDeferreds = ArrayListMultimap.create();
 
-	private         int                                        code                 = 0;
+	static @NotNull Diagnostic _def_VarNotFound = new VarNotFound();
+	private final Dependency dependency = new Dependency(this);
+	public @NotNull Map<ClassStatement, EvaClass> classMap = new HashMap<ClassStatement, EvaClass>();
+	public @NotNull Map<FunctionDef, EvaFunction> functionMap = new HashMap<FunctionDef, EvaFunction>();
+	public @NotNull List<VarTableEntry> varTable = new ArrayList<VarTableEntry>();
+	@NotNull
+	Multimap<FunctionDef, FunctionMapDeferred> functionMapDeferreds = ArrayListMultimap.create();
+
+	private int code = 0;
 
 	public void addClass(ClassStatement aClassStatement, EvaClass aEvaClass) {
 		classMap.put(aClassStatement, aEvaClass);
@@ -79,16 +81,18 @@ public abstract class EvaContainerNC extends AbstractDependencyTracker implement
 		var functionDef = generatedFunction.getFD();
 
 		if (functionMap.containsKey(functionDef))
-			throw new IllegalStateException("Function already generated"); // TODO there can be overloads, although we don't handle that yet
+			throw new IllegalStateException("Function already generated"); // TODO there can be overloads, although we
+																			// don't handle that yet
 
 		functionMap.put(functionDef, generatedFunction);
-		functionMapDeferreds.get(functionDef).stream()
-				.forEach(deferred -> deferred.onNotify(generatedFunction));
+		functionMapDeferreds.get(functionDef).stream().forEach(deferred -> deferred.onNotify(generatedFunction));
 	}
 
-	public void addVarTableEntry(@Nullable AccessNotation an, @NotNull VariableStatement vs, final RegisterClassInvocation_env aPassthruEnv) {
+	public void addVarTableEntry(@Nullable AccessNotation an, @NotNull VariableStatement vs,
+			final RegisterClassInvocation_env aPassthruEnv) {
 		// TODO dont ignore AccessNotationImpl
-		varTable.add(new VarTableEntry(vs, vs.getNameToken(), vs.initialValue(), vs.typeName(), vs.getParent().getParent(), aPassthruEnv));
+		varTable.add(new VarTableEntry(vs, vs.getNameToken(), vs.initialValue(), vs.typeName(),
+				vs.getParent().getParent(), aPassthruEnv));
 	}
 
 	public void functionMapDeferred(final FunctionDef aFunctionDef, final FunctionMapDeferred aFunctionMapDeferred) {
@@ -123,7 +127,8 @@ public abstract class EvaContainerNC extends AbstractDependencyTracker implement
 		return new Maybe<>(null, _def_VarNotFound);
 	}
 
-	@Deprecated public abstract void setCode(int aCode);
+	@Deprecated
+	public abstract void setCode(int aCode);
 }
 
 //

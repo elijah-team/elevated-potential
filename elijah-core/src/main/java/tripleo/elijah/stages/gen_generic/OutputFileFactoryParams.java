@@ -10,14 +10,13 @@ import tripleo.elijah.world.i.WorldModule;
 
 public class OutputFileFactoryParams {
 	private final CompilationEnclosure compilationEnclosure;
-	private final WorldModule          mod;
+	private final WorldModule mod;
 
 	@Contract(pure = true)
-	public OutputFileFactoryParams(final WorldModule aMod,
-								   final CompilationEnclosure aCompilationEnclsure) {
+	public OutputFileFactoryParams(final WorldModule aMod, final CompilationEnclosure aCompilationEnclsure) {
 		mod = aMod;
 
-		//if (mod.ce != null) //!!
+		// if (mod.ce != null) //!!
 
 		compilationEnclosure = aCompilationEnclsure;
 	}

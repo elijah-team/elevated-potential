@@ -26,22 +26,20 @@ import tripleo.elijah.util.*;
  */
 public class DeduceProcCall {
 	public class DeclTarget implements DeduceElement {
-		private @NotNull
-		final DeclAnchor anchor;
-		private @NotNull
-		final OS_Element element;
+		private @NotNull final DeclAnchor anchor;
+		private @NotNull final OS_Element element;
 
 		/**
-		 * $element(FunctionDef Directory.listFiles) is a $anchorType(MEMBER) of anchorElement(ClassSt std.io::Directory)
-		 * and invocation just happens to be around (invocation.pte is the call site (MainLogic::main))
+		 * $element(FunctionDef Directory.listFiles) is a $anchorType(MEMBER) of
+		 * anchorElement(ClassSt std.io::Directory) and invocation just happens to be
+		 * around (invocation.pte is the call site (MainLogic::main))
 		 * <p>
 		 * {@link file:///./Screenshot-from-2023-08-13 12-25-11.png}
 		 */
-		public DeclTarget(final @NotNull OS_Element aBest,
-						  final @NotNull OS_Element aDeclAnchor,
-						  final @NotNull DeclAnchor.AnchorType aAnchorType) throws FCA_Stop {
+		public DeclTarget(final @NotNull OS_Element aBest, final @NotNull OS_Element aDeclAnchor,
+				final @NotNull DeclAnchor.AnchorType aAnchorType) throws FCA_Stop {
 			element = aBest;
-			anchor  = _g_deduceTypes2._inj().new_DeclAnchor(aDeclAnchor, aAnchorType);
+			anchor = _g_deduceTypes2._inj().new_DeclAnchor(aDeclAnchor, aAnchorType);
 			final IInvocation invocation;
 			switch (aAnchorType) {
 			case VAR -> {
@@ -50,10 +48,11 @@ public class DeduceProcCall {
 					System.err.println("8787 declaredTypeIsEmpty for " + ((VariableStatement) element).getName());
 					throw new FCA_Stop();
 				} else {
-					final NormalTypeName             normalTypeName = (NormalTypeName) ((VariableStatementImpl) element).typeName();
-					final LookupResultList           lrl            = normalTypeName.getContext().lookup(normalTypeName.getName());
-					final ClassStatement             classStatement = (ClassStatement) lrl.chooseBest(null);
-					final Operation<ClassInvocation> oi             = DeduceTypes2.ClassInvocationMake.withGenericPart(classStatement, null, normalTypeName, _g_deduceTypes2);
+					final NormalTypeName normalTypeName = (NormalTypeName) ((VariableStatementImpl) element).typeName();
+					final LookupResultList lrl = normalTypeName.getContext().lookup(normalTypeName.getName());
+					final ClassStatement classStatement = (ClassStatement) lrl.chooseBest(null);
+					final Operation<ClassInvocation> oi = DeduceTypes2.ClassInvocationMake
+							.withGenericPart(classStatement, null, normalTypeName, _g_deduceTypes2);
 
 					assert oi.mode() == Mode.SUCCESS;
 					invocation = oi.success();
@@ -69,7 +68,8 @@ public class DeduceProcCall {
 					}
 					if (aAnchorType == DeclAnchor.AnchorType.INHERITED) {
 						assert declaredInvocation instanceof ClassInvocation;
-						invocation = _g_deduceTypes2._inj().new_DerivedClassInvocation((ClassStatement) aDeclAnchor, (ClassInvocation) declaredInvocation, new ReadySupplier_1<>(_g_deduceTypes2));
+						invocation = _g_deduceTypes2._inj().new_DerivedClassInvocation((ClassStatement) aDeclAnchor,
+								(ClassInvocation) declaredInvocation, new ReadySupplier_1<>(_g_deduceTypes2));
 					} else {
 						invocation = declaredInvocation;
 					}
@@ -91,15 +91,16 @@ public class DeduceProcCall {
 			return element;
 		}
 	}
-	private final @NotNull ProcTableEntry                                 procTableEntry;
-	private final          DT_Resolvable11<DeduceElement>                 _pr_target  = new DT_Resolvable11<>();
-	private final          DeferredObject2<DeduceElement, FCA_Stop, Void> _p_targetP2 = new DeferredObject2<>();
-	private                Context                                        _g_context;
-	private                DeduceTypes2                                   _g_deduceTypes2;
-	private                ErrSink                                        _g_errSink;
-	private                BaseEvaFunction                                _g_generatedFunction;
 
-	private                DeduceElement                                  target;
+	private final @NotNull ProcTableEntry procTableEntry;
+	private final DT_Resolvable11<DeduceElement> _pr_target = new DT_Resolvable11<>();
+	private final DeferredObject2<DeduceElement, FCA_Stop, Void> _p_targetP2 = new DeferredObject2<>();
+	private Context _g_context;
+	private DeduceTypes2 _g_deduceTypes2;
+	private ErrSink _g_errSink;
+	private BaseEvaFunction _g_generatedFunction;
+
+	private DeduceElement target;
 
 	@Contract(pure = true)
 	public DeduceProcCall(final @NotNull ProcTableEntry aProcTableEntry) {
@@ -110,7 +111,7 @@ public class DeduceProcCall {
 				final @NotNull FunctionDef best = evaFunction.getFD();
 
 				final DeclAnchor.AnchorType anchorType = DeclAnchor.AnchorType.MEMBER;
-				final OS_Element            declAnchor = best.getParent();
+				final OS_Element declAnchor = best.getParent();
 				try {
 					setTarget(aProcTableEntry._inj().new_DeclTarget(best, declAnchor, anchorType, this));
 					_pr_target.resolve(getTarget());
@@ -130,14 +131,12 @@ public class DeduceProcCall {
 		return target;
 	}
 
-	public void setDeduceTypes2(final DeduceTypes2 aDeduceTypes2,
-								final Context aContext,
-								final BaseEvaFunction aGeneratedFunction,
-								final ErrSink aErrSink) {
-		_g_deduceTypes2      = aDeduceTypes2;
-		_g_context           = aContext;
+	public void setDeduceTypes2(final DeduceTypes2 aDeduceTypes2, final Context aContext,
+			final BaseEvaFunction aGeneratedFunction, final ErrSink aErrSink) {
+		_g_deduceTypes2 = aDeduceTypes2;
+		_g_context = aContext;
 		_g_generatedFunction = aGeneratedFunction;
-		_g_errSink           = aErrSink;
+		_g_errSink = aErrSink;
 	}
 
 	public void setTarget(DeduceElement aTarget) {

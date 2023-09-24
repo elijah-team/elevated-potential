@@ -7,17 +7,17 @@ import tripleo.elijah.stages.instructions.Instruction;
 import tripleo.elijah.stages.instructions.InstructionArgument;
 
 public class __Rider__Implement_construct {
-	private final          InstructionArgument expression;
-	private final          BaseEvaFunction     generatedFunction;
-	private final          Instruction         instruction;
-	private final @NotNull ProcTableEntry      pte;
+	private final InstructionArgument expression;
+	private final BaseEvaFunction generatedFunction;
+	private final Instruction instruction;
+	private final @NotNull ProcTableEntry pte;
 
 	public __Rider__Implement_construct(BaseEvaFunction generatedFunction2, Instruction instruction2,
-										InstructionArgument expression2, @NotNull ProcTableEntry pte2) {
+			InstructionArgument expression2, @NotNull ProcTableEntry pte2) {
 		generatedFunction = generatedFunction2;
-		instruction       = instruction2;
-		expression        = expression2;
-		pte               = pte2;
+		instruction = instruction2;
+		expression = expression2;
+		pte = pte2;
 	}
 
 	public InstructionArgument getExpression() {

@@ -19,16 +19,17 @@ import java.util.List;
  */
 public class ClassHeaderImpl implements tripleo.elijah.lang.i.ClassHeader {
 	List<AnnotationClause> annos = new ArrayList<>();
-	boolean                extends_;
-	TypeNameList           genericPart;
-	@NotNull ClassInheritance inh = new ClassInheritanceImpl();
-	private  boolean          isConst;
+	boolean extends_;
+	TypeNameList genericPart;
+	@NotNull
+	ClassInheritance inh = new ClassInheritanceImpl();
+	private boolean isConst;
 	IdentExpression nameToken;
-	ClassTypes      type;
+	ClassTypes type;
 
 	public ClassHeaderImpl(boolean aExtends, List<AnnotationClause> as) {
 		extends_ = aExtends;
-		annos    = as;
+		annos = as;
 	}
 
 	@Override

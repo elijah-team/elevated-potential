@@ -19,19 +19,21 @@ import tripleo.elijah.world.WorldGlobals;
 import java.util.List;
 
 class FnCallArgs_Statement2 implements EG_Statement {
-	private final GenerateC                    generateC;
-	private final ProcTableEntry               pte;
+	private final GenerateC generateC;
+	private final ProcTableEntry pte;
 	private final GenerateC.GetAssignmentValue getAssignmentValue;
-	private final Instruction                  inst;
-	private final BaseEvaFunction              gf;
-	private final ElLog                        LOG;
+	private final Instruction inst;
+	private final BaseEvaFunction gf;
+	private final ElLog LOG;
 
-	public FnCallArgs_Statement2(final GenerateC aGenerateC, final BaseEvaFunction aGf, final ElLog aLOG, final Instruction aInst, final ProcTableEntry aPte, final GenerateC.GetAssignmentValue aGetAssignmentValue) {
-		generateC          = aGenerateC;
-		gf                 = aGf;
-		LOG                = aLOG;
-		inst               = aInst;
-		pte                = aPte;
+	public FnCallArgs_Statement2(final GenerateC aGenerateC, final BaseEvaFunction aGf, final ElLog aLOG,
+			final Instruction aInst, final ProcTableEntry aPte,
+			final GenerateC.GetAssignmentValue aGetAssignmentValue) {
+		generateC = aGenerateC;
+		gf = aGf;
+		LOG = aLOG;
+		inst = aInst;
+		pte = aPte;
 		getAssignmentValue = aGetAssignmentValue;
 	}
 
@@ -51,12 +53,11 @@ class FnCallArgs_Statement2 implements EG_Statement {
 			final IdentTableEntry idte = ia2.getEntry();
 			if (idte.getStatus() == BaseTableEntry.Status.UNCHECKED) {
 
-				//final DeduceTypes2                   deduceTypes2 = pte.getDeduceElement3().deduceTypes2();
-				//final BaseEvaFunction                gf1          = ia2.gf;
+				// final DeduceTypes2 deduceTypes2 = pte.getDeduceElement3().deduceTypes2();
+				// final BaseEvaFunction gf1 = ia2.gf;
 
-				final DeduceTypes2    deduceTypes2 = idte._deduceTypes2();
-				final BaseEvaFunction gf1          = idte._generatedFunction();
-
+				final DeduceTypes2 deduceTypes2 = idte._deduceTypes2();
+				final BaseEvaFunction gf1 = idte._generatedFunction();
 
 				final DeduceElement3_IdentTableEntry de3_idte = idte.getDeduceElement3(deduceTypes2, gf1);
 				de3_idte.sneakResolve();
@@ -64,12 +65,13 @@ class FnCallArgs_Statement2 implements EG_Statement {
 			}
 
 			if (idte.getStatus() == BaseTableEntry.Status.KNOWN) {
-				final CReference         reference          = new CReference(aGenerateC._repo, aGenerateC.ce);
+				final CReference reference = new CReference(aGenerateC._repo, aGenerateC.ce);
 				final FunctionInvocation functionInvocation = pte.getFunctionInvocation();
 				if (functionInvocation == null || functionInvocation.getFunction() == WorldGlobals.defaultVirtualCtor) {
 					reference.getIdentIAPath(ia2, Generate_Code_For_Method.AOG.GET, null);
-					final GetAssignmentValueArgsStatement ava = getAssignmentValue.getAssignmentValueArgs(inst, gf, generateC.LOG);
-					final List<String>                    sll                 = ava.stringList();
+					final GetAssignmentValueArgsStatement ava = getAssignmentValue.getAssignmentValueArgs(inst, gf,
+							generateC.LOG);
+					final List<String> sll = ava.stringList();
 					reference.args(sll);
 					String path = reference.build();
 					sb.append(Emit.emit("/*829*/") + path);
@@ -78,8 +80,9 @@ class FnCallArgs_Statement2 implements EG_Statement {
 					if (idte.resolvedType() == null && pte_generated != null)
 						idte.resolveTypeToClass(pte_generated);
 					reference.getIdentIAPath(ia2, Generate_Code_For_Method.AOG.GET, null);
-					final GetAssignmentValueArgsStatement ava = getAssignmentValue.getAssignmentValueArgs(inst, gf, generateC.LOG);
-					final List<String>                    sll                 = ava.stringList();
+					final GetAssignmentValueArgsStatement ava = getAssignmentValue.getAssignmentValueArgs(inst, gf,
+							generateC.LOG);
+					final List<String> sll = ava.stringList();
 					reference.args(sll);
 					String path = reference.build();
 					sb.append(Emit.emit("/*827*/") + path);
@@ -87,7 +90,7 @@ class FnCallArgs_Statement2 implements EG_Statement {
 			} else {
 				ZonePath zone_path = aGenerateC._zone.getPath(ia2);
 
-				//08/13 System.out.println("763 " + zone_path);
+				// 08/13 System.out.println("763 " + zone_path);
 
 				final String path = gf.getIdentIAPathNormal(ia2);
 				sb.append(Emit.emit("/*828*/") + String.format("%s is UNKNOWN", path));

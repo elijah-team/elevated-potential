@@ -36,16 +36,17 @@ import static tripleo.elijah.util.Helpers.*;
 public class WritePipeline implements PipelineMember, Consumer<Supplier<GenerateResult>>, AB_GenerateResultListener {
 	private static class CompletedItemsHandler {
 		// README debugging purposes
-		private final          List<GenerateResultItem>                 abs  = new ArrayList<>();
-		private final          Multimap<Dependency, GenerateResultItem> gris = ArrayListMultimap.create();
-		private final @NotNull ElLog                                    LOG;
-		private final          WritePipelineSharedState                 sharedState;
-		private                Observer<GenerateResultItem>             observer;
+		private final List<GenerateResultItem> abs = new ArrayList<>();
+		private final Multimap<Dependency, GenerateResultItem> gris = ArrayListMultimap.create();
+		private final @NotNull ElLog LOG;
+		private final WritePipelineSharedState sharedState;
+		private Observer<GenerateResultItem> observer;
 
 		public CompletedItemsHandler(final WritePipelineSharedState aSharedState) {
 			sharedState = aSharedState;
 
-			final ElLog.Verbosity verbosity = sharedState.c.cfg().silent ? ElLog.Verbosity.SILENT : ElLog.Verbosity.VERBOSE;
+			final ElLog.Verbosity verbosity = sharedState.c.cfg().silent ? ElLog.Verbosity.SILENT
+					: ElLog.Verbosity.VERBOSE;
 
 			LOG = new ElLog("(WRITE-PIPELINE)", verbosity, "(write-pipeline)");
 
@@ -86,17 +87,16 @@ public class WritePipeline implements PipelineMember, Consumer<Supplier<Generate
 					sharedState.lsp_outputs.put(generateResultItem.lsp().getInstructions(), output1);
 				}
 
-				//for (Map.Entry<Dependency, Collection<GenerateResultItem>> entry : gris.asMap().entrySet()) {
-				//	System.out.println(entry.getKey().jsonString());
-				//	System.out.println(entry.getValue());
-				//}
+				// for (Map.Entry<Dependency, Collection<GenerateResultItem>> entry :
+				// gris.asMap().entrySet()) {
+				// System.out.println(entry.getKey().jsonString());
+				// System.out.println(entry.getValue());
+				// }
 
-/*
-				if (gris.containsKey(dependency))
-					System.out.println("*** 235 yes");
-				else
-					System.out.println("*** 235 no");
-*/
+				/*
+				 * if (gris.containsKey(dependency)) System.out.println("*** 235 yes"); else
+				 * System.out.println("*** 235 no");
+				 */
 
 				gris.removeAll(dependency);
 			}
@@ -108,7 +108,7 @@ public class WritePipeline implements PipelineMember, Consumer<Supplier<Generate
 			final @NotNull GenerateResult generateResult = sharedState.getGr();
 
 			generateResult.outputFiles((final @NotNull Map<String, OutputFileC> outputFiles) -> {
-				//08/13 System.err.println("252252"); // 06/16
+				// 08/13 System.err.println("252252"); // 06/16
 			});
 		}
 
@@ -141,11 +141,11 @@ public class WritePipeline implements PipelineMember, Consumer<Supplier<Generate
 	}
 
 	public final DeferredObject<GenerateResult, Void, Void> generateResultPromise = new DeferredObject<>();
-	public final @NotNull  WritePipelineSharedState                                                 st;
-	private final @NotNull CompletedItemsHandler                                                    cih;
-	private final @NotNull DoubleLatch<GenerateResult>                                              latch;
+	public final @NotNull WritePipelineSharedState st;
+	private final @NotNull CompletedItemsHandler cih;
+	private final @NotNull DoubleLatch<GenerateResult> latch;
 
-	private                HashMap<WP_Indiviual_Step, Pair<WP_Flow.FlowStatus, Operation<Boolean>>> ops;
+	private HashMap<WP_Indiviual_Step, Pair<WP_Flow.FlowStatus, Operation<Boolean>>> ops;
 
 	public WritePipeline(final @NotNull IPipelineAccess pa) {
 		st = new WritePipelineSharedState(pa);
@@ -160,16 +160,17 @@ public class WritePipeline implements PipelineMember, Consumer<Supplier<Generate
 			final WP_Indiviual_Step wpis_wi = new WPIS_WriteInputs();
 			final WP_Indiviual_Step wpis_wb = new WPIS_WriteBuffers(this);
 
-			// TODO: Do something with op, like set in {@code pa} to proceed to next pipeline
+			// TODO: Do something with op, like set in {@code pa} to proceed to next
+			// pipeline
 			final WP_Flow f = new WP_Flow(this, List_of(wpis_go, wpis_wi, wpis_wb));
 
 			ops = f.act();
 		});
 
 		// state
-		st.mmb         = ArrayListMultimap.create();
+		st.mmb = ArrayListMultimap.create();
 		st.lsp_outputs = ArrayListMultimap.create();
-		st.grs         = pa.getGenerateResultSink();
+		st.grs = pa.getGenerateResultSink();
 
 		// ??
 		st.sys = new ElSystem(false, st.c, this::createOutputStratgy);
@@ -181,13 +182,13 @@ public class WritePipeline implements PipelineMember, Consumer<Supplier<Generate
 
 		pa.setWritePipeline(this);
 
-		//st.outputs = pa.getOutputs();
+		// st.outputs = pa.getOutputs();
 	}
 
 	@Override
 	public void accept(final @NotNull Supplier<GenerateResult> aGenerateResultSupplier) {
 		final GenerateResult gr = aGenerateResultSupplier.get();
-		int                  y  = 2;
+		int y = 2;
 	}
 
 	public @NotNull Consumer<Supplier<GenerateResult>> consumer() {
@@ -204,7 +205,8 @@ public class WritePipeline implements PipelineMember, Consumer<Supplier<Generate
 		};
 	}
 
-	@NotNull OutputStrategy createOutputStratgy() {
+	@NotNull
+	OutputStrategy createOutputStratgy() {
 		final OutputStrategy os = new OutputStrategy();
 		os.per(OutputStrategy.Per.PER_CLASS); // TODO this needs to be configured per lsp
 

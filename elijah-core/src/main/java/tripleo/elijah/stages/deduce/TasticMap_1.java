@@ -8,7 +8,6 @@ import java.util.Map;
 class TasticMap_1 implements ITasticMap {
 	private final Map<Object, ITastic> _map_tasticMap = new HashMap<>();
 
-
 	@Override
 	public boolean containsKey(final Object aO) {
 		return _map_tasticMap.containsKey(aO);

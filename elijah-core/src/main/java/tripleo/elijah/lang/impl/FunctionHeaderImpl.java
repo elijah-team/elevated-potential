@@ -17,10 +17,10 @@ import tripleo.elijah.lang.i.TypeName;
  * Created 8/23/21 2:32 AM
  */
 public class FunctionHeaderImpl implements tripleo.elijah.lang.i.FunctionHeader {
-	private FormalArgList     fal;
+	private FormalArgList fal;
 	private FunctionModifiers mod;
-	private IdentExpression   name;
-	private TypeName          ret;
+	private IdentExpression name;
+	private TypeName ret;
 
 	@Override
 	public FormalArgList getFal() {

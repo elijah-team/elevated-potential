@@ -23,9 +23,11 @@ public class CompilationRunner extends _RegistrationTarget {
 
 			@Override
 			public void apply(final DefaultStateful element) {
-				//final VariableTableEntry vte = ((DeduceElement3_VariableTableEntry) element).principal;
+				// final VariableTableEntry vte = ((DeduceElement3_VariableTableEntry)
+				// element).principal;
 
-				//final DeduceTypes2         dt2     = ((DeduceElement3_VariableTableEntry) element).deduceTypes2();
+				// final DeduceTypes2 dt2 = ((DeduceElement3_VariableTableEntry)
+				// element).deduceTypes2();
 			}
 
 			@Override
@@ -38,18 +40,21 @@ public class CompilationRunner extends _RegistrationTarget {
 				identity = aId;
 			}
 		}
+
 		static class ExitResolveState implements State {
 
 			private StateRegistrationToken identity;
 
 			@Override
 			public void apply(final DefaultStateful element) {
-				//final VariableTableEntry vte = ((DeduceElement3_VariableTableEntry) element).principal;
+				// final VariableTableEntry vte = ((DeduceElement3_VariableTableEntry)
+				// element).principal;
 			}
 
 			@Override
 			public boolean checkState(final DefaultStateful aElement3) {
-				//return ((DeduceElement3_VariableTableEntry) aElement3).st == DeduceElement3_VariableTableEntry.ST.INITIAL;
+				// return ((DeduceElement3_VariableTableEntry) aElement3).st ==
+				// DeduceElement3_VariableTableEntry.ST.INITIAL;
 				return false; // FIXME
 			}
 
@@ -58,6 +63,7 @@ public class CompilationRunner extends _RegistrationTarget {
 				identity = aId;
 			}
 		}
+
 		static class InitialState implements State {
 			private StateRegistrationToken identity;
 
@@ -84,26 +90,27 @@ public class CompilationRunner extends _RegistrationTarget {
 		public static State INITIAL;
 
 		public static void register(final @NotNull _RegistrationTarget art) {
-			//EXIT_RESOLVE            = registerState(new ST.ExitResolveState());
+			// EXIT_RESOLVE = registerState(new ST.ExitResolveState());
 			INITIAL = art.registerState(new ST.InitialState());
-			//EXIT_CONVERT_USER_TYPES = registerState(new ST.ExitConvertUserTypes());
+			// EXIT_CONVERT_USER_TYPES = registerState(new ST.ExitConvertUserTypes());
 		}
 	}
-	private final EzCache     ezCache = new DefaultEzCache();
-	private final Compilation _compilation;
-	private final          ICompilationBus cb;
-	@Getter
-	private final          CR_State        crState;
-	@Getter
-	private final @NotNull IProgressSink   progressSink;
-	private final @NotNull CCI             cci;
-	private final          EzM             ezm = new EzM();
-	@Getter
-	private final          CIS             cis;
-	private                CB_StartCompilationRunnerAction startAction;
-	private                CR_FindCIs                      cr_find_cis;
 
-	private                CR_AlmostComplete               _CR_AlmostComplete;
+	private final EzCache ezCache = new DefaultEzCache();
+	private final Compilation _compilation;
+	private final ICompilationBus cb;
+	@Getter
+	private final CR_State crState;
+	@Getter
+	private final @NotNull IProgressSink progressSink;
+	private final @NotNull CCI cci;
+	private final EzM ezm = new EzM();
+	@Getter
+	private final CIS cis;
+	private CB_StartCompilationRunnerAction startAction;
+	private CR_FindCIs cr_find_cis;
+
+	private CR_AlmostComplete _CR_AlmostComplete;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
 		_compilation = aca.getCompilation();
@@ -111,19 +118,20 @@ public class CompilationRunner extends _RegistrationTarget {
 		_compilation.getCompilationEnclosure().setCompilationAccess(aca);
 
 		cis = _compilation._cis();
-		cb  = _compilation.getCompilationEnclosure().getCompilationBus();
+		cb = _compilation.getCompilationEnclosure().getCompilationBus();
 
 		assert cb != null;
 
 		progressSink = cb.defaultProgressSink();
 
-		cci     = new DefaultCCI(_compilation, cis, progressSink);
+		cci = new DefaultCCI(_compilation, cis, progressSink);
 		crState = aCrState;
 
 		CompilationRunner.ST.register(this);
 	}
 
-	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState, final Supplier<DefaultCompilationBus> scb) {
+	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState,
+			final Supplier<DefaultCompilationBus> scb) {
 		_compilation = aca.getCompilation();
 
 		_compilation.getCompilationEnclosure().setCompilationAccess(aca);
@@ -141,7 +149,7 @@ public class CompilationRunner extends _RegistrationTarget {
 
 		progressSink = cb.defaultProgressSink();
 
-		cci     = new DefaultCCI(_compilation, cis, progressSink);
+		cci = new DefaultCCI(_compilation, cis, progressSink);
 		crState = aCrState;
 
 		CompilationRunner.ST.register(this);
@@ -155,11 +163,9 @@ public class CompilationRunner extends _RegistrationTarget {
 		return cis;
 	}
 
-
 	public Compilation c() {
 		return _compilation;
 	}
-
 
 	public CR_AlmostComplete cr_AlmostComplete() {
 		if (this._CR_AlmostComplete == null) {
@@ -185,7 +191,8 @@ public class CompilationRunner extends _RegistrationTarget {
 	}
 
 	public void logProgress(final int number, final String text) {
-		if (number == 130) return;
+		if (number == 130)
+			return;
 
 		tripleo.elijah.util.Stupidity.println_err_3("%d %s".formatted(number, text));
 	}
@@ -200,16 +207,12 @@ public class CompilationRunner extends _RegistrationTarget {
 	}
 
 	/**
-	 * - I don't remember what absolutePath is for
-	 * - Cache doesn't add to QueryDB
+	 * - I don't remember what absolutePath is for - Cache doesn't add to QueryDB
 	 * <p>
-	 * STEPS
-	 * ------
+	 * STEPS ------
 	 * <p>
-	 * 1. Get absolutePath
-	 * 2. Check cache, return early
-	 * 3. Parse (Query is incorrect I think)
-	 * 4. Cache new result
+	 * 1. Get absolutePath 2. Check cache, return early 3. Parse (Query is incorrect
+	 * I think) 4. Cache new result
 	 *
 	 * @param spec
 	 * @param cache
@@ -245,13 +248,13 @@ public class CompilationRunner extends _RegistrationTarget {
 
 //		return oci;
 
-		File f   = p.f();
+		File f = p.f();
 		try {
 			InputStream s = p.cc().getCompilation().getIO().readFile(f);
 			var oci2 = realParseEzFile(new EzSpec(p.file_name(), s, f), ezCache);
 			return oci2;
 		} catch (FileNotFoundException aE) {
-            throw new RuntimeException(aE);
+			throw new RuntimeException(aE);
 		}
 	}
 

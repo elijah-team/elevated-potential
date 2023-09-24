@@ -13,15 +13,14 @@ import java.util.function.*;
 
 public class CD_FindStdLibImpl implements CD_FindStdLib {
 	public @NotNull Operation<CompilerInstructions> _____findStdLib(final @NotNull String prelude_name,
-																	final @NotNull CompilationClosure cc,
-																	final @NotNull CompilationRunner cr) {
+			final @NotNull CompilationClosure cc, final @NotNull CompilationRunner cr) {
 
 		var slr = cc.getCompilation().paths().stdlibRoot();
-		var pl  = slr.child("lib-" + prelude_name);
+		var pl = slr.child("lib-" + prelude_name);
 		var sle = pl.child("stdlib.ez");
 
 		var local_stdlib_1 = sle.toFile();
-		System.err.println("3939 "+local_stdlib_1);
+		System.err.println("3939 " + local_stdlib_1);
 
 		// TODO stdlib path here
 		final File local_stdlib = new File("lib_elijjah/lib-" + prelude_name + "/stdlib.ez");
@@ -32,8 +31,8 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 				final String name = local_stdlib.getName();
 
 				// TODO really want EIT_Input or CK_SourceFile here 07/01
-				final SourceFileParserParams p    = new SourceFileParserParams(null, local_stdlib, name, cc);
-				final QuerySourceFileParser  qsfp = new QuerySourceFileParser(cr);
+				final SourceFileParserParams p = new SourceFileParserParams(null, local_stdlib, name, cc);
+				final QuerySourceFileParser qsfp = new QuerySourceFileParser(cr);
 				oci = qsfp.process(p);
 
 				if (oci.mode() == Mode.SUCCESS) {
@@ -52,21 +51,22 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 		}
 
 		return Objects.requireNonNull(oci);
-		//return Operation.failure(new Exception() {
-		//	public String message() {
-		//		return "No stdlib found";
-		//	}
-		//});
+		// return Operation.failure(new Exception() {
+		// public String message() {
+		// return "No stdlib found";
+		// }
+		// });
 	}
 
 	@Override
-	public void findStdLib(final @NotNull CR_State crState,
-						   final @NotNull String aPreludeName,
-						   final @NotNull Consumer<Operation<CompilerInstructions>> coci) {
+	public void findStdLib(final @NotNull CR_State crState, final @NotNull String aPreludeName,
+			final @NotNull Consumer<Operation<CompilerInstructions>> coci) {
 		try {
 			final CompilationRunner compilationRunner = crState.runner();
 
-			@NotNull final Operation<CompilerInstructions> oci = _____findStdLib(aPreludeName, compilationRunner._accessCompilation().getCompilationClosure(), compilationRunner);
+			@NotNull
+			final Operation<CompilerInstructions> oci = _____findStdLib(aPreludeName,
+					compilationRunner._accessCompilation().getCompilationClosure(), compilationRunner);
 			coci.accept(oci);
 		} catch (Exception aE) {
 			throw new RuntimeException(aE);

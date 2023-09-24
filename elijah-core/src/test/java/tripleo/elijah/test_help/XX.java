@@ -19,17 +19,17 @@ public class XX {
 	}
 
 	public @NotNull TypeTableEntry regularTypeName_specifyTableEntry(final IdentExpression aIdentExpression,
-																	 final @NotNull BaseEvaFunction aBaseGeneratedFunction,
-																	 final @NotNull String aTypeName) {
+			final @NotNull BaseEvaFunction aBaseGeneratedFunction, final @NotNull String aTypeName) {
 		final RegularTypeName typeName = RegularTypeName.makeWithStringTypeName(aTypeName);
-		final OS_Type         type     = new OS_UserType(typeName);
-		final TypeTableEntry  tte      = aBaseGeneratedFunction.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, type, aIdentExpression);
+		final OS_Type type = new OS_UserType(typeName);
+		final TypeTableEntry tte = aBaseGeneratedFunction.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, type,
+				aIdentExpression);
 
 		return tte;
 	}
 
 	public @NotNull VariableStatementImpl sequenceAndVarNamed(final IdentExpression aIdentExpression) {
-		final VariableSequenceImpl  seq   = new VariableSequenceImpl();
+		final VariableSequenceImpl seq = new VariableSequenceImpl();
 		final VariableStatementImpl x_var = new VariableStatementImpl(seq);
 
 		x_var.setName(aIdentExpression);

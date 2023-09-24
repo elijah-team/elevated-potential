@@ -24,29 +24,30 @@ import java.util.Collection;
 public class F202 {
 	private final ErrSink errSink;
 	GetLogDirectoryBehavior gld;
-	GetLogNameBehavior      gln;
+	GetLogNameBehavior gln;
 	ProcessLogEntryBehavior ple;
-	ProgressBehavior        pre;
+	ProgressBehavior pre;
 
 	public F202(ErrSink aErrSink, Compilation c) {
 		errSink = aErrSink;
-		gld     = new DefaultGetLogDirectoryBehavior(c);
-		gln     = new DefaultGetLogNameBehavior();
-		ple     = new DefaultProcessLogEntryBehavior();
-		pre     = new DefaultProgressBehavior();
+		gld = new DefaultGetLogDirectoryBehavior(c);
+		gln = new DefaultGetLogNameBehavior();
+		ple = new DefaultProcessLogEntryBehavior();
+		pre = new DefaultProgressBehavior();
 	}
 
 	public void processLogs(@NotNull Collection<ElLog> aElLogs) {
-		//if (aElLogs.size() == 0) return; // TODO progress message? should be impossible anyway
+		// if (aElLogs.size() == 0) return; // TODO progress message? should be
+		// impossible anyway
 		Preconditions.checkArgument(aElLogs.size() > 0);
 
 		ElLog firstLog = aElLogs.iterator().next();
 
-		final String s2    = gln.getLogName(firstLog);
-		final File   file2 = gld.getLogDirectory();
+		final String s2 = gln.getLogName(firstLog);
+		final File file2 = gld.getLogDirectory();
 
-		final File   psf = new File(file2, s2);
-		final String s1  = firstLog.getFileName();
+		final File psf = new File(file2, s2);
+		final String s1 = firstLog.getFileName();
 		pre.reportProgress(psf.toString());
 
 		ple.initialize(psf, s1, errSink);

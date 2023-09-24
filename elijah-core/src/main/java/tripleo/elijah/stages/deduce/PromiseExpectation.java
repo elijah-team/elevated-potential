@@ -2,18 +2,18 @@ package tripleo.elijah.stages.deduce;
 
 public class PromiseExpectation<B> {
 
-	private final DeduceTypes2                 deduceTypes2;
+	private final DeduceTypes2 deduceTypes2;
 	private final DeduceTypes2.ExpectationBase base;
-	private final String                       desc;
-	private       boolean                      _printed;
-	private       long                         counter;
-	private       B                            result;
-	private       boolean                      satisfied;
+	private final String desc;
+	private boolean _printed;
+	private long counter;
+	private B result;
+	private boolean satisfied;
 
 	public PromiseExpectation(final DeduceTypes2 aDeduceTypes2, DeduceTypes2.ExpectationBase aBase, String aDesc) {
 		deduceTypes2 = aDeduceTypes2;
-		base         = aBase;
-		desc         = aDesc;
+		base = aBase;
+		desc = aDesc;
 	}
 
 	public void fail() {
@@ -29,11 +29,12 @@ public class PromiseExpectation<B> {
 
 	public void satisfy(B aResult) {
 		final String satisfied_already = satisfied ? " already" : "";
-		//assert !satisfied;
+		// assert !satisfied;
 		if (!satisfied) {
-			result    = aResult;
+			result = aResult;
 			satisfied = true;
-			deduceTypes2.LOG.info(String.format("Expectation (%s, %d)%s met: %s %s", deduceTypes2, counter, satisfied_already, desc, base.expectationString()));
+			deduceTypes2.LOG.info(String.format("Expectation (%s, %d)%s met: %s %s", deduceTypes2, counter,
+					satisfied_already, desc, base.expectationString()));
 		}
 	}
 

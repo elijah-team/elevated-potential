@@ -17,11 +17,11 @@ import tripleo.elijah.stages.gen_fn.ConstantTableEntry;
  */
 public class ConstTableIA implements InstructionArgument {
 	private final BaseEvaFunction gf;
-	private final int             index;
+	private final int index;
 
 	public ConstTableIA(final int index, final BaseEvaFunction generatedFunction) {
 		this.index = index;
-		this.gf    = generatedFunction;
+		this.gf = generatedFunction;
 	}
 
 	public @NotNull ConstantTableEntry getEntry() {
@@ -35,7 +35,7 @@ public class ConstTableIA implements InstructionArgument {
 	@Override
 	public String toString() {
 		final ConstantTableEntry constantTableEntry = gf.cte_list.get(index);
-		final String             name               = constantTableEntry.getName();
+		final String name = constantTableEntry.getName();
 		if (name != null)
 			return String.format("(ct %d) [%s=%s]", index, name, constantTableEntry.initialValue);
 		else

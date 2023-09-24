@@ -10,12 +10,12 @@ import java.util.stream.*;
 
 public class ENU_LookupResult implements EN_Understanding {
 
-	private int                    level;
-	private LookupResultList       lrl;
+	private int level;
+	private LookupResultList lrl;
 	private ImmutableList<Context> contexts;
 
 	public ENU_LookupResult(@NotNull LookupResultList lrl2) {
-		this.lrl   = lrl2;
+		this.lrl = lrl2;
 		this.level = -10000;
 
 		final List<Context> collect = lrl2.results().stream().map(lr -> lr.getContext()).collect(Collectors.toList());
@@ -23,8 +23,8 @@ public class ENU_LookupResult implements EN_Understanding {
 	}
 
 	public ENU_LookupResult(LookupResultList aLrl, int aLevel, ImmutableList<Context> aContexts) {
-		this.lrl      = aLrl;
-		this.level    = aLevel;
+		this.lrl = aLrl;
+		this.level = aLevel;
 		this.contexts = aContexts;
 	}
 
