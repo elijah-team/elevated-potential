@@ -57,7 +57,7 @@ public class IO {
 	}
 
 	public boolean recordedRead(final File file) {
-		return recordedreads.contains(file);
+		return recordedreads.stream().anyMatch(x-> Objects.equals(x.getFile().getAbsolutePath(), file.getAbsolutePath()));
 	}
 
 	public boolean recordedWrite(final File file) {
