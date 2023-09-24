@@ -18,6 +18,7 @@ import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
+import tripleo.elijah.world.*;
 
 import java.io.File;
 
@@ -178,7 +179,7 @@ public class OutputStrategyC {
 		case PER_PACKAGE -> {
 			final OS_Package pkg2 = aEvaClass.getKlass().getPackageName();
 			String pkgName;
-			if (pkg2 != OS_Package.default_package) { // FIXME ??
+			if (pkg2 != WorldGlobals.default_package) { // FIXME ??
 				pkgName = "__default_package-224";
 			} else {
 				pkgName = pkg2.getName();
@@ -201,7 +202,7 @@ public class OutputStrategyC {
 		final OS_Package pkg;
 
 		final String dir0;
-		if (pkg0 != OS_Package.default_package) {
+		if (pkg0 != WorldGlobals.default_package) {
 			if (pkg0 == null) {
 				pkg = findPackage(aEvaClass.getKlass());
 			} else {
@@ -262,7 +263,7 @@ public class OutputStrategyC {
 
 	private String n_pkg(final @NotNull EvaNamespace generatedNamespace, @Nullable OS_Package pkg) {
 		final String name0;
-		if (pkg != OS_Package.default_package) {
+		if (pkg != WorldGlobals.default_package) {
 			if (pkg == null)
 				pkg = findPackage(generatedNamespace.getNamespaceStatement());
 			name0 = pkg.getName();
