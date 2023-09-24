@@ -17,15 +17,16 @@ import static tripleo.elijah.nextgen.query.Mode.*;
 class EzM {
 	private final CompilationEnclosure ce;
 	private final QueryEzFileToModule  query;
-	private final EzCache              ezCache;
+	private /*final*/ EzCache              ezCache;
 
 	EzM(CompilationEnclosure aCe) {
 		ce    = aCe;
 		query = new QueryEzFileToModule();
 
-		var cr1 = ce.getCompilationRunner();
-		assert cr1 != null;
-		ezCache = cr1.ezCache();
+		ce.waitCompilationRunner(cr1 -> {
+			assert cr1 != null;
+			ezCache = cr1.ezCache();
+		} );
 	}
 
 	private void logProgress(final IProgressSink.Codes code, final String message) {

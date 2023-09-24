@@ -16,6 +16,7 @@ import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 import tripleo.elijah.world.i.*;
 
 import java.util.*;
+import java.util.function.*;
 
 public interface CompilationEnclosure {
 	void addEntryPoint(@NotNull Mirror_EntryPoint aMirrorEntryPoint, IClassGenerator dcg);
@@ -96,4 +97,6 @@ public interface CompilationEnclosure {
 	void AssertOutFile_Namespace(OutputStrategyC.OSC_NFN aNfn, NG_OutputRequest aOutputRequest);
 
 	void _resolvePipelineAccessPromise(IPipelineAccess aPa);
+
+	void waitCompilationRunner(Consumer<CompilationRunner> ccr);
 }
