@@ -248,12 +248,8 @@ public class CompilationRunner extends _RegistrationTarget {
 			_compilation.getInputTree().setNodeOperation(input, oci);
 		}
 
-//		return oci;
-
-		File f = p.f();
 		try {
-//			InputStream s = p.cc().getCompilation().getIO().readFile(f);
-			var oci2 = realParseEzFile(p.getEzSpec()/*new EzSpec(p.file_name(), s, f)*/, ezCache);
+			var oci2 = realParseEzFile(p.getEzSpec(), ezCache);
 			return oci2;
 		} catch (FileNotFoundException aE) {
 			throw new RuntimeException(aE);
