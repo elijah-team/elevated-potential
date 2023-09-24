@@ -4,6 +4,7 @@ import antlr.*;
 import io.reactivex.rxjava3.core.Observer;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
+import tripleo.elijah.ci_impl.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.*;
@@ -120,6 +121,14 @@ public interface Compilation {
 
 		public IExpression newSubExpressionImpl(final IExpression aEe) {
 			return new SubExpressionImpl(aEe);
+		}
+
+		public CiExpressionList newCiExpressionListImpl() {
+			return new CiExpressionListImpl();
+		}
+
+		public CiProcedureCallExpression newCiProcedureCallExpressionImpl() {
+			return new CiProcedureCallExpressionImpl();
 		}
 	}
 
