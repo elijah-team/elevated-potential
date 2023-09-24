@@ -7,25 +7,9 @@ import tripleo.elijah.comp.i.*;
 import java.util.*;
 
 public class DeducePipelineImpl {
-	static class DeducePipelineImplInjector {
-		public PipelineLogicRunnable new_PL_AddModules(final @NotNull IPipelineAccess aPipelineAccess) {
-			return new PL_AddModules(aPipelineAccess);
-		}
-
-		public PipelineLogicRunnable new_PL_EverythingBeforeGenerate() {
-			return new PL_EverythingBeforeGenerate();
-		}
-
-		public PipelineLogicRunnable new_PL_SaveGeneratedClasses(final IPipelineAccess aPa) {
-			return new PL_SaveGeneratedClasses(aPa);
-		}
-	}
-
 	private final @NotNull IPipelineAccess pa;
-
 	@SuppressWarnings("TypeMayBeWeakened")
 	private final List<PipelineLogicRunnable> plrs = new ArrayList<>();
-
 	private final DeducePipelineImplInjector __inj = new DeducePipelineImplInjector();
 
 	public DeducePipelineImpl(final @NotNull IPipelineAccess pa0) {
@@ -45,14 +29,28 @@ public class DeducePipelineImpl {
 	}
 
 	public void run() {
-		final Compilation c = pa.getCompilation();
+		final Compilation          c                    = pa.getCompilation();
 		final CompilationEnclosure compilationEnclosure = c.getCompilationEnclosure();
-		final PipelineLogic pipelineLogic = compilationEnclosure.getPipelineLogic();
+		final PipelineLogic        pipelineLogic        = compilationEnclosure.getPipelineLogic();
 
 		assert pipelineLogic != null;
 
 		for (final PipelineLogicRunnable plr : plrs) {
 			plr.run(pipelineLogic);
+		}
+	}
+
+	static class DeducePipelineImplInjector {
+		public PipelineLogicRunnable new_PL_AddModules(final @NotNull IPipelineAccess aPipelineAccess) {
+			return new PL_AddModules(aPipelineAccess);
+		}
+
+		public PipelineLogicRunnable new_PL_EverythingBeforeGenerate() {
+			return new PL_EverythingBeforeGenerate();
+		}
+
+		public PipelineLogicRunnable new_PL_SaveGeneratedClasses(final IPipelineAccess aPa) {
+			return new PL_SaveGeneratedClasses(aPa);
 		}
 	}
 }

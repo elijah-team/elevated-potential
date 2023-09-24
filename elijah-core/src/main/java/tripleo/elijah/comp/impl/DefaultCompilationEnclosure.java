@@ -142,38 +142,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 			this.pa = pa;
 		});
 
-		compilation.world().addModuleProcess(new CompletableProcess<WorldModule>() {
-			@Override
-			public void add(final WorldModule item) {
-				// TODO Reactive pattern (aka something ala ReplaySubject)
-				for (final ModuleListener moduleListener : _moduleListeners) {
-					moduleListener.listen(item);
-				}
-			}
-
-			@Override
-			public void complete() {
-				// TODO Reactive pattern (aka something ala ReplaySubject)
-				for (final ModuleListener moduleListener : _moduleListeners) {
-					moduleListener.close();
-				}
-			}
-
-			@Override
-			public void error(final Diagnostic d) {
-
-			}
-
-			@Override
-			public void preComplete() {
-
-			}
-
-			@Override
-			public void start() {
-
-			}
-		});
+		compilation.world().addModuleProcess(new ModuleListener_ModuleCompletableProcess());
 	}
 
 	@Override
@@ -449,6 +418,43 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	@Override
 	public void _resolvePipelineAccessPromise(IPipelineAccess aPa) {
 		pipelineAccessPromise.resolve(aPa);
+	}
+
+	private class ModuleListener_ModuleCompletableProcess implements CompletableProcess<WorldModule> {
+		@Override
+		public void add(final WorldModule item) {
+			System.err.println("[ModuleListener_ModuleCompletableProcess] add " + item.module().getFileName());
+
+			// TODO Reactive pattern (aka something ala ReplaySubject)
+			for (final ModuleListener moduleListener : _moduleListeners) {
+				moduleListener.listen(item);
+			}
+		}
+
+		@Override
+		public void complete() {
+			System.err.println("[ModuleListener_ModuleCompletableProcess] complete");
+
+			// TODO Reactive pattern (aka something ala ReplaySubject)
+			for (final ModuleListener moduleListener : _moduleListeners) {
+				moduleListener.close();
+			}
+		}
+
+		@Override
+		public void error(final Diagnostic d) {
+
+		}
+
+		@Override
+		public void preComplete() {
+			System.err.println("[ModuleListener_ModuleCompletableProcess] preComplete");
+		}
+
+		@Override
+		public void start() {
+			System.err.println("[ModuleListener_ModuleCompletableProcess] start");
+		}
 	}
 }
 

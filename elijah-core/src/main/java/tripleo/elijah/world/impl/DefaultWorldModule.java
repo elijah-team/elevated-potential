@@ -10,17 +10,15 @@ import tripleo.elijah.stages.inter.ModuleThing;
 import tripleo.elijah.world.i.WorldModule;
 
 public class DefaultWorldModule implements WorldModule {
-	private final OS_Module mod;
-	private final CompilationEnclosure ce;
-	private ModuleThing thing;
-
-	private GN_PL_Run2.GenerateFunctionsRequest rq;
-
-	Eventual<GN_PL_Run2.GenerateFunctionsRequest> erq = new Eventual<>();
+	private final OS_Module                                     mod;
+	private final CompilationEnclosure                          ce;
+	private final Eventual<GN_PL_Run2.GenerateFunctionsRequest> erq = new Eventual<>();
+	private       ModuleThing                                   thing;
+	private       GN_PL_Run2.GenerateFunctionsRequest           rq;
 
 	public DefaultWorldModule(final OS_Module aMod, final @NotNull CompilationEnclosure ace) {
 		mod = aMod;
-		ce = ace;
+		ce  = ace;
 		final ModuleThing mt = ce.addModuleThing(mod);
 		setThing(mt);
 	}

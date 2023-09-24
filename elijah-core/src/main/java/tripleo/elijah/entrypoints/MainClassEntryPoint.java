@@ -53,17 +53,14 @@ public class MainClassEntryPoint implements EntryPoint {
 				return_type_is_null = true;
 			else
 				return_type_is_null = typeName.isNull();
-			if (fd.getArgs().size() == 0 && return_type_is_null) {
+			if (fd.getArgs().isEmpty() && return_type_is_null) {
 				main_function = fd;
 			}
 		}
-		if (main_function == null)
+		if (main_function == null) {
 			throw new IllegalArgumentException("Class does not define main");
+		}
 		klass = aKlass;
-	}
-
-	public ClassStatement getKlass() {
-		return klass;
 	}
 
 	public FunctionDef getMainFunction() {

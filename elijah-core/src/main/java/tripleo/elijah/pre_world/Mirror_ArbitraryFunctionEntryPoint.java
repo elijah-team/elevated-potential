@@ -38,7 +38,7 @@ public class Mirror_ArbitraryFunctionEntryPoint implements Mirror_EntryPoint {
 		dcg.submitGenerateClass(Objects.requireNonNull(ci), gf);
 
 		final @NotNull FunctionInvocation fi = dcg.newFunctionInvocation(f, null, ci);
-		// fi.setPhase(phase);
+		// fi.setPhase(deducePhase);
 		dcg.submitGenerateFunction(fi, gf);
 
 		mt.describe(new ModuleThing.GeneralDescription(new ES_Symbol("ArbitraryFunctionEntryPoint"), List_of(ci, fi)));

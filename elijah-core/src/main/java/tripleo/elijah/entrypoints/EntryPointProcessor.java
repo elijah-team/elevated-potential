@@ -40,7 +40,7 @@ public interface EntryPointProcessor {
 			wl.addJob(job);
 
 			final @NotNull FunctionInvocation fi = deducePhase.newFunctionInvocation((BaseFunctionDef) f, null, ci);
-//				fi.setPhase(phase);
+//				fi.setPhase(deducePhase);
 			final WlGenerateFunction job1 = new WlGenerateFunction(generateFunctions, fi, codeRegistrar);
 			wl.addJob(job1);
 		}
@@ -80,7 +80,7 @@ public interface EntryPointProcessor {
 			wl.addJob(job);
 
 			final @NotNull FunctionInvocation fi = deducePhase.newFunctionInvocation((BaseFunctionDef) f, null, ci);
-//				fi.setPhase(phase);
+//				fi.setPhase(deducePhase);
 			final @NotNull WlGenerateFunction job1 = new WlGenerateFunction(generateFunctions, fi, cr);
 			wl.addJob(job1);
 		}
