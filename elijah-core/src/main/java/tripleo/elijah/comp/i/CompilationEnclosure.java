@@ -95,7 +95,5 @@ public interface CompilationEnclosure {
 
 	void AssertOutFile_Namespace(OutputStrategyC.OSC_NFN aNfn, NG_OutputRequest aOutputRequest);
 
-	void _resolvePipelineAccess(PipelineLogic aPipelineLogic);
-
 	void _resolvePipelineAccessPromise(IPipelineAccess aPa);
 }
