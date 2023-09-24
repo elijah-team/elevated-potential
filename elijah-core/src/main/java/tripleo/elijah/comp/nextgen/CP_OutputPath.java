@@ -43,17 +43,6 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 		return new CP_SubFile(this, aSubPath).getPath();
 	}
 
-	private String getCalc() {
-		final Eventual<String> promise = hda.promise();
-		final String[]         s       = new String[1];
-
-		promise.then(x -> s[0] = x);
-
-		assert promise.isResolved();
-
-		return s[0];
-	}
-
 	public static void append_sha_string_then_newline(StringBuilder sb1, String sha256) {
 		sb1.append(sha256);
 		sb1.append('\n');
@@ -126,35 +115,38 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 
 	public void signalCalculateFinishParse() {
 		if (_pathPromise.isPending()) {
-			final String calc = getCalc();
+			final Eventual<String> promise = hda.promise();
+			final String[]         s       = new String[1];
 
-			__PathPromiseCalculator ppc = new __PathPromiseCalculator();
-			ppc.calc(calc);
-			CP_Path p = ppc.getP(this);
+			promise.then(calc -> {
+				__PathPromiseCalculator ppc = new __PathPromiseCalculator();
+				ppc.calc(calc);
+				CP_Path p = ppc.getP(this);
 
-			final String root = c.paths().outputRoot().getRootFile().toString();
-			final String one  = ppc.c_name();
-			final String two  = ppc.date();
+				final String root = c.paths().outputRoot().getRootFile().toString();
+				final String one  = ppc.c_name();
+				final String two  = ppc.date();
 
-			Path px = Path.of(root, one, _testShim ? "<date>" : two);
-			logProgress(117117, "OutputPath = " + px);
+				Path px = Path.of(root, one, _testShim ? "<date>" : two);
+				logProgress(117117, "OutputPath = " + px);
 
-			// assert p.equals(px); // FIXME "just return COMP" instead of zero
+				// assert p.equals(px); // FIXME "just return COMP" instead of zero
 
-			_pathPromise.resolve(px);
+				_pathPromise.resolve(px);
 
-			CP_Path pp = ppc.getP(this);
-			// assert pp.equals(px); // FIXME "just return COMP" instead of zero
+				CP_Path pp = ppc.getP(this);
+				// assert pp.equals(px); // FIXME "just return COMP" instead of zero
 
-			this.root = px.toFile();
+				this.root = px.toFile();
 
-			CP_Path p3 = ppc.getP(this);
-			// assert p3.equals(px); // FIXME "just return COMP" instead of zero
+				CP_Path p3 = ppc.getP(this);
+				// assert p3.equals(px); // FIXME "just return COMP" instead of zero
 
-//			final List<Object> objects = List_of(px, p, pp, p3);
-//			for (Object object : objects) {
-//				logProgress(117133, "" + object);
-//			}
+//			    final List<Object> objects = List_of(px, p, pp, p3);
+//			    for (Object object : objects) {
+//				    logProgress(117133, "" + object);
+//		    	}
+			});
 		}
 	}
 
