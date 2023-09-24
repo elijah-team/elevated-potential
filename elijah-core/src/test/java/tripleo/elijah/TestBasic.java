@@ -61,11 +61,10 @@ public class TestBasic {
 		}
 	}
 
-	private final boolean TestBasic_DISABLED = true;
+	private final boolean TestBasic_DISABLED = false;
 
 	@Disabled
 	@Test
-	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	public final void testBasic() throws Exception {
 		final List<String> ez_files = Files.readLines(new File("test/basic/ez_files.txt"), Charsets.UTF_8);
 		final Map<Integer, Integer> errorCount = new HashMap<Integer, Integer>();
@@ -91,7 +90,7 @@ public class TestBasic {
 	}
 
 	@Test
-	public final void testBasic_fact1() throws Exception {
+	public final void testBasic_fact1() {
 		final String s = "test/basic/fact1/main2";
 		final Compilation c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
 		final CompilerInput i1 = new CompilerInput(s);
@@ -166,7 +165,6 @@ public class TestBasic {
 	}
 
 	@Test
-	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	public final void testBasic_listfolders3() {
 		String s = "test/basic/listfolders3/listfolders3.ez";
 
@@ -185,7 +183,7 @@ public class TestBasic {
 			if (c.errorCount() != 0)
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
 
-			// assertEquals(2, c.errorCount()); // TODO Error count obviously should be 0
+			assertEquals(2, c.errorCount()); // TODO Error count obviously should be 0
 
 			final List<Pair<ErrSink.Errors, Object>> list = c.getErrSink().list();
 
