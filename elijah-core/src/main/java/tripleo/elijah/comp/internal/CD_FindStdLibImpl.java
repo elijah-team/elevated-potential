@@ -31,9 +31,9 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 				final String name = local_stdlib.getName();
 
 				// TODO really want EIT_Input or CK_SourceFile here 07/01
-				final SourceFileParserParams p = new SourceFileParserParams(null, local_stdlib, name, cc);
-				final QuerySourceFileParser qsfp = new QuerySourceFileParser(cr);
-				oci = qsfp.process(p);
+				final SourceFileParserParams          p          = new SourceFileParserParams(null, local_stdlib, name, cc);
+				final CK_SourceFile                   sourceFile = CK_SourceFileFactory.get(p, cr);
+				final Operation<CompilerInstructions> oci        = sourceFile.process_query();
 
 				if (oci.mode() == Mode.SUCCESS) {
 					cc.getCompilation().pushItem(oci.success());
@@ -44,18 +44,7 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 			}
 		}
 
-		assert oci != null;
-
-		if (oci.mode() != Mode.FAILURE) {
-			throw new IllegalStateException("expecting failure mode here.");
-		}
-
-		return Objects.requireNonNull(oci);
-		// return Operation.failure(new Exception() {
-		// public String message() {
-		// return "No stdlib found";
-		// }
-		// });
+		return Operation.failure(new Exception("No stdlib found"));
 	}
 
 	@Override
