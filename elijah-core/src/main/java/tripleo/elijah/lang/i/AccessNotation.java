@@ -1,7 +1,7 @@
 package tripleo.elijah.lang.i;
 
-import antlr.Token;
-import tripleo.elijah.lang2.ElElementVisitor;
+import antlr.*;
+import tripleo.elijah.lang2.*;
 
 public interface AccessNotation extends OS_Element {
 	Token getCategory();
@@ -12,6 +12,11 @@ public interface AccessNotation extends OS_Element {
 	@Override
 	OS_Element getParent();
 
+	@Override
+	default void serializeTo(SmallWriter sw) {
+
+	}
+
 	void setCategory(Token category);
 
 	void setShortHand(Token shorthand);
@@ -20,9 +25,4 @@ public interface AccessNotation extends OS_Element {
 
 	@Override
 	void visitGen(ElElementVisitor visit);
-
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
 }

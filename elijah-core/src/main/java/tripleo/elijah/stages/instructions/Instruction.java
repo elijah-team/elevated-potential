@@ -53,24 +53,24 @@ public class Instruction {
 		return index;
 	}
 
-	public void setContext(final Context context) {
-		this.context = context;
-	}
-
 	public InstructionName getName() {
 		return name;
 	}
 
-	public void setName(final InstructionName aName) {
-		name = aName;
+	public void setArgs(final List<InstructionArgument> args_) {
+		args = args_;
+	}
+
+	public void setContext(final Context context) {
+		this.context = context;
 	}
 
 	public void setIndex(final int l) {
 		index = l;
 	}
 
-	public void setArgs(final List<InstructionArgument> args_) {
-		args = args_;
+	public void setName(final InstructionName aName) {
+		name = aName;
 	}
 
 	@Override

@@ -27,11 +27,6 @@ public class Sub_GenerateResult implements GenerateResult {
 		//System.err.println("** ctor Sub_GenerateResult");
 	}
 
-	@Override
-	public void close() {
-		throw new NotImplementedException("asdasldbhajk");
-	}
-
 	/* (non-Javadoc)
 	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#add(tripleo.util.buffer.Buffer, tripleo.elijah.stages.gen_fn.EvaNode, tripleo.elijah.stages.gen_generic.Old_GenerateResult.TY, tripleo.elijah.ci.LibraryStatementPart, tripleo.elijah.stages.gen_generic.Dependency)
 	 */
@@ -101,6 +96,11 @@ public class Sub_GenerateResult implements GenerateResult {
 		_watchers.add(w);
 	}
 
+	@Override
+	public void close() {
+		throw new NotImplementedException("asdasldbhajk");
+	}
+
 	/* (non-Javadoc)
 	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#completeItem(tripleo.elijah.stages.gen_generic.GenerateResultItem)
 	 */
@@ -122,6 +122,24 @@ public class Sub_GenerateResult implements GenerateResult {
 	}
 
 	/* (non-Javadoc)
+	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#outputFiles(java.util.function.Consumer)
+	 */
+	@Override
+	public void outputFiles(final @NotNull Consumer<Map<String, OutputFileC>> cmso) {
+		cmso.accept(outputFiles);
+	}
+
+	// region REACTIVE
+
+	/* (non-Javadoc)
+	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#results()
+	 */
+	@Override
+	public @NotNull List<Old_GenerateResultItem> results() {
+		return _res;
+	}
+
+	/* (non-Javadoc)
 	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#signalDone()
 	 */
 	@Override
@@ -131,24 +149,6 @@ public class Sub_GenerateResult implements GenerateResult {
 		for (IGenerateResultWatcher w : _watchers) {
 			w.complete();
 		}
-	}
-
-	// region REACTIVE
-
-	/* (non-Javadoc)
-	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#outputFiles(java.util.function.Consumer)
-	 */
-	@Override
-	public void outputFiles(final @NotNull Consumer<Map<String, OutputFileC>> cmso) {
-		cmso.accept(outputFiles);
-	}
-
-	/* (non-Javadoc)
-	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#results()
-	 */
-	@Override
-	public @NotNull List<Old_GenerateResultItem> results() {
-		return _res;
 	}
 
 	/* (non-Javadoc)

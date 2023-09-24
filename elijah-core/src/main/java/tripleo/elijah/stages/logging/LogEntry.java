@@ -12,14 +12,14 @@ package tripleo.elijah.stages.logging;
  * Created 8/7/21 5:10 AM
  */
 public class LogEntry {
-	public long time;
-
-	public Level  level;
-	public String message;
-
 	enum Level {
 		ERROR, INFO
 	}
+
+	public long time;
+	public Level  level;
+
+	public String message;
 
 	public LogEntry(long aTime, Level aLevel, String aS) {
 		time    = aTime;

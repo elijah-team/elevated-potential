@@ -10,30 +10,6 @@ import tripleo.elijah.util.*;
 import java.util.*;
 
 public class SenseList implements Iterable<SenseList.Sensible> {
-    private final List<Sensible> x = new ArrayList<>();
-
-    public List<Sensible> list() {
-        return x;
-    }
-
-    public void add(final CompilerInput aInp) {
-        x.add(new Sensible(aInp, U.ADD, null));
-    }
-
-    public void add(CompilerInput aCompilerInput, U u, Sensable aIndexable) {
-        x.add(new Sensible(aCompilerInput, u, aIndexable));
-    }
-
-    public void skip(CompilerInput aCompilerInput, U u, Sensable aIndexable) {
-        x.add(new Sensible(aCompilerInput, u, aIndexable));
-    }
-
-    @NotNull
-    @Override
-    public Iterator<Sensible> iterator() {
-        return x.iterator();
-    }
-
     public enum U {SKIP, USE, ADD}
 
     public record Sensible(CompilerInput input, SenseList.U u, Sensable indexable) {
@@ -51,5 +27,29 @@ public class SenseList implements Iterable<SenseList.Sensible> {
                 }
             }
         }
+    }
+
+    private final List<Sensible> x = new ArrayList<>();
+
+    public void add(final CompilerInput aInp) {
+        x.add(new Sensible(aInp, U.ADD, null));
+    }
+
+    public void add(CompilerInput aCompilerInput, U u, Sensable aIndexable) {
+        x.add(new Sensible(aCompilerInput, u, aIndexable));
+    }
+
+    @NotNull
+    @Override
+    public Iterator<Sensible> iterator() {
+        return x.iterator();
+    }
+
+    public List<Sensible> list() {
+        return x;
+    }
+
+    public void skip(CompilerInput aCompilerInput, U u, Sensable aIndexable) {
+        x.add(new Sensible(aCompilerInput, u, aIndexable));
     }
 }

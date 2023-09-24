@@ -48,21 +48,6 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 	private           DeduceElement3_VariableTableEntry          _de3;
 	private           EvaNode                                    _resolvedType;
 
-	@Override
-	protected void setupResolve() {
-		super.setupResolve();
-
-		addStatusListener(new StatusListener() {
-			@Override
-			public void onChange(final IElementHolder eh, final Status newStatus) {
-				if (newStatus != Status.KNOWN) return;
-
-				__gf.getIdent(VariableTableEntry.this).resolve();
-			}
-		});
-
-	}
-
 	public VariableTableEntry(final int aIndex, final VariableTableType aVtt, final String aName, final TypeTableEntry aTTE, final OS_Element el) {
 		this.index = aIndex;
 		this.name  = aName;
@@ -87,6 +72,10 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 		setupResolve();
 
 		this.type.genType = new ForwardingGenType(this.type.genType, true);
+	}
+
+	public boolean _resolvedType__notNull() {
+		return _resolvedType != null;
 	}
 
 	public void addPotentialType(final int instructionIndex, final @NotNull TypeTableEntry tte) {
@@ -134,36 +123,6 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 	}
 
 	@Override
-	public void resolveTypeToClass(final @NotNull EvaNode aNode) {
-		_resolvedType = aNode;
-		getGenType().setNode(aNode);
-		type.resolve(aNode); // TODO maybe this obviates above
-
-		if (getGenType() instanceof ForwardingGenType fgt)
-			fgt.unsparkled();
-	}
-
-//	public DeferredObject<GenType, Void, Void> typeDeferred() {
-//		return typeDeferred;
-//	}
-
-	@Override
-	public void setConstructable(ProcTableEntry aPte) {
-		if (getConstructable_pte() != aPte) {
-			setConstructable_pte(aPte);
-			_p_constructableDeferred.resolve(getConstructable_pte());
-		}
-	}
-
-	public @NotNull Map<Integer, TypeTableEntry> getPotentialTypes() {
-		return potentialTypes;
-	}
-
-	public void setPotentialTypes(@NotNull Map<Integer, TypeTableEntry> potentialTypes) {
-		this.potentialTypes = potentialTypes;
-	}
-
-	@Override
 	public @NotNull String expectationString() {
 		return "VariableTableEntry{" +
 				"index=" + index +
@@ -171,19 +130,87 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 				"}";
 	}
 
-	public @NotNull Collection<TypeTableEntry> potentialTypes() {
-		return getPotentialTypes().values();
+//	public DeferredObject<GenType, Void, Void> typeDeferred() {
+//		return typeDeferred;
+//	}
+
+	GenType get_resolveTypeCalled() {
+		return _resolveTypeCalled;
 	}
+
+	public ProcTableEntry getConstructable_pte() {
+		return constructable_pte;
+	}
+
+	public @NotNull DeduceElement3_VariableTableEntry getDeduceElement3() {
+		if (_de3 == null) {
+			_de3 = new DeduceElement3_VariableTableEntry(this);
+			//_de3.generatedFunction = generatedFunction;
+			//_de3.deduceTypes2 = deduceTypes2;
+		}
+		return _de3;
+	}
+
+	public DeduceElement3_VariableTableEntry getDeduceElement3(final DeduceTypes2 aDt2, final BaseEvaFunction aGf1) {
+		if (_de3 == null) {
+			_de3 = new DeduceElement3_VariableTableEntry(this);
+			_de3.setDeduceTypes2(aDt2, aGf1);
+		}
+		return _de3;
+	}
+
+	public DeduceLocalVariable getDlv() {
+		return dlv;
+	}
+
+	public @NotNull GenType getGenType() {
+		return genType;
+	}
+
+	// region constructable
 
 	public int getIndex() {
 		return index;
 	}
 
-	// region constructable
+	public String getName() {
+		return name;
+	}
+
+	public @NotNull PostBC_Processor getPostBC_Processor(Context aFd_ctx, DeduceTypes2.DeduceClient1 aDeduceClient1) {
+		return PostBC_Processor.make_VTE(this, aFd_ctx, aDeduceClient1);
+	}
+
+	// endregion constructable
+
+	public @NotNull Map<Integer, TypeTableEntry> getPotentialTypes() {
+		return potentialTypes;
+	}
+
+	public int getTempNum() {
+		return tempNum;
+	}
+
+	public TypeTableEntry getType() {
+		return type;
+	}
+
+	public VariableTableType getVtt() {
+		return vtt;
+	}
+
+	public @NotNull Collection<TypeTableEntry> potentialTypes() {
+		return getPotentialTypes().values();
+	}
+
+	public void resolve_var_table_entry_for_exit_function() {
+		getDlv().resolve_var_table_entry_for_exit_function();
+	}
 
 	public EvaNode resolvedType() {
 		return _resolvedType;
 	}
+
 
 	public void resolveType(final @NotNull GenType aGenType) {
 		try {
@@ -215,27 +242,44 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 		}
 	}
 
-	public String getName() {
-		return name;
+	@Override
+	public void resolveTypeToClass(final @NotNull EvaNode aNode) {
+		_resolvedType = aNode;
+		getGenType().setNode(aNode);
+		type.resolve(aNode); // TODO maybe this obviates above
+
+		if (getGenType() instanceof ForwardingGenType fgt)
+			fgt.unsparkled();
 	}
 
-	// endregion constructable
+	void set_resolveTypeCalled(GenType _resolveTypeCalled) {
+		this._resolveTypeCalled = _resolveTypeCalled;
+	}
 
-	public @NotNull DeduceElement3_VariableTableEntry getDeduceElement3() {
-		if (_de3 == null) {
-			_de3 = new DeduceElement3_VariableTableEntry(this);
-			//_de3.generatedFunction = generatedFunction;
-			//_de3.deduceTypes2 = deduceTypes2;
+	@Override
+	public void setConstructable(ProcTableEntry aPte) {
+		if (getConstructable_pte() != aPte) {
+			setConstructable_pte(aPte);
+			_p_constructableDeferred.resolve(getConstructable_pte());
 		}
-		return _de3;
+	}
+
+	public void setConstructable_pte(ProcTableEntry constructable_pte) {
+		this.constructable_pte = constructable_pte;
 	}
 
 	public void setDeduceTypes2(final DeduceTypes2 aDeduceTypes2, final Context aContext, final BaseEvaFunction aGeneratedFunction) {
 		getDlv().setDeduceTypes2(aDeduceTypes2, aContext, aGeneratedFunction);
 	}
 
-	public void resolve_var_table_entry_for_exit_function() {
-		getDlv().resolve_var_table_entry_for_exit_function();
+	public void setDlv(DeduceLocalVariable dlv) {
+		this.dlv = dlv;
+	}
+
+	@Override
+	public void setGenType(@NotNull GenType aGenType) {
+		genType.copy(aGenType);
+		resolveType(aGenType);
 	}
 
 	public void setLikelyType(final GenType aGenType) {
@@ -254,6 +298,34 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 		});
 
 		((ForwardingGenType) bGenType).unsparkled();
+	}
+
+	public void setPotentialTypes(@NotNull Map<Integer, TypeTableEntry> potentialTypes) {
+		this.potentialTypes = potentialTypes;
+	}
+
+	public void setTempNum(int num) {
+		tempNum = num;
+	}
+
+	public void setType(@NotNull TypeTableEntry tte1) {
+		type = tte1;
+
+	}
+
+	@Override
+	protected void setupResolve() {
+		super.setupResolve();
+
+		addStatusListener(new StatusListener() {
+			@Override
+			public void onChange(final IElementHolder eh, final Status newStatus) {
+				if (newStatus != Status.KNOWN) return;
+
+				__gf.getIdent(VariableTableEntry.this).resolve();
+			}
+		});
+
 	}
 
 	@Override
@@ -276,84 +348,12 @@ public class VariableTableEntry extends BaseTableEntry1 implements Constructable
 		return typeDeferred.isResolved();
 	}
 
-
 	public Promise<GenType, Void, Void> typePromise() {
 		return typeDeferred.promise();
 	}
 
 	public DeduceTypeResolve typeResolve() {
 		return typeResolve;
-	}
-
-	public VariableTableType getVtt() {
-		return vtt;
-	}
-
-	public ProcTableEntry getConstructable_pte() {
-		return constructable_pte;
-	}
-
-	public void setConstructable_pte(ProcTableEntry constructable_pte) {
-		this.constructable_pte = constructable_pte;
-	}
-
-	public DeduceLocalVariable getDlv() {
-		return dlv;
-	}
-
-	public void setDlv(DeduceLocalVariable dlv) {
-		this.dlv = dlv;
-	}
-
-	public @NotNull PostBC_Processor getPostBC_Processor(Context aFd_ctx, DeduceTypes2.DeduceClient1 aDeduceClient1) {
-		return PostBC_Processor.make_VTE(this, aFd_ctx, aDeduceClient1);
-	}
-
-	public @NotNull GenType getGenType() {
-		return genType;
-	}
-
-	@Override
-	public void setGenType(@NotNull GenType aGenType) {
-		genType.copy(aGenType);
-		resolveType(aGenType);
-	}
-
-	public TypeTableEntry getType() {
-		return type;
-	}
-
-	public void setType(@NotNull TypeTableEntry tte1) {
-		type = tte1;
-
-	}
-
-	GenType get_resolveTypeCalled() {
-		return _resolveTypeCalled;
-	}
-
-	void set_resolveTypeCalled(GenType _resolveTypeCalled) {
-		this._resolveTypeCalled = _resolveTypeCalled;
-	}
-
-	public int getTempNum() {
-		return tempNum;
-	}
-
-	public void setTempNum(int num) {
-		tempNum = num;
-	}
-
-	public boolean _resolvedType__notNull() {
-		return _resolvedType != null;
-	}
-
-	public DeduceElement3_VariableTableEntry getDeduceElement3(final DeduceTypes2 aDt2, final BaseEvaFunction aGf1) {
-		if (_de3 == null) {
-			_de3 = new DeduceElement3_VariableTableEntry(this);
-			_de3.setDeduceTypes2(aDt2, aGf1);
-		}
-		return _de3;
 	}
 }
 

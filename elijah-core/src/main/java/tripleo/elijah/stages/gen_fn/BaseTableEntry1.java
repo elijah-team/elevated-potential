@@ -18,20 +18,20 @@ public abstract class BaseTableEntry1 extends BaseTableEntry {
 
 	private ProcTableEntry callable_pte;
 
-	public @Nullable ProcTableEntry getCallablePTE() {
-		return callable_pte;
-	}
-
-	public void setCallablePTE(ProcTableEntry aProcTableEntry) {
-		callable_pte = aProcTableEntry;
-	}
-
 	public ProcTableEntry _callable_pte() {
 		return callable_pte;
 	}
 
 	public DeduceTypes2 _deduceTypes2() {
 		return __dt2;
+	}
+
+	public @Nullable ProcTableEntry getCallablePTE() {
+		return callable_pte;
+	}
+
+	public void setCallablePTE(ProcTableEntry aProcTableEntry) {
+		callable_pte = aProcTableEntry;
 	}
 }
 

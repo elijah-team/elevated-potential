@@ -60,6 +60,10 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 		return _a.getContext();
 	}
 
+	public IExpression getExpr() {
+		return expr;
+	}
+
 	@Override
 	public @NotNull IExpression getFromPart() {
 		return frompart;
@@ -87,11 +91,6 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 	}
 
 	@Override
-	public LoopTypes getType() {
-		return type;
-	}
-
-	@Override
 	public OS_Element getParent() {
 		return parent;
 	}
@@ -102,19 +101,29 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 	}
 
 	@Override
+	public LoopTypes getType() {
+		return type;
+	}
+
+	@Override
 	public void iterName(final IdentExpression s) {
 //		assert type == ITER_TYPE;
 		iterName = s;
 	}
 
 	@Override
-	public void setContext(final LoopContext ctx) {
-		_a.setContext(ctx);
+	public void scope(Scope3 sco) {
+		scope3 = sco;
 	}
 
 	@Override
-	public void scope(Scope3 sco) {
-		scope3 = sco;
+	public void serializeTo(final SmallWriter sw) {
+
+	}
+
+	@Override
+	public void setContext(final LoopContext ctx) {
+		_a.setContext(ctx);
 	}
 
 	@Override
@@ -130,15 +139,6 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 	@Override // OS_Element
 	public void visitGen(final @NotNull ElElementVisitor visit) {
 		visit.visitLoop(this);
-	}
-
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	public IExpression getExpr() {
-		return expr;
 	}
 
 	//	@Override

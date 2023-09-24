@@ -8,9 +8,8 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import antlr.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 
 /**
@@ -45,6 +44,8 @@ public abstract class AbstractBlockScope implements Scope {
 		return new BlockStatementImpl(this);
 	}
 
+	public abstract Context getContext();
+
 	@Override
 	public OS_Element getElement() {
 		return (OS_Element) _element;
@@ -59,8 +60,6 @@ public abstract class AbstractBlockScope implements Scope {
 	public OS_Element getParent() {
 		return (OS_Element) _element;
 	}
-
-	public abstract Context getContext();
 
 	@Override
 	public @Nullable InvariantStatement invariantStatement() {

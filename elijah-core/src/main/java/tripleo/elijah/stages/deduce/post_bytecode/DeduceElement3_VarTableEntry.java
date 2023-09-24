@@ -13,21 +13,33 @@ import tripleo.elijah.util.*;
 import java.util.*;
 
 public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
+	private static class STOP extends Exception {
+
+	}
+	private static void noteNonsense(int code, String message) {
+		Stupidity.println_out_2(String.format("%d %s%n", code, message));
+	}
+	private static void noteNonsenseErr(int code, String message) {
+		Stupidity.println_err2(String.format("** [noteNonsenseErr] %d %s%n", code, message));
+	}
+
 	private final EvaContainer.VarTableEntry _principal;
+
 	private final DeduceTypes2               _deduceTypes2;
+
 	public        RegisterClassInvocation_env __passthru;
+
+	@Contract(pure = true)
+	public DeduceElement3_VarTableEntry(final EvaContainer.VarTableEntry aVarTableEntry) {
+		_principal = aVarTableEntry;
+		_deduceTypes2 = null;
+	}
 
 	@Contract(pure = true)
 	public DeduceElement3_VarTableEntry(final @NotNull EvaContainer.VarTableEntry aVarTableEntry,
 										final @NotNull DeduceTypes2 aDeduceTypes2) {
 		_principal    = aVarTableEntry;
 		_deduceTypes2 = aDeduceTypes2;
-	}
-
-	@Contract(pure = true)
-	public DeduceElement3_VarTableEntry(final EvaContainer.VarTableEntry aVarTableEntry) {
-		_principal = aVarTableEntry;
-		_deduceTypes2 = null;
 	}
 
 	private void __one_potential(final @NotNull DeducePhase aDeducePhase,
@@ -221,17 +233,5 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 		} catch (STOP stop) {
 			NotImplementedException.raise();
 		}
-	}
-
-	private static class STOP extends Exception {
-
-	}
-
-	private static void noteNonsense(int code, String message) {
-		Stupidity.println_out_2(String.format("%d %s%n", code, message));
-	}
-
-	private static void noteNonsenseErr(int code, String message) {
-		Stupidity.println_err2(String.format("** [noteNonsenseErr] %d %s%n", code, message));
 	}
 }

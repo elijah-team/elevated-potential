@@ -8,13 +8,12 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.FunctionContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.world.WorldGlobals;
+import tripleo.elijah.lang.nextgen.names.i.*;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.world.*;
 
 /**
  * @author Tripleo
@@ -70,6 +69,13 @@ public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elija
 	}
 
 	@Override
+	public void serializeTo(@NotNull SmallWriter sw) {
+		// TODO Auto-generated method stub
+		sw.fieldIdent("name", this.getNameNode());
+		//throw new NotImplementedException();
+	}
+
+	@Override
 	public void set(FunctionModifiers mod) {
 		this.mod = mod;
 	}
@@ -102,20 +108,13 @@ public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elija
 	}
 
 	@Override
-	public void visitGen(@NotNull ElElementVisitor visit) {
-		visit.visitConstructorDef(this);
-	}
-
-	@Override
 	public String toString() {
 		return String.format("<Constructor %s %s %s>", parent, name(), getArgs());
 	}
 
 	@Override
-	public void serializeTo(@NotNull SmallWriter sw) {
-		// TODO Auto-generated method stub
-		sw.fieldIdent("name", this.getNameNode());
-		//throw new NotImplementedException();
+	public void visitGen(@NotNull ElElementVisitor visit) {
+		visit.visitConstructorDef(this);
 	}
 }
 

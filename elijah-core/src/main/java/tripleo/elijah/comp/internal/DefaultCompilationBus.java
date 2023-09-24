@@ -1,18 +1,30 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.DebugFlags;
-import tripleo.elijah.comp.Compilation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.util.Stupidity;
+import tripleo.elijah.util.*;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.*;
+import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 public class DefaultCompilationBus implements ICompilationBus {
+	static class SingleActionProcess implements CB_Process {
+		// README tape
+		private final CB_Action a;
+
+		public SingleActionProcess(final CB_Action aAction) {
+			a = aAction;
+		}
+
+		@Override
+		public @NotNull List<CB_Action> steps() {
+			return List_of(a);
+		}
+	}
 	@lombok.Getter
 	private final @NotNull CompilerDriver   compilerDriver;
 	private final @NotNull Compilation      c;
@@ -23,6 +35,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 			Stupidity.println_err_2(aProgressSinkComponent.printErr(aCode, aType, aParams));
 		}
 	};
+
 	public                 CB_FindCIs       cb_findCIs;
 
 	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
@@ -70,6 +83,18 @@ public class DefaultCompilationBus implements ICompilationBus {
 			// TODO/HACK queue then print after loop
 			//   also send to UI (UT_Controller)
 
+			void print(String s) {
+				System.err.print(s);
+			}
+
+			void println() {
+				System.err.println();
+			}
+
+			void println(String s) {
+				System.err.println(s);
+			}
+
 			@Override
 			public void reportFailure(final @NotNull CB_Action aCBAction, final @NotNull CB_Output aCB_output) {
 				System.err.println("FAILURE " + aCBAction.name() + " " + aCB_output.get());
@@ -89,18 +114,6 @@ public class DefaultCompilationBus implements ICompilationBus {
 					println(" " + outputString.getText());
 				}
 				println();
-			}
-
-			void println(String s) {
-				System.err.println(s);
-			}
-
-			void print(String s) {
-				System.err.print(s);
-			}
-
-			void println() {
-				System.err.println();
 			}
 		};
 
@@ -133,19 +146,5 @@ public class DefaultCompilationBus implements ICompilationBus {
 			}
 		}
 		assert _processes.size() == size;
-	}
-
-	static class SingleActionProcess implements CB_Process {
-		// README tape
-		private final CB_Action a;
-
-		public SingleActionProcess(final CB_Action aAction) {
-			a = aAction;
-		}
-
-		@Override
-		public @NotNull List<CB_Action> steps() {
-			return List_of(a);
-		}
 	}
 }

@@ -3,8 +3,8 @@
  */
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.Contract;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.nextgen.names.i.*;
 
 /**
  * @author Tripleo
@@ -13,6 +13,8 @@ import tripleo.elijah.lang.nextgen.names.i.EN_Name;
  */
 public interface OS_Element2 {
 
+	EN_Name getEnName();
+
 	/**
 	 * The name of the element TODO Should this be a {@link IdentExpression}?
 	 *
@@ -20,8 +22,6 @@ public interface OS_Element2 {
 	 */
 	@Contract(pure = true)
 	String name();
-
-	EN_Name getEnName();
 }
 
 //

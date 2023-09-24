@@ -35,26 +35,6 @@ public class CR_FindCIs extends DefaultStateful implements CR_Action, Sensable {
         }
     }
 
-    @Override
-    public @NotNull Operation<Ok> execute(final @NotNull CR_State st, final @NotNull CB_Output aO) {
-        final Compilation c = st.ca().getCompilation();
-        final @NotNull ErrSink errSink = c.getErrSink();
-
-        for (final CompilerInput input : inputs) {
-            _processInput(c, errSink, senseList, input);
-        }
-
-//        for (final SenseList.Sensible sensible : senseList) {
-//            sensible.checkDirectoryResults(cci, _ps);
-//        }
-
-        return Operation.success(Ok.instance());
-    }
-
-    @Override
-    public void attach(final @NotNull CompilationRunner cr) {
-    }
-
     private void _processInput(final @NotNull Compilation c,
                                final @NotNull ErrSink errSink,
                                final @NotNull SenseList x,
@@ -92,6 +72,26 @@ public class CR_FindCIs extends DefaultStateful implements CR_Action, Sensable {
                 errSink.reportError("9995 Not a directory " + f.getAbsolutePath());
             }
         }
+    }
+
+    @Override
+    public void attach(final @NotNull CompilationRunner cr) {
+    }
+
+    @Override
+    public @NotNull Operation<Ok> execute(final @NotNull CR_State st, final @NotNull CB_Output aO) {
+        final Compilation c = st.ca().getCompilation();
+        final @NotNull ErrSink errSink = c.getErrSink();
+
+        for (final CompilerInput input : inputs) {
+            _processInput(c, errSink, senseList, input);
+        }
+
+//        for (final SenseList.Sensible sensible : senseList) {
+//            sensible.checkDirectoryResults(cci, _ps);
+//        }
+
+        return Operation.success(Ok.instance());
     }
 
     @Override

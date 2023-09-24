@@ -57,13 +57,6 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 		items.add((ModuleItem) anElement);
 	}
 
-	@Override // OS_Container
-	public @NotNull List<OS_Element2> items() {
-		final var c = getItems().stream().filter(input -> input instanceof OS_Element2);
-
-		return c.collect(Collectors.toList());
-	}
-
 	@Override
 	public void addDocString(final Token s1) {
 		throw new NotImplementedException();
@@ -72,6 +65,10 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	@Override
 	public @NotNull List<EntryPoint> entryPoints() {
 		return entryPoints;
+	}
+
+	private void find_multiple_items() {
+		getCompilation().getFluffy().find_multiple_items(this);
 	}
 
 	@Override
@@ -90,14 +87,51 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 //		parent.put_module(_fileName, this);
 	}
 
+	/**
+	 * Get a class byImpl name. Must not be qualified. Wont return a
+	 * {@link NamespaceStatement} Same as {@link #findClass(String)}
+	 *
+	 * @param name the class weImpl are looking for
+	 * @return either the class orImpl null
+	 */
+	@Nullable
+	public ClassStatement getClassByName(final String name) {
+		for (final ModuleItem item : items) {
+			if (item instanceof ClassStatement)
+				if (((ClassStatement) item).getName().equals(name))
+					return (ClassStatement) item;
+		}
+		return null;
+	}
+
 	@Override
 	public @NotNull Compilation getCompilation() {
 		return parent;
 	}
 
+	/**
+	 * A module has no parent which is an element (not even a package - this is not
+	 * Java).<br>
+	 * If you want the Compilation use the member {@link #parent}
+	 *
+	 * @return null
+	 */
+
+	@Override
+	public Context getContext() {
+		return _a.getContext();
+	}
+
 	@Override
 	public String getFileName() {
 		return _fileName;
+	}
+
+	private FluffyModuleImpl getFluffy() {
+		if (_fluffy == null) {
+			_fluffy = new FluffyModuleImpl(this, getCompilation());
+		}
+		return _fluffy;
 	}
 
 	@Override
@@ -110,9 +144,12 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 		return lsp;
 	}
 
+	/**
+	 * @ ensures \result == null
+	 */
 	@Override
-	public void setLsp(LibraryStatementPart aLsp) {
-		lsp = aLsp;
+	public @org.jetbrains.annotations.Nullable OS_Element getParent() {
+		return null;
 	}
 
 	@Override
@@ -129,6 +166,13 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	@Override
 	public boolean isPrelude() {
 		return prelude == this;
+	}
+
+	@Override // OS_Container
+	public @NotNull List<OS_Element2> items() {
+		final var c = getItems().stream().filter(input -> input instanceof OS_Element2);
+
+		return c.collect(Collectors.toList());
 	}
 
 	@Override
@@ -172,17 +216,6 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 		}
 	}
 
-	private FluffyModuleImpl getFluffy() {
-		if (_fluffy == null) {
-			_fluffy = new FluffyModuleImpl(this, getCompilation());
-		}
-		return _fluffy;
-	}
-
-	private void find_multiple_items() {
-		getCompilation().getFluffy().find_multiple_items(this);
-	}
-
 	@Override
 	public OS_Module prelude() {
 		return prelude;
@@ -208,50 +241,8 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 		return parent.makePackage(aPackageName);
 	}
 
-	@Override
-	public void setPrelude(OS_Module success) {
-		prelude = success;
-	}
-
-	@Override
-	public void setFileName(final String fileName) {
-		this._fileName = fileName;
-	}
-
-	@Override
-	public void setIndexingStatement(final IndexingStatement i) {
-		indexingStatement = i;
-	}
-
-	/**
-	 * A module has no parent which is an element (not even a package - this is not
-	 * Java).<br>
-	 * If you want the Compilation use the member {@link #parent}
-	 *
-	 * @return null
-	 */
-
-	@Override
-	public Context getContext() {
-		return _a.getContext();
-	}
-
-	/**
-	 * @ ensures \result == null
-	 */
-	@Override
-	public @org.jetbrains.annotations.Nullable OS_Element getParent() {
-		return null;
-	}
-
-	@Override
-	public void setParent(@NotNull final Compilation parent) {
-		this.parent = parent;
-	}
-
-	@Override
-	public void visitGen(final @NotNull ElElementVisitor visit) {
-		visit.addModule(this); // visitModule
+	public void remove(ClassStatement cls) {
+		items.remove(cls);
 	}
 
 	@Override
@@ -283,30 +274,39 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 		_a.setContext(mctx);
 	}
 
-	public void remove(ClassStatement cls) {
-		items.remove(cls);
+	@Override
+	public void setFileName(final String fileName) {
+		this._fileName = fileName;
 	}
 
-	/**
-	 * Get a class byImpl name. Must not be qualified. Wont return a
-	 * {@link NamespaceStatement} Same as {@link #findClass(String)}
-	 *
-	 * @param name the class weImpl are looking for
-	 * @return either the class orImpl null
-	 */
-	@Nullable
-	public ClassStatement getClassByName(final String name) {
-		for (final ModuleItem item : items) {
-			if (item instanceof ClassStatement)
-				if (((ClassStatement) item).getName().equals(name))
-					return (ClassStatement) item;
-		}
-		return null;
+	@Override
+	public void setIndexingStatement(final IndexingStatement i) {
+		indexingStatement = i;
+	}
+
+	@Override
+	public void setLsp(LibraryStatementPart aLsp) {
+		lsp = aLsp;
+	}
+
+	@Override
+	public void setParent(@NotNull final Compilation parent) {
+		this.parent = parent;
+	}
+
+	@Override
+	public void setPrelude(OS_Module success) {
+		prelude = success;
 	}
 
 	@Override
 	public String toString() {
 		return "<OS_Module %s>".formatted(_fileName);
+	}
+
+	@Override
+	public void visitGen(final @NotNull ElElementVisitor visit) {
+		visit.addModule(this); // visitModule
 	}
 }
 

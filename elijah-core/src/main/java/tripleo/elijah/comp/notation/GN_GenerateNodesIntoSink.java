@@ -9,16 +9,21 @@
  */
 package tripleo.elijah.comp.notation;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.work.WorkManager;
-import tripleo.elijah.world.i.WorldModule;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.work.*;
+import tripleo.elijah.world.i.*;
 
-import java.util.List;
+import java.util.*;
 
 public class GN_GenerateNodesIntoSink implements GN_Notable, CompilationEnclosure.ModuleListener {
+	@Contract(value = "_ -> new", pure = true)
+	@SuppressWarnings("unused")
+	public static @NotNull GN_Notable getFactoryEnv(GN_Env aEnv) {
+		return new GN_GenerateNodesIntoSink((GN_GenerateNodesIntoSinkEnv) aEnv);
+	}
+
 	private final GN_GenerateNodesIntoSinkEnv env;
 
 	public GN_GenerateNodesIntoSink(final GN_GenerateNodesIntoSinkEnv aEnv) {
@@ -27,10 +32,20 @@ public class GN_GenerateNodesIntoSink implements GN_Notable, CompilationEnclosur
 		env.pa().getCompilationEnclosure().addModuleListener(this);
 	}
 
-	@Contract(value = "_ -> new", pure = true)
-	@SuppressWarnings("unused")
-	public static @NotNull GN_Notable getFactoryEnv(GN_Env aEnv) {
-		return new GN_GenerateNodesIntoSink((GN_GenerateNodesIntoSinkEnv) aEnv);
+	public GN_GenerateNodesIntoSinkEnv _env() {
+		return env;
+	}
+
+	@Override
+	public void close() {
+		NotImplementedException.raise_stop();
+	}
+
+	@Override
+	public void listen(final @NotNull WorldModule module) {
+		var wm = new WorkManager();
+		run_one_mod(module, wm);
+		wm.drain();
 	}
 
 	@Override
@@ -52,21 +67,5 @@ public class GN_GenerateNodesIntoSink implements GN_Notable, CompilationEnclosur
 		final GM_GenerateModule        gm   = new GM_GenerateModule(gmr);
 		final GM_GenerateModuleResult  ggmr = gm.getModuleResult(wmgr, env.resultSink1());
 		ggmr.doResult(wmgr);
-	}
-
-	public GN_GenerateNodesIntoSinkEnv _env() {
-		return env;
-	}
-
-	@Override
-	public void listen(final @NotNull WorldModule module) {
-		var wm = new WorkManager();
-		run_one_mod(module, wm);
-		wm.drain();
-	}
-
-	@Override
-	public void close() {
-		NotImplementedException.raise_stop();
 	}
 }

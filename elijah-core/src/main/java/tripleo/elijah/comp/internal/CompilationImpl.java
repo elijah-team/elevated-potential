@@ -35,6 +35,40 @@ public class CompilationImpl implements Compilation {
 	private final @NotNull FluffyCompImpl _fluffyComp;
 	private @Nullable      EOT_OutputTree _output_tree = null;
 
+	public final Map<String, CompilerInstructions> fn2ci = new HashMap<>();
+
+	@Getter
+	private final CIS _cis = new CIS();
+
+	private final CompFactory _con = new DefaultCompFactory(this);
+
+	private final LivingRepo _repo = new DefaultLivingRepo();
+
+	@Getter
+	private final CompilationConfig cfg = new CompilationConfig();
+
+	@Getter
+	private final USE use = new USE(this);
+
+	private final CompilationEnclosure compilationEnclosure = new CompilationEnclosure(this);
+
+	private final CP_Paths paths;
+
+	private final EIT_InputTree _input_tree = new EIT_InputTree();
+
+	private final ErrSink errSink;
+
+	private final int _compilationNumber;
+
+	private final CompilerInputMaster master;
+	public CCI_Acceptor__CompilerInputListener cci_listener;
+	@Getter
+	private CompilerInstructions rootCI;
+	private List<CompilerInput> _inputs;
+	private IPipelineAccess _pa;
+	private IO io;
+	private       boolean _inside;
+	private final Finally _finally = new Finally();
 	public CompilationImpl(final ErrSink aEee, final IO aIo) {
 		_fluffyComp = new FluffyCompImpl(this);
 
@@ -47,108 +81,33 @@ public class CompilationImpl implements Compilation {
 		master = new CompilerInputMaster() {
 			private final List<CompilerInputListener> listeners = new ArrayList<>();
 
+			public void addListener(CompilerInputListener a) {
+				listeners.add(a);
+			}
+
 			public void notifyChange(CompilerInput compilerInput, CompilerInput.CompilerInputField compilerInputField) {
 				for (CompilerInputListener listener : listeners) {
 					listener.baseNotify(compilerInput, compilerInputField);
 				}
-			}
-
-			public void addListener(CompilerInputListener a) {
-				listeners.add(a);
 			}
 		};
 
 		cci_listener = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
 	}
-
 	public @NotNull ICompilationAccess _access() {
 		return new DefaultCompilationAccess(this);
 	}
-
-	@Override
-	public @NotNull FluffyComp getFluffy() {
-		return _fluffyComp;
-	}
-
-	@Override
-	public @NotNull EOT_OutputTree getOutputTree() {
-		if (_output_tree == null) {
-			_output_tree = new EOT_OutputTree();
-		}
-
-		return _output_tree;
-	}
-
-	@Deprecated
-//	@Override
-	public List<OS_Module> modules() {
-		return this.world().modules()
-				.stream()
-				.map(WorldModule::module)
-				.collect(Collectors.toList());
-	}
-
-	public CompilerBeginning beginning(final @NotNull CompilationRunner compilationRunner) {
-		return new CompilerBeginning(this, getRootCI(), getInputs(), compilationRunner.getProgressSink(), cfg());
-	}
-
-	@Override
-	public CompilerInputListener getCompilerInputListener() {
-		return cci_listener;
-	}
-
-	public void testMapHooks(final List<IFunctionMapHook> ignoredAMapHooks) {
-		//pipelineLogic.dp.
-	}
-
-	@Override
-	public Map<String, CompilerInstructions> fn2ci() {
-		return fn2ci;
-	}
-
-	@Override
-	public USE use() {
-		return getUse();
-	}
-
 	@Override
 	public CIS _cis() {
 		return get_cis();
 	}
-
-	public final Map<String, CompilerInstructions> fn2ci = new HashMap<>();
-	@Getter
-	private final CIS _cis = new CIS();
-	private final CompFactory _con = new DefaultCompFactory(this);
-	private final LivingRepo _repo = new DefaultLivingRepo();
-	@Getter
-	private final CompilationConfig cfg = new CompilationConfig();
-	@Getter
-	private final USE use = new USE(this);
-	private final CompilationEnclosure compilationEnclosure = new CompilationEnclosure(this);
-	private final CP_Paths paths;
-	private final EIT_InputTree _input_tree = new EIT_InputTree();
-	private final ErrSink errSink;
-	private final int _compilationNumber;
-	private final CompilerInputMaster master;
-	public CCI_Acceptor__CompilerInputListener cci_listener;
-
-	public void setRootCI(CompilerInstructions rootCI) {
-		this.rootCI = rootCI;
+	public CompilerBeginning beginning(final @NotNull CompilationRunner compilationRunner) {
+		return new CompilerBeginning(this, getRootCI(), getInputs(), compilationRunner.getProgressSink(), cfg());
 	}
-
-	@Getter
-	private CompilerInstructions rootCI;
-	private List<CompilerInput> _inputs;
-	private IPipelineAccess _pa;
-	private IO io;
-	private       boolean _inside;
-	private final Finally _finally = new Finally();
-
 	@Override
-	public CompilationEnclosure getCompilationEnclosure() {
-		return compilationEnclosure;
+	public @NotNull CompilationConfig cfg() {
+		return cfg;
 	}
 
 	@Override
@@ -160,7 +119,25 @@ public class CompilationImpl implements Compilation {
 	public int errorCount() {
 		return errSink.errorCount();
 	}
+	@Override
+	public void feedCmdLine(final @NotNull List<String> args) throws Exception {
+		final CompilerController controller = new DefaultCompilerController();
 
+		final List<CompilerInput> inputs = args.stream()
+				.map(s -> {
+					final CompilerInput input = new CompilerInput(s);
+
+					// TODO 09/08 check this
+					if (s.equals(input.getInp())) {
+						input.setSourceRoot();
+					}
+
+					return input;
+				})
+				.collect(Collectors.toList());
+
+		feedInputs(inputs, controller);
+	}
 	@Override
 	public void feedInputs(final @NotNull List<CompilerInput> aCompilerInputs, final @NotNull CompilerController aController) {
 		if (aCompilerInputs.isEmpty()) {
@@ -182,25 +159,23 @@ public class CompilationImpl implements Compilation {
 		aController.processOptions();
 		aController.runner();
 	}
-
 	@Override
-	public void feedCmdLine(final @NotNull List<String> args) throws Exception {
-		final CompilerController controller = new DefaultCompilerController();
+	public Operation2<WorldModule> findPrelude(final String prelude_name) {
+		Operation2<OS_Module> prelude = use.findPrelude(prelude_name);
 
-		final List<CompilerInput> inputs = args.stream()
-				.map(s -> {
-					final CompilerInput input = new CompilerInput(s);
+		assert prelude.mode() == Mode.SUCCESS;
 
-					// TODO 09/08 check this
-					if (s.equals(input.getInp())) {
-						input.setSourceRoot();
-					}
+		var prelude1 = new DefaultWorldModule(prelude.success(), compilationEnclosure);
 
-					return input;
-				})
-				.collect(Collectors.toList());
-
-		feedInputs(inputs, controller);
+		return Operation2.success(prelude1);
+	}
+	@Override
+	public Map<String, CompilerInstructions> fn2ci() {
+		return fn2ci;
+	}
+	@Override
+	public IPipelineAccess get_pa() {
+		return _pa;
 	}
 
 	@Override
@@ -224,31 +199,8 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
-	public Operation2<WorldModule> findPrelude(final String prelude_name) {
-		Operation2<OS_Module> prelude = use.findPrelude(prelude_name);
-
-		assert prelude.mode() == Mode.SUCCESS;
-
-		var prelude1 = new DefaultWorldModule(prelude.success(), compilationEnclosure);
-
-		return Operation2.success(prelude1);
-	}
-
-	@Override
-	public IPipelineAccess get_pa() {
-		return _pa;
-	}
-
-	@Override
-	public void set_pa(IPipelineAccess a_pa) {
-		_pa = a_pa;
-
-		compilationEnclosure.pipelineAccessPromise.resolve(_pa);
-	}
-
-	@Override
-	public List<CompilerInput> getInputs() {
-		return _inputs;
+	public CompilationEnclosure getCompilationEnclosure() {
+		return compilationEnclosure;
 	}
 
 	@Override
@@ -257,8 +209,28 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
+	public CompilerInputListener getCompilerInputListener() {
+		return cci_listener;
+	}
+
+	@Override
 	public ErrSink getErrSink() {
 		return errSink;
+	}
+
+	@Override
+	public @NotNull FluffyComp getFluffy() {
+		return _fluffyComp;
+	}
+
+	@Override
+	public List<CompilerInput> getInputs() {
+		return _inputs;
+	}
+
+	@Override
+	public @NotNull EIT_InputTree getInputTree() {
+		return _input_tree;
 	}
 
 	@Override
@@ -267,8 +239,12 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
-	public void setIO(final IO io) {
-		this.io = io;
+	public @NotNull EOT_OutputTree getOutputTree() {
+		if (_output_tree == null) {
+			_output_tree = new EOT_OutputTree();
+		}
+
+		return _output_tree;
 	}
 
 	@Override
@@ -333,6 +309,15 @@ public class CompilationImpl implements Compilation {
 		return new ModuleBuilder(this);
 	}
 
+	@Deprecated
+//	@Override
+	public List<OS_Module> modules() {
+		return this.world().modules()
+				.stream()
+				.map(WorldModule::module)
+				.collect(Collectors.toList());
+	}
+
 	@Override
 	public IPipelineAccess pa() {
 		Preconditions.checkNotNull(_pa);
@@ -341,13 +326,48 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
+	public CP_Paths paths() {
+		return paths;
+	}
+
+	@Override
 	public void pushItem(CompilerInstructions aci) {
 		_cis.onNext(aci);
 	}
 
 	@Override
+	public Finally reports() {
+		return _finally;
+	}
+
+	@Override
+	public void set_pa(IPipelineAccess a_pa) {
+		_pa = a_pa;
+
+		compilationEnclosure.pipelineAccessPromise.resolve(_pa);
+	}
+
+	@Override
+	public void setIO(final IO io) {
+		this.io = io;
+	}
+
+	public void setRootCI(CompilerInstructions rootCI) {
+		this.rootCI = rootCI;
+	}
+
+	@Override
 	public void subscribeCI(final @NotNull io.reactivex.rxjava3.core.Observer<CompilerInstructions> aCio) {
 		_cis.subscribe(aCio);
+	}
+
+	public void testMapHooks(final List<IFunctionMapHook> ignoredAMapHooks) {
+		//pipelineLogic.dp.
+	}
+
+	@Override
+	public USE use() {
+		return getUse();
 	}
 
 	@Override
@@ -362,26 +382,6 @@ public class CompilationImpl implements Compilation {
 	@Override
 	public LivingRepo world() {
 		return _repo;
-	}
-
-	@Override
-	public CP_Paths paths() {
-		return paths;
-	}
-
-	@Override
-	public @NotNull EIT_InputTree getInputTree() {
-		return _input_tree;
-	}
-
-	@Override
-	public @NotNull CompilationConfig cfg() {
-		return cfg;
-	}
-
-	@Override
-	public Finally reports() {
-		return _finally;
 	}
 
 	/*

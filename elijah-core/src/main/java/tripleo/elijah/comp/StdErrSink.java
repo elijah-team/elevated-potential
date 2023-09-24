@@ -11,12 +11,12 @@
  */
 package tripleo.elijah.comp;
 
-import org.apache.commons.lang3.tuple.Pair;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.diagnostic.Diagnostic;
+import org.apache.commons.lang3.tuple.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.diagnostic.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @author tripleo(sb)
@@ -25,17 +25,11 @@ public class StdErrSink implements ErrSink {
 
 	private int _errorCount;
 
-	@Override
-	public int errorCount() {
-		return _errorCount;
-	}
-
 	@NotNull List<Pair<Errors, Object>> _list = new java.util.ArrayList<>();
 
 	@Override
-	public void info(final String message) {
-		_list.add(Pair.of(Errors.INFO, message));
-		System.err.printf("INFO: %s%n", message);
+	public int errorCount() {
+		return _errorCount;
 	}
 
 	@Override
@@ -47,16 +41,22 @@ public class StdErrSink implements ErrSink {
 	}
 
 	@Override
-	public void reportDiagnostic(@NotNull Diagnostic diagnostic) {
-		if (diagnostic.severity() == Diagnostic.Severity.ERROR)
-			_errorCount++;
-		_list.add(Pair.of(Errors.DIAGNOSTIC, diagnostic));
-		//08/13 diagnostic.report(System.err);
+	public void info(final String message) {
+		_list.add(Pair.of(Errors.INFO, message));
+		System.err.printf("INFO: %s%n", message);
 	}
 
 	@Override
 	public List<Pair<Errors, Object>> list() {
 		return _list;
+	}
+
+	@Override
+	public void reportDiagnostic(@NotNull Diagnostic diagnostic) {
+		if (diagnostic.severity() == Diagnostic.Severity.ERROR)
+			_errorCount++;
+		_list.add(Pair.of(Errors.DIAGNOSTIC, diagnostic));
+		//08/13 diagnostic.report(System.err);
 	}
 
 	@Override

@@ -125,6 +125,47 @@ public class PatternOptionBuilder {
 	public static final Class<URL> URL_VALUE = URL.class;
 
 	/**
+	 * Retrieve the class that {@code ch} represents.
+	 *
+	 * @param ch the specified character
+	 * @return The class that {@code ch} represents
+	 */
+	public static @Nullable Object getValueClass(final char ch) {
+		switch (ch) {
+		case '@':
+			return PatternOptionBuilder.OBJECT_VALUE;
+		case ':':
+			return PatternOptionBuilder.STRING_VALUE;
+		case '%':
+			return PatternOptionBuilder.NUMBER_VALUE;
+		case '+':
+			return PatternOptionBuilder.CLASS_VALUE;
+		case '#':
+			return PatternOptionBuilder.DATE_VALUE;
+		case '<':
+			return PatternOptionBuilder.EXISTING_FILE_VALUE;
+		case '>':
+			return PatternOptionBuilder.FILE_VALUE;
+		case '*':
+			return PatternOptionBuilder.FILES_VALUE;
+		case '/':
+			return PatternOptionBuilder.URL_VALUE;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns whether {@code ch} is a value code, i.e. whether it represents a class in a pattern.
+	 *
+	 * @param ch the specified character
+	 * @return true if {@code ch} is a value code, otherwise false.
+	 */
+	public static boolean isValueCode(final char ch) {
+		return ch == '@' || ch == ':' || ch == '%' || ch == '+' || ch == '#' || ch == '<' || ch == '>' || ch == '*' || ch == '/' || ch == '!';
+	}
+
+	/**
 	 * Returns the {@link Options} instance represented by {@code pattern}.
 	 *
 	 * @param pattern the pattern string
@@ -168,46 +209,5 @@ public class PatternOptionBuilder {
 		}
 
 		return options;
-	}
-
-	/**
-	 * Returns whether {@code ch} is a value code, i.e. whether it represents a class in a pattern.
-	 *
-	 * @param ch the specified character
-	 * @return true if {@code ch} is a value code, otherwise false.
-	 */
-	public static boolean isValueCode(final char ch) {
-		return ch == '@' || ch == ':' || ch == '%' || ch == '+' || ch == '#' || ch == '<' || ch == '>' || ch == '*' || ch == '/' || ch == '!';
-	}
-
-	/**
-	 * Retrieve the class that {@code ch} represents.
-	 *
-	 * @param ch the specified character
-	 * @return The class that {@code ch} represents
-	 */
-	public static @Nullable Object getValueClass(final char ch) {
-		switch (ch) {
-		case '@':
-			return PatternOptionBuilder.OBJECT_VALUE;
-		case ':':
-			return PatternOptionBuilder.STRING_VALUE;
-		case '%':
-			return PatternOptionBuilder.NUMBER_VALUE;
-		case '+':
-			return PatternOptionBuilder.CLASS_VALUE;
-		case '#':
-			return PatternOptionBuilder.DATE_VALUE;
-		case '<':
-			return PatternOptionBuilder.EXISTING_FILE_VALUE;
-		case '>':
-			return PatternOptionBuilder.FILE_VALUE;
-		case '*':
-			return PatternOptionBuilder.FILES_VALUE;
-		case '/':
-			return PatternOptionBuilder.URL_VALUE;
-		}
-
-		return null;
 	}
 }

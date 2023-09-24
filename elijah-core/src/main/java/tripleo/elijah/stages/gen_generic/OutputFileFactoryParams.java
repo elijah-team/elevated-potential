@@ -22,27 +22,27 @@ public class OutputFileFactoryParams {
 		compilationEnclosure = aCompilationEnclsure;
 	}
 
-	public OS_Module getMod() {
-		return mod.module();
-	}
-
-	public WorldModule getWorldMod() {
-		return mod;
-	}
-
 	public CompilationEnclosure getCompilationEnclosure() {
 		return compilationEnclosure;
-	}
-
-	public PipelineLogic getPipelineLogic() {
-		return getCompilationEnclosure().getPipelineLogic();
 	}
 
 	public ErrSink getErrSink() {
 		return compilationEnclosure.getCompilationClosure().errSink();
 	}
 
+	public OS_Module getMod() {
+		return mod.module();
+	}
+
+	public PipelineLogic getPipelineLogic() {
+		return getCompilationEnclosure().getPipelineLogic();
+	}
+
 	public ElLog.Verbosity getVerbosity() {
 		return compilationEnclosure.getCompilationAccess().testSilence();
+	}
+
+	public WorldModule getWorldMod() {
+		return mod;
 	}
 }

@@ -8,13 +8,11 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.FormalArgListItem;
-import tripleo.elijah.lang.i.SmallWriter;
-import tripleo.elijah.util.NotImplementedException;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 // Referenced classes of package pak2:
 //			FormalArgListItem
@@ -41,11 +39,6 @@ public class FormalArgListImpl implements tripleo.elijah.lang.i.FormalArgList {
 	}
 
 	@Override
-	public String toString() {
-		return falis.toString();
-	}
-
-	@Override
 	public void serializeTo(final @NotNull SmallWriter sw) {
 		var i = 1;
 		for (FormalArgListItem fali : falis) {
@@ -53,6 +46,11 @@ public class FormalArgListImpl implements tripleo.elijah.lang.i.FormalArgList {
 		}
 
 		throw new NotImplementedException();
+	}
+
+	@Override
+	public String toString() {
+		return falis.toString();
 	}
 
 }

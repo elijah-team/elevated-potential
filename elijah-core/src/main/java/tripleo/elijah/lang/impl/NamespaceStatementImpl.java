@@ -74,6 +74,44 @@ public class NamespaceStatementImpl extends _CommonNC
 	}
 
 	@Override
+	public InvariantStatement invariantStatement() {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public void postConstruct() {
+		if (nameToken == null || nameToken.getText().equals("")) {
+			setType(NamespaceTypes.MODULE);
+		} else if (nameToken.getText().equals("_")) {
+			setType(NamespaceTypes.PRIVATE);
+		} else if (nameToken.getText().equals("__package__")) {
+			setType(NamespaceTypes.PACKAGE);
+		} else {
+			setType(NamespaceTypes.NAMED);
+		}
+	}
+
+	@Override
+	public void serializeTo(final SmallWriter sw) {
+
+	}
+
+	@Override
+	public void setCategory(El_Category aCategory) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void setContext(final NamespaceContext ctx) {
+		_a.setContext(ctx);
+	}
+
+	@Override
+	public void setType(final NamespaceTypes aType) {
+		_kind = aType;
+	}
+
+	@Override
 	public @NotNull StatementClosure statementClosure() {
 		return new AbstractStatementClosure(new AbstractScope2(this) {
 			@Override
@@ -96,36 +134,8 @@ public class NamespaceStatementImpl extends _CommonNC
 	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	@Override
-	public void postConstruct() {
-		if (nameToken == null || nameToken.getText().equals("")) {
-			setType(NamespaceTypes.MODULE);
-		} else if (nameToken.getText().equals("_")) {
-			setType(NamespaceTypes.PRIVATE);
-		} else if (nameToken.getText().equals("__package__")) {
-			setType(NamespaceTypes.PACKAGE);
-		} else {
-			setType(NamespaceTypes.NAMED);
-		}
-	}
-
-	public void setContext(final NamespaceContext ctx) {
-		_a.setContext(ctx);
-	}
-
-	@Override
-	public @NotNull ProgramClosure XXX() {
-		return new ProgramClosureImpl() {
-		};
-	}
-
-	@Override
-	public void setType(final NamespaceTypes aType) {
-		_kind = aType;
+	public String toString() {
+		return String.format("<Namespace %s `%s'>", getPackageName().getName(), getName());
 	}
 
 	@Override
@@ -139,19 +149,9 @@ public class NamespaceStatementImpl extends _CommonNC
 	}
 
 	@Override
-	public InvariantStatement invariantStatement() {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public void setCategory(El_Category aCategory) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public String toString() {
-		return String.format("<Namespace %s `%s'>", getPackageName().getName(), getName());
+	public @NotNull ProgramClosure XXX() {
+		return new ProgramClosureImpl() {
+		};
 	}
 
 

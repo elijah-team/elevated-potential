@@ -8,40 +8,106 @@
  */
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.comp.i.IPipelineAccess;
-import tripleo.elijah.comp.internal.CB_Output;
-import tripleo.elijah.comp.internal.CR_State;
-import tripleo.elijah.comp.internal.Provenance;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
-import tripleo.elijah.lang.i.FormalArgListItem;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Element2;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.DoubleLatch;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode1;
-import tripleo.elijah.stages.instructions.Instruction;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.stages.instructions.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 /**
  * Created 8/21/21 10:16 PM
  */
 public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
+	public static class FunctionStatement implements EG_Statement {
+		private final IEvaFunctionBase evaFunction;
+		private       String           filename;
+
+		public FunctionStatement(final IEvaFunctionBase aEvaFunction) {
+			evaFunction = aEvaFunction;
+		}
+
+		@Override
+		public @NotNull EX_Explanation getExplanation() {
+			return EX_Explanation.withMessage("FunctionStatement");
+		}
+
+		public @NotNull String getFilename(@NotNull IPipelineAccess pa) {
+			// HACK 07/07 register if not registered
+			EvaFunction v    = (EvaFunction) evaFunction;
+			int         code = v.getCode();
+
+			var ce = pa.getCompilationEnclosure();
+
+			if (code == 0) {
+				var cr = ce.getPipelineLogic().dp.getCodeRegistrar();
+				cr.registerFunction1(v);
+
+				code = v.getCode();
+				assert code != 0;
+			}
+
+
+			filename = "F_" + evaFunction.getCode() + evaFunction.getFunctionName();
+			return filename;
+		}
+
+		@Override
+		public @NotNull String getText() {
+			final StringBuilder sb = new StringBuilder();
+
+			final String str = "FUNCTION %d %s %s\n".formatted(evaFunction.getCode(),
+															   evaFunction.getFunctionName(),
+															   ((OS_Element2) evaFunction.getFD().getParent()).name());
+			sb.append(str);
+
+			final EvaFunction gf = (EvaFunction) evaFunction;
+
+			sb.append("Instructions \n");
+			for (Instruction instruction : (gf).instructionsList) {
+				sb.append("\t" + instruction + "\n");
+			}
+			{
+				//	EvaFunction.printTables(gf);
+				{
+					for (FormalArgListItem formalArgListItem : gf.getFD().getArgs()) {
+						sb.append("ARGUMENT " + formalArgListItem.name() + " " + formalArgListItem.typeName() + "\n");
+					}
+					sb.append("VariableTable \n");
+					for (VariableTableEntry variableTableEntry : gf.vte_list) {
+						sb.append("\t" + variableTableEntry + "\n");
+					}
+					sb.append("ConstantTable \n");
+					for (ConstantTableEntry constantTableEntry : gf.cte_list) {
+						sb.append("\t" + constantTableEntry + "\n");
+					}
+					sb.append("ProcTable     \n");
+					for (ProcTableEntry procTableEntry : gf.prte_list) {
+						sb.append("\t" + procTableEntry + "\n");
+					}
+					sb.append("TypeTable     \n");
+					for (TypeTableEntry typeTableEntry : gf.tte_list) {
+						sb.append("\t" + typeTableEntry + "\n");
+					}
+					sb.append("IdentTable    \n");
+					for (IdentTableEntry identTableEntry : gf.idte_list) {
+						sb.append("\t" + identTableEntry + "\n");
+					}
+				}
+			}
+
+			return sb.toString();
+		}
+	}
 	private final          CompilationEnclosure       ce;
 	private final @NotNull IPipelineAccess            pa;
 	private final @NotNull DefaultGenerateResultSink  grs;
@@ -50,11 +116,8 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 	private final @NotNull List<FunctionStatement> functionStatements = new ArrayList<>();
 	private                PipelineLogic           pipelineLogic;
 	private                CB_Output                  _processOutput;
-	private                CR_State                   _processState;
 
-	public void addFunctionStatement(final FunctionStatement aFunctionStatement) {
-		functionStatements.add(aFunctionStatement);
-	}
+	private                CR_State                   _processState;
 
 	@Contract(pure = true)
 	public EvaPipeline(@NotNull IPipelineAccess pa0) {
@@ -84,6 +147,10 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 
 
 		pa.install_notate(Provenance.EvaPipeline__lgc_slot, GN_GenerateNodesIntoSink.class, GN_GenerateNodesIntoSinkEnv.class);
+	}
+
+	public void addFunctionStatement(final FunctionStatement aFunctionStatement) {
+		functionStatements.add(aFunctionStatement);
 	}
 
 	public DefaultGenerateResultSink grs() {
@@ -215,87 +282,6 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 			//pa.notate(Provenance.EvaPipeline__lgc_slot, generateNodesIntoSink);
 			pa.notate(Provenance.EvaPipeline__lgc_slot, env);
 		});
-	}
-
-	public static class FunctionStatement implements EG_Statement {
-		private final IEvaFunctionBase evaFunction;
-		private       String           filename;
-
-		public FunctionStatement(final IEvaFunctionBase aEvaFunction) {
-			evaFunction = aEvaFunction;
-		}
-
-		@Override
-		public @NotNull EX_Explanation getExplanation() {
-			return EX_Explanation.withMessage("FunctionStatement");
-		}
-
-		@Override
-		public @NotNull String getText() {
-			final StringBuilder sb = new StringBuilder();
-
-			final String str = "FUNCTION %d %s %s\n".formatted(evaFunction.getCode(),
-															   evaFunction.getFunctionName(),
-															   ((OS_Element2) evaFunction.getFD().getParent()).name());
-			sb.append(str);
-
-			final EvaFunction gf = (EvaFunction) evaFunction;
-
-			sb.append("Instructions \n");
-			for (Instruction instruction : (gf).instructionsList) {
-				sb.append("\t" + instruction + "\n");
-			}
-			{
-				//	EvaFunction.printTables(gf);
-				{
-					for (FormalArgListItem formalArgListItem : gf.getFD().getArgs()) {
-						sb.append("ARGUMENT " + formalArgListItem.name() + " " + formalArgListItem.typeName() + "\n");
-					}
-					sb.append("VariableTable \n");
-					for (VariableTableEntry variableTableEntry : gf.vte_list) {
-						sb.append("\t" + variableTableEntry + "\n");
-					}
-					sb.append("ConstantTable \n");
-					for (ConstantTableEntry constantTableEntry : gf.cte_list) {
-						sb.append("\t" + constantTableEntry + "\n");
-					}
-					sb.append("ProcTable     \n");
-					for (ProcTableEntry procTableEntry : gf.prte_list) {
-						sb.append("\t" + procTableEntry + "\n");
-					}
-					sb.append("TypeTable     \n");
-					for (TypeTableEntry typeTableEntry : gf.tte_list) {
-						sb.append("\t" + typeTableEntry + "\n");
-					}
-					sb.append("IdentTable    \n");
-					for (IdentTableEntry identTableEntry : gf.idte_list) {
-						sb.append("\t" + identTableEntry + "\n");
-					}
-				}
-			}
-
-			return sb.toString();
-		}
-
-		public @NotNull String getFilename(@NotNull IPipelineAccess pa) {
-			// HACK 07/07 register if not registered
-			EvaFunction v    = (EvaFunction) evaFunction;
-			int         code = v.getCode();
-
-			var ce = pa.getCompilationEnclosure();
-
-			if (code == 0) {
-				var cr = ce.getPipelineLogic().dp.getCodeRegistrar();
-				cr.registerFunction1(v);
-
-				code = v.getCode();
-				assert code != 0;
-			}
-
-
-			filename = "F_" + evaFunction.getCode() + evaFunction.getFunctionName();
-			return filename;
-		}
 	}
 
 	private @NotNull List<ProcessedNode> processLgc(final @NotNull List<EvaNode> aLgc) {

@@ -46,22 +46,23 @@ import static tripleo.elijah.util.Helpers.List_of;
  */
 public class TestBasic {
 
-	private final boolean TestBasic_DISABLED = true;
+	class testBasic_fact1 {
 
-	@Disabled
-	@Test
-	public final void testBasicParse() throws Exception {
-		final List<String> ez_files = Files.readLines(new File("test/basic/ez_files.txt"), Charsets.UTF_8);
-		final List<String> args     = new ArrayList<String>();
-		args.addAll(ez_files);
-		args.add("-sE");
-		final ErrSink     eee = new StdErrSink();
-		final Compilation c   = new CompilationImpl(eee, new IO());
+		Compilation c;
 
-		c.feedCmdLine(args);
+		public void start() throws Exception {
+			String s = "test/basic/fact1/main2";
 
-		assertEquals(0, c.errorCount());
+			c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
+
+			c.feedCmdLine(List_of(s, "-sO"));
+
+			if (c.errorCount() != 0)
+				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
+		}
 	}
+
+	private final boolean TestBasic_DISABLED = true;
 
 	@Disabled
 	@Test
@@ -88,6 +89,84 @@ public class TestBasic {
 		assertEquals(7, (int) errorCount.get(0)); // TODO Error count obviously should be 0
 		assertEquals(20, (int) errorCount.get(1)); // TODO Error count obviously should be 0
 		assertEquals(9, (int) errorCount.get(2)); // TODO Error count obviously should be 0
+	}
+
+	@Test
+	public final void testBasic_fact1() throws Exception {
+		final String        s  = "test/basic/fact1/main2";
+		final Compilation   c  = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
+		final CompilerInput i1 = new CompilerInput(s);
+		final CompilerInput i2 = new CompilerInput("-sO");
+		c.feedInputs(List_of(i1, i2), new DefaultCompilerController());
+
+		if (c.errorCount() != 0) {
+			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
+		}
+
+		if (!TestBasic_DISABLED) {
+			assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
+			assertTrue(c.getOutputTree().getList().size() > 0);
+			assertTrue(c.getIO().recordedwrites.size() > 0);
+
+			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
+			for (Triple<CompilationEnclosure.AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> aof : aofs) {
+				System.err.println(aof);
+			}
+
+			assertTrue(aofs.contains("/Prelude/Prelude.c"));
+		}
+	}
+
+	@Test
+	public final void testBasic_fact1_002() throws Exception {
+
+		testBasic_fact1 f = new testBasic_fact1();
+		f.start();
+
+		//assertEquals(25, f.c.errorCount()); // TODO Error count obviously should be 0
+
+		var cot = f.c.getOutputTree();
+
+
+		Multimap<String, EG_Statement> mms = ArrayListMultimap.create();
+
+
+		for (EOT_OutputFile outputFile : cot.getList()) {
+			if (outputFile.getType() != EOT_OutputType.SOURCES) continue;
+
+			final String filename = outputFile.getFilename();
+			System.err.println(filename);
+
+			var ss = outputFile.getStatementSequence();
+
+			mms.put(filename, ss);
+/*
+			if (ss instanceof EG_SequenceStatement seq) {
+				for (EG_Statement statement : seq._list()) {
+					var exp = statement.getExplanation();
+
+					String txt = statement.getText();
+				}
+			}
+
+			System.err.println(ss);
+*/
+		}
+
+		List<Pair<String, String>> sspl = new ArrayList<>();
+
+		for (Map.Entry<String, Collection<EG_Statement>> entry : mms.asMap().entrySet()) {
+			var fn = entry.getKey();
+			var ss = Helpers.String_join("\n", (entry.getValue()).stream().map(st -> st.getText()).collect(Collectors.toList()));
+
+			//System.out.println("216 "+fn+" "+ss);
+
+			sspl.add(Pair.of(fn, ss));
+		}
+
+		System.err.println(sspl);
+
+		//System.err.println("nothing");
 	}
 
 	@Test
@@ -172,98 +251,19 @@ public class TestBasic {
 		assertEquals(4, c.errorCount()); // TODO Error count obviously should be 0
 	}
 
+	@Disabled
 	@Test
-	public final void testBasic_fact1() throws Exception {
-		final String        s  = "test/basic/fact1/main2";
-		final Compilation   c  = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
-		final CompilerInput i1 = new CompilerInput(s);
-		final CompilerInput i2 = new CompilerInput("-sO");
-		c.feedInputs(List_of(i1, i2), new DefaultCompilerController());
+	public final void testBasicParse() throws Exception {
+		final List<String> ez_files = Files.readLines(new File("test/basic/ez_files.txt"), Charsets.UTF_8);
+		final List<String> args     = new ArrayList<String>();
+		args.addAll(ez_files);
+		args.add("-sE");
+		final ErrSink     eee = new StdErrSink();
+		final Compilation c   = new CompilationImpl(eee, new IO());
 
-		if (c.errorCount() != 0) {
-			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
-		}
+		c.feedCmdLine(args);
 
-		if (!TestBasic_DISABLED) {
-			assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
-			assertTrue(c.getOutputTree().getList().size() > 0);
-			assertTrue(c.getIO().recordedwrites.size() > 0);
-
-			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
-			for (Triple<CompilationEnclosure.AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> aof : aofs) {
-				System.err.println(aof);
-			}
-
-			assertTrue(aofs.contains("/Prelude/Prelude.c"));
-		}
-	}
-
-	@Test
-	public final void testBasic_fact1_002() throws Exception {
-
-		testBasic_fact1 f = new testBasic_fact1();
-		f.start();
-
-		//assertEquals(25, f.c.errorCount()); // TODO Error count obviously should be 0
-
-		var cot = f.c.getOutputTree();
-
-
-		Multimap<String, EG_Statement> mms = ArrayListMultimap.create();
-
-
-		for (EOT_OutputFile outputFile : cot.getList()) {
-			if (outputFile.getType() != EOT_OutputType.SOURCES) continue;
-
-			final String filename = outputFile.getFilename();
-			System.err.println(filename);
-
-			var ss = outputFile.getStatementSequence();
-
-			mms.put(filename, ss);
-/*
-			if (ss instanceof EG_SequenceStatement seq) {
-				for (EG_Statement statement : seq._list()) {
-					var exp = statement.getExplanation();
-
-					String txt = statement.getText();
-				}
-			}
-
-			System.err.println(ss);
-*/
-		}
-
-		List<Pair<String, String>> sspl = new ArrayList<>();
-
-		for (Map.Entry<String, Collection<EG_Statement>> entry : mms.asMap().entrySet()) {
-			var fn = entry.getKey();
-			var ss = Helpers.String_join("\n", (entry.getValue()).stream().map(st -> st.getText()).collect(Collectors.toList()));
-
-			//System.out.println("216 "+fn+" "+ss);
-
-			sspl.add(Pair.of(fn, ss));
-		}
-
-		System.err.println(sspl);
-
-		//System.err.println("nothing");
-	}
-
-	class testBasic_fact1 {
-
-		Compilation c;
-
-		public void start() throws Exception {
-			String s = "test/basic/fact1/main2";
-
-			c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
-
-			c.feedCmdLine(List_of(s, "-sO"));
-
-			if (c.errorCount() != 0)
-				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
-		}
+		assertEquals(0, c.errorCount());
 	}
 }
 

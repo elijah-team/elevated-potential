@@ -1,21 +1,19 @@
 package tripleo.elijah.lang.types;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.OS_Type;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
 
 
 public class OS_UnitType extends __Abstract_OS_Type {
 
 	@Override
-	public @NotNull String asString() {
-		return "<OS_UnitType>";
+	protected boolean _isEqual(final @NotNull OS_Type aType) {
+		return aType.getType() == Type.UNIT_TYPE;
 	}
 
 	@Override
-	protected boolean _isEqual(final @NotNull OS_Type aType) {
-		return aType.getType() == Type.UNIT_TYPE;
+	public @NotNull String asString() {
+		return "<OS_UnitType>";
 	}
 
 	@Override

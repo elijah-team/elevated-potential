@@ -1,6 +1,6 @@
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
 public interface TypeAliasStatement extends OS_Element {
 	@Override
@@ -11,15 +11,15 @@ public interface TypeAliasStatement extends OS_Element {
 
 	void make(IdentExpression x, Qualident y);
 
+	@Override
+	default void serializeTo(SmallWriter sw) {
+
+	}
+
 	void setBecomes(Qualident qq);
 
 	void setIdent(IdentExpression aToken);
 
 	@Override
 	void visitGen(ElElementVisitor visit);
-
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
 }

@@ -31,11 +31,20 @@ import java.util.List;
  * Created 2/28/21 3:23 AM
  */
 public interface EvaContainer extends EvaNode {
-	OS_Element getElement();
-
-	@NotNull Maybe<VarTableEntry> getVariable(String aVarName);
-
 	class VarTableEntry {
+		public static class ConnectionPair {
+			public final VariableTableEntry vte;
+			final        EvaConstructor     constructor;
+
+			@Contract(pure = true)
+			public ConnectionPair(final VariableTableEntry aVte, final EvaConstructor aConstructor) {
+				vte         = aVte;
+				constructor = aConstructor;
+			}
+		}
+		public interface UpdatePotentialTypesCB {
+			Operation<Boolean> call(final @NotNull EvaContainer aEvaContainer);
+		}
 		public final           IExpression                                        initialValue;
 		public final @NotNull  IdentExpression                                    nameToken;
 		public final           VariableStatement                                  vs;
@@ -47,10 +56,28 @@ public interface EvaContainer extends EvaNode {
 		public                 TypeName                                           typeName;
 		public @NotNull        DeferredObject<UpdatePotentialTypesCB, Void, Void> _p_updatePotentialTypesCBPromise = new DeferredObject<>();
 		public                 OS_Type                                            varType;
+
 		UpdatePotentialTypesCB updatePotentialTypesCB;
+
 		private EvaNode _resolvedType;
 
 		DeduceElement3_VarTableEntry _de3;
+
+		public VarTableEntry(final VariableStatement aVs,
+							 final @NotNull IdentExpression aNameToken,
+							 final IExpression aInitialValue,
+							 final @NotNull TypeName aTypeName,
+							 final @NotNull OS_Element aElement) {
+			vs           = aVs;
+			nameToken    = aNameToken;
+			initialValue = aInitialValue;
+			typeName     = aTypeName;
+			varType      = new OS_UserType(typeName);
+			parent       = aElement;
+
+			passthruEnv = null;
+			_de3 = new DeduceElement3_VarTableEntry(this);
+		}
 
 		public VarTableEntry(final VariableStatement aVs,
 							 final IdentExpression aNameToken,
@@ -79,6 +106,10 @@ public interface EvaContainer extends EvaNode {
 			}
 		}
 
+		public void addPotentialTypes(@NotNull Collection<TypeTableEntry> aPotentialTypes) {
+			potentialTypes.addAll(aPotentialTypes);
+		}
+
 		public void connect(final VariableTableEntry aVte, final EvaConstructor aConstructor) {
 			connectionPairs.add(new ConnectionPair(aVte, aConstructor));
 		}
@@ -87,40 +118,12 @@ public interface EvaContainer extends EvaNode {
 			return _de3;
 		}
 
-		public VarTableEntry(final VariableStatement aVs,
-							 final @NotNull IdentExpression aNameToken,
-							 final IExpression aInitialValue,
-							 final @NotNull TypeName aTypeName,
-							 final @NotNull OS_Element aElement) {
-			vs           = aVs;
-			nameToken    = aNameToken;
-			initialValue = aInitialValue;
-			typeName     = aTypeName;
-			varType      = new OS_UserType(typeName);
-			parent       = aElement;
-
-			passthruEnv = null;
-			_de3 = new DeduceElement3_VarTableEntry(this);
-		}
-
-		public void addPotentialTypes(@NotNull Collection<TypeTableEntry> aPotentialTypes) {
-			potentialTypes.addAll(aPotentialTypes);
-		}
-
 		public @NotNull OS_Element getParent() {
 			return parent;
 		}
 
 		public boolean isResolved() {
 			return this._p_resolve_varType.isResolved();
-		}
-
-		public @Nullable EvaNode resolvedType() {
-			return _resolvedType;
-		}
-
-		public interface UpdatePotentialTypesCB {
-			Operation<Boolean> call(final @NotNull EvaContainer aEvaContainer);
 		}
 
 		public void resolve(@NotNull EvaNode aResolvedType) {
@@ -137,15 +140,8 @@ public interface EvaContainer extends EvaNode {
 			_p_resolve_varType.then(aCallback);
 		}
 
-		public static class ConnectionPair {
-			public final VariableTableEntry vte;
-			final        EvaConstructor     constructor;
-
-			@Contract(pure = true)
-			public ConnectionPair(final VariableTableEntry aVte, final EvaConstructor aConstructor) {
-				vte         = aVte;
-				constructor = aConstructor;
-			}
+		public @Nullable EvaNode resolvedType() {
+			return _resolvedType;
 		}
 
 		public void updatePotentialTypes(final @NotNull EvaContainer aEvaContainer) {
@@ -166,6 +162,10 @@ public interface EvaContainer extends EvaNode {
 			return vs;
 		}
 	}
+
+	OS_Element getElement();
+
+	@NotNull Maybe<VarTableEntry> getVariable(String aVarName);
 }
 
 //

@@ -74,11 +74,6 @@ public class GI_VariableStatement implements GenerateC_Item {
 		return _evaNode;
 	}
 
-	@Override
-	public void setEvaNode(final EvaNode a_evaNode) {
-		_evaNode = a_evaNode;
-	}
-
 	public String getText() {
 		String text2 = variableStatement.getName();
 
@@ -137,6 +132,11 @@ public class GI_VariableStatement implements GenerateC_Item {
 		// TODO ExitSuccess, ExitCode
 
 		return text2;
+	}
+
+	@Override
+	public void setEvaNode(final EvaNode a_evaNode) {
+		_evaNode = a_evaNode;
 	}
 
 	public void setItem(final CR_ReferenceItem aItem) {

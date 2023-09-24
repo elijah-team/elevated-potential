@@ -13,6 +13,8 @@ import java.util.Objects;
 public enum OutputFileFactory {
 	;
 
+	private static Map<OS_Module, GenerateFiles> mgfMap = new HashMap<>();
+
 	@Contract("_, _, _ -> new")
 	public static @NotNull GenerateFiles create(final @NotNull String lang,
 												final @NotNull OutputFileFactoryParams params,
@@ -31,6 +33,4 @@ public enum OutputFileFactory {
 		} else
 			throw new NotImplementedException();
 	}
-
-	private static Map<OS_Module, GenerateFiles> mgfMap = new HashMap<>();
 }

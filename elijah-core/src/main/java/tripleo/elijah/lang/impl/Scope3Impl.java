@@ -8,67 +8,17 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.contexts.IfConditionalContext;
+import antlr.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 1/4/21 3:10 AM
  */
 public class Scope3Impl implements Scope3, Documentable {
-	private final List<Token>            _docstrings = new ArrayList<Token>();
-	private final List<OS_Element>       _items      = new ArrayList<OS_Element>();
-	private final Scope3StatementClosure asc         = new Scope3StatementClosure();
-	private final OS_Element             parent;
-
-	public Scope3Impl(OS_Element aParent) {
-		parent = aParent;
-	}
-
-	@Override
-	public void add(OS_Element element) {
-		_items.add(element);
-	}
-
-	@Override
-	public @NotNull Iterable<? extends Token> docstrings() {
-		return _docstrings;
-	}
-
-	@Override
-	public void addDocString(Token aText) {
-		_docstrings.add(aText);
-	}
-
-	@Override
-	public @NotNull List<OS_Element> items() {
-		return _items;
-	}
-
-	@Override
-	public OS_Element getParent() {
-		return parent;
-	}
-
-	@Override
-	public @NotNull StatementClosure statementClosure() {
-		return asc;
-	}
-
-	@Override
-	public @NotNull VariableSequence varSeq() {
-		return asc.varSeq(asc.getParent().getContext());
-	}
-
-	@Override
-	public void statementWrapper(IExpression expr) {
-		add(new StatementWrapperImpl(expr, parent.getContext(), parent)); // TODO is this right?
-	}
-
 	private class Scope3StatementClosure implements StatementClosure {
 		@Override
 		public @NotNull BlockStatement blockClosure() {
@@ -145,6 +95,55 @@ public class Scope3Impl implements Scope3, Documentable {
 			final YieldExpression yiex = new YieldExpressionImpl(aExpr);
 			add(yiex);
 		}
+	}
+	private final List<Token>            _docstrings = new ArrayList<Token>();
+	private final List<OS_Element>       _items      = new ArrayList<OS_Element>();
+	private final Scope3StatementClosure asc         = new Scope3StatementClosure();
+
+	private final OS_Element             parent;
+
+	public Scope3Impl(OS_Element aParent) {
+		parent = aParent;
+	}
+
+	@Override
+	public void add(OS_Element element) {
+		_items.add(element);
+	}
+
+	@Override
+	public void addDocString(Token aText) {
+		_docstrings.add(aText);
+	}
+
+	@Override
+	public @NotNull Iterable<? extends Token> docstrings() {
+		return _docstrings;
+	}
+
+	@Override
+	public OS_Element getParent() {
+		return parent;
+	}
+
+	@Override
+	public @NotNull List<OS_Element> items() {
+		return _items;
+	}
+
+	@Override
+	public @NotNull StatementClosure statementClosure() {
+		return asc;
+	}
+
+	@Override
+	public void statementWrapper(IExpression expr) {
+		add(new StatementWrapperImpl(expr, parent.getContext(), parent)); // TODO is this right?
+	}
+
+	@Override
+	public @NotNull VariableSequence varSeq() {
+		return asc.varSeq(asc.getParent().getContext());
 	}
 
 

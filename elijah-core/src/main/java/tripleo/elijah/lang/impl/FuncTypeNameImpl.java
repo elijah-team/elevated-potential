@@ -42,6 +42,11 @@ public class FuncTypeNameImpl implements tripleo.elijah.lang.i.FuncTypeName {
 	}
 
 	@Override
+	public boolean argListIsGeneric() {
+		return _arglist instanceof GenericTypeName;
+	}
+
+	@Override
 	public int getColumn() {
 		return -1;
 	}
@@ -67,6 +72,11 @@ public class FuncTypeNameImpl implements tripleo.elijah.lang.i.FuncTypeName {
 	}
 
 	@Override
+	public int getLineEnd() {
+		return -1;
+	}
+
+	@Override
 	public boolean isNull() {
 		return _arglist == null && _returnValue == null;
 	}
@@ -77,29 +87,13 @@ public class FuncTypeNameImpl implements tripleo.elijah.lang.i.FuncTypeName {
 	}
 
 	@Override
-	public void setContext(final Context context) {
-		throw new NotImplementedException();
-	}
-
-	@Override
 	public void returnValue(final TypeName rtn) {
 		_returnValue = rtn;
 	}
 
 	@Override
-	public int getLineEnd() {
-		return -1;
-	}
-
-	@Override
-	public boolean argListIsGeneric() {
-		return _arglist instanceof GenericTypeName;
-	}
-
-	// @Override
-	@Override
-	public void type(final TypeModifiers typeModifiers) {
-		_modifiers = typeModifiers;
+	public void setContext(final Context context) {
+		throw new NotImplementedException();
 	}
 
 	@Override
@@ -117,6 +111,12 @@ public class FuncTypeNameImpl implements tripleo.elijah.lang.i.FuncTypeName {
 				//", _modifiers=" + _modifiers +
 				//", _returnValue=" + _returnValue +
 				')';
+	}
+
+	// @Override
+	@Override
+	public void type(final TypeModifiers typeModifiers) {
+		_modifiers = typeModifiers;
 	}
 }
 

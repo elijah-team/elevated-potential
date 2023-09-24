@@ -10,19 +10,32 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class reader {
-	public static @NotNull ArrayList<String> tokenize(final @NotNull String str) {
-		final ArrayList<String> tokens  = new ArrayList<String>();
-		final Pattern           pattern = Pattern.compile("[\\s ,]*(~@|[\\[\\]{}()'`~@]|\"(?:[\\\\].|[^\\\\\"])*\"?|;.*|[^\\s \\[\\]{}()'\"`~@,;]*)");
-		final Matcher           matcher = pattern.matcher(str);
-		while (matcher.find()) {
-			final String token = matcher.group(1);
-			if (token != null &&
-					!token.equals("") &&
-					!(token.charAt(0) == ';')) {
-				tokens.add(token);
+	public static class ParseError extends MalThrowable {
+		public ParseError(final String msg) {
+			super(msg);
+		}
+	}
+
+	public static class Reader {
+		ArrayList<String> tokens;
+		Integer           position;
+
+		public Reader(final ArrayList<String> t) {
+			tokens   = t;
+			position = 0;
+		}
+
+		public String next() {
+			return tokens.get(position++);
+		}
+
+		public @Nullable String peek() {
+			if (position >= tokens.size()) {
+				return null;
+			} else {
+				return tokens.get(position);
 			}
 		}
-		return tokens;
 	}
 
 	public static MalVal read_atom(final @NotNull Reader rdr)
@@ -52,31 +65,6 @@ public class reader {
 		} else {
 			throw new ParseError("unrecognized '" + matcher.group(0) + "'");
 		}
-	}
-
-	public static MalVal read_list(final @NotNull Reader rdr, final @NotNull MalList lst, final char start, final char end)
-	throws MalContinue, ParseError {
-		String token = rdr.next();
-		if (token.charAt(0) != start) {
-			throw new ParseError("expected '" + start + "'");
-		}
-
-		while ((token = rdr.peek()) != null && token.charAt(0) != end) {
-			lst.conj_BANG(read_form(rdr));
-		}
-
-		if (token == null) {
-			throw new ParseError("expected '" + end + "', got EOF");
-		}
-		rdr.next();
-
-		return lst;
-	}
-
-	public static @NotNull MalVal read_hash_map(final @NotNull Reader rdr)
-	throws MalContinue, ParseError {
-		final MalList lst = (MalList) read_list(rdr, new MalList(), '{', '}');
-		return new MalHashMap(lst);
 	}
 
 	public static MalVal read_form(final @NotNull Reader rdr)
@@ -137,36 +125,48 @@ public class reader {
 		return form;
 	}
 
+	public static @NotNull MalVal read_hash_map(final @NotNull Reader rdr)
+	throws MalContinue, ParseError {
+		final MalList lst = (MalList) read_list(rdr, new MalList(), '{', '}');
+		return new MalHashMap(lst);
+	}
+
+	public static MalVal read_list(final @NotNull Reader rdr, final @NotNull MalList lst, final char start, final char end)
+	throws MalContinue, ParseError {
+		String token = rdr.next();
+		if (token.charAt(0) != start) {
+			throw new ParseError("expected '" + start + "'");
+		}
+
+		while ((token = rdr.peek()) != null && token.charAt(0) != end) {
+			lst.conj_BANG(read_form(rdr));
+		}
+
+		if (token == null) {
+			throw new ParseError("expected '" + end + "', got EOF");
+		}
+		rdr.next();
+
+		return lst;
+	}
+
 	public static MalVal read_str(final @NotNull String str)
 	throws MalContinue, ParseError {
 		return read_form(new Reader(tokenize(str)));
 	}
 
-	public static class ParseError extends MalThrowable {
-		public ParseError(final String msg) {
-			super(msg);
-		}
-	}
-
-	public static class Reader {
-		ArrayList<String> tokens;
-		Integer           position;
-
-		public Reader(final ArrayList<String> t) {
-			tokens   = t;
-			position = 0;
-		}
-
-		public @Nullable String peek() {
-			if (position >= tokens.size()) {
-				return null;
-			} else {
-				return tokens.get(position);
+	public static @NotNull ArrayList<String> tokenize(final @NotNull String str) {
+		final ArrayList<String> tokens  = new ArrayList<String>();
+		final Pattern           pattern = Pattern.compile("[\\s ,]*(~@|[\\[\\]{}()'`~@]|\"(?:[\\\\].|[^\\\\\"])*\"?|;.*|[^\\s \\[\\]{}()'\"`~@,;]*)");
+		final Matcher           matcher = pattern.matcher(str);
+		while (matcher.find()) {
+			final String token = matcher.group(1);
+			if (token != null &&
+					!token.equals("") &&
+					!(token.charAt(0) == ';')) {
+				tokens.add(token);
 			}
 		}
-
-		public String next() {
-			return tokens.get(position++);
-		}
+		return tokens;
 	}
 }

@@ -9,16 +9,20 @@
 package tripleo.elijah.lang.types;
 
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.lang2.*;
 
 /**
  * Created 4/25/21 4:43 AM
  */
 public class OS_AnyType extends __Abstract_OS_Type {
 	public OS_AnyType() {
+	}
+
+	@Override
+	protected boolean _isEqual(final @NotNull OS_Type aType) {
+		return aType.getType() == Type.ANY;
 	}
 
 	@Override
@@ -33,19 +37,7 @@ public class OS_AnyType extends __Abstract_OS_Type {
 	}
 
 	@Override
-	public @Nullable TypeName getTypeName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public @Nullable ClassStatement getClassOf() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public @Nullable OS_Type resolve(final Context ctx) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -57,8 +49,14 @@ public class OS_AnyType extends __Abstract_OS_Type {
 	}
 
 	@Override
-	protected boolean _isEqual(final @NotNull OS_Type aType) {
-		return aType.getType() == Type.ANY;
+	public @NotNull Type getType() {
+		return Type.ANY;
+	}
+
+	@Override
+	public @Nullable TypeName getTypeName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -67,8 +65,9 @@ public class OS_AnyType extends __Abstract_OS_Type {
 	}
 
 	@Override
-	public @NotNull Type getType() {
-		return Type.ANY;
+	public @Nullable OS_Type resolve(final Context ctx) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 

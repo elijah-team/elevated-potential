@@ -18,20 +18,18 @@ import org.jetbrains.annotations.NotNull;
  */
 public class DeferredObject2<D, F, P> extends AbstractPromise<D, F, P> implements Deferred<D, F, P> {
 	@Override
-	public Deferred<D, F, P> resolve(final D resolve) {
+	public @NotNull Deferred<D, F, P> notify(final P progress) {
 		synchronized (this) {
 			if (!isPending())
-				throw new IllegalStateException("Deferred object already finished, cannot resolve again");
+				throw new IllegalStateException("Deferred object already finished, cannot notify progress");
 
-			this.state         = State.RESOLVED;
-			this.resolveResult = resolve;
-
-			try {
-				triggerDone(resolve);
-			} finally {
-				triggerAlways(state, resolve, null);
-			}
+			triggerProgress(progress);
 		}
+		return this;
+	}
+
+	@Override
+	public @NotNull Promise<D, F, P> promise() {
 		return this;
 	}
 
@@ -52,17 +50,6 @@ public class DeferredObject2<D, F, P> extends AbstractPromise<D, F, P> implement
 		return this;
 	}
 
-	@Override
-	public @NotNull Deferred<D, F, P> notify(final P progress) {
-		synchronized (this) {
-			if (!isPending())
-				throw new IllegalStateException("Deferred object already finished, cannot notify progress");
-
-			triggerProgress(progress);
-		}
-		return this;
-	}
-
 	public void reset() {
 		state         = State.PENDING;
 		rejectResult  = null;
@@ -70,7 +57,20 @@ public class DeferredObject2<D, F, P> extends AbstractPromise<D, F, P> implement
 	}
 
 	@Override
-	public @NotNull Promise<D, F, P> promise() {
+	public Deferred<D, F, P> resolve(final D resolve) {
+		synchronized (this) {
+			if (!isPending())
+				throw new IllegalStateException("Deferred object already finished, cannot resolve again");
+
+			this.state         = State.RESOLVED;
+			this.resolveResult = resolve;
+
+			try {
+				triggerDone(resolve);
+			} finally {
+				triggerAlways(state, resolve, null);
+			}
+		}
 		return this;
 	}
 }

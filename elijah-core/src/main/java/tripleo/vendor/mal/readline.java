@@ -12,22 +12,14 @@ import java.io.*;
 //import java.util.List;
 
 class readline {
+	public static class EOFException extends Exception {
+	}
+	public enum Mode {JNA, JAVA}
 	static @NotNull  Mode    mode          = Mode.JAVA;// Mode.JNA;
+
 	static @Nullable String  HISTORY_FILE  = null;
+
 	static @NotNull  Boolean historyLoaded = false;
-
-	static {
-		HISTORY_FILE = System.getProperty("user.home") + "/.mal-history";
-	}
-
-	public static @NotNull String readline(final String prompt)
-	throws EOFException, IOException {
-		// if (mode == Mode.JNA) {
-		// return jna_readline(prompt);
-		// } else {
-		return java_readline(prompt);
-		// }
-	}
 
 	//public static String jna_readline(final String prompt)
 	//throws EOFException, IOException {
@@ -43,16 +35,8 @@ class readline {
 	//	return line;
 	//}
 
-	// Just java readline (no history, or line editing)
-	public static @NotNull String java_readline(final String prompt)
-	throws EOFException, IOException {
-		System.out.print(prompt);
-		final BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
-		final String         line   = buffer.readLine();
-		if (line == null) {
-			throw new EOFException();
-		}
-		return line;
+	static {
+		HISTORY_FILE = System.getProperty("user.home") + "/.mal-history";
 	}
 
 /*
@@ -81,7 +65,17 @@ class readline {
 		}
 	}
 
-	public enum Mode {JNA, JAVA}
+	// Just java readline (no history, or line editing)
+	public static @NotNull String java_readline(final String prompt)
+	throws EOFException, IOException {
+		System.out.print(prompt);
+		final BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+		final String         line   = buffer.readLine();
+		if (line == null) {
+			throw new EOFException();
+		}
+		return line;
+	}
 
 /*
 	public interface RLLibrary extends Library {
@@ -101,6 +95,12 @@ class readline {
 	}
 */
 
-	public static class EOFException extends Exception {
+	public static @NotNull String readline(final String prompt)
+	throws EOFException, IOException {
+		// if (mode == Mode.JNA) {
+		// return jna_readline(prompt);
+		// } else {
+		return java_readline(prompt);
+		// }
 	}
 }

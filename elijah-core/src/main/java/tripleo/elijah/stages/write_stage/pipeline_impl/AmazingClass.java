@@ -23,13 +23,13 @@ class AmazingClass implements Amazing {
 		itms                = aOutputItems;
 	}
 
+	public OS_Module mod() {
+		return mod;
+	}
+
 	void waitGenC(final GenerateC ggc) {
 		var oc = new NG_OutputClass();
 		oc.setClass(compilation.world().getClass(c).getGarish(), ggc);
 		itms.addItem(oc);
-	}
-
-	public OS_Module mod() {
-		return mod;
 	}
 }

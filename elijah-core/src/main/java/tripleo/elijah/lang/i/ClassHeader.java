@@ -1,16 +1,16 @@
 package tripleo.elijah.lang.i;
 
-import java.util.List;
+import java.util.*;
 
 public interface ClassHeader {
 	List<AnnotationClause> annos();
 
 
+	TypeNameList genericPart();
+
 	ClassInheritance inheritancePart();
 
 	IdentExpression nameToken();
-
-	void setName(IdentExpression aNameToken);
 
 
 	void setConst(boolean aIsConst);
@@ -18,7 +18,7 @@ public interface ClassHeader {
 
 	void setGenericPart(TypeNameList aTypeNameList);
 
-	TypeNameList genericPart();
+	void setName(IdentExpression aNameToken);
 
 
 	void setType(ClassTypes ct);

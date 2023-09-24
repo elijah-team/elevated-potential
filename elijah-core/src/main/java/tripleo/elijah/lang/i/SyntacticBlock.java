@@ -1,10 +1,10 @@
 package tripleo.elijah.lang.i;
 
-import antlr.Token;
-import tripleo.elijah.contexts.SyntacticBlockContext;
-import tripleo.elijah.lang2.ElElementVisitor;
+import antlr.*;
+import tripleo.elijah.contexts.*;
+import tripleo.elijah.lang2.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface SyntacticBlock extends FunctionItem {
 	void add(OS_Element anElement);
@@ -26,12 +26,12 @@ public interface SyntacticBlock extends FunctionItem {
 	void scope(Scope3 sco);
 
 	@Override
-	void visitGen(ElElementVisitor visit);
-
-	@Override
 	default void serializeTo(SmallWriter sw) {
 
 	}
 
 	void setContext(SyntacticBlockContext ctx);
+
+	@Override
+	void visitGen(ElElementVisitor visit);
 }

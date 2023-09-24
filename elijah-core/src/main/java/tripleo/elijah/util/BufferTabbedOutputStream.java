@@ -23,10 +23,18 @@ import static tripleo.elijah.util.Helpers.List_of;
  */
 public class BufferTabbedOutputStream {
 
+	interface Att {
+	}
+	record AttStr(String s, List<Att> atts) {
+	}
 	int tabwidth = 0;
 	@NotNull TextBuffer   b       = new DefaultBuffer("");
+
 	@NotNull List<AttStr> las     = new ArrayList<>();
+
 	private  boolean      _closed = false;
+
+	private boolean do_tabs = false;
 
 	public void close() {
 		if (!is_connected())
@@ -36,12 +44,19 @@ public class BufferTabbedOutputStream {
 		_closed = true;
 	}
 
-	public boolean is_connected() {
-		return !_closed;
-	}
-
 	public void dec_tabs() {
 		tabwidth--;
+	}
+
+	@NotNull String doIndent() {
+		var sb = new StringBuilder();
+
+		for (int i = 0; i < tabwidth; i++)
+			 b.append("\t");
+
+		for (int i = 0; i < tabwidth; i++)
+			 sb.append("\t");
+		return sb.toString();
 	}
 
 	public void flush() {
@@ -56,11 +71,13 @@ public class BufferTabbedOutputStream {
 		tabwidth++;
 	}
 
+	public boolean is_connected() {
+		return !_closed;
+	}
+
 	public void put_newline() {
 		doIndent();
 	}
-
-	private boolean do_tabs = false;
 
 	public void put_string(final String s) {
 		if (!is_connected())
@@ -114,23 +131,6 @@ public class BufferTabbedOutputStream {
 
 	public int t() {
 		return tabwidth;
-	}
-
-	@NotNull String doIndent() {
-		var sb = new StringBuilder();
-
-		for (int i = 0; i < tabwidth; i++)
-			 b.append("\t");
-
-		for (int i = 0; i < tabwidth; i++)
-			 sb.append("\t");
-		return sb.toString();
-	}
-
-	record AttStr(String s, List<Att> atts) {
-	}
-
-	interface Att {
 	}
 
 }

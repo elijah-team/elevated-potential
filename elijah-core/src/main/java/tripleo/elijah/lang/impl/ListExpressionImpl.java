@@ -26,6 +26,21 @@ import java.util.List;
  */
 public class ListExpressionImpl extends AbstractExpression implements tripleo.elijah.lang.i.ListExpression {
 
+	public class SyntaxImpl {
+		@NotNull List<Token> commas = new ArrayList<Token>();
+		Token endToken;
+		Token startToken;
+
+		public void comma(Token t) {
+			commas.add(t);
+		}
+
+		public void start_and_end(Token startToken, Token endToken) {
+			this.startToken = startToken;
+			this.endToken   = endToken;
+		}
+	}
+
 	public @NotNull SyntaxImpl syntax = new SyntaxImpl();
 
 	ExpressionList contents;
@@ -44,6 +59,8 @@ public class ListExpressionImpl extends AbstractExpression implements tripleo.el
 		return 0;
 	}
 
+	// region Syntax
+
 	@Override
 	public @Nullable File getFile() {
 		if (syntax.startToken != null) {
@@ -52,13 +69,6 @@ public class ListExpressionImpl extends AbstractExpression implements tripleo.el
 				return new File(filename);
 		}
 		return null;
-	}
-
-	// region Syntax
-
-	@Override
-	public void setContents(final ExpressionList aList) {
-		contents = aList;
 	}
 
 	@Override
@@ -90,23 +100,13 @@ public class ListExpressionImpl extends AbstractExpression implements tripleo.el
 	}
 
 	@Override
-	public void setType(OS_Type deducedExpression) {
-
+	public void setContents(final ExpressionList aList) {
+		contents = aList;
 	}
 
-	public class SyntaxImpl {
-		@NotNull List<Token> commas = new ArrayList<Token>();
-		Token endToken;
-		Token startToken;
+	@Override
+	public void setType(OS_Type deducedExpression) {
 
-		public void comma(Token t) {
-			commas.add(t);
-		}
-
-		public void start_and_end(Token startToken, Token endToken) {
-			this.startToken = startToken;
-			this.endToken   = endToken;
-		}
 	}
 
 	// endregion

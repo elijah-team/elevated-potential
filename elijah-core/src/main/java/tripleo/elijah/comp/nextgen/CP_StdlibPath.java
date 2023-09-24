@@ -1,13 +1,12 @@
 package tripleo.elijah.comp.nextgen;
 
-import org.jdeferred2.Promise;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.Compilation;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
 
-import java.io.File;
-import java.nio.file.Path;
+import java.io.*;
+import java.nio.file.*;
 
 public class CP_StdlibPath implements CP_Path, _CP_RootPath {
 	private final Compilation                      c;
@@ -18,13 +17,18 @@ public class CP_StdlibPath implements CP_Path, _CP_RootPath {
 	}
 
 	@Override
-	public @Nullable CP_SubFile subFile(final String aFile) {
+	public CP_Path child(final String aSubPath) {
+		return new CP_SubFile(this, aSubPath).getPath();
+	}
+
+	@Override
+	public @Nullable String getName() {
 		return null;
 	}
 
 	@Override
-	public CP_Path child(final String aSubPath) {
-		return new CP_SubFile(this, aSubPath).getPath();
+	public @Nullable CP_Path getParent() {
+		return null;
 	}
 
 	@Override
@@ -38,27 +42,22 @@ public class CP_StdlibPath implements CP_Path, _CP_RootPath {
 	}
 
 	@Override
-	public @NotNull File toFile() {
-		return getPath().toFile();
-	}
-
-	@Override
 	public @Nullable File getRootFile() {
-		return null;
-	}
-
-	@Override
-	public @Nullable CP_Path getParent() {
-		return null;
-	}
-
-	@Override
-	public @Nullable String getName() {
 		return null;
 	}
 
 	@Override
 	public @NotNull _CP_RootPath getRootPath() {
 		return this;
+	}
+
+	@Override
+	public @Nullable CP_SubFile subFile(final String aFile) {
+		return null;
+	}
+
+	@Override
+	public @NotNull File toFile() {
+		return getPath().toFile();
 	}
 }

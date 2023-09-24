@@ -1,18 +1,14 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah.stages.gen_fn.EvaConstructor;
-import tripleo.elijah.stages.gen_fn.EvaContainerNC;
-import tripleo.elijah.stages.gen_fn.EvaNamespace;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.util.buffer.Buffer;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.util.buffer.*;
 
-import java.util.List;
+import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 	final         GenerateResult           gr;
@@ -33,12 +29,6 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 		gf      = aYf.cheat();
 		fileGen = aFileGen;
 		gr      = fileGen.gr();
-	}
-
-	@Override
-	public @NotNull List<C2C_Result> getResults() {
-		calculate();
-		return List_of(buf, bufHdr);
 	}
 
 	private void calculate() {
@@ -130,6 +120,12 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 //				header_string = String.format("%s %s(%s)", class_name, name, args_string);
 		}
 		return header_string;
+	}
+
+	@Override
+	public @NotNull List<C2C_Result> getResults() {
+		calculate();
+		return List_of(buf, bufHdr);
 	}
 
 }

@@ -47,6 +47,13 @@ public class GetIdentIAPathTest_ForC {
 	private CompilationImpl compilation;
 	private StdErrSink      errSink;
 
+	String getIdentIAPath(final @NotNull IdentIA ia2, EvaFunction generatedFunction, @NotNull GenerateC gc, CompilationEnclosure ce) {
+		final CReference reference = new CReference(gc.repo(), ce);
+		var              x         = reference.getIdentIAPath2(ia2, Generate_Code_For_Method.AOG.GET, null);
+		System.err.println("258 " + x);
+		return x;//reference.build();
+	}
+
 	@BeforeEach
 	public void setUp() throws Exception {
 		mod = mock(OS_Module.class);
@@ -180,13 +187,6 @@ public class GetIdentIAPathTest_ForC {
 		String x = getIdentIAPath(ident_ia, gf, generateC, compilation.getCompilationEnclosure());
 //		assertEquals("vvx->vmfoo", x); // TODO real expectation
 		assertEquals("vvx->vmfoo", x);
-	}
-
-	String getIdentIAPath(final @NotNull IdentIA ia2, EvaFunction generatedFunction, @NotNull GenerateC gc, CompilationEnclosure ce) {
-		final CReference reference = new CReference(gc.repo(), ce);
-		var              x         = reference.getIdentIAPath2(ia2, Generate_Code_For_Method.AOG.GET, null);
-		System.err.println("258 " + x);
-		return x;//reference.build();
 	}
 
 	@Disabled

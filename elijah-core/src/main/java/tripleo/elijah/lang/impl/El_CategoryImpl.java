@@ -8,11 +8,11 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.Nullable;
+import antlr.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.util.*;
 
 /**
  * Created 3/26/21 4:47 AM
@@ -46,14 +46,14 @@ public class El_CategoryImpl implements El_Category {
 	}
 
 	@Override
-	public void visitGen(ElElementVisitor visit) {
-		// TODO Auto-generated method stub
-//		visit.visitCategory(this);
+	public void serializeTo(final SmallWriter sw) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-		throw new UnsupportedOperationException();
+	public void visitGen(ElElementVisitor visit) {
+		// TODO Auto-generated method stub
+//		visit.visitCategory(this);
 	}
 }
 

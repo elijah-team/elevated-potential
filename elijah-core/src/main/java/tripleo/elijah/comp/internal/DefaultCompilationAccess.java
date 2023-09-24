@@ -1,16 +1,13 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.IPipelineAccess;
-import tripleo.elijah.comp.notation.GN_WriteLogs;
-import tripleo.elijah.stages.deduce.IFunctionMapHook;
-import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.logging.*;
 
-import java.util.List;
+import java.util.*;
 
 public class DefaultCompilationAccess implements ICompilationAccess {
 	protected final Compilation compilation;
@@ -47,6 +44,11 @@ public class DefaultCompilationAccess implements ICompilationAccess {
 	}
 
 	@Override
+	public @NotNull Pipeline internal_pipelines() {
+		return pipelines;
+	}
+
+	@Override
 	public void setPipelineLogic(final PipelineLogic pl) {
 		assert compilation.getCompilationEnclosure().getPipelineLogic() == null;
 		compilation.getCompilationEnclosure().setPipelineLogic(pl);
@@ -65,10 +67,5 @@ public class DefaultCompilationAccess implements ICompilationAccess {
 		final IPipelineAccess      pa            = compilation.pa();
 
 		pa.notate(Provenance.DefaultCompilationAccess__writeLogs, new GN_WriteLogs(this, pipelineLogic.getLogs()));
-	}
-
-	@Override
-	public @NotNull Pipeline internal_pipelines() {
-		return pipelines;
 	}
 }

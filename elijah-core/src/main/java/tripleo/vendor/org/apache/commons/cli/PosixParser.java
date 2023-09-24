@@ -55,6 +55,49 @@ public class PosixParser extends Parser {
 	private Options options;
 
 	/**
+	 * Breaks {@code token} into its constituent parts using the following algorithm.
+	 *
+	 * <ul>
+	 * <li>ignore the first character ("<b>-</b>")</li>
+	 * <li>for each remaining character check if an {@link Option} exists with that id.</li>
+	 * <li>if an {@link Option} does exist then add that character prepended with "<b>-</b>" to the list of processed
+	 * tokens.</li>
+	 * <li>if the {@link Option} can have an argument value and there are remaining characters in the token then add the
+	 * remaining characters as a token to the list of processed tokens.</li>
+	 * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> {@code stopAtNonOption} <b>IS</b> set then add the
+	 * special token "<b>--</b>" followed by the remaining characters and also the remaining tokens directly to the
+	 * processed tokens list.</li>
+	 * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> {@code stopAtNonOption} <b>IS NOT</b> set then add
+	 * that character prepended with "<b>-</b>".</li>
+	 * </ul>
+	 *
+	 * @param token           The current token to be <b>burst</b>
+	 * @param stopAtNonOption Specifies whether to stop processing at the first non-Option encountered.
+	 */
+	protected void burstToken(final @NotNull String token, final boolean stopAtNonOption) {
+		for (int i = 1; i < token.length(); i++) {
+			final String ch = String.valueOf(token.charAt(i));
+
+			if (!options.hasOption(ch)) {
+				if (stopAtNonOption) {
+					processNonOptionToken(token.substring(i), true);
+				} else {
+					tokens.add(token);
+				}
+				break;
+			}
+			tokens.add("-" + ch);
+			currentOption = options.getOption(ch);
+
+			if (currentOption.hasArg() && token.length() != i + 1) {
+				tokens.add(token.substring(i + 1));
+
+				break;
+			}
+		}
+	}
+
+	/**
 	 * <p>
 	 * An implementation of {@link Parser}'s abstract {@link Parser#flatten(Options, String[], boolean) flatten} method.
 	 * </p>
@@ -147,12 +190,30 @@ public class PosixParser extends Parser {
 	}
 
 	/**
+	 * Adds the remaining tokens to the processed tokens list.
+	 *
+	 * @param iter An iterator over the remaining tokens
+	 */
+	private void gobble(final @NotNull Iterator<String> iter) {
+		if (eatTheRest) {
+			while (iter.hasNext()) {
+				tokens.add(iter.next());
+			}
+		}
+	}
+
+	/**
 	 * Resets the members to their original state i.e. remove all of {@code tokens} entries and set
 	 * {@code eatTheRest} to false.
 	 */
 	private void init() {
 		eatTheRest = false;
 		tokens.clear();
+	}
+
+	@Override
+	public CommandLine parse(Options options, @NotNull List<CompilerInput> aInputs) {
+		throw new NotImplementedException();
 	}
 
 	/**
@@ -193,67 +254,6 @@ public class PosixParser extends Parser {
 		}
 
 		tokens.add(token);
-	}
-
-	/**
-	 * Breaks {@code token} into its constituent parts using the following algorithm.
-	 *
-	 * <ul>
-	 * <li>ignore the first character ("<b>-</b>")</li>
-	 * <li>for each remaining character check if an {@link Option} exists with that id.</li>
-	 * <li>if an {@link Option} does exist then add that character prepended with "<b>-</b>" to the list of processed
-	 * tokens.</li>
-	 * <li>if the {@link Option} can have an argument value and there are remaining characters in the token then add the
-	 * remaining characters as a token to the list of processed tokens.</li>
-	 * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> {@code stopAtNonOption} <b>IS</b> set then add the
-	 * special token "<b>--</b>" followed by the remaining characters and also the remaining tokens directly to the
-	 * processed tokens list.</li>
-	 * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> {@code stopAtNonOption} <b>IS NOT</b> set then add
-	 * that character prepended with "<b>-</b>".</li>
-	 * </ul>
-	 *
-	 * @param token           The current token to be <b>burst</b>
-	 * @param stopAtNonOption Specifies whether to stop processing at the first non-Option encountered.
-	 */
-	protected void burstToken(final @NotNull String token, final boolean stopAtNonOption) {
-		for (int i = 1; i < token.length(); i++) {
-			final String ch = String.valueOf(token.charAt(i));
-
-			if (!options.hasOption(ch)) {
-				if (stopAtNonOption) {
-					processNonOptionToken(token.substring(i), true);
-				} else {
-					tokens.add(token);
-				}
-				break;
-			}
-			tokens.add("-" + ch);
-			currentOption = options.getOption(ch);
-
-			if (currentOption.hasArg() && token.length() != i + 1) {
-				tokens.add(token.substring(i + 1));
-
-				break;
-			}
-		}
-	}
-
-	/**
-	 * Adds the remaining tokens to the processed tokens list.
-	 *
-	 * @param iter An iterator over the remaining tokens
-	 */
-	private void gobble(final @NotNull Iterator<String> iter) {
-		if (eatTheRest) {
-			while (iter.hasNext()) {
-				tokens.add(iter.next());
-			}
-		}
-	}
-
-	@Override
-	public CommandLine parse(Options options, @NotNull List<CompilerInput> aInputs) {
-		throw new NotImplementedException();
 	}
 
 }

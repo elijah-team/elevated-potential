@@ -10,11 +10,6 @@ import tripleo.elijah.util.*;
 import java.io.*;
 
 public interface ILazyCompilerInstructions {
-	@Contract(value = "_ -> new", pure = true)
-	static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInstructions aCompilerInstructions) {
-		return () -> aCompilerInstructions;
-	}
-
 	@Contract(value = "_, _ -> new", pure = true)
 	static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInput input, final @NotNull CompilationClosure cc) {
 		final String file_name = input.getInp();
@@ -42,6 +37,11 @@ public interface ILazyCompilerInstructions {
 				}
 			}
 		};
+	}
+
+	@Contract(value = "_ -> new", pure = true)
+	static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInstructions aCompilerInstructions) {
+		return () -> aCompilerInstructions;
 	}
 
 	CompilerInstructions get();

@@ -17,6 +17,10 @@ public class GetAssignmentValueArgsStatement implements EG_Statement {
 		inst = aInst;
 	}
 
+	public void add_string(final String aS) {
+		sll.add(aS);
+	}
+
 	@Override
 	public EX_Explanation getExplanation() {
 		throw new UnintendedUseException();
@@ -27,10 +31,6 @@ public class GetAssignmentValueArgsStatement implements EG_Statement {
 	public @Nullable String getText() {
 		throw new UnintendedUseException();
 		//return null;
-	}
-
-	public void add_string(final String aS) {
-		sll.add(aS);
 	}
 
 	public List<String> stringList() {

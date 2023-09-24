@@ -13,8 +13,22 @@ import tripleo.elijah.world.i.LivingClass;
 import static tripleo.elijah.DebugFlags.MANUAL_DISABLED;
 
 public class WhyNotGarish_Class implements WhyNotGarish_Item {
+	public class GCFC implements Reactivable {
+
+		@Override
+		public void respondTo(final ReactiveDimension aDimension) {
+			if (aDimension instanceof GenerateC generateC) {
+				fileGenPromise.then(fileGen -> {
+					final LivingClass livingClass = generateC._ce().getCompilation().world().getClass(gc);
+
+					livingClass.getGarish().garish(generateC, fileGen.gr(), fileGen.resultSink());
+				});
+			}
+		}
+	}
 	private final EvaClass                                 gc;
 	private final GenerateC                                generateC;
+
 	private final DeferredObject<GenerateResultEnv, Void, Void> fileGenPromise = new DeferredObject<>();
 
 	private final GCFC gcfc = new GCFC();
@@ -32,6 +46,11 @@ public class WhyNotGarish_Class implements WhyNotGarish_Item {
 
 	public String getTypeNameString() {
 		return GenerateC.GetTypeName.forGenClass(gc);
+	}
+
+	@Override
+	public boolean hasFileGen() {
+		return fileGenPromise.isResolved();
 	}
 
 	private void onFileGen(final @NotNull GenerateResultEnv aFileGen) {
@@ -52,26 +71,7 @@ public class WhyNotGarish_Class implements WhyNotGarish_Item {
 	}
 
 	@Override
-	public boolean hasFileGen() {
-		return fileGenPromise.isResolved();
-	}
-
-	@Override
 	public void provideFileGen(final GenerateResultEnv fg) {
 		fileGenPromise.resolve(fg);
-	}
-
-	public class GCFC implements Reactivable {
-
-		@Override
-		public void respondTo(final ReactiveDimension aDimension) {
-			if (aDimension instanceof GenerateC generateC) {
-				fileGenPromise.then(fileGen -> {
-					final LivingClass livingClass = generateC._ce().getCompilation().world().getClass(gc);
-
-					livingClass.getGarish().garish(generateC, fileGen.gr(), fileGen.resultSink());
-				});
-			}
-		}
 	}
 }

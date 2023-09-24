@@ -89,11 +89,6 @@ public class LookupResultListImpl implements LookupResultList {
 		throw new IllegalStateException("Error");
 	}
 
-	@Override
-	public @NotNull List<LookupResult> results() { // TODO want ImmutableList
-		return _results;
-	}
-
 	private @NotNull List<LookupResult> getMaxScoredResults1(final @NotNull List<Predicate<OS_Element>> l) {
 		final Map<LookupResult, Integer> new_results = new HashMap<LookupResult, Integer>();
 		int                              maxScore    = 0;
@@ -112,6 +107,11 @@ public class LookupResultListImpl implements LookupResultList {
 				new_results.put(lookupResult, score);
 		}
 		return new ArrayList<LookupResult>(new_results.keySet());
+	}
+
+	@Override
+	public @NotNull List<LookupResult> results() { // TODO want ImmutableList
+		return _results;
 	}
 }
 

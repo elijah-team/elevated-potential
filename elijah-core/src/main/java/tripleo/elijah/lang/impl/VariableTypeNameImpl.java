@@ -14,15 +14,13 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
+import java.io.*;
+import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 public class VariableTypeNameImpl extends AbstractTypeName
 		implements NormalTypeName, tripleo.elijah.lang.i.VariableTypeName {
@@ -70,6 +68,11 @@ public class VariableTypeNameImpl extends AbstractTypeName
 	}
 
 	@Override
+	public TypeNameList getGenericPart() {
+		return genericPart;
+	}
+
+	@Override
 	public int getLine() {
 		return pr_name.parts().get(0).getLine();
 	}
@@ -77,11 +80,6 @@ public class VariableTypeNameImpl extends AbstractTypeName
 	@Override
 	public int getLineEnd() {
 		return pr_name.parts().get(pr_name.parts().size()).getLineEnd();
-	}
-
-	@Override
-	public TypeNameList getGenericPart() {
-		return genericPart;
 	}
 
 	@Override
@@ -108,23 +106,23 @@ public class VariableTypeNameImpl extends AbstractTypeName
 	// region Locatable
 
 	@Override
-	public void setContext(final Context ctx) {
-		_ctx = ctx;
-	}
-
-	@Override
 	public boolean hasResolvedElement() {
 		return _resolvedElement != null;
 	}
 
 	@Override
-	public void setResolvedElement(final OS_Element element) {
-		_resolvedElement = element;
+	public @NotNull Type kindOfType() {
+		return Type.NORMAL;
 	}
 
 	@Override
-	public @NotNull Type kindOfType() {
-		return Type.NORMAL;
+	public void setContext(final Context ctx) {
+		_ctx = ctx;
+	}
+
+	@Override
+	public void setResolvedElement(final OS_Element element) {
+		_resolvedElement = element;
 	}
 
 	/*

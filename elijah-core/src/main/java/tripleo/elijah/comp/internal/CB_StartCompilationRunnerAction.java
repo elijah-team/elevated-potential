@@ -1,21 +1,21 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.Compilation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.*;
 
-import java.util.List;
+import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	private final          CompilationRunner    compilationRunner;
 	private final          CompilerInstructions rootCI;
 	private final @NotNull IPipelineAccess      pa;
+
+	private final CB_Output o;
 
 	@Contract(pure = true)
 	public CB_StartCompilationRunnerAction(final CompilationRunner aCompilationRunner,
@@ -32,14 +32,6 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	@NotNull
 	public CB_Process cb_Process() {
 		return this;
-	}
-
-	@Override
-	@NotNull
-	public List<CB_Action> steps() {
-		return List_of(
-				CB_StartCompilationRunnerAction.this
-					  );
 	}
 
 	@Override
@@ -79,5 +71,11 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 		return o.get();
 	}
 
-	private final CB_Output o;
+	@Override
+	@NotNull
+	public List<CB_Action> steps() {
+		return List_of(
+				CB_StartCompilationRunnerAction.this
+					  );
+	}
 }

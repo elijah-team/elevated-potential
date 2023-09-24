@@ -8,15 +8,20 @@
  */
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.contexts.ImportContext;
-import tripleo.elijah.lang.impl.AccessNotationImpl;
-import tripleo.elijah.lang2.ElElementVisitor;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang2.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface ImportStatement extends ModuleItem, ClassItem, StatementItem {
 	List<Qualident> parts();
+
+	@Override
+	default void serializeTo(SmallWriter sw) {
+
+	}
 
 	void setAccess(AccessNotationImpl aNotation);
 
@@ -25,11 +30,6 @@ public interface ImportStatement extends ModuleItem, ClassItem, StatementItem {
 	@Override
 	default void visitGen(final @NotNull ElElementVisitor visit) {
 		visit.visitImportStatment(this);
-	}
-
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
 	}
 }
 

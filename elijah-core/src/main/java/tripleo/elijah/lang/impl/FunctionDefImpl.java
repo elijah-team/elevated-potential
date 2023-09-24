@@ -37,22 +37,6 @@ public class FunctionDefImpl extends BaseFunctionDef
 	// endregion
 	private @Nullable TypeName _returnType = null;
 
-	@Override
-	public EN_Name getEnName() {
-		if (funName == null) {
-			throw new IllegalStateException("call #setName first");
-		}
-
-		return funName.getName();
-	}
-
-	@Override
-	public void setName(IdentExpression aText) {
-		super.setName(aText);
-		getEnName().addUnderstanding(new ENU_FunctionName());
-		getEnName().addUnderstanding(new ENU_FunctionDefinition(this));
-	}
-
 	public FunctionDefImpl(OS_Element element, Context context) {
 		parent = element;
 		if (element instanceof OS_Container) {
@@ -65,10 +49,6 @@ public class FunctionDefImpl extends BaseFunctionDef
 		_a.setContext(new FunctionContext(context, this));
 	}
 
-	// endregion
-
-	// region abstract
-
 	@Override
 	public void add(FunctionItem seq) {
 		// TODO Auto-generated method stub
@@ -76,49 +56,17 @@ public class FunctionDefImpl extends BaseFunctionDef
 	}
 
 	@Override
-	public void setBody(@NotNull FunctionBody aFunctionBody) {
-		scope(aFunctionBody.scope3());
-		setAbstract(aFunctionBody.getAbstract());
+	public EN_Name getEnName() {
+		if (funName == null) {
+			throw new IllegalStateException("call #setName first");
+		}
+
+		return funName.getName();
 	}
 
 	// endregion
 
-	@Override // OS_Element
-	public OS_Element getParent() {
-		return parent;
-	}
-
-	@Override
-	public void postConstruct() { // TODO
-
-	}
-
-	@Override
-	public void setReturnType(final TypeName tn) {
-		this._returnType = tn;
-	}
-
-	@Override
-	public void set(final FunctionModifiers mod) {
-		assert _mod == null;
-		_mod = mod;
-	}
-
-	@Override
-	public void setAbstract(final boolean b) {
-		_isAbstract = b;
-		if (b) {
-			this.set(FunctionModifiers.ABSTRACT);
-		}
-	}
-
-	@Override
-	public void setHeader(@NotNull FunctionHeader aFunctionHeader) {
-		setFal(aFunctionHeader.getFal());
-		set(aFunctionHeader.getModifier());
-		setName(aFunctionHeader.getName());
-		setReturnType(aFunctionHeader.getReturnType());
-	}
+	// region abstract
 
 	@Override
 	public @NotNull OS_FuncType getOS_Type() {
@@ -127,9 +75,16 @@ public class FunctionDefImpl extends BaseFunctionDef
 		return osType;
 	}
 
+	@Override // OS_Element
+	public OS_Element getParent() {
+		return parent;
+	}
+
+	// endregion
+
 	@Override
-	public void visitGen(final @NotNull ElElementVisitor visit) {
-		visit.visitFunctionDef(this);
+	public void postConstruct() { // TODO
+
 	}
 
 	/**
@@ -149,14 +104,59 @@ public class FunctionDefImpl extends BaseFunctionDef
 	}
 
 	@Override
+	public void serializeTo(final @NotNull SmallWriter sw) {
+		sw.fieldIdent("name", getNameNode());
+//		throw new NotImplementedException();
+	}
+
+	@Override
+	public void set(final FunctionModifiers mod) {
+		assert _mod == null;
+		_mod = mod;
+	}
+
+	@Override
+	public void setAbstract(final boolean b) {
+		_isAbstract = b;
+		if (b) {
+			this.set(FunctionModifiers.ABSTRACT);
+		}
+	}
+
+	@Override
+	public void setBody(@NotNull FunctionBody aFunctionBody) {
+		scope(aFunctionBody.scope3());
+		setAbstract(aFunctionBody.getAbstract());
+	}
+
+	@Override
+	public void setHeader(@NotNull FunctionHeader aFunctionHeader) {
+		setFal(aFunctionHeader.getFal());
+		set(aFunctionHeader.getModifier());
+		setName(aFunctionHeader.getName());
+		setReturnType(aFunctionHeader.getReturnType());
+	}
+
+	@Override
+	public void setName(IdentExpression aText) {
+		super.setName(aText);
+		getEnName().addUnderstanding(new ENU_FunctionName());
+		getEnName().addUnderstanding(new ENU_FunctionDefinition(this));
+	}
+
+	@Override
+	public void setReturnType(final TypeName tn) {
+		this._returnType = tn;
+	}
+
+	@Override
 	public String toString() {
 		return String.format("<Function %s %s %s>", parent, name(), getArgs());
 	}
 
 	@Override
-	public void serializeTo(final @NotNull SmallWriter sw) {
-		sw.fieldIdent("name", getNameNode());
-//		throw new NotImplementedException();
+	public void visitGen(final @NotNull ElElementVisitor visit) {
+		visit.visitFunctionDef(this);
 	}
 }
 

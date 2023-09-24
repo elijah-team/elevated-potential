@@ -1,40 +1,56 @@
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.contexts.MatchContext;
-import tripleo.elijah.lang.impl.MatchConditionalImpl;
-import tripleo.elijah.lang2.ElElementVisitor;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang2.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface MatchConditional extends OS_Element, StatementItem, FunctionItem {
+	public interface MC1 extends OS_Element, Documentable {
+		void add(FunctionItem aItem);
+
+		@Override
+		Context getContext();
+
+		Iterable<? extends FunctionItem> getItems();
+
+		@Override
+		default void serializeTo(SmallWriter sw) {
+
+		}
+
+		@Override
+		default void visitGen(@NotNull ElElementVisitor visit) {
+			visit.visitMC1(this);
+		}
+	}
+
 	void expr(IExpression expr);
 
 	@Override
 	Context getContext();
 
+	IExpression getExpr();
+
 	@Override
 	OS_Element getParent();
 
-	IExpression getExpr();
-
-	void setParent(OS_Element aParent);
-
 	List<MC1> getParts();
 
-	@Override
-	void visitGen(ElElementVisitor visit);
+	MatchConditionalImpl.MatchConditionalPart2 normal();
+
+	void postConstruct();
 
 	@Override
 	default void serializeTo(SmallWriter sw) {
 
 	}
 
-	void postConstruct();
-
 	void setContext(MatchContext ctx);
 
-	MatchConditionalImpl.MatchConditionalPart2 normal();
+	void setParent(OS_Element aParent);
 
 	//
 	//
@@ -43,22 +59,6 @@ public interface MatchConditional extends OS_Element, StatementItem, FunctionIte
 
 	MatchConditionalImpl.MatchConditionalPart3 valNormal();
 
-	public interface MC1 extends OS_Element, Documentable {
-		void add(FunctionItem aItem);
-
-		@Override
-		Context getContext();
-
-		@Override
-		default void visitGen(@NotNull ElElementVisitor visit) {
-			visit.visitMC1(this);
-		}
-
-		@Override
-		default void serializeTo(SmallWriter sw) {
-
-		}
-
-		Iterable<? extends FunctionItem> getItems();
-	}
+	@Override
+	void visitGen(ElElementVisitor visit);
 }

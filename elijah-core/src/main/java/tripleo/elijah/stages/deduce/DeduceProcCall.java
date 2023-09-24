@@ -9,86 +9,22 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import org.jdeferred2.Promise;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ReadySupplier_1;
-import tripleo.elijah.comp.i.ErrSink;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.VariableStatementImpl;
-import tripleo.elijah.nextgen.query.Mode;
-import tripleo.elijah.stages.deduce.nextgen.DR_Variable;
-import tripleo.elijah.stages.deduce.tastic.FCA_Stop;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_fn.DeferredObject2;
-import tripleo.elijah.stages.gen_fn.ProcTableEntry;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.nextgen.query.*;
+import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.deduce.tastic.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.util.*;
 
 /**
  * Created 11/30/21 11:56 PM
  */
 public class DeduceProcCall {
-	private final @NotNull ProcTableEntry                                 procTableEntry;
-	private final          DT_Resolvable11<DeduceElement>                 _pr_target  = new DT_Resolvable11<>();
-	private final          DeferredObject2<DeduceElement, FCA_Stop, Void> _p_targetP2 = new DeferredObject2<>();
-	private                Context                                        _g_context;
-	private                DeduceTypes2                                   _g_deduceTypes2;
-	private                ErrSink                                        _g_errSink;
-	private                BaseEvaFunction                                _g_generatedFunction;
-	private                DeduceElement                                  target;
-
-	public BaseEvaFunction _generatedFunction() {
-		return _g_generatedFunction;
-	}
-
-	@Contract(pure = true)
-	public DeduceProcCall(final @NotNull ProcTableEntry aProcTableEntry) {
-		procTableEntry = aProcTableEntry;
-
-		procTableEntry.onFunctionInvocation((final @NotNull FunctionInvocation functionInvocation) -> {
-			functionInvocation.generatePromise().then((BaseEvaFunction evaFunction) -> {
-				final @NotNull FunctionDef best = evaFunction.getFD();
-
-				final DeclAnchor.AnchorType anchorType = DeclAnchor.AnchorType.MEMBER;
-				final OS_Element            declAnchor = best.getParent();
-				try {
-					setTarget(aProcTableEntry._inj().new_DeclTarget(best, declAnchor, anchorType, this));
-					_pr_target.resolve(getTarget());
-					_p_targetP2.resolve(getTarget());
-				} catch (FCA_Stop aE) {
-					_p_targetP2.reject(aE);
-				}
-			});
-		});
-	}
-
-	public DeduceElement getTarget() {
-		return target;
-	}
-
-	public @Nullable Promise<DeduceElement, FCA_Stop, Void> targetP2() {
-		return _p_targetP2;
-	}
-
-	public void setDeduceTypes2(final DeduceTypes2 aDeduceTypes2,
-								final Context aContext,
-								final BaseEvaFunction aGeneratedFunction,
-								final ErrSink aErrSink) {
-		_g_deduceTypes2      = aDeduceTypes2;
-		_g_context           = aContext;
-		_g_generatedFunction = aGeneratedFunction;
-		_g_errSink           = aErrSink;
-	}
-
-	public void setTarget(DeduceElement aTarget) {
-		target = aTarget;
-	}
-
-	public @Nullable DT_Resolvable11<DeduceElement> targetP() {
-		return _pr_target;
-	}
-
 	public class DeclTarget implements DeduceElement {
 		private @NotNull
 		final DeclAnchor anchor;
@@ -154,6 +90,66 @@ public class DeduceProcCall {
 		public @NotNull OS_Element element() {
 			return element;
 		}
+	}
+	private final @NotNull ProcTableEntry                                 procTableEntry;
+	private final          DT_Resolvable11<DeduceElement>                 _pr_target  = new DT_Resolvable11<>();
+	private final          DeferredObject2<DeduceElement, FCA_Stop, Void> _p_targetP2 = new DeferredObject2<>();
+	private                Context                                        _g_context;
+	private                DeduceTypes2                                   _g_deduceTypes2;
+	private                ErrSink                                        _g_errSink;
+	private                BaseEvaFunction                                _g_generatedFunction;
+
+	private                DeduceElement                                  target;
+
+	@Contract(pure = true)
+	public DeduceProcCall(final @NotNull ProcTableEntry aProcTableEntry) {
+		procTableEntry = aProcTableEntry;
+
+		procTableEntry.onFunctionInvocation((final @NotNull FunctionInvocation functionInvocation) -> {
+			functionInvocation.generatePromise().then((BaseEvaFunction evaFunction) -> {
+				final @NotNull FunctionDef best = evaFunction.getFD();
+
+				final DeclAnchor.AnchorType anchorType = DeclAnchor.AnchorType.MEMBER;
+				final OS_Element            declAnchor = best.getParent();
+				try {
+					setTarget(aProcTableEntry._inj().new_DeclTarget(best, declAnchor, anchorType, this));
+					_pr_target.resolve(getTarget());
+					_p_targetP2.resolve(getTarget());
+				} catch (FCA_Stop aE) {
+					_p_targetP2.reject(aE);
+				}
+			});
+		});
+	}
+
+	public BaseEvaFunction _generatedFunction() {
+		return _g_generatedFunction;
+	}
+
+	public DeduceElement getTarget() {
+		return target;
+	}
+
+	public void setDeduceTypes2(final DeduceTypes2 aDeduceTypes2,
+								final Context aContext,
+								final BaseEvaFunction aGeneratedFunction,
+								final ErrSink aErrSink) {
+		_g_deduceTypes2      = aDeduceTypes2;
+		_g_context           = aContext;
+		_g_generatedFunction = aGeneratedFunction;
+		_g_errSink           = aErrSink;
+	}
+
+	public void setTarget(DeduceElement aTarget) {
+		target = aTarget;
+	}
+
+	public @Nullable DT_Resolvable11<DeduceElement> targetP() {
+		return _pr_target;
+	}
+
+	public @Nullable Promise<DeduceElement, FCA_Stop, Void> targetP2() {
+		return _p_targetP2;
 	}
 }
 

@@ -8,98 +8,27 @@
  */
 package tripleo.elijah.contexts;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.ContextImpl;
-import tripleo.elijah.lang.impl.QualidentImpl;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
-import tripleo.elijah.lang.nextgen.names.impl.ENU_LookupResult;
-import tripleo.elijah.lang.nextgen.names.impl.ENU_PackageRef;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang.nextgen.names.i.*;
+import tripleo.elijah.lang.nextgen.names.impl.*;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created 8/15/20 7:09 PM
  */
 public class ImportContext extends ContextImpl implements Context {
-	private final Context         _parent;
-	private final ImportStatement carrier;
-
-	public ImportContext(final Context aParent, final ImportStatement imp) {
-		_parent = aParent;
-		carrier = imp;
-	}
-
-	@Override
-	public Context getParent() {
-		return _parent;
-	}
-
-	@NotNull Map<List<IdentExpression>, NPC> npcs = new LinkedHashMap();
-
-	@Override
-	public @NotNull Compilation compilation() {
-		return module().getCompilation();
-	}
-
-	@Override
-	public @NotNull OS_Module module() {
-		return _parent.module();
-	}
-
-	private NPC getNonPackageComprehension(final List<IdentExpression> x) {
-		if (npcs.containsKey(x)) {
-			return npcs.get(x);
-		}
-
-		final NPC npc = new NPC(x);
-		npcs.put(x, npc);
-		return npc;
-	}
-
-	@Override
-	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
-		alreadySearched.add(this);
-//		tripleo.elijah.util.Stupidity.println_err_2("2002 "+importStatement.importList());
-		Compilation compilation = compilation();
-		for (final Qualident importStatementItem : carrier.parts()) {
-//			tripleo.elijah.util.Stupidity.println_err_2("2005 "+importStatementItem);
-			if (compilation.isPackage(importStatementItem.toString())) {
-				final OS_Package aPackage = compilation.getPackage(importStatementItem);
-//				LogEvent.logEvent(4003 , ""+aPackage.getElements());
-				for (final OS_Element element : aPackage.getElements()) {
-//					tripleo.elijah.util.Stupidity.println_err_2("4002 "+element);
-					if (element instanceof NamespaceStatement && ((NamespaceStatement) element).getKind() == NamespaceTypes.MODULE) {
-//		                LogEvent.logEvent(4103, "");
-						final NamespaceContext namespaceContext = (NamespaceContext) element.getContext();
-						alreadySearched.add(namespaceContext);
-						namespaceContext.lookup(name, level, Result, alreadySearched, true);
-					} else if (element instanceof final @NotNull OS_Element2 element2) {
-						if (element2.name().equals(name)) {
-							Result.add(name, level, element, this);
-							break; // shortcut: should only have one in scope
-						}
-					}
-				}
-			} else {
-				// find directly imported elements
-				List<IdentExpression> x   = importStatementItem.parts();
-				NPC                   npc = getNonPackageComprehension(x);
-				npc.checkLast(name, level, Result, alreadySearched, compilation);
-			}
-		}
-		if (carrier.getParent() != null) {
-			final Context context = getParent();
-			if (!alreadySearched.contains(context) || !one)
-				return context.lookup(name, level + 1, Result, alreadySearched, false);
-		}
-		return Result;
-	}
-
 	protected class NPC {
+		static boolean isModuleNamespace(OS_Element ns) {
+			if (!(ns instanceof NamespaceStatement)) return false;
+			if (((NamespaceStatement) ns).getKind() == NamespaceTypes.MODULE) return true;
+
+			return false;
+		}
+
 		private final List<IdentExpression> x;
 
 		public NPC(final List<IdentExpression> aX) {
@@ -168,13 +97,80 @@ public class ImportContext extends ContextImpl implements Context {
 				}
 			}
 		}
+	}
+	private final Context         _parent;
 
-		static boolean isModuleNamespace(OS_Element ns) {
-			if (!(ns instanceof NamespaceStatement)) return false;
-			if (((NamespaceStatement) ns).getKind() == NamespaceTypes.MODULE) return true;
+	private final ImportStatement carrier;
 
-			return false;
+	@NotNull Map<List<IdentExpression>, NPC> npcs = new LinkedHashMap();
+
+	public ImportContext(final Context aParent, final ImportStatement imp) {
+		_parent = aParent;
+		carrier = imp;
+	}
+
+	@Override
+	public @NotNull Compilation compilation() {
+		return module().getCompilation();
+	}
+
+	private NPC getNonPackageComprehension(final List<IdentExpression> x) {
+		if (npcs.containsKey(x)) {
+			return npcs.get(x);
 		}
+
+		final NPC npc = new NPC(x);
+		npcs.put(x, npc);
+		return npc;
+	}
+
+	@Override
+	public Context getParent() {
+		return _parent;
+	}
+
+	@Override
+	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+		alreadySearched.add(this);
+//		tripleo.elijah.util.Stupidity.println_err_2("2002 "+importStatement.importList());
+		Compilation compilation = compilation();
+		for (final Qualident importStatementItem : carrier.parts()) {
+//			tripleo.elijah.util.Stupidity.println_err_2("2005 "+importStatementItem);
+			if (compilation.isPackage(importStatementItem.toString())) {
+				final OS_Package aPackage = compilation.getPackage(importStatementItem);
+//				LogEvent.logEvent(4003 , ""+aPackage.getElements());
+				for (final OS_Element element : aPackage.getElements()) {
+//					tripleo.elijah.util.Stupidity.println_err_2("4002 "+element);
+					if (element instanceof NamespaceStatement && ((NamespaceStatement) element).getKind() == NamespaceTypes.MODULE) {
+//		                LogEvent.logEvent(4103, "");
+						final NamespaceContext namespaceContext = (NamespaceContext) element.getContext();
+						alreadySearched.add(namespaceContext);
+						namespaceContext.lookup(name, level, Result, alreadySearched, true);
+					} else if (element instanceof final @NotNull OS_Element2 element2) {
+						if (element2.name().equals(name)) {
+							Result.add(name, level, element, this);
+							break; // shortcut: should only have one in scope
+						}
+					}
+				}
+			} else {
+				// find directly imported elements
+				List<IdentExpression> x   = importStatementItem.parts();
+				NPC                   npc = getNonPackageComprehension(x);
+				npc.checkLast(name, level, Result, alreadySearched, compilation);
+			}
+		}
+		if (carrier.getParent() != null) {
+			final Context context = getParent();
+			if (!alreadySearched.contains(context) || !one)
+				return context.lookup(name, level + 1, Result, alreadySearched, false);
+		}
+		return Result;
+	}
+
+	@Override
+	public @NotNull OS_Module module() {
+		return _parent.module();
 	}
 }
 

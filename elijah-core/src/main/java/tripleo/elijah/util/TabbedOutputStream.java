@@ -94,20 +94,12 @@ public class TabbedOutputStream {
 		tabwidth++;
 	}
 
-	public void put_newline() throws IOException {
-		doIndent();
+	public boolean is_connected() {
+		return myStream != null;
 	}
 
-	public void put_string_ln(final @NotNull String s) throws IOException {
-		if (!is_connected())
-			throw new IllegalStateException("is_connected assertion failed");
-
-		if (do_tabs)
-			doIndent();
-		myStream.write(s);
-		myStream.write('\n');
-//		doIndent();
-		do_tabs = true;
+	public void put_newline() throws IOException {
+		doIndent();
 	}
 
 	public void put_string(final @NotNull String s) throws IOException {
@@ -120,8 +112,16 @@ public class TabbedOutputStream {
 //		do_tabs = false;
 	}
 
-	public boolean is_connected() {
-		return myStream != null;
+	public void put_string_ln(final @NotNull String s) throws IOException {
+		if (!is_connected())
+			throw new IllegalStateException("is_connected assertion failed");
+
+		if (do_tabs)
+			doIndent();
+		myStream.write(s);
+		myStream.write('\n');
+//		doIndent();
+		do_tabs = true;
 	}
 
 	public void put_string_ln_no_tabs(final @NotNull String s) throws IOException {

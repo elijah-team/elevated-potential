@@ -8,38 +8,30 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.contexts.ModuleContext;
-import tripleo.elijah.lang.i.Context;
-import tripleo.elijah.lang.i.LookupResultList;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.contexts.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.nextgen.names.i.*;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public abstract class ContextImpl implements tripleo.elijah.lang.i.Context {
 
 //	private OS_Container attached;
 
-	public ContextImpl() {
-	}
+	private final List<EN_Name> names = new LinkedList<>();
 
 //	public Context(OS_Container attached) {
 //		this.attached = attached;
 //	}
 
-	@Override
-	public @NotNull Compilation compilation() {
-		OS_Module module = module();
-		return module.getCompilation();
+	public ContextImpl() {
 	}
 
 	@Override
-	public LookupResultList lookup(@NotNull final String name) {
-		final LookupResultList Result = new LookupResultListImpl();
-		return lookup(name, 0, Result, new SearchList(), false);
+	public void addName(final EN_Name aName) {
+		names.add(aName);
 	}
 
 //	@Deprecated public void add(OS_Element element, String name) {
@@ -70,19 +62,24 @@ public abstract class ContextImpl implements tripleo.elijah.lang.i.Context {
 //	}
 
 	@Override
+	public @NotNull Compilation compilation() {
+		OS_Module module = module();
+		return module.getCompilation();
+	}
+
+	@Override
+	public LookupResultList lookup(@NotNull final String name) {
+		final LookupResultList Result = new LookupResultListImpl();
+		return lookup(name, 0, Result, new SearchList(), false);
+	}
+
+	@Override
 	public @NotNull OS_Module module() {
 		Context ctx = this;// getParent();
 		while (!(ctx instanceof ModuleContext))
 			ctx = ctx.getParent();
 		return ((ModuleContext) ctx).getCarrier();
 	}
-
-	@Override
-	public void addName(final EN_Name aName) {
-		names.add(aName);
-	}
-
-	private final List<EN_Name> names = new LinkedList<>();
 }
 
 //

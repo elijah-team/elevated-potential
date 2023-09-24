@@ -77,13 +77,6 @@ public final class OptionBuilder {
 	}
 
 	/**
-	 * private constructor to prevent instances being created
-	 */
-	private OptionBuilder() {
-		// hide the constructor
-	}
-
-	/**
 	 * Creates an Option using the current settings
 	 *
 	 * @return the Option instance
@@ -99,17 +92,14 @@ public final class OptionBuilder {
 	}
 
 	/**
-	 * Resets the member variables to their default values.
+	 * Creates an Option using the current settings and with the specified Option {@code char}.
+	 *
+	 * @param opt the character representation of the Option
+	 * @return the Option instance
+	 * @throws IllegalArgumentException if {@code opt} is not a valid character. See Option.
 	 */
-	private static void reset() {
-		description    = null;
-		argName        = null;
-		longOption     = null;
-		type           = String.class;
-		required       = false;
-		argCount       = Option.UNINITIALIZED;
-		optionalArg    = false;
-		valueSeparator = (char) 0;
+	public static Option create(final char opt) throws IllegalArgumentException {
+		return create(String.valueOf(opt));
 	}
 
 	/**
@@ -140,17 +130,6 @@ public final class OptionBuilder {
 
 		// return the Option instance
 		return option;
-	}
-
-	/**
-	 * Creates an Option using the current settings and with the specified Option {@code char}.
-	 *
-	 * @param opt the character representation of the Option
-	 * @return the Option instance
-	 * @throws IllegalArgumentException if {@code opt} is not a valid character. See Option.
-	 */
-	public static Option create(final char opt) throws IllegalArgumentException {
-		return create(String.valueOf(opt));
 	}
 
 	/**
@@ -260,6 +239,20 @@ public final class OptionBuilder {
 	}
 
 	/**
+	 * Resets the member variables to their default values.
+	 */
+	private static void reset() {
+		description    = null;
+		argName        = null;
+		longOption     = null;
+		type           = String.class;
+		required       = false;
+		argCount       = Option.UNINITIALIZED;
+		optionalArg    = false;
+		valueSeparator = (char) 0;
+	}
+
+	/**
 	 * The next Option created will have the specified argument value name.
 	 *
 	 * @param name the name for the argument value
@@ -297,6 +290,19 @@ public final class OptionBuilder {
 
 	/**
 	 * The next Option created will have a value that will be an instance of {@code type}.
+	 *
+	 * @param newType the type of the Options argument value
+	 * @return the OptionBuilder instance
+	 * @since 1.3
+	 */
+	public static OptionBuilder withType(final Class<?> newType) {
+		OptionBuilder.type = newType;
+
+		return INSTANCE;
+	}
+
+	/**
+	 * The next Option created will have a value that will be an instance of {@code type}.
 	 * <p>
 	 * <b>Note:</b> this method is kept for binary compatibility and the input type is supposed to be a {@link Class}
 	 * object.
@@ -308,19 +314,6 @@ public final class OptionBuilder {
 	@Deprecated
 	public static OptionBuilder withType(final Object newType) {
 		return withType((Class<?>) newType);
-	}
-
-	/**
-	 * The next Option created will have a value that will be an instance of {@code type}.
-	 *
-	 * @param newType the type of the Options argument value
-	 * @return the OptionBuilder instance
-	 * @since 1.3
-	 */
-	public static OptionBuilder withType(final Class<?> newType) {
-		OptionBuilder.type = newType;
-
-		return INSTANCE;
 	}
 
 	/**
@@ -365,5 +358,12 @@ public final class OptionBuilder {
 		OptionBuilder.valueSeparator = sep;
 
 		return INSTANCE;
+	}
+
+	/**
+	 * private constructor to prevent instances being created
+	 */
+	private OptionBuilder() {
+		// hide the constructor
 	}
 }

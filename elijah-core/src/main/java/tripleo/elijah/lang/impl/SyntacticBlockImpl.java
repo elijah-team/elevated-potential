@@ -8,19 +8,16 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
+import antlr.*;
+import com.google.common.base.*;
+import com.google.common.collect.*;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.contexts.SyntacticBlockContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 8/30/20 1:49 PM
@@ -89,13 +86,7 @@ public class SyntacticBlockImpl
 	}
 
 	@Override
-	public void visitGen(final @NotNull ElElementVisitor visit) {
-		visit.visitSyntacticBlock(this);
-	}
-
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
+	public void postConstruct() {
 	}
 
 	@Override
@@ -104,12 +95,18 @@ public class SyntacticBlockImpl
 	}
 
 	@Override
-	public void postConstruct() {
+	public void serializeTo(final SmallWriter sw) {
+
 	}
 
 	@Override
 	public void setContext(final SyntacticBlockContext ctx) {
 		this.ctx = ctx;
+	}
+
+	@Override
+	public void visitGen(final @NotNull ElElementVisitor visit) {
+		visit.visitSyntacticBlock(this);
 	}
 
 }

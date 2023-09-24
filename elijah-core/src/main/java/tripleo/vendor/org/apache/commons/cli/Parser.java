@@ -71,11 +71,6 @@ public abstract class Parser implements CommandLineParser {
 		return options;
 	}
 
-	protected void setOptions(final @NotNull Options options) {
-		this.options         = options;
-		this.requiredOptions = new ArrayList<>(options.getRequiredOptions());
-	}
-
 	protected List getRequiredOptions() {
 		return requiredOptions;
 	}
@@ -327,6 +322,11 @@ public abstract class Parser implements CommandLineParser {
 				updateRequiredOptions(opt);
 			}
 		}
+	}
+
+	protected void setOptions(final @NotNull Options options) {
+		this.options         = options;
+		this.requiredOptions = new ArrayList<>(options.getRequiredOptions());
 	}
 
 	/**

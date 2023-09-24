@@ -78,6 +78,10 @@ public class ElSystem {
 		return s;
 	}
 
+	public String getFilenameForNode__(final @NotNull GenerateResultItem aGenerateResultItem) {
+		return getFilenameForNode(aGenerateResultItem.node(), aGenerateResultItem.__ty(), this._os);
+	}
+
 	@Contract(pure = true)
 	private void logProgress(final int code, final @NotNull /*@NotNull*/ EvaNode evaNode, final String s) {
 		// code:
@@ -87,10 +91,6 @@ public class ElSystem {
 		//   55:  EvaConstructor
 		//   140: not above
 		Stupidity.println_out_2(MessageFormat.format("{0} {1} {2}", code, evaNode.toString(), s));
-	}
-
-	public String getFilenameForNode__(final @NotNull GenerateResultItem aGenerateResultItem) {
-		return getFilenameForNode(aGenerateResultItem.node(), aGenerateResultItem.__ty(), this._os);
 	}
 }
 

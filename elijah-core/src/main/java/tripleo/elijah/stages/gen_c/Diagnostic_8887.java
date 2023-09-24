@@ -17,6 +17,11 @@ class Diagnostic_8887 implements GCFM_Diagnostic {
 	}
 
 	@Override
+	public String _message() {
+		return String.format("%d VARIABLE WASN'T FULLY DEDUCED YET: %s", _code, y.getClass().getName());
+	}
+
+	@Override
 	public @NotNull String code() {
 		return "" + _code;
 	}
@@ -29,11 +34,6 @@ class Diagnostic_8887 implements GCFM_Diagnostic {
 	@Override
 	public void report(final @NotNull PrintStream stream) {
 		stream.println(_message());
-	}
-
-	@Override
-	public String _message() {
-		return String.format("%d VARIABLE WASN'T FULLY DEDUCED YET: %s", _code, y.getClass().getName());
 	}
 
 	@Override

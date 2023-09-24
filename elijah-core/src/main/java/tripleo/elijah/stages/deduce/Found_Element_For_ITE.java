@@ -9,16 +9,14 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import org.jdeferred2.DoneCallback;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.i.ErrSink;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.AliasStatementImpl;
-import tripleo.elijah.lang.impl.VariableStatementImpl;
-import tripleo.elijah.stages.deduce.declarations.DeferredMember;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.stages.deduce.declarations.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.*;
 
 /**
  * Created 9/2/21 11:36 PM
@@ -45,35 +43,14 @@ class Found_Element_For_ITE {
 		deduceTypes2 = dc._deduceTypes2();
 	}
 
+	private DeduceTypes2.DeduceTypes2Injector _inj() {
+		return deduceTypes2._inj();
+	}
+
 	public void action(@NotNull IdentTableEntry ite) {
 		action2(ite);
 
 		generatedFunction.getIdent(ite).resolve();
-	}
-
-	private void action2(final @NotNull IdentTableEntry ite) {
-		final OS_Element y = ite.getResolvedElement();
-
-		if (y instanceof VariableStatementImpl) {
-			action_VariableStatement(ite, (VariableStatementImpl) y);
-		} else if (y instanceof ClassStatement) {
-			action_ClassStatement(ite, (ClassStatement) y);
-			central.note_Class((ClassStatement) y, ctx).attach(ite, generatedFunction);
-		} else if (y instanceof FunctionDef) {
-			action_FunctionDef(ite, (FunctionDef) y);
-		} else if (y instanceof PropertyStatement) {
-			action_PropertyStatement(ite, (PropertyStatement) y);
-		} else if (y instanceof AliasStatementImpl) {
-			action_AliasStatement(ite, (AliasStatementImpl) y);
-		} else {
-			//LookupResultList exp = lookupExpression();
-			LOG.info("2009 " + y);
-			return;
-		}
-
-		final String normal_path = generatedFunction.getIdentIAPathNormal(deduceTypes2._inj().new_IdentIA(ite.getIndex(), generatedFunction));
-		if (!ite.resolveExpectation.isSatisfied())
-			ite.resolveExpectation.satisfy(normal_path);
 	}
 
 	public void action_AliasStatement(@NotNull IdentTableEntry ite, @NotNull AliasStatementImpl y) {
@@ -131,10 +108,6 @@ class Found_Element_For_ITE {
 			ite.type.setAttached(attached);
 		dc.genCIForGenType2(ite.type.genType);
 		int yy = 2;
-	}
-
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
-		return deduceTypes2._inj();
 	}
 
 	public void action_VariableStatement(@NotNull IdentTableEntry ite, @NotNull VariableStatementImpl vs) {
@@ -214,6 +187,31 @@ class Found_Element_For_ITE {
 //				LOG.err("394 typename is null " + vs.getName());
 			}
 		}
+	}
+
+	private void action2(final @NotNull IdentTableEntry ite) {
+		final OS_Element y = ite.getResolvedElement();
+
+		if (y instanceof VariableStatementImpl) {
+			action_VariableStatement(ite, (VariableStatementImpl) y);
+		} else if (y instanceof ClassStatement) {
+			action_ClassStatement(ite, (ClassStatement) y);
+			central.note_Class((ClassStatement) y, ctx).attach(ite, generatedFunction);
+		} else if (y instanceof FunctionDef) {
+			action_FunctionDef(ite, (FunctionDef) y);
+		} else if (y instanceof PropertyStatement) {
+			action_PropertyStatement(ite, (PropertyStatement) y);
+		} else if (y instanceof AliasStatementImpl) {
+			action_AliasStatement(ite, (AliasStatementImpl) y);
+		} else {
+			//LookupResultList exp = lookupExpression();
+			LOG.info("2009 " + y);
+			return;
+		}
+
+		final String normal_path = generatedFunction.getIdentIAPathNormal(deduceTypes2._inj().new_IdentIA(ite.getIndex(), generatedFunction));
+		if (!ite.resolveExpectation.isSatisfied())
+			ite.resolveExpectation.satisfy(normal_path);
 	}
 
 	/**

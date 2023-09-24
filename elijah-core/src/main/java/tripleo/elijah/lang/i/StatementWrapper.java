@@ -10,10 +10,10 @@ public interface StatementWrapper extends OS_Element {
 	IExpression getExpr();
 
 	@Override
-	String toString();
-
-	@Override
 	default void serializeTo(SmallWriter sw) {
 
 	}
+
+	@Override
+	String toString();
 }

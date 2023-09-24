@@ -1,26 +1,26 @@
 package tripleo.elijah.comp.nextgen;
 
-import org.jdeferred2.Promise;
+import org.jdeferred2.*;
 
-import java.io.File;
-import java.nio.file.Path;
+import java.io.*;
+import java.nio.file.*;
 
 public interface CP_Path {
-	CP_SubFile subFile(String aFile);
-
 	CP_Path child(String aPath0);
+
+	String getName();
+
+	CP_Path getParent();
 
 	Path getPath();
 
 	Promise<Path, Void, Void> getPathPromise();
 
-	File toFile();
-
 	File getRootFile();
 
-	CP_Path getParent();
-
-	String getName();
-
 	_CP_RootPath getRootPath();
+
+	CP_SubFile subFile(String aFile);
+
+	File toFile();
 }

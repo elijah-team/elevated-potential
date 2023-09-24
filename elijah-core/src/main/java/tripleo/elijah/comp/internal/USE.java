@@ -19,8 +19,14 @@ import java.util.regex.*;
 
 @SuppressWarnings("UnnecessaryLocalVariable")
 public class USE {
+	private static final FilenameFilter accept_source_files = (directory, file_name) -> {
+		final boolean matches = Pattern.matches(".+\\.elijah$", file_name)
+				|| Pattern.matches(".+\\.elijjah$", file_name);
+		return matches;
+	};
 	private final @NotNull Compilation c;
 	private final @NotNull ErrSink errSink;
+
 	private final @NotNull ElijahCache elijahCache = new DefaultElijahCache();
 
 	@Contract(pure = true)
@@ -31,6 +37,51 @@ public class USE {
 
 	public Operation2<OS_Module> findPrelude(final String prelude_name) {
 		return new CY_FindPrelude(errSink, this).findPrelude(prelude_name);
+	}
+
+	private Operation2<OS_Module> parseElijjahFile(final @NotNull File f,
+												   final @NotNull String file_name,
+												   final boolean do_out,
+												   final @NotNull LibraryStatementPart lsp) {
+		System.out.printf("   %s%n", f.getAbsolutePath());
+
+		if (!f.exists()) {
+			final Diagnostic e = new FileNotFoundDiagnostic(f);
+
+			return Operation2.failure(e);
+		}
+
+		Operation2<OS_Module> om;
+
+		try {
+			om = realParseElijjahFile(file_name, f, do_out);
+
+			switch (om.mode()) {
+				case SUCCESS -> {
+					final OS_Module mm = om.success();
+
+					//assert mm.getLsp() == null;
+					//assert mm.prelude == null;
+
+					if (mm.getLsp() == null) {
+						// TODO we don't know which prelude to find yet
+						final Operation2<OS_Module> pl = findPrelude(Compilation.CompilationAlways.defaultPrelude());
+
+						// NOTE Go. infectious. tedious. also slightly lazy
+						assert pl.mode() == Mode.SUCCESS;
+
+						mm.setLsp(lsp);
+						mm.setPrelude(pl.success());
+					}
+					return Operation2.success(mm);
+				}
+				default -> {
+					return om;
+				}
+			}
+		} catch (final Exception aE) {
+			return Operation2.failure(new ExceptionDiagnostic(aE));
+		}
 	}
 
 	public Operation<OS_Module> realParseElijjahFile(final ElijahSpec spec) {
@@ -114,57 +165,6 @@ public class USE {
 			}
 		}
 	}
-
-	private Operation2<OS_Module> parseElijjahFile(final @NotNull File f,
-												   final @NotNull String file_name,
-												   final boolean do_out,
-												   final @NotNull LibraryStatementPart lsp) {
-		System.out.printf("   %s%n", f.getAbsolutePath());
-
-		if (!f.exists()) {
-			final Diagnostic e = new FileNotFoundDiagnostic(f);
-
-			return Operation2.failure(e);
-		}
-
-		Operation2<OS_Module> om;
-
-		try {
-			om = realParseElijjahFile(file_name, f, do_out);
-
-			switch (om.mode()) {
-				case SUCCESS -> {
-					final OS_Module mm = om.success();
-
-					//assert mm.getLsp() == null;
-					//assert mm.prelude == null;
-
-					if (mm.getLsp() == null) {
-						// TODO we don't know which prelude to find yet
-						final Operation2<OS_Module> pl = findPrelude(Compilation.CompilationAlways.defaultPrelude());
-
-						// NOTE Go. infectious. tedious. also slightly lazy
-						assert pl.mode() == Mode.SUCCESS;
-
-						mm.setLsp(lsp);
-						mm.setPrelude(pl.success());
-					}
-					return Operation2.success(mm);
-				}
-				default -> {
-					return om;
-				}
-			}
-		} catch (final Exception aE) {
-			return Operation2.failure(new ExceptionDiagnostic(aE));
-		}
-	}
-
-	private static final FilenameFilter accept_source_files = (directory, file_name) -> {
-		final boolean matches = Pattern.matches(".+\\.elijah$", file_name)
-				|| Pattern.matches(".+\\.elijjah$", file_name);
-		return matches;
-	};
 }
 
 //public class USE {

@@ -11,14 +11,10 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.ExpressionKind;
-import tripleo.elijah.lang.i.ExpressionList;
-import tripleo.elijah.lang.i.IExpression;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.util.Helpers;
+import antlr.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util.*;
 
 /**
  * @author Tripleo(sb)
@@ -58,13 +54,14 @@ public class CharLitExpressionImpl implements tripleo.elijah.lang.i.CharLitExpre
 		return null;
 	}
 
-	public void setArgs(ExpressionList ael) {
-		args = ael;
-	}
-
 	@Override
 	public OS_Type getType() {
 		return _type;
+	}
+
+	@Override
+	public boolean is_simple() {
+		return true;
 	}
 
 	/*
@@ -77,9 +74,8 @@ public class CharLitExpressionImpl implements tripleo.elijah.lang.i.CharLitExpre
 		return String.format("<CharLitExpression %s>", char_lit_raw);
 	}
 
-	@Override
-	public boolean is_simple() {
-		return true;
+	public void setArgs(ExpressionList ael) {
+		args = ael;
 	}
 
 	/*

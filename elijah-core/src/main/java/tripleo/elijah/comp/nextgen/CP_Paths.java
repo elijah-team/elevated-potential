@@ -1,12 +1,11 @@
 package tripleo.elijah.comp.nextgen;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.nextgen.i.CP_RootType;
-import tripleo.elijah.nextgen.ER_Node;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.nextgen.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class CP_Paths {
 	private final          Compilation   _c;
@@ -14,22 +13,10 @@ public class CP_Paths {
 	private                CP_OutputPath outputRoot;
 	private @NotNull       List<ER_Node> outputNodes = new ArrayList<>();
 
-	public CP_Path outputRoot() {
-		return outputRoot;
-	}
-
 	public CP_Paths(final Compilation aC) {
 		_c         = aC;
 		outputRoot = new CP_OutputPath(_c);
 		stdlibRoot = new CP_StdlibPath(_c);
-	}
-
-	public void signalCalculateFinishParse() {
-		outputRoot.signalCalculateFinishParse();
-	}
-
-	public void renderNodes() {
-		outputRoot._renderNodes(outputNodes);
 	}
 
 	public void addNode(CP_RootType t, final ER_Node aNode) {
@@ -39,6 +26,18 @@ public class CP_Paths {
 		} else {
 			throw new IllegalArgumentException();
 		}
+	}
+
+	public CP_Path outputRoot() {
+		return outputRoot;
+	}
+
+	public void renderNodes() {
+		outputRoot._renderNodes(outputNodes);
+	}
+
+	public void signalCalculateFinishParse() {
+		outputRoot.signalCalculateFinishParse();
 	}
 
 	public @NotNull CP_StdlibPath stdlibRoot() {

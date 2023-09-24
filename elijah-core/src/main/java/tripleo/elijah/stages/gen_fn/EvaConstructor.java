@@ -30,6 +30,10 @@ public class EvaConstructor extends BaseEvaFunction {
 		cd = aConstructorDef;
 	}
 
+	public Eventual<DeduceElement3_Constructor> de3_Promise() {
+		return _de3_Promise;
+	}
+
 	@Override
 	public @NotNull FunctionDef getFD() {
 		if (cd == null) throw new IllegalStateException("No function");
@@ -71,10 +75,6 @@ public class EvaConstructor extends BaseEvaFunction {
 	@Override
 	public String toString() {
 		return String.format("<GeneratedConstructor %s>", cd);
-	}
-
-	public Eventual<DeduceElement3_Constructor> de3_Promise() {
-		return _de3_Promise;
 	}
 }
 

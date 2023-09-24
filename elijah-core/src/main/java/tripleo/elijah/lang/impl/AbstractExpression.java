@@ -9,11 +9,8 @@
 
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.ExpressionKind;
-import tripleo.elijah.lang.i.ExpressionList;
-import tripleo.elijah.lang.i.IExpression;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
 
 public abstract class AbstractExpression implements IExpression {
 
@@ -47,13 +44,13 @@ public abstract class AbstractExpression implements IExpression {
 		return left;
 	}
 
-	public void setArgs(ExpressionList ael) {
-		args = ael;
-	}
-
 	@Override
 	public String repr_() {
 		return String.format("<Expression %s %s>", left, _kind);
+	}
+
+	public void setArgs(ExpressionList ael) {
+		args = ael;
 	}
 
 	@Override

@@ -1,11 +1,13 @@
 package tripleo.elijah.lang.i;
 
-import java.io.File;
+import java.io.*;
 
 public interface FuncTypeName extends TypeName {
 	void argList(FormalArgList op);
 
 	void argList(TypeNameList tnl);
+
+	boolean argListIsGeneric();
 
 	@Override
 	int getColumn();
@@ -14,10 +16,10 @@ public interface FuncTypeName extends TypeName {
 	int getColumnEnd();
 
 	@Override
-	File getFile();
+	Context getContext();
 
 	@Override
-	Context getContext();
+	File getFile();
 
 	@Override
 	int getLine();
@@ -28,16 +30,14 @@ public interface FuncTypeName extends TypeName {
 	@Override
 	boolean isNull();
 
-	boolean argListIsGeneric();
-
 	@Override
 	Type kindOfType();
 
+	void returnValue(TypeName rtn);
+
+
 	@Override
 	void setContext(Context context);
-
-
-	void returnValue(TypeName rtn);
 
 
 	// @Override

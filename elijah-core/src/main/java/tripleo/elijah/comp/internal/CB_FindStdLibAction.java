@@ -22,14 +22,6 @@ class CB_FindStdLibAction implements CB_Action {
 		obtain(); // TODO 09/08 Make this more complicated
 	}
 
-	private void obtain() {
-		final Operation<CompilerDriven> x = ce.getCompilationDriver().get(Compilation.CompilationAlways.Tokens.COMPILATION_RUNNER_FIND_STDLIB2);
-
-		if (x.mode() == Mode.SUCCESS) {
-			findStdLib = (CD_FindStdLib) x.success();
-		}
-	}
-
 	@Override
 	public void execute(CB_Monitor aMonitor) {
 		final String preludeName = Compilation.CompilationAlways.defaultPrelude();
@@ -59,6 +51,14 @@ class CB_FindStdLibAction implements CB_Action {
 	@Override
 	public @NotNull String name() {
 		return "find std lib";
+	}
+
+	private void obtain() {
+		final Operation<CompilerDriven> x = ce.getCompilationDriver().get(Compilation.CompilationAlways.Tokens.COMPILATION_RUNNER_FIND_STDLIB2);
+
+		if (x.mode() == Mode.SUCCESS) {
+			findStdLib = (CD_FindStdLib) x.success();
+		}
 	}
 
 	@Contract(pure = true)

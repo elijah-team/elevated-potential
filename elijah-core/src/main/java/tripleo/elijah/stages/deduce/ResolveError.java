@@ -8,17 +8,13 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.diagnostic.Locatable;
-import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.lang.i.LookupResult;
-import tripleo.elijah.lang.i.LookupResultList;
-import tripleo.elijah.lang.i.TypeName;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.lang.i.*;
 
-import java.io.PrintStream;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.io.*;
+import java.util.*;
+import java.util.stream.*;
 
 /**
  * Created 12/26/20 5:08 AM
@@ -45,14 +41,11 @@ public class ResolveError extends Exception implements Diagnostic {
 		return "S1000";
 	}
 
-	@Override
-	public void report(@NotNull PrintStream stream) {
-		stream.printf("---[%s]---: %s%n", code(), message());
-		// linecache.print(primary);
-		for (Locatable sec : secondary()) {
-			//linecache.print(sec)
-		}
-		stream.flush();
+	private @NotNull String message() {
+		if (resultsList().size() > 1)
+			return "Can't choose between alternatives";
+		else
+			return "Can't resolve";
 	}
 
 	@Override
@@ -63,11 +56,14 @@ public class ResolveError extends Exception implements Diagnostic {
 			return typeName;
 	}
 
-	private @NotNull String message() {
-		if (resultsList().size() > 1)
-			return "Can't choose between alternatives";
-		else
-			return "Can't resolve";
+	@Override
+	public void report(@NotNull PrintStream stream) {
+		stream.printf("---[%s]---: %s%n", code(), message());
+		// linecache.print(primary);
+		for (Locatable sec : secondary()) {
+			//linecache.print(sec)
+		}
+		stream.flush();
 	}
 
 	@NotNull

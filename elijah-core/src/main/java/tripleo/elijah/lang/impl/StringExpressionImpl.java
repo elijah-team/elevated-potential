@@ -8,13 +8,10 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.ExpressionKind;
-import tripleo.elijah.lang.i.IExpression;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.NotImplementedException;
+import antlr.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util.*;
 
 public class StringExpressionImpl extends AbstractExpression implements tripleo.elijah.lang.i.StringExpression {
 
@@ -48,18 +45,18 @@ public class StringExpressionImpl extends AbstractExpression implements tripleo.
 	}
 
 	@Override
-	public String repr_() {
-		return repr_;
-	}
-
-	@Override
 	public boolean is_simple() {
 		return true;
 	}
 
 	@Override
-	public void setType(final OS_Type deducedExpression) {
-		_type = deducedExpression;
+	public String repr_() {
+		return repr_;
+	}
+
+	@Override
+	public void set(final String g) {
+		repr_ = g;
 	}
 
 	@Override
@@ -68,8 +65,8 @@ public class StringExpressionImpl extends AbstractExpression implements tripleo.
 	}
 
 	@Override
-	public void set(final String g) {
-		repr_ = g;
+	public void setType(final OS_Type deducedExpression) {
+		_type = deducedExpression;
 	}
 
 	@Override

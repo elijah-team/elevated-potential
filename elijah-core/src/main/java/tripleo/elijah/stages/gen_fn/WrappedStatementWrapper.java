@@ -21,35 +21,6 @@ import tripleo.elijah.lang2.ElElementVisitor;
  * Created 9/18/21 4:03 AM
  */
 public class WrappedStatementWrapper extends StatementWrapperImpl implements OS_Element {
-	private final          VariableStatementImpl vs;
-	private final @NotNull Wrapped               wrapped;
-
-	public VariableStatementImpl getVariableStatement() {
-		return vs;
-	}
-
-	public WrappedStatementWrapper(final IExpression aExpression, final Context aContext, final OS_Element aParent, final VariableStatementImpl aVs) {
-		super(aExpression, aContext, aParent);
-		vs      = aVs;
-		wrapped = new Wrapped(aVs, aExpression);
-	}
-
-	@Override
-	public @Nullable Context getContext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public @Nullable OS_Element getParent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Wrapped getWrapped() {
-		return wrapped;
-	}
-
 	class Wrapped extends AbstractExpression {
 
 		private final IExpression           expression;
@@ -75,16 +46,45 @@ public class WrappedStatementWrapper extends StatementWrapperImpl implements OS_
 
 		}
 	}
+	private final          VariableStatementImpl vs;
+
+	private final @NotNull Wrapped               wrapped;
+
+	public WrappedStatementWrapper(final IExpression aExpression, final Context aContext, final OS_Element aParent, final VariableStatementImpl aVs) {
+		super(aExpression, aContext, aParent);
+		vs      = aVs;
+		wrapped = new Wrapped(aVs, aExpression);
+	}
 
 	@Override
-	public void visitGen(ElElementVisitor visit) {
+	public @Nullable Context getContext() {
 		// TODO Auto-generated method stub
-//		visit.visitStatementWrapper(this);
+		return null;
+	}
+
+	@Override
+	public @Nullable OS_Element getParent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public VariableStatementImpl getVariableStatement() {
+		return vs;
+	}
+
+	public Wrapped getWrapped() {
+		return wrapped;
 	}
 
 	@Override
 	public void serializeTo(final SmallWriter sw) {
 
+	}
+
+	@Override
+	public void visitGen(ElElementVisitor visit) {
+		// TODO Auto-generated method stub
+//		visit.visitStatementWrapper(this);
 	}
 }
 

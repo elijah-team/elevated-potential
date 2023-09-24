@@ -19,6 +19,15 @@ public class ElSystemTest {
 	ElSystem    sys;
 	Compilation c;
 
+	@Disabled
+	@Test
+	public void generateOutputs() {
+		OutputStrategy os = new OutputStrategy();
+		os.per(OutputStrategy.Per.PER_CLASS);
+		//sys.setOutputStrategy(os);
+		//sys.generateOutputs(c.pipelineLogic().gr);
+	}
+
 	@BeforeEach
 	public void setUp() throws Exception {
 		//final StdErrSink eee = new StdErrSink();
@@ -30,15 +39,6 @@ public class ElSystemTest {
 		//sys.setCompilation(c);
 		//
 		//c.feedCmdLine(Helpers.List_of(f));
-	}
-
-	@Disabled
-	@Test
-	public void generateOutputs() {
-		OutputStrategy os = new OutputStrategy();
-		os.per(OutputStrategy.Per.PER_CLASS);
-		//sys.setOutputStrategy(os);
-		//sys.generateOutputs(c.pipelineLogic().gr);
 	}
 }
 

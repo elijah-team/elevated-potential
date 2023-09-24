@@ -8,9 +8,9 @@
  */
 package tripleo.elijah.lang.builder;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.TypeAliasStatementImpl;
+import tripleo.elijah.lang.impl.*;
 
 /**
  * Created 12/22/20 10:22 PM
@@ -32,12 +32,12 @@ public class TypeAliasBuilder extends ElBuilder {
 		return oldElement;
 	}
 
-	public void setBecomes(Qualident oldElement) {
-		this.oldElement = oldElement;
-	}
-
 	public IdentExpression getIdent() {
 		return newAlias;
+	}
+
+	public void setBecomes(Qualident oldElement) {
+		this.oldElement = oldElement;
 	}
 
 	@Override

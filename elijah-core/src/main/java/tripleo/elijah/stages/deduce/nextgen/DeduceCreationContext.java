@@ -1,20 +1,17 @@
 package tripleo.elijah.stages.deduce.nextgen;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_fn.GeneratePhase;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_fn.*;
 
 public interface DeduceCreationContext {
 
-	Eventual<BaseEvaFunction> makeGenerated_fi__Eventual(FunctionInvocation aFunctionInvocation);
+	@NotNull DeducePhase getDeducePhase();
 
 	DeduceTypes2 getDeduceTypes2();
 
-	@NotNull DeducePhase getDeducePhase();
-
 	@NotNull GeneratePhase getGeneratePhase();
+
+	Eventual<BaseEvaFunction> makeGenerated_fi__Eventual(FunctionInvocation aFunctionInvocation);
 }

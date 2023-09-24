@@ -28,15 +28,7 @@ import java.util.List;
  */
 public interface CommandLineParser {
 
-	/**
-	 * Parses the arguments according to the specified options.
-	 *
-	 * @param options   the specified Options
-	 * @param arguments the command line arguments
-	 * @return the list of atomic option and value tokens
-	 * @throws ParseException if there are any problems encountered while parsing the command line tokens.
-	 */
-	CommandLine parse(Options options, String[] arguments) throws ParseException;
+	CommandLine parse(Options options, @NotNull List<CompilerInput> aInputs) throws ParseException;
 
 	/**
 	 * Parses the arguments according to the specified options and properties.
@@ -57,6 +49,16 @@ public interface CommandLineParser {
 	/**
 	 * Parses the arguments according to the specified options.
 	 *
+	 * @param options   the specified Options
+	 * @param arguments the command line arguments
+	 * @return the list of atomic option and value tokens
+	 * @throws ParseException if there are any problems encountered while parsing the command line tokens.
+	 */
+	CommandLine parse(Options options, String[] arguments) throws ParseException;
+
+	/**
+	 * Parses the arguments according to the specified options.
+	 *
 	 * @param options         the specified Options
 	 * @param arguments       the command line arguments
 	 * @param stopAtNonOption if {@code true} an unrecognized argument stops the parsing and the remaining arguments
@@ -66,8 +68,6 @@ public interface CommandLineParser {
 	 * @throws ParseException if there are any problems encountered while parsing the command line tokens.
 	 */
 	CommandLine parse(Options options, String[] arguments, boolean stopAtNonOption) throws ParseException;
-
-	CommandLine parse(Options options, @NotNull List<CompilerInput> aInputs) throws ParseException;
 
 	/**
 	 * Parses the arguments according to the specified options and properties.

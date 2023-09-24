@@ -21,7 +21,6 @@ import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
@@ -35,20 +34,17 @@ import java.util.function.*;
  * Created 12/30/20 2:14 AM
  */
 public class PipelineLogic implements @NotNull EventualRegister {
-	public final @NotNull DeducePhase dp;
-	public final @NotNull GeneratePhase generatePhase;
-	private final @NonNull List<ElLog> elLogs = new LinkedList<>();
-	private final @NonNull EIT_ModuleList mods = new EIT_ModuleList();
-	private final @NonNull ModuleCompletableProcess mcp = new ModuleCompletableProcess();
-	private final @NonNull ModMap modMap = new ModMap();
-	private final @NonNull IPipelineAccess pa;
-	@Getter
-	private final @NonNull ElLog.Verbosity verbosity;
-	private List<Eventual<?>> _eventuals = new ArrayList<>();
-
 	class ModMap {
 		private final Map<OS_Module, Eventual<DeducePhase.GeneratedClasses>> modMap = new HashMap<>();
 		private final Multimap<OS_Module, DoneCallback<Eventual<DeducePhase.GeneratedClasses>>> mmme = ArrayListMultimap.create();
+
+		public void put(OS_Module mod, Eventual<DeducePhase.GeneratedClasses> p) {
+			modMap.put(mod, p);
+			var x = mmme.get(mod);
+			for (DoneCallback<Eventual<DeducePhase.GeneratedClasses>> callback : x) {
+				callback.onDone(p);
+			}
+		}
 
 		public void then(OS_Module mod, DoneCallback<Eventual<DeducePhase.GeneratedClasses>> p) {
 			mmme.put(mod, p);
@@ -62,111 +58,7 @@ public class PipelineLogic implements @NotNull EventualRegister {
 				modMap.put(mod, e);
 			}
 		}
-
-		public void put(OS_Module mod, Eventual<DeducePhase.GeneratedClasses> p) {
-			modMap.put(mod, p);
-			var x = mmme.get(mod);
-			for (DoneCallback<Eventual<DeducePhase.GeneratedClasses>> callback : x) {
-				callback.onDone(p);
-			}
-		}
 	}
-
-
-	public PipelineLogic(final IPipelineAccess aPa, final @NotNull ICompilationAccess ca) {
-		pa = aPa;
-
-		// TODO annotation time, or use clj
-		pa.install_notate(Provenance.PipelineLogic__nextModule, GN_PL_Run2.class, GN_PL_Run2_Env.class);
-
-		ca.setPipelineLogic(this);
-		verbosity = ca.testSilence();
-		generatePhase = new GeneratePhase(verbosity, pa, this);
-		dp = new DeducePhase(ca, pa, this);
-
-		pa.getCompilationEnclosure().addModuleListener(new CompilationEnclosure.ModuleListener() {
-			@Override
-			public void listen(final WorldModule module) {
-				module.getErq().then(rq -> {
-					final OS_Module mod = module.module();
-					final GenerateFunctions gfm = getGenerateFunctions(mod);
-
-					gfm.generateFromEntryPoints(rq);
-
-					// ---
-
-					modMap.then(mod, (final Eventual<DeducePhase.GeneratedClasses> eventual) -> {
-						final DeducePhase.@NotNull GeneratedClasses lgc = dp.generatedClasses;
-						eventual.resolve(lgc);
-					});
-				});
-			}
-
-			@Override
-			public void close() {
-				NotImplementedException.raise_stop();
-			}
-		});
-	}
-
-	@NotNull
-	public GenerateFunctions getGenerateFunctions(@NotNull OS_Module mod) {
-		return generatePhase.getGenerateFunctions(mod);
-	}
-
-	public Eventual<DeducePhase.GeneratedClasses> handle(final GN_PL_Run2.@NotNull GenerateFunctionsRequest rq) {
-		final OS_Module mod = rq.mod();
-		final DefaultWorldModule wm = rq.worldModule();
-
-		assert wm != null;
-
-		final Eventual<DeducePhase.GeneratedClasses> p = new Eventual<>();
-		p.register(this);
-		modMap.put(mod, p);
-
-		return p;
-	}
-
-	public void addLog(ElLog aLog) {
-		elLogs.add(aLog);
-	}
-
-	public void addModule(WorldModule m) {
-		mods.add(m);
-	}
-
-	public @NotNull EIT_ModuleList mods() {
-		return mods;
-	}
-
-	public List<ElLog> getLogs() {
-		return elLogs;
-	}
-
-	public ModuleCompletableProcess _mcp() {
-		return mcp;
-	}
-
-	@Override
-	public <P> void register(final Eventual<P> e) {
-		_eventuals.add(e);
-	}
-
-	@Override
-	public void checkFinishEventuals() {
-		int y = 0;
-		for (Eventual<?> eventual : _eventuals) {
-			if (eventual.isResolved()) {
-			} else {
-				System.err.println("[PipelineLogic::checkEventual] failed for " + eventual.description());
-			}
-		}
-	}
-
-	public @NonNull IPipelineAccess _pa() {
-		return pa;
-	}
-
 	public final class ModuleCompletableProcess implements CompletableProcess<WorldModule> {
 
 		@Override
@@ -199,6 +91,113 @@ public class PipelineLogic implements @NotNull EventualRegister {
 		public void start() {
 
 		}
+	}
+	public final @NotNull DeducePhase dp;
+	public final @NotNull GeneratePhase generatePhase;
+	private final @NonNull List<ElLog> elLogs = new LinkedList<>();
+	private final @NonNull EIT_ModuleList mods = new EIT_ModuleList();
+	private final @NonNull ModuleCompletableProcess mcp = new ModuleCompletableProcess();
+	private final @NonNull ModMap modMap = new ModMap();
+	private final @NonNull IPipelineAccess pa;
+
+	@Getter
+	private final @NonNull ElLog.Verbosity verbosity;
+
+
+	private List<Eventual<?>> _eventuals = new ArrayList<>();
+
+	public PipelineLogic(final IPipelineAccess aPa, final @NotNull ICompilationAccess ca) {
+		pa = aPa;
+
+		// TODO annotation time, or use clj
+		pa.install_notate(Provenance.PipelineLogic__nextModule, GN_PL_Run2.class, GN_PL_Run2_Env.class);
+
+		ca.setPipelineLogic(this);
+		verbosity = ca.testSilence();
+		generatePhase = new GeneratePhase(verbosity, pa, this);
+		dp = new DeducePhase(ca, pa, this);
+
+		pa.getCompilationEnclosure().addModuleListener(new CompilationEnclosure.ModuleListener() {
+			@Override
+			public void close() {
+				NotImplementedException.raise_stop();
+			}
+
+			@Override
+			public void listen(final WorldModule module) {
+				module.getErq().then(rq -> {
+					final OS_Module mod = module.module();
+					final GenerateFunctions gfm = getGenerateFunctions(mod);
+
+					gfm.generateFromEntryPoints(rq);
+
+					// ---
+
+					modMap.then(mod, (final Eventual<DeducePhase.GeneratedClasses> eventual) -> {
+						final DeducePhase.@NotNull GeneratedClasses lgc = dp.generatedClasses;
+						eventual.resolve(lgc);
+					});
+				});
+			}
+		});
+	}
+
+	public ModuleCompletableProcess _mcp() {
+		return mcp;
+	}
+
+	public @NonNull IPipelineAccess _pa() {
+		return pa;
+	}
+
+	public void addLog(ElLog aLog) {
+		elLogs.add(aLog);
+	}
+
+	public void addModule(WorldModule m) {
+		mods.add(m);
+	}
+
+	@Override
+	public void checkFinishEventuals() {
+		int y = 0;
+		for (Eventual<?> eventual : _eventuals) {
+			if (eventual.isResolved()) {
+			} else {
+				System.err.println("[PipelineLogic::checkEventual] failed for " + eventual.description());
+			}
+		}
+	}
+
+	@NotNull
+	public GenerateFunctions getGenerateFunctions(@NotNull OS_Module mod) {
+		return generatePhase.getGenerateFunctions(mod);
+	}
+
+	public List<ElLog> getLogs() {
+		return elLogs;
+	}
+
+	public Eventual<DeducePhase.GeneratedClasses> handle(final GN_PL_Run2.@NotNull GenerateFunctionsRequest rq) {
+		final OS_Module mod = rq.mod();
+		final DefaultWorldModule wm = rq.worldModule();
+
+		assert wm != null;
+
+		final Eventual<DeducePhase.GeneratedClasses> p = new Eventual<>();
+		p.register(this);
+		modMap.put(mod, p);
+
+		return p;
+	}
+
+	public @NotNull EIT_ModuleList mods() {
+		return mods;
+	}
+
+	@Override
+	public <P> void register(final Eventual<P> e) {
+		_eventuals.add(e);
 	}
 }
 

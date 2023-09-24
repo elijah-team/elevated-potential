@@ -12,7 +12,6 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.pre_world.*;
@@ -23,10 +22,38 @@ import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
 
-import java.io.*;
 import java.util.*;
 
 public class CompilationEnclosure {
+	public enum AssOutFile {CLASS, NAMESPACE, FUNCTION}
+	public interface ModuleListener {
+		void close();
+
+		void listen(WorldModule module);
+	}
+	public class OFA implements Iterable<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> {
+
+		//public OFA(final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> aOutFileAssertions) {
+		//_l = aOutFileAssertions;
+		//}
+
+		public boolean contains(String aFileName) {
+			for (Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> outFileAssertion : outFileAssertions) {
+				final String containedFilename = outFileAssertion.getMiddle().getFilename();
+
+				if (containedFilename.equals(aFileName)) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		@Override
+		public Iterator<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> iterator() {
+			return outFileAssertions.stream().iterator();
+		}
+	}
 	public final  DeferredObject<IPipelineAccess, Void, Void> pipelineAccessPromise = new DeferredObject<>();
 	private final CB_Output                                   _cbOutput             = new CB_ListBackedOutput();
 	private final Compilation compilation;
@@ -37,7 +64,12 @@ public class CompilationEnclosure {
 	private final List<ModuleListener> _moduleListeners = new ArrayList<>();
 	Observer<ReactiveDimension> dimensionObserver = new Observer<ReactiveDimension>() {
 		@Override
-		public void onSubscribe(@NonNull final Disposable d) {
+		public void onComplete() {
+
+		}
+
+		@Override
+		public void onError(@NonNull final Throwable e) {
 
 		}
 
@@ -48,19 +80,19 @@ public class CompilationEnclosure {
 		}
 
 		@Override
-		public void onError(@NonNull final Throwable e) {
-
-		}
-
-		@Override
-		public void onComplete() {
+		public void onSubscribe(@NonNull final Disposable d) {
 
 		}
 	};
 	Observer<Reactivable> reactivableObserver = new Observer<Reactivable>() {
 
 		@Override
-		public void onSubscribe(@NonNull final Disposable d) {
+		public void onComplete() {
+
+		}
+
+		@Override
+		public void onError(@NonNull final Throwable e) {
 
 		}
 
@@ -71,12 +103,7 @@ public class CompilationEnclosure {
 		}
 
 		@Override
-		public void onError(@NonNull final Throwable e) {
-
-		}
-
-		@Override
-		public void onComplete() {
+		public void onSubscribe(@NonNull final Disposable d) {
 
 		}
 	};
@@ -85,9 +112,16 @@ public class CompilationEnclosure {
 	private ICompilationBus     compilationBus;
 	private CompilationRunner   compilationRunner;
 	private CompilerDriver      compilerDriver;
+
 	private List<CompilerInput> inp;
+
 	private IPipelineAccess     pa;
+
 	private PipelineLogic       pipelineLogic;
+
+	private final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> outFileAssertions = new ArrayList<>();
+
+	private final @NonNull OFA ofa = new OFA(/*outFileAssertions*/);
 
 	public CompilationEnclosure(final Compilation aCompilation) {
 		compilation = aCompilation;
@@ -144,66 +178,21 @@ public class CompilationEnclosure {
 		});
 	}
 
-	@Contract(pure = true)
-	public @NotNull Promise<IPipelineAccess, Void, Void> getPipelineAccessPromise() {
-		return pipelineAccessPromise;
+	private void _resolvePipelineAccess(final PipelineLogic aPipelineLogic) {
 	}
 
-	@Contract(pure = true)
-	public Compilation getCompilation() {
-		return compilation;
+	public void addEntryPoint(final @NotNull Mirror_EntryPoint aMirrorEntryPoint, final IClassGenerator dcg) {
+		aMirrorEntryPoint.generate(dcg);
 	}
 
-	public void addReactive(@NotNull Reactive r) {
-		dimensionSubject.subscribe(new Observer<ReactiveDimension>() {
-			@Override
-			public void onSubscribe(@NonNull final Disposable d) {
-
-			}
-
-			@Override
-			public void onNext(@NonNull ReactiveDimension dim) {
-				r.join(dim);
-			}
-
-			@Override
-			public void onError(@NonNull final @NotNull Throwable e) {
-				e.printStackTrace();
-			}
-
-			@Override
-			public void onComplete() {
-
-			}
-		});
+	public void addModuleListener(final ModuleListener aModuleListener) {
+		_moduleListeners.add(aModuleListener);
 	}
 
-	public void addReactiveDimension(final ReactiveDimension aReactiveDimension) {
-		dimensionSubject.onNext(aReactiveDimension);
-
-		reactivableSubject.subscribe(new Observer<Reactivable>() {
-			@Override
-			public void onSubscribe(@NonNull final Disposable d) {
-
-			}
-
-			@Override
-			public void onNext(@NonNull final @NotNull Reactivable aReactivable) {
-				addReactive(aReactivable);
-			}
-
-			@Override
-			public void onError(@NonNull final @NotNull Throwable e) {
-				e.printStackTrace();
-			}
-
-			@Override
-			public void onComplete() {
-
-			}
-		});
-
-//		aReactiveDimension.setReactiveSink(addReactive);
+	public @NotNull ModuleThing addModuleThing(final OS_Module aMod) {
+		var mt = new ModuleThing(aMod);
+		moduleThings.put(aMod, mt);
+		return mt;
 	}
 
 	public void addReactive(@NotNull Reactivable r) {
@@ -214,8 +203,13 @@ public class CompilationEnclosure {
 		// reactivableObserver.
 		dimensionSubject.subscribe(new Observer<ReactiveDimension>() {
 			@Override
-			public void onSubscribe(@NonNull final Disposable d) {
+			public void onComplete() {
 
+			}
+
+			@Override
+			public void onError(@NonNull final @NotNull Throwable e) {
+				e.printStackTrace();
 			}
 
 			@Override
@@ -225,132 +219,62 @@ public class CompilationEnclosure {
 			}
 
 			@Override
-			public void onError(@NonNull final @NotNull Throwable e) {
-				e.printStackTrace();
-			}
-
-			@Override
-			public void onComplete() {
+			public void onSubscribe(@NonNull final Disposable d) {
 
 			}
 		});
 	}
 
-	public @NotNull Promise<AccessBus, Void, Void> getAccessBusPromise() {
-		return accessBusPromise;
+	public void addReactive(@NotNull Reactive r) {
+		dimensionSubject.subscribe(new Observer<ReactiveDimension>() {
+			@Override
+			public void onComplete() {
+
+			}
+
+			@Override
+			public void onError(@NonNull final @NotNull Throwable e) {
+				e.printStackTrace();
+			}
+
+			@Override
+			public void onNext(@NonNull ReactiveDimension dim) {
+				r.join(dim);
+			}
+
+			@Override
+			public void onSubscribe(@NonNull final Disposable d) {
+
+			}
+		});
 	}
 
-	@Contract(pure = true)
-	public CB_Output getCB_Output() {
-		return this._cbOutput;
-	}
+	public void addReactiveDimension(final ReactiveDimension aReactiveDimension) {
+		dimensionSubject.onNext(aReactiveDimension);
 
-	@Contract(pure = true)
-	public @NotNull ICompilationAccess getCompilationAccess() {
-		return ca;
-	}
+		reactivableSubject.subscribe(new Observer<Reactivable>() {
+			@Override
+			public void onComplete() {
 
-	public void setCompilationAccess(@NotNull ICompilationAccess aca) {
-		ca = aca;
-	}
+			}
 
-	//@Contract(pure = true) //??
-	public CompilationClosure getCompilationClosure() {
-		return this.getCompilation().getCompilationClosure();
-	}
+			@Override
+			public void onError(@NonNull final @NotNull Throwable e) {
+				e.printStackTrace();
+			}
 
-	private final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> outFileAssertions = new ArrayList<>();
+			@Override
+			public void onNext(@NonNull final @NotNull Reactivable aReactivable) {
+				addReactive(aReactivable);
+			}
 
-	@Contract(pure = true)
-	public ICompilationBus getCompilationBus() {
-		return compilationBus;
-	}
+			@Override
+			public void onSubscribe(@NonNull final Disposable d) {
 
-	public void setCompilationBus(final ICompilationBus aCompilationBus) {
-		compilationBus = aCompilationBus;
-	}
+			}
+		});
 
-	@Contract(pure = true)
-	public CompilationRunner getCompilationRunner() {
-		return compilationRunner;
-	}
-
-	public void setCompilationRunner(final CompilationRunner aCompilationRunner) {
-		compilationRunner = aCompilationRunner;
-	}
-
-	public void setCompilerDriver(final CompilerDriver aCompilerDriver) {
-		compilerDriver = aCompilerDriver;
-	}
-
-	@Contract(pure = true)
-	public List<CompilerInput> getCompilerInput() {
-		return inp;
-	}
-
-	public void setCompilerInput(final List<CompilerInput> aInputs) {
-		inp = aInputs;
-	}
-
-	@Contract(pure = true)
-	public IPipelineAccess getPipelineAccess() {
-		return pa;
-	}
-
-	@Contract(pure = true)
-	public PipelineLogic getPipelineLogic() {
-		return pipelineLogic;
-	}
-
-	public void setPipelineLogic(final PipelineLogic aPipelineLogic) {
-		pipelineLogic = aPipelineLogic;
-
-		getPipelineAccessPromise().then(pa->pa.resolvePipelinePromise(aPipelineLogic));
-	}
-
-	private void _resolvePipelineAccess(final PipelineLogic aPipelineLogic) {
-	}
-
-	public ModuleThing getModuleThing(final OS_Module aMod) {
-		if (moduleThings.containsKey(aMod)) {
-			return moduleThings.get(aMod);
-		}
-		return addModuleThing(aMod);
-	}
-
-	public @NotNull ModuleThing addModuleThing(final OS_Module aMod) {
-		var mt = new ModuleThing(aMod);
-		moduleThings.put(aMod, mt);
-		return mt;
-	}
-
-	public void noteAccept(final @NotNull WorldModule aWorldModule) {
-		var mod = aWorldModule.module();
-		var aMt = aWorldModule.rq().mt();
-		// System.err.println(mod);
-		// System.err.println(aMt);
-	}
-
-	public void reactiveJoin(final Reactive aReactive) {
-		// throw new IllegalStateException("Error");
-
-		// aReactive.join();
-		System.err.println("reactiveJoin "+ aReactive.toString());
-	}
-
-	public void addModuleListener(final ModuleListener aModuleListener) {
-		_moduleListeners.add(aModuleListener);
-	}
-
-	private final @NonNull OFA ofa = new OFA(/*outFileAssertions*/);
-
-	public void addEntryPoint(final @NotNull Mirror_EntryPoint aMirrorEntryPoint, final IClassGenerator dcg) {
-		aMirrorEntryPoint.generate(dcg);
-	}
-
-	@Contract(pure = true)
-	public CompilerDriver getCompilationDriver() {
-		return getCompilationBus().getCompilerDriver();
+//		aReactiveDimension.setReactiveSink(addReactive);
 	}
 
 	public void AssertOutFile(final @NotNull NG_OutputRequest aOutputRequest) {
@@ -378,44 +302,118 @@ public class CompilationEnclosure {
 		outFileAssertions.add(Triple.of(AssOutFile.NAMESPACE, aNfn, aOutputRequest));
 	}
 
-	public @NonNull OFA OutputFileAsserts() {
-		return ofa;
+	public @NotNull Promise<AccessBus, Void, Void> getAccessBusPromise() {
+		return accessBusPromise;
+	}
+
+	@Contract(pure = true)
+	public CB_Output getCB_Output() {
+		return this._cbOutput;
+	}
+
+	@Contract(pure = true)
+	public Compilation getCompilation() {
+		return compilation;
+	}
+
+	@Contract(pure = true)
+	public @NotNull ICompilationAccess getCompilationAccess() {
+		return ca;
+	}
+
+	@Contract(pure = true)
+	public ICompilationBus getCompilationBus() {
+		return compilationBus;
+	}
+
+	//@Contract(pure = true) //??
+	public CompilationClosure getCompilationClosure() {
+		return this.getCompilation().getCompilationClosure();
+	}
+
+	@Contract(pure = true)
+	public CompilerDriver getCompilationDriver() {
+		return getCompilationBus().getCompilerDriver();
+	}
+
+	@Contract(pure = true)
+	public CompilationRunner getCompilationRunner() {
+		return compilationRunner;
+	}
+
+	@Contract(pure = true)
+	public List<CompilerInput> getCompilerInput() {
+		return inp;
+	}
+
+	public ModuleThing getModuleThing(final OS_Module aMod) {
+		if (moduleThings.containsKey(aMod)) {
+			return moduleThings.get(aMod);
+		}
+		return addModuleThing(aMod);
+	}
+
+	@Contract(pure = true)
+	public IPipelineAccess getPipelineAccess() {
+		return pa;
+	}
+
+	@Contract(pure = true)
+	public @NotNull Promise<IPipelineAccess, Void, Void> getPipelineAccessPromise() {
+		return pipelineAccessPromise;
+	}
+
+	@Contract(pure = true)
+	public PipelineLogic getPipelineLogic() {
+		return pipelineLogic;
 	}
 
 	public void logProgress(final @NotNull CompProgress aCompProgress, final Object x) {
 		aCompProgress.deprecated_print(x, System.out, System.err);
 	}
 
-	public enum AssOutFile {CLASS, NAMESPACE, FUNCTION}
-
-	public interface ModuleListener {
-		void listen(WorldModule module);
-
-		void close();
+	public void noteAccept(final @NotNull WorldModule aWorldModule) {
+		var mod = aWorldModule.module();
+		var aMt = aWorldModule.rq().mt();
+		// System.err.println(mod);
+		// System.err.println(aMt);
 	}
 
-	public class OFA implements Iterable<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> {
+	public @NonNull OFA OutputFileAsserts() {
+		return ofa;
+	}
 
-		//public OFA(final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> aOutFileAssertions) {
-		//_l = aOutFileAssertions;
-		//}
+	public void reactiveJoin(final Reactive aReactive) {
+		// throw new IllegalStateException("Error");
 
-		public boolean contains(String aFileName) {
-			for (Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> outFileAssertion : outFileAssertions) {
-				final String containedFilename = outFileAssertion.getMiddle().getFilename();
+		// aReactive.join();
+		System.err.println("reactiveJoin "+ aReactive.toString());
+	}
 
-				if (containedFilename.equals(aFileName)) {
-					return true;
-				}
-			}
+	public void setCompilationAccess(@NotNull ICompilationAccess aca) {
+		ca = aca;
+	}
 
-			return false;
-		}
+	public void setCompilationBus(final ICompilationBus aCompilationBus) {
+		compilationBus = aCompilationBus;
+	}
 
-		@Override
-		public Iterator<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> iterator() {
-			return outFileAssertions.stream().iterator();
-		}
+	public void setCompilationRunner(final CompilationRunner aCompilationRunner) {
+		compilationRunner = aCompilationRunner;
+	}
+
+	public void setCompilerDriver(final CompilerDriver aCompilerDriver) {
+		compilerDriver = aCompilerDriver;
+	}
+
+	public void setCompilerInput(final List<CompilerInput> aInputs) {
+		inp = aInputs;
+	}
+
+	public void setPipelineLogic(final PipelineLogic aPipelineLogic) {
+		pipelineLogic = aPipelineLogic;
+
+		getPipelineAccessPromise().then(pa->pa.resolvePipelinePromise(aPipelineLogic));
 	}
 }
 
