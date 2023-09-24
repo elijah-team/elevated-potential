@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.i;
 
+import org.apache.commons.lang3.tuple.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.nextgen.*;
 
@@ -37,6 +38,18 @@ public enum CompProgress {
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
 			CompilerInput i = (CompilerInput) x;
 			err.println("389389 " + i);
+		}
+	}, EzM__logProgress {
+		@Override
+		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
+			var p = (Pair<Integer, String>) x;
+			var code = p.getLeft();
+			var message = p.getRight();
+
+			final String k = "[EzM] %d %s".formatted(code, message);
+//	        if (code == 27) return;
+
+			out.println(k);
 		}
 	};
 

@@ -104,7 +104,7 @@ public class CompilationRunner extends _RegistrationTarget {
 	@Getter
 	private final @NotNull IProgressSink progressSink;
 	private final @NotNull CCI cci;
-	private final EzM ezm = new EzM();
+	private final EzM ezm;
 	@Getter
 	private final CIS cis;
 	private CB_StartCompilationRunnerAction startAction;
@@ -153,6 +153,7 @@ public class CompilationRunner extends _RegistrationTarget {
 		crState = aCrState;
 
 		CompilationRunner.ST.register(this);
+		ezm = new EzM(_compilation.getCompilationEnclosure());
 	}
 
 	public Compilation _accessCompilation() {
