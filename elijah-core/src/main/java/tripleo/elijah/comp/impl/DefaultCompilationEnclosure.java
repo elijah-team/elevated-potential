@@ -447,6 +447,11 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	@Override
 	public void _resolvePipelineAccess(PipelineLogic aPipelineLogic) {
 	}
+
+	@Override
+	public void _resolvePipelineAccessPromise(IPipelineAccess aPa) {
+		pipelineAccessPromise.resolve(aPa);
+	}
 }
 
 //
