@@ -8,42 +8,25 @@
  */
 package tripleo.elijah.ci_impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.Nullable;
+import antlr.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.lang.i.ExpressionList;
-import tripleo.elijah.lang.i.OS_Module;
 
 /**
  * @author Tripleo
- *         <p>
- *         Created Apr 15, 2020 at 4:59:21 AM Created 1/8/21 7:19 AM
+ * <p>
+ * Created Apr 15, 2020 at 4:59:21 AM Created 1/8/21 7:19 AM
  */
 public class CiIndexingStatementImpl implements CiIndexingStatement {
+	private final @NotNull CompilerInstructions parent;
+	@lombok.Setter
+	private CiExpressionList exprs;
+	@lombok.Setter
+	private Token            name;
 
-	private ExpressionList exprs;
-	private Token name;
-	private final @Nullable CompilerInstructions parent;
-
-	public CiIndexingStatementImpl(final CompilerInstructions module) {
+	public CiIndexingStatementImpl(final @NotNull CompilerInstructions module) {
 		this.parent = module;
 	}
-
-	public CiIndexingStatementImpl(final OS_Module module) {
-		// this.parent = module;
-		this.parent = null;
-	}
-
-	@Override
-	public void setExprs(final ExpressionList el) {
-		this.exprs = el;
-	}
-
-	@Override
-	public void setName(final Token i1) {
-		this.name = i1;
-	}
-
 }
 
 //
