@@ -7,6 +7,12 @@ plugins {
 //    id 'org.openjfx.javafxplugin' version '0.0.13'
 
     id "io.freefair.lombok" version "8.3"
+    id "io.ktor.plugin" version "2.3.4"
+}
+
+repositories {
+    gradlePluginPortal()
+    maven {url "https://plugins.gradle.org/m2"}
 }
 
 dependencies {
@@ -22,9 +28,9 @@ dependencies {
     api 'antlr:antlr:2.7.7'
     implementation project(path: ':elijah-nextgen-outputstatement')
     //providedCompile
-    project(':tripleo.elijah.stateful-processor')
+//    project(':tripleo.elijah.stateful-processor')
     //providedCompile
-    project(':annotation-processing')
+//    project(':annotation-processing')
 
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
@@ -46,3 +52,13 @@ java {
 }
 
 description = 'elijah-core'
+
+application {
+    mainClass.set("tripleo.elijah.Main")
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("fat.jar")
+    }
+}
