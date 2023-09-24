@@ -119,7 +119,7 @@ public class PipelineLogic implements @NotNull EventualRegister {
 		generatePhase = new GeneratePhase(verbosity, pa, this);
 		dp = new DeducePhase(ca, pa, this);
 
-		pa.getCompilationEnclosure().addModuleListener(new CompilationEnclosure.ModuleListener() {
+		pa.getCompilationEnclosure().addModuleListener(new ModuleListener() {
 			@Override
 			public void close() {
 				NotImplementedException.raise_stop();

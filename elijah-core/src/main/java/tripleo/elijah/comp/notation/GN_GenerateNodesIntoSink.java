@@ -17,7 +17,7 @@ import tripleo.elijah.world.i.*;
 
 import java.util.*;
 
-public class GN_GenerateNodesIntoSink implements GN_Notable, CompilationEnclosure.ModuleListener {
+public class GN_GenerateNodesIntoSink implements GN_Notable, ModuleListener {
 	@Contract(value = "_ -> new", pure = true)
 	@SuppressWarnings("unused")
 	public static @NotNull GN_Notable getFactoryEnv(GN_Env aEnv) {
