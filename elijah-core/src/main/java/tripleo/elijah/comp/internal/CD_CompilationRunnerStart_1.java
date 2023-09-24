@@ -13,8 +13,9 @@ import static tripleo.elijah.util.Helpers.*;
 
 public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 
-	protected void ___start(final @NotNull CR_State crState, final @NotNull CompilerBeginning beginning,
-			final @NotNull CB_Output out) {
+	protected void ___start(final @NotNull CR_State crState,
+	                        final @NotNull CompilerBeginning beginning,
+	                        final @NotNull CB_Output out) {
 		if (crState.started) {
 			boolean should_never_happen = false; // :grin:
 			// return;
@@ -23,12 +24,12 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 			crState.started = true;
 		}
 
-		final CR_FindCIs f1 = crState.runner().cr_find_cis();
+		final CR_FindCIs              f1 = crState.runner().cr_find_cis();
 		final CR_ProcessInitialAction f2 = new CR_ProcessInitialAction(beginning);
-		final CR_AlmostComplete f3 = crState.runner().cr_AlmostComplete();
-		final CR_RunBetterAction f4 = new CR_RunBetterAction();
+		final CR_AlmostComplete       f3 = crState.runner().cr_AlmostComplete();
+		final CR_RunBetterAction      f4 = new CR_RunBetterAction();
 
-		final @NotNull List<CR_Action> crActionList = List_of(/* f1, */ f2, f3, f4);
+		final @NotNull List<CR_Action>     crActionList       = List_of(/* f1, */ f2, f3, f4);
 		final @NotNull List<Operation<Ok>> crActionResultList = new ArrayList<>(crActionList.size());
 
 		for (final CR_Action each : crActionList) {
@@ -39,10 +40,9 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 
 		// TODO execute should do this automatically
 		for (int i = 0; i < crActionResultList.size(); i++) {
-			var action = crActionList.get(i);
+			final CR_Action     action           = crActionList.get(i);
 			final Operation<Ok> booleanOperation = crActionResultList.get(i);
-
-			final String s = "%s %b".formatted(action.name(), (booleanOperation.mode() == Mode.SUCCESS));
+			final String        s                = "%s %s".formatted(action.name(), booleanOperation.mode().toString());
 			out.logProgress(5959, s);
 		}
 
@@ -50,20 +50,17 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 	}
 
 	@Override
-	public void start(final @NotNull CompilerInstructions aRootCI, final @NotNull CR_State crState,
-			final @NotNull CB_Output out) {
-		final @NotNull CompilationRunner cr = crState.runner();
-		var ce = crState.ca.getCompilation().getCompilationEnclosure();
-		var ci = ce.getCompilerInput();
-		final @NotNull IPipelineAccess pa = crState.ca.getCompilation().getCompilationEnclosure().getPipelineAccess();
-		final @NotNull Compilation.CompilationConfig cfg = crState.ca.getCompilation().cfg();
+	public void start(final @NotNull CompilerInstructions aRootCI,
+	                  final @NotNull CR_State crState,
+	                  final @NotNull CB_Output out) {
+		final @NotNull CompilationRunner             cr            = crState.runner();
+		final @NotNull Compilation                   compilation   = cr._accessCompilation();
+		final @NotNull IPipelineAccess               pa            = compilation.getCompilationEnclosure().getPipelineAccess();
+		final @NotNull Compilation.CompilationConfig cfg           = compilation.cfg();
+		final @NotNull List<CompilerInput>           compilerInput = pa.getCompilerInput();
+		final @NotNull IProgressSink                 progressSink  = cr.getProgressSink();
 
-		final List<CompilerInput> compilerInput = pa.getCompilerInput();
-
-		assert compilerInput == ci;
-
-		final CompilerBeginning beginning = new CompilerBeginning(cr._accessCompilation(), aRootCI, compilerInput,
-				cr.getProgressSink(), cfg);
+		final CompilerBeginning beginning = new CompilerBeginning(compilation, aRootCI, compilerInput, progressSink, cfg);
 
 		___start(crState, beginning, out);
 	}

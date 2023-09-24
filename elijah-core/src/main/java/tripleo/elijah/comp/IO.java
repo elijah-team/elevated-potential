@@ -21,8 +21,8 @@ public class IO {
 
 	// exists, delete, isType ....
 
-	private final List<_IO_ReadFile> recordedreads  = new ArrayList<>();
 	public final  List<File>         recordedwrites = new ArrayList<File>();
+	private final List<_IO_ReadFile> recordedreads  = new ArrayList<>();
 
 	public @Nullable CharSource openRead(final @NotNull Path p) {
 		record(FileOption.READ, p);
@@ -41,14 +41,14 @@ public class IO {
 
 	private void record(@NotNull final FileOption read, @NotNull final File file) {
 		switch (read) {
-		case WRITE:
-			recordedwrites.add(file);
-			break;
-		case READ:
-			recordedreads.add(new _IO_ReadFile(file));
-			break;
-		default:
-			throw new IllegalStateException("Cant be here");
+			case WRITE:
+				recordedwrites.add(file);
+				break;
+			case READ:
+				recordedreads.add(new _IO_ReadFile(file));
+				break;
+			default:
+				throw new IllegalStateException("Cant be here");
 		}
 	}
 
@@ -74,6 +74,13 @@ public class IO {
 
 		public _IO_ReadFile(File aFile) {
 			file = aFile;
+		}
+
+		@Override
+		public String toString() {
+			return "_IO_ReadFile{" +
+					"file=" + file +
+					'}';
 		}
 
 		public File getFile() {
@@ -103,8 +110,8 @@ public class IO {
 				throw new IllegalStateException("Error"); // Operation??
 			}
 
-            return x;
-        }
+			return x;
+		}
 	}
 }
 
