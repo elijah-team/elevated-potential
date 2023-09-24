@@ -9,6 +9,7 @@
 package tripleo.elijah.ci_impl;
 
 import antlr.*;
+import lombok.*;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
@@ -21,10 +22,11 @@ import java.util.*;
  * Created 9/6/20 11:20 AM
  */
 public class CompilerInstructionsImpl implements CompilerInstructions {
-	public @NotNull List<LibraryStatementPart> lsps = new ArrayList<LibraryStatementPart>();
+	public @NotNull List<LibraryStatementPart> lsps = new ArrayList<>();
 	private         CiIndexingStatement        _idx;
 	private         String                     filename;
 	private         GenerateStatement          gen;
+	@Getter
 	private         String                     name;
 
 	@Override
@@ -41,18 +43,21 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public @Nullable String genLang() {
-		@SuppressWarnings("UnnecessaryLocalVariable")
-		final String genLang = ((GenerateStatementImpl) gen).dirs.stream()
+		@SuppressWarnings("UnnecessaryLocalVariable") final Optional<String> genLang = ((GenerateStatementImpl) gen).dirs.stream()
 				.filter(input -> input.getName().equals("gen"))
 				.findAny() // README if you need more than one, comment this out
 				.stream().map((GenerateStatementImpl.Directive gin) -> {
-					IExpression lang_raw = gin.getExpression();
-					assert lang_raw instanceof StringExpression;
-					return Helpers.remove_single_quotes_from_string(((StringExpression) lang_raw).getText());
+					final IExpression lang_raw = gin.getExpression();
+					if (lang_raw instanceof final StringExpression langRaw) {
+						final String s = Helpers.remove_single_quotes_from_string(langRaw.getText());
+						return Optional.of(s);
+					} else {
+						return Optional.<String>empty();
+					}
 				})
 				.findFirst() // README here too
 				.orElse(null);
-		return genLang;
+		return genLang.get();
 	}
 
 	@Override
@@ -68,11 +73,6 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	@Override
 	public Iterable<? extends LibraryStatementPart> getLibraryStatementParts() {
 		return lsps;
-	}
-
-	@Override
-	public String getName() {
-		return name;
 	}
 
 	@Override
