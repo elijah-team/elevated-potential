@@ -2,6 +2,7 @@ package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.lang.i.*;
@@ -22,4 +23,6 @@ public interface CompFactory {
 	EIT_ModuleInput createModuleInput(OS_Module aModule);
 
 	Qualident createQualident(List<String> sl);
+
+	CK_ObjectTree createObjectTree();
 }
