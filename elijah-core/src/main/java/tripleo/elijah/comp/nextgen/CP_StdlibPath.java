@@ -60,4 +60,20 @@ public class CP_StdlibPath implements CP_Path, _CP_RootPath {
 	public @NotNull File toFile() {
 		return getPath().toFile();
 	}
+
+	@Override
+	public String toString() {
+		String result;
+
+		if (_pathPromise.isPending()) {
+			result = "CP_StdlibPath{UNRESOLVED c='%s'}".formatted(c.getCompilationNumberString());
+		} else {
+			final String[] pathPromise = {""}; // !!
+			_pathPromise.then((Path x) -> pathPromise[0] = x.toString());
+			result = "CP_StdlibPath{RESOLVED c=%s, pathPromise=%s}"
+					.formatted(c.getCompilationNumberString(), pathPromise[0]);
+		}
+
+		return result;
+	}
 }
