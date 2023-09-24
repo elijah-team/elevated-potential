@@ -43,6 +43,7 @@ public class CX_ParseElijahFile {
 				}
 			}
 
+
 			compilation.getObjectTree().asseverate(aSpec, Asseverate.ELIJAH_PARSED);
 
 			return calm;
