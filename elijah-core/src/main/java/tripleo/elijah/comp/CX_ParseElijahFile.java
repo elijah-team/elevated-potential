@@ -2,8 +2,8 @@ package tripleo.elijah.comp;
 
 import antlr.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.query.*;
@@ -42,6 +42,8 @@ public class CX_ParseElijahFile {
 					aElijahCache.put(aSpec, absolutePath, calm.success());
 				}
 			}
+
+			compilation.getObjectTree().asseverate(aSpec, Asseverate.ELIJAH_PARSED);
 
 			return calm;
 		} catch (final IOException aE) {
