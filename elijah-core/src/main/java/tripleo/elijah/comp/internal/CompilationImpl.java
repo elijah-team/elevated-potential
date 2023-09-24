@@ -44,23 +44,15 @@ public class CompilationImpl implements Compilation {
 	private final CompFactory _con = new DefaultCompFactory(this);
 
 	private final LivingRepo _repo = new DefaultLivingRepo();
-
 	@Getter
 	private final CompilationConfig cfg = new CompilationConfig();
-
 	@Getter
-	private final USE use = new USE(this);
-
+	private final USE use;
 	private final CompilationEnclosure compilationEnclosure = new DefaultCompilationEnclosure(this);
-
 	private final CP_Paths paths;
-
 	private final EIT_InputTree _input_tree = new EIT_InputTree();
-
-	private final ErrSink errSink;
-
+	private final @NotNull ErrSink errSink;
 	private final int _compilationNumber;
-
 	private final CompilerInputMaster master;
 	public CCI_Acceptor__CompilerInputListener cci_listener;
 	@Getter
@@ -96,6 +88,7 @@ public class CompilationImpl implements Compilation {
 
 		cci_listener = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
+		use = new USE(this);
 	}
 
 	public @NotNull ICompilationAccess _access() {
@@ -223,7 +216,7 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
-	public ErrSink getErrSink() {
+	public @NotNull ErrSink getErrSink() {
 		return errSink;
 	}
 

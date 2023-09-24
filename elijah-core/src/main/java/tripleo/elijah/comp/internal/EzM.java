@@ -6,6 +6,7 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.queries.*;
+import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
@@ -21,22 +22,31 @@ class EzM {
 		query = new QueryEzFileToModule();
 	}
 
-	private void logProgress(final int code, final String message) {
+	private void logProgress(final IProgressSink.Codes code, final String message) {
 		ce.logProgress(CompProgress.EzM__logProgress, Pair.of(code, message));
 	}
 
-	private Operation<CompilerInstructions> parseEzFile_(final String f, final InputStream s,
-			final Compilation aCompilation) {
-		final QueryEzFileToModuleParams qp = new QueryEzFileToModuleParams(f, s, aCompilation);
-		return new QueryEzFileToModule(qp).calculate();
+	private Operation<CompilerInstructions> parseEzFile_(final String f,
+	                                                     final InputStream s,
+	                                                     final Compilation aCompilation) {
+		final String params_sourceFilename = f;
+		final File   file                  = new File(params_sourceFilename);
+
+		final QueryEzFileToModuleParams qp = new QueryEzFileToModuleParams(new EzSpec(f, s, file), aCompilation);
+		return query.calculate(qp);
+	}
+
+	private Operation<CompilerInstructions> parseEzFile_(final EzSpec spec,
+	                                                     final Compilation aCompilation) {
+		final QueryEzFileToModuleParams qp = new QueryEzFileToModuleParams(spec, aCompilation);
+		return new QueryEzFileToModule().calculate(qp);
 	}
 
 	@NotNull
 	Operation<CompilerInstructions> parseEzFile1(final @NotNull SourceFileParserParams p) {
-		@NotNull
-		final File f = p.f();
+		@NotNull final File f = p.f();
 
-		logProgress(27, f.getAbsolutePath());
+		logProgress(IProgressSink.Codes.EzM__parseEzFile1, f.getAbsolutePath());
 
 		if (!f.exists()) {
 			p.cc().errSink().reportError("File doesn't exist " + f.getAbsolutePath());
@@ -50,16 +60,17 @@ class EzM {
 
 	@NotNull
 	Operation<CompilerInstructions> realParseEzFile(final @NotNull SourceFileParserParams p) {
-		final String f = p.file_name();
-		final File file = p.f();
-
 		try {
-			final InputStream s = p.cc().io().readFile(file);
-			final Operation<CompilerInstructions> oci = realParseEzFile(f, s, file, p.cc().getCompilation());
+			final EzSpec                          ezSpec             = p.getEzSpec();
+			final String                          f                  = ezSpec.f();
+			final File                            file               = ezSpec.file();
+			final InputStream                     s                  = ezSpec.s();
+			final CompilationClosure              compilationClosure = p.cc();
+			final Operation<CompilerInstructions> oci                = realParseEzFile(f, s, file, compilationClosure.getCompilation());
 
 			if (/* false || */ oci.mode() == SUCCESS) {
 				Operation<String> hash = new CA_getHashForFile().apply(p.file_name(), p.f());
-				logProgress(166, hash.success());
+				logProgress(IProgressSink.Codes.EzM__realParseEzFile, hash.success());
 
 				final CompilerInput input = p.input();
 
@@ -80,8 +91,10 @@ class EzM {
 	}
 
 	@NotNull
-	Operation<CompilerInstructions> realParseEzFile(final String f, final @Nullable InputStream s,
-			final @NotNull File file, final @NotNull Compilation c) {
+	Operation<CompilerInstructions> realParseEzFile(final String f,
+	                                                final @Nullable InputStream s,
+	                                                final @NotNull File file,
+	                                                final @NotNull Compilation c) {
 		final String absolutePath;
 		try {
 			absolutePath = file.getCanonicalFile().toString(); // TODO 04/10 hash this and "attach"
