@@ -14,6 +14,7 @@ import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.*;
@@ -605,8 +606,6 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		drs.add(drp);
 	}
 
-//	public List<ElLog> deduceLogs = new ArrayList<ElLog>();
-
 	public void addDrs(final BaseEvaFunction aGeneratedFunction, final @NotNull List<DR_Item> aDrs) {
 		for (DR_Item dr : aDrs) {
 			addDr(Pair.of(aGeneratedFunction, dr));
@@ -807,25 +806,15 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		fi.generateDeferred().promise().then(result -> result.typePromise().then(forFunction::typeDecided));
 	}
 
-	public Promise<ClassDefinition, Diagnostic, Void> generateClass(final GenerateFunctions gf,
-			final @NotNull ClassInvocation ci) {
-		WorkManager wm = _inj().new_WorkManager();
-		// par { return promise ; wm.drain() ; }
-		final Promise<ClassDefinition, Diagnostic, Void> x = generateClass(gf, ci, wm);
-		wm.drain();
-		return x;
-	}
+	public @NotNull Eventual<ClassDefinition> generateClass2(final GenerateFunctions gf,
+	                                                         final @NotNull ClassInvocation ci,
+	                                                         final WorkManager wm) {
+		final Eventual<ClassDefinition> ret = new Eventual<>();
 
-	public @NotNull Promise<ClassDefinition, Diagnostic, Void> generateClass(final GenerateFunctions gf,
-			final @NotNull ClassInvocation ci, final WorkManager wm) {
-		final DeferredObject<ClassDefinition, Diagnostic, Void> ret = new DeferredObject<>();
+		classGenerator.submit(() -> {
+			WlGenerateClass gen = _inj().new_WlGenerateClass(gf, ci, generatedClasses, codeRegistrar);
 
-		classGenerator.submit(new Runnable() {
-			@Override
-			public void run() {
-				WlGenerateClass gen = _inj().new_WlGenerateClass(gf, ci, generatedClasses, codeRegistrar);
-
-				final EvaClass[] genclass1 = new EvaClass[1];
+			final EvaClass[] genclass1 = new EvaClass[1];
 
 				gen.setConsumer(x -> {
 					genclass1[0] = x;
@@ -1098,20 +1087,17 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 	}
 
 	// helper function. no generics!
-	public @Nullable ClassInvocation registerClassInvocation(@NotNull ClassStatement aParent, String aConstructorName,
-			final Supplier<DeduceTypes2> aDeduceTypes2) {
-		// @Nullable ClassInvocation ci = _inj().new_ClassInvocation(aParent,
-		// aConstructorName, aDeduceTypes2);
-		@Nullable
-		ClassInvocation ci = _inj().new_ClassInvocation(aParent, aConstructorName, aDeduceTypes2); // !! 08/28
-		if (ci != null) {
-			ci = registerClassInvocation(ci);
-		}
+	public @Nullable ClassInvocation registerClassInvocation(@NotNull ClassStatement aParent,
+	                                                         final String aConstructorName,
+	                                                         final Supplier<DeduceTypes2> aDeduceTypes2) {
+		// @Nullable ClassInvocation classInvocation = _inj().new_ClassInvocation(aParent, aConstructorName, aDeduceTypes2);
+		ClassInvocation ci = _inj().new_ClassInvocation(aParent, aConstructorName, aDeduceTypes2); // !! 08/28; 09/24 ??
+		ci = registerClassInvocation(ci);
 		return ci;
 	}
 
 	public ClassInvocation registerClassInvocation(final RegisterClassInvocation_env env) {
-		var rci = env.phase().new RegisterClassInvocation();
+		var rci = env.deducePhaseSupplier().get().new RegisterClassInvocation();
 		return rci.registerClassInvocation(env);
 	}
 
