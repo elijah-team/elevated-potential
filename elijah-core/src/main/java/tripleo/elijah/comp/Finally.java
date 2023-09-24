@@ -7,7 +7,6 @@ import java.util.*;
 
 public class Finally {
 	public static class Input {
-
 		private final Nameable nameable;
 		private final Out2 ty;
 

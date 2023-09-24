@@ -36,8 +36,7 @@ import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static tripleo.elijah.util.Helpers.List_of;
 
 /**
@@ -45,7 +44,7 @@ import static tripleo.elijah.util.Helpers.List_of;
  */
 public class TestBasic {
 
-	class testBasic_fact1 {
+	static class testBasic_fact1 {
 
 		Compilation c;
 
@@ -67,7 +66,7 @@ public class TestBasic {
 	@Test
 	public final void testBasic() throws Exception {
 		final List<String> ez_files = Files.readLines(new File("test/basic/ez_files.txt"), Charsets.UTF_8);
-		final Map<Integer, Integer> errorCount = new HashMap<Integer, Integer>();
+		final Map<Integer, Integer> errorCount = new HashMap<>();
 		int index = 0;
 
 		for (String s : ez_files) {
@@ -103,8 +102,8 @@ public class TestBasic {
 
 		if (!TestBasic_DISABLED) {
 			assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
-			assertTrue(c.getOutputTree().getList().size() > 0);
-			assertTrue(c.getIO().recordedwrites.size() > 0);
+			assertFalse(c.getOutputTree().getList().isEmpty());
+			assertFalse(c.getIO().recordedwrites.isEmpty());
 
 			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
 			for (Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> aof : aofs) {
@@ -152,7 +151,7 @@ public class TestBasic {
 		for (Map.Entry<String, Collection<EG_Statement>> entry : mms.asMap().entrySet()) {
 			var fn = entry.getKey();
 			var ss = Helpers.String_join("\n",
-					(entry.getValue()).stream().map(st -> st.getText()).collect(Collectors.toList()));
+					(entry.getValue()).stream().map(EG_Statement::getText).collect(Collectors.toList()));
 
 			// System.out.println("216 "+fn+" "+ss);
 
@@ -170,18 +169,21 @@ public class TestBasic {
 
 		final Compilation c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
 
-		// if (true || !TestBasic_DISABLED)
-		{
+		if (!TestBasic_DISABLED) {
 			Emit.emitting = false;
 
-			List<CompilerInput> inputs = List_of(s, "-sO").stream().map(CompilerInput::new)
+			List<CompilerInput> inputs = List_of(s, "-sO")
+					.stream()
+					.map(CompilerInput::new)
 					.collect(Collectors.toList());
+
 			DefaultCompilerController controller = new DefaultCompilerController();
 
 			c.feedInputs(inputs, controller);
 
-			if (c.errorCount() != 0)
+			if (c.errorCount() != 0) {
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
+			}
 
 			assertEquals(2, c.errorCount()); // TODO Error count obviously should be 0
 
@@ -193,7 +195,7 @@ public class TestBasic {
 				var l = pair.getLeft();
 				var r = pair.getRight();
 
-				System.out.print(Integer.valueOf(i) + " ");
+				System.out.print(i + " ");
 				i++;
 
 				if (l == ErrSink.Errors.DIAGNOSTIC) {
@@ -244,8 +246,7 @@ public class TestBasic {
 	@Test
 	public final void testBasicParse() throws Exception {
 		final List<String> ez_files = Files.readLines(new File("test/basic/ez_files.txt"), Charsets.UTF_8);
-		final List<String> args = new ArrayList<String>();
-		args.addAll(ez_files);
+		final List<String> args     = new ArrayList<>(ez_files);
 		args.add("-sE");
 		final ErrSink eee = new StdErrSink();
 		final Compilation c = new CompilationImpl(eee, new IO());

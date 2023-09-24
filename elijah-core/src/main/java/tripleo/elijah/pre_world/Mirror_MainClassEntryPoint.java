@@ -38,7 +38,7 @@ public class Mirror_MainClassEntryPoint implements Mirror_EntryPoint {
 		dcg.submitGenerateClass(Objects.requireNonNull(ci), gf);
 
 		final @NotNull FunctionInvocation fi = dcg.newFunctionInvocation(f, null, ci);
-//				fi.setPhase(phase);
+//				fi.setPhase(deducePhase);
 		dcg.submitGenerateFunction(fi, gf);
 
 		mt.describe(new ModuleThing.GeneralDescription(new ES_Symbol("MainClassEntryPoint"), List_of(ci, fi)));

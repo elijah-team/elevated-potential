@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
 
 // TODO is ExpressionList an IExpression?
-public class ProcedureCallExpressionImpl implements tripleo.elijah.lang.i.ProcedureCallExpression {
+public class ProcedureCallExpressionImpl implements ProcedureCallExpression {
 
 //	public ProcedureCallExpression(final Token aToken, final ExpressionList aExpressionList, final Token aToken1) {
 //		throw new NotImplementedException();
