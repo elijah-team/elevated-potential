@@ -4,17 +4,17 @@ import tripleo.elijah.lang2.*;
 
 public interface FormalArgListItem extends OS_Element, OS_Element2, ClassItem {
 	@Override
-		// OS_Element
+	// OS_Element
 	Context getContext();
 
 	IdentExpression getNameToken();
 
 	@Override
-		// OS_Element
+	// OS_Element
 	OS_Element getParent();
 
 	@Override
-		// OS_Element2
+	// OS_Element2
 	String name();
 
 	@Override
@@ -29,6 +29,6 @@ public interface FormalArgListItem extends OS_Element, OS_Element2, ClassItem {
 	TypeName typeName();
 
 	@Override
-		// OS_Element
+	// OS_Element
 	void visitGen(ElElementVisitor visit);
 }

@@ -10,8 +10,7 @@ import tripleo.elijah.world.i.WorldModule;
 import java.util.function.Supplier;
 
 public record GM_GenerateModuleRequest(@NotNull GN_GenerateNodesIntoSink generateNodesIntoSink,
-									   @NotNull WorldModule mod,
-									   @NotNull GN_GenerateNodesIntoSinkEnv env) implements GN_Env {
+		@NotNull WorldModule mod, @NotNull GN_GenerateNodesIntoSinkEnv env) implements GN_Env {
 	@Contract("_ -> new")
 	public @NotNull GenerateFiles getGenerateFiles(final Supplier<GenerateResultEnv> fgs) {
 		var params = params();

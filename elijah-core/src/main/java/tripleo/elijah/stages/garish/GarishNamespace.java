@@ -24,13 +24,14 @@ public class GarishNamespace {
 	@Contract(pure = true)
 	public GarishNamespace(final LivingNamespace aLivingClass) {
 		_lc = aLivingClass;
-		//_lc.setGarish(this);
+		// _lc.setGarish(this);
 	}
 
-	public void garish(final GenerateC aGenerateC, final GenerateResult gr, final @NotNull GenerateResultSink aResultSink) {
-		final DefaultLivingNamespace    dln = (DefaultLivingNamespace) _lc;
-		final EvaNamespace              x   = dln.evaNode();
-		final GarishNamespace_Generator xg  = x.generator();
+	public void garish(final GenerateC aGenerateC, final GenerateResult gr,
+			final @NotNull GenerateResultSink aResultSink) {
+		final DefaultLivingNamespace dln = (DefaultLivingNamespace) _lc;
+		final EvaNamespace x = dln.evaNode();
+		final GarishNamespace_Generator xg = x.generator();
 
 		if (!xg.generatedAlready()) {
 			xg.provide(aResultSink, this, gr, aGenerateC);
@@ -38,14 +39,12 @@ public class GarishNamespace {
 	}
 
 	public @NotNull BufferTabbedOutputStream getHeaderBuffer(final @NotNull GenerateC aGenerateC,
-															 final @NotNull EvaNamespace x,
-															 final String class_name,
-															 final int class_code) {
+			final @NotNull EvaNamespace x, final String class_name, final int class_code) {
 		final BufferTabbedOutputStream tosHdr = new BufferTabbedOutputStream();
 
 		tosHdr.put_string_ln("typedef struct {");
 		tosHdr.incr_tabs();
-		//tosHdr.put_string_ln("int _tag;");
+		// tosHdr.put_string_ln("int _tag;");
 		for (EvaNamespace.VarTableEntry o : x.varTable) {
 			final String typeName = aGenerateC.getTypeNameGNCForVarTableEntry(o);
 
@@ -54,16 +53,18 @@ public class GarishNamespace {
 
 		tosHdr.dec_tabs();
 		tosHdr.put_string_ln("");
-		tosHdr.put_string_ln(String.format("} %s; // namespace `%s' in %s", class_name, x.getName(), x.module().getFileName()));
+		tosHdr.put_string_ln(
+				String.format("} %s; // namespace `%s' in %s", class_name, x.getName(), x.module().getFileName()));
 		// TODO "instance" namespaces
 		tosHdr.put_string_ln("");
-		tosHdr.put_string_ln(String.format("%s* zN%d_instance; // namespace `%s'", class_name, class_code, x.getName()));
+		tosHdr.put_string_ln(
+				String.format("%s* zN%d_instance; // namespace `%s'", class_name, class_code, x.getName()));
 		tosHdr.put_string_ln("");
 
 		tosHdr.put_string_ln("");
 		tosHdr.put_string_ln("");
 		for (EvaNamespace.VarTableEntry o : x.varTable) {
-			//final String typeName = getTypeNameForVarTableEntry(o);
+			// final String typeName = getTypeNameForVarTableEntry(o);
 			tosHdr.put_string_ln(String.format("R->vm%s = 0;", o.nameToken));
 		}
 
@@ -72,8 +73,7 @@ public class GarishNamespace {
 	}
 
 	public @NotNull BufferTabbedOutputStream getImplBuffer(final @NotNull EvaNamespace ignoredX,
-														   final String class_name,
-														   final int class_code) {
+			final String class_name, final int class_code) {
 		final BufferTabbedOutputStream tos = new BufferTabbedOutputStream();
 
 		tos.put_string_ln(String.format("%s* ZNC%d() {", class_name, class_code));
@@ -81,12 +81,12 @@ public class GarishNamespace {
 
 		// TODO multiple calls of namespace function (need if/else statement)
 		tos.put_string_ln(String.format("%s* R = GC_malloc(sizeof(%s));", class_name, class_name));
-		//tos.put_string_ln(String.format("R->_tag = %d;", class_code));
+		// tos.put_string_ln(String.format("R->_tag = %d;", class_code));
 		tos.put_string_ln("");
 		tos.put_string_ln(String.format("zN%d_instance = R;", class_code));
 		tos.put_string_ln("return R;");
 		tos.dec_tabs();
-		tos.put_string_ln(String.format("} // namespace `%s'", class_name /*x.getName()*/));
+		tos.put_string_ln(String.format("} // namespace `%s'", class_name /* x.getName() */));
 		tos.put_string_ln("");
 
 		tos.flush();
@@ -99,13 +99,14 @@ public class GarishNamespace {
 	}
 
 	@Contract(pure = true)
-	public void logProgress(final GARISH_NAMESPACE_LOG_PROGRESS aCode, final EvaNamespace aEvaNamespace, final Buffer aBuffer) {
+	public void logProgress(final GARISH_NAMESPACE_LOG_PROGRESS aCode, final EvaNamespace aEvaNamespace,
+			final Buffer aBuffer) {
 		if (aCode == GARISH_NAMESPACE_LOG_PROGRESS.IMPL) {
 			// impl
 		} else if (aCode == GARISH_NAMESPACE_LOG_PROGRESS.HEADER) {
 			// impl
 		}
-		//aEvaNamespace.getName();
-		//aBuffer.getText();
+		// aEvaNamespace.getName();
+		// aBuffer.getText();
 	}
 }

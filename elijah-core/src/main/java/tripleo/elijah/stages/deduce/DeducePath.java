@@ -25,8 +25,8 @@ import java.util.*;
  */
 public class DeducePath {
 	public interface DeducePathItem {
-		//base = aIdentTableEntry;
-		//ias  = aX;
+		// base = aIdentTableEntry;
+		// ias = aX;
 
 		MemberContext context();
 
@@ -39,16 +39,17 @@ public class DeducePath {
 		GenType type();
 
 	}
+
 	public class DeducePathItemImpl implements DeducePathItem {
-		private final int                 index;
+		private final int index;
 		private final InstructionArgument instructionArgument;
-		private       MemberContext       context;
-		private       OS_Element          element;
-		private       GenType             type;
+		private MemberContext context;
+		private OS_Element element;
+		private GenType type;
 
 		public DeducePathItemImpl(final InstructionArgument aInstructionArgument, final int aIndex) {
 			instructionArgument = aInstructionArgument;
-			index               = aIndex;
+			index = aIndex;
 		}
 
 		@Override
@@ -76,19 +77,20 @@ public class DeducePath {
 			return type;
 		}
 	}
+
 	class MemberContext extends ContextImpl {
 
-		private final           DeducePath deducePath;
-		private final           OS_Element element;
-		private final           int        index;
-		private final @Nullable GenType    type;
+		private final DeducePath deducePath;
+		private final OS_Element element;
+		private final int index;
+		private final @Nullable GenType type;
 
 		public MemberContext(DeducePath aDeducePath, int aIndex, OS_Element aElement) {
 			assert aIndex >= 0;
 
 			deducePath = aDeducePath;
-			index      = aIndex;
-			element    = aElement;
+			index = aIndex;
+			element = aElement;
 
 			type = deducePath.getType(aIndex);
 		}
@@ -101,21 +103,22 @@ public class DeducePath {
 		}
 
 		@Override
-		public @Nullable LookupResultList lookup(String name, int level, LookupResultList Result, SearchList alreadySearched, boolean one) {
+		public @Nullable LookupResultList lookup(String name, int level, LookupResultList Result,
+				SearchList alreadySearched, boolean one) {
 //			if (index == 0)
-
 
 			if (type.getResolved() == null) {
 
-				//c = getContext(this.index)
-				@Nullable final OS_Element ell = deducePath.getElement(this.index);
+				// c = getContext(this.index)
+				@Nullable
+				final OS_Element ell = deducePath.getElement(this.index);
 				if (ell == null) {
 					throw new AssertionError("202 no element found");
 				} else {
 
 					if (ell instanceof VariableStatementImpl) {
 						VariableStatementImpl variableStatement = (VariableStatementImpl) ell;
-						final Context         ctx2              = variableStatement.getParent().getContext();
+						final Context ctx2 = variableStatement.getParent().getContext();
 
 						String n2 = null;
 						if (type.getNonGenericTypeName() != null) {
@@ -131,20 +134,20 @@ public class DeducePath {
 				return null;
 			}
 
-
 			return type.getResolved().getElement().getContext().lookup(name, level, Result, alreadySearched, one);
 //			else
 //				return null;
 		}
 	}
-	private final          IdentTableEntry           base;
-	private final          MemberContext @NotNull [] contexts;
 
-	private final          OS_Element @NotNull []    elements;  // arrays because they never need to be resized
+	private final IdentTableEntry base;
+	private final MemberContext @NotNull [] contexts;
+
+	private final OS_Element @NotNull [] elements; // arrays because they never need to be resized
 
 	private final @NotNull List<InstructionArgument> ias;
 
-	private final          GenType @NotNull []       types;
+	private final GenType @NotNull [] types;
 
 	@Contract(pure = true)
 	public DeducePath(IdentTableEntry aIdentTableEntry, @NotNull List<InstructionArgument> aX) {
@@ -152,29 +155,31 @@ public class DeducePath {
 		assert size > 0;
 
 		base = aIdentTableEntry;
-		ias  = aX;
+		ias = aX;
 
 		elements = new OS_Element[size];
-		types    = new GenTypeImpl[size];
+		types = new GenTypeImpl[size];
 		contexts = new MemberContext[size];
 	}
 
 	@Nullable
 	private OS_Element elementForIndex(final int aIndex, final @NotNull IdentIA ia2) {
-		@Nullable OS_Element el;
+		@Nullable
+		OS_Element el;
 		el = null;
-		@NotNull IdentTableEntry identTableEntry = ia2.getEntry();
+		@NotNull
+		IdentTableEntry identTableEntry = ia2.getEntry();
 		identTableEntry.onResolvedElement(re -> {
-			identTableEntry.setStatus(BaseTableEntry.Status.KNOWN, //_inj().new_
-									  new GenericElementHolder(re));
+			identTableEntry.setStatus(BaseTableEntry.Status.KNOWN, // _inj().new_
+					new GenericElementHolder(re));
 			elements[aIndex] = re;
 		});
 		if (identTableEntry.hasResolvedElement()) {
 			el = identTableEntry.getResolvedElement();
 			if (aIndex == 0)
 				if (identTableEntry.getResolvedElement() != el)
-					identTableEntry.setStatus(BaseTableEntry.Status.KNOWN, //_inj().new_
-											  new GenericElementHolder(el));
+					identTableEntry.setStatus(BaseTableEntry.Status.KNOWN, // _inj().new_
+							new GenericElementHolder(el));
 		} else {
 			// TODO 06/19 maybe redundant
 
@@ -183,8 +188,8 @@ public class DeducePath {
 
 //			identTableEntry.elementPromise((x)->{}, null);
 			identTableEntry.getDeduceElement().resolvedElementPromise().then((x) -> {
-				identTableEntry.setStatus(BaseTableEntry.Status.KNOWN, //_inj().new_
-										  new GenericElementHolder(x));
+				identTableEntry.setStatus(BaseTableEntry.Status.KNOWN, // _inj().new_
+						new GenericElementHolder(x));
 			});
 		}
 		return el;
@@ -192,27 +197,29 @@ public class DeducePath {
 
 	@Nullable
 	private OS_Element elementForIndex(final int aIndex, final @NotNull IntegerIA ia2) {
-		@Nullable OS_Element        el;
-		@NotNull VariableTableEntry vte = ia2.getEntry();
+		@Nullable
+		OS_Element el;
+		@NotNull
+		VariableTableEntry vte = ia2.getEntry();
 		el = vte.getResolvedElement();
 		if (el == null) {
 			// never called bc above will NEVER be true due to construction of vte
 			vte.elementPromise((el2) -> {
 				vte.setStatus(BaseTableEntry.Status.KNOWN,
-							  new GenericElementHolderWithIntegerIA(el2,
-																	(IntegerIA) ias.get(aIndex)));
+						new GenericElementHolderWithIntegerIA(el2, (IntegerIA) ias.get(aIndex)));
 			}, null);
 		} else {
 			// set this to set resolved_elements of remaining entries
-			vte.setStatus(BaseTableEntry.Status.KNOWN, //dt2._inj().new_
-						  new GenericElementHolderWithIntegerIA(el, (IntegerIA) ias.get(aIndex)));
+			vte.setStatus(BaseTableEntry.Status.KNOWN, // dt2._inj().new_
+					new GenericElementHolderWithIntegerIA(el, (IntegerIA) ias.get(aIndex)));
 		}
 		return el;
 	}
 
 	@Nullable
 	private OS_Element elementForIndex(final @NotNull ProcIA ia2) {
-		@Nullable OS_Element          el;
+		@Nullable
+		OS_Element el;
 		final @NotNull ProcTableEntry procTableEntry = ia2.getEntry();
 		el = procTableEntry.getResolvedElement(); // .expression?
 		// TODO no setStatus here?
@@ -234,13 +241,13 @@ public class DeducePath {
 			}
 		}
 
-		//assert el != null;
+		// assert el != null;
 		if (el == null) {
 			if (procTableEntry.expression_num instanceof IdentIA identIA) {
 				var ite = (identIA.getEntry());
 				System.err.println("139 element not found for " + ite.getIdent().getText());
 			}
-			//throw new AssertionError();
+			// throw new AssertionError();
 		}
 		return el;
 	}
@@ -258,8 +265,9 @@ public class DeducePath {
 	@Nullable
 	public OS_Element getElement(int aIndex) {
 		if (elements[aIndex] == null) {
-			InstructionArgument  ia2 = getIA(aIndex);
-			@Nullable OS_Element el;
+			InstructionArgument ia2 = getIA(aIndex);
+			@Nullable
+			OS_Element el;
 			if (ia2 instanceof IntegerIA) {
 				el = elementForIndex(aIndex, (IntegerIA) ia2);
 			} else if (ia2 instanceof IdentIA) {
@@ -275,7 +283,8 @@ public class DeducePath {
 		}
 	}
 
-	public void getElementPromise(int aIndex, DoneCallback<OS_Element> aOS_elementDoneCallback, FailCallback<Diagnostic> aDiagnosticFailCallback) {
+	public void getElementPromise(int aIndex, DoneCallback<OS_Element> aOS_elementDoneCallback,
+			FailCallback<Diagnostic> aDiagnosticFailCallback) {
 		getEntry(aIndex).elementPromise(aOS_elementDoneCallback, aDiagnosticFailCallback);
 	}
 
@@ -283,10 +292,12 @@ public class DeducePath {
 	public BaseTableEntry getEntry(int aIndex) {
 		InstructionArgument ia2 = getIA(aIndex);
 		if (ia2 instanceof IntegerIA) {
-			@NotNull VariableTableEntry vte = ((IntegerIA) ia2).getEntry();
+			@NotNull
+			VariableTableEntry vte = ((IntegerIA) ia2).getEntry();
 			return vte;
 		} else if (ia2 instanceof IdentIA) {
-			@NotNull IdentTableEntry identTableEntry = ((IdentIA) ia2).getEntry();
+			@NotNull
+			IdentTableEntry identTableEntry = ((IdentIA) ia2).getEntry();
 			return identTableEntry;
 		} else if (ia2 instanceof ProcIA) {
 			final @NotNull ProcTableEntry procTableEntry = ((ProcIA) ia2).getEntry();
@@ -305,13 +316,16 @@ public class DeducePath {
 		}
 
 		InstructionArgument ia2 = getIA(aIndex);
-		@Nullable GenType   gt;
+		@Nullable
+		GenType gt;
 		if (ia2 instanceof IntegerIA) {
-			@NotNull VariableTableEntry vte = ((IntegerIA) ia2).getEntry();
+			@NotNull
+			VariableTableEntry vte = ((IntegerIA) ia2).getEntry();
 			gt = vte.getType().genType;
 			assert gt != null;
 		} else if (ia2 instanceof IdentIA) {
-			@NotNull IdentTableEntry identTableEntry = ((IdentIA) ia2).getEntry();
+			@NotNull
+			IdentTableEntry identTableEntry = ((IdentIA) ia2).getEntry();
 			if (identTableEntry.type != null) {
 				gt = identTableEntry.type.genType;
 				assert gt != null;
@@ -320,7 +334,7 @@ public class DeducePath {
 			}
 		} else if (ia2 instanceof ProcIA) {
 			final @NotNull ProcTableEntry procTableEntry = ((ProcIA) ia2).getEntry();
-			gt = null;//procTableEntry.getResolvedElement(); // .expression?
+			gt = null;// procTableEntry.getResolvedElement(); // .expression?
 //				assert gt != null;
 		} else
 			gt = null; // README shouldn't be calling for other subclasses
@@ -333,7 +347,7 @@ public class DeducePath {
 	}
 
 	public void setTarget(final @NotNull DeduceElement aTarget) {
-		//assert elements[0] == null;
+		// assert elements[0] == null;
 		elements[0] = aTarget.element();
 	}
 

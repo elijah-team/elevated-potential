@@ -29,7 +29,8 @@ public interface GenerateFiles extends CodeGenerator {
 	}
 
 	@NotNull
-	static Collection<EvaNode> constructors_to_list_of_generated_nodes(@NotNull Collection<EvaConstructor> aEvaConstructors) {
+	static Collection<EvaNode> constructors_to_list_of_generated_nodes(
+			@NotNull Collection<EvaConstructor> aEvaConstructors) {
 		return Collections2.transform(aEvaConstructors, new Function<EvaConstructor, EvaNode>() {
 			@org.checkerframework.checker.nullness.qual.Nullable
 			@Override
@@ -40,7 +41,8 @@ public interface GenerateFiles extends CodeGenerator {
 	}
 
 	@NotNull
-	static Collection<EvaNode> functions_to_list_of_generated_nodes(@NotNull Collection<EvaFunction> generatedFunctions) {
+	static Collection<EvaNode> functions_to_list_of_generated_nodes(
+			@NotNull Collection<EvaFunction> generatedFunctions) {
 		return Collections2.transform(generatedFunctions, new Function<EvaFunction, EvaNode>() {
 			@org.checkerframework.checker.nullness.qual.Nullable
 			@Override
@@ -54,13 +56,16 @@ public interface GenerateFiles extends CodeGenerator {
 
 	void finishUp(final GenerateResult aGenerateResult, final WorkManager wm, final WorkList aWorkList);
 
-	void generate_constructor(EvaConstructor aGf, GenerateResult aGr, WorkList aWl, GenerateResultSink aResultSink, final WorkManager aWorkManager, final @NotNull GenerateResultEnv aFileGen);
+	void generate_constructor(EvaConstructor aGf, GenerateResult aGr, WorkList aWl, GenerateResultSink aResultSink,
+			final WorkManager aWorkManager, final @NotNull GenerateResultEnv aFileGen);
 
-	void generate_function(EvaFunction aEvaFunction, GenerateResult aGenerateResult, WorkList aWorkList, GenerateResultSink aResultSink);
+	void generate_function(EvaFunction aEvaFunction, GenerateResult aGenerateResult, WorkList aWorkList,
+			GenerateResultSink aResultSink);
 
 	GenerateResult generateCode(Collection<EvaNode> lgn, @NotNull GenerateResultEnv aFileGen);
 
 	<T> GenerateResultEnv getFileGen();
 
-	GenerateResult resultsFromNodes(@NotNull List<EvaNode> aNodes, WorkManager wm, GenerateResultSink grs, @NotNull GenerateResultEnv fg);
+	GenerateResult resultsFromNodes(@NotNull List<EvaNode> aNodes, WorkManager wm, GenerateResultSink grs,
+			@NotNull GenerateResultEnv fg);
 }

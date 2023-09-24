@@ -13,10 +13,10 @@ import tripleo.elijah.util.Operation2;
 import tripleo.elijah.world.i.WorldModule;
 
 public class ModuleBuilder {
-	//		private final Compilation compilation;
+	// private final Compilation compilation;
 	private final @NotNull OS_Module mod;
-	private                boolean   _addToCompilation = false;
-	private @Nullable      String    _fn               = null;
+	private boolean _addToCompilation = false;
+	private @Nullable String _fn = null;
 
 	public ModuleBuilder(@NotNull Compilation aCompilation) {
 //			compilation = aCompilation;
@@ -31,7 +31,8 @@ public class ModuleBuilder {
 
 	public OS_Module build() {
 		if (_addToCompilation) {
-			if (_fn == null) throw new IllegalStateException("Filename not set in ModuleBuilder");
+			if (_fn == null)
+				throw new IllegalStateException("Filename not set in ModuleBuilder");
 			mod.getCompilation().world().addModule(mod, _fn, mod.getCompilation());
 		}
 		return mod;
@@ -50,11 +51,11 @@ public class ModuleBuilder {
 	}
 
 	public @NotNull ModuleBuilder withPrelude(String aPrelude) {
-		final Operation2<WorldModule>[] p = new Operation2[]{null};
+		final Operation2<WorldModule>[] p = new Operation2[] { null };
 
 		if (false) {
 			final CompilationFlow.CF_FindPrelude cffp = new CompilationFlow.CF_FindPrelude((pp) -> p[0] = pp);
-			final DefaultCompilationFlow         flow = new DefaultCompilationFlow();
+			final DefaultCompilationFlow flow = new DefaultCompilationFlow();
 			flow.add(cffp);
 
 			flow.run((CompilationImpl) mod.getCompilation());

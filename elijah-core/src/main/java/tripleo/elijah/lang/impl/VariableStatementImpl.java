@@ -20,12 +20,13 @@ import java.util.*;
 
 public class VariableStatementImpl implements OS_Element, tripleo.elijah.lang.i.VariableStatement {
 
-	private final    VariableSequence       _parent;
-	@Nullable        List<AnnotationClause> annotations  = null;
-	private          IExpression            initialValue = IExpression.UNASSIGNED;
-	private          IdentExpression        name;
-	private          TypeModifiers          typeModifiers;
-	private @NotNull TypeName               typeName     = new VariableTypeNameImpl();
+	private final VariableSequence _parent;
+	@Nullable
+	List<AnnotationClause> annotations = null;
+	private IExpression initialValue = IExpression.UNASSIGNED;
+	private IdentExpression name;
+	private TypeModifiers typeModifiers;
+	private @NotNull TypeName typeName = new VariableTypeNameImpl();
 
 	public VariableStatementImpl(final VariableSequence aSequence) {
 		_parent = aSequence;

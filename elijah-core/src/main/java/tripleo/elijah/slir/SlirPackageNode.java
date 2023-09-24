@@ -18,17 +18,17 @@ import tripleo.elijah.lang.i.OS_Package;
  * Created 11/10/21 2:17 AM
  */
 public class SlirPackageNode implements SlirElement {
-	private final OS_Package     packageStatement;
+	private final OS_Package packageStatement;
 	private final SlirSourceNode slirSourceNode;
 
 	public SlirPackageNode(final SlirSourceNode aSlirSourceNode, final OS_Package aPackageStatement) {
-		slirSourceNode   = aSlirSourceNode;
+		slirSourceNode = aSlirSourceNode;
 		packageStatement = aPackageStatement;
 	}
 
 	@Override
 	public @Nullable OS_Element element() {
-		return null; //packageStatement; // TODO OS_Package is not an Element!!
+		return null; // packageStatement; // TODO OS_Package is not an Element!!
 	}
 
 	@Override

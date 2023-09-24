@@ -14,14 +14,14 @@ import tripleo.elijah.stages.instructions.VariableTableType;
 import tripleo.elijah.stages.logging.ElLog;
 
 class GCM_GF implements GCM_D {
-	private final GenerateC   gc;
+	private final GenerateC gc;
 	private final EvaFunction gf;
-	private final ElLog       LOG;
+	private final ElLog LOG;
 
 	public GCM_GF(final EvaFunction aGf, final ElLog aLOG, final GenerateC aGc) {
-		gf  = aGf;
+		gf = aGf;
 		LOG = aLOG;
-		gc  = aGc;
+		gc = aGc;
 	}
 
 	@Override
@@ -37,16 +37,18 @@ class GCM_GF implements GCM_D {
 			}
 		}
 
-		String               returnType = null;
+		String returnType = null;
 		final TypeTableEntry tte;
-		final OS_Type        type;
+		final OS_Type type;
 
-		@Nullable InstructionArgument result_index = gf.vte_lookup("Result");
+		@Nullable
+		InstructionArgument result_index = gf.vte_lookup("Result");
 		if (result_index == null) {
 			// if there is no Result, there should be Value
 			result_index = gf.vte_lookup("Value");
 			// but Value might be passed in. If it is, discard value
-			@NotNull final VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
+			@NotNull
+			final VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
 			if (vte.getVtt() != VariableTableType.RESULT)
 				result_index = null;
 			if (result_index == null)
@@ -67,11 +69,11 @@ class GCM_GF implements GCM_D {
 		LOG.info("228 " + type);
 		if (type == null) {
 			// FIXME request.operation.fail(655) 06/16
-			//  as opposed to current-operation
+			// as opposed to current-operation
 			LOG.err("655 Shouldn't be here (type is null)");
 			returnType = "ERR_type_attached_is_null/*2*/";
 		} else if (type.isUnitType()) {
-			//returnType = "void/*Unit-74*/";
+			// returnType = "void/*Unit-74*/";
 			returnType = "void";
 		} else if (type != null) {
 			if (type instanceof final @NotNull OS_GenericTypeNameType genericTypeNameType) {

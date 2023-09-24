@@ -10,9 +10,9 @@ import tripleo.elijah.stages.inter.ModuleThing;
 import tripleo.elijah.world.i.WorldModule;
 
 public class DefaultWorldModule implements WorldModule {
-	private final OS_Module   mod;
+	private final OS_Module mod;
 	private final CompilationEnclosure ce;
-	private       ModuleThing thing;
+	private ModuleThing thing;
 
 	private GN_PL_Run2.GenerateFunctionsRequest rq;
 
@@ -48,12 +48,12 @@ public class DefaultWorldModule implements WorldModule {
 	@Override
 	public GN_PL_Run2.GenerateFunctionsRequest rq() {
 		return rq;
-		//throw new NotImplementedException("Unexpected");
+		// throw new NotImplementedException("Unexpected");
 	}
 
 	public void setRq(final GN_PL_Run2.GenerateFunctionsRequest aRq) {
 		rq = aRq;
-		//throw new NotImplementedException("Unexpected");
+		// throw new NotImplementedException("Unexpected");
 
 		erq.resolve(rq);
 	}

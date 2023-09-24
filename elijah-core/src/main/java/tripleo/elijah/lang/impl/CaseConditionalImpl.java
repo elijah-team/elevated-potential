@@ -19,21 +19,21 @@ import java.util.*;
 
 /**
  * @author Tripleo
- * <p>
- * Created Apr 15, 2020 at 10:09:03 PM
+ *         <p>
+ *         Created Apr 15, 2020 at 10:09:03 PM
  */
 public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditional {
 
 	public class CaseScopeImpl implements OS_Container, OS_Element, CaseConditional {
 
-		private final Map<Scope3, IExpression> _scopes    = new HashMap<>();
-		private final Scope3                   cscope3;
-		private final IExpression              expr1;
-		private       boolean                  _isDefault = false;
-		private       CaseContext              ctx;
+		private final Map<Scope3, IExpression> _scopes = new HashMap<>();
+		private final Scope3 cscope3;
+		private final IExpression expr1;
+		private boolean _isDefault = false;
+		private CaseContext ctx;
 
 		public CaseScopeImpl(final IExpression expression, Scope3 aScope3) {
-			this.expr1   = expression;
+			this.expr1 = expression;
 			this.cscope3 = aScope3;
 		}
 
@@ -149,9 +149,9 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 		 */
 		@Override
 		public void setDefault() {
-			_isDefault         = true;
+			_isDefault = true;
 			default_case_scope = this;
-			_ctx.carrier       = (IdentExpression) expr1;
+			_ctx.carrier = (IdentExpression) expr1;
 		}
 
 		@Override
@@ -159,17 +159,18 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 			visit.visitCaseScope(this);
 		}
 	}
-	private final     OS_Element                          parent;
-	private @Nullable CaseContext                         __ctx              = null; // TODO look into removing this
-	private @Nullable SingleIdentContext                  _ctx               = null;
-	private @Nullable CaseConditional                     default_case_scope = null;
-	private           IExpression                         expr;
 
-	private @NotNull  HashMap<IExpression, CaseScopeImpl> scopes             = new LinkedHashMap<IExpression, CaseScopeImpl>();
+	private final OS_Element parent;
+	private @Nullable CaseContext __ctx = null; // TODO look into removing this
+	private @Nullable SingleIdentContext _ctx = null;
+	private @Nullable CaseConditional default_case_scope = null;
+	private IExpression expr;
+
+	private @NotNull HashMap<IExpression, CaseScopeImpl> scopes = new LinkedHashMap<IExpression, CaseScopeImpl>();
 
 	public CaseConditionalImpl(final OS_Element parent, final Context parentContext) {
 		this.parent = parent;
-		this._ctx   = new SingleIdentContext(parentContext, this);
+		this._ctx = new SingleIdentContext(parentContext, this);
 	}
 
 	@Override
@@ -178,9 +179,10 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 
 	}
 
-	//public void addScopeFor(final IExpression expression, final Scope3 caseScope) {
-	//	addScopeFor(expression, new CaseScopeImpl(expression, caseScope));
-	//}
+	// public void addScopeFor(final IExpression expression, final Scope3 caseScope)
+	// {
+	// addScopeFor(expression, new CaseScopeImpl(expression, caseScope));
+	// }
 
 	@Override
 	public void expr(final IExpression expr) {
@@ -221,7 +223,6 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 	public void serializeTo(final SmallWriter sw) {
 		throw new UnsupportedOperationException();
 	}
-
 
 	@Override
 	public void setContext(final CaseContext ctx) {

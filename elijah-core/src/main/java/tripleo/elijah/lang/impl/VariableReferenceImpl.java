@@ -17,13 +17,13 @@ public class VariableReferenceImpl extends AbstractExpression
 
 	// List<VR_Parts> parts = new ArrayList<VR_Parts>();
 	OS_Type _type;
-	String  main;
+	String main;
 
 	/**
-	 * Called from ElijahParser.variableReference.  Will `setMain' later
+	 * Called from ElijahParser.variableReference. Will `setMain' later
 	 */
 	public VariableReferenceImpl() {
-		//NotImplementedException.raise();
+		// NotImplementedException.raise();
 		setLeft(this); // TODO is this better left null?
 		// no contract specifies NotNull...
 		setKind(ExpressionKind.VARREF);

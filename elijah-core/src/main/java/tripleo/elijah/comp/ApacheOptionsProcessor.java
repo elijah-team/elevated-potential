@@ -16,8 +16,8 @@ import tripleo.vendor.org.apache.commons.cli.*;
 import java.util.List;
 
 public class ApacheOptionsProcessor implements OptionsProcessor {
-	private final CommandLineParser clp     = new DefaultParser();
-	private final Options           options = new Options();
+	private final CommandLineParser clp = new DefaultParser();
+	private final Options options = new Options();
 
 	@Contract(pure = true)
 	public ApacheOptionsProcessor() {
@@ -28,7 +28,8 @@ public class ApacheOptionsProcessor implements OptionsProcessor {
 	}
 
 	@Override
-	public Operation<Ok> process(final @NotNull Compilation c, final @NotNull List<CompilerInput> aInputs, final ICompilationBus aCb) {
+	public Operation<Ok> process(final @NotNull Compilation c, final @NotNull List<CompilerInput> aInputs,
+			final ICompilationBus aCb) {
 		try {
 			final CommandLine cmd = clp.parse(options, aInputs);
 
@@ -37,7 +38,7 @@ public class ApacheOptionsProcessor implements OptionsProcessor {
 			 */
 
 			// TODO 09/08 promises??
-			//c.getCompilationEnclosure().getCompilationBus().option();
+			// c.getCompilationEnclosure().getCompilationBus().option();
 
 			if (cmd.hasOption("s")) {
 				new CC_SetStage(cmd.getOptionValue('s')).apply(c);
@@ -55,7 +56,7 @@ public class ApacheOptionsProcessor implements OptionsProcessor {
 
 			return Operation.success(Ok.instance());
 		} catch (ParseException aE) {
-			return Operation.failure(/*new DiagnosticException*/(aE));
+			return Operation.failure(/* new DiagnosticException */(aE));
 		}
 	}
 }

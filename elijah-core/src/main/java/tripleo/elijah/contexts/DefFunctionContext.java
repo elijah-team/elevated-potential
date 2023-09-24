@@ -17,8 +17,8 @@ import tripleo.elijah.lang.impl.ContextImpl;
 
 /**
  * @author Tripleo
- * <p>
- * Created 	Mar 26, 2020 at 9:24:44 PM
+ *         <p>
+ *         Created Mar 26, 2020 at 9:24:44 PM
  */
 public class DefFunctionContext extends ContextImpl {
 
@@ -42,7 +42,8 @@ public class DefFunctionContext extends ContextImpl {
 	 * @return
 	 */
 	@Override
-	public LookupResultList lookup(final String name, final int level, final LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final String name, final int level, final LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 //		final LookupResultList Result = new LookupResultListImpl();
 		alreadySearched.add(carrier.getContext());
 		return getParent().lookup(name, level, Result, alreadySearched, one);

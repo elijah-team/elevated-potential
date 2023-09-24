@@ -9,7 +9,8 @@ public interface FluffyVar {
 
 	IComposable nameComposable();
 
-	@Nullable Locatable nameLocatable();
+	@Nullable
+	Locatable nameLocatable();
 
 	FluffyVarTarget target();
 }

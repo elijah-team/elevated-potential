@@ -17,13 +17,13 @@ public class LogEntry {
 	}
 
 	public long time;
-	public Level  level;
+	public Level level;
 
 	public String message;
 
 	public LogEntry(long aTime, Level aLevel, String aS) {
-		time    = aTime;
-		level   = aLevel;
+		time = aTime;
+		level = aLevel;
 		message = aS;
 	}
 }

@@ -11,7 +11,8 @@ public class IntegerIA_Ops {
 	private class ConstructorPathOp1 implements ConstructorPathOp {
 		private boolean _calculated = false;
 
-		@Nullable EvaNode _resolved = null;
+		@Nullable
+		EvaNode _resolved = null;
 
 		private void calculate() {
 			final VariableTableEntry vte = integerIA.getEntry();
@@ -54,7 +55,7 @@ public class IntegerIA_Ops {
 
 	public IntegerIA_Ops(final IntegerIA aIntegerIA, final int aSSize) {
 		integerIA = aIntegerIA;
-		sSize     = aSSize;
+		sSize = aSSize;
 	}
 
 	public @NotNull ConstructorPathOp getConstructorPath() {

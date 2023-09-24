@@ -25,21 +25,20 @@ import java.util.function.Supplier;
  * Created 1/8/21 11:02 PM
  */
 public class ElSystem {
-	public final  Supplier<OutputStrategy> outputStrategyCreator;
+	public final Supplier<OutputStrategy> outputStrategyCreator;
 	private final Map<EvaFunction, String> gfm_map = new HashMap<EvaFunction, String>();
-	private final Compilation              c;
-	private final boolean                  verbose;
-	private       OutputStrategyC          _os;
+	private final Compilation c;
+	private final boolean verbose;
+	private OutputStrategyC _os;
 
 	public ElSystem(final boolean aB, final Compilation aC, final Supplier<OutputStrategy> aCreateOutputStratgy) {
-		verbose               = aB;
+		verbose = aB;
 		outputStrategyCreator = aCreateOutputStratgy;
-		c                     = aC;
+		c = aC;
 	}
 
-	String getFilenameForNode(final @NotNull EvaNode node,
-							  final Old_GenerateResult.TY ty,
-							  final @NotNull OutputStrategyC outputStrategyC) {
+	String getFilenameForNode(final @NotNull EvaNode node, final Old_GenerateResult.TY ty,
+			final @NotNull OutputStrategyC outputStrategyC) {
 		final String s;
 
 		if (node instanceof EvaNamespace evaNamespace) {
@@ -68,7 +67,7 @@ public class ElSystem {
 			s = outputStrategyC.nameForConstructor(evaConstructor, ty);
 
 			logProgress(55, evaConstructor, s);
-			//throw new IllegalStateException("Unexpected value: " + node);
+			// throw new IllegalStateException("Unexpected value: " + node);
 		} else {
 			logProgress(140, null, null);
 
@@ -83,13 +82,13 @@ public class ElSystem {
 	}
 
 	@Contract(pure = true)
-	private void logProgress(final int code, final @NotNull /*@NotNull*/ EvaNode evaNode, final String s) {
+	private void logProgress(final int code, final @NotNull /* @NotNull */ EvaNode evaNode, final String s) {
 		// code:
-		//   41:  EvaNamespace
-		//   48:  EvaClass
-		//   30:  EvaFunction
-		//   55:  EvaConstructor
-		//   140: not above
+		// 41: EvaNamespace
+		// 48: EvaClass
+		// 30: EvaFunction
+		// 55: EvaConstructor
+		// 140: not above
 		Stupidity.println_out_2(MessageFormat.format("{0} {1} {2}", code, evaNode.toString(), s));
 	}
 }

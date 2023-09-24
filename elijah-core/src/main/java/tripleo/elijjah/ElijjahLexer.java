@@ -57,17 +57,17 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 	}
 
 	private static final long[] mk_tokenSet_4() {
-		long[] data = {0L, 343597383760L, 0L, 0L, 0L};
+		long[] data = { 0L, 343597383760L, 0L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_5() {
-		long[] data = {287948901175001088L, 541165879422L, 0L, 0L, 0L};
+		long[] data = { 287948901175001088L, 541165879422L, 0L, 0L, 0L };
 		return data;
 	}
 
 	private static final long[] mk_tokenSet_6() {
-		long[] data = {70368744177664L, 481036337264L, 0L, 0L, 0L};
+		long[] data = { 70368744177664L, 481036337264L, 0L, 0L, 0L };
 		return data;
 	}
 
@@ -79,7 +79,7 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		this(new ByteBuffer(in));
 	}
 
-	@SuppressWarnings({"removal", "unchecked"})
+	@SuppressWarnings({ "removal", "unchecked" })
 	public ElijjahLexer(LexerSharedInputState state) {
 		super(state);
 		caseSensitiveLiterals = true;
@@ -156,10 +156,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		this(new CharBuffer(in));
 	}
 
-	public final void mANNOT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mANNOT(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = ANNOT;
 		int _saveIndex;
 
@@ -171,10 +172,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mBAND(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mBAND(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = BAND;
 		int _saveIndex;
 
@@ -186,10 +188,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mBAND_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mBAND_ASSIGN(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = BAND_ASSIGN;
 		int _saveIndex;
 
@@ -201,10 +204,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mBECOMES(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mBECOMES(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = BECOMES;
 		int _saveIndex;
 
@@ -216,10 +220,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mBNOT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mBNOT(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = BNOT;
 		int _saveIndex;
 
@@ -231,10 +236,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mBOR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mBOR(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = BOR;
 		int _saveIndex;
 
@@ -246,10 +252,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mBOR_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mBOR_ASSIGN(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = BOR_ASSIGN;
 		int _saveIndex;
 
@@ -261,10 +268,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mBSR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mBSR(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = BSR;
 		int _saveIndex;
 
@@ -276,10 +284,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mBSR_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mBSR_ASSIGN(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = BSR_ASSIGN;
 		int _saveIndex;
 
@@ -291,10 +300,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mBXOR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mBXOR(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = BXOR;
 		int _saveIndex;
 
@@ -306,10 +316,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mBXOR_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mBXOR_ASSIGN(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = BXOR_ASSIGN;
 		int _saveIndex;
 
@@ -321,10 +332,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mCHAR_LITERAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mCHAR_LITERAL(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = CHAR_LITERAL;
 		int _saveIndex;
 
@@ -347,10 +359,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mCOMMA(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mCOMMA(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = COMMA;
 		int _saveIndex;
 
@@ -362,10 +375,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mDEC(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mDEC(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = DEC;
 		int _saveIndex;
 
@@ -377,10 +391,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mDIV(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mDIV(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = DIV;
 		int _saveIndex;
 
@@ -392,10 +407,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mDIV_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mDIV_ASSIGN(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = DIV_ASSIGN;
 		int _saveIndex;
 
@@ -407,10 +423,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mEQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mEQUAL(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = EQUAL;
 		int _saveIndex;
 
@@ -422,10 +439,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	protected final void mESC(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	protected final void mESC(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = ESC;
 		int _saveIndex;
 
@@ -467,8 +485,7 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 			case 'u': {
 				{
 					int _cnt384 = 0;
-					_loop384:
-					do {
+					_loop384: do {
 						if ((LA(1) == 'u')) {
 							match('u');
 						} else {
@@ -549,10 +566,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	protected final void mEXPONENT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	protected final void mEXPONENT(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = EXPONENT;
 		int _saveIndex;
 
@@ -600,8 +618,7 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		}
 		{
 			int _cnt429 = 0;
-			_loop429:
-			do {
+			_loop429: do {
 				if (((LA(1) >= '0' && LA(1) <= '9'))) {
 					matchRange('0', '9');
 				} else {
@@ -622,10 +639,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	protected final void mFLOAT_SUFFIX(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	protected final void mFLOAT_SUFFIX(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = FLOAT_SUFFIX;
 		int _saveIndex;
 
@@ -658,9 +676,9 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 	}
 
 	public final void mGE(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = GE;
 		int _saveIndex;
 
@@ -673,9 +691,9 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 	}
 
 	public final void mGT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = GT;
 		int _saveIndex;
 
@@ -687,10 +705,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	protected final void mHEX_DIGIT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	protected final void mHEX_DIGIT(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = HEX_DIGIT;
 		int _saveIndex;
 
@@ -739,10 +758,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mIDENT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mIDENT(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = IDENT;
 		int _saveIndex;
 
@@ -820,8 +840,7 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 			}
 		}
 		{
-			_loop398:
-			do {
+			_loop398: do {
 				switch (LA(1)) {
 				case 'a':
 				case 'b':
@@ -916,10 +935,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mINC(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mINC(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = INC;
 		int _saveIndex;
 
@@ -931,10 +951,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mLAND(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mLAND(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = LAND;
 		int _saveIndex;
 
@@ -946,10 +967,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mLBRACK(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mLBRACK(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = LBRACK;
 		int _saveIndex;
 
@@ -961,10 +983,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mLCURLY(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mLCURLY(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = LCURLY;
 		int _saveIndex;
 
@@ -977,9 +1000,9 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 	}
 
 	public final void mLE(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = LE;
 		int _saveIndex;
 
@@ -991,10 +1014,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mLNOT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mLNOT(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = LNOT;
 		int _saveIndex;
 
@@ -1006,10 +1030,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mLOR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mLOR(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = LOR;
 		int _saveIndex;
 
@@ -1021,10 +1046,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mLPAREN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mLPAREN(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = LPAREN;
 		int _saveIndex;
 
@@ -1036,10 +1062,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mLT_(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mLT_(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = LT_;
 		int _saveIndex;
 
@@ -1051,10 +1078,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mMINUS(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mMINUS(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = MINUS;
 		int _saveIndex;
 
@@ -1074,10 +1102,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mMINUS_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mMINUS_ASSIGN(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = MINUS_ASSIGN;
 		int _saveIndex;
 
@@ -1089,24 +1118,27 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mML_COMMENT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mML_COMMENT(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = ML_COMMENT;
 		int _saveIndex;
 
 		match("/*");
 		{
-			_loop374:
-			do {
-				if ((LA(1) == '\r') && (LA(2) == '\n') && ((LA(3) >= '\u0000' && LA(3) <= '\u00ff')) && ((LA(4) >= '\u0000' && LA(4) <= '\u00ff'))) {
+			_loop374: do {
+				if ((LA(1) == '\r') && (LA(2) == '\n') && ((LA(3) >= '\u0000' && LA(3) <= '\u00ff'))
+						&& ((LA(4) >= '\u0000' && LA(4) <= '\u00ff'))) {
 					match('\r');
 					match('\n');
 					newline();
-				} else if (((LA(1) == '*') && ((LA(2) >= '\u0000' && LA(2) <= '\u00ff')) && ((LA(3) >= '\u0000' && LA(3) <= '\u00ff'))) && (LA(2) != '/')) {
+				} else if (((LA(1) == '*') && ((LA(2) >= '\u0000' && LA(2) <= '\u00ff'))
+						&& ((LA(3) >= '\u0000' && LA(3) <= '\u00ff'))) && (LA(2) != '/')) {
 					match('*');
-				} else if ((LA(1) == '\r') && ((LA(2) >= '\u0000' && LA(2) <= '\u00ff')) && ((LA(3) >= '\u0000' && LA(3) <= '\u00ff'))) {
+				} else if ((LA(1) == '\r') && ((LA(2) >= '\u0000' && LA(2) <= '\u00ff'))
+						&& ((LA(3) >= '\u0000' && LA(3) <= '\u00ff'))) {
 					match('\r');
 					newline();
 				} else if ((LA(1) == '\n')) {
@@ -1131,10 +1163,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mMOD(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mMOD(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = MOD;
 		int _saveIndex;
 
@@ -1146,10 +1179,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mMOD_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mMOD_ASSIGN(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = MOD_ASSIGN;
 		int _saveIndex;
 
@@ -1161,10 +1195,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mNOT_EQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mNOT_EQUAL(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = NOT_EQUAL;
 		int _saveIndex;
 
@@ -1176,12 +1211,13 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mNUM_INT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mNUM_INT(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = NUM_INT;
-		int     _saveIndex;
+		int _saveIndex;
 		boolean isDecimal = false;
 
 		switch (LA(1)) {
@@ -1192,8 +1228,7 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 				if (((LA(1) >= '0' && LA(1) <= '9'))) {
 					{
 						int _cnt402 = 0;
-						_loop402:
-						do {
+						_loop402: do {
 							if (((LA(1) >= '0' && LA(1) <= '9'))) {
 								matchRange('0', '9');
 							} else {
@@ -1264,15 +1299,15 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 							}
 							{
 								int _cnt409 = 0;
-								_loop409:
-								do {
+								_loop409: do {
 									if ((_tokenSet_5.member(LA(1)))) {
 										mHEX_DIGIT(false);
 									} else {
 										if (_cnt409 >= 1) {
 											break;
 										} else {
-											throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+											throw new NoViableAltForCharException(LA(1), getFilename(), getLine(),
+													getColumn());
 										}
 									}
 
@@ -1291,15 +1326,15 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 						case '7': {
 							{
 								int _cnt411 = 0;
-								_loop411:
-								do {
+								_loop411: do {
 									if (((LA(1) >= '0' && LA(1) <= '7'))) {
 										matchRange('0', '7');
 									} else {
 										if (_cnt411 >= 1) {
 											break;
 										} else {
-											throw new NoViableAltForCharException(LA(1), getFilename(), getLine(), getColumn());
+											throw new NoViableAltForCharException(LA(1), getFilename(), getLine(),
+													getColumn());
 										}
 									}
 
@@ -1327,8 +1362,7 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 						matchRange('1', '9');
 					}
 					{
-						_loop414:
-						do {
+						_loop414: do {
 							switch (LA(1)) {
 							case '0':
 							case '1':
@@ -1435,8 +1469,7 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 							case '.': {
 								match('.');
 								{
-									_loop421:
-									do {
+									_loop421: do {
 										if (((LA(1) >= '0' && LA(1) <= '9'))) {
 											matchRange('0', '9');
 										} else {
@@ -1503,10 +1536,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mPLUS(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mPLUS(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = PLUS;
 		int _saveIndex;
 
@@ -1518,10 +1552,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mPLUS_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mPLUS_ASSIGN(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = PLUS_ASSIGN;
 		int _saveIndex;
 
@@ -1533,10 +1568,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mQUESTION(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mQUESTION(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = QUESTION;
 		int _saveIndex;
 
@@ -1548,10 +1584,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mRBRACK(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mRBRACK(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = RBRACK;
 		int _saveIndex;
 
@@ -1563,10 +1600,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mRCURLY(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mRCURLY(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = RCURLY;
 		int _saveIndex;
 
@@ -1578,10 +1616,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mRPAREN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mRPAREN(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = RPAREN;
 		int _saveIndex;
 
@@ -1593,10 +1632,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mSEMI(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mSEMI(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = SEMI;
 		int _saveIndex;
 
@@ -1609,9 +1649,9 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 	}
 
 	public final void mSL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = SL;
 		int _saveIndex;
 
@@ -1623,10 +1663,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mSL_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mSL_ASSIGN(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = SL_ASSIGN;
 		int _saveIndex;
 
@@ -1638,17 +1679,17 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mSL_COMMENT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mSL_COMMENT(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = SL_COMMENT;
 		int _saveIndex;
 
 		match("//");
 		{
-			_loop368:
-			do {
+			_loop368: do {
 				if ((_tokenSet_0.member(LA(1)))) {
 					{
 						match(_tokenSet_0);
@@ -1691,9 +1732,9 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 	}
 
 	public final void mSR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = SR;
 		int _saveIndex;
 
@@ -1705,10 +1746,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mSR_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mSR_ASSIGN(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = SR_ASSIGN;
 		int _saveIndex;
 
@@ -1720,10 +1762,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mSTAR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mSTAR(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = STAR;
 		int _saveIndex;
 
@@ -1735,10 +1778,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mSTAR_ASSIGN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mSTAR_ASSIGN(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = STAR_ASSIGN;
 		int _saveIndex;
 
@@ -1750,17 +1794,17 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mSTRING_LITERAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mSTRING_LITERAL(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = STRING_LITERAL;
 		int _saveIndex;
 
 		match('"');
 		{
-			_loop380:
-			do {
+			_loop380: do {
 				if ((LA(1) == '\\')) {
 					mESC(false);
 				} else if ((_tokenSet_3.member(LA(1)))) {
@@ -1781,10 +1825,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mTOK_ARROW(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mTOK_ARROW(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = TOK_ARROW;
 		int _saveIndex;
 
@@ -1796,10 +1841,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	public final void mTOK_COLON(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	public final void mTOK_COLON(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = TOK_COLON;
 		int _saveIndex;
 
@@ -1811,10 +1857,11 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 		_returnToken = _token;
 	}
 
-	protected final void mVOCAB(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+	protected final void mVOCAB(boolean _createToken)
+			throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = VOCAB;
 		int _saveIndex;
 
@@ -1827,9 +1874,9 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 	}
 
 	public final void mWS(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int   _ttype;
+		int _ttype;
 		Token _token = null;
-		int   _begin = text.length();
+		int _begin = text.length();
 		_ttype = WS;
 		int _saveIndex;
 
@@ -1880,13 +1927,12 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 	@Override
 	public Token nextToken() throws TokenStreamException {
 		Token theRetToken = null;
-		tryAgain:
-		for (; ; ) {
+		tryAgain: for (;;) {
 			Token _token = null;
-			int   _ttype = Token.INVALID_TYPE;
+			int _ttype = Token.INVALID_TYPE;
 			resetText();
-			try {   // for char stream error handling
-				try {   // for lexical error handling
+			try { // for char stream error handling
+				try { // for lexical error handling
 					switch (LA(1)) {
 					case '?': {
 						mQUESTION(true);
@@ -2161,7 +2207,8 @@ public class ElijjahLexer extends antlr.CharScanner implements ElijjahTokenTypes
 							}
 						}
 					}
-					if (_returnToken == null) continue tryAgain; // found SKIP token
+					if (_returnToken == null)
+						continue tryAgain; // found SKIP token
 					_ttype = _returnToken.getType();
 					_returnToken.setType(_ttype);
 					return _returnToken;

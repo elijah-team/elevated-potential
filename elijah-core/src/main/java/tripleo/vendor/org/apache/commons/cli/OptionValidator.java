@@ -46,11 +46,12 @@ final class OptionValidator {
 	}
 
 	/**
-	 * Validates whether {@code opt} is a permissible Option shortOpt. The rules that specify if the {@code opt}
-	 * is valid are:
+	 * Validates whether {@code opt} is a permissible Option shortOpt. The rules
+	 * that specify if the {@code opt} is valid are:
 	 *
 	 * <ul>
-	 * <li>a single character {@code opt} that is either ' '(special case), '?', '@' or a letter</li>
+	 * <li>a single character {@code opt} that is either ' '(special case), '?', '@'
+	 * or a letter</li>
 	 * <li>a multi character {@code opt} that only contains letters.</li>
 	 * </ul>
 	 * <p>
@@ -76,7 +77,8 @@ final class OptionValidator {
 			// handle the multi character opt
 			for (final char ch : option.toCharArray()) {
 				if (!isValidChar(ch)) {
-					throw new IllegalArgumentException("The option '" + option + "' contains an illegal " + "character : '" + ch + "'");
+					throw new IllegalArgumentException(
+							"The option '" + option + "' contains an illegal " + "character : '" + ch + "'");
 				}
 			}
 		}

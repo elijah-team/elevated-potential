@@ -19,10 +19,10 @@ import java.util.List;
  * Created 8/23/21 2:36 AM
  */
 public class FunctionBodyImpl implements tripleo.elijah.lang.i.FunctionBody {
-	private boolean             isAbstract;
+	private boolean isAbstract;
 	private List<Postcondition> postconditions;
 
-	public  Scope3             scope3;
+	public Scope3 scope3;
 	private List<Precondition> preconditions;
 
 	@Override

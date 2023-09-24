@@ -27,23 +27,26 @@ import tripleo.elijah.world.WorldGlobals;
  * Created 5/31/21 2:26 AM
  */
 public class WlGenerateDefaultCtor implements WorkJob {
-	private final          FunctionInvocation    functionInvocation;
-	private final @NotNull GenerateFunctions     generateFunctions;
-	private                boolean               _isDone = false;
-	private                BaseEvaFunction       Result;
-	private                DeduceCreationContext dcc;
-	private final          ICodeRegistrar        codeRegistrar;
+	private final FunctionInvocation functionInvocation;
+	private final @NotNull GenerateFunctions generateFunctions;
+	private boolean _isDone = false;
+	private BaseEvaFunction Result;
+	private DeduceCreationContext dcc;
+	private final ICodeRegistrar codeRegistrar;
 
 	@Contract(pure = true)
-	public WlGenerateDefaultCtor(@NotNull GenerateFunctions aGenerateFunctions, FunctionInvocation aFunctionInvocation, DeduceCreationContext aDcc, final ICodeRegistrar aCodeRegistrar) {
-		generateFunctions  = aGenerateFunctions;
+	public WlGenerateDefaultCtor(@NotNull GenerateFunctions aGenerateFunctions, FunctionInvocation aFunctionInvocation,
+			DeduceCreationContext aDcc, final ICodeRegistrar aCodeRegistrar) {
+		generateFunctions = aGenerateFunctions;
 		functionInvocation = aFunctionInvocation;
-		dcc                = aDcc;
-		codeRegistrar      = aCodeRegistrar;
+		dcc = aDcc;
+		codeRegistrar = aCodeRegistrar;
 	}
 
-	public WlGenerateDefaultCtor(final OS_Module module, final FunctionInvocation aFunctionInvocation, final @NotNull Deduce_CreationClosure crcl) {
-		this(crcl.generatePhase().getGenerateFunctions(module), aFunctionInvocation, crcl.dcc(), crcl.deducePhase().getCodeRegistrar());
+	public WlGenerateDefaultCtor(final OS_Module module, final FunctionInvocation aFunctionInvocation,
+			final @NotNull Deduce_CreationClosure crcl) {
+		this(crcl.generatePhase().getGenerateFunctions(module), aFunctionInvocation, crcl.dcc(),
+				crcl.deducePhase().getCodeRegistrar());
 	}
 
 	private boolean getPragma(String aAuto_construct) {
@@ -62,8 +65,8 @@ public class WlGenerateDefaultCtor implements WorkJob {
 	@Override
 	public void run(WorkManager aWorkManager) {
 		if (functionInvocation.generateDeferred().isPending()) {
-			final ClassStatement klass     = functionInvocation.getClassInvocation().getKlass();
-			Holder<EvaClass>     hGenClass = new Holder<>();
+			final ClassStatement klass = functionInvocation.getClassInvocation().getKlass();
+			Holder<EvaClass> hGenClass = new Holder<>();
 			functionInvocation.getClassInvocation().resolvePromise().then(new DoneCallback<EvaClass>() {
 				@Override
 				public void onDone(EvaClass result) {
@@ -79,21 +82,25 @@ public class WlGenerateDefaultCtor implements WorkJob {
 			cd.scope(scope3);
 			for (EvaContainer.VarTableEntry varTableEntry : genClass.varTable) {
 				if (varTableEntry.initialValue != IExpression.UNASSIGNED) {
-					IExpression left  = varTableEntry.nameToken;
+					IExpression left = varTableEntry.nameToken;
 					IExpression right = varTableEntry.initialValue;
 
 					IExpression e = ExpressionBuilder.build(left, ExpressionKind.ASSIGNMENT, right);
-					scope3.add(new WrappedStatementWrapper(e, cd.getContext(), cd, (VariableStatementImpl) varTableEntry.vs()));
+					scope3.add(new WrappedStatementWrapper(e, cd.getContext(), cd,
+							(VariableStatementImpl) varTableEntry.vs()));
 				} else {
 					if (true) {
-						scope3.add(new ConstructStatementImpl(cd, cd.getContext(), varTableEntry.nameToken, null, null));
+						scope3.add(
+								new ConstructStatementImpl(cd, cd.getContext(), varTableEntry.nameToken, null, null));
 					}
 				}
 			}
 
 			OS_Element classStatement = cd.getParent();
 			assert classStatement instanceof ClassStatement;
-			@NotNull EvaConstructor gf = generateFunctions.generateConstructor(cd, (ClassStatement) classStatement, functionInvocation);
+			@NotNull
+			EvaConstructor gf = generateFunctions.generateConstructor(cd, (ClassStatement) classStatement,
+					functionInvocation);
 //		lgf.add(gf);
 
 			final ClassInvocation ci = functionInvocation.getClassInvocation();
@@ -101,7 +108,7 @@ public class WlGenerateDefaultCtor implements WorkJob {
 				@Override
 				public void onDone(@NotNull EvaClass result) {
 					codeRegistrar.registerFunction1(gf);
-					//gf.setCode(generateFunctions.module.getCompilation().nextFunctionCode());
+					// gf.setCode(generateFunctions.module.getCompilation().nextFunctionCode());
 
 					gf.setClass(result);
 					result.constructors.put(cd, gf);

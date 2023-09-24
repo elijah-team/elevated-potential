@@ -9,12 +9,12 @@ import tripleo.elijah.stages.gen_fn.GenType;
 
 public class SGTA_RegisterNamespaceInvocation implements setup_GenType_Action {
 	private final NamespaceStatement namespaceStatement;
-	private final DeducePhase        phase;
+	private final DeducePhase phase;
 
 	@Contract(pure = true)
 	public SGTA_RegisterNamespaceInvocation(final NamespaceStatement aNamespaceStatement, final DeducePhase aPhase) {
 		namespaceStatement = aNamespaceStatement;
-		phase              = aPhase;
+		phase = aPhase;
 	}
 
 	@Override

@@ -19,13 +19,13 @@ import tripleo.elijah.lang.impl.VariableSequenceImpl;
 
 /**
  * @author Tripleo
- * <p>
- * Created 	Mar 29, 2020 at 8:59:42 PM
+ *         <p>
+ *         Created Mar 29, 2020 at 8:59:42 PM
  */
 public class NamespaceContext extends ContextImpl implements Context {
 
-	private final Context            _parent;
-	public        NamespaceStatement carrier;
+	private final Context _parent;
+	public NamespaceStatement carrier;
 
 //	public NamespaceContext(NamespaceStatement namespaceStatement) {
 //		carrier = namespaceStatement;
@@ -42,16 +42,14 @@ public class NamespaceContext extends ContextImpl implements Context {
 	}
 
 	@Override
-	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 		for (final ClassItem item : carrier.getItems()) {
-			if (!(item instanceof ClassStatement) &&
-					!(item instanceof NamespaceStatement) &&
-					!(item instanceof VariableSequenceImpl) &&
-					!(item instanceof AliasStatementImpl) &&
-					!(item instanceof FunctionDef) &&
-					!(item instanceof PropertyStatement)
-			) continue;
+			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
+					&& !(item instanceof VariableSequenceImpl) && !(item instanceof AliasStatementImpl)
+					&& !(item instanceof FunctionDef) && !(item instanceof PropertyStatement))
+				continue;
 			if (item instanceof OS_Element2) {
 				if (((OS_Element2) item).name().equals(name)) {
 					Result.add(name, level, item, this);

@@ -16,13 +16,14 @@ import java.util.*;
 
 public class VariableSequenceImpl implements tripleo.elijah.lang.i.VariableSequence {
 
-	private   Context                _ctx;
-	private   AccessNotation         access_note;
-	@Nullable List<AnnotationClause> annotations = null;
+	private Context _ctx;
+	private AccessNotation access_note;
+	@Nullable
+	List<AnnotationClause> annotations = null;
 	List<VariableStatement> stmts;
-	private El_Category   category;
+	private El_Category category;
 	private TypeModifiers def;
-	private OS_Element    parent;
+	private OS_Element parent;
 
 	@Deprecated
 	public VariableSequenceImpl() {
@@ -31,7 +32,7 @@ public class VariableSequenceImpl implements tripleo.elijah.lang.i.VariableSeque
 
 	public VariableSequenceImpl(Context aContext) {
 		stmts = new ArrayList<VariableStatement>();
-		_ctx  = aContext;
+		_ctx = aContext;
 	}
 
 	@Override

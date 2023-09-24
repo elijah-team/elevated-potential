@@ -7,12 +7,13 @@ import java.io.*;
 public class QueryEzFileToModuleParams {
 
 	public final Compilation.PCon pcon;
-	public final InputStream      inputStream;
-	public final String           sourceFilename;
+	public final InputStream inputStream;
+	public final String sourceFilename;
 
-	public QueryEzFileToModuleParams(final String aSourceFilename, final InputStream aInputStream, final Compilation aCompilation) {
+	public QueryEzFileToModuleParams(final String aSourceFilename, final InputStream aInputStream,
+			final Compilation aCompilation) {
 		sourceFilename = aSourceFilename;
-		inputStream    = aInputStream;
-		pcon           = new Compilation.PCon();
+		inputStream = aInputStream;
+		pcon = new Compilation.PCon();
 	}
 }

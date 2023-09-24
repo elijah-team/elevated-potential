@@ -30,7 +30,7 @@ import static tripleo.elijah.util.Helpers.*;
 public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 	public static class FunctionStatement implements EG_Statement {
 		private final IEvaFunctionBase evaFunction;
-		private       String           filename;
+		private String filename;
 
 		public FunctionStatement(final IEvaFunctionBase aEvaFunction) {
 			evaFunction = aEvaFunction;
@@ -43,8 +43,8 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 
 		public @NotNull String getFilename(@NotNull IPipelineAccess pa) {
 			// HACK 07/07 register if not registered
-			EvaFunction v    = (EvaFunction) evaFunction;
-			int         code = v.getCode();
+			EvaFunction v = (EvaFunction) evaFunction;
+			int code = v.getCode();
 
 			var ce = pa.getCompilationEnclosure();
 
@@ -56,7 +56,6 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 				assert code != 0;
 			}
 
-
 			filename = "F_" + evaFunction.getCode() + evaFunction.getFunctionName();
 			return filename;
 		}
@@ -65,9 +64,8 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 		public @NotNull String getText() {
 			final StringBuilder sb = new StringBuilder();
 
-			final String str = "FUNCTION %d %s %s\n".formatted(evaFunction.getCode(),
-															   evaFunction.getFunctionName(),
-															   ((OS_Element2) evaFunction.getFD().getParent()).name());
+			final String str = "FUNCTION %d %s %s\n".formatted(evaFunction.getCode(), evaFunction.getFunctionName(),
+					((OS_Element2) evaFunction.getFD().getParent()).name());
 			sb.append(str);
 
 			final EvaFunction gf = (EvaFunction) evaFunction;
@@ -77,7 +75,7 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 				sb.append("\t" + instruction + "\n");
 			}
 			{
-				//	EvaFunction.printTables(gf);
+				// EvaFunction.printTables(gf);
 				{
 					for (FormalArgListItem formalArgListItem : gf.getFD().getArgs()) {
 						sb.append("ARGUMENT " + formalArgListItem.name() + " " + formalArgListItem.typeName() + "\n");
@@ -108,16 +106,17 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 			return sb.toString();
 		}
 	}
-	private final          CompilationEnclosure       ce;
-	private final @NotNull IPipelineAccess            pa;
-	private final @NotNull DefaultGenerateResultSink  grs;
-	private final @NotNull DoubleLatch<List<EvaNode>> latch2;
-	private                List<EvaNode>           _lgc;
-	private final @NotNull List<FunctionStatement> functionStatements = new ArrayList<>();
-	private                PipelineLogic           pipelineLogic;
-	private                CB_Output                  _processOutput;
 
-	private                CR_State                   _processState;
+	private final CompilationEnclosure ce;
+	private final @NotNull IPipelineAccess pa;
+	private final @NotNull DefaultGenerateResultSink grs;
+	private final @NotNull DoubleLatch<List<EvaNode>> latch2;
+	private List<EvaNode> _lgc;
+	private final @NotNull List<FunctionStatement> functionStatements = new ArrayList<>();
+	private PipelineLogic pipelineLogic;
+	private CB_Output _processOutput;
+
+	private CR_State _processState;
 
 	@Contract(pure = true)
 	public EvaPipeline(@NotNull IPipelineAccess pa0) {
@@ -145,8 +144,8 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 
 		pa.setEvaPipeline(this);
 
-
-		pa.install_notate(Provenance.EvaPipeline__lgc_slot, GN_GenerateNodesIntoSink.class, GN_GenerateNodesIntoSinkEnv.class);
+		pa.install_notate(Provenance.EvaPipeline__lgc_slot, GN_GenerateNodesIntoSink.class,
+				GN_GenerateNodesIntoSinkEnv.class);
 	}
 
 	public void addFunctionStatement(final FunctionStatement aFunctionStatement) {
@@ -161,7 +160,6 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 	public void lgc_slot(final @NotNull List<EvaNode> aLgc1) {
 		var aLgc = new ArrayList<>(aLgc1);
 
-
 		final List<ProcessedNode> nodes = processLgc(aLgc);
 
 		for (EvaNode evaNode : aLgc) {
@@ -172,16 +170,14 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 
 		final @NotNull EOT_OutputTree cot = pa.getCompilation().getOutputTree();
 		for (EvaNode evaNode : aLgc) {
-			String             filename = null;
-			final StringBuffer sb       = new StringBuffer();
+			String filename = null;
+			final StringBuffer sb = new StringBuffer();
 
 			if (evaNode instanceof EvaClass aEvaClass) {
 				filename = "C_" + aEvaClass.getCode() + aEvaClass.getName();
-				sb.append("CLASS %d %s\n".formatted(aEvaClass.getCode(),
-													aEvaClass.getName()));
+				sb.append("CLASS %d %s\n".formatted(aEvaClass.getCode(), aEvaClass.getName()));
 				for (EvaContainer.VarTableEntry varTableEntry : aEvaClass.varTable) {
-					sb.append("MEMBER %s %s".formatted(varTableEntry.nameToken,
-													   varTableEntry.varType));
+					sb.append("MEMBER %s %s".formatted(varTableEntry.nameToken, varTableEntry.varType));
 				}
 				for (Map.Entry<FunctionDef, EvaFunction> functionEntry : aEvaClass.functionMap.entrySet()) {
 					EvaFunction v = functionEntry.getValue();
@@ -201,11 +197,9 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 				pa.activeClass(aEvaClass);
 			} else if (evaNode instanceof EvaNamespace aEvaNamespace) {
 				filename = "N_" + aEvaNamespace.getCode() + aEvaNamespace.getName();
-				sb.append("NAMESPACE %d %s\n".formatted(aEvaNamespace.getCode(),
-														aEvaNamespace.getName()));
+				sb.append("NAMESPACE %d %s\n".formatted(aEvaNamespace.getCode(), aEvaNamespace.getName()));
 				for (EvaContainer.VarTableEntry varTableEntry : aEvaNamespace.varTable) {
-					sb.append("MEMBER %s %s\n".formatted(varTableEntry.nameToken,
-														 varTableEntry.varType));
+					sb.append("MEMBER %s %s\n".formatted(varTableEntry.nameToken, varTableEntry.varType));
 				}
 				for (Map.Entry<FunctionDef, EvaFunction> functionEntry : aEvaNamespace.functionMap.entrySet()) {
 					EvaFunction v = functionEntry.getValue();
@@ -240,46 +234,42 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 					@Override
 					public String getFilename() {
 						final String functionName = evaFunction.getFunctionName();
-						var          filename2    = "F_" + finalCode + functionName;
+						var filename2 = "F_" + finalCode + functionName;
 						return filename2;
 					}
 				};
 
-				final String str = "FUNCTION %d %s %s\n".formatted(code,
-																   functionName,
-																   ((OS_Element2) evaFunction.getFD().getParent()).name());
+				final String str = "FUNCTION %d %s %s\n".formatted(code, functionName,
+						((OS_Element2) evaFunction.getFD().getParent()).name());
 				sb.append(str);
 				pa.activeFunction(evaFunction);
 			} else {
 				throw new IllegalStateException("Can't determine node");
 			}
 
-			final EG_Statement   seq = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("dump"));
+			final EG_Statement seq = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("dump"));
 			final EOT_OutputFile off = new EOT_OutputFile(List_of(), filename1, EOT_OutputType.DUMP, seq);
-			//cot.add(off);
+			// cot.add(off);
 		}
 
 		for (FunctionStatement functionStatement : functionStatements) {
-			final String         filename = functionStatement.getFilename(pa);
-			final EG_Statement   seq      = EG_Statement.of(functionStatement.getText(), EX_Explanation.withMessage("dump2"));
-			final EOT_OutputFile off      = new EOT_OutputFile(List_of(), filename, EOT_OutputType.DUMP, seq);
-			//cot.add(off);
+			final String filename = functionStatement.getFilename(pa);
+			final EG_Statement seq = EG_Statement.of(functionStatement.getText(), EX_Explanation.withMessage("dump2"));
+			final EOT_OutputFile off = new EOT_OutputFile(List_of(), filename, EOT_OutputType.DUMP, seq);
+			// cot.add(off);
 		}
 
 		final CompilationEnclosure compilationEnclosure = pa.getCompilationEnclosure();
 
 		compilationEnclosure.getPipelineAccessPromise().then((pa) -> {
-			final var env = new GN_GenerateNodesIntoSinkEnv(nodes,
-															grs,
-															pa.pipelineLogic().mods(),
-															compilationEnclosure.getCompilationAccess().testSilence(),
-															pa.getAccessBus().gr,
-															pa,
-															compilationEnclosure);;
+			final var env = new GN_GenerateNodesIntoSinkEnv(nodes, grs, pa.pipelineLogic().mods(),
+					compilationEnclosure.getCompilationAccess().testSilence(), pa.getAccessBus().gr, pa,
+					compilationEnclosure);
+			;
 
 			final GN_GenerateNodesIntoSink generateNodesIntoSink = new GN_GenerateNodesIntoSink(env);
 			_processOutput.logProgress(117, "EvaPipeline >> GN_GenerateNodesIntoSink");
-			//pa.notate(Provenance.EvaPipeline__lgc_slot, generateNodesIntoSink);
+			// pa.notate(Provenance.EvaPipeline__lgc_slot, generateNodesIntoSink);
 			pa.notate(Provenance.EvaPipeline__lgc_slot, env);
 		});
 	}
@@ -296,7 +286,7 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 
 	@Override
 	public void run(final CR_State aSt, final CB_Output aOutput) {
-		_processState  = aSt;
+		_processState = aSt;
 		_processOutput = aOutput;
 
 		latch2.notifyLatch(true);

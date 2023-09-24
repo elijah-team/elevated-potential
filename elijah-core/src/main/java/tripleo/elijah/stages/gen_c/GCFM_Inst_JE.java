@@ -6,21 +6,22 @@ import tripleo.elijah.stages.instructions.*;
 
 class GCFM_Inst_JE {
 
-	private final GenerateC                 gc;
-	private final Generate_Code_For_Method  generateCodeForMethod;
+	private final GenerateC gc;
+	private final Generate_Code_For_Method generateCodeForMethod;
 	private final WhyNotGarish_BaseFunction gf;
-	private final Instruction               instruction;
+	private final Instruction instruction;
 
-	public GCFM_Inst_JE(final Generate_Code_For_Method aGenerateCodeForMethod, final GenerateC aGc, final WhyNotGarish_BaseFunction aGf, final Instruction aInstruction) {
+	public GCFM_Inst_JE(final Generate_Code_For_Method aGenerateCodeForMethod, final GenerateC aGc,
+			final WhyNotGarish_BaseFunction aGf, final Instruction aInstruction) {
 		generateCodeForMethod = aGenerateCodeForMethod;
-		gc                    = aGc;
-		gf                    = aGf;
-		instruction           = aInstruction;
+		gc = aGc;
+		gf = aGf;
+		instruction = aInstruction;
 	}
 
 	public String getText() {
-		final InstructionArgument lhs    = instruction.getArg(0);
-		final InstructionArgument rhs    = instruction.getArg(1);
+		final InstructionArgument lhs = instruction.getArg(0);
+		final InstructionArgument rhs = instruction.getArg(1);
 		final InstructionArgument target = instruction.getArg(2);
 
 		final Label realTarget = (Label) target;
@@ -31,8 +32,8 @@ class GCFM_Inst_JE {
 		String s1, s2;
 
 		if (rhs instanceof ConstTableIA) {
-			final ConstantTableEntry cte            = gf.getConstTableEntry(((ConstTableIA) rhs).getIndex());
-			final String             realTargetName = gc.getRealTargetName(gf, (IntegerIA) lhs, Generate_Code_For_Method.AOG.GET);
+			final ConstantTableEntry cte = gf.getConstTableEntry(((ConstTableIA) rhs).getIndex());
+			final String realTargetName = gc.getRealTargetName(gf, (IntegerIA) lhs, Generate_Code_For_Method.AOG.GET);
 			s1 = (String.format("vsb = %s == %s;", realTargetName, gc.getAssignmentValue(gf.getSelf(), rhs, gf)));
 			s2 = (String.format("if (!vsb) goto %s;", realTarget.getName()));
 		} else {

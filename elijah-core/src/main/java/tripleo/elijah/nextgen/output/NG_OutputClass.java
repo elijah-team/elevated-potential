@@ -15,7 +15,7 @@ import static tripleo.elijah.util.Helpers.List_of;
 
 public class NG_OutputClass implements NG_OutputItem {
 	private GarishClass garishClass;
-	private GenerateC   generateC;
+	private GenerateC generateC;
 
 	@Override
 	public @NotNull List<NG_OutputStatement> getOutputs() {
@@ -31,7 +31,8 @@ public class NG_OutputClass implements NG_OutputItem {
 	}
 
 	@Override
-	public EOT_OutputFile.FileNameProvider outName(final @NotNull OutputStrategyC aOutputStrategyC, final GenerateResult.@NotNull TY ty) {
+	public EOT_OutputFile.FileNameProvider outName(final @NotNull OutputStrategyC aOutputStrategyC,
+			final GenerateResult.@NotNull TY ty) {
 		final EvaClass x = garishClass.getLiving().evaNode();
 
 		return aOutputStrategyC.nameForClass1(x, ty);
@@ -39,6 +40,6 @@ public class NG_OutputClass implements NG_OutputItem {
 
 	public void setClass(final GarishClass aGarishClass, final GenerateC aGenerateC) {
 		garishClass = aGarishClass;
-		generateC   = aGenerateC;
+		generateC = aGenerateC;
 	}
 }

@@ -37,7 +37,7 @@ public class Scope3Impl implements Scope3, Documentable {
 		@Override
 		public void constructExpression(final @NotNull IExpression aExpr, final ExpressionList aO) {
 			final ConstructStatement constructExpression = new ConstructStatementImpl(parent, parent.getContext(),
-																					  aExpr, null, aO); // TODO provide for name
+					aExpr, null, aO); // TODO provide for name
 			add(constructExpression);
 		}
 
@@ -96,11 +96,12 @@ public class Scope3Impl implements Scope3, Documentable {
 			add(yiex);
 		}
 	}
-	private final List<Token>            _docstrings = new ArrayList<Token>();
-	private final List<OS_Element>       _items      = new ArrayList<OS_Element>();
-	private final Scope3StatementClosure asc         = new Scope3StatementClosure();
 
-	private final OS_Element             parent;
+	private final List<Token> _docstrings = new ArrayList<Token>();
+	private final List<OS_Element> _items = new ArrayList<OS_Element>();
+	private final Scope3StatementClosure asc = new Scope3StatementClosure();
+
+	private final OS_Element parent;
 
 	public Scope3Impl(OS_Element aParent) {
 		parent = aParent;
@@ -145,7 +146,6 @@ public class Scope3Impl implements Scope3, Documentable {
 	public @NotNull VariableSequence varSeq() {
 		return asc.varSeq(asc.getParent().getContext());
 	}
-
 
 //	private class Scope3StatementClosure implements StatementClosure {
 //		@Override

@@ -21,9 +21,9 @@ import tripleo.elijah.util.*;
  */
 public class TypeAliasStatementImpl implements OS_Element, tripleo.elijah.lang.i.TypeAliasStatement {
 
-	private final OS_Element      parent;
-	private       IdentExpression x;
-	private       Qualident       y;
+	private final OS_Element parent;
+	private IdentExpression x;
+	private Qualident y;
 
 	public TypeAliasStatementImpl(final OS_Element aParent) {
 		this.parent = aParent;

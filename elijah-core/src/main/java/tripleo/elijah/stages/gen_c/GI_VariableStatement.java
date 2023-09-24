@@ -15,35 +15,40 @@ import tripleo.elijah.stages.gen_fn.IdentTableEntry;
 import tripleo.elijah.util.NotImplementedException;
 
 public class GI_VariableStatement implements GenerateC_Item {
-	private       EvaNode               _evaNode;
-	private final GI_Repo               repo;
+	private EvaNode _evaNode;
+	private final GI_Repo repo;
 	private final VariableStatementImpl variableStatement;
-	private       CR_ReferenceItem      item;
+	private CR_ReferenceItem item;
 
 	public GI_VariableStatement(final VariableStatementImpl aVariableStatement, final GI_Repo aRepo) {
 		variableStatement = aVariableStatement;
-		repo              = aRepo;
+		repo = aRepo;
 	}
 
 	/**
-	 * Create a {@link tripleo.elijah.stages.gen_c.CReference.Reference} for {@link this.variableStatement}
+	 * Create a {@link tripleo.elijah.stages.gen_c.CReference.Reference} for
+	 * {@link this.variableStatement}
 	 *
-	 * <p>If the parent of the variableStatemnt is the same as the generatedFunction's parent,
-	 * create a DIRECT_MEMBER with the string {@code value}
+	 * <p>
+	 * If the parent of the variableStatemnt is the same as the generatedFunction's
+	 * parent, create a DIRECT_MEMBER with the string {@code value}
 	 * </p>
-	 * <p>If the parent of the variableStatemnt is the same as the generatedFunction,
+	 * <p>
+	 * If the parent of the variableStatemnt is the same as the generatedFunction,
 	 * create a LOCAL with no value
 	 * </p>
-	 * <p>Otherwise, create a MEMBER with the string {@code value} for value
+	 * <p>
+	 * Otherwise, create a MEMBER with the string {@code value} for value
 	 * </p>
 	 */
 	@Contract("_, _ -> new")
-	private CReference.@NotNull Reference __createReferenceForVariableStatement(final @NotNull IEvaFunctionBase generatedFunction, final @Nullable String value) {
+	private CReference.@NotNull Reference __createReferenceForVariableStatement(
+			final @NotNull IEvaFunctionBase generatedFunction, final @Nullable String value) {
 		final String text2 = variableStatement.getName();
 
 		// first getParent is VariableSequenceImpl
 		final VariableSequenceImpl variableSequence = (VariableSequenceImpl) variableStatement.getParent();
-		final OS_Element           parent           = variableSequence.getParent();
+		final OS_Element parent = variableSequence.getParent();
 
 		final FunctionDef fd = generatedFunction.getFD();
 
@@ -55,16 +60,15 @@ public class GI_VariableStatement implements GenerateC_Item {
 			return new CReference.Reference(text2, CReference.Ref.LOCAL);
 		}
 
-		//if (parent instanceof NamespaceStatement) {
-		//	int y=2;
-		//}
+		// if (parent instanceof NamespaceStatement) {
+		// int y=2;
+		// }
 
 		return new CReference.Reference(text2, CReference.Ref.MEMBER, value);
 	}
 
 	public void _createReferenceForVariableStatement(final @NotNull CReference aCReference,
-													 final @NotNull IEvaFunctionBase generatedFunction,
-													 final @Nullable String value) {
+			final @NotNull IEvaFunctionBase generatedFunction, final @Nullable String value) {
 		final CReference.Reference r = __createReferenceForVariableStatement(generatedFunction, value);
 		aCReference.addRef(r);
 	}
@@ -76,7 +80,6 @@ public class GI_VariableStatement implements GenerateC_Item {
 
 	public String getText() {
 		String text2 = variableStatement.getName();
-
 
 		if (text2.equals("argument_count_")) {
 			var pp = variableStatement.getParent().getParent();
@@ -90,7 +93,7 @@ public class GI_VariableStatement implements GenerateC_Item {
 					assert mod.getFileName().equals("lib_elijjah/lib-c/Prelude.elijjah");
 				}
 
-				var gf  = ((IdentTableEntry) item.getTableEntry()).__gf;
+				var gf = ((IdentTableEntry) item.getTableEntry()).__gf;
 				var dt2 = ((IdentTableEntry) item.getTableEntry())._deduceTypes2();
 
 //				dt2._phase()._functionMap().asMap().entrySet().stream()

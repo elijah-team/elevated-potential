@@ -39,6 +39,7 @@ public class CR_State {
 			return "DeducePipeline";
 		}
 	}
+
 	public static class EvaPipelinePlugin implements PipelinePlugin {
 		@Override
 		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
@@ -50,6 +51,7 @@ public class CR_State {
 			return "EvaPipeline";
 		}
 	}
+
 	public static class HooliganPipelinePlugin implements PipelinePlugin {
 		@Override
 		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
@@ -61,26 +63,29 @@ public class CR_State {
 			return "HooliganPipeline";
 		}
 	}
+
 	public interface PipelinePlugin {
 		PipelineMember instance(final @NotNull AccessBus ab0);
 
 		String name();
 	}
+
 	class ProcessRecord_PipelineAccess implements IPipelineAccess {
-		private final @NotNull List<EvaNode>                             _l_classes       = new ArrayList<>();
-		private final @NotNull List<EvaClass>                            activeClasses    = new ArrayList<>();
-		private final @NotNull List<EvaNamespace>                        activeNamespaces = new ArrayList<>();
-		private final DeferredObject<EvaPipeline, Void, Void>               EvaPipelinePromise = new DeferredObject<>();
-		private final Map<OS_Module, DeferredObject<GenerateC, Void, Void>> gc2m_map           = new HashMap<>();
+		private final @NotNull List<EvaNode> _l_classes = new ArrayList<>();
+		private final @NotNull List<EvaClass> activeClasses = new ArrayList<>();
+		private final @NotNull List<EvaNamespace> activeNamespaces = new ArrayList<>();
+		private final DeferredObject<EvaPipeline, Void, Void> EvaPipelinePromise = new DeferredObject<>();
+		private final Map<OS_Module, DeferredObject<GenerateC, Void, Void>> gc2m_map = new HashMap<>();
 		private final @NotNull Map<Provenance, Pair<Class, Class>> installs = new HashMap<>();
 		private final DeferredObject<List<EvaNode>, Void, Void> nlp = new DeferredObject<>();
 		private final List<NG_OutputItem> outputs = new ArrayList<NG_OutputItem>();
 		private final @NotNull DeferredObject<PipelineLogic, Void, Void> ppl = new DeferredObject<>();
-		@NotNull               List<BaseEvaFunction>                     activeFunctions  = new ArrayList<BaseEvaFunction>();
-		private                AccessBus                                 _ab;
-		private                WritePipeline                             _wpl;
-		private                GenerateResultSink                        grs;
-		private                List<CompilerInput>                       inp;
+		@NotNull
+		List<BaseEvaFunction> activeFunctions = new ArrayList<BaseEvaFunction>();
+		private AccessBus _ab;
+		private WritePipeline _wpl;
+		private GenerateResultSink grs;
+		private List<CompilerInput> inp;
 
 		@Override
 		public void _send_GeneratedClass(final EvaNode aClass) {
@@ -164,10 +169,10 @@ public class CR_State {
 			return grs;
 		}
 
-		//@Override
-		//public @NotNull List<NG_OutputItem> getOutputs() {
-		//	return outputs;
-		//}
+		// @Override
+		// public @NotNull List<NG_OutputItem> getOutputs() {
+		// return outputs;
+		// }
 
 		@Override
 		public @NotNull DeferredObject<PipelineLogic, Void, Void> getPipelineLogicPromise() {
@@ -185,17 +190,18 @@ public class CR_State {
 		}
 
 		@Override
-		public void install_notate(final Provenance aProvenance, final Class<? extends GN_Notable> aRunClass, final Class<? extends GN_Env> aEnvClass) {
+		public void install_notate(final Provenance aProvenance, final Class<? extends GN_Notable> aRunClass,
+				final Class<? extends GN_Env> aEnvClass) {
 			installs.put(aProvenance, Pair.of(aRunClass, aEnvClass));
 		}
 
 		@Override
 		public void notate(final Provenance aProvenance, final GN_Env aGNEnv) {
 			var y = installs.get(aProvenance);
-			//System.err.println("210 "+y);
+			// System.err.println("210 "+y);
 
 			Class<?> x = y.getLeft();
-			//var z = y.getRight();
+			// var z = y.getRight();
 
 			try {
 				var inst = x.getMethod("getFactoryEnv", GN_Env.class);
@@ -205,11 +211,11 @@ public class CR_State {
 				if (notable1 instanceof @NotNull GN_Notable notable) {
 					final NotableAction notableAction = new NotableAction(notable);
 
-					//cb.add(notableAction);
+					// cb.add(notableAction);
 
 					notableAction._actual_run();
 
-					//System.err.println("227 "+inst);
+					// System.err.println("227 "+inst);
 				}
 			} catch (NoSuchMethodException | SecurityException | InvocationTargetException | IllegalAccessException e) {
 				e.printStackTrace();
@@ -222,7 +228,7 @@ public class CR_State {
 			var cb = getCompilationEnclosure().getCompilationBus();
 
 			// FIXME 07/01 this doesn't work, why??
-			//  also keep in mind `provenance'
+			// also keep in mind `provenance'
 			final NotableAction notableAction = new NotableAction(aNotable);
 
 			cb.add(notableAction);
@@ -276,7 +282,7 @@ public class CR_State {
 
 		@Override
 		public void setNodeList(final @NotNull List<EvaNode> aEvaNodeList) {
-			nlp/*;)*/.resolve(new ArrayList<>(aEvaNodeList));
+			nlp/* ;) */.resolve(new ArrayList<>(aEvaNodeList));
 		}
 
 		@Override
@@ -291,12 +297,13 @@ public class CR_State {
 			v.then(ggc -> cb.accept(ggc));
 		}
 	}
+
 	private static class ProcessRecordImpl implements ProcessRecord {
-		//private final DeducePipeline                             dpl;
+		// private final DeducePipeline dpl;
 		private final @NotNull ICompilationAccess ca;
-		private final          IPipelineAccess    pa;
-		private final @NotNull PipelineLogic      pipelineLogic;
-		private                AccessBus          ab;
+		private final IPipelineAccess pa;
+		private final @NotNull PipelineLogic pipelineLogic;
+		private AccessBus ab;
 
 		public ProcessRecordImpl(final @NotNull ICompilationAccess ca0) {
 			ca = ca0;
@@ -388,13 +395,13 @@ public class CR_State {
 		}
 	}
 
-	public CB_Action        cur;
+	public CB_Action cur;
 
-	public ProcessRecord    pr;
+	public ProcessRecord pr;
 
 	public RuntimeProcesses rt;
 
-	public boolean          started;
+	public boolean started;
 
 	ICompilationAccess ca;
 

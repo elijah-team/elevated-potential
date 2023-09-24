@@ -18,20 +18,23 @@ import static tripleo.elijah.util.Helpers.List_of;
 
 public class Mirror_MainClassEntryPoint implements Mirror_EntryPoint {
 	private final MainClassEntryPoint mcep;
-	private final ModuleThing         mt;
-	private final GenerateFunctions   gf;
+	private final ModuleThing mt;
+	private final GenerateFunctions gf;
 
-	public Mirror_MainClassEntryPoint(final MainClassEntryPoint aMcep, final @NotNull ModuleThing aMt, final GenerateFunctions aGenerateFunctions) {
+	public Mirror_MainClassEntryPoint(final MainClassEntryPoint aMcep, final @NotNull ModuleThing aMt,
+			final GenerateFunctions aGenerateFunctions) {
 		mcep = aMcep;
-		mt   = aMt;
-		gf   = aGenerateFunctions;
+		mt = aMt;
+		gf = aGenerateFunctions;
 	}
 
 	@Override
 	public void generate(final IClassGenerator dcg) {
-		@NotNull final ClassStatement   cs = mcep.getKlass();
-		final FunctionDef               f  = mcep.getMainFunction();
-		@Nullable final ClassInvocation ci = dcg.registerClassInvocation(cs, null);
+		@NotNull
+		final ClassStatement cs = mcep.getKlass();
+		final FunctionDef f = mcep.getMainFunction();
+		@Nullable
+		final ClassInvocation ci = dcg.registerClassInvocation(cs, null);
 		dcg.submitGenerateClass(Objects.requireNonNull(ci), gf);
 
 		final @NotNull FunctionInvocation fi = dcg.newFunctionInvocation(f, null, ci);

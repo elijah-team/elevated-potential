@@ -26,7 +26,7 @@ import java.util.List;
 public class NumericExpressionImpl implements tripleo.elijah.lang.i.NumericExpression {
 
 	OS_Type _type;
-	int     carrier;
+	int carrier;
 	private Token n;
 
 	public NumericExpressionImpl(final int aCarrier) {
@@ -34,15 +34,13 @@ public class NumericExpressionImpl implements tripleo.elijah.lang.i.NumericExpre
 	}
 
 	public NumericExpressionImpl(final @NotNull Token n) {
-		this.n  = n;
+		this.n = n;
 		carrier = Integer.parseInt(n.getText());
 	}
-
 
 	public @NotNull List<FormalArgListItem> getArgs() {
 		return null;
 	}
-
 
 	@Override
 	public int getColumn() {

@@ -35,24 +35,27 @@ class Generate_Method_Header {
 
 		throw new IllegalStateException();
 	}
-	final                  String       args_string;
-	final @NotNull         String       header_string;
+
+	final String args_string;
+	final @NotNull String header_string;
 	private final @NotNull EG_Statement args_statement;
-	private final @NotNull GenerateC    gc;
-	private final          String       name;
-	private final @NotNull String       return_type;
-	@Nullable              OS_Type      type;
+	private final @NotNull GenerateC gc;
+	private final String name;
+	private final @NotNull String return_type;
+	@Nullable
+	OS_Type type;
 
 	TypeTableEntry tte;
 
-	public Generate_Method_Header(final @NotNull BaseEvaFunction gf, @NotNull final GenerateC aGenerateC, final @NotNull ElLog LOG) {
-		gc   = aGenerateC;
+	public Generate_Method_Header(final @NotNull BaseEvaFunction gf, @NotNull final GenerateC aGenerateC,
+			final @NotNull ElLog LOG) {
+		gc = aGenerateC;
 		name = gf.getFD().name();
 		//
-		return_type    = find_return_type(gf, LOG);
+		return_type = find_return_type(gf, LOG);
 		args_statement = find_args_statement(gf);
-		args_string    = args_statement.getText();
-		header_string  = find_header_string(gf, LOG);
+		args_string = args_statement.getText();
+		header_string = find_header_string(gf, LOG);
 	}
 
 	String __find_header_string(final @NotNull BaseEvaFunction gf, final @NotNull ElLog LOG) {
@@ -65,34 +68,30 @@ class Generate_Method_Header {
 		if (parent instanceof EvaClass) {
 			final EvaClass st = (EvaClass) parent;
 
-			@NotNull final C_HeaderString chs = C_HeaderString.forClass(st,
-																		() -> GenerateC.GetTypeName.forGenClass(st),
-																		return_type,
-																		name,
-																		args_string,
-																		LOG);
+			@NotNull
+			final C_HeaderString chs = C_HeaderString.forClass(st, () -> GenerateC.GetTypeName.forGenClass(st),
+					return_type, name, args_string, LOG);
 
 			result = chs.getResult();
 		} else if (parent instanceof EvaNamespace) {
 			final EvaNamespace st = (EvaNamespace) parent;
 
-			@NotNull final C_HeaderString chs = C_HeaderString.forNamespace(st,
-																			() -> GenerateC.GetTypeName.forGenNamespace(st),
-																			return_type,
-																			name,
-																			args_string,
-																			LOG);
+			@NotNull
+			final C_HeaderString chs = C_HeaderString.forNamespace(st, () -> GenerateC.GetTypeName.forGenNamespace(st),
+					return_type, name, args_string, LOG);
 			result = chs.getResult();
 		} else {
-			@NotNull final C_HeaderString chs = C_HeaderString.forOther(parent, return_type, name, args_string);
-			//result = String.format("%s %s(%s)", return_type, name, args_string);
+			@NotNull
+			final C_HeaderString chs = C_HeaderString.forOther(parent, return_type, name, args_string);
+			// result = String.format("%s %s(%s)", return_type, name, args_string);
 			result = chs.getResult();
 		}
 
 		return result;
 	}
 
-	@NotNull String __find_return_type(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull ElLog LOG) {
+	@NotNull
+	String __find_return_type(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull ElLog LOG) {
 		String returnType = null;
 		if (gf.pointsToConstructor2()) {
 			// Get it from resolved
@@ -131,8 +130,8 @@ class Generate_Method_Header {
 				if (res instanceof EvaClass ec) {
 					var classStatement = ec.getKlass();
 
-					final OS_Module module             = classStatement.getContext().module();
-					final String    classStatementName = classStatement.getName();
+					final OS_Module module = classStatement.getContext().module();
+					final String classStatementName = classStatement.getName();
 
 					if (module.isPrelude() && classStatementName.equals("Integer64")) {
 						return "/*190*/int";
@@ -179,16 +178,15 @@ class Generate_Method_Header {
 		return returnType;
 	}
 
-	@NotNull EG_Statement find_args_statement(final @NotNull BaseEvaFunction gf) {
+	@NotNull
+	EG_Statement find_args_statement(final @NotNull BaseEvaFunction gf) {
 
 		final String rule = "gen_c:gcfm:Generate_Method_Header:find_args_statement";
 
 		// TODO EG_Statement, rule
-		final List<String> args_list = gf.vte_list
-				.stream()
-				.filter(input -> input.getVtt() == VariableTableType.ARG)
+		final List<String> args_list = gf.vte_list.stream().filter(input -> input.getVtt() == VariableTableType.ARG)
 
-				//rule=vte:args_at
+				// rule=vte:args_at
 				.map(input -> String.format("%s va%s", GenerateC.GetTypeName.forVTE(input), input.getName()))
 				.collect(Collectors.toList());
 		final EG_Statement args = new EG_DottedStatement(", ", args_list, new EX_Rule(rule));
@@ -196,25 +194,28 @@ class Generate_Method_Header {
 		return args;
 	}
 
-	@NotNull String find_args_string(final @NotNull BaseEvaFunction gf) {
+	@NotNull
+	String find_args_string(final @NotNull BaseEvaFunction gf) {
 		final String args;
 		if (false) {
-			args = Helpers.String_join(", ", Collections2.transform(gf.getFD().fal().falis(), new Function<FormalArgListItem, String>() {
-				@Nullable
-				@Override
-				public String apply(@Nullable final FormalArgListItem input) {
-					assert input != null;
-					return String.format("%s va%s", gc.getTypeName(input.typeName()), input.name());
-				}
-			}));
+			args = Helpers.String_join(", ",
+					Collections2.transform(gf.getFD().fal().falis(), new Function<FormalArgListItem, String>() {
+						@Nullable
+						@Override
+						public String apply(@Nullable final FormalArgListItem input) {
+							assert input != null;
+							return String.format("%s va%s", gc.getTypeName(input.typeName()), input.name());
+						}
+					}));
 		} else {
-			final Collection<VariableTableEntry> x = Collections2.filter(gf.vte_list, new Predicate<VariableTableEntry>() {
-				@Override
-				public boolean apply(@Nullable final VariableTableEntry input) {
-					assert input != null;
-					return input.getVtt() == VariableTableType.ARG;
-				}
-			});
+			final Collection<VariableTableEntry> x = Collections2.filter(gf.vte_list,
+					new Predicate<VariableTableEntry>() {
+						@Override
+						public boolean apply(@Nullable final VariableTableEntry input) {
+							assert input != null;
+							return input.getVtt() == VariableTableType.ARG;
+						}
+					});
 			args = Helpers.String_join(", ", Collections2.transform(x, new Function<VariableTableEntry, String>() {
 				@Nullable
 				@Override
@@ -227,21 +228,24 @@ class Generate_Method_Header {
 		return args;
 	}
 
-	@NotNull String find_header_string(final @NotNull BaseEvaFunction gf, final @NotNull ElLog LOG) {
+	@NotNull
+	String find_header_string(final @NotNull BaseEvaFunction gf, final @NotNull ElLog LOG) {
 		// NOTE getGenClass is always a class or namespace, getParent can be a function
 		final EvaContainerNC parent = (EvaContainerNC) gf.getGenClass();
 
-		final String         s2;
+		final String s2;
 		final C_HeaderString headerString;
 
 		if (parent instanceof EvaClass st) {
 			var st2 = gc.a_lookup(st);
 
-			headerString = C_HeaderString.forClass(st, () -> st2.getTypeNameString(), return_type, name, args_string, LOG);
+			headerString = C_HeaderString.forClass(st, () -> st2.getTypeNameString(), return_type, name, args_string,
+					LOG);
 		} else if (parent instanceof EvaNamespace st) {
 			var st2 = gc.a_lookup(st);
 
-			headerString = C_HeaderString.forNamespace(st, () -> st2.getTypeNameString(), return_type, name, args_string, LOG);
+			headerString = C_HeaderString.forNamespace(st, () -> st2.getTypeNameString(), return_type, name,
+					args_string, LOG);
 		} else {
 			headerString = C_HeaderString.forOther(parent, return_type, name, args_string);
 		}
@@ -249,9 +253,9 @@ class Generate_Method_Header {
 		return s2;
 	}
 
-	@NotNull String find_return_type(final BaseEvaFunction gf, final ElLog LOG) {
-		return discriminator(gf, LOG, gc)
-				.find_return_type(this);
+	@NotNull
+	String find_return_type(final BaseEvaFunction gf, final ElLog LOG) {
+		return discriminator(gf, LOG, gc).find_return_type(this);
 	}
 
 }

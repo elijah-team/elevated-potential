@@ -20,8 +20,8 @@ public abstract class _BaseImportStatement implements ImportStatement {
 	// region ClassItem
 
 	protected AccessNotation _access;
-	private   AccessNotation access_note;
-	private   El_Category    category;
+	private AccessNotation access_note;
+	private El_Category category;
 
 	private EN_Name __n;
 

@@ -23,7 +23,7 @@ public class UnknownExceptionDiagnostic implements Diagnostic {
 
 	@Override
 	public @NotNull Locatable primary() {
-		return null/*m*/;
+		return null/* m */;
 	}
 
 	@Override

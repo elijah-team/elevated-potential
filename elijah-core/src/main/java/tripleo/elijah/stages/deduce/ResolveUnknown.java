@@ -38,7 +38,7 @@ public class ResolveUnknown implements Diagnostic {
 		stream.printf("---[%s]---: %s%n", code(), message());
 		// linecache.print(primary);
 		for (Locatable sec : secondary()) {
-			//linecache.print(sec)
+			// linecache.print(sec)
 		}
 		stream.flush();
 	}

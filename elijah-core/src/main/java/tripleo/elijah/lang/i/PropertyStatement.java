@@ -7,7 +7,6 @@ public interface PropertyStatement extends OS_Element, OS_Element2, ClassItem {
 
 	void addSet();
 
-
 	FunctionDef get_fn();
 
 	void get_scope(Scope3 aSco);

@@ -16,10 +16,10 @@ import tripleo.elijah.lang.impl.*;
  * Created 12/22/20 10:22 PM
  */
 public class TypeAliasBuilder extends ElBuilder {
-	private Context         _context;
-	private OS_Element      _parent;
+	private Context _context;
+	private OS_Element _parent;
 	private IdentExpression newAlias;
-	private Qualident       oldElement;
+	private Qualident oldElement;
 
 	@Override
 	public @NotNull TypeAliasStatement build() {
@@ -44,8 +44,8 @@ public class TypeAliasBuilder extends ElBuilder {
 	public void setContext(Context context) {
 		_context = context;
 		// TODO this is a very important potential bug
-		//  where ident's may not be getting the right context
-		//  because of non-use of Parser.cur in the Builders
+		// where ident's may not be getting the right context
+		// because of non-use of Parser.cur in the Builders
 		newAlias.setContext(context);
 	}
 

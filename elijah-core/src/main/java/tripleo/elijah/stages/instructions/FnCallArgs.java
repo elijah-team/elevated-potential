@@ -22,13 +22,13 @@ import java.util.List;
  * Created 9/10/20 3:36 PM
  */
 public class FnCallArgs implements InstructionArgument {
-	private                TypeTableEntry  _type; // the return type of the function call
-	public final           Instruction     expression_to_call;
+	private TypeTableEntry _type; // the return type of the function call
+	public final Instruction expression_to_call;
 	private final @NotNull BaseEvaFunction gf;
 
 	public FnCallArgs(final Instruction expression_to_call, final @NotNull BaseEvaFunction generatedFunction) {
 		this.expression_to_call = expression_to_call;
-		this.gf                 = generatedFunction;
+		this.gf = generatedFunction;
 	}
 
 	public InstructionArgument getArg(final int i) {
@@ -55,17 +55,16 @@ public class FnCallArgs implements InstructionArgument {
 
 	@Override
 	public String toString() {
-		final int                       index                = DeduceTypes2.to_int(expression_to_call.args.get(0));
+		final int index = DeduceTypes2.to_int(expression_to_call.args.get(0));
 		final List<InstructionArgument> instructionArguments = getInstructionArguments();
 
-		final Collection<String> collect2        = Helpers.mapCollectionElementsToString(instructionArguments);
-		final @NotNull String    commaed_strings = Helpers.String_join(" ", collect2);
-		
+		final Collection<String> collect2 = Helpers.mapCollectionElementsToString(instructionArguments);
+		final @NotNull String commaed_strings = Helpers.String_join(" ", collect2);
+
 		final ProcTableEntry procTableEntry = gf.prte_list.get(index);
 
-		return String.format("(call %d [%s(%s)] %s)",
-							 index, procTableEntry.__debug_expression, procTableEntry.args,
-							 commaed_strings);
+		return String.format("(call %d [%s(%s)] %s)", index, procTableEntry.__debug_expression, procTableEntry.args,
+				commaed_strings);
 	}
 
 }

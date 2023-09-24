@@ -7,10 +7,10 @@ import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_generic.GenerateResult.*;
 
 public class NG_OutputFunctionStatement implements NG_OutputStatement {
-	private final          EG_Statement x;
-	private final          TY           y;
-	private final @NotNull NG_OutDep    moduleDependency;
-	private final @NotNull C2C_Result   __c2c;
+	private final EG_Statement x;
+	private final TY y;
+	private final @NotNull NG_OutDep moduleDependency;
+	private final @NotNull C2C_Result __c2c;
 
 	public NG_OutputFunctionStatement(final @NotNull C2C_Result ac2c) {
 		__c2c = ac2c;

@@ -19,7 +19,7 @@ import tripleo.elijah.stages.gen_fn.EvaNamespace;
  */
 public class NamespaceInvocation implements IInvocation {
 
-	private final NamespaceStatement                       namespaceStatement;
+	private final NamespaceStatement namespaceStatement;
 	private final DeferredObject<EvaNamespace, Void, Void> resolveDeferred = new DeferredObject<EvaNamespace, Void, Void>();
 
 	public NamespaceInvocation(NamespaceStatement aNamespaceStatement) {

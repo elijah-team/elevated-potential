@@ -44,22 +44,24 @@ public class TabbedOutputStream {
 		}
 	}
 
-	@Nullable Writer myStream;
+	@Nullable
+	Writer myStream;
 	int tabwidth;
-	private boolean do_tabs    = false;
+	private boolean do_tabs = false;
 	private boolean dont_close = false;
 
 	public TabbedOutputStream(final @NotNull OutputStream os) {
 		tabwidth = 0;
-		if (os == System.out) dont_close = true;
+		if (os == System.out)
+			dont_close = true;
 		myStream = new BufferedWriter(new OutputStreamWriter(os));
 	}
 
 	public TabbedOutputStream(final @NotNull Writer w, boolean buffer_it) {
 		tabwidth = 0;
-		//if (os == System.out) dont_close = true;
+		// if (os == System.out) dont_close = true;
 		if (buffer_it)
-			myStream = new BufferedWriter(w);//new BufferedWriter(new OutputStreamWriter(os));
+			myStream = new BufferedWriter(w);// new BufferedWriter(new OutputStreamWriter(os));
 		else
 			myStream = w;
 	}
@@ -79,7 +81,7 @@ public class TabbedOutputStream {
 
 	void doIndent() throws IOException {
 		for (int i = 0; i < tabwidth; i++)
-			 myStream.write('\t');
+			myStream.write('\t');
 	}
 
 	public void flush() throws IOException {

@@ -22,11 +22,11 @@ import java.util.List;
  */
 public class SlirImportNode implements SlirElement {
 	private final List<SlirElement> imported = new ArrayList<SlirElement>();
-	private final ImportStatement   importStatement;
-	private final SlirSourceNode    sourceNode;
+	private final ImportStatement importStatement;
+	private final SlirSourceNode sourceNode;
 
 	public SlirImportNode(final SlirSourceNode aSlirSourceNode, final ImportStatement aImportStatement) {
-		sourceNode      = aSlirSourceNode;
+		sourceNode = aSlirSourceNode;
 		importStatement = aImportStatement;
 	}
 

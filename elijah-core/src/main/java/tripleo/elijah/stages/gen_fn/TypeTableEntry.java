@@ -23,46 +23,42 @@ public class TypeTableEntry {
 	public enum Type {
 		SPECIFIED, TRANSIENT
 	}
-	public final    IExpression     __debug_expression;
+
+	public final IExpression __debug_expression;
 	@NotNull
-	public final    Type            lifetime;
-	public @NotNull GenType         genType = new GenTypeImpl();
+	public final Type lifetime;
+	public @NotNull GenType genType = new GenTypeImpl();
 	@Nullable
-	public final    TableEntryIV    tableEntry;
-	final           int             index;
-	private         BaseEvaFunction __gf;
-	private         DeduceTypes2    _dt2;
+	public final TableEntryIV tableEntry;
+	final int index;
+	private BaseEvaFunction __gf;
+	private DeduceTypes2 _dt2;
 
 	@Nullable
-	private         OS_Type         attached;
+	private OS_Type attached;
 
-	public TypeTableEntry(final int index,
-						  @NotNull final Type lifetime,
-						  @Nullable final GenType aGenType,
-						  final IExpression expression,
-						  @Nullable final TableEntryIV aTableEntryIV) {
-		this.index    = index;
+	public TypeTableEntry(final int index, @NotNull final Type lifetime, @Nullable final GenType aGenType,
+			final IExpression expression, @Nullable final TableEntryIV aTableEntryIV) {
+		this.index = index;
 		this.lifetime = lifetime;
 
 		this.genType.copy(aGenType);
 		this.attached = this.genType.getResolved(); // !!
 
 		this.__debug_expression = expression;
-		this.tableEntry         = aTableEntryIV;
+		this.tableEntry = aTableEntryIV;
 	}
 
-	public TypeTableEntry(final int index,
-						  @NotNull final Type lifetime,
-						  @Nullable final OS_Type aAttached,
-						  final IExpression expression,
-						  @Nullable final TableEntryIV aTableEntryIV) {
-		this.index    = index;
+	public TypeTableEntry(final int index, @NotNull final Type lifetime, @Nullable final OS_Type aAttached,
+			final IExpression expression, @Nullable final TableEntryIV aTableEntryIV) {
+		this.index = index;
 		this.lifetime = lifetime;
 		if (aAttached == null || (aAttached.getType() == OS_Type.Type.USER && aAttached.getTypeName() == null)) {
 			attached = null;
 			// do nothing with genType
 		} else {
-			// README if specified as `Unit' in source, save some energy... (not strictly necessary, but we'll see)
+			// README if specified as `Unit' in source, save some energy... (not strictly
+			// necessary, but we'll see)
 			if (aAttached instanceof OS_UserType ut) {
 				if (ut.getTypeName() instanceof RegularTypeName rtn) {
 					if (rtn.getName().equals("Unit")) {
@@ -76,7 +72,7 @@ public class TypeTableEntry {
 				_settingAttached(attached);
 		}
 		this.__debug_expression = expression;
-		this.tableEntry         = aTableEntryIV;
+		this.tableEntry = aTableEntryIV;
 	}
 
 	public void _fix_table(final DeduceTypes2 aDeduceTypes2, final @NotNull BaseEvaFunction aEvaFunction) {

@@ -19,7 +19,7 @@ import tripleo.elijah.util.NotImplementedException;
  * Created 9/24/20 6:11 PM
  */
 public class CaseContext extends ContextImpl {
-	private final Context         _parent;
+	private final Context _parent;
 	private final CaseConditional carrier;
 
 	public CaseContext(final Context aParent, final CaseConditional mc) {
@@ -33,28 +33,23 @@ public class CaseContext extends ContextImpl {
 	}
 
 	@Override
-	public LookupResultList lookup(final String name, final int level, final LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final String name, final int level, final LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
-/*
-		if (carrier.getIterName() != null) {
-			if (name.equals(carrier.getIterName())) { // reversed to prevent NPEs
-				IdentExpression ie = carrier.getIterNameToken();
-				Result.add(name, level, ie, this);
-			}
-		}
-*/
+		/*
+		 * if (carrier.getIterName() != null) { if (name.equals(carrier.getIterName()))
+		 * { // reversed to prevent NPEs IdentExpression ie =
+		 * carrier.getIterNameToken(); Result.add(name, level, ie, this); } }
+		 */
 
 		throw new NotImplementedException(); // carrier.singleidentcontext
 
-/*
-		if (carrier.getParent() != null) {
-			final ContextImpl context = getParent();
-			if (!alreadySearched.contains(context) || !one)
-				context.lookup(name, level + 1, Result, alreadySearched, false); // TODO test this
-		}
-		return Result;
-*/
+		/*
+		 * if (carrier.getParent() != null) { final ContextImpl context = getParent();
+		 * if (!alreadySearched.contains(context) || !one) context.lookup(name, level +
+		 * 1, Result, alreadySearched, false); // TODO test this } return Result;
+		 */
 
 	}
 }

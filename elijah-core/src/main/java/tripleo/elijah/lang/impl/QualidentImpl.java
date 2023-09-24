@@ -26,7 +26,7 @@ import java.util.*;
  */
 public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 
-	//OS_Type _type;
+	// OS_Type _type;
 	private final List<IdentExpression> parts = new ArrayList<IdentExpression>();
 
 	/**
@@ -43,7 +43,6 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 	public void appendDot(final Token d1) {
 //		_syntax.appendDot(d1, parts.size());//parts.add(d1);
 	}
-
 
 	@Override
 	@NotNull
@@ -77,7 +76,7 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 			return false;
 		for (int i = 0; i < parts.size(); i++) {
 			final IdentExpression ppart = qualident.parts().get(i);
-			final IdentExpression part  = parts.get(i);
+			final IdentExpression part = parts.get(i);
 //			if (!equivalentTokens(ppart.token(), part.token()))
 			if (!part.getText().equals(ppart.getText()))
 				return false;
@@ -104,12 +103,12 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 
 	@Override
 	public @org.jetbrains.annotations.Nullable OS_Type getType() {
-		return null; //_type; // TODO ?? 07/10
+		return null; // _type; // TODO ?? 07/10
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(parts/*, _type*/);
+		return Objects.hash(parts/* , _type */);
 	}
 
 	@Override
@@ -146,7 +145,7 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 
 	@Override
 	public void setType(final OS_Type deducedExpression) {
-		//_type = deducedExpression;
+		// _type = deducedExpression;
 	}
 
 	@Override

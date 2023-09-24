@@ -11,7 +11,7 @@ package tripleo.elijah.lang.i;
 // Referenced classes of package pak2:
 //			Statement, StatementClosure, FormalArgList
 
-public interface BlockStatement extends /*Statement,*/ StatementItem {
+public interface BlockStatement extends /* Statement, */ StatementItem {
 
 	public FormalArgList opfal();
 

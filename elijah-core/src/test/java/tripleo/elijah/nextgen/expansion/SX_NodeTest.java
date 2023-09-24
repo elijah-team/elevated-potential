@@ -16,55 +16,35 @@ public class SX_NodeTest {
 		b.get();
 		final Compilation comp = b.comp;
 
-		final OS_Module mod = comp.moduleBuilder()
-				.withFileName("filename.elijah")
-				.addToCompilation()
-				.build();
+		final OS_Module mod = comp.moduleBuilder().withFileName("filename.elijah").addToCompilation().build();
 
 		var wm = new DefaultWorldModule(mod, comp.getCompilationEnclosure());
 
 		final OutputFileFactoryParams p = new OutputFileFactoryParams(wm, comp.getCompilationEnclosure());
-		//final GenerateFiles           fgen = OutputFileFactory.create(CompilationAlways.defaultPrelude(), p, fileGen);
+		// final GenerateFiles fgen =
+		// OutputFileFactory.create(CompilationAlways.defaultPrelude(), p, fileGen);
 
-/*
-		final SM_ClassDeclaration node = new SM_ClassDeclaration() {
-			@Override
-			public @Nullable SM_ClassBody classBody() {
-				return null;
-			}
+		/*
+		 * final SM_ClassDeclaration node = new SM_ClassDeclaration() {
+		 * 
+		 * @Override public @Nullable SM_ClassBody classBody() { return null; }
+		 * 
+		 * @Override public @NotNull SM_ClassInheritance inheritance() { return new
+		 * SM_ClassInheritance() {
+		 * 
+		 * @Override public @NotNull List<SM_Name> names() { return List_of(new
+		 * SM_Name() {
+		 * 
+		 * @Override public @NotNull String getText() { return "Arguments"; } }); } }; }
+		 * 
+		 * @Override public @NotNull SM_Name name() { return new SM_Name() {
+		 * 
+		 * @Override public @NotNull String getText() { return "Main"; } }; }
+		 * 
+		 * @Override public @NotNull SM_ClassSubtype subType() { return
+		 * SM_ClassSubtype.NORMAL; } };
+		 */
 
-			@Override
-			public @NotNull SM_ClassInheritance inheritance() {
-				return new SM_ClassInheritance() {
-					@Override
-					public @NotNull List<SM_Name> names() {
-						return List_of(new SM_Name() {
-							@Override
-							public @NotNull String getText() {
-								return "Arguments";
-							}
-						});
-					}
-				};
-			}
-
-			@Override
-			public @NotNull SM_Name name() {
-				return new SM_Name() {
-					@Override
-					public @NotNull String getText() {
-						return "Main";
-					}
-				};
-			}
-
-			@Override
-			public @NotNull SM_ClassSubtype subType() {
-				return SM_ClassSubtype.NORMAL;
-			}
-		};
-*/
-
-		//fgen.forNode(node);
+		// fgen.forNode(node);
 	}
 }

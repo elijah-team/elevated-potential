@@ -16,14 +16,14 @@ import tripleo.elijah.util.NotImplementedException;
 
 /**
  * @author Tripleo(sb)
- * <p>
- * Created Apr 2, 2019 at 11:08:12 AM
+ *         <p>
+ *         Created Apr 2, 2019 at 11:08:12 AM
  */
 public class NamespaceStatementImpl extends _CommonNC
 		implements Documentable, ClassItem, tripleo.elijah.lang.i.NamespaceStatement {
 
-	private       NamespaceTypes _kind;
-	private final OS_Element     parent;
+	private NamespaceTypes _kind;
+	private final OS_Element parent;
 
 	public NamespaceStatementImpl(final OS_Element aElement, final Context context) {
 		parent = aElement; // setParent
@@ -153,7 +153,6 @@ public class NamespaceStatementImpl extends _CommonNC
 		return new ProgramClosureImpl() {
 		};
 	}
-
 
 	// region ClassItem
 

@@ -26,25 +26,21 @@ public class EOT_OutputFile {
 	}
 
 	private final @NotNull FileNameProvider _filename;
-	private final          List<EIT_Input>                       _inputs = new ArrayList<>();
-	private final @NotNull EOT_OutputType                        _type;
-	private final @NotNull EG_Statement                          _sequence; // TODO List<?> ??
-	public                 List<EIT_Input_HashSourceFile_Triple> x;
+	private final List<EIT_Input> _inputs = new ArrayList<>();
+	private final @NotNull EOT_OutputType _type;
+	private final @NotNull EG_Statement _sequence; // TODO List<?> ??
+	public List<EIT_Input_HashSourceFile_Triple> x;
 
-	public EOT_OutputFile(final @NotNull List<EIT_Input> inputs,
-						  final @NotNull FileNameProvider filename,
-						  final @NotNull EOT_OutputType type,
-						  final @NotNull EG_Statement sequence) {
+	public EOT_OutputFile(final @NotNull List<EIT_Input> inputs, final @NotNull FileNameProvider filename,
+			final @NotNull EOT_OutputType type, final @NotNull EG_Statement sequence) {
 		_filename = filename;
-		_type     = type;
+		_type = type;
 		_sequence = sequence;
 		_inputs.addAll(inputs);
 	}
 
-	public EOT_OutputFile(final @NotNull List<EIT_Input> inputs,
-						  final @NotNull String filename,
-						  final @NotNull EOT_OutputType type,
-						  final @NotNull EG_Statement sequence) {
+	public EOT_OutputFile(final @NotNull List<EIT_Input> inputs, final @NotNull String filename,
+			final @NotNull EOT_OutputType type, final @NotNull EG_Statement sequence) {
 		this(inputs, new DefaultFileNameProvider(filename), type, sequence);
 	}
 

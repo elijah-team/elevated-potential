@@ -16,7 +16,8 @@ public class CB_ListBackedOutput implements CB_Output {
 
 	@Override
 	public void logProgress(final int number, final String text) {
-		if (number == 130) return;
+		if (number == 130)
+			return;
 
 //		System.err.println
 		print(String.format("%d %s", number, text));

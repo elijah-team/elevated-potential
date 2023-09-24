@@ -18,9 +18,9 @@ public interface EvaNode {
 
 	OS_Module module();
 
-	//BaseEvaFunction _definedFunction();
+	// BaseEvaFunction _definedFunction();
 
-	//DeduceTypes2 _definedModule();
+	// DeduceTypes2 _definedModule();
 }
 
 //

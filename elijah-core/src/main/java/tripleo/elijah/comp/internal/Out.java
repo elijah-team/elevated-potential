@@ -24,8 +24,8 @@ import java.util.Date;
 public class Out {
 
 	private static @NotNull TabbedOutputStream getTOSLog() throws FileNotFoundException {
-		final SimpleDateFormat sdf      = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-		final String           filename = String.format("eljc-%s.out", sdf.format(new Date()));
+		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+		final String filename = String.format("eljc-%s.out", sdf.format(new Date()));
 		return new TabbedOutputStream(new FileOutputStream(filename));
 	}
 
@@ -39,7 +39,7 @@ public class Out {
 	private final @NotNull ParserClosure pc;
 
 	public Out(final String fn, final @NotNull Compilation aCompilation, final boolean aDoOut) {
-		pc     = new ParserClosureImpl(fn, aCompilation);
+		pc = new ParserClosureImpl(fn, aCompilation);
 		do_out = aDoOut;
 	}
 
@@ -47,33 +47,27 @@ public class Out {
 		return pc;
 	}
 
-	//@edu.umd.cs.findbugs.annotations.SuppressFBWarnings("NM_METHOD_NAMING_CONVENTION")
+	// @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("NM_METHOD_NAMING_CONVENTION")
 	public void FinishModule() {
-/*
-		final TabbedOutputStream tos;
-		println("** FinishModule");
-		try {
-*/
+		/*
+		 * final TabbedOutputStream tos; println("** FinishModule"); try {
+		 */
 //			pc.module.print_osi(tos);
 		pc.module().finish();
 		//
 		if (do_out) {
-/*
-				tos = getTOSLog();
-				tos.put_string_ln(pc.module.getFileName());
-				Helpers.printXML(pc.module, tos);
-				tos.close();
-*/
+			/*
+			 * tos = getTOSLog(); tos.put_string_ln(pc.module.getFileName());
+			 * Helpers.printXML(pc.module, tos); tos.close();
+			 */
 		}
 		//
 		//
-/*
-		} catch (final FileNotFoundException fnfe) {
-			println("&& FileNotFoundException");
-		} catch (final IOException ioe) {
-			println("&& IOException");
-		}
-*/
+		/*
+		 * } catch (final FileNotFoundException fnfe) {
+		 * println("&& FileNotFoundException"); } catch (final IOException ioe) {
+		 * println("&& IOException"); }
+		 */
 	}
 
 	public @NotNull OS_Module module() {

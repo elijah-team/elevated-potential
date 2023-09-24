@@ -7,20 +7,21 @@ import tripleo.elijah.diagnostic.*;
 public class Maybe<T> {
 	public static <T> Maybe<T> of(@NotNull T t) {
 		return new Maybe<>(t, null);
-    }
+	}
+
 	public static <T> Maybe<T> of_exc(@NotNull Diagnostic d) {
 		return new Maybe<>(null, d);
-    }
+	}
 
 	public static <T> Maybe<T> of_exc(@NotNull Exception e) {
 		return new Maybe<>(null, new ExceptionDiagnostic(e));
-    }
+	}
 
-    public final @Nullable Diagnostic exc;
+	public final @Nullable Diagnostic exc;
 
-    public final @Nullable T          o;
+	public final @Nullable T o;
 
-    public Maybe(final @Nullable T o, final Diagnostic exc) {
+	public Maybe(final @Nullable T o, final Diagnostic exc) {
 		if (o == null) {
 			if (exc == null) {
 				throw new IllegalStateException("Both o and exc are null!");
@@ -31,11 +32,11 @@ public class Maybe<T> {
 			}
 		}
 
-		this.o   = o;
+		this.o = o;
 		this.exc = exc;
 	}
 
-    public boolean isException() {
+	public boolean isException() {
 		return exc != null;
 	}
 }

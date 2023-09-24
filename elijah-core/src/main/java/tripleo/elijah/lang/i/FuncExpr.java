@@ -6,13 +6,14 @@ import tripleo.elijah.contexts.*;
 import java.util.*;
 
 public interface FuncExpr extends IExpression, OS_Element {
-	//Collection<FormalArgListItem> getArgs();
+	// Collection<FormalArgListItem> getArgs();
 
 	FormalArgList fal();
 
 	List<FormalArgListItem> falis();
 
-	@NotNull List<FormalArgListItem> getArgs();
+	@NotNull
+	List<FormalArgListItem> getArgs();
 
 	@Override
 	Context getContext();
@@ -29,7 +30,8 @@ public interface FuncExpr extends IExpression, OS_Element {
 
 	void postConstruct();
 
-	@Nullable TypeName returnType();
+	@Nullable
+	TypeName returnType();
 
 	void scope(Scope3 aSco);
 

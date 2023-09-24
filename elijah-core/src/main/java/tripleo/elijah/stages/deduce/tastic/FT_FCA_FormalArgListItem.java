@@ -12,26 +12,25 @@ import tripleo.elijah.stages.gen_fn.VariableTableEntry;
 
 public class FT_FCA_FormalArgListItem {
 	private final FormalArgListItem fali;
-	private final BaseEvaFunction   generatedFunction;
+	private final BaseEvaFunction generatedFunction;
 
 	public FT_FCA_FormalArgListItem(final FormalArgListItem aFali, final BaseEvaFunction aGeneratedFunction) {
-		fali              = aFali;
+		fali = aFali;
 		generatedFunction = aGeneratedFunction;
 	}
 
 	public void _FunctionCall_Args_doLogic0(final @NotNull VariableTableEntry vte,
-											final @NotNull VariableTableEntry vte1,
-											final @NotNull ErrSink errSink) {
+			final @NotNull VariableTableEntry vte1, final @NotNull ErrSink errSink) {
 		final @NotNull OS_Type osType = new OS_UserType(fali.typeName());
 		if (!osType.equals(vte.getType().getAttached())) {
-			@NotNull TypeTableEntry tte1 = generatedFunction.newTypeTableEntry(
-					TypeTableEntry.Type.SPECIFIED,
-					osType,
-					fali.getNameToken(),
-					vte1);
-			/*if (p.isResolved())
-				System.out.printf("890 Already resolved type: vte1.type = %s, gf = %s, tte1 = %s %n", vte1.type, generatedFunction, tte1);
-			else*/
+			@NotNull
+			TypeTableEntry tte1 = generatedFunction.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, osType,
+					fali.getNameToken(), vte1);
+			/*
+			 * if (p.isResolved()) System.out.
+			 * printf("890 Already resolved type: vte1.type = %s, gf = %s, tte1 = %s %n",
+			 * vte1.type, generatedFunction, tte1); else
+			 */
 			{
 				final OS_Type attached = tte1.getAttached();
 				switch (attached.getType()) {
@@ -45,14 +44,14 @@ public class FT_FCA_FormalArgListItem {
 					break;
 				default:
 					errSink.reportWarning("2853 Unexpected value: " + attached.getType());
-					//throw new IllegalStateException("Unexpected value: " + attached.getType());
+					// throw new IllegalStateException("Unexpected value: " + attached.getType());
 				}
 			}
 		}
 
-		//vte.type = tte1;
-		//tte.attached = tte1.attached;
-		//vte.setStatus(BaseTableEntry.Status.KNOWN, best);
+		// vte.type = tte1;
+		// tte.attached = tte1.attached;
+		// vte.setStatus(BaseTableEntry.Status.KNOWN, best);
 	}
 
 }

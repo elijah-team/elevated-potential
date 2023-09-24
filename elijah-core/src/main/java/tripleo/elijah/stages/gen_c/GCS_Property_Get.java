@@ -23,7 +23,7 @@ public class GCS_Property_Get implements EG_Statement {
 	@Override
 	public String getText() {
 		final OS_Element parent = p.getParent();
-		final int        code;
+		final int code;
 
 		if (parent instanceof ClassStatement) {
 			code = -3;
@@ -31,7 +31,8 @@ public class GCS_Property_Get implements EG_Statement {
 			code = -3;
 		} else {
 //				code = -1;
-			throw new IllegalStateException("PropertyStatement can't have other parent than ns or cls. " + parent.getClass().getName());
+			throw new IllegalStateException(
+					"PropertyStatement can't have other parent than ns or cls. " + parent.getClass().getName());
 		}
 
 		// TODO Don't know if get or set!

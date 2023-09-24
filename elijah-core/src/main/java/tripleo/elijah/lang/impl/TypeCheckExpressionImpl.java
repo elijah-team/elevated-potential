@@ -17,11 +17,11 @@ import tripleo.elijah.lang2.BuiltInTypes;
 
 /**
  * @author Tripleo
- * <p>
- * Created Apr 18, 2020 at 2:43:00 AM
+ *         <p>
+ *         Created Apr 18, 2020 at 2:43:00 AM
  */
 public class TypeCheckExpressionImpl extends AbstractExpression implements tripleo.elijah.lang.i.TypeCheckExpression {
-	private final TypeName    checkfor;
+	private final TypeName checkfor;
 	private final IExpression checking;
 
 	public TypeCheckExpressionImpl(final IExpression ee, final TypeName p1) {

@@ -16,12 +16,12 @@ import static tripleo.elijah.util.Helpers.List_of;
 
 public class NG_OutputNamespace implements NG_OutputItem {
 	private GarishNamespace garishNamespace;
-	private GenerateC       generateC;
+	private GenerateC generateC;
 
 	@Override
 	public @NotNull List<NG_OutputStatement> getOutputs() {
 		final EvaNamespace x = garishNamespace.getLiving().evaNode();
-		var                m = x.module();
+		var m = x.module();
 
 		final String class_name;
 
@@ -32,12 +32,12 @@ public class NG_OutputNamespace implements NG_OutputItem {
 		}
 
 		final BufferTabbedOutputStream tos = garishNamespace.getImplBuffer(x, class_name, x.getCode());
-		final Buffer                   buf = tos.getBuffer();
+		final Buffer buf = tos.getBuffer();
 
 		var implText = new NG_OutputNamespaceStatement(buf, GenerateResult.TY.IMPL, m);
 
-		final BufferTabbedOutputStream tosHdr    = garishNamespace.getHeaderBuffer(generateC, x, class_name, x.getCode());
-		final Buffer                   hdrBuffer = tosHdr.getBuffer();
+		final BufferTabbedOutputStream tosHdr = garishNamespace.getHeaderBuffer(generateC, x, class_name, x.getCode());
+		final Buffer hdrBuffer = tosHdr.getBuffer();
 
 		var headerText = new NG_OutputNamespaceStatement(hdrBuffer, GenerateResult.TY.HEADER, m);
 
@@ -45,7 +45,8 @@ public class NG_OutputNamespace implements NG_OutputItem {
 	}
 
 	@Override
-	public EOT_OutputFile.FileNameProvider outName(final @NotNull OutputStrategyC aOutputStrategyC, final GenerateResult.@NotNull TY ty) {
+	public EOT_OutputFile.FileNameProvider outName(final @NotNull OutputStrategyC aOutputStrategyC,
+			final GenerateResult.@NotNull TY ty) {
 		final EvaNamespace x = garishNamespace.getLiving().evaNode();
 
 		return aOutputStrategyC.nameForNamespace1(x, ty);
@@ -53,6 +54,6 @@ public class NG_OutputNamespace implements NG_OutputItem {
 
 	public void setNamespace(final GarishNamespace aGarishNamespace, final GenerateC aGenerateC) {
 		garishNamespace = aGarishNamespace;
-		generateC       = aGenerateC;
+		generateC = aGenerateC;
 	}
 }

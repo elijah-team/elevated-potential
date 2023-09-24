@@ -7,10 +7,10 @@ import java.util.function.Consumer;
 
 public class DoubleLatch<T> {
 	private final @NotNull Consumer<T> action;
-	private                boolean     simple;
-	private                T           tt;
+	private boolean simple;
+	private T tt;
 
-	//private IincInsnNode action;
+	// private IincInsnNode action;
 
 	@Contract(pure = true)
 	public DoubleLatch(final @NotNull Consumer<T> aAction) {

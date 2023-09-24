@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 class NotableAction implements CB_Action {
-	private final @NotNull GN_Notable            notable;
+	private final @NotNull GN_Notable notable;
 	@NotNull
-	final                  List<CB_OutputString> o;
+	final List<CB_OutputString> o;
 
 	public NotableAction(final @NotNull GN_Notable aNotable) {
 		notable = aNotable;
-		o       = new ArrayList<>();
+		o = new ArrayList<>();
 	}
 
 	public void _actual_run() {
@@ -25,7 +25,8 @@ class NotableAction implements CB_Action {
 
 	@Override
 	public void execute(CB_Monitor aMonitor) {
-		if (false) notable.run();
+		if (false)
+			notable.run();
 	}
 
 	@Override

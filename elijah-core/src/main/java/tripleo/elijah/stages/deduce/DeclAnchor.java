@@ -17,7 +17,7 @@ import tripleo.elijah.lang.i.*;
  */
 public class DeclAnchor {
 	public enum AnchorType {
-		CLOSURE, FOREIGN /*(esp NS, DT/enum)*/, INHERITED, MEMBER, PARAMS, VAR
+		CLOSURE, FOREIGN /* (esp NS, DT/enum) */, INHERITED, MEMBER, PARAMS, VAR
 	}
 
 	AnchorType anchorType;
@@ -27,7 +27,7 @@ public class DeclAnchor {
 
 	public DeclAnchor(final OS_Element aElement, final AnchorType aAnchorType) {
 		anchorType = aAnchorType;
-		element    = aElement;
+		element = aElement;
 	}
 
 	public IInvocation getInvocation() {
@@ -35,7 +35,7 @@ public class DeclAnchor {
 	}
 
 	public void setInvocation(final IInvocation aInvocation) {
-		//assert aInvocation != null; //FIXME/TODO 06/19
+		// assert aInvocation != null; //FIXME/TODO 06/19
 		invocation = aInvocation;
 	}
 

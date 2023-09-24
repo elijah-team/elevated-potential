@@ -22,10 +22,10 @@ import java.io.*;
 public class RegularTypeNameImpl extends AbstractTypeName2
 		implements NormalTypeName, tripleo.elijah.lang.i.RegularTypeName {
 
-	private @Nullable Context      _ctx;
+	private @Nullable Context _ctx;
 	// private OS_Type _resolved;
-	private           OS_Element   _resolvedElement;
-	private           TypeNameList genericPart;
+	private OS_Element _resolvedElement;
+	private TypeNameList genericPart;
 
 	@Deprecated
 	public RegularTypeNameImpl() { // TODO remove this

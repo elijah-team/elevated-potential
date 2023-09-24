@@ -10,7 +10,8 @@ import java.util.List;
 public enum DebugBuffersLogic {
 	;
 
-	public static void __debug_buffers_logic_each(final @NotNull XPrintStream db_stream, final @NotNull Old_GenerateResultItem ab) {
+	public static void __debug_buffers_logic_each(final @NotNull XPrintStream db_stream,
+			final @NotNull Old_GenerateResultItem ab) {
 		if (true) {
 			final String s = MessageFormat.format("{0} - {1} - {2}", ab.counter, ab.ty, ab.output);
 
@@ -26,7 +27,8 @@ public enum DebugBuffersLogic {
 		}
 	}
 
-	public static void debug_buffers_logic(final @NotNull GenerateResult result, final @NotNull XPrintStream db_stream) {
+	public static void debug_buffers_logic(final @NotNull GenerateResult result,
+			final @NotNull XPrintStream db_stream) {
 		final List<Old_GenerateResultItem> generateResultItems = result.results();
 		for (final Old_GenerateResultItem ab : generateResultItems) {
 			__debug_buffers_logic_each(db_stream, ab);

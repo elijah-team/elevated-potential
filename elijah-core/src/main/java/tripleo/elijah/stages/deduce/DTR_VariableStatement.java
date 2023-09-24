@@ -17,14 +17,15 @@ public class DTR_VariableStatement {
 
 	private final VariableStatement variableStatement;
 
-	public DTR_VariableStatement(final DeduceTypeResolve aDeduceTypeResolve, final VariableStatement aVariableStatement) {
+	public DTR_VariableStatement(final DeduceTypeResolve aDeduceTypeResolve,
+			final VariableStatement aVariableStatement) {
 		deduceTypeResolve = aDeduceTypeResolve;
 		variableStatement = aVariableStatement;
 	}
 
 	private void normalTypeName_generic_butNotNull(final @NotNull DTR_VS_Ctx ctx) {
-		final IElementHolder          eh             = ctx.eh();
-		final GenType                 genType        = ctx.genType();
+		final IElementHolder eh = ctx.eh();
+		final GenType genType = ctx.genType();
 		final @NotNull NormalTypeName normalTypeName = ctx.normalTypeName();
 
 		DeduceTypes2 dt2 = null;
@@ -34,7 +35,8 @@ public class DTR_VariableStatement {
 
 			genType.setTypeName(dt2._inj().new_OS_UserType(normalTypeName));
 			try {
-				final @NotNull GenType resolved = dt2.resolve_type(genType.getTypeName(), variableStatement.getContext());
+				final @NotNull GenType resolved = dt2.resolve_type(genType.getTypeName(),
+						variableStatement.getContext());
 				if (resolved.getResolved().getType() == OS_Type.Type.GENERIC_TYPENAME) {
 					final BaseTableEntry backlink = deduceTypeResolve.backlink;
 
@@ -52,32 +54,35 @@ public class DTR_VariableStatement {
 			genType.setTypeName(dt2._inj().new_OS_UserType(normalTypeName));
 	}
 
-	private /*static*/ void normalTypeName_generic_butNotNull_resolveToGeneric(final @NotNull GenType genType, final @NotNull GenType resolved, final @NotNull BaseTableEntry backlink) {
-		backlink.typeResolvePromise().then(result_gt -> ((Constructable) backlink).constructablePromise().then((final @NotNull ProcTableEntry result_pte) -> {
-			final ClassInvocation ci = result_pte.getClassInvocation();
-			assert ci != null;
-			final @Nullable Map<TypeName, OS_Type> gp  = ci.genericPart().getMap();
-			final TypeName                         sch = resolved.getTypeName().getTypeName();
+	private /* static */ void normalTypeName_generic_butNotNull_resolveToGeneric(final @NotNull GenType genType,
+			final @NotNull GenType resolved, final @NotNull BaseTableEntry backlink) {
+		backlink.typeResolvePromise().then(result_gt -> ((Constructable) backlink).constructablePromise()
+				.then((final @NotNull ProcTableEntry result_pte) -> {
+					final ClassInvocation ci = result_pte.getClassInvocation();
+					assert ci != null;
+					final @Nullable Map<TypeName, OS_Type> gp = ci.genericPart().getMap();
+					final TypeName sch = resolved.getTypeName().getTypeName();
 
-			// 05/23 24
+					// 05/23 24
 
-			assert gp != null;
-			for (Map.Entry<TypeName, OS_Type> entrySet : gp.entrySet()) {
-				if (entrySet.getKey().equals(sch)) {
-					genType.setResolved(entrySet.getValue());
-					break;
-				}
-			}
-		}));
+					assert gp != null;
+					for (Map.Entry<TypeName, OS_Type> entrySet : gp.entrySet()) {
+						if (entrySet.getKey().equals(sch)) {
+							genType.setResolved(entrySet.getValue());
+							break;
+						}
+					}
+				}));
 	}
 
-	private /*static*/ void normalTypeName_generic_butNotNull_resolveToNonGeneric(final @NotNull GenType genType, final @NotNull GenType resolved) {
+	private /* static */ void normalTypeName_generic_butNotNull_resolveToNonGeneric(final @NotNull GenType genType,
+			final @NotNull GenType resolved) {
 		genType.setResolved(resolved.getResolved());
 	}
 
 	private void normalTypeName_notGeneric(final @NotNull DTR_VS_Ctx ctx) {
-		final IElementHolder          eh             = ctx.eh();
-		final GenType                 genType        = ctx.genType();
+		final IElementHolder eh = ctx.eh();
+		final GenType genType = ctx.genType();
 		final @NotNull NormalTypeName normalTypeName = ctx.normalTypeName();
 
 		final TypeNameList genericPart = normalTypeName.getGenericPart();
@@ -87,21 +92,20 @@ public class DTR_VariableStatement {
 			normalTypeName_notGeneric_typeNotProvided(ctx);
 	}
 
-	private /*static*/ void normalTypeName_notGeneric_typeNotProvided(final @NotNull DTR_VS_Ctx ctx) {
-		final GenType                 genType        = ctx.genType();
+	private /* static */ void normalTypeName_notGeneric_typeNotProvided(final @NotNull DTR_VS_Ctx ctx) {
+		final GenType genType = ctx.genType();
 		final @NotNull NormalTypeName normalTypeName = ctx.normalTypeName();
 
 		genType.setNonGenericTypeName(normalTypeName);
 	}
 
 	private void normalTypeName_notGeneric_typeProvided(final @NotNull DTR_VS_Ctx ctx) {
-		final GenType                 genType        = ctx.genType();
+		final GenType genType = ctx.genType();
 		final @NotNull NormalTypeName normalTypeName = ctx.normalTypeName();
 
-		final GenericElementHolderWithType eh1  = (GenericElementHolderWithType) ctx.eh();
-		final DeduceTypes2                 dt2  = eh1.getDeduceTypes2();
-		final OS_Type                      type = eh1.getType();
-
+		final GenericElementHolderWithType eh1 = (GenericElementHolderWithType) ctx.eh();
+		final DeduceTypes2 dt2 = eh1.getDeduceTypes2();
+		final OS_Type type = eh1.getType();
 
 		genType.setNonGenericTypeName(normalTypeName);
 
@@ -134,7 +138,7 @@ public class DTR_VariableStatement {
 			}
 		}
 
-		//DTR_VS_Ctx ctx = _inj().new_DTR_VS_Ctx(eh, genType, normalTypeName);
+		// DTR_VS_Ctx ctx = _inj().new_DTR_VS_Ctx(eh, genType, normalTypeName);
 		DTR_VS_Ctx ctx = new DTR_VS_Ctx(eh, genType, normalTypeName);
 
 		switch (state) {
@@ -146,19 +150,20 @@ public class DTR_VariableStatement {
 
 				final InstructionArgument bl = ground.principal.getBacklink();
 				if (bl instanceof final @NotNull ProcIA procIA) {
-					@NotNull final ProcTableEntry pte_bl = procIA.getEntry();
+					@NotNull
+					final ProcTableEntry pte_bl = procIA.getEntry();
 
 					assert pte_bl.getStatus() == BaseTableEntry.Status.KNOWN;
 
 					pte_bl.typeResolvePromise().then(gt -> {
 						// README when pte_bl has gets a type (GenType),
-						//   - it will only have resolved (OS_UserClassType
-						//     with ClassStatement).
-						//   - we then get the ci and node
-						//   - use the node (to an EvaClass) to look at varTableEntries
-						//   - pick the first one that matches variableStatement
-						//   - wait for it to get an OS_Type
-						//      * this actually never happens
+						// - it will only have resolved (OS_UserClassType
+						// with ClassStatement).
+						// - we then get the ci and node
+						// - use the node (to an EvaClass) to look at varTableEntries
+						// - pick the first one that matches variableStatement
+						// - wait for it to get an OS_Type
+						// * this actually never happens
 
 						assert (dt2 == ground.principal._deduceTypes2());
 						gt.genCIForGenType2(ground.principal._deduceTypes2()); // README any will do
@@ -179,8 +184,9 @@ public class DTR_VariableStatement {
 
 					final OS_Element re1 = pte_bl.getResolvedElement();
 
-					final LookupResultList     lrl = re1.getContext().lookup(variableStatement.getName());
-					@Nullable final OS_Element e2  = lrl.chooseBest(null);
+					final LookupResultList lrl = re1.getContext().lookup(variableStatement.getName());
+					@Nullable
+					final OS_Element e2 = lrl.chooseBest(null);
 
 					if (e2 == null) {
 						int y = 2;
@@ -189,7 +195,8 @@ public class DTR_VariableStatement {
 					}
 				}
 			} else {
-				tripleo.elijah.util.Stupidity.println_err("Unexpected value: " + state + "for " + variableStatement.getName());
+				tripleo.elijah.util.Stupidity
+						.println_err("Unexpected value: " + state + "for " + variableStatement.getName());
 			}
 		}
 		}

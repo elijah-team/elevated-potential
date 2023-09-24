@@ -17,12 +17,12 @@ import tripleo.elijah.lang.i.*;
  */
 public abstract class AbstractBlockScope implements Scope {
 
-	private final          OS_Container             _element;
+	private final OS_Container _element;
 	private final @NotNull AbstractStatementClosure asc;
 
 	public AbstractBlockScope(final OS_Container _element) {
 		this._element = _element;
-		this.asc      = new AbstractStatementClosure(this, getParent());
+		this.asc = new AbstractStatementClosure(this, getParent());
 	}
 
 	@Override

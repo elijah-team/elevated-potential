@@ -16,7 +16,6 @@ import java.io.*;
 import java.util.*;
 import java.util.regex.*;
 
-
 @SuppressWarnings("UnnecessaryLocalVariable")
 public class USE {
 	private static final FilenameFilter accept_source_files = (directory, file_name) -> {
@@ -31,7 +30,7 @@ public class USE {
 
 	@Contract(pure = true)
 	public USE(final @NotNull Compilation aCompilation) {
-		c       = aCompilation;
+		c = aCompilation;
 		errSink = c.getErrSink();
 	}
 
@@ -39,10 +38,8 @@ public class USE {
 		return new CY_FindPrelude(errSink, this).findPrelude(prelude_name);
 	}
 
-	private Operation2<OS_Module> parseElijjahFile(final @NotNull File f,
-												   final @NotNull String file_name,
-												   final boolean do_out,
-												   final @NotNull LibraryStatementPart lsp) {
+	private Operation2<OS_Module> parseElijjahFile(final @NotNull File f, final @NotNull String file_name,
+			final boolean do_out, final @NotNull LibraryStatementPart lsp) {
 		System.out.printf("   %s%n", f.getAbsolutePath());
 
 		if (!f.exists()) {
@@ -57,27 +54,27 @@ public class USE {
 			om = realParseElijjahFile(file_name, f, do_out);
 
 			switch (om.mode()) {
-				case SUCCESS -> {
-					final OS_Module mm = om.success();
+			case SUCCESS -> {
+				final OS_Module mm = om.success();
 
-					//assert mm.getLsp() == null;
-					//assert mm.prelude == null;
+				// assert mm.getLsp() == null;
+				// assert mm.prelude == null;
 
-					if (mm.getLsp() == null) {
-						// TODO we don't know which prelude to find yet
-						final Operation2<OS_Module> pl = findPrelude(Compilation.CompilationAlways.defaultPrelude());
+				if (mm.getLsp() == null) {
+					// TODO we don't know which prelude to find yet
+					final Operation2<OS_Module> pl = findPrelude(Compilation.CompilationAlways.defaultPrelude());
 
-						// NOTE Go. infectious. tedious. also slightly lazy
-						assert pl.mode() == Mode.SUCCESS;
+					// NOTE Go. infectious. tedious. also slightly lazy
+					assert pl.mode() == Mode.SUCCESS;
 
-						mm.setLsp(lsp);
-						mm.setPrelude(pl.success());
-					}
-					return Operation2.success(mm);
+					mm.setLsp(lsp);
+					mm.setPrelude(pl.success());
 				}
-				default -> {
-					return om;
-				}
+				return Operation2.success(mm);
+			}
+			default -> {
+				return om;
+			}
 			}
 		} catch (final Exception aE) {
 			return Operation2.failure(new ExceptionDiagnostic(aE));
@@ -105,7 +102,8 @@ public class USE {
 		return calm;
 	}
 
-	public Operation2<OS_Module> realParseElijjahFile(final String f, final @NotNull File file, final boolean do_out) throws Exception {
+	public Operation2<OS_Module> realParseElijjahFile(final String f, final @NotNull File file, final boolean do_out)
+			throws Exception {
 		try (final InputStream s = c.getIO().readFile(file)) {
 			final ElijahSpec spec = new ElijahSpec(f, file, s, do_out);
 			return Operation2.convert(realParseElijjahFile(spec));
@@ -115,15 +113,15 @@ public class USE {
 	public void use(final @NotNull CompilerInstructions compilerInstructions, final boolean do_out) throws Exception {
 		// TODO
 
-		if (compilerInstructions.getFilename() == null) return;
-
+		if (compilerInstructions.getFilename() == null)
+			return;
 
 		final File instruction_dir = new File(compilerInstructions.getFilename()).getParentFile();
 		for (final LibraryStatementPart lsp : compilerInstructions.getLibraryStatementParts()) {
 			final String dir_name = Helpers.remove_single_quotes_from_string(lsp.getDirName());
-			final File   dir;// = new File(dir_name);
+			final File dir;// = new File(dir_name);
 			if (dir_name.equals(".."))
-				dir = instruction_dir/*.getAbsoluteFile()*/.getParentFile();
+				dir = instruction_dir/* .getAbsoluteFile() */.getParentFile();
 			else
 				dir = new File(instruction_dir, dir_name);
 			use_internal(dir, do_out, lsp);
@@ -146,8 +144,8 @@ public class USE {
 			for (final File file : files) {
 //				final CompFactory.InputRequest inp = c.con().createInputRequest(file, do_out, lsp);
 
-				final String                file_name = file.toString();
-				final Operation2<OS_Module> om        = parseElijjahFile(file, file_name, do_out, lsp);
+				final String file_name = file.toString();
+				final Operation2<OS_Module> om = parseElijjahFile(file, file_name, do_out, lsp);
 
 				if (om.mode() == Mode.FAILURE) {
 					System.err.println("204 " + om.failure());

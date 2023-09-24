@@ -14,7 +14,6 @@ import tripleo.elijah.lang.i.*;
 
 import java.text.*;
 
-
 /**
  * Created 7/8/21 6:00 AM
  */
@@ -28,7 +27,8 @@ public class OS_GenericTypeNameType extends __Abstract_OS_Type {
 
 	@Override
 	protected boolean _isEqual(final @NotNull OS_Type aType) {
-		return aType.getType() == Type.GENERIC_TYPENAME && genericTypename.equals(((OS_GenericTypeNameType) aType).genericTypename);
+		return aType.getType() == Type.GENERIC_TYPENAME
+				&& genericTypename.equals(((OS_GenericTypeNameType) aType).genericTypename);
 	}
 
 	@Override
@@ -50,7 +50,6 @@ public class OS_GenericTypeNameType extends __Abstract_OS_Type {
 		return Type.GENERIC_TYPENAME;
 	}
 }
-
 
 //
 //

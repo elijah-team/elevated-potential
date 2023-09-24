@@ -24,7 +24,7 @@ public class DT_Resolvabley {
 			if (element == null && resolvable.deduceItem() instanceof FunctionInvocation fi) {
 				var fd = fi.getFunction();
 				rr.add("%s".formatted(fd.getNameNode().getText()));
-				//rr.add("%s()".formatted(fd.getNameNode().getText()));
+				// rr.add("%s()".formatted(fd.getNameNode().getText()));
 				continue;
 			}
 
@@ -38,7 +38,7 @@ public class DT_Resolvabley {
 			}
 			if (element instanceof FunctionDef fd) {
 				if (resolvable.deduceItem() == null) {
-					// when ~ is folders.forEach, this is null (fi not set yet) 
+					// when ~ is folders.forEach, this is null (fi not set yet)
 					rr.add("%s".formatted(fd.getNameNode().getText()));
 					continue;
 				}
@@ -77,9 +77,9 @@ public class DT_Resolvabley {
 
 		final String z = generatedFunction.getIdentIAPathNormal(identIA);
 
-		//assert r.equals(z);
+		// assert r.equals(z);
 		if (!r.equals(z)) {
-			//08/13
+			// 08/13
 			System.err.println("----- 67 Should be " + z);
 		}
 

@@ -10,7 +10,7 @@ public enum CompProgress {
 	Compilation__hasInstructions__empty {
 		@Override
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
-			String absolutePath = (String)x;
+			String absolutePath = (String) x;
 
 			err.println("No CIs found. Current dir is " + absolutePath);
 		}
@@ -27,7 +27,7 @@ public enum CompProgress {
 		@Override
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
 			InputRequest aInputRequest = (InputRequest) x;
-			File         f             = aInputRequest.file();
+			File f = aInputRequest.file();
 
 			out.printf("** [__parseElijjahFile_InputRequest] %s%n", f.getAbsolutePath());
 		}
@@ -35,7 +35,7 @@ public enum CompProgress {
 	__CCI_Acceptor__CompilerInputListener__change__logInput {
 		@Override
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
-			CompilerInput i = (CompilerInput)x;
+			CompilerInput i = (CompilerInput) x;
 			err.println("389389 " + i);
 		}
 	};

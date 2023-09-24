@@ -31,19 +31,24 @@ public class DeferredMember {
 			return new DeferredObject<GenType, Diagnostic, Void>();
 		}
 	}
-	private final     DeferredObject<GenType, Diagnostic, Void> typePromise = new DeferredObject<>();
 
-	private final     DeferredObject<EvaNode, Void, Void>       externalRef = new DeferredObject<>();
-	@Getter private final IInvocation                               invocation;
-	@Getter private final DeduceElementWrapper                      parent;
+	private final DeferredObject<GenType, Diagnostic, Void> typePromise = new DeferredObject<>();
 
-	@Getter private final VariableStatementImpl                     variableStatement;
+	private final DeferredObject<EvaNode, Void, Void> externalRef = new DeferredObject<>();
+	@Getter
+	private final IInvocation invocation;
+	@Getter
+	private final DeduceElementWrapper parent;
+
+	@Getter
+	private final VariableStatementImpl variableStatement;
 
 	private final DeferredMemberInjector __inj = new DeferredMemberInjector();
 
-	public DeferredMember(DeduceElementWrapper aParent, IInvocation aInvocation, VariableStatementImpl aVariableStatement) {
-		parent            = aParent;
-		invocation        = aInvocation;
+	public DeferredMember(DeduceElementWrapper aParent, IInvocation aInvocation,
+			VariableStatementImpl aVariableStatement) {
+		parent = aParent;
+		invocation = aInvocation;
 		variableStatement = aVariableStatement;
 	}
 
@@ -61,10 +66,7 @@ public class DeferredMember {
 
 	@Override
 	public @NotNull String toString() {
-		return "DeferredMember{" +
-				"parent=" + parent +
-				", variableName=" + variableStatement.getName() +
-				'}';
+		return "DeferredMember{" + "parent=" + parent + ", variableName=" + variableStatement.getName() + '}';
 	}
 
 	public @NotNull Promise<GenType, Diagnostic, Void> typePromise() {

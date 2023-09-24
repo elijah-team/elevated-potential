@@ -26,12 +26,13 @@ import java.util.function.*;
  */
 public class DeduceTypeResolve {
 	public class _StatusListener__BTE_203 implements BaseTableEntry.StatusListener {
-		private void _203_backlink_is_PTE(final @NotNull GenType result, final ProcTableEntry procTableEntry, final @NotNull IElementHolder eh) {
+		private void _203_backlink_is_PTE(final @NotNull GenType result, final ProcTableEntry procTableEntry,
+				final @NotNull IElementHolder eh) {
 			// README
-			//   1. Resolve type of pte (above) to a class
-			//   2. Convert bte to ite
-			//   3. Get DeduceElement3
-			//   4. Pass it off
+			// 1. Resolve type of pte (above) to a class
+			// 2. Convert bte to ite
+			// 3. Get DeduceElement3
+			// 4. Pass it off
 
 			// README classStatement [T310-231]
 			final ClassStatement classStatement = result.getResolved().getClassOf();
@@ -42,17 +43,20 @@ public class DeduceTypeResolve {
 				final DeduceElement3_IdentTableEntry de3_ite = identTableEntry_bte.getDeduceElement3();
 
 				// Just testing
-				final DeduceElement3_IdentTableEntry de3_ite2 = identTableEntry_bte._deduceTypes2()._zero_getIdent(identTableEntry_bte, identTableEntry_bte.__gf, identTableEntry_bte._deduceTypes2());
+				final DeduceElement3_IdentTableEntry de3_ite2 = identTableEntry_bte._deduceTypes2()._zero_getIdent(
+						identTableEntry_bte, identTableEntry_bte.__gf, identTableEntry_bte._deduceTypes2());
 				assert de3_ite2.principal == de3_ite.principal;
 
 				// Also testing, but not essential.
-				//assert identTableEntry_bte.getCallablePTE() != null && procTableEntry == identTableEntry_bte.getCallablePTE();
+				// assert identTableEntry_bte.getCallablePTE() != null && procTableEntry ==
+				// identTableEntry_bte.getCallablePTE();
 
 				de3_ite.backlinkPte(classStatement, procTableEntry, eh);
 			}
 		}
 
-		private void _203_backlink_is_VTE(final @NotNull GenType aGenType, final IElementHolder eh, final @NotNull VariableTableEntry variableTableEntry) {
+		private void _203_backlink_is_VTE(final @NotNull GenType aGenType, final IElementHolder eh,
+				final @NotNull VariableTableEntry variableTableEntry) {
 			if (eh instanceof final Resolve_Ident_IA.@NotNull GenericElementHolderWithDC eh1) {
 				final DeduceTypes2.DeduceClient3 dc = eh1.getDC();
 				dc.genCIForGenType2(aGenType);
@@ -66,9 +70,11 @@ public class DeduceTypeResolve {
 			variableTableEntry.getType().setAttached(aGenType);
 		}
 
-		private void _203_backlink_isIDTE(final @NotNull GenType result, final @NotNull IdentTableEntry identTableEntry) {
+		private void _203_backlink_isIDTE(final @NotNull GenType result,
+				final @NotNull IdentTableEntry identTableEntry) {
 			if (identTableEntry.type == null) {
-				identTableEntry.type = _inj().new_TypeTableEntry(999, TypeTableEntry.Type.TRANSIENT, result.getTypeName(), identTableEntry.getIdent(), null); // FIXME 999
+				identTableEntry.type = _inj().new_TypeTableEntry(999, TypeTableEntry.Type.TRANSIENT,
+						result.getTypeName(), identTableEntry.getIdent(), null); // FIXME 999
 			}
 
 			identTableEntry.type.setAttached(result);
@@ -76,19 +82,23 @@ public class DeduceTypeResolve {
 
 		@Override
 		public void onChange(final @NotNull IElementHolder eh, final BaseTableEntry.Status newStatus) {
-			if (newStatus != BaseTableEntry.Status.KNOWN) return;
+			if (newStatus != BaseTableEntry.Status.KNOWN)
+				return;
 
 			if (backlink instanceof final @NotNull IdentTableEntry identTableEntry) {
 				identTableEntry.typeResolvePromise().done(result -> _203_backlink_isIDTE(result, identTableEntry));
 			} else if (backlink instanceof final @NotNull VariableTableEntry variableTableEntry) {
-				variableTableEntry.typeResolvePromise().done(result -> _203_backlink_is_VTE(result, eh, variableTableEntry));
+				variableTableEntry.typeResolvePromise()
+						.done(result -> _203_backlink_is_VTE(result, eh, variableTableEntry));
 			} else if (backlink instanceof final ProcTableEntry procTableEntry) {
 				procTableEntry.typeResolvePromise().done(result -> _203_backlink_is_PTE(result, procTableEntry, eh));
 			}
 		}
 	}
+
 	class _StatusListener__BTE_86 implements BaseTableEntry.StatusListener {
-		@NotNull GenType genType = _inj().new_GenTypeImpl();
+		@NotNull
+		GenType genType = _inj().new_GenTypeImpl();
 
 		public void logProgress(int ignoredCode, String message) {
 			tripleo.elijah.util.Stupidity.println_err_2(message);
@@ -96,7 +106,8 @@ public class DeduceTypeResolve {
 
 		@Override
 		public void onChange(final @NotNull IElementHolder eh, final BaseTableEntry.Status newStatus) {
-			if (newStatus != BaseTableEntry.Status.KNOWN) return;
+			if (newStatus != BaseTableEntry.Status.KNOWN)
+				return;
 
 			eh.getElement().visitGen(new AbstractCodeGen() {
 				@Override
@@ -117,7 +128,8 @@ public class DeduceTypeResolve {
 
 				@Override
 				public void visitAliasStatement(final @NotNull AliasStatementImpl aAliasStatement) {
-					logProgress(127, String.format("** AliasStatementImpl %s points to %s", aAliasStatement.name(), aAliasStatement.getExpression()));
+					logProgress(127, String.format("** AliasStatementImpl %s points to %s", aAliasStatement.name(),
+							aAliasStatement.getExpression()));
 				}
 
 				@Override
@@ -127,7 +139,8 @@ public class DeduceTypeResolve {
 
 				@Override
 				public void visitDefFunction(final @NotNull DefFunctionDef aDefFunctionDef) {
-					logProgress(138, String.format("** DefFunctionDef %s is %s", aDefFunctionDef.name(), ((StatementWrapper) aDefFunctionDef.getItems().iterator().next()).getExpr()));
+					logProgress(138, String.format("** DefFunctionDef %s is %s", aDefFunctionDef.name(),
+							((StatementWrapper) aDefFunctionDef.getItems().iterator().next()).getExpr()));
 				}
 
 				@Override
@@ -146,12 +159,11 @@ public class DeduceTypeResolve {
 					if (attached != null)
 						logProgress(155,
 
-									String.format("** FormalArgListItem %s attached is not null. Type is %s. Points to %s",
-												  aFormalArgListItem.name(), aFormalArgListItem.typeName(), attached));
+								String.format("** FormalArgListItem %s attached is not null. Type is %s. Points to %s",
+										aFormalArgListItem.name(), aFormalArgListItem.typeName(), attached));
 					else
-						logProgress(159,
-									String.format("** FormalArgListItem %s attached is null. Type is %s.",
-												  aFormalArgListItem.name(), aFormalArgListItem.typeName()));
+						logProgress(159, String.format("** FormalArgListItem %s attached is null. Type is %s.",
+								aFormalArgListItem.name(), aFormalArgListItem.typeName()));
 				}
 
 				@Override
@@ -179,7 +191,8 @@ public class DeduceTypeResolve {
 
 				@Override
 				public void visitVariableStatement(final VariableStatementImpl variableStatement) {
-					final DTR_VariableStatement dtr_v = _inj().new_DTR_VariableStatement(DeduceTypeResolve.this, variableStatement);
+					final DTR_VariableStatement dtr_v = _inj().new_DTR_VariableStatement(DeduceTypeResolve.this,
+							variableStatement);
 
 					if (bte instanceof IdentTableEntry ite1) {
 						ite1._cheat_variableStatement = variableStatement;
@@ -197,16 +210,18 @@ public class DeduceTypeResolve {
 			}
 		}
 	}
-	private final BaseTableEntry                               bte;
-	@Nullable     BaseTableEntry                               backlink;
+
+	private final BaseTableEntry bte;
+	@Nullable
+	BaseTableEntry backlink;
 
 	private final DeferredObject2<GenType, ResolveError, Void> typeResolution = new DeferredObject2<>();
 
-	//private final DeduceTypes2                                 _dt2;
-	private final Supplier<DeduceTypes2>                       _dt2s;
+	// private final DeduceTypes2 _dt2;
+	private final Supplier<DeduceTypes2> _dt2s;
 
 	public DeduceTypeResolve(BaseTableEntry aBte, final Supplier<DeduceTypes2> aDt2) {
-		bte   = aBte;
+		bte = aBte;
 		_dt2s = aDt2;
 
 		if (bte instanceof IdentTableEntry) {
@@ -247,7 +262,8 @@ public class DeduceTypeResolve {
 
 		if (bte instanceof ProcTableEntry bte_pte) {
 			typeResolution().then(x -> {
-				if (!typeResolution().isResolved()) bte_pte.typeDeferred().resolve(x);
+				if (!typeResolution().isResolved())
+					bte_pte.typeDeferred().resolve(x);
 			});
 			typeResolution().fail(x -> bte_pte.typeDeferred().reject(x));
 		}

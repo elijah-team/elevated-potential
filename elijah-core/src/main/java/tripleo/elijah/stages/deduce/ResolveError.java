@@ -20,20 +20,20 @@ import java.util.stream.*;
  * Created 12/26/20 5:08 AM
  */
 public class ResolveError extends Exception implements Diagnostic {
-	private final @org.jetbrains.annotations.Nullable IdentExpression  ident;
-	private final                                     LookupResultList lrl;
-	private final @org.jetbrains.annotations.Nullable TypeName         typeName;
+	private final @org.jetbrains.annotations.Nullable IdentExpression ident;
+	private final LookupResultList lrl;
+	private final @org.jetbrains.annotations.Nullable TypeName typeName;
 
 	public ResolveError(IdentExpression aIdent, LookupResultList aLrl) {
-		ident    = aIdent;
-		lrl      = aLrl;
+		ident = aIdent;
+		lrl = aLrl;
 		typeName = null;
 	}
 
 	public ResolveError(TypeName typeName, LookupResultList lrl) {
 		this.typeName = typeName;
-		this.lrl      = lrl;
-		this.ident    = null;
+		this.lrl = lrl;
+		this.ident = null;
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class ResolveError extends Exception implements Diagnostic {
 		stream.printf("---[%s]---: %s%n", code(), message());
 		// linecache.print(primary);
 		for (Locatable sec : secondary()) {
-			//linecache.print(sec)
+			// linecache.print(sec)
 		}
 		stream.flush();
 	}
@@ -73,9 +73,7 @@ public class ResolveError extends Exception implements Diagnostic {
 
 	@Override
 	public @NotNull List<Locatable> secondary() {
-		return resultsList().stream()
-				.map(e -> (Locatable) e.getElement())
-				.collect(Collectors.toList());
+		return resultsList().stream().map(e -> (Locatable) e.getElement()).collect(Collectors.toList());
 	}
 
 	@Override

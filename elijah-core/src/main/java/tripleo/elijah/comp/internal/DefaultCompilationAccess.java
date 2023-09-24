@@ -11,7 +11,7 @@ import java.util.*;
 
 public class DefaultCompilationAccess implements ICompilationAccess {
 	protected final Compilation compilation;
-	private final   Pipeline    pipelines = new Pipeline();
+	private final Pipeline pipelines = new Pipeline();
 
 	@Contract(pure = true)
 	public DefaultCompilationAccess(final Compilation aCompilation) {
@@ -62,9 +62,9 @@ public class DefaultCompilationAccess implements ICompilationAccess {
 
 	@Override
 	public void writeLogs() {
-		final CompilationEnclosure ce            = compilation.getCompilationEnclosure();
-		final PipelineLogic        pipelineLogic = ce.getPipelineLogic();
-		final IPipelineAccess      pa            = compilation.pa();
+		final CompilationEnclosure ce = compilation.getCompilationEnclosure();
+		final PipelineLogic pipelineLogic = ce.getPipelineLogic();
+		final IPipelineAccess pa = compilation.pa();
 
 		pa.notate(Provenance.DefaultCompilationAccess__writeLogs, new GN_WriteLogs(this, pipelineLogic.getLogs()));
 	}

@@ -13,8 +13,8 @@ import tripleo.elijah.world.i.LivingNamespace;
 //import static com.ibm.j9ddr.StructureHeader.BlobID.node;
 
 public class DefaultLivingNamespace implements LivingNamespace {
-	private final EvaNamespace    node;
-	private       GarishNamespace _garish;
+	private final EvaNamespace node;
+	private GarishNamespace _garish;
 	private int _code;
 
 	@Contract(pure = true)
@@ -50,7 +50,8 @@ public class DefaultLivingNamespace implements LivingNamespace {
 		return _garish;
 	}
 
-	@Override public void setCode(final int aCode) {
+	@Override
+	public void setCode(final int aCode) {
 		_code = aCode;
 	}
 }

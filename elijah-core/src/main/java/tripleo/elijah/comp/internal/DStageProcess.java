@@ -9,7 +9,7 @@ import tripleo.elijah.comp.i.RuntimeProcess;
 
 public class DStageProcess implements RuntimeProcess {
 	private final ICompilationAccess ca;
-	private final ProcessRecord      pr;
+	private final ProcessRecord pr;
 
 	@Contract(pure = true)
 	public DStageProcess(final ICompilationAccess aCa, final ProcessRecord aPr) {

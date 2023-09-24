@@ -43,20 +43,21 @@ public class FT_FnCallArgs implements ITastic {
 
 			}
 		}
-		final                  DeduceTypes2.DeduceClient4 dc;
-		final                  ErrSink                    errSink;
-		final @NotNull         BaseEvaFunction            generatedFunction;
-		final @NotNull         ElLog                      LOG;
 
-		private final @NotNull OS_Module                  module;
+		final DeduceTypes2.DeduceClient4 dc;
+		final ErrSink errSink;
+		final @NotNull BaseEvaFunction generatedFunction;
+		final @NotNull ElLog LOG;
+
+		private final @NotNull OS_Module module;
 
 		public DoAssignCall(final DeduceTypes2.DeduceClient4 aDeduceClient4,
-							final @NotNull BaseEvaFunction aGeneratedFunction) {
-			dc                = aDeduceClient4;
+				final @NotNull BaseEvaFunction aGeneratedFunction) {
+			dc = aDeduceClient4;
 			generatedFunction = aGeneratedFunction;
 			//
-			module  = dc.getModule();
-			LOG     = dc.getLOG();
+			module = dc.getModule();
+			LOG = dc.getLOG();
 			errSink = dc.getErrSink();
 		}
 
@@ -68,19 +69,19 @@ public class FT_FnCallArgs implements ITastic {
 	final @NotNull ElLog LOG;
 	final @NotNull DeduceTypes2 deduceTypes2;
 
-	private final  FnCallArgs   fca;
+	private final FnCallArgs fca;
 
 	@Contract(pure = true)
 	public FT_FnCallArgs(final @NotNull DeduceTypes2 aDeduceTypes2, final FnCallArgs aO) {
 		deduceTypes2 = aDeduceTypes2;
-		fca          = aO;
+		fca = aO;
 		//
 		LOG = aDeduceTypes2.LOG;
 	}
 
 	@Override
 	public void do_assign_call(final @NotNull BaseEvaFunction generatedFunction, final @NotNull Context ctx,
-							   final @NotNull IdentTableEntry idte, final int instructionIndex) {
+			final @NotNull IdentTableEntry idte, final int instructionIndex) {
 		final @NotNull ProcTableEntry pte = generatedFunction.getProcTableEntry(to_int(fca.getArg(0)));
 		for (final @NotNull TypeTableEntry tte : pte.getArgs()) {
 			LOG.info("771 " + tte);
@@ -92,7 +93,7 @@ public class FT_FnCallArgs implements ITastic {
 				tte.setAttached(deduceTypes2._inj().new_OS_BuiltinType(BuiltInTypes.SystemInteger));
 				idte.type = tte; // TODO why not addPotentialType ? see below for example
 			}
-			break;
+				break;
 			case IDENT: {
 				final @Nullable InstructionArgument vte_ia = generatedFunction
 						.vte_lookup(((IdentExpression) e).getText());
@@ -104,15 +105,15 @@ public class FT_FnCallArgs implements ITastic {
 				} else
 					throw new NotImplementedException();
 			}
-			break;
+				break;
 			default: {
 				throw new NotImplementedException();
 			}
 			}
 		}
 		{
-			final String               s    = ((IdentExpression) pte.__debug_expression).getText();
-			final LookupResultList     lrl  = ctx.lookup(s);
+			final String s = ((IdentExpression) pte.__debug_expression).getText();
+			final LookupResultList lrl = ctx.lookup(s);
 			final @Nullable OS_Element best = lrl.chooseBest(null);
 			if (best != null) {
 				pte.setResolvedElement(best);
@@ -124,16 +125,17 @@ public class FT_FnCallArgs implements ITastic {
 						int y = 2;
 					} else if (best instanceof FunctionDef || best instanceof DefFunctionDef) {
 						final OS_Element parent = best.getParent();
-						IInvocation      invocation;
+						IInvocation invocation;
 						if (parent instanceof final @NotNull NamespaceStatement nsp) {
 							invocation = deduceTypes2._inj().new_NamespaceInvocation(nsp);
 						} else if (parent instanceof final @NotNull ClassStatement csp) {
-							invocation = deduceTypes2._inj().new_ClassInvocation(csp, null, new ReadySupplier_1<>(deduceTypes2));
+							invocation = deduceTypes2._inj().new_ClassInvocation(csp, null,
+									new ReadySupplier_1<>(deduceTypes2));
 						} else
 							throw new NotImplementedException();
 
-						FunctionInvocation fi = deduceTypes2.newFunctionInvocation((FunctionDef) best, pte,
-																				   invocation, deduceTypes2.phase);
+						FunctionInvocation fi = deduceTypes2.newFunctionInvocation((FunctionDef) best, pte, invocation,
+								deduceTypes2.phase);
 						generatedFunction.addDependentFunction(fi);
 					} else if (best instanceof ClassStatement) {
 						GenType genType = GenTypeImpl.genCIFrom((ClassStatement) best, deduceTypes2);
@@ -147,12 +149,12 @@ public class FT_FnCallArgs implements ITastic {
 
 	@Override
 	public void do_assign_call(final @NotNull BaseEvaFunction generatedFunction, final @NotNull Context ctx,
-							   final @NotNull VariableTableEntry vte, final @NotNull Instruction instruction, final OS_Element aName) {
+			final @NotNull VariableTableEntry vte, final @NotNull Instruction instruction, final OS_Element aName) {
 		// NOTE Interesting non static syntax
-		final DeduceTypes2.DeduceClient4 client4          = deduceTypes2._inj().new_DeduceClient4(deduceTypes2);
-		final DoAssignCall               dac              = deduceTypes2._inj().new_DoAssignCall(client4, generatedFunction, this);
-		final int                        instructionIndex = instruction.getIndex();
-		final @NotNull ProcTableEntry    pte              = ((ProcIA) fca.getArg(0)).getEntry();
+		final DeduceTypes2.DeduceClient4 client4 = deduceTypes2._inj().new_DeduceClient4(deduceTypes2);
+		final DoAssignCall dac = deduceTypes2._inj().new_DoAssignCall(client4, generatedFunction, this);
+		final int instructionIndex = instruction.getIndex();
+		final @NotNull ProcTableEntry pte = ((ProcIA) fca.getArg(0)).getEntry();
 
 		if (aName instanceof IdentExpression ie) {
 			ie.getName().addUnderstanding(deduceTypes2._inj().new_ENU_FunctionCallTarget(pte));
@@ -163,7 +165,8 @@ public class FT_FnCallArgs implements ITastic {
 			pte.typeDeferred().then(gt -> {
 				final TypeName nonGenericTypeName = gt.getNonGenericTypeName();
 
-				if (null == nonGenericTypeName) return;
+				if (null == nonGenericTypeName)
+					return;
 
 				var drType = generatedFunction.buildDrTypeFromNonGenericTypeName(nonGenericTypeName);
 
@@ -186,14 +189,17 @@ public class FT_FnCallArgs implements ITastic {
 		}
 
 		var exp = pte.expression;
-		var en  = exp.getEntry();
+		var en = exp.getEntry();
 
 		if (pte.expression_num instanceof @NotNull final IdentIA identIA) {
 
-			//08/13 System.err.println("--------------------- 158 "+(generatedFunction._getIdentIAResolvable(identIA).getNormalPath(generatedFunction, identIA)));
+			// 08/13 System.err.println("--------------------- 158
+			// "+(generatedFunction._getIdentIAResolvable(identIA).getNormalPath(generatedFunction,
+			// identIA)));
 
-			final FT_FCA_IdentIA             fca_ident = deduceTypes2._inj().new_FT_FCA_IdentIA(FT_FnCallArgs.this, identIA, vte);
-			final FT_FCA_IdentIA.Resolve_VTE rvte      = deduceTypes2._inj().new_FT_FCA_IdentIA_Resolve_VTE(vte, ctx, pte, instruction, fca);
+			final FT_FCA_IdentIA fca_ident = deduceTypes2._inj().new_FT_FCA_IdentIA(FT_FnCallArgs.this, identIA, vte);
+			final FT_FCA_IdentIA.Resolve_VTE rvte = deduceTypes2._inj().new_FT_FCA_IdentIA_Resolve_VTE(vte, ctx, pte,
+					instruction, fca);
 
 			try {
 				fca_ident.resolve_vte(dac, rvte);

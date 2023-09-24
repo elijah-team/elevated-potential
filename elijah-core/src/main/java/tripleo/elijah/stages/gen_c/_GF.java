@@ -24,17 +24,18 @@ public enum _GF {
 		EG_Statement statementForExpressionNum(InstructionArgument expreesion_num);
 	}
 
-	private static @NotNull EG_Statement forDeduceElement3_ProcTableEntry(@NotNull final DeduceElement3_ProcTableEntry de_pte, final @NotNull GenerateC gc) {
+	private static @NotNull EG_Statement forDeduceElement3_ProcTableEntry(
+			@NotNull final DeduceElement3_ProcTableEntry de_pte, final @NotNull GenerateC gc) {
 		final EG_SingleStatement beginning;
 		final EG_SingleStatement ending;
-		final EG_Statement       middle;
-		final boolean            indent = false;
-		final EX_Explanation     explanation;
+		final EG_Statement middle;
+		final boolean indent = false;
+		final EX_Explanation explanation;
 
 		final ProcTableEntry pte = de_pte.getTablePrincipal();
 
-		final BaseEvaFunction gf          = de_pte.getGeneratedFunction();
-		final Instruction     instruction = de_pte.getInstruction();
+		final BaseEvaFunction gf = de_pte.getGeneratedFunction();
+		final Instruction instruction = de_pte.getInstruction();
 
 		final EG_Statement sb = __Pte_Dispatch.dispatch(pte, new __Pte_Dispatch() {
 			// README funny thing is, this is a class vv
@@ -49,10 +50,11 @@ public enum _GF {
 			}
 		});
 
-		beginning   = new EG_SingleStatement("", EX_Explanation.withMessage("forDeduceElement3_ProcTableEntry >> beginning"));
-		ending      = new EG_SingleStatement("", EX_Explanation.withMessage("forDeduceElement3_ProcTableEntry >> ending"));
+		beginning = new EG_SingleStatement("",
+				EX_Explanation.withMessage("forDeduceElement3_ProcTableEntry >> beginning"));
+		ending = new EG_SingleStatement("", EX_Explanation.withMessage("forDeduceElement3_ProcTableEntry >> ending"));
 		explanation = new EX_ProcTableEntryExplanation(de_pte);
-		middle      = sb;
+		middle = sb;
 
 		final EG_CompoundStatement stmt = new EG_CompoundStatement(beginning, ending, middle, indent, explanation);
 		return stmt;

@@ -29,26 +29,24 @@ import java.util.Map;
  * Created 5/16/21 12:35 AM
  */
 public class GeneratePhase implements ReactiveDimension, CompilationEnclosure.ModuleListener {
-	private @NotNull
-	final PipelineLogic   pipelineLogic;
-	private @NotNull
-	final IPipelineAccess pa;
+	private @NotNull final PipelineLogic pipelineLogic;
+	private @NotNull final IPipelineAccess pa;
 
 	@Getter
-	private final @NotNull ElLog.Verbosity                   verbosity;
+	private final @NotNull ElLog.Verbosity verbosity;
 	@Getter
-	private final @NotNull WorkManager                       wm                = new WorkManager();
+	private final @NotNull WorkManager wm = new WorkManager();
 	private final @NotNull Map<OS_Module, GenerateFunctions> generateFunctions = new HashMap<OS_Module, GenerateFunctions>();
 	@Getter
-	private @Nullable      ICodeRegistrar                    codeRegistrar;
+	private @Nullable ICodeRegistrar codeRegistrar;
 
 	public GeneratePhase(ElLog.Verbosity aVerbosity, final @NotNull IPipelineAccess aPa, PipelineLogic aPipelineLogic) {
-		verbosity     = aVerbosity;
+		verbosity = aVerbosity;
 		pipelineLogic = aPipelineLogic;
 		pa = aPa;
 
 		pa.getCompilationEnclosure().addReactiveDimension(this);
-		//pa.getCompilationEnclosure().addModuleListener(this);
+		// pa.getCompilationEnclosure().addModuleListener(this);
 	}
 
 	@Override

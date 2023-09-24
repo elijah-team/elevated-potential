@@ -23,10 +23,10 @@ import java.util.*;
  */
 public class CompilerInstructionsImpl implements CompilerInstructions {
 	public @NotNull List<LibraryStatementPart> lsps = new ArrayList<LibraryStatementPart>();
-	private         CiIndexingStatement        _idx;
-	private         String                     filename;
-	private         GenerateStatement          gen;
-	private         String                     name;
+	private CiIndexingStatement _idx;
+	private String filename;
+	private GenerateStatement gen;
+	private String name;
 
 	@Override
 	public void add(final GenerateStatement generateStatement) {
@@ -43,18 +43,20 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	@Override
 	@Nullable
 	public String genLang() {
-		Collection<GenerateStatementImpl.Directive> gens = Collections2.filter(((GenerateStatementImpl) gen).dirs, new Predicate<GenerateStatementImpl.Directive>() {
-			@Override
-			public boolean apply(GenerateStatementImpl.@Nullable Directive input) {
-				assert input != null;
-				if (input.getName().equals("gen")) {
-					return true;
-				}
-				return false;
-			}
-		});
+		Collection<GenerateStatementImpl.Directive> gens = Collections2.filter(((GenerateStatementImpl) gen).dirs,
+				new Predicate<GenerateStatementImpl.Directive>() {
+					@Override
+					public boolean apply(GenerateStatementImpl.@Nullable Directive input) {
+						assert input != null;
+						if (input.getName().equals("gen")) {
+							return true;
+						}
+						return false;
+					}
+				});
 		Iterator<GenerateStatementImpl.Directive> gi = gens.iterator();
-		if (!gi.hasNext()) return null;
+		if (!gi.hasNext())
+			return null;
 		IExpression lang_raw = gi.next().getExpression();
 		assert lang_raw instanceof StringExpression;
 		return Helpers.remove_single_quotes_from_string(((StringExpression) lang_raw).getText());
@@ -66,9 +68,9 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	}
 
 	@Override
-    public Iterable<? extends LibraryStatementPart> getLibraryStatementParts() {
-        return lsps;
-    }
+	public Iterable<? extends LibraryStatementPart> getLibraryStatementParts() {
+		return lsps;
+	}
 
 	@Override
 	public String getName() {
@@ -98,17 +100,14 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 		this.name = name;
 	}
 
-    @Override
+	@Override
 	public void setName(@NotNull Token name) {
 		this.name = name.getText();
 	}
 
-    @Override
+	@Override
 	public String toString() {
-		return "CompilerInstructionsImpl{" +
-				"name='" + name + '\'' +
-				", filename='" + filename + '\'' +
-				'}';
+		return "CompilerInstructionsImpl{" + "name='" + name + '\'' + ", filename='" + filename + '\'' + '}';
 	}
 }
 

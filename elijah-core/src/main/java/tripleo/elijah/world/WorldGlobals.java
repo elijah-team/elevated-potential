@@ -14,8 +14,8 @@ public enum WorldGlobals {
 	public final static IdentExpression emptyConstructorName = Helpers.string_to_ident("<>");
 
 	// TODO override name() ??
-	public final static  ConstructorDef defaultVirtualCtor = new ConstructorDefImpl(null, null, null);
-	private static final OS_Package     _dp                = new OS_PackageImpl(null, 0);
+	public final static ConstructorDef defaultVirtualCtor = new ConstructorDefImpl(null, null, null);
+	private static final OS_Package _dp = new OS_PackageImpl(null, 0);
 
 	public static @NotNull OS_Package defaultPackage() {
 		return _dp;

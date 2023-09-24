@@ -17,21 +17,23 @@ import static tripleo.elijah.util.Helpers.*;
 public class WriteOutputTreePipeline implements PipelineMember {
 	private static void addLogs(final @NotNull List<EOT_OutputFile> l, final @NotNull IPipelineAccess aPa) {
 		final List<ElLog> logs = aPa.getCompilationEnclosure().getPipelineLogic().getLogs();
-		final String      s1   = logs.get(0).getFileName();
+		final String s1 = logs.get(0).getFileName();
 
 		for (final ElLog log : logs) {
 			final List<EG_Statement> stmts = new ArrayList<>();
 
-			if (log.getEntries().size() == 0) continue; // README Prelude.elijjah "fails" here
+			if (log.getEntries().size() == 0)
+				continue; // README Prelude.elijjah "fails" here
 
 			for (final LogEntry entry : log.getEntries()) {
-				final String logentry = String.format("[%s] [%tD %tT] %s %s", s1, entry.time, entry.time, entry.level, entry.message);
+				final String logentry = String.format("[%s] [%tD %tT] %s %s", s1, entry.time, entry.time, entry.level,
+						entry.message);
 				stmts.add(new EG_SingleStatement(logentry + "\n"));
 			}
 
-			final EG_SequenceStatement seq      = new EG_SequenceStatement(new EG_Naming("wot.log.seq"), stmts);
-			final String               fileName = log.getFileName().replace("/", "~~");
-			final EOT_OutputFile       off      = new EOT_OutputFile(List_of(), fileName, EOT_OutputType.LOGS, seq);
+			final EG_SequenceStatement seq = new EG_SequenceStatement(new EG_Naming("wot.log.seq"), stmts);
+			final String fileName = log.getFileName().replace("/", "~~");
+			final EOT_OutputFile off = new EOT_OutputFile(List_of(), fileName, EOT_OutputType.LOGS, seq);
 			l.add(off);
 		}
 	}
@@ -44,9 +46,9 @@ public class WriteOutputTreePipeline implements PipelineMember {
 
 	@Override
 	public void run(final @NotNull CR_State st, final CB_Output aOutput) throws Exception {
-		final Compilation          compilation = st.ca().getCompilation();
-		final EOT_OutputTree       ot          = compilation.getOutputTree();
-		final List<EOT_OutputFile> l           = ot.getList();
+		final Compilation compilation = st.ca().getCompilation();
+		final EOT_OutputTree ot = compilation.getOutputTree();
+		final List<EOT_OutputFile> l = ot.getList();
 
 		//
 		//
@@ -70,8 +72,8 @@ public class WriteOutputTreePipeline implements PipelineMember {
 		CP_Path r = paths.outputRoot();
 
 		for (final EOT_OutputFile outputFile : l) {
-			final String       path0 = outputFile.getFilename();
-			final EG_Statement seq   = outputFile.getStatementSequence();
+			final String path0 = outputFile.getFilename();
+			final EG_Statement seq = outputFile.getStatementSequence();
 
 			CP_Path pp;
 
@@ -85,7 +87,7 @@ public class WriteOutputTreePipeline implements PipelineMember {
 			default -> throw new IllegalStateException("Unexpected value: " + outputFile.getType());
 			}
 
-			//System.err.println("106 " + pp);
+			// System.err.println("106 " + pp);
 
 			paths.addNode(CP_RootType.OUTPUT, ER_Node.of(pp, seq));
 		}

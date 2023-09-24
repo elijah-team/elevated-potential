@@ -17,21 +17,23 @@ public class AccessBus {
 	public interface AB_GenerateResultListener {
 		void gr_slot(GenerateResult gr);
 	}
+
 	public interface AB_LgcListener {
 		void lgc_slot(List<EvaNode> lgc);
 	}
-	public final  Old_GenerateResult                             gr                    = new Old_GenerateResult();
-	private final Compilation                                    _c;
-	private final IPipelineAccess                                _pa;
-	private final stepA_mal.@NotNull MalEnv2                     env;
+
+	public final Old_GenerateResult gr = new Old_GenerateResult();
+	private final Compilation _c;
+	private final IPipelineAccess _pa;
+	private final stepA_mal.@NotNull MalEnv2 env;
 	private final DeferredObject<GenerateResult, Void, Void> generateResultPromise = new DeferredObject<>();
 
-	private final DeferredObject<List<EvaNode>, Void, Void>      lgcPromise            = new DeferredObject<>();
+	private final DeferredObject<List<EvaNode>, Void, Void> lgcPromise = new DeferredObject<>();
 
-	private final Map<String, CR_State.PipelinePlugin>           pipelinePlugins       = new HashMap<>();
+	private final Map<String, CR_State.PipelinePlugin> pipelinePlugins = new HashMap<>();
 
 	public AccessBus(final Compilation aC, final IPipelineAccess aPa) {
-		_c  = aC;
+		_c = aC;
 		_pa = aPa;
 
 		env = new stepA_mal.MalEnv2(null); // TODO what does null mean?
@@ -59,7 +61,8 @@ public class AccessBus {
 	}
 
 	public @Nullable PipelinePlugin getPipelinePlugin(final String aPipelineName) {
-		if (!(pipelinePlugins.containsKey(aPipelineName))) return null;
+		if (!(pipelinePlugins.containsKey(aPipelineName)))
+			return null;
 
 		return pipelinePlugins.get(aPipelineName);
 	}

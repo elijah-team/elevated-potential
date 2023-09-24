@@ -13,10 +13,9 @@ public class core {
 	public static ImmutableMap<String, MalVal> ns;
 
 	// Local references for convenience
-	static MalConstant Nil   = types.Nil;
-	static MalConstant True  = types.True;
+	static MalConstant Nil = types.Nil;
+	static MalConstant True = types.True;
 	static MalConstant False = types.False;
-
 
 	// Errors/Exceptions
 	static @NotNull MalFunction mal_throw = new MalFunction() {
@@ -25,7 +24,6 @@ public class core {
 		}
 	};
 
-
 	// Scalar functions
 	static @NotNull MalFunction nil_Q = new MalFunction() {
 		public MalVal apply(final @NotNull MalList args) throws MalThrowable {
@@ -33,14 +31,13 @@ public class core {
 		}
 	};
 
-
 	static @NotNull MalFunction true_Q = new MalFunction() {
 		public MalVal apply(final @NotNull MalList args) throws MalThrowable {
 			return args.nth(0) == True ? True : False;
 		}
 	};
 
-	static @NotNull MalFunction false_Q  = new MalFunction() {
+	static @NotNull MalFunction false_Q = new MalFunction() {
 		public MalVal apply(final @NotNull MalList args) throws MalThrowable {
 			return args.nth(0) == False ? True : False;
 		}
@@ -63,24 +60,22 @@ public class core {
 		}
 	};
 
-	static @NotNull MalFunction symbol    = new MalFunction() {
+	static @NotNull MalFunction symbol = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList args) throws MalThrowable {
 			return new MalSymbol((MalString) args.nth(0));
 		}
 	};
-	static @NotNull MalFunction symbol_Q  = new MalFunction() {
+	static @NotNull MalFunction symbol_Q = new MalFunction() {
 		public MalVal apply(final @NotNull MalList args) throws MalThrowable {
 			return args.nth(0) instanceof MalSymbol ? True : False;
 		}
 	};
-	static @NotNull MalFunction keyword   = new MalFunction() {
+	static @NotNull MalFunction keyword = new MalFunction() {
 		public MalVal apply(final @NotNull MalList args) throws MalThrowable {
-			if (args.nth(0) instanceof MalString &&
-					(((MalString) args.nth(0)).getValue().charAt(0) == '\u029e')) {
+			if (args.nth(0) instanceof MalString && (((MalString) args.nth(0)).getValue().charAt(0) == '\u029e')) {
 				return args.nth(0);
 			} else {
-				return new MalString(
-						"\u029e" + ((MalString) args.nth(0)).getValue());
+				return new MalString("\u029e" + ((MalString) args.nth(0)).getValue());
 			}
 		}
 	};
@@ -96,7 +91,7 @@ public class core {
 			return True;
 		}
 	};
-	static @NotNull MalFunction fn_Q      = new MalFunction() {
+	static @NotNull MalFunction fn_Q = new MalFunction() {
 		public MalVal apply(final @NotNull MalList args) throws MalThrowable {
 			if (!(args.nth(0) instanceof MalFunction)) {
 				return False;
@@ -104,7 +99,7 @@ public class core {
 			return ((MalFunction) args.nth(0)).isMacro() ? False : True;
 		}
 	};
-	static @NotNull MalFunction macro_Q   = new MalFunction() {
+	static @NotNull MalFunction macro_Q = new MalFunction() {
 		public MalVal apply(final @NotNull MalList args) throws MalThrowable {
 			if (!(args.nth(0) instanceof MalFunction)) {
 				return False;
@@ -112,7 +107,6 @@ public class core {
 			return ((MalFunction) args.nth(0)).isMacro() ? True : False;
 		}
 	};
-
 
 	// String functions
 	static @NotNull MalFunction pr_str = new MalFunction() {
@@ -140,7 +134,6 @@ public class core {
 			return Nil;
 		}
 	};
-
 
 	static @NotNull MalFunction equal_Q = new MalFunction() {
 		public MalVal apply(final @NotNull MalList args) throws MalThrowable {
@@ -176,18 +169,15 @@ public class core {
 			final String fname = ((MalString) args.nth(0)).getValue();
 			try {
 				// Scanner drops final newline, so add it back
-				return new MalString(
-						new Scanner(new File(fname)).useDelimiter("\\Z").next()
-								+ "\n");
+				return new MalString(new Scanner(new File(fname)).useDelimiter("\\Z").next() + "\n");
 			} catch (final FileNotFoundException e) {
 				throw new MalError(e.getMessage());
 			}
 		}
 	};
 
-
 	// Number functions
-	static @NotNull MalFunction add      = new MalFunction() {
+	static @NotNull MalFunction add = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			return ((MalInteger) a.nth(0)).add((MalInteger) a.nth(1));
 		}
@@ -202,13 +192,13 @@ public class core {
 			return ((MalInteger) a.nth(0)).multiply((MalInteger) a.nth(1));
 		}
 	};
-	static @NotNull MalFunction divide   = new MalFunction() {
+	static @NotNull MalFunction divide = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			return ((MalInteger) a.nth(0)).divide((MalInteger) a.nth(1));
 		}
 	};
 
-	static @NotNull MalFunction lt  = new MalFunction() {
+	static @NotNull MalFunction lt = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			return ((MalInteger) a.nth(0)).lt((MalInteger) a.nth(1));
 		}
@@ -218,7 +208,7 @@ public class core {
 			return ((MalInteger) a.nth(0)).lte((MalInteger) a.nth(1));
 		}
 	};
-	static @NotNull MalFunction gt  = new MalFunction() {
+	static @NotNull MalFunction gt = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			return ((MalInteger) a.nth(0)).gt((MalInteger) a.nth(1));
 		}
@@ -235,25 +225,24 @@ public class core {
 		}
 	};
 
-
 	// List functions
-	static @NotNull MalFunction new_list     = new MalFunction() {
+	static @NotNull MalFunction new_list = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			return new MalList(a.value);
 		}
 	};
-	static @NotNull MalFunction list_Q       = new MalFunction() {
+	static @NotNull MalFunction list_Q = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			return _list_Q(a.nth(0)) ? True : False;
 		}
 	};
 	// Vector functions
-	static @NotNull MalFunction new_vector   = new MalFunction() {
+	static @NotNull MalFunction new_vector = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			return new MalVector(a.value);
 		}
 	};
-	static @NotNull MalFunction vector_Q     = new MalFunction() {
+	static @NotNull MalFunction vector_Q = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			return _vector_Q(a.nth(0)) ? True : False;
 		}
@@ -264,45 +253,45 @@ public class core {
 			return new MalHashMap(a);
 		}
 	};
-	static @NotNull MalFunction hash_map_Q   = new MalFunction() {
+	static @NotNull MalFunction hash_map_Q = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			return a.nth(0) instanceof MalHashMap ? True : False;
 		}
 	};
-	static @NotNull MalFunction contains_Q   = new MalFunction() {
+	static @NotNull MalFunction contains_Q = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
-			final String                  key = ((MalString) a.nth(1)).getValue();
-			final MalHashMap              mhm = (MalHashMap) a.nth(0);
-			final HashMap<String, MalVal> hm  = (HashMap<String, MalVal>) mhm.value;
+			final String key = ((MalString) a.nth(1)).getValue();
+			final MalHashMap mhm = (MalHashMap) a.nth(0);
+			final HashMap<String, MalVal> hm = (HashMap<String, MalVal>) mhm.value;
 			return hm.containsKey(key) ? True : False;
 		}
 	};
-	static @NotNull MalFunction assoc        = new MalFunction() {
+	static @NotNull MalFunction assoc = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList a) throws MalThrowable {
-			final MalHashMap              mhm     = (MalHashMap) a.nth(0);
-			final HashMap<String, MalVal> hm      = (HashMap<String, MalVal>) mhm.value;
-			final MalHashMap              new_mhm = new MalHashMap((Map) hm.clone());
+			final MalHashMap mhm = (MalHashMap) a.nth(0);
+			final HashMap<String, MalVal> hm = (HashMap<String, MalVal>) mhm.value;
+			final MalHashMap new_mhm = new MalHashMap((Map) hm.clone());
 			new_mhm.assoc_BANG(a.slice(1));
 			return new_mhm;
 		}
 	};
-	static @NotNull MalFunction dissoc       = new MalFunction() {
+	static @NotNull MalFunction dissoc = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList a) throws MalThrowable {
-			final MalHashMap              mhm     = (MalHashMap) a.nth(0);
-			final HashMap<String, MalVal> hm      = (HashMap<String, MalVal>) mhm.value;
-			final MalHashMap              new_mhm = new MalHashMap((Map) hm.clone());
+			final MalHashMap mhm = (MalHashMap) a.nth(0);
+			final HashMap<String, MalVal> hm = (HashMap<String, MalVal>) mhm.value;
+			final MalHashMap new_mhm = new MalHashMap((Map) hm.clone());
 			new_mhm.dissoc_BANG(a.slice(1));
 			return new_mhm;
 		}
 	};
-	static @NotNull MalFunction get          = new MalFunction() {
+	static @NotNull MalFunction get = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			if (a.nth(0) == Nil) {
 				return Nil;
 			} else {
-				final String                  key = ((MalString) a.nth(1)).getValue();
-				final MalHashMap              mhm = (MalHashMap) a.nth(0);
-				final HashMap<String, MalVal> hm  = (HashMap<String, MalVal>) mhm.value;
+				final String key = ((MalString) a.nth(1)).getValue();
+				final MalHashMap mhm = (MalHashMap) a.nth(0);
+				final HashMap<String, MalVal> hm = (HashMap<String, MalVal>) mhm.value;
 				if (hm.containsKey(key)) {
 					return hm.get(key);
 				} else {
@@ -311,22 +300,22 @@ public class core {
 			}
 		}
 	};
-	static @NotNull MalFunction keys         = new MalFunction() {
+	static @NotNull MalFunction keys = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList a) throws MalThrowable {
-			final MalHashMap              mhm     = (MalHashMap) a.nth(0);
-			final HashMap<String, MalVal> hm      = (HashMap<String, MalVal>) mhm.value;
-			final MalList                 key_lst = new MalList();
+			final MalHashMap mhm = (MalHashMap) a.nth(0);
+			final HashMap<String, MalVal> hm = (HashMap<String, MalVal>) mhm.value;
+			final MalList key_lst = new MalList();
 			for (final String key : hm.keySet()) {
 				key_lst.conj_BANG(new MalString(key));
 			}
 			return key_lst;
 		}
 	};
-	static @NotNull MalFunction vals         = new MalFunction() {
+	static @NotNull MalFunction vals = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList a) throws MalThrowable {
-			final MalHashMap              mhm = (MalHashMap) a.nth(0);
-			final HashMap<String, MalVal> hm  = (HashMap<String, MalVal>) mhm.value;
-			//return new ArrayList<MalVal>(((HashMap<String,MalVal>)hm).values());
+			final MalHashMap mhm = (MalHashMap) a.nth(0);
+			final HashMap<String, MalVal> hm = (HashMap<String, MalVal>) mhm.value;
+			// return new ArrayList<MalVal>(((HashMap<String,MalVal>)hm).values());
 			final MalList val_lst = new MalList();
 			for (final MalVal val : hm.values()) {
 				val_lst.conj_BANG(val);
@@ -340,7 +329,7 @@ public class core {
 			return a.nth(0) instanceof MalList ? True : False;
 		}
 	};
-	static @NotNull MalFunction count        = new MalFunction() {
+	static @NotNull MalFunction count = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			if (a.nth(0) == Nil) {
 				return new MalInteger(0);
@@ -349,18 +338,17 @@ public class core {
 			}
 		}
 	};
-	static @NotNull MalFunction empty_Q      = new MalFunction() {
+	static @NotNull MalFunction empty_Q = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			final MalVal exp = a.nth(0);
-			if (exp == Nil || (exp instanceof MalList &&
-					((MalList) exp).size() == 0)) {
+			if (exp == Nil || (exp instanceof MalList && ((MalList) exp).size() == 0)) {
 				return True;
 			} else {
 				return False;
 			}
 		}
 	};
-	static @NotNull MalFunction cons         = new MalFunction() {
+	static @NotNull MalFunction cons = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			final List<MalVal> lst = new ArrayList<MalVal>();
 			lst.add(a.nth(0));
@@ -368,7 +356,7 @@ public class core {
 			return new MalList(lst);
 		}
 	};
-	static @NotNull MalFunction concat       = new MalFunction() {
+	static @NotNull MalFunction concat = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			if (a.size() == 0) {
 				return new MalList();
@@ -381,12 +369,12 @@ public class core {
 			return new MalList(lst);
 		}
 	};
-	static @NotNull MalFunction vec          = new MalFunction() {
+	static @NotNull MalFunction vec = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			return new MalVector(((MalList) a.nth(0)).getList());
 		}
 	};
-	static @NotNull MalFunction first        = new MalFunction() {
+	static @NotNull MalFunction first = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			final MalVal exp = a.nth(0);
 			if (exp == Nil) {
@@ -396,7 +384,7 @@ public class core {
 			return ml.size() > 0 ? ml.nth(0) : Nil;
 		}
 	};
-	static @NotNull MalFunction rest         = new MalFunction() {
+	static @NotNull MalFunction rest = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			final MalVal exp = a.nth(0);
 			if (exp == Nil) {
@@ -406,7 +394,7 @@ public class core {
 			return ml.rest();
 		}
 	};
-	static @NotNull MalFunction nth          = new MalFunction() {
+	static @NotNull MalFunction nth = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			final Integer idx = ((MalInteger) a.nth(1)).getValue();
 			if (idx < ((MalList) a.nth(0)).size()) {
@@ -417,27 +405,26 @@ public class core {
 		}
 	};
 	// General sequence functions
-	static @NotNull MalFunction apply        = new MalFunction() {
+	static @NotNull MalFunction apply = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
-			final MalFunction f    = (MalFunction) a.nth(0);
-			final MalList     args = a.slice(1, a.size() - 1);
+			final MalFunction f = (MalFunction) a.nth(0);
+			final MalList args = a.slice(1, a.size() - 1);
 			args.value.addAll(((MalList) a.nth(a.size() - 1)).value);
 			return f.apply(args);
 		}
 	};
-	static @NotNull MalFunction map          = new MalFunction() {
+	static @NotNull MalFunction map = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList a) throws MalThrowable {
-			final MalFunction f       = (MalFunction) a.nth(0);
-			final MalList     src_lst = (MalList) a.nth(1);
-			final MalList     new_lst = new MalList();
+			final MalFunction f = (MalFunction) a.nth(0);
+			final MalList src_lst = (MalList) a.nth(1);
+			final MalList new_lst = new MalList();
 			for (Integer i = 0; i < src_lst.size(); i++) {
-				new_lst.value.add(
-						f.apply(new MalList(src_lst.nth(i))));
+				new_lst.value.add(f.apply(new MalList(src_lst.nth(i))));
 			}
 			return new_lst;
 		}
 	};
-	static @NotNull MalFunction conj         = new MalFunction() {
+	static @NotNull MalFunction conj = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			final MalList src_seq = (MalList) a.nth(0);
 			final MalList new_seq;
@@ -457,7 +444,7 @@ public class core {
 			return new_seq;
 		}
 	};
-	static @NotNull MalFunction seq          = new MalFunction() {
+	static @NotNull MalFunction seq = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			final MalVal mv = a.nth(0);
 			if (mv instanceof MalVector) {
@@ -487,8 +474,8 @@ public class core {
 			}
 		}
 	};
-	static          MalFunction meta;
-	static @NotNull MalFunction with_meta    = new MalFunction() {
+	static MalFunction meta;
+	static @NotNull MalFunction with_meta = new MalFunction() {
 		public @NotNull MalVal apply(final @NotNull MalList args) throws MalThrowable {
 			final MalVal new_mv = args.nth(0).copy();
 			new_mv.setMeta(args.nth(1));
@@ -496,8 +483,7 @@ public class core {
 		}
 	};
 
-
-	static @NotNull MalFunction deref      = new MalFunction() {
+	static @NotNull MalFunction deref = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			return ((MalAtom) a.nth(0)).value;
 		}
@@ -507,11 +493,11 @@ public class core {
 			return ((MalAtom) a.nth(0)).value = a.nth(1);
 		}
 	};
-	static @NotNull MalFunction swap_BANG  = new MalFunction() {
+	static @NotNull MalFunction swap_BANG = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
-			final MalAtom     atm      = (MalAtom) a.nth(0);
-			final MalFunction f        = (MalFunction) a.nth(1);
-			final MalList     new_args = new MalList();
+			final MalAtom atm = (MalAtom) a.nth(0);
+			final MalFunction f = (MalFunction) a.nth(1);
+			final MalList new_args = new MalList();
 			new_args.value.addAll(a.slice(2).value);
 			new_args.value.add(0, atm.value);
 			atm.value = f.apply(new_args);
@@ -526,7 +512,7 @@ public class core {
 			return new MalAtom(a.nth(0));
 		}
 	};
-	static @NotNull MalFunction atom_Q   = new MalFunction() {
+	static @NotNull MalFunction atom_Q = new MalFunction() {
 		public MalVal apply(final @NotNull MalList a) throws MalThrowable {
 			return a.nth(0) instanceof MalAtom ? True : False;
 		}
@@ -540,74 +526,28 @@ public class core {
 			}
 		};
 
-		ns = ImmutableMap.<String, MalVal>builder()
-				.put("=", equal_Q)
-				.put("throw", mal_throw)
-				.put("nil?", nil_Q)
-				.put("true?", true_Q)
-				.put("false?", false_Q)
-				.put("number?", number_Q)
-				.put("string?", string_Q)
-				.put("symbol", symbol)
-				.put("symbol?", symbol_Q)
-				.put("keyword", keyword)
-				.put("keyword?", keyword_Q)
-				.put("fn?", fn_Q)
-				.put("macro?", macro_Q)
+		ns = ImmutableMap.<String, MalVal>builder().put("=", equal_Q).put("throw", mal_throw).put("nil?", nil_Q)
+				.put("true?", true_Q).put("false?", false_Q).put("number?", number_Q).put("string?", string_Q)
+				.put("symbol", symbol).put("symbol?", symbol_Q).put("keyword", keyword).put("keyword?", keyword_Q)
+				.put("fn?", fn_Q).put("macro?", macro_Q)
 
-				.put("pr-str", pr_str)
-				.put("str", str)
-				.put("prn", prn)
-				.put("println", println)
-				.put("readline", mal_readline)
-				.put("read-string", read_string)
-				.put("slurp", slurp)
-				.put("<", lt)
-				.put("<=", lte)
-				.put(">", gt)
-				.put(">=", gte)
-				.put("+", add)
-				.put("-", subtract)
-				.put("*", multiply)
-				.put("/", divide)
-				.put("time-ms", time_ms)
+				.put("pr-str", pr_str).put("str", str).put("prn", prn).put("println", println)
+				.put("readline", mal_readline).put("read-string", read_string).put("slurp", slurp).put("<", lt)
+				.put("<=", lte).put(">", gt).put(">=", gte).put("+", add).put("-", subtract).put("*", multiply)
+				.put("/", divide).put("time-ms", time_ms)
 
-				.put("list", new_list)
-				.put("list?", list_Q)
-				.put("vector", new_vector)
-				.put("vector?", vector_Q)
-				.put("hash-map", new_hash_map)
-				.put("map?", hash_map_Q)
-				.put("assoc", assoc)
-				.put("dissoc", dissoc)
-				.put("contains?", contains_Q)
-				.put("get", get)
-				.put("keys", keys)
-				.put("vals", vals)
+				.put("list", new_list).put("list?", list_Q).put("vector", new_vector).put("vector?", vector_Q)
+				.put("hash-map", new_hash_map).put("map?", hash_map_Q).put("assoc", assoc).put("dissoc", dissoc)
+				.put("contains?", contains_Q).put("get", get).put("keys", keys).put("vals", vals)
 
-				.put("sequential?", sequential_Q)
-				.put("cons", cons)
-				.put("concat", concat)
-				.put("vec", vec)
-				.put("nth", nth)
-				.put("first", first)
-				.put("rest", rest)
-				.put("empty?", empty_Q)
-				.put("count", count)
-				.put("apply", apply)
-				.put("map", map)
+				.put("sequential?", sequential_Q).put("cons", cons).put("concat", concat).put("vec", vec)
+				.put("nth", nth).put("first", first).put("rest", rest).put("empty?", empty_Q).put("count", count)
+				.put("apply", apply).put("map", map)
 
-				.put("conj", conj)
-				.put("seq", seq)
+				.put("conj", conj).put("seq", seq)
 
-				.put("with-meta", with_meta)
-				.put("meta", meta)
-				.put("atom", new_atom)
-				.put("atom?", atom_Q)
-				.put("deref", deref)
-				.put("reset!", reset_BANG)
-				.put("swap!", swap_BANG)
-				.build();
+				.put("with-meta", with_meta).put("meta", meta).put("atom", new_atom).put("atom?", atom_Q)
+				.put("deref", deref).put("reset!", reset_BANG).put("swap!", swap_BANG).build();
 	}
 
 	static public @NotNull Boolean _list_Q(final @NotNull MalVal mv) {

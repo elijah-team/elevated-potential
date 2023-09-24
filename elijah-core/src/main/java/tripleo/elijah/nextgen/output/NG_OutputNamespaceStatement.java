@@ -8,13 +8,13 @@ import tripleo.elijah.stages.gen_generic.GenerateResult.*;
 import tripleo.util.buffer.*;
 
 public class NG_OutputNamespaceStatement implements NG_OutputStatement {
-	private final          Buffer    buf;
-	private final          TY        ty;
+	private final Buffer buf;
+	private final TY ty;
 	private final @NotNull NG_OutDep moduleDependency;
 
 	public NG_OutputNamespaceStatement(final Buffer aBuf, final TY aTY, final @NotNull OS_Module aM) {
-		buf              = aBuf;
-		ty               = aTY;
+		buf = aBuf;
+		ty = aTY;
 		moduleDependency = new NG_OutDep(aM);
 	}
 

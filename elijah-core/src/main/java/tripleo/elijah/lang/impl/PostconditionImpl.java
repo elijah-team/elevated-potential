@@ -15,7 +15,7 @@ import tripleo.elijah.lang.i.IdentExpression;
  * Created 12/22/20 11:47 PM
  */
 public class PostconditionImpl implements tripleo.elijah.lang.i.Postcondition {
-	private IExpression     expr;
+	private IExpression expr;
 	private IdentExpression id;
 
 	@Override

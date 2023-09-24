@@ -20,7 +20,7 @@ public class IO {
 
 	// exists, delete, isType ....
 
-	public final List<_IO_ReadFile> recordedreads  = new ArrayList<>();
+	public final List<_IO_ReadFile> recordedreads = new ArrayList<>();
 	public final List<File> recordedwrites = new ArrayList<File>();
 
 	public @Nullable CharSource openRead(final @NotNull Path p) {

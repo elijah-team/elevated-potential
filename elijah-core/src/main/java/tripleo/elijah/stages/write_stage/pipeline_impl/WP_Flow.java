@@ -14,10 +14,11 @@ public class WP_Flow {
 	public enum FlowStatus {
 		FAILED, NOT_TRIED, TRIED
 	}
-	private final HashMap<WP_Indiviual_Step, Pair<FlowStatus, Operation<Boolean>>> ops   = new HashMap<WP_Indiviual_Step, Pair<FlowStatus, Operation<Boolean>>>();
-	private final List<WP_Indiviual_Step>                                          steps = new ArrayList<>();
 
-	private final WritePipeline                                                    writePipeline;
+	private final HashMap<WP_Indiviual_Step, Pair<FlowStatus, Operation<Boolean>>> ops = new HashMap<WP_Indiviual_Step, Pair<FlowStatus, Operation<Boolean>>>();
+	private final List<WP_Indiviual_Step> steps = new ArrayList<>();
+
+	private final WritePipeline writePipeline;
 
 	public WP_Flow(final WritePipeline aWritePipeline, final @NotNull Collection<? extends WP_Indiviual_Step> s) {
 		writePipeline = aWritePipeline;

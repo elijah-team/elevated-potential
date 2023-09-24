@@ -21,7 +21,7 @@ public class HashBuffer extends DefaultBuffer {
 	final DoubleLatch<String> dl = new DoubleLatch<>(aFilename -> {
 		final HashBuffer outputBuffer = this;
 
-		final @NotNull String            hh;
+		final @NotNull String hh;
 		final @NotNull Operation<String> hh2 = Helpers.getHashForFilename(aFilename);
 
 		if (hh2.mode() == Mode.SUCCESS) {
@@ -39,7 +39,6 @@ public class HashBuffer extends DefaultBuffer {
 
 	private final @Nullable HashBufferList parent;
 
-
 	public HashBuffer(final String string) {
 		super(string);
 
@@ -48,17 +47,17 @@ public class HashBuffer extends DefaultBuffer {
 		dl.notifyData(string);
 	}
 
-	//public String getText() {
-	//	dl.notifyLatch(true);
+	// public String getText() {
+	// dl.notifyLatch(true);
 	//
-	//	return dl.
-	//}
+	// return dl.
+	// }
 
 	public HashBuffer(final String aFileName, final HashBufferList aHashBufferList, final Executor aExecutor) {
 		super("");
 
 		parent = aHashBufferList;
-		//parent.setNext(this);
+		// parent.setNext(this);
 
 		dl.notifyData(aFileName);
 	}

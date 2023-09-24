@@ -8,22 +8,19 @@ import tripleo.elijah.util.BufferTabbedOutputStream;
 
 class C2C_CodeForConstructor_Statement implements EG_Statement {
 
-	private final String     class_name;
-	private final int        class_code;
-	private final String     constructorName;
+	private final String class_name;
+	private final int class_code;
+	private final String constructorName;
 	private final CClassDecl decl;
-	private final EvaClass   x;
+	private final EvaClass x;
 
-	C2C_CodeForConstructor_Statement(final String aClassName,
-									 final int aClassCode,
-									 final String aConstructorName,
-									 final CClassDecl aDecl,
-									 final EvaClass aX) {
-		class_name      = aClassName;
-		class_code      = aClassCode;
+	C2C_CodeForConstructor_Statement(final String aClassName, final int aClassCode, final String aConstructorName,
+			final CClassDecl aDecl, final EvaClass aX) {
+		class_name = aClassName;
+		class_code = aClassCode;
 		constructorName = aConstructorName;
-		decl            = aDecl;
-		x               = aX;
+		decl = aDecl;
+		x = aX;
 	}
 
 	@Override

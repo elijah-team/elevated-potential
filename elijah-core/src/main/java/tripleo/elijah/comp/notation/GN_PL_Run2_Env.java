@@ -7,8 +7,6 @@ import tripleo.elijah.world.i.WorldModule;
 
 import java.util.function.Consumer;
 
-public record GN_PL_Run2_Env(@NotNull PipelineLogic pipelineLogic,
-							 @NotNull WorldModule mod,
-							 @NotNull CompilationEnclosure ce,
-							 @NotNull Consumer<WorldModule> worldConsumer) implements GN_Env {
+public record GN_PL_Run2_Env(@NotNull PipelineLogic pipelineLogic, @NotNull WorldModule mod,
+		@NotNull CompilationEnclosure ce, @NotNull Consumer<WorldModule> worldConsumer) implements GN_Env {
 }

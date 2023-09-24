@@ -36,7 +36,8 @@ import java.util.function.*;
 public class PipelineLogic implements @NotNull EventualRegister {
 	class ModMap {
 		private final Map<OS_Module, Eventual<DeducePhase.GeneratedClasses>> modMap = new HashMap<>();
-		private final Multimap<OS_Module, DoneCallback<Eventual<DeducePhase.GeneratedClasses>>> mmme = ArrayListMultimap.create();
+		private final Multimap<OS_Module, DoneCallback<Eventual<DeducePhase.GeneratedClasses>>> mmme = ArrayListMultimap
+				.create();
 
 		public void put(OS_Module mod, Eventual<DeducePhase.GeneratedClasses> p) {
 			modMap.put(mod, p);
@@ -59,11 +60,12 @@ public class PipelineLogic implements @NotNull EventualRegister {
 			}
 		}
 	}
+
 	public final class ModuleCompletableProcess implements CompletableProcess<WorldModule> {
 
 		@Override
 		public void add(final @NotNull WorldModule aWorldModule) {
-			//System.err.printf("7070 %s %d%n", mod.getFileName(), mod.entryPoints.size());
+			// System.err.printf("7070 %s %d%n", mod.getFileName(), mod.entryPoints.size());
 
 			final CompilationEnclosure ce = pa.getCompilationEnclosure();
 			final Consumer<WorldModule> worldConsumer = ce::noteAccept; // FIXME not data...
@@ -92,6 +94,7 @@ public class PipelineLogic implements @NotNull EventualRegister {
 
 		}
 	}
+
 	public final @NotNull DeducePhase dp;
 	public final @NotNull GeneratePhase generatePhase;
 	private final @NonNull List<ElLog> elLogs = new LinkedList<>();
@@ -102,7 +105,6 @@ public class PipelineLogic implements @NotNull EventualRegister {
 
 	@Getter
 	private final @NonNull ElLog.Verbosity verbosity;
-
 
 	private List<Eventual<?>> _eventuals = new ArrayList<>();
 

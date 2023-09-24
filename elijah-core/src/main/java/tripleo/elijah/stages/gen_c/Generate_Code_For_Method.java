@@ -48,8 +48,10 @@ public class Generate_Code_For_Method {
 	public enum AOG {
 		ASSIGN, GET
 	}
+
 	class BT {
-		@NotNull BufferTabbedOutputStream btos = new BufferTabbedOutputStream();
+		@NotNull
+		BufferTabbedOutputStream btos = new BufferTabbedOutputStream();
 
 		public String getText() {
 			return btos.getBuffer().getText();
@@ -67,16 +69,18 @@ public class Generate_Code_For_Method {
 			btos.put_string_ln(s.get());
 		}
 	}
+
 	interface C2C_Results {
 		List<C2C_Result> getResults();
 	}
+
 	public class GCR_VTE_Target implements EG_Statement {
 		private final WhyNotGarish_BaseFunction gf;
-		private final IntegerIA                 vteNum;
+		private final IntegerIA vteNum;
 		String target_name;
 
 		public GCR_VTE_Target(final WhyNotGarish_BaseFunction aGf, final IntegerIA aVteNum) {
-			gf     = aGf;
+			gf = aGf;
 			vteNum = aVteNum;
 		}
 
@@ -94,25 +98,27 @@ public class Generate_Code_For_Method {
 			return null;
 		}
 	}
-	final BufferTabbedOutputStream tos    = new BufferTabbedOutputStream();
+
+	final BufferTabbedOutputStream tos = new BufferTabbedOutputStream();
 	final BufferTabbedOutputStream tosHdr = new BufferTabbedOutputStream();
 
-	final ElLog                    LOG;
+	final ElLog LOG;
 
 	GenerateC gc;
 
-	boolean   is_constructor = false, is_unit_type = false;
+	boolean is_constructor = false, is_unit_type = false;
 
 	private final boolean MANUAL_DISABLED = false;
 
 	public Generate_Code_For_Method(@NotNull final GenerateC aGenerateC, final ElLog aLog) {
-		gc  = aGenerateC;
+		gc = aGenerateC;
 		LOG = aLog; // use log from GenerateC
 	}
 
-	private @NotNull Operation2<EG_Statement> _action_DECL(final @NotNull Instruction instruction, final @NotNull WhyNotGarish_BaseFunction gf) {
-		final SymbolIA  decl_type = (SymbolIA) instruction.getArg(0);
-		final IntegerIA vte_num   = (IntegerIA) instruction.getArg(1);
+	private @NotNull Operation2<EG_Statement> _action_DECL(final @NotNull Instruction instruction,
+			final @NotNull WhyNotGarish_BaseFunction gf) {
+		final SymbolIA decl_type = (SymbolIA) instruction.getArg(0);
+		final IntegerIA vte_num = (IntegerIA) instruction.getArg(1);
 
 		final GCR_VTE_Target target = new GCR_VTE_Target(gf, vte_num);
 		target.feed(AOG.GET, gc);
@@ -122,8 +128,8 @@ public class Generate_Code_For_Method {
 		final VariableTableEntry vte = vte_num.getEntry();
 
 		tripleo.elijah.stages.deduce.DeduceTypes2 dt2 = null;
-		BaseEvaFunction                           gf1 = null;
-		boolean                                   qqq = false;
+		BaseEvaFunction gf1 = null;
+		boolean qqq = false;
 		{
 			List<DR_Item> x = gf.getGf().drs;
 
@@ -144,11 +150,11 @@ public class Generate_Code_For_Method {
 		else
 			de_vte = vte.getDeduceElement3();
 
-		final Operation2<OS_Type>               diag1  = de_vte.decl_test_001(gf.cheat());
+		final Operation2<OS_Type> diag1 = de_vte.decl_test_001(gf.cheat());
 
 		if (diag1.mode() == Mode.FAILURE) {
-			final Diagnostic      diag_ = diag1.failure();
-			final GCFM_Diagnostic diag  = (GCFM_Diagnostic) diag_;
+			final Diagnostic diag_ = diag1.failure();
+			final GCFM_Diagnostic diag = (GCFM_Diagnostic) diag_;
 
 			switch (diag.severity()) {
 			case INFO:
@@ -170,27 +176,30 @@ public class Generate_Code_For_Method {
 		if (res instanceof EvaClass) {
 			final String z = GenerateC.GetTypeName.forGenClass((EvaClass) res);
 			final String s = String.format("%s* %s;", z, target_name);
-			return Operation2.success(new EG_SingleStatement(s, EX_Explanation.withMessage("actionDECL with resolved type")));
+			return Operation2
+					.success(new EG_SingleStatement(s, EX_Explanation.withMessage("actionDECL with resolved type")));
 		}
 
-		final OS_Type x = diag1.success(); //vte.type.getAttached();
+		final OS_Type x = diag1.success(); // vte.type.getAttached();
 
 		if (x != null) {
 			switch (x.getType()) {
 			case USER_CLASS:
 				final String z = GenerateC.GetTypeName.forOSType(x, LOG);
 				final String s = String.format("%s* %s;", z, target_name);
-				return Operation2.success(new EG_SingleStatement(s, EX_Explanation.withMessage("actionDECL with USER_CLASS")));
+				return Operation2
+						.success(new EG_SingleStatement(s, EX_Explanation.withMessage("actionDECL with USER_CLASS")));
 			case USER:
 				final TypeName typeName = x.getTypeName();
 				if (typeName instanceof NormalTypeName) {
 					final String z2;
 					if (((NormalTypeName) typeName).getName().equals("Any"))
-						z2 = "void *";  // TODO Technically this is wrong
+						z2 = "void *"; // TODO Technically this is wrong
 					else
 						z2 = GenerateC.GetTypeName.forTypeName(typeName, gc.errSink);
 					final String s1 = String.format("%s %s;", z2, target_name);
-					return Operation2.success(new EG_SingleStatement(s1, EX_Explanation.withMessage("actionDECL with USER")));
+					return Operation2
+							.success(new EG_SingleStatement(s1, EX_Explanation.withMessage("actionDECL with USER")));
 				}
 
 				if (typeName != null) {
@@ -221,8 +230,9 @@ public class Generate_Code_For_Method {
 		// VARIABLE WASN'T FULLY DEDUCED YET
 		// MTL A TEMP VARIABLE
 		//
-		@NotNull final Collection<TypeTableEntry> pt_ = vte.potentialTypes();
-		final List<TypeTableEntry>                pt  = new ArrayList<TypeTableEntry>(pt_);
+		@NotNull
+		final Collection<TypeTableEntry> pt_ = vte.potentialTypes();
+		final List<TypeTableEntry> pt = new ArrayList<TypeTableEntry>(pt_);
 		if (pt.size() == 1) {
 			final TypeTableEntry ty = pt.get(0);
 			if (ty.genType.getNode() != null) {
@@ -233,14 +243,14 @@ public class Generate_Code_For_Method {
 					final var y = node;
 //					((EvaFunction)node).typeDeferred()
 					// get signature
-					final String z = /*Emit.emit("/ *552* /") + */ "bool (*%s)(char*)".formatted(target_name);
+					final String z = /* Emit.emit("/ *552* /") + */ "bool (*%s)(char*)".formatted(target_name);
 					final String s = String.format("/*8889*/%s;", z);
 					return Operation2.success(new EG_SingleStatement(s, null));
 				}
 			} else {
 //				LOG.err("8885 " +ty.attached);
 				final @Nullable OS_Type attached = ty.getAttached();
-				final String            z;
+				final String z;
 				if (attached != null)
 					z = gc.getTypeName(attached);
 				else
@@ -270,7 +280,7 @@ public class Generate_Code_For_Method {
 	}
 
 	private void action_CALL(final WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
-		//LOG.err("9000 "+inst.getName());
+		// LOG.err("9000 "+inst.getName());
 
 		final GCX_FunctionCall gcx_fc = new GCX_FunctionCall(gf, gc, aInstruction);
 
@@ -289,14 +299,15 @@ public class Generate_Code_For_Method {
 		tos.put_string_ln(gcx_fc.getText());
 	}
 
-	private void action_CAST(final @NotNull Instruction instruction, final @NotNull BufferTabbedOutputStream tos, final @NotNull WhyNotGarish_BaseFunction gf) {
-		final IntegerIA      vte_num_     = (IntegerIA) instruction.getArg(0);
-		final IntegerIA      vte_type_    = (IntegerIA) instruction.getArg(1);
-		final IntegerIA      vte_targ_    = (IntegerIA) instruction.getArg(2);
-		final String         target_name  = gc.getRealTargetName(gf, vte_num_, AOG.GET);
+	private void action_CAST(final @NotNull Instruction instruction, final @NotNull BufferTabbedOutputStream tos,
+			final @NotNull WhyNotGarish_BaseFunction gf) {
+		final IntegerIA vte_num_ = (IntegerIA) instruction.getArg(0);
+		final IntegerIA vte_type_ = (IntegerIA) instruction.getArg(1);
+		final IntegerIA vte_targ_ = (IntegerIA) instruction.getArg(2);
+		final String target_name = gc.getRealTargetName(gf, vte_num_, AOG.GET);
 		final TypeTableEntry target_type_ = gf.getTypeTableEntry(vte_type_.getIndex());
 //		final String target_type = gc.getTypeName(target_type_.getAttached());
-		final String target_type   = gc.getTypeName(target_type_.genType.getNode());
+		final String target_type = gc.getTypeName(target_type_.genType.getNode());
 		final String source_target = gc.getRealTargetName(gf, vte_targ_, AOG.GET);
 
 		tos.put_string_ln(String.format("%s = (%s)%s;", target_name, target_type, source_target));
@@ -313,13 +324,14 @@ public class Generate_Code_For_Method {
 		tos.put_string_ln(gcx_construct.getText());
 	}
 
-	private void action_DECL(final @NotNull Instruction instruction, final @NotNull BufferTabbedOutputStream tos, final @NotNull WhyNotGarish_BaseFunction gf) {
+	private void action_DECL(final @NotNull Instruction instruction, final @NotNull BufferTabbedOutputStream tos,
+			final @NotNull WhyNotGarish_BaseFunction gf) {
 		final Operation2<EG_Statement> op = _action_DECL(instruction, gf);
 
 		if (op.mode() == Mode.SUCCESS) {
 			tos.put_string_ln(op.success().getText());
 		} else {
-			//throw new
+			// throw new
 			// ignore
 		}
 	}
@@ -379,7 +391,8 @@ public class Generate_Code_For_Method {
 	void action_invariant(final @NotNull WhyNotGarish_BaseFunction yf, final Generate_Method_Header aGmh) {
 		tos.incr_tabs();
 		//
-		@NotNull final List<Instruction> instructions = yf.instructions();
+		@NotNull
+		final List<Instruction> instructions = yf.instructions();
 		for (int instruction_index = 0; instruction_index < instructions.size(); instruction_index++) {
 			final Instruction instruction = instructions.get(instruction_index);
 //			LOG.err("8999 "+instruction);
@@ -459,22 +472,23 @@ public class Generate_Code_For_Method {
 		tos.put_string_ln("}");
 	}
 
-	private void action_IS_A(final @NotNull Instruction instruction, final @NotNull BufferTabbedOutputStream tos, final @NotNull WhyNotGarish_BaseFunction gf) {
-		final IntegerIA testing_var_  = (IntegerIA) instruction.getArg(0);
+	private void action_IS_A(final @NotNull Instruction instruction, final @NotNull BufferTabbedOutputStream tos,
+			final @NotNull WhyNotGarish_BaseFunction gf) {
+		final IntegerIA testing_var_ = (IntegerIA) instruction.getArg(0);
 		final IntegerIA testing_type_ = (IntegerIA) instruction.getArg(1);
-		final Label     target_label  = ((LabelIA) instruction.getArg(2)).label;
+		final Label target_label = ((LabelIA) instruction.getArg(2)).label;
 
-		final VariableTableEntry testing_var    = gf.getVarTableEntry(testing_var_.getIndex());
-		final TypeTableEntry     testing_type__ = gf.getTypeTableEntry(testing_type_.getIndex());
+		final VariableTableEntry testing_var = gf.getVarTableEntry(testing_var_.getIndex());
+		final TypeTableEntry testing_type__ = gf.getTypeTableEntry(testing_type_.getIndex());
 
 		final EvaNode testing_type = testing_type__.resolved();
-		final int     z            = ((EvaContainerNC) testing_type).getCode();
+		final int z = ((EvaContainerNC) testing_type).getCode();
 
 		var bt = new BT();
 
 		bt.text0("vsb = ");
 
-		//  ZS%d_is_a(%s
+		// ZS%d_is_a(%s
 		bt.text0("ZS");
 		bt.text0("" + z);
 		bt.text0("_is_a");
@@ -499,8 +513,8 @@ public class Generate_Code_For_Method {
 	}
 
 	private void action_JL(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
-		final InstructionArgument lhs    = aInstruction.getArg(0);
-		final InstructionArgument rhs    = aInstruction.getArg(1);
+		final InstructionArgument lhs = aInstruction.getArg(0);
+		final InstructionArgument rhs = aInstruction.getArg(1);
 		final InstructionArgument target = aInstruction.getArg(2);
 
 		final Label realTarget = (Label) target;
@@ -557,8 +571,8 @@ public class Generate_Code_For_Method {
 	}
 
 	private void action_JNE(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
-		final InstructionArgument lhs    = aInstruction.getArg(0);
-		final InstructionArgument rhs    = aInstruction.getArg(1);
+		final InstructionArgument lhs = aInstruction.getArg(0);
+		final InstructionArgument rhs = aInstruction.getArg(1);
 		final InstructionArgument target = aInstruction.getArg(2);
 
 		final Label realTarget = (Label) target;
@@ -567,16 +581,18 @@ public class Generate_Code_For_Method {
 		assert rhs != null;
 
 		if (rhs instanceof ConstTableIA) {
-			final ConstantTableEntry cte            = gf.getConstTableEntry(((ConstTableIA) rhs).getIndex());
-			final String             realTargetName = gc.getRealTargetName(gf, (IntegerIA) lhs, AOG.GET);
-			tos.put_string_ln(String.format("vsb = %s != %s;", realTargetName, gc.getAssignmentValue(gf.getSelf(), rhs, gf)));
+			final ConstantTableEntry cte = gf.getConstTableEntry(((ConstTableIA) rhs).getIndex());
+			final String realTargetName = gc.getRealTargetName(gf, (IntegerIA) lhs, AOG.GET);
+			tos.put_string_ln(
+					String.format("vsb = %s != %s;", realTargetName, gc.getAssignmentValue(gf.getSelf(), rhs, gf)));
 			tos.put_string_ln(String.format("if (!vsb) goto %s;", realTarget.getName()));
 		} else {
 			//
 			// TODO need to lookup special __ne__ function ??
 			//
 			final String realTargetName = gc.getRealTargetName(gf, (IntegerIA) lhs, AOG.GET);
-			tos.put_string_ln(String.format("vsb = %s != %s;", realTargetName, gc.getAssignmentValue(gf.getSelf(), rhs, gf)));
+			tos.put_string_ln(
+					String.format("vsb = %s != %s;", realTargetName, gc.getAssignmentValue(gf.getSelf(), rhs, gf)));
 			tos.put_string_ln(String.format("if (!vsb) goto %s;", realTarget.getName()));
 
 			final int y = 2;
@@ -606,20 +622,17 @@ public class Generate_Code_For_Method {
 		tos.put_string_ln("}");
 	}
 
-	void generateCodeForConstructor(final @NotNull EvaConstructor gf,
-									final GenerateResult gr__,
-									final WorkList aWorkList__,
-									final @NotNull GenerateResultEnv fileGen
-								   ) {
+	void generateCodeForConstructor(final @NotNull EvaConstructor gf, final GenerateResult gr__,
+			final WorkList aWorkList__, final @NotNull GenerateResultEnv fileGen) {
 
-		var gr        = fileGen.gr();
+		var gr = fileGen.gr();
 		var aWorkList = fileGen.wl();
 
 		var yf = gc.a_lookup(gf);
 
 		final C2C_CodeForConstructor cfm = new C2C_CodeForConstructor(this, fileGen, yf);
 
-		//cfm.calculate();
+		// cfm.calculate();
 		var rs = cfm.getResults();
 
 //		GenerateResult gr = cfm.getGenerateResult();
@@ -645,12 +658,12 @@ public class Generate_Code_For_Method {
 	}
 
 	void generateCodeForMethod(final @NotNull BaseEvaFunction gf, final @NotNull GenerateResultEnv aFileGen) {
-		//var xx = gc.a_lookup(gf);
-		//xx.onFileGen(aFileGen);
+		// var xx = gc.a_lookup(gf);
+		// xx.onFileGen(aFileGen);
 		// TODO separate into method and method_header??
 		C2C_CodeForMethod cfm = new C2C_CodeForMethod(this, gf, aFileGen);
 
-		//cfm.calculate();
+		// cfm.calculate();
 		var rs = cfm.getResults();
 
 		GenerateResult gr = cfm.getGenerateResult();

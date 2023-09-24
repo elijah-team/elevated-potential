@@ -32,10 +32,11 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
  */
 public class CtorReference {
 
-	@NotNull List<CReference.Reference> refs     = new ArrayList<CReference.Reference>();
-	private  EvaNode                    _resolved;
-	private  List<String>               args;
-	private  String                     ctorName = "";
+	@NotNull
+	List<CReference.Reference> refs = new ArrayList<CReference.Reference>();
+	private EvaNode _resolved;
+	private List<String> args;
+	private String ctorName = "";
 
 	void addRef(String text, CReference.Ref type) {
 		refs.add(new CReference.Reference(text, type));
@@ -51,8 +52,8 @@ public class CtorReference {
 	}
 
 	public String build(@NotNull ClassInvocation aClsinv) {
-		StringBuilder sb   = new StringBuilder();
-		boolean       open = false, needs_comma = false;
+		StringBuilder sb = new StringBuilder();
+		boolean open = false, needs_comma = false;
 //		List<String> sl = new ArrayList<String>();
 		String text = "";
 		for (CReference.Reference ref : refs) {
@@ -76,27 +77,30 @@ public class CtorReference {
 			case FUNCTION: {
 				final String s = sb.toString();
 				text = String.format("%s(%s", ref.text, s);
-				sb   = new StringBuilder();
+				sb = new StringBuilder();
 				open = true;
-				if (!s.equals("")) needs_comma = true;
+				if (!s.equals(""))
+					needs_comma = true;
 				sb.append(text);
 				break;
 			}
 			case CONSTRUCTOR: {
 				final String s = sb.toString();
 				text = String.format("%s(%s", ref.text, s);
-				sb   = new StringBuilder();
+				sb = new StringBuilder();
 				open = true;
-				if (!s.equals("")) needs_comma = true;
+				if (!s.equals(""))
+					needs_comma = true;
 				sb.append(text);
 				break;
 			}
 			case PROPERTY_GET: {
 				final String s = sb.toString();
 				text = String.format("%s(%s", ref.text, s);
-				sb   = new StringBuilder();
+				sb = new StringBuilder();
 				open = true;
-				if (!s.equals("")) needs_comma = true;
+				if (!s.equals(""))
+					needs_comma = true;
 				sb.append(text);
 				break;
 			}
@@ -114,12 +118,11 @@ public class CtorReference {
 				code = -3;
 			}
 			if (code == 0) {
-				tripleo.elijah.util.Stupidity.println_err_2("** 32135 ClassStatement with 0 code " + aClsinv.getKlass());
+				tripleo.elijah.util.Stupidity
+						.println_err_2("** 32135 ClassStatement with 0 code " + aClsinv.getKlass());
 			}
 
-
 			final String n = sb.toString();
-
 
 			// TODO Garish(?)Constructor.calculateCtorName(?)/Code
 			String text2 = String.format("ZC%d%s", code, ctorName); // TODO what about named constructors
@@ -139,17 +142,11 @@ public class CtorReference {
 			return cas.getString();
 		}
 
-/*
-		if (needs_comma && args != null && args.size() > 0)
-			sb.append(", ");
-		if (open) {
-			if (args != null) {
-				sb.append(Helpers.String_join(", ", args));
-			}
-			sb.append(")");
-		}
-		return sb.toString();
-*/
+		/*
+		 * if (needs_comma && args != null && args.size() > 0) sb.append(", "); if
+		 * (open) { if (args != null) { sb.append(Helpers.String_join(", ", args)); }
+		 * sb.append(")"); } return sb.toString();
+		 */
 	}
 
 	public void getConstructorPath(@NotNull InstructionArgument ia2, @NotNull BaseEvaFunction gf) {
@@ -164,13 +161,13 @@ public class CtorReference {
 
 				final ConstructorPathOp op = IntegerIA_Ops.get((IntegerIA) ia, sSize).getConstructorPath();
 				_resolved = op.getResolved();
-				ctorName  = op.getCtorName();
+				ctorName = op.getCtorName();
 
 				addRef(vte.getName(), CReference.Ref.LOCAL);
 			} else if (ia instanceof IdentIA) {
 				final ConstructorPathOp op = IdentIA_Ops.get((IdentIA) ia).getConstructorPath();
 				_resolved = op.getResolved();
-				ctorName  = op.getCtorName();
+				ctorName = op.getCtorName();
 
 				addRef(((IdentIA) ia).getEntry().getIdent().getText(), CReference.Ref.LOCAL); // TDOO check correctness
 			} else if (ia instanceof ProcIA) {

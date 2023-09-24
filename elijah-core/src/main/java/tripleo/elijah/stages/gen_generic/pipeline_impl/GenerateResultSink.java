@@ -32,7 +32,9 @@ public interface GenerateResultSink {
 
 	void addNamespace_1(GarishNamespace aGarishNamespace, GenerateResult aGenerateResult, final GenerateC aGenerateC);
 
-	@Nullable LivingClass getLivingClassForEva(EvaClass aEvaClass);
+	@Nullable
+	LivingClass getLivingClassForEva(EvaClass aEvaClass);
 
-	@Nullable LivingNamespace getLivingNamespaceForEva(EvaNamespace aEvaClass);
+	@Nullable
+	LivingNamespace getLivingNamespaceForEva(EvaNamespace aEvaClass);
 }

@@ -19,15 +19,15 @@ public class GarishClass {
 	@Contract(pure = true)
 	public GarishClass(final LivingClass aLivingClass) {
 		_lc = aLivingClass;
-		//_lc.setGarish(this);
+		// _lc.setGarish(this);
 	}
 
 	public @NotNull String finalizedGenericPrintable(final @NotNull EvaClass evaClass) {
-		final ClassStatement                 klass = evaClass.getKlass();
-		final ClassInvocation.CI_GenericPart x     = evaClass.ci.genericPart();
+		final ClassStatement klass = evaClass.getKlass();
+		final ClassInvocation.CI_GenericPart x = evaClass.ci.genericPart();
 
-		final String        name = klass.getName();
-		final StringBuilder sb   = new StringBuilder();
+		final String name = klass.getName();
+		final StringBuilder sb = new StringBuilder();
 		sb.append(name);
 
 		sb.append('[');
@@ -50,23 +50,23 @@ public class GarishClass {
 		return sb.toString();
 	}
 
-	public void garish(final GenerateC aGenerateC, final GenerateResult gr, final @NotNull GenerateResultSink aResultSink) {
-		final LivingClass           dlc = _lc;
-		final EvaClass              x   = dlc.evaNode();
-		final GarishClass_Generator xg  = x.generator();
+	public void garish(final GenerateC aGenerateC, final GenerateResult gr,
+			final @NotNull GenerateResultSink aResultSink) {
+		final LivingClass dlc = _lc;
+		final EvaClass x = dlc.evaNode();
+		final GarishClass_Generator xg = x.generator();
 
 		if (!xg.generatedAlready()) {
 			xg.provide(aResultSink, this, gr, aGenerateC);
 		}
 	}
 
-	public @NotNull BufferTabbedOutputStream getClassBuffer(final @NotNull EvaClass x,
-															final @NotNull CClassDecl decl,
-															final String class_name,
-															final int class_code) {
+	public @NotNull BufferTabbedOutputStream getClassBuffer(final @NotNull EvaClass x, final @NotNull CClassDecl decl,
+			final String class_name, final int class_code) {
 		final BufferTabbedOutputStream tos = new BufferTabbedOutputStream();
 
-		// TODO remove this block when constructors are added in dependent functions, etc in Deduce
+		// TODO remove this block when constructors are added in dependent functions,
+		// etc in Deduce
 
 		// TODO what about named constructors and ctor$0 and "the debug stack"
 		tos.put_string_ln(String.format("%s* ZC%d() {", class_name, class_code));
@@ -104,7 +104,7 @@ public class GarishClass {
 		decl.evaluatePrimitive();
 
 		final String class_name = aGenerateC.getTypeName(evaClass);
-		final int    class_code = evaClass.getCode();
+		final int class_code = evaClass.getCode();
 
 		return getClassBuffer(evaClass, decl, class_name, class_code);
 	}
@@ -116,15 +116,13 @@ public class GarishClass {
 		decl.evaluatePrimitive();
 
 		final String class_name = aGenerateC.getTypeName(evaClass);
-		final int    class_code = evaClass.getCode();
+		final int class_code = evaClass.getCode();
 
 		return getHeaderBuffer(aGenerateC, evaClass, decl, class_name);
 	}
 
 	public @NotNull BufferTabbedOutputStream getHeaderBuffer(final @NotNull GenerateC aGenerateC,
-															 final @NotNull EvaClass x,
-															 final @NotNull CClassDecl decl,
-															 final String class_name) {
+			final @NotNull EvaClass x, final @NotNull CClassDecl decl, final String class_name) {
 		final BufferTabbedOutputStream tosHdr = new BufferTabbedOutputStream();
 
 		tosHdr.put_string_ln("typedef struct {");
@@ -144,12 +142,11 @@ public class GarishClass {
 
 		var xx = finalizedGenericPrintable(x);
 		tosHdr.put_string_ln(String.format("} %s;  // class %s%s", class_name, decl.prim ? "box " : "", xx
-										   // x.getName()
-										  ));
-
+		// x.getName()
+		));
 
 		tosHdr.put_string_ln("");
-		//tosHdr.put_string_ln("");
+		// tosHdr.put_string_ln("");
 
 		tosHdr.flush();
 		tosHdr.close();
@@ -161,23 +158,16 @@ public class GarishClass {
 	}
 
 	/*
-	@Contract(pure = true)
-	public void logProgress(final GARISH_CLASS_LOG_PROGRESS aCode, final EvaClass aEvaClass, final Buffer aBuffer) {
-		if (aCode == GARISH_CLASS_LOG_PROGRESS.IMPL) {
-			// implementation
-		} else if (aCode == GARISH_CLASS_LOG_PROGRESS.HEADER) {
-			// declaration
-		}
-		//aEvaClass.getName();
-		//aBuffer.getText();
-	}
-
-	public enum GARISH_CLASS_LOG_PROGRESS {
-		HEADER(59), IMPL(53);
-
-		GARISH_CLASS_LOG_PROGRESS(final int aI) {
-
-		}
-	}
-*/
+	 * @Contract(pure = true) public void logProgress(final
+	 * GARISH_CLASS_LOG_PROGRESS aCode, final EvaClass aEvaClass, final Buffer
+	 * aBuffer) { if (aCode == GARISH_CLASS_LOG_PROGRESS.IMPL) { // implementation }
+	 * else if (aCode == GARISH_CLASS_LOG_PROGRESS.HEADER) { // declaration }
+	 * //aEvaClass.getName(); //aBuffer.getText(); }
+	 * 
+	 * public enum GARISH_CLASS_LOG_PROGRESS { HEADER(59), IMPL(53);
+	 * 
+	 * GARISH_CLASS_LOG_PROGRESS(final int aI) {
+	 * 
+	 * } }
+	 */
 }

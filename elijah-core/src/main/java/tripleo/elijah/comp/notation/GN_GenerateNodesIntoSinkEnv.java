@@ -21,53 +21,45 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public record GN_GenerateNodesIntoSinkEnv(List<ProcessedNode> lgc,
-										  GenerateResultSink resultSink1,
-										  EIT_ModuleList moduleList,
-										  ElLog.Verbosity verbosity,
-										  GenerateResult gr,
-										  IPipelineAccess pa,
-										  CompilationEnclosure ce) implements GN_Env {
+public record GN_GenerateNodesIntoSinkEnv(List<ProcessedNode> lgc, GenerateResultSink resultSink1,
+		EIT_ModuleList moduleList, ElLog.Verbosity verbosity, GenerateResult gr, IPipelineAccess pa,
+		CompilationEnclosure ce) implements GN_Env {
 
 	@org.jetbrains.annotations.Nullable
 	public static String getLang(final @NotNull OS_Module mod) {
 		final LibraryStatementPart lsp = mod.getLsp();
-
 
 		if (lsp == null) {
 			tripleo.elijah.util.Stupidity.println_err_2("7777777777777777777 mod.getFilename " + mod.getFileName());
 			return null;
 		}
 
-
-		final CompilerInstructions ci    = lsp.getInstructions();
-		final @Nullable String     lang2 = ci.genLang();
-
+		final CompilerInstructions ci = lsp.getInstructions();
+		final @Nullable String lang2 = ci.genLang();
 
 		final @Nullable String lang = lang2 == null ? "c" : lang2;
 		return lang;
 	}
 
 	@NotNull
-	static GenerateFiles getGenerateFiles(final @NotNull OutputFileFactoryParams params,
-										  final @NotNull WorldModule wm,
-										  final @NotNull Supplier<GenerateResultEnv> fgs) {
+	static GenerateFiles getGenerateFiles(final @NotNull OutputFileFactoryParams params, final @NotNull WorldModule wm,
+			final @NotNull Supplier<GenerateResultEnv> fgs) {
 		final GenerateResultEnv fileGen;
-		final OS_Module         mod = wm.module();
-		
+		final OS_Module mod = wm.module();
+
 		// TODO creates more than one GenerateC, look into this
 		// TODO ^^ validate this or not plz 09/07
-		
+
 		final String lang = getLang(mod);
 		if (lang == null) {
 			System.err.println("lang==null for " + mod.getFileName());
-			//throw new NotImplementedException();
+			// throw new NotImplementedException();
 		}
-		
+
 		if (Objects.equals(lang, "c")) {
 			fileGen = fgs.get(); // FIXME "deep" implementation detail
 		} else {
-			//fileGen = null;
+			// fileGen = null;
 			fileGen = fgs.get();
 		}
 
@@ -76,7 +68,9 @@ public record GN_GenerateNodesIntoSinkEnv(List<ProcessedNode> lgc,
 	}
 
 	@Contract("_, _ -> new")
-	@NotNull OutputFileFactoryParams getParams(final WorldModule mod, final @NotNull GN_GenerateNodesIntoSink aGNGenerateNodesIntoSink) {
+	@NotNull
+	OutputFileFactoryParams getParams(final WorldModule mod,
+			final @NotNull GN_GenerateNodesIntoSink aGNGenerateNodesIntoSink) {
 		return new OutputFileFactoryParams(mod, aGNGenerateNodesIntoSink._env().ce());
 	}
 }

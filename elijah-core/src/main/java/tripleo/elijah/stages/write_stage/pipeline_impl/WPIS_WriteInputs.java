@@ -29,7 +29,7 @@ public class WPIS_WriteInputs implements WP_Indiviual_Step {
 	@Override
 	public void act(final @NotNull WritePipelineSharedState st, final WP_State_Control sc) {
 		var root = st.c.paths().outputRoot();
-		var fn1  = root.child("inputs.txt");
+		var fn1 = root.child("inputs.txt");
 
 		final DefaultBuffer buf = new DefaultBuffer("");
 
@@ -62,17 +62,14 @@ public class WPIS_WriteInputs implements WP_Indiviual_Step {
 			}
 		}
 
-		final EG_SequenceStatement seq = new EG_SequenceStatement(
-				new EG_Naming("<<WPIS_WriteInputs>>"),
-				List_of(
-						EG_Statement.of(s, () -> "<<WPIS_WriteInputs>> >> statement")
-					   )
-		);
+		final EG_SequenceStatement seq = new EG_SequenceStatement(new EG_Naming("<<WPIS_WriteInputs>>"),
+				List_of(EG_Statement.of(s, () -> "<<WPIS_WriteInputs>> >> statement")));
 
 		fn1.getPathPromise().then(pp -> {
-			String string = "inputs.txt";//pp.toFile().toString(); //fn1.getPath().toFile().toString();
+			String string = "inputs.txt";// pp.toFile().toString(); //fn1.getPath().toFile().toString();
 
-			final EOT_OutputFile off = new EOT_OutputFile(List_of(), new EOT_OutputFile.DefaultFileNameProvider(string), EOT_OutputType.INPUTS, seq);
+			final EOT_OutputFile off = new EOT_OutputFile(List_of(), new EOT_OutputFile.DefaultFileNameProvider(string),
+					EOT_OutputType.INPUTS, seq);
 
 			off.x = yys;
 
@@ -98,7 +95,8 @@ public class WPIS_WriteInputs implements WP_Indiviual_Step {
 		return hh2;
 	}
 
-	public @NotNull Operation<String> append_hash(@NotNull TextBuffer outputBuffer, @NotNull IO._IO_ReadFile aReadFile) {
+	public @NotNull Operation<String> append_hash(@NotNull TextBuffer outputBuffer,
+			@NotNull IO._IO_ReadFile aReadFile) {
 		final @NotNull Operation<String> hh2 = aReadFile.hash();
 
 		if (hh2.mode() == Mode.SUCCESS) {

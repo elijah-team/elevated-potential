@@ -8,7 +8,6 @@
  */
 package tripleo.elijah.lang.i;
 
-
 /**
  * Marker interface to represent elements that can be added to a class or a
  * namespace or an enum

@@ -16,16 +16,13 @@ import tripleo.elijah.stages.gen_fn.*;
  * Created 10/2/20 2:36 PM
  */
 public class IdentIA implements InstructionArgument, Constructable {
-	public final  BaseEvaFunction gf;
-	private final int             id;
+	public final BaseEvaFunction gf;
+	private final int id;
 //	private InstructionArgument prev;
 
-/*
-	public IdentIA(int x) {
-		this.id = x;
-		this.gf = null;  // TODO watch out
-	}
-*/
+	/*
+	 * public IdentIA(int x) { this.id = x; this.gf = null; // TODO watch out }
+	 */
 
 	public IdentIA(final int ite, final BaseEvaFunction generatedFunction) {
 		this.gf = generatedFunction;
@@ -66,8 +63,7 @@ public class IdentIA implements InstructionArgument, Constructable {
 
 	@Override
 	public @NotNull String toString() {
-		return "IdentIA{" +
-				"id=" + id +
+		return "IdentIA{" + "id=" + id +
 //				", prev=" + prev +
 				'}';
 	}

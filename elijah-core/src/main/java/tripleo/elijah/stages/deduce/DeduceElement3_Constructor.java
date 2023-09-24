@@ -10,17 +10,18 @@ import tripleo.elijah.stages.instructions.*;
 
 public class DeduceElement3_Constructor implements IDeduceElement3 {
 	private final EvaConstructor evaConstructor;
-	private final DeduceTypes2   deduceTypes2;
+	private final DeduceTypes2 deduceTypes2;
 
 	public DeduceElement3_Constructor(final EvaConstructor aEvaConstructor, final DeduceTypes2 aDeduceTypes2) {
 		evaConstructor = aEvaConstructor;
-		deduceTypes2   = aDeduceTypes2;
+		deduceTypes2 = aDeduceTypes2;
 	}
 
 	public void __post_deduce_generated_function_base(final @NotNull DeducePhase aDeducePhase) {
-		for (@NotNull IdentTableEntry identTableEntry : evaConstructor.idte_list) {
+		for (@NotNull
+		IdentTableEntry identTableEntry : evaConstructor.idte_list) {
 			if (identTableEntry.getResolvedElement() instanceof final @NotNull VariableStatementImpl vs) {
-				final OS_Element el  = vs.getParent().getParent();
+				final OS_Element el = vs.getParent().getParent();
 				final OS_Element el2 = evaConstructor.getFD().getParent();
 
 				if (el != el2) {
@@ -36,20 +37,23 @@ public class DeduceElement3_Constructor implements IDeduceElement3 {
 		{
 			final @NotNull EvaConstructor gf = evaConstructor;
 
-			@Nullable InstructionArgument result_index = gf.vte_lookup("Result");
+			@Nullable
+			InstructionArgument result_index = gf.vte_lookup("Result");
 			if (result_index == null) {
 				// if there is no Result, there should be Value
 				result_index = gf.vte_lookup("Value");
 				// but Value might be passed in. If it is, discard value
 				if (result_index != null) {
-					@NotNull VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
+					@NotNull
+					VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
 					if (vte.getVtt() != VariableTableType.RESULT) {
 						result_index = null;
 					}
 				}
 			}
 			if (result_index != null) {
-				@NotNull VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
+				@NotNull
+				VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
 				if (vte.resolvedType() == null) {
 					GenType b = vte.getGenType();
 					OS_Type a = vte.getType().getAttached();
@@ -62,7 +66,8 @@ public class DeduceElement3_Constructor implements IDeduceElement3 {
 						case USER:
 							b.setTypeName(a);
 							try {
-								@NotNull GenType rt = deduceTypes2.resolve_type(a, a.getTypeName().getContext());
+								@NotNull
+								GenType rt = deduceTypes2.resolve_type(a, a.getTypeName().getContext());
 								if (rt.getResolved() != null && rt.getResolved().getType() == OS_Type.Type.USER_CLASS) {
 									if (rt.getResolved().getClassOf().getGenericPart().size() > 0)
 										b.setNonGenericTypeName(a.getTypeName()); // TODO might be wrong
@@ -77,8 +82,9 @@ public class DeduceElement3_Constructor implements IDeduceElement3 {
 							int y3 = 2;
 							break;
 						}
-					} /*else
-							throw new NotImplementedException();*/
+					} /*
+						 * else throw new NotImplementedException();
+						 */
 				}
 			}
 		}
@@ -94,7 +100,8 @@ public class DeduceElement3_Constructor implements IDeduceElement3 {
 		// we really want a ci from somewhere
 		assert aOSType.getClassOf().getGenericPart().size() == 0;
 
-		@Nullable ClassInvocation ci = new ClassInvocation(aOSType.getClassOf(), null, new ReadySupplier_1<>(deduceTypes2));
+		@Nullable
+		ClassInvocation ci = new ClassInvocation(aOSType.getClassOf(), null, new ReadySupplier_1<>(deduceTypes2));
 		ci = deduceTypes2.phase.registerClassInvocation(ci);
 
 		aVte.getGenType().setResolved(aOSType); // README assuming OS_Type cannot represent namespaces

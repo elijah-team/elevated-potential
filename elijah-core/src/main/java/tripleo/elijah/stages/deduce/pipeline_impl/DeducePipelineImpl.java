@@ -20,10 +20,11 @@ public class DeducePipelineImpl {
 			return new PL_SaveGeneratedClasses(aPa);
 		}
 	}
-	private final @NotNull IPipelineAccess             pa;
+
+	private final @NotNull IPipelineAccess pa;
 
 	@SuppressWarnings("TypeMayBeWeakened")
-	private final          List<PipelineLogicRunnable> plrs = new ArrayList<>();
+	private final List<PipelineLogicRunnable> plrs = new ArrayList<>();
 
 	private final DeducePipelineImplInjector __inj = new DeducePipelineImplInjector();
 
@@ -44,9 +45,9 @@ public class DeducePipelineImpl {
 	}
 
 	public void run() {
-		final Compilation          c                    = pa.getCompilation();
+		final Compilation c = pa.getCompilation();
 		final CompilationEnclosure compilationEnclosure = c.getCompilationEnclosure();
-		final PipelineLogic        pipelineLogic        = compilationEnclosure.getPipelineLogic();
+		final PipelineLogic pipelineLogic = compilationEnclosure.getPipelineLogic();
 
 		assert pipelineLogic != null;
 

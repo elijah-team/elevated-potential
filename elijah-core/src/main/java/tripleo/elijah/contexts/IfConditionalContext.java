@@ -19,20 +19,20 @@ import tripleo.elijah.lang.impl.VariableSequenceImpl;
  * Created 8/21/20 3:16 AM
  */
 public class IfConditionalContext extends ContextImpl implements Context {
-	private final           Context       _parent;
-	private final @Nullable Context       _prev_ctx;
-	private final           IfConditional carrier;
+	private final Context _parent;
+	private final @Nullable Context _prev_ctx;
+	private final IfConditional carrier;
 
 	public IfConditionalContext(final Context cur, final IfConditional ifConditional) {
-		_parent   = cur;
-		carrier   = ifConditional;
+		_parent = cur;
+		carrier = ifConditional;
 		_prev_ctx = null; // TOP if statement
 	}
 
 	public IfConditionalContext(final @NotNull Context ctx, final IfConditional ifConditional, final boolean _ignored) {
 		_prev_ctx = ctx;
-		_parent   = ((IfConditionalContext) ctx)._parent;
-		carrier   = ifConditional;
+		_parent = ((IfConditionalContext) ctx)._parent;
+		carrier = ifConditional;
 	}
 
 	@Override
@@ -41,15 +41,14 @@ public class IfConditionalContext extends ContextImpl implements Context {
 	}
 
 	@Override
-	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
-		for (final OS_Element/*StatementItem*/ item : carrier.getItems()) {
-			if (!(item instanceof ClassStatement) &&
-					!(item instanceof NamespaceStatement) &&
-					!(item instanceof FunctionDef) &&
-					!(item instanceof VariableSequenceImpl) &&
-					!(item instanceof AliasStatementImpl)
-			) continue;
+		for (final OS_Element/* StatementItem */ item : carrier.getItems()) {
+			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
+					&& !(item instanceof FunctionDef) && !(item instanceof VariableSequenceImpl)
+					&& !(item instanceof AliasStatementImpl))
+				continue;
 			if (item instanceof OS_Element2) {
 				if (((OS_Element2) item).name().equals(name)) {
 					Result.add(name, level, item, this);

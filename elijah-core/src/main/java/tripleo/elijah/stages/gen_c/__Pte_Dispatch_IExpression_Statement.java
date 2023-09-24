@@ -17,26 +17,25 @@ import java.util.List;
 import static tripleo.elijah.stages.gen_c.Generate_Code_For_Method.AOG.GET;
 
 class __Pte_Dispatch_IExpression_Statement extends ReasonedStringListStatement {
-	private final IExpression     expression;
-	private final Instruction     instruction;
+	private final IExpression expression;
+	private final Instruction instruction;
 	private final BaseEvaFunction gf;
-	private final GenerateC       gc;
+	private final GenerateC gc;
 
-	public __Pte_Dispatch_IExpression_Statement(final IExpression aExpression,
-												final Instruction aInstruction,
-												final BaseEvaFunction aGf,
-												final @NotNull GenerateC aGc) {
-		expression  = aExpression;
+	public __Pte_Dispatch_IExpression_Statement(final IExpression aExpression, final Instruction aInstruction,
+			final BaseEvaFunction aGf, final @NotNull GenerateC aGc) {
+		expression = aExpression;
 		instruction = aInstruction;
-		gf          = aGf;
-		gc          = aGc;
+		gf = aGf;
+		gc = aGc;
 
 		var z = this;
 
 		final IdentExpression ptex = (IdentExpression) expression;
-		final String          text = ptex.getText();
+		final String text = ptex.getText();
 
-		@Nullable final InstructionArgument xx = gf.vte_lookup(text);
+		@Nullable
+		final InstructionArgument xx = gf.vte_lookup(text);
 		assert xx != null;
 
 		final List<String> sl3 = gc.getArgumentStrings(() -> new InstructionFixedList(instruction));

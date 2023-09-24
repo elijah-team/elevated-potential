@@ -19,7 +19,6 @@ public interface TypeOfTypeName extends TypeName {
 
 	int getLineEnd();
 
-
 	boolean isNull();
 
 	Type kindOfType();

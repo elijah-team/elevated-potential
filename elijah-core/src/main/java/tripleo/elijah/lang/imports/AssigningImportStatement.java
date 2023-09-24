@@ -14,23 +14,25 @@ import java.util.*;
 public class AssigningImportStatement extends _BaseImportStatement {
 	public static class Part { // public for ImportStatementBuilder
 		IdentExpression name;
-		Qualident       value;
+		Qualident value;
 
 		public Part(IdentExpression i1, Qualident q1) {
-			name  = i1;
+			name = i1;
 			value = q1;
 		}
 	}
+
 	private static @NotNull Qualident identToQualident(final IdentExpression identExpression) {
 		final Qualident r = new QualidentImpl();
 		r.append(identExpression);
 		return r;
 	}
-	final         OS_Element parent;
+
+	final OS_Element parent;
 
 	private final List<Part> _parts = new ArrayList<Part>();
 
-	private       Context    _ctx;
+	private Context _ctx;
 
 	public AssigningImportStatement(final OS_Element aParent) {
 		parent = aParent;

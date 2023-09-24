@@ -57,7 +57,7 @@ public enum SpecialFunctions {
 	}
 
 	public static @Nullable String reverse_name(final @NotNull String pn) {
-		if (pn.equals("__gt__")) // README  explicitly disallow
+		if (pn.equals("__gt__")) // README explicitly disallow
 			return null;
 //		if (pn.equals("__eq__"))
 //			return "__req__";

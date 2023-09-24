@@ -31,14 +31,17 @@ import static tripleo.vendor.org.apache.commons.cli.Util.EMPTY_STRING_ARRAY;
 /**
  * Represents list of arguments parsed against a {@link Options} descriptor.
  * <p>
- * It allows querying of a boolean {@link #hasOption(String opt)}, in addition to retrieving the
- * {@link #getOptionValue(String opt)} for options requiring arguments.
+ * It allows querying of a boolean {@link #hasOption(String opt)}, in addition
+ * to retrieving the {@link #getOptionValue(String opt)} for options requiring
+ * arguments.
  * <p>
- * Additionally, any left-over or unrecognized arguments, are available for further processing.
+ * Additionally, any left-over or unrecognized arguments, are available for
+ * further processing.
  */
 public class CommandLine implements Serializable {
 	/**
-	 * A nested builder class to create {@code CommandLine} instance using descriptive methods.
+	 * A nested builder class to create {@code CommandLine} instance using
+	 * descriptive methods.
 	 *
 	 * @since 1.4
 	 */
@@ -74,21 +77,22 @@ public class CommandLine implements Serializable {
 			return commandLine;
 		}
 	}
+
 	/**
 	 * The serial version UID.
 	 */
-	private static final long                serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	/**
 	 * The unrecognized options/arguments
 	 */
 //    private final List<String> args = new LinkedList<>();
-	private final        List<CompilerInput> ci_args          = new LinkedList<>();
+	private final List<CompilerInput> ci_args = new LinkedList<>();
 	/**
 	 * The processed options
 	 */
-	private final        List<Option>        options          = new ArrayList<>();
+	private final List<Option> options = new ArrayList<>();
 
-	private final        List<CompilerInput> ci_options       = new ArrayList<>();
+	private final List<CompilerInput> ci_options = new ArrayList<>();
 
 	/**
 	 * Creates a command line.
@@ -137,13 +141,11 @@ public class CommandLine implements Serializable {
 	 */
 	public String @NotNull [] getArgs() {
 //        return args.toArray(Util.EMPTY_STRING_ARRAY);
-		List<String> l = ci_args.stream()
-				.filter(inp -> inp.isNull())
-				.map(inp -> inp.getInp())
+		List<String> l = ci_args.stream().filter(inp -> inp.isNull()).map(inp -> inp.getInp())
 				.collect(Collectors.toList());
 
 		String[] r = new String[l.size()];
-		int      i = 0; // invariants
+		int i = 0; // invariants
 		for (CompilerInput compilerInput : ci_args) {
 			if (compilerInput.isNull())
 				r[i] = compilerInput.getInp();
@@ -169,7 +171,8 @@ public class CommandLine implements Serializable {
 	 *
 	 * @param opt the name of the option.
 	 * @return the type of this {@code Option}.
-	 * @deprecated due to System.err message. Instead use getParsedOptionValue(String)
+	 * @deprecated due to System.err message. Instead use
+	 *             getParsedOptionValue(String)
 	 */
 	@Deprecated
 	public @Nullable Object getOptionObject(final String opt) {
@@ -182,13 +185,16 @@ public class CommandLine implements Serializable {
 	}
 
 	/**
-	 * Retrieve the map of values associated to the option. This is convenient for options specifying Java properties like
-	 * <code>-Dparam1=value1
-	 * -Dparam2=value2</code>. The first argument of the option is the key, and the 2nd argument is the value. If the option
-	 * has only one argument ({@code -Dfoo}) it is considered as a boolean flag and the value is {@code "true"}.
+	 * Retrieve the map of values associated to the option. This is convenient for
+	 * options specifying Java properties like <code>-Dparam1=value1
+	 * -Dparam2=value2</code>. The first argument of the option is the key, and the
+	 * 2nd argument is the value. If the option has only one argument
+	 * ({@code -Dfoo}) it is considered as a boolean flag and the value is
+	 * {@code "true"}.
 	 *
 	 * @param option name of the option.
-	 * @return The Properties mapped by the option, never {@code null} even if the option doesn't exists.
+	 * @return The Properties mapped by the option, never {@code null} even if the
+	 *         option doesn't exists.
 	 * @since 1.5.0
 	 */
 	public @NotNull Properties getOptionProperties(final Option option) {
@@ -211,13 +217,16 @@ public class CommandLine implements Serializable {
 	}
 
 	/**
-	 * Retrieve the map of values associated to the option. This is convenient for options specifying Java properties like
-	 * <code>-Dparam1=value1
-	 * -Dparam2=value2</code>. The first argument of the option is the key, and the 2nd argument is the value. If the option
-	 * has only one argument ({@code -Dfoo}) it is considered as a boolean flag and the value is {@code "true"}.
+	 * Retrieve the map of values associated to the option. This is convenient for
+	 * options specifying Java properties like <code>-Dparam1=value1
+	 * -Dparam2=value2</code>. The first argument of the option is the key, and the
+	 * 2nd argument is the value. If the option has only one argument
+	 * ({@code -Dfoo}) it is considered as a boolean flag and the value is
+	 * {@code "true"}.
 	 *
 	 * @param opt name of the option.
-	 * @return The Properties mapped by the option, never {@code null} even if the option doesn't exists.
+	 * @return The Properties mapped by the option, never {@code null} even if the
+	 *         option doesn't exists.
 	 * @since 1.2
 	 */
 	public @NotNull Properties getOptionProperties(final @NotNull String opt) {
@@ -252,7 +261,8 @@ public class CommandLine implements Serializable {
 	 * Retrieve the first argument, if any, of this option.
 	 *
 	 * @param opt the character name of the option.
-	 * @return Value of the argument if option is set, and has an argument, otherwise null.
+	 * @return Value of the argument if option is set, and has an argument,
+	 *         otherwise null.
 	 */
 	public String getOptionValue(final char opt) {
 		return getOptionValue(String.valueOf(opt));
@@ -262,8 +272,10 @@ public class CommandLine implements Serializable {
 	 * Retrieve the argument, if any, of an option.
 	 *
 	 * @param opt          character name of the option
-	 * @param defaultValue is the default value to be returned if the option is not specified.
-	 * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
+	 * @param defaultValue is the default value to be returned if the option is not
+	 *                     specified.
+	 * @return Value of the argument if option is set, and has an argument,
+	 *         otherwise {@code defaultValue}.
 	 */
 	public String getOptionValue(final char opt, final String defaultValue) {
 		return getOptionValue(String.valueOf(opt), defaultValue);
@@ -273,7 +285,8 @@ public class CommandLine implements Serializable {
 	 * Retrieve the first argument, if any, of this option.
 	 *
 	 * @param option the name of the option.
-	 * @return Value of the argument if option is set, and has an argument, otherwise null.
+	 * @return Value of the argument if option is set, and has an argument,
+	 *         otherwise null.
 	 * @since 1.5.0
 	 */
 	public @Nullable String getOptionValue(final @Nullable Option option) {
@@ -288,8 +301,10 @@ public class CommandLine implements Serializable {
 	 * Retrieve the first argument, if any, of an option.
 	 *
 	 * @param option       name of the option.
-	 * @param defaultValue is the default value to be returned if the option is not specified.
-	 * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
+	 * @param defaultValue is the default value to be returned if the option is not
+	 *                     specified.
+	 * @return Value of the argument if option is set, and has an argument,
+	 *         otherwise {@code defaultValue}.
 	 * @since 1.5.0
 	 */
 	public String getOptionValue(final Option option, final String defaultValue) {
@@ -301,7 +316,8 @@ public class CommandLine implements Serializable {
 	 * Retrieve the first argument, if any, of this option.
 	 *
 	 * @param opt the name of the option.
-	 * @return Value of the argument if option is set, and has an argument, otherwise null.
+	 * @return Value of the argument if option is set, and has an argument,
+	 *         otherwise null.
 	 */
 	public String getOptionValue(final String opt) {
 		return getOptionValue(resolveOption(opt));
@@ -311,8 +327,10 @@ public class CommandLine implements Serializable {
 	 * Retrieve the first argument, if any, of an option.
 	 *
 	 * @param opt          name of the option.
-	 * @param defaultValue is the default value to be returned if the option is not specified.
-	 * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
+	 * @param defaultValue is the default value to be returned if the option is not
+	 *                     specified.
+	 * @return Value of the argument if option is set, and has an argument,
+	 *         otherwise {@code defaultValue}.
 	 */
 	public String getOptionValue(final String opt, final String defaultValue) {
 		return getOptionValue(resolveOption(opt), defaultValue);
@@ -322,7 +340,8 @@ public class CommandLine implements Serializable {
 	 * Retrieves the array of values, if any, of an option.
 	 *
 	 * @param opt character name of the option.
-	 * @return Values of the argument if option is set, and has an argument, otherwise null.
+	 * @return Values of the argument if option is set, and has an argument,
+	 *         otherwise null.
 	 */
 	public String[] getOptionValues(final char opt) {
 		return getOptionValues(String.valueOf(opt));
@@ -332,7 +351,8 @@ public class CommandLine implements Serializable {
 	 * Retrieves the array of values, if any, of an option.
 	 *
 	 * @param option string name of the option.
-	 * @return Values of the argument if option is set, and has an argument, otherwise null.
+	 * @return Values of the argument if option is set, and has an argument,
+	 *         otherwise null.
 	 * @since 1.5.0
 	 */
 	public String @Nullable [] getOptionValues(final Option option) {
@@ -351,7 +371,8 @@ public class CommandLine implements Serializable {
 	 * Retrieves the array of values, if any, of an option.
 	 *
 	 * @param opt string name of the option.
-	 * @return Values of the argument if option is set, and has an argument, otherwise null.
+	 * @return Values of the argument if option is set, and has an argument,
+	 *         otherwise null.
 	 */
 	public String[] getOptionValues(final String opt) {
 		return getOptionValues(resolveOption(opt));
@@ -362,7 +383,8 @@ public class CommandLine implements Serializable {
 	 *
 	 * @param opt the name of the option.
 	 * @return the value parsed into a particular object.
-	 * @throws ParseException if there are problems turning the option value into the desired type
+	 * @throws ParseException if there are problems turning the option value into
+	 *                        the desired type
 	 * @see PatternOptionBuilder
 	 * @since 1.5.0
 	 */
@@ -375,7 +397,8 @@ public class CommandLine implements Serializable {
 	 *
 	 * @param option the name of the option.
 	 * @return the value parsed into a particular object.
-	 * @throws ParseException if there are problems turning the option value into the desired type
+	 * @throws ParseException if there are problems turning the option value into
+	 *                        the desired type
 	 * @see PatternOptionBuilder
 	 * @since 1.5.0
 	 */
@@ -395,7 +418,8 @@ public class CommandLine implements Serializable {
 	 *
 	 * @param opt the name of the option.
 	 * @return the value parsed into a particular object.
-	 * @throws ParseException if there are problems turning the option value into the desired type
+	 * @throws ParseException if there are problems turning the option value into
+	 *                        the desired type
 	 * @see PatternOptionBuilder
 	 * @since 1.2
 	 */
@@ -415,8 +439,8 @@ public class CommandLine implements Serializable {
 	/*
 	 * public String toString() { StringBuilder buf = new StringBuilder();
 	 *
-	 * buf.append("[ CommandLine: [ options: "); buf.append(options.toString()); buf.append(" ] [ args: ");
-	 * buf.append(args.toString()); buf.append(" ] ]");
+	 * buf.append("[ CommandLine: [ options: "); buf.append(options.toString());
+	 * buf.append(" ] [ args: "); buf.append(args.toString()); buf.append(" ] ]");
 	 *
 	 * return buf.toString(); }
 	 */
@@ -455,7 +479,8 @@ public class CommandLine implements Serializable {
 	/**
 	 * Returns an iterator over the Option members of CommandLine.
 	 *
-	 * @return an {@code Iterator} over the processed {@link Option} members of this {@link CommandLine}.
+	 * @return an {@code Iterator} over the processed {@link Option} members of this
+	 *         {@link CommandLine}.
 	 */
 	public @NotNull Iterator<Option> iterator() {
 		return options.iterator();

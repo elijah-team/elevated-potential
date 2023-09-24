@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GuavaEventBusUnitTest {
 	private EventListener listener;
-	private EventBus      eventBus;
+	private EventBus eventBus;
 
 	@org.junit.jupiter.api.Test
 	public void givenCustomEvent_whenEventHandled_thenSuccess() {

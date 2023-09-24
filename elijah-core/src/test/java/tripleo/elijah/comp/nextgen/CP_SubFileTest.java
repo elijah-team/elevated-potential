@@ -20,13 +20,16 @@ public class CP_SubFileTest {
 		op.signalCalculateFinishParse();
 
 		var sf = op.child("foo");
-		assertEquals("COMP/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855/<date>/foo", "" + sf.getPath());
+		assertEquals("COMP/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855/<date>/foo",
+				"" + sf.getPath());
 
 		final CP_Path sf1 = op.child("foo").child("bar");
-		assertEquals("COMP/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855/<date>/foo/bar", "" + sf1.getPath());
+		assertEquals("COMP/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855/<date>/foo/bar",
+				"" + sf1.getPath());
 
 		final CP_Path sf2 = op.child("foo").child("bar").child("cat");
-		assertEquals("COMP/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855/<date>/foo/bar/cat", "" + sf2.getPath());
+		assertEquals("COMP/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855/<date>/foo/bar/cat",
+				"" + sf2.getPath());
 	}
 
 	@BeforeEach

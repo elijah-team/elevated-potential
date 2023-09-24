@@ -9,6 +9,7 @@ public interface CB_Action {
 
 	String name();
 
-	@Nullable List<CB_OutputString> outputStrings();
+	@Nullable
+	List<CB_OutputString> outputStrings();
 
 }

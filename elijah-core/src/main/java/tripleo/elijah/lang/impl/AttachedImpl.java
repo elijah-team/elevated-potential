@@ -17,7 +17,7 @@ import tripleo.elijah.lang.i.Context;
  *
  */
 public class AttachedImpl implements tripleo.elijah.lang.i.Attached {
-	//	int     _code;
+	// int _code;
 	Context _context;
 //	Node    _node;
 

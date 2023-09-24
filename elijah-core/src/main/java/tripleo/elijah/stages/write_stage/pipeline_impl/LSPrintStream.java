@@ -16,20 +16,18 @@ import static tripleo.elijah.util.Helpers.List_of;
 public class LSPrintStream implements XPrintStream {
 	public record LSResult(List<String> buffer, List<String> fs) {
 		public List<EIT_Input> fs2(final Compilation c) {
-			return fs.stream()
-					.map(s -> new LSPrintStream.MyEIT_Input(c, s))
-					.collect(Collectors.toList());
+			return fs.stream().map(s -> new LSPrintStream.MyEIT_Input(c, s)).collect(Collectors.toList());
 		}
 
 		public List<EG_Statement> getStatement() {
-			return buffer.stream()
-					.map(str -> EG_Statement.of(str, EX_Explanation.withMessage("WriteBuffers")))
+			return buffer.stream().map(str -> EG_Statement.of(str, EX_Explanation.withMessage("WriteBuffers")))
 					.collect(Collectors.toList());
 		}
 	}
+
 	public static class MyEIT_Input implements EIT_Input {
 		private final Compilation c;
-		private final String      s;
+		private final String s;
 
 		public MyEIT_Input(final Compilation aC, final String aS) {
 			c = aC;
@@ -44,7 +42,7 @@ public class LSPrintStream implements XPrintStream {
 
 	private final StringBuilder sb = new StringBuilder();
 
-	private final List<String>  ff = new ArrayList<>();
+	private final List<String> ff = new ArrayList<>();
 
 	public void addFile(final String aS) {
 		ff.add(aS);

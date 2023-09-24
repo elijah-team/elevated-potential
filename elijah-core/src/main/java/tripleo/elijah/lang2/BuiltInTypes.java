@@ -12,19 +12,14 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Tripleo
- * <p>
- * Created 	Mar 27, 2020 at 2:08:59 AM
+ *         <p>
+ *         Created Mar 27, 2020 at 2:08:59 AM
  */
 public enum BuiltInTypes {
-	Boolean(79),
-	String_(8),
-	SystemCharacter(9),
-	SystemInteger(80),
-	Unit(0);
+	Boolean(79), String_(8), SystemCharacter(9), SystemInteger(80), Unit(0);
 
 	public static boolean isBooleanText(@NotNull String name) {
-		return name.equals("true") || name.equals("false")
-				|| name.equals("True") || name.equals("False");
+		return name.equals("true") || name.equals("false") || name.equals("True") || name.equals("False");
 	}
 
 	final int _code;

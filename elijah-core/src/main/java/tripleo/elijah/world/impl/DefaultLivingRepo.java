@@ -25,14 +25,14 @@ public class DefaultLivingRepo implements LivingRepo {
 
 	private final @NotNull ObservableCompletableProcess<WorldModule> wmo = new ObservableCompletableProcess<>();
 
-	private final          Map<String, OS_Package>                          _packages   = new HashMap<String, OS_Package>();
-	private final          Set<WorldModule>                                 _modules    = new HashSet<>();
-	private final @NotNull List<LivingNode>                                 repo        = new ArrayList<>();
+	private final Map<String, OS_Package> _packages = new HashMap<String, OS_Package>();
+	private final Set<WorldModule> _modules = new HashSet<>();
+	private final @NotNull List<LivingNode> repo = new ArrayList<>();
 	private final @NotNull Multimap<BaseEvaFunction, DefaultLivingFunction> functionMap = ArrayListMultimap.create();
 
-	private       int                                              _classCode    = 101;
-	private       int                                              _functionCode = 1001;
-	private       int                                              _packageCode  = 1;
+	private int _classCode = 101;
+	private int _functionCode = 1001;
+	private int _packageCode = 1;
 
 	@Override
 	public @Nullable LivingClass addClass(final ClassStatement cs) {
@@ -87,16 +87,17 @@ public class DefaultLivingRepo implements LivingRepo {
 	}
 
 	@Override
-	public @NotNull DefaultLivingFunction addFunction(final @NotNull BaseEvaFunction aFunction, final @NotNull Add addFlag) {
+	public @NotNull DefaultLivingFunction addFunction(final @NotNull BaseEvaFunction aFunction,
+			final @NotNull Add addFlag) {
 		switch (addFlag) {
 		case NONE -> {
 			aFunction.setCode(nextFunctionCode());
 		}
 		case MAIN_FUNCTION -> {
-			if (aFunction.getFD() instanceof FunctionDef &&
-					MainClassEntryPoint.is_main_function_with_no_args((FunctionDef) aFunction.getFD())) {
+			if (aFunction.getFD() instanceof FunctionDef
+					&& MainClassEntryPoint.is_main_function_with_no_args((FunctionDef) aFunction.getFD())) {
 				aFunction.setCode(1000);
-				//compilation.notifyFunction(code, aFunction);
+				// compilation.notifyFunction(code, aFunction);
 			} else {
 				throw new IllegalArgumentException("not a main function");
 			}
@@ -120,7 +121,8 @@ public class DefaultLivingRepo implements LivingRepo {
 	}
 
 	@Override
-	public void addModule(final @NotNull OS_Module mod, final @NotNull String aFilename, final @NotNull Compilation aC) {
+	public void addModule(final @NotNull OS_Module mod, final @NotNull String aFilename,
+			final @NotNull Compilation aC) {
 		System.out.println("LivingRepo::addModule >> " + aFilename);
 
 		var t = aC.getCompilerInputListener();
@@ -143,7 +145,8 @@ public class DefaultLivingRepo implements LivingRepo {
 	}
 
 	@Override
-	public @NotNull DefaultLivingNamespace addNamespace(final @NotNull EvaNamespace aNamespace, final @NotNull Add addFlag) {
+	public @NotNull DefaultLivingNamespace addNamespace(final @NotNull EvaNamespace aNamespace,
+			final @NotNull Add addFlag) {
 		switch (addFlag) {
 		case NONE -> {
 			aNamespace.setCode(nextClassCode());
@@ -177,10 +180,7 @@ public class DefaultLivingRepo implements LivingRepo {
 	@Override
 	public List<ClassStatement> findClass(String aClassName) {
 		final List<ClassStatement> l = new ArrayList<>();
-		var modules1 = modules()
-				.stream()
-				.map(WorldModule::module)
-				.collect(Collectors.toList());
+		var modules1 = modules().stream().map(WorldModule::module).collect(Collectors.toList());
 
 		for (final OS_Module module : modules1) {
 			if (module.hasClass(aClassName)) {
@@ -193,11 +193,8 @@ public class DefaultLivingRepo implements LivingRepo {
 
 	@Override
 	public WorldModule findModule(OS_Module mod) {
-		//noinspection UnnecessaryLocalVariable
-		final WorldModule result = _modules.stream()
-				.filter(wm -> wm.module() == mod)
-				.findFirst()
-				.orElse(null);
+		// noinspection UnnecessaryLocalVariable
+		final WorldModule result = _modules.stream().filter(wm -> wm.module() == mod).findFirst().orElse(null);
 
 		return result;
 	}
@@ -212,7 +209,7 @@ public class DefaultLivingRepo implements LivingRepo {
 		}
 
 		final DefaultLivingClass living = new DefaultLivingClass(aEvaClass);
-		//klass._living = living;
+		// klass._living = living;
 
 		repo.add(living);
 
@@ -259,10 +256,7 @@ public class DefaultLivingRepo implements LivingRepo {
 
 	@Override
 	public @Nullable WorldModule getModule(final OS_Module aModule) {
-		return _modules.stream()
-				.filter(module -> module.module() == aModule)
-				.findFirst()
-				.orElse(null);
+		return _modules.stream().filter(module -> module.module() == aModule).findFirst().orElse(null);
 	}
 
 	@Override
@@ -275,7 +269,7 @@ public class DefaultLivingRepo implements LivingRepo {
 		}
 
 		final DefaultLivingNamespace living = new DefaultLivingNamespace(aEvaNamespace);
-		//klass._living = living;
+		// klass._living = living;
 
 		repo.add(living);
 

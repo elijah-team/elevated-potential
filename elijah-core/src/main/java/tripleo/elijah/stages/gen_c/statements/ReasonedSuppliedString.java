@@ -4,11 +4,11 @@ import java.util.function.*;
 
 class ReasonedSuppliedString implements IReasonedString {
 	Supplier<String> textSupplier;
-	String           reason;
+	String reason;
 
 	public ReasonedSuppliedString(final Supplier<String> aText, final String aReason) {
 		textSupplier = aText;
-		reason       = aReason;
+		reason = aReason;
 	}
 
 	@Override

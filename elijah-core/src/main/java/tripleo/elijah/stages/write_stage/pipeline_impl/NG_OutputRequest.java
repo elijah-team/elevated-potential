@@ -6,10 +6,6 @@ import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 
 // TODO 09/04 Duplication madness
-public record NG_OutputRequest(
-		EOT_OutputFile.FileNameProvider fileName,
-		EG_Statement statement,
-		NG_OutputStatement outputStatment,
-		NG_OutputItem outputItem
-) {
+public record NG_OutputRequest(EOT_OutputFile.FileNameProvider fileName, EG_Statement statement,
+		NG_OutputStatement outputStatment, NG_OutputItem outputItem) {
 }

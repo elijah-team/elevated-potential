@@ -10,23 +10,23 @@ import java.util.*;
 
 public class CP_SubFile {
 	public static class CP_Path1 implements CP_Path {
-		public final @Nullable CP_Path                          parent;
-		public final           String                           childName;
-		public final @Nullable _CP_RootPath                     op;
-		private final          DeferredObject<Path, Void, Void> _pathPromise = new DeferredObject<>();
+		public final @Nullable CP_Path parent;
+		public final String childName;
+		public final @Nullable _CP_RootPath op;
+		private final DeferredObject<Path, Void, Void> _pathPromise = new DeferredObject<>();
 		String x;
 
 		public CP_Path1(final _CP_RootPath aParent, final String aFile) {
-			parent    = null; //new CP_Path1(aParent, aFile);
-			op        = aParent;
+			parent = null; // new CP_Path1(aParent, aFile);
+			op = aParent;
 			childName = aFile;
 			op.getPathPromise().then(p -> _pathPromise.resolve(Path.of(p.toString(), childName)));
 		}
 
 		public CP_Path1(final CP_Path1 aParent, final String aChildName) {
-			parent    = aParent;
+			parent = aParent;
 			childName = aChildName;
-			op        = null;
+			op = null;
 			parent.getPathPromise().then(p -> _pathPromise.resolve(Path.of(p.toString(), childName)));
 		}
 
@@ -86,7 +86,7 @@ public class CP_SubFile {
 		@Override
 		public @NotNull CP_SubFile subFile(final String aFile) {
 			x = aFile;
-			return new CP_SubFile((_CP_RootPath) null /*this*/, aFile);
+			return new CP_SubFile((_CP_RootPath) null /* this */, aFile);
 		}
 
 		@Override
@@ -99,8 +99,8 @@ public class CP_SubFile {
 
 		@Override
 		public String toString() {
-			String        result;
-			CP_Path       p  = parent;
+			String result;
+			CP_Path p = parent;
 			List<CP_Path> ps = new ArrayList<>();
 
 			while (p != null) {
@@ -108,15 +108,15 @@ public class CP_SubFile {
 				p = p.getParent();
 			}
 
-			//for (CP_Path path : ps) {
-			//	System.err.println("122 " + path.getName());
-			//}
+			// for (CP_Path path : ps) {
+			// System.err.println("122 " + path.getName());
+			// }
 
-			//if (ps.size() == 0) {
-			//	System.err.println("122xy " + op.getPath());
-			//} else {
-			//	System.err.println("122x " + ps);
-			//}
+			// if (ps.size() == 0) {
+			// System.err.println("122xy " + op.getPath());
+			// } else {
+			// System.err.println("122x " + ps);
+			// }
 
 			if (parent == null) {
 				final String root_path = op.getPath().toFile().toString();
@@ -125,21 +125,22 @@ public class CP_SubFile {
 				final String parentName = parent.getName();
 				result = getString(parentName);
 			}
-			//return result;
+			// return result;
 			return toFile().toString();
 		}
 	}
-	private final           _CP_RootPath rootPath;
-	private final @Nullable CP_Path      parentPath;
-	private final           String       file;
 
-	private final @NotNull  CP_Path      _path;
+	private final _CP_RootPath rootPath;
+	private final @Nullable CP_Path parentPath;
+	private final String file;
+
+	private final @NotNull CP_Path _path;
 
 	public CP_SubFile(final _CP_RootPath aCPOutputPath, final String aFile) {
-		rootPath   = aCPOutputPath;
+		rootPath = aCPOutputPath;
 		parentPath = null;
-		file       = aFile;
-		_path      = new CP_Path1(rootPath, file);
+		file = aFile;
+		_path = new CP_Path1(rootPath, file);
 	}
 
 	public CP_SubFile(final CP_Path aParentPath, final String aFile) {
@@ -149,8 +150,8 @@ public class CP_SubFile {
 			rootPath = aParentPath.getRootPath();
 
 		parentPath = aParentPath;
-		file       = aFile;
-		_path      = new CP_Path1(rootPath, file);
+		file = aFile;
+		_path = new CP_Path1(rootPath, file);
 	}
 
 	public CP_Path getPath() {

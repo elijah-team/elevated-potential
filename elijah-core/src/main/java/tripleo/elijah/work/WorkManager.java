@@ -19,8 +19,10 @@ import java.util.List;
  * Created 4/26/21 4:22 AM
  */
 public class WorkManager {
-	@NotNull List<WorkList> doneWork = new ArrayList<WorkList>();
-	@NotNull List<WorkList> jobs     = new ArrayList<WorkList>();
+	@NotNull
+	List<WorkList> doneWork = new ArrayList<WorkList>();
+	@NotNull
+	List<WorkList> jobs = new ArrayList<WorkList>();
 
 	public void addJobs(final WorkList aList) {
 		jobs.add(aList);
@@ -28,8 +30,10 @@ public class WorkManager {
 
 	public void drain() {
 		while (true) {
-			@Nullable WorkJob w = next();
-			if (w == null) break;
+			@Nullable
+			WorkJob w = next();
+			if (w == null)
+				break;
 			w.run(this);
 		}
 	}

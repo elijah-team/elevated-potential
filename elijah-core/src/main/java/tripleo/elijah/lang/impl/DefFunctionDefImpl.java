@@ -22,10 +22,11 @@ import java.util.*;
 
 public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elijah.lang.i.DefFunctionDef {
 
-	private final     OS_Element         parent;
-	@NotNull          List<FunctionItem> _items      = new ArrayList<FunctionItem>();
-	private           IExpression        _expr;
-	private @Nullable TypeName           _returnType = null;
+	private final OS_Element parent;
+	@NotNull
+	List<FunctionItem> _items = new ArrayList<FunctionItem>();
+	private IExpression _expr;
+	private @Nullable TypeName _returnType = null;
 
 	public DefFunctionDefImpl(OS_Element aElement, Context aContext) {
 		parent = aElement;
@@ -85,7 +86,7 @@ public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elija
 	@Override
 	public void serializeTo(final @NotNull SmallWriter sw) {
 		sw.fieldIdent("name", getNameNode());
-		//throw new NotImplementedException();
+		// throw new NotImplementedException();
 	}
 
 	@Override
@@ -105,7 +106,6 @@ public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elija
 		// TODO Auto-generated method stub
 
 	}
-
 
 	@Override
 	public void setBody(IExpression aExpression) {

@@ -21,7 +21,7 @@ import tripleo.elijah.lang.impl.VariableSequenceImpl;
  */
 public class VarContext extends ContextImpl {
 
-	private final Context              _parent;
+	private final Context _parent;
 	private final VariableSequenceImpl carrier;
 
 	public VarContext(final VariableSequenceImpl carrier, final Context _parent) {
@@ -35,7 +35,8 @@ public class VarContext extends ContextImpl {
 	}
 
 	@Override
-	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result, final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
+			final @NotNull SearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
 		for (final VariableStatement vs : carrier.items()) {

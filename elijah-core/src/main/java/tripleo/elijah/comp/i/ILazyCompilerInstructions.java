@@ -11,9 +11,10 @@ import java.io.*;
 
 public interface ILazyCompilerInstructions {
 	@Contract(value = "_, _ -> new", pure = true)
-	static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInput input, final @NotNull CompilationClosure cc) {
+	static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInput input,
+			final @NotNull CompilationClosure cc) {
 		final String file_name = input.getInp();
-		final File   f         = new File(file_name);
+		final File f = new File(file_name);
 
 		return new ILazyCompilerInstructions() {
 			@Override
@@ -23,7 +24,8 @@ public interface ILazyCompilerInstructions {
 
 					var p = new SourceFileParserParams(input, f, file_name, cc);
 
-					final Operation<CompilerInstructions> oci = cc.getCompilation().getCompilationEnclosure().getCompilationRunner().parseEzFile(p);
+					final Operation<CompilerInstructions> oci = cc.getCompilation().getCompilationEnclosure()
+							.getCompilationRunner().parseEzFile(p);
 
 					if (oci.mode() == Mode.SUCCESS) {
 						final CompilerInstructions parsed = oci.success();
@@ -32,7 +34,7 @@ public interface ILazyCompilerInstructions {
 						throw new RuntimeException(oci.failure()); // TODO ugh
 					}
 				} catch (Exception aE) {
-					//return Operation.failure(aE);
+					// return Operation.failure(aE);
 					throw new RuntimeException(aE); // TODO ugh
 				}
 			}

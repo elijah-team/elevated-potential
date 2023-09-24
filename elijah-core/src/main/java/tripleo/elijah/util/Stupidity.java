@@ -11,7 +11,7 @@ public enum Stupidity {
 	}
 
 	public static void println_err_2(final Object aS) {
-		//System.err.println(String.valueOf(aS));
+		// System.err.println(String.valueOf(aS));
 	}
 
 	@Contract(pure = true) // ??
@@ -31,7 +31,7 @@ public enum Stupidity {
 
 	@Contract(pure = true)
 	public static void println_out_2(final Object aS) {
-		//System.out.println("" + aS);
+		// System.out.println("" + aS);
 	}
 
 	public static void println_out_3(final String aS) {

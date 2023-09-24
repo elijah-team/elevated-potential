@@ -7,13 +7,14 @@ import tripleo.elijah.stages.instructions.InstructionArgument;
 
 public class EN_DeduceUsage implements EN_Usage {
 	private final InstructionArgument backlink;
-	private       BaseEvaFunction     evaFunction;
-	private       BaseTableEntry      bte;
+	private BaseEvaFunction evaFunction;
+	private BaseTableEntry bte;
 
-	public EN_DeduceUsage(final InstructionArgument aBacklink, BaseEvaFunction evaFunction, BaseTableEntry aTableEntry) {
-		backlink         = aBacklink;
+	public EN_DeduceUsage(final InstructionArgument aBacklink, BaseEvaFunction evaFunction,
+			BaseTableEntry aTableEntry) {
+		backlink = aBacklink;
 		this.evaFunction = evaFunction;
-		this.bte         = aTableEntry;
+		this.bte = aTableEntry;
 	}
 
 	public BaseTableEntry getBte() {

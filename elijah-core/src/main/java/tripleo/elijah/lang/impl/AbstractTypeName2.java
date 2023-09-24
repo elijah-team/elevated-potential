@@ -22,8 +22,8 @@ import java.util.*;
 public abstract class AbstractTypeName2 implements NormalTypeName {
 
 	protected @NotNull Collection<TypeModifiers> _ltm = new LinkedHashSet<TypeModifiers>();
-	protected          TypeModifiers             tm;
-	protected          Qualident                 typeName;
+	protected TypeModifiers tm;
+	protected Qualident typeName;
 
 	@Override
 	public boolean equals(final Object o) {

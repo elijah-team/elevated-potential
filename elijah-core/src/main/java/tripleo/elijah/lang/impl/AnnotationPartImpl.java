@@ -15,7 +15,7 @@ import tripleo.elijah.lang.i.Qualident;
  * Created 8/15/20 6:45 PM
  */
 public class AnnotationPartImpl implements tripleo.elijah.lang.i.AnnotationPart {
-	private Qualident      _class;
+	private Qualident _class;
 	private ExpressionList _exprs;
 
 	@Override
