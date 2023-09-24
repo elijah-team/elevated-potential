@@ -3,6 +3,7 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -59,5 +60,10 @@ class DefaultCompFactory implements CompFactory {
 			R.append(Helpers.string_to_ident(s));
 		}
 		return R;
+	}
+
+	@Override
+	public CK_ObjectTree createObjectTree() {
+		return new CompilationImpl.DefaultObjectTree();
 	}
 }
