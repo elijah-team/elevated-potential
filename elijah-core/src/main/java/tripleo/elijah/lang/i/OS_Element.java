@@ -8,17 +8,17 @@
  */
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang2.ElElementVisitor;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang2.*;
 
 public interface OS_Element {
 	Context getContext();
 
 	@Nullable OS_Element getParent();
 
-	void visitGen(ElElementVisitor visit);
-
 	void serializeTo(SmallWriter sw);
+
+	void visitGen(ElElementVisitor visit);
 }
 
 //

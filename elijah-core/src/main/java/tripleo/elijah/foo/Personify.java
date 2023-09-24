@@ -12,13 +12,13 @@ public class Personify {
         return age;
     }
 
-//    @BuilderProperty
-    public void setAge(int age) {
-        this.age = age;
+public String getName() {
+        return name;
     }
 
-    public String getName() {
-        return name;
+    //    @BuilderProperty
+    public void setAge(int age) {
+        this.age = age;
     }
 
 //    @BuilderProperty

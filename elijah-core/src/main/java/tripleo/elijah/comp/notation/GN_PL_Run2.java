@@ -1,27 +1,43 @@
 package tripleo.elijah.comp.notation;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
-import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah.stages.gen_fn.DefaultClassGenerator;
-import tripleo.elijah.stages.gen_fn.IClassGenerator;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.stages.inter.ModuleThing;
-import tripleo.elijah.world.i.WorldModule;
-import tripleo.elijah.world.impl.DefaultWorldModule;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.inter.*;
+import tripleo.elijah.world.i.*;
+import tripleo.elijah.world.impl.*;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
 public class GN_PL_Run2 implements GN_Notable, @NotNull EventualRegister {
+	public record GenerateFunctionsRequest(IClassGenerator classGenerator,
+										   DefaultWorldModule worldModule
+	) {
+		public ModuleThing mt() {
+			return worldModule.thing();
+		}
+
+		public OS_Module mod() {
+			return worldModule.module();
+		}
+	}
+	@Contract("_ -> new")
+	@SuppressWarnings("unused")
+	public static @NotNull GN_PL_Run2 getFactoryEnv(GN_Env env1) {
+		var env = (GN_PL_Run2_Env) env1;
+		return new GN_PL_Run2(env.pipelineLogic(), env.mod(), env.ce(), env.worldConsumer());
+	}
 	private final @NotNull WorldModule mod;
 	private final          PipelineLogic         pipelineLogic;
 	private final          CompilationEnclosure  ce;
+
 	private final          DefaultClassGenerator dcg;
+
 	private final          Consumer<WorldModule> worldConsumer;
 
 	@Contract(pure = true)
@@ -35,6 +51,20 @@ public class GN_PL_Run2 implements GN_Notable, @NotNull EventualRegister {
 		worldConsumer = aWorldConsumer;
 
 		dcg = new DefaultClassGenerator(pipelineLogic.dp);
+	}
+
+	private void _finish() {
+		pipelineLogic.checkFinishEventuals();
+	}
+
+	@Override
+	public void checkFinishEventuals() {
+
+	}
+
+	@Override
+	public <P> void register(final Eventual<P> e) {
+
 	}
 
 	@Override
@@ -59,38 +89,5 @@ public class GN_PL_Run2 implements GN_Notable, @NotNull EventualRegister {
 		});
 
 		_finish();
-	}
-
-	private void _finish() {
-		pipelineLogic.checkFinishEventuals();
-	}
-
-	@Override
-	public <P> void register(final Eventual<P> e) {
-
-	}
-
-	@Override
-	public void checkFinishEventuals() {
-
-	}
-
-	public record GenerateFunctionsRequest(IClassGenerator classGenerator,
-										   DefaultWorldModule worldModule
-	) {
-		public ModuleThing mt() {
-			return worldModule.thing();
-		}
-
-		public OS_Module mod() {
-			return worldModule.module();
-		}
-	}
-
-	@Contract("_ -> new")
-	@SuppressWarnings("unused")
-	public static @NotNull GN_PL_Run2 getFactoryEnv(GN_Env env1) {
-		var env = (GN_PL_Run2_Env) env1;
-		return new GN_PL_Run2(env.pipelineLogic(), env.mod(), env.ce(), env.worldConsumer());
 	}
 }

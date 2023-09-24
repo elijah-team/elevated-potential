@@ -40,11 +40,6 @@ public class Old_GenerateResult implements GenerateResult {
 	}
 
 	@Override
-	public void close() {
-		this._closed = true;
-	}
-
-	@Override
 	public void add(@NotNull Buffer b, @NotNull EvaNode n, @NotNull TY ty, @Nullable LibraryStatementPart aLsp, @NotNull Dependency d) {
 		if (_closed) throw new IllegalStateException("closed GenerateResult");
 
@@ -104,6 +99,11 @@ public class Old_GenerateResult implements GenerateResult {
 		_watchers.add(w);
 	}
 
+	@Override
+	public void close() {
+		this._closed = true;
+	}
+
 	/* (non-Javadoc)
 	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#completeItem(tripleo.elijah.stages.gen_generic.GenerateResultItem)
 	 */
@@ -125,18 +125,6 @@ public class Old_GenerateResult implements GenerateResult {
 	}
 
 	/* (non-Javadoc)
-	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#signalDone()
-	 */
-	@Override
-	public void signalDone() {
-		completedItems.onComplete();
-
-		for (IGenerateResultWatcher w : _watchers) {
-			w.complete();
-		}
-	}
-
-	/* (non-Javadoc)
 	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#outputFiles(java.util.function.Consumer)
 	 */
 	@Override
@@ -150,6 +138,18 @@ public class Old_GenerateResult implements GenerateResult {
 	@Override
 	public @NotNull List<Old_GenerateResultItem> results() {
 		return _res;
+	}
+
+	/* (non-Javadoc)
+	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#signalDone()
+	 */
+	@Override
+	public void signalDone() {
+		completedItems.onComplete();
+
+		for (IGenerateResultWatcher w : _watchers) {
+			w.complete();
+		}
 	}
 
 	/* (non-Javadoc)

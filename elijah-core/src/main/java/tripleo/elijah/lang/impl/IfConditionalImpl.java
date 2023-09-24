@@ -112,8 +112,8 @@ public class IfConditionalImpl implements tripleo.elijah.lang.i.IfConditional {
 	}
 
 	@Override
-	public void visitGen(final @NotNull ElElementVisitor visit) {
-		visit.visitIfConditional(this);
+	public void serializeTo(SmallWriter sw) {
+		throw new UnsupportedOperationException();
 	}
 
 	/*
@@ -144,8 +144,8 @@ public class IfConditionalImpl implements tripleo.elijah.lang.i.IfConditional {
 	}
 
 	@Override
-	public void serializeTo(SmallWriter sw) {
-		throw new UnsupportedOperationException();
+	public void visitGen(final @NotNull ElElementVisitor visit) {
+		visit.visitIfConditional(this);
 	}
 }
 

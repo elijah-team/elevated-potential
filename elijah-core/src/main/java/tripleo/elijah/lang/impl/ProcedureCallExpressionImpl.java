@@ -75,6 +75,10 @@ public class ProcedureCallExpressionImpl implements tripleo.elijah.lang.i.Proced
 		return _left;
 	}
 
+	public @NotNull String getReturnTypeString() {
+		return "int"; // TODO hardcoded
+	}
+
 	@Override
 	public OS_Type getType() {
 		return _type;
@@ -90,16 +94,16 @@ public class ProcedureCallExpressionImpl implements tripleo.elijah.lang.i.Proced
 		setLeft(xyz);
 	}
 
-	@Override
-	public String printableString() {
-		return String.format("%s%s", getLeft(), args != null ? args.toString() : "()");
-	}
-
 	// endregion
 
-	@Override
-	public void setType(final OS_Type deducedExpression) {
-		_type = deducedExpression;
+	/**
+	 * Set the left hand side of the procedure call expression, ie the method name
+	 *
+	 * @param xyz a method name in Qualident form (might come as DotExpression in
+	 *            future)
+	 */
+	public void identifier(final Qualident xyz) {
+		setLeft(xyz);
 	}
 
 	@Override
@@ -113,6 +117,16 @@ public class ProcedureCallExpressionImpl implements tripleo.elijah.lang.i.Proced
 
 	// region representation
 
+	@Override
+	public String printableString() {
+		return String.format("%s%s", getLeft(), args != null ? args.toString() : "()");
+	}
+
+	@Override
+	public String repr_() {
+		return toString();
+	}
+
 	/**
 	 * change then argument list all at once
 	 *
@@ -123,28 +137,9 @@ public class ProcedureCallExpressionImpl implements tripleo.elijah.lang.i.Proced
 		args = ael;
 	}
 
-	public @NotNull String getReturnTypeString() {
-		return "int"; // TODO hardcoded
-	}
-
-	/**
-	 * Set the left hand side of the procedure call expression, ie the method name
-	 *
-	 * @param xyz a method name in Qualident form (might come as DotExpression in
-	 *            future)
-	 */
-	public void identifier(final Qualident xyz) {
-		setLeft(xyz);
-	}
-
 	// endregion
 
 	// region type (to remove)
-
-	@Override
-	public String repr_() {
-		return toString();
-	}
 
 	@Override
 	public void setKind(final ExpressionKind aIncrement) {
@@ -157,6 +152,11 @@ public class ProcedureCallExpressionImpl implements tripleo.elijah.lang.i.Proced
 	@Override
 	public void setLeft(final IExpression iexpression) {
 		_left = iexpression;
+	}
+
+	@Override
+	public void setType(final OS_Type deducedExpression) {
+		_type = deducedExpression;
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
 public interface ConstructorDef extends FunctionDef {
 	@Override
@@ -13,6 +13,11 @@ public interface ConstructorDef extends FunctionDef {
 	void postConstruct();
 
 	@Override
+	default void serializeTo(SmallWriter sw) {
+
+	}
+
+	@Override
 	void setFal(FormalArgList aFal);
 
 	@Override
@@ -23,9 +28,4 @@ public interface ConstructorDef extends FunctionDef {
 
 	@Override
 	void visitGen(ElElementVisitor visit); // OS_Element
-
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
 }

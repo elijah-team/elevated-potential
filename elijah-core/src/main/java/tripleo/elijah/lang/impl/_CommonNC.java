@@ -8,14 +8,12 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import antlr.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
+import tripleo.elijah.lang.nextgen.names.i.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 3/29/21 5:11 PM
@@ -32,8 +30,16 @@ public abstract class _CommonNC {
 	private @NotNull List<AccessNotation>   accesses    = new ArrayList<AccessNotation>();
 	private          El_Category            category;
 
+	protected EN_Name __common_nc__n;
+
 	public void addAccess(final AccessNotation acs) {
 		accesses.add(acs);
+	}
+
+	public void addAnnotation(final AnnotationClause a) {
+		if (annotations == null)
+			annotations = new ArrayList<AnnotationClause>();
+		annotations.add(a);
 	}
 
 	public void addAnnotations(@Nullable List<AnnotationClause> as) {
@@ -44,12 +50,6 @@ public abstract class _CommonNC {
 		}
 	}
 
-	public void addAnnotation(final AnnotationClause a) {
-		if (annotations == null)
-			annotations = new ArrayList<AnnotationClause>();
-		annotations.add(a);
-	}
-
 	public void addDocString(final @NotNull Token aText) {
 		mDocs.add(aText.getText());
 	}
@@ -58,16 +58,35 @@ public abstract class _CommonNC {
 		return access_note;
 	}
 
-	public void setAccess(AccessNotation aNotation) {
-		access_note = aNotation;
-	}
-
 	public El_Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(El_Category aCategory) {
-		category = aCategory;
+	public EN_Name getEnName() {
+		if (__common_nc__n == null) {
+			__common_nc__n = EN_Name.create(name());
+		}
+		return __common_nc__n;
+	}
+
+	public @NotNull List<ClassItem> getItems() {
+		return items;
+	}
+
+	public String getName() {
+		if (nameToken == null)
+			return "";
+		return nameToken.getText();
+	}
+
+	public OS_Package getPackageName() {
+		return _packageName;
+	}
+
+	public boolean hasItem(OS_Element element) {
+		if (!(element instanceof ClassItem))
+			return false;
+		return items.contains(element);
 	}
 
 	// OS_Container
@@ -81,37 +100,27 @@ public abstract class _CommonNC {
 		return a;
 	}
 
-	public String getName() {
-		if (nameToken == null)
-			return "";
-		return nameToken.getText();
-	}
-
-	public @NotNull List<ClassItem> getItems() {
-		return items;
-	}
-
 	// OS_Element2
 	public String name() {
 		return getName();
 	}
 
-	public OS_Package getPackageName() {
-		return _packageName;
+	public void setAccess(AccessNotation aNotation) {
+		access_note = aNotation;
 	}
 
-	public void setPackageName(final OS_Package aPackageName) {
-		_packageName = aPackageName;
+	public void setCategory(El_Category aCategory) {
+		category = aCategory;
 	}
 
 	public void setName(final IdentExpression i1) {
 		nameToken = i1;
 	}
 
-	public boolean hasItem(OS_Element element) {
-		if (!(element instanceof ClassItem))
-			return false;
-		return items.contains(element);
+	// endregion
+
+	public void setPackageName(final OS_Package aPackageName) {
+		_packageName = aPackageName;
 	}
 
 	public void walkAnnotations(@NotNull AnnotationWalker annotationWalker) {
@@ -123,17 +132,6 @@ public abstract class _CommonNC {
 			}
 		}
 	}
-
-	// endregion
-
-	public EN_Name getEnName() {
-		if (__common_nc__n == null) {
-			__common_nc__n = EN_Name.create(name());
-		}
-		return __common_nc__n;
-	}
-
-	protected EN_Name __common_nc__n;
 }
 
 //

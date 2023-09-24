@@ -8,14 +8,13 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.FuncExprContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.util.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Tripleo
@@ -34,14 +33,15 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 		return mFal.falis();
 	}
 
+	@Override
+	public Context getContext() {
+		return _ctx;
+	}
+
 	/****** FOR IEXPRESSION ******/
 	@Override
 	public @NotNull ExpressionKind getKind() {
 		return ExpressionKind.FUNC_EXPR;
-	}
-
-	public Scope3 getScope() {
-		return scope3;
 	}
 
 //	public List<FunctionItem> getItems() {
@@ -55,8 +55,8 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 //	}
 
 	@Override
-	public void setArgList(FormalArgList argList) {
-		mFal = argList;
+	public @Nullable IExpression getLeft() {
+		return null;
 	}
 
 	@Override
@@ -66,21 +66,20 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 		// Expression is not an Element
 	}
 
-	@Override
-	public void setKind(final ExpressionKind aKind) {
-		throw new NotImplementedException();
+	public Scope3 getScope() {
+		return scope3;
 	}
 
 	@Override
-	public void visitGen(final @NotNull ElElementVisitor visit) {
-		visit.visitFuncExpr(this);
+	public OS_Type getType() {
+		return _type;
 	}
 
 	// region arglist
 
 	@Override
-	public OS_Type getType() {
-		return _type;
+	public boolean is_simple() {
+		return false;
 	}
 
 	@Override
@@ -91,18 +90,23 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 	// endregion
 
 	@Override
-	public boolean is_simple() {
-		return false;
-	}
-
-	@Override
-	public @Nullable IExpression getLeft() {
+	public @Nullable String repr_() {
 		return null;
 	}
 
 	@Override
-	public void setLeft(final IExpression iexpression) {
-		throw new NotImplementedException();
+	public TypeName returnType() {
+		return _returnType;
+	}
+
+	@Override
+	public void serializeTo(final SmallWriter sw) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setArgList(FormalArgList argList) {
+		mFal = argList;
 	}
 
 	public void setArgs(final ExpressionList ael) {
@@ -113,28 +117,28 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 	}
 
 	@Override
+	public void setContext(final FuncExprContext ctx) {
+		_ctx = ctx;
+	}
+
+	@Override
 	public void setHeader(final FunctionHeader aFunctionHeader) {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public void setKind(final ExpressionKind aKind) {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public void setLeft(final IExpression iexpression) {
 		throw new NotImplementedException();
 	}
 
 	@Override
 	public void setReturnType(final TypeName tn) {
 		_returnType = tn;
-	}
-
-	@Override
-	public TypeName returnType() {
-		return _returnType;
-	}
-
-	@Override
-	public Context getContext() {
-		return _ctx;
-	}
-
-	@Override
-	public void setContext(final FuncExprContext ctx) {
-		_ctx = ctx;
 	}
 
 	/************* FOR THE OTHER ONE ******************/
@@ -148,19 +152,14 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 		assert modifier == TypeModifiers.FUNCTION || modifier == TypeModifiers.PROCEDURE;
 	}
 
-	@Override
-	public @Nullable String repr_() {
-		return null;
-	}
-
 //	@Override
 //	public void scope(Scope3 sco) {
 //		scope3 = sco;
 //	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-		throw new UnsupportedOperationException();
+	public void visitGen(final @NotNull ElElementVisitor visit) {
+		visit.visitFuncExpr(this);
 	}
 
 }

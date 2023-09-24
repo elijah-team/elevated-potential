@@ -8,11 +8,9 @@
  */
 package tripleo.elijah.lang.impl;
 
-import tripleo.elijah.lang.i.NormalTypeName;
-import tripleo.elijah.lang.i.Qualident;
-import tripleo.elijah.lang.i.TypeModifiers;
+import tripleo.elijah.lang.i.*;
 
-import java.util.Objects;
+import java.util.*;
 
 public abstract class AbstractTypeName implements NormalTypeName {
 
@@ -63,18 +61,18 @@ public abstract class AbstractTypeName implements NormalTypeName {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(tm, pr_constant, pr_reference, pr_out, pr_in, pr_name, isNullable);
+	}
+
+	@Override
+	public boolean isNull() {
+		return !pr_constant && !pr_reference && !pr_out && !pr_in && (pr_name == null);
+	}
+
+	@Override
 	public void setConstant(final boolean s) {
 		pr_constant = s;
-	}
-
-	@Override
-	public void setOut(final boolean s) {
-		pr_out = s;
-	}
-
-	@Override
-	public void setReference(final boolean s) {
-		pr_reference = s;
 	}
 
 	@Override
@@ -93,13 +91,13 @@ public abstract class AbstractTypeName implements NormalTypeName {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(tm, pr_constant, pr_reference, pr_out, pr_in, pr_name, isNullable);
+	public void setOut(final boolean s) {
+		pr_out = s;
 	}
 
 	@Override
-	public boolean isNull() {
-		return !pr_constant && !pr_reference && !pr_out && !pr_in && (pr_name == null);
+	public void setReference(final boolean s) {
+		pr_reference = s;
 	}
 }
 

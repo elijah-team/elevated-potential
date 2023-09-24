@@ -1,16 +1,13 @@
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.FunctionDef;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.world.i.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 public class Coder {
 	private static void extractNodes_toResolvedNodes(@NotNull final Map<FunctionDef, EvaFunction> aFunctionMap, @NotNull final List<EvaNode> resolved_nodes) {
@@ -41,14 +38,14 @@ public class Coder {
 		}
 	}
 
-	public void codeNodeFunction(@NotNull final BaseEvaFunction generatedFunction, final WorldModule mod) {
-		assert generatedFunction.getCode() == 0;
-		codeRegistrar.registerFunction(generatedFunction);
-	}
-
 	public void codeNodeClass(@NotNull final EvaClass generatedClass, final WorldModule wm) {
 		assert generatedClass.getLiving().getCode() == 0;
 		codeRegistrar.registerClass(generatedClass);
+	}
+
+	public void codeNodeFunction(@NotNull final BaseEvaFunction generatedFunction, final WorldModule mod) {
+		assert generatedFunction.getCode() == 0;
+		codeRegistrar.registerFunction(generatedFunction);
 	}
 
 	public void codeNodeNamespace(@NotNull final EvaNamespace generatedNamespace, final WorldModule mod) {

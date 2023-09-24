@@ -1,23 +1,23 @@
 package tripleo.elijah.stages.deduce.fluffy.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.entrypoints.MainClassEntryPoint;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Element2;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
-import tripleo.elijah.stages.deduce.fluffy.i.FluffyLsp;
-import tripleo.elijah.stages.deduce.fluffy.i.FluffyMember;
-import tripleo.elijah.stages.deduce.fluffy.i.FluffyModule;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.entrypoints.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.deduce.fluffy.i.*;
 
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
 public class FluffyModuleImpl implements FluffyModule {
+	static class FluffyModuleImplInjector {
+
+		public MainClassEntryPoint new_MainClassEntryPoint(ClassStatement x) {
+			return new MainClassEntryPoint(x);
+		}
+	}
+
 	/**
 	 * If classStatement is a "main class", send to consumer
 	 *
@@ -51,6 +51,10 @@ public class FluffyModuleImpl implements FluffyModule {
 		compilation = aCompilation;
 	}
 
+	private FluffyModuleImplInjector _inj() {
+		return this.__inj;
+	}
+
 	@Override
 	public void find_all_entry_points() {
 		//
@@ -62,10 +66,6 @@ public class FluffyModuleImpl implements FluffyModule {
 				.filter(item -> item instanceof ClassStatement)
 				.filter(classStatement -> MainClassEntryPoint.isMainClass((ClassStatement) classStatement))
 				.forEach(classStatement -> faep_002((ClassStatement) classStatement, ccs));
-	}
-
-	private FluffyModuleImplInjector _inj() {
-		return this.__inj;
 	}
 
 	@Override
@@ -86,12 +86,5 @@ public class FluffyModuleImpl implements FluffyModule {
 	@Override
 	public @Nullable String name() {
 		return null;
-	}
-
-	static class FluffyModuleImplInjector {
-
-		public MainClassEntryPoint new_MainClassEntryPoint(ClassStatement x) {
-			return new MainClassEntryPoint(x);
-		}
 	}
 }

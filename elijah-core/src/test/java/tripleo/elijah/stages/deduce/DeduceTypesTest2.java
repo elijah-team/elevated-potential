@@ -32,6 +32,40 @@ import static tripleo.elijah.util.Helpers.List_of;
 @Disabled
 public class DeduceTypesTest2 {
 
+	static class ClassBuilder {
+
+		private @Nullable OS_Module _mod  = null;
+		private @Nullable String    _name = null;
+
+		public @NotNull ClassStatement build() {
+			assert _mod != null;
+			assert _name != null;
+
+			final ClassStatement cs = new ClassStatementImpl(_mod, _mod.getContext());
+			final ClassHeader    ch = new ClassHeaderImpl(false, List_of());
+			ch.setName(Helpers.string_to_ident(_name));
+			cs.setHeader(ch);
+
+			return cs;
+		}
+
+		public @NotNull ClassBuilder withModule(final OS_Module aMod) {
+			_mod = aMod;
+			return this;
+		}
+
+		public @NotNull ClassBuilder withName(final String aS) {
+			_name = aS;
+			return this;
+		}
+	}
+
+	private boolean genTypeEquals(@NotNull GenType a, @NotNull GenType b) {
+		// TODO hack
+		return a.getTypeName().isEqual(b.getTypeName()) &&
+				a.getResolved().isEqual(b.getResolved());
+	}
+
 	@Test
 	public void testDeduceIdentExpression() throws ResolveError {
 		final Boilerplate b = new Boilerplate();
@@ -102,39 +136,5 @@ public class DeduceTypesTest2 {
 //		assertEquals(new OS_UserType(tn).getTypeName(), x.getTypeName());
 		assertTrue(genTypeEquals(d.resolve_type(new OS_UserType(tn), tn.getContext()), Objects.requireNonNull(x)));
 //		assertEquals(new OS_UserType(tn).toString(), x.toString());
-	}
-
-	private boolean genTypeEquals(@NotNull GenType a, @NotNull GenType b) {
-		// TODO hack
-		return a.getTypeName().isEqual(b.getTypeName()) &&
-				a.getResolved().isEqual(b.getResolved());
-	}
-
-	static class ClassBuilder {
-
-		private @Nullable OS_Module _mod  = null;
-		private @Nullable String    _name = null;
-
-		public @NotNull ClassStatement build() {
-			assert _mod != null;
-			assert _name != null;
-
-			final ClassStatement cs = new ClassStatementImpl(_mod, _mod.getContext());
-			final ClassHeader    ch = new ClassHeaderImpl(false, List_of());
-			ch.setName(Helpers.string_to_ident(_name));
-			cs.setHeader(ch);
-
-			return cs;
-		}
-
-		public @NotNull ClassBuilder withModule(final OS_Module aMod) {
-			_mod = aMod;
-			return this;
-		}
-
-		public @NotNull ClassBuilder withName(final String aS) {
-			_name = aS;
-			return this;
-		}
 	}
 }

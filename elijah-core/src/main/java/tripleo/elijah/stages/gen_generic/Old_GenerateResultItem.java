@@ -45,6 +45,16 @@ public class Old_GenerateResultItem implements GenerateResultItem {
 	}
 
 	@Override
+	public GenerateResult.@NotNull TY __ty() {
+		return ty;
+	}
+
+	@Override
+	public int _counter() {
+		return counter;
+	}
+
+	@Override
 	public @NotNull Buffer buffer() {
 		return this.buffer;
 	}
@@ -102,11 +112,6 @@ public class Old_GenerateResultItem implements GenerateResultItem {
 		return this.output;
 	}
 
-	@Override
-	public GenerateResult.@NotNull TY __ty() {
-		return ty;
-	}
-
 	/* (non-Javadoc)
 	 * @see tripleo.elijah.stages.gen_generic.GenerateResultItem#toString()
 	 */
@@ -122,11 +127,6 @@ public class Old_GenerateResultItem implements GenerateResultItem {
 				", output='" + output + '\'' +
 				", outputFile=" + outputFile +
 				'}';
-	}
-
-	@Override
-	public int _counter() {
-		return counter;
 	}
 }
 

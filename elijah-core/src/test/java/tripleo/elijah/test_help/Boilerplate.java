@@ -41,6 +41,16 @@ public class Boilerplate {
 	tripleo.elijah.lang.i.OS_Module module;
 	private CompilationRunner cr;
 
+	public OS_Module defaultMod() {
+		if (module == null) {
+			module = new OS_ModuleImpl();
+			if (comp != null)
+				module.setParent(comp);
+		}
+
+		return module;
+	}
+
 	public void get() {
 		comp = new CompilationImpl(new StdErrSink(), new IO());
 		final ICompilationAccess aca1 = ((CompilationImpl) comp)._access();
@@ -63,6 +73,10 @@ public class Boilerplate {
 		if (module != null) {
 			module.setParent(comp);
 		}
+	}
+
+	public DeducePhase getDeducePhase() {
+		return pr.pipelineLogic().dp;
 	}
 
 	public void getGenerateFiles(final @NotNull OS_Module mod) {
@@ -98,19 +112,5 @@ public class Boilerplate {
 
 	public PipelineLogic pipelineLogic() {
 		return pipelineLogic;
-	}
-
-	public OS_Module defaultMod() {
-		if (module == null) {
-			module = new OS_ModuleImpl();
-			if (comp != null)
-				module.setParent(comp);
-		}
-
-		return module;
-	}
-
-	public DeducePhase getDeducePhase() {
-		return pr.pipelineLogic().dp;
 	}
 }

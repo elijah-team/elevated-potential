@@ -8,9 +8,25 @@ import tripleo.elijah.util.*;
 import java.util.*;
 
 public class DefaultCompilerController implements CompilerController {
+	public class _DefaultCon implements Con {
+		@Override
+		public CompilationRunner newCompilationRunner(final ICompilationAccess compilationAccess) {
+			final CR_State          crState = new CR_State(compilationAccess);
+			final CompilationRunner cr      = new CompilationRunner(compilationAccess, crState);
+
+			crState.setRunner(cr);
+
+			return cr;
+		}
+	}
+	public interface Con {
+		CompilationRunner newCompilationRunner(ICompilationAccess aCompilationAccess);
+	}
 	List<String> args;
 	private Compilation c;
+
 	ICompilationBus cb;
+
 	List<CompilerInput> inputs;
 
 	@Override
@@ -76,21 +92,5 @@ public class DefaultCompilerController implements CompilerController {
 		cb.add(new CB_FindStdLibProcess(ce, cr));
 
 		((DefaultCompilationBus) cb).runProcesses();
-	}
-
-	public interface Con {
-		CompilationRunner newCompilationRunner(ICompilationAccess aCompilationAccess);
-	}
-
-	public class _DefaultCon implements Con {
-		@Override
-		public CompilationRunner newCompilationRunner(final ICompilationAccess compilationAccess) {
-			final CR_State          crState = new CR_State(compilationAccess);
-			final CompilationRunner cr      = new CompilationRunner(compilationAccess, crState);
-
-			crState.setRunner(cr);
-
-			return cr;
-		}
 	}
 }

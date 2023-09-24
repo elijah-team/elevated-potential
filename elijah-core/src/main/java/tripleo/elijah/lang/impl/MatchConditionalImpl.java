@@ -26,96 +26,6 @@ import java.util.List;
  */
 public class MatchConditionalImpl implements MatchConditional, OS_Element, StatementItem, FunctionItem {
 
-	// private final SingleIdentContext _ctx;
-	private final List<MC1>    parts = new ArrayList<MC1>();
-	private       MatchContext __ctx;
-	private       IExpression  expr;
-	private       OS_Element   parent;
-
-	public MatchConditionalImpl(final OS_Element parent, final Context parentContext) {
-		this.parent = parent;
-//		this._ctx = new SingleIdentContext(parentContext, this);
-	}
-
-	public void expr(final IExpression expr) {
-		this.expr = expr;
-	}
-
-	@Override
-	public Context getContext() {
-		return __ctx;
-	}
-
-	/**
-	 * @category OS_Element
-	 */
-	@Override
-	public OS_Element getParent() {
-		return this.parent;
-	}
-
-	public IExpression getExpr() {
-		return expr;
-	}
-
-	// region OS_Element
-
-	public void setParent(final OS_Element aParent) {
-		this.parent = aParent;
-	}
-
-	@Override
-	public @NotNull List<MatchConditional.MC1> getParts() {
-		return parts;
-	}
-
-	// endregion
-
-	/**
-	 * @category OS_Element
-	 */
-	@Override
-	public void visitGen(final @NotNull ElElementVisitor visit) {
-		visit.visitMatchConditional(this);
-	}
-
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	//
-	// EXPR
-	//
-
-	public void postConstruct() {
-	}
-
-	public void setContext(final MatchContext ctx) {
-		__ctx = ctx;
-	}
-
-	public @NotNull MatchConditionalPart2 normal() {
-		final MatchConditionalPart2 p = new MatchConditionalPart2();
-		parts.add(p);
-		return p;
-	}
-
-	//
-	//
-	//
-	public @NotNull MatchArm_TypeMatch typeMatch() {
-		final MatchArm_TypeMatch p = new MatchArm_TypeMatch();
-		parts.add(p);
-		return p;
-	}
-
-	public @NotNull MatchConditionalPart3 valNormal() {
-		final MatchConditionalPart3 p = new MatchConditionalPart3();
-		parts.add(p);
-		return p;
-	}
-
 	public class MatchArm_TypeMatch implements MC1 {
 
 		// private final List<FunctionItem> items = new ArrayList<FunctionItem>();
@@ -165,28 +75,27 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 			return MatchConditionalImpl.this;
 		}
 
-		@Override
-		public void serializeTo(final SmallWriter sw) {
-
-		}
-
 		public TypeName getTypeName() {
 			return tn;
 		}
 
-		public void setTypeName(final TypeName typeName) {
-			tn = typeName;
+		public void ident(final IdentExpression i1) {
+			this.ident = i1;
 		}
 
 		public void scope(Scope3 sco) {
 			scope3 = sco;
 		}
 
-		public void ident(final IdentExpression i1) {
-			this.ident = i1;
+		@Override
+		public void serializeTo(final SmallWriter sw) {
+
+		}
+
+		public void setTypeName(final TypeName typeName) {
+			tn = typeName;
 		}
 	}
-
 	public class MatchConditionalPart2 implements MC1 {
 
 		private final Context ___ctx = new MatchConditionalContext(MatchConditionalImpl.this.getContext(), this);
@@ -239,16 +148,15 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 			return MatchConditionalImpl.this;
 		}
 
+		public void scope(Scope3 sco) {
+			scope3 = sco;
+		}
+
 		@Override
 		public void serializeTo(final SmallWriter sw) {
 
 		}
-
-		public void scope(Scope3 sco) {
-			scope3 = sco;
-		}
 	}
-
 	public class MatchConditionalPart3 implements MC1 {
 
 		private final Context ___ctx = new MatchConditionalContext(MatchConditionalImpl.this.getContext(), this);
@@ -297,14 +205,106 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 			return MatchConditionalImpl.this;
 		}
 
+		public void scope(Scope3 sco) {
+			scope3 = sco;
+		}
+
 		@Override
 		public void serializeTo(final SmallWriter sw) {
 
 		}
+	}
+	// private final SingleIdentContext _ctx;
+	private final List<MC1>    parts = new ArrayList<MC1>();
 
-		public void scope(Scope3 sco) {
-			scope3 = sco;
-		}
+	private       MatchContext __ctx;
+
+	private       IExpression  expr;
+
+	private       OS_Element   parent;
+
+	public MatchConditionalImpl(final OS_Element parent, final Context parentContext) {
+		this.parent = parent;
+//		this._ctx = new SingleIdentContext(parentContext, this);
+	}
+
+	public void expr(final IExpression expr) {
+		this.expr = expr;
+	}
+
+	// region OS_Element
+
+	@Override
+	public Context getContext() {
+		return __ctx;
+	}
+
+	public IExpression getExpr() {
+		return expr;
+	}
+
+	// endregion
+
+	/**
+	 * @category OS_Element
+	 */
+	@Override
+	public OS_Element getParent() {
+		return this.parent;
+	}
+
+	@Override
+	public @NotNull List<MatchConditional.MC1> getParts() {
+		return parts;
+	}
+
+	//
+	// EXPR
+	//
+
+	public @NotNull MatchConditionalPart2 normal() {
+		final MatchConditionalPart2 p = new MatchConditionalPart2();
+		parts.add(p);
+		return p;
+	}
+
+	public void postConstruct() {
+	}
+
+	@Override
+	public void serializeTo(final SmallWriter sw) {
+
+	}
+
+	public void setContext(final MatchContext ctx) {
+		__ctx = ctx;
+	}
+
+	public void setParent(final OS_Element aParent) {
+		this.parent = aParent;
+	}
+
+	//
+	//
+	//
+	public @NotNull MatchArm_TypeMatch typeMatch() {
+		final MatchArm_TypeMatch p = new MatchArm_TypeMatch();
+		parts.add(p);
+		return p;
+	}
+
+	public @NotNull MatchConditionalPart3 valNormal() {
+		final MatchConditionalPart3 p = new MatchConditionalPart3();
+		parts.add(p);
+		return p;
+	}
+
+	/**
+	 * @category OS_Element
+	 */
+	@Override
+	public void visitGen(final @NotNull ElElementVisitor visit) {
+		visit.visitMatchConditional(this);
 	}
 
 }

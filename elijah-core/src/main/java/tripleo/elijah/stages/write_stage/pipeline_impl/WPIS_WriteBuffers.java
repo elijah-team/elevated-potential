@@ -25,24 +25,16 @@ import java.util.List;
 import static tripleo.elijah.util.Helpers.List_of;
 
 public class WPIS_WriteBuffers implements WP_Indiviual_Step {
-	private final WritePipeline writePipeline;
+	static class Bus {
+		private Compilation c;
 
-	private final DeferredObject<LSPrintStream.LSResult, Object, Object> spsp               = new DeferredObject<LSPrintStream.LSResult, Object, Object>();
-	private final DeferredObject<Compilation, Void, Void>                compilationPromise = new DeferredObject<>();
+		public void addOutputFile(final @NotNull EOT_OutputFile off) {
+			c.getOutputTree().add(off);
+		}
 
-	@Contract(pure = true)
-	public WPIS_WriteBuffers(final WritePipeline aWritePipeline) {
-		writePipeline = aWritePipeline;
-
-		compilationPromise.then(_m_bus::setCompilation);
-
-		// TODO see if clj has anything for csp
-		spsp.then((LSPrintStream.LSResult ls) -> {
-			compilationPromise.then(c -> {
-				final EOT_OutputFile outputFile = createOutputFile(ls, c, c.paths());
-				_m_bus.addOutputFile(outputFile);
-			});
-		});
+		public void setCompilation(final @NotNull Compilation cc) {
+			c = cc;
+		}
 	}
 
 	@NotNull
@@ -68,6 +60,28 @@ public class WPIS_WriteBuffers implements WP_Indiviual_Step {
 				EOT_OutputType.BUFFERS,
 				sequence);
 		return off1;
+	}
+	private final WritePipeline writePipeline;
+
+	private final DeferredObject<LSPrintStream.LSResult, Object, Object> spsp               = new DeferredObject<LSPrintStream.LSResult, Object, Object>();
+
+	private final DeferredObject<Compilation, Void, Void>                compilationPromise = new DeferredObject<>();
+
+	private final Bus _m_bus = new Bus();
+
+	@Contract(pure = true)
+	public WPIS_WriteBuffers(final WritePipeline aWritePipeline) {
+		writePipeline = aWritePipeline;
+
+		compilationPromise.then(_m_bus::setCompilation);
+
+		// TODO see if clj has anything for csp
+		spsp.then((LSPrintStream.LSResult ls) -> {
+			compilationPromise.then(c -> {
+				final EOT_OutputFile outputFile = createOutputFile(ls, c, c.paths());
+				_m_bus.addOutputFile(outputFile);
+			});
+		});
 	}
 
 	@Override
@@ -108,19 +122,5 @@ public class WPIS_WriteBuffers implements WP_Indiviual_Step {
 				spsp.resolve(_s);
 			});
 		});
-	}
-
-	private final Bus _m_bus = new Bus();
-
-	static class Bus {
-		private Compilation c;
-
-		public void setCompilation(final @NotNull Compilation cc) {
-			c = cc;
-		}
-
-		public void addOutputFile(final @NotNull EOT_OutputFile off) {
-			c.getOutputTree().add(off);
-		}
 	}
 }

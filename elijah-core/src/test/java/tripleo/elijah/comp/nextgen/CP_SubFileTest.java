@@ -14,12 +14,6 @@ public class CP_SubFileTest {
 
 	private CP_OutputPath op;
 
-	@BeforeEach
-	public void setUp() throws Exception {
-		final @NotNull CompilationImpl cc = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
-		op = new CP_OutputPath(cc);
-	}
-
 	@Test
 	public void one() {
 		op.testShim();
@@ -33,5 +27,11 @@ public class CP_SubFileTest {
 
 		final CP_Path sf2 = op.child("foo").child("bar").child("cat");
 		assertEquals("COMP/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855/<date>/foo/bar/cat", "" + sf2.getPath());
+	}
+
+	@BeforeEach
+	public void setUp() throws Exception {
+		final @NotNull CompilationImpl cc = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
+		op = new CP_OutputPath(cc);
 	}
 }

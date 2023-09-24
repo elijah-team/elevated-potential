@@ -1,16 +1,14 @@
 package tripleo.elijah.comp;
 
-import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.annotations.*;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class CompilerInstructionsObserver implements Observer<CompilerInstructions> {
 	private final Compilation                compilation;
@@ -25,9 +23,8 @@ public class CompilerInstructionsObserver implements Observer<CompilerInstructio
 	}
 
 	@Override
-	public void onSubscribe(@NonNull final Disposable d) {
-		//Disposable x = d;
-		//NotImplementedException.raise();
+	public void onComplete() {
+		throw new UnintendedUseException();
 	}
 
 	@Override
@@ -41,7 +38,8 @@ public class CompilerInstructionsObserver implements Observer<CompilerInstructio
 	}
 
 	@Override
-	public void onComplete() {
-		throw new UnintendedUseException();
+	public void onSubscribe(@NonNull final Disposable d) {
+		//Disposable x = d;
+		//NotImplementedException.raise();
 	}
 }

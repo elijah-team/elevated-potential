@@ -8,14 +8,11 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class VariableSequenceImpl implements tripleo.elijah.lang.i.VariableSequence {
 
@@ -55,13 +52,13 @@ public class VariableSequenceImpl implements tripleo.elijah.lang.i.VariableSeque
 	}
 
 	@Override
-	public El_Category getCategory() {
-		return category;
+	public AccessNotation getAccess() {
+		return access_note;
 	}
 
 	@Override
-	public Collection<VariableStatement> items() {
-		return stmts;
+	public El_Category getCategory() {
+		return category;
 	}
 
 	@Override
@@ -75,6 +72,13 @@ public class VariableSequenceImpl implements tripleo.elijah.lang.i.VariableSeque
 	}
 
 	@Override
+	public Collection<VariableStatement> items() {
+		return stmts;
+	}
+
+	// region ClassItem
+
+	@Override
 	public @NotNull VariableStatement next() {
 		final VariableStatement st = new VariableStatementImpl(this);
 		st.set(def);
@@ -82,18 +86,18 @@ public class VariableSequenceImpl implements tripleo.elijah.lang.i.VariableSeque
 		return st;
 	}
 
-	// region ClassItem
-
 	@Override
-	public void setParent(final OS_Element parent) {
-		this.parent = parent;
+	public void serializeTo(final @NotNull SmallWriter sw) {
+		int i = 1;
+		for (final VariableStatement stmt : stmts) {
+			sw.fieldString("stmt%d".formatted(i++), stmt.getName());
+		}
+
 	}
 
 	@Override
-	public void setTypeName(@NotNull TypeName aTypeName) {
-		for (VariableStatement vs : stmts) {
-			vs.setTypeName(aTypeName);
-		}
+	public void setAccess(AccessNotation aNotation) {
+		access_note = aNotation;
 	}
 
 	@Override
@@ -107,22 +111,15 @@ public class VariableSequenceImpl implements tripleo.elijah.lang.i.VariableSeque
 	}
 
 	@Override
-	public void visitGen(final @NotNull ElElementVisitor visit) {
-		visit.visitVariableSequence(this);
+	public void setParent(final OS_Element parent) {
+		this.parent = parent;
 	}
 
 	@Override
-	public void serializeTo(final @NotNull SmallWriter sw) {
-		int i = 1;
-		for (final VariableStatement stmt : stmts) {
-			sw.fieldString("stmt%d".formatted(i++), stmt.getName());
+	public void setTypeName(@NotNull TypeName aTypeName) {
+		for (VariableStatement vs : stmts) {
+			vs.setTypeName(aTypeName);
 		}
-
-	}
-
-	@Override
-	public AccessNotation getAccess() {
-		return access_note;
 	}
 
 	// endregion
@@ -138,8 +135,8 @@ public class VariableSequenceImpl implements tripleo.elijah.lang.i.VariableSeque
 	}
 
 	@Override
-	public void setAccess(AccessNotation aNotation) {
-		access_note = aNotation;
+	public void visitGen(final @NotNull ElElementVisitor visit) {
+		visit.visitVariableSequence(this);
 	}
 
 }

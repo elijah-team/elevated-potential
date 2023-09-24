@@ -1,11 +1,10 @@
 package tripleo.elijah.lang.nextgen.names.impl;
 
-import org.jdeferred2.Promise;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.OS_Package;
-import tripleo.elijah.lang.nextgen.names.i.EN_Understanding;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.nextgen.names.i.*;
 
 /*
  * A package element will `resolve' to a Package or a Item
@@ -19,7 +18,16 @@ import tripleo.elijah.lang.nextgen.names.i.EN_Understanding;
  *
  */
 public class ENU_PackageElement implements EN_Understanding {
-	interface PER {
+	class Item implements PER {
+		private final OS_Element _item;
+
+		Item(final OS_Element aItem) {
+			_item = aItem;
+		}
+
+		public OS_Element getItem() {
+			return this._item;
+		}
 	}
 
 	class Package implements PER {
@@ -34,16 +42,7 @@ public class ENU_PackageElement implements EN_Understanding {
 		}
 	}
 
-	class Item implements PER {
-		private final OS_Element _item;
-
-		Item(final OS_Element aItem) {
-			_item = aItem;
-		}
-
-		public OS_Element getItem() {
-			return this._item;
-		}
+	interface PER {
 	}
 
 	@NotNull DeferredObject<PER, Void, Void> resolved = new DeferredObject<>();

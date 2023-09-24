@@ -20,9 +20,8 @@ public /*static*/ class CCI_Acceptor__CompilerInputListener implements CompilerI
         this.id = new InstructionDoer(aCompilation);
     }
 
-    public void set(CCI aCci, IProgressSink aPs) {
-        cci = aCci;
-        _ps = aPs;
+    public CompilerInstructions _root() {
+        return id.root;
     }
 
     @Override
@@ -108,7 +107,8 @@ public /*static*/ class CCI_Acceptor__CompilerInputListener implements CompilerI
         }
     }
 
-    public CompilerInstructions _root() {
-        return id.root;
+    public void set(CCI aCci, IProgressSink aPs) {
+        cci = aCci;
+        _ps = aPs;
     }
 }

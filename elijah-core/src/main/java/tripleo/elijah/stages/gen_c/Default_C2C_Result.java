@@ -32,6 +32,11 @@ class Default_C2C_Result implements C2C_Result {
 	}
 
 	@Override
+	public OS_Module getDefinedModule() {
+		return module;
+	}
+
+	@Override
 	public @NotNull EG_Statement getStatement() {
 		if (!_calculated) {
 			_my_statement = EG_Statement.of(buffer.getText(), EX_Explanation.withMessage(explanation_message));
@@ -41,17 +46,12 @@ class Default_C2C_Result implements C2C_Result {
 	}
 
 	@Override
-	public Old_GenerateResult.TY ty() {
-		return _ty;
-	}
-
-	@Override
-	public OS_Module getDefinedModule() {
-		return module;
-	}
-
-	@Override
 	public WhyNotGarish_BaseFunction getWhyNotGarishFunction() {
 		return whyNotGarishFunction;
+	}
+
+	@Override
+	public Old_GenerateResult.TY ty() {
+		return _ty;
 	}
 }

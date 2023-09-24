@@ -8,17 +8,18 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.lang.nextgen.names.i.*;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.util.*;
 
 public class FormalArgListItemImpl implements FormalArgListItem {
 
 	private           IdentExpression name;
 	private @Nullable TypeName        tn = null;
+
+	private EN_Name __n;
 
 	@Override
 	public @Nullable AccessNotation getAccess() {
@@ -40,9 +41,16 @@ public class FormalArgListItemImpl implements FormalArgListItem {
 	}
 
 	@Override
-	public void setCategory(El_Category aCategory) {
-		// TODO Auto-generated method stub
+	public @NotNull EN_Name getEnName() {
+		if (__n == null) {
+			__n = EN_Name.create(name());
+		}
+		return __n;
+	}
 
+	@Override
+	public IdentExpression getNameToken() {
+		return name;
 	}
 
 	@Override // OS_Element
@@ -51,12 +59,14 @@ public class FormalArgListItemImpl implements FormalArgListItem {
 //        return null;
 	}
 
+	@Override // OS_Element2
+	public @NotNull String name() {
+		return name.getText();
+	}
+
 	@Override
-	public @NotNull EN_Name getEnName() {
-		if (__n == null) {
-			__n = EN_Name.create(name());
-		}
-		return __n;
+	public void serializeTo(final SmallWriter sw) {
+
 	}
 
 	@Override
@@ -66,8 +76,9 @@ public class FormalArgListItemImpl implements FormalArgListItem {
 	}
 
 	@Override
-	public IdentExpression getNameToken() {
-		return name;
+	public void setCategory(El_Category aCategory) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -81,28 +92,6 @@ public class FormalArgListItemImpl implements FormalArgListItem {
 	}
 
 	@Override
-	public TypeName typeName() {
-		return tn;
-	}
-
-	@Override // OS_Element2
-	public @NotNull String name() {
-		return name.getText();
-	}
-
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	@Override // OS_Element
-	public void visitGen(final @NotNull ElElementVisitor visit) {
-		visit.visitFormalArgListItem(this);
-	}
-
-	private EN_Name __n;
-
-	@Override
 	public @NotNull String toString() {
 		String t;
 
@@ -114,6 +103,16 @@ public class FormalArgListItemImpl implements FormalArgListItem {
 
 		String n = name.getText();
 		return n + ":" + t;
+	}
+
+	@Override
+	public TypeName typeName() {
+		return tn;
+	}
+
+	@Override // OS_Element
+	public void visitGen(final @NotNull ElElementVisitor visit) {
+		visit.visitFormalArgListItem(this);
 	}
 }
 

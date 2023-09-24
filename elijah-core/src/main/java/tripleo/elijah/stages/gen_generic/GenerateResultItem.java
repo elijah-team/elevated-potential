@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface GenerateResultItem {
 
+	GenerateResult.TY __ty();
+
+	int _counter();
+
 	Buffer buffer();
 
 	List<DependencyRef> dependencies();
@@ -24,8 +28,4 @@ public interface GenerateResultItem {
 
 	@Override
 	String toString();
-
-	GenerateResult.TY __ty();
-
-	int _counter();
 }

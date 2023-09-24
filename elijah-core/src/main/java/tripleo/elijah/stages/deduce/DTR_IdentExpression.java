@@ -1,9 +1,9 @@
 package tripleo.elijah.stages.deduce;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.IdentExpression;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.IntegerIA;
+import tripleo.elijah.stages.instructions.*;
 
 public class DTR_IdentExpression {
 	private final DeduceTypeResolve deduceTypeResolve;
@@ -15,6 +15,11 @@ public class DTR_IdentExpression {
 		deduceTypeResolve = aDeduceTypeResolve;
 		identExpression   = aIdentExpression;
 		bte               = aBte;
+	}
+
+	private void q(final GenType result) {
+		if (genType == result) return; // !!??
+		genType.copy(result); // TODO genType = result?? because we want updates...
 	}
 
 	public void run(final IElementHolder eh, final GenType genType1) {
@@ -31,10 +36,5 @@ public class DTR_IdentExpression {
 
 			bte.typeResolvePromise().then(this::q);
 		}
-	}
-
-	private void q(final GenType result) {
-		if (genType == result) return; // !!??
-		genType.copy(result); // TODO genType = result?? because we want updates...
 	}
 }

@@ -47,19 +47,14 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 	}
 
 	@Override
-	public void register(final @NotNull ICodeRegistrar aCr) {
-		aCr.registerFunction1(this);
-	}
-
-	// endregion
-
-	@Override
 	public @Nullable VariableTableEntry getSelf() {
 		if (getFD().getParent() instanceof ClassStatement)
 			return getVarTableEntry(0);
 		else
 			return null;
 	}
+
+	// endregion
 
 	@Override
 	public String identityString() {
@@ -75,6 +70,11 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 		if (fd == null)
 			throw new IllegalArgumentException("null fd");
 		return fd.name();
+	}
+
+	@Override
+	public void register(final @NotNull ICodeRegistrar aCr) {
+		aCr.registerFunction1(this);
 	}
 
 	@Override

@@ -23,13 +23,13 @@ class AmazingNamespace implements Amazing {
 		this.itms           = itms;
 	}
 
+	public OS_Module mod() {
+		return mod;
+	}
+
 	void waitGenC(final GenerateC ggc) {
 		var on = new NG_OutputNamespace();
 		on.setNamespace(compilation.world().getNamespace(n).getGarish(), ggc);
 		itms.addItem(on);
-	}
-
-	public OS_Module mod() {
-		return mod;
 	}
 }

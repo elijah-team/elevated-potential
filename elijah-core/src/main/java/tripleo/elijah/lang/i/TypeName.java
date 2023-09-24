@@ -8,16 +8,18 @@
  */
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.diagnostic.Locatable;
+import tripleo.elijah.diagnostic.*;
 
 /**
  * Created 8/16/20 2:16 AM
  */
 public interface TypeName extends Locatable {
-	void setContext(Context context);
-
 	enum Nullability {
 		NEVER_NULL, NOT_SPECIFIED, NULLABLE
+	}
+
+	enum Type {
+		FUNCTION, GENERIC, NORMAL, TYPE_OF
 	}
 
 	@Override
@@ -29,9 +31,7 @@ public interface TypeName extends Locatable {
 
 	Type kindOfType();
 
-	enum Type {
-		FUNCTION, GENERIC, NORMAL, TYPE_OF
-	}
+	void setContext(Context context);
 }
 
 //

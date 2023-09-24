@@ -31,6 +31,11 @@ public class WorkManagerTest {
 		}
 
 		@Override
+		public boolean isDone() {
+			return _done;
+		}
+
+		@Override
 		public void run(@NotNull WorkManager aWorkManager) {
 			if (level < 4) {
 				WorkList wl = new WorkList();
@@ -39,11 +44,6 @@ public class WorkManagerTest {
 			}
 			sink.add(state);
 			_done = true;
-		}
-
-		@Override
-		public boolean isDone() {
-			return _done;
 		}
 	}
 

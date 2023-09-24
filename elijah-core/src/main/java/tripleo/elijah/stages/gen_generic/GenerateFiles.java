@@ -17,20 +17,6 @@ import java.util.Collection;
 import java.util.List;
 
 public interface GenerateFiles extends CodeGenerator {
-	void generate_constructor(EvaConstructor aGf, GenerateResult aGr, WorkList aWl, GenerateResultSink aResultSink, final WorkManager aWorkManager, final @NotNull GenerateResultEnv aFileGen);
-
-	void generate_function(EvaFunction aEvaFunction, GenerateResult aGenerateResult, WorkList aWorkList, GenerateResultSink aResultSink);
-
-	GenerateResult generateCode(Collection<EvaNode> lgn, @NotNull GenerateResultEnv aFileGen);
-
-	<T> GenerateResultEnv getFileGen();
-
-	GenerateResult resultsFromNodes(@NotNull List<EvaNode> aNodes, WorkManager wm, GenerateResultSink grs, @NotNull GenerateResultEnv fg);
-
-	ElLog elLog();
-
-	void finishUp(final GenerateResult aGenerateResult, final WorkManager wm, final WorkList aWorkList);
-
 	@NotNull
 	static Collection<EvaNode> classes_to_list_of_generated_nodes(@NotNull Collection<EvaClass> aEvaClasses) {
 		return Collections2.transform(aEvaClasses, new Function<EvaClass, EvaNode>() {
@@ -63,4 +49,18 @@ public interface GenerateFiles extends CodeGenerator {
 			}
 		});
 	}
+
+	ElLog elLog();
+
+	void finishUp(final GenerateResult aGenerateResult, final WorkManager wm, final WorkList aWorkList);
+
+	void generate_constructor(EvaConstructor aGf, GenerateResult aGr, WorkList aWl, GenerateResultSink aResultSink, final WorkManager aWorkManager, final @NotNull GenerateResultEnv aFileGen);
+
+	void generate_function(EvaFunction aEvaFunction, GenerateResult aGenerateResult, WorkList aWorkList, GenerateResultSink aResultSink);
+
+	GenerateResult generateCode(Collection<EvaNode> lgn, @NotNull GenerateResultEnv aFileGen);
+
+	<T> GenerateResultEnv getFileGen();
+
+	GenerateResult resultsFromNodes(@NotNull List<EvaNode> aNodes, WorkManager wm, GenerateResultSink grs, @NotNull GenerateResultEnv fg);
 }

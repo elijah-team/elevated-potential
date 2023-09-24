@@ -9,8 +9,8 @@
  */
 package tripleo.elijah.ci;
 
-import antlr.Token;
-import tripleo.elijah.lang.i.IExpression;
+import antlr.*;
+import tripleo.elijah.lang.i.*;
 
 public interface LibraryStatementPart {
 	void addDirective(Token token, IExpression iExpression);
@@ -20,9 +20,9 @@ public interface LibraryStatementPart {
 
 	CompilerInstructions getInstructions();
 
-	void setDirName(Token dirName);
-
 	String getName();
+
+	void setDirName(Token dirName);
 
 	void setInstructions(CompilerInstructions instructions);
 

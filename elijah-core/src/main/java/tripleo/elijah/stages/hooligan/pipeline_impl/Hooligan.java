@@ -10,29 +10,9 @@ import tripleo.elijah.world.i.*;
 import java.util.*;
 
 class Hooligan {
-	private static final Set<SmallWriter.SW_Ref> insides = new HashSet<>();
-
-	@NotNull SmallWriter1 __modules2(final Collection<WorldModule> aModuleList) {
-		var sw = new SmallWriter1();
-
-		for (WorldModule module : aModuleList) {
-			module.module().serializeTo(sw.newWriter(module.module()));
-		}
-
-		return sw;
-	}
-
 	class SmallWriter1 {
 		final         Map<OS_Element, SmallWriter.SW_Ref> objMap1 = new HashMap<>();
 		private final Map<OS_Element, SmallWriter>        writers = new LinkedHashMap<>();
-
-		public @NotNull SmallWriter newWriter(final OS_Module aModule) {
-			var sw = new SmallWriter2(objMap1);
-
-			writers.put(aModule, sw);
-
-			return sw;
-		}
 
 		public @NotNull String getText() {
 			var sb3 = new StringBuilder();
@@ -63,8 +43,15 @@ class Hooligan {
 
 			return sb3.toString();
 		}
-	}
 
+		public @NotNull SmallWriter newWriter(final OS_Module aModule) {
+			var sw = new SmallWriter2(objMap1);
+
+			writers.put(aModule, sw);
+
+			return sw;
+		}
+	}
 
 	class SmallWriter2 implements SmallWriter {
 		final         Map<OS_Element, SW_Ref> objMap;// = new HashMap<>();
@@ -76,13 +63,57 @@ class Hooligan {
 		}
 
 		@Override
-		public void fieldToken(final String aFieldName, final Token aFieldValue) {
-			sb.append("(field 'token \"%s\" \"%s\")\n".formatted(aFieldName, aFieldValue));
+		public @Nullable SW_List createList() {
+			NotImplementedException.raise();
+			return null;
 		}
 
 		@Override
-		public void fieldExpression(final String aFieldName, final @NotNull IExpression aFieldValue) {
-			sb.append("(field 'expression \"%s\" \"%s\")\n".formatted(aFieldName, aFieldValue.toString()));
+		public SW_Ref createRef(final OS_Element aFieldValue) {
+			if (objMap.containsKey(aFieldValue)) {
+				return objMap.get(aFieldValue);
+			}
+
+			//aFieldValue.serializeTo(this);
+			//
+			//sb.append("(field 'string \"%s\" \"%s\")\n".formatted("--ref--", aFieldValue));
+			//NotImplementedException.raise();
+
+			final SW_Ref swRef = new SW_Ref() {
+				final UUID uuid = UUID.randomUUID();
+
+				@Override
+				public OS_Element get() {
+					return aFieldValue;
+				}
+
+				@Override
+				public String name() {
+					return uuid.toString();
+				}
+			};
+
+			objMap.put(aFieldValue, swRef);
+
+			return swRef;
+		}
+
+		@Override
+		public @NotNull SW_TypenameList createTypeNameList() {
+			NotImplementedException.raise();
+			return new SW_TypenameList() {
+				private @NotNull List<TypeName> typenames = new LinkedList<>();
+
+				@Override
+				public void add(final TypeName el) {
+					typenames.add(el);
+				}
+
+				@Override
+				public List<TypeName> items() {
+					return typenames;
+				}
+			};
 		}
 
 		@Override
@@ -93,8 +124,17 @@ class Hooligan {
 		}
 
 		@Override
-		public void fieldString(final String aFieldName, final String aFieldValue) {
-			sb.append("(field 'string \"%s\" \"%s\")\n".formatted(aFieldName, aFieldValue));
+		public void fieldExpression(final String aFieldName, final @NotNull IExpression aFieldValue) {
+			sb.append("(field 'expression \"%s\" \"%s\")\n".formatted(aFieldName, aFieldValue.toString()));
+		}
+
+		@Override
+		public void fieldIdent(final String aFieldName, final @NotNull IdentExpression aFieldValue) {
+			var w4 = new SmallWriter2(objMap);
+
+			aFieldValue.serializeTo(w4);
+
+			sb.append("(field 'ident \"%s\" %s)\n".formatted(aFieldName, w4.sb)); // !!
 		}
 
 		@Override
@@ -134,66 +174,18 @@ class Hooligan {
 		}
 
 		@Override
-		public SW_Ref createRef(final OS_Element aFieldValue) {
-			if (objMap.containsKey(aFieldValue)) {
-				return objMap.get(aFieldValue);
-			}
-
-			//aFieldValue.serializeTo(this);
-			//
-			//sb.append("(field 'string \"%s\" \"%s\")\n".formatted("--ref--", aFieldValue));
-			//NotImplementedException.raise();
-
-			final SW_Ref swRef = new SW_Ref() {
-				final UUID uuid = UUID.randomUUID();
-
-				@Override
-				public String name() {
-					return uuid.toString();
-				}
-
-				@Override
-				public OS_Element get() {
-					return aFieldValue;
-				}
-			};
-
-			objMap.put(aFieldValue, swRef);
-
-			return swRef;
+		public void fieldRef(final String aParent, final @NotNull SW_Ref aRef) {
+			sb.append("(field 'ref \"%s\" \"%s\")\n".formatted(aParent, aRef.name()));
 		}
 
 		@Override
-		public @Nullable SW_List createList() {
-			NotImplementedException.raise();
-			return null;
+		public void fieldString(final String aFieldName, final String aFieldValue) {
+			sb.append("(field 'string \"%s\" \"%s\")\n".formatted(aFieldName, aFieldValue));
 		}
 
 		@Override
-		public void fieldIdent(final String aFieldName, final @NotNull IdentExpression aFieldValue) {
-			var w4 = new SmallWriter2(objMap);
-
-			aFieldValue.serializeTo(w4);
-
-			sb.append("(field 'ident \"%s\" %s)\n".formatted(aFieldName, w4.sb)); // !!
-		}
-
-		@Override
-		public @NotNull SW_TypenameList createTypeNameList() {
-			NotImplementedException.raise();
-			return new SW_TypenameList() {
-				private @NotNull List<TypeName> typenames = new LinkedList<>();
-
-				@Override
-				public void add(final TypeName el) {
-					typenames.add(el);
-				}
-
-				@Override
-				public List<TypeName> items() {
-					return typenames;
-				}
-			};
+		public void fieldToken(final String aFieldName, final Token aFieldValue) {
+			sb.append("(field 'token \"%s\" \"%s\")\n".formatted(aFieldName, aFieldValue));
 		}
 
 		@Override
@@ -206,13 +198,21 @@ class Hooligan {
 		}
 
 		@Override
-		public void fieldRef(final String aParent, final @NotNull SW_Ref aRef) {
-			sb.append("(field 'ref \"%s\" \"%s\")\n".formatted(aParent, aRef.name()));
-		}
-
-		@Override
 		public @NotNull String getString() {
 			return sb.toString();
 		}
+	}
+
+	private static final Set<SmallWriter.SW_Ref> insides = new HashSet<>();
+
+
+	@NotNull SmallWriter1 __modules2(final Collection<WorldModule> aModuleList) {
+		var sw = new SmallWriter1();
+
+		for (WorldModule module : aModuleList) {
+			module.module().serializeTo(sw.newWriter(module.module()));
+		}
+
+		return sw;
 	}
 }

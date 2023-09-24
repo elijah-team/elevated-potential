@@ -16,6 +16,8 @@ public class DefaultWorldModule implements WorldModule {
 
 	private GN_PL_Run2.GenerateFunctionsRequest rq;
 
+	Eventual<GN_PL_Run2.GenerateFunctionsRequest> erq = new Eventual<>();
+
 	public DefaultWorldModule(final OS_Module aMod, final @NotNull CompilationEnclosure ace) {
 		mod = aMod;
 		ce = ace;
@@ -23,13 +25,14 @@ public class DefaultWorldModule implements WorldModule {
 		setThing(mt);
 	}
 
-	public void setThing(final ModuleThing aThing) {
-		thing = aThing;
+	@Override
+	public EIT_ModuleInput getEITInput() {
+		return new EIT_ModuleInput(mod, ce.getCompilation());
 	}
 
 	@Override
-	public OS_Module module() {
-		return mod;
+	public Eventual<GN_PL_Run2.GenerateFunctionsRequest> getErq() {
+		return erq;
 	}
 
 	@Override
@@ -38,18 +41,14 @@ public class DefaultWorldModule implements WorldModule {
 	}
 
 	@Override
-	public GN_PL_Run2.GenerateFunctionsRequest rq() {
-		return rq;
-		//throw new NotImplementedException("Unexpected");
+	public OS_Module module() {
+		return mod;
 	}
 
 	@Override
-	public EIT_ModuleInput getEITInput() {
-		return new EIT_ModuleInput(mod, ce.getCompilation());
-	}
-
-	public ModuleThing thing() {
-		return thing;
+	public GN_PL_Run2.GenerateFunctionsRequest rq() {
+		return rq;
+		//throw new NotImplementedException("Unexpected");
 	}
 
 	public void setRq(final GN_PL_Run2.GenerateFunctionsRequest aRq) {
@@ -59,12 +58,13 @@ public class DefaultWorldModule implements WorldModule {
 		erq.resolve(rq);
 	}
 
-	@Override
-	public Eventual<GN_PL_Run2.GenerateFunctionsRequest> getErq() {
-		return erq;
+	public void setThing(final ModuleThing aThing) {
+		thing = aThing;
 	}
 
-	Eventual<GN_PL_Run2.GenerateFunctionsRequest> erq = new Eventual<>();
+	public ModuleThing thing() {
+		return thing;
+	}
 
 	@Override
 	public String toString() {

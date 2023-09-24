@@ -8,10 +8,10 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.util.*;
 
 public class YieldExpressionImpl extends BasicBinaryExpressionImpl
 		implements OS_Element, StatementItem, tripleo.elijah.lang.i.YieldExpression {
@@ -34,13 +34,13 @@ public class YieldExpressionImpl extends BasicBinaryExpressionImpl
 	}
 
 	@Override
-	public void visitGen(@NotNull ElElementVisitor visit) {
-		visit.visitYield(this);
+	public void serializeTo(final SmallWriter sw) {
+
 	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-
+	public void visitGen(@NotNull ElElementVisitor visit) {
+		visit.visitYield(this);
 	}
 }
 

@@ -59,6 +59,29 @@ import java.util.*;
 public class HelpFormatter {
 
 	/**
+	 * This class implements the {@code Comparator} interface for comparing Options.
+	 */
+	private static class OptionComparator implements Comparator<Option>, Serializable {
+		/**
+		 * The serial version UID.
+		 */
+		private static final long serialVersionUID = 5305467873966684014L;
+
+		/**
+		 * Compares its two arguments for order. Returns a negative integer, zero, or a positive integer as the first argument
+		 * is less than, equal to, or greater than the second.
+		 *
+		 * @param opt1 The first Option to be compared.
+		 * @param opt2 The second Option to be compared.
+		 * @return a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than
+		 * the second.
+		 */
+		@Override
+		public int compare(final @NotNull Option opt1, final @NotNull Option opt2) {
+			return opt1.getKey().compareToIgnoreCase(opt2.getKey());
+		}
+	}
+	/**
 	 * Default number of characters per line
 	 */
 	public static final int                DEFAULT_WIDTH              = 74;
@@ -154,6 +177,7 @@ public class HelpFormatter {
 	 * Defaults to case-insensitive alphabetical sorting by option key
 	 */
 	protected           Comparator<Option> optionComparator           = new OptionComparator();
+
 	/**
 	 * The separator displayed between the long option and its value.
 	 */
@@ -289,30 +313,12 @@ public class HelpFormatter {
 	}
 
 	/**
-	 * Sets the 'argName'.
-	 *
-	 * @param name the new value of 'argName'
-	 */
-	public void setArgName(final String name) {
-		this.defaultArgName = name;
-	}
-
-	/**
 	 * Gets the 'descPadding'.
 	 *
 	 * @return the 'descPadding'
 	 */
 	public int getDescPadding() {
 		return defaultDescPad;
-	}
-
-	/**
-	 * Sets the 'descPadding'.
-	 *
-	 * @param padding the new value of 'descPadding'
-	 */
-	public void setDescPadding(final int padding) {
-		this.defaultDescPad = padding;
 	}
 
 	/**
@@ -325,30 +331,12 @@ public class HelpFormatter {
 	}
 
 	/**
-	 * Sets the 'leftPadding'.
-	 *
-	 * @param padding the new value of 'leftPadding'
-	 */
-	public void setLeftPadding(final int padding) {
-		this.defaultLeftPad = padding;
-	}
-
-	/**
 	 * Gets the 'longOptPrefix'.
 	 *
 	 * @return the 'longOptPrefix'
 	 */
 	public String getLongOptPrefix() {
 		return defaultLongOptPrefix;
-	}
-
-	/**
-	 * Sets the 'longOptPrefix'.
-	 *
-	 * @param prefix the new value of 'longOptPrefix'
-	 */
-	public void setLongOptPrefix(final String prefix) {
-		this.defaultLongOptPrefix = prefix;
 	}
 
 	/**
@@ -362,32 +350,12 @@ public class HelpFormatter {
 	}
 
 	/**
-	 * Set the separator displayed between a long option and its value. Ensure that the separator specified is supported by
-	 * the parser used, typically ' ' or '='.
-	 *
-	 * @param longOptSeparator the separator, typically ' ' or '='.
-	 * @since 1.3
-	 */
-	public void setLongOptSeparator(final String longOptSeparator) {
-		this.longOptSeparator = longOptSeparator;
-	}
-
-	/**
 	 * Gets the 'newLine'.
 	 *
 	 * @return the 'newLine'
 	 */
 	public String getNewLine() {
 		return defaultNewLine;
-	}
-
-	/**
-	 * Sets the 'newLine'.
-	 *
-	 * @param newline the new value of 'newLine'
-	 */
-	public void setNewLine(final String newline) {
-		this.defaultNewLine = newline;
 	}
 
 	/**
@@ -402,32 +370,12 @@ public class HelpFormatter {
 	}
 
 	/**
-	 * Set the comparator used to sort the options when they output in help text. Passing in a null comparator will keep the
-	 * options in the order they were declared.
-	 *
-	 * @param comparator the {@link Comparator} to use for sorting the options
-	 * @since 1.2
-	 */
-	public void setOptionComparator(final Comparator<Option> comparator) {
-		this.optionComparator = comparator;
-	}
-
-	/**
 	 * Gets the 'optPrefix'.
 	 *
 	 * @return the 'optPrefix'
 	 */
 	public String getOptPrefix() {
 		return defaultOptPrefix;
-	}
-
-	/**
-	 * Sets the 'optPrefix'.
-	 *
-	 * @param prefix the new value of 'optPrefix'
-	 */
-	public void setOptPrefix(final String prefix) {
-		this.defaultOptPrefix = prefix;
 	}
 
 	/**
@@ -440,30 +388,12 @@ public class HelpFormatter {
 	}
 
 	/**
-	 * Sets the 'syntaxPrefix'.
-	 *
-	 * @param prefix the new value of 'syntaxPrefix'
-	 */
-	public void setSyntaxPrefix(final String prefix) {
-		this.defaultSyntaxPrefix = prefix;
-	}
-
-	/**
 	 * Gets the 'width'.
 	 *
 	 * @return the 'width'
 	 */
 	public int getWidth() {
 		return defaultWidth;
-	}
-
-	/**
-	 * Sets the 'width'.
-	 *
-	 * @param width the new value of 'width'
-	 */
-	public void setWidth(final int width) {
-		this.defaultWidth = width;
 	}
 
 	/**
@@ -894,27 +824,97 @@ public class HelpFormatter {
 	}
 
 	/**
-	 * This class implements the {@code Comparator} interface for comparing Options.
+	 * Sets the 'argName'.
+	 *
+	 * @param name the new value of 'argName'
 	 */
-	private static class OptionComparator implements Comparator<Option>, Serializable {
-		/**
-		 * The serial version UID.
-		 */
-		private static final long serialVersionUID = 5305467873966684014L;
+	public void setArgName(final String name) {
+		this.defaultArgName = name;
+	}
 
-		/**
-		 * Compares its two arguments for order. Returns a negative integer, zero, or a positive integer as the first argument
-		 * is less than, equal to, or greater than the second.
-		 *
-		 * @param opt1 The first Option to be compared.
-		 * @param opt2 The second Option to be compared.
-		 * @return a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than
-		 * the second.
-		 */
-		@Override
-		public int compare(final @NotNull Option opt1, final @NotNull Option opt2) {
-			return opt1.getKey().compareToIgnoreCase(opt2.getKey());
-		}
+	/**
+	 * Sets the 'descPadding'.
+	 *
+	 * @param padding the new value of 'descPadding'
+	 */
+	public void setDescPadding(final int padding) {
+		this.defaultDescPad = padding;
+	}
+
+	/**
+	 * Sets the 'leftPadding'.
+	 *
+	 * @param padding the new value of 'leftPadding'
+	 */
+	public void setLeftPadding(final int padding) {
+		this.defaultLeftPad = padding;
+	}
+
+	/**
+	 * Sets the 'longOptPrefix'.
+	 *
+	 * @param prefix the new value of 'longOptPrefix'
+	 */
+	public void setLongOptPrefix(final String prefix) {
+		this.defaultLongOptPrefix = prefix;
+	}
+
+	/**
+	 * Set the separator displayed between a long option and its value. Ensure that the separator specified is supported by
+	 * the parser used, typically ' ' or '='.
+	 *
+	 * @param longOptSeparator the separator, typically ' ' or '='.
+	 * @since 1.3
+	 */
+	public void setLongOptSeparator(final String longOptSeparator) {
+		this.longOptSeparator = longOptSeparator;
+	}
+
+	/**
+	 * Sets the 'newLine'.
+	 *
+	 * @param newline the new value of 'newLine'
+	 */
+	public void setNewLine(final String newline) {
+		this.defaultNewLine = newline;
+	}
+
+	/**
+	 * Set the comparator used to sort the options when they output in help text. Passing in a null comparator will keep the
+	 * options in the order they were declared.
+	 *
+	 * @param comparator the {@link Comparator} to use for sorting the options
+	 * @since 1.2
+	 */
+	public void setOptionComparator(final Comparator<Option> comparator) {
+		this.optionComparator = comparator;
+	}
+
+	/**
+	 * Sets the 'optPrefix'.
+	 *
+	 * @param prefix the new value of 'optPrefix'
+	 */
+	public void setOptPrefix(final String prefix) {
+		this.defaultOptPrefix = prefix;
+	}
+
+	/**
+	 * Sets the 'syntaxPrefix'.
+	 *
+	 * @param prefix the new value of 'syntaxPrefix'
+	 */
+	public void setSyntaxPrefix(final String prefix) {
+		this.defaultSyntaxPrefix = prefix;
+	}
+
+	/**
+	 * Sets the 'width'.
+	 *
+	 * @param width the new value of 'width'
+	 */
+	public void setWidth(final int width) {
+		this.defaultWidth = width;
 	}
 
 }

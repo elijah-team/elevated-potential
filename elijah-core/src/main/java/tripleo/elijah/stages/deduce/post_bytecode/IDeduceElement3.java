@@ -24,36 +24,12 @@
 */
 package tripleo.elijah.stages.deduce.post_bytecode;
 
-import tripleo.elijah.lang.i.Context;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.deduce.FoundElement;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_fn.GenType;
-import tripleo.elijah.stages.instructions.IdentIA;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.instructions.*;
 
 public interface IDeduceElement3 {
-	DED elementDiscriminator();
-
-	DeduceTypes2 deduceTypes2();
-
-	OS_Element getPrincipal();
-
-	BaseEvaFunction generatedFunction();
-
-	GenType genType();
-
-	void resolve(Context aContext, final DeduceTypes2 dt2);
-
-	/**
-	 * how is this different from {@link DED.Kind} ??
-	 *
-	 * @return
-	 */
-	DeduceElement3_Kind kind();
-
-	void resolve(IdentIA aIdentIA, Context aContext, FoundElement aFoundElement);
-
 	enum DeduceElement3_Kind {
 		CLASS,
 		FUNCTION,
@@ -64,4 +40,25 @@ public interface IDeduceElement3 {
 		// ...,
 		GEN_FN__VTE, NAMESPACE
 	}
+
+	DeduceTypes2 deduceTypes2();
+
+	DED elementDiscriminator();
+
+	BaseEvaFunction generatedFunction();
+
+	GenType genType();
+
+	OS_Element getPrincipal();
+
+	/**
+	 * how is this different from {@link DED.Kind} ??
+	 *
+	 * @return
+	 */
+	DeduceElement3_Kind kind();
+
+	void resolve(Context aContext, final DeduceTypes2 dt2);
+
+	void resolve(IdentIA aIdentIA, Context aContext, FoundElement aFoundElement);
 }

@@ -11,10 +11,10 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.util.*;
 
 /**
  * @author Tripleo(sb)
@@ -46,6 +46,11 @@ public class TypeAliasStatementImpl implements OS_Element, tripleo.elijah.lang.i
 	}
 
 	@Override
+	public void serializeTo(final SmallWriter sw) {
+
+	}
+
+	@Override
 	public void setBecomes(final Qualident qq) {
 		y = qq;
 	}
@@ -58,11 +63,6 @@ public class TypeAliasStatementImpl implements OS_Element, tripleo.elijah.lang.i
 	@Override
 	public void visitGen(@NotNull ElElementVisitor visit) {
 		visit.visitTypeAlias(this);
-	}
-
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
 	}
 }
 

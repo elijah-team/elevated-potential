@@ -35,6 +35,10 @@ public class FnCallArgs implements InstructionArgument {
 		return expression_to_call.getArg(i);
 	}
 
+	private List<InstructionArgument> getArgs() {
+		return expression_to_call.args;
+	}
+
 	public Instruction getExpression() {
 		return expression_to_call;
 	}
@@ -43,10 +47,6 @@ public class FnCallArgs implements InstructionArgument {
 	public List<InstructionArgument> getInstructionArguments() {
 		final List<InstructionArgument> args = this.getArgs();
 		return args.subList(1, args.size());
-	}
-
-	private List<InstructionArgument> getArgs() {
-		return expression_to_call.args;
 	}
 
 	public void setType(TypeTableEntry tte2) {

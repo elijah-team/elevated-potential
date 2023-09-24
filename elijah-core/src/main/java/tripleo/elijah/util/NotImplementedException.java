@@ -10,6 +10,14 @@ package tripleo.elijah.util;
 
 @SuppressWarnings("unused")
 public class NotImplementedException extends RuntimeException {
+	public static void raise() {
+		Stupidity.println_err_2("Should not be here");
+	}
+
+	public static void raise_stop() {
+		int y = 2;
+	}
+
 	public NotImplementedException() {
 		Stupidity.println_err_2("Should not be here 2");
 	}
@@ -17,13 +25,5 @@ public class NotImplementedException extends RuntimeException {
 	public NotImplementedException(final String message) {
 		super(message);
 		Stupidity.println_err_2("Should not be here 2");
-	}
-
-	public static void raise() {
-		Stupidity.println_err_2("Should not be here");
-	}
-
-	public static void raise_stop() {
-		int y = 2;
 	}
 }

@@ -1,16 +1,10 @@
 package tripleo.elijah.nextgen.outputtree;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.nextgen.outputstatement.EG_Naming;
-import tripleo.elijah.nextgen.outputstatement.EG_SequenceStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import com.google.common.collect.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.nextgen.outputstatement.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author tripleo
@@ -26,6 +20,10 @@ public class EOT_OutputTree {
 
 	public void addAll(final @NotNull List<EOT_OutputFile> aLeof) {
 		list.addAll(aLeof);
+	}
+
+	public @NotNull List<EOT_OutputFile> getList() {
+		return list;
 	}
 
 	public void recompute() {
@@ -54,10 +52,6 @@ public class EOT_OutputTree {
 				list.add(ofn);
 			}
 		}
-	}
-
-	public @NotNull List<EOT_OutputFile> getList() {
-		return list;
 	}
 
 	public void set(final @NotNull List<EOT_OutputFile> aLeof) {

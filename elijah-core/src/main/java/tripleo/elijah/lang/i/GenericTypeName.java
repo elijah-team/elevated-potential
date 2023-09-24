@@ -1,6 +1,6 @@
 package tripleo.elijah.lang.i;
 
-import java.io.File;
+import java.io.*;
 
 public interface GenericTypeName extends TypeName {
 	int getColumn();
@@ -11,19 +11,19 @@ public interface GenericTypeName extends TypeName {
 
 	File getFile();
 
+	int getLine();
+
+	int getLineEnd();
+
 	boolean isNull();
 
 	Type kindOfType();
-
-	void setContext(Context context);
-
-	int getLine();
 
 	void set(TypeModifiers modifiers_);
 
 	void setConstraint(TypeName aConstraint);
 
-	int getLineEnd();
+	void setContext(Context context);
 
 	void typeName(Qualident xy);
 }

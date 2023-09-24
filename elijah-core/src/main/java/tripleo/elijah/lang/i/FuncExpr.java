@@ -1,10 +1,9 @@
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.FuncExprContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface FuncExpr extends IExpression, OS_Element {
 	//Collection<FormalArgListItem> getArgs();
@@ -26,11 +25,6 @@ public interface FuncExpr extends IExpression, OS_Element {
 	@Override
 	OS_Element getParent();
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
-
 	Scope3 getScope();
 
 	void postConstruct();
@@ -38,6 +32,11 @@ public interface FuncExpr extends IExpression, OS_Element {
 	@Nullable TypeName returnType();
 
 	void scope(Scope3 aSco);
+
+	@Override
+	default void serializeTo(SmallWriter sw) {
+
+	}
 
 	void setArgList(FormalArgList argList);
 

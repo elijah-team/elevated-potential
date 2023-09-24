@@ -8,8 +8,7 @@
 
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 
 public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
@@ -36,10 +35,6 @@ public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 		return this.args;
 	}
 
-	public void setArgs(ExpressionList ael) {
-		this.args = ael;
-	}
-
 	@Override
 	public ExpressionKind getKind() {
 		return _kind;
@@ -48,6 +43,11 @@ public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 	@Override
 	public IExpression getLeft() {
 		return left;
+	}
+
+	@Override
+	public IExpression getRight() {
+		return right;
 	}
 
 	@Override
@@ -61,8 +61,8 @@ public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 	}
 
 	@Override
-	public IExpression getRight() {
-		return right;
+	public String repr_() {
+		return String.format("<Expression %s %s %s>", left, _kind, right);
 	}
 
 	@Override
@@ -72,14 +72,23 @@ public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 		right = aEx.getRight();
 	}
 
-	@Override
-	public void setRight(final IExpression aRight) {
-		right = aRight;
+	public void setArgs(ExpressionList ael) {
+		this.args = ael;
 	}
 
 	@Override
-	public String repr_() {
-		return String.format("<Expression %s %s %s>", left, _kind, right);
+	public void setKind(final ExpressionKind aKind) {
+		_kind = aKind;
+	}
+
+	@Override
+	public void setLeft(final IExpression aLeft) {
+		left = aLeft;
+	}
+
+	@Override
+	public void setRight(final IExpression aRight) {
+		right = aRight;
 	}
 
 	@Override
@@ -92,16 +101,6 @@ public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 		left  = new BasicBinaryExpressionImpl(left, _kind, right); // TODO
 		_kind = aType;
 		right = null;
-	}
-
-	@Override
-	public void setLeft(final IExpression aLeft) {
-		left = aLeft;
-	}
-
-	@Override
-	public void setKind(final ExpressionKind aKind) {
-		_kind = aKind;
 	}
 
 

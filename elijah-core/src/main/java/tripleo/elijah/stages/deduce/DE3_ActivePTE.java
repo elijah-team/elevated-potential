@@ -1,29 +1,22 @@
 package tripleo.elijah.stages.deduce;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.comp.notation.GM_GenerateModule;
-import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
-import tripleo.elijah.nextgen.reactive.Reactivable;
-import tripleo.elijah.nextgen.reactive.ReactiveDimension;
-import tripleo.elijah.stages.gen_c.GenerateC;
-import tripleo.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah.stages.gen_fn.ProcTableEntry;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.work.WorkList;
-import tripleo.elijah.work.WorkManager;
-import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.work.*;
+import tripleo.elijah.world.i.*;
 
-import java.util.List;
-import java.util.function.Consumer;
+import java.util.*;
+import java.util.function.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 class DE3_ActivePTE implements DE3_Active {
 	private final          DeduceTypes2                      deduceTypes2;
@@ -44,6 +37,29 @@ class DE3_ActivePTE implements DE3_Active {
 		this.ables = _inj().new_ArrayList__Ables();
 	}
 
+	private void __do_001(final @NotNull GenerateFiles generateC,
+						  final EvaClass node,
+						  final DeducePhase deducePhase,
+						  final GenerateResultSink resultSink,
+						  final @NotNull Eventual<GenerateResultEnv> efg) {
+		efg.then(fg -> {
+			final DeducePhase.GeneratedClasses classes = deducePhase.generatedClasses;
+			final int                          size1   = classes.size();
+			final GenerateResult               x       = generateC.resultsFromNodes(List_of(node), _inj().new_WorkManager(), resultSink, fg);
+			final int                          size2   = classes.size();
+
+			if (size2 > size1) {
+				logProgress(3047, "" + (size2 - size1) + " results generated for " + node.identityString());
+			} else {
+				logProgress(3046, "no results generated for " + node.identityString());
+			}
+
+			for (Old_GenerateResultItem result : x.results()) {
+				logProgress(3045, "" + result);
+			}
+		});
+	}
+
 	private DeduceTypes2.DeduceTypes2Injector _inj() {
 		return __inj;
 	}
@@ -56,39 +72,6 @@ class DE3_ActivePTE implements DE3_Active {
 	@Override
 	public <T> void addListener(final Consumer<T> t) {
 
-	}
-
-	@Override
-	public void join(final ReactiveDimension aDimension) {
-		if (aDimension instanceof DeducePhase) {
-			int y = 2;
-		}
-		if (aDimension instanceof GenerateC generateC) {
-			if (pte.getClassInvocation() == null) {
-				pte.onFunctionInvocation(x -> {
-					int y = 2;
-				}); // FIXME bug: points to `f'
-			}
-
-			//assert null != (pte.getClassInvocation());
-
-			if (pte.getClassInvocation() != null)
-				(pte.getClassInvocation()).resolvePromise()
-						.then(node -> {
-							if (generateC.resultSink == null) {
-								//assert false;
-								generateC.resultSink = _inj().new_DefaultGenerateResultSink(deduceTypes2.phase.pa);
-							}
-
-							var resultSink = generateC.resultSink;
-
-							var efg = getResultEnv(generateC, resultSink);
-
-							final DeducePhase deducePhase = deduceTypes2._phase();
-
-							__do_001(generateC, node, deducePhase, resultSink, efg);
-						});
-		}
 	}
 
 	@NotNull
@@ -129,27 +112,37 @@ class DE3_ActivePTE implements DE3_Active {
 		return R;
 	}
 
-	private void __do_001(final @NotNull GenerateFiles generateC,
-						  final EvaClass node,
-						  final DeducePhase deducePhase,
-						  final GenerateResultSink resultSink,
-						  final @NotNull Eventual<GenerateResultEnv> efg) {
-		efg.then(fg -> {
-			final DeducePhase.GeneratedClasses classes = deducePhase.generatedClasses;
-			final int                          size1   = classes.size();
-			final GenerateResult               x       = generateC.resultsFromNodes(List_of(node), _inj().new_WorkManager(), resultSink, fg);
-			final int                          size2   = classes.size();
-
-			if (size2 > size1) {
-				logProgress(3047, "" + (size2 - size1) + " results generated for " + node.identityString());
-			} else {
-				logProgress(3046, "no results generated for " + node.identityString());
+	@Override
+	public void join(final ReactiveDimension aDimension) {
+		if (aDimension instanceof DeducePhase) {
+			int y = 2;
+		}
+		if (aDimension instanceof GenerateC generateC) {
+			if (pte.getClassInvocation() == null) {
+				pte.onFunctionInvocation(x -> {
+					int y = 2;
+				}); // FIXME bug: points to `f'
 			}
 
-			for (Old_GenerateResultItem result : x.results()) {
-				logProgress(3045, "" + result);
-			}
-		});
+			//assert null != (pte.getClassInvocation());
+
+			if (pte.getClassInvocation() != null)
+				(pte.getClassInvocation()).resolvePromise()
+						.then(node -> {
+							if (generateC.resultSink == null) {
+								//assert false;
+								generateC.resultSink = _inj().new_DefaultGenerateResultSink(deduceTypes2.phase.pa);
+							}
+
+							var resultSink = generateC.resultSink;
+
+							var efg = getResultEnv(generateC, resultSink);
+
+							final DeducePhase deducePhase = deduceTypes2._phase();
+
+							__do_001(generateC, node, deducePhase, resultSink, efg);
+						});
+		}
 	}
 
 	private void logProgress(final int code, final String message) {

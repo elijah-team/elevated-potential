@@ -1,6 +1,6 @@
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
 public interface PropertyStatement extends OS_Element, OS_Element2, ClassItem {
 	void addGet();
@@ -23,6 +23,11 @@ public interface PropertyStatement extends OS_Element, OS_Element2, ClassItem {
 	@Override
 	String name();
 
+	@Override
+	default void serializeTo(SmallWriter sw) {
+
+	}
+
 	FunctionDef set_fn();
 
 	void set_scope(Scope3 aSco);
@@ -34,9 +39,4 @@ public interface PropertyStatement extends OS_Element, OS_Element2, ClassItem {
 	// OS_Element
 	@Override
 	void visitGen(ElElementVisitor visit); // OS_Element
-
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
 }

@@ -1,11 +1,10 @@
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.diagnostic.Locatable;
-import tripleo.elijah.lang.impl.IdentExpressionImpl;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
-import tripleo.elijah.util.Helpers;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang.nextgen.names.i.*;
+import tripleo.elijah.util.*;
 
 public interface IdentExpression extends IExpression, OS_Element, Resolvable, Locatable {
 	@Contract("_ -> new")
@@ -19,6 +18,8 @@ public interface IdentExpression extends IExpression, OS_Element, Resolvable, Lo
 	@Override
 	IExpression getLeft();
 
+	EN_Name getName();
+
 	@NotNull
 	String getText();
 
@@ -31,6 +32,9 @@ public interface IdentExpression extends IExpression, OS_Element, Resolvable, Lo
 	@Override
 	String repr_();
 
+	@Override
+	void serializeTo(SmallWriter sw);
+
 	void setContext(Context context);
 
 	@Override
@@ -41,9 +45,4 @@ public interface IdentExpression extends IExpression, OS_Element, Resolvable, Lo
 
 	@Override
 	void setType(OS_Type deducedExpression);
-
-	EN_Name getName();
-
-	@Override
-	void serializeTo(SmallWriter sw);
 }

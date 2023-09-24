@@ -19,23 +19,15 @@ class DefaultCompFactory implements CompFactory {
         compilation = aCompilation;
     }
 
+    @Contract("_ -> new")
     @Override
-    public @NotNull EIT_ModuleInput createModuleInput(final OS_Module aModule) {
-        return new EIT_ModuleInput(aModule, compilation);
-    }
+    public @NotNull CompilerBeginning createBeginning(final @NotNull CompilationRunner aCompilationRunner) {
+        final CompilerInstructions          rootCI       = compilation.getRootCI();
+        final List<CompilerInput>           inputs       = compilation.getInputs();
+        final IProgressSink                 progressSink = aCompilationRunner.getProgressSink();
+        final Compilation.CompilationConfig cfg          = compilation.cfg();
 
-    @Override
-    public @NotNull Qualident createQualident(final @NotNull List<String> sl) {
-        Qualident R = new QualidentImpl();
-        for (String s : sl) {
-            R.append(Helpers.string_to_ident(s));
-        }
-        return R;
-    }
-
-    @Override
-    public @NotNull InputRequest createInputRequest(final File aFile, final boolean aDo_out, final @Nullable LibraryStatementPart aLsp) {
-        return new InputRequest(aFile, aDo_out, aLsp);
+        return new CompilerBeginning(compilation, rootCI, inputs, progressSink, cfg);
     }
 
     @Override
@@ -49,14 +41,22 @@ class DefaultCompFactory implements CompFactory {
         return new DefaultCompilationBus(Objects.requireNonNull(compilation.getCompilationEnclosure()));
     }
 
-    @Contract("_ -> new")
     @Override
-    public @NotNull CompilerBeginning createBeginning(final @NotNull CompilationRunner aCompilationRunner) {
-        final CompilerInstructions          rootCI       = compilation.getRootCI();
-        final List<CompilerInput>           inputs       = compilation.getInputs();
-        final IProgressSink                 progressSink = aCompilationRunner.getProgressSink();
-        final Compilation.CompilationConfig cfg          = compilation.cfg();
+    public @NotNull InputRequest createInputRequest(final File aFile, final boolean aDo_out, final @Nullable LibraryStatementPart aLsp) {
+        return new InputRequest(aFile, aDo_out, aLsp);
+    }
 
-        return new CompilerBeginning(compilation, rootCI, inputs, progressSink, cfg);
+    @Override
+    public @NotNull EIT_ModuleInput createModuleInput(final OS_Module aModule) {
+        return new EIT_ModuleInput(aModule, compilation);
+    }
+
+    @Override
+    public @NotNull Qualident createQualident(final @NotNull List<String> sl) {
+        Qualident R = new QualidentImpl();
+        for (String s : sl) {
+            R.append(Helpers.string_to_ident(s));
+        }
+        return R;
     }
 }

@@ -9,23 +9,22 @@
  */
 package tripleo.elijah.contexts;
 
-import tripleo.elijah.lang.i.ImportStatement;
-import tripleo.elijah.lang.i.Qualident;
+import tripleo.elijah.lang.i.*;
 
 /**
  * Created 11/28/21 11:44 PM
  */
 public class ImportInfo implements ContextInfo {
-	ImportStatement importStatement;
-
-	Qualident  importPart;
-	int        importPartIndex;
-	ImportType importType;
-
 	enum ImportType {
 		DIRECT, MEMBER, PACKAGE
 	}
 	// something else (I think I got it)
+
+	ImportStatement importStatement;
+	Qualident  importPart;
+	int        importPartIndex;
+
+	ImportType importType;
 
 	public ImportInfo(final ImportStatement aImportStatement,
 					  final Qualident aImportPart,

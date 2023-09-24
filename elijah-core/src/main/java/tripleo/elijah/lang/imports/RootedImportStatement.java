@@ -1,15 +1,12 @@
 package tripleo.elijah.lang.imports;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.ImportContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.QualidentImpl;
-import tripleo.elijah.lang.impl.QualidentListImpl;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 8/7/20 2:09 AM
@@ -43,17 +40,8 @@ public class RootedImportStatement extends _BaseImportStatement {
 		return parent;
 	}
 
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
 	public Qualident getRoot() {
 		return root;
-	}
-
-	public void setRoot(final Qualident root) {
-		this.root = root;
 	}
 
 	public QualidentList importList() {
@@ -67,6 +55,12 @@ public class RootedImportStatement extends _BaseImportStatement {
 	 */
 	public void importRoot(final Qualident xyz) {
 		setRoot(xyz);
+	}
+
+	@Override
+	public @Nullable String name() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -87,18 +81,21 @@ public class RootedImportStatement extends _BaseImportStatement {
 	}
 
 	@Override
-	public @Nullable String name() {
-		// TODO Auto-generated method stub
-		return null;
+	public void serializeTo(final SmallWriter sw) {
+
+	}
+
+	@Override
+	public void setContext(final ImportContext ctx) {
+		_ctx = ctx;
 	}
 
 	public void setImportList(QualidentList qil) {
 		importList = qil;
 	}
 
-	@Override
-	public void setContext(final ImportContext ctx) {
-		_ctx = ctx;
+	public void setRoot(final Qualident root) {
+		this.root = root;
 	}
 }
 

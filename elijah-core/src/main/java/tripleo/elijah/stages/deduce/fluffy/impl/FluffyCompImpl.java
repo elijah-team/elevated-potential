@@ -1,20 +1,22 @@
 package tripleo.elijah.stages.deduce.fluffy.impl;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.entrypoints.MainClassEntryPoint;
+import com.google.common.collect.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
-import tripleo.elijah.stages.deduce.fluffy.i.FluffyModule;
+import tripleo.elijah.stages.deduce.fluffy.i.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 public class FluffyCompImpl implements FluffyComp {
 
-	private final CompilationImpl _comp;
+	static class FluffyCompImplInjector {
+		public FluffyModuleImpl new_FluffyModuleImpl(final OS_Module aModule, final CompilationImpl aComp) {
+			return new FluffyModuleImpl(aModule, aComp);
+		}
+	}
 
 	public static boolean isMainClassEntryPoint(@NotNull final OS_Element2 input) {
 		// TODO 08/27 Use understanding/~ processor for this
@@ -22,10 +24,18 @@ public class FluffyCompImpl implements FluffyComp {
 		return MainClassEntryPoint.is_main_function_with_no_args(fd);
 	}
 
+	private final CompilationImpl _comp;
+
 	private final Map<OS_Module, FluffyModule> fluffyModuleMap = new HashMap<>();
+
+	FluffyCompImplInjector __inj = new FluffyCompImplInjector();
 
 	public FluffyCompImpl(final CompilationImpl aComp) {
 		_comp = aComp;
+	}
+
+	private FluffyCompImplInjector _inj() {
+		return __inj;
 	}
 
 	@Override
@@ -90,17 +100,5 @@ public class FluffyCompImpl implements FluffyComp {
 		final FluffyModuleImpl fluffyModule = _inj().new_FluffyModuleImpl(aModule, _comp);
 		fluffyModuleMap.put(aModule, fluffyModule);
 		return fluffyModule;
-	}
-
-	private FluffyCompImplInjector _inj() {
-		return __inj;
-	}
-
-	FluffyCompImplInjector __inj = new FluffyCompImplInjector();
-
-	static class FluffyCompImplInjector {
-		public FluffyModuleImpl new_FluffyModuleImpl(final OS_Module aModule, final CompilationImpl aComp) {
-			return new FluffyModuleImpl(aModule, aComp);
-		}
 	}
 }

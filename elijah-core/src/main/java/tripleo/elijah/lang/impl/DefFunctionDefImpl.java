@@ -13,14 +13,12 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.FunctionContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elijah.lang.i.DefFunctionDef {
 
@@ -47,11 +45,6 @@ public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elija
 		_items.add(seq);
 	}
 //	private FormalArgList fal;
-
-	@Override
-	public void setBody(IExpression aExpression) {
-		setExpr(aExpression);
-	}
 
 	@Override
 	public @NotNull List<FunctionItem> getItems() {
@@ -90,6 +83,12 @@ public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elija
 	}
 
 	@Override
+	public void serializeTo(final @NotNull SmallWriter sw) {
+		sw.fieldIdent("name", getNameNode());
+		//throw new NotImplementedException();
+	}
+
+	@Override
 	public void set(FunctionModifiers mod) {
 		// TODO Auto-generated method stub
 
@@ -107,6 +106,11 @@ public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elija
 
 	}
 
+
+	@Override
+	public void setBody(IExpression aExpression) {
+		setExpr(aExpression);
+	}
 
 	@Override
 	public void setCategory(El_Category aCategory) {
@@ -137,12 +141,6 @@ public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elija
 	@Override
 	public void visitGen(@NotNull ElElementVisitor visit) {
 		visit.visitDefFunction(this);
-	}
-
-	@Override
-	public void serializeTo(final @NotNull SmallWriter sw) {
-		sw.fieldIdent("name", getNameNode());
-		//throw new NotImplementedException();
 	}
 
 }

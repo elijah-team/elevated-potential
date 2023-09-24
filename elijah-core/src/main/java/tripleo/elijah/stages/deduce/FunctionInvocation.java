@@ -8,24 +8,19 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import org.jdeferred2.Promise;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
-import tripleo.elijah.lang.i.ConstructorDef;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_ProcTableEntry;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.work.WorkList;
-import tripleo.elijah.world.WorldGlobals;
+import tripleo.elijah.work.*;
+import tripleo.elijah.world.*;
 
-import java.util.List;
+import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 /**
  * Created 1/21/21 9:04 PM
@@ -83,10 +78,6 @@ public class FunctionInvocation implements IInvocation {
 		return classInvocation;
 	}
 
-	public void setClassInvocation(@NotNull ClassInvocation aClassInvocation) {
-		classInvocation = aClassInvocation;
-	}
-
 	public @Nullable BaseEvaFunction getEva() {
 		return null; // TODO 04/15
 	}
@@ -101,19 +92,6 @@ public class FunctionInvocation implements IInvocation {
 
 	public NamespaceInvocation getNamespaceInvocation() {
 		return namespaceInvocation;
-	}
-
-	public void setGenerated(BaseEvaFunction aGeneratedFunction) {
-		_generated = aGeneratedFunction;
-	}
-
-	public void setNamespaceInvocation(NamespaceInvocation aNamespaceInvocation) {
-		namespaceInvocation = aNamespaceInvocation;
-	}
-
-	@Override
-	public void setForFunctionInvocation(final FunctionInvocation aFunctionInvocation) {
-		throw new IllegalStateException("maybe this shouldn't be done?");
 	}
 
 	public Eventual<BaseEvaFunction> makeGenerated__Eventual(final @NotNull Deduce_CreationClosure cl, final EventualRegister register) {
@@ -151,6 +129,23 @@ public class FunctionInvocation implements IInvocation {
 		//}
 	}
 
+	public void setClassInvocation(@NotNull ClassInvocation aClassInvocation) {
+		classInvocation = aClassInvocation;
+	}
+
+	@Override
+	public void setForFunctionInvocation(final FunctionInvocation aFunctionInvocation) {
+		throw new IllegalStateException("maybe this shouldn't be done?");
+	}
+
+	public void setGenerated(BaseEvaFunction aGeneratedFunction) {
+		_generated = aGeneratedFunction;
+	}
+
+	public void setNamespaceInvocation(NamespaceInvocation aNamespaceInvocation) {
+		namespaceInvocation = aNamespaceInvocation;
+	}
+
 	@NotNull
 	private BaseEvaFunction xxx___forDefaultVirtualCtor(final Deduce_CreationClosure cl,
 														final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
@@ -158,17 +153,6 @@ public class FunctionInvocation implements IInvocation {
 		@NotNull WlGenerateDefaultCtor wlgdc = injector.new_WlGenerateDefaultCtor(module, this, cl);
 		wlgdc.run(null);
 		BaseEvaFunction gf = wlgdc.getResult();
-		return gf;
-	}
-
-	@NotNull
-	private BaseEvaFunction xxxForConstructorDef(final Deduce_CreationClosure cl,
-												 final @NotNull ConstructorDef cd,
-												 final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
-												 final @NotNull OS_Module module) {
-		@NotNull WlGenerateCtor wlgf = injector.new_WlGenerateCtor(module, cd.getNameNode(), this, cl);
-		wlgf.run(null);
-		BaseEvaFunction gf = wlgf.getResult();
 		return gf;
 	}
 
@@ -199,6 +183,17 @@ public class FunctionInvocation implements IInvocation {
 			}
 		}
 
+		return gf;
+	}
+
+	@NotNull
+	private BaseEvaFunction xxxForConstructorDef(final Deduce_CreationClosure cl,
+												 final @NotNull ConstructorDef cd,
+												 final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
+												 final @NotNull OS_Module module) {
+		@NotNull WlGenerateCtor wlgf = injector.new_WlGenerateCtor(module, cd.getNameNode(), this, cl);
+		wlgf.run(null);
+		BaseEvaFunction gf = wlgf.getResult();
 		return gf;
 	}
 }

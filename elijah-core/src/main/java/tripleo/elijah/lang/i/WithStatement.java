@@ -1,11 +1,10 @@
 package tripleo.elijah.lang.i;
 
-import antlr.Token;
-import tripleo.elijah.contexts.WithContext;
-import tripleo.elijah.lang2.ElElementVisitor;
+import antlr.*;
+import tripleo.elijah.contexts.*;
+import tripleo.elijah.lang2.*;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public interface WithStatement extends FunctionItem {
 	void add(OS_Element anElement);
@@ -31,12 +30,12 @@ public interface WithStatement extends FunctionItem {
 	void scope(Scope3 sco);
 
 	@Override
-	void visitGen(ElElementVisitor visit);
-
-	@Override
 	default void serializeTo(SmallWriter sw) {
 
 	}
 
 	void setContext(WithContext ctx);
+
+	@Override
+	void visitGen(ElElementVisitor visit);
 }

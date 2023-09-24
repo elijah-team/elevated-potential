@@ -1,19 +1,12 @@
 package tripleo.elijah.nextgen.outputtree;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.nextgen.inputtree.EIT_Input;
-import tripleo.elijah.nextgen.inputtree.EIT_Input_HashSourceFile_Triple;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.nextgen.outputstatement.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class EOT_OutputFile {
-	@FunctionalInterface
-	public interface FileNameProvider {
-		String getFilename();
-	}
-
 	public static class DefaultFileNameProvider implements FileNameProvider {
 		private final String r;
 
@@ -25,6 +18,11 @@ public class EOT_OutputFile {
 		public String getFilename() {
 			return r;
 		}
+	}
+
+	@FunctionalInterface
+	public interface FileNameProvider {
+		String getFilename();
 	}
 
 	private final @NotNull FileNameProvider _filename;

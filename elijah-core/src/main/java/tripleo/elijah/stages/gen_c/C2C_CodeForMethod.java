@@ -29,16 +29,6 @@ public class C2C_CodeForMethod implements Generate_Code_For_Method.C2C_Results {
 		whyNotGarishFunction = gc.a_lookup(aGf);
 	}
 
-	public GenerateResult getGenerateResult() {
-		return gr;
-	}
-
-	@Override
-	public @NotNull List<C2C_Result> getResults() {
-		calculate();
-		return List_of(buf, bufHdr);
-	}
-
 	private void calculate() {
 		if (!_calculated) {
 			final BufferTabbedOutputStream tos    = generateCodeForMethod.tos;
@@ -64,5 +54,15 @@ public class C2C_CodeForMethod implements Generate_Code_For_Method.C2C_Results {
 
 			_calculated = true;
 		}
+	}
+
+	public GenerateResult getGenerateResult() {
+		return gr;
+	}
+
+	@Override
+	public @NotNull List<C2C_Result> getResults() {
+		calculate();
+		return List_of(buf, bufHdr);
 	}
 }

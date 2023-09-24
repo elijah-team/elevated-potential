@@ -36,10 +36,6 @@ public class WlGenerateClass implements WorkJob {
 
 	private       EvaClass       Result;
 
-	public void setConsumer(Consumer<EvaClass> consumer) {
-		this.consumer = consumer;
-	}
-
 	private Consumer<EvaClass> consumer;
 
 	public WlGenerateClass(GenerateFunctions aGenerateFunctions,
@@ -105,6 +101,10 @@ public class WlGenerateClass implements WorkJob {
 			throw new NotImplementedException();
 		}
 		_isDone = true;
+	}
+
+	public void setConsumer(Consumer<EvaClass> consumer) {
+		this.consumer = consumer;
 	}
 }
 

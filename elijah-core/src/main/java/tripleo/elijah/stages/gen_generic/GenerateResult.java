@@ -12,37 +12,37 @@ import java.util.function.Consumer;
 
 public interface GenerateResult {
 
-	void close();
+	public enum TY {
+		HEADER, IMPL, PRIVATE_HEADER
+	}
 
 	void add(Buffer b, EvaNode n, TY ty, LibraryStatementPart aLsp, Dependency d);
 
 	void addClass(TY ty, EvaClass aClass, Buffer aBuf, LibraryStatementPart aLsp);
 
-	void additional(GenerateResult aGenerateResult);
-
 	void addConstructor(EvaConstructor aEvaConstructor, Buffer aBuffer, TY aTY, LibraryStatementPart aLsp);
 
 	void addFunction(BaseEvaFunction aGeneratedFunction, Buffer aBuffer, TY aTY, LibraryStatementPart aLsp);
 
-	void completeItem(GenerateResultItem aGenerateResultItem);
+	void additional(GenerateResult aGenerateResult);
 
 	void addNamespace(TY ty, EvaNamespace aNamespace, Buffer aBuf, LibraryStatementPart aLsp);
 
 	void addWatcher(IGenerateResultWatcher w);
 
-	void observe(Observer<GenerateResultItem> obs);
+	void close();
 
-	void signalDone();
+	void completeItem(GenerateResultItem aGenerateResultItem);
+
+	void observe(Observer<GenerateResultItem> obs);
 
 	void outputFiles(Consumer<Map<String, OutputFileC>> cmso);
 
 	List<Old_GenerateResultItem> results();
 
-	void signalDone(Map<String, OutputFileC> aOutputFiles);
+	void signalDone();
 
-	public enum TY {
-		HEADER, IMPL, PRIVATE_HEADER
-	}
+	void signalDone(Map<String, OutputFileC> aOutputFiles);
 
 	void subscribeCompletedItems(Observer<GenerateResultItem> aGenerateResultItemObserver);
 }

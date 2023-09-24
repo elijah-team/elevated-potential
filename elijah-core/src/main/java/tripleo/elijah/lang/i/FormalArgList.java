@@ -1,8 +1,8 @@
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface FormalArgList {
 	List<FormalArgListItem> falis();
@@ -11,8 +11,8 @@ public interface FormalArgList {
 
 	FormalArgListItem next();
 
+	void serializeTo(SmallWriter sw);
+
 	@Override
 	String toString();
-
-	void serializeTo(SmallWriter sw);
 }

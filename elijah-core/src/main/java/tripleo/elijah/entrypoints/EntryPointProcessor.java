@@ -1,32 +1,16 @@
 package tripleo.elijah.entrypoints;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.impl.BaseFunctionDef;
-import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.deduce.NULL_DeduceTypes2;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.work.WorkList;
-import tripleo.elijah.world.i.LivingRepo;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.work.*;
+import tripleo.elijah.world.i.*;
 
 public interface EntryPointProcessor {
-	static @NotNull EntryPointProcessor dispatch(final EntryPoint ep, final DeducePhase aDeducePhase, final WorkList aWl, final GenerateFunctions aGenerateFunctions) {
-		if (ep instanceof MainClassEntryPoint) {
-			return new EPP_MCEP((MainClassEntryPoint) ep, aDeducePhase, aWl, aGenerateFunctions);
-		} else if (ep instanceof ArbitraryFunctionEntryPoint) {
-			return new EPP_AFEP((ArbitraryFunctionEntryPoint) ep, aDeducePhase, aWl, aGenerateFunctions);
-		}
-
-		throw new IllegalStateException();
-	}
-
-	void process();
-
 	class EPP_AFEP implements EntryPointProcessor {
 
 		private final ArbitraryFunctionEntryPoint        afep;
@@ -129,5 +113,17 @@ public interface EntryPointProcessor {
 			compilation.world().addNamespace(aNamespace, LivingRepo.Add.NONE);
 		}
 	}
+
+	static @NotNull EntryPointProcessor dispatch(final EntryPoint ep, final DeducePhase aDeducePhase, final WorkList aWl, final GenerateFunctions aGenerateFunctions) {
+		if (ep instanceof MainClassEntryPoint) {
+			return new EPP_MCEP((MainClassEntryPoint) ep, aDeducePhase, aWl, aGenerateFunctions);
+		} else if (ep instanceof ArbitraryFunctionEntryPoint) {
+			return new EPP_AFEP((ArbitraryFunctionEntryPoint) ep, aDeducePhase, aWl, aGenerateFunctions);
+		}
+
+		throw new IllegalStateException();
+	}
+
+	void process();
 
 }

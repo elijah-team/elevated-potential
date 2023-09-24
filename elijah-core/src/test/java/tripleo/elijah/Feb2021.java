@@ -21,6 +21,24 @@ import static tripleo.elijah.util.Helpers.List_of;
  */
 public class Feb2021 {
 
+	//	@Ignore
+	@Test
+	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
+	public void testFunction() throws Exception {
+		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
+
+		c.feedCmdLine(List_of("test/feb2021/function/"));
+	}
+
+	//	@Ignore
+	@org.junit.jupiter.api.Test
+	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
+	public void testHier() throws Exception {
+		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
+
+		c.feedCmdLine(List_of("test/feb2021/hier/"));
+	}
+
 	@Test
 	public void testProperty() throws Exception {
 		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
@@ -44,24 +62,6 @@ public class Feb2021 {
 		c.feedCmdLine(List_of("test/feb2021/property3/"));
 
 		//assertEquals(100, c.errorCount());
-	}
-
-	//	@Ignore
-	@Test
-	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
-	public void testFunction() throws Exception {
-		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
-
-		c.feedCmdLine(List_of("test/feb2021/function/"));
-	}
-
-	//	@Ignore
-	@org.junit.jupiter.api.Test
-	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
-	public void testHier() throws Exception {
-		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
-
-		c.feedCmdLine(List_of("test/feb2021/hier/"));
 	}
 
 }

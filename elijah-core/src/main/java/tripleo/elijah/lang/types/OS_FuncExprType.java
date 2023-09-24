@@ -8,12 +8,10 @@
  */
 package tripleo.elijah.lang.types;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.FuncExpr;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.OS_Type;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
 
-import java.text.MessageFormat;
+import java.text.*;
 
 
 /**
@@ -27,13 +25,13 @@ public class OS_FuncExprType extends __Abstract_OS_Type {
 	}
 
 	@Override
-	public @NotNull String asString() {
-		return MessageFormat.format("<OS_FuncExprType {0}>", func_expr);
+	protected boolean _isEqual(final @NotNull OS_Type aType) {
+		return aType.getType() == Type.FUNC_EXPR && func_expr.equals(aType.getElement());
 	}
 
 	@Override
-	protected boolean _isEqual(final @NotNull OS_Type aType) {
-		return aType.getType() == Type.FUNC_EXPR && func_expr.equals(aType.getElement());
+	public @NotNull String asString() {
+		return MessageFormat.format("<OS_FuncExprType {0}>", func_expr);
 	}
 
 	@Override

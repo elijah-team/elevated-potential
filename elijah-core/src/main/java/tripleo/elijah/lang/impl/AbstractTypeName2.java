@@ -8,13 +8,10 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.NormalTypeName;
-import tripleo.elijah.lang.i.Qualident;
-import tripleo.elijah.lang.i.TypeModifiers;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
+import java.util.*;
 
 /*
  * Created on 5/4/2019 at 12:25
@@ -67,13 +64,16 @@ public abstract class AbstractTypeName2 implements NormalTypeName {
 	}
 
 	@Override
-	public void setConstant(final boolean aFlag) {
-		_ltm.add(TypeModifiers.CONST);
+	public boolean isNull() {
+		// return tm == null && (typeName == null /*|| typeName.isNull()*/);
+		if (typeName == null)
+			return false;
+		return _ltm.isEmpty() && typeName == null; // TODO check for correctness
 	}
 
 	@Override
-	public void setOut(final boolean aFlag) {
-		_ltm.add(TypeModifiers.OUTPAR);
+	public void setConstant(final boolean aFlag) {
+		_ltm.add(TypeModifiers.CONST);
 	}
 
 	@Override
@@ -87,16 +87,13 @@ public abstract class AbstractTypeName2 implements NormalTypeName {
 	}
 
 	@Override
-	public void setReference(final boolean aFlag) {
-		_ltm.add(TypeModifiers.REFPAR);
+	public void setOut(final boolean aFlag) {
+		_ltm.add(TypeModifiers.OUTPAR);
 	}
 
 	@Override
-	public boolean isNull() {
-		// return tm == null && (typeName == null /*|| typeName.isNull()*/);
-		if (typeName == null)
-			return false;
-		return _ltm.isEmpty() && typeName == null; // TODO check for correctness
+	public void setReference(final boolean aFlag) {
+		_ltm.add(TypeModifiers.REFPAR);
 	}
 }
 

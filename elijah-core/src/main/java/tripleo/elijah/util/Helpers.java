@@ -125,6 +125,12 @@ public enum Helpers {
 		return t;
 	}
 
+	public static <T> List<String> mapCollectionElementsToString(final List<T> instructionArguments) {
+		return instructionArguments.stream()
+				.map(x -> x.toString())
+				.collect(Collectors.toList());
+	}
+
 	public static void printXML(final Object obj, @NotNull final TabbedOutputStream tos) {
 		System.err.println("** XStream support has been disabled");
 /*
@@ -178,24 +184,18 @@ public enum Helpers {
 		return String.join(separator, stringIterable);
 	}
 
-	public static @NotNull Qualident string_to_qualident(@NotNull String x) {
-		Qualident q = new QualidentImpl();
-		for (String xx : x.split("\\.")) {
-			q.append(string_to_ident(xx));
-		}
-		return q;
-	}
-
 	@NotNull
 	public static IdentExpression string_to_ident(final String txt) {
 		final CommonToken t = new CommonToken(ElijjahTokenTypes.IDENT, txt);
 		return new IdentExpressionImpl(t, "<inline-absent>");
 	}
 
-	public static <T> List<String> mapCollectionElementsToString(final List<T> instructionArguments) {
-		return instructionArguments.stream()
-				.map(x -> x.toString())
-				.collect(Collectors.toList());
+	public static @NotNull Qualident string_to_qualident(@NotNull String x) {
+		Qualident q = new QualidentImpl();
+		for (String xx : x.split("\\.")) {
+			q.append(string_to_ident(xx));
+		}
+		return q;
 	}
 }
 

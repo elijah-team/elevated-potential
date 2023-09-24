@@ -1,12 +1,10 @@
 package tripleo.elijah.lang.types;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.lang2.BuiltInTypes;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang2.*;
 
-import java.text.MessageFormat;
+import java.text.*;
 
 public class OS_BuiltinType extends __Abstract_OS_Type {
 	private final BuiltInTypes _bit;
@@ -16,13 +14,13 @@ public class OS_BuiltinType extends __Abstract_OS_Type {
 	}
 
 	@Override
-	public @NotNull String asString() {
-		return MessageFormat.format("<OS_BuiltinType {0}>", _bit);
+	protected boolean _isEqual(final @NotNull OS_Type aType) {
+		return aType.getType() == Type.BUILT_IN && _bit.equals(aType.getBType());
 	}
 
 	@Override
-	protected boolean _isEqual(final @NotNull OS_Type aType) {
-		return aType.getType() == Type.BUILT_IN && _bit.equals(aType.getBType());
+	public @NotNull String asString() {
+		return MessageFormat.format("<OS_BuiltinType {0}>", _bit);
 	}
 
 	@Override

@@ -51,15 +51,6 @@ public class GeneratePhase implements ReactiveDimension, CompilationEnclosure.Mo
 		//pa.getCompilationEnclosure().addModuleListener(this);
 	}
 
-	public void setCodeRegistrar(ICodeRegistrar aCodeRegistrar) {
-		codeRegistrar = aCodeRegistrar;
-	}
-
-	@Override
-	public void listen(final @NotNull WorldModule module) {
-		final GenerateFunctions x = getGenerateFunctions(module.module());
-	}
-
 	@Override
 	public void close() {
 		NotImplementedException.raise_stop();
@@ -75,6 +66,15 @@ public class GeneratePhase implements ReactiveDimension, CompilationEnclosure.Mo
 			generateFunctions.put(mod, Result);
 		}
 		return Result;
+	}
+
+	@Override
+	public void listen(final @NotNull WorldModule module) {
+		final GenerateFunctions x = getGenerateFunctions(module.module());
+	}
+
+	public void setCodeRegistrar(ICodeRegistrar aCodeRegistrar) {
+		codeRegistrar = aCodeRegistrar;
 	}
 }
 

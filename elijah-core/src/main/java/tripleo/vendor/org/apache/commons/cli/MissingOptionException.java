@@ -31,6 +31,28 @@ public class MissingOptionException extends ParseException {
 	 */
 	private static final long serialVersionUID = 8161889051578563249L;
 	/**
+	 * Build the exception message from the specified list of options.
+	 *
+	 * @param missingOptions the list of missing options and groups
+	 * @since 1.2
+	 */
+	private static @NotNull String createMessage(final @NotNull List<?> missingOptions) {
+		final StringBuilder buf = new StringBuilder("Missing required option");
+		buf.append(missingOptions.size() == 1 ? "" : "s");
+		buf.append(": ");
+
+		final Iterator<?> it = missingOptions.iterator();
+		while (it.hasNext()) {
+			buf.append(it.next());
+			if (it.hasNext()) {
+				buf.append(", ");
+			}
+		}
+
+		return buf.toString();
+	}
+
+	/**
 	 * The list of missing options and groups
 	 */
 	private              List missingOptions;
@@ -53,28 +75,6 @@ public class MissingOptionException extends ParseException {
 	 */
 	public MissingOptionException(final String message) {
 		super(message);
-	}
-
-	/**
-	 * Build the exception message from the specified list of options.
-	 *
-	 * @param missingOptions the list of missing options and groups
-	 * @since 1.2
-	 */
-	private static @NotNull String createMessage(final @NotNull List<?> missingOptions) {
-		final StringBuilder buf = new StringBuilder("Missing required option");
-		buf.append(missingOptions.size() == 1 ? "" : "s");
-		buf.append(": ");
-
-		final Iterator<?> it = missingOptions.iterator();
-		while (it.hasNext()) {
-			buf.append(it.next());
-			if (it.hasNext()) {
-				buf.append(", ");
-			}
-		}
-
-		return buf.toString();
 	}
 
 	/**

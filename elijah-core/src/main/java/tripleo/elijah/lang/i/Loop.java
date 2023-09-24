@@ -1,10 +1,10 @@
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.contexts.LoopContext;
-import tripleo.elijah.lang2.ElElementVisitor;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
+import tripleo.elijah.lang2.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface Loop extends StatementItem, FunctionItem, OS_Element {
 	void expr(IExpression aExpr);
@@ -35,6 +35,11 @@ public interface Loop extends StatementItem, FunctionItem, OS_Element {
 
 	void scope(Scope3 aSco);
 
+	@Override
+	default void serializeTo(SmallWriter sw) {
+
+	}
+
 	void setContext(LoopContext ctx);
 
 	void topart(IExpression aExpr);
@@ -44,9 +49,4 @@ public interface Loop extends StatementItem, FunctionItem, OS_Element {
 	@Override
 		// OS_Element
 	void visitGen(ElElementVisitor visit);
-
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
 }

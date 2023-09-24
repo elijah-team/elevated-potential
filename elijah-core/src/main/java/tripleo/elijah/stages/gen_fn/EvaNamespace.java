@@ -29,9 +29,20 @@ import java.util.function.Consumer;
  * Created 12/22/20 5:39 PM
  */
 public class EvaNamespace extends EvaContainerNC implements GNCoded {
+	class _Reactive_EvaNamespace extends DefaultReactive {
+		@Override
+		public <T> void addListener(final Consumer<T> t) {
+			throw new UnintendedUseException();
+		}
+	}
 	public        DefaultLivingNamespace _living;
 	private final OS_Module              module;
+
 	private final NamespaceStatement     namespaceStatement;
+
+	private _Reactive_EvaNamespace reactiveEvaNamespace = new _Reactive_EvaNamespace();
+
+	private final GarishNamespace_Generator _gng = new GarishNamespace_Generator(this);
 
 	public EvaNamespace(NamespaceStatement aNamespaceStatement, OS_Module aModule) {
 		namespaceStatement = aNamespaceStatement;
@@ -64,8 +75,26 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 	}
 
 	@Override
+	public void generateCode(final GenerateResultEnv aFileGen, final CodeGenerator aGgc) {
+		throw new NotImplementedException();
+	}
+
+	public GarishNamespace_Generator generator() {
+		return _gng;
+	}
+
+	@Override
+	public int getCode() {
+		return _living.getCode();
+	}
+
+	@Override
 	public OS_Element getElement() {
 		return getNamespaceStatement();
+	}
+
+	public DefaultLivingNamespace getLiving() {
+		return _living;
 	}
 
 	public String getName() {
@@ -86,31 +115,12 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 	}
 
 	@Override
-	public void register(final @NotNull ICodeRegistrar aCr) {
-		aCr.registerNamespace(this);
-	}
-
-	@Override
-	public void generateCode(final GenerateResultEnv aFileGen, final CodeGenerator aGgc) {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public int getCode() {
-		return _living.getCode();
-	}
-
-	@Override
 	public @NotNull Maybe<VarTableEntry> getVariable(String aVarName) {
 		for (VarTableEntry varTableEntry : varTable) {
 			if (varTableEntry.nameToken.getText().equals(aVarName))
 				return new Maybe<>(varTableEntry, null);
 		}
 		return new Maybe<>(null, _def_VarNotFound);
-	}
-
-	@Override public void setCode(final int aCode) {
-		_living.setCode(aCode);
 	}
 
 	@Override
@@ -123,27 +133,17 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 		return module;
 	}
 
-	private _Reactive_EvaNamespace reactiveEvaNamespace = new _Reactive_EvaNamespace();
-
 	public Reactive reactive() {
 		return reactiveEvaNamespace;
 	}
 
-	public GarishNamespace_Generator generator() {
-		return _gng;
+	@Override
+	public void register(final @NotNull ICodeRegistrar aCr) {
+		aCr.registerNamespace(this);
 	}
 
-	private final GarishNamespace_Generator _gng = new GarishNamespace_Generator(this);
-
-	class _Reactive_EvaNamespace extends DefaultReactive {
-		@Override
-		public <T> void addListener(final Consumer<T> t) {
-			throw new UnintendedUseException();
-		}
-	}
-
-	public DefaultLivingNamespace getLiving() {
-		return _living;
+	@Override public void setCode(final int aCode) {
+		_living.setCode(aCode);
 	}
 }
 

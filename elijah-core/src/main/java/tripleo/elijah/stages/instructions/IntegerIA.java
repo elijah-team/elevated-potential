@@ -34,9 +34,8 @@ public class IntegerIA implements InstructionArgument, Constructable {
 		return gf.getVarTableEntry(index);
 	}
 
-	@Override
-	public void setConstructable(ProcTableEntry aPte) {
-		getEntry().setConstructable(aPte);
+	public int getIndex() {
+		return index;
 	}
 
 	@Override
@@ -44,8 +43,9 @@ public class IntegerIA implements InstructionArgument, Constructable {
 		getEntry().resolveTypeToClass(aNode);
 	}
 
-	public int getIndex() {
-		return index;
+	@Override
+	public void setConstructable(ProcTableEntry aPte) {
+		getEntry().setConstructable(aPte);
 	}
 
 	@Override

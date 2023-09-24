@@ -1,6 +1,7 @@
 package tripleo.elijah.stages.write_stage.pipeline_impl;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.nextgen.inputtree.EIT_Input_HashSourceFile_Triple;
 import tripleo.elijah.nextgen.outputstatement.EG_Naming;
 import tripleo.elijah.nextgen.outputstatement.EG_SequenceStatement;
@@ -32,12 +33,12 @@ public class WPIS_WriteInputs implements WP_Indiviual_Step {
 
 		final DefaultBuffer buf = new DefaultBuffer("");
 
-		final List<File> recordedreads = st.c.getIO().recordedreads;
+		final List<IO._IO_ReadFile> recordedreads = st.c.getIO().recordedreads_io();
 
-		for (final File file : recordedreads) {
-			final String fn = file.toString();
+		for (final IO._IO_ReadFile readFile : recordedreads) {
+			final String fn = readFile.getFileName();
 
-			final Operation<String> op = append_hash(buf, fn);
+			final Operation<String> op = append_hash(buf, readFile);
 
 			ops.put(fn, op);
 
@@ -92,6 +93,24 @@ public class WPIS_WriteInputs implements WP_Indiviual_Step {
 			outputBuffer.append(hh);
 			outputBuffer.append(" ");
 			outputBuffer.append_ln(aFilename);
+		}
+
+		return hh2;
+	}
+
+	public @NotNull Operation<String> append_hash(@NotNull TextBuffer outputBuffer, @NotNull IO._IO_ReadFile aReadFile) {
+		final @NotNull Operation<String> hh2 = aReadFile.hash();
+
+		if (hh2.mode() == Mode.SUCCESS) {
+			final String hh = hh2.success();
+
+			assert hh != null;
+
+			// TODO EG_Statement here
+
+			outputBuffer.append(hh);
+			outputBuffer.append(" ");
+			outputBuffer.append_ln(aReadFile.getFileName());
 		}
 
 		return hh2;
