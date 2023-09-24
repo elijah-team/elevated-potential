@@ -18,8 +18,9 @@ public class CompilerInput extends __Extensionable {
     public enum Ty {
         NULL, /* as is from command line/ */
         SOURCE_ROOT,
-        ROOT /* the base of the compilation */,
-        ARG /* represents a compiler change (CC) */
+        ROOT, /* the base of the compilation */
+        ARG, /* represents a compiler change (CC) */
+        STDLIB
     }
 
     @Getter
