@@ -92,7 +92,7 @@ public interface EvaContainer extends EvaNode {
 			passthruEnv = aPassthruEnv;
 
 			{
-				final DeduceTypes2 deduceTypes2 = passthruEnv.deduceTypes2();
+				final DeduceTypes2 deduceTypes2 = passthruEnv.deduceTypes2Supplier().get();
 				if (deduceTypes2 != null) {
 					_de3 = new DeduceElement3_VarTableEntry(this, deduceTypes2);
 				} else {
