@@ -289,10 +289,6 @@ public class CompilationImpl implements Compilation {
 
 	@Override
 	public void hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
-//		assert cis.size() > 0; // FIXME this is corect. below is wrong (allows cis.size()==2)
-		// assert cis.size() == 1; // FIXME this is corect. below is wrong (allows
-		// cis.size()==2)
-
 		if (cis.isEmpty()) {
 			// README IDEA misconfiguration
 			String absolutePath = new File(".").getAbsolutePath();
@@ -302,9 +298,13 @@ public class CompilationImpl implements Compilation {
 			return;
 		}
 
-		rootCI = cis.get(0);
+		if (rootCI == null) {
+			rootCI = cis.get(0);
+		}
 
-//		pa.setCompilerInput(pa.getCompilation().getInputs());
+		if (null == pa.getCompilation().getInputs()) {
+			pa.setCompilerInput(pa.getCompilation().getInputs());
+		}
 
 		if (!_inside) {
 			_inside = true;
