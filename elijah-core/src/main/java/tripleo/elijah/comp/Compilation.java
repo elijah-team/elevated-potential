@@ -112,6 +112,12 @@ public interface Compilation {
 
 	CompilerInputListener getCompilerInputListener();
 
+    Finally reports();
+
+	void setRootCI(CompilerInstructions aRoot);
+
+	CompilerInstructions getRootCI();
+
 	enum CompilationAlways {
 		;
 

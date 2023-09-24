@@ -1,9 +1,9 @@
 package tripleo.elijah.util;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.diagnostic.ExceptionDiagnostic;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.nextgen.query.Mode;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.diagnostic.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.nextgen.query.*;
 
 /**
  * An emulation of Rust's Result type
@@ -43,7 +43,7 @@ public class Operation2<T> {
 			op2 = Operation2.failure(new ExceptionDiagnostic(op.failure()));
 		}
 		case NOTHING -> {
-			throw new NotImplementedException();
+			throw new NotImplementedException();  //UnintendedUseException ??
 		}
 		case SUCCESS -> {
 			op2 = Operation2.success(op.success());

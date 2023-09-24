@@ -30,7 +30,7 @@ public class CR_FindCIs extends DefaultStateful implements CR_Action, Sensable {
 //        _ps = comp.getCompilationEnclosure().getCompilationBus().defaultProgressSink();;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         _ps = progressSink;
 
-        if (comp.getCompilerInputListener() instanceof __Compilation1.CCI_Acceptor__CompilerInputListener cci_listener) {
+        if (comp.getCompilerInputListener() instanceof CCI_Acceptor__CompilerInputListener cci_listener) {
 	        cci_listener.set(cci, _ps);
         }
     }

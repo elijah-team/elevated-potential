@@ -9,11 +9,10 @@
 
 package tripleo.elijah.diagnostic;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 
-import java.io.PrintStream;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 /**
  * Created 12/26/20 5:31 AM
@@ -64,7 +63,11 @@ public interface Diagnostic {
 
 	@Nullable Severity severity();
 
-	enum Severity {
+    default Object get() {
+		return null;
+	}
+
+    enum Severity {
 		ERROR, INFO, LINT, WARN
 	}
 }

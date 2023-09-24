@@ -1,17 +1,16 @@
 package tripleo.elijah.util;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.nextgen.query.Mode;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.nextgen.query.*;
 
-import static tripleo.elijah.nextgen.query.Mode.FAILURE;
-import static tripleo.elijah.nextgen.query.Mode.SUCCESS;
+import static tripleo.elijah.nextgen.query.Mode.*;
 
 /**
  * An emulation of Rust's Result type
  *
  * @param <T> the success type
  */
-public class Operation<T> {
+public class Operation<T> /*extends Operation2<T>*/ {
 	private final Mode mode;
 	private final T    succ;
 
