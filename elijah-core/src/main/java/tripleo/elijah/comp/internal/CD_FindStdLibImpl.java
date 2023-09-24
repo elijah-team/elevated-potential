@@ -28,7 +28,7 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 		Operation<CompilerInstructions> oci = null;
 		if (local_stdlib.exists()) {
 			try {
-				final String name = local_stdlib.getName();
+				final String name = local_stdlib.toString();
 
 				// TODO really want EIT_Input or CK_SourceFile here 07/01
 				final SourceFileParserParams          p          = new SourceFileParserParams(null, local_stdlib, name, cc);
