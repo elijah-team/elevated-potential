@@ -19,6 +19,7 @@ public class ObservableCompletableProcess<T> implements Observer<T> {
 	@Override
 	public void onComplete() {
 		// cpt.complete();
+ 		subject.onComplete();
 	}
 
 	@Override

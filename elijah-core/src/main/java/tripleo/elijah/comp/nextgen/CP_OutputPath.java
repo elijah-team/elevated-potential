@@ -6,10 +6,12 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.nextgen.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.util.io.*;
+import tripleo.elijah.world.i.*;
 
 import java.io.*;
 import java.nio.file.*;
@@ -29,6 +31,33 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	public CP_OutputPath(final Compilation cc) {
 		c   = cc;
 		hda = new CY_HashDeferredAction(c.getIO());
+
+		c.world().addModuleProcess(new CompletableProcess<WorldModule>() {
+			@Override
+			public void add(WorldModule item) {
+
+			}
+
+			@Override
+			public void complete() {
+				hda.calculate();
+			}
+
+			@Override
+			public void error(Diagnostic d) {
+
+			}
+
+			@Override
+			public void preComplete() {
+
+			}
+
+			@Override
+			public void start() {
+
+			}
+		});
 	}
 
 	public void _renderNodes(final @NotNull List<ER_Node> nodes) {
@@ -114,6 +143,8 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	}
 
 	public void signalCalculateFinishParse() {
+		c.world()._completeModules();
+
 		if (_pathPromise.isPending()) {
 			final Eventual<String> promise = hda.promise();
 			final String[]         s       = new String[1];

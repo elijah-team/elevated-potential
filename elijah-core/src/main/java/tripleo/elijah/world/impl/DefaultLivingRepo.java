@@ -25,7 +25,7 @@ public class DefaultLivingRepo implements LivingRepo {
 
 	private final @NotNull ObservableCompletableProcess<WorldModule> wmo = new ObservableCompletableProcess<>();
 
-	private final Map<String, OS_Package> _packages = new HashMap<String, OS_Package>();
+	private final Map<String, OS_Package> _packages = new HashMap<>();
 	private final Set<WorldModule> _modules = new HashSet<>();
 	private final @NotNull List<LivingNode> repo = new ArrayList<>();
 	private final @NotNull Multimap<BaseEvaFunction, DefaultLivingFunction> functionMap = ArrayListMultimap.create();
@@ -33,6 +33,11 @@ public class DefaultLivingRepo implements LivingRepo {
 	private int _classCode = 101;
 	private int _functionCode = 1001;
 	private int _packageCode = 1;
+
+	@Override
+	public void _completeModules() {
+		wmo.onComplete();
+	}
 
 	@Override
 	public @Nullable LivingClass addClass(final ClassStatement cs) {
