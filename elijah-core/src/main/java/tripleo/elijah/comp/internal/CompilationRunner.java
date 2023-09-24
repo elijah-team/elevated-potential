@@ -96,7 +96,7 @@ public class CompilationRunner extends _RegistrationTarget {
 		}
 	}
 
-	private final EzCache ezCache = new DefaultEzCache();
+	public final  EzCache     ezCache = new DefaultEzCache();
 	private final Compilation _compilation;
 	private final ICompilationBus cb;
 	@Getter
@@ -128,6 +128,7 @@ public class CompilationRunner extends _RegistrationTarget {
 		crState = aCrState;
 
 		CompilationRunner.ST.register(this);
+		ezm = new EzM(_compilation.getCompilationEnclosure());
 	}
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState,
@@ -251,8 +252,8 @@ public class CompilationRunner extends _RegistrationTarget {
 
 		File f = p.f();
 		try {
-			InputStream s = p.cc().getCompilation().getIO().readFile(f);
-			var oci2 = realParseEzFile(new EzSpec(p.file_name(), s, f), ezCache);
+//			InputStream s = p.cc().getCompilation().getIO().readFile(f);
+			var oci2 = realParseEzFile(p.getEzSpec()/*new EzSpec(p.file_name(), s, f)*/, ezCache);
 			return oci2;
 		} catch (FileNotFoundException aE) {
 			throw new RuntimeException(aE);
