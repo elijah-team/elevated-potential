@@ -7,7 +7,22 @@ plugins {
     id 'groovy-gradle-plugin'
 }
 
+plugins {
+    id "io.ktor.plugin" version "2.3.4"
+}
+
 repositories {
     // Use the plugin portal to apply community plugins in convention plugins.
     gradlePluginPortal()
+    maven {url "https://plugins.gradle.org/m2"}
+}
+
+application {
+    mainClass.set("tripleo.elijah.Main")
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("fat.jar")
+    }
 }
