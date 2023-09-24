@@ -12,9 +12,9 @@ import java.util.*;
 import java.util.function.*;
 
 public class CW_inputIsDirectory {
-	public void apply(final @NotNull CompilerInput input,
-	                  final @NotNull CompilationClosure cc,
-	                  final @NotNull Consumer<CompilerInput> x) {
+	public static void apply(final @NotNull CompilerInput input,
+	                         final @NotNull CompilationClosure cc,
+	                         final @NotNull Consumer<CompilerInput> x) {
 		final String file_name = input.getInp();
 		final File   directory = new File(file_name);
 

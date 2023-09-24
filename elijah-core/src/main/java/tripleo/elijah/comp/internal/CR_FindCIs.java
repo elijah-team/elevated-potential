@@ -64,7 +64,7 @@ public class CR_FindCIs extends DefaultStateful implements CR_Action, Sensable {
 		} else {
 			// errSink.reportError("9996 Not an .ez file "+file_name);
 			if (f.isDirectory()) {
-				new CW_inputIsDirectory().apply(input, compilationClosure, x::add);
+				CW_inputIsDirectory.apply(input, compilationClosure, x::add);
 			} else {
 				final NotDirectoryException d = new NotDirectoryException(f.toString());
 				errSink.reportError("9995 Not a directory " + f.getAbsolutePath());
