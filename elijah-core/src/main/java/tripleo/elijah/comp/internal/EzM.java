@@ -4,6 +4,7 @@ import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.queries.*;
 import tripleo.elijah.comp.specs.*;
@@ -16,30 +17,19 @@ import static tripleo.elijah.nextgen.query.Mode.*;
 class EzM {
 	private final CompilationEnclosure ce;
 	private final QueryEzFileToModule  query;
+	private final EzCache              ezCache;
 
 	EzM(CompilationEnclosure aCe) {
 		ce    = aCe;
 		query = new QueryEzFileToModule();
+
+		var cr1 = ce.getCompilationRunner();
+		assert cr1 != null;
+		ezCache = cr1.ezCache();
 	}
 
 	private void logProgress(final IProgressSink.Codes code, final String message) {
 		ce.logProgress(CompProgress.EzM__logProgress, Pair.of(code, message));
-	}
-
-	private Operation<CompilerInstructions> parseEzFile_(final String f,
-	                                                     final InputStream s,
-	                                                     final Compilation aCompilation) {
-		final String params_sourceFilename = f;
-		final File   file                  = new File(params_sourceFilename);
-
-		final QueryEzFileToModuleParams qp = new QueryEzFileToModuleParams(new EzSpec(f, s, file), aCompilation);
-		return query.calculate(qp);
-	}
-
-	private Operation<CompilerInstructions> parseEzFile_(final EzSpec spec,
-	                                                     final Compilation aCompilation) {
-		final QueryEzFileToModuleParams qp = new QueryEzFileToModuleParams(spec, aCompilation);
-		return new QueryEzFileToModule().calculate(qp);
 	}
 
 	@NotNull
@@ -103,33 +93,40 @@ class EzM {
 			return Operation.failure(aE);
 		}
 
-		// TODO 04/10
-		// Cache<CompilerInput, CompilerInstructions> fn2ci
-		// /*EzFileIdentity??*/(MAP/*??*/, resolver is try stmt)
-		if (c.fn2ci().containsKey(absolutePath)) { // don't parse twice
+		var opt_ci = ezCache.get(absolutePath);
+		if (opt_ci.isPresent()) {
+			CompilerInstructions compilerInstructions = opt_ci.get();
+
 			// TODO 04/10
+			// /*EzFileIdentity??*/(MAP/*??*/, resolver is try stmt)
 			// ...queryDB.attach(compilerInput, new EzFileIdentity_Sha256($hash)); // ??
-			// fnci
-			return Operation.success(c.fn2ci().get(absolutePath));
+			c.getObjectTree().asseverate(compilerInstructions, Asseverate.CI_CACHED);
+
+			return Operation.success(compilerInstructions);
 		}
 
 		try {
-			final Operation<CompilerInstructions> cio = parseEzFile_(f, s, c);
+			EzSpec                                ezSpec = new EzSpec(f, s, file);
+			final Operation<CompilerInstructions> cio    = parseEzFile_(ezSpec, c);
 
-			if (cio.mode() != SUCCESS) {
-				final Exception e = cio.failure();
-				assert e != null;
-
-				Stupidity.println_err_2(("parser exception: " + e));
-				e.printStackTrace(System.err);
-				// s.close();
-				return cio;
+			switch (cio.mode()) {
+				case FAILURE -> {
+					final Exception e = cio.failure();
+					assert e != null;
+					Stupidity.println_err_2(("parser exception: " + e));
+					e.printStackTrace(System.err);
+					return cio;
+				}
+				case SUCCESS -> {
+					final CompilerInstructions R = cio.success();
+					R.setFilename(file.toString());
+					ezCache.put(ezSpec, absolutePath, R);
+					c.getObjectTree().asseverate(Triple.of(ezSpec, cio, R), Asseverate.CI_SPECCED);
+					c.getObjectTree().asseverate(R, Asseverate.CI_PARSED);
+					return cio;
+				}
+				default -> throw new IllegalStateException("Unexpected value: " + cio.mode());
 			}
-
-			final CompilerInstructions R = cio.success();
-			R.setFilename(file.toString());
-			c.fn2ci().put(absolutePath, R);
-			return cio;
 		} finally {
 			if (s != null) {
 				try {
@@ -140,5 +137,11 @@ class EzM {
 				}
 			}
 		}
+	}
+
+	private Operation<CompilerInstructions> parseEzFile_(final EzSpec spec,
+	                                                     final Compilation aCompilation) {
+		final QueryEzFileToModuleParams qp = new QueryEzFileToModuleParams(spec, aCompilation);
+		return new QueryEzFileToModule().calculate(qp);
 	}
 }

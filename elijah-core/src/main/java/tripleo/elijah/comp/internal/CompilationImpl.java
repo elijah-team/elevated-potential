@@ -33,8 +33,6 @@ import java.util.*;
 import java.util.stream.*;
 
 public class CompilationImpl implements Compilation {
-
-	public final           Map<String, CompilerInstructions>   fn2ci;
 	private final @NotNull FluffyCompImpl                      _fluffyComp;
 	@Getter
 	private final          CIS                                 _cis;
@@ -64,7 +62,6 @@ public class CompilationImpl implements Compilation {
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
 		io                   = aIo;
-		fn2ci                = new HashMap<>();
 		_compilationNumber   = new Random().nextInt(Integer.MAX_VALUE);
 		cfg                  = new CompilationConfig();
 		_con                 = new DefaultCompFactory(this);
@@ -178,11 +175,6 @@ public class CompilationImpl implements Compilation {
 		var prelude1 = new DefaultWorldModule(prelude.success(), compilationEnclosure);
 
 		return Operation2.success(prelude1);
-	}
-
-	@Override
-	public Map<String, CompilerInstructions> fn2ci() {
-		return fn2ci;
 	}
 
 	@Override

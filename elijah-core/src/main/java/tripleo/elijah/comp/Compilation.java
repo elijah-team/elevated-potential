@@ -41,8 +41,6 @@ public interface Compilation {
 
 	Operation2<WorldModule> findPrelude(String prelude_name);
 
-	Map<String, CompilerInstructions> fn2ci();
-
 	IPipelineAccess get_pa();
 
 	CompilationClosure getCompilationClosure();
