@@ -1,24 +1,18 @@
 package tripleo.elijah.comp.i;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.internal.SourceFileParserParams;
-import tripleo.elijah.nextgen.query.Mode;
-import tripleo.elijah.util.Operation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.nextgen.query.*;
+import tripleo.elijah.util.*;
 
-import java.io.File;
+import java.io.*;
 
 public interface ILazyCompilerInstructions {
 	@Contract(value = "_ -> new", pure = true)
 	static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInstructions aCompilerInstructions) {
-		return new ILazyCompilerInstructions() {
-			@Override
-			public CompilerInstructions get() {
-				return aCompilerInstructions;
-			}
-		};
+		return () -> aCompilerInstructions;
 	}
 
 	@Contract(value = "_, _ -> new", pure = true)

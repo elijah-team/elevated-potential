@@ -34,7 +34,10 @@ public class CompilationTest {
 		c.feedCmdLine(args);
 
 		assertTrue(c.getIO().recordedRead(new File("test/comp_test/main3/main3.ez")));
-		assertTrue(c.getIO().recordedRead(new File("test/comp_test/main3/main3.elijah")));
+
+//		assertTrue(c.getIO().recordedRead(new File("test/comp_test/main3/main3.elijah")));
+		assertTrue(c.reports().containsInput("test/comp_test/main3/main3.elijah"));
+
 		assertTrue(c.getIO().recordedRead(new File("test/comp_test/fact1.elijah")));
 
 		assertTrue(c.instructionCount() > 0);

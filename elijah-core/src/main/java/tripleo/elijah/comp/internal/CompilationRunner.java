@@ -4,15 +4,19 @@ import lombok.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.caches.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
 
+import java.io.*;
 import java.util.*;
 import java.util.function.*;
 
 public class CompilationRunner extends _RegistrationTarget {
-	private final          Compilation     _compilation;
+	private final EzCache     ezCache = new DefaultEzCache();
+	private final Compilation _compilation;
 	private final          ICompilationBus cb;
 	@Getter
 	private final          CR_State        crState;
@@ -91,8 +95,55 @@ public class CompilationRunner extends _RegistrationTarget {
 			_compilation.getInputTree().setNodeOperation(input, oci);
 		}
 
-		return oci;
+//		return oci;
+
+		File f   = p.f();
+		try {
+			InputStream s = p.cc().getCompilation().getIO().readFile(f);
+			var oci2 = realParseEzFile(new EzSpec(p.file_name(), s, f), ezCache);
+			return oci2;
+		} catch (FileNotFoundException aE) {
+            throw new RuntimeException(aE);
+		}
 	}
+
+
+	/**
+	 * - I don't remember what absolutePath is for
+	 * - Cache doesn't add to QueryDB
+	 * <p>
+	 * STEPS
+	 * ------
+	 * <p>
+	 * 1. Get absolutePath
+	 * 2. Check cache, return early
+	 * 3. Parse (Query is incorrect I think)
+	 * 4. Cache new result
+	 *
+	 * @param spec
+	 * @param cache
+	 * @return
+	 */
+	public Operation<CompilerInstructions> realParseEzFile(final EzSpec spec, final EzCache cache) {
+		final @NotNull File file = spec.file();
+
+		final String absolutePath;
+		try {
+			absolutePath = file.getCanonicalFile().toString();
+		} catch (final IOException aE) {
+			return Operation.failure(aE);
+		}
+
+		final Optional<CompilerInstructions> early = cache.get(absolutePath);
+
+		if (early.isPresent()) {
+			return Operation.success(early.get());
+		}
+
+		final Operation<CompilerInstructions> cio = CX_ParseEzFile.parseAndCache(spec, ezCache(), absolutePath);
+		return cio;
+	}
+
 
 	public CR_FindCIs cr_find_cis() {
 		if (this.cr_find_cis == null) {
@@ -143,6 +194,10 @@ public class CompilationRunner extends _RegistrationTarget {
 
 	public CompilationEnclosure getCompilationEnclosure() {
 		return _accessCompilation().getCompilationEnclosure();
+	}
+
+	public Compilation c() {
+		return _compilation;
 	}
 
 	public enum ST {
@@ -219,4 +274,9 @@ public class CompilationRunner extends _RegistrationTarget {
 			}
 		}
 	}
+
+	public EzCache ezCache() {
+		return ezCache;
+	}
+
 }

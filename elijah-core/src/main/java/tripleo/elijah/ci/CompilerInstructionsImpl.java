@@ -8,19 +8,15 @@
  */
 package tripleo.elijah.ci;
 
-import antlr.Token;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
+import antlr.*;
+import com.google.common.base.*;
+import com.google.common.collect.*;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.IExpression;
-import tripleo.elijah.lang.i.StringExpression;
-import tripleo.elijah.util.Helpers;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 9/6/20 11:20 AM
@@ -102,7 +98,12 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 		return lsps;
 	}
 
-	@Override
+    @Override
+    public Iterable<? extends LibraryStatementPart> getLibraryStatementParts() {
+        return lsps;
+    }
+
+    @Override
 	public String toString() {
 		return "CompilerInstructionsImpl{" +
 				"name='" + name + '\'' +
