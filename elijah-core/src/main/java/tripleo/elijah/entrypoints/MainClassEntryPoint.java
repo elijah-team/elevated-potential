@@ -8,8 +8,10 @@
  */
 package tripleo.elijah.entrypoints;
 
+import lombok.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.world.*;
 
 import java.util.*;
 
@@ -33,11 +35,12 @@ public class MainClassEntryPoint implements EntryPoint {
 
 	public static boolean isMainClass(@NotNull ClassStatement classStatement) {
 		// TODO what about Library (for windows dlls) etc?
-		return classStatement.getPackageName() == OS_Package.default_package && classStatement.name().equals("Main");
+		return classStatement.getPackageName() == WorldGlobals.default_package && classStatement.name().equals("Main");
 	}
 
 	private FunctionDef main_function;
 
+	@Getter
 	private final @NotNull ClassStatement klass;
 
 	public MainClassEntryPoint(@NotNull ClassStatement aKlass) {
