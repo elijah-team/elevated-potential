@@ -9,6 +9,7 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.util.io.*;
 
@@ -20,8 +21,8 @@ public class IO {
 
 	// exists, delete, isType ....
 
-	public final List<_IO_ReadFile> recordedreads = new ArrayList<>();
-	public final List<File> recordedwrites = new ArrayList<File>();
+	private final List<_IO_ReadFile> recordedreads  = new ArrayList<>();
+	public final  List<File>         recordedwrites = new ArrayList<File>();
 
 	public @Nullable CharSource openRead(final @NotNull Path p) {
 		record(FileOption.READ, p);
@@ -87,6 +88,23 @@ public class IO {
 			final @NotNull Operation<String> hh2 = Helpers.getHashForFilename(getFileName());
 			return hh2;
 		}
+
+		public EIT_SourceOrigin getSourceOrigin() {
+			final String           fn = getFileName();
+			final EIT_SourceOrigin x;
+
+			if (fn.equals("lib_elijjah/lib-c/Prelude.elijjah")) {
+				x = EIT_SourceOrigin.PREL;
+			} else if (fn.startsWith("lib_elijjah/")) {
+				x = EIT_SourceOrigin.LIB;
+			} else if (fn.startsWith("test/")) {
+				x = EIT_SourceOrigin.SRC;
+			} else {
+				throw new IllegalStateException("Error"); // Operation??
+			}
+
+            return x;
+        }
 	}
 }
 
