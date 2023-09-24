@@ -21,7 +21,7 @@ public class IO {
 
 	// exists, delete, isType ....
 
-	public final  List<File>         recordedwrites = new ArrayList<File>();
+	public final  List<File>         recordedwrites = new ArrayList<>();
 	private final List<_IO_ReadFile> recordedreads  = new ArrayList<>();
 
 	public @Nullable CharSource openRead(final @NotNull Path p) {
@@ -39,17 +39,32 @@ public class IO {
 		return new FileInputStream(f);
 	}
 
+	public _IO_ReadFile readFile2(final @NotNull File f) throws FileNotFoundException {
+		final _IO_ReadFile readFile = new _IO_ReadFile(f);
+
+		record(readFile);
+
+		FileInputStream inputStream = new FileInputStream(f);
+		readFile.setInputStream(inputStream);
+
+		return readFile;
+	}
+
 	private void record(@NotNull final FileOption read, @NotNull final File file) {
 		switch (read) {
-			case WRITE:
-				recordedwrites.add(file);
-				break;
-			case READ:
-				recordedreads.add(new _IO_ReadFile(file));
-				break;
-			default:
-				throw new IllegalStateException("Cant be here");
+		case WRITE:
+			recordedwrites.add(file);
+			break;
+		case READ:
+			record(new _IO_ReadFile(file));
+			break;
+		default:
+			throw new IllegalStateException("Cant be here");
 		}
+	}
+
+	private void record(@NotNull final _IO_ReadFile aReadFile) {
+		recordedreads.add((aReadFile));
 	}
 
 	private void record(final @NotNull FileOption read, @NotNull final Path p) {
@@ -68,9 +83,10 @@ public class IO {
 		return recordedreads;
 	}
 
-	public class _IO_ReadFile {
+	public static class _IO_ReadFile {
 
 		private final File file;
+		private FileInputStream inputStream;
 
 		public _IO_ReadFile(File aFile) {
 			file = aFile;
@@ -111,6 +127,19 @@ public class IO {
 			}
 
 			return x;
+		}
+
+		public void setInputStream(FileInputStream aInputStream) {
+
+			inputStream = aInputStream;
+		}
+
+		public FileInputStream getInputStream() {
+			return inputStream;
+		}
+
+		public String getLongPath1() throws IOException {
+			return getFile().getCanonicalPath();
 		}
 	}
 }
