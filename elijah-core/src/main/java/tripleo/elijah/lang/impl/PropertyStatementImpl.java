@@ -31,6 +31,8 @@ public class PropertyStatementImpl implements PropertyStatement {
 	private                IdentExpression prop_name;
 	private                TypeName        typeName;
 
+	private EN_Name __n;
+
 	public PropertyStatementImpl(OS_Element parent, Context cur) {
 		this.parent  = parent;
 		this.context = new PropertyStatementContext(cur, this);
@@ -55,6 +57,18 @@ public class PropertyStatementImpl implements PropertyStatement {
 		return functionDef;
 	}
 
+//	public TypeName typeName() {
+//		return tn;
+//	}
+
+	/*
+	 * public Scope get_scope() { throw new NotImplementedException(); // return
+	 * get_fn.scope(); }
+	 *
+	 * public Scope set_scope() { throw new NotImplementedException(); // return
+	 * set_fn.scope(); }
+	 */
+
 	@NotNull
 	FunctionDef createSetFunction() {
 		FunctionDef functionDef = new FunctionDefImpl(this, getContext());
@@ -71,18 +85,6 @@ public class PropertyStatementImpl implements PropertyStatement {
 		return functionDef;
 	}
 
-//	public TypeName typeName() {
-//		return tn;
-//	}
-
-	/*
-	 * public Scope get_scope() { throw new NotImplementedException(); // return
-	 * get_fn.scope(); }
-	 *
-	 * public Scope set_scope() { throw new NotImplementedException(); // return
-	 * set_fn.scope(); }
-	 */
-
 	@Override
 	public FunctionDef get_fn() {
 		return get_fn;
@@ -94,8 +96,48 @@ public class PropertyStatementImpl implements PropertyStatement {
 	}
 
 	@Override
+	public AccessNotation getAccess() {
+		return access_note;
+	}
+
+	@Override
+	public El_Category getCategory() {
+		return category;
+	}
+
+	@Override // OS_Element
+	public Context getContext() {
+		return context;
+	}
+
+	@Override
+	public @NotNull EN_Name getEnName() {
+		if (__n == null) {
+			__n = EN_Name.create(name());
+		}
+		return __n;
+	}
+
+	// region ClassItem
+
+	@Override // OS_Element
+	public OS_Element getParent() {
+		return parent;
+	}
+
+	@Override
 	public TypeName getTypeName() {
 		return typeName;
+	}
+
+	@Override
+	public @NotNull String name() {
+		return prop_name.getText();
+	}
+
+	@Override
+	public void serializeTo(final SmallWriter sw) {
+
 	}
 
 	@Override
@@ -106,6 +148,18 @@ public class PropertyStatementImpl implements PropertyStatement {
 	@Override
 	public void set_scope(Scope3 sco) {
 		set_fn.scope(sco);
+	}
+
+	// endregion
+
+	@Override
+	public void setAccess(AccessNotation aNotation) {
+		access_note = aNotation;
+	}
+
+	@Override
+	public void setCategory(El_Category aCategory) {
+		category = aCategory;
 	}
 
 	@Override
@@ -121,64 +175,10 @@ public class PropertyStatementImpl implements PropertyStatement {
 		this.get_fn   = createGetFunction();
 	}
 
-	// region ClassItem
-
-	@Override
-	public AccessNotation getAccess() {
-		return access_note;
-	}
-
-	@Override
-	public El_Category getCategory() {
-		return category;
-	}
-
-	@Override
-	public void setCategory(El_Category aCategory) {
-		category = aCategory;
-	}
-
-	@Override
-	public void setAccess(AccessNotation aNotation) {
-		access_note = aNotation;
-	}
-
-	@Override // OS_Element
-	public Context getContext() {
-		return context;
-	}
-
-	@Override // OS_Element
-	public OS_Element getParent() {
-		return parent;
-	}
-
-	// endregion
-
-	@Override
-	public @NotNull EN_Name getEnName() {
-		if (__n == null) {
-			__n = EN_Name.create(name());
-		}
-		return __n;
-	}
-
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	@Override
-	public @NotNull String name() {
-		return prop_name.getText();
-	}
-
 	@Override // OS_Element
 	public void visitGen(@NotNull ElElementVisitor visit) {
 		visit.visitPropertyStatement(this);
 	}
-
-	private EN_Name __n;
 
 }
 

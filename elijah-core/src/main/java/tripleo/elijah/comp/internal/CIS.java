@@ -23,12 +23,21 @@ public class CIS implements Observer<CompilerInstructions> {
 		return _cio.almostComplete();
 	}
 
+	public CompilerInstructionsObserver get_cio() {
+		return _cio;
+	}
+
 	@Override
-	public void onSubscribe(@NonNull final Disposable d) {
+	public void onComplete() {
+		throw new UnintendedUseException();
+	}
+
+	@Override
+	public void onError(@NonNull final Throwable e) {
 		if (FOO) {
-			compilerInstructionsSubject.onSubscribe(d);
+			compilerInstructionsSubject.onError(e);
 		} else {
-			ocp_ci.onSubscribe(d);
+			ocp_ci.onError(e);
 		}
 	}
 
@@ -42,17 +51,16 @@ public class CIS implements Observer<CompilerInstructions> {
 	}
 
 	@Override
-	public void onError(@NonNull final Throwable e) {
+	public void onSubscribe(@NonNull final Disposable d) {
 		if (FOO) {
-			compilerInstructionsSubject.onError(e);
+			compilerInstructionsSubject.onSubscribe(d);
 		} else {
-			ocp_ci.onError(e);
+			ocp_ci.onSubscribe(d);
 		}
 	}
 
-	@Override
-	public void onComplete() {
-		throw new UnintendedUseException();
+	public void set_cio(CompilerInstructionsObserver a_cio) {
+		_cio = a_cio;
 	}
 
 	public void subscribe(final @NotNull Observer<CompilerInstructions> aCio) {
@@ -61,14 +69,6 @@ public class CIS implements Observer<CompilerInstructions> {
 		} else {
 			ocp_ci.subscribe(aCio);
 		}
-	}
-
-	public CompilerInstructionsObserver get_cio() {
-		return _cio;
-	}
-
-	public void set_cio(CompilerInstructionsObserver a_cio) {
-		_cio = a_cio;
 	}
 
 	public void subscribeTo(final Compilation aC) {

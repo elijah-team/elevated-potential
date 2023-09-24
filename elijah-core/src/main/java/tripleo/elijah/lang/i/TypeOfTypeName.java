@@ -1,9 +1,8 @@
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.deduce.ResolveError;
+import tripleo.elijah.stages.deduce.*;
 
-import java.io.File;
+import java.io.*;
 
 public interface TypeOfTypeName extends TypeName {
 	// TODO what about keyword
@@ -11,12 +10,12 @@ public interface TypeOfTypeName extends TypeName {
 
 	int getColumnEnd();
 
-	// TODO what about keyword
-	int getLine();
-
 	Context getContext();
 
 	File getFile();
+
+	// TODO what about keyword
+	int getLine();
 
 	int getLineEnd();
 

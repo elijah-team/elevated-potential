@@ -8,11 +8,11 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.lang.nextgen.names.i.*;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.util.*;
 
 public class AliasStatementImpl extends __Access implements AliasStatement {
 	// private String name;
@@ -21,6 +21,8 @@ public class AliasStatementImpl extends __Access implements AliasStatement {
 	private final OS_Element      parent;
 	private       IExpression     expr;
 	private       IdentExpression nameToken;
+
+	private EN_Name __n;
 
 	public AliasStatementImpl(final @NotNull OS_Element aParent) {
 		this.parent = aParent;
@@ -37,8 +39,8 @@ public class AliasStatementImpl extends __Access implements AliasStatement {
 	}
 
 	@Override
-	public void setAccess(AccessNotation aNotation) {
-		access_note = aNotation;
+	public El_Category getCategory() {
+		return category;
 	}
 
 	@Override // OS_Element
@@ -47,13 +49,11 @@ public class AliasStatementImpl extends __Access implements AliasStatement {
 	}
 
 	@Override
-	public El_Category getCategory() {
-		return category;
-	}
-
-	@Override // OS_Element
-	public OS_Element getParent() {
-		return this.parent;
+	public @NotNull EN_Name getEnName() {
+		if (__n == null) {
+			__n = EN_Name.create(name());
+		}
+		return __n;
 	}
 
 	@Override
@@ -61,41 +61,14 @@ public class AliasStatementImpl extends __Access implements AliasStatement {
 		return (Qualident) expr;
 	}
 
-	public void setExpression(final @NotNull IExpression expr) {
-		if (expr.getKind() != ExpressionKind.IDENT && expr.getKind() != ExpressionKind.QIDENT
-				&& expr.getKind() != ExpressionKind.DOT_EXP) // TODO need DOT_EXP to QIDENT
-		{
-			throw new NotImplementedException();
-//			tripleo.elijah.util.Stupidity.println_out_2(String.format("[AliasStatement#setExpression] %s %s", expr, expr.getKind()));
-		}
-		this.expr = expr;
-	}
-
 	@Override // OS_Element
-	public void visitGen(final @NotNull ElElementVisitor visit) {
-		visit.visitAliasStatement(this);
+	public OS_Element getParent() {
+		return this.parent;
 	}
 
 	@Override // OS_Element2
 	public @NotNull String name() {
 		return this.nameToken.getText();
-	}
-
-	@Override
-	public void setExpression(final Qualident aXy) {
-		expr = aXy;
-	}
-
-	// region ClassItem
-
-	@Override
-	public void setCategory(El_Category aCategory) {
-		category = aCategory;
-	}
-
-	@Override
-	public void setName(@NotNull final IdentExpression i1) {
-		this.nameToken = i1;
 	}
 
 	@Override
@@ -109,14 +82,41 @@ public class AliasStatementImpl extends __Access implements AliasStatement {
 	}
 
 	@Override
-	public @NotNull EN_Name getEnName() {
-		if (__n == null) {
-			__n = EN_Name.create(name());
-		}
-		return __n;
+	public void setAccess(AccessNotation aNotation) {
+		access_note = aNotation;
 	}
 
-	private EN_Name __n;
+	// region ClassItem
+
+	@Override
+	public void setCategory(El_Category aCategory) {
+		category = aCategory;
+	}
+
+	public void setExpression(final @NotNull IExpression expr) {
+		if (expr.getKind() != ExpressionKind.IDENT && expr.getKind() != ExpressionKind.QIDENT
+				&& expr.getKind() != ExpressionKind.DOT_EXP) // TODO need DOT_EXP to QIDENT
+		{
+			throw new NotImplementedException();
+//			tripleo.elijah.util.Stupidity.println_out_2(String.format("[AliasStatement#setExpression] %s %s", expr, expr.getKind()));
+		}
+		this.expr = expr;
+	}
+
+	@Override
+	public void setExpression(final Qualident aXy) {
+		expr = aXy;
+	}
+
+	@Override
+	public void setName(@NotNull final IdentExpression i1) {
+		this.nameToken = i1;
+	}
+
+	@Override // OS_Element
+	public void visitGen(final @NotNull ElElementVisitor visit) {
+		visit.visitAliasStatement(this);
+	}
 
 	// endregion
 

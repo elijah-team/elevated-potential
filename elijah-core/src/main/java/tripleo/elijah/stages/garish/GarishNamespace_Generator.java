@@ -1,9 +1,9 @@
 package tripleo.elijah.stages.garish;
 
-import tripleo.elijah.stages.gen_c.GenerateC;
-import tripleo.elijah.stages.gen_fn.EvaNamespace;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
+import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 
 public class GarishNamespace_Generator {
 	private final EvaNamespace carrier;
@@ -11,6 +11,10 @@ public class GarishNamespace_Generator {
 
 	public GarishNamespace_Generator(final EvaNamespace aEvaNamespace) {
 		carrier = aEvaNamespace;
+	}
+
+	public boolean generatedAlready() {
+		return generatedAlready;
 	}
 
 	public void provide(final GenerateResultSink aResultSink,
@@ -29,9 +33,5 @@ public class GarishNamespace_Generator {
 		}
 
 		generatedAlready = true;
-	}
-
-	public boolean generatedAlready() {
-		return generatedAlready;
 	}
 }

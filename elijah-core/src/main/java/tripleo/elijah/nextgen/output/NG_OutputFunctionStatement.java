@@ -1,11 +1,10 @@
 package tripleo.elijah.nextgen.output;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleInput;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
-import tripleo.elijah.stages.gen_c.C2C_Result;
-import tripleo.elijah.stages.gen_generic.GenerateResult.TY;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.stages.gen_generic.GenerateResult.*;
 
 public class NG_OutputFunctionStatement implements NG_OutputStatement {
 	private final          EG_Statement x;
@@ -28,6 +27,15 @@ public class NG_OutputFunctionStatement implements NG_OutputStatement {
 	}
 
 	@Override
+	@NotNull
+	public EIT_ModuleInput getModuleInput() {
+		var m = moduleDependency().module();
+
+		final EIT_ModuleInput moduleInput = new EIT_ModuleInput(m, m.getCompilation());
+		return moduleInput;
+	}
+
+	@Override
 	public String getText() {
 		return x.getText();
 	}
@@ -35,15 +43,6 @@ public class NG_OutputFunctionStatement implements NG_OutputStatement {
 	@Override
 	public TY getTy() {
 		return y;
-	}
-
-	@Override
-	@NotNull
-	public EIT_ModuleInput getModuleInput() {
-		var m = moduleDependency().module();
-
-		final EIT_ModuleInput moduleInput = new EIT_ModuleInput(m, m.getCompilation());
-		return moduleInput;
 	}
 
 	public NG_OutDep moduleDependency() {

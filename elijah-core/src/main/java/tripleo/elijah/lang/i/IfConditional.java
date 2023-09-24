@@ -1,9 +1,9 @@
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.contexts.IfConditionalContext;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.contexts.*;
+import tripleo.elijah.lang2.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface IfConditional extends StatementItem, FunctionItem, OS_Element {
 	IfConditional else_();
@@ -29,14 +29,14 @@ public interface IfConditional extends StatementItem, FunctionItem, OS_Element {
 	void scope(Scope3 aSco);
 
 	@Override
-	void visitGen(ElElementVisitor visit);
-
-	@Override
 	default void serializeTo(SmallWriter sw) {
 
 	}
 
 	void setContext(IfConditionalContext ifConditionalContext);
+
+	@Override
+	void visitGen(ElElementVisitor visit);
 
 
 }

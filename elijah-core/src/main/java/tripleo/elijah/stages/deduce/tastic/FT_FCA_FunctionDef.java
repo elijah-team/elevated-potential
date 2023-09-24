@@ -1,18 +1,14 @@
 package tripleo.elijah.stages.deduce.tastic;
 
-import org.jdeferred2.DoneCallback;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ReadySupplier_1;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.NamespaceStatement;
-import tripleo.elijah.lang.i.TypeName;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.*;
 
-import java.util.List;
+import java.util.*;
 
 public class FT_FCA_FunctionDef {
 	private final FunctionDef  fd;
@@ -21,6 +17,10 @@ public class FT_FCA_FunctionDef {
 	public FT_FCA_FunctionDef(final FunctionDef aFd, final DeduceTypes2 aDt2) {
 		fd   = aFd;
 		_dt2 = aDt2;
+	}
+
+	private DeduceTypes2.DeduceTypes2Injector _inj() {
+		return _dt2._inj();
 	}
 
 	void loop2_i(@NotNull FT_FnCallArgs.DoAssignCall aDoAssignCall, final @NotNull ProcTableEntry pte, final @NotNull VariableTableEntry vte, final int instructionIndex) {
@@ -65,9 +65,5 @@ public class FT_FCA_FunctionDef {
 				vte.addPotentialType(instructionIndex, tte);
 			}
 		});
-	}
-
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
-		return _dt2._inj();
 	}
 }

@@ -23,14 +23,14 @@ public interface ClassItem extends OS_Element {
 
 	El_Category getCategory();
 
-	void setAccess(AccessNotation aNotation);
-
-	void setCategory(El_Category aCategory);
-
 	@Override
 	default void serializeTo(SmallWriter sw) {
 
 	}
+
+	void setAccess(AccessNotation aNotation);
+
+	void setCategory(El_Category aCategory);
 }
 
 //

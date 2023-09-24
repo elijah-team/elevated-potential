@@ -35,6 +35,26 @@ import java.util.function.Consumer;
  * Created 9/12/20 10:27 PM
  */
 public class IdentTableEntry extends BaseTableEntry1 implements Constructable, TableEntryIV, DeduceTypes2.ExpectationBase, IDeduceResolvable {
+	private class __StatusListener__ITE_SetResolvedElement implements StatusListener {
+		@Override
+		public void onChange(@NotNull IElementHolder eh, Status newStatus) {
+			if (newStatus == Status.KNOWN) {
+				setResolvedElement(eh.getElement());
+			}
+		}
+	}
+	public class _Reactive_IDTE extends DefaultReactive {
+		@Override
+		public <IdentTableEntry> void addListener(final Consumer<IdentTableEntry> t) {
+			throw new IllegalStateException("Error");
+		}
+
+		public <IdentTableEntry> void addResolveListener(final @NotNull Consumer<IdentTableEntry> t) {
+			_p_resolveListenersPromise.then((DoneCallback<? super tripleo.elijah.stages.gen_fn.IdentTableEntry>) result -> t.accept((IdentTableEntry) result));
+		}
+	}
+	public record ITE_Resolver_Result(OS_Element element) {
+	}
 	public final    DeferredObject<OS_Element, ResolveError, Void>  _p_resolvedElementPromise = new DeferredObject<>();
 	private final DeferredObject<InstructionArgument, Void, Void> _p_backlinkSet           = new DeferredObject<InstructionArgument, Void, Void>();
 	private final DeferredObject<ProcTableEntry, Void, Void>      _p_constructableDeferred = new DeferredObject<>();
@@ -56,19 +76,20 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 	private                DR_Ident                                        _ident;
 	InstructionArgument backlink;
 	boolean             insideGetResolvedElement = false;
-	private DeduceElement3_IdentTableEntry _de3;
-	private _Reactive_IDTE                 _reactive;
-	private ITE_Resolver_Result       _resolver_result;
 
-	public Eventual<_Reactive_IDTE> getReactiveEventual() {
-		return _reactiveEventual;
-	}
+	private DeduceElement3_IdentTableEntry _de3;
+
+	private _Reactive_IDTE                 _reactive;
+
+	private ITE_Resolver_Result       _resolver_result;
 
 	private final Eventual<_Reactive_IDTE> _reactiveEventual = new Eventual<>();
 
-	public void addPotentialType(final int instructionIndex, final TypeTableEntry tte) {
-		potentialTypes.put(instructionIndex, tte);
-	}
+	private final Eventual<EvaNode> _onExternalRef = new Eventual<>();
+
+	private final List<ITE_Resolver> resolvers = new ArrayList<>();
+
+	public        VariableStatement  _cheat_variableStatement; // DTR_VariableStatement 07/30
 
 	public IdentTableEntry(final int index, final IdentExpression ident, Context context, final BaseEvaFunction aBaseEvaFunction) {
 		this.index   = index;
@@ -87,15 +108,16 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 		});
 	}
 
-	public void calculateResolvedElement() {
-		var resolved_element = dei.getResolvedElement();
-		if (resolved_element != null) {
-			if (!_p_resolvedElementPromise.isResolved()) {
-				_p_resolvedElementPromise.resolve(resolved_element);
-			}
-		} else {
-			//08/13 System.err.println("283283 resolution failure for " + dei.getIdentTableEntry().getIdent().getText());
-		}
+	public @NotNull BaseEvaFunction _generatedFunction() {
+		return __gf;
+	}
+
+	public void addPotentialType(final int instructionIndex, final TypeTableEntry tte) {
+		potentialTypes.put(instructionIndex, tte);
+	}
+
+	public void addResolver(ITE_Resolver aResolver) {
+		resolvers.add(aResolver);
 	}
 
 	public Promise<InstructionArgument, Void, Void> backlinkSet() {
@@ -107,13 +129,24 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 		return new DeducePath(this, x);
 	}
 
-	public IdentExpression getIdent() {
-		return ident.get();
+	public void calculateResolvedElement() {
+		var resolved_element = dei.getResolvedElement();
+		if (resolved_element != null) {
+			if (!_p_resolvedElementPromise.isResolved()) {
+				_p_resolvedElementPromise.resolve(resolved_element);
+			}
+		} else {
+			//08/13 System.err.println("283283 resolution failure for " + dei.getIdentTableEntry().getIdent().getText());
+		}
 	}
 
 	@Override
 	public Promise<ProcTableEntry, Void, Void> constructablePromise() {
 		return _p_constructableDeferred.promise();
+	}
+
+	public EvaExpression<IdentExpression> evaExpression() {
+		return ident;
 	}
 
 	@Override
@@ -125,9 +158,17 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 				"}";
 	}
 
+	public EvaNode externalRef() {
+		return externalRef;
+	}
+
 	public void fefiDone(final GenType aGenType) {
 		if (_p_fefiDone.isPending())
 			_p_fefiDone.resolve(aGenType);
+	}
+
+	public DR_Ident get_ident() {
+		return _ident;
 	}
 
 	/**
@@ -136,6 +177,10 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 	 */
 	public InstructionArgument getBacklink() {
 		return backlink;
+	}
+
+	public @NotNull DeduceElementIdent getDeduceElement() {
+		return dei;
 	}
 
 	public DeduceElement3_IdentTableEntry getDeduceElement3() {
@@ -151,12 +196,12 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 		return _de3;
 	}
 
-	public @NotNull DeduceElementIdent getDeduceElement() {
-		return dei;
+	public DR_Ident getDefinedIdent() {
+		return _definedFunction.getIdent(this);
 	}
 
-	public void onResolvedElement(final DoneCallback<OS_Element> cb) {
-		_p_resolvedElementPromise.then((cb));
+	public IdentExpression getIdent() {
+		return ident.get();
 	}
 
 	public int getIndex() {
@@ -165,6 +210,10 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 
 	public Context getPC() {
 		return context;
+	}
+
+	public Eventual<_Reactive_IDTE> getReactiveEventual() {
+		return _reactiveEventual;
 	}
 
 	@Override
@@ -208,16 +257,20 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 		type = aGeneratedFunction.newTypeTableEntry(aType, aOS_Type, getIdent(), this);
 	}
 
+	public void onExternalRef(final DoneCallback<EvaNode> cb) {
+		_onExternalRef.then(cb);
+	}
+
 	public void onFefiDone(DoneCallback<GenType> aCallback) {
 		_p_fefiDone.then(aCallback);
 	}
 
-	public void onType(@NotNull DeducePhase phase, OnType callback) {
-		phase.onType(this, callback);
+	public void onResolvedElement(final DoneCallback<OS_Element> cb) {
+		_p_resolvedElementPromise.then((cb));
 	}
 
-	public EvaNode resolvedType() {
-		return resolvedType;
+	public void onType(@NotNull DeducePhase phase, OnType callback) {
+		phase.onType(this, callback);
 	}
 
 	//@SuppressFBWarnings("NP_NONNULL_RETURN_VIOLATION")
@@ -242,59 +295,21 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 		return _reactive;
 	}
 
-	@Override
-	public void resolveTypeToClass(EvaNode gn) {
-		resolvedType = gn;
-		assert (type != null);
-		if (type != null) // TODO maybe find a more robust solution to this, like another Promise? or just setType? or onPossiblesResolve?
-			type.resolve(gn); // TODO maybe this obviates the above?
-		if (!_p_resolveListenersPromise.isResolved()) // FIXME 06/16
-			_p_resolveListenersPromise.resolve(this);
+	public EvaNode resolvedType() {
+		return resolvedType;
 	}
 
-	@Override
-	public void setConstructable(ProcTableEntry aPte) {
-		constructable_pte = aPte;
-		if (_p_constructableDeferred.isPending())
-			_p_constructableDeferred.resolve(constructable_pte);
-		else {
-			//final Holder<ProcTableEntry> holder = new Holder<ProcTableEntry>();
-			_p_constructableDeferred.then(el -> {
-				tripleo.elijah.util.Stupidity.println_err_2(String.format("Setting constructable_pte twice 1) %s and 2) %s", el, aPte));
-				//holder.set(el);
-			});
+	private void resolveLanguageLevelConstruct(OS_Element element) {
+		assert __gf != null;
+		assert this._deduceTypes2() != null;
+
+		if (element instanceof FunctionDef fd) {
+			NotImplementedException.raise();
 		}
-	}
 
-	@Override
-	public void setGenType(GenType aGenType) {
-		if (type != null) {
-			type.genType.copy(aGenType);
-		} else {
-			throw new IllegalStateException("idte-102 Attempting to set a null type");
-//			tripleo.elijah.util.Stupidity.println_err_2("idte-102 Attempting to set a null type");
-		}
-	}
-
-	public void setBacklink(InstructionArgument aBacklink) {
-		backlink = aBacklink;
-		_p_backlinkSet.resolve(backlink);
-	}
-
-	public void setDeduceTypes2(final @NotNull DeduceTypes2 aDeduceTypes2, final Context aContext, final @NotNull BaseEvaFunction aGeneratedFunction) {
-		dei.setDeduceTypes2(aDeduceTypes2, aContext, aGeneratedFunction);
-	}
-
-	public DR_Ident get_ident() {
-		return _ident;
-	}
-
-	public DR_Ident getDefinedIdent() {
-		return _definedFunction.getIdent(this);
-	}
-
-	public void set_ident(DR_Ident a_ident) {
-		_ident = a_ident;
+		_p_elementPromise.then(x -> {
+			NotImplementedException.raise();
+		});
 	}
 
 	public void resolvers_round() {
@@ -314,8 +329,40 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 		}
 	}
 
-	public @NotNull BaseEvaFunction _generatedFunction() {
-		return __gf;
+	@Override
+	public void resolveTypeToClass(EvaNode gn) {
+		resolvedType = gn;
+		assert (type != null);
+		if (type != null) // TODO maybe find a more robust solution to this, like another Promise? or just setType? or onPossiblesResolve?
+			type.resolve(gn); // TODO maybe this obviates the above?
+		if (!_p_resolveListenersPromise.isResolved()) // FIXME 06/16
+			_p_resolveListenersPromise.resolve(this);
+	}
+
+	public void set_ident(DR_Ident a_ident) {
+		_ident = a_ident;
+	}
+
+	public void setBacklink(InstructionArgument aBacklink) {
+		backlink = aBacklink;
+		_p_backlinkSet.resolve(backlink);
+	}
+	@Override
+	public void setConstructable(ProcTableEntry aPte) {
+		constructable_pte = aPte;
+		if (_p_constructableDeferred.isPending())
+			_p_constructableDeferred.resolve(constructable_pte);
+		else {
+			//final Holder<ProcTableEntry> holder = new Holder<ProcTableEntry>();
+			_p_constructableDeferred.then(el -> {
+				tripleo.elijah.util.Stupidity.println_err_2(String.format("Setting constructable_pte twice 1) %s and 2) %s", el, aPte));
+				//holder.set(el);
+			});
+		}
+	}
+
+	public void setDeduceTypes2(final @NotNull DeduceTypes2 aDeduceTypes2, final Context aContext, final @NotNull BaseEvaFunction aGeneratedFunction) {
+		dei.setDeduceTypes2(aDeduceTypes2, aContext, aGeneratedFunction);
 	}
 
 	public void setExternalRef(final EvaNode aResult) {
@@ -323,24 +370,13 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 		_onExternalRef.resolve(aResult);
 	}
 
-	public EvaNode externalRef() {
-		return externalRef;
-	}
-
-	public void onExternalRef(final DoneCallback<EvaNode> cb) {
-		_onExternalRef.then(cb);
-	}
-
-	private final Eventual<EvaNode> _onExternalRef = new Eventual<>();
-
-	public class _Reactive_IDTE extends DefaultReactive {
-		@Override
-		public <IdentTableEntry> void addListener(final Consumer<IdentTableEntry> t) {
-			throw new IllegalStateException("Error");
-		}
-
-		public <IdentTableEntry> void addResolveListener(final @NotNull Consumer<IdentTableEntry> t) {
-			_p_resolveListenersPromise.then((DoneCallback<? super tripleo.elijah.stages.gen_fn.IdentTableEntry>) result -> t.accept((IdentTableEntry) result));
+	@Override
+	public void setGenType(GenType aGenType) {
+		if (type != null) {
+			type.genType.copy(aGenType);
+		} else {
+			throw new IllegalStateException("idte-102 Attempting to set a null type");
+//			tripleo.elijah.util.Stupidity.println_err_2("idte-102 Attempting to set a null type");
 		}
 	}
 
@@ -355,42 +391,6 @@ public class IdentTableEntry extends BaseTableEntry1 implements Constructable, T
 				", potentialTypes=" + potentialTypes +
 				", type=" + type +
 				'}';
-	}
-
-	public void addResolver(ITE_Resolver aResolver) {
-		resolvers.add(aResolver);
-	}
-
-	private final List<ITE_Resolver> resolvers = new ArrayList<>();
-	public        VariableStatement  _cheat_variableStatement; // DTR_VariableStatement 07/30
-
-	public record ITE_Resolver_Result(OS_Element element) {
-	}
-
-	private void resolveLanguageLevelConstruct(OS_Element element) {
-		assert __gf != null;
-		assert this._deduceTypes2() != null;
-
-		if (element instanceof FunctionDef fd) {
-			NotImplementedException.raise();
-		}
-
-		_p_elementPromise.then(x -> {
-			NotImplementedException.raise();
-		});
-	}
-
-	public EvaExpression<IdentExpression> evaExpression() {
-		return ident;
-	}
-
-	private class __StatusListener__ITE_SetResolvedElement implements StatusListener {
-		@Override
-		public void onChange(@NotNull IElementHolder eh, Status newStatus) {
-			if (newStatus == Status.KNOWN) {
-				setResolvedElement(eh.getElement());
-			}
-		}
 	}
 }
 //

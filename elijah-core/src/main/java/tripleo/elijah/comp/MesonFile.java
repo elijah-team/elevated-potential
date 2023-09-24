@@ -1,17 +1,15 @@
 package tripleo.elijah.comp;
 
-import com.google.common.collect.Multimap;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.nextgen.CP_Path;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import com.google.common.collect.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.nextgen.outputstatement.*;
 
-import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
-import static tripleo.elijah.util.Helpers.String_join;
+import static tripleo.elijah.util.Helpers.*;
 
 class MesonFile implements EG_Statement {
 
@@ -34,6 +32,14 @@ class MesonFile implements EG_Statement {
 		return EX_Explanation.withMessage("MesonFile");
 	}
 
+	public CP_Path getPath() {
+		return path;
+	}
+
+	public @NotNull String getPathString() {
+		return path.getPath().toString();
+	}
+
 	@Override
 	public @NotNull String getText() {
 		final Collection<String> files_ = lsp_outputs.get(compilerInstructions);
@@ -53,13 +59,5 @@ class MesonFile implements EG_Statement {
 
 		final String s = sb.toString();
 		return s;
-	}
-
-	public @NotNull String getPathString() {
-		return path.getPath().toString();
-	}
-
-	public CP_Path getPath() {
-		return path;
 	}
 }

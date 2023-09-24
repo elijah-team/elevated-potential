@@ -20,6 +20,9 @@ import tripleo.elijah.stages.deduce.DeduceTypes2;
  * Created 9/12/20 10:26 PM
  */
 public class TypeTableEntry {
+	public enum Type {
+		SPECIFIED, TRANSIENT
+	}
 	public final    IExpression     __debug_expression;
 	@NotNull
 	public final    Type            lifetime;
@@ -29,12 +32,23 @@ public class TypeTableEntry {
 	final           int             index;
 	private         BaseEvaFunction __gf;
 	private         DeduceTypes2    _dt2;
+
 	@Nullable
 	private         OS_Type         attached;
 
-	public void _fix_table(final DeduceTypes2 aDeduceTypes2, final @NotNull BaseEvaFunction aEvaFunction) {
-		_dt2 = aDeduceTypes2;
-		__gf = aEvaFunction;
+	public TypeTableEntry(final int index,
+						  @NotNull final Type lifetime,
+						  @Nullable final GenType aGenType,
+						  final IExpression expression,
+						  @Nullable final TableEntryIV aTableEntryIV) {
+		this.index    = index;
+		this.lifetime = lifetime;
+
+		this.genType.copy(aGenType);
+		this.attached = this.genType.getResolved(); // !!
+
+		this.__debug_expression = expression;
+		this.tableEntry         = aTableEntryIV;
 	}
 
 	public TypeTableEntry(final int index,
@@ -65,23 +79,9 @@ public class TypeTableEntry {
 		this.tableEntry         = aTableEntryIV;
 	}
 
-	public TypeTableEntry(final int index,
-						  @NotNull final Type lifetime,
-						  @Nullable final GenType aGenType,
-						  final IExpression expression,
-						  @Nullable final TableEntryIV aTableEntryIV) {
-		this.index    = index;
-		this.lifetime = lifetime;
-
-		this.genType.copy(aGenType);
-		this.attached = this.genType.getResolved(); // !!
-
-		this.__debug_expression = expression;
-		this.tableEntry         = aTableEntryIV;
-	}
-
-	public void genTypeCI(ClassInvocation aClsinv) {
-		genType.setCi(aClsinv);
+	public void _fix_table(final DeduceTypes2 aDeduceTypes2, final @NotNull BaseEvaFunction aEvaFunction) {
+		_dt2 = aDeduceTypes2;
+		__gf = aEvaFunction;
 	}
 
 	@Deprecated
@@ -125,8 +125,28 @@ public class TypeTableEntry {
 		}
 	}
 
+	public void genTypeCI(ClassInvocation aClsinv) {
+		genType.setCi(aClsinv);
+	}
+
 	public @Nullable OS_Type getAttached() {
 		return attached;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public boolean isResolved() {
+		return genType.getNode() != null;
+	}
+
+	public void resolve(EvaNode aResolved) {
+		genType.setNode(aResolved);
+	}
+
+	public EvaNode resolved() {
+		return genType.getNode();
 	}
 
 	public void setAttached(GenType aGenType) {
@@ -138,8 +158,11 @@ public class TypeTableEntry {
 		setAttached(genType.getResolved());
 	}
 
-	public int getIndex() {
-		return index;
+	public void setAttached(@Nullable OS_Type aAttached) {
+		attached = aAttached;
+		if (aAttached != null) {
+			_settingAttached(aAttached);
+		}
 	}
 
 	@Override
@@ -147,29 +170,6 @@ public class TypeTableEntry {
 	public String toString() {
 		return "TypeTableEntry{" + "index=" + index + ", lifetime=" + lifetime + ", attached=" + attached
 				+ ", expression=" + __debug_expression + '}';
-	}
-
-	public void resolve(EvaNode aResolved) {
-		genType.setNode(aResolved);
-	}
-
-	public EvaNode resolved() {
-		return genType.getNode();
-	}
-
-	public boolean isResolved() {
-		return genType.getNode() != null;
-	}
-
-	public enum Type {
-		SPECIFIED, TRANSIENT
-	}
-
-	public void setAttached(@Nullable OS_Type aAttached) {
-		attached = aAttached;
-		if (aAttached != null) {
-			_settingAttached(aAttached);
-		}
 	}
 }
 

@@ -1,10 +1,9 @@
 package tripleo.elijah.lang.types;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 
-import java.text.MessageFormat;
+import java.text.*;
 
 
 public class OS_UserType extends __Abstract_OS_Type {
@@ -15,18 +14,28 @@ public class OS_UserType extends __Abstract_OS_Type {
 	}
 
 	@Override
+	protected boolean _isEqual(final @NotNull OS_Type aType) {
+		return aType.getType() == Type.USER && typeName.equals(aType.getTypeName());
+	}
+
+	@Override
 	public @NotNull String asString() {
 		return MessageFormat.format("<OS_UserType {0}>", typeName);
 	}
 
 	@Override
-	public TypeName getTypeName() {
-		return typeName;
+	public @Nullable OS_Element getElement() {
+		return null;
 	}
 
 	@Override
-	protected boolean _isEqual(final @NotNull OS_Type aType) {
-		return aType.getType() == Type.USER && typeName.equals(aType.getTypeName());
+	public @NotNull Type getType() {
+		return Type.USER;
+	}
+
+	@Override
+	public TypeName getTypeName() {
+		return typeName;
 	}
 
 	@Override
@@ -41,16 +50,6 @@ public class OS_UserType extends __Abstract_OS_Type {
 
 
 		return ((ClassStatement) best).getOS_Type();
-	}
-
-	@Override
-	public @Nullable OS_Element getElement() {
-		return null;
-	}
-
-	@Override
-	public @NotNull Type getType() {
-		return Type.USER;
 	}
 
 	@Override

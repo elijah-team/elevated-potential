@@ -8,24 +8,16 @@
  */
 package tripleo.elijah.ci;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.IExpression;
+import antlr.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 9/6/20 12:04 PM
  */
 public class GenerateStatementImpl implements GenerateStatement {
-	@Override
-	public void addDirective(final @NotNull Token token, final IExpression expression) {
-		dirs.add(new Directive(token, expression));
-	}
-
-	public final List<Directive> dirs = new ArrayList<Directive>();
-
 	public class Directive {
 
 		private final IExpression expression;
@@ -43,6 +35,13 @@ public class GenerateStatementImpl implements GenerateStatement {
 		public String getName() {
 			return name;
 		}
+	}
+
+	public final List<Directive> dirs = new ArrayList<Directive>();
+
+	@Override
+	public void addDirective(final @NotNull Token token, final IExpression expression) {
+		dirs.add(new Directive(token, expression));
 	}
 }
 

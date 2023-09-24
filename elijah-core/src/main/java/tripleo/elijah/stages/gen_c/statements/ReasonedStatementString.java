@@ -1,6 +1,6 @@
 package tripleo.elijah.stages.gen_c.statements;
 
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.nextgen.outputstatement.*;
 
 public class ReasonedStatementString implements IReasonedString {
 	private final EG_Statement text;
@@ -12,12 +12,12 @@ public class ReasonedStatementString implements IReasonedString {
 	}
 
 	@Override
-	public String text() {
-		return text.getText();
+	public String reason() {
+		return reason;
 	}
 
 	@Override
-	public String reason() {
-		return reason;
+	public String text() {
+		return text.getText();
 	}
 }

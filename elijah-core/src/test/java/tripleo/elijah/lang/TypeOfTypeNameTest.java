@@ -30,61 +30,6 @@ public class TypeOfTypeNameTest {
 
 	@Disabled
 	@Test
-	public void typeOfSimpleQualident() throws ResolveError {
-		//
-		// CREATE MOCKS
-		//
-		Context     ctx = mock(Context.class);
-		OS_Module   mod = mock(OS_Module.class);
-		Compilation c   = mock(Compilation.class);
-
-		//
-		// CREATE VARIABLES
-		//
-		ErrSink e = new StdErrSink();
-
-		String typeNameString = "AbstractFactory";
-
-		VariableStatement var_x = new VariableStatementImpl(null);
-		var_x.setName(Helpers.string_to_ident("x")); // not necessary
-		RegularTypeName rtn = new RegularTypeNameImpl(ctx);
-		rtn.setName(Helpers.string_to_qualident(typeNameString));
-		var_x.setTypeName(rtn);
-
-		LookupResultList lrl = new LookupResultListImpl();
-		lrl.add("x", 1, var_x, ctx);
-
-		//
-		// CREATE VARIABLE UNDER TEST
-		//
-		TypeOfTypeName t = new TypeOfTypeNameImpl(ctx);
-		t.typeOf(Helpers.string_to_qualident(var_x.getName()));
-
-		//
-		// SET UP EXPECTATIONS
-		//
-		when(mod.getFileName()).thenReturn("foo.elijah");
-		when(c.getErrSink()).thenReturn(e);
-		when(mod.getCompilation()).thenReturn(c);
-		when(ctx.lookup(var_x.getName())).thenReturn(lrl);
-
-		//
-		// VERIFY EXPECTATIONS
-		//
-
-		Boilerplate boilerplate = new Boilerplate();
-		boilerplate.get();
-		boilerplate.getGenerateFiles(boilerplate.defaultMod());
-
-		final PipelineLogic pl           = boilerplate.pipelineLogic;
-		final DeduceTypes2  deduceTypes2 = new DeduceTypes2(mod, pl.dp);
-		final TypeName      tn           = t.resolve(ctx, deduceTypes2);
-//		tripleo.elijah.util.Stupidity.println_out_2(tn);
-		assertEquals(typeNameString, tn.toString());
-	}
-
-	@Disabled
-	@Test
 	public void typeOfComplexQualident() throws ResolveError {
 		//
 		// CREATE MOCKS
@@ -133,75 +78,6 @@ public class TypeOfTypeNameTest {
 		final PipelineLogic pl           = boilerplate.pipelineLogic;
 		final DeduceTypes2  deduceTypes2 = new DeduceTypes2(mod, pl.dp);
 		TypeName            tn           = t.resolve(ctx, deduceTypes2);
-//		tripleo.elijah.util.Stupidity.println_out_2(tn);
-		assertEquals(typeNameString, tn.toString());
-	}
-
-	@Disabled
-	@Test
-	public void typeOfComplexQualident3() throws ResolveError {
-		//
-		// CREATE MOCK
-		//
-		Context ctx = mock(Context.class);
-
-		//
-		// CREATE VARIABLES
-		//
-		String       typeNameString1 = "package1.AbstractFactory";
-		final String typeNameString  = "SystemInteger";
-
-		OS_Module mod     = new OS_ModuleImpl();
-		Context   mod_ctx = mod.getContext();
-
-		ClassStatement st_af = new ClassStatementImpl(mod, mod_ctx);
-		st_af.setName(IdentExpression.forString("AbstractFactory"));
-		final OS_Package package1 = new OS_PackageImpl(Helpers.string_to_qualident("package1"), 1);
-		st_af.setPackageName(package1);
-
-		VariableSequenceImpl  vs    = new VariableSequenceImpl(st_af.getContext());
-		VariableStatementImpl var_y = new VariableStatementImpl(vs);
-		var_y.setName(IdentExpression.forString("y"));
-		RegularTypeName rtn_y = new RegularTypeNameImpl(ctx);
-		rtn_y.setName(Helpers.string_to_qualident(typeNameString));
-		var_y.setTypeName(rtn_y);
-
-		st_af.add(vs);
-
-		VariableStatementImpl var_x = new VariableStatementImpl(null);
-		var_x.setName(Helpers.string_to_ident("x")); // not necessary
-		RegularTypeName rtn_x = new RegularTypeNameImpl(ctx);
-		rtn_x.setName(Helpers.string_to_qualident(typeNameString1));
-		var_x.setTypeName(rtn_x);
-
-		LookupResultList lrl = new LookupResultListImpl();
-		lrl.add("x", 1, var_x, ctx);
-		LookupResultList lrl2 = new LookupResultListImpl();
-		lrl2.add("package1", 1, null, ctx);
-
-		//
-		// CREATE VARIABLE UNDER TEST
-		//
-		TypeOfTypeName t = new TypeOfTypeNameImpl(ctx);
-		t.typeOf(Helpers.string_to_qualident("x.y"));
-
-		//
-		// SET UP EXPECTATIONS
-		//
-		when(ctx.lookup("x")).thenReturn(lrl);
-		when(ctx.lookup("package1")).thenReturn(lrl2);
-
-		//
-		// VERIFY EXPECTATIONS
-		//
-		Boilerplate boilerplate = new Boilerplate();
-		boilerplate.get();
-		boilerplate.getGenerateFiles(boilerplate.defaultMod());
-
-		final PipelineLogic pl           = boilerplate.pipelineLogic;
-		final DeduceTypes2  deduceTypes2 = new DeduceTypes2(mod, pl.dp);
-
-		TypeName tn = t.resolve(ctx, deduceTypes2);
 //		tripleo.elijah.util.Stupidity.println_out_2(tn);
 		assertEquals(typeNameString, tn.toString());
 	}
@@ -284,6 +160,130 @@ public class TypeOfTypeNameTest {
 		// VERIFY EXPECTATIONS
 		//
 		TypeName tn = t.resolve(ctx, deduceTypes2);
+//		tripleo.elijah.util.Stupidity.println_out_2(tn);
+		assertEquals(typeNameString, tn.toString());
+	}
+
+	@Disabled
+	@Test
+	public void typeOfComplexQualident3() throws ResolveError {
+		//
+		// CREATE MOCK
+		//
+		Context ctx = mock(Context.class);
+
+		//
+		// CREATE VARIABLES
+		//
+		String       typeNameString1 = "package1.AbstractFactory";
+		final String typeNameString  = "SystemInteger";
+
+		OS_Module mod     = new OS_ModuleImpl();
+		Context   mod_ctx = mod.getContext();
+
+		ClassStatement st_af = new ClassStatementImpl(mod, mod_ctx);
+		st_af.setName(IdentExpression.forString("AbstractFactory"));
+		final OS_Package package1 = new OS_PackageImpl(Helpers.string_to_qualident("package1"), 1);
+		st_af.setPackageName(package1);
+
+		VariableSequenceImpl  vs    = new VariableSequenceImpl(st_af.getContext());
+		VariableStatementImpl var_y = new VariableStatementImpl(vs);
+		var_y.setName(IdentExpression.forString("y"));
+		RegularTypeName rtn_y = new RegularTypeNameImpl(ctx);
+		rtn_y.setName(Helpers.string_to_qualident(typeNameString));
+		var_y.setTypeName(rtn_y);
+
+		st_af.add(vs);
+
+		VariableStatementImpl var_x = new VariableStatementImpl(null);
+		var_x.setName(Helpers.string_to_ident("x")); // not necessary
+		RegularTypeName rtn_x = new RegularTypeNameImpl(ctx);
+		rtn_x.setName(Helpers.string_to_qualident(typeNameString1));
+		var_x.setTypeName(rtn_x);
+
+		LookupResultList lrl = new LookupResultListImpl();
+		lrl.add("x", 1, var_x, ctx);
+		LookupResultList lrl2 = new LookupResultListImpl();
+		lrl2.add("package1", 1, null, ctx);
+
+		//
+		// CREATE VARIABLE UNDER TEST
+		//
+		TypeOfTypeName t = new TypeOfTypeNameImpl(ctx);
+		t.typeOf(Helpers.string_to_qualident("x.y"));
+
+		//
+		// SET UP EXPECTATIONS
+		//
+		when(ctx.lookup("x")).thenReturn(lrl);
+		when(ctx.lookup("package1")).thenReturn(lrl2);
+
+		//
+		// VERIFY EXPECTATIONS
+		//
+		Boilerplate boilerplate = new Boilerplate();
+		boilerplate.get();
+		boilerplate.getGenerateFiles(boilerplate.defaultMod());
+
+		final PipelineLogic pl           = boilerplate.pipelineLogic;
+		final DeduceTypes2  deduceTypes2 = new DeduceTypes2(mod, pl.dp);
+
+		TypeName tn = t.resolve(ctx, deduceTypes2);
+//		tripleo.elijah.util.Stupidity.println_out_2(tn);
+		assertEquals(typeNameString, tn.toString());
+	}
+
+	@Disabled
+	@Test
+	public void typeOfSimpleQualident() throws ResolveError {
+		//
+		// CREATE MOCKS
+		//
+		Context     ctx = mock(Context.class);
+		OS_Module   mod = mock(OS_Module.class);
+		Compilation c   = mock(Compilation.class);
+
+		//
+		// CREATE VARIABLES
+		//
+		ErrSink e = new StdErrSink();
+
+		String typeNameString = "AbstractFactory";
+
+		VariableStatement var_x = new VariableStatementImpl(null);
+		var_x.setName(Helpers.string_to_ident("x")); // not necessary
+		RegularTypeName rtn = new RegularTypeNameImpl(ctx);
+		rtn.setName(Helpers.string_to_qualident(typeNameString));
+		var_x.setTypeName(rtn);
+
+		LookupResultList lrl = new LookupResultListImpl();
+		lrl.add("x", 1, var_x, ctx);
+
+		//
+		// CREATE VARIABLE UNDER TEST
+		//
+		TypeOfTypeName t = new TypeOfTypeNameImpl(ctx);
+		t.typeOf(Helpers.string_to_qualident(var_x.getName()));
+
+		//
+		// SET UP EXPECTATIONS
+		//
+		when(mod.getFileName()).thenReturn("foo.elijah");
+		when(c.getErrSink()).thenReturn(e);
+		when(mod.getCompilation()).thenReturn(c);
+		when(ctx.lookup(var_x.getName())).thenReturn(lrl);
+
+		//
+		// VERIFY EXPECTATIONS
+		//
+
+		Boilerplate boilerplate = new Boilerplate();
+		boilerplate.get();
+		boilerplate.getGenerateFiles(boilerplate.defaultMod());
+
+		final PipelineLogic pl           = boilerplate.pipelineLogic;
+		final DeduceTypes2  deduceTypes2 = new DeduceTypes2(mod, pl.dp);
+		final TypeName      tn           = t.resolve(ctx, deduceTypes2);
 //		tripleo.elijah.util.Stupidity.println_out_2(tn);
 		assertEquals(typeNameString, tn.toString());
 	}

@@ -12,18 +12,15 @@
  */
 package tripleo.elijah.lang.types;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.query.Mode;
-import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.gen_fn.GenType;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah.nextgen.query.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.util.*;
 
-import java.text.MessageFormat;
-import java.util.List;
+import java.text.*;
+import java.util.*;
 
 public class OS_FuncType extends __Abstract_OS_Type {
 	private final FunctionDef function_def;
@@ -33,13 +30,13 @@ public class OS_FuncType extends __Abstract_OS_Type {
 	}
 
 	@Override
-	public @NotNull String asString() {
-		return MessageFormat.format("<OS_FuncType {0}>", function_def);
+	protected boolean _isEqual(final @NotNull OS_Type aType) {
+		return aType.getType() == Type.FUNCTION && function_def.equals(aType.getElement());
 	}
 
 	@Override
-	protected boolean _isEqual(final @NotNull OS_Type aType) {
-		return aType.getType() == Type.FUNCTION && function_def.equals(aType.getElement());
+	public @NotNull String asString() {
+		return MessageFormat.format("<OS_FuncType {0}>", function_def);
 	}
 
 	@Override

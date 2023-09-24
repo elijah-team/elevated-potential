@@ -1,9 +1,8 @@
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public interface VariableSequence extends FunctionItem, StatementItem, ClassItem {
 	void addAnnotation(AnnotationClause a);
@@ -26,6 +25,11 @@ public interface VariableSequence extends FunctionItem, StatementItem, ClassItem
 	VariableStatement next();
 
 	@Override
+	default void serializeTo(SmallWriter sw) {
+
+	}
+
+	@Override
 	void setCategory(El_Category aCategory);
 
 	void setContext(Context ctx);
@@ -39,9 +43,4 @@ public interface VariableSequence extends FunctionItem, StatementItem, ClassItem
 
 	@Override
 	void visitGen(ElElementVisitor visit);
-
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
 }

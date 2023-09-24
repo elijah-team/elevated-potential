@@ -8,18 +8,14 @@
  */
 package tripleo.elijah.contexts;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.BaseFunctionDef;
-import tripleo.elijah.lang.impl.ContextImpl;
-import tripleo.elijah.lang.impl.VariableSequenceImpl;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang2.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-import static tripleo.elijah.contexts.ClassInfo.ClassInfoType.GENERIC;
-import static tripleo.elijah.contexts.ClassInfo.ClassInfoType.INHERITED;
+import static tripleo.elijah.contexts.ClassInfo.ClassInfoType.*;
 
 
 /**
@@ -29,19 +25,56 @@ import static tripleo.elijah.contexts.ClassInfo.ClassInfoType.INHERITED;
  */
 public class ClassContext extends ContextImpl implements Context {
 
-	private final Context _parent;
+	/**
+	 * An Element that only holds a {@link TypeName}.
+	 * <p>
+	 * NOTE: It seems to be connected to {@link ClassContext}
+	 */
+	public class OS_TypeNameElement implements OS_Element {
+		private final TypeName typeName;
 
+		public OS_TypeNameElement(TypeName aTypeName) {
+			typeName = aTypeName;
+		}
+
+		@Override
+		public @NotNull Context getContext() {
+			return ClassContext.this;
+		}
+
+		@Override
+		public OS_Element getParent() {
+			return carrier;
+		}
+
+		public TypeName getTypeName() {
+			return typeName;
+		}
+
+		@Override
+		public void serializeTo(final SmallWriter sw) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public void visitGen(@NotNull ElElementVisitor visit) {
+			visit.visitTypeNameElement(this);
+		}
+	}
+
+	private final Context _parent;
 	private         boolean                       _didInheritance;
 	private final   ClassStatement                carrier;
-	public @NotNull Map<TypeName, ClassStatement> _inheritance = new HashMap<>();
 
-	public ClassStatement getCarrier() {
-		return carrier;
-	}
+	public @NotNull Map<TypeName, ClassStatement> _inheritance = new HashMap<>();
 
 	public ClassContext(final Context aParent, final ClassStatement cls) {
 		_parent = aParent;
 		carrier = cls;
+	}
+
+	public ClassStatement getCarrier() {
+		return carrier;
 	}
 
 	@Override
@@ -125,43 +158,6 @@ public class ClassContext extends ContextImpl implements Context {
 				return context.lookup(name, level + 1, Result, alreadySearched, false);
 		}
 		return Result;
-	}
-
-	/**
-	 * An Element that only holds a {@link TypeName}.
-	 * <p>
-	 * NOTE: It seems to be connected to {@link ClassContext}
-	 */
-	public class OS_TypeNameElement implements OS_Element {
-		private final TypeName typeName;
-
-		public OS_TypeNameElement(TypeName aTypeName) {
-			typeName = aTypeName;
-		}
-
-		@Override
-		public @NotNull Context getContext() {
-			return ClassContext.this;
-		}
-
-		@Override
-		public OS_Element getParent() {
-			return carrier;
-		}
-
-		@Override
-		public void visitGen(@NotNull ElElementVisitor visit) {
-			visit.visitTypeNameElement(this);
-		}
-
-		@Override
-		public void serializeTo(final SmallWriter sw) {
-			throw new UnsupportedOperationException();
-		}
-
-		public TypeName getTypeName() {
-			return typeName;
-		}
 	}
 }
 

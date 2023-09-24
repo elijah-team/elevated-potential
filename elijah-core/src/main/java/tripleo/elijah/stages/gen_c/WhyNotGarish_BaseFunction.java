@@ -15,17 +15,51 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
-	public @NotNull List<Instruction> instructions() {
-		return getGf().instructions();
+	@Deprecated
+	public BaseEvaFunction cheat() {
+		return getGf();
 	}
 
-	@Override
-	public abstract void provideFileGen(GenerateResultEnv fg);
-
-	public abstract BaseEvaFunction getGf();
+	public @Nullable Map<TypeName, OS_Type> classInvcationGenericPart() {
+		return getGf().fi.getClassInvocation().genericPart().getMap();
+	}
 
 	public @Nullable Label findLabel(final int aIndex) {
 		return getGf().findLabel(aIndex);
+	}
+
+	public @NotNull ConstantTableEntry getConstTableEntry(final int aIndex) {
+		return getGf().getConstTableEntry(aIndex);
+	}
+
+	public @NotNull FunctionDef getFD() {
+		return getGf().getFD();
+	}
+
+	public EvaNode getGenClass() {
+		return getGf().getGenClass();
+	}
+
+	public abstract BaseEvaFunction getGf();
+
+	public @NotNull ProcTableEntry getProcTableEntry(final int aIndex) {
+		return getGf().getProcTableEntry(aIndex);
+	}
+
+	public VariableTableEntry getSelf() {
+		return getGf().getSelf();
+	}
+
+	public @NotNull TypeTableEntry getTypeTableEntry(final int aIndex) {
+		return getGf().getTypeTableEntry(aIndex);
+	}
+
+	public @NotNull VariableTableEntry getVarTableEntry(final int aIndex) {
+		return getGf().getVarTableEntry(aIndex);
+	}
+
+	public @NotNull List<Instruction> instructions() {
+		return getGf().instructions();
 	}
 
 	public boolean pointsToConstructor() {
@@ -36,20 +70,8 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 		return getGf() instanceof EvaConstructor;
 	}
 
-	public EvaNode getGenClass() {
-		return getGf().getGenClass();
-	}
-
-	public @NotNull TypeTableEntry tte_for_self() {
-		@Nullable final InstructionArgument result_index = getGf().vte_lookup("self");
-		final IntegerIA                     resultIA     = (IntegerIA) result_index;
-		@NotNull final VariableTableEntry   vte          = resultIA.getEntry();
-		assert vte.getVtt() == VariableTableType.SELF;
-
-		var tte1 = getGf().getTypeTableEntry(resultIA.getIndex());
-
-		return tte1;
-	}
+	@Override
+	public abstract void provideFileGen(GenerateResultEnv fg);
 
 	public @NotNull Pair<String, TypeTableEntry> tte_for_result() {
 		@Nullable InstructionArgument result_index = getGf().vte_lookup("Result");
@@ -69,37 +91,15 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 		return Pair.of(null, tte1);
 	}
 
-	public @Nullable Map<TypeName, OS_Type> classInvcationGenericPart() {
-		return getGf().fi.getClassInvocation().genericPart().getMap();
-	}
+	public @NotNull TypeTableEntry tte_for_self() {
+		@Nullable final InstructionArgument result_index = getGf().vte_lookup("self");
+		final IntegerIA                     resultIA     = (IntegerIA) result_index;
+		@NotNull final VariableTableEntry   vte          = resultIA.getEntry();
+		assert vte.getVtt() == VariableTableType.SELF;
 
-	@Deprecated
-	public BaseEvaFunction cheat() {
-		return getGf();
-	}
+		var tte1 = getGf().getTypeTableEntry(resultIA.getIndex());
 
-	public VariableTableEntry getSelf() {
-		return getGf().getSelf();
-	}
-
-	public @NotNull VariableTableEntry getVarTableEntry(final int aIndex) {
-		return getGf().getVarTableEntry(aIndex);
-	}
-
-	public @NotNull ConstantTableEntry getConstTableEntry(final int aIndex) {
-		return getGf().getConstTableEntry(aIndex);
-	}
-
-	public @NotNull ProcTableEntry getProcTableEntry(final int aIndex) {
-		return getGf().getProcTableEntry(aIndex);
-	}
-
-	public @NotNull FunctionDef getFD() {
-		return getGf().getFD();
-	}
-
-	public @NotNull TypeTableEntry getTypeTableEntry(final int aIndex) {
-		return getGf().getTypeTableEntry(aIndex);
+		return tte1;
 	}
 
 	public @Nullable InstructionArgument vte_lookup(final String aText) {

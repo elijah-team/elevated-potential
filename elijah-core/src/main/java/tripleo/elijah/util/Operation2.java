@@ -11,30 +11,6 @@ import tripleo.elijah.nextgen.query.*;
  * @param <T> the success type
  */
 public class Operation2<T> {
-	private final Mode mode;
-	private final T    succ;
-
-	private final Diagnostic exc;
-
-	public static <T> @NotNull Operation2<T> failure(final Diagnostic aException) {
-		final Operation2<T> op = new Operation2<>(null, aException, Mode.FAILURE);
-		return op;
-	}
-
-	public static <T> @NotNull Operation2<T> success(final T aSuccess) {
-		final Operation2<T> op = new Operation2<>(aSuccess, null, Mode.SUCCESS);
-		return op;
-	}
-
-	public Operation2(final T aSuccess, final Diagnostic aException, final Mode aMode) {
-		succ = aSuccess;
-		exc  = aException;
-		mode = aMode;
-
-		if (succ == exc)
-			throw new AssertionError();
-	}
-
 	public static <T> Operation2<T> convert(final @NotNull Operation<T> op) {
 		final Operation2<T> op2;
 
@@ -52,6 +28,30 @@ public class Operation2<T> {
 		}
 
 		return op2;
+	}
+	public static <T> @NotNull Operation2<T> failure(final Diagnostic aException) {
+		final Operation2<T> op = new Operation2<>(null, aException, Mode.FAILURE);
+		return op;
+	}
+
+	public static <T> @NotNull Operation2<T> success(final T aSuccess) {
+		final Operation2<T> op = new Operation2<>(aSuccess, null, Mode.SUCCESS);
+		return op;
+	}
+
+	private final Mode mode;
+
+	private final T    succ;
+
+	private final Diagnostic exc;
+
+	public Operation2(final T aSuccess, final Diagnostic aException, final Mode aMode) {
+		succ = aSuccess;
+		exc  = aException;
+		mode = aMode;
+
+		if (succ == exc)
+			throw new AssertionError();
 	}
 
 	public Diagnostic failure() {

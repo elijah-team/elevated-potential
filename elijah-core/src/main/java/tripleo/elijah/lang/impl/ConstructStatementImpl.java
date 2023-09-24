@@ -8,10 +8,9 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
 /*
  * Created on Sep 1, 2005 6:47:16 PM
@@ -73,13 +72,13 @@ public class ConstructStatementImpl implements tripleo.elijah.lang.i.ConstructSt
 	}
 
 	@Override
-	public void visitGen(@NotNull ElElementVisitor visit) {
-		visit.visitConstructStatement(this);
+	public void serializeTo(final SmallWriter sw) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-		throw new UnsupportedOperationException();
+	public void visitGen(@NotNull ElElementVisitor visit) {
+		visit.visitConstructStatement(this);
 	}
 
 }

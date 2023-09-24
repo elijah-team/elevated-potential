@@ -65,6 +65,14 @@ public class ProcessedNode1 implements ProcessedNode {
 	}
 
 	@Override
+	public void processContainer(final GenerateFiles ggc,
+								 final @NotNull GenerateResultEnv aFileGen) {
+		final EvaContainerNC nc = (EvaContainerNC) evaNode;
+
+		nc.generateCode(aFileGen, ggc);
+	}
+
+	@Override
 	public void processFunctions(final @NotNull GenerateFiles ggc, final @NotNull GenerateResultEnv aFileGen) {
 		final EvaContainerNC nc = (EvaContainerNC) evaNode;
 
@@ -72,13 +80,5 @@ public class ProcessedNode1 implements ProcessedNode {
 		GenerateResult                     gr2 = ggc.generateCode(gn1, aFileGen);
 		aFileGen.gr().additional(gr2);
 		aFileGen.resultSink().additional(gr2);
-	}
-
-	@Override
-	public void processContainer(final GenerateFiles ggc,
-								 final @NotNull GenerateResultEnv aFileGen) {
-		final EvaContainerNC nc = (EvaContainerNC) evaNode;
-
-		nc.generateCode(aFileGen, ggc);
 	}
 }

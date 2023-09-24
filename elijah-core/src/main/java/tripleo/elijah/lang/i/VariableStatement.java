@@ -1,8 +1,8 @@
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.diagnostic.Locatable;
-import tripleo.elijah.lang2.ElElementVisitor;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.lang2.*;
 
 public interface VariableStatement extends @NotNull Locatable, OS_Element {
 	@Override
@@ -19,6 +19,11 @@ public interface VariableStatement extends @NotNull Locatable, OS_Element {
 	@NotNull
 	IExpression initialValue();
 
+	@Override
+	default void serializeTo(SmallWriter sw) {
+
+	}
+
 	void set(TypeModifiers y);
 
 	void setName(IdentExpression s);
@@ -30,9 +35,4 @@ public interface VariableStatement extends @NotNull Locatable, OS_Element {
 
 	@Override
 	void visitGen(ElElementVisitor visit);
-
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
 }

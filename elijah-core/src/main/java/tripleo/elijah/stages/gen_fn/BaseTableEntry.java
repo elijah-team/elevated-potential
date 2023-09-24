@@ -26,6 +26,13 @@ import java.util.List;
  * Created 2/4/21 10:11 PM
  */
 public abstract class BaseTableEntry {
+	public enum Status {
+		KNOWN, UNCHECKED, UNKNOWN
+	}
+	@FunctionalInterface
+	public interface StatusListener {
+		void onChange(IElementHolder eh, Status newStatus);
+	}
 	protected final DeferredObject2<OS_Element, Diagnostic, Void> _p_elementPromise  = new DeferredObject2<OS_Element, Diagnostic, Void>() {
 		@Override
 		public Deferred<OS_Element, Diagnostic, Void> resolve(final @Nullable OS_Element resolve) {
@@ -45,31 +52,17 @@ public abstract class BaseTableEntry {
 	private final List<StatusListener> statusListenerList = new ArrayList<StatusListener>();
 	protected     DeduceTypes2         __dt2;
 	public        BaseEvaFunction      __gf;
-	// region status
-	protected       Status                                        status             = Status.UNCHECKED;
-	DeduceTypeResolve typeResolve;
 
 	// region resolved_element
+
+	// region status
+	protected       Status                                        status             = Status.UNCHECKED;
+
+	DeduceTypeResolve typeResolve;
 
 	public void _fix_table(final DeduceTypes2 aDeduceTypes2, final @NotNull BaseEvaFunction aEvaFunction) {
 		__dt2 = aDeduceTypes2;
 		__gf  = aEvaFunction;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status newStatus, /*@NotNull*/ IElementHolder eh) {
-		status = newStatus;
-		assert newStatus != Status.KNOWN || eh != null && eh.getElement() != null;
-		for (int i = 0; i < statusListenerList.size(); i++) {
-			final StatusListener statusListener = statusListenerList.get(i);
-			statusListener.onChange(eh, newStatus);
-		}
-		if (newStatus == Status.UNKNOWN)
-			if (!_p_elementPromise.isRejected())
-				_p_elementPromise.reject(new ResolveUnknown());
 	}
 
 	public void addStatusListener(StatusListener sl) {
@@ -97,8 +90,8 @@ public abstract class BaseTableEntry {
 
 	// endregion resolved_element
 
-	public Promise<GenType, ResolveError, Void> typeResolvePromise() {
-		return typeResolve.typeResolution();
+	public Status getStatus() {
+		return status;
 	}
 
 	public void setResolvedElement(OS_Element aResolved_element) {
@@ -108,21 +101,28 @@ public abstract class BaseTableEntry {
 			_p_elementPromise.resolve(aResolved_element);
 	}
 
-	public void typeResolve(final GenType aGt) {
-		typeResolve.typeResolve(aGt);
-	}
-
-	public enum Status {
-		KNOWN, UNCHECKED, UNKNOWN
+	public void setStatus(Status newStatus, /*@NotNull*/ IElementHolder eh) {
+		status = newStatus;
+		assert newStatus != Status.KNOWN || eh != null && eh.getElement() != null;
+		for (int i = 0; i < statusListenerList.size(); i++) {
+			final StatusListener statusListener = statusListenerList.get(i);
+			statusListener.onChange(eh, newStatus);
+		}
+		if (newStatus == Status.UNKNOWN)
+			if (!_p_elementPromise.isRejected())
+				_p_elementPromise.reject(new ResolveUnknown());
 	}
 
 	protected void setupResolve() {
 		typeResolve = new DeduceTypeResolve(this, new NULL_DeduceTypes2());
 	}
 
-	@FunctionalInterface
-	public interface StatusListener {
-		void onChange(IElementHolder eh, Status newStatus);
+	public void typeResolve(final GenType aGt) {
+		typeResolve.typeResolve(aGt);
+	}
+
+	public Promise<GenType, ResolveError, Void> typeResolvePromise() {
+		return typeResolve.typeResolution();
 	}
 }
 

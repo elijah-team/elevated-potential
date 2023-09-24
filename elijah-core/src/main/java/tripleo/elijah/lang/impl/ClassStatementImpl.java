@@ -8,20 +8,18 @@
  */
 package tripleo.elijah.lang.impl;
 
-import com.google.common.collect.ImmutableList;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.contexts.ClassContext;
+import com.google.common.collect.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
-import tripleo.elijah.lang.nextgen.names.impl.ENU_ClassName;
-import tripleo.elijah.lang.types.OS_UserClassType;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.lang.nextgen.names.i.*;
+import tripleo.elijah.lang.nextgen.names.impl.*;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 /**
  * Represents a "class"
@@ -65,6 +63,23 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 		setContext(new ClassContext(parentContext, this));
 	}
 
+	@Override // OS_Container
+	public void add(final OS_Element anElement) {
+		if (!(anElement instanceof ClassItem))
+			throw new IllegalStateException(String.format("Cant add %s to ClassStatement", anElement));
+		items.add((ClassItem) anElement);
+	}
+
+	@Override
+	public @NotNull ConstructorDef addCtor(final IdentExpression aConstructorName) {
+		return new ConstructorDefImpl(aConstructorName, this, getContext());
+	}
+
+	@Override
+	public @NotNull DestructorDef addDtor() {
+		return new DestructorDefImpl(this, getContext());
+	}
+
 	@Override
 	public @NotNull List<AnnotationPart> annotationIterable() {
 		List<AnnotationClause> annotations = hdr.annos();
@@ -79,28 +94,13 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 	}
 
 	@Override
-	public @NotNull ConstructorDef addCtor(final IdentExpression aConstructorName) {
-		return new ConstructorDefImpl(aConstructorName, this, getContext());
-	}
-
-	@Override
-	public @NotNull DestructorDef addDtor() {
-		return new DestructorDefImpl(this, getContext());
-	}
-
-	@Override
-	public @NotNull DefFunctionDef defFuncDef() {
-		return new DefFunctionDefImpl(this, getContext());
-	}
-
-	@Override
 	public ClassInheritance classInheritance() {
 		return hdr.inheritancePart();
 	}
 
 	@Override
-	public @NotNull FunctionDef funcDef() {
-		return new FunctionDefImpl(this, getContext());
+	public @NotNull DefFunctionDef defFuncDef() {
+		return new DefFunctionDefImpl(this, getContext());
 	}
 
 	@Override
@@ -112,12 +112,29 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 	}
 
 	@Override
+	public @NotNull FunctionDef funcDef() {
+		return new FunctionDefImpl(this, getContext());
+	}
+
+	@Override
 	public @NotNull Collection<ConstructorDef> getConstructors() {
 		var y = items.stream()
 				.filter(__GetConstructorsHelper::selectForConstructors)
 				.map(__GetConstructorsHelper::castClassItemToConstructor)
 				.collect(Collectors.toList());
 		return y;
+	}
+
+	@Override // OS_Element
+	public ClassContext getContext() {
+		return (ClassContext) _a.getContext();
+	}
+
+	@Override
+	public @org.jetbrains.annotations.Nullable EN_Name getEnName() {
+		if (hdr == null) return null;
+
+		return hdr.nameToken().getName();
 	}
 
 	@Override
@@ -128,32 +145,14 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 			return hdr.genericPart().p();
 	}
 
-	public void setGenericPart(TypeNameList genericPart) {
-//		this.genericPart = genericPart;
-		throw new NotImplementedException();
-	}
-
-	@Override // OS_Element
-	public ClassContext getContext() {
-		return (ClassContext) _a.getContext();
-	}
-
 	@Override
-	public OS_Element getParent() {
-		return parent;
-	}
-
-	@Override
-	public void visitGen(final @NotNull ElElementVisitor visit) {
-		visit.addClass(this); // TODO visitClass
+	public @NotNull String getName() {
+		if (hdr.nameToken() == null)
+			throw new IllegalStateException("null name");
+		return hdr.nameToken().getText();
 	}
 
 	// region inheritance
-
-	@Override
-	public void setContext(final ClassContext ctx) {
-		_a.setContext(ctx);
-	}
 
 	@Override
 	public IdentExpression getNameNode() {
@@ -165,6 +164,11 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 		if (__cached_osType == null)
 			__cached_osType = new OS_UserClassType(this);
 		return __cached_osType;
+	}
+
+	@Override
+	public OS_Element getParent() {
+		return parent;
 	}
 
 	// endregion
@@ -179,12 +183,6 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 	// endregion
 
 	// region called from parser
-
-	@Override
-	public void setType(final ClassTypes aType) {
-//		_type = aType;
-		throw new NotImplementedException();
-	}
 
 	@Override
 	public @org.jetbrains.annotations.Nullable InvariantStatement invariantStatement() {
@@ -208,25 +206,6 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 		PropertyStatement propertyStatement = new PropertyStatementImpl(this, getContext());
 		add(propertyStatement);
 		return propertyStatement;
-	}
-
-	@Override // OS_Container
-	public void add(final OS_Element anElement) {
-		if (!(anElement instanceof ClassItem))
-			throw new IllegalStateException(String.format("Cant add %s to ClassStatement", anElement));
-		items.add((ClassItem) anElement);
-	}
-
-	@Override
-	public void setHeader(ClassHeader aCh) {
-		hdr = aCh;
-
-		getEnName().addUnderstanding(new ENU_ClassName());
-	}
-
-	@Override
-	public @NotNull StatementClosure statementClosure() {
-		return new AbstractStatementClosure(this);
 	}
 
 	@Override
@@ -258,12 +237,40 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 		sw.fieldList("items", getItems());
 	}
 
+	@Override
+	public void setContext(final ClassContext ctx) {
+		_a.setContext(ctx);
+	}
+
+	public void setGenericPart(TypeNameList genericPart) {
+//		this.genericPart = genericPart;
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public void setHeader(ClassHeader aCh) {
+		hdr = aCh;
+
+		getEnName().addUnderstanding(new ENU_ClassName());
+	}
+
 	public void setInheritance(ClassInheritance inh) {
 //		_inh = inh;
 		throw new NotImplementedException();
 	}
 
+	@Override
+	public void setType(final ClassTypes aType) {
+//		_type = aType;
+		throw new NotImplementedException();
+	}
+
 	// endregion
+
+	@Override
+	public @NotNull StatementClosure statementClosure() {
+		return new AbstractStatementClosure(this);
+	}
 
 	@Override
 	public String toString() {
@@ -276,23 +283,14 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 		return String.format("<Class %s %s>", package_name, getName());
 	}
 
-	@Override
-	public @NotNull String getName() {
-		if (hdr.nameToken() == null)
-			throw new IllegalStateException("null name");
-		return hdr.nameToken().getText();
-	}
-
-	@Override
-	public @org.jetbrains.annotations.Nullable EN_Name getEnName() {
-		if (hdr == null) return null;
-
-		return hdr.nameToken().getName();
-	}
-
 	public @org.jetbrains.annotations.Nullable TypeAliasStatement typeAlias() {
 		NotImplementedException.raise();
 		return null;
+	}
+
+	@Override
+	public void visitGen(final @NotNull ElElementVisitor visit) {
+		visit.addClass(this); // TODO visitClass
 	}
 
 	public @NotNull ProgramClosure XXX() {

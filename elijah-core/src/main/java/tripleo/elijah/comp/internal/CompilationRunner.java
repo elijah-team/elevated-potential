@@ -15,6 +15,80 @@ import java.util.*;
 import java.util.function.*;
 
 public class CompilationRunner extends _RegistrationTarget {
+	public enum ST {
+		;
+
+		static class ExitConvertUserTypes implements State {
+			private StateRegistrationToken identity;
+
+			@Override
+			public void apply(final DefaultStateful element) {
+				//final VariableTableEntry vte = ((DeduceElement3_VariableTableEntry) element).principal;
+
+				//final DeduceTypes2         dt2     = ((DeduceElement3_VariableTableEntry) element).deduceTypes2();
+			}
+
+			@Override
+			public boolean checkState(final DefaultStateful aElement3) {
+				return true;
+			}
+
+			@Override
+			public void setIdentity(final StateRegistrationToken aId) {
+				identity = aId;
+			}
+		}
+		static class ExitResolveState implements State {
+
+			private StateRegistrationToken identity;
+
+			@Override
+			public void apply(final DefaultStateful element) {
+				//final VariableTableEntry vte = ((DeduceElement3_VariableTableEntry) element).principal;
+			}
+
+			@Override
+			public boolean checkState(final DefaultStateful aElement3) {
+				//return ((DeduceElement3_VariableTableEntry) aElement3).st == DeduceElement3_VariableTableEntry.ST.INITIAL;
+				return false; // FIXME
+			}
+
+			@Override
+			public void setIdentity(final StateRegistrationToken aId) {
+				identity = aId;
+			}
+		}
+		static class InitialState implements State {
+			private StateRegistrationToken identity;
+
+			@Override
+			public void apply(final DefaultStateful element) {
+
+			}
+
+			@Override
+			public boolean checkState(final DefaultStateful aElement3) {
+				return true;
+			}
+
+			@Override
+			public void setIdentity(final StateRegistrationToken aId) {
+				identity = aId;
+			}
+		}
+
+		public static State EXIT_CONVERT_USER_TYPES;
+
+		public static State EXIT_RESOLVE;
+
+		public static State INITIAL;
+
+		public static void register(final @NotNull _RegistrationTarget art) {
+			//EXIT_RESOLVE            = registerState(new ST.ExitResolveState());
+			INITIAL = art.registerState(new ST.InitialState());
+			//EXIT_CONVERT_USER_TYPES = registerState(new ST.ExitConvertUserTypes());
+		}
+	}
 	private final EzCache     ezCache = new DefaultEzCache();
 	private final Compilation _compilation;
 	private final          ICompilationBus cb;
@@ -28,6 +102,7 @@ public class CompilationRunner extends _RegistrationTarget {
 	private final          CIS             cis;
 	private                CB_StartCompilationRunnerAction startAction;
 	private                CR_FindCIs                      cr_find_cis;
+
 	private                CR_AlmostComplete               _CR_AlmostComplete;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
@@ -72,6 +147,43 @@ public class CompilationRunner extends _RegistrationTarget {
 		CompilationRunner.ST.register(this);
 	}
 
+	public Compilation _accessCompilation() {
+		return _compilation;
+	}
+
+	public CIS _cis() {
+		return cis;
+	}
+
+
+	public Compilation c() {
+		return _compilation;
+	}
+
+
+	public CR_AlmostComplete cr_AlmostComplete() {
+		if (this._CR_AlmostComplete == null) {
+			this._CR_AlmostComplete = new CR_AlmostComplete();
+		}
+		return _CR_AlmostComplete;
+	}
+
+	public CR_FindCIs cr_find_cis() {
+		if (this.cr_find_cis == null) {
+			var beginning = _accessCompilation().con().createBeginning(this);
+			this.cr_find_cis = new CR_FindCIs(beginning);
+		}
+		return this.cr_find_cis;
+	}
+
+	public EzCache ezCache() {
+		return ezCache;
+	}
+
+	public CompilationEnclosure getCompilationEnclosure() {
+		return _accessCompilation().getCompilationEnclosure();
+	}
+
 	public void logProgress(final int number, final String text) {
 		if (number == 130) return;
 
@@ -86,27 +198,6 @@ public class CompilationRunner extends _RegistrationTarget {
 
 		return oci;
 	}
-
-	public @NotNull Operation<CompilerInstructions> realParseEzFile(final @NotNull SourceFileParserParams p) {
-		final Operation<CompilerInstructions> oci = ezm.realParseEzFile(p);
-
-		CompilerInput input = p.input();
-		if (input != null) {
-			_compilation.getInputTree().setNodeOperation(input, oci);
-		}
-
-//		return oci;
-
-		File f   = p.f();
-		try {
-			InputStream s = p.cc().getCompilation().getIO().readFile(f);
-			var oci2 = realParseEzFile(new EzSpec(p.file_name(), s, f), ezCache);
-			return oci2;
-		} catch (FileNotFoundException aE) {
-            throw new RuntimeException(aE);
-		}
-	}
-
 
 	/**
 	 * - I don't remember what absolutePath is for
@@ -144,17 +235,24 @@ public class CompilationRunner extends _RegistrationTarget {
 		return cio;
 	}
 
+	public @NotNull Operation<CompilerInstructions> realParseEzFile(final @NotNull SourceFileParserParams p) {
+		final Operation<CompilerInstructions> oci = ezm.realParseEzFile(p);
 
-	public CR_FindCIs cr_find_cis() {
-		if (this.cr_find_cis == null) {
-			var beginning = _accessCompilation().con().createBeginning(this);
-			this.cr_find_cis = new CR_FindCIs(beginning);
+		CompilerInput input = p.input();
+		if (input != null) {
+			_compilation.getInputTree().setNodeOperation(input, oci);
 		}
-		return this.cr_find_cis;
-	}
 
-	public Compilation _accessCompilation() {
-		return _compilation;
+//		return oci;
+
+		File f   = p.f();
+		try {
+			InputStream s = p.cc().getCompilation().getIO().readFile(f);
+			var oci2 = realParseEzFile(new EzSpec(p.file_name(), s, f), ezCache);
+			return oci2;
+		} catch (FileNotFoundException aE) {
+            throw new RuntimeException(aE);
+		}
 	}
 
 	public void start(final CompilerInstructions aRootCI, final @NotNull IPipelineAccess pa) {
@@ -179,104 +277,6 @@ public class CompilationRunner extends _RegistrationTarget {
 				}
 			}
 		});
-	}
-
-	public CR_AlmostComplete cr_AlmostComplete() {
-		if (this._CR_AlmostComplete == null) {
-			this._CR_AlmostComplete = new CR_AlmostComplete();
-		}
-		return _CR_AlmostComplete;
-	}
-
-	public CIS _cis() {
-		return cis;
-	}
-
-	public CompilationEnclosure getCompilationEnclosure() {
-		return _accessCompilation().getCompilationEnclosure();
-	}
-
-	public Compilation c() {
-		return _compilation;
-	}
-
-	public enum ST {
-		;
-
-		public static State EXIT_CONVERT_USER_TYPES;
-		public static State EXIT_RESOLVE;
-		public static State INITIAL;
-
-		public static void register(final @NotNull _RegistrationTarget art) {
-			//EXIT_RESOLVE            = registerState(new ST.ExitResolveState());
-			INITIAL = art.registerState(new ST.InitialState());
-			//EXIT_CONVERT_USER_TYPES = registerState(new ST.ExitConvertUserTypes());
-		}
-
-		static class ExitConvertUserTypes implements State {
-			private StateRegistrationToken identity;
-
-			@Override
-			public void apply(final DefaultStateful element) {
-				//final VariableTableEntry vte = ((DeduceElement3_VariableTableEntry) element).principal;
-
-				//final DeduceTypes2         dt2     = ((DeduceElement3_VariableTableEntry) element).deduceTypes2();
-			}
-
-			@Override
-			public boolean checkState(final DefaultStateful aElement3) {
-				return true;
-			}
-
-			@Override
-			public void setIdentity(final StateRegistrationToken aId) {
-				identity = aId;
-			}
-		}
-
-		static class ExitResolveState implements State {
-
-			private StateRegistrationToken identity;
-
-			@Override
-			public void apply(final DefaultStateful element) {
-				//final VariableTableEntry vte = ((DeduceElement3_VariableTableEntry) element).principal;
-			}
-
-			@Override
-			public boolean checkState(final DefaultStateful aElement3) {
-				//return ((DeduceElement3_VariableTableEntry) aElement3).st == DeduceElement3_VariableTableEntry.ST.INITIAL;
-				return false; // FIXME
-			}
-
-			@Override
-			public void setIdentity(final StateRegistrationToken aId) {
-				identity = aId;
-			}
-		}
-
-		static class InitialState implements State {
-			private StateRegistrationToken identity;
-
-			@Override
-			public void apply(final DefaultStateful element) {
-
-			}
-
-			@Override
-			public boolean checkState(final DefaultStateful aElement3) {
-				return true;
-			}
-
-			@Override
-			public void setIdentity(final StateRegistrationToken aId) {
-				identity = aId;
-			}
-		}
-	}
-
-	public EzCache ezCache() {
-		return ezCache;
 	}
 
 }

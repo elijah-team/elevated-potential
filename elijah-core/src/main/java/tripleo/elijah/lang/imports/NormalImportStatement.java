@@ -1,16 +1,13 @@
 package tripleo.elijah.lang.imports;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.ImportContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.QualidentListImpl;
-import tripleo.elijah.lang.nextgen.names.impl.ENU_PackageElement;
-import tripleo.elijah.lang.nextgen.names.impl.ENU_PackageRoot;
-import tripleo.elijah.lang.nextgen.names.impl.ENU_PackageTerminator;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang.nextgen.names.impl.*;
+import tripleo.elijah.util.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 8/7/20 2:10 AM
@@ -86,11 +83,6 @@ public class NormalImportStatement extends _BaseImportStatement {
 		return parent;
 	}
 
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
 	public @NotNull Context myContext() {
 		assert _ctx != null;
 		return _ctx;
@@ -105,6 +97,11 @@ public class NormalImportStatement extends _BaseImportStatement {
 	@Override
 	public List<Qualident> parts() {
 		return importList.parts();
+	}
+
+	@Override
+	public void serializeTo(final SmallWriter sw) {
+
 	}
 
 	@Override

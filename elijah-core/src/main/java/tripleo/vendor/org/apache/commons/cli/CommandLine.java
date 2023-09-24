@@ -38,6 +38,43 @@ import static tripleo.vendor.org.apache.commons.cli.Util.EMPTY_STRING_ARRAY;
  */
 public class CommandLine implements Serializable {
 	/**
+	 * A nested builder class to create {@code CommandLine} instance using descriptive methods.
+	 *
+	 * @since 1.4
+	 */
+	public static final class Builder {
+		/**
+		 * CommandLine that is being build by this Builder.
+		 */
+		private final CommandLine commandLine = new CommandLine();
+
+		/**
+		 * Add left-over unrecognized option/argument.
+		 *
+		 * @param arg the unrecognized option/argument.
+		 * @return this Builder instance for method chaining.
+		 */
+		public @NotNull Builder addArg(final String arg) {
+			commandLine.addArg(arg);
+			return this;
+		}
+
+		/**
+		 * Add an option to the command line. The values of the option are stored.
+		 *
+		 * @param opt the processed option.
+		 * @return this Builder instance for method chaining.
+		 */
+		public @NotNull Builder addOption(final Option opt) {
+			commandLine.addOption(opt);
+			return this;
+		}
+
+		public @NotNull CommandLine build() {
+			return commandLine;
+		}
+	}
+	/**
 	 * The serial version UID.
 	 */
 	private static final long                serialVersionUID = 1L;
@@ -50,6 +87,7 @@ public class CommandLine implements Serializable {
 	 * The processed options
 	 */
 	private final        List<Option>        options          = new ArrayList<>();
+
 	private final        List<CompilerInput> ci_options       = new ArrayList<>();
 
 	/**
@@ -57,6 +95,10 @@ public class CommandLine implements Serializable {
 	 */
 	protected CommandLine() {
 		// nothing to do
+	}
+
+	protected void addArg(final CompilerInput arg) {
+		ci_args.add(arg);
 	}
 
 	/**
@@ -67,10 +109,6 @@ public class CommandLine implements Serializable {
 	protected void addArg(final String arg) {
 		throw new NotImplementedException();
 //        args.add(arg);
-	}
-
-	protected void addArg(final CompilerInput arg) {
-		ci_args.add(arg);
 	}
 
 	/**
@@ -141,90 +179,6 @@ public class CommandLine implements Serializable {
 			System.err.println("Exception found converting " + opt + " to desired type: " + pe.getMessage());
 			return null;
 		}
-	}
-
-	/**
-	 * Return a version of this {@code Option} converted to a particular type.
-	 *
-	 * @param opt the name of the option.
-	 * @return the value parsed into a particular object.
-	 * @throws ParseException if there are problems turning the option value into the desired type
-	 * @see PatternOptionBuilder
-	 * @since 1.2
-	 */
-	public Object getParsedOptionValue(final String opt) throws ParseException {
-		return getParsedOptionValue(resolveOption(opt));
-	}
-
-	/**
-	 * Return a version of this {@code Option} converted to a particular type.
-	 *
-	 * @param option the name of the option.
-	 * @return the value parsed into a particular object.
-	 * @throws ParseException if there are problems turning the option value into the desired type
-	 * @see PatternOptionBuilder
-	 * @since 1.5.0
-	 */
-	public @Nullable Object getParsedOptionValue(final @Nullable Option option) throws ParseException {
-		if (option == null) {
-			return null;
-		}
-		final String res = getOptionValue(option);
-		if (res == null) {
-			return null;
-		}
-		return TypeHandler.createValue(res, option.getType());
-	}
-
-	/**
-	 * Retrieve the first argument, if any, of this option.
-	 *
-	 * @param option the name of the option.
-	 * @return Value of the argument if option is set, and has an argument, otherwise null.
-	 * @since 1.5.0
-	 */
-	public @Nullable String getOptionValue(final @Nullable Option option) {
-		if (option == null) {
-			return null;
-		}
-		final String[] values = getOptionValues(option);
-		return values == null ? null : values[0];
-	}
-
-	/**
-	 * Retrieves the array of values, if any, of an option.
-	 *
-	 * @param option string name of the option.
-	 * @return Values of the argument if option is set, and has an argument, otherwise null.
-	 * @since 1.5.0
-	 */
-	public String @Nullable [] getOptionValues(final Option option) {
-		final List<String> values = new ArrayList<>();
-
-		for (final Option processedOption : options) {
-			if (processedOption.equals(option)) {
-				values.addAll(processedOption.getValuesList());
-			}
-		}
-
-		return values.isEmpty() ? null : values.toArray(EMPTY_STRING_ARRAY);
-	}
-
-	/**
-	 * Retrieves the option object given the long or short option as a String
-	 *
-	 * @param opt short or long name of the option.
-	 * @return Canonicalized option.
-	 */
-	private @Nullable Option resolveOption(String opt) {
-		opt = Util.stripLeadingHyphens(opt);
-		for (final Option option : options) {
-			if (opt.equals(option.getOpt()) || opt.equals(option.getLongOpt())) {
-				return option;
-			}
-
-		}
-		return null;
 	}
 
 	/**
@@ -305,16 +259,6 @@ public class CommandLine implements Serializable {
 	}
 
 	/**
-	 * Retrieve the first argument, if any, of this option.
-	 *
-	 * @param opt the name of the option.
-	 * @return Value of the argument if option is set, and has an argument, otherwise null.
-	 */
-	public String getOptionValue(final String opt) {
-		return getOptionValue(resolveOption(opt));
-	}
-
-	/**
 	 * Retrieve the argument, if any, of an option.
 	 *
 	 * @param opt          character name of the option
@@ -326,14 +270,18 @@ public class CommandLine implements Serializable {
 	}
 
 	/**
-	 * Retrieve the first argument, if any, of an option.
+	 * Retrieve the first argument, if any, of this option.
 	 *
-	 * @param opt          name of the option.
-	 * @param defaultValue is the default value to be returned if the option is not specified.
-	 * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
+	 * @param option the name of the option.
+	 * @return Value of the argument if option is set, and has an argument, otherwise null.
+	 * @since 1.5.0
 	 */
-	public String getOptionValue(final String opt, final String defaultValue) {
-		return getOptionValue(resolveOption(opt), defaultValue);
+	public @Nullable String getOptionValue(final @Nullable Option option) {
+		if (option == null) {
+			return null;
+		}
+		final String[] values = getOptionValues(option);
+		return values == null ? null : values[0];
 	}
 
 	/**
@@ -350,6 +298,27 @@ public class CommandLine implements Serializable {
 	}
 
 	/**
+	 * Retrieve the first argument, if any, of this option.
+	 *
+	 * @param opt the name of the option.
+	 * @return Value of the argument if option is set, and has an argument, otherwise null.
+	 */
+	public String getOptionValue(final String opt) {
+		return getOptionValue(resolveOption(opt));
+	}
+
+	/**
+	 * Retrieve the first argument, if any, of an option.
+	 *
+	 * @param opt          name of the option.
+	 * @param defaultValue is the default value to be returned if the option is not specified.
+	 * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
+	 */
+	public String getOptionValue(final String opt, final String defaultValue) {
+		return getOptionValue(resolveOption(opt), defaultValue);
+	}
+
+	/**
 	 * Retrieves the array of values, if any, of an option.
 	 *
 	 * @param opt character name of the option.
@@ -357,6 +326,25 @@ public class CommandLine implements Serializable {
 	 */
 	public String[] getOptionValues(final char opt) {
 		return getOptionValues(String.valueOf(opt));
+	}
+
+	/**
+	 * Retrieves the array of values, if any, of an option.
+	 *
+	 * @param option string name of the option.
+	 * @return Values of the argument if option is set, and has an argument, otherwise null.
+	 * @since 1.5.0
+	 */
+	public String @Nullable [] getOptionValues(final Option option) {
+		final List<String> values = new ArrayList<>();
+
+		for (final Option processedOption : options) {
+			if (processedOption.equals(option)) {
+				values.addAll(processedOption.getValuesList());
+			}
+		}
+
+		return values.isEmpty() ? null : values.toArray(EMPTY_STRING_ARRAY);
 	}
 
 	/**
@@ -380,6 +368,39 @@ public class CommandLine implements Serializable {
 	 */
 	public Object getParsedOptionValue(final char opt) throws ParseException {
 		return getParsedOptionValue(String.valueOf(opt));
+	}
+
+	/**
+	 * Return a version of this {@code Option} converted to a particular type.
+	 *
+	 * @param option the name of the option.
+	 * @return the value parsed into a particular object.
+	 * @throws ParseException if there are problems turning the option value into the desired type
+	 * @see PatternOptionBuilder
+	 * @since 1.5.0
+	 */
+	public @Nullable Object getParsedOptionValue(final @Nullable Option option) throws ParseException {
+		if (option == null) {
+			return null;
+		}
+		final String res = getOptionValue(option);
+		if (res == null) {
+			return null;
+		}
+		return TypeHandler.createValue(res, option.getType());
+	}
+
+	/**
+	 * Return a version of this {@code Option} converted to a particular type.
+	 *
+	 * @param opt the name of the option.
+	 * @return the value parsed into a particular object.
+	 * @throws ParseException if there are problems turning the option value into the desired type
+	 * @see PatternOptionBuilder
+	 * @since 1.2
+	 */
+	public Object getParsedOptionValue(final String opt) throws ParseException {
+		return getParsedOptionValue(resolveOption(opt));
 	}
 
 	/**
@@ -413,22 +434,22 @@ public class CommandLine implements Serializable {
 	/**
 	 * Tests to see if an option has been set.
 	 *
-	 * @param opt Short name of the option.
-	 * @return true if set, false if not.
-	 */
-	public boolean hasOption(final String opt) {
-		return hasOption(resolveOption(opt));
-	}
-
-	/**
-	 * Tests to see if an option has been set.
-	 *
 	 * @param opt the option to check.
 	 * @return true if set, false if not.
 	 * @since 1.5.0
 	 */
 	public boolean hasOption(final Option opt) {
 		return options.contains(opt);
+	}
+
+	/**
+	 * Tests to see if an option has been set.
+	 *
+	 * @param opt Short name of the option.
+	 * @return true if set, false if not.
+	 */
+	public boolean hasOption(final String opt) {
+		return hasOption(resolveOption(opt));
 	}
 
 	/**
@@ -441,40 +462,19 @@ public class CommandLine implements Serializable {
 	}
 
 	/**
-	 * A nested builder class to create {@code CommandLine} instance using descriptive methods.
+	 * Retrieves the option object given the long or short option as a String
 	 *
-	 * @since 1.4
+	 * @param opt short or long name of the option.
+	 * @return Canonicalized option.
 	 */
-	public static final class Builder {
-		/**
-		 * CommandLine that is being build by this Builder.
-		 */
-		private final CommandLine commandLine = new CommandLine();
+	private @Nullable Option resolveOption(String opt) {
+		opt = Util.stripLeadingHyphens(opt);
+		for (final Option option : options) {
+			if (opt.equals(option.getOpt()) || opt.equals(option.getLongOpt())) {
+				return option;
+			}
 
-		/**
-		 * Add left-over unrecognized option/argument.
-		 *
-		 * @param arg the unrecognized option/argument.
-		 * @return this Builder instance for method chaining.
-		 */
-		public @NotNull Builder addArg(final String arg) {
-			commandLine.addArg(arg);
-			return this;
 		}
-
-		/**
-		 * Add an option to the command line. The values of the option are stored.
-		 *
-		 * @param opt the processed option.
-		 * @return this Builder instance for method chaining.
-		 */
-		public @NotNull Builder addOption(final Option opt) {
-			commandLine.addOption(opt);
-			return this;
-		}
-
-		public @NotNull CommandLine build() {
-			return commandLine;
-		}
+		return null;
 	}
 }

@@ -36,14 +36,118 @@ import java.util.stream.Collectors;
 public class DefaultParser implements CommandLineParser {
 
 	/**
+	 * A nested builder class to create {@code DefaultParser} instances
+	 * using descriptive methods.
+	 * <p>
+	 * Example usage:
+	 * <pre>
+	 * DefaultParser parser = Option.builder()
+	 *     .setAllowPartialMatching(false)
+	 *     .setStripLeadingAndTrailingQuotes(false)
+	 *     .build();
+	 * </pre>
+	 *
+	 * @since 1.5.0
+	 */
+	public static final class Builder {
+
+		/**
+		 * Flag indicating if partial matching of long options is supported.
+		 */
+		private boolean allowPartialMatching = true;
+
+		/**
+		 * Flag indicating if balanced leading and trailing double quotes should be stripped from option arguments.
+		 */
+		private Boolean stripLeadingAndTrailingQuotes;
+
+		/**
+		 * Constructs a new {@code Builder} for a {@code DefaultParser} instance.
+		 * <p>
+		 * Both allowPartialMatching and stripLeadingAndTrailingQuotes are true by default,
+		 * mimicking the argument-less constructor.
+		 */
+		private Builder() {
+		}
+
+		/**
+		 * Builds an DefaultParser with the values declared by this {@link Builder}.
+		 *
+		 * @return the new {@link DefaultParser}
+		 * @since 1.5.0
+		 */
+		public @NotNull DefaultParser build() {
+			return new DefaultParser(allowPartialMatching, stripLeadingAndTrailingQuotes);
+		}
+
+		/**
+		 * Sets if partial matching of long options is supported.
+		 * <p>
+		 * By "partial matching" we mean that given the following code:
+		 *
+		 * <pre>
+		 * {
+		 *     &#64;code
+		 *     final Options options = new Options();
+		 *     options.addOption(new Option("d", "debug", false, "Turn on debug."));
+		 *     options.addOption(new Option("e", "extract", false, "Turn on extract."));
+		 *     options.addOption(new Option("o", "option", true, "Turn on option with argument."));
+		 * }
+		 * </pre>
+		 * <p>
+		 * If "partial matching" is turned on, {@code -de} only matches the {@code "debug"} option. However, with
+		 * "partial matching" disabled, {@code -de} would enable both {@code debug} as well as {@code extract}
+		 *
+		 * @param allowPartialMatching whether to allow partial matching of long options
+		 * @return this builder, to allow method chaining
+		 * @since 1.5.0
+		 */
+		public @NotNull Builder setAllowPartialMatching(final boolean allowPartialMatching) {
+			this.allowPartialMatching = allowPartialMatching;
+			return this;
+		}
+
+		/**
+		 * Sets if balanced leading and trailing double quotes should be stripped from option arguments.
+		 * <p>
+		 * If "stripping of balanced leading and trailing double quotes from option arguments" is true,
+		 * the outermost balanced double quotes of option arguments values will be removed.
+		 * For example, {@code -o '"x"'} getValue() will return {@code x}, instead of {@code "x"}
+		 * <p>
+		 * If "stripping of balanced leading and trailing double quotes from option arguments" is null,
+		 * then quotes will be stripped from option values separated by space from the option, but
+		 * kept in other cases, which is the historic behavior.
+		 *
+		 * @param stripLeadingAndTrailingQuotes whether balanced leading and trailing double quotes should be stripped from option arguments.
+		 * @return this builder, to allow method chaining
+		 * @since 1.5.0
+		 */
+		public @NotNull Builder setStripLeadingAndTrailingQuotes(final Boolean stripLeadingAndTrailingQuotes) {
+			this.stripLeadingAndTrailingQuotes = stripLeadingAndTrailingQuotes;
+			return this;
+		}
+	}
+	/**
+	 * Creates a new {@link Builder} to create an {@link DefaultParser} using descriptive
+	 * methods.
+	 *
+	 * @return a new {@link Builder} instance
+	 * @since 1.5.0
+	 */
+	public static @NotNull Builder builder() {
+		return new Builder();
+	}
+	/**
 	 * Flag indicating if partial matching of long options is supported.
 	 */
 	private final           boolean     allowPartialMatching;
+
 	/**
 	 * Flag indicating if balanced leading and trailing double quotes should be stripped from option arguments.
 	 * null represents the historic arbitrary behavior
 	 */
 	private final @Nullable Boolean     stripLeadingAndTrailingQuotes;
+
 	/**
 	 * The command-line instance.
 	 */
@@ -144,14 +248,12 @@ public class DefaultParser implements CommandLineParser {
 	}
 
 	/**
-	 * Creates a new {@link Builder} to create an {@link DefaultParser} using descriptive
-	 * methods.
-	 *
-	 * @return a new {@link Builder} instance
-	 * @since 1.5.0
+	 * Throws a {@link MissingArgumentException} if the current option didn't receive the number of arguments expected.
 	 */
-	public static @NotNull Builder builder() {
-		return new Builder();
+	private void checkRequiredArgs() throws ParseException {
+		if (currentOption != null && currentOption.requiresArg()) {
+			throw new MissingArgumentException(currentOption);
+		}
 	}
 
 	/**
@@ -164,6 +266,46 @@ public class DefaultParser implements CommandLineParser {
 		if (!expectedOpts.isEmpty()) {
 			throw new MissingOptionException(expectedOpts);
 		}
+	}
+
+	/**
+	 * Searches for a prefix that is the long name of an option (-Xmx512m)
+	 *
+	 * @param token
+	 */
+	private @Nullable String getLongPrefix(final String token) {
+		final String t = Util.stripLeadingHyphens(token);
+
+		int    i;
+		String opt = null;
+		for (i = t.length() - 2; i > 1; i--) {
+			final String prefix = t.substring(0, i);
+			if (options.hasLongOption(prefix)) {
+				opt = prefix;
+				break;
+			}
+		}
+
+		return opt;
+	}
+
+	/**
+	 * Gets a list of matching option strings for the given token, depending on the selected partial matching policy.
+	 *
+	 * @param token the token (may contain leading dashes)
+	 * @return the list of matching option strings or an empty list if no matching option could be found
+	 */
+	private List<String> getMatchingLongOptions(final String token) {
+		if (allowPartialMatching) {
+			return options.getMatchingOptions(token);
+		}
+		final List<String> matches = new ArrayList<>(1);
+		if (options.hasLongOption(token)) {
+			final Option option = options.getOption(token);
+			matches.add(option.getLongOpt());
+		}
+
+		return matches;
 	}
 
 	/**
@@ -202,25 +344,6 @@ public class DefaultParser implements CommandLineParser {
 				break;
 			}
 		}
-	}
-
-	/**
-	 * Gets a list of matching option strings for the given token, depending on the selected partial matching policy.
-	 *
-	 * @param token the token (may contain leading dashes)
-	 * @return the list of matching option strings or an empty list if no matching option could be found
-	 */
-	private List<String> getMatchingLongOptions(final String token) {
-		if (allowPartialMatching) {
-			return options.getMatchingOptions(token);
-		}
-		final List<String> matches = new ArrayList<>(1);
-		if (options.hasLongOption(token)) {
-			final Option option = options.getOption(token);
-			matches.add(option.getLongOpt());
-		}
-
-		return matches;
 	}
 
 	/**
@@ -272,6 +395,42 @@ public class DefaultParser implements CommandLineParser {
 	}
 
 	/**
+	 * Handles the following tokens:
+	 * <p>
+	 * --L -L --l -l
+	 *
+	 * @param token the command line token to handle
+	 */
+	private void handleLongOptionWithoutEqual(final String token) throws ParseException {
+		final List<String> matchingOpts = getMatchingLongOptions(token);
+		if (matchingOpts.isEmpty()) {
+			handleUnknownToken(currentToken);
+		} else if (matchingOpts.size() > 1 && !options.hasLongOption(token)) {
+			throw new AmbiguousOptionException(token, matchingOpts);
+		} else {
+			final String key = options.hasLongOption(token) ? token : matchingOpts.get(0);
+			handleOption(options.getOption(key));
+		}
+	}
+
+	private void handleOption(Option option) throws ParseException {
+		// check the previous option before handling the next one
+		checkRequiredArgs();
+
+		option = (Option) option.clone();
+
+		updateRequiredOptions(option);
+
+		cmd.addOption(option);
+
+		if (option.hasArg()) {
+			currentOption = option;
+		} else {
+			currentOption = null;
+		}
+	}
+
+	/**
 	 * Sets the values of Options using the values in {@code properties}.
 	 *
 	 * @param properties The value properties to be processed.
@@ -309,87 +468,6 @@ public class DefaultParser implements CommandLineParser {
 				handleOption(opt);
 				currentOption = null;
 			}
-		}
-	}
-
-	/**
-	 * Handles the following tokens:
-	 * <p>
-	 * --L -L --l -l
-	 *
-	 * @param token the command line token to handle
-	 */
-	private void handleLongOptionWithoutEqual(final String token) throws ParseException {
-		final List<String> matchingOpts = getMatchingLongOptions(token);
-		if (matchingOpts.isEmpty()) {
-			handleUnknownToken(currentToken);
-		} else if (matchingOpts.size() > 1 && !options.hasLongOption(token)) {
-			throw new AmbiguousOptionException(token, matchingOpts);
-		} else {
-			final String key = options.hasLongOption(token) ? token : matchingOpts.get(0);
-			handleOption(options.getOption(key));
-		}
-	}
-
-	/**
-	 * Strips balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set
-	 * If stripLeadingAndTrailingQuotes is null, then do not strip
-	 *
-	 * @param token a string
-	 * @return token with the quotes stripped (if set)
-	 */
-	private String stripLeadingAndTrailingQuotesDefaultOff(final @NotNull String token) {
-		if (stripLeadingAndTrailingQuotes != null && stripLeadingAndTrailingQuotes) {
-			return Util.stripLeadingAndTrailingQuotes(token);
-		}
-		return token;
-	}
-
-	/**
-	 * Removes the option or its group from the list of expected elements.
-	 *
-	 * @param option
-	 */
-	private void updateRequiredOptions(final @NotNull Option option) throws AlreadySelectedException {
-		if (option.isRequired()) {
-			expectedOpts.remove(option.getKey());
-		}
-
-		// if the option is in an OptionGroup make that option the selected option of the group
-		if (options.getOptionGroup(option) != null) {
-			final OptionGroup group = options.getOptionGroup(option);
-
-			if (group.isRequired()) {
-				expectedOpts.remove(group);
-			}
-
-			group.setSelected(option);
-		}
-	}
-
-	private void handleOption(Option option) throws ParseException {
-		// check the previous option before handling the next one
-		checkRequiredArgs();
-
-		option = (Option) option.clone();
-
-		updateRequiredOptions(option);
-
-		cmd.addOption(option);
-
-		if (option.hasArg()) {
-			currentOption = option;
-		} else {
-			currentOption = null;
-		}
-	}
-
-	/**
-	 * Throws a {@link MissingArgumentException} if the current option didn't receive the number of arguments expected.
-	 */
-	private void checkRequiredArgs() throws ParseException {
-		if (currentOption != null && currentOption.requiresArg()) {
-			throw new MissingArgumentException(currentOption);
 		}
 	}
 
@@ -498,6 +576,20 @@ public class DefaultParser implements CommandLineParser {
 		}
 	}
 
+	private void handleUnknownToken(final @NotNull CompilerInput ci) throws ParseException {
+		String token = ci.getInp();
+
+		if (token.startsWith("-") && token.length() > 1 && !stopAtNonOption) {
+			throw new UnrecognizedOptionException("Unrecognized option: " + token, token);
+		}
+
+		// FIXME Do we set something here (SOURCE_ROOT or other??)
+		cmd.addArg(ci);
+		if (stopAtNonOption) {
+			skipParsing = true;
+		}
+	}
+
 	/**
 	 * Handles an unknown token. If the token starts with a dash an UnrecognizedOptionException is thrown. Otherwise the
 	 * token is added to the arguments of the command line. If the stopAtNonOption flag is set, this stops the parsing and
@@ -511,20 +603,6 @@ public class DefaultParser implements CommandLineParser {
 		}
 
 		cmd.addArg(token);
-		if (stopAtNonOption) {
-			skipParsing = true;
-		}
-	}
-
-	private void handleUnknownToken(final @NotNull CompilerInput ci) throws ParseException {
-		String token = ci.getInp();
-
-		if (token.startsWith("-") && token.length() > 1 && !stopAtNonOption) {
-			throw new UnrecognizedOptionException("Unrecognized option: " + token, token);
-		}
-
-		// FIXME Do we set something here (SOURCE_ROOT or other??)
-		cmd.addArg(ci);
 		if (stopAtNonOption) {
 			skipParsing = true;
 		}
@@ -575,27 +653,6 @@ public class DefaultParser implements CommandLineParser {
 	}
 
 	/**
-	 * Searches for a prefix that is the long name of an option (-Xmx512m)
-	 *
-	 * @param token
-	 */
-	private @Nullable String getLongPrefix(final String token) {
-		final String t = Util.stripLeadingHyphens(token);
-
-		int    i;
-		String opt = null;
-		for (i = t.length() - 2; i > 1; i--) {
-			final String prefix = t.substring(0, i);
-			if (options.hasLongOption(prefix)) {
-				opt = prefix;
-				break;
-			}
-		}
-
-		return opt;
-	}
-
-	/**
 	 * Tests if the token is a negative number.
 	 *
 	 * @param token
@@ -640,16 +697,6 @@ public class DefaultParser implements CommandLineParser {
 	}
 
 	@Override
-	public CommandLine parse(final Options options, final String[] arguments) throws ParseException {
-		return parse(options, arguments, null);
-	}
-
-	@Override
-	public CommandLine parse(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException {
-		return parse(options, arguments, null, stopAtNonOption);
-	}
-
-	@Override
 	public CommandLine parse(@NotNull Options options, @NotNull List<CompilerInput> aInputs) throws ParseException {
 		this.options         = options;
 		this.stopAtNonOption = false;
@@ -688,6 +735,16 @@ public class DefaultParser implements CommandLineParser {
 		checkRequiredOptions();
 
 		return cmd;
+	}
+
+	@Override
+	public CommandLine parse(final Options options, final String[] arguments) throws ParseException {
+		return parse(options, arguments, null);
+	}
+
+	@Override
+	public CommandLine parse(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException {
+		return parse(options, arguments, null, stopAtNonOption);
 	}
 
 	/**
@@ -748,6 +805,20 @@ public class DefaultParser implements CommandLineParser {
 	 * @param token a string
 	 * @return token with the quotes stripped (if set)
 	 */
+	private String stripLeadingAndTrailingQuotesDefaultOff(final @NotNull String token) {
+		if (stripLeadingAndTrailingQuotes != null && stripLeadingAndTrailingQuotes) {
+			return Util.stripLeadingAndTrailingQuotes(token);
+		}
+		return token;
+	}
+
+	/**
+	 * Strips balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set
+	 * If stripLeadingAndTrailingQuotes is null, then do not strip
+	 *
+	 * @param token a string
+	 * @return token with the quotes stripped (if set)
+	 */
 	private String stripLeadingAndTrailingQuotesDefaultOn(final @NotNull String token) {
 		if (stripLeadingAndTrailingQuotes == null || stripLeadingAndTrailingQuotes) {
 			return Util.stripLeadingAndTrailingQuotes(token);
@@ -756,95 +827,24 @@ public class DefaultParser implements CommandLineParser {
 	}
 
 	/**
-	 * A nested builder class to create {@code DefaultParser} instances
-	 * using descriptive methods.
-	 * <p>
-	 * Example usage:
-	 * <pre>
-	 * DefaultParser parser = Option.builder()
-	 *     .setAllowPartialMatching(false)
-	 *     .setStripLeadingAndTrailingQuotes(false)
-	 *     .build();
-	 * </pre>
+	 * Removes the option or its group from the list of expected elements.
 	 *
-	 * @since 1.5.0
+	 * @param option
 	 */
-	public static final class Builder {
-
-		/**
-		 * Flag indicating if partial matching of long options is supported.
-		 */
-		private boolean allowPartialMatching = true;
-
-		/**
-		 * Flag indicating if balanced leading and trailing double quotes should be stripped from option arguments.
-		 */
-		private Boolean stripLeadingAndTrailingQuotes;
-
-		/**
-		 * Constructs a new {@code Builder} for a {@code DefaultParser} instance.
-		 * <p>
-		 * Both allowPartialMatching and stripLeadingAndTrailingQuotes are true by default,
-		 * mimicking the argument-less constructor.
-		 */
-		private Builder() {
+	private void updateRequiredOptions(final @NotNull Option option) throws AlreadySelectedException {
+		if (option.isRequired()) {
+			expectedOpts.remove(option.getKey());
 		}
 
-		/**
-		 * Builds an DefaultParser with the values declared by this {@link Builder}.
-		 *
-		 * @return the new {@link DefaultParser}
-		 * @since 1.5.0
-		 */
-		public @NotNull DefaultParser build() {
-			return new DefaultParser(allowPartialMatching, stripLeadingAndTrailingQuotes);
-		}
+		// if the option is in an OptionGroup make that option the selected option of the group
+		if (options.getOptionGroup(option) != null) {
+			final OptionGroup group = options.getOptionGroup(option);
 
-		/**
-		 * Sets if partial matching of long options is supported.
-		 * <p>
-		 * By "partial matching" we mean that given the following code:
-		 *
-		 * <pre>
-		 * {
-		 *     &#64;code
-		 *     final Options options = new Options();
-		 *     options.addOption(new Option("d", "debug", false, "Turn on debug."));
-		 *     options.addOption(new Option("e", "extract", false, "Turn on extract."));
-		 *     options.addOption(new Option("o", "option", true, "Turn on option with argument."));
-		 * }
-		 * </pre>
-		 * <p>
-		 * If "partial matching" is turned on, {@code -de} only matches the {@code "debug"} option. However, with
-		 * "partial matching" disabled, {@code -de} would enable both {@code debug} as well as {@code extract}
-		 *
-		 * @param allowPartialMatching whether to allow partial matching of long options
-		 * @return this builder, to allow method chaining
-		 * @since 1.5.0
-		 */
-		public @NotNull Builder setAllowPartialMatching(final boolean allowPartialMatching) {
-			this.allowPartialMatching = allowPartialMatching;
-			return this;
-		}
+			if (group.isRequired()) {
+				expectedOpts.remove(group);
+			}
 
-		/**
-		 * Sets if balanced leading and trailing double quotes should be stripped from option arguments.
-		 * <p>
-		 * If "stripping of balanced leading and trailing double quotes from option arguments" is true,
-		 * the outermost balanced double quotes of option arguments values will be removed.
-		 * For example, {@code -o '"x"'} getValue() will return {@code x}, instead of {@code "x"}
-		 * <p>
-		 * If "stripping of balanced leading and trailing double quotes from option arguments" is null,
-		 * then quotes will be stripped from option values separated by space from the option, but
-		 * kept in other cases, which is the historic behavior.
-		 *
-		 * @param stripLeadingAndTrailingQuotes whether balanced leading and trailing double quotes should be stripped from option arguments.
-		 * @return this builder, to allow method chaining
-		 * @since 1.5.0
-		 */
-		public @NotNull Builder setStripLeadingAndTrailingQuotes(final Boolean stripLeadingAndTrailingQuotes) {
-			this.stripLeadingAndTrailingQuotes = stripLeadingAndTrailingQuotes;
-			return this;
+			group.setSelected(option);
 		}
 	}
 

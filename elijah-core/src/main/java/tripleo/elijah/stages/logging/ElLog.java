@@ -17,14 +17,14 @@ import java.util.List;
  * Created 8/3/21 3:46 AM
  */
 public class ElLog {
+	public enum Verbosity {
+		SILENT, VERBOSE
+	}
 	private final List<LogEntry> entries = new ArrayList<>();
 	private final Verbosity      verbose;
 	private final String         fileName;
-	private final String         phase;
 
-	public @NotNull List<LogEntry> getEntries() {
-		return entries;
-	}
+	private final String         phase;
 
 	public ElLog(String aFileName, Verbosity aVerbose, String aPhase) {
 		fileName = aFileName;
@@ -39,16 +39,16 @@ public class ElLog {
 			tripleo.elijah.util.Stupidity.println_err_2(aMessage);
 	}
 
+	public @NotNull List<LogEntry> getEntries() {
+		return entries;
+	}
+
 	public String getFileName() {
 		return fileName;
 	}
 
 	public String getPhase() {
 		return phase;
-	}
-
-	public enum Verbosity {
-		SILENT, VERBOSE
 	}
 
 	public void info(String aMessage) {

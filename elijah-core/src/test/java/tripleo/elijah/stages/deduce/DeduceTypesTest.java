@@ -47,6 +47,10 @@ public class DeduceTypesTest {
 
 	private GenType x;
 
+	private boolean genTypeTypenameEquals(OS_Type aType, @NotNull GenType genType) {
+		return genType.getTypeName().equals(aType);
+	}
+
 	@BeforeEach
 	public void setUp() {
 		final Boilerplate boilerplate = new Boilerplate();
@@ -155,10 +159,6 @@ public class DeduceTypesTest {
 		assertEquals(new OS_UserType(tn).getTypeName(), x.getTypeName().getTypeName());
 		assertTrue(genTypeTypenameEquals(new OS_UserType(tn), x));
 		assertEquals(new OS_UserType(tn).toString(), x.getTypeName().toString());
-	}
-
-	private boolean genTypeTypenameEquals(OS_Type aType, @NotNull GenType genType) {
-		return genType.getTypeName().equals(aType);
 	}
 
 }

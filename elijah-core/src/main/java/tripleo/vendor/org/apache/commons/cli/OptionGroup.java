@@ -73,10 +73,34 @@ public class OptionGroup implements Serializable {
 	}
 
 	/**
+	 * @return the options in this group as a {@code Collection}
+	 */
+	public @NotNull Collection<Option> getOptions() {
+		// the values are the collection of options
+		return optionMap.values();
+	}
+
+	/**
 	 * @return the selected option name
 	 */
 	public String getSelected() {
 		return selected;
+	}
+
+	/**
+	 * Tests whether this option group is required.
+	 *
+	 * @return whether this option group is required
+	 */
+	public boolean isRequired() {
+		return required;
+	}
+
+	/**
+	 * @param required specifies if this group is required
+	 */
+	public void setRequired(final boolean required) {
+		this.required = required;
 	}
 
 	/**
@@ -99,22 +123,6 @@ public class OptionGroup implements Serializable {
 			throw new AlreadySelectedException(this, option);
 		}
 		selected = option.getKey();
-	}
-
-	/**
-	 * Tests whether this option group is required.
-	 *
-	 * @return whether this option group is required
-	 */
-	public boolean isRequired() {
-		return required;
-	}
-
-	/**
-	 * @param required specifies if this group is required
-	 */
-	public void setRequired(final boolean required) {
-		this.required = required;
 	}
 
 	/**
@@ -154,13 +162,5 @@ public class OptionGroup implements Serializable {
 		buff.append("]");
 
 		return buff.toString();
-	}
-
-	/**
-	 * @return the options in this group as a {@code Collection}
-	 */
-	public @NotNull Collection<Option> getOptions() {
-		// the values are the collection of options
-		return optionMap.values();
 	}
 }

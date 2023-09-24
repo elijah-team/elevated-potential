@@ -69,13 +69,13 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 	}
 
 	@Override
-	public @NotNull File getFile() {
-		return new File(_fileName);
+	public Context getContext() {
+		return _a.getContext();
 	}
 
 	@Override
-	public int getLine() {
-		return token().getLine();
+	public @NotNull File getFile() {
+		return new File(_fileName);
 	}
 
 	@Override
@@ -89,13 +89,18 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 	}
 
 	@Override
+	public int getLine() {
+		return token().getLine();
+	}
+
+	@Override
 	public int getLineEnd() {
 		return token().getLine();
 	}
 
 	@Override
-	public Context getContext() {
-		return _a.getContext();
+	public EN_Name getName() {
+		return name;
 	}
 
 	@Override
@@ -106,13 +111,13 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 	}
 
 	@Override
-	public @NotNull String getText() {
-		return text.getText();
+	public OS_Element getResolvedElement() {
+		return _resolvedElement;
 	}
 
 	@Override
-	public OS_Element getResolvedElement() {
-		return _resolvedElement;
+	public @NotNull String getText() {
+		return text.getText();
 	}
 
 	@Override
@@ -125,8 +130,40 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 		return _resolvedElement != null;
 	}
 
+	@Override
+	public boolean is_simple() {
+		return true;
+	}
+
+	@Override
+	public String repr_() {
+		return String.format("IdentExpression(%s)", text.getText());
+	}
+
+	@Override
+	public void serializeTo(@NotNull SmallWriter sw) {
+		sw.fieldString("fileName", _fileName);
+		sw.fieldToken("text", text);
+		sw.fieldInteger("line", getLine());
+		sw.fieldInteger("column", getColumn());
+	}
+
 	public void setArgs(final ExpressionList ael) {
 
+	}
+
+	@Override
+	public void setContext(final Context cur) {
+		_a.setContext(cur);
+	}
+
+	// region Locatable
+
+	@Override
+	public void setKind(final @NotNull ExpressionKind aIncrement) {
+		// log and ignore
+		tripleo.elijah.util.Stupidity
+				.println_err_2("Trying to set ExpressionType of IdentExpression to " + aIncrement.toString());
 	}
 
 	@Override
@@ -140,49 +177,8 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 	}
 
 	@Override
-	public void serializeTo(@NotNull SmallWriter sw) {
-		sw.fieldString("fileName", _fileName);
-		sw.fieldToken("text", text);
-		sw.fieldInteger("line", getLine());
-		sw.fieldInteger("column", getColumn());
-	}
-
-	@Override
-	public void setContext(final Context cur) {
-		_a.setContext(cur);
-	}
-
-	@Override
-	public boolean is_simple() {
-		return true;
-	}
-
-	@Override
-	public String repr_() {
-		return String.format("IdentExpression(%s)", text.getText());
-	}
-
-	// region Locatable
-
-	@Override
 	public void setResolvedElement(final OS_Element element) {
 		_resolvedElement = element;
-	}
-
-	@Override
-	public void setKind(final @NotNull ExpressionKind aIncrement) {
-		// log and ignore
-		tripleo.elijah.util.Stupidity
-				.println_err_2("Trying to set ExpressionType of IdentExpression to " + aIncrement.toString());
-	}
-
-	public Token token() {
-		return text;
-	}
-
-	@Override
-	public void visitGen(final tripleo.elijah.lang2.@NotNull ElElementVisitor visit) {
-		visit.visitIdentExpression(this);
 	}
 
 	@Override
@@ -190,12 +186,9 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 		_type = deducedExpression;
 	}
 
-	@Override
-	public EN_Name getName() {
-		return name;
+	public Token token() {
+		return text;
 	}
-
-	// endregion
 
 	/**
 	 * same as getText()
@@ -203,6 +196,13 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 	@Override
 	public @NotNull String toString() {
 		return getText();
+	}
+
+	// endregion
+
+	@Override
+	public void visitGen(final tripleo.elijah.lang2.@NotNull ElElementVisitor visit) {
+		visit.visitIdentExpression(this);
 	}
 
 }

@@ -1,10 +1,10 @@
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.contexts.CaseContext;
-import tripleo.elijah.lang.impl.CaseConditionalImpl.CaseScopeImpl;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.contexts.*;
+import tripleo.elijah.lang.impl.CaseConditionalImpl.*;
+import tripleo.elijah.lang2.*;
 
-import java.util.HashMap;
+import java.util.*;
 
 public interface CaseConditional extends OS_Element, StatementItem, FunctionItem {
 	void addScopeFor(IExpression expression, CaseConditional caseScope);
@@ -25,15 +25,15 @@ public interface CaseConditional extends OS_Element, StatementItem, FunctionItem
 
 	void scope(Scope3 aSco, IExpression aExpr1);
 
+	@Override
+	default void serializeTo(SmallWriter sw) {
+
+	}
+
 	void setContext(CaseContext ctx);
 
 	void setDefault();
 
 	@Override
 	void visitGen(ElElementVisitor visit);
-
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
 }

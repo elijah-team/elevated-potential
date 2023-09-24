@@ -1,21 +1,14 @@
 package tripleo.elijah.stages.deduce.post_bytecode;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.lang.i.Context;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.deduce.DeduceTypes2.DeduceTypes2Injector;
-import tripleo.elijah.stages.deduce.FoundElement;
-import tripleo.elijah.stages.deduce.post_bytecode.DED.DED_CTE;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_fn.ConstantTableEntry;
-import tripleo.elijah.stages.gen_fn.GenType;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.util.NotImplementedException;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.deduce.DeduceTypes2.*;
+import tripleo.elijah.stages.deduce.post_bytecode.DED.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 
 public class DeduceElement3_ConstantTableEntry implements IDeduceElement3 {
 
@@ -32,6 +25,10 @@ public class DeduceElement3_ConstantTableEntry implements IDeduceElement3 {
 		principal = aConstantTableEntry;
 	}
 
+	private DeduceTypes2Injector _inj() {
+		return deduceTypes2()._inj();
+	}
+
 	@Override
 	public DeduceTypes2 deduceTypes2() {
 		return deduceTypes2;
@@ -40,10 +37,6 @@ public class DeduceElement3_ConstantTableEntry implements IDeduceElement3 {
 	@Override
 	public @NotNull DED elementDiscriminator() {
 		return new DED_CTE(principal);
-	}
-
-	private DeduceTypes2Injector _inj() {
-		return deduceTypes2()._inj();
 	}
 
 	@Override

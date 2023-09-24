@@ -8,18 +8,15 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.FunctionContext;
+import antlr.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
-import tripleo.elijah.lang.types.OS_FuncType;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang.nextgen.names.i.*;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.lang2.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 6/27/21 6:42 AM
@@ -40,14 +37,84 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 
 	// region arglist
 
+	protected EN_Name __n;
+
 	@Override
 	public void add(final FunctionItem seq) {
 
 	}
 
+	@Override // OS_Container
+	public void add(final OS_Element anElement) {
+		if (anElement instanceof FunctionItem) {
+//			mScope2.add((StatementItem) anElement);
+			scope3.add(anElement);
+		} else
+			throw new IllegalStateException(String.format("Cant add %s to FunctionDef", anElement));
+	}
+
+	public void addAnnotation(final AnnotationClause a) {
+		if (annotations == null)
+			annotations = new ArrayList<AnnotationClause>();
+		annotations.add(a);
+	}
+
+	// endregion
+
+	@Override // Documentable
+	public void addDocString(final Token aText) {
+		scope3.addDocString(aText);
+	}
+
+	public @NotNull Iterable<AnnotationPart> annotationIterable() {
+		List<AnnotationPart> aps = new ArrayList<AnnotationPart>();
+		if (annotations == null)
+			return aps;
+		for (AnnotationClause annotationClause : annotations) {
+			for (AnnotationPart annotationPart : annotationClause.aps()) {
+				aps.add(annotationPart);
+			}
+		}
+		return aps;
+	}
+
+	// region items
+
 	@Override
 	public FormalArgList fal() {
 		return mFal;
+	}
+
+	@Override
+	public AccessNotation getAccess() {
+		return access_note;
+	}
+
+	@Override
+	public @NotNull List<FormalArgListItem> getArgs() {
+		return mFal.items();
+	}
+
+	@Override
+	public El_Category getCategory() {
+		return category;
+	}
+
+	@Override // OS_Element
+	public Context getContext() {
+		return _a.getContext();
+	}
+
+	// endregion
+
+	// region name
+
+	@Override
+	public EN_Name getEnName() {
+		if (__n == null) {
+			__n = EN_Name.create(name());
+		}
+		return __n;
 	}
 
 	@Override
@@ -71,6 +138,29 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 
 	// endregion
 
+	// region context
+
+	@Override
+	public OS_FuncType getOS_Type() {
+		return new OS_FuncType(this);
+	}
+
+	@Override // OS_Element
+	public abstract @Nullable OS_Element getParent();
+
+	@Override
+	public Species getSpecies() {
+		return _species;
+	}
+
+	// endregion
+
+	// region annotations
+
+	public boolean hasItem(OS_Element element) {
+		return scope3.items().contains(element);
+	}
+
 	@Override // OS_Container
 	public @NotNull List<OS_Element2> items() {
 		final ArrayList<OS_Element2> a = new ArrayList<OS_Element2>();
@@ -82,11 +172,58 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 	}
 
 	@Override
+	@NotNull // OS_Element2
+	public String name() {
+		if (funName == null)
+			return "";
+		return funName.getText();
+	}
+
+	@Override
+	public abstract void postConstruct();
+
+	@Override
+	public @Nullable TypeName returnType() {
+		return rt;
+	}
+
+	@Override
 	public void scope(Scope3 sco) {
 		scope3 = sco;
 	}
 
-	// region items
+	@Override
+	public void serializeTo(final SmallWriter sw) {
+
+	}
+
+	@Override
+	public void set(final FunctionModifiers mod) {
+		this.mod = mod;
+	}
+
+	// endregion
+
+	// region Documentable
+
+	@Override
+	public void setAbstract(final boolean b) {
+
+	}
+
+	// endregion
+
+	@Override
+	public void setAccess(AccessNotation aNotation) {
+		access_note = aNotation;
+	}
+
+	@Override
+	public void setAnnotations(List<AnnotationClause> aAnnotationClauses) {
+		annotations = aAnnotationClauses;
+	}
+
+	// region ClassItem
 
 	@Override
 	public void setBody(final FunctionBody aFunctionBody) {
@@ -94,8 +231,12 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 	}
 
 	@Override
-	public @NotNull List<FormalArgListItem> getArgs() {
-		return mFal.items();
+	public void setCategory(El_Category aCategory) {
+		category = aCategory;
+	}
+
+	public void setContext(final FunctionContext ctx) {
+		_a.setContext(ctx);
 	}
 
 	@Override
@@ -107,13 +248,9 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 	public abstract void setHeader(FunctionHeader aFunctionHeader);
 
 	@Override
-	public void setSpecies(final Species aSpecies) {
-		_species = aSpecies;
+	public void setName(final IdentExpression aText) {
+		funName = aText;
 	}
-
-	// endregion
-
-	// region name
 
 	@Override
 	public void setReturnType(final TypeName tn) {
@@ -121,143 +258,15 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 	}
 
 	@Override
-	public OS_FuncType getOS_Type() {
-		return new OS_FuncType(this);
+	public void setSpecies(final Species aSpecies) {
+		_species = aSpecies;
 	}
-
-	@Override // OS_Element
-	public abstract @Nullable OS_Element getParent();
 
 	// endregion
-
-	// region context
-
-	@Override
-	public Species getSpecies() {
-		return _species;
-	}
 
 	@Override
 	public void visitGen(final ElElementVisitor visit) {
 
-	}
-
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	// endregion
-
-	// region annotations
-
-	@Override // OS_Container
-	public void add(final OS_Element anElement) {
-		if (anElement instanceof FunctionItem) {
-//			mScope2.add((StatementItem) anElement);
-			scope3.add(anElement);
-		} else
-			throw new IllegalStateException(String.format("Cant add %s to FunctionDef", anElement));
-	}
-
-	public void addAnnotation(final AnnotationClause a) {
-		if (annotations == null)
-			annotations = new ArrayList<AnnotationClause>();
-		annotations.add(a);
-	}
-
-	@Override
-	public abstract void postConstruct();
-
-	@Override
-	public @Nullable TypeName returnType() {
-		return rt;
-	}
-
-	@Override // Documentable
-	public void addDocString(final Token aText) {
-		scope3.addDocString(aText);
-	}
-
-	@Override
-	public void set(final FunctionModifiers mod) {
-		this.mod = mod;
-	}
-
-	@Override
-	public void setAbstract(final boolean b) {
-
-	}
-
-	public @NotNull Iterable<AnnotationPart> annotationIterable() {
-		List<AnnotationPart> aps = new ArrayList<AnnotationPart>();
-		if (annotations == null)
-			return aps;
-		for (AnnotationClause annotationClause : annotations) {
-			for (AnnotationPart annotationPart : annotationClause.aps()) {
-				aps.add(annotationPart);
-			}
-		}
-		return aps;
-	}
-
-	// endregion
-
-	// region Documentable
-
-	@Override
-	public void setAnnotations(List<AnnotationClause> aAnnotationClauses) {
-		annotations = aAnnotationClauses;
-	}
-
-	// endregion
-
-	@Override
-	public AccessNotation getAccess() {
-		return access_note;
-	}
-
-	@Override
-	public El_Category getCategory() {
-		return category;
-	}
-
-	// region ClassItem
-
-	public void setContext(final FunctionContext ctx) {
-		_a.setContext(ctx);
-	}
-
-	@Override
-	public void setCategory(El_Category aCategory) {
-		category = aCategory;
-	}
-
-	@Override
-	public void setAccess(AccessNotation aNotation) {
-		access_note = aNotation;
-	}
-
-	@Override
-	public void setName(final IdentExpression aText) {
-		funName = aText;
-	}
-
-	@Override // OS_Element
-	public Context getContext() {
-		return _a.getContext();
-	}
-
-	public boolean hasItem(OS_Element element) {
-		return scope3.items().contains(element);
-	}
-
-	@Override
-	@NotNull // OS_Element2
-	public String name() {
-		if (funName == null)
-			return "";
-		return funName.getText();
 	}
 
 	public void walkAnnotations(@NotNull AnnotationWalker annotationWalker) {
@@ -269,18 +278,6 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 			}
 		}
 	}
-
-	// endregion
-
-	@Override
-	public EN_Name getEnName() {
-		if (__n == null) {
-			__n = EN_Name.create(name());
-		}
-		return __n;
-	}
-
-	protected EN_Name __n;
 }
 
 //

@@ -36,18 +36,27 @@ import java.util.List;
  * Created 9/12/20 10:07 PM
  */
 public class ProcTableEntry extends BaseTableEntry implements TableEntryIV {
+	private class _StatusListener_PTE_67 implements StatusListener {
+		@Override
+		public void onChange(/*@NotNull*/ IElementHolder eh, Status newStatus) {
+			if (newStatus == Status.KNOWN) {
+				setResolvedElement(eh.getElement());
+			}
+		}
+	}
+	public enum ECT {exp, exp_num}
 	public final @NotNull List<TypeTableEntry> args;
+
 	/**
 	 * Either a hint to the programmer-- The compiler should be able to work without this.
 	 * <br/>
 	 * Or for synthetic methods
 	 */
 	public final IExpression          __debug_expression;
+
+
 	public final InstructionArgument  expression_num;
-
 	public final @NotNull EvaExpression<IExpression> expression;
-
-
 	public final    int                                             index;
 	private final   DeferredObject<Ok, Void, Void>                  _p_completeDeferred      = new DeferredObject<Ok, Void, Void>();
 	private final   DeferredObject2<FunctionInvocation, Void, Void> _p_onFunctionInvocations = new DeferredObject2<FunctionInvocation, Void, Void>();
@@ -59,7 +68,9 @@ public class ProcTableEntry extends BaseTableEntry implements TableEntryIV {
 		}
 	};
 	private         DeduceElement3_ProcTableEntry                   _de3;
+
 	private         ClassInvocation                                 classInvocation;
+
 	private         FunctionInvocation                              functionInvocation;
 
 	public ProcTableEntry(final int aIndex, final IExpression aExpression, final @Nullable InstructionArgument aExpressionNum, final List<TypeTableEntry> aArgs) {
@@ -90,6 +101,109 @@ public class ProcTableEntry extends BaseTableEntry implements TableEntryIV {
 		} else {
 			expression = new EvaExpression<>(__debug_expression, this); // FIXME justify this
 		}
+	}
+
+	public DeduceTypes2 _deduceTypes2() {
+		return __dt2;
+	}
+
+	public DeduceTypes2.DeduceTypes2Injector _inj() {
+		return _deduceTypes2()._inj();
+	}
+
+	private @NotNull DeferredObject<Ok, Void, Void> completeDeferred() {
+		return _p_completeDeferred;
+	}
+
+	public DeduceProcCall deduceProcCall() {
+		return dpc;
+	}
+
+	public @NotNull ExpressionConfession expressionConfession() {
+		if (expressionConfession == null) {
+			if (expression_num == null) {
+				expressionConfession = new ExpressionConfession() {
+					@Override
+					public @NotNull ECT getType() {
+						return ECT.exp;
+					}
+				};
+			} else {
+				expressionConfession = new ExpressionConfession() {
+					@Override
+					public @NotNull ECT getType() {
+						return ECT.exp_num;
+					}
+				};
+			}
+		}
+
+		return expressionConfession;
+	}
+
+	public List<TypeTableEntry> getArgs() {
+		return args;
+	}
+
+	public ClassInvocation getClassInvocation() {
+		return classInvocation;
+	}
+
+	public IDeduceElement3 getDeduceElement3() {
+		//assert dpc._deduceTypes2() != null; // TODO setDeduce... called; Promise?
+		//
+		//return getDeduceElement3(dpc._deduceTypes2(), dpc._generatedFunction());
+
+		return getDeduceElement3(_deduceTypes2(), __gf);
+	}
+
+	public @NotNull IDeduceElement3 getDeduceElement3(final @NotNull DeduceTypes2 aDeduceTypes2,
+													  final @NotNull BaseEvaFunction aGeneratedFunction) {
+		if (_de3 == null) {
+			_de3 = new DeduceElement3_ProcTableEntry(this, aDeduceTypes2, aGeneratedFunction);
+		}
+		return _de3;
+	}
+
+	public EvaExpression<IExpression> getEvaExpression() {
+		return expression;
+	}
+
+	public FunctionInvocation getFunctionInvocation() {
+		return functionInvocation;
+	}
+
+	@NotNull
+	public String getLoggingString(final @Nullable DeduceTypes2 aDeduceTypes2) {
+		final String          pte_string;
+		@NotNull List<String> l = new ArrayList<String>();
+
+		for (@NotNull TypeTableEntry typeTableEntry : getArgs()) {
+			OS_Type attached = typeTableEntry.getAttached();
+
+			if (attached != null)
+				l.add(attached.toString());
+			else {
+				if (aDeduceTypes2 != null)
+					aDeduceTypes2.LOG.err("267 attached == null for " + typeTableEntry);
+
+				if (typeTableEntry.__debug_expression != null)
+					l.add(String.format("<Unknown expression: %s>", typeTableEntry.__debug_expression));
+				else
+					l.add("<Unknkown>");
+			}
+		}
+
+		final String sb2 = "[" +
+				Helpers.String_join(", ", l) +
+				"]";
+		pte_string = sb2;
+		return pte_string;
+	}
+
+	// have no idea what this is for
+	public void onFunctionInvocation(final DoneCallback<FunctionInvocation> callback) {
+		_p_onFunctionInvocations.then(callback);
 	}
 
 	public void onSetAttached() {
@@ -129,66 +243,27 @@ public class ProcTableEntry extends BaseTableEntry implements TableEntryIV {
 		}
 	}
 
-	private @NotNull DeferredObject<Ok, Void, Void> completeDeferred() {
-		return _p_completeDeferred;
-	}
-
-	public DeduceProcCall deduceProcCall() {
-		return dpc;
-	}
-
-	public @NotNull ExpressionConfession expressionConfession() {
-		if (expressionConfession == null) {
-			if (expression_num == null) {
-				expressionConfession = new ExpressionConfession() {
-					@Override
-					public @NotNull ECT getType() {
-						return ECT.exp;
-					}
-				};
-			} else {
-				expressionConfession = new ExpressionConfession() {
-					@Override
-					public @NotNull ECT getType() {
-						return ECT.exp_num;
-					}
-				};
-			}
+	public void resolveType(final GenType aResult) {
+		if (typeDeferred().isResolved()) {
+			typeDeferred().reset(); // !! 07/20
 		}
-
-		return expressionConfession;
+		typeDeferred().resolve(aResult);
 	}
 
-	public ClassInvocation getClassInvocation() {
-		return classInvocation;
+	public void setArgType(int aIndex, OS_Type aType) {
+		args.get(aIndex).setAttached(aType);
 	}
 
 	public void setClassInvocation(ClassInvocation aClassInvocation) {
 		classInvocation = aClassInvocation;
 	}
 
-	public IDeduceElement3 getDeduceElement3() {
-		//assert dpc._deduceTypes2() != null; // TODO setDeduce... called; Promise?
-		//
-		//return getDeduceElement3(dpc._deduceTypes2(), dpc._generatedFunction());
-
-		return getDeduceElement3(_deduceTypes2(), __gf);
+	public void setDeduceTypes2(final DeduceTypes2 aDeduceTypes2, final Context aContext, final BaseEvaFunction aGeneratedFunction, final ErrSink aErrSink) {
+		dpc.setDeduceTypes2(aDeduceTypes2, aContext, aGeneratedFunction, aErrSink);
 	}
 
-	public DeduceTypes2 _deduceTypes2() {
-		return __dt2;
-	}
-
-	public @NotNull IDeduceElement3 getDeduceElement3(final @NotNull DeduceTypes2 aDeduceTypes2,
-													  final @NotNull BaseEvaFunction aGeneratedFunction) {
-		if (_de3 == null) {
-			_de3 = new DeduceElement3_ProcTableEntry(this, aDeduceTypes2, aGeneratedFunction);
-		}
-		return _de3;
-	}
-
-	public FunctionInvocation getFunctionInvocation() {
-		return functionInvocation;
+	public void setExpressionConfession(final @NotNull ExpressionConfession aExpressionConfession) {
+		expressionConfession = aExpressionConfession;
 	}
 
 	// have no idea what this is for
@@ -198,55 +273,6 @@ public class ProcTableEntry extends BaseTableEntry implements TableEntryIV {
 			_p_onFunctionInvocations.reset();
 			_p_onFunctionInvocations.resolve(functionInvocation);
 		}
-	}
-
-	@NotNull
-	public String getLoggingString(final @Nullable DeduceTypes2 aDeduceTypes2) {
-		final String          pte_string;
-		@NotNull List<String> l = new ArrayList<String>();
-
-		for (@NotNull TypeTableEntry typeTableEntry : getArgs()) {
-			OS_Type attached = typeTableEntry.getAttached();
-
-			if (attached != null)
-				l.add(attached.toString());
-			else {
-				if (aDeduceTypes2 != null)
-					aDeduceTypes2.LOG.err("267 attached == null for " + typeTableEntry);
-
-				if (typeTableEntry.__debug_expression != null)
-					l.add(String.format("<Unknown expression: %s>", typeTableEntry.__debug_expression));
-				else
-					l.add("<Unknkown>");
-			}
-		}
-
-		final String sb2 = "[" +
-				Helpers.String_join(", ", l) +
-				"]";
-		pte_string = sb2;
-		return pte_string;
-	}
-
-	public List<TypeTableEntry> getArgs() {
-		return args;
-	}
-
-	// have no idea what this is for
-	public void onFunctionInvocation(final DoneCallback<FunctionInvocation> callback) {
-		_p_onFunctionInvocations.then(callback);
-	}
-
-	public void setDeduceTypes2(final DeduceTypes2 aDeduceTypes2, final Context aContext, final BaseEvaFunction aGeneratedFunction, final ErrSink aErrSink) {
-		dpc.setDeduceTypes2(aDeduceTypes2, aContext, aGeneratedFunction, aErrSink);
-	}
-
-	public void setArgType(int aIndex, OS_Type aType) {
-		args.get(aIndex).setAttached(aType);
-	}
-
-	public void setExpressionConfession(final @NotNull ExpressionConfession aExpressionConfession) {
-		expressionConfession = aExpressionConfession;
 	}
 
 	@Override
@@ -261,38 +287,12 @@ public class ProcTableEntry extends BaseTableEntry implements TableEntryIV {
 				'}';
 	}
 
-	public void resolveType(final GenType aResult) {
-		if (typeDeferred().isResolved()) {
-			typeDeferred().reset(); // !! 07/20
-		}
-		typeDeferred().resolve(aResult);
-	}
-
 	public DeferredObject2<GenType, ResolveError, Void> typeDeferred() {
 		return typeResolve.getDeferred();
 	}
 
 	public Promise<GenType, ResolveError, Void> typePromise() {
 		return typeResolvePromise();
-	}
-
-	public EvaExpression<IExpression> getEvaExpression() {
-		return expression;
-	}
-
-	public DeduceTypes2.DeduceTypes2Injector _inj() {
-		return _deduceTypes2()._inj();
-	}
-
-	public enum ECT {exp, exp_num}
-
-	private class _StatusListener_PTE_67 implements StatusListener {
-		@Override
-		public void onChange(/*@NotNull*/ IElementHolder eh, Status newStatus) {
-			if (newStatus == Status.KNOWN) {
-				setResolvedElement(eh.getElement());
-			}
-		}
 	}
 
 	//public PTE_Zero zero() {

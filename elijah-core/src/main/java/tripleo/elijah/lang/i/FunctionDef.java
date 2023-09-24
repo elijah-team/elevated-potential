@@ -1,25 +1,26 @@
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.FunctionContext;
-import tripleo.elijah.lang.types.OS_FuncType;
-import tripleo.elijah.lang2.ElElementVisitor;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.lang2.*;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public interface FunctionDef extends OS_Element, OS_Element2 {
+	enum Species {
+		CTOR, DEF_FUN, DTOR, FUNC_EXPR, PROP_GET, PROP_SET, REG_FUN
+	}
+
 	void add(FunctionItem seq);
 
 	FormalArgList fal();
 
-	List<FunctionItem> getItems();
-
 	Collection<FormalArgListItem> getArgs();
 
-	IdentExpression getNameNode();
+	List<FunctionItem> getItems();
 
-	Collection<OS_Element2> items();
+	IdentExpression getNameNode();
 
 	OS_FuncType getOS_Type();
 
@@ -28,45 +29,43 @@ public interface FunctionDef extends OS_Element, OS_Element2 {
 
 	Species getSpecies();
 
-	void scope(Scope3 sco);
+	Collection<OS_Element2> items();
 
 	void postConstruct();
 
 	@Nullable
 	TypeName returnType();
 
-	void setAnnotations(List<AnnotationClause> aAs);
-
-	void set(FunctionModifiers mod);
-
-	void setAbstract(boolean b);
-
-	void setContext(FunctionContext aContext);
-
-	void setBody(FunctionBody aFunctionBody);
-
-	void setFal(FormalArgList aFal);
-
-	void setName(IdentExpression string_to_ident);
-
-	void setHeader(FunctionHeader aFunctionHeader);
-
-	void setSpecies(Species propGet);
-
-	void setReturnType(TypeName tn);
-
-	@Override
-	void visitGen(ElElementVisitor visit); // OS_Element
+	void scope(Scope3 sco);
 
 	@Override
 	default void serializeTo(SmallWriter sw) {
 
 	}
 
+	void set(FunctionModifiers mod);
+
+	void setAbstract(boolean b);
+
+	void setAnnotations(List<AnnotationClause> aAs);
+
+	void setBody(FunctionBody aFunctionBody);
+
+	void setContext(FunctionContext aContext);
+
+	void setFal(FormalArgList aFal);
+
+	void setHeader(FunctionHeader aFunctionHeader);
+
+	void setName(IdentExpression string_to_ident);
+
+	void setReturnType(TypeName tn);
+
+	void setSpecies(Species propGet);
+
 	@Override
 	String toString();
 
-	enum Species {
-		CTOR, DEF_FUN, DTOR, FUNC_EXPR, PROP_GET, PROP_SET, REG_FUN
-	}
+	@Override
+	void visitGen(ElElementVisitor visit); // OS_Element
 }

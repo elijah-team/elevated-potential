@@ -76,11 +76,6 @@ public class GenericTypeNameImpl implements tripleo.elijah.lang.i.GenericTypeNam
 	}
 
 	@Override
-	public void setContext(final Context context) {
-		throw new NotImplementedException();
-	}
-
-	@Override
 	public void set(final TypeModifiers modifiers_) {
 		modifiers = modifiers_;
 	}
@@ -91,13 +86,18 @@ public class GenericTypeNameImpl implements tripleo.elijah.lang.i.GenericTypeNam
 	}
 
 	@Override
-	public void typeName(final Qualident xy) {
-		_typeName = xy;
+	public void setContext(final Context context) {
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public String toString() {
 		return "gen {" + _typeName.asSimpleString() + "}";
+	}
+
+	@Override
+	public void typeName(final Qualident xy) {
+		_typeName = xy;
 	}
 
 	// endregion

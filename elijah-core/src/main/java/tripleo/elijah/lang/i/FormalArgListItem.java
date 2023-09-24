@@ -1,6 +1,6 @@
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
 public interface FormalArgListItem extends OS_Element, OS_Element2, ClassItem {
 	@Override
@@ -17,6 +17,11 @@ public interface FormalArgListItem extends OS_Element, OS_Element2, ClassItem {
 		// OS_Element2
 	String name();
 
+	@Override
+	default void serializeTo(SmallWriter sw) {
+
+	}
+
 	void setName(IdentExpression s);
 
 	void setTypeName(TypeName tn1);
@@ -26,9 +31,4 @@ public interface FormalArgListItem extends OS_Element, OS_Element2, ClassItem {
 	@Override
 		// OS_Element
 	void visitGen(ElElementVisitor visit);
-
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
 }

@@ -17,8 +17,6 @@ import java.util.Map;
  */
 public class NameTableImpl implements tripleo.elijah.lang.i.NameTable {
 
-	@NotNull Map<String, TypedElement> members = new HashMap<String, TypedElement>();
-
 	class TypedElement {
 		OS_Element element;
 		OS_Type    type;
@@ -33,6 +31,8 @@ public class NameTableImpl implements tripleo.elijah.lang.i.NameTable {
 			return "TypedElement{" + "element=" + element + ", type=" + type + '}';
 		}
 	}
+
+	@NotNull Map<String, TypedElement> members = new HashMap<String, TypedElement>();
 
 	@Override
 	public void add(final OS_Element element, final String name, final OS_Type dtype) {

@@ -24,11 +24,11 @@ public class ModuleThing {
 		entryPoints = mod.entryPoints();
 	}
 
-	public void describe(final GeneralDescription aGeneralDescription) {
-		generalDescription = aGeneralDescription;
-	}
-
 	public void addFunction(final EvaFunction aGeneratedFunction) {
 		evaFunctions.add(aGeneratedFunction);
+	}
+
+	public void describe(final GeneralDescription aGeneralDescription) {
+		generalDescription = aGeneralDescription;
 	}
 }

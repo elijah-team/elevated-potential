@@ -14,12 +14,12 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
+import antlr.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.*;
 
-import java.util.List;
+import java.util.*;
 
 public class FloatExpressionImpl implements tripleo.elijah.lang.i.FloatExpression {
 
@@ -63,6 +63,10 @@ public class FloatExpressionImpl implements tripleo.elijah.lang.i.FloatExpressio
 		return toString();
 	}
 
+	public void setArgs(final ExpressionList ael) {
+
+	}
+
 	@Override
 	public void setKind(final @NotNull ExpressionKind aType) {
 		// log and ignore
@@ -73,10 +77,6 @@ public class FloatExpressionImpl implements tripleo.elijah.lang.i.FloatExpressio
 	@Override
 	public void setLeft(final IExpression aLeft) {
 		throw new NotImplementedException(); // TODO
-	}
-
-	public void setArgs(final ExpressionList ael) {
-
 	}
 
 	@Override

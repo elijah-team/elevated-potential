@@ -1,42 +1,17 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.i.CD_CompilationRunnerStart;
-import tripleo.elijah.comp.i.CR_Action;
-import tripleo.elijah.comp.i.IPipelineAccess;
-import tripleo.elijah.nextgen.query.Mode;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.nextgen.query.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
-
-	@Override
-	public void start(final @NotNull CompilerInstructions aRootCI,
-					  final @NotNull CR_State crState,
-					  final @NotNull CB_Output out) {
-		final @NotNull CompilationRunner             cr  = crState.runner();
-		var                                          ce  = crState.ca.getCompilation().getCompilationEnclosure();
-		var                                          ci  = ce.getCompilerInput();
-		final @NotNull IPipelineAccess               pa  = crState.ca.getCompilation().getCompilationEnclosure().getPipelineAccess();
-		final @NotNull Compilation.CompilationConfig cfg = crState.ca.getCompilation().cfg();
-
-		final List<CompilerInput> compilerInput = pa.getCompilerInput();
-
-		assert compilerInput == ci;
-
-		final CompilerBeginning beginning = new CompilerBeginning(cr._accessCompilation(), aRootCI, compilerInput, cr.getProgressSink(), cfg);
-
-		___start(crState, beginning, out);
-	}
 
 	protected void ___start(final @NotNull CR_State crState,
 							final @NotNull CompilerBeginning beginning,
@@ -73,5 +48,24 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 		}
 
 		NotImplementedException.raise_stop();
+	}
+
+	@Override
+	public void start(final @NotNull CompilerInstructions aRootCI,
+					  final @NotNull CR_State crState,
+					  final @NotNull CB_Output out) {
+		final @NotNull CompilationRunner             cr  = crState.runner();
+		var                                          ce  = crState.ca.getCompilation().getCompilationEnclosure();
+		var                                          ci  = ce.getCompilerInput();
+		final @NotNull IPipelineAccess               pa  = crState.ca.getCompilation().getCompilationEnclosure().getPipelineAccess();
+		final @NotNull Compilation.CompilationConfig cfg = crState.ca.getCompilation().cfg();
+
+		final List<CompilerInput> compilerInput = pa.getCompilerInput();
+
+		assert compilerInput == ci;
+
+		final CompilerBeginning beginning = new CompilerBeginning(cr._accessCompilation(), aRootCI, compilerInput, cr.getProgressSink(), cfg);
+
+		___start(crState, beginning, out);
 	}
 }

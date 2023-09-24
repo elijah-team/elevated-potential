@@ -1,6 +1,6 @@
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
 public interface ConstructStatement extends FunctionItem, StatementItem, OS_Element {
 	ExpressionList getArgs();
@@ -14,10 +14,10 @@ public interface ConstructStatement extends FunctionItem, StatementItem, OS_Elem
 	OS_Element getParent();
 
 	@Override
-	void visitGen(ElElementVisitor visit);
-
-	@Override
 	default void serializeTo(SmallWriter sw) {
 
 	}
+
+	@Override
+	void visitGen(ElElementVisitor visit);
 }

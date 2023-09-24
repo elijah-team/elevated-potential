@@ -26,6 +26,15 @@ import java.util.stream.Collectors;
 
 class Generate_Method_Header {
 
+	static @NotNull GCM_D discriminator(final BaseEvaFunction bgf, final ElLog aLOG, final GenerateC aGc) {
+		if (bgf instanceof EvaConstructor) {
+			return new GCM_GC((EvaConstructor) bgf, aLOG, aGc);
+		} else if (bgf instanceof EvaFunction) {
+			return new GCM_GF((EvaFunction) bgf, aLOG, aGc);
+		}
+
+		throw new IllegalStateException();
+	}
 	final                  String       args_string;
 	final @NotNull         String       header_string;
 	private final @NotNull EG_Statement args_statement;
@@ -33,6 +42,7 @@ class Generate_Method_Header {
 	private final          String       name;
 	private final @NotNull String       return_type;
 	@Nullable              OS_Type      type;
+
 	TypeTableEntry tte;
 
 	public Generate_Method_Header(final @NotNull BaseEvaFunction gf, @NotNull final GenerateC aGenerateC, final @NotNull ElLog LOG) {
@@ -43,60 +53,6 @@ class Generate_Method_Header {
 		args_statement = find_args_statement(gf);
 		args_string    = args_statement.getText();
 		header_string  = find_header_string(gf, LOG);
-	}
-
-	@NotNull String find_return_type(final BaseEvaFunction gf, final ElLog LOG) {
-		return discriminator(gf, LOG, gc)
-				.find_return_type(this);
-	}
-
-	@NotNull EG_Statement find_args_statement(final @NotNull BaseEvaFunction gf) {
-
-		final String rule = "gen_c:gcfm:Generate_Method_Header:find_args_statement";
-
-		// TODO EG_Statement, rule
-		final List<String> args_list = gf.vte_list
-				.stream()
-				.filter(input -> input.getVtt() == VariableTableType.ARG)
-
-				//rule=vte:args_at
-				.map(input -> String.format("%s va%s", GenerateC.GetTypeName.forVTE(input), input.getName()))
-				.collect(Collectors.toList());
-		final EG_Statement args = new EG_DottedStatement(", ", args_list, new EX_Rule(rule));
-
-		return args;
-	}
-
-	@NotNull String find_header_string(final @NotNull BaseEvaFunction gf, final @NotNull ElLog LOG) {
-		// NOTE getGenClass is always a class or namespace, getParent can be a function
-		final EvaContainerNC parent = (EvaContainerNC) gf.getGenClass();
-
-		final String         s2;
-		final C_HeaderString headerString;
-
-		if (parent instanceof EvaClass st) {
-			var st2 = gc.a_lookup(st);
-
-			headerString = C_HeaderString.forClass(st, () -> st2.getTypeNameString(), return_type, name, args_string, LOG);
-		} else if (parent instanceof EvaNamespace st) {
-			var st2 = gc.a_lookup(st);
-
-			headerString = C_HeaderString.forNamespace(st, () -> st2.getTypeNameString(), return_type, name, args_string, LOG);
-		} else {
-			headerString = C_HeaderString.forOther(parent, return_type, name, args_string);
-		}
-		s2 = headerString.getResult();
-		return s2;
-	}
-
-	static @NotNull GCM_D discriminator(final BaseEvaFunction bgf, final ElLog aLOG, final GenerateC aGc) {
-		if (bgf instanceof EvaConstructor) {
-			return new GCM_GC((EvaConstructor) bgf, aLOG, aGc);
-		} else if (bgf instanceof EvaFunction) {
-			return new GCM_GF((EvaFunction) bgf, aLOG, aGc);
-		}
-
-		throw new IllegalStateException();
 	}
 
 	String __find_header_string(final @NotNull BaseEvaFunction gf, final @NotNull ElLog LOG) {
@@ -223,6 +179,23 @@ class Generate_Method_Header {
 		return returnType;
 	}
 
+	@NotNull EG_Statement find_args_statement(final @NotNull BaseEvaFunction gf) {
+
+		final String rule = "gen_c:gcfm:Generate_Method_Header:find_args_statement";
+
+		// TODO EG_Statement, rule
+		final List<String> args_list = gf.vte_list
+				.stream()
+				.filter(input -> input.getVtt() == VariableTableType.ARG)
+
+				//rule=vte:args_at
+				.map(input -> String.format("%s va%s", GenerateC.GetTypeName.forVTE(input), input.getName()))
+				.collect(Collectors.toList());
+		final EG_Statement args = new EG_DottedStatement(", ", args_list, new EX_Rule(rule));
+
+		return args;
+	}
+
 	@NotNull String find_args_string(final @NotNull BaseEvaFunction gf) {
 		final String args;
 		if (false) {
@@ -252,6 +225,33 @@ class Generate_Method_Header {
 			}));
 		}
 		return args;
+	}
+
+	@NotNull String find_header_string(final @NotNull BaseEvaFunction gf, final @NotNull ElLog LOG) {
+		// NOTE getGenClass is always a class or namespace, getParent can be a function
+		final EvaContainerNC parent = (EvaContainerNC) gf.getGenClass();
+
+		final String         s2;
+		final C_HeaderString headerString;
+
+		if (parent instanceof EvaClass st) {
+			var st2 = gc.a_lookup(st);
+
+			headerString = C_HeaderString.forClass(st, () -> st2.getTypeNameString(), return_type, name, args_string, LOG);
+		} else if (parent instanceof EvaNamespace st) {
+			var st2 = gc.a_lookup(st);
+
+			headerString = C_HeaderString.forNamespace(st, () -> st2.getTypeNameString(), return_type, name, args_string, LOG);
+		} else {
+			headerString = C_HeaderString.forOther(parent, return_type, name, args_string);
+		}
+		s2 = headerString.getResult();
+		return s2;
+	}
+
+	@NotNull String find_return_type(final BaseEvaFunction gf, final ElLog LOG) {
+		return discriminator(gf, LOG, gc)
+				.find_return_type(this);
 	}
 
 }

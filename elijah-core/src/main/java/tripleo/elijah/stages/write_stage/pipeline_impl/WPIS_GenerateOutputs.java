@@ -29,90 +29,12 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
-	private final List<NG_OutputRequest>   ors = new ArrayList<>();
-	private       WritePipelineSharedState st;
-
-	@Override
-	public void act(final @NotNull WritePipelineSharedState st, final WP_State_Control sc) {
-		Preconditions.checkState(st.getGr() != null);
-		Preconditions.checkState(st.sys != null);
-
-		GenerateResult result = st.getGr();
-
-		final SPrintStream sps = new SPrintStream();
-		DebugBuffersLogic.debug_buffers_logic(result, sps);
-
-		final Default_WPIS_GenerateOutputs_Behavior_PrintDBLString printDBLString = new Default_WPIS_GenerateOutputs_Behavior_PrintDBLString();
-		printDBLString.print(sps.getString());
-
-		var cs = st.pa.getActiveClasses();
-		var ns = st.pa.getActiveNamespaces();
-		var fs = st.pa.getActiveFunctions();
-
-		this.st = st;
-
-		act0(st, result, cs, ns, fs);
-	}
-
-	private void act0(final @NotNull WritePipelineSharedState st, final GenerateResult result, final @NotNull List<EvaClass> cs, final @NotNull List<EvaNamespace> ns, final @NotNull List<BaseEvaFunction> fs) {
-		final CP_Paths paths = st.c.paths();
-		paths.signalCalculateFinishParse(); // TODO maybe move this 06/22
-
-		final OutputItems itms = new OutputItems();
-
-		act3(result, cs, ns, fs, itms);
-
-		for (Amazing amazing : amazings) {
-			amazing.run();
+	static class Default_WPIS_GenerateOutputs_Behavior_PrintDBLString implements WPIS_GenerateOutputs_Behavior_PrintDBLString {
+		@Override
+		public void print(final String sps) {
+			System.err.println(sps);
 		}
 	}
-
-	private List<Amazing> amazings;
-
-	private void act3(final GenerateResult result,
-					  final @NotNull List<EvaClass> cs,
-					  final @NotNull List<EvaNamespace> ns,
-					  final @NotNull List<BaseEvaFunction> fs,
-					  final @NotNull OutputItems itms) {
-		final int totalCount = cs.size() + ns.size() + fs.size();
-		itms.readyCount(totalCount); // looks like it should work, but also looks like it won't
-
-		amazings = new ArrayList<>(totalCount);
-
-		for (EvaClass c : cs) {
-			final AmazingClass amazingClass = new AmazingClass(c, itms, st.pa);
-			waitGenC(amazingClass.mod(), amazingClass::waitGenC);
-			amazings.add(amazingClass);
-		}
-		for (BaseEvaFunction f : fs) {
-			final AmazingFunction amazingFunction = new AmazingFunction(f, itms, result, st.pa);
-			waitGenC(amazingFunction.mod(), amazingFunction::waitGenC);
-			amazings.add(amazingFunction);
-		}
-		for (EvaNamespace n : ns) {
-			final AmazingNamespace amazingNamespace = new AmazingNamespace(n, itms, st.pa);
-			waitGenC(amazingNamespace.mod(), amazingNamespace::waitGenC);
-			amazings.add(amazingNamespace);
-		}
-	}
-
-	void waitGenC(final OS_Module mod, final Consumer<GenerateC> cb) {
-		this.st.pa.waitGenC(mod, cb);
-	}
-
-	interface Writable {
-		EOT_OutputFile.FileNameProvider filename();
-
-		EG_Statement statement();
-
-		List<EIT_Input> inputs();
-	}
-
-	@FunctionalInterface
-	public interface WPIS_GenerateOutputs_Behavior_PrintDBLString {
-		void print(String sps);
-	}
-
 	// TODO 09/04 Duplication madness
 	private static class MyWritable implements Writable {
 		final          Collection<EG_Statement>        value;
@@ -137,11 +59,6 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 		}
 
 		@Override
-		public EG_Statement statement() {
-			return statement;
-		}
-
-		@Override
 		public @NotNull List<EIT_Input> inputs() {
 			if (outputRequest == null) {
 				throw new IllegalStateException("shouldn't be here");
@@ -152,21 +69,31 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 			return Helpers.List_of(moduleInput);
 		}
 
-	}
-
-	static class Default_WPIS_GenerateOutputs_Behavior_PrintDBLString implements WPIS_GenerateOutputs_Behavior_PrintDBLString {
 		@Override
-		public void print(final String sps) {
-			System.err.println(sps);
+		public EG_Statement statement() {
+			return statement;
 		}
+
 	}
 
 	class OutputItems {
+		private static @NotNull List<EG_Statement> relist3(final EG_Statement sequence) {
+			var llll = new ArrayList<EG_Statement>();
+
+			if (sequence instanceof EG_SequenceStatement seqst) {
+				llll.addAll(seqst._list());
+			} else {
+				llll.add(sequence);
+			}
+
+			return llll;
+		}
 		final   OutputStrategy         osg             = st.sys.outputStrategyCreator.get();
 		final   OutputStrategyC        outputStrategyC = new OutputStrategyC(osg);
 		final   List<NG_OutputRequest> ors1            = new ArrayList<>();
 		final   List<NG_OutputItem>    itms            = new ArrayList<>();
 		private int                    _readyCount;
+
 		private int                    _addTally;
 
 		public void addItem(final NG_OutputItem aOutputItem) {
@@ -233,20 +160,93 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 			}
 		}
 
-		private static @NotNull List<EG_Statement> relist3(final EG_Statement sequence) {
-			var llll = new ArrayList<EG_Statement>();
-
-			if (sequence instanceof EG_SequenceStatement seqst) {
-				llll.addAll(seqst._list());
-			} else {
-				llll.add(sequence);
-			}
-
-			return llll;
-		}
-
 		public void readyCount(final int aI) {
 			this._readyCount = aI;
 		}
+	}
+
+	@FunctionalInterface
+	public interface WPIS_GenerateOutputs_Behavior_PrintDBLString {
+		void print(String sps);
+	}
+
+	interface Writable {
+		EOT_OutputFile.FileNameProvider filename();
+
+		List<EIT_Input> inputs();
+
+		EG_Statement statement();
+	}
+
+	private final List<NG_OutputRequest>   ors = new ArrayList<>();
+
+	private       WritePipelineSharedState st;
+
+	private List<Amazing> amazings;
+
+	@Override
+	public void act(final @NotNull WritePipelineSharedState st, final WP_State_Control sc) {
+		Preconditions.checkState(st.getGr() != null);
+		Preconditions.checkState(st.sys != null);
+
+		GenerateResult result = st.getGr();
+
+		final SPrintStream sps = new SPrintStream();
+		DebugBuffersLogic.debug_buffers_logic(result, sps);
+
+		final Default_WPIS_GenerateOutputs_Behavior_PrintDBLString printDBLString = new Default_WPIS_GenerateOutputs_Behavior_PrintDBLString();
+		printDBLString.print(sps.getString());
+
+		var cs = st.pa.getActiveClasses();
+		var ns = st.pa.getActiveNamespaces();
+		var fs = st.pa.getActiveFunctions();
+
+		this.st = st;
+
+		act0(st, result, cs, ns, fs);
+	}
+
+	private void act0(final @NotNull WritePipelineSharedState st, final GenerateResult result, final @NotNull List<EvaClass> cs, final @NotNull List<EvaNamespace> ns, final @NotNull List<BaseEvaFunction> fs) {
+		final CP_Paths paths = st.c.paths();
+		paths.signalCalculateFinishParse(); // TODO maybe move this 06/22
+
+		final OutputItems itms = new OutputItems();
+
+		act3(result, cs, ns, fs, itms);
+
+		for (Amazing amazing : amazings) {
+			amazing.run();
+		}
+	}
+
+	private void act3(final GenerateResult result,
+					  final @NotNull List<EvaClass> cs,
+					  final @NotNull List<EvaNamespace> ns,
+					  final @NotNull List<BaseEvaFunction> fs,
+					  final @NotNull OutputItems itms) {
+		final int totalCount = cs.size() + ns.size() + fs.size();
+		itms.readyCount(totalCount); // looks like it should work, but also looks like it won't
+
+		amazings = new ArrayList<>(totalCount);
+
+		for (EvaClass c : cs) {
+			final AmazingClass amazingClass = new AmazingClass(c, itms, st.pa);
+			waitGenC(amazingClass.mod(), amazingClass::waitGenC);
+			amazings.add(amazingClass);
+		}
+		for (BaseEvaFunction f : fs) {
+			final AmazingFunction amazingFunction = new AmazingFunction(f, itms, result, st.pa);
+			waitGenC(amazingFunction.mod(), amazingFunction::waitGenC);
+			amazings.add(amazingFunction);
+		}
+		for (EvaNamespace n : ns) {
+			final AmazingNamespace amazingNamespace = new AmazingNamespace(n, itms, st.pa);
+			waitGenC(amazingNamespace.mod(), amazingNamespace::waitGenC);
+			amazings.add(amazingNamespace);
+		}
+	}
+
+	void waitGenC(final OS_Module mod, final Consumer<GenerateC> cb) {
+		this.st.pa.waitGenC(mod, cb);
 	}
 }

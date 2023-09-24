@@ -8,13 +8,12 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import antlr.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijjah.ElijjahTokenTypes;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.util.*;
+import tripleo.elijjah.*;
 
 /**
  * Created 9/22/20 1:39 AM
@@ -37,6 +36,19 @@ public class AccessNotationImpl implements OS_Element, tripleo.elijah.lang.i.Acc
 
 	@Override
 	public OS_Element getParent() {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public void serializeTo(@NotNull SmallWriter sw) {
+		sw.fieldToken("category", category);
+		sw.fieldToken("shorthand", shorthand);
+		var tnl1 = sw.createTypeNameList();
+		for (TypeName iterable_element : tnl.p()) {
+			//dszklmfk;
+		}
+		sw.fieldTypenameList("typeNames", tnl1);
+
 		throw new NotImplementedException();
 	}
 
@@ -64,19 +76,6 @@ public class AccessNotationImpl implements OS_Element, tripleo.elijah.lang.i.Acc
 	@Override
 	public void visitGen(@NotNull ElElementVisitor visit) {
 		visit.visitAccessNotation(this);
-	}
-
-	@Override
-	public void serializeTo(@NotNull SmallWriter sw) {
-		sw.fieldToken("category", category);
-		sw.fieldToken("shorthand", shorthand);
-		var tnl1 = sw.createTypeNameList();
-		for (TypeName iterable_element : tnl.p()) {
-			//dszklmfk;
-		}
-		sw.fieldTypenameList("typeNames", tnl1);
-
-		throw new NotImplementedException();
 	}
 }
 

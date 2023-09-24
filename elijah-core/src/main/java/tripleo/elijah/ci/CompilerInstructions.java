@@ -22,17 +22,17 @@ public interface CompilerInstructions {
 
 	String getFilename();
 
+	Iterable<? extends LibraryStatementPart> getLibraryStatementParts();
+
 	String getName();
 
-	void setFilename(String filename);
-
 	CiIndexingStatement indexingStatement();
+
+	List<LibraryStatementPart> lsps();
+
+	void setFilename(String filename);
 
 	void setName(String name);
 
 	void setName(Token name);
-
-	List<LibraryStatementPart> lsps();
-
-	Iterable<? extends LibraryStatementPart> getLibraryStatementParts();
 }

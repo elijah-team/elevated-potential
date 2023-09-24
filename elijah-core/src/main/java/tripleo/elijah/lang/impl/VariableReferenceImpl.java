@@ -8,11 +8,9 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.ExpressionKind;
-import tripleo.elijah.lang.i.OS_Expression;
-import tripleo.elijah.lang.i.OS_Type;
+import antlr.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
 
 public class VariableReferenceImpl extends AbstractExpression
 		implements OS_Expression, tripleo.elijah.lang.i.VariableReference {
@@ -54,14 +52,14 @@ public class VariableReferenceImpl extends AbstractExpression
 	}
 
 	@Override
-	public void setMain(final String s) {
-		main = s;
-		tripleo.elijah.util.Stupidity.println_out_2(repr_());
+	public String repr_() {
+		return String.format("VariableReference (%s)", main);
 	}
 
 	@Override
-	public String repr_() {
-		return String.format("VariableReference (%s)", main);
+	public void setMain(final String s) {
+		main = s;
+		tripleo.elijah.util.Stupidity.println_out_2(repr_());
 	}
 
 	@Override

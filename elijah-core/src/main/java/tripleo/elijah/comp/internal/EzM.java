@@ -11,6 +11,18 @@ import java.io.*;
 import static tripleo.elijah.nextgen.query.Mode.*;
 
 class EzM {
+	// TODO pass to ce or (not pa or) something
+	private void logProgress(final int code, final String message) {
+		final String x = "[EzM] %d %s".formatted(code, message);
+//		if (code == 27) return;
+		System.out.println(x);
+	}
+
+	private Operation<CompilerInstructions> parseEzFile_(final String f, final InputStream s, final Compilation aCompilation) {
+		final QueryEzFileToModuleParams qp = new QueryEzFileToModuleParams(f, s, aCompilation);
+		return new QueryEzFileToModule(qp).calculate();
+	}
+
 	@NotNull Operation<CompilerInstructions> parseEzFile1(final @NotNull SourceFileParserParams p) {
 		@NotNull final File f = p.f();
 
@@ -24,13 +36,6 @@ class EzM {
 			final Operation<CompilerInstructions> om = realParseEzFile(p);
 			return om;
 		}
-	}
-
-	// TODO pass to ce or (not pa or) something
-	private void logProgress(final int code, final String message) {
-		final String x = "[EzM] %d %s".formatted(code, message);
-//		if (code == 27) return;
-		System.out.println(x);
 	}
 
 	@NotNull Operation<CompilerInstructions> realParseEzFile(final @NotNull SourceFileParserParams p) {
@@ -107,10 +112,5 @@ class EzM {
 				}
 			}
 		}
-	}
-
-	private Operation<CompilerInstructions> parseEzFile_(final String f, final InputStream s, final Compilation aCompilation) {
-		final QueryEzFileToModuleParams qp = new QueryEzFileToModuleParams(f, s, aCompilation);
-		return new QueryEzFileToModule(qp).calculate();
 	}
 }

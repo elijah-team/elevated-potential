@@ -41,6 +41,35 @@ public class WlGenerateFunction implements WorkJob {
 		this(aCl.generatePhase().getGenerateFunctions(aModule), aFunctionInvocation, aCl.generatePhase().getCodeRegistrar());
 	}
 
+	private void __registerClass(final @NotNull EvaClass result, final @NotNull EvaFunction gf) {
+		if (result.getFunction(functionDef) == null) {
+			cr.registerClass1(result);
+			result.addFunction(gf);
+		}
+		result.functionMapDeferreds.put(functionDef, new FunctionMapDeferred() {
+			@Override
+			public void onNotify(final EvaFunction aGeneratedFunction) {
+				int y = 2;
+			}
+		});
+		gf.setClass(result);
+	}
+
+	private void __registerNamespace(final @NotNull EvaNamespace result, final @NotNull EvaFunction gf) {
+		if (result.getFunction(functionDef) == null) {
+			cr.registerNamespace(result);
+			//cr.registerFunction1(gf);
+			result.addFunction(gf);
+		}
+		result.functionMapDeferreds.put(functionDef, new FunctionMapDeferred() {
+			@Override
+			public void onNotify(final EvaFunction aGeneratedFunction) {
+				int y = 2;
+			}
+		});
+		gf.setClass(result);
+	}
+
 	public EvaFunction getResult() {
 		return result;
 	}
@@ -89,35 +118,6 @@ public class WlGenerateFunction implements WorkJob {
 			result = (EvaFunction) functionInvocation.getGenerated();
 		}
 		_isDone = true;
-	}
-
-	private void __registerNamespace(final @NotNull EvaNamespace result, final @NotNull EvaFunction gf) {
-		if (result.getFunction(functionDef) == null) {
-			cr.registerNamespace(result);
-			//cr.registerFunction1(gf);
-			result.addFunction(gf);
-		}
-		result.functionMapDeferreds.put(functionDef, new FunctionMapDeferred() {
-			@Override
-			public void onNotify(final EvaFunction aGeneratedFunction) {
-				int y = 2;
-			}
-		});
-		gf.setClass(result);
-	}
-
-	private void __registerClass(final @NotNull EvaClass result, final @NotNull EvaFunction gf) {
-		if (result.getFunction(functionDef) == null) {
-			cr.registerClass1(result);
-			result.addFunction(gf);
-		}
-		result.functionMapDeferreds.put(functionDef, new FunctionMapDeferred() {
-			@Override
-			public void onNotify(final EvaFunction aGeneratedFunction) {
-				int y = 2;
-			}
-		});
-		gf.setClass(result);
 	}
 }
 

@@ -36,17 +36,6 @@ public class ForwardingGenType implements GenType {
 		}
 	}
 
-	public @NotNull GenType unsparkled() {
-		if (g != null) {
-			for (setup_GenType_Action setupGenTypeAction : list) {
-				setupGenTypeAction.run(base, g);
-			}
-			list.clear();
-			g.clear();
-		}
-		return this;
-	}
-
 	@Override
 	public String asString() {
 		return base.asString();
@@ -140,6 +129,11 @@ public class ForwardingGenType implements GenType {
 	}
 
 	@Override
+	public void setDrType(final DR_Type aDrType) {
+		list.add(new SGTA_SetDrType(aDrType));
+	}
+
+	@Override
 	public void setFunctionInvocation(final FunctionInvocation aFi) {
 		if (mode == Mode.GENERATIONAL) {
 			list.add(new SGTA_SetFunctionInvocation(aFi));
@@ -185,16 +179,22 @@ public class ForwardingGenType implements GenType {
 	}
 
 	@Override
-	public void setDrType(final DR_Type aDrType) {
-		list.add(new SGTA_SetDrType(aDrType));
-	}
-
-	@Override
 	public void setTypeName(final OS_Type aType) {
 		if (mode == Mode.GENERATIONAL) {
 			list.add(new SGTA_SetTypeNaeme(aType));
 		} else {
 			base.setTypeName(aType);
 		}
+	}
+
+	public @NotNull GenType unsparkled() {
+		if (g != null) {
+			for (setup_GenType_Action setupGenTypeAction : list) {
+				setupGenTypeAction.run(base, g);
+			}
+			list.clear();
+			g.clear();
+		}
+		return this;
 	}
 }

@@ -85,7 +85,7 @@ public class NumericExpressionImpl implements tripleo.elijah.lang.i.NumericExpre
 	}
 
 	@Override
-	public int getLineEnd() {
+	public int getLine() {
 		if (token() != null)
 			return token().getLine();
 		return 0;
@@ -94,7 +94,7 @@ public class NumericExpressionImpl implements tripleo.elijah.lang.i.NumericExpre
 	// endregion
 
 	@Override
-	public int getLine() {
+	public int getLineEnd() {
 		if (token() != null)
 			return token().getLine();
 		return 0;
@@ -126,6 +126,10 @@ public class NumericExpressionImpl implements tripleo.elijah.lang.i.NumericExpre
 
 	// region Locatable
 
+	public void setArgs(final ExpressionList ael) {
+
+	}
+
 	@Override // IExpression
 	public void setKind(final @NotNull ExpressionKind aType) {
 		// log and ignore
@@ -143,17 +147,13 @@ public class NumericExpressionImpl implements tripleo.elijah.lang.i.NumericExpre
 		_type = deducedExpression;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("NumericExpression (%d)", carrier);
-	}
-
 	private Token token() {
 		return n;
 	}
 
-	public void setArgs(final ExpressionList ael) {
-
+	@Override
+	public String toString() {
+		return String.format("NumericExpression (%d)", carrier);
 	}
 
 	// endregion

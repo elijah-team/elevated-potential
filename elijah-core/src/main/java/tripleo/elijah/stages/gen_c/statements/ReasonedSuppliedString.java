@@ -1,6 +1,6 @@
 package tripleo.elijah.stages.gen_c.statements;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
 class ReasonedSuppliedString implements IReasonedString {
 	Supplier<String> textSupplier;
@@ -12,12 +12,12 @@ class ReasonedSuppliedString implements IReasonedString {
 	}
 
 	@Override
-	public String text() {
-		return textSupplier.get();
+	public String reason() {
+		return reason;
 	}
 
 	@Override
-	public String reason() {
-		return reason;
+	public String text() {
+		return textSupplier.get();
 	}
 }

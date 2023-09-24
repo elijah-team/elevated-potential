@@ -13,33 +13,15 @@ import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.logging.ElLog;
 
 public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
-	@Override
-	public BaseEvaFunction getGf() {
-		return gf;
-	}
-
 	private final BaseEvaFunction                               gf;
+
 	private final GenerateC                                     generateC;
 	private final DeferredObject<GenerateResultEnv, Void, Void> fileGenPromise = new DeferredObject<>();
-
 	public WhyNotGarish_Function(final BaseEvaFunction aGf, final GenerateC aGenerateC) {
 		gf        = aGf;
 		generateC = aGenerateC;
 
 		fileGenPromise.then(this::onFileGen);
-	}
-
-	public void resolveFileGenPromise(final GenerateResultEnv aFileGen) {
-		if (!fileGenPromise.isResolved())
-			fileGenPromise.resolve(aFileGen);
-		else
-			System.out.println("twice for " + generateC);
-	}
-
-	public void onFileGen(final @NotNull GenerateResultEnv aFileGen) {
-		if (gf.getFD() == null) assert false; //return; // FIXME why? when?
-		Generate_Code_For_Method gcfm = new Generate_Code_For_Method(generateC, generateC.LOG);
-		gcfm.generateCodeForMethod(deduced(gf), aFileGen);
 	}
 
 	@Contract(pure = true)
@@ -55,12 +37,30 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 	}
 
 	@Override
+	public BaseEvaFunction getGf() {
+		return gf;
+	}
+
+	@Override
 	public boolean hasFileGen() {
 		return fileGenPromise.isResolved();
+	}
+
+	public void onFileGen(final @NotNull GenerateResultEnv aFileGen) {
+		if (gf.getFD() == null) assert false; //return; // FIXME why? when?
+		Generate_Code_For_Method gcfm = new Generate_Code_For_Method(generateC, generateC.LOG);
+		gcfm.generateCodeForMethod(deduced(gf), aFileGen);
 	}
 
 	@Override
 	public void provideFileGen(final GenerateResultEnv fg) {
 		fileGenPromise.resolve(fg);
+	}
+
+	public void resolveFileGenPromise(final GenerateResultEnv aFileGen) {
+		if (!fileGenPromise.isResolved())
+			fileGenPromise.resolve(aFileGen);
+		else
+			System.out.println("twice for " + generateC);
 	}
 }

@@ -11,10 +11,18 @@ public class EventListener {
 	private static final Logger LOG = LoggerFactory.getLogger(EventListener.class);
 	private static       int    eventsHandled;
 
+	int getEventsHandled() {
+		return eventsHandled;
+	}
+
 	@Subscribe
-	public void stringEvent(String event) {
-		LOG.info("do event [" + event + "]");
+	public void handleDeadEvent(@NotNull DeadEvent deadEvent) {
+		LOG.info("unhandled event [" + deadEvent.getEvent() + "]");
 		eventsHandled++;
+	}
+
+	void resetEventsHandled() {
+		eventsHandled = 0;
 	}
 
 	@Subscribe
@@ -24,16 +32,8 @@ public class EventListener {
 	}
 
 	@Subscribe
-	public void handleDeadEvent(@NotNull DeadEvent deadEvent) {
-		LOG.info("unhandled event [" + deadEvent.getEvent() + "]");
+	public void stringEvent(String event) {
+		LOG.info("do event [" + event + "]");
 		eventsHandled++;
-	}
-
-	int getEventsHandled() {
-		return eventsHandled;
-	}
-
-	void resetEventsHandled() {
-		eventsHandled = 0;
 	}
 }

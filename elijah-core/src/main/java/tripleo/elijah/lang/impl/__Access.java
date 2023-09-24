@@ -1,8 +1,6 @@
 package tripleo.elijah.lang.impl;
 
-import tripleo.elijah.lang.i.AccessNotation;
-import tripleo.elijah.lang.i.ClassItem;
-import tripleo.elijah.lang.i.SmallWriter;
+import tripleo.elijah.lang.i.*;
 
 public abstract class __Access implements ClassItem {
 	private AccessNotation _an;
@@ -13,12 +11,12 @@ public abstract class __Access implements ClassItem {
 	}
 
 	@Override
-	public void setAccess(AccessNotation an) {
-		_an = an;
+	public void serializeTo(final SmallWriter sw) {
+
 	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-
+	public void setAccess(AccessNotation an) {
+		_an = an;
 	}
 }

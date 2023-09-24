@@ -1,8 +1,8 @@
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface DefFunctionDef extends FunctionDef {
 	@Override
@@ -12,15 +12,15 @@ public interface DefFunctionDef extends FunctionDef {
 	OS_Element getParent();
 
 	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
-
-	@Override
 	void postConstruct();
 
 	@Override
 	@Nullable TypeName returnType();
+
+	@Override
+	default void serializeTo(SmallWriter sw) {
+
+	}
 
 	@Override
 	void setAnnotations(List<AnnotationClause> aAs);

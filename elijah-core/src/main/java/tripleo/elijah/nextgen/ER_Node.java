@@ -1,12 +1,11 @@
 package tripleo.elijah.nextgen;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.nextgen.CP_Path;
-import tripleo.elijah.comp.nextgen.i.CE_Path;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.nextgen.outputstatement.*;
 
-import java.nio.file.Path;
+import java.nio.file.*;
 
 /**
  * See {@link tripleo.elijah.comp.nextgen.i.CompOutput#writeToPath(CE_Path, EG_Statement)}
@@ -17,11 +16,6 @@ public interface ER_Node {
 	static @NotNull ER_Node of(@NotNull CP_Path p, @NotNull EG_Statement seq) {
 		return new ER_Node() {
 			@Override
-			public @NotNull String toString() {
-				return "17 ER_Node " + p.toFile();
-			}
-
-			@Override
 			public Path getPath() {
 				Path pp = p.getPath();
 				return pp;
@@ -30,6 +24,11 @@ public interface ER_Node {
 			@Override
 			public EG_Statement getStatement() {
 				return seq;
+			}
+
+			@Override
+			public @NotNull String toString() {
+				return "17 ER_Node " + p.toFile();
 			}
 		};
 	}

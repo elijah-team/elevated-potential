@@ -18,6 +18,10 @@ import java.util.*;
  * Created 12/26/20 5:31 AM
  */
 public interface Diagnostic {
+	enum Severity {
+		ERROR, INFO, LINT, WARN
+	}
+
 	static @NotNull Diagnostic withMessage(@NotNull String code, String string, @NotNull Severity severity) {
 		return new Diagnostic() {
 
@@ -53,23 +57,19 @@ public interface Diagnostic {
 
 	@Nullable String code();
 
+	default Object get() {
+		return null;
+	}
+
 	@NotNull
 	Locatable primary();
 
 	void report(PrintStream stream);
 
-	@NotNull
+    @NotNull
 	List<Locatable> secondary();
 
-	@Nullable Severity severity();
-
-    default Object get() {
-		return null;
-	}
-
-    enum Severity {
-		ERROR, INFO, LINT, WARN
-	}
+    @Nullable Severity severity();
 }
 
 //

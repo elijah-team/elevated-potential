@@ -1,8 +1,8 @@
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
 public class StatementWrapperImpl implements StatementItem, FunctionItem, OS_Element, StatementWrapper {
 
@@ -46,17 +46,6 @@ public class StatementWrapperImpl implements StatementItem, FunctionItem, OS_Ele
 		return _parent;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see tripleo.elijah.lang.impl.StatementWrapper#visitGen(tripleo.elijah.lang2.
-	 * ElElementVisitor)
-	 */
-	@Override
-	public void visitGen(final @NotNull ElElementVisitor visit) {
-		visit.visitStatementWrapper(this);
-	}
-
 	@Override
 	public void serializeTo(final @NotNull SmallWriter sw) {
 		sw.fieldExpression("expr", expr);
@@ -72,6 +61,17 @@ public class StatementWrapperImpl implements StatementItem, FunctionItem, OS_Ele
 	@Override
 	public String toString() {
 		return expr.toString();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see tripleo.elijah.lang.impl.StatementWrapper#visitGen(tripleo.elijah.lang2.
+	 * ElElementVisitor)
+	 */
+	@Override
+	public void visitGen(final @NotNull ElElementVisitor visit) {
+		visit.visitStatementWrapper(this);
 	}
 
 }

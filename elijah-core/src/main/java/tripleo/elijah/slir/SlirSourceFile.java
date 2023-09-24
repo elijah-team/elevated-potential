@@ -9,10 +9,9 @@
  */
 package tripleo.elijah.slir;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.lang.i.OS_Module;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.lang.i.*;
 
 /**
  * Created 11/6/21 8:27 AM
@@ -21,20 +20,6 @@ public class SlirSourceFile {
 	public interface SourceFileTarget {
 		SourceFileType getType();
 		//String getFileName();
-	}
-
-	private final String filename;
-
-	public SlirSourceFile(final String aFilename) {
-		filename = aFilename;
-	}
-
-	public String getFilename() {
-		return filename;
-	}
-
-	public @Nullable SourceFileTarget getTarget() {
-		return null; // TODO implement me
 	}
 
 	public enum SourceFileType {
@@ -46,6 +31,9 @@ public class SlirSourceFile {
 	 */
 	public class TargetConfig implements SourceFileTarget {
 
+		public class ElijahConfig {
+		}
+
 		public @Nullable ElijahConfig getConfig() {
 			return null; // TODO implement me
 		}
@@ -53,9 +41,6 @@ public class SlirSourceFile {
 		@Override
 		public @NotNull SourceFileType getType() {
 			return SourceFileType.CONFIG;
-		}
-
-		public class ElijahConfig {
 		}
 	}
 
@@ -86,6 +71,20 @@ public class SlirSourceFile {
 		public @NotNull SourceFileType getType() {
 			return SourceFileType.ELIJAH;
 		}
+	}
+
+	private final String filename;
+
+	public SlirSourceFile(final String aFilename) {
+		filename = aFilename;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public @Nullable SourceFileTarget getTarget() {
+		return null; // TODO implement me
 	}
 
 

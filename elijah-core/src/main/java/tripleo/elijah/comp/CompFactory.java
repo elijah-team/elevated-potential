@@ -1,28 +1,25 @@
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.ICompilationBus;
-import tripleo.elijah.comp.internal.CompilationRunner;
-import tripleo.elijah.comp.internal.CompilerBeginning;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.lang.i.Qualident;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleInput;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.inputtree.*;
 
-import java.io.File;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public interface CompFactory {
-	EIT_ModuleInput createModuleInput(OS_Module aModule);
-
-	Qualident createQualident(List<String> sl);
-
-	InputRequest createInputRequest(File aFile, final boolean aDo_out, final @Nullable LibraryStatementPart aLsp);
+	CompilerBeginning createBeginning(CompilationRunner aCompilationRunner);
 
 	ICompilationAccess createCompilationAccess();
 
 	ICompilationBus createCompilationBus();
 
-	CompilerBeginning createBeginning(CompilationRunner aCompilationRunner);
+	InputRequest createInputRequest(File aFile, final boolean aDo_out, final @Nullable LibraryStatementPart aLsp);
+
+	EIT_ModuleInput createModuleInput(OS_Module aModule);
+
+	Qualident createQualident(List<String> sl);
 }

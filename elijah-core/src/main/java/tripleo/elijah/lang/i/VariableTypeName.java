@@ -1,8 +1,8 @@
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 
-import java.util.Collection;
+import java.util.*;
 
 public interface VariableTypeName extends TypeName {
 	void addGenericPart(TypeNameList tn2);
@@ -28,13 +28,13 @@ public interface VariableTypeName extends TypeName {
 	boolean hasResolvedElement();
 
 	@Override
-	void setContext(Context ctx);
-
-	@Override
 	boolean isNull();
 
 	@Override
 	Type kindOfType();
+
+	@Override
+	void setContext(Context ctx);
 
 	void setName(Qualident aQualident);
 

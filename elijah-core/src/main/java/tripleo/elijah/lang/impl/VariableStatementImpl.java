@@ -8,14 +8,12 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 // Referenced classes of package pak:
 //			TypeRef, IExpression
@@ -52,6 +50,11 @@ public class VariableStatementImpl implements OS_Element, tripleo.elijah.lang.i.
 	}
 
 	@Override
+	public Context getContext() {
+		return getParent().getContext();
+	}
+
+	@Override
 	public File getFile() {
 		return name.getFile();
 	}
@@ -66,11 +69,6 @@ public class VariableStatementImpl implements OS_Element, tripleo.elijah.lang.i.
 	public int getLineEnd() {
 		// TODO what about initialValue
 		return name.getLineEnd();
-	}
-
-	@Override
-	public Context getContext() {
-		return getParent().getContext();
 	}
 
 	@Override
@@ -107,13 +105,18 @@ public class VariableStatementImpl implements OS_Element, tripleo.elijah.lang.i.
 	}
 
 	@Override
-	public void set(final TypeModifiers y) {
-		typeModifiers = y;
+	public void serializeTo(final SmallWriter sw) {
+
 	}
 
 	// endregion
 
 	// region Locatable
+
+	@Override
+	public void set(final TypeModifiers y) {
+		typeModifiers = y;
+	}
 
 	@Override
 	public void setName(final IdentExpression s) {
@@ -134,11 +137,6 @@ public class VariableStatementImpl implements OS_Element, tripleo.elijah.lang.i.
 	@Override
 	public void visitGen(final @NotNull ElElementVisitor visit) {
 		visit.visitVariableStatement(this);
-	}
-
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
 	}
 
 	public void walkAnnotations(@NotNull AnnotationWalker annotationWalker) {

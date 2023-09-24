@@ -1,21 +1,23 @@
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.contexts.NamespaceContext;
-import tripleo.elijah.lang.impl.InvariantStatement;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.contexts.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang2.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface NamespaceStatement extends ModuleItem, StatementItem, FunctionItem, OS_Container, OS_Element2 {
-	void addAccess(AccessNotation aAcs);
+	public enum Kind {
+
+	}
 
 	@Override
 		// OS_Container
 	void add(OS_Element anElement);
 
-	void addAnnotations(List<AnnotationClause> aAs);
+	void addAccess(AccessNotation aAcs);
 
-	List<ClassItem> getItems();
+	void addAnnotations(List<AnnotationClause> aAs);
 
 	FunctionDef funcDef();
 
@@ -23,11 +25,11 @@ public interface NamespaceStatement extends ModuleItem, StatementItem, FunctionI
 		// OS_Element
 	Context getContext();
 
+	List<ClassItem> getItems();
+
 	NamespaceTypes getKind();
 
 	String getName();
-
-	void setName(IdentExpression aI1);
 
 	OS_Package getPackageName();
 
@@ -35,7 +37,14 @@ public interface NamespaceStatement extends ModuleItem, StatementItem, FunctionI
 
 	void postConstruct();
 
+	@Override
+	default void serializeTo(SmallWriter sw) {
+
+	}
+
 	void setContext(NamespaceContext aCtx);
+
+	void setName(IdentExpression aI1);
 
 	void setType(NamespaceTypes aNamespaceTypes);
 
@@ -43,18 +52,9 @@ public interface NamespaceStatement extends ModuleItem, StatementItem, FunctionI
 
 	TypeAliasStatement typeAlias();
 
-	public enum Kind {
-
-	}
-
 	@Override
 		// OS_Element
 	void visitGen(ElElementVisitor visit);
-
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
 
 	ProgramClosure XXX();
 }

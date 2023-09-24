@@ -33,22 +33,6 @@ public class AmbiguousOptionException extends UnrecognizedOptionException {
 	 */
 	private static final   long               serialVersionUID = 5829816121277947229L;
 	/**
-	 * The list of options matching the partial name specified
-	 */
-	private final @NotNull Collection<String> matchingOptions;
-
-	/**
-	 * Constructs a new AmbiguousOptionException.
-	 *
-	 * @param option          the partial option name
-	 * @param matchingOptions the options matching the name
-	 */
-	public AmbiguousOptionException(final String option, final @NotNull Collection<String> matchingOptions) {
-		super(createMessage(option, matchingOptions), option);
-		this.matchingOptions = matchingOptions;
-	}
-
-	/**
 	 * Build the exception message from the specified list of options.
 	 *
 	 * @param option
@@ -72,6 +56,22 @@ public class AmbiguousOptionException extends UnrecognizedOptionException {
 		buf.append(")");
 
 		return buf.toString();
+	}
+
+	/**
+	 * The list of options matching the partial name specified
+	 */
+	private final @NotNull Collection<String> matchingOptions;
+
+	/**
+	 * Constructs a new AmbiguousOptionException.
+	 *
+	 * @param option          the partial option name
+	 * @param matchingOptions the options matching the name
+	 */
+	public AmbiguousOptionException(final String option, final @NotNull Collection<String> matchingOptions) {
+		super(createMessage(option, matchingOptions), option);
+		this.matchingOptions = matchingOptions;
 	}
 
 	/**

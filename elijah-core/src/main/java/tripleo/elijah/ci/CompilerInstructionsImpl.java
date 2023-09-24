@@ -66,13 +66,13 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	}
 
 	@Override
-	public String getName() {
-		return name;
-	}
+    public Iterable<? extends LibraryStatementPart> getLibraryStatementParts() {
+        return lsps;
+    }
 
 	@Override
-	public void setFilename(final String filename) {
-		this.filename = filename;
+	public String getName() {
+		return name;
 	}
 
 	@Override
@@ -84,24 +84,24 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	}
 
 	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public void setName(@NotNull Token name) {
-		this.name = name.getText();
-	}
-
-	@Override
 	public List<LibraryStatementPart> lsps() {
 		return lsps;
 	}
 
+	@Override
+	public void setFilename(final String filename) {
+		this.filename = filename;
+	}
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+
     @Override
-    public Iterable<? extends LibraryStatementPart> getLibraryStatementParts() {
-        return lsps;
-    }
+	public void setName(@NotNull Token name) {
+		this.name = name.getText();
+	}
 
     @Override
 	public String toString() {

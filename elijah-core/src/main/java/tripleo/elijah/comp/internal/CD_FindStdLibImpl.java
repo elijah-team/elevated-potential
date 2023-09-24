@@ -1,32 +1,17 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.i.CD_FindStdLib;
-import tripleo.elijah.comp.i.CompilationClosure;
-import tripleo.elijah.comp.queries.QuerySourceFileParser;
-import tripleo.elijah.nextgen.query.Mode;
-import tripleo.elijah.util.Operation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.queries.*;
+import tripleo.elijah.nextgen.query.*;
+import tripleo.elijah.util.*;
 
-import java.io.File;
-import java.util.Objects;
-import java.util.function.Consumer;
+import java.io.*;
+import java.util.*;
+import java.util.function.*;
 
 public class CD_FindStdLibImpl implements CD_FindStdLib {
-	@Override
-	public void findStdLib(final @NotNull CR_State crState,
-						   final @NotNull String aPreludeName,
-						   final @NotNull Consumer<Operation<CompilerInstructions>> coci) {
-		try {
-			final CompilationRunner compilationRunner = crState.runner();
-
-			@NotNull final Operation<CompilerInstructions> oci = _____findStdLib(aPreludeName, compilationRunner._accessCompilation().getCompilationClosure(), compilationRunner);
-			coci.accept(oci);
-		} catch (Exception aE) {
-			throw new RuntimeException(aE);
-		}
-	}
-
 	public @NotNull Operation<CompilerInstructions> _____findStdLib(final @NotNull String prelude_name,
 																	final @NotNull CompilationClosure cc,
 																	final @NotNull CompilationRunner cr) {
@@ -72,5 +57,19 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 		//		return "No stdlib found";
 		//	}
 		//});
+	}
+
+	@Override
+	public void findStdLib(final @NotNull CR_State crState,
+						   final @NotNull String aPreludeName,
+						   final @NotNull Consumer<Operation<CompilerInstructions>> coci) {
+		try {
+			final CompilationRunner compilationRunner = crState.runner();
+
+			@NotNull final Operation<CompilerInstructions> oci = _____findStdLib(aPreludeName, compilationRunner._accessCompilation().getCompilationClosure(), compilationRunner);
+			coci.accept(oci);
+		} catch (Exception aE) {
+			throw new RuntimeException(aE);
+		}
 	}
 }

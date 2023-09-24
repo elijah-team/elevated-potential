@@ -1,11 +1,11 @@
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.util.Operation2;
-import tripleo.elijah.world.i.WorldModule;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.world.i.*;
 
-import java.io.File;
+import java.io.*;
 
 public class InputRequest { // TODO 09/08 Convert to record
 	private final File                    _file;
@@ -19,24 +19,24 @@ public class InputRequest { // TODO 09/08 Convert to record
 		lsp     = aLsp;
 	}
 
-	public File file() {
-		return _file;
-	}
-
 	public boolean do_out() {
 		return _do_out;
+	}
+
+	public File file() {
+		return _file;
 	}
 
 	public LibraryStatementPart lsp() {
 		return lsp;
 	}
 
-	public void setOp(final Operation2<WorldModule> aOwm) {
-		op = aOwm;
-	}
-
 	public Operation2<WorldModule> op() {
 		return op;
+	}
+
+	public void setOp(final Operation2<WorldModule> aOwm) {
+		op = aOwm;
 	}
 }
 //public record InputRequest (File file, boolean do_out, @Nullable LibraryStatementPart lsp) {

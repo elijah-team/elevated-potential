@@ -8,9 +8,8 @@
  */
 package tripleo.elijah.lang.types;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.OS_Type;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
 
 /**
  * Created 1/22/21 8:34 AM
@@ -23,13 +22,13 @@ public class OS_UnknownType extends __Abstract_OS_Type {
 	}
 
 	@Override
-	public @NotNull String asString() {
-		return ("<OS_UnknownType>");
+	protected boolean _isEqual(final @NotNull OS_Type aType) {
+		return aType.getType() == Type.UNKNOWN;
 	}
 
 	@Override
-	protected boolean _isEqual(final @NotNull OS_Type aType) {
-		return aType.getType() == Type.UNKNOWN;
+	public @NotNull String asString() {
+		return ("<OS_UnknownType>");
 	}
 
 	@Override

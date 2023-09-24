@@ -14,11 +14,10 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 
-import java.io.File;
+import java.io.*;
 
 public class RegularTypeNameImpl extends AbstractTypeName2
 		implements NormalTypeName, tripleo.elijah.lang.i.RegularTypeName {
@@ -45,31 +44,6 @@ public class RegularTypeNameImpl extends AbstractTypeName2
 	}
 
 	@Override
-	public @NotNull Type kindOfType() {
-		return Type.NORMAL;
-	}
-
-	@Override
-	public void setContext(final Context ctx) {
-		_ctx = ctx;
-	}
-
-	@Override
-	public Context getContext() {
-		return _ctx;
-	}
-
-	@Override
-	public void setName(final Qualident aS) {
-		this.typeName = aS;
-	}
-
-	@Override
-	public TypeNameList getGenericPart() {
-		return genericPart;
-	}
-
-	@Override
 	public int getColumn() {
 		return getRealName().parts().get(0).getColumn();
 	}
@@ -81,8 +55,36 @@ public class RegularTypeNameImpl extends AbstractTypeName2
 	}
 
 	@Override
+	public Context getContext() {
+		return _ctx;
+	}
+
+	@Override
 	public File getFile() {
 		return getRealName().parts().get(0).getFile();
+	}
+
+	@Override
+	public TypeNameList getGenericPart() {
+		return genericPart;
+	}
+
+	@Override
+	public int getLine() {
+		return getRealName().parts().get(0).getLine();
+	}
+
+	// TODO what about generic part
+	@Override
+	public int getLineEnd() {
+		return getRealName().parts().get(getRealName().parts().size()).getLineEnd();
+	}
+
+	@Override
+	public @Nullable String getName() {
+		if (typeName == null)
+			return null;
+		return this.typeName.asSimpleString();
 	}
 
 	@Override
@@ -91,8 +93,8 @@ public class RegularTypeNameImpl extends AbstractTypeName2
 	}
 
 	@Override
-	public int getLine() {
-		return getRealName().parts().get(0).getLine();
+	public OS_Element getResolvedElement() {
+		return _resolvedElement;
 	}
 
 	@Override
@@ -102,15 +104,24 @@ public class RegularTypeNameImpl extends AbstractTypeName2
 
 	// region Locatable
 
-	// TODO what about generic part
 	@Override
-	public int getLineEnd() {
-		return getRealName().parts().get(getRealName().parts().size()).getLineEnd();
+	public @NotNull Type kindOfType() {
+		return Type.NORMAL;
 	}
 
 	@Override
-	public OS_Element getResolvedElement() {
-		return _resolvedElement;
+	public void setContext(final Context ctx) {
+		_ctx = ctx;
+	}
+
+	@Override
+	public void setName(final Qualident aS) {
+		this.typeName = aS;
+	}
+
+	@Override
+	public void setResolvedElement(final OS_Element element) {
+		_resolvedElement = element;
 	}
 
 	/*
@@ -176,18 +187,6 @@ public class RegularTypeNameImpl extends AbstractTypeName2
 		} else
 			sb.append("<RegularTypeName empty>");
 		return sb.toString();
-	}
-
-	@Override
-	public void setResolvedElement(final OS_Element element) {
-		_resolvedElement = element;
-	}
-
-	@Override
-	public @Nullable String getName() {
-		if (typeName == null)
-			return null;
-		return this.typeName.asSimpleString();
 	}
 
 	// endregion

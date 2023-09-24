@@ -47,8 +47,8 @@ public class GetItemExpressionImpl extends AbstractExpression implements tripleo
 	}
 
 	@Override
-	public void setType(final OS_Type deducedExpression) {
-		_type = deducedExpression;
+	public IExpression index() {
+		return index;
 	}
 
 	/*
@@ -68,8 +68,8 @@ public class GetItemExpressionImpl extends AbstractExpression implements tripleo
 	}
 
 	@Override
-	public IExpression index() {
-		return index;
+	public void setType(final OS_Type deducedExpression) {
+		_type = deducedExpression;
 	}
 
 }

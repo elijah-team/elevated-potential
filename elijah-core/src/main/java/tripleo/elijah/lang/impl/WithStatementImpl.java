@@ -8,16 +8,13 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.WithContext;
+import antlr.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 8/30/20 1:51 PM
@@ -53,13 +50,13 @@ public class WithStatementImpl implements OS_Element, OS_Container, StatementIte
 	}
 
 	@Override
-	public void visitGen(final @NotNull ElElementVisitor visit) {
-		visit.visitWithStatement(this);
+	public @NotNull List<FunctionItem> getItems() {
+		return _items;
 	}
 
 	@Override
-	public @NotNull List<FunctionItem> getItems() {
-		return _items;
+	public OS_Element getParent() {
+		return _parent;
 	}
 
 	@Override
@@ -68,8 +65,8 @@ public class WithStatementImpl implements OS_Element, OS_Container, StatementIte
 	}
 
 	@Override
-	public OS_Element getParent() {
-		return _parent;
+	public @Nullable List<OS_Element2> items() {
+		return null;
 	}
 
 	@Override
@@ -82,8 +79,8 @@ public class WithStatementImpl implements OS_Element, OS_Container, StatementIte
 	}
 
 	@Override
-	public @Nullable List<OS_Element2> items() {
-		return null;
+	public void scope(Scope3 sco) {
+		scope3 = sco;
 	}
 
 	@Override
@@ -92,13 +89,13 @@ public class WithStatementImpl implements OS_Element, OS_Container, StatementIte
 	}
 
 	@Override
-	public void scope(Scope3 sco) {
-		scope3 = sco;
+	public void setContext(final WithContext ctx) {
+		this.ctx = ctx;
 	}
 
 	@Override
-	public void setContext(final WithContext ctx) {
-		this.ctx = ctx;
+	public void visitGen(final @NotNull ElElementVisitor visit) {
+		visit.visitWithStatement(this);
 	}
 
 }

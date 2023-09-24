@@ -17,6 +17,34 @@ import tripleo.elijah.util.Operation2;
 import java.util.function.Supplier;
 
 public interface GenType {
+	/**
+	 * Sets the node for a GenType, invocation must already be set
+	 *
+	 * @param aGenType the GenType to modify.
+	 */
+	static void genNodeForGenType2(@NotNull GenType aGenType) {
+//		assert aGenType.nonGenericTypeName != null;
+
+		final IInvocation invocation = aGenType.getCi();
+
+		if (invocation instanceof final @NotNull NamespaceInvocation namespaceInvocation) {
+			namespaceInvocation.resolveDeferred().then(new DoneCallback<EvaNamespace>() {
+				@Override
+				public void onDone(final EvaNamespace result) {
+					aGenType.setNode(result);
+				}
+			});
+		} else if (invocation instanceof final @NotNull ClassInvocation classInvocation) {
+			classInvocation.resolvePromise().then(new DoneCallback<EvaClass>() {
+				@Override
+				public void onDone(final EvaClass result) {
+					aGenType.setNode(result);
+				}
+			});
+		} else
+			throw new IllegalStateException("invalid invocation");
+	}
+
 	static @Nullable GenType makeFromOSType(@NotNull OS_Type aVt, ClassInvocation.@NotNull CI_GenericPart aGenericPart, @NotNull DeduceTypes2 dt2, DeducePhase phase, @NotNull ElLog aLOG, @NotNull ErrSink errSink) {
 		return makeGenTypeFromOSType(aVt, aGenericPart, aLOG, errSink, dt2, phase);
 	}
@@ -130,44 +158,6 @@ public interface GenType {
 		return gt;
 	}
 
-	OS_Type getResolved();
-
-	void setResolved(OS_Type aOSType);
-
-	void setTypeName(OS_Type aType);
-
-	/**
-	 * Sets the node for a GenType, invocation must already be set
-	 *
-	 * @param aGenType the GenType to modify.
-	 */
-	static void genNodeForGenType2(@NotNull GenType aGenType) {
-//		assert aGenType.nonGenericTypeName != null;
-
-		final IInvocation invocation = aGenType.getCi();
-
-		if (invocation instanceof final @NotNull NamespaceInvocation namespaceInvocation) {
-			namespaceInvocation.resolveDeferred().then(new DoneCallback<EvaNamespace>() {
-				@Override
-				public void onDone(final EvaNamespace result) {
-					aGenType.setNode(result);
-				}
-			});
-		} else if (invocation instanceof final @NotNull ClassInvocation classInvocation) {
-			classInvocation.resolvePromise().then(new DoneCallback<EvaClass>() {
-				@Override
-				public void onDone(final EvaClass result) {
-					aGenType.setNode(result);
-				}
-			});
-		} else
-			throw new IllegalStateException("invalid invocation");
-	}
-
-	void setNode(EvaNode aResult);
-
-	IInvocation getCi();
-
 	//@ensures Result.ci != null
 	//@ensures ResultgetResolved() != null
 	static @NotNull GenType of(NamespaceStatement aNamespaceStatement, @NotNull Supplier<NamespaceInvocation> aNamespaceInvocationSupplier) {
@@ -180,13 +170,6 @@ public interface GenType {
 		return genType;
 	}
 
-	void setCi(IInvocation aInvocation);
-
-	ClassInvocation genCI(TypeName aGenericTypeName,
-						  DeduceTypes2 deduceTypes2,
-						  ErrSink errSink,
-						  DeducePhase phase);
-
 	String asString();
 
 	void copy(GenType aGenType);
@@ -195,32 +178,49 @@ public interface GenType {
 	@Override
 	boolean equals(Object aO);
 
-	@Override
-	int hashCode();
+	ClassInvocation genCI(TypeName aGenericTypeName,
+						  DeduceTypes2 deduceTypes2,
+						  ErrSink errSink,
+						  DeducePhase phase);
 
 	void genCIForGenType2(DeduceTypes2 deduceTypes2);
 
 	void genCIForGenType2__(DeduceTypes2 aDeduceTypes2);
 
-	boolean isNull();
+	IInvocation getCi();
 
-	void set(@NotNull OS_Type aType);
+	FunctionInvocation getFunctionInvocation();
 
 	EvaNode getNode();
+
+	TypeName getNonGenericTypeName();
+
+	OS_Type getResolved();
 
 	NamespaceStatement getResolvedn();
 
 	OS_Type getTypeName();
 
-	TypeName getNonGenericTypeName();
+	@Override
+	int hashCode();
+
+	boolean isNull();
+
+	void set(@NotNull OS_Type aType);
+
+	void setCi(IInvocation aInvocation);
+
+	void setDrType(DR_Type aDrType);
 
 	void setFunctionInvocation(FunctionInvocation aFi);
 
-	FunctionInvocation getFunctionInvocation();
+	void setNode(EvaNode aResult);
 
 	void setNonGenericTypeName(@NotNull TypeName typeName);
 
+	void setResolved(OS_Type aOSType);
+
 	void setResolvedn(NamespaceStatement parent);
 
-	void setDrType(DR_Type aDrType);
+	void setTypeName(OS_Type aType);
 }

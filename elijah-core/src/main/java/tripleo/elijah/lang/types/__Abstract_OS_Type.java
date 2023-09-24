@@ -1,21 +1,17 @@
 package tripleo.elijah.lang.types;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.AliasStatementImpl;
-import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang2.*;
 
 abstract class __Abstract_OS_Type implements OS_Type {
+	protected abstract boolean _isEqual(final OS_Type aType);
+
 	public abstract String asString();
 
 	@Override
 	public @Nullable BuiltInTypes getBType() {
-		return null;
-	}
-
-	@Override
-	public @Nullable TypeName getTypeName() {
 		return null;
 	}
 
@@ -25,13 +21,16 @@ abstract class __Abstract_OS_Type implements OS_Type {
 	}
 
 	@Override
+	public @Nullable TypeName getTypeName() {
+		return null;
+	}
+
+	@Override
 	public boolean isEqual(final @NotNull OS_Type aType) {
 		if (aType.getType() != getType()) return false;
 
 		return _isEqual(aType);
 	}
-
-	protected abstract boolean _isEqual(final OS_Type aType);
 
 	@Override
 	public boolean isUnitType() {

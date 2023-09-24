@@ -8,17 +8,16 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
+import antlr.*;
+import com.google.common.base.*;
+import com.google.common.collect.*;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import java.util.*;
 
 /**
  * Created Mar 27, 2019 at 2:24:09 PM
@@ -93,10 +92,6 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 		return null;
 	}
 
-	public void setArgs(final ExpressionList ael) {
-
-	}
-
 	@Override
 	public @NotNull ExpressionKind getKind() {
 		return ExpressionKind.QIDENT;
@@ -108,8 +103,13 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 	}
 
 	@Override
-	public @NotNull List<IdentExpression> parts() {
-		return parts;
+	public @org.jetbrains.annotations.Nullable OS_Type getType() {
+		return null; //_type; // TODO ?? 07/10
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(parts/*, _type*/);
 	}
 
 	@Override
@@ -118,13 +118,22 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 	}
 
 	@Override
-	public @org.jetbrains.annotations.Nullable OS_Type getType() {
-		return null; //_type; // TODO ?? 07/10
+	public @NotNull List<IdentExpression> parts() {
+		return parts;
 	}
 
 	@Override
 	public String repr_() {
 		return String.format("Qualident (%s)", toString());
+	}
+
+	public void setArgs(final ExpressionList ael) {
+
+	}
+
+	@Override
+	public void setKind(final ExpressionKind aIncrement) {
+		throw new IllegalArgumentException(); // TODO is this right?
 	}
 
 	/**
@@ -133,16 +142,6 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 	@Override
 	public void setLeft(final IExpression iexpression) {
 		throw new IllegalArgumentException(); // TODO is this right?
-	}
-
-	@Override
-	public void setKind(final ExpressionKind aIncrement) {
-		throw new IllegalArgumentException(); // TODO is this right?
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(parts/*, _type*/);
 	}
 
 	@Override

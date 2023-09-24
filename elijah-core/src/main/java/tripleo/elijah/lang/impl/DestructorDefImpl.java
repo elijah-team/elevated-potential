@@ -8,11 +8,10 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.FunctionContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
 /**
  * @author Tripleo
@@ -40,13 +39,8 @@ public class DestructorDefImpl extends BaseFunctionDef implements tripleo.elijah
 	}
 
 	@Override
-	public void setHeader(@NotNull FunctionHeader aFunctionHeader) {
-		setFal(aFunctionHeader.getFal());
-//		set(aFunctionHeader.getModifier());
-		assert aFunctionHeader.getModifier() == null;
-		setName(aFunctionHeader.getName());
-//		setReturnType(aFunctionHeader.getReturnType());
-		assert aFunctionHeader.getReturnType() == null;
+	public @Nullable OS_Element getParent() {
+		return null;
 	}
 
 	@Override
@@ -58,6 +52,11 @@ public class DestructorDefImpl extends BaseFunctionDef implements tripleo.elijah
 	public @Nullable TypeName returnType() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void serializeTo(final SmallWriter sw) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -79,8 +78,13 @@ public class DestructorDefImpl extends BaseFunctionDef implements tripleo.elijah
 	}
 
 	@Override
-	public @Nullable OS_Element getParent() {
-		return null;
+	public void setHeader(@NotNull FunctionHeader aFunctionHeader) {
+		setFal(aFunctionHeader.getFal());
+//		set(aFunctionHeader.getModifier());
+		assert aFunctionHeader.getModifier() == null;
+		setName(aFunctionHeader.getName());
+//		setReturnType(aFunctionHeader.getReturnType());
+		assert aFunctionHeader.getReturnType() == null;
 	}
 
 	@Override
@@ -91,11 +95,6 @@ public class DestructorDefImpl extends BaseFunctionDef implements tripleo.elijah
 	@Override
 	public void visitGen(@NotNull ElElementVisitor visit) {
 		visit.visitDestructor(this);
-	}
-
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-		throw new UnsupportedOperationException();
 	}
 }
 

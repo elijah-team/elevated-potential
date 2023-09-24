@@ -37,12 +37,24 @@ import java.util.function.Consumer;
  * Created 10/29/20 4:26 AM
  */
 public class EvaClass extends EvaContainerNC implements GNCoded {
+	public class _Reactive_EvaClass extends DefaultReactive {
+		@Override
+		public <T> void addListener(final Consumer<T> t) {
+			throw new UnintendedUseException();
+		}
+	}
 	private LivingClass _living;
 	private final   ClassStatement                      klass;
 	private final   OS_Module                           module;
 	public          ClassInvocation                     ci;
 	public @NotNull Map<ConstructorDef, EvaConstructor> constructors                      = new HashMap<ConstructorDef, EvaConstructor>();
+
 	private         boolean                             resolve_var_table_entries_already = false;
+
+	final _Reactive_EvaClass reactiveEvaClass = new _Reactive_EvaClass();
+
+	// TODO Reactive??
+	private final GarishClass_Generator _gcg = new GarishClass_Generator(this);
 
 	public EvaClass(ClassStatement aClassStatement, OS_Module aModule) {
 		klass  = aClassStatement;
@@ -239,14 +251,13 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 		aCodeGenerator.generate_class(aFileGen, this);
 	}
 
+	public GarishClass_Generator generator() {
+		return _gcg;
+	}
+
 	@Deprecated @Override
 	public int getCode() {
 		return _living.getCode();
-	}
-
-	@Override
-	public void setCode(final int aCode) {
-		_living.setCode(aCode);
 	}
 
 	@Override
@@ -256,6 +267,10 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 
 	public ClassStatement getKlass() {
 		return this.klass;
+	}
+
+	public LivingClass getLiving() {
+		return _living;
 	}
 
 	@NotNull
@@ -310,13 +325,12 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 	}
 
 	@Override
-	public void register(final @NotNull ICodeRegistrar aCr) {
-		aCr.registerClass1(this);
-	}
-
-	@Override
 	public String identityString() {
 		return String.valueOf(klass);
+	}
+
+	public boolean isGeneric() {
+		return klass.getGenericPart().size() > 0;
 	}
 
 	@Override
@@ -324,8 +338,13 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 		return module;
 	}
 
-	public boolean isGeneric() {
-		return klass.getGenericPart().size() > 0;
+	public Reactive reactive() {
+		return reactiveEvaClass;
+	}
+
+	@Override
+	public void register(final @NotNull ICodeRegistrar aCr) {
+		aCr.registerClass1(this);
 	}
 
 	public boolean resolve_var_table_entries(@NotNull DeducePhase aDeducePhase) {
@@ -342,6 +361,15 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 	}
 
 	@Override
+	public void setCode(final int aCode) {
+		_living.setCode(aCode);
+	}
+
+	public void setLiving(LivingClass _living) {
+		this._living = _living;
+	}
+
+	@Override
 	public @NotNull String toString() {
 		return "EvaClass{" +
 				"klass=" + klass +
@@ -349,34 +377,6 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 				", module=" + module.getFileName() +
 				", ci=" + ci.finalizedGenericPrintable() +
 				'}';
-	}
-
-	final _Reactive_EvaClass reactiveEvaClass = new _Reactive_EvaClass();
-
-	public Reactive reactive() {
-		return reactiveEvaClass;
-	}
-
-	public GarishClass_Generator generator() {
-		return _gcg;
-	}
-
-	// TODO Reactive??
-	private final GarishClass_Generator _gcg = new GarishClass_Generator(this);
-
-	public LivingClass getLiving() {
-		return _living;
-	}
-
-	public void setLiving(LivingClass _living) {
-		this._living = _living;
-	}
-
-	public class _Reactive_EvaClass extends DefaultReactive {
-		@Override
-		public <T> void addListener(final Consumer<T> t) {
-			throw new UnintendedUseException();
-		}
 	}
 }
 

@@ -17,15 +17,8 @@ public class ObservableCompletableProcess<T> implements Observer<T> {
 	}
 
 	@Override
-	public void onSubscribe(@NonNull final Disposable d) {
-		subject.onSubscribe(d);
-		//cpt.start();
-	}
-
-	@Override
-	public void onNext(@NonNull final T aT) {
-		subject.onNext(aT);
-		//cpt.add(aT);
+	public void onComplete() {
+		//cpt.complete();
 	}
 
 	@Override
@@ -35,24 +28,23 @@ public class ObservableCompletableProcess<T> implements Observer<T> {
 	}
 
 	@Override
-	public void onComplete() {
-		//cpt.complete();
+	public void onNext(@NonNull final T aT) {
+		subject.onNext(aT);
+		//cpt.add(aT);
 	}
 
-	public void subscribe(final @NotNull Observer<T> aCio) {
-		subject.subscribe(aCio);
+	@Override
+	public void onSubscribe(@NonNull final Disposable d) {
+		subject.onSubscribe(d);
+		//cpt.start();
 	}
 
 	public void subscribe(final @NotNull CompletableProcess<T> cp) {
 		subject.subscribe(new Observer<T>() {
 			@Override
-			public void onSubscribe(@NonNull final Disposable d) {
-				cp.start();
-			}
-
-			@Override
-			public void onNext(@NonNull final T aT) {
-				cp.add(aT);
+			public void onComplete() {
+				cp.preComplete();
+				cp.complete();
 			}
 
 			@Override
@@ -61,10 +53,18 @@ public class ObservableCompletableProcess<T> implements Observer<T> {
 			}
 
 			@Override
-			public void onComplete() {
-				cp.preComplete();
-				cp.complete();
+			public void onNext(@NonNull final T aT) {
+				cp.add(aT);
+			}
+
+			@Override
+			public void onSubscribe(@NonNull final Disposable d) {
+				cp.start();
 			}
 		});
+	}
+
+	public void subscribe(final @NotNull Observer<T> aCio) {
+		subject.subscribe(aCio);
 	}
 }

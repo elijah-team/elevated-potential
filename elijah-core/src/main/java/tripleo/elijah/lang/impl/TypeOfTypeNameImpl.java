@@ -1,13 +1,10 @@
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.DeduceLookupUtils;
-import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.deduce.ResolveError;
+import tripleo.elijah.stages.deduce.*;
 
-import java.io.File;
+import java.io.*;
 
 /**
  * Created 8/16/20 7:42 AM
@@ -54,13 +51,13 @@ public class TypeOfTypeNameImpl implements TypeName, tripleo.elijah.lang.i.TypeO
 	}
 
 	@Override
-	public void set(final TypeModifiers modifiers_) {
-		modifiers = modifiers_;
+	public boolean isNull() {
+		return false;
 	}
 
 	@Override
-	public Qualident typeOf() {
-		return _typeOf;
+	public @NotNull Type kindOfType() {
+		return Type.TYPE_OF;
 	}
 
 	// region Locatable
@@ -76,8 +73,8 @@ public class TypeOfTypeNameImpl implements TypeName, tripleo.elijah.lang.i.TypeO
 	}
 
 	@Override
-	public void typeOf(final Qualident xy) {
-		_typeOf = xy;
+	public void set(final TypeModifiers modifiers_) {
+		modifiers = modifiers_;
 	}
 
 	@Override
@@ -86,13 +83,13 @@ public class TypeOfTypeNameImpl implements TypeName, tripleo.elijah.lang.i.TypeO
 	}
 
 	@Override
-	public boolean isNull() {
-		return false;
+	public Qualident typeOf() {
+		return _typeOf;
 	}
 
 	@Override
-	public @NotNull Type kindOfType() {
-		return Type.TYPE_OF;
+	public void typeOf(final Qualident xy) {
+		_typeOf = xy;
 	}
 
 	// endregion

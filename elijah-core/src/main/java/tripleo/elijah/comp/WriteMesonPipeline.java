@@ -8,35 +8,24 @@
  */
 package tripleo.elijah.comp;
 
-import com.google.common.collect.Multimap;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.i.IPipelineAccess;
-import tripleo.elijah.comp.internal.CB_Output;
-import tripleo.elijah.comp.internal.CR_State;
-import tripleo.elijah.comp.nextgen.CP_Path;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
-import tripleo.elijah.stages.gen_generic.DoubleLatch;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
-import tripleo.elijah.util.io.CharSink;
-import tripleo.elijah.util.io.FileCharSink;
+import com.google.common.collect.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.io.*;
 
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+import java.io.*;
+import java.util.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
-import static tripleo.elijah.util.Helpers.String_join;
+import static tripleo.elijah.util.Helpers.*;
 
 /**
  * Created 9/13/21 11:58 PM
@@ -84,6 +73,20 @@ public class WriteMesonPipeline implements PipelineMember, @NotNull Consumer<Sup
 		};
 	}
 
+	private CP_Path getPath2(final String aName) {
+		var root = pa.getCompilation().paths().outputRoot();
+
+		var child = root.child(aName);
+		return child;
+	}
+
+	private CP_Path getPath2(final String aName, final String aName2) {
+		var root = pa.getCompilation().paths().outputRoot();
+
+		var child = root.child(aName).child(aName2);
+		return child;
+	}
+
 	@Nullable String pullFileName(@NotNull String aFilename) {
 		//return aFilename.substring(aFilename.lastIndexOf('/')+1);
 		Matcher x = pullPat.matcher(aFilename);
@@ -93,6 +96,40 @@ public class WriteMesonPipeline implements PipelineMember, @NotNull Consumer<Sup
 		} catch (IllegalStateException ignored) {
 		}
 		return null;
+	}
+
+	@Override
+	public void run(final CR_State aSt, final CB_Output aOutput) throws Exception {
+		write_makefiles();
+	}
+
+	private void write_lsp(@NotNull Multimap<CompilerInstructions, String> lsp_outputs, CompilerInstructions compilerInstructions, String aSub_dir) throws IOException {
+		if (true || false) {
+			CP_Path path = getPath2(aSub_dir, "meson.build");
+			path.getPathPromise().then(pp -> {
+				final MesonFile mesonFile = new MesonFile(this, aSub_dir, lsp_outputs, compilerInstructions, path);
+
+				@NotNull final EG_Statement stmt = mesonFile;
+
+				mesonFile.getPath().getPathPromise().then(ppp -> {
+
+					//final String         pathString = mesonFile.getPathString();
+					final String pathString2 = ppp.toString();
+
+					final EOT_OutputFile off = new EOT_OutputFile(List_of(), pathString2, EOT_OutputType.BUILD, stmt);
+					c.getOutputTree().add(off);
+				});
+
+			});
+		}
+	}
+
+	private void write_makefiles() {
+		Multimap<CompilerInstructions, String> lsp_outputs = writePipeline.st.lsp_outputs; // TODO move this
+		write_makefiles_consumer().accept(lsp_outputs);
+
+		//write_makefiles_latch.notify(lsp_outputs);
+		write_makefiles_latch.notifyLatch(true);
 	}
 
 	private void write_makefiles_action(final @NotNull Multimap<CompilerInstructions, String> lsp_outputs) {
@@ -120,6 +157,48 @@ public class WriteMesonPipeline implements PipelineMember, @NotNull Consumer<Sup
 		} catch (IOException aE) {
 			throw new RuntimeException(aE);
 		}
+	}
+
+	public @NotNull Consumer<Multimap<CompilerInstructions, String>> write_makefiles_consumer() {
+		if (_wmc != null)
+			return _wmc;
+
+		_wmc = write_makefiles_latch::notifyData;
+
+		return _wmc;
+	}
+
+	private void write_prelude() throws IOException {
+		if (true || false) {
+			final CP_Path ppath1 = c.paths().outputRoot().child("Prelude");
+			final CP_Path ppath  = ppath1.child("meson.build");
+
+			if (false) {
+				ppath1.getPathPromise().then(pp -> {
+					System.err.println("mkdirs 215 " + ppath1.toFile());
+					System.err.println("mkdirs 215b " + pp.toFile());
+					pp.toFile().mkdirs(); // README just in case -- but should be unnecessary at this point
+				});
+			}
+
+			List<String> files = List_of("'Prelude.c'");
+
+			final StringBuilder sb = new StringBuilder();
+
+			sb.append(String.format("Prelude_sources = files(\n%s\n)", String_join("\n", files)));
+			sb.append("\n");
+			sb.append("Prelude = static_library('Prelude', Prelude_sources, install: false,)"); // include_directories, dependencies: [],
+			sb.append("\n");
+			sb.append("\n");
+			sb.append(String.format("%s_dep = declare_dependency( link_with: %s )", "Prelude", "Prelude")); // include_directories
+			sb.append("\n");
+
+			@NotNull final EG_Statement stmt = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("WriteMesonPipeline"));
+			final String                s    = ppath.toString();
+			final EOT_OutputFile        off  = new EOT_OutputFile(List_of(), s, EOT_OutputType.BUILD, stmt);
+			c.getOutputTree().add(off);
+		}
+
 	}
 
 	private void write_root(@NotNull Multimap<CompilerInstructions, String> lsp_outputs, @NotNull List<String> aDep_dirs) throws IOException {
@@ -167,96 +246,6 @@ public class WriteMesonPipeline implements PipelineMember, @NotNull Consumer<Sup
 				((FileCharSink) root_file).close();
 			}
 		});
-	}
-
-	@Override
-	public void run(final CR_State aSt, final CB_Output aOutput) throws Exception {
-		write_makefiles();
-	}
-
-	private void write_makefiles() {
-		Multimap<CompilerInstructions, String> lsp_outputs = writePipeline.st.lsp_outputs; // TODO move this
-		write_makefiles_consumer().accept(lsp_outputs);
-
-		//write_makefiles_latch.notify(lsp_outputs);
-		write_makefiles_latch.notifyLatch(true);
-	}
-
-	private CP_Path getPath2(final String aName) {
-		var root = pa.getCompilation().paths().outputRoot();
-
-		var child = root.child(aName);
-		return child;
-	}
-
-	public @NotNull Consumer<Multimap<CompilerInstructions, String>> write_makefiles_consumer() {
-		if (_wmc != null)
-			return _wmc;
-
-		_wmc = write_makefiles_latch::notifyData;
-
-		return _wmc;
-	}
-
-	private void write_lsp(@NotNull Multimap<CompilerInstructions, String> lsp_outputs, CompilerInstructions compilerInstructions, String aSub_dir) throws IOException {
-		if (true || false) {
-			CP_Path path = getPath2(aSub_dir, "meson.build");
-			path.getPathPromise().then(pp -> {
-				final MesonFile mesonFile = new MesonFile(this, aSub_dir, lsp_outputs, compilerInstructions, path);
-
-				@NotNull final EG_Statement stmt = mesonFile;
-
-				mesonFile.getPath().getPathPromise().then(ppp -> {
-
-					//final String         pathString = mesonFile.getPathString();
-					final String pathString2 = ppp.toString();
-
-					final EOT_OutputFile off = new EOT_OutputFile(List_of(), pathString2, EOT_OutputType.BUILD, stmt);
-					c.getOutputTree().add(off);
-				});
-
-			});
-		}
-	}
-
-	private void write_prelude() throws IOException {
-		if (true || false) {
-			final CP_Path ppath1 = c.paths().outputRoot().child("Prelude");
-			final CP_Path ppath  = ppath1.child("meson.build");
-
-			if (false) {
-				ppath1.getPathPromise().then(pp -> {
-					System.err.println("mkdirs 215 " + ppath1.toFile());
-					System.err.println("mkdirs 215b " + pp.toFile());
-					pp.toFile().mkdirs(); // README just in case -- but should be unnecessary at this point
-				});
-			}
-
-			List<String> files = List_of("'Prelude.c'");
-
-			final StringBuilder sb = new StringBuilder();
-
-			sb.append(String.format("Prelude_sources = files(\n%s\n)", String_join("\n", files)));
-			sb.append("\n");
-			sb.append("Prelude = static_library('Prelude', Prelude_sources, install: false,)"); // include_directories, dependencies: [],
-			sb.append("\n");
-			sb.append("\n");
-			sb.append(String.format("%s_dep = declare_dependency( link_with: %s )", "Prelude", "Prelude")); // include_directories
-			sb.append("\n");
-
-			@NotNull final EG_Statement stmt = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("WriteMesonPipeline"));
-			final String                s    = ppath.toString();
-			final EOT_OutputFile        off  = new EOT_OutputFile(List_of(), s, EOT_OutputType.BUILD, stmt);
-			c.getOutputTree().add(off);
-		}
-
-	}
-
-	private CP_Path getPath2(final String aName, final String aName2) {
-		var root = pa.getCompilation().paths().outputRoot();
-
-		var child = root.child(aName).child(aName2);
-		return child;
 	}
 }
 

@@ -8,17 +8,15 @@
  */
 package tripleo.elijah.entrypoints;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 6/14/21 7:28 AM
  */
 public class MainClassEntryPoint implements EntryPoint {
-	private FunctionDef main_function;
-
 	public static boolean is_main_function_with_no_args(@NotNull FunctionDef aFunctionDef) {
 		switch (aFunctionDef.getSpecies()) {
 		case REG_FUN:
@@ -33,12 +31,14 @@ public class MainClassEntryPoint implements EntryPoint {
 		return false;
 	}
 
-	private final @NotNull ClassStatement klass;
-
 	public static boolean isMainClass(@NotNull ClassStatement classStatement) {
 		// TODO what about Library (for windows dlls) etc?
 		return classStatement.getPackageName() == OS_Package.default_package && classStatement.name().equals("Main");
 	}
+
+	private FunctionDef main_function;
+
+	private final @NotNull ClassStatement klass;
 
 	public MainClassEntryPoint(@NotNull ClassStatement aKlass) {
 		final List<OS_Element2> main = aKlass.findFunction("main");
