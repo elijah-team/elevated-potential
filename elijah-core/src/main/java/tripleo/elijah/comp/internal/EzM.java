@@ -1,8 +1,10 @@
 package tripleo.elijah.comp.internal;
 
+import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.queries.*;
 import tripleo.elijah.util.*;
 
@@ -11,11 +13,16 @@ import java.io.*;
 import static tripleo.elijah.nextgen.query.Mode.*;
 
 class EzM {
-	// TODO pass to ce or (not pa or) something
+	private final CompilationEnclosure ce;
+	private final QueryEzFileToModule  query;
+
+	EzM(CompilationEnclosure aCe) {
+		ce    = aCe;
+		query = new QueryEzFileToModule();
+	}
+
 	private void logProgress(final int code, final String message) {
-		final String x = "[EzM] %d %s".formatted(code, message);
-//		if (code == 27) return;
-		System.out.println(x);
+		ce.logProgress(CompProgress.EzM__logProgress, Pair.of(code, message));
 	}
 
 	private Operation<CompilerInstructions> parseEzFile_(final String f, final InputStream s,
