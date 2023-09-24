@@ -12,8 +12,7 @@ import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.comp.i.IPipelineAccess;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
@@ -28,7 +27,7 @@ import java.util.Map;
 /**
  * Created 5/16/21 12:35 AM
  */
-public class GeneratePhase implements ReactiveDimension, CompilationEnclosure.ModuleListener {
+public class GeneratePhase implements ReactiveDimension, ModuleListener {
 	private @NotNull final PipelineLogic pipelineLogic;
 	private @NotNull final IPipelineAccess pa;
 

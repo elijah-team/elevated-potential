@@ -14,6 +14,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
@@ -50,7 +51,7 @@ public class CompilationImpl implements Compilation {
 	@Getter
 	private final USE use = new USE(this);
 
-	private final CompilationEnclosure compilationEnclosure = new CompilationEnclosure(this);
+	private final CompilationEnclosure compilationEnclosure = new DefaultCompilationEnclosure(this);
 
 	private final CP_Paths paths;
 
@@ -349,7 +350,7 @@ public class CompilationImpl implements Compilation {
 	public void set_pa(IPipelineAccess a_pa) {
 		_pa = a_pa;
 
-		compilationEnclosure.pipelineAccessPromise.resolve(_pa);
+		compilationEnclosure._resolvePipelineAccessPromise(_pa);
 	}
 
 	@Override
