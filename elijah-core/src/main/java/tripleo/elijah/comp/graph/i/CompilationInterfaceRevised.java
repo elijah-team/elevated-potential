@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.nextgen.i;
+package tripleo.elijah.comp.graph.i;
 
 import org.apache.commons.lang3.tuple.Pair;
 import tripleo.elijah.comp.CompilerInput;

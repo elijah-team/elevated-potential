@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.nextgen.i;
+package tripleo.elijah.comp.graph.i;
 
 public interface CK_IpfsConnection {
 }
