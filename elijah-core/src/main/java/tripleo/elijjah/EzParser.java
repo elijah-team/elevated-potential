@@ -6,10 +6,7 @@ import antlr.*;
 import antlr.collections.impl.BitSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.CiIndexingStatement;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.ci.GenerateStatement;
-import tripleo.elijah.ci.LibraryStatementPart;
+import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.lang.i.Context;
 import tripleo.elijah.lang.i.Documentable;
@@ -26,7 +23,6 @@ import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.lang.i.QualidentList;
 import tripleo.elijah.lang.i.TypeCastExpression;
 import tripleo.elijah.lang.i.TypeName;
-import tripleo.elijah.lang.impl.ExpressionBuilder;
 import tripleo.elijah.lang2.BuiltInTypes;
 
 public class EzParser extends antlr.LLkParser implements EzTokenTypes {
@@ -488,7 +484,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 
 		Token lp2 = null;
 		ee = null;
-		ExpressionList el = null;
+		CiExpressionList el = null;
 		IdentExpression e = null;
 
 		try { // for error handling
@@ -531,7 +527,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						}
 					}
 					if (inputState.guessing == 0) {
-						ProcedureCallExpression pce = pcon.newProcedureCallExpressionImpl();
+						CiProcedureCallExpression pce = pcon.newCiProcedureCallExpressionImpl();
 						pce.identifier(ee);
 						pce.setArgs(el);
 						ee = pce;
@@ -659,10 +655,10 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @NotNull ExpressionList expressionList2() throws RecognitionException, TokenStreamException {
-		ExpressionList el;
+	public final @NotNull CiExpressionList expressionList2() throws RecognitionException, TokenStreamException {
+		CiExpressionList el;
 
-		el = pcon.newExpressionListImpl();
+		el = pcon.newCiExpressionListImpl();
 
 		try { // for error handling
 			expr = expression();
@@ -822,7 +818,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 			throws RecognitionException, TokenStreamException {
 
 		Token i1 = null;
-		ExpressionList el = null;
+		CiExpressionList el = null;
 
 		try { // for error handling
 			match(LITERAL_indexing);
@@ -1142,7 +1138,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		TypeCastExpression tc = null;
 		TypeName tn = null;
 		IExpression e3 = null;
-		ExpressionList el = null;
+		CiExpressionList el = null;
 
 		try { // for error handling
 			ee = primaryExpression();
@@ -1210,9 +1206,9 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							}
 						}
 						if (inputState.guessing == 0) {
-							ProcedureCallExpression pce = pcon.newProcedureCallExpressionImpl();
+							CiProcedureCallExpression pce = pcon.newCiProcedureCallExpressionImpl();
 							pce.identifier(ee);
-							pce.setArgs(el);
+							pce.setExpressionList(el);
 							ee = pce;
 						}
 						match(RPAREN);
@@ -1258,7 +1254,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		ee = null;
 		FuncExpr ppc = null;
 		IdentExpression e = null;
-		ExpressionList el = null;
+		CiExpressionList el = null;
 
 		try { // for error handling
 			switch (LA(1)) {
@@ -1308,7 +1304,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 				}
 				el = expressionList2();
 				if (inputState.guessing == 0) {
-					((ListExpression) ee).setContents(el);
+					((CiListExpression) ee).setContents(el);
 				}
 				match(RBRACK);
 				break;
@@ -1725,7 +1721,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 
 		Token lp = null;
 		ProcedureCallExpression pcx;
-		ExpressionList el = null;
+		CiExpressionList el = null;
 		ee = null;
 		IdentExpression r1 = null, r2 = null;
 
@@ -1787,7 +1783,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						}
 					}
 					if (inputState.guessing == 0) {
-						ProcedureCallExpression pce = pcon.newProcedureCallExpressionImpl();
+						CiProcedureCallExpression pce = pcon.newCiProcedureCallExpressionImpl();
 						pce.identifier(ee);
 						pce.setArgs(el);
 						ee = pce;
