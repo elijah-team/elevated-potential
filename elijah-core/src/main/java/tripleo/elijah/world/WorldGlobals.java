@@ -15,6 +15,8 @@ public enum WorldGlobals {
 
 	// TODO override name() ??
 	public final static ConstructorDef defaultVirtualCtor = new ConstructorDefImpl(null, null, null);
+	// TODO Living?
+	public static final OS_Package default_package = new OS_PackageImpl(null, 0);
 	private static final OS_Package _dp = new OS_PackageImpl(null, 0);
 
 	public static @NotNull OS_Package defaultPackage() {
