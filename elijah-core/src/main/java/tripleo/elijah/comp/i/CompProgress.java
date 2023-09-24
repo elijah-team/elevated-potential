@@ -67,7 +67,7 @@ public enum CompProgress {
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
 			String absolutePath = (String) x;
 
-			out.printf("   %s%n", absolutePath);
+			out.printf("[USE::parseElijjahFile] %s%n", absolutePath);
 		}
 	};
 
