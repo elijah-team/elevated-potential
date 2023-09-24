@@ -54,10 +54,8 @@ public class WPIS_WriteInputs implements WP_Indiviual_Step {
 		final List<EIT_Input_HashSourceFile_Triple> yys = new ArrayList<>();
 
 		{
-			for (final File file : recordedreads) {
-				final String fn = file.toString();
-
-				var decoded = EIT_Input_HashSourceFile_Triple.decode(fn);
+			for (final IO._IO_ReadFile file : recordedreads) {
+				var decoded = EIT_Input_HashSourceFile_Triple.decode(file);
 				yys.add(decoded);
 			}
 		}
