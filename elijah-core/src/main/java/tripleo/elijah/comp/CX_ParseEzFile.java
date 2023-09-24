@@ -11,11 +11,13 @@ import tripleo.elijjah.*;
 import java.io.*;
 
 public class CX_ParseEzFile {
-	private static Operation<CompilerInstructions> calculate(final String aAbsolutePath, final InputStream aReadFile) {
-		final EzLexer lexer = new EzLexer(aReadFile);
+	private static Operation<CompilerInstructions> calculate(final String aAbsolutePath, final InputStream aInputStream) {
+		final EzLexer lexer = new EzLexer(aInputStream);
 		lexer.setFilename(aAbsolutePath);
 		final EzParser parser = new EzParser(lexer);
 		parser.setFilename(aAbsolutePath);
+		parser.pcon = new Compilation.PCon();
+		parser.ci   = parser.pcon.newCompilerInstructionsImpl();
 		try {
 			parser.program();
 		} catch (final RecognitionException | TokenStreamException aE) {
@@ -27,7 +29,7 @@ public class CX_ParseEzFile {
 	}
 
 	public static Operation<CompilerInstructions> parseAndCache(final EzSpec aSpec, final EzCache aEzCache,
-			final String absolutePath) {
+	                                                            final String absolutePath) {
 		final Operation<CompilerInstructions> cio = parseEzFile_(aSpec);
 
 		if (cio.mode() == Mode.SUCCESS) {
@@ -38,11 +40,12 @@ public class CX_ParseEzFile {
 	}
 
 	public static Operation<CompilerInstructions> parseAndCache(final @NotNull File aFile,
-			final Compilation aCompilation, final EzCache aEzCache) {
+	                                                            final Compilation aCompilation,
+	                                                            final EzCache aEzCache) {
 		try (final InputStream readFile = aCompilation.getIO().readFile(aFile)) {
-			final EzSpec spec = new EzSpec(aFile.getName(), readFile, aFile);
-			final String absolutePath = aFile.getAbsolutePath();
-			final Operation<CompilerInstructions> cio = calculate(aFile.getAbsolutePath(), readFile);
+			final EzSpec                          spec         = new EzSpec(aFile.getName(), readFile, aFile);
+			final String                          absolutePath = aFile.getAbsolutePath();
+			final Operation<CompilerInstructions> cio          = calculate(aFile.getAbsolutePath(), readFile);
 
 			if (cio.mode() == Mode.SUCCESS) {
 				aEzCache.put(spec, absolutePath, cio.success());
@@ -55,7 +58,7 @@ public class CX_ParseEzFile {
 	}
 
 	public static Operation<CompilerInstructions> parseEzFile(final @NotNull File aFile,
-			final Compilation aCompilation) {
+	                                                          final Compilation aCompilation) {
 		try (final InputStream readFile = aCompilation.getIO().readFile(aFile)) {
 			final Operation<CompilerInstructions> cio = calculate(aFile.getAbsolutePath(), readFile);
 			return cio;
