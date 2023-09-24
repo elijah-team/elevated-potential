@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
@@ -63,7 +64,10 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 				// inputTree.addNode(i); README skip ARGS
 
 				// FIXME processOption here (ie apply compiler change)
-				int yyy = 2;
+				int yyy = 3;
+			}
+			case STDLIB -> {
+				int y4=4;
 			}
 			}
 		}
@@ -82,6 +86,8 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 //								hasInstructions(List_of(i.acceptance_ci().o.get()));
 					}
 				}
+			} else {
+				throw new UnintendedUseException();
 			}
 		}
 		case HASH -> {

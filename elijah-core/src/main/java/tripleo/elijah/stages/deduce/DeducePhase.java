@@ -10,6 +10,7 @@
 package tripleo.elijah.stages.deduce;
 
 import com.google.common.collect.*;
+import lombok.*;
 import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
@@ -45,527 +46,55 @@ import static tripleo.elijah.util.Helpers.*;
  * Created 12/24/20 3:59 AM
  */
 public class DeducePhase extends _RegistrationTarget implements ReactiveDimension {
-	public interface Country {
-		void sendClasses(Consumer<List<EvaNode>> ces);
-	}
-
-	class Country1 implements Country {
-		@Override
-		public void sendClasses(final @NotNull Consumer<List<EvaNode>> ces) {
-			ces.accept(generatedClasses.copy());
-		}
-	}
-
-	public class DeducePhaseInjector {
-		public List<DE3_Active> new_ArrayList__DE3_Active() {
-			return new ArrayList<>();
-		}
-
-		public List<DeferredMemberFunction> new_ArrayList__DeferredaMemberFunction() {
-			return new ArrayList<>();
-		}
-
-		public List<DeferredMember> new_ArrayList__DeferredMember() {
-			return new ArrayList<>();
-		}
-
-		public List<EvaClass> new_ArrayList__EvaClass() {
-			return new ArrayList<>();
-		}
-
-		public List<EvaNode> new_ArrayList__EvaNode() {
-			return new ArrayList<>();
-		}
-
-		public List<EvaNode> new_ArrayList__EvaNode(final List<EvaNode> aGeneratedClasses) {
-			return new ArrayList<>(aGeneratedClasses);
-		}
-
-		public List<FoundElement> new_ArrayList__FoundElement() {
-			return new ArrayList<>();
-		}
-
-		public List<IFunctionMapHook> new_ArrayList__IFunctionMapHook() {
-			return new ArrayList<>();
-		}
-
-		public List<State> new_ArrayList__State() {
-			return new ArrayList<>();
-		}
-
-		public ClassDefinition new_ClassDefinition(final ClassInvocation aCi) {
-			return new ClassDefinition(aCi);
-		}
-
-		public @NotNull ClassInvocation new_ClassInvocation(final ClassStatement aParent, final String aConstructorName,
-				final @NotNull Supplier<DeduceTypes2> aDeduceTypes2Supplier) {
-			return new ClassInvocation(aParent, aConstructorName, aDeduceTypes2Supplier);
-		}
-
-		public Diagnostic new_CouldntGenerateClass(final ClassDefinition aCd, final GenerateFunctions aGf,
-				final ClassInvocation aCi) {
-			return new CouldntGenerateClass(aCd, aGf, aCi);
-		}
-
-		public Diagnostic new_CouldntGenerateClass(WlGenerateClass gen, DeducePhase deducePhase) {
-			return new CouldntGenerateClass(gen, deducePhase);
-		}
-
-		public Country1 new_Country1(final DeducePhase aDeducePhase) {
-			return aDeducePhase.new Country1();
-		}
-
-		public DeduceTypes2 new_DeduceTypes2(final OS_Module aM, final DeducePhase aDeducePhase,
-				final ElLog.Verbosity aVerbosity) {
-			return new DeduceTypes2(aM, aDeducePhase, aVerbosity);
-		}
-
-		public ICodeRegistrar new_DefaultCodeRegistrar(final Compilation aCompilation) {
-			return new DefaultCodeRegistrar(aCompilation);
-		}
-
-		public DeferredMemberFunctionParentIsClassStatement new_DeferredMemberFunctionParentIsClassStatement(
-				final DeferredMemberFunction aDeferredMemberFunction, final IInvocation aInvocation,
-				final DeducePhase aDeducePhase) {
-			return aDeducePhase.new DeferredMemberFunctionParentIsClassStatement(aDeferredMemberFunction, aInvocation);
-		}
-
-		public DRS new_DRS() {
-			return new DRS();
-		}
-
-		public ElLog new_ElLog(final String aS, final ElLog.Verbosity aVerbosity, final String aDeducePhase) {
-			return new ElLog(aS, aVerbosity, aDeducePhase);
-		}
-
-		public FunctionInvocation new_FunctionInvocation(final FunctionDef aF, final ProcTableEntry aO,
-				final IInvocation aCi, final GeneratePhase aGeneratePhase) {
-			return new FunctionInvocation(aF, aO, aCi, aGeneratePhase);
-		}
-
-		public GeneratedClasses new_GeneratedClasses(final DeducePhase aDeducePhase) {
-			return aDeducePhase.new GeneratedClasses();
-		}
-
-		public GenType new_GenTypeImpl() {
-			return new GenTypeImpl();
-		}
-
-		public Function<EvaNode, Map<FunctionDef, EvaFunction>> new_GetFunctionMapClass() {
-			return new DeferredMemberFunctionParentIsClassStatement.GetFunctionMapClass();
-		}
-
-		public Function<EvaNode, Map<FunctionDef, EvaFunction>> new_GetFunctionMapNamespace() {
-			return new DeferredMemberFunctionParentIsClassStatement.GetFunctionMapNamespace();
-		}
-
-		public Map<IdentTableEntry, OnType> new_HashMap__IdentTableEntry() {
-			return new HashMap<>();
-		}
-
-		public Map<NamespaceStatement, NamespaceInvocation> new_HashMap__NamespaceInvocationMap() {
-			return new HashMap<NamespaceStatement, NamespaceInvocation>();
-		}
-
-		public NamespaceInvocation new_NamespaceInvocation(final NamespaceStatement aParent) {
-			return new NamespaceInvocation(aParent);
-		}
-
-		public RegisterClassInvocation new_RegisterClassInvocation(final DeducePhase aDeducePhase) {
-			return aDeducePhase.new RegisterClassInvocation();
-		}
-
-		public ResolvedVariables new_ResolvedVariables(final IdentTableEntry aIdentTableEntry, final OS_Element aParent,
-				final String aVarName) {
-			return new ResolvedVariables(aIdentTableEntry, aParent, aVarName);
-		}
-
-		public WAITS new_WAITS() {
-			return new WAITS();
-		}
-
-		public WlGenerateClass new_WlGenerateClass(final GenerateFunctions aGenerateFunctions,
-				final ClassInvocation aClassInvocation, final GeneratedClasses aGeneratedClasses,
-				final ICodeRegistrar aCodeRegistrar) {
-			return new WlGenerateClass(aGenerateFunctions, aClassInvocation, aGeneratedClasses, aCodeRegistrar);
-		}
-
-		public WorkJob new_WlGenerateClass(final GenerateFunctions aGenerateFunctions,
-				final ClassInvocation aClassInvocation, final GeneratedClasses aGeneratedClasses,
-				final ICodeRegistrar aCodeRegistrar, final RegisterClassInvocation_env aEnv) {
-			return new WlGenerateClass(aGenerateFunctions, aClassInvocation, aGeneratedClasses, aCodeRegistrar, aEnv);
-		}
-
-		public WorkList new_WorkList() {
-			return new WorkList();
-		}
-
-		public WorkManager new_WorkManager() {
-			return new WorkManager();
-		}
-	}
-
-	/* static */ class DeferredMemberFunctionParentIsClassStatement {
-		static class GetFunctionMapClass implements Function<EvaNode, Map<FunctionDef, EvaFunction>> {
-			@Override
-			public Map<FunctionDef, EvaFunction> apply(final @NotNull EvaNode aClass) {
-				return ((EvaClass) aClass).functionMap;
-			}
-		}
-
-		static class GetFunctionMapNamespace implements Function<EvaNode, Map<FunctionDef, EvaFunction>> {
-			@Override
-			public Map<FunctionDef, EvaFunction> apply(final @NotNull EvaNode aNamespace) {
-				return ((EvaNamespace) aNamespace).functionMap;
-			}
-		}
-
-		private final DeferredMemberFunction deferredMemberFunction;
-
-		private final IInvocation invocation;
-
-		private final OS_Element parent;
-
-		public DeferredMemberFunctionParentIsClassStatement(final DeferredMemberFunction aDeferredMemberFunction,
-				final IInvocation aInvocation) {
-			deferredMemberFunction = aDeferredMemberFunction;
-			invocation = aInvocation;
-			parent = deferredMemberFunction.getParent();// .getParent().getParent();
-		}
-
-		void action() {
-			if (invocation instanceof ClassInvocation)
-				((ClassInvocation) invocation).resolvePromise().then(new DoneCallback<EvaClass>() {
-					@Override
-					public void onDone(final EvaClass result) {
-						defaultAction(result);
-					}
-				});
-			else if (invocation instanceof NamespaceInvocation)
-				((NamespaceInvocation) invocation).resolvePromise().then(new DoneCallback<EvaNamespace>() {
-					@Override
-					public void onDone(final EvaNamespace result) {
-						defaultAction(result);
-					}
-				});
-		}
-
-		<T extends EvaNode> void defaultAction(final T result) {
-			final OS_Element p = deferredMemberFunction.getParent();
-
-			if (p instanceof final DeduceTypes2.@NotNull OS_SpecialVariable specialVariable) {
-				onSpecialVariable(specialVariable);
-				int y = 2;
-			} else if (p instanceof ClassStatement) {
-				final Function<EvaNode, Map<FunctionDef, EvaFunction>> x = getFunctionMap(result);
-
-				// once again we need EvaFunction, not FunctionDef
-				// we seem to have it below, but there can be multiple
-				// specializations of each function
-
-				final EvaFunction gf = x.apply(result).get(deferredMemberFunction.getFunctionDef());
-				if (gf != null) {
-					deferredMemberFunction.externalRefDeferred().resolve(gf);
-					gf.typePromise().then(new DoneCallback<GenType>() {
-						@Override
-						public void onDone(final GenType result) {
-							deferredMemberFunction.typeResolved().resolve(result);
-						}
-					});
-				}
-			} else
-				throw new IllegalStateException("unknown parent");
-		}
-
-		@NotNull
-		private <T extends EvaNode> Function<EvaNode, Map<FunctionDef, EvaFunction>> getFunctionMap(final T result) {
-			final Function<EvaNode, Map<FunctionDef, EvaFunction>> x;
-			if (result instanceof EvaNamespace)
-				x = _inj().new_GetFunctionMapNamespace();
-			else if (result instanceof EvaClass)
-				x = _inj().new_GetFunctionMapClass();
-			else
-				throw new NotImplementedException();
-			return x;
-		}
-
-		public void onSpecialVariable(final DeduceTypes2.@NotNull OS_SpecialVariable aSpecialVariable) {
-			final DeduceLocalVariable.MemberInvocation mi = aSpecialVariable.memberInvocation;
-
-			switch (mi.role) {
-			case INHERITED:
-				final FunctionInvocation functionInvocation = deferredMemberFunction.functionInvocation();
-				functionInvocation.generatePromise().then(new DoneCallback<BaseEvaFunction>() {
-					@Override
-					public void onDone(final @NotNull BaseEvaFunction gf) {
-						deferredMemberFunction.externalRefDeferred().resolve(gf);
-						gf.typePromise().then(new DoneCallback<GenType>() {
-							@Override
-							public void onDone(final GenType result) {
-								deferredMemberFunction.typeResolved().resolve(result);
-							}
-						});
-					}
-				});
-				break;
-			case DIRECT:
-				if (invocation instanceof NamespaceInvocation)
-					assert false;
-				else {
-					final ClassInvocation classInvocation = (ClassInvocation) invocation;
-					classInvocation.resolvePromise().then(new DoneCallback<EvaClass>() {
-						@Override
-						public void onDone(final @NotNull EvaClass element_generated) {
-							// once again we need EvaFunction, not FunctionDef
-							// we seem to have it below, but there can be multiple
-							// specializations of each function
-							final EvaFunction gf = element_generated.functionMap
-									.get(deferredMemberFunction.getFunctionDef());
-							deferredMemberFunction.externalRefDeferred().resolve(gf);
-							gf.typePromise().then(new DoneCallback<GenType>() {
-								@Override
-								public void onDone(final GenType result) {
-									deferredMemberFunction.typeResolved().resolve(result);
-								}
-							});
-						}
-					});
-				}
-				break;
-			default:
-				throw new IllegalStateException("Unexpected value: " + mi.role);
-			}
-		}
-	}
-
-	static class DRS {
-		private final List<Pair<BaseEvaFunction, DR_Item>> drs = new ArrayList<>();
-
-		public void add(final Pair<BaseEvaFunction, DR_Item> aDrp) {
-			drs.add(aDrp);
-		}
-
-		public Iterable<Pair<BaseEvaFunction, DR_Item>> iterator() {
-			return drs;
-		}
-	}
-
-	public class GeneratedClasses implements Iterable<EvaNode> {
-		@NotNull
-		List<EvaNode> generatedClasses = _inj().new_ArrayList__EvaNode();
-		private int generation;
-
-		public void add(EvaNode aClass) {
-			pa._send_GeneratedClass(aClass);
-
-			generatedClasses.add(aClass);
-		}
-
-		public void addAll(@NotNull List<EvaNode> lgc) {
-			// TODO is this method really needed
-			generatedClasses.addAll(lgc);
-		}
-
-		public @NotNull List<EvaNode> copy() {
-			++generation;
-			return new ArrayList<>(generatedClasses);
-		}
-
-		@Override
-		public @NotNull Iterator<EvaNode> iterator() {
-			return generatedClasses.iterator();
-		}
-
-		public int size() {
-			return generatedClasses.size();
-		}
-
-		@Override
-		public String toString() {
-			return "GeneratedClasses{size=%d, generation=%d}".formatted(generatedClasses.size(), generation);
-		}
-	}
-
-	class RegisterClassInvocation {
-		// TODO this class is a mess
-
-		private @NotNull ClassInvocation getClassInvocation(final @NotNull ClassInvocation aClassInvocation,
-				OS_Module mod, final WorkList wl, final @NotNull RegisterClassInvocation_env aEnv) {
-			if (mod == null)
-				mod = aClassInvocation.getKlass().getContext().module();
-
-			if (false) {
-				var prom = generateClass(generatePhase.getGenerateFunctions(mod), aClassInvocation,
-						generatePhase.getWm());
-
-				// return prom;
-				return null;
-			} else {
-				DeferredObject<ClassDefinition, Diagnostic, Void> prom = new DeferredObject<>();
-
-				final GenerateFunctions generateFunctions = generatePhase.getGenerateFunctions(mod);
-				wl.addJob(_inj().new_WlGenerateClass(generateFunctions, aClassInvocation, generatedClasses,
-						codeRegistrar, aEnv)); // TODO why add now?
-				generatePhase.getWm().addJobs(wl);
-				generatePhase.getWm().drain(); // TODO find a better place to put this
-
-				prom.resolve(new ClassDefinition(aClassInvocation));
-
-				// return prom;
-				return aClassInvocation;
-			}
-		}
-
-		private @NotNull ClassInvocation part2(final @NotNull ClassInvocation aClassInvocation, boolean put,
-				final @NotNull RegisterClassInvocation_env aEnv) {
-			// 2. Check and see if already done
-			Collection<ClassInvocation> cls = classInvocationMultimap.get(aClassInvocation.getKlass());
-			for (@NotNull
-			ClassInvocation ci : cls) {
-				if (equivalentGenericPart(ci, aClassInvocation)) {
-					return ci;
-				}
-			}
-
-			if (put) {
-				classInvocationMultimap.put(aClassInvocation.getKlass(), aClassInvocation);
-			}
-
-			// 3. Generate new EvaClass
-			final @NotNull WorkList wl = _inj().new_WorkList();
-
-			var x = getClassInvocation(aClassInvocation, null, wl, aEnv);
-
-			// 4. Return it
-			// final ClassDefinition[] yy = new ClassDefinition[1];
-			// x.then(y -> yy[0] =y);
-			// return yy[0];
-			return x;
-		}
-
-		public @NotNull ClassInvocation registerClassInvocation(@NotNull ClassInvocation aClassInvocation) {
-			return registerClassInvocation(new RegisterClassInvocation_env(aClassInvocation, null, null));
-		}
-
-		public ClassInvocation registerClassInvocation(final @NotNull RegisterClassInvocation_env env) {
-			var aClassInvocation = env.ci();
-
-			// 1. select which to return
-			final ClassStatement c = aClassInvocation.getKlass();
-			final Collection<ClassInvocation> cis = classInvocationMultimap.get(c);
-
-			for (@NotNull
-			ClassInvocation ci : cis) {
-				// don't lose information
-				if (ci.getConstructorName() != null)
-					if (!(ci.getConstructorName().equals(aClassInvocation.getConstructorName())))
-						continue;
-
-				boolean i = equivalentGenericPart(aClassInvocation, ci);
-				if (i) {
-					if (aClassInvocation instanceof DerivedClassInvocation) {
-						if (ci instanceof DerivedClassInvocation)
-							continue;
-
-						/* if (ci.resolvePromise().isResolved()) */
-						{
-							ci.resolvePromise().then((final @NotNull EvaClass result) -> {
-								aClassInvocation.resolveDeferred().resolve(result);
-							});
-							return aClassInvocation;
-						}
-					} else
-						return ci;
-				}
-			}
-
-			return part2(aClassInvocation, true, env);
-		}
-	}
-
-	static class ResolvedVariables {
-		final IdentTableEntry identTableEntry;
-		final @NotNull OS_Element parent; // README tripleo.elijah.lang._CommonNC, but that's package-private
-		final String varName;
-
-		public ResolvedVariables(IdentTableEntry aIdentTableEntry, OS_Element aParent, String aVarName) {
-			assert aParent instanceof ClassStatement || aParent instanceof NamespaceStatement;
-
-			identTableEntry = aIdentTableEntry;
-			parent = aParent;
-			varName = aVarName;
-		}
-	}
-
-	static class WAITS {
-		private final Set<DeduceTypes2> waits = new HashSet<>();
-
-		public void add(final DeduceTypes2 aDeduceTypes2) {
-			waits.add(aDeduceTypes2);
-		}
-
-		public Iterable<DeduceTypes2> iterator() {
-			return waits;
-		}
-	}
-
-	private final String PHASE = "DeducePhase";
-	private @NotNull final DeducePhaseInjector __inj = new DeducePhaseInjector();
-	public final @NotNull GeneratedClasses generatedClasses;
-	private final @NotNull ICodeRegistrar codeRegistrar;
-	public final @NotNull GeneratePhase generatePhase;
-	private final @NotNull ICompilationAccess ca;
-	private final Map<NamespaceStatement, NamespaceInvocation> namespaceInvocationMap = _inj()
-			.new_HashMap__NamespaceInvocationMap();
-	private final ExecutorService classGenerator = Executors.newCachedThreadPool();
-	private final Country1 country = _inj().new_Country1(this);
-	private final List<DeferredMemberFunction> deferredMemberFunctions = _inj()
-			.new_ArrayList__DeferredaMemberFunction();
-	private final List<FoundElement> foundElements = _inj().new_ArrayList__FoundElement();
-	private final Multimap<FunctionDef, EvaFunction> functionMap = ArrayListMultimap.create();
-	private final Map<IdentTableEntry, OnType> idte_type_callbacks = _inj().new_HashMap__IdentTableEntry();
-	private final @NotNull ElLog LOG;
-	private final @NotNull PipelineLogic pipelineLogic;
-
-	private final List<DE3_Active> _actives = _inj().new_ArrayList__DE3_Active();
-
+	public final @NotNull  GeneratedClasses                             generatedClasses;
+	public final @NotNull  GeneratePhase                                generatePhase;
+	final                  Multimap<OS_Module, Consumer<DeduceTypes2>>  iWantModules            = ArrayListMultimap.create();
+	private final          String                                       PHASE                   = "DeducePhase";
+	private @NotNull
+	final                  DeducePhaseInjector                          __inj                   = new DeducePhaseInjector();
 	@NotNull
-	public final List<IFunctionMapHook> functionMapHooks = _inj().new_ArrayList__IFunctionMapHook();
-
-	private final @NotNull Multimap<ClassStatement, ClassInvocation> classInvocationMultimap = ArrayListMultimap
+	public final           List<IFunctionMapHook> functionMapHooks        = _inj().new_ArrayList__IFunctionMapHook();
+	@Getter
+	private final @NotNull ICodeRegistrar         codeRegistrar;
+	private final @NotNull ICompilationAccess     ca;
+	private final          Map<NamespaceStatement, NamespaceInvocation> namespaceInvocationMap  = _inj()
+			.new_HashMap__NamespaceInvocationMap();
+	private final          ExecutorService                              classGenerator          = Executors.newCachedThreadPool();
+	private final          Country1                                     country                 = _inj().new_Country1(this);
+	private final          List<DeferredMemberFunction>                 deferredMemberFunctions = _inj()
+			.new_ArrayList__DeferredaMemberFunction();
+	private final          List<FoundElement>                           foundElements           = _inj().new_ArrayList__FoundElement();
+	private final          Multimap<FunctionDef, EvaFunction>           functionMap             = ArrayListMultimap.create();
+	private final          Map<IdentTableEntry, OnType>                 idte_type_callbacks     = _inj().new_HashMap__IdentTableEntry();
+	private final @NotNull ElLog                                        LOG;
+	private final @NotNull PipelineLogic                                pipelineLogic;
+	private final          List<DE3_Active>                             _actives                = _inj().new_ArrayList__DE3_Active();
+	private final @NotNull Multimap<ClassStatement, ClassInvocation>    classInvocationMultimap = ArrayListMultimap
 			.create();
-
-	private final @NotNull List<DeferredMember> deferredMembers = _inj().new_ArrayList__DeferredMember();
-
-	private final @NotNull Multimap<ClassStatement, OnClass> onclasses = ArrayListMultimap.create();
-
-	private final @NotNull Multimap<OS_Element, ResolvedVariables> resolved_variables = ArrayListMultimap.create();
-
-	private final @NotNull DRS drs = _inj().new_DRS();
-
-	private final @NotNull WAITS waits = _inj().new_WAITS();
-
-	public IPipelineAccess pa;
-
-	final Multimap<OS_Module, Consumer<DeduceTypes2>> iWantModules = ArrayListMultimap.create();
+	private final @NotNull List<DeferredMember>                         deferredMembers         = _inj().new_ArrayList__DeferredMember();
+	private final @NotNull Multimap<ClassStatement, OnClass>            onclasses               = ArrayListMultimap.create();
+	private final @NotNull Multimap<OS_Element, ResolvedVariables>      resolved_variables      = ArrayListMultimap.create();
+	private final @NotNull DRS                                          drs                     = _inj().new_DRS();
+	private final @NotNull WAITS                                        waits                   = _inj().new_WAITS();
+	public                 IPipelineAccess                              pa;
 
 	public DeducePhase(final @NotNull CompilationEnclosure ace) {
 		this(ace.getCompilationAccess(), ace.getPipelineAccess(), ace.getPipelineLogic());
 	}
 
 	public DeducePhase(final @NotNull ICompilationAccess aca, final @NotNull IPipelineAccess pa0,
-			final @NotNull PipelineLogic aPipelineLogic) {
+	                   final @NotNull PipelineLogic aPipelineLogic) {
 		// given
 		pipelineLogic = aPipelineLogic;
-		ca = aca;
-		pa = pa0;
+		ca            = aca;
+		pa            = pa0;
 
 		// transitive
 		generatePhase = pipelineLogic.generatePhase;
 
 		// created
 		codeRegistrar = _inj().new_DefaultCodeRegistrar(ca.getCompilation());
-		LOG = _inj().new_ElLog("(DEDUCE_PHASE)", pipelineLogic.getVerbosity(), PHASE);
+		LOG           = _inj().new_ElLog("(DEDUCE_PHASE)", pipelineLogic.getVerbosity(), PHASE);
 
 		// using
 		pa.getCompilationEnclosure().getPipelineLogic().addLog(LOG);
@@ -638,7 +167,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 	}
 
 	public @NotNull DeduceTypes2 deduceModule(@NotNull WorldModule wm, @NotNull Iterable<EvaNode> lgf,
-			ElLog.Verbosity verbosity) {
+	                                          ElLog.Verbosity verbosity) {
 		var mod = wm.module();
 
 		final @NotNull DeduceTypes2 deduceTypes2 = _inj().new_DeduceTypes2(mod, this, verbosity);
@@ -687,13 +216,13 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 
 	public boolean equivalentGenericPart(@NotNull ClassInvocation first, @NotNull ClassInvocation second) {
 		final ClassInvocation.CI_GenericPart secondGenericPart1 = second.genericPart();
-		final ClassInvocation.CI_GenericPart firstGenericPart1 = first.genericPart();
+		final ClassInvocation.CI_GenericPart firstGenericPart1  = first.genericPart();
 
 		if (second.getKlass() == first.getKlass() /* && secondGenericPart1 == null */)
 			return true;
 
 		final Map<TypeName, OS_Type> secondGenericPart = secondGenericPart1.getMap();
-		final Map<TypeName, OS_Type> firstGenericPart = firstGenericPart1.getMap();
+		final Map<TypeName, OS_Type> firstGenericPart  = firstGenericPart1.getMap();
 
 		int i = secondGenericPart.entrySet().size();
 		for (Map.@NotNull Entry<TypeName, OS_Type> entry : secondGenericPart.entrySet()) {
@@ -722,7 +251,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		 * ci)) { final DeferredObject<EvaClass, Void, Void> deferredObject =
 		 * (DeferredObject<EvaClass, Void, Void>) ci.promise(); deferredObject.then(new
 		 * DoneCallback<EvaClass>() {
-		 * 
+		 *
 		 * @Override public void onDone(EvaClass result) { assert result ==
 		 * generatedClass; } }); // deferredObject.resolve(generatedClass); } } } }
 		 */
@@ -754,7 +283,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 
 		for (Pair<BaseEvaFunction, DR_Item> pair : drs.iterator()) {
 			final BaseEvaFunction ef = pair.getLeft();
-			final DR_Item dr = pair.getRight();
+			final DR_Item         dr = pair.getRight();
 
 			// System.err.println("611a " + ef);
 			// System.err.println("611b " + dr);
@@ -801,7 +330,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 	}
 
 	public void forFunction(DeduceTypes2 deduceTypes2, @NotNull FunctionInvocation fi,
-			@NotNull ForFunction forFunction) {
+	                        @NotNull ForFunction forFunction) {
 //		LOG.err("272 forFunction\n\t"+fi.getFunction()+"\n\t"+fi.pte);
 		fi.generateDeferred().promise().then(result -> result.typePromise().then(forFunction::typeDecided));
 	}
@@ -816,36 +345,30 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 
 			final EvaClass[] genclass1 = new EvaClass[1];
 
-				gen.setConsumer(x -> {
-					genclass1[0] = x;
-				});
+			gen.setConsumer(x -> {
+				genclass1[0] = x;
+			});
 
-				gen.run(wm);
+			gen.run(wm);
 
-				final ClassDefinition cd = _inj().new_ClassDefinition(ci);
+			final ClassDefinition cd = _inj().new_ClassDefinition(ci);
 
-				if (genclass1[0] != null) {
-					final EvaClass genclass = genclass1[0];
+			if (genclass1[0] != null) {
+				final EvaClass genclass = genclass1[0];
 
-					cd.setNode(genclass);
-					ret.resolve(cd);
-				} else {
-					ret.reject(_inj().new_CouldntGenerateClass(gen, DeducePhase.this));
-				}
+				cd.setNode(genclass);
+				ret.resolve(cd);
+			} else {
+				ret.reject(_inj().new_CouldntGenerateClass(gen, DeducePhase.this));
 			}
 		});
 
 		return ret;
 	}
 
-	public ICodeRegistrar getCodeRegistrar() {
-		return codeRegistrar;
-	}
-
 	public void handleDeferredMemberFunctions() {
-		for (@NotNull
-		final DeferredMemberFunction deferredMemberFunction : deferredMemberFunctions) {
-			int y = 2;
+		for (@NotNull final DeferredMemberFunction deferredMemberFunction : deferredMemberFunctions) {
+			int              y      = 2;
 			final OS_Element parent = deferredMemberFunction.getParent();// .getParent().getParent();
 
 			if (parent instanceof ClassStatement) {
@@ -866,9 +389,9 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 				}
 
 				namespaceInvocation.resolvePromise().then((final @NotNull EvaNamespace result) -> {
-					final NamespaceInvocation x = namespaceInvocation;
-					final @NotNull DeferredMemberFunction z = deferredMemberFunction;
-					int yy = 2;
+					final NamespaceInvocation             x  = namespaceInvocation;
+					final @NotNull DeferredMemberFunction z  = deferredMemberFunction;
+					int                                   yy = 2;
 				});
 			}
 		}
@@ -891,11 +414,10 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 	}
 
 	public void handleDeferredMembers() {
-		for (@NotNull
-		final DeferredMember deferredMember : deferredMembers) {
+		for (@NotNull final DeferredMember deferredMember : deferredMembers) {
 			if (deferredMember.getParent().isNamespaceStatement()) {
 				final @NotNull NamespaceStatement parent = (NamespaceStatement) deferredMember.getParent().element();
-				final NamespaceInvocation nsi = registerNamespaceInvocation(parent);
+				final NamespaceInvocation         nsi    = registerNamespaceInvocation(parent);
 				nsi.resolveDeferred().done(result -> {
 					@NotNull
 					Maybe<EvaContainer.VarTableEntry> v_m = result
@@ -926,7 +448,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 						/*
 						 * if (genType.resolved == null) { // HACK need to resolve, but this shouldn't
 						 * be here try {
-						 * 
+						 *
 						 * @NotNull OS_Type rt = DeduceTypes2.resolve_type(null, varType,
 						 * varType.getTypeName().getContext()); genType.set(rt); } catch (ResolveError
 						 * aResolveError) { aResolveError.printStackTrace(); } }
@@ -937,7 +459,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 			} else if (deferredMember.getParent().element() instanceof ClassStatement) {
 				// TODO do something
 				final ClassStatement parent = (ClassStatement) deferredMember.getParent().element();
-				final String name = deferredMember.getVariableStatement().getName();
+				final String         name   = deferredMember.getVariableStatement().getName();
 
 				// because deferredMember.invocation is null, we must create one here
 				final @Nullable ClassInvocation ci = registerClassInvocation(parent, null, new NULL_DeduceTypes2());
@@ -1063,7 +585,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 	}
 
 	public @NotNull FunctionInvocation newFunctionInvocation(final FunctionDef f, final @Nullable ProcTableEntry aO,
-			final @NotNull IInvocation ci) {
+	                                                         final @NotNull IInvocation ci) {
 		return _inj().new_FunctionInvocation(f, aO, ci, this.generatePhase);
 	}
 
@@ -1129,7 +651,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 			for (EvaNode evaNode : generatedClasses.copy()) {
 				if (evaNode instanceof final @NotNull EvaClass evaClass) {
 					all_resolve_var_table_entries = evaClass.resolve_var_table_entries(this); // TODO use a while loop
-																								// to get all classes
+					// to get all classes
 				}
 			}
 		}
@@ -1153,28 +675,28 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 			for (@NotNull
 			IdentTableEntry identTableEntry : generatedFunction.idte_list) {
 				switch (identTableEntry.getStatus()) {
-				case UNKNOWN:
-					assert !identTableEntry.hasResolvedElement();
-					LOG.err(String.format("250 UNKNOWN idte %s in %s", identTableEntry, generatedFunction));
-					break;
-				case KNOWN:
-					assert identTableEntry.hasResolvedElement();
-					if (identTableEntry.type == null) {
-						LOG.err(String.format("258 null type in KNOWN idte %s in %s", identTableEntry,
+					case UNKNOWN:
+						assert !identTableEntry.hasResolvedElement();
+						LOG.err(String.format("250 UNKNOWN idte %s in %s", identTableEntry, generatedFunction));
+						break;
+					case KNOWN:
+						assert identTableEntry.hasResolvedElement();
+						if (identTableEntry.type == null) {
+							LOG.err(String.format("258 null type in KNOWN idte %s in %s", identTableEntry,
 								generatedFunction));
-					}
-					break;
-				case UNCHECKED: {
+						}
+						break;
+					case UNCHECKED: {
 
-					LOG.err(String.format("255 UNCHECKED idte %s in %s", identTableEntry, generatedFunction));
-					break;
-				}
+						LOG.err(String.format("255 UNCHECKED idte %s in %s", identTableEntry, generatedFunction));
+						break;
+					}
 				}
 				for (@NotNull
 				TypeTableEntry pot_tte : identTableEntry.potentialTypes()) {
 					if (pot_tte.getAttached() == null) {
 						LOG.err(String.format("267 null potential attached in %s in %s in %s", pot_tte, identTableEntry,
-								generatedFunction));
+						                      generatedFunction));
 					}
 				}
 			}
@@ -1204,6 +726,494 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 
 	public void waitOn(final DeduceTypes2 aDeduceTypes2) {
 		waits.add(aDeduceTypes2);
+	}
+
+	public interface Country {
+		void sendClasses(Consumer<List<EvaNode>> ces);
+	}
+
+	static class DRS {
+		private final List<Pair<BaseEvaFunction, DR_Item>> drs = new ArrayList<>();
+
+		public void add(final Pair<BaseEvaFunction, DR_Item> aDrp) {
+			drs.add(aDrp);
+		}
+
+		public Iterable<Pair<BaseEvaFunction, DR_Item>> iterator() {
+			return drs;
+		}
+	}
+
+	static class ResolvedVariables {
+		final          IdentTableEntry identTableEntry;
+		final @NotNull OS_Element      parent; // README tripleo.elijah.lang._CommonNC, but that's package-private
+		final          String          varName;
+
+		public ResolvedVariables(IdentTableEntry aIdentTableEntry, OS_Element aParent, String aVarName) {
+			assert aParent instanceof ClassStatement || aParent instanceof NamespaceStatement;
+
+			identTableEntry = aIdentTableEntry;
+			parent          = aParent;
+			varName         = aVarName;
+		}
+	}
+
+	static class WAITS {
+		private final Set<DeduceTypes2> waits = new HashSet<>();
+
+		public void add(final DeduceTypes2 aDeduceTypes2) {
+			waits.add(aDeduceTypes2);
+		}
+
+		public Iterable<DeduceTypes2> iterator() {
+			return waits;
+		}
+	}
+
+	class Country1 implements Country {
+		@Override
+		public void sendClasses(final @NotNull Consumer<List<EvaNode>> ces) {
+			ces.accept(generatedClasses.copy());
+		}
+	}
+
+	public class DeducePhaseInjector {
+		public List<DE3_Active> new_ArrayList__DE3_Active() {
+			return new ArrayList<>();
+		}
+
+		public List<DeferredMemberFunction> new_ArrayList__DeferredaMemberFunction() {
+			return new ArrayList<>();
+		}
+
+		public List<DeferredMember> new_ArrayList__DeferredMember() {
+			return new ArrayList<>();
+		}
+
+		public List<EvaClass> new_ArrayList__EvaClass() {
+			return new ArrayList<>();
+		}
+
+		public List<EvaNode> new_ArrayList__EvaNode() {
+			return new ArrayList<>();
+		}
+
+		public List<EvaNode> new_ArrayList__EvaNode(final List<EvaNode> aGeneratedClasses) {
+			return new ArrayList<>(aGeneratedClasses);
+		}
+
+		public List<FoundElement> new_ArrayList__FoundElement() {
+			return new ArrayList<>();
+		}
+
+		public List<IFunctionMapHook> new_ArrayList__IFunctionMapHook() {
+			return new ArrayList<>();
+		}
+
+		public List<State> new_ArrayList__State() {
+			return new ArrayList<>();
+		}
+
+		public ClassDefinition new_ClassDefinition(final ClassInvocation aCi) {
+			return new ClassDefinition(aCi);
+		}
+
+		public @NotNull ClassInvocation new_ClassInvocation(final ClassStatement aParent, final String aConstructorName,
+		                                                    final @NotNull Supplier<DeduceTypes2> aDeduceTypes2Supplier) {
+			return new ClassInvocation(aParent, aConstructorName, aDeduceTypes2Supplier);
+		}
+
+		public Diagnostic new_CouldntGenerateClass(final ClassDefinition aCd, final GenerateFunctions aGf,
+		                                           final ClassInvocation aCi) {
+			return new CouldntGenerateClass(aCd, aGf, aCi);
+		}
+
+		public Diagnostic new_CouldntGenerateClass(WlGenerateClass gen, DeducePhase deducePhase) {
+			return new CouldntGenerateClass(gen, deducePhase);
+		}
+
+		public Country1 new_Country1(final DeducePhase aDeducePhase) {
+			return aDeducePhase.new Country1();
+		}
+
+		public DeduceTypes2 new_DeduceTypes2(final OS_Module aM, final DeducePhase aDeducePhase,
+		                                     final ElLog.Verbosity aVerbosity) {
+			return new DeduceTypes2(aM, aDeducePhase, aVerbosity);
+		}
+
+		public ICodeRegistrar new_DefaultCodeRegistrar(final Compilation aCompilation) {
+			return new DefaultCodeRegistrar(aCompilation);
+		}
+
+		public DeferredMemberFunctionParentIsClassStatement new_DeferredMemberFunctionParentIsClassStatement(
+				final DeferredMemberFunction aDeferredMemberFunction, final IInvocation aInvocation,
+				final DeducePhase aDeducePhase) {
+			return aDeducePhase.new DeferredMemberFunctionParentIsClassStatement(aDeferredMemberFunction, aInvocation);
+		}
+
+		public DRS new_DRS() {
+			return new DRS();
+		}
+
+		public ElLog new_ElLog(final String aS, final ElLog.Verbosity aVerbosity, final String aDeducePhase) {
+			return new ElLog(aS, aVerbosity, aDeducePhase);
+		}
+
+		public FunctionInvocation new_FunctionInvocation(final FunctionDef aF, final ProcTableEntry aO,
+		                                                 final IInvocation aCi, final GeneratePhase aGeneratePhase) {
+			return new FunctionInvocation(aF, aO, aCi, aGeneratePhase);
+		}
+
+		public GeneratedClasses new_GeneratedClasses(final DeducePhase aDeducePhase) {
+			return aDeducePhase.new GeneratedClasses();
+		}
+
+		public GenType new_GenTypeImpl() {
+			return new GenTypeImpl();
+		}
+
+		public Function<EvaNode, Map<FunctionDef, EvaFunction>> new_GetFunctionMapClass() {
+			return new DeferredMemberFunctionParentIsClassStatement.GetFunctionMapClass();
+		}
+
+		public Function<EvaNode, Map<FunctionDef, EvaFunction>> new_GetFunctionMapNamespace() {
+			return new DeferredMemberFunctionParentIsClassStatement.GetFunctionMapNamespace();
+		}
+
+		public Map<IdentTableEntry, OnType> new_HashMap__IdentTableEntry() {
+			return new HashMap<>();
+		}
+
+		public Map<NamespaceStatement, NamespaceInvocation> new_HashMap__NamespaceInvocationMap() {
+			return new HashMap<NamespaceStatement, NamespaceInvocation>();
+		}
+
+		public NamespaceInvocation new_NamespaceInvocation(final NamespaceStatement aParent) {
+			return new NamespaceInvocation(aParent);
+		}
+
+		public RegisterClassInvocation new_RegisterClassInvocation(final DeducePhase aDeducePhase) {
+			return aDeducePhase.new RegisterClassInvocation();
+		}
+
+		public ResolvedVariables new_ResolvedVariables(final IdentTableEntry aIdentTableEntry, final OS_Element aParent,
+		                                               final String aVarName) {
+			return new ResolvedVariables(aIdentTableEntry, aParent, aVarName);
+		}
+
+		public WAITS new_WAITS() {
+			return new WAITS();
+		}
+
+		public WlGenerateClass new_WlGenerateClass(final GenerateFunctions aGenerateFunctions,
+		                                           final ClassInvocation aClassInvocation, final GeneratedClasses aGeneratedClasses,
+		                                           final ICodeRegistrar aCodeRegistrar) {
+			return new WlGenerateClass(aGenerateFunctions, aClassInvocation, aGeneratedClasses, aCodeRegistrar);
+		}
+
+		public WorkJob new_WlGenerateClass(final GenerateFunctions aGenerateFunctions,
+		                                   final ClassInvocation aClassInvocation, final GeneratedClasses aGeneratedClasses,
+		                                   final ICodeRegistrar aCodeRegistrar, final RegisterClassInvocation_env aEnv) {
+			return new WlGenerateClass(aGenerateFunctions, aClassInvocation, aGeneratedClasses, aCodeRegistrar, aEnv);
+		}
+
+		public WorkList new_WorkList() {
+			return new WorkList();
+		}
+
+		public WorkManager new_WorkManager() {
+			return new WorkManager();
+		}
+	}
+
+	/* static */ class DeferredMemberFunctionParentIsClassStatement {
+		private final DeferredMemberFunction deferredMemberFunction;
+		private final IInvocation            invocation;
+		private final OS_Element             parent;
+
+		public DeferredMemberFunctionParentIsClassStatement(final DeferredMemberFunction aDeferredMemberFunction,
+		                                                    final IInvocation aInvocation) {
+			deferredMemberFunction = aDeferredMemberFunction;
+			invocation             = aInvocation;
+			parent                 = deferredMemberFunction.getParent();// .getParent().getParent();
+		}
+
+		void action() {
+			if (invocation instanceof ClassInvocation)
+				((ClassInvocation) invocation).resolvePromise().then(new DoneCallback<EvaClass>() {
+					@Override
+					public void onDone(final EvaClass result) {
+						defaultAction(result);
+					}
+				});
+			else if (invocation instanceof NamespaceInvocation)
+				((NamespaceInvocation) invocation).resolvePromise().then(new DoneCallback<EvaNamespace>() {
+					@Override
+					public void onDone(final EvaNamespace result) {
+						defaultAction(result);
+					}
+				});
+		}
+
+		<T extends EvaNode> void defaultAction(final T result) {
+			final OS_Element p = deferredMemberFunction.getParent();
+
+			if (p instanceof final DeduceTypes2.@NotNull OS_SpecialVariable specialVariable) {
+				onSpecialVariable(specialVariable);
+				int y = 2;
+			} else if (p instanceof ClassStatement) {
+				final Function<EvaNode, Map<FunctionDef, EvaFunction>> x = getFunctionMap(result);
+
+				// once again we need EvaFunction, not FunctionDef
+				// we seem to have it below, but there can be multiple
+				// specializations of each function
+
+				final EvaFunction gf = x.apply(result).get(deferredMemberFunction.getFunctionDef());
+				if (gf != null) {
+					deferredMemberFunction.externalRefDeferred().resolve(gf);
+					gf.typePromise().then(new DoneCallback<GenType>() {
+						@Override
+						public void onDone(final GenType result) {
+							deferredMemberFunction.typeResolved().resolve(result);
+						}
+					});
+				}
+			} else
+				throw new IllegalStateException("unknown parent");
+		}
+
+		@NotNull
+		private <T extends EvaNode> Function<EvaNode, Map<FunctionDef, EvaFunction>> getFunctionMap(final T result) {
+			final Function<EvaNode, Map<FunctionDef, EvaFunction>> x;
+			if (result instanceof EvaNamespace)
+				x = _inj().new_GetFunctionMapNamespace();
+			else if (result instanceof EvaClass)
+				x = _inj().new_GetFunctionMapClass();
+			else
+				throw new NotImplementedException();
+			return x;
+		}
+
+		public void onSpecialVariable(final DeduceTypes2.@NotNull OS_SpecialVariable aSpecialVariable) {
+			final DeduceLocalVariable.MemberInvocation mi = aSpecialVariable.memberInvocation;
+
+			switch (mi.role) {
+				case INHERITED:
+					final FunctionInvocation functionInvocation = deferredMemberFunction.functionInvocation();
+					functionInvocation.generatePromise().then(new DoneCallback<BaseEvaFunction>() {
+						@Override
+						public void onDone(final @NotNull BaseEvaFunction gf) {
+							deferredMemberFunction.externalRefDeferred().resolve(gf);
+							gf.typePromise().then(new DoneCallback<GenType>() {
+								@Override
+								public void onDone(final GenType result) {
+									deferredMemberFunction.typeResolved().resolve(result);
+								}
+							});
+						}
+					});
+					break;
+				case DIRECT:
+					if (invocation instanceof NamespaceInvocation)
+						assert false;
+					else {
+						final ClassInvocation classInvocation = (ClassInvocation) invocation;
+						classInvocation.resolvePromise().then(new DoneCallback<EvaClass>() {
+							@Override
+							public void onDone(final @NotNull EvaClass element_generated) {
+								// once again we need EvaFunction, not FunctionDef
+								// we seem to have it below, but there can be multiple
+								// specializations of each function
+								final EvaFunction gf = element_generated.functionMap
+										.get(deferredMemberFunction.getFunctionDef());
+								deferredMemberFunction.externalRefDeferred().resolve(gf);
+								gf.typePromise().then(new DoneCallback<GenType>() {
+									@Override
+									public void onDone(final GenType result) {
+										deferredMemberFunction.typeResolved().resolve(result);
+									}
+								});
+							}
+						});
+					}
+					break;
+				default:
+					throw new IllegalStateException("Unexpected value: " + mi.role);
+			}
+		}
+
+		static class GetFunctionMapClass implements Function<EvaNode, Map<FunctionDef, EvaFunction>> {
+			@Override
+			public Map<FunctionDef, EvaFunction> apply(final @NotNull EvaNode aClass) {
+				return ((EvaClass) aClass).functionMap;
+			}
+		}
+
+		static class GetFunctionMapNamespace implements Function<EvaNode, Map<FunctionDef, EvaFunction>> {
+			@Override
+			public Map<FunctionDef, EvaFunction> apply(final @NotNull EvaNode aNamespace) {
+				return ((EvaNamespace) aNamespace).functionMap;
+			}
+		}
+	}
+
+	public class GeneratedClasses implements Iterable<EvaNode> {
+		@NotNull
+		List<EvaNode> generatedClasses = _inj().new_ArrayList__EvaNode();
+		private int generation;
+
+		public void add(EvaNode aClass) {
+			pa._send_GeneratedClass(aClass);
+
+			generatedClasses.add(aClass);
+		}
+
+		public void addAll(@NotNull List<EvaNode> lgc) {
+			// TODO is this method really needed
+			generatedClasses.addAll(lgc);
+		}
+
+		public @NotNull List<EvaNode> copy() {
+			++generation;
+			return new ArrayList<>(generatedClasses);
+		}
+
+		@Override
+		public @NotNull Iterator<EvaNode> iterator() {
+			return generatedClasses.iterator();
+		}
+
+		public int size() {
+			return generatedClasses.size();
+		}
+
+		@Override
+		public String toString() {
+			return "GeneratedClasses{size=%d, generation=%d}".formatted(generatedClasses.size(), generation);
+		}
+	}
+
+	class RegisterClassInvocation {
+		// TODO this class is a mess
+
+		public Eventual<ClassDefinition> getClassInvocationPromise(final @NotNull ClassInvocation aClassInvocation,
+		                                                           @Nullable OS_Module mod,
+		                                                           final @Nullable WorkList wl,
+		                                                           final @NotNull RegisterClassInvocation_env aEnv) {
+			if (mod == null) {
+				mod = aClassInvocation.getKlass().getContext().module();
+			}
+
+			final @NotNull OS_Module finalMod = mod;
+
+			var req2 = new RegisterClassInvocation2_env(aEnv, generatePhase.getWm(), wl, () -> generatePhase.getGenerateFunctions(finalMod));
+
+			//noinspection UnnecessaryLocalVariable
+			var prom = generateClass(req2);
+			return prom;
+		}
+
+		private Eventual<ClassDefinition> generateClass(RegisterClassInvocation2_env aReq2) {
+			// par { return promise ; wm.drain() ; }
+
+			final GenerateFunctions         gf = aReq2.getGenerateFunctions().get();
+			final ClassInvocation           ci = aReq2.env1().classInvocation();
+			final WorkManager               wm = aReq2.workManager();
+
+			final Eventual<ClassDefinition> x  = generateClass2(gf, ci, wm);
+
+			wm.drain();
+			return x;
+		}
+
+		private @NotNull ClassInvocation getClassInvocation(final @NotNull ClassInvocation aClassInvocation,
+		                                                    OS_Module mod, final WorkList wl, final @NotNull RegisterClassInvocation_env aEnv) {
+			if (mod == null)
+				mod = aClassInvocation.getKlass().getContext().module();
+
+			DeferredObject<ClassDefinition, Diagnostic, Void> prom = new DeferredObject<>();
+
+			final GenerateFunctions generateFunctions = generatePhase.getGenerateFunctions(mod);
+			wl.addJob(_inj().new_WlGenerateClass(generateFunctions, aClassInvocation, generatedClasses,
+			                                     codeRegistrar, aEnv
+			)); // TODO why add now?
+			generatePhase.getWm().addJobs(wl);
+			generatePhase.getWm().drain(); // TODO find a better place to put this
+
+			prom.resolve(new ClassDefinition(aClassInvocation));
+
+			// return prom;
+			return aClassInvocation;
+		}
+
+		private @NotNull ClassInvocation part2(final @NotNull ClassInvocation aClassInvocation,
+		                                       boolean put,
+		                                       final @NotNull RegisterClassInvocation_env aEnv) {
+			// 2. Check and see if already done
+			Collection<ClassInvocation> cls = classInvocationMultimap.get(aClassInvocation.getKlass());
+			for (@NotNull
+			ClassInvocation ci : cls) {
+				if (equivalentGenericPart(ci, aClassInvocation)) {
+					return ci;
+				}
+			}
+
+			if (put) {
+				classInvocationMultimap.put(aClassInvocation.getKlass(), aClassInvocation);
+			}
+
+			// 3. Generate new EvaClass
+			final @NotNull WorkList wl = _inj().new_WorkList();
+
+			var x = getClassInvocation(aClassInvocation, null, wl, aEnv);
+
+			// 4. Return it
+			// final ClassDefinition[] yy = new ClassDefinition[1];
+			// x.then(y -> yy[0] =y);
+			// return yy[0];
+			return x;
+		}
+
+		public @NotNull ClassInvocation registerClassInvocation(@NotNull ClassInvocation aClassInvocation) {
+			RegisterClassInvocation_env env = new RegisterClassInvocation_env(aClassInvocation, new NULL_DeduceTypes2(), null);
+
+			return registerClassInvocation(env);
+		}
+
+		public ClassInvocation registerClassInvocation(final @NotNull RegisterClassInvocation_env env) {
+			var aClassInvocation = env.classInvocation();
+
+			// 1. select which to return
+			final ClassStatement              c   = aClassInvocation.getKlass();
+			final Collection<ClassInvocation> cis = classInvocationMultimap.get(c);
+
+			for (@NotNull
+			ClassInvocation ci : cis) {
+				// don't lose information
+				if (ci.getConstructorName() != null)
+					if (!(ci.getConstructorName().equals(aClassInvocation.getConstructorName())))
+						continue;
+
+				boolean i = equivalentGenericPart(aClassInvocation, ci);
+				if (i) {
+					if (aClassInvocation instanceof DerivedClassInvocation) {
+						if (ci instanceof DerivedClassInvocation)
+							continue;
+
+						/* if (classInvocation.resolvePromise().isResolved()) */
+						{
+							ci.resolvePromise().then((final @NotNull EvaClass result) -> {
+								aClassInvocation.resolveDeferred().resolve(result);
+							});
+							return aClassInvocation;
+						}
+					} else
+						return ci;
+				}
+			}
+
+			return part2(aClassInvocation, true, env);
+		}
 	}
 }
 
