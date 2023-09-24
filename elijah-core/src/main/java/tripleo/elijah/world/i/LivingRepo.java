@@ -23,6 +23,8 @@ public interface LivingRepo {
 		MAIN_CLASS, MAIN_FUNCTION, NONE
 	}
 
+	void _completeModules();
+
 	LivingClass addClass(ClassStatement cs);
 
 	DefaultLivingClass addClass(EvaClass aClass, Add addFlag);
