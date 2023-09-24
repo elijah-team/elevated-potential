@@ -193,8 +193,9 @@ public class DeduceTypes2 {
 		}
 
 		public @Nullable ClassInvocation registerClassInvocation(@NotNull ClassInvocation ci) {
-			return deduceTypes2.phase
-					.registerClassInvocation(new RegisterClassInvocation_env(ci, deduceTypes2, deduceTypes2.phase));
+			RegisterClassInvocation_env env = new RegisterClassInvocation_env(ci, () -> deduceTypes2, () -> deduceTypes2.phase);
+
+			return deduceTypes2.phase.registerClassInvocation(env);
 		}
 
 		public NamespaceInvocation registerNamespaceInvocation(NamespaceStatement namespaceStatement) {
@@ -1128,7 +1129,7 @@ public class DeduceTypes2 {
 					ci = (ClassInvocation) genType.getCi();
 				}
 
-				final Promise<ClassDefinition, Diagnostic, Void> pcd = phase.generateClass(gf, ci);
+				final Eventual<ClassDefinition> pcd = phase.generateClass2(gf, ci, wm);
 
 				pcd.then(result -> {
 					final EvaClass genclass = result.getNode();
