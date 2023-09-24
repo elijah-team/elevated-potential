@@ -43,11 +43,11 @@ public class CX_ParseEzFile {
 	                                                            final Compilation aCompilation,
 	                                                            final EzCache aEzCache) {
 		try (final InputStream readFile = aCompilation.getIO().readFile(aFile)) {
-			final EzSpec                          spec         = new EzSpec(aFile.getName(), readFile, aFile);
 			final String                          absolutePath = aFile.getAbsolutePath();
 			final Operation<CompilerInstructions> cio          = calculate(aFile.getAbsolutePath(), readFile);
 
 			if (cio.mode() == Mode.SUCCESS) {
+				final EzSpec spec = new EzSpec(aFile.getName(), readFile, aFile);
 				aEzCache.put(spec, absolutePath, cio.success());
 			}
 
