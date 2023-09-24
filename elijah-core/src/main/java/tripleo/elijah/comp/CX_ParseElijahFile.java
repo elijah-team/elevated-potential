@@ -9,6 +9,9 @@ import tripleo.elijah.util.*;
 import tripleo.elijjah.*;
 
 import java.io.*;
+import java.util.function.*;
+
+import static tripleo.elijah.util.Stupidity.*;
 
 public class CX_ParseElijahFile {
 
@@ -52,31 +55,13 @@ public class CX_ParseElijahFile {
 		return Operation.success(module);
 	}
 
-	private static Operation<OS_Module> parseElijahFile_(final ElijahSpec spec, final Compilation aCompilation,
-			final ElijahCache aElijahCache, final File file, final Compilation c) throws IOException {
-		final IO io = aCompilation.getIO();
-
-		// tree add something
-
-		final String f = spec.f();
-		final boolean do_out = spec.do_out();
-		final OS_Module R;
-
-		try (final InputStream s = io.readFile(file)) {
-			final String absolutePath = file.getCanonicalPath();
-
-			final Operation<OS_Module> om = parseElijahFile(f, s, do_out, c, absolutePath);
-			if (om.mode() == Mode.FAILURE) {
-				final Exception e = om.failure();
-				assert e != null;
-
-				tripleo.elijah.util.Stupidity.println_err2(("parser exception: " + e));
-				e.printStackTrace(System.err);
-				s.close();
-				return Operation.failure(e);
-			}
-			R = om.success();
+	public static Operation2<OS_Module> __parseEzFile(String file_name,
+	                                                  File file,
+	                                                  Compilation c,
+	                                                  Function<ElijahSpec, Operation2<OS_Module>> realParseElijjahFile) throws IOException {
+		try (final InputStream s = c.getIO().readFile(file)) {
+			final ElijahSpec spec = new ElijahSpec(file_name, file, s);
+			return realParseElijjahFile.apply(spec);
 		}
-		return Operation.success(R);
 	}
 }

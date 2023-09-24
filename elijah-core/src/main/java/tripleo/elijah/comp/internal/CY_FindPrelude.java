@@ -5,6 +5,7 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.ci_impl.CompilerInstructionsImpl;
 import tripleo.elijah.ci_impl.GenerateStatementImpl;
 import tripleo.elijah.ci_impl.LibraryStatementPartImpl;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.diagnostic.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
@@ -14,18 +15,17 @@ import tripleo.elijah.util.*;
 import java.io.*;
 
 class CY_FindPrelude {
-	@NotNull
-	private static File local_prelude_file(final String prelude_name) {
-		return new File("lib_elijjah/lib-" + prelude_name + "/Prelude.elijjah");
-	}
-
 	private final ErrSink errSink;
-
-	private final USE x;
+	private final USE     x;
 
 	CY_FindPrelude(final ErrSink aErrSink1, final USE aX) {
 		errSink = aErrSink1;
-		x = aX;
+		x       = aX;
+	}
+
+	@NotNull
+	private static File local_prelude_file(final String prelude_name) {
+		return new File("lib_elijjah/lib-" + prelude_name + "/Prelude.elijjah");
 	}
 
 	public Operation2<OS_Module> findPrelude(final String prelude_name) {
@@ -48,27 +48,32 @@ class CY_FindPrelude {
 		Operation2<OS_Module> om;
 
 		try {
-			om = x.realParseElijjahFile(local_prelude.getName(), local_prelude, false);
+			om = CX_ParseElijahFile.__parseEzFile(
+					local_prelude.toString(),
+					local_prelude,
+					x._c(),
+					(spec) -> Operation2.convert(x.realParseElijjahFile(spec))
+			);
 
 			switch (om.mode()) {
-			case SUCCESS -> {
-				final CompilerInstructions instructions = new CompilerInstructionsImpl();
-				instructions.setName("prelude");
-				final GenerateStatement generateStatement = new GenerateStatementImpl();
-				final StringExpression expression = new StringExpressionImpl(Helpers.makeToken("\"c\"")); // TODO
-				generateStatement.addDirective(Helpers.makeToken("gen"), expression);
-				instructions.add(generateStatement);
-				final LibraryStatementPart lsp = new LibraryStatementPartImpl();
-				lsp.setInstructions(instructions);
-				// lsp.setDirName();
-				final OS_Module module = om.success();
-				module.setLsp(lsp);
-				return Operation2.success(module);
-			}
-			case FAILURE -> {
-				return om;
-			}
-			default -> throw new IllegalStateException("Unexpected value: " + om.mode());
+				case SUCCESS -> {
+					final CompilerInstructions instructions = new CompilerInstructionsImpl();
+					instructions.setName("prelude");
+					final GenerateStatement generateStatement = new GenerateStatementImpl();
+					final StringExpression  expression        = new StringExpressionImpl(Helpers.makeToken("\"c\"")); // TODO
+					generateStatement.addDirective(Helpers.makeToken("gen"), expression);
+					instructions.add(generateStatement);
+					final LibraryStatementPart lsp = new LibraryStatementPartImpl();
+					lsp.setInstructions(instructions);
+					// lsp.setDirName();
+					final OS_Module module = om.success();
+					module.setLsp(lsp);
+					return Operation2.success(module);
+				}
+				case FAILURE -> {
+					return om;
+				}
+				default -> throw new IllegalStateException("Unexpected value: " + om.mode());
 			}
 
 		} catch (final Exception aE) {
