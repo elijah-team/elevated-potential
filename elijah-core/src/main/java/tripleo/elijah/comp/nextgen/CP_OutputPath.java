@@ -1,9 +1,9 @@
 package tripleo.elijah.comp.nextgen;
 
-import org.apache.commons.codec.digest.*;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.nextgen.*;
@@ -18,54 +18,24 @@ import java.time.format.*;
 import java.util.*;
 import java.util.stream.*;
 
-import static org.apache.commons.codec.digest.MessageDigestAlgorithms.*;
-
 public class CP_OutputPath implements CP_Path, _CP_RootPath {
-
-	private class __PathPromiseCalculator {
-		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss");
-
-		private String date;
-		private String c_name;
-
-		public String c_name() {
-			return c_name;
-		}
-
-		public void calc(String c_name) {
-			final LocalDateTime localDateTime = LocalDateTime.now();
-			final String date = formatter.format(localDateTime); // 15-02-2022 12:43
-
-			this.c_name = c_name;
-			this.date = date;
-		}
-
-		public String date() {
-			return date;
-		}
-
-		public CP_Path getP(final @NotNull CP_OutputPath aCPOutputPath) {
-			final CP_Path outputRoot = aCPOutputPath.c.paths().outputRoot();
-
-			return outputRoot.child(c_name).child(date);
-		}
-	}
-
-	private final Compilation c;
 	private final DeferredObject<Path, Void, Void> _pathPromise = new DeferredObject<>();
-	private File root; // COMP/...
-	private String _calc;
-	private String date;
 
-	private boolean _testShim;
+	private final CY_HashDeferredAction            hda;
+	private final Compilation                      c;
+	private       File                             root; // COMP/...
+	private       boolean                          _testShim;
 
 	public CP_OutputPath(final Compilation cc) {
-		c = cc;
+		c   = cc;
+		hda = new CY_HashDeferredAction(c.getIO());
 	}
 
 	public void _renderNodes(final @NotNull List<ER_Node> nodes) {
 		signalCalculateFinishParse();
-		nodes.stream().map(this::renderNode).collect(Collectors.toList());
+		nodes.stream()
+				.map(this::renderNode)
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -74,22 +44,19 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	}
 
 	private String getCalc() {
-		if (_calc == null) {
-			final List<File> recordedreads = c.getIO().recordedreads;
+		final Eventual<String> promise = hda.promise();
+		final String[]         s       = new String[1];
 
-			final DigestUtils digestUtils = new DigestUtils(SHA_256);
-			final StringBuilder sb1 = new StringBuilder();
+		promise.then(x -> s[0] = x);
 
-			recordedreads.stream().map(File::toString).sorted().map(digestUtils::digestAsHex).forEach(sha256 -> {
-				sb1.append(sha256);
-				sb1.append('\n');
-			});
+		assert promise.isResolved();
 
-			final String c_name = digestUtils.digestAsHex(sb1.toString());
-			_calc = c_name;
-		} else {
-		}
-		return _calc;
+		return s[0];
+	}
+
+	public static void append_sha_string_then_newline(StringBuilder sb1, String sha256) {
+		sb1.append(sha256);
+		sb1.append('\n');
 	}
 
 	@Override
@@ -115,9 +82,9 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 		return _pathPromise;
 	}
 
-	public File getRoot() {
-		return root;
-	}
+//	public File getRoot() {
+//		return root;
+//	}
 
 	@Override
 	public @NotNull File getRootFile() {
@@ -136,8 +103,8 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	}
 
 	public @NotNull Operation<Boolean> renderNode(final @NotNull ER_Node node) {
-		final Path path = node.getPath();
-		final EG_Statement seq = node.getStatement();
+		final Path         path = node.getPath();
+		final EG_Statement seq  = node.getStatement();
 
 		c.getCompilationEnclosure().logProgress(CompProgress.__CP_OutputPath_renderNode, node);
 
@@ -166,8 +133,8 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 			CP_Path p = ppc.getP(this);
 
 			final String root = c.paths().outputRoot().getRootFile().toString();
-			final String one = ppc.c_name();
-			final String two = ppc.date();
+			final String one  = ppc.c_name();
+			final String two  = ppc.date();
 
 			Path px = Path.of(root, one, _testShim ? "<date>" : two);
 			logProgress(117117, "OutputPath = " + px);
@@ -184,10 +151,10 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 			CP_Path p3 = ppc.getP(this);
 			// assert p3.equals(px); // FIXME "just return COMP" instead of zero
 
-			/*
-			 * final List<Object> objects = List_of(px, p, pp, p3); for (Object object :
-			 * objects) { logProgress(117133, "" + object); }
-			 */
+//			final List<Object> objects = List_of(px, p, pp, p3);
+//			for (Object object : objects) {
+//				logProgress(117133, "" + object);
+//			}
 		}
 	}
 
@@ -203,5 +170,35 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	@Override
 	public @NotNull File toFile() {
 		return getPath().toFile();
+	}
+
+	private static class __PathPromiseCalculator {
+		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss");
+
+		private String date;
+		private String c_name;
+
+		public String c_name() {
+			return c_name;
+		}
+
+		public void calc(String c_name) {
+			final LocalDateTime localDateTime = LocalDateTime.now();
+			final String        date          = formatter.format(localDateTime); // 15-02-2022 12:43
+
+			this.c_name = c_name;
+			this.date   = date;
+		}
+
+		public String date() {
+			return date;
+		}
+
+		public CP_Path getP(final @NotNull CP_OutputPath aCPOutputPath) {
+			final CP_Path outputRoot = aCPOutputPath.c.paths().outputRoot();
+
+			return outputRoot.child(c_name).child(date);
+		}
+
 	}
 }

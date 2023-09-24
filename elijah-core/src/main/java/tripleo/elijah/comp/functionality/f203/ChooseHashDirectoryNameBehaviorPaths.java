@@ -15,33 +15,38 @@ import java.util.*;
 import static org.apache.commons.codec.digest.MessageDigestAlgorithms.*;
 
 public class ChooseHashDirectoryNameBehaviorPaths implements ChooseDirectoryNameBehavior {
-	private final Compilation c;
+	private final Compilation   c;
 	private final LocalDateTime localDateTime;
-	public CP_Path p;
+	public        CP_Path       p;
 
 	@Contract(pure = true)
 	public ChooseHashDirectoryNameBehaviorPaths(final Compilation aC, final LocalDateTime aLocalDateTime) {
-		c = aC;
+		c             = aC;
 		localDateTime = aLocalDateTime;
 	}
 
 	@NotNull
 	public File choose_dir_name() {
-		final List<File> recordedreads = c.getIO().recordedreads;
+		final List<IO._IO_ReadFile> recordedreads = c.getIO().recordedreads_io();
 
-		final DigestUtils digestUtils = new DigestUtils(SHA_256);
-		final StringBuilder sb1 = new StringBuilder();
+		final DigestUtils   digestUtils = new DigestUtils(SHA_256);
+		final StringBuilder sb1         = new StringBuilder();
 
-		recordedreads.stream().map(File::toString).sorted().map(digestUtils::digestAsHex).forEach(sha256 -> {
-			sb1.append(sha256);
-			sb1.append('\n');
-		});
+		// TODO similarity elsewhere
+		recordedreads.stream()
+				.map(IO._IO_ReadFile::getFileName)
+				.sorted()
+				.map(digestUtils::digestAsHex)
+				.forEach(sha256 -> {
+					sb1.append(sha256);
+					sb1.append('\n');
+				});
 
-		final String c_name = digestUtils.digestAsHex(sb1.toString());
+		final String            c_name    = digestUtils.digestAsHex(sb1.toString());
 		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss");
-		final String date = formatter.format(localDateTime); // 15-02-2022 12:43
-		final File fn00 = new File("COMP", c_name);
-		final File fn0 = new File(fn00, date);
+		final String            date      = formatter.format(localDateTime); // 15-02-2022 12:43
+		final File              fn00      = new File("COMP", c_name);
+		final File              fn0       = new File(fn00, date);
 
 		p = c.paths().outputRoot().child(c_name).child(date);
 
@@ -66,8 +71,8 @@ public class ChooseHashDirectoryNameBehaviorPaths implements ChooseDirectoryName
 		final Path[] px = new Path[1];
 		p.getPathPromise().then(pp -> px[0] = pp);
 
-		CP_SubFile.CP_Path1 pp = (CP_Path1) p;
-		File root = null;
+		CP_SubFile.CP_Path1 pp   = (CP_Path1) p;
+		File                root = null;
 
 		if (pp.op == null) {
 			CP_SubFile.CP_Path1 pp2 = (CP_Path1) pp.parent;

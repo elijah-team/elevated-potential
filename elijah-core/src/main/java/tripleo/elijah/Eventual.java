@@ -34,4 +34,8 @@ public class Eventual<P> {
 	public void then(final DoneCallback<? super P> cb) {
 		prom.then(cb);
 	}
+
+	public boolean _prom_isRejected() {
+		return prom.isRejected();
+	}
 }
