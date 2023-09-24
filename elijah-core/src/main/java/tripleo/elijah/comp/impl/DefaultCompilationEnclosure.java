@@ -419,6 +419,8 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	@Override
 	public void setCompilerInput(final List<CompilerInput> aInputs) {
+		assert inp == null;
+
 		inp = aInputs;
 	}
 
