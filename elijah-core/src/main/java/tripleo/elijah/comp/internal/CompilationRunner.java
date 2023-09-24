@@ -266,22 +266,22 @@ public class CompilationRunner extends _RegistrationTarget {
 			startAction = new CB_StartCompilationRunnerAction(this, pa, aRootCI);
 			// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
 			cb.add(startAction.cb_Process());
-		}
 
-		startAction.execute(new CB_Monitor() {
-			@Override
-			public void reportFailure(final CB_Action aCBAction, final CB_Output aCB_output) {
-				System.err.println(aCB_output.get());
-			}
-
-			@Override
-			public void reportSuccess(final CB_Action aCBAction, final CB_Output aCB_output) {
-				final List<CB_OutputString> x = aCB_output.get();
-				for (CB_OutputString xx : x) {
-					System.err.println("127 " + xx.getText());
+			startAction.execute(new CB_Monitor() {
+				@Override
+				public void reportFailure(final CB_Action aCBAction, final CB_Output aCB_output) {
+					System.err.println(aCB_output.get());
 				}
-			}
-		});
+
+				@Override
+				public void reportSuccess(final CB_Action aCBAction, final CB_Output aCB_output) {
+					final List<CB_OutputString> x = aCB_output.get();
+					for (CB_OutputString xx : x) {
+						System.err.println("127 " + xx.getText());
+					}
+				}
+			});
+		}
 	}
 
 }
