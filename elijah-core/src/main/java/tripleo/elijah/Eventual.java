@@ -38,4 +38,8 @@ public class Eventual<P> {
 	public boolean _prom_isRejected() {
 		return prom.isRejected();
 	}
+
+	public void reject(Diagnostic aDiagnostic) {
+		prom.reject(aDiagnostic);
+	}
 }
