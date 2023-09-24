@@ -2,6 +2,9 @@ package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
+import tripleo.elijah.ci_impl.CompilerInstructionsImpl;
+import tripleo.elijah.ci_impl.GenerateStatementImpl;
+import tripleo.elijah.ci_impl.LibraryStatementPartImpl;
 import tripleo.elijah.comp.diagnostic.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
