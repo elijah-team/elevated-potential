@@ -282,7 +282,7 @@ public class CompilationImpl implements Compilation {
 
 		rootCI = cis.get(0);
 
-		pa.setCompilerInput(pa.getCompilation().getInputs());
+//		pa.setCompilerInput(pa.getCompilation().getInputs());
 
 		if (!_inside) {
 			_inside = true;
