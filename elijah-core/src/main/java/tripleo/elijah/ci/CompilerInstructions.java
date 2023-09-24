@@ -8,10 +8,10 @@
  */
 package tripleo.elijah.ci;
 
-import antlr.Token;
-import org.jetbrains.annotations.Nullable;
+import antlr.*;
+import org.jetbrains.annotations.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface CompilerInstructions {
 	void add(GenerateStatement generateStatement);
@@ -33,4 +33,6 @@ public interface CompilerInstructions {
 	void setName(Token name);
 
 	List<LibraryStatementPart> lsps();
+
+	Iterable<? extends LibraryStatementPart> getLibraryStatementParts();
 }
