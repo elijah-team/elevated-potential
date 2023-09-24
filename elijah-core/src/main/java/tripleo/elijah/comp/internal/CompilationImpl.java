@@ -33,44 +33,47 @@ import java.util.stream.*;
 
 public class CompilationImpl implements Compilation {
 
-	private final @NotNull FluffyCompImpl _fluffyComp;
-	private @Nullable EOT_OutputTree _output_tree = null;
-
-	public final Map<String, CompilerInstructions> fn2ci = new HashMap<>();
-
+	public final           Map<String, CompilerInstructions>   fn2ci;
+	private final @NotNull FluffyCompImpl                      _fluffyComp;
 	@Getter
-	private final CIS _cis = new CIS();
-
-	private final CompFactory _con = new DefaultCompFactory(this);
-
-	private final LivingRepo _repo = new DefaultLivingRepo();
+	private final          CIS                                 _cis;
+	private final          CompFactory                         _con;
+	private final          LivingRepo                          _repo;
 	@Getter
-	private final CompilationConfig cfg = new CompilationConfig();
+	private final          CompilationConfig                   cfg;
 	@Getter
-	private final USE use;
-	private final CompilationEnclosure compilationEnclosure = new DefaultCompilationEnclosure(this);
-	private final CP_Paths paths;
-	private final EIT_InputTree _input_tree = new EIT_InputTree();
-	private final @NotNull ErrSink errSink;
-	private final int _compilationNumber;
-	private final CompilerInputMaster master;
-	public CCI_Acceptor__CompilerInputListener cci_listener;
+	private final          USE                                 use;
+	private final          CompilationEnclosure                compilationEnclosure;
+	private final          CP_Paths                            paths;
+	private final          EIT_InputTree                       _input_tree;
+	private final @NotNull ErrSink                             errSink;
+	private final          int                                 _compilationNumber;
+	private final          CompilerInputMaster                 master;
+	private final          Finally                             _finally;
+	public                 CCI_Acceptor__CompilerInputListener cci_listener;
+	private @Nullable      EOT_OutputTree                      _output_tree = null;
 	@Getter
-	private CompilerInstructions rootCI;
-	private List<CompilerInput> _inputs;
-	private IPipelineAccess _pa;
-	private IO io;
-	private boolean _inside;
-	private final Finally _finally = new Finally();
+	private                CompilerInstructions                rootCI;
+	private                List<CompilerInput>                 _inputs;
+	private                IPipelineAccess                     _pa;
+	private                IO                                  io;
+	private                boolean                             _inside;
 
-	public CompilationImpl(final ErrSink aEee, final IO aIo) {
-		_fluffyComp = new FluffyCompImpl(this);
-
-		errSink = aEee;
-		io = aIo;
-		_compilationNumber = new Random().nextInt(Integer.MAX_VALUE);
-
-		paths = new CP_Paths(this);
+	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
+		errSink              = aErrSink;
+		io                   = aIo;
+		fn2ci                = new HashMap<>();
+		_compilationNumber   = new Random().nextInt(Integer.MAX_VALUE);
+		cfg                  = new CompilationConfig();
+		_con                 = new DefaultCompFactory(this);
+		_repo                = new DefaultLivingRepo();
+		compilationEnclosure = new DefaultCompilationEnclosure(this);
+		_finally             = new Finally();
+		_input_tree          = new EIT_InputTree();
+		paths                = new CP_Paths(this);
+		_fluffyComp          = new FluffyCompImpl(this);
+		use                  = new USE(this.getCompilationClosure());
+		_cis                 = new CIS();
 
 		master = new CompilerInputMaster() {
 			private final List<CompilerInputListener> listeners = new ArrayList<>();
@@ -88,7 +91,6 @@ public class CompilationImpl implements Compilation {
 
 		cci_listener = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
-		use = new USE(this);
 	}
 
 	public @NotNull ICompilationAccess _access() {
@@ -139,7 +141,7 @@ public class CompilationImpl implements Compilation {
 
 	@Override
 	public void feedInputs(final @NotNull List<CompilerInput> aCompilerInputs,
-			final @NotNull CompilerController aController) {
+	                       final @NotNull CompilerController aController) {
 		if (aCompilerInputs.isEmpty()) {
 			aController.printUsage();
 			return;
@@ -178,6 +180,13 @@ public class CompilationImpl implements Compilation {
 	@Override
 	public IPipelineAccess get_pa() {
 		return _pa;
+	}
+
+	@Override
+	public void set_pa(IPipelineAccess a_pa) {
+		_pa = a_pa;
+
+		compilationEnclosure._resolvePipelineAccessPromise(_pa);
 	}
 
 	@Override
@@ -238,6 +247,11 @@ public class CompilationImpl implements Compilation {
 	@Override
 	public IO getIO() {
 		return io;
+	}
+
+	@Override
+	public void setIO(final IO io) {
+		this.io = io;
 	}
 
 	@Override
@@ -339,18 +353,6 @@ public class CompilationImpl implements Compilation {
 		return _finally;
 	}
 
-	@Override
-	public void set_pa(IPipelineAccess a_pa) {
-		_pa = a_pa;
-
-		compilationEnclosure._resolvePipelineAccessPromise(_pa);
-	}
-
-	@Override
-	public void setIO(final IO io) {
-		this.io = io;
-	}
-
 	public void setRootCI(CompilerInstructions rootCI) {
 		this.rootCI = rootCI;
 	}
@@ -372,7 +374,7 @@ public class CompilationImpl implements Compilation {
 	@Override
 	public void use(final @NotNull CompilerInstructions compilerInstructions, final boolean do_out) {
 		try {
-			use.use(compilerInstructions, do_out);
+			use.use(compilerInstructions);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -385,7 +387,7 @@ public class CompilationImpl implements Compilation {
 
 	/*
 	 * // TODO remove this 04/20
-	 * 
+	 *
 	 * @Override public void addFunctionMapHook(final IFunctionMapHook
 	 * aFunctionMapHook) {
 	 * getCompilationEnclosure().getCompilationAccess().addFunctionMapHook(
@@ -408,7 +410,7 @@ public class CompilationImpl implements Compilation {
 	 * final @NotNull CompilationFlow aFlow) {
 	 * getCompilationEnclosure().getPipelineAccessPromise() .then(pa -> {
 	 * get_pa().setCompilerInput(aInputs);
-	 * 
+	 *
 	 * aFlow.run(this); }); }
 	 */
 
