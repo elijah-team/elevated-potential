@@ -68,8 +68,12 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 		return entryPoints;
 	}
 
-	private void find_multiple_items() {
-		getCompilation().getFluffy().find_multiple_items(this);
+	public interface Complaint {
+		void reportWarning(@NotNull OS_Module aModule, String aS);
+	}
+
+	private void find_multiple_items(Complaint c) {
+		getCompilation().getFluffy().find_multiple_items(this, c);
 	}
 
 	@Override
@@ -180,7 +184,16 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	public void postConstruct() {
 		var fluffy = getFluffy();
 
-		find_multiple_items();
+		find_multiple_items(new Complaint() {
+			@Override
+			public void reportWarning(@NotNull OS_Module aModule, String key) {
+				final String module_name = aModule.getFileName(); // TODO print module name or something
+				final String s = "[Module#add] %s Already has a member by the name of %s".formatted(module_name, key);
+
+				getCompilation().getErrSink().reportWarning(s);
+			}
+		});
+
 		//
 		// FIND ALL ENTRY POINTS (should only be one per module)
 		//

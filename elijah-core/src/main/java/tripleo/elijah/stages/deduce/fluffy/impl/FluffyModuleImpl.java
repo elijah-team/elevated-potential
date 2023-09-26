@@ -4,6 +4,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.fluffy.i.*;
 
 import java.util.*;
@@ -67,8 +68,8 @@ public class FluffyModuleImpl implements FluffyModule {
 	}
 
 	@Override
-	public void find_multiple_items(final @NotNull FluffyComp aFc) {
-		aFc.find_multiple_items(module);
+	public void find_multiple_items(final @NotNull FluffyComp aFluffyComp, OS_ModuleImpl.Complaint c) {
+		aFluffyComp.find_multiple_items(module, c);
 	}
 
 	@Override
