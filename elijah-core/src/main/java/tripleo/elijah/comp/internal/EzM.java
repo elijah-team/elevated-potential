@@ -63,16 +63,8 @@ class EzM {
 				Operation<String> hash = new CA_getHashForFile().apply(p.file_name(), p.f());
 				logProgress(IProgressSink.Codes.EzM__realParseEzFile, hash.success());
 
-				final CompilerInput input = p.input();
-
-				// FIXME stdlib.ez will not get it's hash for example 07/03
-				if (input != null) {
-					input.accept_hash(hash.success());
-				} else {
-					System.err.println("***** 6262 " + f);
-
-//					throw new NotImplementedException();
-				}
+				var c = compilationClosure.getCompilation();
+				c.getObjectTree().asseverate(Triple.of(ezSpec, p, hash), Asseverate.CI_HASHED);
 			}
 
 			return oci;
