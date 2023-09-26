@@ -49,11 +49,6 @@ public enum CompProgress {
 
 			final String k = "[EzM] %d %s".formatted(code.value(), message);
 			switch (code) {
-				case EzM__parseEzFile1 -> {
-					int no=0;
-//					return;
-					out.println(k);
-				}
 				case EzM__realParseEzFile -> {
 					int ignoreMe=-1;
 					out.println(k);
