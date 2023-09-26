@@ -38,15 +38,15 @@ public class CK_SourceFile__SourceFileParserParams implements CK_SourceFile {
 
 	@Override
 	public Operation<CompilerInstructions> process_query() {
-		@org.jetbrains.annotations.NotNull InputStream s;
-
-		try {
-			s= cr.getCrState().ca().getCompilation().getIO().readFile(p.f());
-		} catch (FileNotFoundException aE) {
-			return Operation.failure(aE);
-		}
-
-		var ezSpec = new EzSpec(p.file_name(), s, p.f());
+		var ezSpec = new EzSpec(p.file_name(), 
+				() -> {
+					try {
+						return cr.getCrState().ca().getCompilation().getIO().readFile(p.f());
+					} catch (FileNotFoundException aE) {
+						throw new RuntimeException(aE);
+					}
+				},
+				p.f());
 		return cr.realParseEzFile(ezSpec, cr.ezCache());
 	}
 }

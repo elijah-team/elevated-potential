@@ -5,7 +5,6 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.util.*;
 
@@ -18,7 +17,8 @@ public class CX_realParseEzFile2 {
 	                                                              final @NotNull EzSpec ezSpec,
 	                                                              final @NotNull EzCache ezCache) {
 		var file = ezSpec.file();
-		var s    = ezSpec.s();
+		assert ezSpec.s() != null;
+		var s    = ezSpec.s().get();
 
 		final String absolutePath;
 		try {
@@ -41,7 +41,7 @@ public class CX_realParseEzFile2 {
 		}
 
 		try {
-			final Operation<CompilerInstructions> cio = CX_ParseEzFile.parseEzFile(new File(ezSpec.f()), c);
+			final Operation<CompilerInstructions> cio = CX_ParseEzFile.parseEzFile(new File(ezSpec.file_name()), c);
 
 			switch (cio.mode()) {
 			case FAILURE -> {

@@ -47,7 +47,7 @@ public class CX_ParseEzFile {
 			final Operation<CompilerInstructions> cio          = calculate(aFile.getAbsolutePath(), readFile);
 
 			if (cio.mode() == Mode.SUCCESS) {
-				final EzSpec spec = new EzSpec(aFile.getName(), readFile, aFile);
+				final EzSpec spec = new EzSpec(aFile.getName(), ()->readFile, aFile);
 				aEzCache.put(spec, absolutePath, cio.success());
 			}
 
@@ -68,6 +68,6 @@ public class CX_ParseEzFile {
 	}
 
 	public static Operation<CompilerInstructions> parseEzFile_(final EzSpec spec) {
-		return calculate(spec.f(), spec.s());
+		return calculate(spec.file_name(), spec.s().get());
 	}
 }

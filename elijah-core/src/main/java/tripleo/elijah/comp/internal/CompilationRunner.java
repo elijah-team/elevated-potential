@@ -113,7 +113,7 @@ public class CompilationRunner extends _RegistrationTarget {
 		@NotNull Operation<CompilerInstructions> oci;
 		final File                               f      = p.f();
 		final EzSpec                             ezSpec = p.getEzSpec();
-		//logProgress(IProgressSink.Codes.EzM__parseEzFile1, f.getAbsolutePath());
+		//logProgress(IProgressSink.Codes.EzM__parseEzFile1, file_name.getAbsolutePath());
 		if (!f.exists()) {
 			_compilation.getErrSink().reportError("File doesn't exist " + f.getAbsolutePath());
 
