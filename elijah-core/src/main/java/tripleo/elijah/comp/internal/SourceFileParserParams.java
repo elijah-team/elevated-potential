@@ -20,7 +20,7 @@ public record SourceFileParserParams(
 
 		final InputStream        s                  = compilationClosure.io().readFile(file);
 
-		var y = new EzSpec(f, s, file);
+		var y = new EzSpec(f, ()->s, file);
 
 		return y;
 	}

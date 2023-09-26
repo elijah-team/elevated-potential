@@ -15,8 +15,8 @@ public class QueryEzFileToModuleParams {
 	public final  String      sourceFilename;
 
 	public QueryEzFileToModuleParams(EzSpec spec, final Compilation aCompilation) {
-		sourceFilename = spec.f();
-		inputStream    = spec.s();
+		sourceFilename = spec.file_name();
+		inputStream    = spec.s().get();
 		compilation    = aCompilation;
 		pcon           = new Compilation.PCon();
 	}
