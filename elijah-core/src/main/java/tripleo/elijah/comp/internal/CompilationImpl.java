@@ -132,16 +132,19 @@ public class CompilationImpl implements Compilation {
 	public void feedCmdLine(final @NotNull List<String> args) throws Exception {
 		final CompilerController controller = new DefaultCompilerController();
 
-		final List<CompilerInput> inputs = args.stream().map(s -> {
-			final CompilerInput input = new CompilerInput(s);
+		final List<CompilerInput> inputs = args.stream()
+				.map((String s) -> {
+					final CompilerInput input = new CompilerInput(s);
 
-			// TODO 09/08 check this
-			if (s.equals(input.getInp())) {
-				input.setSourceRoot();
-			}
+					if (s.startsWith("-")) {
+						input.setArg();
+					} else {
+						// TODO 09/24 check this
+						input.setSourceRoot();
+					}
 
-			return input;
-		}).collect(Collectors.toList());
+					return input;
+				}).collect(Collectors.toList());
 
 		feedInputs(inputs, controller);
 	}
@@ -160,7 +163,6 @@ public class CompilationImpl implements Compilation {
 		aController._setInputs(this, aCompilerInputs);
 
 		for (final CompilerInput compilerInput : _inputs) {
-			// cci.accept(compilerInput.acceptance_ci(), _ps);
 			compilerInput.setMaster(master); // FIXME this is too much i think
 		}
 
