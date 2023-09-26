@@ -99,13 +99,22 @@ public class USE {
 		if (compilerInstructions.getFilename() == null)
 			return;
 
-		final File instruction_dir = (compilerInstructions.makeFile()).getParentFile();
+		final File file            = compilerInstructions.makeFile();
+		File instruction_dir = file.getParentFile();
+
+		if (instruction_dir == null) {
+			// System.err.println("106106 ************************************** "+file);
+			// Prelude.elijjah is a special case
+			instruction_dir = file;
+			return;
+		}
+
 		for (final LibraryStatementPart lsp : compilerInstructions.getLibraryStatementParts()) {
 			final String dir_name = Helpers.remove_single_quotes_from_string(lsp.getDirName());
 			final File   dir;// = new File(dir_name);
 			USE_Reasoning reasoning = null;
 			if (dir_name.equals("..")) {
-				dir = instruction_dir/* .getAbsoluteFile() */.getParentFile();
+				dir = instruction_dir/* .getAbsoluteFile() */.getParentFile(); // FIXME 09/26 this has always been questionable
 				reasoning = USE_Reasonings.parent(compilerInstructions, true, instruction_dir, lsp);
 			} else {
 				dir = new File(instruction_dir, dir_name);

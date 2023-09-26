@@ -21,7 +21,7 @@ public class InstructionDoer implements CompletableProcess<CompilerInstructions>
 			try {
 				compilation1.setRootCI(root);
 
-				__cr.start(compilation1.getRootCI(), compilation1.pa());
+//				__cr.start(compilation1.getRootCI(), compilation1.pa());
 			} catch (Exception aE) {
 				throw new RuntimeException(aE);
 			}

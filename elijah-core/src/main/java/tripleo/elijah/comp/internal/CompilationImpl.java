@@ -44,9 +44,10 @@ public class CompilationImpl implements Compilation {
 	@Getter
 	private final          CompilationConfig                   cfg;
 	@Getter
-	private final          USE                                 use;
-	private final          CompilationEnclosure                compilationEnclosure;
-	private final          CP_Paths                            paths;
+	private final USE                  use;
+	@Getter
+	private final CompilationEnclosure compilationEnclosure;
+	private final CP_Paths             paths;
 	private final          EIT_InputTree                       _input_tree;
 	private final @NotNull ErrSink                             errSink;
 	private final          int                                 _compilationNumber;
@@ -215,11 +216,6 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
-	public CompilationEnclosure getCompilationEnclosure() {
-		return compilationEnclosure;
-	}
-
-	@Override
 	public String getCompilationNumberString() {
 		return String.format("%08x", _compilationNumber);
 	}
@@ -286,8 +282,10 @@ public class CompilationImpl implements Compilation {
 
 			getCompilationEnclosure().logProgress(CompProgress.Compilation__hasInstructions__empty, absolutePath);
 
-			return Operation.failure(new Exception("cis empty"));
-		}
+			//return Operation.failure(new Exception("cis empty"));
+
+			rootCI = cci_listener._root();
+		} else
 
 		if (rootCI == null) {
 			rootCI = cis.get(0);
@@ -299,6 +297,15 @@ public class CompilationImpl implements Compilation {
 
 		if (!_inside) {
 			_inside = true;
+
+
+
+
+
+			rootCI.advise(_inputs.get(0));
+
+
+
 			getCompilationEnclosure().getCompilationRunner().start(this.cci_listener._root(), pa);
 		}
 
@@ -394,6 +401,18 @@ public class CompilationImpl implements Compilation {
 		@Override
 		public void asseverate(Object o, Asseverate asseveration) {
 			switch (asseveration) {
+			case ELIJAH_PARSED -> {
+				var x = (Pair<ElijahSpec, Operation<OS_Module>>)o;
+
+				var spec = x.getLeft();
+				var calm = x.getRight();
+
+				var pl = getCompilationEnclosure().getPipelineLogic();
+
+				var wm = new DefaultWorldModule(calm.success(), getCompilationEnclosure());
+				System.err.println("**************************************************Comp ELIJAH_PARSED  "+wm.module().getFileName());
+//				pl.addModule(wm);
+			}
 			case CI_HASHED -> {
 				Triple<EzSpec, CK_SourceFile, Operation<String>> t = (Triple<EzSpec, CK_SourceFile, Operation<String>>) o;
 

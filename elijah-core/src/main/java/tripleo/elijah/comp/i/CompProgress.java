@@ -25,7 +25,7 @@ public enum CompProgress {
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
 			ER_Node node = (ER_Node) x;
 
-			out.printf("** [__CP_OutputPath_renderNode] %s%n", node.getPath());
+//			out.printf("** [__CP_OutputPath_renderNode] %s%n", node.getPath());
 		}
 	},
 	__parseElijjahFile_InputRequest {

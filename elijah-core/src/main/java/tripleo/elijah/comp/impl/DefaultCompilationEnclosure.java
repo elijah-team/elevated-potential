@@ -414,7 +414,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 		@Override
 		public void add(final WorldModule item) {
-			System.err.println("[ModuleListener_ModuleCompletableProcess] add " + item.module().getFileName());
+//			System.err.println("[ModuleListener_ModuleCompletableProcess] add " + item.module().getFileName());
 
 			// TODO Reactive pattern (aka something ala ReplaySubject)
 			for (final ModuleListener moduleListener : _moduleListeners) {

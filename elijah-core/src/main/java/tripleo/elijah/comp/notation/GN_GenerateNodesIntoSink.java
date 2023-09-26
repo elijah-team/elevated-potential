@@ -50,8 +50,9 @@ public class GN_GenerateNodesIntoSink implements GN_Notable, ModuleListener {
 
 	@Override
 	public void run() {
-		final WorkManager wm = new WorkManager();
-		final List<WorldModule> mods = env.moduleList().getMods();
+		final WorkManager           wm   = new WorkManager();
+		final Collection<WorldModule> mods = env.pa().getCompilationEnclosure().getCompilation().world().getMods__();
+//				moduleList().getMods();
 
 		mods.stream().forEach(mod -> {
 			run_one_mod(mod, wm);
