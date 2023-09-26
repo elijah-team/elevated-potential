@@ -10,7 +10,9 @@ package tripleo.elijah.ci;
 
 import antlr.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
 
+import java.io.*;
 import java.util.*;
 
 public interface CompilerInstructions {
@@ -36,4 +38,8 @@ public interface CompilerInstructions {
 	void setName(String name);
 
 	void setName(Token name);
+
+	void advise(CompilerInput aCompilerInput);
+
+	File makeFile();
 }

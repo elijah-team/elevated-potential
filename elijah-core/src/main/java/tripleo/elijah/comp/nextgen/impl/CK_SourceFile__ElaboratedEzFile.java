@@ -48,4 +48,11 @@ public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEz
 		return this.file.getName();
 	}
 
+	@Override
+	protected File getFile() {
+		return file;
+	}
+
+	@Override
+	public String getFileName() { return file_name(); }
 }

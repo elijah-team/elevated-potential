@@ -1,9 +1,12 @@
 package tripleo.elijah.comp.i;
 
 import org.apache.commons.lang3.tuple.*;
+import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.nextgen.*;
+import tripleo.elijah.nextgen.query.*;
+import tripleo.elijah.util.*;
 
 import java.io.*;
 
@@ -39,7 +42,17 @@ public enum CompProgress {
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
 			CompilerInput i = (CompilerInput) x;
 
-			out.printf("[-- Ez CIL change ] %s%n", i);
+			out.printf("[-- Ez CIL change ] %s %s%n", i, i.ty());
+
+			if (i.getDirectoryResults() != null) {
+				for (Operation2<CompilerInstructions> directoryResult : i.getDirectoryResults()) {
+					if (directoryResult.mode() == Mode.SUCCESS) {
+						final CompilerInstructions compilerInstructions = directoryResult.success();
+
+						out.println("[--- Ez directoryResult ] " + compilerInstructions.getFilename());
+					}
+				}
+			}
 		}
 	},
 	USE__parseElijjahFile {
