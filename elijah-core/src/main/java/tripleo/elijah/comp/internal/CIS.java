@@ -43,7 +43,7 @@ public class CIS implements Observer<CompilerInstructions> {
 
 	@Override
 	public void onNext(@NonNull final CompilerInstructions aCompilerInstructions) {
-		if (!FOO) { // l.add
+		if (FOO) { // l.add
 			compilerInstructionsSubject.onNext(aCompilerInstructions);
 		} else {
 			ocp_ci.onNext(aCompilerInstructions);

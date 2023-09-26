@@ -18,7 +18,7 @@ class PL_AddModules implements PipelineLogicRunnable {
 		w.addModuleProcess(new CompletableProcess<>() {
 			@Override
 			public void add(final WorldModule item) {
-				plp.then(pipelineLogic -> pipelineLogic.addModule(item));
+//				plp.then(pipelineLogic -> pipelineLogic.addModule(item));
 			}
 
 			@Override

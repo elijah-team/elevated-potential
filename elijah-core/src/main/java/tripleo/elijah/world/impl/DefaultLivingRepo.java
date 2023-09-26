@@ -35,6 +35,11 @@ public class DefaultLivingRepo implements LivingRepo {
 	private int _packageCode = 1;
 
 	@Override
+	public Collection<WorldModule> getMods__() {
+		return _modules;
+	}
+
+	@Override
 	public void _completeModules() {
 		wmo.onComplete();
 	}

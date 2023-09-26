@@ -139,7 +139,7 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 		//
 
 		grs = new DefaultGenerateResultSink(pa);
-		pa.registerNodeList(latch2::notifyData);
+		pa.registerNodeList(att -> latch2.notifyData(att));
 		pa.setGenerateResultSink(grs);
 
 		pa.setEvaPipeline(this);
@@ -262,14 +262,17 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 		final CompilationEnclosure compilationEnclosure = pa.getCompilationEnclosure();
 
 		compilationEnclosure.getPipelineAccessPromise().then((pa) -> {
-			final var env = new GN_GenerateNodesIntoSinkEnv(nodes, grs, pa.pipelineLogic().mods(),
-					compilationEnclosure.getCompilationAccess().testSilence(), pa.getAccessBus().gr, pa,
-					compilationEnclosure);
-			;
+			final var env = new GN_GenerateNodesIntoSinkEnv(
+					nodes,
+					grs,
+					null, //pa.pipelineLogic().mods(),
+					compilationEnclosure.getCompilationAccess().testSilence(),
+					pa.getAccessBus().gr,
+					pa,
+					compilationEnclosure
+			);
 
-			final GN_GenerateNodesIntoSink generateNodesIntoSink = new GN_GenerateNodesIntoSink(env);
 			_processOutput.logProgress(117, "EvaPipeline >> GN_GenerateNodesIntoSink");
-			// pa.notate(Provenance.EvaPipeline__lgc_slot, generateNodesIntoSink);
 			pa.notate(Provenance.EvaPipeline__lgc_slot, env);
 		});
 	}

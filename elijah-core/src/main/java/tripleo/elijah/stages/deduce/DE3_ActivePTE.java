@@ -83,13 +83,19 @@ class DE3_ActivePTE implements DE3_Active {
 		if (fg0[0] == null) {
 			generateC._ce().getPipelineAccessPromise().then(pa -> {
 				// FIXME as written, this will do nothing
-				// TODO also highlt suspicious that this is never called
+				// TODO also highly suspicious that this is never called
 
-				final EIT_ModuleList moduleList = new EIT_ModuleList(/* List_of() */);
+//				final EIT_ModuleList moduleList = new EIT_ModuleList(/* List_of() */);
 
-				var env = new GN_GenerateNodesIntoSinkEnv(List_of(), // !!
+				Object moduleList =null;
+
+				var env = new GN_GenerateNodesIntoSinkEnv(
+						List_of(), // !!
 						new DefaultGenerateResultSink(pa), moduleList, // !!
-						ElLog.Verbosity.VERBOSE, new Old_GenerateResult(), pa, pa.getCompilationEnclosure());
+						ElLog.Verbosity.VERBOSE,
+						new Old_GenerateResult(),
+						pa,
+						pa.getCompilationEnclosure());
 
 				final WorldModule mod = (WorldModule) null; // pte.__gf.getFD().getContext().module();
 
