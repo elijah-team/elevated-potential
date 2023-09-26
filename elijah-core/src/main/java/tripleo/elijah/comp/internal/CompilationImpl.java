@@ -391,16 +391,16 @@ public class CompilationImpl implements Compilation {
 		@Override
 		public void asseverate(Object o, Asseverate asseveration) {
 			switch (asseveration) {
-				case CI_HASHED -> {
-					Triple<EzSpec, SourceFileParserParams, Operation<String>> t = (Triple<EzSpec, SourceFileParserParams, Operation<String>>) o;
+			case CI_HASHED -> {
+				Triple<EzSpec, SourceFileParserParams, Operation<String>> t = (Triple<EzSpec, SourceFileParserParams, Operation<String>>) o;
 
-					var hash = t.getRight();
-					var p    = t.getMiddle();
+				var hash = t.getRight();
+				var p    = t.getMiddle();
 
-					if (p.input() != null) {
-						p.input().accept_hash(hash.success());
-					}
+				if (p.input() != null) {
+					p.input().accept_hash(hash.success());
 				}
+			}
 			}
 			NotImplementedException.raise_stop();
 		}
