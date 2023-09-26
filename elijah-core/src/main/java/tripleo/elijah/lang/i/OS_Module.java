@@ -15,8 +15,7 @@ public interface OS_Module extends OS_Element {
 	@NotNull
 	List<EntryPoint> entryPoints();
 
-	@org.jetbrains.annotations.Nullable
-	OS_Element findClass(String aClassName);
+	List<ClassStatement> findClassesNamed(String aClassName);
 
 	void finish();
 
