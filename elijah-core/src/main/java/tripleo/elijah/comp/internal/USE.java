@@ -100,12 +100,12 @@ public class USE {
 			return;
 
 		final File file            = compilerInstructions.makeFile();
-		File instruction_dir = file.getParentFile();
+		final File instruction_dir = file.getParentFile();
 
 		if (instruction_dir == null) {
 			// System.err.println("106106 ************************************** "+file);
 			// Prelude.elijjah is a special case
-			instruction_dir = file;
+			// instruction_dir = file;
 			return;
 		}
 
