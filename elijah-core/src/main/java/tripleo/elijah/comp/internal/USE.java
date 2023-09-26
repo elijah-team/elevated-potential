@@ -13,11 +13,8 @@ import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
-import tripleo.elijah.world.impl.*;
 
 import java.io.*;
-import java.util.*;
 import java.util.regex.*;
 
 @SuppressWarnings("UnnecessaryLocalVariable")
@@ -39,7 +36,12 @@ public class USE {
 	}
 
 	public Operation2<OS_Module> findPrelude(final String prelude_name) {
-		return new CY_FindPrelude(errSink, this).findPrelude(prelude_name);
+		final CY_FindPrelude cyFindPrelude = new CY_FindPrelude(
+				errSink,
+				() -> c,
+				() -> elijahCache
+		);
+		return cyFindPrelude.findPrelude(prelude_name);
 	}
 
 	private Operation2<OS_Module> parseElijjahFile(final @NotNull File f,
@@ -60,7 +62,7 @@ public class USE {
 					file_name,
 					f,
 					c,
-					(spec) -> Operation2.convert(realParseElijjahFile(spec))
+					(spec) -> Operation2.convert(CX_realParseElijjahFile2.realParseElijjahFile2(spec, elijahCache, c))
 			);
 
 			switch (om.mode()) {
@@ -89,30 +91,6 @@ public class USE {
 		} catch (final Exception aE) {
 			return Operation2.failure(new ExceptionDiagnostic(aE));
 		}
-	}
-
-	public Operation<OS_Module> realParseElijjahFile(final ElijahSpec spec) {
-		final File file = spec.file();
-
-		final String absolutePath;
-		try {
-			absolutePath = file.getCanonicalFile().toString();
-		} catch (final IOException aE) {
-			return Operation.failure(aE);
-		}
-
-		final Optional<OS_Module> early = elijahCache.get(absolutePath);
-
-		if (early.isPresent()) {
-			return Operation.success(early.get());
-		}
-
-		final var calm = CX_ParseElijahFile.parseAndCache(spec, elijahCache, absolutePath, c);
-
-		final WorldModule worldModule = new DefaultWorldModule(calm.success(), c.getCompilationEnclosure());
-		c.world().addModule2(worldModule);
-
-		return calm;
 	}
 
 	public void use(final @NotNull CompilerInstructions compilerInstructions) {

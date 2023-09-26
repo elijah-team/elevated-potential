@@ -12,6 +12,7 @@ import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputtree.*;
@@ -402,6 +403,11 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	@Override
 	public void waitCompilationRunner(Consumer<CompilationRunner> ccr) {
 		ecr.then(ccr::accept);
+	}
+
+	@Override
+	public void logProgress2(final CompProgress aCompProgress, final AssererationLogProgress alp) {
+		alp.call(System.out, System.err);
 	}
 
 	private class ModuleListener_ModuleCompletableProcess implements CompletableProcess<WorldModule> {

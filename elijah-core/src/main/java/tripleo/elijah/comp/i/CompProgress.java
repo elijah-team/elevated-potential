@@ -38,27 +38,11 @@ public enum CompProgress {
 		@Override
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
 			CompilerInput i = (CompilerInput) x;
-			err.println("389389 " + i);
-		}
-	}, EzM__logProgress {
-		@Override
-		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
-			var p       = (Pair<IProgressSink.Codes, String>) x;
-			var code    = p.getLeft();
-			var message = p.getRight();
 
-			final String k = "[EzM] %d %s".formatted(code.value(), message);
-			switch (code) {
-				case EzM__realParseEzFile -> {
-					int ignoreMe=-1;
-					out.println(k);
-				}
-				default -> {
-					out.println(k);
-				}
-			}
+			out.printf("[-- Ez CIL change ] %s%n", i);
 		}
-	}, USE__parseElijjahFile {
+	},
+	USE__parseElijjahFile {
 		@Override
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
 			String absolutePath = (String) x;
@@ -68,12 +52,12 @@ public enum CompProgress {
 	}, Ez__HasHash {
 		@Override
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
-			var t = (Pair<EzSpec, String>)x;
+			var t = (Pair<EzSpec, String>) x;
 
 			var spec = t.getLeft();
 			var hash = t.getRight();
 
-			out.printf("[-- Ez has HASH ] %s %s%n", spec.file(), hash);
+				out.printf("[-- Ez has HASH ] %s %s%n", spec.file(), hash);
 		}
 	};
 
