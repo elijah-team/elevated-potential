@@ -27,15 +27,18 @@ public class QuerySearchEzFiles {
 	}
 
 	@Nullable
-	CompilerInstructions parseEzFile(final @NotNull File f, final @NotNull String file_name,
+	CompilerInstructions parseEzFile(final @NotNull File f,
+	                                 final @NotNull String file_name,
 	                                 final @NotNull CompilationClosure cc) {
 		var p = new SourceFileParserParams(null, f, file_name, cc);
 
+//			final InputStream s      = cc.getCompilation().getIO().readFile(file_name);
+		final EzSpec      ezSpec = new EzSpec(file_name, null, f);
 		try {
-//			final InputStream s      = cc.getCompilation().getIO().readFile(f);
-//			final EzSpec      ezSpec = new EzSpec(file_name, s, f);
 			return c.getCompilationEnclosure().getCompilationRunner().parseEzFile(p).success();
-		} catch (FileNotFoundException aE) {
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			return null;
 		}
 	}
