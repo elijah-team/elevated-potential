@@ -260,15 +260,10 @@ public class DefaultLivingRepo implements LivingRepo {
 	public @Nullable LivingFunction getFunction(final BaseEvaFunction aBaseEvaFunction) {
 		var c = functionMap.get(aBaseEvaFunction);
 
-		if (c.size() > 0)
+		if (!c.isEmpty())
 			return c.iterator().next();
 
 		return null;
-	}
-
-	@Override
-	public @Nullable WorldModule getModule(final OS_Module aModule) {
-		return _modules.stream().filter(module -> module.module() == aModule).findFirst().orElse(null);
 	}
 
 	@Override

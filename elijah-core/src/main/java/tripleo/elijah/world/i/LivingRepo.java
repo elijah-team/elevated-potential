@@ -59,8 +59,6 @@ public interface LivingRepo {
 
 	LivingFunction getFunction(BaseEvaFunction aBaseEvaFunction);
 
-	WorldModule getModule(OS_Module aSuccess);
-
 	LivingNamespace getNamespace(EvaNamespace aEvaNamespace);
 
 	OS_Package getPackage(String aPackageName);
