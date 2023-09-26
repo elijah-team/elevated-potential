@@ -149,9 +149,15 @@ public class TestBasic {
 			if (c.errorCount() != 0)
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
 
-			var qq = c.con().createQualident(List_of("std", "io"));
+//			var qq = c.con().createQualident(List_of("std", "io"));
+//
+//			assertTrue(c.isPackage(qq.toString()));
 
-			assertTrue(c.isPackage(qq.toString()));
+			var qq2 = c.con().createQualident(List_of("wpkotlin_c","demo","list_folders"));
+
+			assertTrue(c.isPackage(qq2.toString()));
+
+			assertEquals(2, c.errorCount());
 		}
 	}
 
