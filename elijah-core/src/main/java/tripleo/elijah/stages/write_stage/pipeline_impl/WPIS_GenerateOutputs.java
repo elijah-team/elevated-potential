@@ -66,7 +66,7 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 				throw new IllegalStateException("shouldn't be here");
 			}
 
-			final EIT_ModuleInput moduleInput = outputRequest.outputStatment().getModuleInput();
+			final EIT_ModuleInput moduleInput = outputRequest.outputStatement().getModuleInput();
 
 			return Helpers.List_of(moduleInput);
 		}

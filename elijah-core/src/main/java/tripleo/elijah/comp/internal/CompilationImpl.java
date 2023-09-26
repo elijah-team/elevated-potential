@@ -402,6 +402,7 @@ public class CompilationImpl implements Compilation {
 		public void asseverate(Object o, Asseverate asseveration) {
 			switch (asseveration) {
 			case ELIJAH_PARSED -> {
+/*
 				var x = (Pair<ElijahSpec, Operation<OS_Module>>)o;
 
 				var spec = x.getLeft();
@@ -412,6 +413,7 @@ public class CompilationImpl implements Compilation {
 				var wm = new DefaultWorldModule(calm.success(), getCompilationEnclosure());
 				System.err.println("**************************************************Comp ELIJAH_PARSED  "+wm.module().getFileName());
 //				pl.addModule(wm);
+*/
 			}
 			case CI_HASHED -> {
 				Triple<EzSpec, CK_SourceFile, Operation<String>> t = (Triple<EzSpec, CK_SourceFile, Operation<String>>) o;

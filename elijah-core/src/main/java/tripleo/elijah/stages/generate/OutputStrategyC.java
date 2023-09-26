@@ -43,8 +43,11 @@ public class OutputStrategyC {
 		@Override
 		public @NotNull String getFilename() {
 			StringBuilder sb = new StringBuilder();
-			sb.append("/");
-			sb.append(lsp);
+//			sb.append("/");
+			if (lsp != null && !lsp.isEmpty()) {
+				sb.append("/");
+				sb.append(lsp);
+			}
 			if (dir != null && !dir.isEmpty()) {
 				sb.append("/");
 				sb.append(dir);
