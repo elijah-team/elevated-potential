@@ -6,6 +6,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.pre_world.*;
@@ -99,4 +100,6 @@ public interface CompilationEnclosure {
 	void _resolvePipelineAccessPromise(IPipelineAccess aPa);
 
 	void waitCompilationRunner(Consumer<CompilationRunner> ccr);
+
+	void logProgress2(CompProgress aCompProgress, AssererationLogProgress aAssererationLogProgress);
 }

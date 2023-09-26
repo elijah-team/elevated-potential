@@ -9,7 +9,6 @@ import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.CompilationEnclosure;
 import tripleo.elijah.comp.i.IPipelineAccess;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
@@ -21,9 +20,15 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public record GN_GenerateNodesIntoSinkEnv(List<ProcessedNode> lgc, GenerateResultSink resultSink1,
-		EIT_ModuleList moduleList, ElLog.Verbosity verbosity, GenerateResult gr, IPipelineAccess pa,
-		CompilationEnclosure ce) implements GN_Env {
+public record GN_GenerateNodesIntoSinkEnv(
+		List<ProcessedNode> lgc,
+		GenerateResultSink resultSink1,
+		Object/*EIT_ModuleList*/ moduleList,
+		ElLog.Verbosity verbosity,
+		GenerateResult gr,
+		IPipelineAccess pa,
+		CompilationEnclosure ce
+) implements GN_Env {
 
 	@org.jetbrains.annotations.Nullable
 	public static String getLang(final @NotNull OS_Module mod) {
@@ -52,7 +57,7 @@ public record GN_GenerateNodesIntoSinkEnv(List<ProcessedNode> lgc, GenerateResul
 
 		final String lang = getLang(mod);
 		if (lang == null) {
-			System.err.println("lang==null for " + mod.getFileName());
+			// 09/26 System.err.println("lang==null for " + mod.getFileName());
 			// throw new NotImplementedException();
 		}
 

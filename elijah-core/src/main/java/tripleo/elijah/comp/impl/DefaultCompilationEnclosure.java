@@ -12,6 +12,7 @@ import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputtree.*;
@@ -404,11 +405,16 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		ecr.then(ccr::accept);
 	}
 
+	@Override
+	public void logProgress2(final CompProgress aCompProgress, final AssererationLogProgress alp) {
+		alp.call(System.out, System.err);
+	}
+
 	private class ModuleListener_ModuleCompletableProcess implements CompletableProcess<WorldModule> {
 
 		@Override
 		public void add(final WorldModule item) {
-			System.err.println("[ModuleListener_ModuleCompletableProcess] add " + item.module().getFileName());
+//			System.err.println("[ModuleListener_ModuleCompletableProcess] add " + item.module().getFileName());
 
 			// TODO Reactive pattern (aka something ala ReplaySubject)
 			for (final ModuleListener moduleListener : _moduleListeners) {
@@ -417,7 +423,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		}
 		@Override
 		public void complete() {
-			System.err.println("[ModuleListener_ModuleCompletableProcess] complete");
+			// 09/26 System.err.println("[ModuleListener_ModuleCompletableProcess] complete");
 
 			// TODO Reactive pattern (aka something ala ReplaySubject)
 			for (final ModuleListener moduleListener : _moduleListeners) {
@@ -432,12 +438,12 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 		@Override
 		public void preComplete() {
-			System.err.println("[ModuleListener_ModuleCompletableProcess] preComplete");
+//			System.err.println("[ModuleListener_ModuleCompletableProcess] preComplete");
 		}
 
 		@Override
 		public void start() {
-			System.err.println("[ModuleListener_ModuleCompletableProcess] start");
+//			System.err.println("[ModuleListener_ModuleCompletableProcess] start");
 		}
 
 	}

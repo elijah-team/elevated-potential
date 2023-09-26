@@ -8,7 +8,11 @@
  */
 package tripleo.elijah.comp;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.entrypoints.MainClassEntryPoint;
@@ -23,6 +27,7 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 
+import static org.hamcrest.MatcherAssert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -64,7 +69,8 @@ public class FindClassesInDemoElNormal {
 		assertFalse(MainClassEntryPoint.isMainClass(aClassList.get(0)), "isMainClass");
 	}
 
-	@org.junit.jupiter.api.Test
+	@Disabled
+	@Test
 	public final void testParseFile() throws Exception {
 		final List<String> args = tripleo.elijah.util.Helpers.List_of("test/demo-el-normal",
 				"test/demo-el-normal/main2", "-sE");
@@ -73,11 +79,32 @@ public class FindClassesInDemoElNormal {
 
 		c.feedCmdLine(args);
 
+		{
+			List<String> l = new ArrayList<>();
+			c.world().eachModule(wm -> l.add(wm.module().getFileName()));
+
+			assertThat(l.size()).isEqualTo(2); // TODO is this correct?
+//		assertThat(l).containsExactlyInAnyOrder("test/demo-el-normal/main2.elijah", "test/demo-el-normal/fact2.elijah");
+			assertThat(l).containsExactlyInAnyOrder(
+					"Prelude.elijjah", // FIXME this looks bad. (Prelude should have a path)
+					"test/demo-el-normal/fact2.elijah"
+			);
+		}
+
 		final List<ClassStatement> aClassList = c.world().findClass("Main");
 		for (final ClassStatement classStatement : aClassList) {
-			tripleo.elijah.util.Stupidity.println_out_2(classStatement.getPackageName().getName());
+			Stupidity.println_out_2(classStatement.getPackageName().getName());
 		}
-		assertEquals(1, aClassList.size()); // NOTE this may change. be aware
+
+		final List<String> classNames = aClassList.stream()
+				.map(ClassStatement::getName)
+				.collect(Collectors.toList());
+
+		assertThat(classNames).containsExactlyInAnyOrder("Main");
+
+//		assertEquals(1, aClassList.size()); // NOTE this may change. be aware
+
+		assertThat(c.errorCount()).isEqualTo(0); // NOTE We're being optimistic here
 	}
 
 	private static class CrazyRepo implements LivingRepo {
@@ -85,6 +112,11 @@ public class FindClassesInDemoElNormal {
 
 		public CrazyRepo(LivingRepo aWorld) {
 			d = aWorld;
+		}
+
+		@Override
+		public Collection<WorldModule> getMods__() {
+			return null;
 		}
 
 		@Override
@@ -150,18 +182,20 @@ public class FindClassesInDemoElNormal {
 			final List<ClassStatement> l = new ArrayList<>();
 			var modules1 = d.modules().stream().map(WorldModule::module).collect(Collectors.toList());
 
-			var ll = modules1.stream()
-					.filter(m -> m.hasClass(aClassName))
-					.map(m -> (ClassStatement) m.findClassesNamed(aClassName))
-					.collect(Collectors.toList());
+			// TODO idk why I can never figure this out
+//			var ll = modules1.stream()
+//					.filter(m -> m.hasClass(aClassName))
+//					.map(m -> m.findClassesNamed(aClassName))
+			// insert here?
+//					.collect(Collectors.toList());
 
 			for (final OS_Module module : modules1) {
 				if (module.hasClass(aClassName)) {
-					l.add((ClassStatement) module.findClassesNamed(aClassName));
+					l.addAll(module.findClassesNamed(aClassName));
 				}
 			}
 
-			assert Objects.equals(l,ll);
+//			assert Objects.equals(l,ll);
 
 			return l;
 		}

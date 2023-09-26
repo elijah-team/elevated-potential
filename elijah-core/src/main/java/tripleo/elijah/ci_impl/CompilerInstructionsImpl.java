@@ -13,9 +13,11 @@ import lombok.*;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
+import java.io.*;
 import java.util.*;
 
 /**
@@ -28,6 +30,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	private         GenerateStatement          gen;
 	@Getter
 	private         String                     name;
+	private CompilerInput advised;
 
 	@Override
 	public void add(final GenerateStatement generateStatement) {
@@ -57,6 +60,8 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 				})
 				.findFirst() // README here too
 				.orElse(null);
+
+		if (genLang == null) return null;
 		return genLang.get();
 	}
 
@@ -83,6 +88,19 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	@Override
 	public void setName(@NotNull Token name) {
 		this.name = name.getText();
+	}
+
+	@Override
+	public void advise(final CompilerInput aCompilerInput) {
+		advised = aCompilerInput;
+	}
+
+	@Override
+	public File makeFile() {
+		if (advised != null) {
+			return new File(advised.makeFile(), getFilename());
+		} else
+			return new File(getFilename());
 	}
 
 	@Override

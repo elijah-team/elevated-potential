@@ -10,7 +10,6 @@ import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
 
@@ -109,6 +108,7 @@ public class CompilationRunner extends _RegistrationTarget {
 		tripleo.elijah.util.Stupidity.println_err_3("%d %s".formatted(number, text));
 	}
 
+/*
 	public @NotNull Operation<CompilerInstructions> parseEzFile(final @NotNull SourceFileParserParams p) throws FileNotFoundException {
 		@NotNull Operation<CompilerInstructions> oci;
 		final File                               f      = p.f();
@@ -121,11 +121,10 @@ public class CompilationRunner extends _RegistrationTarget {
 		} else {
 			final Operation<CompilerInstructions> oci1 = CX_realParseEzFile2.realParseEzFile(_compilation, ezSpec, ezCache);
 
-			if (/* false || */ oci1.mode() == SUCCESS) {
+			if (*/
+/* false || *//*
+ oci1.mode() == SUCCESS) {
 
-				Operation<String> hash = new CA_getHashForFile().apply(p.file_name(), p.f());
-				Compilation       c    = _compilation;
-				c.getObjectTree().asseverate(Triple.of(ezSpec, null, hash), Asseverate.CI_HASHED);
 			}
 			oci = oci1;
 		}
@@ -134,40 +133,7 @@ public class CompilationRunner extends _RegistrationTarget {
 
 		return oci;
 	}
-
-	/**
-	 * - I don't remember what absolutePath is for - Cache doesn't add to QueryDB
-	 * <p>
-	 * STEPS ------
-	 * <p>
-	 * 1. Get absolutePath<br/>
-	 * 2. Check cache, return early<br/>
-	 * 3. Parse (Query is incorrect I think)<br/>
-	 * 4. Cache new result<br/>
-	 * </p>
-	 *
-	 * @param spec
-	 * @param cache
-	 * @return
-	 */
-	public Operation<CompilerInstructions> realParseEzFile(final EzSpec spec, final EzCache cache) {
-		final Operation<String> op = spec.absolute1();
-
-		if (op.mode() == Mode.FAILURE) {
-			return Operation.failure(op.failure());
-		}
-
-		var absolutePath = op.success();
-
-		final Optional<CompilerInstructions> early = cache.get(absolutePath);
-
-		if (early.isPresent()) {
-			return Operation.success(early.get());
-		}
-
-		final Operation<CompilerInstructions> cio = CX_ParseEzFile.parseAndCache(spec, ezCache(), absolutePath);
-		return cio;
-	}
+*/
 
 	public void start(final CompilerInstructions aRootCI, final @NotNull IPipelineAccess pa) {
 		// FIXME only run once 06/16
@@ -186,7 +152,7 @@ public class CompilationRunner extends _RegistrationTarget {
 				public void reportSuccess(final CB_Action aCBAction, final CB_Output aCB_output) {
 					final List<CB_OutputString> x = aCB_output.get();
 					for (CB_OutputString xx : x) {
-						System.err.println("127 " + xx.getText());
+//						System.err.println("127 " + xx.getText());
 					}
 				}
 			});

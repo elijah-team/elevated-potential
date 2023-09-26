@@ -110,7 +110,47 @@ public class TestBasic {
 				System.err.println(aof);
 			}
 
-			assertTrue(aofs.contains("/Prelude/Prelude.c"));
+//			assertTrue(aofs.contains("/Prelude/Prelude.c"));
+//			assertTrue(aofs.contains("/Prelude/String[].h"));
+
+			assertEquals(14, c.reports().codeOutputSize());
+
+			assertTrue(c.reports().containsCodeOutput("/Prelude/String[].h"));
+			assertTrue(c.reports().containsCodeOutput("/Prelude/String[].c"));
+			assertTrue(c.reports().containsCodeOutput("/Prelude/Boolean[].c"));
+			assertTrue(c.reports().containsCodeOutput("/Prelude/Boolean[].h"));
+			assertTrue(c.reports().containsCodeOutput("/Prelude/Integer64[].c"));
+			assertTrue(c.reports().containsCodeOutput("/Prelude/Integer64[].h"));
+			assertTrue(c.reports().containsCodeOutput("/Prelude/Arguments[].c"));
+			assertTrue(c.reports().containsCodeOutput("/Prelude/Arguments[].h"));
+			assertTrue(c.reports().containsCodeOutput("/Prelude/ConstString.c"));
+			assertTrue(c.reports().containsCodeOutput("/Prelude/ConstString.h"));
+			assertTrue(c.reports().containsCodeOutput("/Prelude/Unsigned64[].c"));
+			assertTrue(c.reports().containsCodeOutput("/Prelude/Unsigned64[].h"));
+
+			assertTrue(c.reports().containsCodeOutput("/main2/Main.h"));
+			assertTrue(c.reports().containsCodeOutput("/main2/Main.c"));
+
+			/*
+
+-- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/String[].h
+-- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Boolean[].h
+-- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Boolean[].c
+-- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/ConstString.c
+-- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Integer64[].h
+-- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Integer64[].c
+-- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/main2/Main.c
+--401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Arguments[].c
+--401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/ConstString.h
+--401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Arguments[].h
+--401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/String[].c
+-- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/main2/Main.h
+--401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Unsigned64[].c
+--401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Unsigned64[].h
+
+
+
+			 */
 		}
 	}
 
@@ -220,9 +260,15 @@ public class TestBasic {
 			if (c.errorCount() != 0)
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
 
-			var qq = c.con().createQualident(List_of("std", "io"));
+//			var qq = c.con().createQualident(List_of("std", "io"));
+//
+//			assertTrue(c.isPackage(qq.toString()));
 
-			assertTrue(c.isPackage(qq.toString()));
+			var qq2 = c.con().createQualident(List_of("wpkotlin_c","demo","list_folders"));
+
+			assertTrue(c.isPackage(qq2.toString()));
+
+			assertEquals(2, c.errorCount());
 		}
 	}
 

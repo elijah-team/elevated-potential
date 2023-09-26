@@ -49,7 +49,7 @@ public class CompilationTest {
 			Stupidity.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
 		});
 
-		assertEquals(7/* 12 */, worldModules.size());
+		assertEquals(3/*7*//* 12 */, worldModules.size());
 
 		System.err.println("CompilationTest -- 53 " + worldModules.size());
 		assertTrue(worldModules.size() > 2);

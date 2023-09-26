@@ -18,6 +18,7 @@ import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
@@ -43,9 +44,10 @@ public class CompilationImpl implements Compilation {
 	@Getter
 	private final          CompilationConfig                   cfg;
 	@Getter
-	private final          USE                                 use;
-	private final          CompilationEnclosure                compilationEnclosure;
-	private final          CP_Paths                            paths;
+	private final USE                  use;
+	@Getter
+	private final CompilationEnclosure compilationEnclosure;
+	private final CP_Paths             paths;
 	private final          EIT_InputTree                       _input_tree;
 	private final @NotNull ErrSink                             errSink;
 	private final          int                                 _compilationNumber;
@@ -214,11 +216,6 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
-	public CompilationEnclosure getCompilationEnclosure() {
-		return compilationEnclosure;
-	}
-
-	@Override
 	public String getCompilationNumberString() {
 		return String.format("%08x", _compilationNumber);
 	}
@@ -285,8 +282,10 @@ public class CompilationImpl implements Compilation {
 
 			getCompilationEnclosure().logProgress(CompProgress.Compilation__hasInstructions__empty, absolutePath);
 
-			return Operation.failure(new Exception("cis empty"));
-		}
+			//return Operation.failure(new Exception("cis empty"));
+
+			rootCI = cci_listener._root();
+		} else
 
 		if (rootCI == null) {
 			rootCI = cis.get(0);
@@ -298,6 +297,15 @@ public class CompilationImpl implements Compilation {
 
 		if (!_inside) {
 			_inside = true;
+
+
+
+
+
+			rootCI.advise(_inputs.get(0));
+
+
+
 			getCompilationEnclosure().getCompilationRunner().start(this.cci_listener._root(), pa);
 		}
 
@@ -393,8 +401,22 @@ public class CompilationImpl implements Compilation {
 		@Override
 		public void asseverate(Object o, Asseverate asseveration) {
 			switch (asseveration) {
+			case ELIJAH_PARSED -> {
+/*
+				var x = (Pair<ElijahSpec, Operation<OS_Module>>)o;
+
+				var spec = x.getLeft();
+				var calm = x.getRight();
+
+				var pl = getCompilationEnclosure().getPipelineLogic();
+
+				var wm = new DefaultWorldModule(calm.success(), getCompilationEnclosure());
+				System.err.println("**************************************************Comp ELIJAH_PARSED  "+wm.module().getFileName());
+//				pl.addModule(wm);
+*/
+			}
 			case CI_HASHED -> {
-				Triple<EzSpec, SourceFileParserParams, Operation<String>> t = (Triple<EzSpec, SourceFileParserParams, Operation<String>>) o;
+				Triple<EzSpec, CK_SourceFile, Operation<String>> t = (Triple<EzSpec, CK_SourceFile, Operation<String>>) o;
 
 				var spec = t.getLeft();
 				var hash = t.getRight();
@@ -402,14 +424,19 @@ public class CompilationImpl implements Compilation {
 
 				getCompilationEnclosure().logProgress(CompProgress.Ez__HasHash, Pair.of(spec, hash.success()));
 
-				if (p.input() != null) {
-					p.input().accept_hash(hash.success());
+				if (p.compilerInput() != null) {
+					p.compilerInput().accept_hash(hash.success());
 				} else {
 					NotImplementedException.raise_stop();
 				}
 			}
 			}
 //			NotImplementedException.raise_stop();
+		}
+
+		@Override
+		public void asseverate(final Asseveration aAsseveration) {
+			aAsseveration.onLogProgress(getCompilationEnclosure());
 		}
 	}
 }

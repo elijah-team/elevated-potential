@@ -111,12 +111,20 @@ class AmazingFunction implements Amazing {
 			// FIXME check arguments --> this doesn't seem like it will give the desired
 			// results
 			DefaultGenerateResultSink generateResultSink = new DefaultGenerateResultSink(pa);
-			EIT_ModuleList eitModuleList = aPipelineLogic.mods();
+//			EIT_ModuleList eitModuleList = aPipelineLogic.mods();
+			Object eitModuleList = null;
 			GenerateResult gr = result; // new Old_GenerateResult();
 			CompilationEnclosure ce = pa.getCompilationEnclosure();
 
-			var env = new GN_GenerateNodesIntoSinkEnv(List_of(), generateResultSink, eitModuleList,
-					ElLog.Verbosity.VERBOSE, gr, pa, ce);
+			var env = new GN_GenerateNodesIntoSinkEnv(
+					List_of(),
+					generateResultSink,
+					eitModuleList,
+					ElLog.Verbosity.VERBOSE,
+					gr,
+					pa,
+					ce
+			);
 
 			var world = ce.getCompilation().world();
 			var wm = world.findModule(mod);

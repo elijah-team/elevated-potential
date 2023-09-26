@@ -13,11 +13,8 @@ import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
-import tripleo.elijah.world.impl.*;
 
 import java.io.*;
-import java.util.*;
 import java.util.regex.*;
 
 @SuppressWarnings("UnnecessaryLocalVariable")
@@ -39,7 +36,12 @@ public class USE {
 	}
 
 	public Operation2<OS_Module> findPrelude(final String prelude_name) {
-		return new CY_FindPrelude(errSink, this).findPrelude(prelude_name);
+		final CY_FindPrelude cyFindPrelude = new CY_FindPrelude(
+				errSink,
+				() -> c,
+				() -> elijahCache
+		);
+		return cyFindPrelude.findPrelude(prelude_name);
 	}
 
 	private Operation2<OS_Module> parseElijjahFile(final @NotNull File f,
@@ -60,7 +62,7 @@ public class USE {
 					file_name,
 					f,
 					c,
-					(spec) -> Operation2.convert(realParseElijjahFile(spec))
+					(spec) -> Operation2.convert(CX_realParseElijjahFile2.realParseElijjahFile2(spec, elijahCache, c))
 			);
 
 			switch (om.mode()) {
@@ -91,43 +93,28 @@ public class USE {
 		}
 	}
 
-	public Operation<OS_Module> realParseElijjahFile(final ElijahSpec spec) {
-		final File file = spec.file();
-
-		final String absolutePath;
-		try {
-			absolutePath = file.getCanonicalFile().toString();
-		} catch (final IOException aE) {
-			return Operation.failure(aE);
-		}
-
-		final Optional<OS_Module> early = elijahCache.get(absolutePath);
-
-		if (early.isPresent()) {
-			return Operation.success(early.get());
-		}
-
-		final var calm = CX_ParseElijahFile.parseAndCache(spec, elijahCache, absolutePath, c);
-
-		final WorldModule worldModule = new DefaultWorldModule(calm.success(), c.getCompilationEnclosure());
-		c.world().addModule2(worldModule);
-
-		return calm;
-	}
-
 	public void use(final @NotNull CompilerInstructions compilerInstructions) {
 		// TODO
 
 		if (compilerInstructions.getFilename() == null)
 			return;
 
-		final File instruction_dir = new File(compilerInstructions.getFilename()).getParentFile();
+		final File file            = compilerInstructions.makeFile();
+		final File instruction_dir = file.getParentFile();
+
+		if (instruction_dir == null) {
+			// System.err.println("106106 ************************************** "+file);
+			// Prelude.elijjah is a special case
+			// instruction_dir = file;
+			return;
+		}
+
 		for (final LibraryStatementPart lsp : compilerInstructions.getLibraryStatementParts()) {
 			final String dir_name = Helpers.remove_single_quotes_from_string(lsp.getDirName());
 			final File   dir;// = new File(dir_name);
 			USE_Reasoning reasoning = null;
 			if (dir_name.equals("..")) {
-				dir = instruction_dir/* .getAbsoluteFile() */.getParentFile();
+				dir = instruction_dir/* .getAbsoluteFile() */.getParentFile(); // FIXME 09/26 this has always been questionable
 				reasoning = USE_Reasonings.parent(compilerInstructions, true, instruction_dir, lsp);
 			} else {
 				dir = new File(instruction_dir, dir_name);

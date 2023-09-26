@@ -1,26 +1,28 @@
 package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.ci_impl.CompilerInstructionsImpl;
-import tripleo.elijah.ci_impl.GenerateStatementImpl;
-import tripleo.elijah.ci_impl.LibraryStatementPartImpl;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.diagnostic.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
+import java.util.function.*;
 
 class CY_FindPrelude {
-	private final ErrSink errSink;
-	private final USE     x;
+	private final ErrSink     errSink;
+	private final ElijahCache elijahCache;
+	private final Compilation c;
 
-	CY_FindPrelude(final ErrSink aErrSink1, final USE aX) {
-		errSink = aErrSink1;
-		x       = aX;
+	CY_FindPrelude(final ErrSink aErrSink1,
+	               final Supplier<Compilation> _c,
+	               final Supplier<ElijahCache> _elijahCache) {
+		errSink     = aErrSink1;
+		c           = _c.get();
+		elijahCache = _elijahCache.get();
 	}
 
 	@NotNull
@@ -28,58 +30,21 @@ class CY_FindPrelude {
 		return new File("lib_elijjah/lib-" + prelude_name + "/Prelude.elijjah");
 	}
 
+	public static File __local_prelude_file(final String aPreludeName) {
+		return local_prelude_file(aPreludeName);
+	}
+
 	public Operation2<OS_Module> findPrelude(final String prelude_name) {
 		final File local_prelude = local_prelude_file(prelude_name);
 
-		if (!(local_prelude.exists())) {
-			return Operation2.failure(new FileNotFoundDiagnostic(local_prelude));
-		}
-
 		try {
-			return try_parse(local_prelude);
-		} catch (final Exception e) {
+			return CX_ParseElijahFile.__parseEzFile(local_prelude.getName(), local_prelude,
+			                                        c,
+			                                        (ElijahSpec spec) -> (CX_realParseElijjahFile2.realParseElijjahFile2_(spec, elijahCache, c))
+			);
+		} catch (IOException e) {
 			errSink.exception(e);
 			return Operation2.failure(new ExceptionDiagnostic(e));
 		}
-	}
-
-	@NotNull
-	private Operation2<OS_Module> try_parse(final File local_prelude) {
-		Operation2<OS_Module> om;
-
-		try {
-			om = CX_ParseElijahFile.__parseEzFile(
-					local_prelude.toString(),
-					local_prelude,
-					x._c(),
-					(spec) -> Operation2.convert(x.realParseElijjahFile(spec))
-			);
-
-			switch (om.mode()) {
-				case SUCCESS -> {
-					final CompilerInstructions instructions = new CompilerInstructionsImpl();
-					instructions.setName("prelude");
-					final GenerateStatement generateStatement = new GenerateStatementImpl();
-					final StringExpression  expression        = new StringExpressionImpl(Helpers.makeToken("\"c\"")); // TODO
-					generateStatement.addDirective(Helpers.makeToken("gen"), expression);
-					instructions.add(generateStatement);
-					final LibraryStatementPart lsp = new LibraryStatementPartImpl();
-					lsp.setInstructions(instructions);
-					// lsp.setDirName();
-					final OS_Module module = om.success();
-					module.setLsp(lsp);
-					return Operation2.success(module);
-				}
-				case FAILURE -> {
-					return om;
-				}
-				default -> throw new IllegalStateException("Unexpected value: " + om.mode());
-			}
-
-		} catch (final Exception aE) {
-			om = Operation2.failure(new ExceptionDiagnostic(aE));
-		}
-
-		return om;
 	}
 }

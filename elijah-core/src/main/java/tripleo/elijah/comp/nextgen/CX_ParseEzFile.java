@@ -29,33 +29,16 @@ public class CX_ParseEzFile {
 		return Operation.success(instructions);
 	}
 
-	public static Operation<CompilerInstructions> parseAndCache(final EzSpec aSpec, final EzCache aEzCache,
+	public static Operation<CompilerInstructions> parseAndCache(final EzSpec aSpec,
+	                                                            final EzCache aEzCache,
 	                                                            final String absolutePath) {
-		final Operation<CompilerInstructions> cio = parseEzFile_(aSpec);
+		final Operation<CompilerInstructions> cio = calculate(aSpec.file_name(), aSpec.s().get());
 
 		if (cio.mode() == Mode.SUCCESS) {
 			aEzCache.put(aSpec, absolutePath, cio.success());
 		}
 
 		return cio;
-	}
-
-	public static Operation<CompilerInstructions> parseAndCache(final @NotNull File aFile,
-	                                                            final Compilation aCompilation,
-	                                                            final EzCache aEzCache) {
-		try (final InputStream readFile = aCompilation.getIO().readFile(aFile)) {
-			final String                          absolutePath = aFile.getAbsolutePath();
-			final Operation<CompilerInstructions> cio          = calculate(aFile.getAbsolutePath(), readFile);
-
-			if (cio.mode() == Mode.SUCCESS) {
-				final EzSpec spec = new EzSpec(aFile.getName(), ()->readFile, aFile);
-				aEzCache.put(spec, absolutePath, cio.success());
-			}
-
-			return cio;
-		} catch (final IOException aE) {
-			return Operation.failure(aE);
-		}
 	}
 
 	public static Operation<CompilerInstructions> parseEzFile(final @NotNull File aFile,
@@ -66,9 +49,5 @@ public class CX_ParseEzFile {
 		} catch (final IOException aE) {
 			return Operation.failure(aE);
 		}
-	}
-
-	public static Operation<CompilerInstructions> parseEzFile_(final EzSpec spec) {
-		return calculate(spec.file_name(), spec.s().get());
 	}
 }

@@ -11,6 +11,14 @@ import java.util.*;
 import java.util.regex.*;
 
 public class CompilerInput extends __Extensionable {
+    public File makeFile() {
+	    return switch (ty) {
+		    case SOURCE_ROOT -> dir_carrier;
+		    case ROOT -> new File(new File(inp).getParent());
+		    default -> null;
+	    };
+    }
+
     public enum CompilerInputField {
         TY, HASH, ACCEPT_CI, DIRECTORY_RESULTS
     }
@@ -107,6 +115,11 @@ public class CompilerInput extends __Extensionable {
 
     public void setDirectoryResults(final List<Operation2<CompilerInstructions>> aLoci) {
         this.directoryResults = aLoci;
+
+        for (Operation2<CompilerInstructions> locus : aLoci) {
+            var focus = locus.success();
+            focus.advise(this);
+        }
 
         if (master != null)
             master.notifyChange(this, CompilerInputField.DIRECTORY_RESULTS);
