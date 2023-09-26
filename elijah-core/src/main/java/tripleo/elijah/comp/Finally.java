@@ -6,6 +6,10 @@ import tripleo.elijah.nextgen.outputtree.*;
 import java.util.*;
 
 public class Finally {
+	public int codeOutputSize() {
+		return outputs.size();
+	}
+
 	public static class Input {
 		private final Nameable nameable;
 		private final Out2 ty;

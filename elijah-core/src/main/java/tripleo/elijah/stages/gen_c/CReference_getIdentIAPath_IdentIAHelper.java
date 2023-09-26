@@ -9,11 +9,12 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.IdentIA;
 import tripleo.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.world.impl.*;
 
 import java.util.List;
 
 class CReference_getIdentIAPath_IdentIAHelper {
-	class CodeResolver {
+	static class CodeResolver {
 		private int code;
 		private String reason;
 		private boolean is_set;
@@ -209,7 +210,16 @@ class CReference_getIdentIAPath_IdentIAHelper {
 					EvaNode gc1 = resolvedFunction.getGenClass();
 					if (gc instanceof EvaContainerNC) // and not another function
 					{
-						this.code = gc.getCode();
+						this.code = gc.getLiving().getCode();
+
+						if (this.code == 0){
+							var living = gc.getLiving();
+							assert living != null;
+
+							living.setCode(((DefaultLivingRepo)gc.getElement().getContext().module().getCompilation().world()).nextClassCode());
+//							gc.setCode();
+							this.code = gc.getCode();
+						}
 
 						cr.provide(gc,
 								"_act_FunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-instanceof-EvaContainerNC");
