@@ -4,9 +4,11 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.diagnostic.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.nextgen.impl.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.util.*;
@@ -16,9 +18,9 @@ import java.util.*;
 import java.util.regex.*;
 
 public class QuerySearchEzFiles {
-	private final Compilation c;
+	private final          Compilation        c;
 	private final @NotNull CompilationClosure cc;
-	private final FilenameFilter ez_files_filter = new EzFilesFilter();
+	private final          FilenameFilter     ez_files_filter = new EzFilesFilter();
 
 	public QuerySearchEzFiles(final @NotNull CompilationClosure ccl) {
 		c = ccl.getCompilation();
@@ -26,46 +28,25 @@ public class QuerySearchEzFiles {
 		this.cc = ccl;
 	}
 
-	@Nullable
-	CompilerInstructions parseEzFile(final @NotNull File f,
-	                                 final @NotNull String file_name,
-	                                 final @NotNull CompilationClosure cc) {
-		var p = new SourceFileParserParams(null, f, file_name, cc);
-
-//			final InputStream s      = cc.getCompilation().getIO().readFile(file_name);
-		final EzSpec      ezSpec = new EzSpec(file_name, null, f);
-		try {
-			return c.getCompilationEnclosure().getCompilationRunner().parseEzFile(p).success();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public @NotNull Operation2<List<CompilerInstructions>> process(final @NotNull File directory) {
-		final List<CompilerInstructions> R       = new ArrayList<>();
-		final ErrSink                    errSink = cc.errSink();
+	public @NotNull List<Operation2<CompilerInstructions>> process(final @NotNull File directory) {
+		final List<Operation2<CompilerInstructions>> R       = new ArrayList<>();
 
 		final String[] list = directory.list(ez_files_filter);
 		if (list != null) {
 			for (final String file_name : list) {
-				try {
-					final File                 file   = new File(directory, file_name);
-					final CompilerInstructions ezFile = parseEzFile(file, file.toString(), cc);
-					if (ezFile != null)
-						R.add(ezFile);
-					else
-						errSink.reportError("9995 ezFile is null " + file); // TODO Diagnostic
-				} catch (final Exception e) {
-					return Operation2.failure(new ExceptionDiagnostic(e));
-				}
+				final CK_SourceFile                   sf  = CK_SourceFileFactory.get(directory, file_name, CK_SourceFileFactory.K.ElaboratedEzFile);
+				final Operation<CompilerInstructions> cio = sf.process_query();
+
+				// reason obv is it is elaborated in the directory ...
+//				QSEZ_Reasoning reasoning = QSEZ_Reasonings.create(null);
+				R.add(Operation2.convert(cio));
 			}
 		}
 
-		return Operation2.success(R);
+		return R;
 	}
 
+/*
 	public @NotNull List<Operation2<CompilerInstructions>> process2(final @NotNull File directory) {
 		final List<Operation2<CompilerInstructions>> R       = new ArrayList<>();
 		final ErrSink                                errSink = cc.errSink();
@@ -87,6 +68,7 @@ public class QuerySearchEzFiles {
 
 		return R;
 	}
+*/
 
 	public static class Diagnostic_9995 implements Diagnostic {
 		private final File file;

@@ -18,6 +18,7 @@ import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
@@ -394,7 +395,7 @@ public class CompilationImpl implements Compilation {
 		public void asseverate(Object o, Asseverate asseveration) {
 			switch (asseveration) {
 			case CI_HASHED -> {
-				Triple<EzSpec, SourceFileParserParams, Operation<String>> t = (Triple<EzSpec, SourceFileParserParams, Operation<String>>) o;
+				Triple<EzSpec, CK_SourceFile, Operation<String>> t = (Triple<EzSpec, CK_SourceFile, Operation<String>>) o;
 
 				var spec = t.getLeft();
 				var hash = t.getRight();
@@ -402,14 +403,19 @@ public class CompilationImpl implements Compilation {
 
 				getCompilationEnclosure().logProgress(CompProgress.Ez__HasHash, Pair.of(spec, hash.success()));
 
-				if (p.input() != null) {
-					p.input().accept_hash(hash.success());
+				if (p.compilerInput() != null) {
+					p.compilerInput().accept_hash(hash.success());
 				} else {
 					NotImplementedException.raise_stop();
 				}
 			}
 			}
 //			NotImplementedException.raise_stop();
+		}
+
+		@Override
+		public void asseverate(final Asseveration aAsseveration) {
+			aAsseveration.onLogProgress(getCompilationEnclosure());
 		}
 	}
 }

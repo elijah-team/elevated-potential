@@ -1,9 +1,12 @@
 package tripleo.elijah.comp.i;
 
+import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.nextgen.impl.*;
 import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
 
@@ -12,39 +15,56 @@ import java.io.*;
 public interface ILazyCompilerInstructions {
 	@Contract(value = "_, _ -> new", pure = true)
 	static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInput input,
-			final @NotNull CompilationClosure cc) {
+	                                             final @NotNull CompilationClosure cc) {
 		final String file_name = input.getInp();
-		final File f = new File(file_name);
+		final File   f         = new File(file_name);
 
 		return new ILazyCompilerInstructions() {
+			private @Nullable Operation<CompilerInstructions> operation;
+
 			@Override
 			public CompilerInstructions get() {
-				try {
-					var file_name = f.getPath();
+				// 1. Ask the factory
+				// 2. "Associate" our givens
+				// 3. Ask the source file to process
+				// 4. Just return on success
+				// 5. Return null for failure
 
-					var p = new SourceFileParserParams(input, f, file_name, cc);
+				CK_SourceFile sf = CK_SourceFileFactory.get(f, CK_SourceFileFactory.K.SpecifiedEzFile);
+				sf.associate(input, cc);
+				operation = sf.process_query();
 
-					final Operation<CompilerInstructions> oci = cc.getCompilation().getCompilationEnclosure()
-							.getCompilationRunner().parseEzFile(p);
-
-					if (oci.mode() == Mode.SUCCESS) {
-						final CompilerInstructions parsed = oci.success();
-						return parsed;
-					} else {
-						throw new RuntimeException(oci.failure()); // TODO ugh
-					}
-				} catch (Exception aE) {
-					// return Operation.failure(aE);
-					throw new RuntimeException(aE); // TODO ugh
+				if (operation.mode() == Mode.SUCCESS) {
+					final CompilerInstructions parsed = operation.success();
+					return parsed;
 				}
+
+				return null;
+			}
+
+			@Override
+			public @Nullable Operation<CompilerInstructions> getOperation() {
+				return operation;
 			}
 		};
 	}
 
 	@Contract(value = "_ -> new", pure = true)
 	static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInstructions aCompilerInstructions) {
-		return () -> aCompilerInstructions;
+		return new ILazyCompilerInstructions() {
+			@Override
+			public CompilerInstructions get() {
+				return aCompilerInstructions;
+			}
+
+			@Override
+			public @Nullable Operation<CompilerInstructions> getOperation() {
+				return null;
+			}
+		};
 	}
 
 	CompilerInstructions get();
+
+	@Nullable Operation<CompilerInstructions> getOperation();
 }

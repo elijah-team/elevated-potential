@@ -39,7 +39,7 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 			System.err.println("3939 " + local_stdlib_1);
 
 			// TODO stdlib path here
-			final File local_stdlib = new File("lib_elijjah/lib-" + aPreludeName + "/stdlib.ez");
+			final File local_stdlib = CY_FindPrelude.__local_prelude_file(aPreludeName);
 
 
 
@@ -61,14 +61,14 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 				try {
 					final String name = local_stdlib.toString();
 
-					final SourceFileParserParams          p          = new SourceFileParserParams(null, local_stdlib, name, cc);
-					final CK_SourceFile                   sourceFile = CK_SourceFileFactory.get(p, compilationRunner);
-					final Operation<CompilerInstructions> oci1       = sourceFile.process_query();
+					final CK_SourceFile sourceFile2 = CK_SourceFileFactory.get(local_stdlib, CK_SourceFileFactory.K.SpecifiedEzFile);
+					sourceFile2.associate(cc);
+					final Operation<CompilerInstructions> oci       = sourceFile2.process_query();
 
-					switch (oci1.mode()) {
+					switch (oci.mode()) {
 					case SUCCESS -> {
-						cc.getCompilation().pushItem(oci1.success());
-						result = oci1;
+						cc.getCompilation().pushItem(oci.success());
+						result = oci;
 						break;
 					}
 					case FAILURE -> {
@@ -76,7 +76,7 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 					}
 					}
 					if (result == null) {
-						result = Objects.requireNonNull(oci1);
+						result = Objects.requireNonNull(oci);
 					}
 
 				} catch (final Exception e) {
