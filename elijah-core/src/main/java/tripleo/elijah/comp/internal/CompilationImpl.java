@@ -388,6 +388,18 @@ public class CompilationImpl implements Compilation {
 	public static class DefaultObjectTree implements CK_ObjectTree {
 		@Override
 		public void asseverate(Object o, Asseverate asseveration) {
+			switch (asseveration) {
+				case CI_HASHED -> {
+					Triple<EzSpec, SourceFileParserParams, Operation<String>> t = (Triple<EzSpec, SourceFileParserParams, Operation<String>>) o;
+
+					var hash = t.getRight();
+					var p    = t.getMiddle();
+
+					if (p.input() != null) {
+						p.input().accept_hash(hash.success());
+					}
+				}
+			}
 			NotImplementedException.raise_stop();
 		}
 	}
