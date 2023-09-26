@@ -55,7 +55,12 @@ public class USE {
 		Operation2<OS_Module> om;
 
 		try {
-			om = realParseElijjahFile(file_name, f);
+			om = CX_ParseElijahFile.__parseEzFile(
+					file_name,
+					f,
+					c,
+					(spec) -> Operation2.convert(realParseElijjahFile(spec))
+			);
 
 			switch (om.mode()) {
 				case SUCCESS -> {
@@ -109,16 +114,7 @@ public class USE {
 		return calm;
 	}
 
-	public Operation2<OS_Module> realParseElijjahFile(final @NotNull String file_name, final @NotNull File file)
-			throws Exception {
-		return CX_ParseElijahFile.__parseEzFile(file_name,
-		                                        file,
-		                                        c,
-		                                        (spec) -> Operation2.convert(realParseElijjahFile(spec))
-		);
-	}
-
-	public void use(final @NotNull CompilerInstructions compilerInstructions) throws Exception {
+	public void use(final @NotNull CompilerInstructions compilerInstructions) {
 		// TODO
 
 		if (compilerInstructions.getFilename() == null)

@@ -77,14 +77,12 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	}
 
 	@Override
-	public @org.jetbrains.annotations.Nullable OS_Element findClass(final String aClassName) {
-		for (final ModuleItem item : items) {
-			if (item instanceof ClassStatement) {
-				if (((ClassStatement) item).getName().equals(aClassName))
-					return item;
-			}
-		}
-		return null;
+	public List<ClassStatement> findClassesNamed(final String aClassName) {
+		return items.stream()
+				.filter((ModuleItem x) -> x instanceof ClassStatement)
+				.map(x -> (ClassStatement)x)
+				.filter(x -> x.getName().equals(aClassName))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -94,7 +92,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 
 	/**
 	 * Get a class byImpl name. Must not be qualified. Wont return a
-	 * {@link NamespaceStatement} Same as {@link #findClass(String)}
+	 * {@link NamespaceStatement} Same as {@link #findClassesNamed(String)}
 	 *
 	 * @param name the class weImpl are looking for
 	 * @return either the class orImpl null
@@ -153,7 +151,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	 * @ ensures \result == null
 	 */
 	@Override
-	public @org.jetbrains.annotations.Nullable OS_Element getParent() {
+	public @Nullable OS_Element getParent() {
 		return null;
 	}
 

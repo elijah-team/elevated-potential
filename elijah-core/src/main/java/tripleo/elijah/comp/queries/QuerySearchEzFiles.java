@@ -7,6 +7,7 @@ import tripleo.elijah.comp.diagnostic.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.util.*;
 
@@ -29,7 +30,14 @@ public class QuerySearchEzFiles {
 	CompilerInstructions parseEzFile(final @NotNull File f, final @NotNull String file_name,
 	                                 final @NotNull CompilationClosure cc) {
 		var p = new SourceFileParserParams(null, f, file_name, cc);
-		return c.getCompilationEnclosure().getCompilationRunner().parseEzFile(p).success();
+
+		try {
+//			final InputStream s      = cc.getCompilation().getIO().readFile(f);
+//			final EzSpec      ezSpec = new EzSpec(file_name, s, f);
+			return c.getCompilationEnclosure().getCompilationRunner().parseEzFile(p).success();
+		} catch (FileNotFoundException aE) {
+			return null;
+		}
 	}
 
 	public @NotNull Operation2<List<CompilerInstructions>> process(final @NotNull File directory) {

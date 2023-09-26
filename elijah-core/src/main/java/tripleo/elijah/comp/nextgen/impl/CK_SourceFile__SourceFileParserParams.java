@@ -4,21 +4,21 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.queries.*;
+import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.util.*;
+
+import java.io.*;
 
 public class CK_SourceFile__SourceFileParserParams implements CK_SourceFile {
 
 	private final SourceFileParserParams p;
 	private final CompilationRunner      cr;
-	private final QuerySourceFileParser  qsfp;
 
 	public CK_SourceFile__SourceFileParserParams(SourceFileParserParams aP, CompilationRunner aCr) {
 		p    = aP;
 		cr   = aCr;
-		qsfp = new QuerySourceFileParser(cr);
 	}
 
 	@Override
@@ -38,8 +38,15 @@ public class CK_SourceFile__SourceFileParserParams implements CK_SourceFile {
 
 	@Override
 	public Operation<CompilerInstructions> process_query() {
-		//noinspection UnnecessaryLocalVariable
-		Operation<CompilerInstructions> oci = qsfp.process(p);
-		return oci;
+		@org.jetbrains.annotations.NotNull InputStream s;
+
+		try {
+			s= cr.getCrState().ca().getCompilation().getIO().readFile(p.f());
+		} catch (FileNotFoundException aE) {
+			return Operation.failure(aE);
+		}
+
+		var ezSpec = new EzSpec(p.file_name(), s, p.f());
+		return cr.realParseEzFile(ezSpec, cr.ezCache());
 	}
 }

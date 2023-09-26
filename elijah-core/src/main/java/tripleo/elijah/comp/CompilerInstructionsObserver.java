@@ -19,7 +19,7 @@ public class CompilerInstructionsObserver implements Observer<CompilerInstructio
 	}
 
 	public @NotNull Operation<Ok> almostComplete() {
-		return compilation.hasInstructions(l);
+		return compilation.hasInstructions(l, compilation.pa());
 	}
 
 	@Override
