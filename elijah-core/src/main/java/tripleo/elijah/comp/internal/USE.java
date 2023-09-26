@@ -99,7 +99,7 @@ public class USE {
 		if (compilerInstructions.getFilename() == null)
 			return;
 
-		final File instruction_dir = new File(compilerInstructions.getFilename()).getParentFile();
+		final File instruction_dir = (compilerInstructions.makeFile()).getParentFile();
 		for (final LibraryStatementPart lsp : compilerInstructions.getLibraryStatementParts()) {
 			final String dir_name = Helpers.remove_single_quotes_from_string(lsp.getDirName());
 			final File   dir;// = new File(dir_name);

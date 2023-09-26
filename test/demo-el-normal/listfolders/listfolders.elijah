@@ -10,7 +10,8 @@ class Main ( Arguments ) {
         listFiles(function (f) {
               Result = f.isDirectory()})
     if folders {  // folders?. //??
-        folders.forEach({|folder| println(folder) })
+//        folders.forEach({|folder| println(folder) })
+        folders.forEach(function (folder){ println(folder) })
     }
   } 
 }
