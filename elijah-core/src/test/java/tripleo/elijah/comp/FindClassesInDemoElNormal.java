@@ -8,7 +8,11 @@
  */
 package tripleo.elijah.comp;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.*;
+
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.entrypoints.*;
@@ -18,6 +22,7 @@ import tripleo.elijah.util.*;
 import java.util.*;
 import java.util.stream.*;
 
+import static org.hamcrest.MatcherAssert.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static tripleo.elijah.util.Helpers.*;
@@ -79,7 +84,6 @@ public class FindClassesInDemoElNormal {
 
 		assertThat(c.errorCount()).isEqualTo(0); // NOTE We're being optimistic here
 	}
-
 }
 
 //
