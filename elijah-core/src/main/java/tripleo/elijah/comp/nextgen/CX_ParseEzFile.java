@@ -1,8 +1,9 @@
-package tripleo.elijah.comp;
+package tripleo.elijah.comp.nextgen;
 
 import antlr.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
