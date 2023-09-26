@@ -21,7 +21,7 @@ public class CW_inputIsDirectory {
 		input.setDirectory(directory);
 
 		final QuerySearchEzFiles                     q    = new QuerySearchEzFiles(cc);
-		final List<Operation2<CompilerInstructions>> loci = q.process2(directory);
+		final List<Operation2<CompilerInstructions>> loci = q.process(directory);
 
 		input.setDirectoryResults(loci);
 	}
