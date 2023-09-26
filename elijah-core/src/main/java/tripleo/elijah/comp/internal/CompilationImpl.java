@@ -10,6 +10,7 @@ package tripleo.elijah.comp.internal;
 
 import com.google.common.base.*;
 import lombok.*;
+import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
@@ -17,6 +18,7 @@ import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
