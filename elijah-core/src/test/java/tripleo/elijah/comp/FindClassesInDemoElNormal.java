@@ -84,6 +84,7 @@ public class FindClassesInDemoElNormal {
 
 		assertThat(c.errorCount()).isEqualTo(0); // NOTE We're being optimistic here
 	}
+
 }
 
 //
