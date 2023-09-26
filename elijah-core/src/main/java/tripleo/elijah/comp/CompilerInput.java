@@ -12,8 +12,11 @@ import java.util.regex.*;
 
 public class CompilerInput extends __Extensionable {
     public File makeFile() {
-        assert ty == Ty.SOURCE_ROOT;
-        return dir_carrier;
+	    return switch (ty) {
+		    case SOURCE_ROOT -> dir_carrier;
+		    case ROOT -> new File(new File(inp).getParent());
+		    default -> null;
+	    };
     }
 
     public enum CompilerInputField {

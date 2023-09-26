@@ -37,7 +37,7 @@ public class PipelineLogic implements @NotNull EventualRegister {
 	public final @NotNull  DeducePhase              dp;
 	public final @NotNull  GeneratePhase            generatePhase;
 	private final @NonNull List<ElLog>              elLogs = new LinkedList<>();
-	private final @NonNull EIT_ModuleList           mods   = new EIT_ModuleList();
+//	private final @NonNull EIT_ModuleList           mods   = new EIT_ModuleList();
 	private final @NonNull ModuleCompletableProcess mcp    = new ModuleCompletableProcess();
 	private final @NonNull ModMap                   modMap = new ModMap();
 	private final @NonNull IPipelineAccess          pa;
@@ -93,10 +93,6 @@ public class PipelineLogic implements @NotNull EventualRegister {
 		elLogs.add(aLog);
 	}
 
-	public void addModule(WorldModule m) {
-		mods.add(m);
-	}
-
 	@Override
 	public void checkFinishEventuals() {
 		int y = 0;
@@ -128,10 +124,6 @@ public class PipelineLogic implements @NotNull EventualRegister {
 		modMap.put(mod, p);
 
 		return p;
-	}
-
-	public @NotNull EIT_ModuleList mods() {
-		return mods;
 	}
 
 	@Override

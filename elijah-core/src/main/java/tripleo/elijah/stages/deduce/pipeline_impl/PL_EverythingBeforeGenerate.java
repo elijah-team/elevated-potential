@@ -10,15 +10,5 @@ class PL_EverythingBeforeGenerate implements PipelineLogicRunnable {
 
 		var ce = pipelineLogic._pa().getCompilationEnclosure();
 		ce.getCompilation().world().addModuleProcess(mcp);
-		//
-		//
-		// mcp.start();
-		//
-		// for (final WorldModule mod : pipelineLogic.mods().getMods()) {
-		// mcp.add(mod);
-		// }
-		//
-		// mcp.preComplete();
-		// mcp.complete();
 	}
 }

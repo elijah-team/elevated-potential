@@ -1,6 +1,7 @@
 package tripleo.elijah.comp.nextgen;
 
 import antlr.*;
+import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
@@ -45,7 +46,7 @@ public class CX_ParseElijahFile {
 			}
 
 
-			compilation.getObjectTree().asseverate(aSpec, Asseverate.ELIJAH_PARSED);
+			compilation.getObjectTree().asseverate(Pair.of(aSpec,calm), Asseverate.ELIJAH_PARSED);
 
 			return calm;
 		} catch (final IOException aE) {
@@ -77,7 +78,7 @@ public class CX_ParseElijahFile {
 
 		var x = module.getFileName();
 		if (x == null)
-			module.setFileName(absolutePath);
+			module.setFileName(absolutePath); // TODO 09/26 you mentioned that this is a bug
 		return Operation.success(module);
 	}
 

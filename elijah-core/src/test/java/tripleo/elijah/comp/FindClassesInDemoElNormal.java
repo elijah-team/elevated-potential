@@ -88,6 +88,11 @@ public class FindClassesInDemoElNormal {
 		}
 
 		@Override
+		public Collection<WorldModule> getMods__() {
+			return null;
+		}
+
+		@Override
 		public void _completeModules() {
 			d._completeModules();
 		}
