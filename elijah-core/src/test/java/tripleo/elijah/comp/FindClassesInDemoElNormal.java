@@ -16,12 +16,21 @@ import org.junit.jupiter.api.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.entrypoints.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.entrypoints.MainClassEntryPoint;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
 import java.util.*;
 import java.util.stream.*;
 
+import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
