@@ -2,8 +2,6 @@ package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.i.CompilationFlow;
-import tripleo.elijah.comp.impl.DefaultCompilationFlow;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.contexts.ModuleContext;
 import tripleo.elijah.lang.i.OS_Module;
@@ -51,21 +49,11 @@ public class ModuleBuilder {
 	}
 
 	public @NotNull ModuleBuilder withPrelude(String aPrelude) {
-		final Operation2<WorldModule>[] p = new Operation2[] { null };
+		final Operation2<WorldModule> prelude = mod.getCompilation().findPrelude(aPrelude);
 
-		if (false) {
-			final CompilationFlow.CF_FindPrelude cffp = new CompilationFlow.CF_FindPrelude((pp) -> p[0] = pp);
-			final DefaultCompilationFlow flow = new DefaultCompilationFlow();
-			flow.add(cffp);
+		assert prelude.mode() == Mode.SUCCESS;
 
-			flow.run((CompilationImpl) mod.getCompilation());
-		} else {
-			p[0] = mod.getCompilation().findPrelude(aPrelude);
-		}
-
-		assert p[0].mode() == Mode.SUCCESS;
-
-		mod.setPrelude(p[0].success().module());
+		mod.setPrelude(prelude.success().module());
 
 		return this;
 	}
