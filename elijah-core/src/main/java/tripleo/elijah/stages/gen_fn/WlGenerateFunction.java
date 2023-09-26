@@ -8,6 +8,7 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.FunctionDef;
@@ -27,7 +28,8 @@ public class WlGenerateFunction implements WorkJob {
 	private final GenerateFunctions generateFunctions;
 	private final FunctionDef functionDef;
 	private final @NotNull FunctionInvocation functionInvocation;
-	private boolean _isDone = false;
+	private           boolean     _isDone = false;
+	@Getter
 	private @Nullable EvaFunction result;
 
 	public WlGenerateFunction(GenerateFunctions aGenerateFunctions, @NotNull FunctionInvocation aFunctionInvocation,
@@ -40,8 +42,11 @@ public class WlGenerateFunction implements WorkJob {
 
 	public WlGenerateFunction(final OS_Module aModule, final FunctionInvocation aFunctionInvocation,
 			final @NotNull Deduce_CreationClosure aCl) {
-		this(aCl.generatePhase().getGenerateFunctions(aModule), aFunctionInvocation,
-				aCl.deducePhase().getCodeRegistrar());
+		this(
+				aCl.generatePhase().getGenerateFunctions(aModule),
+				aFunctionInvocation,
+				aCl.deducePhase().getCodeRegistrar()
+		);
 	}
 
 	private void __registerClass(final @NotNull EvaClass result, final @NotNull EvaFunction gf) {
@@ -71,10 +76,6 @@ public class WlGenerateFunction implements WorkJob {
 			}
 		});
 		gf.setClass(result);
-	}
-
-	public EvaFunction getResult() {
-		return result;
 	}
 
 	@Override

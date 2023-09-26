@@ -78,7 +78,12 @@ public class WriteOutputTreePipeline implements PipelineMember {
 			CP_Path pp;
 
 			switch (outputFile.getType()) {
-			case SOURCES -> pp = r.child("code2").child(path0);
+			case SOURCES -> {
+				pp = r.child("code2").child(path0);
+
+				compilation.reports().addCodeOutput(()->path0, outputFile);
+
+			}
 			case LOGS -> pp = r.child("logs").child(path0);
 			case INPUTS, BUFFERS -> pp = r.child(path0);
 			case DUMP -> pp = r.child("dump").child(path0);
