@@ -276,20 +276,14 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
-	public @NotNull Operation<Ok> hasInstructions(final @NotNull List<CompilerInstructions> cis) {
-		hasInstructions(cis, pa());
-		return Operation.success(Ok.instance());
-	}
-
-	@Override
-	public void hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
+	public Operation<Ok> hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
 		if (cis.isEmpty()) {
 			// README IDEA misconfiguration
 			String absolutePath = new File(".").getAbsolutePath();
 
 			getCompilationEnclosure().logProgress(CompProgress.Compilation__hasInstructions__empty, absolutePath);
 
-			return;
+			return Operation.failure(new Exception("cis empty"));
 		}
 
 		if (rootCI == null) {
@@ -304,6 +298,8 @@ public class CompilationImpl implements Compilation {
 			_inside = true;
 			getCompilationEnclosure().getCompilationRunner().start(this.cci_listener._root(), pa);
 		}
+
+		return Operation.success(Ok.instance());
 	}
 
 	@Override
@@ -345,9 +341,16 @@ public class CompilationImpl implements Compilation {
 		return paths;
 	}
 
+	List<CompilerInstructions> xxx = new ArrayList<>();
 	@Override
 	public void pushItem(CompilerInstructions aci) {
-		_cis.onNext(aci);
+		if (xxx.contains(aci)) {
+			System.err.println("****************** skip");
+			return;
+		} else {
+			xxx.add(aci);
+			_cis.onNext(aci);
+		}
 	}
 
 	@Override
@@ -375,11 +378,8 @@ public class CompilationImpl implements Compilation {
 
 	@Override
 	public void use(final @NotNull CompilerInstructions compilerInstructions, final boolean do_out) {
-		try {
-			use.use(compilerInstructions);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		use.use(compilerInstructions);
+//		cci_listener.id.add(compilerInstructions);
 	}
 
 	@Override
@@ -387,22 +387,27 @@ public class CompilationImpl implements Compilation {
 		return _repo;
 	}
 
-	public static class DefaultObjectTree implements CK_ObjectTree {
+	public class DefaultObjectTree implements CK_ObjectTree {
 		@Override
 		public void asseverate(Object o, Asseverate asseveration) {
 			switch (asseveration) {
 			case CI_HASHED -> {
 				Triple<EzSpec, SourceFileParserParams, Operation<String>> t = (Triple<EzSpec, SourceFileParserParams, Operation<String>>) o;
 
+				var spec = t.getLeft();
 				var hash = t.getRight();
 				var p    = t.getMiddle();
 
+				getCompilationEnclosure().logProgress(CompProgress.Ez__HasHash, Pair.of(spec, hash.success()));
+
 				if (p.input() != null) {
 					p.input().accept_hash(hash.success());
+				} else {
+					NotImplementedException.raise_stop();
 				}
 			}
 			}
-			NotImplementedException.raise_stop();
+//			NotImplementedException.raise_stop();
 		}
 	}
 }

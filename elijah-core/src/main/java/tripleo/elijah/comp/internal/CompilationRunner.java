@@ -1,12 +1,16 @@
 package tripleo.elijah.comp.internal;
 
 import lombok.*;
+import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.caches.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
 
@@ -14,125 +18,34 @@ import java.io.*;
 import java.util.*;
 import java.util.function.*;
 
+import static tripleo.elijah.nextgen.query.Mode.*;
+
 public class CompilationRunner extends _RegistrationTarget {
-	public enum ST {
-		;
-
-		static class ExitConvertUserTypes implements State {
-			private StateRegistrationToken identity;
-
-			@Override
-			public void apply(final DefaultStateful element) {
-				// final VariableTableEntry vte = ((DeduceElement3_VariableTableEntry)
-				// element).principal;
-
-				// final DeduceTypes2 dt2 = ((DeduceElement3_VariableTableEntry)
-				// element).deduceTypes2();
-			}
-
-			@Override
-			public boolean checkState(final DefaultStateful aElement3) {
-				return true;
-			}
-
-			@Override
-			public void setIdentity(final StateRegistrationToken aId) {
-				identity = aId;
-			}
-		}
-
-		static class ExitResolveState implements State {
-
-			private StateRegistrationToken identity;
-
-			@Override
-			public void apply(final DefaultStateful element) {
-				// final VariableTableEntry vte = ((DeduceElement3_VariableTableEntry)
-				// element).principal;
-			}
-
-			@Override
-			public boolean checkState(final DefaultStateful aElement3) {
-				// return ((DeduceElement3_VariableTableEntry) aElement3).st ==
-				// DeduceElement3_VariableTableEntry.ST.INITIAL;
-				return false; // FIXME
-			}
-
-			@Override
-			public void setIdentity(final StateRegistrationToken aId) {
-				identity = aId;
-			}
-		}
-
-		static class InitialState implements State {
-			private StateRegistrationToken identity;
-
-			@Override
-			public void apply(final DefaultStateful element) {
-
-			}
-
-			@Override
-			public boolean checkState(final DefaultStateful aElement3) {
-				return true;
-			}
-
-			@Override
-			public void setIdentity(final StateRegistrationToken aId) {
-				identity = aId;
-			}
-		}
-
-		public static State EXIT_CONVERT_USER_TYPES;
-
-		public static State EXIT_RESOLVE;
-
-		public static State INITIAL;
-
-		public static void register(final @NotNull _RegistrationTarget art) {
-			// EXIT_RESOLVE = registerState(new ST.ExitResolveState());
-			INITIAL = art.registerState(new ST.InitialState());
-			// EXIT_CONVERT_USER_TYPES = registerState(new ST.ExitConvertUserTypes());
-		}
-	}
-
-	public final  EzCache     ezCache = new DefaultEzCache();
-	private final Compilation _compilation;
-	private final ICompilationBus cb;
+	public final @NotNull  EzCache                         ezCache = new DefaultEzCache();
+	private final @NotNull Compilation                     _compilation;
+	private final @NotNull ICompilationBus                 cb;
 	@Getter
-	private final CR_State crState;
+	private final @NotNull CR_State                        crState;
 	@Getter
-	private final @NotNull IProgressSink progressSink;
-	private final @NotNull CCI cci;
-	private final EzM ezm;
+	private final @NotNull IProgressSink                   progressSink;
+	private final @NotNull CCI                             cci;
 	@Getter
-	private final CIS cis;
-	private CB_StartCompilationRunnerAction startAction;
-	private CR_FindCIs cr_find_cis;
-
-	private CR_AlmostComplete _CR_AlmostComplete;
+	private final @NotNull CIS                             cis;
+	private /*@NotNull*/       CB_StartCompilationRunnerAction startAction;
+	private /*@NotNull*/       CR_FindCIs                      cr_find_cis;
+	private /*@NotNull*/       CR_AlmostComplete               _CR_AlmostComplete;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
-		_compilation = aca.getCompilation();
-
-		_compilation.getCompilationEnclosure().setCompilationAccess(aca);
-
-		cis = _compilation._cis();
-		cb = _compilation.getCompilationEnclosure().getCompilationBus();
-
-		assert cb != null;
-
-		progressSink = cb.defaultProgressSink();
-
-		cci = new DefaultCCI(_compilation, cis, progressSink);
-		crState = aCrState;
-
-		CompilationRunner.ST.register(this);
-		ezm = new EzM(_compilation.getCompilationEnclosure());
+		this(
+				aca,
+				aCrState,
+				() -> aca.getCompilation().getCompilationEnclosure().getCompilationBus()
+		);
 	}
 
-	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState,
-			final Supplier<DefaultCompilationBus> scb) {
+	public CompilationRunner(final @NotNull ICompilationAccess aca,
+	                         final @NotNull CR_State aCrState,
+	                         final Supplier<ICompilationBus> scb) {
 		_compilation = aca.getCompilation();
 
 		_compilation.getCompilationEnclosure().setCompilationAccess(aca);
@@ -150,11 +63,8 @@ public class CompilationRunner extends _RegistrationTarget {
 
 		progressSink = cb.defaultProgressSink();
 
-		cci = new DefaultCCI(_compilation, cis, progressSink);
+		cci     = new DefaultCCI(_compilation, cis, progressSink);
 		crState = aCrState;
-
-		CompilationRunner.ST.register(this);
-		ezm = new EzM(_compilation.getCompilationEnclosure());
 	}
 
 	public Compilation _accessCompilation() {
@@ -199,9 +109,26 @@ public class CompilationRunner extends _RegistrationTarget {
 		tripleo.elijah.util.Stupidity.println_err_3("%d %s".formatted(number, text));
 	}
 
-	public @NotNull Operation<CompilerInstructions> parseEzFile(final @NotNull SourceFileParserParams p) {
-		final Operation<CompilerInstructions> oci = ezm.parseEzFile1(p);
-		assert oci != null;
+	public @NotNull Operation<CompilerInstructions> parseEzFile(final @NotNull SourceFileParserParams p) throws FileNotFoundException {
+		@NotNull Operation<CompilerInstructions> oci;
+		final File                               f      = p.f();
+		final EzSpec                             ezSpec = p.getEzSpec();
+		//logProgress(IProgressSink.Codes.EzM__parseEzFile1, f.getAbsolutePath());
+		if (!f.exists()) {
+			_compilation.getErrSink().reportError("File doesn't exist " + f.getAbsolutePath());
+
+			oci = Operation.failure(new FileNotFoundException());
+		} else {
+			final Operation<CompilerInstructions> oci1 = CX_realParseEzFile2.realParseEzFile(_compilation, ezSpec, ezCache);
+
+			if (/* false || */ oci1.mode() == SUCCESS) {
+
+				Operation<String> hash = new CA_getHashForFile().apply(p.file_name(), p.f());
+				Compilation       c    = _compilation;
+				c.getObjectTree().asseverate(Triple.of(ezSpec, null, hash), Asseverate.CI_HASHED);
+			}
+			oci = oci1;
+		}
 
 		_compilation.getInputTree().setNodeOperation(p.input(), oci);
 
@@ -213,22 +140,24 @@ public class CompilationRunner extends _RegistrationTarget {
 	 * <p>
 	 * STEPS ------
 	 * <p>
-	 * 1. Get absolutePath 2. Check cache, return early 3. Parse (Query is incorrect
-	 * I think) 4. Cache new result
+	 * 1. Get absolutePath<br/>
+	 * 2. Check cache, return early<br/>
+	 * 3. Parse (Query is incorrect I think)<br/>
+	 * 4. Cache new result<br/>
+	 * </p>
 	 *
 	 * @param spec
 	 * @param cache
 	 * @return
 	 */
 	public Operation<CompilerInstructions> realParseEzFile(final EzSpec spec, final EzCache cache) {
-		final @NotNull File file = spec.file();
+		final Operation<String> op = spec.absolute1();
 
-		final String absolutePath;
-		try {
-			absolutePath = file.getCanonicalFile().toString();
-		} catch (final IOException aE) {
-			return Operation.failure(aE);
+		if (op.mode() == Mode.FAILURE) {
+			return Operation.failure(op.failure());
 		}
+
+		var absolutePath = op.success();
 
 		final Optional<CompilerInstructions> early = cache.get(absolutePath);
 
@@ -238,22 +167,6 @@ public class CompilationRunner extends _RegistrationTarget {
 
 		final Operation<CompilerInstructions> cio = CX_ParseEzFile.parseAndCache(spec, ezCache(), absolutePath);
 		return cio;
-	}
-
-	public @NotNull Operation<CompilerInstructions> realParseEzFile(final @NotNull SourceFileParserParams p) {
-		final Operation<CompilerInstructions> oci = ezm.realParseEzFile(p);
-
-		CompilerInput input = p.input();
-		if (input != null) {
-			_compilation.getInputTree().setNodeOperation(input, oci);
-		}
-
-		try {
-			var oci2 = realParseEzFile(p.getEzSpec(), ezCache);
-			return oci2;
-		} catch (FileNotFoundException aE) {
-			throw new RuntimeException(aE);
-		}
 	}
 
 	public void start(final CompilerInstructions aRootCI, final @NotNull IPipelineAccess pa) {
@@ -279,5 +192,4 @@ public class CompilationRunner extends _RegistrationTarget {
 			});
 		}
 	}
-
 }

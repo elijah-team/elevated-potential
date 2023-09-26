@@ -10,10 +10,10 @@ import tripleo.elijah.util.*;
 import java.util.*;
 
 public /* static */ class CCI_Acceptor__CompilerInputListener implements CompilerInputListener {
-	private final Compilation compilation;
-	private final InstructionDoer id;
-	private CCI cci;
-	private IProgressSink _ps;
+	private final Compilation     compilation;
+	public final  InstructionDoer id;
+	private       CCI             cci;
+	private       IProgressSink   _ps;
 
 	public CCI_Acceptor__CompilerInputListener(CompilationImpl aCompilation) {
 		this.compilation = aCompilation;
@@ -43,6 +43,8 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 			case SOURCE_ROOT -> {
 				int y3 = 2;
 				inputTree.addNode(i);
+
+
 			}
 			case ROOT -> {
 				inputTree.addNode(i);

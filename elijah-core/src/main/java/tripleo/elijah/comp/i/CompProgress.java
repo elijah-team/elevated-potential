@@ -2,6 +2,7 @@ package tripleo.elijah.comp.i;
 
 import org.apache.commons.lang3.tuple.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.nextgen.*;
 
 import java.io.*;
@@ -68,6 +69,16 @@ public enum CompProgress {
 			String absolutePath = (String) x;
 
 			out.printf("[USE::parseElijjahFile] %s%n", absolutePath);
+		}
+	}, Ez__HasHash {
+		@Override
+		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
+			var t = (Pair<EzSpec, String>)x;
+
+			var spec = t.getLeft();
+			var hash = t.getRight();
+
+			out.printf("[-- Ez has HASH ] %s %s%n", spec.file(), hash);
 		}
 	};
 

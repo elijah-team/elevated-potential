@@ -64,6 +64,6 @@ class DefaultCompFactory implements CompFactory {
 
 	@Override
 	public CK_ObjectTree createObjectTree() {
-		return new CompilationImpl.DefaultObjectTree();
+		return compilation.new DefaultObjectTree();
 	}
 }

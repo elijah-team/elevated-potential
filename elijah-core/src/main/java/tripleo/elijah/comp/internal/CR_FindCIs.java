@@ -18,8 +18,6 @@ public class CR_FindCIs extends DefaultStateful implements CR_Action, Sensable {
 	SenseList senseList = new SenseList();
 
 	public CR_FindCIs(final @NotNull CompilerBeginning beginning) {
-		State st = CompilationRunner.ST.INITIAL; // que?? 07/01
-
 		inputs = beginning.compilerInput();
 
 		var comp = beginning.compilation();

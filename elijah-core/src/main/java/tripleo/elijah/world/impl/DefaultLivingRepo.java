@@ -189,12 +189,12 @@ public class DefaultLivingRepo implements LivingRepo {
 
 		var ll = modules1.stream()
 				.filter(m -> m.hasClass(aClassName))
-				.map(m -> (ClassStatement) m.findClass(aClassName))
+				.map(m -> (ClassStatement) m.findClassesNamed(aClassName))
 				.collect(Collectors.toList());
 
 		for (final OS_Module module : modules1) {
 			if (module.hasClass(aClassName)) {
-				l.add((ClassStatement) module.findClass(aClassName));
+				l.add((ClassStatement) module.findClassesNamed(aClassName));
 			}
 		}
 
@@ -303,12 +303,13 @@ public class DefaultLivingRepo implements LivingRepo {
 	@Override
 	public OS_Package makePackage(final @NotNull Qualident pkg_name) {
 		final String pkg_name_s = pkg_name.toString();
-		if (!isPackage(pkg_name_s)) {
-			final OS_Package newPackage = new OS_PackageImpl(pkg_name, nextPackageCode());
-			_packages.put(pkg_name_s, newPackage);
-			return newPackage;
-		} else
+		if (isPackage(pkg_name_s)) {
 			return _packages.get(pkg_name_s);
+		}
+
+		final OS_Package newPackage = new OS_PackageImpl(pkg_name, nextPackageCode());
+		_packages.put(pkg_name_s, newPackage);
+		return newPackage;
 	}
 
 	@Override

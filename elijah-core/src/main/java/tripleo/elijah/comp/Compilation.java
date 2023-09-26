@@ -72,10 +72,7 @@ public interface Compilation {
 
 	CompilerInstructions getRootCI();
 
-	@NotNull
-	Operation<Ok> hasInstructions(List<CompilerInstructions> cis);
-
-	void hasInstructions(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
+	Operation<Ok> hasInstructions(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
 
 	@Deprecated
 	int instructionCount();

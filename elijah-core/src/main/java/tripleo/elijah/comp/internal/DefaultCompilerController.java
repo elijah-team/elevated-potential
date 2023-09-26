@@ -93,6 +93,10 @@ public class DefaultCompilerController implements CompilerController {
 		cb.add(new CB_FindCIs(cr, inputs));
 		cb.add(new CB_FindStdLibProcess(ce, cr));
 
+//		for (CompilerInput input : inputs) {
+//			input.
+//		}
+
 		((DefaultCompilationBus) cb).runProcesses();
 	}
 }

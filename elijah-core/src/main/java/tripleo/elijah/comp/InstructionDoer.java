@@ -31,12 +31,7 @@ public class InstructionDoer implements CompletableProcess<CompilerInstructions>
 			var do_out = false;
 			var compilation = __cr.c();
 
-			try {
-				if (false)
-					compilation.use(item, do_out);
-			} catch (Exception aE) {
-				throw new RuntimeException(aE);
-			}
+			compilation.use(item, do_out);
 		}
 	}
 
