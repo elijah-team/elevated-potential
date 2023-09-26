@@ -35,6 +35,7 @@ public class QuerySearchEzFiles {
 		if (list != null) {
 			for (final String file_name : list) {
 				final CK_SourceFile                   sf  = CK_SourceFileFactory.get(directory, file_name, CK_SourceFileFactory.K.ElaboratedEzFile);
+				sf.associate(cc);
 				final Operation<CompilerInstructions> cio = sf.process_query();
 
 				// reason obv is it is elaborated in the directory ...

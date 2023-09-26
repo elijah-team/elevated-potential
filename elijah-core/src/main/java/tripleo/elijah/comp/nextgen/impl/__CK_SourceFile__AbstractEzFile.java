@@ -82,33 +82,37 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 	}
 
 	protected void asserverate() {
-		if (compilerInput() == null) return;
+		if (getFileName() == null) return;
 		if (compilation == null) return;
 
-		String                                          file_name = compilerInput().getInp();
-		File                                            file      = new File(file_name);
+		final String            file_name = getFileName();
+		final File              file      = getFile();
+		final Operation<String> hash      = new CA_getHashForFile().apply(file_name, file);
 
-		final Compilation                               c         = compilation;
-
-		final Operation<String>                         hash      = new CA_getHashForFile().apply(file_name, file);
-
-		c.getObjectTree().asseverate(new Asseveration() {
-			@Override public Object target() {
+		compilation.getObjectTree().asseverate(new Asseveration() {
+			@Override
+			public Object target() {
 				return __CK_SourceFile__AbstractEzFile.this;
 			}
 
-			@Override public Asseverate code() {
+			@Override
+			public Asseverate code() {
 				return Asseverate.CI_HASHED;
 			}
 
 			@Override
 			public void onLogProgress(CompilationEnclosure ce) {
 				ce.logProgress2(CompProgress.Ez__HasHash, new AssererationLogProgress() {
-					@Override public void call(PrintStream out, PrintStream err) {
-						out.printf("[-- Ez has HASH ] %s %s%n", file_name, hash);
+					@Override
+					public void call(PrintStream out, PrintStream err) {
+						out.printf("[-- Ez has HASH ] %s %s%n", file_name, hash.success());
 					}
 				});
 			}
 		});
 	}
+
+	protected abstract File getFile();
+
+	public abstract String getFileName();
 }

@@ -51,4 +51,12 @@ public class CK_SourceFile__SpecifiedEzFile extends __CK_SourceFile__AbstractEzF
 		return this.file.getName();
 	}
 
+	@Override
+	protected File getFile() {
+		return file;
+	}
+
+	@Override
+	public String getFileName() { return file_name(); }
+
 }
