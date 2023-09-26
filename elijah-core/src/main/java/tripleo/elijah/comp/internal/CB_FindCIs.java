@@ -32,10 +32,11 @@ class CB_FindCIs implements CB_Action {
 			action.execute(compilationRunner.getCrState(), o);
 		}
 
-		for (final CB_OutputString outputString : o.get()) {
+		// comment out 09/26
+//		for (final CB_OutputString outputString : o.get()) {
 			// 08/13
-			Stupidity.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
-		}
+//			Stupidity.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
+//		}
 
 		// TODO capture action outputs
 		aMonitor.reportSuccess(this, o);

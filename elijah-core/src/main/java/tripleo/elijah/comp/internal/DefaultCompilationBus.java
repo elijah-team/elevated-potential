@@ -134,7 +134,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 						name = process.getClass().getName();
 					}
 
-					System.err.println(MessageFormat.format("DefaultCompilationBus i={0} size={1} {2}", i, size, name));
+					// 09/26 System.err.println(MessageFormat.format("DefaultCompilationBus i={0} size={1} {2}", i, size, name));
 				}
 
 				for (CB_Action action : process.steps()) {
@@ -145,8 +145,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 			int old_size = size;
 			size = _processes.size();
 			if (DebugFlags._DefaultCompilationBus) {
-				System.err.println(MessageFormat.format(
-						"DefaultCompilationBus reset size old_size={0} new_size={1} last={2}", old_size, size, i));
+				// 09/26 System.err.println(MessageFormat.format("DefaultCompilationBus reset size old_size={0} new_size={1} last={2}", old_size, size, i));
 			}
 		}
 		assert _processes.size() == size;
