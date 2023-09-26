@@ -190,9 +190,11 @@ public class DefaultLivingRepo implements LivingRepo {
 	@Override
 	public List<ClassStatement> findClass(String aClassName) {
 		final List<ClassStatement> l = new ArrayList<>();
-		var modules1 = modules().stream().map(WorldModule::module).collect(Collectors.toList());
+		var modules1 = modules().stream()
+				.map(WorldModule::module)
+				.collect(Collectors.toList());
 
-		// didn't i just comment this out?
+		// TODO idk why I can never figure this out
 //		var ll = modules1.stream()
 //				.filter(m -> m.hasClass(aClassName))
 //				.map(m -> m.findClassesNamed(aClassName))
