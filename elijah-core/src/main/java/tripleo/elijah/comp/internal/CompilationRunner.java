@@ -152,7 +152,7 @@ public class CompilationRunner extends _RegistrationTarget {
 				public void reportSuccess(final CB_Action aCBAction, final CB_Output aCB_output) {
 					final List<CB_OutputString> x = aCB_output.get();
 					for (CB_OutputString xx : x) {
-						System.err.println("127 " + xx.getText());
+//						System.err.println("127 " + xx.getText());
 					}
 				}
 			});

@@ -57,7 +57,7 @@ public record GN_GenerateNodesIntoSinkEnv(
 
 		final String lang = getLang(mod);
 		if (lang == null) {
-			System.err.println("lang==null for " + mod.getFileName());
+			// 09/26 System.err.println("lang==null for " + mod.getFileName());
 			// throw new NotImplementedException();
 		}
 
