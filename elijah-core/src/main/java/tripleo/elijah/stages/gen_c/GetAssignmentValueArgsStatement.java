@@ -2,12 +2,12 @@ package tripleo.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.instructions.Instruction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.*;
 
 public class GetAssignmentValueArgsStatement implements EG_Statement {
 	private final List<String> sll = new ArrayList<>();
@@ -29,8 +29,14 @@ public class GetAssignmentValueArgsStatement implements EG_Statement {
 
 	@Override
 	public @Nullable String getText() {
-		throw new UnintendedUseException();
-		// return null;
+		final EG_SequenceStatement getAssignmentValueArgsStatement = new EG_SequenceStatement(
+				new EG_Naming("GetAssignmentValueArgsStatement"),
+				sll.stream()
+						.map(x -> EG_Statement.of(x, null))
+						.collect(Collectors.toList()
+						)
+		);
+		return getAssignmentValueArgsStatement.getText();
 	}
 
 	public List<String> stringList() {
