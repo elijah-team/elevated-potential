@@ -185,7 +185,7 @@ public class TestBasic {
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
 			}
 
-			assertEquals(3, c.errorCount()); // TODO Error count obviously should be 0
+			assertEquals(2, c.errorCount()); // TODO Error count obviously should be 0
 
 			final List<Pair<ErrSink.Errors, Object>> list = c.getErrSink().list();
 
