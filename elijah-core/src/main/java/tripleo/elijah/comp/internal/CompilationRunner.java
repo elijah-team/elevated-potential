@@ -136,7 +136,7 @@ public class CompilationRunner extends _RegistrationTarget {
 			// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
 			cb.add(startAction.cb_Process());
 
-dnsajkldnajkld			startAction.execute(cb.getMonitor()); // FIXME calling automatically for some reason?
+			startAction.execute(cb.getMonitor()); // FIXME calling automatically for some reason?
 		}
 	}
 
