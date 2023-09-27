@@ -102,33 +102,6 @@ public class CompilationRunner extends _RegistrationTarget {
 		tripleo.elijah.util.Stupidity.println_err_3("%d %s".formatted(number, text));
 	}
 
-/*
-	public @NotNull Operation<CompilerInstructions> parseEzFile(final @NotNull SourceFileParserParams p) throws FileNotFoundException {
-		@NotNull Operation<CompilerInstructions> oci;
-		final File                               f      = p.f();
-		final EzSpec                             ezSpec = p.getEzSpec();
-		//logProgress(IProgressSink.Codes.EzM__parseEzFile1, file_name.getAbsolutePath());
-		if (!f.exists()) {
-			_compilation.getErrSink().reportError("File doesn't exist " + f.getAbsolutePath());
-
-			oci = Operation.failure(new FileNotFoundException());
-		} else {
-			final Operation<CompilerInstructions> oci1 = CX_realParseEzFile2.realParseEzFile(_compilation, ezSpec, ezCache);
-
-			if (*/
-/* false || *//*
- oci1.mode() == SUCCESS) {
-
-			}
-			oci = oci1;
-		}
-
-		_compilation.getInputTree().setNodeOperation(p.input(), oci);
-
-		return oci;
-	}
-*/
-
 	public void start(final CompilerInstructions aRootCI, final @NotNull IPipelineAccess pa) {
 		// FIXME only run once 06/16
 		if (startAction == null) {
