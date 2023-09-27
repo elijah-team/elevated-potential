@@ -377,19 +377,14 @@ public class CompilationImpl implements Compilation {
 		_cis.subscribe(aCio);
 	}
 
-	public void testMapHooks(final List<IFunctionMapHook> ignoredAMapHooks) {
-		// pipelineLogic.dp.
-	}
-
 	@Override
-	public USE use() {
-		return getUse();
-	}
-
-	@Override
-	public void use(final @NotNull CompilerInstructions compilerInstructions, final boolean do_out) {
+	public void use(@NotNull final CompilerInstructions compilerInstructions, final USE.USE_Reasoning aReasoning) {
 		use.use(compilerInstructions);
 //		cci_listener.id.add(compilerInstructions);
+	}
+
+	public void testMapHooks(final List<IFunctionMapHook> ignoredAMapHooks) {
+		// pipelineLogic.dp.
 	}
 
 	@Override

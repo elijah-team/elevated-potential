@@ -27,7 +27,7 @@ public interface Compilation {
 
 	CIS _cis();
 
-	CompilerBeginning beginning(final CompilationRunner compilationRunner);
+//	CompilerBeginning beginning(final CompilationRunner compilationRunner);
 
 	CompilationConfig cfg();
 
@@ -99,9 +99,7 @@ public interface Compilation {
 
 	void subscribeCI(Observer<CompilerInstructions> aCio);
 
-	USE use();
-
-	void use(@NotNull CompilerInstructions compilerInstructions, boolean do_out);
+	void use(@NotNull CompilerInstructions compilerInstructions, USE.USE_Reasoning aReasoning);
 
 	LivingRepo world();
 

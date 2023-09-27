@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.ci_impl.LibraryStatementPartImpl;
@@ -158,7 +159,7 @@ public class USE {
 		CompilerInstructions compilerInstructions();
 	}
 
-	static class USE_Reasonings {
+	public static class USE_Reasonings {
 		public static USE_Reasoning parent(CompilerInstructions aCompilerInstructions, boolean parent, File aInstructionDir, LibraryStatementPart aLsp) {
 			return new USE_Reasoning() {
 				@Override
@@ -220,6 +221,65 @@ public class USE {
 				@Override
 				public CompilerInstructions compilerInstructions() {
 					return aCompilerInstructions;
+				}
+			};
+		}
+
+		public static USE_Reasoning instruction_doer_addon(final CompilerInstructions item) {
+			return new USE_Reasoning() {
+				@Override
+				public boolean parent() {
+					return false;
+				}
+
+				@Override
+				public File instruction_dir() {
+					return null;
+				}
+
+				@Override
+				public CompilerInstructions compilerInstructions() {
+					return item;
+				}
+			};
+		}
+
+		public static USE_Reasoning findStdLib(final CD_FindStdLib aFindStdLib) {
+			return new USE_Reasoning() {
+				@Override
+				public boolean parent() {
+					return false;
+				}
+
+				@Override
+				public File instruction_dir() {
+					return null;
+				}
+
+				@Override
+				public CompilerInstructions compilerInstructions() {
+					return aFindStdLib.maybeFoundResult();
+				}
+			};
+		}
+
+		public static USE_Reasoning initial(final Triple<CR_ProcessInitialAction, CompilationRunner, CB_Output> triple) {
+			return new USE_Reasoning() {
+				@Override
+				public boolean parent() {
+					return false;
+				}
+
+				@Override
+				public File instruction_dir() {
+					return null;
+				}
+
+				@Override
+				public CompilerInstructions compilerInstructions() {
+					var left = triple.getLeft();
+
+					return left.maybeFoundResult();
 				}
 			};
 		}
