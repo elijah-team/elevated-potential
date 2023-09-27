@@ -23,6 +23,11 @@ public class CB_FindStdLibProcess implements CB_Process {
 		return List_of(action);
 	}
 
+	@Override
+	public String name() {
+		return "CB_FindStdLibProcess";
+	}
+
 	class CB_FindStdLibAction implements CB_Action {
 		private final CompilationEnclosure ce;
 		private final CR_State crState;
