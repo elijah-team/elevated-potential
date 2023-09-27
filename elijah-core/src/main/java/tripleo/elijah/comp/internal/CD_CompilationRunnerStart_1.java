@@ -25,7 +25,7 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 		}
 
 		final CR_FindCIs              f1 = crState.runner().cr_find_cis();
-		final CR_ProcessInitialAction f2 = new CR_ProcessInitialAction(beginning);
+		final CR_ProcessInitialAction f2 = new CR_ProcessInitialAction(beginning); // TODO pointless
 		final CR_AlmostComplete       f3 = crState.runner().cr_AlmostComplete();
 		final CR_RunBetterAction      f4 = new CR_RunBetterAction();
 

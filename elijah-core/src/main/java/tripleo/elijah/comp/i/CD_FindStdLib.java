@@ -8,4 +8,6 @@ import java.util.function.Consumer;
 
 public interface CD_FindStdLib extends CompilerDriven {
 	void findStdLib(CR_State crState, String aPreludeName, Consumer<Operation<CompilerInstructions>> coci);
+
+	CompilerInstructions maybeFoundResult();
 }

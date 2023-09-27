@@ -5,6 +5,7 @@ import tripleo.elijah.comp.i.CB_OutputString;
 
 import java.util.List;
 
+// 09/27 what the hell is this?
 public interface CB_Output {
 	@NotNull
 	List<CB_OutputString> get();

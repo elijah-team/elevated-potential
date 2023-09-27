@@ -39,7 +39,7 @@ public class Operation<T> /* extends Operation2<T> */ {
 		return exc;
 	}
 
-	public Mode mode() {
+	public @NotNull Mode mode() {
 		return mode;
 	}
 
