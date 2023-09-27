@@ -63,12 +63,6 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 		return "StartCompilationRunnerAction";
 	}
 
-	@Contract(pure = true)
-	@Override
-	public @Nullable List<CB_OutputString> outputStrings() {
-		return o.get();
-	}
-
 	@Override
 	@NotNull
 	public List<CB_Action> steps() {
