@@ -76,12 +76,6 @@ public class CB_FindStdLibProcess implements CB_Process {
 			}
 		}
 
-		@Contract(pure = true)
-		@Override
-		public @NotNull List<CB_OutputString> outputStrings() {
-			return o;
-		}
-
 		@Contract(value = " -> new", pure = true)
 		public @NotNull CB_Process process() {
 			return new DefaultCompilationBus.SingleActionProcess(this);
