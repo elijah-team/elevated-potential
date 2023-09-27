@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
@@ -26,7 +27,7 @@ public class CR_ProcessInitialAction implements CR_Action {
 		CompilationRunner compilationRunner = st.runner();
 
 		try {
-			compilationRunner._accessCompilation().use(rootCI, do_out);
+			compilationRunner._accessCompilation().use(rootCI, USE.USE_Reasonings.initial(Triple.of(this, compilationRunner, aO)));
 			return Operation.success(Ok.instance());
 		} catch (final Exception aE) {
 			return Operation.failure(aE);

@@ -28,10 +28,9 @@ public class InstructionDoer implements CompletableProcess<CompilerInstructions>
 		} else {
 			System.err.println("second: " + item.getFilename());
 
-			var do_out = false;
 			var compilation = __cr.c();
 
-			compilation.use(item, do_out);
+			compilation.use(item, USE.USE_Reasonings.instruction_doer_addon(item));
 		}
 	}
 
