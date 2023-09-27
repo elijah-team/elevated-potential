@@ -33,9 +33,4 @@ class NotableAction implements CB_Action {
 	public @NotNull String name() {
 		return "Notable wrapper";
 	}
-
-	@Override
-	public List<CB_OutputString> outputStrings() {
-		return o;
-	}
 }

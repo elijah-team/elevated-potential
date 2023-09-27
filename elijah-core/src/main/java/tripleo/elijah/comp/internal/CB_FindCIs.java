@@ -47,9 +47,4 @@ class CB_FindCIs implements CB_Action {
 	public @NotNull String name() {
 		return "FindCIs";
 	}
-
-	@Override
-	public @NotNull List<CB_OutputString> outputStrings() {
-		return o.get();
-	}
 }
