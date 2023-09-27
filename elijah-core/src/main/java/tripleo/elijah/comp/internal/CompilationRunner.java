@@ -1,23 +1,17 @@
 package tripleo.elijah.comp.internal;
 
 import lombok.*;
-import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.caches.*;
-import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
 
-import java.io.*;
 import java.util.*;
 import java.util.function.*;
-
-import static tripleo.elijah.nextgen.query.Mode.*;
 
 public class CompilationRunner extends _RegistrationTarget {
 	public final @NotNull  EzCache                         ezCache = new DefaultEzCache();
@@ -142,20 +136,21 @@ public class CompilationRunner extends _RegistrationTarget {
 			// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
 			cb.add(startAction.cb_Process());
 
-			startAction.execute(new CB_Monitor() {
-				@Override
-				public void reportFailure(final CB_Action aCBAction, final CB_Output aCB_output) {
-					System.err.println(aCB_output.get());
-				}
+dnsajkldnajkld			startAction.execute(cb.getMonitor()); // FIXME calling automatically for some reason?
+		}
+	}
 
-				@Override
-				public void reportSuccess(final CB_Action aCBAction, final CB_Output aCB_output) {
-					final List<CB_OutputString> x = aCB_output.get();
-					for (CB_OutputString xx : x) {
-//						System.err.println("127 " + xx.getText());
-					}
-				}
-			});
+	public static class __CompRunner_Monitor implements CB_Monitor {
+		@Override
+		public void reportFailure(final CB_Action action, final CB_Output output) {
+			System.err.println(output.get());
+		}
+
+		@Override
+		public void reportSuccess(final CB_Action action, final CB_Output output) {
+			for (final CB_OutputString outputString : output.get()) {
+				Stupidity.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
+			}
 		}
 	}
 }

@@ -18,4 +18,6 @@ public interface ICompilationBus {
 	void option(CompilationChange aChange);
 
 	List<CB_Process> processes();
+
+	CB_Monitor getMonitor();
 }

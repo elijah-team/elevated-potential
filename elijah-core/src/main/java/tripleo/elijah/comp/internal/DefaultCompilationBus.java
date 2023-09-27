@@ -1,17 +1,19 @@
 package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import org.slf4j.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.util.*;
 
-import java.text.*;
 import java.util.*;
+import java.util.concurrent.*;
 
 import static tripleo.elijah.util.Helpers.*;
 
 public class DefaultCompilationBus implements ICompilationBus {
+	private final CB_Monitor _monitor;
+
 	static class SingleActionProcess implements CB_Process {
 		// README tape
 		private final CB_Action a;
@@ -55,6 +57,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 		compilerDriver = new CompilerDriver(this);
 
 		ace.setCompilerDriver(compilerDriver);
+		_monitor = new CompilationRunner.__CompRunner_Monitor();
 	}
 
 	@Override
@@ -167,14 +170,10 @@ public class DefaultCompilationBus implements ICompilationBus {
 		}
 	}
 
-			@Override
-			public void reportSuccess(final @NotNull CB_Action aCBAction, final @NotNull CB_Output aCB_output) {
-				final String header = "SUCCESS " + aCBAction.name();
-				println(header);
-				for (int i = 0; i < header.length() + 2; i++) {
-					print("=");
-				}
-				println();
+	@Override
+	public CB_Monitor getMonitor() {
+		return _monitor;
+	}
 
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultCompilationBus.class);
 
