@@ -45,14 +45,14 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 					sourceFile2.associate(cc);
 					result = sourceFile2.process_query();
 
-					if (true) { // matrix test
-						//noinspection StatementWithEmptyBody
-						if (result.mode() == Mode.SUCCESS) {
-							cc.getCompilation().pushItem(result.success());
-						} else {
-							// README otherwise pass through
-						}
-					}
+//					if (false) { // matrix test
+//						//noinspection StatementWithEmptyBody
+//						if (result.mode() == Mode.SUCCESS) {
+//							cc.getCompilation().pushItem(result.success());
+//						} else {
+//							// README otherwise pass through
+//						}
+//					}
 				} catch (final Exception e) {
 					result = Operation.failure(e);
 				}

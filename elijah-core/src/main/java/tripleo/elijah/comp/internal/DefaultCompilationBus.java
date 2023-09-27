@@ -50,8 +50,6 @@ public class DefaultCompilationBus implements ICompilationBus {
 		}
 	};
 
-	public CB_FindCIs cb_findCIs;
-
 	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
 		c = ace.getCompilationAccess().getCompilation();
 		compilerDriver = new CompilerDriver(this);
