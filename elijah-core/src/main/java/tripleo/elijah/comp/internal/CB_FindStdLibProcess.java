@@ -29,13 +29,13 @@ public class CB_FindStdLibProcess implements CB_Process {
 	}
 
 	class CB_FindStdLibAction implements CB_Action {
-		private final CompilationEnclosure ce;
-		private final CR_State crState;
+		private final     CompilationEnclosure  ce;
+		private final     CR_State              crState;
 		private final     List<CB_OutputString> o = new ArrayList<>(); // FIXME 07/01 how is this modified?
 		private @Nullable CD_FindStdLib         findStdLib;
 
 		public CB_FindStdLibAction(final CompilationEnclosure aCe, final @NotNull CompilationRunner aCr) {
-			ce = aCe;
+			ce      = aCe;
 			crState = aCr.getCrState();
 
 			obtain(); // TODO 09/08 Make this more complicated
@@ -43,14 +43,13 @@ public class CB_FindStdLibProcess implements CB_Process {
 
 		@Override
 		public void execute(CB_Monitor aMonitor) {
-			final String preludeName = Compilation.CompilationAlways.defaultPrelude();
-
 			if (findStdLib != null) {
+				final String preludeName = Compilation.CompilationAlways.defaultPrelude();
 				findStdLib.findStdLib(crState, preludeName, this::getPushItem);
-			}
 
-			aMonitor.reportSuccess(this, new CB_ListBackedOutput()); // FIXME
-			// aMonitor.reportSuccess(this, ce.getCB_Output());
+				final CB_Output o = ce.getCB_Output();
+				aMonitor.reportSuccess(this, o);
+			}
 		}
 
 		private void getPushItem(final @NotNull Operation<CompilerInstructions> oci) { // TODO reason
