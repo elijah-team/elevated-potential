@@ -1,12 +1,15 @@
 package tripleo.elijah.comp.nextgen.impl;
 
+import com.google.common.base.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
+import java.util.regex.*;
 
 public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEzFile {
 	protected final File          directory;
@@ -19,9 +22,16 @@ public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEz
 		file      = new File(directory, file_name);
 	}
 
-	private Operation<CompilerInstructions> process_query(final IO io, final @NotNull EzCache ezCache) {
+	public static boolean isEzFile(String aFileName) {
+		return Pattern.matches(".+\\.ez$", aFileName);
+	}
+
+	private Operation2<CompilerInstructions> process_query(final IO io, final @NotNull EzCache ezCache) {
+		final String fileName = file_name();
+		Preconditions.checkArgument(isEzFile(fileName));
+
 		var ezSpec = new EzSpec(
-				file_name(),
+				fileName,
 				() -> {
 					try {
 						return io.readFile(file);
@@ -36,8 +46,9 @@ public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEz
 	}
 
 	@Override
-	public Operation<CompilerInstructions> process_query() {
-		final Operation<CompilerInstructions> oci = process_query(compilation.getIO(), compilation.getCompilationEnclosure().getCompilationRunner().ezCache());
+	public Operation2<CompilerInstructions> process_query() {
+		final EzCache                          ezCache = compilation.getCompilationEnclosure().getCompilationRunner().ezCache();
+		final Operation2<CompilerInstructions> oci     = process_query(compilation.getIO(), ezCache);
 
 		super.asserverate();
 

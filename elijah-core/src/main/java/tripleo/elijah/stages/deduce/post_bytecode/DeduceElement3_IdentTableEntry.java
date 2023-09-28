@@ -3,6 +3,7 @@ package tripleo.elijah.stages.deduce.post_bytecode;
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.contexts.*;
+import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.imports.*;

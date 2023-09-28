@@ -38,9 +38,11 @@ class CY_FindPrelude {
 		final File local_prelude = local_prelude_file(prelude_name);
 
 		try {
-			return CX_ParseElijahFile.__parseEzFile(local_prelude.getName(), local_prelude,
-			                                        c,
-			                                        (ElijahSpec spec) -> (CX_realParseElijjahFile2.realParseElijjahFile2_(spec, elijahCache, c))
+			CY_ElijahSpecParser esp = c.con().defaultElijahSpecParser(elijahCache);
+			return CX_ParseElijahFile.__parseEzFile(local_prelude.getName(),
+			                                        local_prelude,
+			                                        c.getIO(),
+													esp
 			);
 		} catch (IOException e) {
 			errSink.exception(e);

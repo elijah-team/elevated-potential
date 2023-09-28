@@ -1,9 +1,9 @@
 package tripleo.elijah.comp.nextgen.impl;
 
-import org.apache.commons.lang3.tuple.*;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.diagnostic.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.nextgen.*;
@@ -36,11 +36,11 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 	 * @param cache
 	 * @return
 	 */
-	public static Operation<CompilerInstructions> realParseEzFile(final EzSpec spec, final EzCache cache) {
+	public static Operation2<CompilerInstructions> realParseEzFile(final EzSpec spec, final EzCache cache) {
 		final Operation<String> op = spec.absolute1();
 
 		if (op.mode() == Mode.FAILURE) {
-			return Operation.failure(op.failure());
+			return Operation2.failure(new ExceptionDiagnostic(op.failure()));
 		}
 
 		var absolutePath = op.success();
@@ -48,10 +48,10 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 		final Optional<CompilerInstructions> early = cache.get(absolutePath);
 
 		if (early.isPresent()) {
-			return Operation.success(early.get());
+			return Operation2.success(early.get());
 		}
 
-		final Operation<CompilerInstructions> cio = CX_ParseEzFile.parseAndCache(spec, cache, absolutePath);
+		final Operation2<CompilerInstructions> cio = CX_ParseEzFile.parseAndCache(spec, cache, absolutePath);
 		return cio;
 	}
 
@@ -115,4 +115,5 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 	protected abstract File getFile();
 
 	public abstract String getFileName();
+
 }

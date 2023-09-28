@@ -28,7 +28,7 @@ public class CB_FindStdLibProcess implements CB_Process {
 		return "CB_FindStdLibProcess";
 	}
 
-	class CB_FindStdLibAction implements CB_Action {
+	static class CB_FindStdLibAction implements CB_Action {
 		private final     CompilationEnclosure  ce;
 		private final     CR_State              crState;
 		private final     List<CB_OutputString> o = new ArrayList<>(); // FIXME 07/01 how is this modified?
@@ -52,7 +52,7 @@ public class CB_FindStdLibProcess implements CB_Process {
 			}
 		}
 
-		private void getPushItem(final @NotNull Operation<CompilerInstructions> oci) { // TODO reason
+		private void getPushItem(final @NotNull Operation2<CompilerInstructions> oci) { // TODO reason
 			if (oci.mode() == Mode.SUCCESS) {
 				final Compilation c = ce.getCompilation();
 
@@ -61,7 +61,7 @@ public class CB_FindStdLibProcess implements CB_Process {
 				c.pushItem(compilerInstructions);
 				c.use(compilerInstructions, USE.USE_Reasonings.findStdLib(findStdLib));
 			} else {
-				throw new IllegalStateException(oci.failure());
+				throw new IllegalStateException();//oci.failure());
 			}
 		}
 

@@ -3,13 +3,9 @@ package tripleo.elijah.comp.queries;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.diagnostic.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.impl.*;
-import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.impl.*;
-import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.util.*;
 
@@ -29,18 +25,18 @@ public class QuerySearchEzFiles {
 	}
 
 	public @NotNull List<Operation2<CompilerInstructions>> process(final @NotNull File directory) {
-		final List<Operation2<CompilerInstructions>> R       = new ArrayList<>();
+		final List<Operation2<CompilerInstructions>> R = new ArrayList<>();
 
 		final String[] list = directory.list(ez_files_filter);
 		if (list != null) {
 			for (final String file_name : list) {
-				final CK_SourceFile                   sf  = CK_SourceFileFactory.get(directory, file_name, CK_SourceFileFactory.K.ElaboratedEzFile);
+				final CK_SourceFile<CompilerInstructions> sf = CK_SourceFileFactory.get(directory, file_name, CK_SourceFileFactory.K.ElaboratedEzFile);
 				sf.associate(cc);
-				final Operation<CompilerInstructions> cio = sf.process_query();
+				final Operation2<CompilerInstructions> cio = sf.process_query();
 
 				// reason obv is it is elaborated in the directory ...
 //				QSEZ_Reasoning reasoning = QSEZ_Reasonings.create(null);
-				R.add(Operation2.convert(cio));
+				R.add(cio);
 			}
 		}
 

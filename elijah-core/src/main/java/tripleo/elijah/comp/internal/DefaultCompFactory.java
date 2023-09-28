@@ -5,6 +5,7 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.nextgen.inputtree.*;
@@ -65,5 +66,27 @@ class DefaultCompFactory implements CompFactory {
 	@Override
 	public CK_ObjectTree createObjectTree() {
 		return compilation.new DefaultObjectTree();
+	}
+
+	@Override
+	public CY_ElijahSpecParser defaultElijahSpecParser(final ElijahCache elijahCache) {
+		return new CY_ElijahSpecParser() {
+			@Override
+			public Operation2<OS_Module> parse(ElijahSpec spec) {
+				var c = compilation;
+				return CX_realParseElijjahFile2.realParseElijjahFile2_(spec, elijahCache, c);
+			}
+		};
+	}
+
+	@Override
+	public CY_ElijahSpecParser defaultElijahSpecParser2(final ElijahCache elijahCache) {
+		return new CY_ElijahSpecParser() {
+			@Override
+			public Operation2<OS_Module> parse(ElijahSpec spec) {
+				Compilation c = compilation;
+				return CX_realParseElijjahFile2.realParseElijjahFile2(spec, elijahCache, c);
+			}
+		};
 	}
 }

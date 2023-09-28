@@ -14,6 +14,7 @@ import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.StdErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
 
+import static org.junit.Assert.*;
 import static tripleo.elijah.util.Helpers.List_of;
 
 /**
@@ -28,6 +29,8 @@ public class Feb2021 {
 		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
 
 		c.feedCmdLine(List_of("test/feb2021/function/"));
+
+		assertEquals(100, c.errorCount());
 	}
 
 	// @Ignore
@@ -37,6 +40,8 @@ public class Feb2021 {
 		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
 
 		c.feedCmdLine(List_of("test/feb2021/hier/"));
+
+		assertEquals(100, c.errorCount());
 	}
 
 	@Test
@@ -44,6 +49,8 @@ public class Feb2021 {
 		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
 
 		c.feedCmdLine(List_of("test/feb2021/property/"));
+
+		assertEquals(100, c.errorCount());
 	}
 
 	@org.junit.jupiter.api.Test
@@ -52,7 +59,7 @@ public class Feb2021 {
 
 		c.feedCmdLine(List_of("test/feb2021/property2/"));
 
-		// assertEquals(100, c.errorCount());
+		assertEquals(100, c.errorCount());
 	}
 
 	@org.junit.jupiter.api.Test
@@ -61,7 +68,7 @@ public class Feb2021 {
 
 		c.feedCmdLine(List_of("test/feb2021/property3/"));
 
-		// assertEquals(100, c.errorCount());
+		assertEquals(100, c.errorCount());
 	}
 
 }

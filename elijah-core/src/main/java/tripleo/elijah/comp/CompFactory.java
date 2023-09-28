@@ -5,11 +5,14 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.util.*;
 
 import java.io.*;
 import java.util.*;
+import java.util.function.*;
 
 public interface CompFactory {
 	CompilerBeginning createBeginning(CompilationRunner aCompilationRunner);
@@ -25,4 +28,8 @@ public interface CompFactory {
 	Qualident createQualident(List<String> sl);
 
 	CK_ObjectTree createObjectTree();
+
+	CY_ElijahSpecParser defaultElijahSpecParser(ElijahCache aElijahCache);
+
+	CY_ElijahSpecParser defaultElijahSpecParser2(ElijahCache aElijahCache);
 }
