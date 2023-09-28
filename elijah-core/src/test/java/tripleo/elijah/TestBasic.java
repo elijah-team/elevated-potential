@@ -123,7 +123,7 @@ public class TestBasic {
 
 			final List<String> codeOutputs = c.reports().getCodeOutputs();
 			assertThat(codeOutputs)
-							.containsExactly("/Prelude/String[].h",
+							.containsExactlyInAnyOrder("/Prelude/String[].h",
 							                 "/Prelude/String[].c",
 							                 "/Prelude/Boolean[].c",
 							                 "/Prelude/Boolean[].h",
@@ -134,7 +134,9 @@ public class TestBasic {
 							                 "/Prelude/ConstString.c",
 							                 "/Prelude/ConstString.h",
 							                 "/Prelude/Unsigned64[].c",
-							                 "/Prelude/Unsigned64[].h");
+							                 "/Prelude/Unsigned64[].h",
+
+					"/main2/Main.c", "/main2/Main.h");
 
 			assertEquals(14, c.reports().codeOutputSize());
 		}
