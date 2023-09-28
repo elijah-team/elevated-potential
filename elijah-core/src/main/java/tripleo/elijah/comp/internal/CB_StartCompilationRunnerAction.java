@@ -11,6 +11,7 @@ import java.util.*;
 import static tripleo.elijah.util.Helpers.*;
 
 class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
+	static boolean started;
 	private final          CompilationRunner    compilationRunner;
 	private final          CompilerInstructions rootCI;
 	private final @NotNull IPipelineAccess      pa;
@@ -43,7 +44,14 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 			final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
 			final CR_State                  crState                = compilationRunner.getCrState();
 
-			compilationRunnerStart.start(rootCI, crState, o);
+//			assert !(started);
+			if (started) {
+				//throw new AssertionError();
+			} else {
+				compilationRunnerStart.start(rootCI, crState, o);
+				started = true;
+			}
+
 			monitor.reportSuccess(this, o);
 		}
 		case FAILURE, NOTHING -> {
