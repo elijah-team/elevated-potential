@@ -23,8 +23,8 @@ class CB_FindCIs implements CB_Action {
 	@Override
 	public void execute(CB_Monitor aMonitor) {
 		final List<CR_Action> crActionList = List_of(
-				compilationRunner.cr_find_cis(),
-				compilationRunner.cr_AlmostComplete()
+				compilationRunner.cr_find_cis()
+				,				compilationRunner.cr_AlmostComplete()
 		);
 
 		for (final CR_Action action : crActionList) {
