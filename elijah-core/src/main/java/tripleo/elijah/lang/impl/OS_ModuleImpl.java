@@ -213,7 +213,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 						} else {
 							var classItemParent = classItem.getParent();
 
-							System.err.println("159159 " + classItemParent.getClass().getName());
+//							System.err.println("159159 " + classItemParent.getClass().getName());
 							entryPoints.add(new MainClassEntryPoint(classItem));
 						}
 					}

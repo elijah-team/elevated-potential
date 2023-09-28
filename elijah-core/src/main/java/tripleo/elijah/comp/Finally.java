@@ -23,7 +23,7 @@ public class Finally {
 		private final Out2 ty;
 
 		public Input(final Nameable aNameable, final Out2 aTy) {
-			System.err.println("66 Add Input >> " + aNameable.getName());
+//			System.err.println("66 Add Input >> " + aNameable.getName());
 			nameable = aNameable;
 			ty = aTy;
 		}

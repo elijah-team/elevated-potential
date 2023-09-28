@@ -131,12 +131,12 @@ public class DefaultLivingRepo implements LivingRepo {
 	}
 
 	@Override
-	public void addModule(final @NotNull OS_Module mod, final @NotNull String aFilename,
-			final @NotNull Compilation aC) {
-		System.out.println("LivingRepo::addModule >> " + aFilename);
+	public void addModule(final @NotNull OS_Module mod,
+	                      final @NotNull String aFilename,
+	                      final @NotNull Compilation aC) {
+//		System.out.println("LivingRepo::addModule >> " + aFilename);
 
-		var t = aC.getCompilerInputListener();
-//		t.
+//		var t = aC.getCompilerInputListener();
 //		t.change(new EIT_ModuleInput(mod, aC), CompilerInput.CompilerInputField.DIRECTORY_RESULTS);
 
 //		aC._cis().onNext();
