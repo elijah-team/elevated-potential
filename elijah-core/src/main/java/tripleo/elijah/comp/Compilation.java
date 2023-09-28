@@ -9,6 +9,7 @@ import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
@@ -111,6 +112,8 @@ public interface Compilation {
 	static boolean isGitlab_ci() {
 		return System.getenv("GITLAB_CI") != null;
 	}
+
+	ElijahCache use_elijahCache();
 
 	class PCon {
 		public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aEk,

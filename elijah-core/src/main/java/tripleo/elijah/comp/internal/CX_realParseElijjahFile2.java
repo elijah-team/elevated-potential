@@ -11,7 +11,6 @@ import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
 import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.comp.specs.ElijahSpec;
 
-import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.Operation2;
 
 import java.io.*;
@@ -25,23 +24,23 @@ public class CX_realParseElijjahFile2 {
 	 * 4. Create WorldModule and World#addModule2 <br/>
 	 * 5. Return success <br/>
 	 */
-	public static Operation<OS_Module> realParseElijjahFile2(final ElijahSpec spec, final @NotNull ElijahCache aElijahCache, final @NotNull Compilation aC) {
+	public static Operation2<OS_Module> realParseElijjahFile2(final ElijahSpec spec, final @NotNull ElijahCache aElijahCache, final @NotNull Compilation aC) {
 		final File file = spec.file();
 
 		final String absolutePath;
 		try {
 			absolutePath = file.getCanonicalFile().toString();
 		} catch (final IOException aE) {
-			return Operation.failure(aE);
+			return Operation2.failure_exc(aE);
 		}
 
 		final Optional<OS_Module> early = aElijahCache.get(absolutePath);
 
 		if (early.isPresent()) {
-			return Operation.success(early.get());
+			return Operation2.success(early.get());
 		}
 
-		final var calm = CX_ParseElijahFile.parseAndCache(spec, aElijahCache, absolutePath, aC);
+		final Operation2<OS_Module> calm = CX_ParseElijahFile.parseAndCache(spec, aElijahCache, absolutePath, aC);
 
 //		aC.con().createWorldModule();
 		final WorldModule worldModule = new DefaultWorldModule(calm.success(), aC.getCompilationEnclosure());
@@ -51,6 +50,6 @@ public class CX_realParseElijjahFile2 {
 	}
 
 	public static Operation2<OS_Module> realParseElijjahFile2_(final ElijahSpec aSpec, final ElijahCache aElijahCache, final Compilation aCompilation) {
-		return Operation2.convert(realParseElijjahFile2(aSpec, aElijahCache, aCompilation));
+		return realParseElijjahFile2(aSpec, aElijahCache, aCompilation);
 	}
 }

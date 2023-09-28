@@ -4,6 +4,8 @@ import antlr.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.diagnostic.*;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
@@ -12,7 +14,7 @@ import tripleo.elijjah.*;
 import java.io.*;
 
 public class CX_ParseEzFile {
-	private static Operation<CompilerInstructions> calculate(final String aAbsolutePath, final InputStream aInputStream) {
+	private static Operation2<CompilerInstructions> calculate(final String aAbsolutePath, final InputStream aInputStream) {
 		final EzLexer lexer = new EzLexer(aInputStream);
 		lexer.setFilename(aAbsolutePath);
 		final EzParser parser = new EzParser(lexer);
@@ -22,17 +24,17 @@ public class CX_ParseEzFile {
 		try {
 			parser.program();
 		} catch (final RecognitionException | TokenStreamException aE) {
-			return Operation.failure(aE);
+			return Operation2.failure(new ExceptionDiagnostic(aE));
 		}
 		final CompilerInstructions instructions = parser.ci;
 		instructions.setFilename(aAbsolutePath);
-		return Operation.success(instructions);
+		return Operation2.success(instructions);
 	}
 
-	public static Operation<CompilerInstructions> parseAndCache(final EzSpec aSpec,
+	public static Operation2<CompilerInstructions> parseAndCache(final EzSpec aSpec,
 	                                                            final EzCache aEzCache,
 	                                                            final String absolutePath) {
-		final Operation<CompilerInstructions> cio = calculate(aSpec.file_name(), aSpec.s().get());
+		final Operation2<CompilerInstructions> cio = calculate(aSpec.file_name(), aSpec.s().get());
 
 		if (cio.mode() == Mode.SUCCESS) {
 			aEzCache.put(aSpec, absolutePath, cio.success());
@@ -44,8 +46,18 @@ public class CX_ParseEzFile {
 	public static Operation<CompilerInstructions> parseEzFile(final @NotNull File aFile,
 	                                                          final Compilation aCompilation) {
 		try (final InputStream readFile = aCompilation.getIO().readFile(aFile)) {
-			final Operation<CompilerInstructions> cio = calculate(aFile.getAbsolutePath(), readFile);
-			return cio;
+
+			// FIXME double conversion
+			CY_EzSpecParser parser = new CY_EzSpecParser() {
+				@Override
+				public Operation2<CompilerInstructions> parse(final EzSpec spec) {
+					final Operation2<CompilerInstructions> cio = calculate(aFile.getAbsolutePath(), readFile);
+					return cio;
+				}
+			};
+			EzSpec spec = null;
+
+			return Operation.convert(parser.parse(spec));
 		} catch (final IOException aE) {
 			return Operation.failure(aE);
 		}

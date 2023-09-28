@@ -28,6 +28,10 @@ public class USE {
 	private final @NotNull Compilation    c;
 	private final @NotNull ErrSink        errSink;
 
+	public ElijahCache getElijahCache() {
+		return elijahCache;
+	}
+
 	private final @NotNull ElijahCache elijahCache = new DefaultElijahCache();
 
 	@Contract(pure = true)
@@ -62,8 +66,8 @@ public class USE {
 			om = CX_ParseElijahFile.__parseEzFile(
 					file_name,
 					f,
-					c,
-					(spec) -> Operation2.convert(CX_realParseElijjahFile2.realParseElijjahFile2(spec, elijahCache, c))
+					c.getIO(),
+					c.con().defaultElijahSpecParser2(elijahCache)
 			);
 
 			switch (om.mode()) {

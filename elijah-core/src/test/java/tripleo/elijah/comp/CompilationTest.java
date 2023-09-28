@@ -23,6 +23,7 @@ import static tripleo.elijah.util.Helpers.*;
 /**
  * @author Tripleo(envy)
  */
+//@Disabled
 public class CompilationTest {
 
 	@Test

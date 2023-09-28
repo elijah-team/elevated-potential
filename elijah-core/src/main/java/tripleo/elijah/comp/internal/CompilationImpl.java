@@ -392,6 +392,11 @@ public class CompilationImpl implements Compilation {
 		return _repo;
 	}
 
+	@Override
+	public ElijahCache use_elijahCache() {
+		return use.getElijahCache();
+	}
+
 	public class DefaultObjectTree implements CK_ObjectTree {
 		@Override
 		public void asseverate(Object o, Asseverate asseveration) {

@@ -39,6 +39,7 @@ import static tripleo.elijah.util.Helpers.*;
 /**
  * @author Tripleo
  */
+//@Disabled
 public class FindClassesInDemoElNormal {
 
 	@Test
