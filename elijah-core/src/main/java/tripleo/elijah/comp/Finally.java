@@ -10,6 +10,14 @@ public class Finally {
 		return outputs.size();
 	}
 
+	public List<String> getCodeOutputs() {
+		List<String> l = new ArrayList<>();
+		for (Output output : outputs) {
+			l.add(output.fileNameProvider.getFilename());
+		}
+		return l;
+	}
+
 	public static class Input {
 		private final Nameable nameable;
 		private final Out2 ty;
