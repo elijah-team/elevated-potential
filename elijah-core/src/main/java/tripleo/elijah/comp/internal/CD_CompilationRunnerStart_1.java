@@ -16,14 +16,6 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 	protected void ___start(final @NotNull CR_State crState,
 	                        final @NotNull CompilerBeginning beginning,
 	                        final @NotNull CB_Output out) {
-		if (crState.started) {
-			boolean should_never_happen = false; // :grin:
-			// return;
-			assert should_never_happen;
-		} else {
-			crState.started = true;
-		}
-
 		final CR_FindCIs              f1 = crState.runner().cr_find_cis();
 		final CR_ProcessInitialAction f2 = new CR_ProcessInitialAction(beginning); // TODO pointless
 		final CR_AlmostComplete       f3 = crState.runner().cr_AlmostComplete();
