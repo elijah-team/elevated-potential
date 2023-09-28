@@ -28,7 +28,7 @@ public class CB_FindStdLibProcess implements CB_Process {
 		return "CB_FindStdLibProcess";
 	}
 
-	static class CB_FindStdLibAction implements CB_Action {
+	class CB_FindStdLibAction implements CB_Action {
 		private final     CompilationEnclosure  ce;
 		private final     CR_State              crState;
 		private final     List<CB_OutputString> o = new ArrayList<>(); // FIXME 07/01 how is this modified?
@@ -82,7 +82,7 @@ public class CB_FindStdLibProcess implements CB_Process {
 
 		@Contract(value = " -> new", pure = true)
 		public @NotNull CB_Process process() {
-			return new DefaultCompilationBus.SingleActionProcess(this);
+			return new DefaultCompilationBus.SingleActionProcess(this, CB_FindStdLibProcess.this.name());
 		}
 	}
 }

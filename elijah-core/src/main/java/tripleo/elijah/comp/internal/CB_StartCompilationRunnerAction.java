@@ -11,7 +11,7 @@ import java.util.*;
 import static tripleo.elijah.util.Helpers.*;
 
 class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
-	static boolean started;
+	static                 boolean              started;
 	private final          CompilationRunner    compilationRunner;
 	private final          CompilerInstructions rootCI;
 	private final @NotNull IPipelineAccess      pa;
@@ -19,7 +19,8 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 
 	@Contract(pure = true)
 	public CB_StartCompilationRunnerAction(final CompilationRunner aCompilationRunner,
-	                                       final @NotNull IPipelineAccess aPa, final CompilerInstructions aRootCI) {
+	                                       final @NotNull IPipelineAccess aPa,
+	                                       final CompilerInstructions aRootCI) {
 		compilationRunner = aCompilationRunner;
 		pa                = aPa;
 		rootCI            = aRootCI;
@@ -35,9 +36,8 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 
 	@Override
 	public void execute(CB_Monitor monitor) {
-		final CompilerDriver compilationDriver = pa.getCompilationEnclosure().getCompilationDriver();
-		final Operation<CompilerDriven> ocrsd = compilationDriver
-				.get(Compilation.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
+		final CompilerDriver            compilationDriver = pa.getCompilationEnclosure().getCompilationDriver();
+		final Operation<CompilerDriven> ocrsd             = compilationDriver.get(Compilation.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
 
 		switch (ocrsd.mode()) {
 		case SUCCESS -> {
@@ -47,6 +47,7 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 //			assert !(started);
 			if (started) {
 				//throw new AssertionError();
+				System.err.println("twice for "+this);
 			} else {
 				compilationRunnerStart.start(rootCI, crState, o);
 				started = true;
