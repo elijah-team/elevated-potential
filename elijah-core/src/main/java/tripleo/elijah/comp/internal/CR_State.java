@@ -401,8 +401,6 @@ public class CR_State {
 
 	public RuntimeProcesses rt;
 
-	public boolean started;
-
 	ICompilationAccess ca;
 
 	private CompilationRunner compilationRunner;
