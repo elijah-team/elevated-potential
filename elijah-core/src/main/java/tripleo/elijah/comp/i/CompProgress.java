@@ -52,6 +52,8 @@ public enum CompProgress {
 						out.println("[--- Ez directoryResult ] " + compilerInstructions.getFilename());
 					}
 				}
+			} else {
+				out.println("[--- Ez directoryResult ] == null");
 			}
 		}
 	},
