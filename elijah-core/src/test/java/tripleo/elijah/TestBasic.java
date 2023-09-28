@@ -8,36 +8,28 @@
  */
 package tripleo.elijah;
 
-import com.google.common.base.Charsets;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.io.Files;
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.IO;
-import tripleo.elijah.comp.StdErrSink;
+import com.google.common.base.*;
+import com.google.common.collect.*;
+import com.google.common.io.*;
+import org.apache.commons.lang3.tuple.*;
+import org.junit.jupiter.api.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.comp.internal.DefaultCompilerController;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.factory.comp.CompilationFactory;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
-import tripleo.elijah.stages.gen_c.Emit;
-import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.factory.comp.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.util.*;
 
-import java.io.File;
+import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 /**
  * @author Tripleo(envy)
@@ -106,51 +98,45 @@ public class TestBasic {
 			assertFalse(c.getIO().recordedwrites.isEmpty());
 
 			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
-			for (Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> aof : aofs) {
-				System.err.println(aof);
-			}
+//			for (Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> aof : aofs) {
+//				System.err.println(aof);
+//			}
 
+			// README working in parallel again...
+			assertTrue(aofs.contains("/main2/Main.c"));
+			assertTrue(aofs.contains("/main2/Main.h"));
+			assertTrue(aofs.contains("/Prelude/Arguments[].c"));
+			assertTrue(aofs.contains("/Prelude/Arguments[].h"));
+			assertTrue(aofs.contains("/Prelude/ConstString.c"));
+			assertTrue(aofs.contains("/Prelude/ConstString.h"));
+			assertTrue(aofs.contains("/Prelude/Boolean[].c"));
+			assertTrue(aofs.contains("/Prelude/Boolean[].h"));
+			assertTrue(aofs.contains("/Prelude/String[].c"));
+			assertTrue(aofs.contains("/Prelude/String[].h"));
+			assertTrue(aofs.contains("/Prelude/Integer64[].c"));
+			assertTrue(aofs.contains("/Prelude/Integer64[].h"));
+			assertTrue(aofs.contains("/Prelude/Unsigned64[].c"));
+			assertTrue(aofs.contains("/Prelude/Unsigned64[].h"));
+
+			// ?? this is not done here...
 //			assertTrue(aofs.contains("/Prelude/Prelude.c"));
-//			assertTrue(aofs.contains("/Prelude/String[].h"));
+
+			final List<String> codeOutputs = c.reports().getCodeOutputs();
+			assertThat(codeOutputs)
+							.containsExactly("/Prelude/String[].h",
+							                 "/Prelude/String[].c",
+							                 "/Prelude/Boolean[].c",
+							                 "/Prelude/Boolean[].h",
+							                 "/Prelude/Integer64[].c",
+							                 "/Prelude/Integer64[].h",
+							                 "/Prelude/Arguments[].c",
+							                 "/Prelude/Arguments[].h",
+							                 "/Prelude/ConstString.c",
+							                 "/Prelude/ConstString.h",
+							                 "/Prelude/Unsigned64[].c",
+							                 "/Prelude/Unsigned64[].h");
 
 			assertEquals(14, c.reports().codeOutputSize());
-
-			assertTrue(c.reports().containsCodeOutput("/Prelude/String[].h"));
-			assertTrue(c.reports().containsCodeOutput("/Prelude/String[].c"));
-			assertTrue(c.reports().containsCodeOutput("/Prelude/Boolean[].c"));
-			assertTrue(c.reports().containsCodeOutput("/Prelude/Boolean[].h"));
-			assertTrue(c.reports().containsCodeOutput("/Prelude/Integer64[].c"));
-			assertTrue(c.reports().containsCodeOutput("/Prelude/Integer64[].h"));
-			assertTrue(c.reports().containsCodeOutput("/Prelude/Arguments[].c"));
-			assertTrue(c.reports().containsCodeOutput("/Prelude/Arguments[].h"));
-			assertTrue(c.reports().containsCodeOutput("/Prelude/ConstString.c"));
-			assertTrue(c.reports().containsCodeOutput("/Prelude/ConstString.h"));
-			assertTrue(c.reports().containsCodeOutput("/Prelude/Unsigned64[].c"));
-			assertTrue(c.reports().containsCodeOutput("/Prelude/Unsigned64[].h"));
-
-			assertTrue(c.reports().containsCodeOutput("/main2/Main.h"));
-			assertTrue(c.reports().containsCodeOutput("/main2/Main.c"));
-
-			/*
-
--- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/String[].h
--- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Boolean[].h
--- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Boolean[].c
--- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/ConstString.c
--- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Integer64[].h
--- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Integer64[].c
--- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/main2/Main.c
---401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Arguments[].c
---401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/ConstString.h
---401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Arguments[].h
---401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/String[].c
--- 401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/main2/Main.h
---401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Unsigned64[].c
---401b Writing path: COMP/9d9243020fb844e1f97f48542eff75703f2cf006a44d3024fc29f2186ff3cf4d/2023-09-26_07.13.11/code2/Prelude/Unsigned64[].h
-
-
-
-			 */
 		}
 	}
 
