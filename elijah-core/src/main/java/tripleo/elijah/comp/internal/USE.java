@@ -155,12 +155,18 @@ public class USE {
 		return c;
 	}
 
+	public enum USE_Reasoning_ {
+		USE_Reasoning__parent, USE_Reasoning__child, USE_Reasoning___default, USE_Reasoning__instruction_doer_addon, USE_Reasoning__initial, USE_Reasoning__findStdLib
+	}
+
 	public interface USE_Reasoning {
 		boolean parent();
 
 		File instruction_dir();
 
 		CompilerInstructions compilerInstructions();
+
+		USE_Reasoning_ ty();
 	}
 
 	public static class USE_Reasonings {
@@ -179,6 +185,11 @@ public class USE {
 				@Override
 				public CompilerInstructions compilerInstructions() {
 					return aCompilerInstructions;
+				}
+
+				@Override
+				public USE_Reasoning_ ty() {
+					return USE_Reasoning_.USE_Reasoning__parent;
 				}
 			};
 		}
@@ -207,6 +218,11 @@ public class USE {
 				public CompilerInstructions compilerInstructions() {
 					return aCompilerInstructions;
 				}
+
+				@Override
+				public USE_Reasoning_ ty() {
+					return USE_Reasoning_.USE_Reasoning__child;
+				}
 			};
 		}
 
@@ -225,6 +241,11 @@ public class USE {
 				@Override
 				public CompilerInstructions compilerInstructions() {
 					return aCompilerInstructions;
+				}
+
+				@Override
+				public USE_Reasoning_ ty() {
+					return USE_Reasoning_.USE_Reasoning___default;
 				}
 			};
 		}
@@ -245,6 +266,11 @@ public class USE {
 				public CompilerInstructions compilerInstructions() {
 					return item;
 				}
+
+				@Override
+				public USE_Reasoning_ ty() {
+					return USE_Reasoning_.USE_Reasoning__instruction_doer_addon;
+				}
 			};
 		}
 
@@ -263,6 +289,11 @@ public class USE {
 				@Override
 				public CompilerInstructions compilerInstructions() {
 					return aFindStdLib.maybeFoundResult();
+				}
+
+				@Override
+				public USE_Reasoning_ ty() {
+					return USE_Reasoning_.USE_Reasoning__findStdLib;
 				}
 			};
 		}
@@ -284,6 +315,11 @@ public class USE {
 					var left = triple.getLeft();
 
 					return left.maybeFoundResult();
+				}
+
+				@Override
+				public USE_Reasoning_ ty() {
+					return USE_Reasoning_.USE_Reasoning__initial;
 				}
 			};
 		}

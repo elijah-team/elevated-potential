@@ -52,13 +52,11 @@ public class CB_FindStdLibProcess implements CB_Process {
 			}
 		}
 
-		private void getPushItem(final @NotNull Operation2<CompilerInstructions> oci) { // TODO reason
+		private void getPushItem(final @NotNull Operation2<CompilerInstructions> oci) {
 			if (oci.mode() == Mode.SUCCESS) {
-				final Compilation c = ce.getCompilation();
+				final Compilation          c                    = ce.getCompilation();
+				final CompilerInstructions compilerInstructions = oci.success();
 
-				CompilerInstructions compilerInstructions = oci.success();
-
-				c.pushItem(compilerInstructions);
 				c.use(compilerInstructions, USE.USE_Reasonings.findStdLib(findStdLib));
 			} else {
 				throw new IllegalStateException();//oci.failure());
