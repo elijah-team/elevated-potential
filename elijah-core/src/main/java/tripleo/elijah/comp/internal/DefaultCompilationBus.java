@@ -12,40 +12,19 @@ import java.util.concurrent.*;
 import static tripleo.elijah.util.Helpers.*;
 
 public class DefaultCompilationBus implements ICompilationBus {
+	private static final Logger LOG = LoggerFactory.getLogger(DefaultCompilationBus.class);
 	private final CB_Monitor _monitor;
-
-	static class SingleActionProcess implements CB_Process {
-		// README tape
-		private final CB_Action a;
-
-		public SingleActionProcess(final CB_Action aAction) {
-			a = aAction;
-		}
-
-		@Override
-		public @NotNull List<CB_Action> steps() {
-			return List_of(a);
-		}
-
-		@Override
-		public String name() {
-			return "SingleActionProcess";
-		}
-	}
-
-
 	@lombok.Getter
 	private final @NotNull CompilerDriver compilerDriver;
 	private final @NotNull Compilation c;
-//	private final @NotNull List<CB_Process> _processes = new ArrayList<>();
+	//	private final @NotNull List<CB_Process> _processes = new ArrayList<>();
 	@SuppressWarnings("TypeMayBeWeakened")
 	private final Queue<CB_Process> pq = new ConcurrentLinkedQueue<>();
-
 
 	private final @NotNull IProgressSink _defaultProgressSink = new IProgressSink() {
 		@Override
 		public void note(final Codes aCode, final @NotNull ProgressSinkComponent aProgressSinkComponent,
-				final int aType, final Object[] aParams) {
+		                 final int aType, final Object[] aParams) {
 			Stupidity.println_err_2(aProgressSinkComponent.printErr(aCode, aType, aParams));
 		}
 	};
@@ -59,26 +38,33 @@ public class DefaultCompilationBus implements ICompilationBus {
 	}
 
 	@Override
-	public void add(final @NotNull CB_Action action) {
-//		_processes.add(new SingleActionProcess(action));
-		pq.add(new SingleActionProcess(action));
-	}
-
-	@Override
-	public void add(final @NotNull CB_Process aProcess) {
-//		_processes.add(aProcess);
-		pq.add(aProcess);
-	}
-
-	@Override
 	public IProgressSink defaultProgressSink() {
 		return _defaultProgressSink;
 	}
 
 	@Override
+	public CB_Monitor getMonitor() {
+		return _monitor;
+	}
+
+	@Override
+	public void add(final @NotNull CB_Action action) {
+		pq.add(new SingleActionProcess(action, "CB_FindStdLibProcess"));
+	}
+
+	@Override
+	public void add(final @NotNull CB_Process aProcess) {
+		pq.add(aProcess);
+	}
+
+	@Override
 	public void inst(final @NotNull ILazyCompilerInstructions aLazyCompilerInstructions) {
-		_defaultProgressSink.note(IProgressSink.Codes.LazyCompilerInstructions_inst,
-				ProgressSinkComponent.CompilationBus_, -1, new Object[] { aLazyCompilerInstructions.get() });
+		_defaultProgressSink.note(
+				IProgressSink.Codes.LazyCompilerInstructions_inst,
+				ProgressSinkComponent.CompilationBus_,
+				-1,
+				new Object[] { aLazyCompilerInstructions.get() }
+		);
 	}
 
 	@Override
@@ -92,91 +78,6 @@ public class DefaultCompilationBus implements ICompilationBus {
 	}
 
 	public void runProcesses() {
-		if (false) {
-//			int size = 0;
-//
-//			var monitor = new CB_Monitor() {
-//
-//				// TODO/HACK queue then print after loop
-//				// also send to UI (UT_Controller)
-//
-//				void print(String s) {
-//					System.err.print(s);
-//				}
-//
-//				void println() {
-//					System.err.println();
-//				}
-//
-//				void println(String s) {
-//					System.err.println(s);
-//				}
-//
-//				@Override
-//				public void reportFailure(final @NotNull CB_Action aCBAction, final @NotNull CB_Output aCB_output) {
-//					System.err.println("FAILURE " + aCBAction.name() + " " + aCB_output.get());
-//				}
-//
-//				@Override
-//				public void reportSuccess(final @NotNull CB_Action aCBAction, final @NotNull CB_Output aCB_output) {
-//					final String header = "SUCCESS " + aCBAction.name();
-//					println(header);
-//					for (int i = 0; i < header.length() + 2; i++) {
-//						print("=");
-//					}
-//					println();
-//
-//					final List<CB_OutputString> outputStrings = aCB_output.get();
-//					for (CB_OutputString outputString : outputStrings) {
-//						println(" " + outputString.getText());
-//					}
-//					println();
-//				}
-//			};
-//
-//			while (size < _processes.size()) {
-//				int i;
-//				for (i = size; i < _processes.size(); i++) {
-//					final CB_Process process = _processes.get(i);
-//
-//					if (DebugFlags._DefaultCompilationBus) {
-//						final String name;
-//
-//						if (process instanceof SingleActionProcess sap) {
-//							name = sap.a.name();
-//						} else {
-//							name = process.getClass().getName();
-//						}
-//
-//						// 09/26 System.err.println(MessageFormat.format("DefaultCompilationBus i={0} size={1} {2}", i, size, name));
-//					}
-//
-//					for (CB_Action action : process.steps()) {
-//						action.execute(monitor);
-//					}
-//				}
-//
-//				int old_size = size;
-//				size = _processes.size();
-//				if (DebugFlags._DefaultCompilationBus) {
-//					// 09/26 System.err.println(MessageFormat.format("DefaultCompilationBus reset size old_size={0} new_size={1} last={2}", old_size, size, i));
-//				}
-//			}
-//			assert _processes.size() == size;
-		} else {
-			run_all();
-		}
-	}
-
-	@Override
-	public CB_Monitor getMonitor() {
-		return _monitor;
-	}
-
-	private static final Logger LOG = LoggerFactory.getLogger(DefaultCompilationBus.class);
-
-//	@Override
-	public void run_all() {
 		var procs = pq;
 
 		final Thread thread = new Thread(() -> {
@@ -185,7 +86,6 @@ public class DefaultCompilationBus implements ICompilationBus {
 			while (x) {
 				final CB_Process poll = procs.poll();
 				LOG.debug("Polled: " + poll);
-				System.err.println("5759 poll: "+poll);
 
 				if (poll != null) {
 					System.err.println("5757 "+ poll.name());
