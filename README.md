@@ -23,8 +23,8 @@ Instructions
 git clone https://github.com/elijah-team/elevated-potential
 cd elevated-potential
 mkdir COMP
-nix-shell -p maven jdk17
-mvn test
+nix-shell -p gradle jdk17
+gradle test
 ```
 
 Goals
