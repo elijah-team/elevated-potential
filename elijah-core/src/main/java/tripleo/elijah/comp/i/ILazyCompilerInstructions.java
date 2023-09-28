@@ -7,6 +7,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.impl.*;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
 
@@ -20,7 +21,7 @@ public interface ILazyCompilerInstructions {
 		final File   f         = new File(file_name);
 
 		return new ILazyCompilerInstructions() {
-			private @Nullable Operation<CompilerInstructions> operation;
+			private Operation2<CompilerInstructions> operation;
 
 			@Override
 			public CompilerInstructions get() {
@@ -30,7 +31,7 @@ public interface ILazyCompilerInstructions {
 				// 4. Just return on success
 				// 5. Return null for failure
 
-				CK_SourceFile sf = CK_SourceFileFactory.get(f, CK_SourceFileFactory.K.SpecifiedEzFile);
+				CK_SourceFile<CompilerInstructions> sf = CK_SourceFileFactory.get(f, CK_SourceFileFactory.K.SpecifiedEzFile);
 				sf.associate(input, cc);
 				operation = sf.process_query();
 
@@ -43,7 +44,7 @@ public interface ILazyCompilerInstructions {
 			}
 
 			@Override
-			public @Nullable Operation<CompilerInstructions> getOperation() {
+			public @Nullable Operation2<CompilerInstructions> getOperation() {
 				return operation;
 			}
 		};
@@ -58,7 +59,7 @@ public interface ILazyCompilerInstructions {
 			}
 
 			@Override
-			public @Nullable Operation<CompilerInstructions> getOperation() {
+			public @Nullable Operation2<CompilerInstructions> getOperation() {
 				return null;
 			}
 		};
@@ -66,5 +67,5 @@ public interface ILazyCompilerInstructions {
 
 	CompilerInstructions get();
 
-	@Nullable Operation<CompilerInstructions> getOperation();
+	@Nullable Operation2<CompilerInstructions> getOperation();
 }

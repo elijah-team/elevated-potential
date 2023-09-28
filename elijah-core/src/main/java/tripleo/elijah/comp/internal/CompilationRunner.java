@@ -122,7 +122,7 @@ public class CompilationRunner extends _RegistrationTarget {
 		@Override
 		public void reportSuccess(final CB_Action action, final CB_Output output) {
 			for (final CB_OutputString outputString : output.get()) {
-				Stupidity.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
+//				Stupidity.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
 			}
 		}
 	}

@@ -1,6 +1,8 @@
 package tripleo.elijah.util;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.diagnostic.*;
 import tripleo.elijah.nextgen.query.*;
 
 import static tripleo.elijah.nextgen.query.Mode.*;
@@ -33,6 +35,20 @@ public class Operation<T> /* extends Operation2<T> */ {
 		mode = aMode;
 
 		assert succ != exc;
+	}
+
+	public static Operation<CompilerInstructions> convert(final Operation2<CompilerInstructions> aOperation2) {
+		switch (aOperation2.mode()) {
+//		case FAILURE -> {
+//
+//			return
+//					Operation.failure(null);//new ExceptionDiagnostic(aOperation2.failure()))
+//		}
+		case SUCCESS -> {
+			return Operation.success(aOperation2.success());
+		}
+		default -> throw new IllegalStateException("Unexpected value: " + aOperation2.mode());
+		}
 	}
 
 	public Exception failure() {

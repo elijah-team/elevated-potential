@@ -1,6 +1,7 @@
 package tripleo.elijah.util;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.diagnostic.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.nextgen.query.*;
@@ -53,6 +54,10 @@ public class Operation2<T> {
 
 		if (succ == exc)
 			throw new AssertionError();
+	}
+
+	public static <T> Operation2<T> failure_exc(final Exception aE) {
+		return Operation2.failure(new ExceptionDiagnostic(aE));
 	}
 
 	public Diagnostic failure() {
