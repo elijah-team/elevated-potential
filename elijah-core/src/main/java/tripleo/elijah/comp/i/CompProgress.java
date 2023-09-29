@@ -74,6 +74,16 @@ public enum CompProgress {
 
 				out.printf("[-- Ez has HASH ] %s %s%n", spec.file(), hash);
 		}
+	}, GenerateC {
+		@Override
+		public void deprecated_print(final Object x, final PrintStream out, final PrintStream err) {
+			Pair<Integer, String> t = (Pair<Integer, String>)x;
+
+			var aI = t.getLeft();
+			var aS = t.getRight();
+
+			System.err.printf("%d %s%n", aI, aS);
+		}
 	};
 
 	public abstract void deprecated_print(Object x, PrintStream out, PrintStream err);

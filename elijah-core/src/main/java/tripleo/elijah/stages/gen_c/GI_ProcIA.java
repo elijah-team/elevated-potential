@@ -4,6 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.diagnostic.ExceptionDiagnostic;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.diagnostic.Diagnostic.Severity;
 import tripleo.elijah.lang.i.IdentExpression;
@@ -118,7 +119,7 @@ class GI_ProcIA implements GenerateC_Item {
 		final DeduceElement3_ProcTableEntry de_pte = (DeduceElement3_ProcTableEntry) pte.getDeduceElement3();
 
 		if (generated == null) {
-			System.err.println("6464 " + fi.pte);
+			logProgress(6464, ""+fi.pte);
 
 			final WlGenerateCtor wlgf = new WlGenerateCtor(
 					de_pte.deduceTypes2().getGenerateFunctions(de_pte.getPrincipal().getContext().module()), fi, null,
@@ -151,6 +152,10 @@ class GI_ProcIA implements GenerateC_Item {
 		}
 
 		return text[0];
+	}
+
+	private void logProgress(final int aI, final String aS) {
+		gc.ce.logProgress(CompProgress.GenerateC, Pair.of(aI, aS));
 	}
 
 	@Override

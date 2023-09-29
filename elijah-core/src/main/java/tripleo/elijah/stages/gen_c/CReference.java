@@ -9,10 +9,11 @@
  */
 package tripleo.elijah.stages.gen_c;
 
+import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.Eventual;
-import tripleo.elijah.comp.i.CompilationEnclosure;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.IdentIA;
@@ -540,7 +541,9 @@ public class CReference {
 				itm.getReference().type.buildHelper(itm.getReference(), bs);
 				return bs.sb.toString();
 			}).collect(Collectors.toList());
-			System.err.println("219219 " + items);
+
+			logProgress(219219, ""+items);
+
 			rtext = SpecialText.compose(itms);
 		} else {
 			rtext = SpecialText.compose(sl);
@@ -559,7 +562,7 @@ public class CReference {
 		final BaseEvaFunction gf = identIA.gf;
 
 		if (idte._deduceTypes2() == null) {
-			System.err.println("169169 ");
+			logProgress(169169, "");
 			// throw new AssertionError();
 		}
 
@@ -668,6 +671,11 @@ public class CReference {
 
 		return String_join("->", texts);
 	}
+
+	private void logProgress(final int aI, final String aS) {
+		this._repo().generateC._ce().logProgress(CompProgress.GenerateC, Pair.of(aI, aS));
+	}
+
 }
 
 //

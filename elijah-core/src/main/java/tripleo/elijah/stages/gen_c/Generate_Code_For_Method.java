@@ -9,8 +9,10 @@
 package tripleo.elijah.stages.gen_c;
 
 import com.google.common.base.Supplier;
+import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.NormalTypeName;
 import tripleo.elijah.lang.i.OS_Type;
@@ -679,12 +681,16 @@ public class Generate_Code_For_Method {
 		// FIXME 06/17
 		final GenerateResultSink sink = aFileGen.resultSink();
 
-		if (sink != null)
+		if (sink != null) {
 			sink.addFunction(gf, rs, gc);
-		else
-			System.err.println("sink failed");
+		} else {
+			logProgress(9990, "sink failed");
+		}
 	}
 
+	private void logProgress(int code, String message) {
+		gc.ce.logProgress(CompProgress.GenerateC, Pair.of(code, message));
+	}
 }
 
 //
