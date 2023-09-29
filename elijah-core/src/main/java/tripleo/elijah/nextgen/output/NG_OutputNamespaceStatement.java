@@ -5,17 +5,20 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.gen_generic.GenerateResult.*;
+import tripleo.elijah.util.*;
 import tripleo.util.buffer.*;
 
 public class NG_OutputNamespaceStatement implements NG_OutputStatement {
-	private final Buffer buf;
-	private final TY ty;
-	private final @NotNull NG_OutDep moduleDependency;
+	private final          TY                       ty;
+	private final @NotNull NG_OutDep                moduleDependency;
+	private final          Buffer                   buf;
 
-	public NG_OutputNamespaceStatement(final Buffer aBuf, final TY aTY, final @NotNull OS_Module aM) {
-		buf = aBuf;
-		ty = aTY;
-		moduleDependency = new NG_OutDep(aM);
+	public NG_OutputNamespaceStatement(final BufferTabbedOutputStream aBufferTabbedOutputStream,
+	                                   final @NotNull OS_Module aModule,
+	                                   final TY aTY) {
+		buf              = aBufferTabbedOutputStream.getBuffer();
+		ty               = aTY;
+		moduleDependency = new NG_OutDep(aModule);
 	}
 
 	@Override

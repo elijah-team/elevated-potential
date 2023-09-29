@@ -6,20 +6,18 @@ import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.gen_generic.GenerateResult.*;
 import tripleo.elijah.util.*;
+import tripleo.util.buffer.*;
 
 public class NG_OutputClassStatement implements NG_OutputStatement {
-	private final String text;
-	private final TY ty;
+	private final          Buffer    buf;
+	private final          TY        ty;
 	private final @NotNull NG_OutDep moduleDependency;
-	private final @NotNull BufferTabbedOutputStream __tos;
 
-	public NG_OutputClassStatement(final @NotNull BufferTabbedOutputStream aText,
-			final @NotNull OS_Module aModuleDependency, final TY aTy) {
-		__tos = aText;
-
-		text = aText.getBuffer().getText();
-		ty = aTy;
-
+	public NG_OutputClassStatement(final @NotNull BufferTabbedOutputStream aBufferTabbedOutputStream,
+	                               final @NotNull OS_Module aModuleDependency,
+	                               final TY aTy) {
+		buf              = aBufferTabbedOutputStream.getBuffer();
+		ty               = aTy;
 		moduleDependency = new NG_OutDep(aModuleDependency);
 	}
 
@@ -39,7 +37,7 @@ public class NG_OutputClassStatement implements NG_OutputStatement {
 
 	@Override
 	public String getText() {
-		return text;
+		return buf.getText();
 	}
 
 	@Override

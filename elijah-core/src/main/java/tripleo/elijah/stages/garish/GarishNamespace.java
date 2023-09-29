@@ -7,18 +7,8 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
-import tripleo.elijah.world.impl.*;
-import tripleo.util.buffer.*;
 
 public class GarishNamespace {
-	public enum GARISH_NAMESPACE_LOG_PROGRESS {
-		HEADER(68), IMPL(62);
-
-		GARISH_NAMESPACE_LOG_PROGRESS(final int aI) {
-
-		}
-	}
-
 	private final LivingNamespace _lc;
 
 	@Contract(pure = true)
@@ -27,11 +17,14 @@ public class GarishNamespace {
 		// _lc.setGarish(this);
 	}
 
-	public void garish(final GenerateC aGenerateC, final GenerateResult gr,
-			final @NotNull GenerateResultSink aResultSink) {
-		final DefaultLivingNamespace dln = (DefaultLivingNamespace) _lc;
-		final EvaNamespace x = dln.evaNode();
-		final GarishNamespace_Generator xg = x.generator();
+	public void garish(final GenerateC aGenerateC,
+	                   final GenerateResult gr,
+	                   final @NotNull GenerateResultSink aResultSink) {
+		final LivingNamespace           livingNamespace = getLiving();
+		final EvaNamespace              x               = livingNamespace.evaNode();
+		final GarishNamespace_Generator xg              = x.generator();
+
+		var already = livingNamespace.getGeneratedFlag();
 
 		if (!xg.generatedAlready()) {
 			xg.provide(aResultSink, this, gr, aGenerateC);
@@ -39,7 +32,7 @@ public class GarishNamespace {
 	}
 
 	public @NotNull BufferTabbedOutputStream getHeaderBuffer(final @NotNull GenerateC aGenerateC,
-			final @NotNull EvaNamespace x, final String class_name, final int class_code) {
+	                                                         final @NotNull EvaNamespace x, final String class_name, final int class_code) {
 		final BufferTabbedOutputStream tosHdr = new BufferTabbedOutputStream();
 
 		tosHdr.put_string_ln("typedef struct {");
@@ -73,7 +66,7 @@ public class GarishNamespace {
 	}
 
 	public @NotNull BufferTabbedOutputStream getImplBuffer(final @NotNull EvaNamespace ignoredX,
-			final String class_name, final int class_code) {
+	                                                       final String class_name, final int class_code) {
 		final BufferTabbedOutputStream tos = new BufferTabbedOutputStream();
 
 		tos.put_string_ln(String.format("%s* ZNC%d() {", class_name, class_code));
@@ -96,17 +89,5 @@ public class GarishNamespace {
 
 	public LivingNamespace getLiving() {
 		return _lc;
-	}
-
-	@Contract(pure = true)
-	public void logProgress(final GARISH_NAMESPACE_LOG_PROGRESS aCode, final EvaNamespace aEvaNamespace,
-			final Buffer aBuffer) {
-		if (aCode == GARISH_NAMESPACE_LOG_PROGRESS.IMPL) {
-			// impl
-		} else if (aCode == GARISH_NAMESPACE_LOG_PROGRESS.HEADER) {
-			// impl
-		}
-		// aEvaNamespace.getName();
-		// aBuffer.getText();
 	}
 }

@@ -1,4 +1,4 @@
-package tripleo.elijah.comp;
+package tripleo.elijah;
 
 import java.util.HashMap;
 import java.util.Map;

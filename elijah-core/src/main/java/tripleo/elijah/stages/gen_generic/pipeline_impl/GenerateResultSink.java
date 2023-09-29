@@ -1,6 +1,6 @@
 package tripleo.elijah.stages.gen_generic.pipeline_impl;
 
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.stages.garish.GarishClass;
 import tripleo.elijah.stages.garish.GarishNamespace;
 import tripleo.elijah.stages.gen_c.C2C_Result;
@@ -22,7 +22,9 @@ public interface GenerateResultSink {
 
 	void addClass_0(GarishClass aGarishClass, Buffer aImplBuffer, Buffer aHeaderBuffer);
 
-	void addClass_1(GarishClass aGarishClass, GenerateResult aGenerateResult, GenerateC aGenerateC);
+	void addClass_1(@NotNull GarishClass aGarishClass,
+	                @NotNull GenerateResult gr,
+	                @NotNull GenerateFiles aGenerateFiles);
 
 	void addFunction(BaseEvaFunction aGf, List<C2C_Result> aRs, GenerateFiles aGenerateFiles);
 

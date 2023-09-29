@@ -28,8 +28,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 	public void change(CompilerInput i, CompilerInput.CompilerInputField field) {
 		var inputTree = compilation.getInputTree();
 
-		compilation.getCompilationEnclosure()
-				.logProgress(CompProgress.__CCI_Acceptor__CompilerInputListener__change__logInput, i);
+		compilation.getCompilationEnclosure().logProgress(CompProgress.__CCI_Acceptor__CompilerInputListener__change__logInput, i);
 
 		switch (field) {
 		case TY -> {
@@ -103,8 +102,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 
 				for (Operation2<CompilerInstructions> directoryResult : directoryResults) {
 					if (directoryResult.mode() == Mode.SUCCESS) {
-						ILazyCompilerInstructions iLazyCompilerInstructions = ILazyCompilerInstructions
-								.of(directoryResult.success());
+						ILazyCompilerInstructions iLazyCompilerInstructions = ILazyCompilerInstructions.of(directoryResult.success());
 
 						id.add(iLazyCompilerInstructions.get());
 
