@@ -1,9 +1,11 @@
 package tripleo.elijah.stages.deduce;
 
+import lombok.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.gen_fn.*;
 
-class DC_ClassNote {
+public class DC_ClassNote {
+	@Getter
 	static class DC_ClassNote_DT2 {
 		private final DeduceTypes2 deduceTypes2;
 		private final BaseEvaFunction generatedFunction;
@@ -16,17 +18,6 @@ class DC_ClassNote {
 			deduceTypes2 = aDeduceTypes2;
 		}
 
-		public DeduceTypes2 getDeduceTypes2() {
-			return deduceTypes2;
-		}
-
-		public BaseEvaFunction getGeneratedFunction() {
-			return generatedFunction;
-		}
-
-		public IdentTableEntry getIte() {
-			return ite;
-		}
 	}
 
 	private final DeduceCentral central;

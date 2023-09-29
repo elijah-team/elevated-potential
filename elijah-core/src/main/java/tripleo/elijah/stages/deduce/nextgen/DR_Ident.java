@@ -10,87 +10,84 @@ import tripleo.elijah.stages.instructions.*;
 
 import java.util.*;
 
-public class DR_Ident implements DR_Item {
-	class BacklinkUnderstanding implements Understanding {
-		private final InstructionArgument ia;
-
-		public BacklinkUnderstanding(final InstructionArgument aIa) {
-			ia = aIa;
-		}
-
-		@Override
-		public String asString() {
-			return String.format("BacklinkUnderstanding %s", ia);
-		}
-	}
-
-	class ClassUnderstanding implements Understanding {
-		private final DG_ClassStatement dcs;
-
-		public ClassUnderstanding(final DG_ClassStatement aDcs) {
-			dcs = aDcs;
-		}
-
-		@Override
-		public @NotNull String asString() {
-			return "ClassUnderstanding " + dcs.classInvocation();
-		}
-	}
-
-	public static class ElementUnderstanding implements Understanding {
-		private final OS_Element x;
-
-		public ElementUnderstanding(final OS_Element aX) {
-			x = aX;
-		}
-
-		@Override
-		public @NotNull String asString() {
-			String xx = x.toString();
-
-			if (x instanceof VariableStatement vs) {
-				xx = vs.getName();
-			}
-
-			return "ElementUnderstanding " + xx;
-		}
-
-		public OS_Element getElement() {
-			return x;
-		}
-	}
-
-	class PTEUnderstanding implements Understanding {
-
-		private final ProcTableEntry pte;
-
-		public PTEUnderstanding(final ProcTableEntry aPte) {
-			pte = aPte;
-		}
-
-		@Override
-		public String asString() {
-			return String.format("PTEUnderstanding " + pte.__debug_expression);
-		}
-	}
-
+public abstract class DR_Ident implements DR_Item {
 	public interface Understanding {
 		String asString();
 	}
 
-	public static @NotNull DR_Ident create(final IdentExpression aIdent, final VariableTableEntry aVteBl1,
-			final BaseEvaFunction aBaseEvaFunction) {
-		return new DR_Ident(aIdent, aVteBl1, aBaseEvaFunction);
+	public static @NotNull DR_Ident create(final IdentExpression aIdent,
+	                                       final VariableTableEntry aVteBl1,
+	                                       final BaseEvaFunction aBaseEvaFunction) {
+		return new DR_Ident(aIdent, aVteBl1, aBaseEvaFunction) {
+			@Override
+			public _S _s() {
+				return new _S() {
+					@Override
+					public String getName() {
+						return aIdent.getText();
+					}
+
+					@Override
+					public boolean isResolved() {
+						return aVteBl1.getStatus() == BaseTableEntry.Status.KNOWN;
+					}
+
+					@Override
+					public @Nullable String simplified() {
+						return null;
+					}
+				};
+			}
+		};
 	}
 
-	public static @NotNull DR_Ident create(@NotNull IdentTableEntry aIdentTableEntry,
-			BaseEvaFunction aGeneratedFunction) {
-		return new DR_Ident(aIdentTableEntry, aGeneratedFunction);
+	public static @NotNull DR_Ident create(@NotNull IdentTableEntry aIdentTableEntry, BaseEvaFunction aGeneratedFunction) {
+		return new DR_Ident(aIdentTableEntry, aGeneratedFunction) {
+			@Override
+			public _S _s() {
+				return new _S() {
+					@Override
+					public String getName() {
+						return aIdentTableEntry.getIdent().getText();
+					}
+
+					@Override
+					public boolean isResolved() {
+						return aIdentTableEntry.isResolved();
+					}
+
+					@Override
+					public @Nullable String simplified() {
+						return null;
+					}
+				};
+			}
+		};
 	}
 
-	public static @NotNull DR_Ident create(final VariableTableEntry aVariableTableEntry,
-			final BaseEvaFunction aGeneratedFunction) {
-		return new DR_Ident(aVariableTableEntry, aGeneratedFunction);
+	public static @NotNull DR_Ident create(final VariableTableEntry aVariableTableEntry, final BaseEvaFunction aGeneratedFunction) {
+		return new DR_Ident(aVariableTableEntry, aGeneratedFunction) {
+			@Override
+			public _S _s() {
+				return new _S() {
+					@Override
+					public String getName() {
+						return aVariableTableEntry.getName();
+					}
+
+					@Override
+					public boolean isResolved() {
+						//assert mode == 2;
+						return aVariableTableEntry.getStatus() == BaseTableEntry.Status.KNOWN;
+					}
+
+					@Override
+					public @Nullable String simplified() {
+						return null;
+					}
+				};
+			}
+		};
 	}
 
 	private final List<DT_ResolveObserver> resolveObserverList = new LinkedList<>();
@@ -142,7 +139,8 @@ public class DR_Ident implements DR_Item {
 	}
 
 	private void addElementUnderstanding(OS_Element x) {
-		addUnderstanding(new ElementUnderstanding(x));
+		addUnderstanding(new DR_IdentUnderstandings.ElementUnderstanding(x));
+//		addUnderstanding(__inj().new_DR_Ident_ElementUnderstanding(x));
 		// System.err.println("104 addElementUnderstanding %s %s".formatted(name(), x));
 	}
 
@@ -175,7 +173,7 @@ public class DR_Ident implements DR_Item {
 
 	public boolean isResolved() {
 		for (Understanding understanding : u) {
-			if (understanding instanceof PTEUnderstanding ptu) {
+			if (understanding instanceof DR_IdentUnderstandings.PTEUnderstanding ptu) {
 				var ci = ptu.pte.getClassInvocation();
 				var fi = ptu.pte.getFunctionInvocation();
 
@@ -188,26 +186,11 @@ public class DR_Ident implements DR_Item {
 			}
 		}
 
-		if (ident == null && _identTableEntry == null) {
-			assert mode == 2;
-			return vteBl1.getStatus() == BaseTableEntry.Status.KNOWN;
-		}
-
-		if (_identTableEntry == null) {
-			return vteBl1.getStatus() == BaseTableEntry.Status.KNOWN;
-		}
-
-		return _identTableEntry.isResolved();
+		return _s().isResolved();
 	}
 
 	public String name() {
-		if (ident != null)
-			return ident.getText();
-		if (mode == 2) {
-			return vteBl1.getName();
-		}
-		assert false;
-		return "890890809890809";
+		return _s().getName();
 	}
 
 	public void onPossibleType(final DoneCallback<DR_PossibleType> cb) {
@@ -231,7 +214,7 @@ public class DR_Ident implements DR_Item {
 			assert vteBl1.getStatus() == BaseTableEntry.Status.KNOWN;
 
 			vteBl1.elementPromise((OS_Element x) -> {
-				addUnderstanding(new ElementUnderstanding(x));
+				addUnderstanding(new DR_IdentUnderstandings.ElementUnderstanding(x));
 //				System.err.println("-- [DR_Ident:104] addElementUnderstanding for vte " + x);
 			}, null);
 			return;
@@ -254,22 +237,23 @@ public class DR_Ident implements DR_Item {
 
 					addUnderstanding(new ProcedureCallUnderstanding(mainLogic));
 				} else
-					addUnderstanding(new BacklinkUnderstanding(ia));
+					addUnderstanding(new DR_IdentUnderstandings.BacklinkUnderstanding(ia));
 			} else
-				addUnderstanding(new BacklinkUnderstanding(ia));
+				addUnderstanding(new DR_IdentUnderstandings.BacklinkUnderstanding(ia));
 		});
 	}
 
 	public void resolve(final DG_ClassStatement aDcs) {
-		addUnderstanding(new ClassUnderstanding(aDcs));
+		addUnderstanding(new DR_IdentUnderstandings.ClassUnderstanding(aDcs));
 	}
 
 	public void resolve(final @NotNull IElementHolder aEh, final ProcTableEntry aPte) {
-		addUnderstanding(new ElementUnderstanding(aEh.getElement()));
-		addUnderstanding(new PTEUnderstanding(aPte));
+		addUnderstanding(new DR_IdentUnderstandings.ElementUnderstanding(aEh.getElement()));
+		addUnderstanding(new DR_IdentUnderstandings.PTEUnderstanding(aPte));
 	}
 
 	private @Nullable String simplified() {
+		var x = _s().simplified();
 		if (ident != null)
 			return "ident: %s %s".formatted(ident.getText(), baseEvaFunction);
 		if (vteBl1 != null)
@@ -293,4 +277,14 @@ public class DR_Ident implements DR_Item {
 			resolveObserver.onElement(best);
 		}
 	}
+
+	interface _S {
+		String getName();
+
+		boolean isResolved();
+
+		@Nullable String simplified();
+	}
+
+	public abstract _S _s();
 }

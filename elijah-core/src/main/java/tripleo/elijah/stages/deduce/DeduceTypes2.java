@@ -620,13 +620,12 @@ public class DeduceTypes2 {
 			return aFT_FnCallArgs.new DoAssignCall(aClient4, aGeneratedFunction);
 		}
 
-		public DR_Item new_DR_Ident(final IdentTableEntry aIdentTableEntry, final BaseEvaFunction aGeneratedFunction,
-				final DeduceTypes2 aDeduceTypes2) {
-			return new DR_Ident(aIdentTableEntry, aGeneratedFunction/* , aDeduceTypes2 */);
+		public DR_Item new_DR_Ident(final IdentTableEntry aIdentTableEntry, final BaseEvaFunction aGeneratedFunction, final DeduceTypes2 aDeduceTypes2) {
+			return DR_Ident.create(aIdentTableEntry, aGeneratedFunction/* , aDeduceTypes2 */);
 		}
 
-		public DR_Ident.ElementUnderstanding new_DR_Ident_ElementUnderstanding(final OS_Element aEl) {
-			return new DR_Ident.ElementUnderstanding(aEl);
+		public DR_IdentUnderstandings.ElementUnderstanding new_DR_Ident_ElementUnderstanding(final OS_Element aEl) {
+			return new DR_IdentUnderstandings.ElementUnderstanding(aEl);
 		}
 
 		public DR_PossibleTypeCI new_DR_PossibleTypeCI(final ClassInvocation aCi, final FunctionInvocation aFi) {

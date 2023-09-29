@@ -230,11 +230,11 @@ public class DeducePath {
 			var id = procTableEntry.__gf.getIdent(identIA.getEntry());
 
 			if (el != null) {
-				final DR_Ident.ElementUnderstanding understanding = dt2._inj().new_DR_Ident_ElementUnderstanding(el);
+				final DR_IdentUnderstandings.ElementUnderstanding understanding = dt2._inj().new_DR_Ident_ElementUnderstanding(el);
 				id.u.add(understanding);
 			} else {
 				for (DR_Ident.Understanding understanding : id.u) {
-					if (understanding instanceof DR_Ident.ElementUnderstanding eu) {
+					if (understanding instanceof DR_IdentUnderstandings.ElementUnderstanding eu) {
 						el = eu.getElement();
 					}
 				}
