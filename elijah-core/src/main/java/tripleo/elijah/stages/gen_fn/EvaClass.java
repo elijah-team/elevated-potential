@@ -295,7 +295,8 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 			if (ciGenericPart.hasGenericPart()) {
 				final Map<TypeName, OS_Type> map = ci.genericPart().getMap();
 
-				if (map != null) {
+				assert map != null;
+				if (!map.isEmpty()) {
 					sb.append("[");
 					final String joined = getNameHelper(map);
 					sb.append(joined);
