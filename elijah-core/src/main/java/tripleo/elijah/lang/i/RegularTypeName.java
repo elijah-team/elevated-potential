@@ -2,7 +2,7 @@ package tripleo.elijah.lang.i;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.impl.RegularTypeNameImpl;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.*;
 
 public interface RegularTypeName extends NormalTypeName {
 	/*
@@ -10,7 +10,7 @@ public interface RegularTypeName extends NormalTypeName {
 	 */
 	static @NotNull RegularTypeName makeWithStringTypeName(@NotNull String aTypeName) {
 		final RegularTypeName R = new RegularTypeNameImpl(null);
-		R.setName(Helpers.string_to_qualident(aTypeName));
+		R.setName(Helpers0.string_to_qualident(aTypeName));
 		return R;
 	}
 

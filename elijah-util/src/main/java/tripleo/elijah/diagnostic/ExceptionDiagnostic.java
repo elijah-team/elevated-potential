@@ -1,7 +1,6 @@
-package tripleo.elijah.comp.diagnostic;
+package tripleo.elijah.diagnostic;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.diagnostic.*;
 
 import java.io.*;
 import java.util.*;

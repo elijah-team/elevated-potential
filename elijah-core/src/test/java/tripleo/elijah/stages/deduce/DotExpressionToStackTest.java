@@ -17,7 +17,7 @@ import tripleo.elijah.lang.i.DotExpression;
 import tripleo.elijah.lang.i.IExpression;
 import tripleo.elijah.lang.i.IdentExpression;
 import tripleo.elijah.lang.impl.DotExpressionImpl;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.*;
 
 import java.util.Stack;
 
@@ -27,9 +27,9 @@ public class DotExpressionToStackTest {
 	public void test_dot_expression_to_stack() {
 //		DeduceTypes2 d = new DeduceTypes2(null);
 		//
-		IdentExpression c = Helpers.string_to_ident("c");
-		IdentExpression b = Helpers.string_to_ident("b");
-		IdentExpression a = Helpers.string_to_ident("a");
+		IdentExpression c = Helpers0.string_to_ident("c");
+		IdentExpression b = Helpers0.string_to_ident("b");
+		IdentExpression a = Helpers0.string_to_ident("a");
 		//
 		DotExpression de2 = new DotExpressionImpl(b, c);
 		DotExpression de = new DotExpressionImpl(a, de2);
@@ -46,11 +46,11 @@ public class DotExpressionToStackTest {
 	public void test_dot_expression_to_stack2() {
 //		DeduceTypes2 dt2 = new DeduceTypes2(null);
 		//
-		IdentExpression e = Helpers.string_to_ident("e");
-		IdentExpression d = Helpers.string_to_ident("d");
-		IdentExpression c = Helpers.string_to_ident("c");
-		IdentExpression b = Helpers.string_to_ident("b");
-		IdentExpression a = Helpers.string_to_ident("a");
+		IdentExpression e = Helpers0.string_to_ident("e");
+		IdentExpression d = Helpers0.string_to_ident("d");
+		IdentExpression c = Helpers0.string_to_ident("c");
+		IdentExpression b = Helpers0.string_to_ident("b");
+		IdentExpression a = Helpers0.string_to_ident("a");
 		//
 		DotExpression de4 = new DotExpressionImpl(d, e);
 		DotExpression de3 = new DotExpressionImpl(c, de4);

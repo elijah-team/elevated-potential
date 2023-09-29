@@ -19,7 +19,7 @@ import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.DeduceTypes2;
 import tripleo.elijah.stages.deduce.ResolveError;
 import tripleo.elijah.test_help.Boilerplate;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -46,9 +46,9 @@ public class TypeOfTypeNameTest {
 		String typeNameString = "package.AbstractFactory";
 
 		VariableStatementImpl var_x = new VariableStatementImpl(null);
-		var_x.setName(Helpers.string_to_ident("x")); // not necessary
+		var_x.setName(Helpers0.string_to_ident("x")); // not necessary
 		RegularTypeName rtn = new RegularTypeNameImpl(ctx);
-		rtn.setName(Helpers.string_to_qualident(typeNameString));
+		rtn.setName(Helpers0.string_to_qualident(typeNameString));
 		var_x.setTypeName(rtn);
 
 		LookupResultList lrl = new LookupResultListImpl();
@@ -58,7 +58,7 @@ public class TypeOfTypeNameTest {
 		// CREATE VARIABLE UNDER TEST
 		//
 		TypeOfTypeName t = new TypeOfTypeNameImpl(ctx);
-		t.typeOf(Helpers.string_to_qualident("x"));
+		t.typeOf(Helpers0.string_to_qualident("x"));
 
 		//
 		// SET UP EXPECTATIONS
@@ -114,15 +114,15 @@ public class TypeOfTypeNameTest {
 		VariableStatement var_y = vs.next();
 		var_y.setName(IdentExpression.forString("y"));
 		RegularTypeName rtn_y = new RegularTypeNameImpl(ctx);
-		rtn_y.setName(Helpers.string_to_qualident(typeNameString));
+		rtn_y.setName(Helpers0.string_to_qualident(typeNameString));
 		var_y.setTypeName(rtn_y);
 
 		st_af.add(vs);
 
 		VariableStatementImpl var_x = new VariableStatementImpl(null);
-		var_x.setName(Helpers.string_to_ident("x")); // not necessary
+		var_x.setName(Helpers0.string_to_ident("x")); // not necessary
 		RegularTypeName rtn_x = new RegularTypeNameImpl(ctx);
-		rtn_x.setName(Helpers.string_to_qualident(typeNameString1));
+		rtn_x.setName(Helpers0.string_to_qualident(typeNameString1));
 		var_x.setTypeName(rtn_x);
 
 		LookupResultList lrl = new LookupResultListImpl();
@@ -138,7 +138,7 @@ public class TypeOfTypeNameTest {
 		// CREATE VARIABLE UNDER TEST
 		//
 		TypeOfTypeName t = new TypeOfTypeNameImpl(ctx);
-		t.typeOf(Helpers.string_to_qualident("x.y"));
+		t.typeOf(Helpers0.string_to_qualident("x.y"));
 
 		//
 		// SET UP EXPECTATIONS
@@ -183,22 +183,22 @@ public class TypeOfTypeNameTest {
 
 		ClassStatement st_af = new ClassStatementImpl(mod, mod_ctx);
 		st_af.setName(IdentExpression.forString("AbstractFactory"));
-		final OS_Package package1 = new OS_PackageImpl(Helpers.string_to_qualident("package1"), 1);
+		final OS_Package package1 = new OS_PackageImpl(Helpers0.string_to_qualident("package1"), 1);
 		st_af.setPackageName(package1);
 
 		VariableSequenceImpl vs = new VariableSequenceImpl(st_af.getContext());
 		VariableStatementImpl var_y = new VariableStatementImpl(vs);
 		var_y.setName(IdentExpression.forString("y"));
 		RegularTypeName rtn_y = new RegularTypeNameImpl(ctx);
-		rtn_y.setName(Helpers.string_to_qualident(typeNameString));
+		rtn_y.setName(Helpers0.string_to_qualident(typeNameString));
 		var_y.setTypeName(rtn_y);
 
 		st_af.add(vs);
 
 		VariableStatementImpl var_x = new VariableStatementImpl(null);
-		var_x.setName(Helpers.string_to_ident("x")); // not necessary
+		var_x.setName(Helpers0.string_to_ident("x")); // not necessary
 		RegularTypeName rtn_x = new RegularTypeNameImpl(ctx);
-		rtn_x.setName(Helpers.string_to_qualident(typeNameString1));
+		rtn_x.setName(Helpers0.string_to_qualident(typeNameString1));
 		var_x.setTypeName(rtn_x);
 
 		LookupResultList lrl = new LookupResultListImpl();
@@ -210,7 +210,7 @@ public class TypeOfTypeNameTest {
 		// CREATE VARIABLE UNDER TEST
 		//
 		TypeOfTypeName t = new TypeOfTypeNameImpl(ctx);
-		t.typeOf(Helpers.string_to_qualident("x.y"));
+		t.typeOf(Helpers0.string_to_qualident("x.y"));
 
 		//
 		// SET UP EXPECTATIONS
@@ -251,9 +251,9 @@ public class TypeOfTypeNameTest {
 		String typeNameString = "AbstractFactory";
 
 		VariableStatement var_x = new VariableStatementImpl(null);
-		var_x.setName(Helpers.string_to_ident("x")); // not necessary
+		var_x.setName(Helpers0.string_to_ident("x")); // not necessary
 		RegularTypeName rtn = new RegularTypeNameImpl(ctx);
-		rtn.setName(Helpers.string_to_qualident(typeNameString));
+		rtn.setName(Helpers0.string_to_qualident(typeNameString));
 		var_x.setTypeName(rtn);
 
 		LookupResultList lrl = new LookupResultListImpl();
@@ -263,7 +263,7 @@ public class TypeOfTypeNameTest {
 		// CREATE VARIABLE UNDER TEST
 		//
 		TypeOfTypeName t = new TypeOfTypeNameImpl(ctx);
-		t.typeOf(Helpers.string_to_qualident(var_x.getName()));
+		t.typeOf(Helpers0.string_to_qualident(var_x.getName()));
 
 		//
 		// SET UP EXPECTATIONS

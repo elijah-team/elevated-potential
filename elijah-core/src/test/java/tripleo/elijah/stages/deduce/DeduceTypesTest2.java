@@ -22,7 +22,7 @@ import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.OS_UserType;
 import tripleo.elijah.stages.gen_fn.GenType;
 import tripleo.elijah.test_help.Boilerplate;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.*;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
 import java.util.Objects;
@@ -43,7 +43,7 @@ public class DeduceTypesTest2 {
 
 			final ClassStatement cs = new ClassStatementImpl(_mod, _mod.getContext());
 			final ClassHeader ch = new ClassHeaderImpl(false, List_of());
-			ch.setName(Helpers.string_to_ident(_name));
+			ch.setName(Helpers0.string_to_ident(_name));
 			cs.setHeader(ch);
 
 			return cs;
@@ -79,17 +79,17 @@ public class DeduceTypesTest2 {
 		final ClassStatement cs = new ClassBuilder().withModule(mod).withName("Test").build();
 
 		final FunctionDef fd = cs.funcDef();
-		fd.setName((Helpers.string_to_ident("test")));
+		fd.setName((Helpers0.string_to_ident("test")));
 		Scope3 scope3 = new Scope3Impl(fd);
 		final VariableSequence vss = scope3.varSeq();
 		final VariableStatement vs = vss.next();
-		vs.setName((Helpers.string_to_ident("x")));
+		vs.setName((Helpers0.string_to_ident("x")));
 		final Qualident qu = new QualidentImpl();
-		qu.append(Helpers.string_to_ident("SystemInteger"));
+		qu.append(Helpers0.string_to_ident("SystemInteger"));
 		((NormalTypeName) vs.typeName()).setName(qu);
 		final FunctionContext fc = (FunctionContext) fd.getContext();
 		vs.typeName().setContext(fc);
-		final IdentExpression x1 = Helpers.string_to_ident("x");
+		final IdentExpression x1 = Helpers0.string_to_ident("x");
 		x1.setContext(fc);
 		fd.scope(scope3);
 		fd.postConstruct();
@@ -121,7 +121,7 @@ public class DeduceTypesTest2 {
 //		final RegularTypeName tn = new RegularTypeNameImpl();
 		final VariableTypeName tn = new VariableTypeNameImpl();
 		final Qualident tnq = new QualidentImpl();
-		tnq.append(Helpers.string_to_ident("SystemInteger"));
+		tnq.append(Helpers0.string_to_ident("SystemInteger"));
 		tn.setName(tnq);
 		tn.setContext(fd.getContext());
 

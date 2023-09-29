@@ -22,8 +22,7 @@ import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry
 import tripleo.elijah.stages.deduce.post_bytecode.IDeduceElement3;
 import tripleo.elijah.stages.gen_fn.GenType;
 import tripleo.elijah.stages.gen_fn.IdentTableEntry;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.*;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -51,7 +50,7 @@ public enum DeduceLookupUtils {
 			throws ResolveError {
 		LookupResultList lrl2;
 		if (best.getExpression() instanceof Qualident) {
-			final IExpression de = Helpers.qualidentToDotExpression2(((Qualident) best.getExpression()));
+			final IExpression de = Helpers0.qualidentToDotExpression2(((Qualident) best.getExpression()));
 			if (de instanceof DotExpression) {
 				lrl2 = lookup_dot_expression(best.getContext(), (DotExpression) de, deduceTypes2);
 			} else
@@ -91,7 +90,7 @@ public enum DeduceLookupUtils {
 			GenType ty = deduceProcedureCall((ProcedureCallExpression) n, context, aDeduceTypes2);
 			return ty/* n.getType() */;
 		case QIDENT:
-			final IExpression expression = Helpers.qualidentToDotExpression2(((Qualident) n));
+			final IExpression expression = Helpers0.qualidentToDotExpression2(((Qualident) n));
 			return deduceExpression(aDeduceTypes2, expression, context);
 		default:
 			return null;
@@ -451,7 +450,7 @@ public enum DeduceLookupUtils {
 			final @NotNull DeduceTypes2 deduceTypes2) throws ResolveError {
 		switch (left.getKind()) {
 		case QIDENT:
-			final IExpression de = Helpers.qualidentToDotExpression2((Qualident) left);
+			final IExpression de = Helpers0.qualidentToDotExpression2((Qualident) left);
 			return lookupExpression(de, ctx, deduceTypes2)/* lookup_dot_expression(ctx, de) */;
 		case DOT_EXP:
 			return lookup_dot_expression(ctx, (DotExpression) left, deduceTypes2);

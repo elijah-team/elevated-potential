@@ -3,7 +3,7 @@ package tripleo.elijah.stages.gen_c;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.diagnostic.ExceptionDiagnostic;
+import tripleo.elijah.diagnostic.ExceptionDiagnostic;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.diagnostic.Diagnostic.Severity;

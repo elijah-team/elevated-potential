@@ -9,12 +9,12 @@ import tripleo.elijah.lang.impl.VariableStatementImpl;
 import tripleo.elijah.lang.types.OS_UserType;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.gen_fn.TypeTableEntry;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.*;
 
 public class XX {
 
 	public @NotNull IdentExpression ident(final String aX) {
-		final IdentExpression identExpression = Helpers.string_to_ident(aX);
+		final IdentExpression identExpression = Helpers0.string_to_ident(aX);
 		return identExpression;
 	}
 
