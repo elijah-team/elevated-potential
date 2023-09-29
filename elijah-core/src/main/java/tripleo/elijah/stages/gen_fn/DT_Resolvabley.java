@@ -1,13 +1,12 @@
 package tripleo.elijah.stages.gen_fn;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class DT_Resolvabley {
 	private final List<DT_Resolvable> x;
@@ -16,59 +15,64 @@ public class DT_Resolvabley {
 		x = aX;
 	}
 
+	private static void logProgress(final int aI, final String z) {
+		if (aI == 67) {
+			System.err.println("----- 67 Should be " + z);
+		} else throw new Error();
+	}
+
 	public @NotNull String getNormalPath(final @NotNull BaseEvaFunction generatedFunction, final IdentIA identIA) {
 		final List<String> rr = new LinkedList<>();
 
 		for (DT_Resolvable resolvable : x) {
 			final OS_Element element = resolvable.element();
 			if (element == null && resolvable.deduceItem() instanceof FunctionInvocation fi) {
-				var fd = fi.getFunction();
+				final FunctionDef fd = fi.getFunction();
 				rr.add("%s".formatted(fd.getNameNode().getText()));
 				// rr.add("%s()".formatted(fd.getNameNode().getText()));
 				continue;
 			}
 
-			if (element instanceof ClassStatement cs) {
-				if (resolvable.deduceItem() instanceof FunctionInvocation fi) {
-					if (fi.getFunction() instanceof ConstructorDef cd) {
-						rr.add("%s()".formatted(cs.getName()));
-						continue;
+			if (element != null) {
+				switch (DecideElObjectType.getElObjectType(element)) {
+				case CLASS -> {
+					var cs = (ClassStatement) element;
+					if (resolvable.deduceItem() instanceof FunctionInvocation fi) {
+						if (fi.getFunction() instanceof ConstructorDef cd) {
+							rr.add("%s()".formatted(cs.getName()));
+						}
 					}
 				}
-			}
-			if (element instanceof FunctionDef fd) {
-				if (resolvable.deduceItem() == null) {
-					// when ~ is folders.forEach, this is null (fi not set yet)
-					rr.add("%s".formatted(fd.getNameNode().getText()));
-					continue;
-				}
-
-				if (resolvable.deduceItem() instanceof FunctionInvocation fi) {
-					if (fi.getFunction() == fd) {
+				case FUNCTION -> {
+					FunctionDef fd = (FunctionDef) element;
+					if (resolvable.deduceItem() == null) {
+						// when ~ is folders.forEach, this is null (fi not set yet)
 						rr.add("%s".formatted(fd.getNameNode().getText()));
-//						rr.add("%s(...)".formatted(fd.getNameNode().getText()));
-						continue;
+					} else if (resolvable.deduceItem() instanceof FunctionInvocation fi) {
+						if (fi.getFunction() == fd) {
+							rr.add("%s".formatted(fd.getNameNode().getText()));
+//	    					rr.add("%s(...)".formatted(fd.getNameNode().getText()));
+						}
 					}
 				}
-			}
-			if (element instanceof VariableStatement vs) {
-				rr.add(vs.getName());
-				continue;
-			}
-			if (element instanceof FormalArgListItem fali) {
-				rr.add(fali.name());
-				continue;
-			}
-			if (resolvable.instructionArgument() instanceof IdentIA identIA2) {
-				var ite = identIA2.getEntry();
+				case VAR -> {
+					VariableStatement vs = (VariableStatement) element;
+					rr.add(vs.getName());
+				}
+				case FORMAL_ARG_LIST_ITEM -> {
+					FormalArgListItem fali = (FormalArgListItem) element;
+					rr.add(fali.name());
+				}
+				}
+			} else if (resolvable.instructionArgument() instanceof IdentIA identIA2) {
+				final IdentTableEntry ite = identIA2.getEntry();
 
 				if (ite._callable_pte() != null) {
-					var cpte = ite._callable_pte();
+					final ProcTableEntry cpte = ite._callable_pte();
 
 					assert cpte.status != BaseTableEntry.Status.KNOWN;
 
 					rr.add("%s".formatted(ite.getIdent().getText()));
-					continue;
 				}
 			}
 		}
@@ -84,11 +88,5 @@ public class DT_Resolvabley {
 		}
 
 		return r;
-	}
-
-	private static void logProgress(final int aI, final String z) {
-		if (aI == 67) {
-			System.err.println("----- 67 Should be " + z);
-		} else throw new Error();
 	}
 }
