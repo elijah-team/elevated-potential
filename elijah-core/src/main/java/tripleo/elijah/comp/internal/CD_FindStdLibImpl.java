@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.graph.i.*;
@@ -32,7 +33,7 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 			final File local_stdlib_1 = sle.toFile();
 
 
-			System.err.println("3939 " + local_stdlib_1);
+			cc.getCompilation().getCompilationEnclosure().logProgress(CompProgress.DriverPhase, Pair.of(3939, ""+local_stdlib_1));
 
 			// TODO stdlib path here
 //			final File local_stdlib = CY_FindPrelude.__local_prelude_file(aPreludeName);
