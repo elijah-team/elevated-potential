@@ -5,11 +5,9 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
-import java.util.regex.*;
 
 public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEzFile {
 	protected final File          directory;
@@ -20,10 +18,6 @@ public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEz
 		directory = aDirectory;
 		file_name = aFileName;
 		file      = new File(directory, file_name);
-	}
-
-	public static boolean isEzFile(String aFileName) {
-		return Pattern.matches(".+\\.ez$", aFileName);
 	}
 
 	private Operation2<CompilerInstructions> process_query(final IO io, final @NotNull EzCache ezCache) {
