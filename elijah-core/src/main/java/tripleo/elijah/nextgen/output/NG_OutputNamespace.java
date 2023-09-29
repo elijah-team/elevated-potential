@@ -32,14 +32,12 @@ public class NG_OutputNamespace implements NG_OutputItem {
 		}
 
 		final BufferTabbedOutputStream tos = garishNamespace.getImplBuffer(x, class_name, x.getCode());
-		final Buffer buf = tos.getBuffer();
-
-		var implText = new NG_OutputNamespaceStatement(buf, GenerateResult.TY.IMPL, m);
+		var implText = new NG_OutputNamespaceStatement(tos, m, GenerateResult.TY.IMPL);
 
 		final BufferTabbedOutputStream tosHdr = garishNamespace.getHeaderBuffer(generateC, x, class_name, x.getCode());
 		final Buffer hdrBuffer = tosHdr.getBuffer();
 
-		var headerText = new NG_OutputNamespaceStatement(hdrBuffer, GenerateResult.TY.HEADER, m);
+		var headerText = new NG_OutputNamespaceStatement(hdrBuffer, m, GenerateResult.TY.HEADER);
 
 		return List_of(implText, headerText);
 	}

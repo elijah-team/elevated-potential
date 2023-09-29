@@ -2,6 +2,7 @@ package tripleo.elijah.comp;
 
 import com.google.common.base.*;
 import lombok.*;
+import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.util.*;

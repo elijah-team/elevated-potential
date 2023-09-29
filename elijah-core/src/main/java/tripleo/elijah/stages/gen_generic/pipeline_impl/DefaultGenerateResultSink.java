@@ -41,10 +41,11 @@ public class DefaultGenerateResultSink implements GenerateResultSink {
 	}
 
 	@Override
-	public void addClass_1(final @NotNull GarishClass aGarishClass, final @NotNull GenerateResult gr,
-			final @NotNull GenerateC aGenerateC) {
+	public void addClass_1(final @NotNull GarishClass aGarishClass,
+	                       final @NotNull GenerateResult gr,
+	                       final @NotNull GenerateFiles aGenerateFiles) {
 		NG_OutputClass o = new NG_OutputClass();
-		o.setClass(aGarishClass, aGenerateC);
+		o.setClass(aGarishClass, aGenerateFiles);
 		pa.addOutput(o);
 	}
 
