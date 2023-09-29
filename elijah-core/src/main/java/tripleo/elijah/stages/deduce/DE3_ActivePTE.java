@@ -146,6 +146,8 @@ class DE3_ActivePTE implements DE3_Active {
 	}
 
 	private void logProgress(final int code, final String message) {
-		System.err.println("" + code + " " + message);
+		var ce = deduceTypes2._phase().pa.getCompilationEnclosure();
+//		System.err.println("" + code + " " + message);
+		ce.logProgress(CompProgress.DeducePhase, Pair.of(code, message));
 	}
 }
