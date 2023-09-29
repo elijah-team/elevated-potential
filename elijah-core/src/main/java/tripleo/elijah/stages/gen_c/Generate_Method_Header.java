@@ -221,7 +221,7 @@ class Generate_Method_Header {
 				@Override
 				public String apply(@Nullable final VariableTableEntry input) {
 					assert input != null;
-					return String.format("%s va%s", gc.getTypeNameForVariableEntry(input), input.getName());
+					return String.format("%s va%s", GenerateC.GetTypeName.forVTE(input), input.getName());
 				}
 			}));
 		}

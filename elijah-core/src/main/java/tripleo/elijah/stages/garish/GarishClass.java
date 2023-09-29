@@ -51,13 +51,7 @@ public class GarishClass {
 	}
 
 	public void garish(final GenerateC aGenerateC, final GenerateResult gr, final @NotNull GenerateResultSink aResultSink) {
-		final LivingClass           dlc = _lc;
-		final EvaClass              x   = dlc.evaNode();
-		final GarishClass_Generator xg  = x.generator();
-
-		if (!xg.generatedAlready()) {
-			xg.provide(aResultSink, this, gr, aGenerateC);
-		}
+		getLiving().generateWith(aResultSink, this, gr, aGenerateC);
 	}
 
 	public @NotNull BufferTabbedOutputStream getImplBuffer(final @NotNull EvaClass x, final @NotNull CClassDecl decl, final String class_name, final int class_code) {

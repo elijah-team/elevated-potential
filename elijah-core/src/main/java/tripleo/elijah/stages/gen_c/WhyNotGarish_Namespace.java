@@ -10,7 +10,7 @@ import tripleo.elijah.stages.gen_fn.EvaNamespace;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.world.i.LivingNamespace;
+import tripleo.elijah.world.i.*;
 
 import static tripleo.elijah.DebugFlags.MANUAL_DISABLED;
 
@@ -61,7 +61,8 @@ public class WhyNotGarish_Namespace implements WhyNotGarish_Item {
 			gcfn.respondTo(this.generateC);
 		}
 
-		var gn = generateC._ce().getCompilation().world().getNamespace(en).getGarish();
+		final LivingRepo world = generateC._ce().getCompilation().world();
+		var gn = world.getNamespace(en).getGarish();
 
 		final @NotNull GenerateResultSink sink = aFileGen.resultSink();
 

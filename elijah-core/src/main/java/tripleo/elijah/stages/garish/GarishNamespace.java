@@ -20,15 +20,7 @@ public class GarishNamespace {
 	public void garish(final GenerateC aGenerateC,
 	                   final GenerateResult gr,
 	                   final @NotNull GenerateResultSink aResultSink) {
-		final LivingNamespace           livingNamespace = getLiving();
-		final EvaNamespace              x               = livingNamespace.evaNode();
-		final GarishNamespace_Generator xg              = x.generator();
-
-		var already = livingNamespace.getGeneratedFlag();
-
-		if (!xg.generatedAlready()) {
-			xg.provide(aResultSink, this, gr, aGenerateC);
-		}
+		getLiving().generateWith(aResultSink, this, gr, aGenerateC);
 	}
 
 	public @NotNull BufferTabbedOutputStream getHeaderBuffer(final @NotNull GenerateC aGenerateC,

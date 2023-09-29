@@ -1,31 +1,26 @@
 package tripleo.elijah.world.impl;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.stages.garish.GarishClass;
-import tripleo.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah.world.i.LivingClass;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.garish.*;
+import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.world.i.*;
 
 public class DefaultLivingClass implements LivingClass {
-	private final ClassStatement _element;
-	private final @Nullable EvaClass _gc;
-	private @Nullable GarishClass _garish;
+	private final          ClassStatement _element;
+	private final @NotNull EvaClass       _gc;
+	private @Nullable      GarishClass    _garish;
 
-	private int _code;
-
-	@Contract(pure = true)
-	public DefaultLivingClass(final ClassStatement aElement) {
-		_element = aElement;
-		_gc = null;
-		_garish = null;
-	}
+	private int     _code;
+	private boolean _generatedFlag;
 
 	public DefaultLivingClass(final @NotNull EvaClass aClass) {
 		_element = aClass.getKlass();
-		_gc = aClass;
-		_garish = null;
+		_gc      = aClass;
+		_garish  = null;
 	}
 
 	@Override
@@ -36,6 +31,11 @@ public class DefaultLivingClass implements LivingClass {
 	@Override
 	public int getCode() {
 		return _code;
+	}
+
+	@Override
+	public void setCode(final int aCode) {
+		_code = aCode;
 	}
 
 	@Override
@@ -54,7 +54,13 @@ public class DefaultLivingClass implements LivingClass {
 	}
 
 	@Override
-	public void setCode(final int aCode) {
-		_code = aCode;
+	public void generateWith(final GenerateResultSink aResultSink, final @NotNull GarishClass aGarishClass, final GenerateResult aGr, final GenerateFiles aGenerateFiles) {
+		if (!_generatedFlag) {
+			var                         generateC = (GenerateC) aGenerateFiles;
+			final GarishClass_Generator xg        = new GarishClass_Generator(evaNode());
+			xg.provide(aResultSink, aGarishClass, aGr, generateC);
+
+			_generatedFlag = true;
+		}
 	}
 }
