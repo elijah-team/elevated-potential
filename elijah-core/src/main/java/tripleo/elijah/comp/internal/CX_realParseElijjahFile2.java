@@ -48,8 +48,4 @@ public class CX_realParseElijjahFile2 {
 
 		return calm;
 	}
-
-	public static Operation2<OS_Module> realParseElijjahFile2_(final ElijahSpec aSpec, final ElijahCache aElijahCache, final Compilation aCompilation) {
-		return realParseElijjahFile2(aSpec, aElijahCache, aCompilation);
-	}
 }

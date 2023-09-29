@@ -74,7 +74,7 @@ class DefaultCompFactory implements CompFactory {
 			@Override
 			public Operation2<OS_Module> parse(ElijahSpec spec) {
 				var c = compilation;
-				return CX_realParseElijjahFile2.realParseElijjahFile2_(spec, elijahCache, c);
+				return CX_realParseElijjahFile2.realParseElijjahFile2(spec, elijahCache, c);
 			}
 		};
 	}
