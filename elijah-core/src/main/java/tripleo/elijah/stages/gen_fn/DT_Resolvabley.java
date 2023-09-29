@@ -80,9 +80,15 @@ public class DT_Resolvabley {
 		// assert r.equals(z);
 		if (!r.equals(z)) {
 			// 08/13
-			System.err.println("----- 67 Should be " + z);
+			logProgress(67, z);
 		}
 
 		return r;
+	}
+
+	private static void logProgress(final int aI, final String z) {
+		if (aI == 67) {
+			System.err.println("----- 67 Should be " + z);
+		} else throw new Error();
 	}
 }

@@ -1640,11 +1640,16 @@ public class GenerateFunctions implements ReactiveDimension {
 		final WorkList wl = dcg.wl();
 
 		if (!wl.isEmpty()) {
-			System.err.println("** 1070 WorkList not empty");
+			logProgress(1070, "WorkList not empty");
 			wm.addJobs(wl);
 			wm.drain();
 		}
 
+	}
+
+	private static void logProgress(int code, String message) {
+		// TODO LOG
+		System.err.println("** "+code+" "+message);
 	}
 
 	@NotNull

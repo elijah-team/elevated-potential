@@ -183,7 +183,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 								}
 							}
 						} else {
-							System.err.println("************************** no generic");
+							logProgress(99980, "************************** no generic");
 						}
 					}
 					return Operation.success(true);
@@ -256,6 +256,10 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 				varTableEntry._p_updatePotentialTypesCBPromise.resolve(varTableEntry.updatePotentialTypesCB);
 			}
 		}
+	}
+
+	private static void logProgress(final int code, final String message) {
+		System.err.println(code + " " + message);
 	}
 
 	@Override

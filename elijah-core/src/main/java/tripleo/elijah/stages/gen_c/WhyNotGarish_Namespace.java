@@ -1,7 +1,9 @@
 package tripleo.elijah.stages.gen_c;
 
+import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.nextgen.reactive.Reactivable;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah.stages.gen_fn.EvaNamespace;
@@ -65,13 +67,17 @@ public class WhyNotGarish_Namespace implements WhyNotGarish_Item {
 
 		if (sink != null)
 			sink.addNamespace_1(gn, aFileGen.gr(), generateC);
-		else
-			System.err.println("sink failed");
-
+		else {
+			logProgress(9993, "sink failed");
+		}
 	}
 
 	@Override
 	public void provideFileGen(final GenerateResultEnv fg) {
 		fileGenPromise.resolve(fg);
+	}
+
+	private void logProgress(int code, String message) {
+		generateC._ce().logProgress(CompProgress.GenerateC, Pair.of(code, message));
 	}
 }
