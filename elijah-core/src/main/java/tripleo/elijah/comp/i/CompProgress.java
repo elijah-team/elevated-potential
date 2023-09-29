@@ -101,9 +101,17 @@ public enum CompProgress {
 			Pair<Integer, String> t = (Pair<Integer, String>)x;
 
 			var aI = t.getLeft();
+
+			final String ss;
+			if (aI == 37939) {
+				ss = "findStdLib";
+			} else {
+				ss = ""+aI;
+			}
+
 			var aS = t.getRight();
 
-			out.printf("%d %s%n", aI, aS);
+			out.printf("[-- DriverPhase] %s %s%n", ss, aS);
 		}
 	};
 
