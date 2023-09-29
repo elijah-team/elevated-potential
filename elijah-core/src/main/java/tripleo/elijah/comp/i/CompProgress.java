@@ -10,6 +10,7 @@ import tripleo.elijah.util.*;
 
 import java.io.*;
 
+// FIXME use emojis??
 // NOTE strange pattern (ie why not just directly?)
 public enum CompProgress {
 	Compilation__hasInstructions__empty {
@@ -72,7 +73,7 @@ public enum CompProgress {
 			var spec = t.getLeft();
 			var hash = t.getRight();
 
-				out.printf("[-- Ez has HASH ] %s %s%n", spec.file(), hash);
+			out.printf("[-- Ez has HASH ] %s %s%n", spec.file(), hash);
 		}
 	}, GenerateC {
 		@Override
@@ -82,7 +83,17 @@ public enum CompProgress {
 			var aI = t.getLeft();
 			var aS = t.getRight();
 
-			System.err.printf("%d %s%n", aI, aS);
+			out.printf("%d %s%n", aI, aS);
+		}
+	}, DeducePhase {
+		@Override
+		public void deprecated_print(final Object x, final PrintStream out, final PrintStream err) {
+			Pair<Integer, String> t = (Pair<Integer, String>)x;
+
+			var aI = t.getLeft();
+			var aS = t.getRight();
+
+			out.printf("%d %s%n", aI, aS);
 		}
 	};
 
