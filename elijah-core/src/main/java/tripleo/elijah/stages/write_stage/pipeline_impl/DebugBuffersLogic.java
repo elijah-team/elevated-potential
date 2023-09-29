@@ -12,7 +12,7 @@ public enum DebugBuffersLogic {
 
 	public static void __debug_buffers_logic_each(final @NotNull XPrintStream db_stream,
 			final @NotNull Old_GenerateResultItem ab) {
-		if (true) {
+		if (false) {
 			final String s = MessageFormat.format("{0} - {1} - {2}", ab.counter, ab.ty, ab.output);
 
 			if (db_stream instanceof LSPrintStream lsp) {
