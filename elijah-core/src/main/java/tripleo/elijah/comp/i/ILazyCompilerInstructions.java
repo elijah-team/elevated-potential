@@ -1,14 +1,10 @@
 package tripleo.elijah.comp.i;
 
-import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.impl.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;

@@ -15,7 +15,6 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
-import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;

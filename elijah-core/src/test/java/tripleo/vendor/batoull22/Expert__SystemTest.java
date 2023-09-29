@@ -1,11 +1,9 @@
 package tripleo.vendor.batoull22;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.nextgen.query.Mode;
+import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Operation;
 
 public class Expert__SystemTest {

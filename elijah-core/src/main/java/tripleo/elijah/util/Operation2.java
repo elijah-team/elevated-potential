@@ -1,10 +1,8 @@
 package tripleo.elijah.util;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.diagnostic.*;
 import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.nextgen.query.*;
 
 /**
  * An emulation of Rust's Result type

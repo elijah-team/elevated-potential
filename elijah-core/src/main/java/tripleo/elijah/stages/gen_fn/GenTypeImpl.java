@@ -19,7 +19,7 @@ import tripleo.elijah.lang.types.OS_BuiltinType;
 import tripleo.elijah.lang.types.OS_FuncExprType;
 import tripleo.elijah.lang.types.OS_FuncType;
 import tripleo.elijah.lang.types.OS_UserClassType;
-import tripleo.elijah.nextgen.query.Mode;
+import tripleo.elijah.util.Mode;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.nextgen.DR_Type;
 import tripleo.elijah.stages.deduce.post_bytecode.setup_GenType_Action;

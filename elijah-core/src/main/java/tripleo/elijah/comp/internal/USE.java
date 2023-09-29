@@ -12,7 +12,6 @@ import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
