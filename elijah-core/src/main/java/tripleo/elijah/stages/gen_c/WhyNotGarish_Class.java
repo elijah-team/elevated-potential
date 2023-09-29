@@ -10,7 +10,7 @@ import tripleo.elijah.stages.gen_fn.EvaClass;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.world.i.LivingClass;
+import tripleo.elijah.world.i.*;
 
 import static tripleo.elijah.DebugFlags.MANUAL_DISABLED;
 
@@ -23,7 +23,7 @@ public class WhyNotGarish_Class implements WhyNotGarish_Item {
 				fileGenPromise.then(fileGen -> {
 					final LivingClass livingClass = generateC._ce().getCompilation().world().getClass(gc);
 
-					livingClass.getGarish().garish(generateC, fileGen.gr(), fileGen.resultSink());
+					livingClass.generateWith(fileGen.resultSink(), livingClass.getGarish(), fileGen.gr(), generateC);
 				});
 			}
 		}
@@ -61,7 +61,8 @@ public class WhyNotGarish_Class implements WhyNotGarish_Item {
 			gcfc.respondTo(this.generateC);
 		}
 
-		var gc1 = generateC._ce().getCompilation().world().getClass(gc).getGarish();
+		final LivingRepo world = generateC._ce().getCompilation().world();
+		var gc1 = world.getClass(gc).getGarish();
 
 		final @NotNull GenerateResultSink sink = aFileGen.resultSink();
 

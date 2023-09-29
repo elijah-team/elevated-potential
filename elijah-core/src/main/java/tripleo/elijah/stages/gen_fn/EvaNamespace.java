@@ -8,6 +8,7 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
@@ -37,11 +38,10 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 	public DefaultLivingNamespace _living;
 	private final OS_Module module;
 
+	@Getter
 	private final NamespaceStatement namespaceStatement;
 
 	private _Reactive_EvaNamespace reactiveEvaNamespace = new _Reactive_EvaNamespace();
-
-	private final GarishNamespace_Generator _gng = new GarishNamespace_Generator(this);
 
 	public EvaNamespace(NamespaceStatement aNamespaceStatement, OS_Module aModule) {
 		namespaceStatement = aNamespaceStatement;
@@ -78,10 +78,6 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 		throw new NotImplementedException();
 	}
 
-	public GarishNamespace_Generator generator() {
-		return _gng;
-	}
-
 	@Override
 	public int getCode() {
 		return _living.getCode();
@@ -100,10 +96,6 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 		return namespaceStatement.getName();
 	}
 
-	public NamespaceStatement getNamespaceStatement() {
-		return this.namespaceStatement;
-	}
-
 	private boolean getPragma(String auto_construct) { // TODO this should be part of ContextImpl
 		return false;
 	}
@@ -113,14 +105,14 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 		return Role.NAMESPACE;
 	}
 
-	@Override
-	public @NotNull Maybe<VarTableEntry> getVariable(String aVarName) {
-		for (VarTableEntry varTableEntry : varTable) {
-			if (varTableEntry.nameToken.getText().equals(aVarName))
-				return new Maybe<>(varTableEntry, null);
-		}
-		return new Maybe<>(null, _def_VarNotFound);
-	}
+//	@Override
+//	public @NotNull Maybe<VarTableEntry> getVariable(String aVarName) {
+//		for (VarTableEntry varTableEntry : varTable) {
+//			if (varTableEntry.nameToken.getText().equals(aVarName))
+//				return new Maybe<>(varTableEntry, null);
+//		}
+//		return new Maybe<>(null, _def_VarNotFound);
+//	}
 
 	@Override
 	public String identityString() {

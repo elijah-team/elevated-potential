@@ -1,22 +1,21 @@
 package tripleo.elijah.world.i;
 
-import tripleo.elijah.lang.i.NamespaceStatement;
-import tripleo.elijah.stages.garish.GarishNamespace;
-import tripleo.elijah.stages.gen_c.GenerateC;
-import tripleo.elijah.stages.gen_fn.EvaNamespace;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.garish.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 
 public interface LivingNamespace extends LivingNode {
 	EvaNamespace evaNode();
 
-	void garish(GenerateC aGenerateC, GenerateResult aGr, GenerateResultSink aResultSink);
-
 	int getCode();
+
+	void setCode(int aCode);
 
 	NamespaceStatement getElement();
 
 	GarishNamespace getGarish();
 
-	void setCode(int aCode);
+	void generateWith(GenerateResultSink aResultSink, GarishNamespace aGarishNamespace, GenerateResult aGr, GenerateFiles aGenerateFiles);
 }

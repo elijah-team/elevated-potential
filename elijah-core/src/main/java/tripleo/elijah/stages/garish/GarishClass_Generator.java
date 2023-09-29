@@ -14,10 +14,6 @@ public class GarishClass_Generator {
 		carrier = aEvaClass;
 	}
 
-	public boolean generatedAlready() {
-		return generatedAlready;
-	}
-
 	public void provide(final @NotNull GenerateResultSink aResultSink,
 	                    final @NotNull GarishClass aGarishClass,
 	                    final @NotNull GenerateResult aGr,

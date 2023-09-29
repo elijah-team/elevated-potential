@@ -356,7 +356,7 @@ public class Generate_Code_For_Method {
 			tos.put_string_ln("Error_TTE_Not_Resolved " + aGmh.tte);
 			break;
 		case 1:
-			final String ty = gc.getTypeName(aGmh.tte);
+			final String ty = GenerateC.GetTypeName.forTypeTableEntry(aGmh.tte);
 			tos.put_string_ln(String.format("%s* vsr;", ty));
 			break;
 		case 2:
@@ -367,7 +367,7 @@ public class Generate_Code_For_Method {
 			// Assuming ctor
 			is_constructor = gf.pointsToConstructor2();
 			final EvaNode genClass = gf.getGenClass();
-			final String ty2 = gc.getTypeNameForGenClass(genClass);
+			final String ty2 = GenerateC.GetTypeName.getTypeNameForEvaNode(genClass);
 
 			final String return_type1 = aGmh.__find_return_type(gf, gc.LOG);
 			if (return_type1 != null) {

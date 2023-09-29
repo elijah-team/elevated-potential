@@ -35,9 +35,7 @@ public class NG_OutputNamespace implements NG_OutputItem {
 		var implText = new NG_OutputNamespaceStatement(tos, m, GenerateResult.TY.IMPL);
 
 		final BufferTabbedOutputStream tosHdr = garishNamespace.getHeaderBuffer(generateC, x, class_name, x.getCode());
-		final Buffer hdrBuffer = tosHdr.getBuffer();
-
-		var headerText = new NG_OutputNamespaceStatement(hdrBuffer, m, GenerateResult.TY.HEADER);
+		var headerText = new NG_OutputNamespaceStatement(tosHdr, m, GenerateResult.TY.HEADER);
 
 		return List_of(implText, headerText);
 	}
