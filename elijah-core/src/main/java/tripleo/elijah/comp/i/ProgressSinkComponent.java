@@ -1,7 +1,8 @@
 package tripleo.elijah.comp.i;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 
+// FIXME this is ugly
 public enum ProgressSinkComponent {
 	CCI {
 		@Override
@@ -23,6 +24,21 @@ public enum ProgressSinkComponent {
 		@Override
 		public String printErr(final IProgressSink.Codes aCode, final int aType, final Object[] aParams) {
 			return "*** CompilationBus ->> " + aParams[0];
+		}
+	}, DefaultCompilationBus {
+		@Override
+		public boolean isPrintErr(final IProgressSink.Codes aCode, final int aType) {
+			return false;
+		}
+
+		@Override
+		public String printErr(final IProgressSink.Codes aCode, final int aType, final Object[] aParams) {
+			return switch (aType) {
+			case 5784 -> "*** DefaultCompilationBus ->> Start polling";
+			case 5757 -> "*** DefaultCompilationBus ->> %s".formatted(aParams[0]);
+			case 5758 -> "*** DefaultCompilationBus ->> poll returns null";
+			default -> throw new IllegalStateException("Unexpected value: " + aType);
+			};
 		}
 	};
 

@@ -4,7 +4,8 @@ public interface IProgressSink {
 	enum Codes {
 		LazyCompilerInstructions_inst(750),
 		DefaultCCI_accept(131),
-		EzM__realParseEzFile(166);
+		EzM__realParseEzFile(166),
+		DefaultCompilationBus__pollProcess(9191);
 
 		private final int value;
 
