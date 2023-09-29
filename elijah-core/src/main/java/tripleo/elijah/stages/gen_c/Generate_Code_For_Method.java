@@ -21,7 +21,7 @@ import tripleo.elijah.lang.types.OS_UnitType;
 import tripleo.elijah.nextgen.outputstatement.EG_SingleStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
-import tripleo.elijah.nextgen.query.Mode;
+import tripleo.elijah.util.Mode;
 import tripleo.elijah.stages.deduce.nextgen.DR_Ident;
 import tripleo.elijah.stages.deduce.nextgen.DR_Item;
 import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_VariableTableEntry;

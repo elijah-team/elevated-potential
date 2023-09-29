@@ -7,7 +7,6 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.diagnostic.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
 import tripleo.elijjah.*;
 

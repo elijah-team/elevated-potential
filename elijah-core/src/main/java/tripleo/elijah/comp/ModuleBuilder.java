@@ -2,11 +2,10 @@ package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.contexts.ModuleContext;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.impl.OS_ModuleImpl;
-import tripleo.elijah.nextgen.query.Mode;
+import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Operation2;
 import tripleo.elijah.world.i.WorldModule;
 

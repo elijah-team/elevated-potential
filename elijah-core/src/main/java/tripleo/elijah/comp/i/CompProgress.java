@@ -5,7 +5,6 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.nextgen.*;
-import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;

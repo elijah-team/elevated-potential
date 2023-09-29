@@ -3,7 +3,6 @@ package tripleo.elijah.comp.internal;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;

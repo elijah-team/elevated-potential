@@ -6,12 +6,9 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.nextgen.impl.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
-import java.util.*;
 import java.util.function.*;
 
 public class CD_FindStdLibImpl implements CD_FindStdLib {

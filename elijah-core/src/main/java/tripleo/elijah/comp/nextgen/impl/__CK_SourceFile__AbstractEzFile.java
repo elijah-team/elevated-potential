@@ -11,7 +11,6 @@ import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
