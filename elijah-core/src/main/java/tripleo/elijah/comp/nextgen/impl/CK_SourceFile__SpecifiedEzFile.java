@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.nextgen.impl;
 
+import com.google.common.base.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
@@ -25,8 +26,11 @@ public class CK_SourceFile__SpecifiedEzFile extends __CK_SourceFile__AbstractEzF
 	}
 
 	private Operation2<CompilerInstructions> process_query(final IO io, final @NotNull EzCache ezCache) {
+		final String fileName = file_name();
+		Preconditions.checkArgument(isEzFile(fileName));
+
 		var ezSpec = new EzSpec(
-				file_name(),
+				fileName,
 				() -> {
 					try {
 						return io.readFile(file);
