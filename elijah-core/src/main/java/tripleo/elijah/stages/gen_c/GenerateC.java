@@ -8,10 +8,10 @@
  */
 package tripleo.elijah.stages.gen_c;
 
+import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.OS_FuncExprType;
 import tripleo.elijah.lang2.BuiltInTypes;
@@ -923,7 +923,10 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 										   final @NotNull GenerateResultEnv fg) {
 		final GenerateResult gr2 = fg.gr();
 
-		assert fg.resultSink() == grs;
+		if (fg.resultSink() != grs) {
+			// LOOK 09/28 dsfjklafhdjsklfhjdlfdhjlf
+			_ce().logProgress(CompProgress.GenerateC, Pair.of(9997, "fg.resultSink() != grs"));
+		}
 
 		for (final EvaNode generatedNode : aNodes) {
 			if (generatedNode instanceof final @NotNull EvaContainerNC nc) {
