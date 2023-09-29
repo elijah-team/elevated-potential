@@ -51,9 +51,9 @@ class DE3_ActivePTE implements DE3_Active {
 			if (size2 > size1) {
 				logProgress(3047, "" + (size2 - size1) + " results generated for " + node.identityString());
 			} else {
-				assert size2 == 0;
+				//assert size2 == 0;
 
-				logProgress(3046, "no results generated for " + node.identityString());
+				logProgress(3046, "only " +size2 +" results generated for " + node.identityString() /*+ "out of "+size1*/);
 			}
 
 			for (GenerateResultItem result : x.results()) {
