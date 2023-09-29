@@ -16,6 +16,7 @@ import tripleo.elijah.util.*;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.*;
 
 abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 	protected Compilation   compilation;
@@ -116,4 +117,7 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 
 	public abstract String getFileName();
 
+	public static boolean isEzFile(String aFileName) {
+		return Pattern.matches(".+\\.ez$", aFileName);
+	}
 }
