@@ -31,5 +31,5 @@ public interface CompFactory {
 
 	CY_ElijahSpecParser defaultElijahSpecParser(ElijahCache aElijahCache);
 
-	CY_ElijahSpecParser defaultElijahSpecParser2(ElijahCache aElijahCache);
+	CY_EzSpecParser defaultEzSpecParser(EzCache aEzCache);
 }
