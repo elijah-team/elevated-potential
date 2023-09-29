@@ -21,7 +21,7 @@ import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.OS_BuiltinType;
 import tripleo.elijah.lang.types.OS_UserType;
 import tripleo.elijah.lang2.BuiltInTypes;
-import tripleo.elijah.util.Mode;
+import tripleo.elijah.util.*;
 import tripleo.elijah.stages.deduce.Resolve_Ident_IA.DeduceElementIdent;
 import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
@@ -29,8 +29,6 @@ import tripleo.elijah.stages.gen_fn.GenType;
 import tripleo.elijah.stages.gen_fn.IdentTableEntry;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.test_help.Boilerplate;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.Operation2;
 import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
@@ -64,18 +62,18 @@ public class DeduceTypesTest {
 
 		final ClassStatement cs = new ClassStatementImpl(mod, mod.getContext());
 		final ClassHeader ch = new ClassHeaderImpl(false, List_of());
-		ch.setName(Helpers.string_to_ident("Test"));
+		ch.setName(Helpers0.string_to_ident("Test"));
 		cs.setHeader(ch);
 		final FunctionDef fd = cs.funcDef();
-		fd.setName(Helpers.string_to_ident("test"));
+		fd.setName(Helpers0.string_to_ident("test"));
 		final Scope3 scope3 = new Scope3Impl(fd);
 		final VariableSequence vss = scope3.statementClosure().varSeq(fd.getContext());
 		final VariableStatement vs = vss.next();
-		final IdentExpression x_ident = Helpers.string_to_ident("x");
+		final IdentExpression x_ident = Helpers0.string_to_ident("x");
 		x_ident.setContext(fd.getContext());
 		vs.setName(x_ident);
 		final Qualident qu = new QualidentImpl();
-		qu.append(Helpers.string_to_ident("Integer"));
+		qu.append(Helpers0.string_to_ident("Integer"));
 		((NormalTypeName) vs.typeName()).setName(qu);
 		vs.typeName().setContext(fd.getContext());
 		fd.scope(scope3);
@@ -83,7 +81,7 @@ public class DeduceTypesTest {
 		cs.postConstruct();
 		mod.postConstruct();
 		final FunctionContext fc = (FunctionContext) fd.getContext(); // TODO needs to be mocked
-		final IdentExpression x1 = Helpers.string_to_ident("x");
+		final IdentExpression x1 = Helpers0.string_to_ident("x");
 		x1.setContext(fc);
 
 		mod.setPrelude(mod.getCompilation().findPrelude("c").success().module());
@@ -135,7 +133,7 @@ public class DeduceTypesTest {
 	public void testDeduceIdentExpression2() {
 		final RegularTypeName tn = new RegularTypeNameImpl();
 		final Qualident tnq = new QualidentImpl();
-		tnq.append(Helpers.string_to_ident("Integer"));
+		tnq.append(Helpers0.string_to_ident("Integer"));
 		tn.setName(tnq);
 		assertTrue(genTypeTypenameEquals(new OS_UserType(tn), x/* .getTypeName() */));
 	}
@@ -144,7 +142,7 @@ public class DeduceTypesTest {
 	public void testDeduceIdentExpression3() {
 		final VariableTypeName tn = new VariableTypeNameImpl();
 		final Qualident tnq = new QualidentImpl();
-		tnq.append(Helpers.string_to_ident("Integer"));
+		tnq.append(Helpers0.string_to_ident("Integer"));
 		tn.setName(tnq);
 		assertEquals(new OS_UserType(tn).getTypeName(), x.getTypeName().getTypeName());
 		assertTrue(genTypeTypenameEquals(new OS_UserType(tn), x));
@@ -154,7 +152,7 @@ public class DeduceTypesTest {
 	public void testDeduceIdentExpression4() {
 		final VariableTypeName tn = new VariableTypeNameImpl();
 		final Qualident tnq = new QualidentImpl();
-		tnq.append(Helpers.string_to_ident("Integer"));
+		tnq.append(Helpers0.string_to_ident("Integer"));
 		tn.setName(tnq);
 		assertEquals(new OS_UserType(tn).getTypeName(), x.getTypeName().getTypeName());
 		assertTrue(genTypeTypenameEquals(new OS_UserType(tn), x));

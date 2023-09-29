@@ -2,10 +2,10 @@ package tripleo.elijah.comp.impl;
 
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.diagnostic.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.queries.*;
+import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;

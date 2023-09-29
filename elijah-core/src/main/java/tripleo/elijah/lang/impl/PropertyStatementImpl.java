@@ -13,7 +13,7 @@ import tripleo.elijah.contexts.PropertyStatementContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.nextgen.names.i.EN_Name;
 import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.*;
 
 /**
  * Created 8/6/20 4:00 PM
@@ -51,7 +51,7 @@ public class PropertyStatementImpl implements PropertyStatement {
 	@NotNull
 	FunctionDef createGetFunction() {
 		FunctionDef functionDef = new FunctionDefImpl(this, getContext());
-		functionDef.setName(Helpers.string_to_ident(String.format("<prop_get %s>", prop_name)));
+		functionDef.setName(Helpers0.string_to_ident(String.format("<prop_get %s>", prop_name)));
 		functionDef.setSpecies(FunctionDef.Species.PROP_GET);
 		functionDef.setReturnType(typeName);
 		return functionDef;
@@ -72,14 +72,14 @@ public class PropertyStatementImpl implements PropertyStatement {
 	@NotNull
 	FunctionDef createSetFunction() {
 		FunctionDef functionDef = new FunctionDefImpl(this, getContext());
-		functionDef.setName(Helpers.string_to_ident(String.format("<prop_set %s>", prop_name)));
+		functionDef.setName(Helpers0.string_to_ident(String.format("<prop_set %s>", prop_name)));
 		functionDef.setSpecies(FunctionDef.Species.PROP_SET);
 		FormalArgList fal = new FormalArgListImpl();
 		FormalArgListItem fali = fal.next();
-		fali.setName(Helpers.string_to_ident("Value"));
+		fali.setName(Helpers0.string_to_ident("Value"));
 		fali.setTypeName(this.typeName);
 		RegularTypeName unitType = new RegularTypeNameImpl();
-		unitType.setName(Helpers.string_to_qualident("Unit"));
+		unitType.setName(Helpers0.string_to_qualident("Unit"));
 		functionDef.setReturnType(unitType/* BuiltInTypes.Unit */);
 		functionDef.setFal(fal);
 		return functionDef;

@@ -11,7 +11,7 @@ package tripleo.elijah.stages.gen_c;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.*;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ public class CClassDecl {
 		xx.walkAnnotations(new AnnotationWalker() {
 			@Override
 			public void annotation(@NotNull AnnotationPart anno) {
-				if (anno.annoClass().equals(Helpers.string_to_qualident("C.repr"))) {
+				if (anno.annoClass().equals(Helpers0.string_to_qualident("C.repr"))) {
 					if (anno.getExprs() != null) {
 						final ArrayList<IExpression> expressions = new ArrayList<IExpression>(
 								anno.getExprs().expressions());
@@ -45,7 +45,7 @@ public class CClassDecl {
 						}
 					}
 				}
-				if (anno.annoClass().equals(Helpers.string_to_qualident("Primitive")))
+				if (anno.annoClass().equals(Helpers0.string_to_qualident("Primitive")))
 					setPrimitive();
 			}
 		});

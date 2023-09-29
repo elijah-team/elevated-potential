@@ -51,7 +51,7 @@ public class ExpressionNodeBuilder {
 	public static IExpression binex(final TypeRef rt, final VariableReferenceImpl left, final @NotNull ExpressionOperators middle, final @NotNull TmpSSACtxNode right) { // todo wrong again
 		// TODO Auto-generated method stub
 		final ExpressionKind middle1 = Helpers.ExpressionOperatorToExpressionType(middle);
-		return new BasicBinaryExpressionImpl(left, middle1, new StringExpressionImpl(tripleo.elijah.util.Helpers.makeToken(right.text()))); // TODO !!!
+		return new BasicBinaryExpressionImpl(left, middle1, new StringExpressionImpl(tripleo.elijah.util.Helpers0.makeToken(right.text()))); // TODO !!!
 	}
 
 	@NotNull
@@ -117,7 +117,7 @@ public class ExpressionNodeBuilder {
 		final ProcedureCallExpression pce1 = new ProcedureCallExpressionImpl();
 		final Qualident               xyz  = new QualidentImpl();
 		final Token                   t    = new CommonToken();
-		xyz.append(tripleo.elijah.util.Helpers.string_to_ident(aMeth.getTitle()));
+		xyz.append(tripleo.elijah.util.Helpers0.string_to_ident(aMeth.getTitle()));
 		pce1.identifier(xyz);
 		//
 		//
@@ -215,8 +215,8 @@ public class ExpressionNodeBuilder {
 		// TODO Auto-generated method stub
 		final ProcedureCallExpression pce1 = new ProcedureCallExpressionImpl();
 		final Qualident               xyz  = new QualidentImpl();
-//		final Token t = tripleo.elijah.util.Helpers.makeToken(string);
-		xyz.append(tripleo.elijah.util.Helpers.string_to_ident(string));
+//		final Token t = tripleo.elijah.util.Helpers0.makeToken(string);
+		xyz.append(tripleo.elijah.util.Helpers0.string_to_ident(string));
 		pce1.identifier(xyz);
 		//
 		final ExpressionList expl = Helpers.LocalAgnTmpNodeToListVarRef(of);
@@ -289,7 +289,7 @@ public class ExpressionNodeBuilder {
 	@Contract("_ -> new")
 	public static IdentExpression ident(final String string) {
 		// TODO Parser level elements should not be used here
-		return new IdentExpressionImpl(tripleo.elijah.util.Helpers.makeToken(string), "<inline-absent>");
+		return new IdentExpressionImpl(tripleo.elijah.util.Helpers0.makeToken(string), "<inline-absent>");
 
 	}
 

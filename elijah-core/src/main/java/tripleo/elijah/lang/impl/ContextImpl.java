@@ -35,11 +35,11 @@ public abstract class ContextImpl implements tripleo.elijah.lang.i.Context {
 	}
 
 //	@Deprecated public void add(OS_Element element, String name) {
-//		add(element, new IdentExpressionImpl(Helpers.makeToken(name)));
+//		add(element, new IdentExpressionImpl(Helpers0.makeToken(name)));
 //	}
 //
 //	@Deprecated public void add(OS_Element element, String name, OS_Type dtype) {
-//		add(element, new IdentExpressionImpl(Helpers.makeToken(name)), dtype);
+//		add(element, new IdentExpressionImpl(Helpers0.makeToken(name)), dtype);
 //	}
 //
 //	public void add(OS_Element element, IExpression name) {

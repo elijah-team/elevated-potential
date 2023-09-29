@@ -128,8 +128,8 @@ public class USE {
 		}
 
 		final LibraryStatementPart lsp = new LibraryStatementPartImpl();
-		lsp.setName(Helpers.makeToken("default")); // TODO: make sure this doesn't conflict
-		lsp.setDirName(Helpers.makeToken(String.format("\"%s\"", instruction_dir)));
+		lsp.setName(Helpers0.makeToken("default")); // TODO: make sure this doesn't conflict
+		lsp.setDirName(Helpers0.makeToken(String.format("\"%s\"", instruction_dir)));
 		lsp.setInstructions(compilerInstructions);
 		USE_Reasoning reasoning = USE_Reasonings.default_(compilerInstructions, false, instruction_dir, lsp);
 		use_internal(instruction_dir, lsp, reasoning);

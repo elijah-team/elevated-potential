@@ -16,7 +16,8 @@ import tripleo.util.buffer.TextBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
+
 
 /**
  * Created 4/26/21 11:36 PM
@@ -59,8 +60,9 @@ public class BufferTabbedOutputStream {
 		for (int i = 0; i < tabwidth; i++)
 			b.append("\t");
 
-		for (int i = 0; i < tabwidth; i++)
+		for (int i = 0; i < tabwidth; i++) {
 			sb.append("\t");
+		}
 		return sb.toString();
 	}
 

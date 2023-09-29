@@ -32,7 +32,7 @@ import tripleo.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah.stages.instructions.IntegerIA;
 import tripleo.elijah.stages.instructions.VariableTableType;
 import tripleo.elijah.test_help.Boilerplate;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.*;
 import tripleo.elijah.world.*;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
@@ -156,9 +156,9 @@ public class GetIdentIAPathTest_ForC {
 	@Disabled
 	@Test
 	public void testManualXDotFoo3() {
-		IdentExpression x_ident = Helpers.string_to_ident("x");
+		IdentExpression x_ident = Helpers0.string_to_ident("x");
 		@NotNull
-		IdentExpression foo_ident = Helpers.string_to_ident("foo");
+		IdentExpression foo_ident = Helpers0.string_to_ident("foo");
 		//
 		final Boilerplate boilerplate = new Boilerplate();
 		boilerplate.get();
@@ -200,9 +200,9 @@ public class GetIdentIAPathTest_ForC {
 	@org.junit.jupiter.api.Test
 	public void testManualXDotFooWithFooBeingFunction() {
 		@NotNull
-		IdentExpression x_ident = Helpers.string_to_ident("x");
+		IdentExpression x_ident = Helpers0.string_to_ident("x");
 		@NotNull
-		IdentExpression foo_ident = Helpers.string_to_ident("foo");
+		IdentExpression foo_ident = Helpers0.string_to_ident("foo");
 		//
 		Context ctx = mock(Context.class);
 		Context mockContext = mock(Context.class);
@@ -216,7 +216,7 @@ public class GetIdentIAPathTest_ForC {
 		// replay(mod);
 
 		ClassStatement classStatement = new ClassStatementImpl(mod, ctx);
-		classStatement.setName(Helpers.string_to_ident("X")); // README not explicitly necessary
+		classStatement.setName(Helpers0.string_to_ident("X")); // README not explicitly necessary
 
 //		when(mockContext.lookup(foo_ident.getText())).thenReturn(lrl2);
 

@@ -26,17 +26,17 @@ public class DeduceTypesTest3 {
 //		final ModuleContext mctx = new ModuleContext(mod);
 //		mod.setContext(mctx);
 //		final ClassStatement cs = new ClassStatementImpl(mod, mctx);
-//		cs.setName(Helpers.string_to_ident("Test"));
+//		cs.setName(Helpers0.string_to_ident("Test"));
 //		final ClassStatement cs_foo = new ClassStatementImpl(mod, mctx);
-//		cs_foo.setName(Helpers.string_to_ident("Foo"));
+//		cs_foo.setName(Helpers0.string_to_ident("Foo"));
 //		final FunctionDef fd = cs.funcDef();
-//		fd.setName(Helpers.string_to_ident("test"));
+//		fd.setName(Helpers0.string_to_ident("test"));
 //		Scope3Impl scope3 = new Scope3Impl(fd);
 //		final VariableSequenceImpl vss = scope3.statementClosure().varSeq(fd.getContext());
 //		final VariableStatementImpl vs = vss.next();
-//		vs.setName(Helpers.string_to_ident("x"));
+//		vs.setName(Helpers0.string_to_ident("x"));
 //		final Qualident qu = new QualidentImpl();
-//		qu.append(Helpers.string_to_ident("Foo"));
+//		qu.append(Helpers0.string_to_ident("Foo"));
 //		((NormalTypeName)vs.typeName()).setName(qu);
 //		((NormalTypeName)vs.typeName()).setContext(fd.getContext());
 //		fd.scope(scope3);
@@ -45,7 +45,7 @@ public class DeduceTypesTest3 {
 //		cs.postConstruct();
 //		mod.postConstruct();
 //		final FunctionContext fc = (FunctionContext) fd.getContext(); // TODO needs to be mocked
-//		final IdentExpression x1 = Helpers.string_to_ident("x");
+//		final IdentExpression x1 = Helpers0.string_to_ident("x");
 //		x1.setContext(fc);
 //		//
 //		//
@@ -69,7 +69,7 @@ public class DeduceTypesTest3 {
 //	public void testDeduceIdentExpression2() {
 //		final RegularTypeName tn = new RegularTypeNameImpl();
 //		Qualident tnq = new QualidentImpl();
-//		tnq.append(Helpers.string_to_ident("Foo"));
+//		tnq.append(Helpers0.string_to_ident("Foo"));
 //		tn.setName(tnq);
 //		assertEquals(new OS_UserType(tn), x/*.getTypeName()*/);
 //	}
@@ -77,7 +77,7 @@ public class DeduceTypesTest3 {
 //	public void testDeduceIdentExpression3() {
 //		final VariableTypeName tn = new VariableTypeName();
 //		final Qualident tnq = new QualidentImpl();
-//		tnq.append(tripleo.elijah.util.Helpers.string_to_ident("Foo"));
+//		tnq.append(tripleo.elijah.util.Helpers0.string_to_ident("Foo"));
 //		tn.setName(tnq);
 //		assertEquals(new OS_UserType(tn), x);
 //	}
@@ -85,7 +85,7 @@ public class DeduceTypesTest3 {
 //	public void testDeduceIdentExpression3_5() {
 //		final VariableTypeName tn = new VariableTypeName();
 //		final Qualident tnq = new QualidentImpl();
-//		tnq.append(tripleo.elijah.util.Helpers.string_to_ident("Foo"));
+//		tnq.append(tripleo.elijah.util.Helpers0.string_to_ident("Foo"));
 //		tn.setName(tnq);
 //		assertEquals(new OS_UserType(tn).getTypeName(), x.getTypeName());
 //	}
@@ -93,7 +93,7 @@ public class DeduceTypesTest3 {
 //	public void testDeduceIdentExpression4() {
 //		final VariableTypeName tn = new VariableTypeName();
 //		final Qualident tnq = new QualidentImpl();
-//		tnq.append(tripleo.elijah.util.Helpers.string_to_ident("Foo"));
+//		tnq.append(tripleo.elijah.util.Helpers0.string_to_ident("Foo"));
 //		tn.setName(tnq);
 //		assertEquals(new OS_UserType(tn).toString(), x.toString());
 //	}

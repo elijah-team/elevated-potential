@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 /**
  * Created 9/10/20 3:44 PM
  */
-public enum Helpers {
+public enum Helpers0 {
 	;
 
 	public static @NotNull String getHash(byte[] aBytes) throws NoSuchAlgorithmException {

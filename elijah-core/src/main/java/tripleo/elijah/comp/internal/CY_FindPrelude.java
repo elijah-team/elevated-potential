@@ -2,10 +2,10 @@ package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.diagnostic.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 

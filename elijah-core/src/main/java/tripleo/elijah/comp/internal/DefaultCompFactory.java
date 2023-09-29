@@ -58,7 +58,7 @@ class DefaultCompFactory implements CompFactory {
 	public @NotNull Qualident createQualident(final @NotNull List<String> sl) {
 		Qualident R = new QualidentImpl();
 		for (String s : sl) {
-			R.append(Helpers.string_to_ident(s));
+			R.append(Helpers0.string_to_ident(s));
 		}
 		return R;
 	}

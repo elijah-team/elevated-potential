@@ -17,7 +17,7 @@ import tripleo.elijah.lang.i.OS_Package;
 import tripleo.elijah.lang.impl.OS_ModuleImpl;
 import tripleo.elijah.lang.impl.OS_PackageImpl;
 import tripleo.elijah.lang.imports.NormalImportStatement;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.*;
 
 import java.io.IOException;
 
@@ -111,7 +111,7 @@ public class TestBasicSlir {
 //			mod.add/addIndexingStatement/addDocString
 
 			final NormalImportStatement importStatement = new NormalImportStatement(mod);
-			importStatement.addNormalPart(Helpers.string_to_qualident("wprust.demo.fact"));
+			importStatement.addNormalPart(Helpers0.string_to_qualident("wprust.demo.fact"));
 			final SlirImportNode sin1 = sn1.addImport(importStatement);
 			final SlirNamespaceNode fact_module_namespace = new SlirNamespaceNode(sf0, null, null);
 			fact_module_namespace.markUsed("factorial", SlirPos.ALIAS);
@@ -156,7 +156,7 @@ public class TestBasicSlir {
 			final OS_Module mod = new OS_ModuleImpl();
 			mod.setFileName(sf0.getFilename());
 
-			final OS_Package packageStatement = new OS_PackageImpl(Helpers.string_to_qualident("wprust.demo.fact"), 2);
+			final OS_Package packageStatement = new OS_PackageImpl(Helpers0.string_to_qualident("wprust.demo.fact"), 2);
 			final SlirPackageNode sp1 = sn2.addPackage(packageStatement);
 
 			// sp1/Main (class) is not live!
@@ -174,7 +174,7 @@ public class TestBasicSlir {
 			final OS_Module mod = new OS_ModuleImpl();
 			mod.setFileName(sf2.getFilename());
 
-			final OS_Package packageStatement = new OS_PackageImpl(Helpers.string_to_qualident("Prelude"), 1);
+			final OS_Package packageStatement = new OS_PackageImpl(Helpers0.string_to_qualident("Prelude"), 1);
 			final SlirPackageNode sp2 = sn3.addPackage(packageStatement);
 
 			final SlirClass prelude_arguments = new SlirClass(sp2, "Arguments", null);
@@ -191,7 +191,7 @@ public class TestBasicSlir {
 			final OS_Module mod = new OS_ModuleImpl();
 			mod.setFileName(sf3.getFilename());
 
-			final OS_Package packageStatement = new OS_PackageImpl(Helpers.string_to_qualident("std.collections"), 4);
+			final OS_Package packageStatement = new OS_PackageImpl(Helpers0.string_to_qualident("std.collections"), 4);
 			final SlirPackageNode sp3 = sn4.addPackage(packageStatement);
 
 			final SlirClass collections_list = new SlirClass(sp3, "List", null);

@@ -42,8 +42,7 @@ import tripleo.elijah.stages.deduce.RegisterClassInvocation_env;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.inter.ModuleThing;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.*;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
 import tripleo.util.range.Range;
@@ -156,7 +155,7 @@ public class GenerateFunctions implements ReactiveDimension {
 
 		private void generate_if(@NotNull final IfConditional ifc, final @NotNull BaseEvaFunction gf) {
 			final Context cctx = ifc.getContext();
-			final @NotNull IdentExpression Boolean_true = Helpers.string_to_ident("true");
+			final @NotNull IdentExpression Boolean_true = Helpers0.string_to_ident("true");
 			final @NotNull Label label_next = gf.addLabel();
 			final @NotNull Label label_end = gf.addLabel();
 			{
@@ -248,7 +247,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				generate_item((OS_Element) statementItem, gf, cctx);
 			}
 			final @NotNull String txt = SpecialFunctions.of(ExpressionKind.INCREMENT);
-			final @NotNull IdentExpression pre_inc_name = Helpers.string_to_ident(txt);
+			final @NotNull IdentExpression pre_inc_name = Helpers0.string_to_ident(txt);
 			final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null, pre_inc_name);
 			final int pre_inc = addProcTableEntry(pre_inc_name, null, List_of(tte), gf);
 			add_i(gf, InstructionName.CALLS, List_of(new ProcIA(pre_inc, gf), new IntegerIA(loop_iterator, gf)), cctx);
@@ -276,7 +275,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				LOG.info("705 " + statementItem);
 				generate_item((OS_Element) statementItem, gf, cctx);
 			}
-			final @NotNull IdentExpression pre_inc_name = Helpers.string_to_ident("__preinc__");
+			final @NotNull IdentExpression pre_inc_name = Helpers0.string_to_ident("__preinc__");
 			final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null, pre_inc_name);
 			final int pre_inc = addProcTableEntry(pre_inc_name, null, List_of(tte/* getType(left), getType(right) */),
 					gf);
@@ -375,7 +374,7 @@ public class GenerateFunctions implements ReactiveDimension {
 					final InstructionArgument left = simplify_expression(x.getLeft(), gf, cctx);
 					final InstructionArgument right = simplify_expression(((BasicBinaryExpression) x).getRight(), gf,
 							cctx);
-					final @NotNull IdentExpression fn_aug_name = Helpers
+					final @NotNull IdentExpression fn_aug_name = Helpers0
 							.string_to_ident(SpecialFunctions.of(expressionKind));
 					final @NotNull List<TypeTableEntry> argument_types = List_of(
 							gf.getVarTableEntry(to_int(left)).getType(), gf.getVarTableEntry(to_int(right)).getType());
@@ -715,7 +714,7 @@ public class GenerateFunctions implements ReactiveDimension {
 
 		private void generate_if(@NotNull final IfConditional ifc, final @NotNull EvaFunction gf) {
 			final Context cctx = ifc.getContext();
-			final @NotNull IdentExpression Boolean_true = Helpers.string_to_ident("true");
+			final @NotNull IdentExpression Boolean_true = Helpers0.string_to_ident("true");
 			final @NotNull Label label_next = gf.addLabel();
 			final @NotNull Label label_end = gf.addLabel();
 			{
@@ -807,7 +806,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				generate_item((OS_Element) statementItem, gf, cctx);
 			}
 			final @NotNull String txt = SpecialFunctions.of(ExpressionKind.INCREMENT);
-			final @NotNull IdentExpression pre_inc_name = Helpers.string_to_ident(txt);
+			final @NotNull IdentExpression pre_inc_name = Helpers0.string_to_ident(txt);
 			final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null, pre_inc_name);
 			final int pre_inc = addProcTableEntry(pre_inc_name, null, List_of(tte), gf);
 			add_i(gf, InstructionName.CALLS, List_of(new ProcIA(pre_inc, gf), new IntegerIA(loop_iterator, gf)), cctx);
@@ -834,7 +833,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				LOG.info("705 " + statementItem);
 				generate_item((OS_Element) statementItem, gf, cctx);
 			}
-			final @NotNull IdentExpression pre_inc_name = Helpers.string_to_ident("__preinc__");
+			final @NotNull IdentExpression pre_inc_name = Helpers0.string_to_ident("__preinc__");
 			final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null, pre_inc_name);
 			final int pre_inc = addProcTableEntry(pre_inc_name, null, List_of(tte/* getType(left), getType(right) */),
 					gf);
@@ -933,7 +932,7 @@ public class GenerateFunctions implements ReactiveDimension {
 					final InstructionArgument left = simplify_expression(x.getLeft(), gf, cctx);
 					final InstructionArgument right = simplify_expression(((BasicBinaryExpression) x).getRight(), gf,
 							cctx);
-					final @NotNull IdentExpression fn_aug_name = Helpers
+					final @NotNull IdentExpression fn_aug_name = Helpers0
 							.string_to_ident(SpecialFunctions.of(expressionKind));
 					final @NotNull List<TypeTableEntry> argument_types = List_of(
 							gf.getVarTableEntry(to_int(left)).getType(), gf.getVarTableEntry(to_int(right)).getType());
@@ -1333,7 +1332,7 @@ public class GenerateFunctions implements ReactiveDimension {
 		case IDENT:
 			return expression_to_call_add_entry(gf, pce, left, cctx);
 		case QIDENT:
-			IExpression xx = Helpers.qualidentToDotExpression2((Qualident) left);
+			IExpression xx = Helpers0.qualidentToDotExpression2((Qualident) left);
 			/*
 			 * IExpression xx = pce.getLeft();
 			 */
@@ -1936,7 +1935,7 @@ public class GenerateFunctions implements ReactiveDimension {
 		}
 		case QIDENT: {
 			final @NotNull Qualident q = (Qualident) expression;
-			IExpression de = Helpers.qualidentToDotExpression2(q);
+			IExpression de = Helpers0.qualidentToDotExpression2(q);
 			return gf.get_assignment_path(de, this, cctx);
 		}
 		case IDENT:
@@ -2002,7 +2001,7 @@ public class GenerateFunctions implements ReactiveDimension {
 			}
 			{
 				// create a call
-				final @NotNull IdentExpression expr_kind_name = Helpers
+				final @NotNull IdentExpression expr_kind_name = Helpers0
 						.string_to_ident(SpecialFunctions.of(expressionKind));
 				// TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT,
 				// null, expr_kind_name);
@@ -2078,7 +2077,7 @@ public class GenerateFunctions implements ReactiveDimension {
 			}
 			{
 				// create a call
-				final @NotNull IdentExpression expr_kind_name = Helpers
+				final @NotNull IdentExpression expr_kind_name = Helpers0
 						.string_to_ident(SpecialFunctions.of(expressionKind));
 //					TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null, expr_kind_name);
 				final @NotNull TypeTableEntry tte_left = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null,
@@ -2117,7 +2116,7 @@ public class GenerateFunctions implements ReactiveDimension {
 			}
 			{
 				// create a call
-				final @NotNull IdentExpression expr_kind_name = Helpers
+				final @NotNull IdentExpression expr_kind_name = Helpers0
 						.string_to_ident(SpecialFunctions.of(expressionKind));
 //					TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null, expr_kind_name);
 				final @NotNull TypeTableEntry tte_left = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null,

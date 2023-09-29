@@ -16,7 +16,6 @@ import tripleo.elijah.lang.types.OS_BuiltinType;
 import tripleo.elijah.lang.types.OS_GenericTypeNameType;
 import tripleo.elijah.lang.types.OS_UnknownType;
 import tripleo.elijah.lang.types.OS_UserClassType;
-import tripleo.elijah.util.Mode;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;
 import tripleo.elijah.nextgen.reactive.Reactive;
 import tripleo.elijah.stages.deduce.*;
@@ -25,6 +24,8 @@ import tripleo.elijah.stages.gen_generic.CodeGenerator;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.Helpers0;
+import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.util.Operation;
 import tripleo.elijah.world.i.LivingClass;
@@ -72,7 +73,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 	public void createCtor0() {
 		// TODO implement me
 		FunctionDef fd = new FunctionDefImpl(klass, klass.getContext());
-		fd.setName(Helpers.string_to_ident("<ctor$0>"));
+		fd.setName(Helpers0.string_to_ident("<ctor$0>"));
 		Scope3 scope3 = new Scope3Impl(fd);
 		fd.scope(scope3);
 		for (VarTableEntry varTableEntry : varTable) {

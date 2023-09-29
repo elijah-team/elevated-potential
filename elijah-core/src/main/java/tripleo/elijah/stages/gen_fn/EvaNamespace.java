@@ -18,9 +18,7 @@ import tripleo.elijah.stages.garish.GarishNamespace_Generator;
 import tripleo.elijah.stages.gen_generic.CodeGenerator;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.Maybe;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.*;
 import tripleo.elijah.world.impl.DefaultLivingNamespace;
 
 import java.util.function.Consumer;
@@ -57,7 +55,7 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 	public void createCtor0() {
 		// TODO implement me
 		FunctionDef fd = new FunctionDefImpl(namespaceStatement, namespaceStatement.getContext());
-		fd.setName(Helpers.string_to_ident("<ctor$0>"));
+		fd.setName(Helpers0.string_to_ident("<ctor$0>"));
 		Scope3Impl scope3 = new Scope3Impl(fd);
 		fd.scope(scope3);
 		for (VarTableEntry varTableEntry : varTable) {

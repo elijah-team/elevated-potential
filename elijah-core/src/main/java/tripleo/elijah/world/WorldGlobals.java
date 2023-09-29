@@ -6,12 +6,12 @@ import tripleo.elijah.lang.i.IdentExpression;
 import tripleo.elijah.lang.i.OS_Package;
 import tripleo.elijah.lang.impl.ConstructorDefImpl;
 import tripleo.elijah.lang.impl.OS_PackageImpl;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.*;
 
 public enum WorldGlobals {
 	;
 
-	public final static IdentExpression emptyConstructorName = Helpers.string_to_ident("<>");
+	public final static IdentExpression emptyConstructorName = Helpers0.string_to_ident("<>");
 
 	// TODO override name() ??
 	public final static ConstructorDef defaultVirtualCtor = new ConstructorDefImpl(null, null, null);
