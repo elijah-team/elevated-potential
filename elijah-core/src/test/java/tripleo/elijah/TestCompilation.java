@@ -26,7 +26,7 @@ public class TestCompilation {
 				Compilation c = build();
 				c.feedCmdLine(List_of(_f));
 
-				return null;
+				return this;
 			}
 
 			@Override
