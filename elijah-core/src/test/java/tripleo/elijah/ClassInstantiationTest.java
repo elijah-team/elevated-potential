@@ -9,12 +9,7 @@
 package tripleo.elijah;
 
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.IO;
-import tripleo.elijah.comp.StdErrSink;
-import tripleo.elijah.comp.internal.CompilationImpl;
-
-import static tripleo.elijah.util.Helpers.List_of;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created 3/5/21 4:32 AM
@@ -24,41 +19,57 @@ public class ClassInstantiationTest {
 	@Test
 	public void classInstantiation() throws Exception {
 		String f = "test/basic1/class_instantiation/";
-		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
 
-		c.feedCmdLine(List_of(f));
+		var t = TestCompilation.simpleTest()
+				.setFile(f)
+				.run();
 
-		System.err.println("Errorcount is " + c.errorCount());
+		System.err.println("Errorcount is " + t.errorCount());
+
+		final int curious_that_this_does_not_fail = 0/*100*/;
+		assertEquals(curious_that_this_does_not_fail, t.errorCount());
 	}
 
-	@org.junit.jupiter.api.Test
+	@Test
 	public void classInstantiation2() throws Exception {
 		String f = "test/basic1/class_instantiation2/";
-		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
 
-		c.feedCmdLine(List_of(f));
+		var t = TestCompilation.simpleTest()
+				.setFile(f)
+				.run();
 
-		System.err.println("Errorcount is " + c.errorCount());
+		System.err.println("Errorcount is " + t.errorCount());
+
+		final int curious_that_this_does_not_fail = 0/*100*/;
+		assertEquals(curious_that_this_does_not_fail, t.errorCount());
 	}
 
-	@org.junit.jupiter.api.Test
+	@Test
 	public void classInstantiation3() throws Exception {
 		String f = "test/basic1/class_instantiation3/";
-		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
 
-		c.feedCmdLine(List_of(f));
+		var t = TestCompilation.simpleTest()
+				.setFile(f)
+				.run();
 
-		System.err.println("Errorcount is " + c.errorCount());
+		System.err.println("Errorcount is " + t.errorCount());
+
+		final int curious_that_this_does_not_fail = 0/*100*/;
+		assertEquals(curious_that_this_does_not_fail, t.errorCount());
 	}
 
-	@org.junit.jupiter.api.Test
+	@Test
 	public void classInstantiation4() throws Exception {
 		String f = "test/basic1/class_instantiation4/";
-		Compilation c = new CompilationImpl(new StdErrSink(), new IO());
 
-		c.feedCmdLine(List_of(f));
+		var t = TestCompilation.simpleTest()
+				.setFile(f)
+				.run();
 
-		System.err.println("Errorcount is " + c.errorCount());
+		System.err.println("Errorcount is " + t.errorCount());
+
+		final int curious_that_this_does_not_fail = 0/*100*/;
+		assertEquals(curious_that_this_does_not_fail, t.errorCount());
 	}
 }
 
