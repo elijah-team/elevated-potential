@@ -32,7 +32,6 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 		try {
 			final File local_stdlib_1 = sle.toFile();
 
-
 			cc.getCompilation().getCompilationEnclosure().logProgress(CompProgress.DriverPhase, Pair.of(3939, ""+local_stdlib_1));
 
 			// TODO stdlib path here
