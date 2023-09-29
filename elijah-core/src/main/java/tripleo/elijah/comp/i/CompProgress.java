@@ -111,7 +111,7 @@ public enum CompProgress {
 
 			var aS = t.getRight();
 
-			out.printf("[-- DriverPhase] %s %s%n", ss, aS);
+			out.printf("[-- DriverPhase ] %s %s%n", ss, aS);
 		}
 	};
 
