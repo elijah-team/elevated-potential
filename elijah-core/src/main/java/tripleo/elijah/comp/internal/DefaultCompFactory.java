@@ -80,7 +80,8 @@ class DefaultCompFactory implements CompFactory {
 	}
 
 	@Override
-	public CY_ElijahSpecParser defaultElijahSpecParser2(final ElijahCache elijahCache) {
+	public CY_EzSpecParser defaultEzSpecParser(final EzCache aEzCache) {
+/*
 		return new CY_ElijahSpecParser() {
 			@Override
 			public Operation2<OS_Module> parse(ElijahSpec spec) {
@@ -88,5 +89,7 @@ class DefaultCompFactory implements CompFactory {
 				return CX_realParseElijjahFile2.realParseElijjahFile2(spec, elijahCache, c);
 			}
 		};
+*/
+		return null;
 	}
 }
