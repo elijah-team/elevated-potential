@@ -67,7 +67,7 @@ public class USE {
 					file_name,
 					f,
 					c.getIO(),
-					c.con().defaultElijahSpecParser2(elijahCache)
+					c.con().defaultElijahSpecParser(elijahCache)
 			);
 
 			switch (om.mode()) {
