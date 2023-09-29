@@ -37,7 +37,7 @@ public class Operation<T> /* extends Operation2<T> */ {
 		assert succ != exc;
 	}
 
-	public static Operation<CompilerInstructions> convert(final Operation2<CompilerInstructions> aOperation2) {
+	public static <T> Operation<T> convert(final Operation2<T> aOperation2) {
 		switch (aOperation2.mode()) {
 //		case FAILURE -> {
 //
