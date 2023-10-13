@@ -33,7 +33,7 @@ public class CX_ParseEzFile {
 	public static Operation2<CompilerInstructions> parseAndCache(final EzSpec aSpec,
 	                                                            final EzCache aEzCache,
 	                                                            final String absolutePath) {
-		final Operation2<CompilerInstructions> cio = calculate(aSpec.file_name(), aSpec.s().get());
+		final Operation2<CompilerInstructions> cio = calculate(aSpec.file_name(), aSpec.sis().get());
 
 		if (cio.mode() == Mode.SUCCESS) {
 			aEzCache.put(aSpec, absolutePath, cio.success());

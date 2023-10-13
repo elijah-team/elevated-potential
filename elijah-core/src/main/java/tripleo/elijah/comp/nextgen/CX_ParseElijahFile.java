@@ -27,7 +27,7 @@ public class CX_ParseElijahFile {
 
 		try {
 			final IO              io       = compilation.getIO();
-			final String          f        = aSpec.f();
+			final String          f        = aSpec.file_name();
 			final File            file     = aSpec.file();
 			final IO._IO_ReadFile readFile = io.readFile2(file);
 
@@ -61,18 +61,22 @@ public class CX_ParseElijahFile {
 
 	private static Operation2<OS_Module> calculate(final ElijahSpec spec, final Compilation compilation) {
 		final var absolutePath = spec.getLongPath2(); // !!
-		return calculate(spec.f(), spec.s(), compilation, absolutePath);
+		return calculate(spec.file_name(), spec.s(), compilation, absolutePath);
 	}
 
 	private static Operation2<OS_Module> calculate(final String f,
-	                                              final InputStream s,
-	                                              final Compilation compilation,
-	                                              final String absolutePath) {
+	                                               final InputStream s,
+	                                               final Compilation compilation,
+	                                               final String absolutePath) {
 		final ElijjahLexer lexer = new ElijjahLexer(s);
 		lexer.setFilename(f);
 		final ElijjahParser parser = new ElijjahParser(lexer);
 		parser.out = new Out(f, compilation, false);
 		parser.setFilename(f);
+
+		parser.pcon = new Compilation.PConParser();
+		//parser.ci   = parser.pcon.newCompilerInstructionsImpl(); // README just saved for reference
+
 		try {
 			parser.program();
 		} catch (final RecognitionException | TokenStreamException aE) {
@@ -81,7 +85,7 @@ public class CX_ParseElijahFile {
 		final OS_Module module = parser.out.module();
 		parser.out = null;
 
-		var x = module.getFileName();
+		final String x = module.getFileName();
 		if (x == null)
 			module.setFileName(absolutePath); // TODO 09/26 you mentioned that this is a bug
 		return Operation2.success(module);
@@ -90,7 +94,7 @@ public class CX_ParseElijahFile {
 	public static Operation2<OS_Module> __parseEzFile(String file_name,
 	                                                  File file,
 	                                                  IO io,
-	                                                  CY_ElijahSpecParser parser) throws IOException {
+	                                                  @NotNull CY_ElijahSpecParser parser) throws IOException {
 		try (final InputStream readFile = io.readFile(file)) {
 			final ElijahSpec spec = new ElijahSpec(file_name, file, readFile);
 			return parser.parse(spec);

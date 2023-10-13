@@ -26,14 +26,13 @@ public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEz
 
 		var ezSpec = new EzSpec(
 				fileName,
-				() -> {
+				file, () -> {
 					try {
 						return io.readFile(file);
 					} catch (FileNotFoundException aE) {
 						throw new RuntimeException(aE);
 					}
-				},
-				file
+				}
 		);
 
 		return __CK_SourceFile__AbstractEzFile.realParseEzFile(ezSpec, ezCache);
