@@ -52,15 +52,15 @@ public class CR_State {
 		}
 	}
 
-	public static class HooliganPipelinePlugin implements PipelinePlugin {
+	public static class LawabidingcitizenPipelinePlugin implements PipelinePlugin {
 		@Override
 		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new HooliganPipeline(ab0.getPipelineAccess());
+			return new LawabidingcitizenPipeline(ab0.getPipelineAccess());
 		}
 
 		@Override
 		public @NotNull String name() {
-			return "HooliganPipeline";
+			return "LawabidingcitizenPipeline";
 		}
 	}
 
