@@ -421,8 +421,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 
 	private OS_Element sneak_el_null__bl1_not_null(final @NotNull IdentExpression ident, final OS_Element[] elx,
 			OS_Element el, final InstructionArgument bl1) {
-		var dt2 = principal._deduceTypes2();
-		assert dt2 != null;
+		@Nullable DeduceTypes2 dt2 = principal._deduceTypes2();
 
 		if (bl1 instanceof final IntegerIA integerIA) {
 			@NotNull
@@ -440,106 +439,12 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 			b.onPossibleType(x::proposeType);
 
 			{
-				for (TypeTableEntry potentialType : vte_bl1.potentialTypes()) {
-					var y = potentialType.tableEntry;
-					if (y instanceof ProcTableEntry pte) {
-						// var z = pte.__debug_expression;
-						// var zz = generatedFunction.getProcCall(z, pte);
-
-						if (pte.getStatus() == BaseTableEntry.Status.KNOWN) {
-							var ci = pte.getClassInvocation();
-							var fi = pte.getFunctionInvocation();
-
-							// System.err.println("322 " + ci);
-							// System.err.println("323 " + fi);
-
-							var pt = dt2._inj().new_DR_PossibleTypeCI(ci, fi);
-							b.addPossibleType(pt);
-
-							// deduceTypes2.deducePhase.reg
-
-							// README taking a chance here
-							var eef = deduceTypes2.creationContext().makeGenerated_fi__Eventual(fi);
-
-							eef.then(new DoneCallback<BaseEvaFunction>() {
-								private static void printString(final int code, final String txt) {
-									if (code == 330)
-										return;
-									System.err.println("" + code + " " + txt);
-									if (code == 336)
-										printString(336, "********************");
-								}
-
-								@Override
-								public void onDone(final BaseEvaFunction gf) {
-									printString(330, "" + gf);
-
-									InstructionArgument ret = (gf.vte_lookup("Result"));
-									if (ret instanceof IntegerIA aIntegerIA) {
-										var retvte = aIntegerIA.getEntry();
-										retvte.typeResolvePromise().then(gt -> {
-											printString(336, "" + gt);
-
-											System.exit(336);
-										});
-										var retvtept = retvte.potentialTypes();
-										for (TypeTableEntry typeTableEntry : retvtept) {
-
-										}
-
-										var retvtety = retvte.getType();
-										if (retvtety.getAttached() != null) {
-											var att = retvtety.getAttached();
-											var resl = att.resolve(principal.getIdent().getContext());
-
-											if (resl != null) {
-												var ci11 = deduceTypes2.phase
-														.registerClassInvocation(resl.getClassOf());
-
-												printString(350, "" + resl);
-												var pt2 = dt2._inj().new_DR_PossibleTypeCI(ci11, null);
-												b.addPossibleType(pt2);
-											} else {
-												// System.err.println("364 " + principal.getIdent().getText());
-											}
-										}
-									}
-								}
-							});
-						}
-					}
-
-				}
+				__sneak_el_null__bl1_not_null__possible_type_part(vte_bl1, dt2, b);
 			}
 
 			final DeduceTypeResolve tr = vte_bl1.typeResolve();
 
-			if (vte_bl1.typeDeferred_isResolved()) {
-				vte_bl1.typePromise().then(type1 -> {
-					if (tr.typeResolution().isPending()) {
-						if (!type1.isNull()) {
-							tr.typeResolve(type1);
-						}
-					}
-
-					if (type1.getResolved() != null) {
-						final Context ctx2 = type1.getResolved().getClassOf().getContext();
-						final LookupResultList lrl2 = ctx2.lookup(ident.getText());
-						elx[0] = lrl2.chooseBest(null);
-					}
-				});
-
-				el = elx[0];
-			} else {
-				vte_bl1.getDlv().resolve_var_table_entry_for_exit_function();
-
-				// assert vte_bl1.typeDeferred_isResolved();
-
-				if (vte_bl1.typeDeferred_isResolved()) {
-					el = vte_bl1.getResolvedElement();
-					assert el != null;
-				}
-			}
+			el = __sneak_el_null__bl1_not_null__resolve_part(ident, elx, el, vte_bl1, tr);
 			int y = 2;
 		} else if (bl1 instanceof final ProcIA procIA) {
 			final ProcTableEntry pte1 = procIA.getEntry();
@@ -550,6 +455,117 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 			final IDeduceElement3 de3 = pte1.getDeduceElement3();
 		}
 		return el;
+	}
+
+	private static OS_Element __sneak_el_null__bl1_not_null__resolve_part(final @NotNull IdentExpression ident, final OS_Element[] elx, OS_Element el, final @NotNull VariableTableEntry vte_bl1, final DeduceTypeResolve tr) {
+		if (vte_bl1.typeDeferred_isResolved()) {
+			vte_bl1.typePromise().then(type1 -> {
+				if (tr.typeResolution().isPending()) {
+					if (!type1.isNull()) {
+						tr.typeResolve(type1);
+					}
+				}
+
+				if (type1.getResolved() != null) {
+					final Context ctx2 = type1.getResolved().getClassOf().getContext();
+					final LookupResultList lrl2 = ctx2.lookup(ident.getText());
+					elx[0] = lrl2.chooseBest(null);
+				}
+			});
+
+			el = elx[0];
+		} else {
+			vte_bl1.getDlv().resolve_var_table_entry_for_exit_function();
+
+			// assert vte_bl1.typeDeferred_isResolved();
+
+			if (vte_bl1.typeDeferred_isResolved()) {
+				el = vte_bl1.getResolvedElement();
+				assert el != null;
+			}
+		}
+		return el;
+	}
+
+	private void __sneak_el_null__bl1_not_null__possible_type_part(final @NotNull VariableTableEntry vte_bl1, final @Nullable DeduceTypes2 dt2, final DR_Ident b) {
+		for (TypeTableEntry potentialType : vte_bl1.potentialTypes()) {
+			var y = potentialType.tableEntry;
+			if (y instanceof ProcTableEntry pte) {
+				// var z = pte.__debug_expression;
+				// var zz = generatedFunction.getProcCall(z, pte);
+
+				if (pte.getStatus() == BaseTableEntry.Status.KNOWN) {
+					var ci = pte.getClassInvocation();
+					var fi = pte.getFunctionInvocation();
+
+					// System.err.println("322 " + ci);
+					// System.err.println("323 " + fi);
+
+					if (dt2 != null) {
+						var pt = dt2._inj().new_DR_PossibleTypeCI(ci, fi);
+						b.addPossibleType(pt);
+					} else {
+						System.out.println("460460 Can't create PossibleType because dt2 == null");
+					}
+
+					// deduceTypes2.deducePhase.reg
+
+					// README taking a chance here
+					var eef = deduceTypes2.creationContext().makeGenerated_fi__Eventual(fi);
+
+					eef.then(new DoneCallback<>() {
+						private static void printString(final int code, final String txt) {
+							if (code == 330)
+								return;
+							System.err.printf("%d %s%n", code, txt);
+							if (code == 336)
+								printString(336, "********************");
+						}
+
+						@Override
+						public void onDone(final BaseEvaFunction gf) {
+							printString(330, "" + gf);
+
+							InstructionArgument ret = (gf.vte_lookup("Result"));
+							if (ret instanceof IntegerIA aIntegerIA) {
+								var retvte = aIntegerIA.getEntry();
+								retvte.typeResolvePromise().then(gt -> {
+									printString(336, "" + gt);
+
+									System.exit(336);
+								});
+								var retvtept = retvte.potentialTypes();
+								for (TypeTableEntry typeTableEntry : retvtept) {
+
+								}
+
+								var retvtety = retvte.getType();
+								if (retvtety.getAttached() != null) {
+									var att  = retvtety.getAttached();
+									var resl = att.resolve(principal.getIdent().getContext());
+
+									if (resl != null) {
+										var ci11 = deduceTypes2.phase
+												.registerClassInvocation(resl.getClassOf());
+
+										printString(350, "" + resl);
+										if (dt2 != null) {
+											var pt2 = dt2._inj().new_DR_PossibleTypeCI(ci11, null);
+											b.addPossibleType(pt2);
+										} else {
+											System.out.println("460507 Can't create PossibleType because dt2 == null");
+										}
+									} else {
+										// System.err.println("364 " + principal.getIdent().getText());
+									}
+								}
+							}
+						}
+					});
+				}
+			}
+
+		}
 	}
 
 	@Nullable
