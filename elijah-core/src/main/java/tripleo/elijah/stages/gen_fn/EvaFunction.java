@@ -8,16 +8,12 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.stages.deduce.nextgen.DR_Item;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.gen_generic.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created 6/27/21 9:40 AM
@@ -80,8 +76,26 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 
 	@Override
 	public String toString() {
-		String pte_string = fd.getArgs().toString(); // TODO wanted PTE.getLoggingString
-		return String.format("<EvaFunction %s %s %s>", fd.getParent(), fd.name(), pte_string);
+		if (fd == null) {
+			return "<EvaFunction {{unattached}}>";
+		} else {
+			final @NotNull Collection<FormalArgListItem> args   = fd.getArgs();
+			final @Nullable OS_Element                    parent = fd.getParent();
+			final @NotNull String                        name   = fd.name();
+
+			//noinspection SpellCheckingInspection
+			String pparent;
+
+			if (parent == null) {
+				pparent = "{{null parent}}";
+			} else {
+				pparent = parent.toString();
+			}
+
+			final String pte_string = args.toString(); // TODO wanted PTE.getLoggingString
+
+			return String.format("<EvaFunction %s %s %s>", pparent, name, pte_string);
+		}
 	}
 }
 
