@@ -60,9 +60,7 @@ public class GetRealTargetNameTest {
 	@Test // too complicated
 	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	public void testManualXDotFoo() {
-		final XX xx = new XX();
-		final IdentExpression x_ident = xx.ident("x");
-		final IdentExpression foo_ident = xx.ident("foo");
+		final IdentExpression x_ident   = XX.ident("x");
 		final IdentExpression foo_ident = XX.ident("foo", gf.getFD().getContext());
 
 		//
