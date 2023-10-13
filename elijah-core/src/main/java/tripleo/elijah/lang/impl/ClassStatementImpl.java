@@ -145,6 +145,8 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 
 	@Override
 	public @NotNull String getName() {
+		if (hdr == null)
+			throw new IllegalStateException("null hdr");
 		if (hdr.nameToken() == null)
 			throw new IllegalStateException("null name");
 		return hdr.nameToken().getText();
