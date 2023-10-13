@@ -77,40 +77,37 @@ public enum CompProgress {
 	}, GenerateC {
 		@Override
 		public void deprecated_print(final Object x, final PrintStream out, final PrintStream err) {
-			Pair<Integer, String> t = (Pair<Integer, String>)x;
+			final Pair<Integer, String> t = (Pair<Integer, String>) x;
 
-			var aI = t.getLeft();
-			var aS = t.getRight();
+			final int    code = t.getLeft();
+			final String aS   = t.getRight();
 
-			out.printf("%d %s%n", aI, aS);
+			out.printf("%d %s%n", code, aS);
 		}
 	}, DeducePhase {
 		@Override
 		public void deprecated_print(final Object x, final PrintStream out, final PrintStream err) {
-			Pair<Integer, String> t = (Pair<Integer, String>)x;
+			final Pair<Integer, String> t = (Pair<Integer, String>) x;
 
-			var aI = t.getLeft();
-			var aS = t.getRight();
+			final int    code    = t.getLeft();
+			final String message = t.getRight();
 
-			out.printf("%d %s%n", aI, aS);
+			out.printf("%d %s%n", code, message);
 		}
 	}, DriverPhase {
 		@Override
 		public void deprecated_print(final Object x, final PrintStream out, final PrintStream err) {
-			Pair<Integer, String> t = (Pair<Integer, String>)x;
+			final Pair<Integer, String> t = (Pair<Integer, String>) x;
 
-			var aI = t.getLeft();
+			final int    code    = t.getLeft();
+			final String message = t.getRight();
 
-			final String ss;
-			if (aI == 37939) {
-				ss = "findStdLib";
-			} else {
-				ss = ""+aI;
-			}
+			final String codText = switch (code) {
+				case 37939 -> "findStdLib";
+				default -> "" + code;
+			};
 
-			var aS = t.getRight();
-
-			out.printf("[-- DriverPhase ] %s %s%n", ss, aS);
+			out.printf("[-- DriverPhase ] %s %s%n", codText, message);
 		}
 	};
 
