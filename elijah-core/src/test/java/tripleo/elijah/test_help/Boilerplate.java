@@ -79,6 +79,11 @@ public class Boilerplate {
 		return pr.pipelineLogic().dp;
 	}
 
+	public GenerateFiles getGenerateFiles2(final @NotNull OS_Module mod) {
+		getGenerateFiles(mod);
+		return generateFiles;
+	}
+
 	public void getGenerateFiles(final @NotNull OS_Module mod) {
 		if (generateFiles == null) {
 			List<ProcessedNode> lgc = List_of();
