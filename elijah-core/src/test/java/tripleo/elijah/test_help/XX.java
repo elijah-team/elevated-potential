@@ -36,4 +36,10 @@ public class XX {
 
 		return x_var;
 	}
+
+	public static IdentExpression ident(final String aX, final Context aContext) {
+		final IdentExpression identExpression = Helpers0.string_to_ident(aX);
+		identExpression.setContext(aContext);
+		return identExpression;
+	}
 }
