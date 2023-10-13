@@ -107,7 +107,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 			accessBusPromise.resolve(ab);
 
-			ab.addPipelinePlugin(new CR_State.HooliganPipelinePlugin());
+			ab.addPipelinePlugin(new CR_State.LawabidingcitizenPipelinePlugin());
 			ab.addPipelinePlugin(new CR_State.EvaPipelinePlugin());
 			ab.addPipelinePlugin(new CR_State.DeducePipelinePlugin());
 			ab.addPipelinePlugin(new CR_State.WritePipelinePlugin());

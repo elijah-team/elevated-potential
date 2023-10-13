@@ -5,14 +5,14 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.IPipelineAccess;
 import tripleo.elijah.comp.internal.CB_Output;
 import tripleo.elijah.comp.internal.CR_State;
-import tripleo.elijah.stages.hooligan.pipeline_impl.HooliganPipelineImpl;
+import tripleo.elijah.stages.hooligan.pipeline_impl.LawabidingcitizenPipelineImpl;
 
-public class HooliganPipeline implements PipelineMember {
+public class LawabidingcitizenPipeline implements PipelineMember {
 	private final @NotNull IPipelineAccess pa;
-	private final HooliganPipelineImpl i = new HooliganPipelineImpl();
+	private final LawabidingcitizenPipelineImpl i = new LawabidingcitizenPipelineImpl();
 
 	@Contract(pure = true)
-	public HooliganPipeline(@NotNull IPipelineAccess pa0) {
+	public LawabidingcitizenPipeline(@NotNull IPipelineAccess pa0) {
 		pa = pa0;
 	}
 

@@ -12,9 +12,9 @@ import tripleo.elijah.world.i.*;
 import java.util.*;
 import java.util.stream.*;
 
-public class HooliganPipelineImpl {
+public class LawabidingcitizenPipelineImpl {
 	public void run(final @NotNull Compilation compilation) {
-		final Hooligan hooligan = new Hooligan();
+		final Lawabidingcitizen hooligan = new Lawabidingcitizen();
 
 		compilation.world().addModuleProcess(new CompletableProcess<WorldModule>() {
 			@Override
@@ -26,7 +26,7 @@ public class HooliganPipelineImpl {
 			public void complete() {
 				Collection<WorldModule> worldModules = compilation.world().modules();
 
-				final Hooligan.SmallWriter1 sw = hooligan.__modules2(worldModules);
+				final Lawabidingcitizen.SmallWriter1 sw = hooligan.__modules2(worldModules);
 				final EOT_OutputTree cot = compilation.getOutputTree();
 
 				final List<EIT_Input> inputs = worldModules.stream().map(WorldModule::getEITInput)

@@ -9,7 +9,7 @@ import tripleo.elijah.world.i.*;
 
 import java.util.*;
 
-class Hooligan {
+class Lawabidingcitizen {
 	class SmallWriter1 {
 		final Map<OS_Element, SmallWriter.SW_Ref> objMap1 = new HashMap<>();
 		private final Map<OS_Element, SmallWriter> writers = new LinkedHashMap<>();
@@ -164,10 +164,10 @@ class Hooligan {
 			var rs = new ArrayList<>(this.objMap.values());
 			var w3 = new SmallWriter2(objMap);
 			for (SW_Ref r : rs) {
-				if (!Hooligan.insides.contains(r)) {
+				if (!Lawabidingcitizen.insides.contains(r)) {
 					w3.sb.append("(REF \"%s\" \"%s\"\n".formatted(r.name(), r.get().getClass().getName()));
 
-					Hooligan.insides.add(r);
+					Lawabidingcitizen.insides.add(r);
 					r.get().serializeTo(w3);
 					w3.sb.append(")\n");
 				}

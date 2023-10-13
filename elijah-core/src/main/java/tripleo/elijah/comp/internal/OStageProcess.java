@@ -73,7 +73,7 @@ public class OStageProcess implements RuntimeProcess {
 	public void prepare() throws Exception {
 		env.re("(def! EvaPipeline 'native)");
 
-		env.re("(add-pipeline 'HooliganPipeline)");
+		env.re("(add-pipeline 'LawabidingcitizenPipeline)");
 		env.re("(add-pipeline 'EvaPipeline)");
 
 		env.re("(add-pipeline 'DeducePipeline)"); // FIXME note moved from ...
