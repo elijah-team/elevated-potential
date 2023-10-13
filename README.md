@@ -12,7 +12,8 @@ Elijah is:
 `elevated-potential` is:
 
 - ... implemented in Java (17)
-- ... uses Maven
+- ... uses Gradle
+- ... not a closet Kotlin addict.
 
 Instructions
 -------------
@@ -30,7 +31,9 @@ gradle test
 Goals
 ------
 
-- Continue work with a cCI (will look into circle from over there...)
+- Fiddle with Github `.workflows`
+- Work on almost (while fiddling with Github .workflows)
+- (README) why add another provider?
 
 Lineage
 --------
