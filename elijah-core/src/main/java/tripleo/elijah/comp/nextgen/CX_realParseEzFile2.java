@@ -17,8 +17,8 @@ public class CX_realParseEzFile2 {
 	                                                              final @NotNull EzSpec ezSpec,
 	                                                              final @NotNull EzCache ezCache) {
 		var file = ezSpec.file();
-		assert ezSpec.s() != null;
-		var s    = ezSpec.s().get();
+		assert ezSpec.sis() != null;
+		var s    = ezSpec.sis().get();
 
 		final String absolutePath;
 		try {
