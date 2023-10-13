@@ -735,7 +735,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 			r1 = LT(1);
 			match(IDENT);
 			if (inputState.guessing == 0) {
-				id = pcon.newIdentExpressionImpl(r1, "foo", cur);
+				id = pcon.newIdentExpressionImpl(r1, cur);
 			}
 		} catch (RecognitionException ex) {
 			if (inputState.guessing == 0) {

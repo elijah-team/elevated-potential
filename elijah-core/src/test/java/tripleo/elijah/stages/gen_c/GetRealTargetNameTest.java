@@ -63,6 +63,7 @@ public class GetRealTargetNameTest {
 		final XX xx = new XX();
 		final IdentExpression x_ident = xx.ident("x");
 		final IdentExpression foo_ident = xx.ident("foo");
+		final IdentExpression foo_ident = XX.ident("foo", gf.getFD().getContext());
 
 		//
 		// create x.foo, where x is a VAR and foo is unknown

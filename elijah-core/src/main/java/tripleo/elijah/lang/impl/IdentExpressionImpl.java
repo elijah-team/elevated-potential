@@ -6,44 +6,42 @@
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
  *
  */
-/**
- * Created Apr 1, 2019 at 3:21:26 PM
- */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
+import antlr.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.lang.nextgen.names.i.*;
+import tripleo.elijah.util.*;
 
-import java.io.File;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author Tripleo(sb)
+ * <p>
+ * Created Apr 1, 2019 at 3:21:26 PM
  */
-public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpression {
+public class IdentExpressionImpl implements IdentExpression {
 
-	private final @NotNull EN_Name name;
-	public Attached _a;
-	private OS_Element _resolvedElement;
-	OS_Type _type;
-	private Token text;
-	private String _fileName;
+	private final @NotNull EN_Name  name;
+	private @NotNull       Attached _a;
+	private @NotNull       Token    text;
+	private @Nullable      String   _fileName;
 
-	public IdentExpressionImpl(final Token r1, String aFilename) {
+	public IdentExpressionImpl(final @NotNull Token r1, @NotNull String aFilename) {
 		this.text = r1;
-		this._a = new AttachedImpl();
+		this._a   = new AttachedImpl();
 
 		this.name = EN_Name.create(text.getText());
 
 		this._fileName = aFilename;
 	}
 
-	public IdentExpressionImpl(final Token r1, String aFilename, final @NotNull Context cur) {
+	public IdentExpressionImpl(final @NotNull Token r1, @NotNull String aFilename, final @NotNull Context cur) {
 		this.text = r1;
-		this._a = new AttachedImpl();
+		this._a   = new AttachedImpl();
 		setContext(cur);
 
 		this.name = EN_Name.create(text.getText());
@@ -52,8 +50,23 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 		this._fileName = aFilename;
 	}
 
+	public IdentExpressionImpl(final @NotNull Token r1, final @NotNull Context cur) {
+		this.text = r1;
+		this._a   = new AttachedImpl();
+		setContext(cur);
+
+		this.name = EN_Name.create(text.getText());
+		cur.addName(name);
+
+		this._fileName = null;
+	}
+
 	public @NotNull List<FormalArgListItem> getArgs() {
-		return null;
+		throw new UnintendedUseException();
+	}
+
+	public void setArgs(final ExpressionList ael) {
+		throw new UnintendedUseException();
 	}
 
 	@Override
@@ -72,6 +85,11 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 	}
 
 	@Override
+	public void setContext(final Context cur) {
+		_a.setContext(cur);
+	}
+
+	@Override
 	public @NotNull File getFile() {
 		return new File(_fileName);
 	}
@@ -82,8 +100,26 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 	}
 
 	@Override
+	public void setKind(final @NotNull ExpressionKind aIncrement) {
+		// log and ignore
+		tripleo.elijah.util.Stupidity
+				.println_err_2("Trying to set ExpressionType of IdentExpression to " + aIncrement.toString());
+	}
+
+	@Override
 	public @NotNull IExpression getLeft() {
 		return this;
+	}
+
+	@Override
+	public void setLeft(final @NotNull IExpression iexpression) {
+////		if (iexpression instanceof IdentExpression) {
+////			text = ((IdentExpression) iexpression).text;
+////		} else {
+////			// NOTE was tripleo.elijah.util.Stupidity.println_err_2
+//		throw new IllegalArgumentException("Trying to set left-side of IdentExpression to " + iexpression.toString());
+////		}
+		throw new UnintendedUseException();
 	}
 
 	@Override
@@ -109,23 +145,18 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 	}
 
 	@Override
-	public OS_Element getResolvedElement() {
-		return _resolvedElement;
-	}
-
-	@Override
 	public @NotNull String getText() {
 		return text.getText();
 	}
 
 	@Override
 	public OS_Type getType() {
-		return _type;
+		throw new UnintendedUseException();
 	}
 
 	@Override
-	public boolean hasResolvedElement() {
-		return _resolvedElement != null;
+	public void setType(final OS_Type deducedExpression) {
+		throw new UnintendedUseException();
 	}
 
 	@Override
@@ -144,44 +175,6 @@ public class IdentExpressionImpl implements tripleo.elijah.lang.i.IdentExpressio
 		sw.fieldToken("text", text);
 		sw.fieldInteger("line", getLine());
 		sw.fieldInteger("column", getColumn());
-	}
-
-	public void setArgs(final ExpressionList ael) {
-
-	}
-
-	@Override
-	public void setContext(final Context cur) {
-		_a.setContext(cur);
-	}
-
-	// region Locatable
-
-	@Override
-	public void setKind(final @NotNull ExpressionKind aIncrement) {
-		// log and ignore
-		tripleo.elijah.util.Stupidity
-				.println_err_2("Trying to set ExpressionType of IdentExpression to " + aIncrement.toString());
-	}
-
-	@Override
-	public void setLeft(final @NotNull IExpression iexpression) {
-//		if (iexpression instanceof IdentExpression) {
-//			text = ((IdentExpression) iexpression).text;
-//		} else {
-//			// NOTE was tripleo.elijah.util.Stupidity.println_err_2
-		throw new IllegalArgumentException("Trying to set left-side of IdentExpression to " + iexpression.toString());
-//		}
-	}
-
-	@Override
-	public void setResolvedElement(final OS_Element element) {
-		_resolvedElement = element;
-	}
-
-	@Override
-	public void setType(final OS_Type deducedExpression) {
-		_type = deducedExpression;
 	}
 
 	public Token token() {
