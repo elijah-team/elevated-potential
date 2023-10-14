@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.nextgen.CP_Paths;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.inputtree.EIT_Input;
@@ -14,8 +15,7 @@ import tripleo.elijah.nextgen.outputstatement.EG_Naming;
 import tripleo.elijah.nextgen.outputstatement.EG_SequenceStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
+import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.gen_fn.EvaClass;
@@ -153,7 +153,7 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 	}
 
 	class OutputItems {
-		private static @NotNull List<EG_Statement> relist3(final EG_Statement sequence) {
+		private static @NotNull List<EG_Statement> relist3_flatten(final EG_Statement sequence) {
 			var llll = new ArrayList<EG_Statement>();
 
 			if (sequence instanceof EG_SequenceStatement seqst) {
@@ -178,65 +178,64 @@ public class WPIS_GenerateOutputs implements WP_Indiviual_Step {
 
 			++_addTally;
 			if (_addTally == _readyCount) {
-				for (NG_OutputItem o : itms) {
-					var oxs = o.getOutputs();
-					for (NG_OutputStatement ox : oxs) {
-						GenerateResult.TY oxt = ox.getTy();
-						String oxb = ox.getText();
+				for (final NG_OutputItem o : itms) {
+					final List<NG_OutputStatement> oxs = o.getOutputs();
+					for (final NG_OutputStatement ox : oxs) {
+						final GenerateResult.TY               oxt = ox.getTy();
+						final String                          oxb = ox.getText();
+						final EOT_OutputFile.FileNameProvider s   = o.outName(outputStrategyC, oxt);
+						final NG_OutputRequest                or  = new NG_OutputRequest(s, ox, ox, o);
 
-						EOT_OutputFile.FileNameProvider s = o.outName(outputStrategyC, oxt);
-
-						var or = new NG_OutputRequest(s, ox, ox, o);
 						ors1.add(or);
 					}
 				}
 
 				final Multimap<NG_OutputRequest, EG_Statement> mfss = ArrayListMultimap.create();
-				var cot = st.c.getOutputTree();
+				final EOT_OutputTree                           cot  = st.c.getOutputTree();
+				final CompilationEnclosure                     ce   = st.c.getCompilationEnclosure();
 
-				var ce = st.c.getCompilationEnclosure();
-				for (NG_OutputRequest or : ors1) {
+				for (final NG_OutputRequest or : ors1) {
 					ce.AssertOutFile(or);
 				}
 
 				// README combine output requests into file requests
-				for (NG_OutputRequest or : ors1) {
+				for (final NG_OutputRequest or : ors1) {
 					mfss.put(or, or.statement());
 				}
 
 				final List<Writable> writables = new ArrayList<>();
 
-				for (Map.Entry<NG_OutputRequest, Collection<EG_Statement>> entry : mfss.asMap().entrySet()) {
+				for (final Map.Entry<NG_OutputRequest, Collection<EG_Statement>> entry : mfss.asMap().entrySet()) {
 					writables.add(new MyWritable(entry));
 				}
 
-				for (Writable writable : writables) {
-					final String filename = writable.filename().getFilename();
-					final EG_Statement statement0 = writable.statement();
-					final List<EG_Statement> list2 = relist3(statement0);
-					final EG_Statement statement;
+				for (final Writable writable : writables) {
+					final String             filename   = writable.filename().getFilename();
+					final EG_Statement       statement0 = writable.statement();
+					final List<EG_Statement> list2      = relist3_flatten(statement0);
+					final EG_Statement       statement;
 
 					if (filename.endsWith(".h")) {
-						final String uuid = "elinc_%s".formatted(UUID.randomUUID().toString().replace('-', '_'));
-
-						var b = EG_Statement.of("#ifndef %s\n#define %s 1\n\n".formatted(uuid, uuid),
-						                        EX_Explanation.withMessage("Header file prefix"));
-
-						final List<EG_Statement> list3 = new ArrayList<>(list2.size() + 2);
-						list3.add(b);
-						list3.addAll(list2);
-						final EG_Statement e = EG_Statement.of("\n#endif\n",
-						                                       EX_Explanation.withMessage("Header file postfix"));
-						list3.add(e);
-						statement = new EG_SequenceStatement(new EG_Naming("relist3"), list3);
+						statement = __relist3(list2);
 					} else {
 						statement = statement0;
 					}
 
-					var off = new EOT_OutputFile(writable.inputs(), filename, EOT_OutputType.SOURCES, statement);
+					final EOT_OutputFile off = new EOT_OutputFile(writable.inputs(), filename, EOT_OutputType.SOURCES, statement);
 					cot.add(off);
 				}
 			}
+		}
+
+		@NotNull
+		private static EG_Statement __relist3(final List<EG_Statement> list2) {
+			final String             uuid      = "elinc_%s".formatted(UUID.randomUUID().toString().replace('-', '_'));
+			final String             b_s       = "#ifndef %s\n#define %s 1\n\n".formatted(uuid, uuid);
+			final EG_Statement       b         = EG_Statement.of(b_s, EX_Explanation.withMessage("Header file prefix"));
+			final EG_Statement       e         = EG_Statement.of("\n#endif\n", EX_Explanation.withMessage("Header file postfix"));
+			final List<EG_Statement> list3     = Helpers.__combine_list_elements(b, list2, e);
+			final EG_Statement       statement = new EG_SequenceStatement(new EG_Naming("relist3"), list3);
+			return statement;
 		}
 
 		public void readyCount(final int aI) {
