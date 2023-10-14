@@ -22,27 +22,21 @@ public interface IEvaFunctionBase {
 
 	int addIdentTableEntry(IdentExpression ident, Context context);
 
-	@NotNull
-	Label addLabel();
+	@NotNull Label addLabel();
 
-	@NotNull
-	Label addLabel(String base_name, boolean append_int);
+	@NotNull Label addLabel(String base_name, boolean append_int);
 
 	int addVariableTableEntry(String name, VariableTableType vtt, TypeTableEntry type, OS_Element el);
 
 	String expectationString();
 
-	@Nullable
-	Label findLabel(int index);
+	@Nullable Label findLabel(int index);
 
-	@NotNull
-	InstructionArgument get_assignment_path(@NotNull IExpression expression,
-			@NotNull GenerateFunctions generateFunctions, Context context);
+	@NotNull InstructionArgument get_assignment_path(@NotNull IExpression expression, @NotNull GenerateFunctions generateFunctions, Context context);
 
 	int getCode();
 
-	@NotNull
-	ConstantTableEntry getConstTableEntry(int index);
+	@NotNull ConstantTableEntry getConstTableEntry(int index);
 
 	Context getContextFromPC(int pc);
 
