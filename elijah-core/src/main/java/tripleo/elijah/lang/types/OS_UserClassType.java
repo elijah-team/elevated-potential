@@ -18,12 +18,12 @@ public class OS_UserClassType extends __Abstract_OS_Type {
 
 	@Override
 	protected boolean _isEqual(final @NotNull OS_Type aType) {
-		return aType.getType() == Type.USER_CLASS && _classStatement.equals(((OS_UserClassType) aType)._classStatement);
+		return aType.getType() == Type.USER_CLASS && Objects.equals(_classStatement, ((OS_UserClassType) aType)._classStatement);
 	}
 
 	@Override
 	public @NotNull String asString() {
-		return MessageFormat.format("<OS_UserClassType {0}>", _classStatement);
+		return "<OS_UserClassType %s>".formatted(_classStatement);
 	}
 
 	@Override
