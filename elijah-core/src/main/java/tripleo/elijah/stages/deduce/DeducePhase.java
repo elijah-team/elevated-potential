@@ -39,6 +39,7 @@ import tripleo.elijah.world.i.*;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
+import java.util.stream.*;
 
 import static tripleo.elijah.util.Helpers.*;
 
@@ -53,10 +54,10 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 	private @NotNull
 	final                  DeducePhaseInjector                          __inj                   = new DeducePhaseInjector();
 	@NotNull
-	public final           List<IFunctionMapHook> functionMapHooks        = _inj().new_ArrayList__IFunctionMapHook();
+	public final           List<IFunctionMapHook>                       functionMapHooks        = _inj().new_ArrayList__IFunctionMapHook();
 	@Getter
-	private final @NotNull ICodeRegistrar         codeRegistrar;
-	private final @NotNull ICompilationAccess     ca;
+	private final @NotNull ICodeRegistrar                               codeRegistrar;
+	private final @NotNull ICompilationAccess                           ca;
 	private final          Map<NamespaceStatement, NamespaceInvocation> namespaceInvocationMap  = _inj()
 			.new_HashMap__NamespaceInvocationMap();
 	private final          ExecutorService                              classGenerator          = Executors.newCachedThreadPool();
@@ -329,7 +330,8 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		}
 	}
 
-	public void forFunction(DeduceTypes2 deduceTypes2, @NotNull FunctionInvocation fi,
+	public void forFunction(@NotNull DeduceTypes2 deduceTypes2,
+	                        @NotNull FunctionInvocation fi,
 	                        @NotNull ForFunction forFunction) {
 //		LOG.err("272 forFunction\n\t"+fi.getFunction()+"\n\t"+fi.pte);
 		fi.generateDeferred().promise().then(result -> result.typePromise().then(forFunction::typeDecided));
@@ -404,8 +406,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 					generatedFunction.noteDependencies(nc.getDependency());
 				}
 				if (nc instanceof final @NotNull EvaClass evaClass) {
-
-					for (EvaConstructor evaConstructor : evaClass.constructors.values()) {
+					for (final IEvaConstructor evaConstructor : evaClass.constructors.values()) {
 						evaConstructor.noteDependencies(nc.getDependency());
 					}
 				}
@@ -475,7 +476,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 
 							// TODO just getting first element here (without processing of any kind); HACK
 							final List<EvaContainer.VarTableEntry.ConnectionPair> connectionPairs = gc_vte.connectionPairs;
-							if (connectionPairs.size() > 0) {
+							if (!connectionPairs.isEmpty()) {
 								final GenType ty = connectionPairs.get(0).vte.getType().genType;
 								assert ty.getResolved() != null;
 								gc_vte.varType = ty.getResolved(); // TODO make sure this is right in all cases
@@ -520,10 +521,11 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		for (Map.@NotNull Entry<IdentTableEntry, OnType> entry : idte_type_callbacks.entrySet()) {
 			IdentTableEntry idte = entry.getKey();
 			if (idte.type != null && // TODO make a stage where this gets set (resolvePotentialTypes)
-					idte.type.getAttached() != null)
+			    idte.type.getAttached() != null) {
 				entry.getValue().typeDeduced(idte.type.getAttached());
-			else
+			} else {
 				entry.getValue().noTypeFound();
+			}
 		}
 	}
 
@@ -675,28 +677,30 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 			for (@NotNull
 			IdentTableEntry identTableEntry : generatedFunction.idte_list) {
 				switch (identTableEntry.getStatus()) {
-					case UNKNOWN:
-						assert !identTableEntry.hasResolvedElement();
-						LOG.err(String.format("250 UNKNOWN idte %s in %s", identTableEntry, generatedFunction));
-						break;
-					case KNOWN:
-						assert identTableEntry.hasResolvedElement();
-						if (identTableEntry.type == null) {
-							LOG.err(String.format("258 null type in KNOWN idte %s in %s", identTableEntry,
-								generatedFunction));
-						}
-						break;
-					case UNCHECKED: {
-
-						LOG.err(String.format("255 UNCHECKED idte %s in %s", identTableEntry, generatedFunction));
-						break;
+				case UNKNOWN:
+					assert !identTableEntry.hasResolvedElement();
+					LOG.err(String.format("250 UNKNOWN idte %s in %s", identTableEntry, generatedFunction));
+					break;
+				case KNOWN:
+					assert identTableEntry.hasResolvedElement();
+					if (identTableEntry.type == null) {
+						LOG.err(String.format("258 null type in KNOWN idte %s in %s", identTableEntry,
+						                      generatedFunction
+						));
 					}
+					break;
+				case UNCHECKED: {
+
+					LOG.err(String.format("255 UNCHECKED idte %s in %s", identTableEntry, generatedFunction));
+					break;
+				}
 				}
 				for (@NotNull
 				TypeTableEntry pot_tte : identTableEntry.potentialTypes()) {
 					if (pot_tte.getAttached() == null) {
 						LOG.err(String.format("267 null potential attached in %s in %s in %s", pot_tte, identTableEntry,
-						                      generatedFunction));
+						                      generatedFunction
+						));
 					}
 				}
 			}
@@ -998,11 +1002,34 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 			final DeduceLocalVariable.MemberInvocation mi = aSpecialVariable.memberInvocation;
 
 			switch (mi.role) {
-				case INHERITED:
-					final FunctionInvocation functionInvocation = deferredMemberFunction.functionInvocation();
-					functionInvocation.generatePromise().then(new DoneCallback<BaseEvaFunction>() {
+			case INHERITED:
+				final FunctionInvocation functionInvocation = deferredMemberFunction.functionInvocation();
+				functionInvocation.generatePromise().then(new DoneCallback<BaseEvaFunction>() {
+					@Override
+					public void onDone(final @NotNull BaseEvaFunction gf) {
+						deferredMemberFunction.externalRefDeferred().resolve(gf);
+						gf.typePromise().then(new DoneCallback<GenType>() {
+							@Override
+							public void onDone(final GenType result) {
+								deferredMemberFunction.typeResolved().resolve(result);
+							}
+						});
+					}
+				});
+				break;
+			case DIRECT:
+				if (invocation instanceof NamespaceInvocation)
+					assert false;
+				else {
+					final ClassInvocation classInvocation = (ClassInvocation) invocation;
+					classInvocation.resolvePromise().then(new DoneCallback<EvaClass>() {
 						@Override
-						public void onDone(final @NotNull BaseEvaFunction gf) {
+						public void onDone(final @NotNull EvaClass element_generated) {
+							// once again we need EvaFunction, not FunctionDef
+							// we seem to have it below, but there can be multiple
+							// specializations of each function
+							final EvaFunction gf = element_generated.functionMap
+									.get(deferredMemberFunction.getFunctionDef());
 							deferredMemberFunction.externalRefDeferred().resolve(gf);
 							gf.typePromise().then(new DoneCallback<GenType>() {
 								@Override
@@ -1012,33 +1039,10 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 							});
 						}
 					});
-					break;
-				case DIRECT:
-					if (invocation instanceof NamespaceInvocation)
-						assert false;
-					else {
-						final ClassInvocation classInvocation = (ClassInvocation) invocation;
-						classInvocation.resolvePromise().then(new DoneCallback<EvaClass>() {
-							@Override
-							public void onDone(final @NotNull EvaClass element_generated) {
-								// once again we need EvaFunction, not FunctionDef
-								// we seem to have it below, but there can be multiple
-								// specializations of each function
-								final EvaFunction gf = element_generated.functionMap
-										.get(deferredMemberFunction.getFunctionDef());
-								deferredMemberFunction.externalRefDeferred().resolve(gf);
-								gf.typePromise().then(new DoneCallback<GenType>() {
-									@Override
-									public void onDone(final GenType result) {
-										deferredMemberFunction.typeResolved().resolve(result);
-									}
-								});
-							}
-						});
-					}
-					break;
-				default:
-					throw new IllegalStateException("Unexpected value: " + mi.role);
+				}
+				break;
+			default:
+				throw new IllegalStateException("Unexpected value: " + mi.role);
 			}
 		}
 
@@ -1116,11 +1120,11 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		private Eventual<ClassDefinition> generateClass(RegisterClassInvocation2_env aReq2) {
 			// par { return promise ; wm.drain() ; }
 
-			final GenerateFunctions         gf = aReq2.getGenerateFunctions().get();
-			final ClassInvocation           ci = aReq2.env1().classInvocation();
-			final WorkManager               wm = aReq2.workManager();
+			final GenerateFunctions gf = aReq2.getGenerateFunctions().get();
+			final ClassInvocation   ci = aReq2.env1().classInvocation();
+			final WorkManager       wm = aReq2.workManager();
 
-			final Eventual<ClassDefinition> x  = generateClass2(gf, ci, wm);
+			final Eventual<ClassDefinition> x = generateClass2(gf, ci, wm);
 
 			wm.drain();
 			return x;
