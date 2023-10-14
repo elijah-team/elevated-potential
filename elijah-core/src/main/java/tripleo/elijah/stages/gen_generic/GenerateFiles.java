@@ -4,10 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah.stages.gen_fn.EvaConstructor;
-import tripleo.elijah.stages.gen_fn.EvaFunction;
-import tripleo.elijah.stages.gen_fn.EvaNode;
+import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.work.WorkList;
@@ -30,11 +27,11 @@ public interface GenerateFiles extends CodeGenerator {
 
 	@NotNull
 	static Collection<EvaNode> constructors_to_list_of_generated_nodes(
-			@NotNull Collection<EvaConstructor> aEvaConstructors) {
-		return Collections2.transform(aEvaConstructors, new Function<EvaConstructor, EvaNode>() {
+			@NotNull Collection<IEvaConstructor> aEvaConstructors) {
+		return Collections2.transform(aEvaConstructors, new Function<>() {
 			@org.checkerframework.checker.nullness.qual.Nullable
 			@Override
-			public @Nullable EvaNode apply(@org.checkerframework.checker.nullness.qual.Nullable EvaConstructor input) {
+			public @Nullable EvaNode apply(@org.checkerframework.checker.nullness.qual.Nullable IEvaConstructor input) {
 				return input;
 			}
 		});

@@ -34,10 +34,10 @@ public interface EvaContainer extends EvaNode {
 	class VarTableEntry {
 		public static class ConnectionPair {
 			public final VariableTableEntry vte;
-			final EvaConstructor constructor;
+			final        IEvaConstructor    constructor;
 
 			@Contract(pure = true)
-			public ConnectionPair(final VariableTableEntry aVte, final EvaConstructor aConstructor) {
+			public ConnectionPair(final VariableTableEntry aVte, final IEvaConstructor aConstructor) {
 				vte = aVte;
 				constructor = aConstructor;
 			}
@@ -107,7 +107,7 @@ public interface EvaContainer extends EvaNode {
 			potentialTypes.addAll(aPotentialTypes);
 		}
 
-		public void connect(final VariableTableEntry aVte, final EvaConstructor aConstructor) {
+		public void connect(final VariableTableEntry aVte, final IEvaConstructor aConstructor) {
 			connectionPairs.add(new ConnectionPair(aVte, aConstructor));
 		}
 

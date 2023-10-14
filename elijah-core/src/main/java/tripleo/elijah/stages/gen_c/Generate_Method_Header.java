@@ -28,7 +28,7 @@ class Generate_Method_Header {
 
 	static @NotNull GCM_D discriminator(final BaseEvaFunction bgf, final ElLog aLOG, final GenerateC aGc) {
 		if (bgf instanceof EvaConstructor) {
-			return new GCM_GC((EvaConstructor) bgf, aLOG, aGc);
+			return new GCM_GC((IEvaConstructor) bgf, aLOG, aGc);
 		} else if (bgf instanceof EvaFunction) {
 			return new GCM_GF((EvaFunction) bgf, aLOG, aGc);
 		}

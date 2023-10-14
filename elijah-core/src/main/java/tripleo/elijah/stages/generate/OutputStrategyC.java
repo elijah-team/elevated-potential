@@ -299,7 +299,7 @@ public class OutputStrategyC {
 	}
 
 	@Contract(pure = true)
-	public @Nullable String nameForConstructor(@NotNull EvaConstructor aEvaConstructor,
+	public @Nullable String nameForConstructor(@NotNull IEvaConstructor aEvaConstructor,
 			Old_GenerateResult.@NotNull TY aTy) {
 		EvaNode c = aEvaConstructor.getGenClass();
 		if (c == null)
@@ -311,7 +311,7 @@ public class OutputStrategyC {
 		return null;
 	}
 
-	public @NotNull OSC_NFCo nameForConstructor1(final @NotNull EvaConstructor aGf,
+	public @NotNull OSC_NFCo nameForConstructor1(final @NotNull IEvaConstructor aGf,
 			final GenerateResult.@NotNull TY aTy) {
 		return new OSC_NFCo(nameForConstructor(aGf, aTy));
 	}
