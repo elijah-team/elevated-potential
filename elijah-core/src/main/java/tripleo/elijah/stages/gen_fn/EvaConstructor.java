@@ -75,10 +75,24 @@ public class EvaConstructor extends BaseEvaFunction implements IEvaConstructor {
 		return cd.name();
 	}
 
+	@Override
 	public void setFunctionInvocation(@NotNull FunctionInvocation fi) {
 		GenType genType = new GenTypeImpl();
-		genType.setCi(fi.getClassInvocation()); // TODO will fail on namespace constructors; next line too
-		genType.setResolved((((ClassInvocation) genType.getCi()).getKlass()).getOS_Type());
+		if (fi.getClassInvocation() != null) {
+			final ClassInvocation classInvocation = fi.getClassInvocation();
+			genType.setCi(classInvocation);
+
+			final ClassStatement classStatement = classInvocation.getKlass();
+			final OS_Type        osType         = classStatement.getOS_Type();
+			genType.setResolved(osType);
+		} else {
+			final NamespaceInvocation namespaceInvocation = fi.getNamespaceInvocation();
+			genType.setCi(namespaceInvocation);
+
+			final NamespaceStatement namespaceStatement = namespaceInvocation.getNamespace();
+			final OS_Type            osType             = namespaceStatement.getOS_Type();
+			genType.setResolved(osType);
+		}
 		genType.setNode(this);
 		typeDeferred().resolve(genType);
 	}
