@@ -15,10 +15,10 @@ public class GCFM implements Reactivable {
 
 	private Buffer buf;
 	private Buffer bufHdr;
-	private final BaseEvaFunction gf;
+	private final @NotNull DeducedBaseEvaFunction gf;
 	private final GenerateResult gr;
 
-	public GCFM(final @NotNull List<C2C_Result> aRs, final BaseEvaFunction aGf, final GenerateResult aGr) {
+	public GCFM(final @NotNull List<C2C_Result> aRs, final @NotNull DeducedBaseEvaFunction aGf, final GenerateResult aGr) {
 		gf = aGf;
 		gr = aGr;
 
@@ -36,10 +36,12 @@ public class GCFM implements Reactivable {
 	@Override
 	public void respondTo(final ReactiveDimension aDimension) {
 		if (aDimension instanceof GenerateC generateC) {
-			final LibraryStatementPart lsp = gf.module().getLsp();
+			final LibraryStatementPart lsp = gf.getModule__().getLsp();
 
-			gr.addFunction(gf, buf, GenerateResult.TY.IMPL, lsp);
-			gr.addFunction(gf, bufHdr, GenerateResult.TY.HEADER, lsp);
+			final BaseEvaFunction gf1 = (BaseEvaFunction) gf.getCarrier();
+
+			gr.addFunction(gf1, buf, GenerateResult.TY.IMPL, lsp);
+			gr.addFunction(gf1, bufHdr, GenerateResult.TY.HEADER, lsp);
 
 			var gr2 = generateC.generateResultProgressive();
 			gr2.addFunction((EvaFunction) gf, buf, GenerateResult.TY.IMPL);
