@@ -35,6 +35,8 @@ public interface IEvaConstructor extends
 	@Override
 	String toString();
 
+	void noteDependencies(Dependency aDependency);
+
 	interface BaseEvaConstructor_Reactive extends Reactive {
 
 	}
