@@ -4,7 +4,7 @@ import tripleo.elijah.lang2.BuiltInTypes;
 
 public interface OS_Type {
 	enum Type {
-		ANY, BUILT_IN, FUNC_EXPR, FUNCTION, GENERIC_TYPENAME, UNIT_TYPE, UNKNOWN, USER, USER_CLASS
+		ANY, BUILT_IN, FUNC_EXPR, FUNCTION, GENERIC_TYPENAME, UNIT_TYPE, UNKNOWN, USER, USER_NAMESPACE, USER_CLASS
 	}
 
 	static boolean isConcreteType(final OS_Element element) {

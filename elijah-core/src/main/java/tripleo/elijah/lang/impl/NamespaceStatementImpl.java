@@ -8,22 +8,23 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.contexts.NamespaceContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.util.*;
 
 /**
  * @author Tripleo(sb)
- *         <p>
- *         Created Apr 2, 2019 at 11:08:12 AM
+ * <p>
+ * Created Apr 2, 2019 at 11:08:12 AM
  */
-public class NamespaceStatementImpl extends _CommonNC
-		implements Documentable, ClassItem, tripleo.elijah.lang.i.NamespaceStatement {
+public class NamespaceStatementImpl extends _CommonNC implements Documentable, ClassItem, NamespaceStatement {
 
-	private NamespaceTypes _kind;
-	private final OS_Element parent;
+	private final OS_Element           parent;
+	private       NamespaceTypes       _kind;
+	private       OS_UserNamespaceType __cached_osType;
 
 	public NamespaceStatementImpl(final OS_Element aElement, final Context context) {
 		parent = aElement; // setParent
@@ -41,13 +42,23 @@ public class NamespaceStatementImpl extends _CommonNC
 		setContext(new NamespaceContext(context, this));
 	}
 
+	@Override
+	public OS_Type getOS_Type() {
+		if (__cached_osType == null) {
+			__cached_osType = new OS_UserNamespaceType(this);
+		}
+		return __cached_osType;
+
+	}
+
 	@Override // OS_Container
 	public void add(final OS_Element anElement) {
-		if (anElement instanceof ClassItem)
+		if (anElement instanceof ClassItem) {
 			items.add((ClassItem) anElement);
-		else
-			tripleo.elijah.util.Stupidity
-					.println_err_2(String.format("[NamespaceStatement#add] not a ClassItem: %s", anElement));
+		} else {
+			final String s = String.format("[NamespaceStatement#add] not a ClassItem: %s", anElement);
+			Stupidity.println_err_2(s);
+		}
 	}
 
 	@Override

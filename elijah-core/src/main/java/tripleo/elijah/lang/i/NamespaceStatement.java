@@ -7,6 +7,8 @@ import tripleo.elijah.lang2.*;
 import java.util.*;
 
 public interface NamespaceStatement extends ModuleItem, StatementItem, FunctionItem, OS_Container, OS_Element2 {
+	OS_Type getOS_Type();
+
 	public enum Kind {
 
 	}
