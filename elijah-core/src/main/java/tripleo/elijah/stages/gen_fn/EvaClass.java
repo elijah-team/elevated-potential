@@ -47,8 +47,8 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 	private LivingClass _living;
 	private final ClassStatement klass;
 	private final OS_Module module;
-	public ClassInvocation ci;
-	public @NotNull Map<ConstructorDef, EvaConstructor> constructors = new HashMap<ConstructorDef, EvaConstructor>();
+	public ClassInvocation                               ci;
+	public @NotNull Map<ConstructorDef, IEvaConstructor> constructors = new HashMap<>();
 
 	private boolean resolve_var_table_entries_already = false;
 
@@ -66,7 +66,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 		throw new NotImplementedException();
 	}
 
-	public void addConstructor(ConstructorDef aConstructorDef, @NotNull EvaConstructor aGeneratedFunction) {
+	public void addConstructor(ConstructorDef aConstructorDef, @NotNull IEvaConstructor aGeneratedFunction) {
 		constructors.put(aConstructorDef, aGeneratedFunction);
 	}
 

@@ -1,18 +1,14 @@
 package tripleo.elijah.nextgen.output;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
-import tripleo.elijah.stages.gen_c.C2C_Result;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_fn.EvaConstructor;
-import tripleo.elijah.stages.gen_fn.EvaFunction;
-import tripleo.elijah.stages.gen_generic.GenerateFiles;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.generate.OutputStrategyC;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.generate.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class NG_OutputFunction implements NG_OutputItem {
 	private List<C2C_Result> collect;
@@ -38,10 +34,11 @@ public class NG_OutputFunction implements NG_OutputItem {
 	@Override
 	public EOT_OutputFile.FileNameProvider outName(final @NotNull OutputStrategyC aOutputStrategyC,
 			final GenerateResult.@NotNull TY ty) {
-		if (gf instanceof EvaFunction)
+		if (gf instanceof EvaFunction) {
 			return aOutputStrategyC.nameForFunction1((EvaFunction) gf, ty);
-		else
-			return aOutputStrategyC.nameForConstructor1((EvaConstructor) gf, ty);
+		} else {
+			return aOutputStrategyC.nameForConstructor1((IEvaConstructor) gf, ty);
+		}
 	}
 
 	public void setFunction(final BaseEvaFunction aGf, final GenerateFiles aGenerateFiles,

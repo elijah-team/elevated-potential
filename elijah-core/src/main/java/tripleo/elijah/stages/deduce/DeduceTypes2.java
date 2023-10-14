@@ -90,9 +90,9 @@ public class DeduceTypes2 {
 	}
 
 	static class CtorConnector implements IVariableConnector {
-		private final EvaConstructor evaConstructor;
+		private final IEvaConstructor evaConstructor;
 
-		public CtorConnector(final EvaConstructor aEvaConstructor) {
+		public CtorConnector(final IEvaConstructor aEvaConstructor) {
 			evaConstructor = aEvaConstructor;
 		}
 
@@ -472,7 +472,7 @@ public class DeduceTypes2 {
 			return new ConstructableElementHolder(aE, aIdentIA);
 		}
 
-		public IVariableConnector new_CtorConnector(final EvaConstructor aGeneratedFunction) {
+		public IVariableConnector new_CtorConnector(final IEvaConstructor aGeneratedFunction) {
 			return new CtorConnector(aGeneratedFunction);
 		}
 
@@ -1202,7 +1202,7 @@ public class DeduceTypes2 {
 		}
 
 		@Override
-		public @NotNull Collection<EvaConstructor> collection() {
+		public @NotNull Collection<IEvaConstructor> collection() {
 			return evaClass.constructors.values();
 		}
 
@@ -1235,7 +1235,7 @@ public class DeduceTypes2 {
 		df_helper<T> get(EvaContainerNC generatedClass);
 	}
 
-	class dfhi_constructors implements df_helper_i<EvaConstructor> {
+	class dfhi_constructors implements df_helper_i<IEvaConstructor> {
 		@Override
 		public @Nullable df_helper_Constructors get(EvaContainerNC aGeneratedContainerNC) {
 			if (aGeneratedContainerNC instanceof EvaClass) // TODO namespace constructors
@@ -2999,7 +2999,7 @@ public class DeduceTypes2 {
 		@NotNull
 		DeduceTypes2.IVariableConnector connector;
 		if (generatedFunction instanceof EvaConstructor) {
-			connector = _inj().new_CtorConnector((EvaConstructor) generatedFunction);
+			connector = _inj().new_CtorConnector((IEvaConstructor) generatedFunction);
 		} else {
 			connector = _inj().new_NullConnector();
 		}

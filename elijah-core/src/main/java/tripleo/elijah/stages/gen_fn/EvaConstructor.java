@@ -10,19 +10,17 @@ package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.ConstructorDef;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.deduce.DeduceElement3_Constructor;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
+import tripleo.elijah.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.stages.deduce.*;
+
+import java.util.function.*;
 
 /**
  * Created 6/27/21 9:45 AM
  */
-public class EvaConstructor extends BaseEvaFunction {
+public class EvaConstructor extends BaseEvaFunction implements IEvaConstructor {
 	public final @Nullable ConstructorDef cd;
 	private final Eventual<DeduceElement3_Constructor> _de3_Promise = new Eventual<>();
 
@@ -30,6 +28,7 @@ public class EvaConstructor extends BaseEvaFunction {
 		cd = aConstructorDef;
 	}
 
+	@Override
 	public Eventual<DeduceElement3_Constructor> de3_Promise() {
 		return _de3_Promise;
 	}
@@ -59,6 +58,7 @@ public class EvaConstructor extends BaseEvaFunction {
 		return cd.getContext().module();
 	}
 
+	@Override
 	public String name() {
 		if (cd == null)
 			throw new IllegalArgumentException("null cd");

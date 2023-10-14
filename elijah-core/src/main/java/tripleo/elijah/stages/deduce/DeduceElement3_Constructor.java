@@ -35,7 +35,7 @@ public class DeduceElement3_Constructor implements IDeduceElement3 {
 			}
 		}
 		{
-			final @NotNull EvaConstructor gf = evaConstructor;
+			final @NotNull IEvaConstructor gf = evaConstructor;
 
 			@Nullable
 			InstructionArgument result_index = gf.vte_lookup("Result");

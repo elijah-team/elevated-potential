@@ -10,11 +10,11 @@ import tripleo.elijah.stages.instructions.VariableTableType;
 import tripleo.elijah.stages.logging.ElLog;
 
 class GCM_GC implements GCM_D {
-	private final GenerateC gc;
-	private final EvaConstructor gf;
-	private final ElLog LOG;
+	private final GenerateC       gc;
+	private final IEvaConstructor gf;
+	private final ElLog           LOG;
 
-	public GCM_GC(final EvaConstructor aGf, final ElLog aLOG, final GenerateC aGc) {
+	public GCM_GC(final IEvaConstructor aGf, final ElLog aLOG, final GenerateC aGc) {
 		gf = aGf;
 		LOG = aLOG;
 		gc = aGc;

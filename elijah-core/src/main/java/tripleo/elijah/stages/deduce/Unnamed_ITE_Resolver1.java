@@ -222,11 +222,8 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 						fi.generateDeferred().done(new DoneCallback<BaseEvaFunction>() {
 							@Override
 							public void onDone(BaseEvaFunction result) {
-								@NotNull
-								EvaConstructor constructorDef = (EvaConstructor) result;
-
-								@NotNull
-								FunctionDef ele = constructorDef.getFD();
+								@NotNull IEvaConstructor constructorDef = (IEvaConstructor) result;
+								@NotNull FunctionDef     ele            = constructorDef.getFD();
 
 								try {
 									LookupResultList lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(),

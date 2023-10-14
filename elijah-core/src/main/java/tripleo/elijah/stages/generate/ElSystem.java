@@ -63,7 +63,7 @@ public class ElSystem {
 			s = outputStrategyC.nameForFunction(evaFunction, ty);
 
 			logProgress(30, evaFunction, s);
-		} else if (node instanceof EvaConstructor evaConstructor) {
+		} else if (node instanceof IEvaConstructor evaConstructor) {
 			s = outputStrategyC.nameForConstructor(evaConstructor, ty);
 
 			logProgress(55, evaConstructor, s);
