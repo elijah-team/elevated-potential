@@ -3,6 +3,7 @@ package tripleo.elijah.stages.gen_fn;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_generic.*;
 
@@ -33,4 +34,8 @@ public interface IEvaConstructor extends
 
 	@Override
 	String toString();
+
+	interface BaseEvaConstructor_Reactive extends Reactive {
+
+	}
 }

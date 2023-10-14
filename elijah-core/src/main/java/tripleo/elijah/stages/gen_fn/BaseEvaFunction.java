@@ -13,6 +13,7 @@ import org.jdeferred2.Promise;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;
 import tripleo.elijah.stages.deduce.*;
@@ -36,12 +37,13 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
 /**
  * Created 9/10/20 2:57 PM
  */
-public abstract class BaseEvaFunction extends AbstractDependencyTracker
+public abstract class BaseEvaFunction
+		extends AbstractDependencyTracker
 		implements EvaNode, DeduceTypes2.ExpectationBase, IDependencyReferent, IEvaFunctionBase {
-	public class __Reactive extends DefaultReactive {
+	public class __Reactive extends DefaultReactive implements BaseEvaFunction_Reactive {
 		@Override
 		public <T> void addListener(final Consumer<T> t) {
-			int y = 2;
+			throw new UnintendedUseException();
 		}
 	}
 

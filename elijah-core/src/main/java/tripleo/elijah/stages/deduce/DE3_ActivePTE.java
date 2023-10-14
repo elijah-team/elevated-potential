@@ -73,7 +73,7 @@ class DE3_ActivePTE implements DE3_Active {
 
 	@Override
 	public <T> void addListener(final Consumer<T> t) {
-
+		throw new UnintendedUseException();
 	}
 
 	@NotNull

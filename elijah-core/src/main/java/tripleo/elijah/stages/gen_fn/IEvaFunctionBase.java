@@ -5,6 +5,7 @@ import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.deduce.DeduceElement;
 import tripleo.elijah.stages.gen_generic.Dependency;
 import tripleo.elijah.stages.instructions.*;
@@ -115,4 +116,6 @@ public interface IEvaFunctionBase {
 
 	@Nullable
 	InstructionArgument vte_lookup(String text);
+
+	interface BaseEvaFunction_Reactive extends Reactive {}
 }
