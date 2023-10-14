@@ -24,7 +24,16 @@ public class EvaConstructor extends BaseEvaFunction implements IEvaConstructor {
 	public final @Nullable ConstructorDef cd;
 	private final Eventual<DeduceElement3_Constructor> _de3_Promise = new Eventual<>();
 
-	public EvaConstructor(final @Nullable ConstructorDef aConstructorDef) {
+	public static class __Reactive extends DefaultReactive implements BaseEvaConstructor_Reactive {
+
+		@Override
+		public <T> void addListener(final Consumer<T> t) {
+			throw new UnintendedUseException();
+		}
+	}
+
+
+		public EvaConstructor(final @Nullable ConstructorDef aConstructorDef) {
 		cd = aConstructorDef;
 	}
 
@@ -60,8 +69,9 @@ public class EvaConstructor extends BaseEvaFunction implements IEvaConstructor {
 
 	@Override
 	public String name() {
-		if (cd == null)
+		if (cd == null) {
 			throw new IllegalArgumentException("null cd");
+		}
 		return cd.name();
 	}
 

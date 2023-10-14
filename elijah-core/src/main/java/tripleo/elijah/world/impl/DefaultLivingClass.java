@@ -54,13 +54,18 @@ public class DefaultLivingClass implements LivingClass {
 	}
 
 	@Override
-	public void generateWith(final GenerateResultSink aResultSink, final @NotNull GarishClass aGarishClass, final GenerateResult aGr, final GenerateFiles aGenerateFiles) {
-		if (!_generatedFlag) {
-			var                         generateC = (GenerateC) aGenerateFiles;
-			final GarishClass_Generator xg        = new GarishClass_Generator(evaNode());
-			xg.provide(aResultSink, aGarishClass, aGr, generateC);
+	@Contract(mutates = "this")
+	public void generateWith(final GenerateResultSink   aResultSink,
+	                         final @NotNull GarishClass aGarishClass,
+	                         final GenerateResult       aGenerateResult,
+	                         final GenerateFiles        aGenerateFiles) {
+		if (_generatedFlag) { return; }
 
-			_generatedFlag = true;
-		}
+		final GenerateC             generateC            = (GenerateC) aGenerateFiles;
+		final GarishClass_Generator garishClassGenerator = new GarishClass_Generator(evaNode());
+
+		garishClassGenerator.provide(aResultSink, aGarishClass, aGenerateResult, generateC);
+
+		_generatedFlag = true;
 	}
 }
