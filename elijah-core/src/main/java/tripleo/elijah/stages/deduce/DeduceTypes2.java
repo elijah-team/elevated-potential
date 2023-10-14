@@ -609,22 +609,26 @@ public class DeduceTypes2 {
 		}
 	}
 
-	public boolean deduceOneConstructor(@NotNull EvaConstructor aEvaConstructor, @NotNull DeducePhase aDeducePhase) {
-		var ce = aDeducePhase.ca().getCompilation().getCompilationEnclosure();
-		var mt = ce.addModuleThing(aEvaConstructor.module());
+	public boolean deduceOneConstructor(@NotNull IEvaConstructor aEvaConstructor1, @NotNull DeducePhase aDeducePhase) {
+		final EvaConstructor       evaConstructor = (EvaConstructor) aEvaConstructor1;
 
-		if (aEvaConstructor.deducedAlready)
+		if (evaConstructor.deducedAlready)
 			return false;
-		deduce_generated_function_base(aEvaConstructor, aEvaConstructor.getFD(), mt);
-		aEvaConstructor.deducedAlready = true;
 
-		final Eventual<DeduceElement3_Constructor> deduceElement3ConstructorEventual = aEvaConstructor.de3_Promise();
+		final ICompilationAccess         compilationAccess = aDeducePhase.ca();
+		final CompilationEnclosure       ce                = compilationAccess.getCompilation().getCompilationEnclosure();
+
+		final DeduceElement3_Constructor ccc               = new DeduceElement3_Constructor(evaConstructor, this, ce);
 
 		var ccc = new DeduceElement3_Constructor(aEvaConstructor, this);
+		final ModuleThing                mt                = ce.addModuleThing(evaConstructor.module());
+
+		ccc.deduceOneConstructor(mt);
+
+		final Eventual<DeduceElement3_Constructor> deduceElement3ConstructorEventual = evaConstructor.de3_Promise();
 		deduceElement3ConstructorEventual.resolve(ccc);
 
-		deduceElement3ConstructorEventual
-				.then((DeduceElement3_Constructor c) -> c.__post_deduce_generated_function_base(aDeducePhase));
+		evaConstructor.deducedAlready = true;
 		return true;
 	}
 

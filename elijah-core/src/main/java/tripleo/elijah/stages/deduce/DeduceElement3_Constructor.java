@@ -2,19 +2,24 @@ package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.stages.inter.*;
 
 public class DeduceElement3_Constructor implements IDeduceElement3 {
 	private final EvaConstructor evaConstructor;
 	private final DeduceTypes2 deduceTypes2;
 
-	public DeduceElement3_Constructor(final EvaConstructor aEvaConstructor, final DeduceTypes2 aDeduceTypes2) {
+	private final CompilationEnclosure ce;
+
+	public DeduceElement3_Constructor(final EvaConstructor aEvaConstructor, final DeduceTypes2 aDeduceTypes2, final CompilationEnclosure aCe) {
 		evaConstructor = aEvaConstructor;
-		deduceTypes2 = aDeduceTypes2;
+		deduceTypes2   = aDeduceTypes2;
+		ce             = aCe;
 	}
 
 	public void __post_deduce_generated_function_base(final @NotNull DeducePhase aDeducePhase) {
@@ -142,6 +147,24 @@ public class DeduceElement3_Constructor implements IDeduceElement3 {
 
 	@Override
 	public void resolve(final IdentIA aIdentIA, final Context aContext, final FoundElement aFoundElement) {
+		throw new UnintendedUseException();
+	}
 
+	public void deduceOneConstructor(final ModuleThing aMt) {
+		var mt = aMt;
+//		var ccc = this;
+
+		deduceTypes2.deduce_generated_function_base(evaConstructor, evaConstructor.getFD(), mt);
+
+//		evaConstructor.de3_Promise()
+//				.then((DeduceElement3_Constructor c) -> {
+//					assert c == ccc;
+//					c.
+							__post_deduce_generated_function_base(deduceTypes2._phase());
+//				});
+	}
+
+	public CompilationEnclosure getCompilerEnclosure() {
+		return ce;
 	}
 }
