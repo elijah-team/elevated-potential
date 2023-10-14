@@ -74,7 +74,7 @@ public class CX_ParseElijahFile {
 		parser.out = new Out(f, compilation, false);
 		parser.setFilename(f);
 
-		parser.pcon = new Compilation.PConParser();
+		parser.pcon = new PConParser();
 		//parser.ci   = parser.pcon.newCompilerInstructionsImpl(); // README just saved for reference
 
 		try {
