@@ -1,25 +1,21 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.notation.GM_GenerateModule;
-import tripleo.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_fn.EvaFunction;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.stages.logging.ElLog;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.logging.*;
 
 public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	private final BaseEvaFunction gf;
 
-	private final GenerateC generateC;
+	private final GenerateC                                     generateC;
 	private final DeferredObject<GenerateResultEnv, Void, Void> fileGenPromise = new DeferredObject<>();
 
 	public WhyNotGarish_Function(final BaseEvaFunction aGf, final GenerateC aGenerateC) {
-		gf = aGf;
+		gf        = aGf;
 		generateC = aGenerateC;
 
 		fileGenPromise.then(this::onFileGen);
@@ -49,8 +45,10 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 	}
 
 	public void onFileGen(final @NotNull GenerateResultEnv aFileGen) {
-		if (gf.getFD() == null)
-			assert false; // return; // FIXME why? when?
+		if (gf.getFD() == null) {
+			// FIXME why? when?
+			throw new IllegalStateException("[WhyNotGarish_Function::onFileGen] gf.getFD() == null");
+		}
 		Generate_Code_For_Method gcfm = new Generate_Code_For_Method(generateC, generateC.LOG);
 		gcfm.generateCodeForMethod(deduced(gf), aFileGen);
 	}
@@ -61,9 +59,10 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 	}
 
 	public void resolveFileGenPromise(final GenerateResultEnv aFileGen) {
-		if (!fileGenPromise.isResolved())
+		if (!fileGenPromise.isResolved()) {
 			fileGenPromise.resolve(aFileGen);
-		else
+		} else {
 			System.out.println("twice for " + generateC);
+		}
 	}
 }
