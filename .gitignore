@@ -1,1 +1,17 @@
 /.idea/**
+/bin/
+/fact.elijah.h
+/doc/
+eljc*out
+/out/
+target
+/output/
+/target-/
+/COMP*/
+/.idea/workspace.xml
+/.idea/gitlab-quickmr.xml
+/.gradle
+/build
+/el-fluffy-jubilee.userlibraries
+elijah-lang*txt
+/lib/**
