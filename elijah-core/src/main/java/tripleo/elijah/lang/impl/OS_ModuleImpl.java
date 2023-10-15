@@ -25,6 +25,7 @@ import tripleo.elijah.entrypoints.MainClassEntryPoint;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
 import tripleo.elijah.stages.deduce.fluffy.impl.FluffyModuleImpl;
+import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.util.Stupidity;
 import tripleo.elijah.world.*;
@@ -157,13 +158,21 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 
 	@Override
 	public boolean hasClass(final String className) {
-		for (final ModuleItem item : items) {
-			if (item instanceof ClassStatement) {
-				if (((ClassStatement) item).getName().equals(className))
-					return true;
-			}
-		}
-		return false;
+//		for (final ModuleItem item : items) {
+//			if (item instanceof ClassStatement classStatement) {
+//				if (Helpers.String_equals(classStatement.getName(), (className))) {
+//					return true;
+//				}
+//			}
+//		}
+
+		var s = items.stream()
+				.filter(item -> item instanceof ClassStatement)
+				.map(item -> (ClassStatement)item)
+				.filter(classStatement -> Helpers.String_equals(classStatement.getName(), (className)))
+				.findAny();
+
+		return s.isPresent();
 	}
 
 	@Override
