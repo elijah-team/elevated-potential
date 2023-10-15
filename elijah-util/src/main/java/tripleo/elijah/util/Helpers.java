@@ -8,13 +8,19 @@
  */
 package tripleo.elijah.util;
 
-import org.apache.commons.codec.digest.*;
-import org.jetbrains.annotations.*;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.codec.digest.MessageDigestAlgorithms;
+import org.jetbrains.annotations.NotNull;
 
-import java.io.*;
-import java.security.*;
-import java.util.*;
-import java.util.stream.*;
+import java.io.File;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Created 9/10/20 3:44 PM
@@ -61,7 +67,7 @@ public enum Helpers {
 	}
 
 	public static <T> List<String> mapCollectionElementsToString(final List<T> instructionArguments) {
-		return instructionArguments.stream().map(x -> x.toString()).collect(Collectors.toList());
+		return instructionArguments.stream().map(Object::toString).collect(Collectors.toList());
 	}
 
 	@NotNull
@@ -77,7 +83,7 @@ public enum Helpers {
 				sb.append(part);
 				sb.append(separator);
 			}
-			final String ss = sb.toString();
+			final String ss        = sb.toString();
 			final String substring = separator.substring(0, ss.length() - separator.length());
 			return substring;
 		}
