@@ -4601,9 +4601,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							}
 						}
 						if (inputState.guessing == 0) {
-							ProcedureCallExpression pce = pcon.new_ProcedureCallExpressionImpl();
-							pce.identifier(ee);
-							pce.setArgs(el);
+							ProcedureCallExpression pce = pcon.new_ProcedureCallExpressionImpl(ee, el);
 							ee = pce;
 						}
 						match(RPAREN);
