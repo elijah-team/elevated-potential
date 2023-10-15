@@ -10,6 +10,7 @@ package tripleo.elijah;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created 9/9/21 4:16 AM
@@ -31,6 +32,12 @@ public class Feb2021Test {
 		var t = TestCompilation.simpleTest()
 				.setFile("test/feb2021/hier/")
 				.run();
+
+		// TODO 10/15 cucumber??
+
+		/* TODO investigate: */assertTrue(t.assertLiveClass("Bar"));  // .inFile("test/feb2021/hier/hier.elijah")
+		/* TODO investigate: */assertTrue(t.assertLiveClass("Foo"));  // ...
+		/* TODO investigate: */assertTrue(t.assertLiveClass("Main")); // ...
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
