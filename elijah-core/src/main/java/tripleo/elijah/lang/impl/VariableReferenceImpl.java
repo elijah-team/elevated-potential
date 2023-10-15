@@ -12,11 +12,10 @@ import antlr.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 
-public class VariableReferenceImpl extends AbstractExpression
-		implements OS_Expression, tripleo.elijah.lang.i.VariableReference {
+public class VariableReferenceImpl extends AbstractExpression implements VariableReference {
 
 	// List<VR_Parts> parts = new ArrayList<VR_Parts>();
-	OS_Type _type;
+	
 	String main;
 
 	/**
@@ -33,11 +32,6 @@ public class VariableReferenceImpl extends AbstractExpression
 	public String getName() {
 //		if (parts.size() >0) throw new IllegalStateException();
 		return main;
-	}
-
-	@Override
-	public OS_Type getType() {
-		return _type;
 	}
 
 	/**
