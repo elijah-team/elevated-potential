@@ -300,48 +300,47 @@ public abstract class BaseEvaFunction
 //	Map<Range, ContextImpl> contextToRangeMap = new HashMap<Range, ContextImpl>();
 
 	@Override
-	public @NotNull InstructionArgument get_assignment_path(@NotNull final IExpression expression,
-			@NotNull final GenerateFunctions generateFunctions, @NotNull Context context) {
+	public @NotNull InstructionArgument get_assignment_path(final @NotNull IExpression expression,
+															final @NotNull GenerateFunctions generateFunctions,
+															final @NotNull Context context) {
 		switch (expression.getKind()) {
-		case DOT_EXP: {
-			final DotExpression de = (DotExpression) expression;
+		case DOT_EXP -> {
+			final DotExpression       de        = (DotExpression) expression;
 			final InstructionArgument left_part = get_assignment_path(de.getLeft(), generateFunctions, context);
 			return get_assignment_path(left_part, de.getRight(), generateFunctions, context);
 		}
-		case QIDENT:
-			throw new NotImplementedException();
-		case PROCEDURE_CALL: {
+		case QIDENT -> throw new NotImplementedException();
+		case PROCEDURE_CALL -> {
+			// keep us forever in the presence
 			ProcedureCallExpression pce = (ProcedureCallExpression) expression;
 			if (pce.getLeft() instanceof final @NotNull IdentExpression identExpression) {
-				int idte_index = addIdentTableEntry(identExpression, identExpression.getContext());
-				final IdentIA identIA = new IdentIA(idte_index, this);
-				final List<TypeTableEntry> args_types = generateFunctions.get_args_types(pce.getArgs(),
-						(@NotNull EvaFunction) this, context);
-				int i = generateFunctions.addProcTableEntry(pce, identIA, args_types, this);
+				final int                  idte_index = addIdentTableEntry(identExpression, identExpression.getContext());
+				final IdentIA              identIA    = new IdentIA(idte_index, this);
+				final List<TypeTableEntry> args_types = generateFunctions.get_args_types(pce.getArgs(), this, context);
+				final int i = generateFunctions.addProcTableEntry(pce, identIA, args_types, this);
 				return new ProcIA(i, this);
 			}
-			return get_assignment_path(pce.getLeft(), generateFunctions, context); // TODO this looks wrong. what are we
-																					// supposed to be doing here?
+			// TODO this looks wrong. what are we supposed to be doing here?
+			return get_assignment_path(pce.getLeft(), generateFunctions, context);
 		}
-		case GET_ITEM:
-			throw new NotImplementedException();
-		case IDENT: {
-			final IdentExpression ie = (IdentExpression) expression;
-			final String text = ie.getText();
+		case GET_ITEM -> throw new NotImplementedException();
+		case IDENT -> {
+			final IdentExpression     ie     = (IdentExpression) expression;
+			final String              text   = ie.getText();
 			final InstructionArgument lookup = vte_lookup(text); // IntegerIA(variable) or ConstTableIA or null
 			if (lookup != null)
 				return lookup;
 			final int ite = addIdentTableEntry(ie, context);
 			return new IdentIA(ite, this);
 		}
-		default:
-			throw new IllegalStateException("Unexpected value: " + expression.getKind());
+		default -> throw new IllegalStateException("Unexpected value: " + expression.getKind());
 		}
 	}
 
 	private @NotNull InstructionArgument get_assignment_path(@NotNull final InstructionArgument prev,
-			@NotNull final IExpression expression, @NotNull final GenerateFunctions generateFunctions,
-			@NotNull final Context context) {
+															 @NotNull final IExpression expression,
+															 @NotNull final GenerateFunctions generateFunctions,
+															 @NotNull final Context context) {
 		switch (expression.getKind()) {
 		case DOT_EXP: {
 			final DotExpression de = (DotExpression) expression;
