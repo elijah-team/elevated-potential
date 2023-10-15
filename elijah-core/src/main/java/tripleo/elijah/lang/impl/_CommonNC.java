@@ -21,7 +21,7 @@ import java.util.*;
 public abstract class _CommonNC {
 	protected final List<ClassItem> items = new ArrayList<ClassItem>();
 	private final List<String> mDocs = new ArrayList<String>();
-	public @NotNull Attached _a = new AttachedImpl();
+	public @NotNull Attached _a;
 	protected OS_Package _packageName;
 	protected IdentExpression nameToken;
 	@Nullable

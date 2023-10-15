@@ -9,6 +9,8 @@
 package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.*;
+
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
@@ -18,15 +20,28 @@ import java.util.*;
 
 /**
  * @author Tripleo
- *         <p>
- *         Created Mar 30, 2020 at 7:41:52 AM
+ * <p>
+ * Created Mar 30, 2020 at 7:41:52 AM
  */
 public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
+
+	public FuncExprImpl(FuncExprContext _ctx, TypeName _returnType) {
+		super();
+		setReturnType(_returnType);
+		setContext(_ctx);
+		// TODO 10/15 should the below be in the above?
+		_a = new AttachedImpl(_ctx);
+	}
 
 	private FuncExprContext _ctx;
 	// private Scope3 scope3;
 	// private FormalArgList argList = new FormalArgListImpl();
 	private TypeName _returnType;
+
+	@Deprecated
+	public FuncExprImpl() {
+		throw new UnintendedUseException();
+	}
 
 	@Override
 	public @NotNull List<FormalArgListItem> falis() {
@@ -71,13 +86,6 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 	}
 
 	@Override
-	public OS_Type getType() {
-		return _type;
-	}
-
-	// region arglist
-
-	@Override
 	public boolean is_simple() {
 		return false;
 	}
@@ -86,8 +94,6 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 	public void postConstruct() {
 		// nop
 	}
-
-	// endregion
 
 	@Override
 	public @Nullable String repr_() {
@@ -142,10 +148,6 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 	}
 
 	/************* FOR THE OTHER ONE ******************/
-	@Override
-	public void setType(final OS_Type deducedExpression) {
-		_type = deducedExpression;
-	}
 
 	@Override
 	public void type(final TypeModifiers modifier) {

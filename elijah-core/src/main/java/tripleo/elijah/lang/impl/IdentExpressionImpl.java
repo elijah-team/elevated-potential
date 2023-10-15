@@ -149,13 +149,7 @@ public class IdentExpressionImpl implements IdentExpression {
 		return text.getText();
 	}
 
-	@Override
 	public OS_Type getType() {
-		throw new UnintendedUseException();
-	}
-
-	@Override
-	public void setType(final OS_Type deducedExpression) {
 		throw new UnintendedUseException();
 	}
 

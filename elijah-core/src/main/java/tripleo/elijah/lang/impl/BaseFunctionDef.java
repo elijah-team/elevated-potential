@@ -23,12 +23,11 @@ import java.util.*;
  */
 public abstract class BaseFunctionDef implements FunctionDef, Documentable, ClassItem, OS_Container, OS_Element2 {
 
-	public @NotNull Attached _a = new AttachedImpl();
+	protected @NotNull Attached _a;
 	protected Species _species;
 	protected FormalArgList mFal = new FormalArgListImpl(); // remove final for FunctionDefBuilder
 	protected Scope3 scope3;
-	@Nullable
-	List<AnnotationClause> annotations = null;
+	@Nullable List<AnnotationClause> annotations = null;
 	private AccessNotation access_note;
 	private El_Category category;
 	protected IdentExpression funName;

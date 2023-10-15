@@ -49,22 +49,12 @@ public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression 
 		return _left;
 	}
 
-	@Override
-	public OS_Type getType() {
-		throw new UnintendedUseException();
-	}
-
 	/**
 	 * @see #identifier()
 	 */
 	@Override
 	public void setLeft(final IExpression iexpression) {
 		_left = iexpression;
-	}
-
-	@Override
-	public void setType(OS_Type deducedExpression) {
-		throw new UnintendedUseException();
 	}
 
 	@Override

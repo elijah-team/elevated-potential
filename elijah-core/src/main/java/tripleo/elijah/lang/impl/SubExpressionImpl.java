@@ -35,19 +35,10 @@ public class SubExpressionImpl extends AbstractExpression implements tripleo.eli
 	}
 
 	@Override
-	public OS_Type getType() {
-		return carrier.getType();
-	}
-
-	@Override
 	public boolean is_simple() {
 		return true;
 	}
 
-	@Override
-	public void setType(final OS_Type deducedExpression) {
-		throw new IllegalStateException("Cant set this type");
-	}
 }
 
 //

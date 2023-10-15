@@ -24,9 +24,6 @@ public interface IdentExpression extends IExpression, OS_Element, Locatable {
 	String getText();
 
 	@Override
-	OS_Type getType();
-
-	@Override
 	boolean is_simple();
 
 	@Override
@@ -43,6 +40,8 @@ public interface IdentExpression extends IExpression, OS_Element, Locatable {
 	@Override
 	void setLeft(IExpression iexpression);
 
-	@Override
-	void setType(OS_Type deducedExpression);
 }
+
+//
+//
+//
