@@ -422,6 +422,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 	private OS_Element sneak_el_null__bl1_not_null(final @NotNull IdentExpression ident, final OS_Element[] elx,
 			OS_Element el, final InstructionArgument bl1) {
 		@Nullable DeduceTypes2 dt2 = principal._deduceTypes2();
+		assert dt2 != null;
 
 		if (bl1 instanceof final IntegerIA integerIA) {
 			@NotNull

@@ -1745,6 +1745,7 @@ public class DeduceTypes2 {
 		}
 	}
 
+	// TODO 10/14 mix of injector and factory ;)
 	public static class DeduceTypes2Injector {
 		public __Add_Proc_Table_Listeners new___Add_Proc_Table_Listeners() {
 			return new __Add_Proc_Table_Listeners();
@@ -1948,7 +1949,7 @@ public class DeduceTypes2 {
 
 		public FT_FnCallArgs.DoAssignCall new_DoAssignCall(final DeduceClient4 aClient4,
 		                                                   final BaseEvaFunction aGeneratedFunction, final FT_FnCallArgs aFT_FnCallArgs) {
-			return aFT_FnCallArgs.new DoAssignCall(aClient4, aGeneratedFunction);
+			return new FT_FnCallArgs.DoAssignCall(aClient4, aGeneratedFunction);
 		}
 
 		public DR_Item new_DR_Ident(final IdentTableEntry aIdentTableEntry, final BaseEvaFunction aGeneratedFunction, final DeduceTypes2 aDeduceTypes2) {
@@ -1967,9 +1968,15 @@ public class DeduceTypes2 {
 			return new DT_Env(aLOG, aErrSink, aCentral);
 		}
 
-		public DT_External_2 new_DT_External_2(final IdentTableEntry aEntry, final OS_Module aModule,
-		                                       final ProcTableEntry aPte, final FT_FCA_IdentIA.FakeDC4 aDc, final ElLog aLOG, final Context aCtx,
-		                                       final BaseEvaFunction aGeneratedFunction, final int aInstructionIndex, final IdentIA aIdentIA,
+		public DT_External_2 new_DT_External_2(final IdentTableEntry aIdentTableEntry,
+		                                       final OS_Module aModule,
+		                                       final ProcTableEntry aPte,
+		                                       final FT_FCA_IdentIA.FakeDC4 aDc,
+		                                       final ElLog aLOG,
+		                                       final Context aCtx,
+		                                       final BaseEvaFunction aGeneratedFunction,
+		                                       final int aInstructionIndex,
+		                                       final IdentIA aIdentIA,
 		                                       final VariableTableEntry aVte) {
 			return new DT_External_2(aIdentTableEntry, aModule, aPte, aDc, aLOG, aCtx, aGeneratedFunction, aInstructionIndex, aIdentIA, aVte);
 		}
@@ -2093,7 +2100,7 @@ public class DeduceTypes2 {
 		}
 
 		public FoundElement new_FT_FnCallArgs_DoAssignCall_NullFoundElement(final DeduceClient4 aDc) {
-			return new FT_FnCallArgs.DoAssignCall.NullFoundElement(aDc);
+			return new FT_FnCallArgs.NullFoundElement(aDc);
 		}
 
 		public FunctionDef new_FunctionDefImpl(final NamespaceStatement aModNs, final Context aContext) {

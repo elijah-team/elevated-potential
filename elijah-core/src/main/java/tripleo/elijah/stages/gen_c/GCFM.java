@@ -44,8 +44,8 @@ public class GCFM implements Reactivable {
 			gr.addFunction(gf1, bufHdr, GenerateResult.TY.HEADER, lsp);
 
 			var gr2 = generateC.generateResultProgressive();
-			gr2.addFunction((EvaFunction) gf, buf, GenerateResult.TY.IMPL);
-			gr2.addFunction((EvaFunction) gf, bufHdr, GenerateResult.TY.HEADER);
+			gr2.addFunction((EvaFunction) gf1, buf, GenerateResult.TY.IMPL);
+			gr2.addFunction((EvaFunction) gf1, bufHdr, GenerateResult.TY.HEADER);
 		}
 	}
 }

@@ -7,7 +7,6 @@ public class ENU_FunctionCallTarget implements EN_Understanding {
 	private final ProcTableEntry pte;
 
 	public ENU_FunctionCallTarget(final ProcTableEntry aPte) {
-
 		pte = aPte;
 	}
 }

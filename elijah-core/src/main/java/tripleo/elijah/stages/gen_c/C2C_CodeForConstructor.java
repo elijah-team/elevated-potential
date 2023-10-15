@@ -109,7 +109,10 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 		}
 	}
 
-	private String getHeaderString(final EvaClass x, final String class_name, final int class_code, final String constructorName) {
+	private String getHeaderString(final EvaClass x,
+								   final String class_name,
+								   final int class_code,
+								   final String constructorName) {
 		final String                 header_string;
 		final Generate_Method_Header gmh         = new Generate_Method_Header(gf, generateCodeForMethod.gc, generateCodeForMethod.LOG);
 		final String                 args_string = gmh.args_string;

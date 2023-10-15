@@ -103,6 +103,19 @@ public enum Helpers {
 	public static boolean String_equals(String aS, String aS1) {
 		return Objects.equals(aS, aS1);
 	}
+
+	public static @NotNull <T> List<T> __combine_list_elements(final T b, final List<T> m, final T e) {
+		final List<T> list3 = __prepend_list(b, m);
+		list3.add(e);
+		return list3;
+	}
+
+	private static @NotNull <T> List<T> __prepend_list(final T b, final @NotNull List<T> list2) {
+		final List<T> list3 = new ArrayList<>(list2.size() + 2);
+		list3.add(b);
+		list3.addAll(list2);
+		return list3;
+	}
 }
 
 //

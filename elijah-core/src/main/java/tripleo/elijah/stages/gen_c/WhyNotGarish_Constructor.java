@@ -100,7 +100,6 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 
 		// FIXME 06/17; 10/13 what's wrong with it?
 		final GenerateResultSink sink = aFileGen.resultSink();
-
 		if (sink != null) {
 			sink.addFunction(gf, rs, generateC);
 		} else {

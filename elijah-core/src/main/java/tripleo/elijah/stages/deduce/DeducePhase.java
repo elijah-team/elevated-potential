@@ -328,6 +328,8 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 				}
 			}
 		}
+
+		waits.clear();
 	}
 
 	public void forFunction(@NotNull DeduceTypes2 deduceTypes2,
@@ -772,6 +774,10 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		public Iterable<DeduceTypes2> iterator() {
 			return waits;
 		}
+
+		public void clear() {
+			waits.clear();
+		}
 	}
 
 	class Country1 implements Country {
@@ -863,9 +869,11 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 			return new ElLog(aS, aVerbosity, aDeducePhase);
 		}
 
-		public FunctionInvocation new_FunctionInvocation(final FunctionDef aF, final ProcTableEntry aO,
-		                                                 final IInvocation aCi, final GeneratePhase aGeneratePhase) {
-			return new FunctionInvocation(aF, aO, aCi, aGeneratePhase);
+		public FunctionInvocation new_FunctionInvocation(final FunctionDef aF,
+		                                                 final ProcTableEntry aProcTableEntry,
+		                                                 final IInvocation aCi,
+		                                                 final GeneratePhase aGeneratePhase) {
+			return new FunctionInvocation(aF, aProcTableEntry, aCi, aGeneratePhase);
 		}
 
 		public GeneratedClasses new_GeneratedClasses(final DeducePhase aDeducePhase) {

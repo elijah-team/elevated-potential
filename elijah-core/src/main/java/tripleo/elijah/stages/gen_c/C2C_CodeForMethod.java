@@ -1,32 +1,32 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.util.BufferTabbedOutputStream;
-import tripleo.util.buffer.Buffer;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.*;
+import tripleo.util.buffer.*;
 
-import java.util.List;
+import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 public class C2C_CodeForMethod implements Generate_Code_For_Method.C2C_Results {
 	private final GenerateResult           gr;
 	private final Generate_Code_For_Method generateCodeForMethod;
 //	private final GenerateResultEnv        fileGen;
+	private final WhyNotGarish_Function    whyNotGarishFunction;
 	private       boolean                  _calculated;
 	private       C2C_Result               buf;
 	private       C2C_Result               bufHdr;
-	private final WhyNotGarish_Function    whyNotGarishFunction;
 
-	public C2C_CodeForMethod(final @NotNull Generate_Code_For_Method aGenerateCodeForMethod, final BaseEvaFunction aGf, final GenerateResultEnv aFileGen) {
+	public C2C_CodeForMethod(final @NotNull Generate_Code_For_Method aGenerateCodeForMethod,
+	                         final @NotNull DeducedBaseEvaFunction aDeducedBaseEvaFunction,
+							 final GenerateResultEnv aFileGen) {
 		generateCodeForMethod = aGenerateCodeForMethod;
 //		fileGen               = aFileGen;
 		gr                    = aFileGen.gr();
 
 		final GenerateC gc = aGenerateCodeForMethod.gc;
-		whyNotGarishFunction = gc.a_lookup(aGf);
+		whyNotGarishFunction = aDeducedBaseEvaFunction.getWhyNotGarishFunction(gc);//gc.a_lookup(aGf);
 	}
 
 	private void calculate() {

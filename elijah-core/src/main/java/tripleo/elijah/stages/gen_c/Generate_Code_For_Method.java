@@ -8,109 +8,40 @@
  */
 package tripleo.elijah.stages.gen_c;
 
-import com.google.common.base.Supplier;
+import com.google.common.base.*;
 import org.apache.commons.lang3.tuple.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.lang.i.NormalTypeName;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.lang.i.TypeName;
-import tripleo.elijah.lang.types.OS_UnitType;
-import tripleo.elijah.nextgen.outputstatement.EG_SingleStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
-import tripleo.elijah.util.Mode;
-import tripleo.elijah.stages.deduce.nextgen.DR_Ident;
-import tripleo.elijah.stages.deduce.nextgen.DR_Item;
-import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_VariableTableEntry;
-import tripleo.elijah.stages.deduce.post_bytecode.GCFM_Diagnostic;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.deduce.DeduceTypes2;
+import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.BufferTabbedOutputStream;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Operation2;
-import tripleo.elijah.work.WorkList;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.work.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
-import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
+import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 
 /**
  * Created 6/21/21 5:53 AM
  */
 public class Generate_Code_For_Method {
-	public enum AOG {
-		ASSIGN, GET
-	}
-
-	class BT {
-		@NotNull
-		BufferTabbedOutputStream btos = new BufferTabbedOutputStream();
-
-		public String getText() {
-			return btos.getBuffer().getText();
-		}
-
-		public void text(String s) {
-			btos.put_string_ln(s);
-		}
-
-		public void text0(String s) {
-			btos.put_string(s);
-		}
-
-		public void text2(@NotNull Supplier<String> s) {
-			btos.put_string_ln(s.get());
-		}
-	}
-
-	interface C2C_Results {
-		List<C2C_Result> getResults();
-	}
-
-	public class GCR_VTE_Target implements EG_Statement {
-		private final WhyNotGarish_BaseFunction gf;
-		private final IntegerIA vteNum;
-		String target_name;
-
-		public GCR_VTE_Target(final WhyNotGarish_BaseFunction aGf, final IntegerIA aVteNum) {
-			gf = aGf;
-			vteNum = aVteNum;
-		}
-
-		public void feed(final AOG aAOG, final @NotNull GenerateC gc) {
-			target_name = gc.getRealTargetName(gf, vteNum, aAOG);
-		}
-
-		@Override
-		public @NotNull EX_Explanation getExplanation() {
-			return EX_Explanation.withMessage("GCR_VTE_Target");
-		}
-
-		@Override
-		public @Nullable String getText() {
-			return null;
-		}
-	}
-
-	final BufferTabbedOutputStream tos = new BufferTabbedOutputStream();
-	final BufferTabbedOutputStream tosHdr = new BufferTabbedOutputStream();
-
-	final ElLog LOG;
-
-	GenerateC gc;
-
+	final         BufferTabbedOutputStream tos             = new BufferTabbedOutputStream();
+	final         BufferTabbedOutputStream tosHdr          = new BufferTabbedOutputStream();
+	final         ElLog                    LOG;
+	// TODO 10/14 Remove this when we implement Reactive functionality properly
+	private final boolean                  MANUAL_DISABLED = false;
+	private final GenerateC                gc;
 	boolean is_constructor = false, is_unit_type = false;
-
-	private final boolean MANUAL_DISABLED = false;
 
 	public Generate_Code_For_Method(@NotNull final GenerateC aGenerateC, final ElLog aLog) {
 		gc = aGenerateC;
@@ -118,24 +49,24 @@ public class Generate_Code_For_Method {
 	}
 
 	private @NotNull Operation2<EG_Statement> _action_DECL(final @NotNull Instruction instruction,
-			final @NotNull WhyNotGarish_BaseFunction gf) {
+	                                                       final @NotNull WhyNotGarish_BaseFunction yf) {
 		final SymbolIA decl_type = (SymbolIA) instruction.getArg(0);
 		final IntegerIA vte_num = (IntegerIA) instruction.getArg(1);
 
-		final GCR_VTE_Target target = new GCR_VTE_Target(gf, vte_num);
+		final GCR_VTE_Target target = new GCR_VTE_Target(yf, vte_num);
 		target.feed(AOG.GET, gc);
 
 		final String target_name = target.target_name;
 
 		final VariableTableEntry vte = vte_num.getEntry();
 
-		tripleo.elijah.stages.deduce.DeduceTypes2 dt2 = null;
+		DeduceTypes2    dt2 = null;
 		BaseEvaFunction gf1 = null;
-		boolean qqq = false;
+		boolean         qqq = false;
 		{
-			List<DR_Item> x = gf.getGf().drs;
+			List<DR_Item> x = yf.getGf().drs;
 
-			if (x.size() > 0) {
+			if (!x.isEmpty()) {
 				if (x.get(0) instanceof DR_Ident ident) {
 					dt2 = ident.identTableEntry()._deduceTypes2();
 					gf1 = ident.identTableEntry().__gf;
@@ -147,12 +78,13 @@ public class Generate_Code_For_Method {
 
 		final DeduceElement3_VariableTableEntry de_vte;
 
-		if (qqq)
+		if (qqq) {
 			de_vte = vte.getDeduceElement3(dt2, gf1);
-		else
+		} else {
 			de_vte = vte.getDeduceElement3();
+		}
 
-		final Operation2<OS_Type> diag1 = de_vte.decl_test_001(gf.cheat());
+		final Operation2<OS_Type> diag1 = de_vte.decl_test_001(yf.cheat());
 
 		if (diag1.mode() == Mode.FAILURE) {
 			final Diagnostic diag_ = diag1.failure();
@@ -212,7 +144,7 @@ public class Generate_Code_For_Method {
 				}
 				break;
 			case BUILT_IN:
-				return Operation2.success(new actionDECL_with_BUILT_IN(gf, target_name, x, gc));
+				return Operation2.success(new actionDECL_with_BUILT_IN(yf, target_name, x, gc));
 			case FUNC_EXPR:
 				return Operation2.success(new EG_Statement() {
 					@Override
@@ -646,7 +578,7 @@ public class Generate_Code_For_Method {
 		}
 	}
 
-	public void generateCodeForMethod2(final @NotNull BaseEvaFunction gf, final @NotNull GenerateResultEnv aFileGen) {
+	public void generateCodeForMethod2(final @NotNull DeducedBaseEvaFunction gf, final @NotNull GenerateResultEnv aFileGen) {
 		assert gf.deducedAlready;
 
 		var yf = gc.a_lookup(gf);
@@ -682,7 +614,7 @@ public class Generate_Code_For_Method {
 		var rs = cfm.getResults();
 
 		GenerateResult gr = cfm.getGenerateResult();
-		
+
 //		var yf = gc.a_lookup(bef);
 //		var dgf = yf.deduced(bef);
 
@@ -698,9 +630,64 @@ public class Generate_Code_For_Method {
 		final GenerateResultSink sink = aFileGen.resultSink();
 
 		if (sink != null) {
-			sink.addFunction((BaseEvaFunction) gf, rs, gc);
+			var gf2 = gf.getCarrier();
+			sink.addFunction((BaseEvaFunction) gf2, rs, gc);
 		} else {
 			logProgress(9990, "sink failed");
+		}
+	}
+
+	public enum AOG {
+		ASSIGN, GET
+	}
+
+	class BT {
+		private final @NotNull BufferTabbedOutputStream btos = new BufferTabbedOutputStream();
+
+		public String getText() {
+			return btos.getBuffer().getText();
+		}
+
+		public void text(String s) {
+			btos.put_string_ln(s);
+		}
+
+		public void text0(String s) {
+			btos.put_string(s);
+		}
+
+		public void text2(@NotNull Supplier<String> s) {
+			btos.put_string_ln(s.get());
+		}
+	}
+
+	interface C2C_Results {
+		List<C2C_Result> getResults();
+	}
+
+	public static class GCR_VTE_Target implements EG_Statement {
+		private final WhyNotGarish_BaseFunction gf;
+		private final IntegerIA vteNum;
+		String target_name;
+
+		public GCR_VTE_Target(final WhyNotGarish_BaseFunction aGf, final IntegerIA aVteNum) {
+			gf = aGf;
+			vteNum = aVteNum;
+		}
+
+		// README 10/14 read vs provide
+		public void feed(final AOG aAOG, final @NotNull GenerateC gc) {
+			target_name = gc.getRealTargetName(gf, vteNum, aAOG);
+		}
+
+		@Override
+		public @NotNull EX_Explanation getExplanation() {
+			return EX_Explanation.withMessage("GCR_VTE_Target");
+		}
+
+		@Override
+		public @Nullable String getText() {
+			return null;
 		}
 	}
 

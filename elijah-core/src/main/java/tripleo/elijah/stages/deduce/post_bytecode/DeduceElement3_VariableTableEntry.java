@@ -440,7 +440,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 			{
 				final OS_Type attached = tte1.getAttached();
 				switch (attached.getType()) {
-				case USER -> vte1.getType().setAttached(attached); // !!
+				case USER -> vte1.getTypeTableEntry().setAttached(attached); // !!
 				case USER_CLASS -> {
 					final GenType gt = vte1.getGenType();
 					gt.setResolved(attached);

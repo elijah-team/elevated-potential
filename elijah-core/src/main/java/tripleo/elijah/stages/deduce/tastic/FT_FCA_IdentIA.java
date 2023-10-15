@@ -92,7 +92,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 			if (potentialTypes1.size() < potentialTypes.size())
 				doLogic(potentialTypes1);
 			else
-				FTFnCallArgs.LOG.info("913 Don't know");
+				FTFnCallArgs.LOG().info("913 Don't know");
 		}
 
 		private void doLogic0() {
@@ -111,7 +111,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 				__doLogic0__VariableStatement(vs);
 			} else {
 				int y = 2;
-				FTFnCallArgs.LOG.err("543 " + best.getClass().getName());
+				FTFnCallArgs.LOG().err("543 " + best.getClass().getName());
 				throw new NotImplementedException();
 			}
 		}
@@ -120,7 +120,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 //						tte.attached = ll.get(0).attached;
 //						vte.addPotentialType(instructionIndex, ll.get(0));
 			if (p.isResolved()) {
-				FTFnCallArgs.LOG
+				FTFnCallArgs.LOG()
 						.info(String.format("1047 (vte already resolved) %s vte1.type = %s, gf = %s, tte1 = %s %n",
 						                    vte1.getName(), vte1.getTypeTableEntry(), generatedFunction, potentialTypes.get(0)));
 				return;
@@ -260,7 +260,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 					tte.setAttached(tte1.getAttached());
 				} else {
 					final int y = 2;
-					FTFnCallArgs.LOG.err(best.getClass().getName());
+					FTFnCallArgs.LOG().err(best.getClass().getName());
 					throw new NotImplementedException();
 				}
 			} else {
@@ -345,7 +345,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 		idte.onType(dc.getPhase(), new OnType() {
 			@Override
 			public void noTypeFound() {
-				FTFnCallArgs.LOG.err("719 no type found "
+				FTFnCallArgs.LOG().err("719 no type found "
 						+ generatedFunction.getIdentIAPathNormal(dt2._inj().new_IdentIA(ia, generatedFunction)));
 			}
 
@@ -533,14 +533,14 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 	}
 
 	public void loop1(final FT_FnCallArgs.@NotNull DoAssignCall dac, final @NotNull Resolve_VTE rvte) {
-		var generatedFunction = dac.generatedFunction;
-		var dc = dac.dc;
-		var errSink = dac.errSink;
+		var generatedFunction = dac.generatedFunction();
+		var dc = dac.dc();
+		var errSink = dac.getErrSink();
 		var ctx = rvte.ctx();
 		var pte = rvte.pte();
 		var instructionIndex = rvte.instruction().getIndex();
 
-		var dt2 = dac.dc.get();
+		var dt2 = dac.dc().get();
 
 		List<TypeTableEntry> args = pte.getArgs();
 
@@ -606,24 +606,24 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 				if (best != null)
 					pte.setResolvedElement(best); // TODO do we need to add a dependency for class?
 				else {
-					dac.errSink.reportError("Cant resolve " + text);
+					dac.getErrSink().reportError("Cant resolve " + text);
 				}
 			} else {
-				dac.dc.implement_calls(dac.generatedFunction, ctx.getParent(), instruction.getArg(1), pte,
-						instructionIndex);
+				dac.dc().implement_calls(dac.generatedFunction(), ctx.getParent(), instruction.getArg(1), pte,
+				                         instructionIndex);
 			}
 		} else {
 			var idte = identIA.getEntry();
 			assert idte != null;
-			dac.dc.resolveIdentIA_(ctx, identIA, dac.generatedFunction, new FoundElement(dac.dc.getPhase()) {
+			dac.dc().resolveIdentIA_(ctx, identIA, dac.generatedFunction(), new FoundElement(dac.dc().getPhase()) {
 
-				final String x = dac.generatedFunction.getIdentIAPathNormal(identIA);
+				final String x = dac.generatedFunction().getIdentIAPathNormal(identIA);
 
 				@Override
 				public void foundElement(OS_Element el) {
 					if (pte.getResolvedElement() == null)
 						pte.setResolvedElement(el);
-					final DeduceTypes2 deduceTypes2 = dac.dc.get();
+					final DeduceTypes2 deduceTypes2 = dac.dc().get();
 					if (el instanceof FunctionDef) {
 						final FT_FCA_FunctionDef fcafd = deduceTypes2._inj().new_FT_FCA_FunctionDef((FunctionDef) el,
 								deduceTypes2);
@@ -633,7 +633,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 								.new_FT_FCA_ClassStatement((ClassStatement) el);
 						loop2_i(kl);
 					} else {
-						dac.LOG.err("7890 " + el.getClass().getName());
+						dac.getLOG().err("7890 " + el.getClass().getName());
 					}
 				}
 
@@ -641,27 +641,27 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 					@NotNull
 					OS_Type type = kl.getOS_Type();
 					@NotNull
-					TypeTableEntry tte = dac.generatedFunction.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, type,
-							pte.__debug_expression, pte);
+					TypeTableEntry tte = dac.generatedFunction().newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, type,
+					                                                               pte.__debug_expression, pte);
 					vte.addPotentialType(instructionIndex, tte);
 					vte.setConstructable(pte);
 
-					dac.dc.register_and_resolve(vte, kl);
+					dac.dc().register_and_resolve(vte, kl);
 				}
 
 				@Override
 				public void noFoundElement() {
-					dac.LOG.err("IdentIA path cannot be resolved " + x);
+					dac.getLOG().err("IdentIA path cannot be resolved " + x);
 				}
 			});
 		}
 	}
 
 	public void make2(final FT_FnCallArgs.@NotNull DoAssignCall dac, final @NotNull Resolve_VTE rvte) throws FCA_Stop {
-		var generatedFunction = dac.generatedFunction;
-		var dc4 = dac.dc;
-		var errSink = dac.errSink;
-		var LOG = dac.LOG;
+		var generatedFunction = dac.generatedFunction();
+		var dc4 = dac.dc();
+		var errSink = dac.getErrSink();
+		var LOG = dac.getLOG();
 		var module = dac.getModule();
 		var ctx = rvte.ctx();
 		var instructionIndex = rvte.instruction().getIndex();
@@ -679,16 +679,24 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 			if (resolved_element == null)
 				return;
 
-			var ext = dt2._inj().new_DT_External_2(identIA.getEntry(), module, pte, dc, LOG, ctx, generatedFunction,
-					instructionIndex, identIA, vte);
+			var ext = dt2._inj().new_DT_External_2(identIA.getEntry(),
+			                                       module,
+			                                       pte,
+			                                       dc,
+			                                       LOG,
+			                                       ctx,
+			                                       generatedFunction,
+			                                       instructionIndex,
+			                                       identIA,
+			                                       vte);
 
-			FTFnCallArgs.deduceTypes2.addExternal(ext);
+			FTFnCallArgs.deduceTypes2().addExternal(ext);
 		}
 	}
 
 	public void resolve_vte(final FT_FnCallArgs.@NotNull DoAssignCall dac, final @NotNull Resolve_VTE rvte) {
-		var aGeneratedFunction = dac.generatedFunction;
-		var dc = dac.dc;
+		var aGeneratedFunction = dac.generatedFunction();
+		var dc = dac.dc();
 		var ctx = rvte.ctx();
 		var pte = rvte.pte();
 
