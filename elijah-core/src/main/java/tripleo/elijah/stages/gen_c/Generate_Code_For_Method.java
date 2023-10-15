@@ -614,7 +614,7 @@ public class Generate_Code_For_Method {
 
 		// xx.onFileGen(aFileGen);
 		// TODO separate into method and method_header??
-		final C2C_CodeForMethod cfm = new C2C_CodeForMethod(this, bef, aFileGen);
+		final C2C_CodeForMethod cfm = new C2C_CodeForMethod(this, dgf, aFileGen);
 
 		// cfm.calculate();
 		var rs = cfm.getResults();
@@ -636,8 +636,7 @@ public class Generate_Code_For_Method {
 		final GenerateResultSink sink = aFileGen.resultSink();
 
 		if (sink != null) {
-			var gf2 = gf.getCarrier();
-			sink.addFunction((BaseEvaFunction) gf2, rs, gc);
+			sink.addFunction(bef, rs, gc);
 		} else {
 			logProgress(9990, "sink failed");
 		}
