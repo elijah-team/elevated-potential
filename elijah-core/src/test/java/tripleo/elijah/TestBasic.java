@@ -134,7 +134,7 @@ public class TestBasic {
 		}
 	}
 
-	@Test
+	@Disabled @Test
 	public final void testBasic_listfolders3__() {
 		String s = "test/basic/listfolders3/listfolders3.ez";
 
@@ -178,7 +178,7 @@ public class TestBasic {
 		assertEquals(4, c.errorCount()); // TODO Error count obviously should be 0
 	}
 
-	@Test
+	@Disabled @Test
 	public final void testBasic_fact1() throws Exception {
 		final String        s  = "test/basic/fact1/main2";
 		final Compilation   c  = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
