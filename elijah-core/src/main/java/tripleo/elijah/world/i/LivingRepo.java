@@ -1,5 +1,7 @@
 package tripleo.elijah.world.i;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.OS_Module;
@@ -51,7 +53,7 @@ public interface LivingRepo {
 
 	List<ClassStatement> findClass(String main);
 
-	WorldModule findModule(OS_Module mod);
+	@Nullable WorldModule findModule(final @NotNull OS_Module mod);
 
 	LivingClass getClass(EvaClass aEvaClass);
 

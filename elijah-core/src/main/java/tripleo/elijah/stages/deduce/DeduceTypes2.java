@@ -1231,12 +1231,10 @@ public class DeduceTypes2 {
 		//
 		// resolve var table. moved from `E'
 		//
-		for (@NotNull
-		VariableTableEntry vte : generatedFunction.vte_list) {
+		for (@NotNull VariableTableEntry vte : generatedFunction.vte_list) {
 			vte.resolve_var_table_entry_for_exit_function();
 		}
-		for (@NotNull
-		Runnable runnable : onRunnables) {
+		for (@NotNull Runnable runnable : onRunnables) {
 			runnable.run();
 		}
 //					LOG.info("167 "+generatedFunction);

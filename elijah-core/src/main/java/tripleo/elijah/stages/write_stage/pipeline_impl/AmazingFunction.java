@@ -1,24 +1,37 @@
 package tripleo.elijah.stages.write_stage.pipeline_impl;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.notation.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.output.*;
-import tripleo.elijah.stages.garish.*;
-import tripleo.elijah.stages.gen_c.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.comp.i.CompilationEnclosure;
+import tripleo.elijah.comp.i.IPipelineAccess;
+import tripleo.elijah.comp.notation.GM_GenerateModule;
+import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
+import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
+import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
+import tripleo.elijah.nextgen.output.NG_OutputFunction;
+import tripleo.elijah.stages.garish.GarishClass;
+import tripleo.elijah.stages.garish.GarishNamespace;
+import tripleo.elijah.stages.gen_c.C2C_Result;
+import tripleo.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.work.*;
-import tripleo.elijah.world.i.*;
-import tripleo.util.buffer.*;
+import tripleo.elijah.stages.gen_generic.GenerateFiles;
+import tripleo.elijah.stages.gen_generic.GenerateResult;
+import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.work.WorkList;
+import tripleo.elijah.work.WorkManager;
+import tripleo.elijah.world.i.LivingClass;
+import tripleo.elijah.world.i.LivingNamespace;
+import tripleo.util.buffer.Buffer;
 
-import java.util.*;
+import java.util.List;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 class AmazingFunction implements Amazing {
 	private final NG_OutputFunction                of;
@@ -26,11 +39,11 @@ class AmazingFunction implements Amazing {
 	private final OS_Module                        mod;
 	private final WPIS_GenerateOutputs.OutputItems itms;
 	private final GenerateResult                   result;
-	private final IPipelineAccess pa;
+	private final IPipelineAccess                  pa;
 
 	public AmazingFunction(final @NotNull BaseEvaFunction aBaseEvaFunction,
-	                       final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems, final @NotNull GenerateResult aGenerateResult,
-	                       final @NotNull IPipelineAccess aPa) {
+						   final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems, final @NotNull GenerateResult aGenerateResult,
+						   final @NotNull IPipelineAccess aPa) {
 		// given
 		f      = aBaseEvaFunction;
 		mod    = aBaseEvaFunction.module();
@@ -52,20 +65,18 @@ class AmazingFunction implements Amazing {
 			// FIXME check arguments --> this doesn't seem like it will give the desired
 			// results
 			DefaultGenerateResultSink generateResultSink = new DefaultGenerateResultSink(pa);
-//			EIT_ModuleList eitModuleList = aPipelineLogic.mods();
-			Object               eitModuleList = null;
+			//EIT_ModuleList eitModuleList = aPipelineLogic.mods();
+			EIT_ModuleList       eitModuleList = pa.getCompilation().getObjectTree().getModuleList();
 			GenerateResult       gr            = result; // new Old_GenerateResult();
 			CompilationEnclosure ce            = pa.getCompilationEnclosure();
 
-			var env = new GN_GenerateNodesIntoSinkEnv(
-					List_of(),
-					generateResultSink,
-					eitModuleList,
-					ElLog.Verbosity.VERBOSE,
-					gr,
-					pa,
-					ce
-			);
+			var env = new GN_GenerateNodesIntoSinkEnv(List_of(),
+													  generateResultSink,
+													  eitModuleList,
+													  ElLog.Verbosity.VERBOSE,
+													  gr,
+													  pa,
+													  ce);
 
 			var world = ce.getCompilation().world();
 			var wm    = world.findModule(mod);
@@ -73,9 +84,11 @@ class AmazingFunction implements Amazing {
 			var generateModuleRequest = new GM_GenerateModuleRequest(new GN_GenerateNodesIntoSink(env), wm, env);
 			var generateModule        = new GM_GenerateModule(generateModuleRequest);
 
-			var fileGen = new GenerateResultEnv(new MyGenerateResultSink(of), result, new WorkManager(), new WorkList(),
-			                                    generateModule
-			);
+			var fileGen = new GenerateResultEnv(new MyGenerateResultSink(of),
+												result,
+												new WorkManager(),
+												new WorkList(),
+												generateModule);
 
 			var generateModuleResult = generateModule.getModuleResult(fileGen.wm(), fileGen.resultSink());
 
@@ -108,15 +121,15 @@ class AmazingFunction implements Amazing {
 
 		@Override
 		public void addClass_1(final @NotNull GarishClass aGarishClass,
-		                       final @NotNull GenerateResult aGenerateResult,
-		                       final @NotNull GenerateFiles aGenerateFiles) {
+							   final @NotNull GenerateResult aGenerateResult,
+							   final @NotNull GenerateFiles aGenerateFiles) {
 			throw new UnintendedUseException();
 		}
 
 		@Override
 		public void addFunction(final BaseEvaFunction aGf,
-		                        final List<C2C_Result> aRs,
-		                        final GenerateFiles aGenerateFiles) {
+								final List<C2C_Result> aRs,
+								final GenerateFiles aGenerateFiles) {
 			of.setFunction(aGf, aGenerateFiles, aRs);
 		}
 
@@ -127,13 +140,13 @@ class AmazingFunction implements Amazing {
 
 		@Override
 		public void addNamespace_0(final GarishNamespace aLivingNamespace, final Buffer aImplBuffer,
-		                           final Buffer aHeaderBuffer) {
+								   final Buffer aHeaderBuffer) {
 			throw new UnintendedUseException();
 		}
 
 		@Override
 		public void addNamespace_1(final GarishNamespace aGarishNamespace, final GenerateResult aGenerateResult,
-		                           final GenerateC aGenerateC) {
+								   final GenerateC aGenerateC) {
 			throw new UnintendedUseException();
 		}
 
