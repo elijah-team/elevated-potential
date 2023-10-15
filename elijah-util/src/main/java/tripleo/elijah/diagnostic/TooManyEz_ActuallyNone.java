@@ -1,8 +1,6 @@
-package tripleo.elijah.comp.diagnostic;
+package tripleo.elijah.diagnostic;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.diagnostic.Locatable;
 
 import java.io.PrintStream;
 import java.util.List;
