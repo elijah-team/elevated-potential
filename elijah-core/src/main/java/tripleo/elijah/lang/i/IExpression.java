@@ -40,7 +40,7 @@ public interface IExpression {
 
 	IExpression getLeft();
 
-	OS_Type getType();
+	@Deprecated OS_Type getType();
 
 	boolean is_simple();
 
