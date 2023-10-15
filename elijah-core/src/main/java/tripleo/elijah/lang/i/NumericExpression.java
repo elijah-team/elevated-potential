@@ -25,9 +25,8 @@ public interface NumericExpression extends IExpression, Locatable {
 	@Override
 	String repr_();
 
-	@Override
-	// IExpression
-	void setKind(ExpressionKind aType);
+	@Override // IExpression
+	void setKind(ExpressionKind aExpressionKind);
 
 	@Override
 	void setLeft(IExpression aLeft);

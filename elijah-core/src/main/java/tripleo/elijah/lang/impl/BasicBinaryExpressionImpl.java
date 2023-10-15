@@ -13,11 +13,10 @@ import tripleo.elijah.lang.i.*;
 
 public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 
-	public @Nullable ExpressionKind _kind;
-	OS_Type _type;
-	public @Nullable IExpression left;
-	public @Nullable IExpression right;
-	private ExpressionList args;
+	protected @Nullable ExpressionKind _kind;
+	protected @Nullable IExpression    left;
+	protected @Nullable IExpression    right;
+	private             ExpressionList args;
 
 	public BasicBinaryExpressionImpl() {
 		left = null;
@@ -51,11 +50,6 @@ public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 	}
 
 	@Override
-	public OS_Type getType() {
-		return _type;
-	}
-
-	@Override
 	public boolean is_simple() {
 		return getLeft().is_simple() && getRight().is_simple();
 	}
@@ -77,8 +71,8 @@ public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 	}
 
 	@Override
-	public void setKind(final ExpressionKind aKind) {
-		_kind = aKind;
+	public void setKind(final ExpressionKind aExpressionKind) {
+		_kind = aExpressionKind;
 	}
 
 	@Override
@@ -91,23 +85,13 @@ public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 		right = aRight;
 	}
 
-	@Override
-	public void setType(final OS_Type deducedExpression) {
-		_type = deducedExpression;
-	}
+	//@Override
+	//public void shift(final ExpressionKind aType) {
+	//	left  = new BasicBinaryExpressionImpl(left, _kind, right); // TODO
+	//	_kind = aType;
+	//	right = null;
+	//}
 
-	@Override
-	public void shift(final ExpressionKind aType) {
-		left = new BasicBinaryExpressionImpl(left, _kind, right); // TODO
-		_kind = aType;
-		right = null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder();

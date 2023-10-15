@@ -13,9 +13,8 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
-public class StringExpressionImpl extends AbstractExpression implements tripleo.elijah.lang.i.StringExpression {
+public class StringExpressionImpl extends AbstractExpression implements StringExpression {
 
-	OS_Type _type;
 	private String repr_;
 
 	public StringExpressionImpl(final @NotNull Token g) { // TODO List<Token>
@@ -40,11 +39,6 @@ public class StringExpressionImpl extends AbstractExpression implements tripleo.
 	}
 
 	@Override
-	public OS_Type getType() {
-		return _type;
-	}
-
-	@Override
 	public boolean is_simple() {
 		return true;
 	}
@@ -62,11 +56,6 @@ public class StringExpressionImpl extends AbstractExpression implements tripleo.
 	@Override
 	public void setLeft(final IExpression iexpression) {
 		throw new IllegalArgumentException("Should use set()");
-	}
-
-	@Override
-	public void setType(final OS_Type deducedExpression) {
-		_type = deducedExpression;
 	}
 
 	@Override

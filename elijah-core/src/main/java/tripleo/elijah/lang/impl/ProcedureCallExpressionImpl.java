@@ -8,28 +8,26 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
+
+import org.jetbrains.annotations.NotNull;
 
 // TODO is ExpressionList an IExpression?
 public class ProcedureCallExpressionImpl implements ProcedureCallExpression {
-
-//	public ProcedureCallExpression(final Token aToken, final ExpressionList aExpressionList, final Token aToken1) {
-//		throw new NotImplementedException();
-//	}
-
-	private IExpression _left;
-
-	OS_Type _type;
-	// region right-side
+	private OS_Type        _type;
+	private IExpression    _left;
 	private ExpressionList args = new ExpressionListImpl();
 
-	/**
-	 * Make sure you call {@link #identifier} or {@link #setLeft(IExpression)} and
-	 * {@link #setArgs(ExpressionList)}
-	 */
-	public ProcedureCallExpressionImpl() {
-	}
+	///**
+	// * Make sure you call {@link #identifier} or {@link #setLeft(IExpression)} and
+	// * {@link #setArgs(ExpressionList)}
+	// */
+	//public ProcedureCallExpressionImpl() {
+	//}
+
+	//	public ProcedureCallExpression(final Token aToken, final ExpressionList aExpressionList, final Token aToken1) {
+	//		throw new NotImplementedException();
+	//	}
 
 	/**
 	 * Get the argument list
@@ -41,42 +39,9 @@ public class ProcedureCallExpressionImpl implements ProcedureCallExpression {
 		return args;
 	}
 
-	// endregion
-
-//	@Override
-//	public void visitGen(ICodeGen visit) {
-//		// TODO Auto-generated method stub
-//		NotImplementedException.raise();
-//	}
-
-	// region kind
-
-//	@Override
-//	public @NotNull List<FormalArgListItem> getArgs() {
-//		return args;
-//	}
-
 	@Override
 	public ExpressionList getArgs() {
 		return args;
-	}
-
-	// endregion
-
-	// region left-side
-
-	@Override
-	public @NotNull ExpressionKind getKind() {
-		return ExpressionKind.PROCEDURE_CALL;
-	}
-
-	@Override
-	public IExpression getLeft() {
-		return _left;
-	}
-
-	public @NotNull String getReturnTypeString() {
-		return "int"; // TODO hardcoded
 	}
 
 	@Override
@@ -91,44 +56,17 @@ public class ProcedureCallExpressionImpl implements ProcedureCallExpression {
 	 */
 	@Override
 	public void identifier(final IExpression xyz) {
+		//Preconditions.checkArgument(xyz instanceof IdentExpression);
 		setLeft(xyz);
 	}
-
-	// endregion
-
-	/**
-	 * Set the left hand side of the procedure call expression, ie the method name
-	 *
-	 * @param xyz a method name in Qualident form (might come as DotExpression in
-	 *            future)
-	 */
-	public void identifier(final Qualident xyz) {
-		setLeft(xyz);
-	}
-
-	@Override
-	public boolean is_simple() {
-		return false; // TODO is this correct?
-	}
-
-	/*
-	 * public OS_Element getParent() { return null; }
-	 */
-
-	// region representation
 
 	@Override
 	public String printableString() {
 		return String.format("%s%s", getLeft(), args != null ? args.toString() : "()");
 	}
 
-	@Override
-	public String repr_() {
-		return toString();
-	}
-
 	/**
-	 * change then argument list all at once
+	 * change the argument list all at once
 	 *
 	 * @param ael the new value
 	 */
@@ -137,13 +75,29 @@ public class ProcedureCallExpressionImpl implements ProcedureCallExpression {
 		args = ael;
 	}
 
-	// endregion
-
-	// region type (to remove)
+	@Override
+	public @NotNull ExpressionKind getKind() {
+		return ExpressionKind.PROCEDURE_CALL;
+	}
 
 	@Override
-	public void setKind(final ExpressionKind aIncrement) {
-		throw new IllegalArgumentException();
+	public IExpression getLeft() {
+		return _left;
+	}
+
+	@Override
+	public boolean is_simple() {
+		return false; // TODO is this correct?
+	}
+
+	@Override
+	public String repr_() {
+		return String.format("ProcedureCallExpression{%s %s}", getLeft(), args != null ? args.toString() : "()");
+	}
+
+	@Override
+	public String toString() {
+		return repr_();
 	}
 
 	/**
@@ -155,17 +109,23 @@ public class ProcedureCallExpressionImpl implements ProcedureCallExpression {
 	}
 
 	@Override
-	public void setType(final OS_Type deducedExpression) {
-		_type = deducedExpression;
+	public void setKind(final ExpressionKind aExpressionKind) {
+		throw new IllegalArgumentException();
 	}
 
-	@Override
-	public String toString() {
-		return String.format("ProcedureCallExpression{%s %s}", getLeft(), args != null ? args.toString() : "()");
+	//public @NotNull String getReturnTypeString() {
+	//	return "int"; // TODO hardcoded
+	//}
+
+	/**
+	 * Set the left hand side of the procedure call expression, ie the method name
+	 *
+	 * @param xyz a method name in Qualident form (might come as DotExpression in
+	 *            future)
+	 */
+	public void identifier(final Qualident xyz) {
+		setLeft(xyz);
 	}
-
-	// endregion
-
 }
 
 //

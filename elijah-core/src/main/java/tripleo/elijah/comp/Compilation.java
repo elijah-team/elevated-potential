@@ -146,8 +146,8 @@ public interface Compilation {
             return new CompilerInstructionsImpl();
         }
 
-        public IExpression newDotExpressionImpl(final IExpression aE1, final IdentExpression aE) {
-            return new DotExpressionImpl(aE1, aE);
+        public IExpression newDotExpressionImpl(final IExpression aDotExpressionLeft, final IdentExpression aDotExpressionRightIdent) {
+            return new DotExpressionImpl(aDotExpressionLeft, aDotExpressionRightIdent);
         }
 
         public ExpressionList newExpressionListImpl() {
