@@ -27,6 +27,7 @@ public class VariableStatementImpl implements OS_Element, tripleo.elijah.lang.i.
 	private IdentExpression name;
 	private TypeModifiers typeModifiers;
 	private @NotNull TypeName typeName = new VariableTypeNameImpl();
+	private           IExpression            initialValue = LangGlobals.UNASSIGNED;
 
 	public VariableStatementImpl(final VariableSequence aSequence) {
 		_parent = aSequence;
