@@ -1774,40 +1774,52 @@ public class GenerateFunctions implements ReactiveDimension {
 	// region add-table-entries
 	//
 
-	@NotNull
-	List<TypeTableEntry> get_args_types(@org.jetbrains.annotations.Nullable final ExpressionList args,
-			final @NotNull BaseEvaFunction gf, @NotNull final Context aContext) {
+	@NotNull List<TypeTableEntry> get_args_types(final @org.jetbrains.annotations.Nullable ExpressionList args,
+	                                    final @NotNull BaseEvaFunction gf,
+	                                    final @NotNull Context aContext) {
 		final @NotNull List<TypeTableEntry> R = new ArrayList<TypeTableEntry>();
-		if (args == null)
-			return R;
-		//
-		for (final @NotNull IExpression arg : args) {
-//			LOG.err(String.format("108 %s %s", arg, /*type*/null));
-			if (arg instanceof IdentExpression) {
-				final @org.jetbrains.annotations.Nullable InstructionArgument x = gf
-						.vte_lookup(((IdentExpression) arg).getText());
-				final TypeTableEntry tte;
-				if (x instanceof ConstTableIA) {
-					final @NotNull ConstantTableEntry cte = gf.getConstTableEntry(((ConstTableIA) x).getIndex());
-					tte = cte.getTypeTableEntry();
-				} else if (x instanceof IntegerIA) {
-					final @NotNull VariableTableEntry vte = gf.getVarTableEntry(((IntegerIA) x).getIndex());
-					tte = vte.getType();
+		if (args != null) {
+			for (final @NotNull IExpression arg : args) {
+				final OS_Type type = null;  // arg.getType(); // README 10/14 this always returns null (remnant of DT1)
+	//			LOG.err(String.format("108 %s %s", arg, type));
+				if (arg instanceof final IdentExpression identExpression) {
+					R.add(craftTypeForIdentExpression(gf, aContext, arg, identExpression));
 				} else {
-					//
-					// WHEN VTE_LOOKUP FAILS, IE WHEN A MEMBER VARIABLE
-					//
-					int idte_index = gf.addIdentTableEntry((IdentExpression) arg, aContext);
-					tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null, arg);
-					gf.getIdentTableEntry(idte_index).type = tte;
+					R.add(getType(arg, gf));
 				}
-				R.add(tte);
-			} else
-				R.add(getType(arg, gf));
+			}
+			assert R.size() == args.size();
 		}
-		assert R.size() == args.size();
 		return R;
+	}
+
+	private static TypeTableEntry craftTypeForIdentExpression(final @NotNull BaseEvaFunction gf,
+	                                                          final @NotNull Context aContext,
+	                                                          final @NotNull IExpression arg,
+	                                                          final IdentExpression identExpression) {
+		final @org.jetbrains.annotations.Nullable InstructionArgument x = gf.vte_lookup(identExpression.getText());
+		final TypeTableEntry                                          tte;
+		if (x instanceof ConstTableIA) {
+			final @NotNull ConstantTableEntry cte = gf.getConstTableEntry(((ConstTableIA) x).getIndex());
+			tte = cte.getTypeTableEntry();
+		} else if (x instanceof IntegerIA) {
+			final @NotNull VariableTableEntry vte = gf.getVarTableEntry(((IntegerIA) x).getIndex());
 			tte = vte.getTypeTableEntry();
+		} else {
+			//
+			// WHEN VTE_LOOKUP FAILS, IE WHEN A MEMBER VARIABLE
+			//
+
+			// TODO 10/13 assert above
+
+			final int                      idte_index      = gf.addIdentTableEntry(identExpression, aContext);
+			final @NotNull IdentTableEntry identTableEntry = gf.getIdentTableEntry(idte_index);
+
+			tte                  = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null, arg);
+			identTableEntry.type = tte;
+		}
+
+		return tte;
 	}
 
 	private @NotNull List<TypeTableEntry> get_args_types(final @NotNull List<FormalArgListItem> args,
