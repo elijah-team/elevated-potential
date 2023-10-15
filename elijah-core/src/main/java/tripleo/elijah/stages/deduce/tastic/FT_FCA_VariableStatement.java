@@ -32,11 +32,11 @@ public class FT_FCA_VariableStatement {
 		@NotNull
 		VariableTableEntry vte2 = ((IntegerIA) vte2_ia).getEntry();
 		if (p.isResolved())
-			System.out.printf("915 Already resolved type: vte2.type = %s, gf = %s %n", vte1.getType(),
+			System.out.printf("915 Already resolved type: vte2.type = %s, gf = %s %n", vte1.getTypeTableEntry(),
 					generatedFunction);
 		else {
 			final GenType gt = vte1.getGenType();
-			gt.setResolved(vte2.getType().getAttached());
+			gt.setResolved(vte2.getTypeTableEntry().getAttached());
 			vte1.resolveType(gt);
 		}
 

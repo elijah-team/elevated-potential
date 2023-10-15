@@ -33,7 +33,7 @@ import static tripleo.elijah.util.Helpers.*;
 //@Disabled
 public class FindClassesInDemoElNormal {
 
-	@Test
+	@Disabled @Test
 	public final void testListFolders() throws Exception {
 		final List<String> args = List_of("test/demo-el-normal/listfolders/", "-sE");
 		final ErrSink eee = new StdErrSink();

@@ -92,7 +92,7 @@ class DefaultCompFactory implements CompFactory {
 	@Contract(" -> new")
 	@Override
 	public CK_ObjectTree createObjectTree() {
-		return compilation.new DefaultObjectTree();
+		return new DefaultObjectTree(compilation);
 	}
 
 	@Contract("_ -> new")

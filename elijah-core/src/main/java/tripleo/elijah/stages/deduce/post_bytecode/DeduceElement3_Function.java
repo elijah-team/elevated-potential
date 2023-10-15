@@ -92,9 +92,9 @@ public class DeduceElement3_Function implements IDeduceElement3 {
 		if (vte_index != null) {
 			final @NotNull VariableTableEntry vte = generatedFunction.getVarTableEntry(DeduceTypes2.to_int(vte_index));
 
-			if (vte.getType().getAttached() != null) {
-				vte.resolveType(vte.getType().genType); // TODO doesn't fit pattern of returning and then setting
-				return vte.getType().genType;
+			if (vte.getTypeTableEntry().getAttached() != null) {
+				vte.resolveType(vte.getTypeTableEntry().genType); // TODO doesn't fit pattern of returning and then setting
+				return vte.getTypeTableEntry().genType;
 			} else {
 				@NotNull
 				Collection<TypeTableEntry> pot1 = vte.potentialTypes();

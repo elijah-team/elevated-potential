@@ -61,7 +61,7 @@ public class DeduceElement3_Constructor implements IDeduceElement3 {
 				VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
 				if (vte.resolvedType() == null) {
 					GenType b = vte.getGenType();
-					OS_Type a = vte.getType().getAttached();
+					OS_Type a = vte.getTypeTableEntry().getAttached();
 					if (a != null) {
 						// see resolve_function_return_type
 						switch (a.getType()) {

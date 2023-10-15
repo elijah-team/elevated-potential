@@ -97,12 +97,6 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		}
 	}
 
-	public void generateCodeForConstructor(final GenerateResultEnv aFileGen, final EvaConstructor gf) {
-		final WhyNotGarish_Constructor cc = this.a_lookup(gf);
-
-		cc.resolveFileGenPromise(aFileGen);
-	}
-
 	public WhyNotGarish_Function a_lookup(final BaseEvaFunction aGf) {
 		if (a_directory.containsKey(aGf)) {
 			return (WhyNotGarish_Function) a_directory.get(aGf);
@@ -123,7 +117,246 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		return ncc1907;
 	}
 
-	@NotNull String getRealTargetName(final @NotNull BaseEvaFunction gf, final @NotNull IdentIA target, final Generate_Code_For_Method.AOG aog, final String value) {
+	public WhyNotGarish_Namespace a_lookup(final EvaNamespace en) {
+		if (a_directory.containsKey(en)) {
+			return (WhyNotGarish_Namespace) a_directory.get(en);
+		}
+
+		var ncn = new WhyNotGarish_Namespace(en, this);
+		a_directory.put(en, ncn);
+		return ncn;
+	}
+
+	@Override
+	public ElLog elLog() {
+		return this.LOG;
+	}
+
+	@Override
+	public void finishUp(final GenerateResult aGenerateResult, final WorkManager wm, final WorkList aWorkList) {
+		for (WhyNotGarish_Item value : new ArrayList<>(a_directory.values())) {
+			if (!value.hasFileGen()) {
+				value.provideFileGen(_fileGen);
+			}
+		}
+	}
+
+	@Override
+	public void generate_class(@NotNull GenerateResultEnv aFileGen, EvaClass x) {
+		var gr          = aFileGen.gr();
+		var aResultSink = aFileGen.resultSink();
+
+		final LivingClass lc = aResultSink.getLivingClassForEva(x); // TODO could also add _living property
+
+		assert lc != null;
+		lc.getGarish().garish(this, gr, aResultSink);
+	}
+
+	@Override
+	public void generate_constructor(@NotNull EvaConstructor aEvaConstructor, GenerateResult gr, @NotNull WorkList wl,
+	                                 final GenerateResultSink aResultSink, final WorkManager aWorkManager,
+	                                 final @NotNull GenerateResultEnv aFileGen) {
+		generateCodeForConstructor(aEvaConstructor, aFileGen);
+		postGenerateCodeForConstructor(aEvaConstructor, wl, aFileGen);
+	}
+
+	@Override
+	public void generate_function(@NotNull EvaFunction aEvaFunction, GenerateResult gr, @NotNull WorkList wl,
+	                              final GenerateResultSink aResultSink) {
+		generateCodeForMethod(_fileGen, aEvaFunction);
+		_post_generate_function(aEvaFunction, wl, _fileGen);
+	}
+
+	@Override
+	public void generate_namespace(final @NotNull EvaNamespace x,
+	                               final GenerateResult gr,
+	                               final @NotNull GenerateResultSink aResultSink) {
+		final LivingNamespace ln = aResultSink.getLivingNamespaceForEva(x); // TODO could also add _living property
+		ln.getGarish().garish(this, gr, aResultSink);
+
+		var yf = a_lookup(x);
+//		yf.
+
+	}
+
+	@Override
+	public @NotNull GenerateResult generateCode(final @NotNull Collection<EvaNode> lgn,
+	                                            final @NotNull GenerateResultEnv aFileGen) {
+		GenerateResult gr = new Old_GenerateResult();
+		WorkList       wl = new WorkList();
+
+		var                      wm          = aFileGen.wm();
+		final GenerateResultSink aResultSink = aFileGen.resultSink();
+
+		for (final EvaNode evaNode : lgn) {
+			if (evaNode instanceof final @NotNull EvaFunction generatedFunction) {
+				generate_function(generatedFunction, gr, wl, aResultSink);
+				if (!wl.isEmpty())
+					wm.addJobs(wl);
+			} else if (evaNode instanceof final @NotNull EvaContainerNC containerNC) {
+				containerNC.generateCode(_fileGen, this);
+			} else if (evaNode instanceof final @NotNull EvaConstructor evaConstructor) {
+				generate_constructor(evaConstructor, gr, wl, aResultSink, wm, aFileGen);
+				if (!wl.isEmpty())
+					wm.addJobs(wl);
+			}
+		}
+
+		return gr;
+	}
+
+	//private void generateCodeForConstructor(final @NotNull EvaConstructor aEvaConstructor,
+	//										final @NotNull WorkList aWorkList,
+	//                                        final @NotNull GenerateResultEnv aFileGen) {
+	//	if (aEvaConstructor.getFD() != null) {
+	//		Generate_Code_For_Method gcfm = new Generate_Code_For_Method(this, LOG);
+	//		gcfm.generateCodeForConstructor(aEvaConstructor, aFileGen);
+	//	}
+	//}
+
+	//public void generateCodeForConstructor(final GenerateResultEnv aFileGen, final EvaConstructor gf) {
+	//	final WhyNotGarish_Constructor cc = this.a_lookup(gf);
+	//
+	//	cc.resolveFileGenPromise(aFileGen);
+	//}
+
+	//public void generateCodeForMethod(final GenerateResultEnv aFileGen, final BaseEvaFunction aEvaFunction) {
+	//	final WhyNotGarish_Function cf = this.a_lookup(aEvaFunction);
+	//
+	//	cf.resolveFileGenPromise(aFileGen);
+	//}
+
+	private void generateIdent(@NotNull IdentTableEntry identTableEntry) {
+		assert identTableEntry.isResolved();
+
+		final @NotNull EvaNode x = identTableEntry.resolvedType();
+
+		final GenerateResult     gr          = _fileGen.gr();
+		final GenerateResultSink resultSink1 = _fileGen.resultSink();
+		final WorkList           wl          = _fileGen.wl();
+
+		if (x instanceof final EvaClass evaClass) {
+			generate_class(_fileGen, evaClass);
+		} else if (x instanceof final EvaFunction evaFunction) {
+			wl.addJob(new WlGenerateFunctionC(_fileGen, evaFunction, this));
+		} else {
+			LOG.err(x.toString());
+			throw new NotImplementedException();
+		}
+	}
+
+	//public GenerateResultProgressive generateResultProgressive() {
+	//	return generateResultProgressive;
+	//}
+
+//	@NotNull
+//	List<String> getArgumentStrings(final @NotNull BaseEvaFunction gf, final @NotNull Instruction instruction) {
+//		final List<String> sl3       = new ArrayList<String>();
+//		final int          args_size = instruction.getArgsSize();
+//		for (int i = 1; i < args_size; i++) {
+//			final InstructionArgument ia = instruction.getArg(i);
+//			if (ia instanceof IntegerIA) {
+////				VariableTableEntry vte = gf.getVarTableEntry(DeduceTypes2.to_int(ia));
+//				final String realTargetName = getRealTargetName(gf, (IntegerIA) ia, Generate_Code_For_Method.AOG.GET);
+//				sl3.add(Emit.emit("/*669*/") + realTargetName);
+//			} else if (ia instanceof IdentIA) {
+//				final CReference reference = new CReference(_repo, ce);
+//				reference.getIdentIAPath((IdentIA) ia, Generate_Code_For_Method.AOG.GET, null);
+//				String text = reference.build();
+//				sl3.add(Emit.emit("/*673*/") + text);
+//			} else if (ia instanceof final @NotNull ConstTableIA c) {
+//				ConstantTableEntry cte = gf.getConstTableEntry(c.getIndex());
+//				String             s   = new GetAssignmentValue().const_to_string(cte.initialValue);
+//				sl3.add(s);
+//				int y = 2;
+//			} else if (ia instanceof ProcIA) {
+//				LOG.err("740 ProcIA");
+//				throw new NotImplementedException();
+//			} else {
+//				LOG.err(ia.getClass().getName());
+//				throw new IllegalStateException("Invalid InstructionArgument");
+//			}
+//		}
+//		return sl3;
+//	}
+
+//	@NotNull
+//	List<String> getArgumentStrings(final @NotNull Supplier<IFixedList<InstructionArgument>> instructionSupplier) {
+//		final @NotNull List<String> sl3       = new ArrayList<String>();
+//		final int                   args_size = instructionSupplier.get().size();
+//		for (int i = 1; i < args_size; i++) {
+//			final InstructionArgument ia = instructionSupplier.get().get(i);
+//			if (ia instanceof IntegerIA) {
+////				VariableTableEntry vte = gf.getVarTableEntry(DeduceTypes2.to_int(ia));
+//				final String realTargetName = getRealTargetName((IntegerIA) ia, Generate_Code_For_Method.AOG.GET);
+//				sl3.add(Emit.emit("/*669*/") + realTargetName);
+//			} else if (ia instanceof IdentIA) {
+//				final CReference reference = new CReference(_repo, ce);
+//				reference.getIdentIAPath((IdentIA) ia, Generate_Code_For_Method.AOG.GET, null);
+//				final String text = reference.build();
+//				sl3.add(Emit.emit("/*673*/") + text);
+//			} else if (ia instanceof final @NotNull ConstTableIA c) {
+//				final ConstantTableEntry cte = c.getEntry();
+//				final String             s   = new GetAssignmentValue().const_to_string(cte.initialValue);
+//				sl3.add(s);
+//				final int y = 2;
+//			} else if (ia instanceof ProcIA) {
+//				LOG.err("740 ProcIA");
+//				throw new NotImplementedException();
+//			} else {
+//				LOG.err(ia.getClass().getName());
+//				throw new IllegalStateException("Invalid InstructionArgument");
+//			}
+//		}
+//		return sl3;
+//	}
+
+	//public @NotNull List<String> getArgumentStrings(final @NotNull WhyNotGarish_BaseFunction aGf,
+	//                                                final @NotNull Instruction aInstruction) {
+	//	return getArgumentStrings(aGf.cheat(), aInstruction);
+	//}
+
+	@NotNull
+	String getAssignmentValue(VariableTableEntry value_of_this,
+	                          final InstructionArgument value,
+	                          final @NotNull BaseEvaFunction gf) {
+		GetAssignmentValue gav = new GetAssignmentValue();
+		if (value instanceof final @NotNull FnCallArgs fca) {
+			return gav.FnCallArgs(fca, gf, LOG);
+		}
+
+		if (value instanceof final @NotNull ConstTableIA constTableIA) {
+			return gav.ConstTableIA(constTableIA, gf);
+		}
+
+		if (value instanceof final @NotNull IntegerIA integerIA) {
+			return gav.IntegerIA(integerIA, gf);
+		}
+
+		if (value instanceof final @NotNull IdentIA identIA) {
+			return gav.IdentIA(identIA, gf);
+		}
+
+		LOG.err(String.format("783 %s %s", value.getClass().getName(), value));
+		return String.valueOf(value);
+	}
+
+	public @NotNull String getAssignmentValue(final VariableTableEntry aSelf,
+	                                          final InstructionArgument aRhs,
+	                                          final @NotNull WhyNotGarish_BaseFunction aGf) {
+		return getAssignmentValue(aSelf, aRhs, aGf.cheat());
+	}
+
+	//@Override
+	//public GenerateResultEnv getFileGen() {
+	//	return _fileGen;
+	//}
+
+	@NotNull
+	String getRealTargetName(final @NotNull BaseEvaFunction gf,
+	                         final @NotNull IdentIA target,
+	                         final Generate_Code_For_Method.AOG aog,
+	                         final String value) {
 		int                state           = 0, code = -1;
 		IdentTableEntry    identTableEntry = gf.getIdentTableEntry(target.getIndex());
 		LinkedList<String> ls              = new LinkedList<String>();
@@ -201,10 +434,10 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		return ce;
 	}
 
-	@Override
-	public ElLog elLog() {
-		return this.LOG;
-	}
+	//@Override
+	//public ElLog elLog() {
+	//	return this.LOG;
+	//}
 
 	public GenerateResultProgressive generateResultProgressive() {
 		return generateResultProgressive;
@@ -317,21 +550,23 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		var ncc = new WhyNotGarish_Class(aGc, this);
 		a_directory.put(aGc, ncc);
 		return ncc;
-	}	@Override
-	public void generate_constructor(@NotNull EvaConstructor aEvaConstructor, GenerateResult gr, @NotNull WorkList wl, final GenerateResultSink aResultSink, final WorkManager aWorkManager, final @NotNull GenerateResultEnv aFileGen) {
-		generateCodeForConstructor(aEvaConstructor, aFileGen);
-		postGenerateCodeForConstructor(aEvaConstructor, wl, aFileGen);
 	}
 
-	public WhyNotGarish_Namespace a_lookup(final EvaNamespace en) {
-		if (a_directory.containsKey(en)) {
-			return (WhyNotGarish_Namespace) a_directory.get(en);
-		}
+	//@Override
+	//public void generate_constructor(@NotNull EvaConstructor aEvaConstructor, GenerateResult gr, @NotNull WorkList wl, final GenerateResultSink aResultSink, final WorkManager aWorkManager, final @NotNull GenerateResultEnv aFileGen) {
+	//	generateCodeForConstructor(aEvaConstructor, aFileGen);
+	//	postGenerateCodeForConstructor(aEvaConstructor, wl, aFileGen);
+	//}
 
-		var ncn = new WhyNotGarish_Namespace(en, this);
-		a_directory.put(en, ncn);
-		return ncn;
-	}
+	//public WhyNotGarish_Namespace a_lookup(final EvaNamespace en) {
+	//	if (a_directory.containsKey(en)) {
+	//		return (WhyNotGarish_Namespace) a_directory.get(en);
+	//	}
+	//
+	//	var ncn = new WhyNotGarish_Namespace(en, this);
+	//	a_directory.put(en, ncn);
+	//	return ncn;
+	//}
 
 	@Deprecated
 	String getTypeName(final @NotNull TypeName typeName) {
@@ -344,11 +579,13 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 
 	String getTypeNameForVariableEntry(@NotNull VariableTableEntry input) {
 		return GetTypeName.forVTE(input);
-	}	@Override
-	public void generate_function(@NotNull EvaFunction aEvaFunction, GenerateResult gr, @NotNull WorkList wl, final GenerateResultSink aResultSink) {
-		generateCodeForMethod(_fileGen, aEvaFunction);
-		_post_generate_function(aEvaFunction, wl, _fileGen);
 	}
+
+	//@Override
+	//public void generate_function(@NotNull EvaFunction aEvaFunction, GenerateResult gr, @NotNull WorkList wl, final GenerateResultSink aResultSink) {
+	//	generateCodeForMethod(_fileGen, aEvaFunction);
+	//	_post_generate_function(aEvaFunction, wl, _fileGen);
+	//}
 
 	@NotNull
 	public String getTypeNameGNCForVarTableEntry(EvaContainer.@NotNull VarTableEntry o) {
@@ -375,40 +612,44 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		return GetTypeName.forOSType(ty, LOG);
 	}
 
-	public @NotNull String getAssignmentValue(final VariableTableEntry aSelf, final InstructionArgument aRhs, final @NotNull WhyNotGarish_BaseFunction aGf) {
-		return getAssignmentValue(aSelf, aRhs, aGf.cheat());
-	}	@Override
-	public void generate_class(@NotNull GenerateResultEnv aFileGen, EvaClass x) {
-		var gr          = aFileGen.gr();
-		var aResultSink = aFileGen.resultSink();
+	//public @NotNull String getAssignmentValue(final VariableTableEntry aSelf,
+	//										  final InstructionArgument aRhs,
+	//										  final @NotNull WhyNotGarish_BaseFunction aGf) {
+	//	return getAssignmentValue(aSelf, aRhs, aGf.cheat());
+	//}
 
-		final LivingClass lc = aResultSink.getLivingClassForEva(x); // TODO could also add _living property
+	//@Override
+	//public void generate_class(@NotNull GenerateResultEnv aFileGen, EvaClass x) {
+	//	var gr          = aFileGen.gr();
+	//	var aResultSink = aFileGen.resultSink();
+	//
+	//	final LivingClass lc = aResultSink.getLivingClassForEva(x); // TODO could also add _living property
+	//
+	//	lc.getGarish().garish(this, gr, aResultSink);
+	//}
 
-		lc.getGarish().garish(this, gr, aResultSink);
-	}
-
-	@NotNull
-	String getAssignmentValue(VariableTableEntry value_of_this, final InstructionArgument value, final @NotNull BaseEvaFunction gf) {
-		GetAssignmentValue gav = new GetAssignmentValue();
-		if (value instanceof final @NotNull FnCallArgs fca) {
-			return gav.FnCallArgs(fca, gf, LOG);
-		}
-
-		if (value instanceof final @NotNull ConstTableIA constTableIA) {
-			return gav.ConstTableIA(constTableIA, gf);
-		}
-
-		if (value instanceof final @NotNull IntegerIA integerIA) {
-			return gav.IntegerIA(integerIA, gf);
-		}
-
-		if (value instanceof final @NotNull IdentIA identIA) {
-			return gav.IdentIA(identIA, gf);
-		}
-
-		LOG.err(String.format("783 %s %s", value.getClass().getName(), value));
-		return String.valueOf(value);
-	}
+	//@NotNull
+	//String getAssignmentValue(VariableTableEntry value_of_this, final InstructionArgument value, final @NotNull BaseEvaFunction gf) {
+	//	GetAssignmentValue gav = new GetAssignmentValue();
+	//	if (value instanceof final @NotNull FnCallArgs fca) {
+	//		return gav.FnCallArgs(fca, gf, LOG);
+	//	}
+	//
+	//	if (value instanceof final @NotNull ConstTableIA constTableIA) {
+	//		return gav.ConstTableIA(constTableIA, gf);
+	//	}
+	//
+	//	if (value instanceof final @NotNull IntegerIA integerIA) {
+	//		return gav.IntegerIA(integerIA, gf);
+	//	}
+	//
+	//	if (value instanceof final @NotNull IdentIA identIA) {
+	//		return gav.IdentIA(identIA, gf);
+	//	}
+	//
+	//	LOG.err(String.format("783 %s %s", value.getClass().getName(), value));
+	//	return String.valueOf(value);
+	//}
 
 	public ElLog _LOG() {
 		return LOG;
@@ -485,14 +726,14 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		}
 
 		static String forVTE(@NotNull VariableTableEntry input) {
-			OS_Type attached = input.getType().getAttached();
+			OS_Type attached = input.getTypeTableEntry().getAttached();
 			if (attached == null)
 				return Emit.emit("/*390*/") + "Z__Unresolved*"; // TODO remove this ASAP
 			//
 			// special case
 			//
-			if (input.getType().genType.getNode() != null)
-				return Emit.emit("/*395*/") + getTypeNameForEvaNode(input.getType().genType.getNode()) + "*";
+			if (input.getTypeTableEntry().genType.getNode() != null)
+				return Emit.emit("/*395*/") + getTypeNameForEvaNode(input.getTypeTableEntry().genType.getNode()) + "*";
 			//
 			if (input.getStatus() == BaseTableEntry.Status.UNCHECKED)
 				return "Error_UNCHECKED_Type";
@@ -775,7 +1016,9 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 			String             x   = getRealTargetName(gf, vte);
 			return x;
 		}
-	}	private void _post_generate_function(final @NotNull EvaFunction aEvaFunction, final @NotNull WorkList wl, final @NotNull GenerateResultEnv fileGen) {
+	}
+
+	private void _post_generate_function(final @NotNull EvaFunction aEvaFunction, final @NotNull WorkList wl, final @NotNull GenerateResultEnv fileGen) {
 		for (IdentTableEntry identTableEntry : aEvaFunction.idte_list) {
 			if (identTableEntry.isResolved()) {
 				EvaNode x = identTableEntry.resolvedType();
@@ -803,15 +1046,15 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		}
 	}
 
-	@Override
-	public void finishUp(final GenerateResult aGenerateResult, final WorkManager wm, final WorkList aWorkList) {
-		assert _fileGen != null;
-
-		for (WhyNotGarish_Item value : new ArrayList<>(a_directory.values())) {
-			if (!value.hasFileGen())
-				value.provideFileGen(_fileGen);
-		}
-	}
+	//@Override
+	//public void finishUp(final GenerateResult aGenerateResult, final WorkManager wm, final WorkList aWorkList) {
+	//	assert _fileGen != null;
+	//
+	//	for (WhyNotGarish_Item value : new ArrayList<>(a_directory.values())) {
+	//		if (!value.hasFileGen())
+	//			value.provideFileGen(_fileGen);
+	//	}
+	//}
 
 
 
@@ -844,56 +1087,56 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		}
 	}
 
-	private void generateIdent(@NotNull IdentTableEntry identTableEntry) {
-		assert identTableEntry.isResolved();
+	//private void generateIdent(@NotNull IdentTableEntry identTableEntry) {
+	//	assert identTableEntry.isResolved();
+	//
+	//	final @NotNull EvaNode   x           = identTableEntry.resolvedType();
+	//
+	//	final GenerateResult     gr          = _fileGen.gr();
+	//	final GenerateResultSink resultSink1 = _fileGen.resultSink();
+	//	final WorkList           wl          = _fileGen.wl();
+	//
+	//	if (x instanceof final EvaClass evaClass) {
+	//		generate_class(_fileGen, evaClass);
+	//	} else if (x instanceof final EvaFunction evaFunction) {
+	//		wl.addJob(new WlGenerateFunctionC(_fileGen, evaFunction, this));
+	//	} else {
+	//		LOG.err(x.toString());
+	//		throw new NotImplementedException();
+	//	}
+	//}
 
-		final @NotNull EvaNode   x           = identTableEntry.resolvedType();
-
-		final GenerateResult     gr          = _fileGen.gr();
-		final GenerateResultSink resultSink1 = _fileGen.resultSink();
-		final WorkList           wl          = _fileGen.wl();
-
-		if (x instanceof final EvaClass evaClass) {
-			generate_class(_fileGen, evaClass);
-		} else if (x instanceof final EvaFunction evaFunction) {
-			wl.addJob(new WlGenerateFunctionC(_fileGen, evaFunction, this));
-		} else {
-			LOG.err(x.toString());
-			throw new NotImplementedException();
-		}
-	}
-
-	@Override
-	public void generate_namespace(final @NotNull EvaNamespace x, final GenerateResult gr, final @NotNull GenerateResultSink aResultSink) {
-		final LivingNamespace ln = aResultSink.getLivingNamespaceForEva(x); // TODO could also add _living property
-	//	ln.garish(this, gr, aResultSink); // 10/14 xxx
-	}
+	//@Override
+	//public void generate_namespace(final @NotNull EvaNamespace x, final GenerateResult gr, final @NotNull GenerateResultSink aResultSink) {
+	//	final LivingNamespace ln = aResultSink.getLivingNamespaceForEva(x); // TODO could also add _living property
+	////	ln.garish(this, gr, aResultSink); // 10/14 xxx
+	//}
 
 
-	@Override
-	public @NotNull GenerateResult generateCode(final @NotNull Collection<EvaNode> lgn, final @NotNull GenerateResultEnv aFileGen) {
-		GenerateResult gr = new Old_GenerateResult();
-		WorkList       wl = new WorkList();
-
-		var                      wm          = aFileGen.wm();
-		final GenerateResultSink aResultSink = aFileGen.resultSink();
-
-		for (final EvaNode evaNode : lgn) {
-			if (evaNode instanceof final @NotNull EvaFunction generatedFunction) {
-				generate_function(generatedFunction, gr, wl, aResultSink);
-				if (!wl.isEmpty())
-					wm.addJobs(wl);
-			} else if (evaNode instanceof final @NotNull EvaContainerNC containerNC) {
-				containerNC.generateCode(_fileGen, this);
-			} else if (evaNode instanceof final @NotNull EvaConstructor evaConstructor) {
-				generate_constructor(evaConstructor, gr, wl, aResultSink, wm, aFileGen);
-				if (!wl.isEmpty())
-					wm.addJobs(wl);
-			}
-		}
-
-		return gr;
-	}
+	//@Override
+	//public @NotNull GenerateResult generateCode(final @NotNull Collection<EvaNode> lgn, final @NotNull GenerateResultEnv aFileGen) {
+	//	GenerateResult gr = new Old_GenerateResult();
+	//	WorkList       wl = new WorkList();
+	//
+	//	var                      wm          = aFileGen.wm();
+	//	final GenerateResultSink aResultSink = aFileGen.resultSink();
+	//
+	//	for (final EvaNode evaNode : lgn) {
+	//		if (evaNode instanceof final @NotNull EvaFunction generatedFunction) {
+	//			generate_function(generatedFunction, gr, wl, aResultSink);
+	//			if (!wl.isEmpty())
+	//				wm.addJobs(wl);
+	//		} else if (evaNode instanceof final @NotNull EvaContainerNC containerNC) {
+	//			containerNC.generateCode(_fileGen, this);
+	//		} else if (evaNode instanceof final @NotNull EvaConstructor evaConstructor) {
+	//			generate_constructor(evaConstructor, gr, wl, aResultSink, wm, aFileGen);
+	//			if (!wl.isEmpty())
+	//				wm.addJobs(wl);
+	//		}
+	//	}
+	//
+	//	return gr;
+	//}
 
 	@Override
 	public GenerateResultEnv getFileGen() {
@@ -901,13 +1144,23 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 	}
 
 	private void generateCodeForConstructor(@NotNull EvaConstructor aEvaConstructor, final @NotNull GenerateResultEnv aGenerateResultEnv) {
-		if (aEvaConstructor.getFD() == null) return;
-		Generate_Code_For_Method gcfm = new Generate_Code_For_Method(this, LOG);
-
 		var yf = a_lookup(aEvaConstructor);
-		var dgf = yf.deduced(aEvaConstructor);
 
-		gcfm.generateCodeForConstructor(dgf, aGenerateResultEnv);
+		if (true) {
+			if (aEvaConstructor.getFD() == null) return;
+
+			final Generate_Code_For_Method gcfm = new Generate_Code_For_Method(this, LOG);
+			final DeducedEvaConstructor    dgf  = yf.deduced(aEvaConstructor);
+
+			gcfm.generateCodeForConstructor(dgf, aGenerateResultEnv);
+		} else {
+			yf.resolveFileGenPromise(aGenerateResultEnv);
+		}
+	}
+
+	 public void generateCodeForConstructor_1(@NotNull EvaConstructor aEvaConstructor, final @NotNull GenerateResultEnv aGenerateResultEnv) {
+		final WhyNotGarish_Constructor yf = a_lookup(aEvaConstructor);
+		yf.resolveFileGenPromise(aGenerateResultEnv);
 	}
 
 	public void generateCodeForMethod(final GenerateResultEnv aFileGen, final BaseEvaFunction aEvaFunction) {

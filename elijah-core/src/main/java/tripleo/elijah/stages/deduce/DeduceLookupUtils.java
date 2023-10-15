@@ -446,26 +446,28 @@ public enum DeduceLookupUtils {
 		}
 	}
 
-	public static LookupResultList lookupExpression(final @NotNull IExpression left, final @NotNull Context ctx,
-			final @NotNull DeduceTypes2 deduceTypes2) throws ResolveError {
+	public static LookupResultList lookupExpression(final @NotNull IExpression left,
+													final @NotNull Context ctx,
+													final @NotNull DeduceTypes2 deduceTypes2) throws ResolveError {
 		switch (left.getKind()) {
-		case QIDENT:
+		case QIDENT -> {
 			final IExpression de = Helpers0.qualidentToDotExpression2((Qualident) left);
+			assert de != null;
 			return lookupExpression(de, ctx, deduceTypes2)/* lookup_dot_expression(ctx, de) */;
-		case DOT_EXP:
+		}
+		case DOT_EXP -> {
 			return lookup_dot_expression(ctx, (DotExpression) left, deduceTypes2);
-		case IDENT: {
+		}
+		case IDENT -> {
 			final @NotNull IdentExpression ident = (IdentExpression) left;
-			final LookupResultList lrl = ctx.lookup(ident.getText());
-			if (lrl.results().size() == 0) {
+			final LookupResultList         lrl   = ctx.lookup(ident.getText());
+			if (lrl.results().isEmpty()) {
 				throw new ResolveError(ident, lrl);
 			}
 			return lrl;
 		}
-		default:
-			throw new IllegalArgumentException();
+		default -> throw new IllegalArgumentException();
 		}
-
 	}
 }
 

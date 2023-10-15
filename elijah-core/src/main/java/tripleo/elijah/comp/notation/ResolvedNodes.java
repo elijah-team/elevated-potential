@@ -82,15 +82,18 @@ class ResolvedNodes {
 	}
 
 	public void part2() {
-		resolved_nodes.stream().filter(evaNode -> evaNode instanceof GNCoded).map(evaNode -> (GNCoded) evaNode)
+		resolved_nodes.stream()
+				.filter(evaNode -> evaNode instanceof GNCoded)
+				.map(evaNode -> (GNCoded) evaNode)
 				.filter(coded -> coded.getCode() == 0).forEach(coded -> {
 					System.err.println("-*-*- __processResolvedNodes [NOT CODED] " + coded);
 					coded.register(cr);
 				});
 	}
 
-	public void part3(final @NotNull PipelineLogic pipelineLogic, final WorldModule mod,
-			final DeducePhase.GeneratedClasses lgc) {
+	public void part3(final @NotNull PipelineLogic pipelineLogic,
+					  final WorldModule mod,
+					  final DeducePhase.GeneratedClasses lgc) {
 		pipelineLogic.dp.deduceModule(mod, lgc, pipelineLogic.getVerbosity());
 	}
 }
