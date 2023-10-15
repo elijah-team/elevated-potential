@@ -4,13 +4,6 @@
  * The contents of this library are released under the LGPL licence v3,
  * the GNU Lesser General Public License text was downloaded from
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
-/*
- * Created on Sep 1, 2005 8:16:32 PM
- *
- * $Id$
- *
  */
 package tripleo.elijah.lang.impl;
 
@@ -20,6 +13,9 @@ import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.OS_Package;
 import tripleo.elijah.lang.i.Qualident;
 
+/*
+ * Created on Sep 1, 2005 8:16:32 PM
+ */
 public class ParserClosureImpl extends ProgramClosureImpl implements tripleo.elijah.lang.i.ParserClosure {
 	public final OS_Module module;
 

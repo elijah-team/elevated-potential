@@ -8,16 +8,25 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.*;
-import com.google.common.base.*;
-import com.google.common.collect.*;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
+import antlr.Token;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.lang.i.DotExpression;
+import tripleo.elijah.lang.i.ExpressionKind;
+import tripleo.elijah.lang.i.ExpressionList;
+import tripleo.elijah.lang.i.FormalArgListItem;
+import tripleo.elijah.lang.i.IExpression;
+import tripleo.elijah.lang.i.IdentExpression;
+import tripleo.elijah.lang.i.OS_Type;
+import tripleo.elijah.lang.i.Qualident;
+import tripleo.elijah.util.Helpers;
 
+import org.jetbrains.annotations.NotNull;
+
+import com.google.common.collect.Collections2;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.*;
 
 /**
  * Created Mar 27, 2019 at 2:24:09 PM
@@ -25,17 +34,16 @@ import java.util.*;
  * @author Tripleo(sb)
  */
 public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
-
-	// OS_Type _type;
-	private final List<IdentExpression> parts = new ArrayList<IdentExpression>();
+	private final List<IdentExpression> parts = new ArrayList<>();
 
 	/**
 	 * Look into creating a {@link DotExpression} from here
 	 */
 	@Override
 	public void append(final @NotNull IdentExpression r1) {
-		if (r1.getText().contains("."))
+		if (r1.getText().contains(".")) {
 			throw new IllegalArgumentException("trying to create a Qualident with a dot from a user created Token");
+		}
 		parts.add(r1);
 	}
 
@@ -47,14 +55,7 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 	@Override
 	@NotNull
 	public String asSimpleString() {
-		return Helpers.String_join(".", Collections2.transform(parts, new Function<IdentExpression, String>() {
-			@Nullable
-			@Override
-			public @NotNull String apply(@Nullable IdentExpression input) {
-				assert input != null;
-				return input.getText();
-			}
-		}));
+		return Helpers.String_join(".", Collections2.transform(parts, input -> input != null ? input.getText() : ""));
 //		final StringBuilder sb=new StringBuilder();
 //		for (final Token part : parts) {
 //			sb.append(part.getText());
@@ -67,13 +68,16 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 
 	@Override
 	public boolean equals(final Object o) {
-		if (this == o)
+		if (this == o) {
 			return true;
-		if (!(o instanceof Qualident))
+		}
+		if (!(o instanceof Qualident)) {
 			return false;
+		}
 		final Qualident qualident = (Qualident) o;
-		if (qualident.parts().size() != parts.size())
+		if (qualident.parts().size() != parts.size()) {
 			return false;
+		}
 		for (int i = 0; i < parts.size(); i++) {
 			final IdentExpression ppart = qualident.parts().get(i);
 			final IdentExpression part = parts.get(i);
@@ -102,11 +106,6 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 	}
 
 	@Override
-	public @org.jetbrains.annotations.Nullable OS_Type getType() {
-		return null; // _type; // TODO ?? 07/10
-	}
-
-	@Override
 	public int hashCode() {
 		return Objects.hash(parts/* , _type */);
 	}
@@ -126,13 +125,13 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 		return String.format("Qualident (%s)", toString());
 	}
 
-	public void setArgs(final ExpressionList ael) {
-
+	public void setArgs(final ExpressionList aExpressionList) {
+		throw new UnintendedUseException();
 	}
 
 	@Override
-	public void setKind(final ExpressionKind aIncrement) {
-		throw new IllegalArgumentException(); // TODO is this right?
+	public void setKind(final ExpressionKind aExpressionKind) {
+		throw new UnintendedUseException(); // TODO 10/15 eventually remove this
 	}
 
 	/**
@@ -140,12 +139,12 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 	 */
 	@Override
 	public void setLeft(final IExpression iexpression) {
-		throw new IllegalArgumentException(); // TODO is this right?
+		throw new UnintendedUseException(); // TODO 10/15 eventually remove this
 	}
 
 	@Override
 	public void setType(final OS_Type deducedExpression) {
-		// _type = deducedExpression;
+		throw new UnintendedUseException(); // TODO 10/15 eventually remove this
 	}
 
 	@Override

@@ -4,13 +4,6 @@
  * The contents of this library are released under the LGPL licence v3,
  * the GNU Lesser General Public License text was downloaded from
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
-/*
- * Created on Aug 30, 2005 9:05:24 PM
- *
- * $Id$
- *
  */
 package tripleo.elijah.lang.impl;
 
@@ -19,8 +12,10 @@ import tripleo.elijah.lang.i.*;
 
 import java.io.*;
 
-public class RegularTypeNameImpl extends AbstractTypeName2
-		implements NormalTypeName, tripleo.elijah.lang.i.RegularTypeName {
+/*
+ * Created on Aug 30, 2005 9:05:24 PM
+ */
+public class RegularTypeNameImpl extends AbstractTypeName2 implements NormalTypeName, RegularTypeName { // TODO 10/15 both?
 
 	private @Nullable Context _ctx;
 	// private OS_Type _resolved;

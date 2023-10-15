@@ -6,12 +6,6 @@
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
  *
  */
-/*
- * Created on Sep 1, 2005 8:16:32 PM
- *
- * $Id$
- *
- */
 package tripleo.elijah.lang.impl;
 
 import antlr.Token;
@@ -36,10 +30,13 @@ import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
+/*
+ * Created on Sep 1, 2005 8:16:32 PM
+ */
 public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.lang.i.OS_Module {
 
 	private final Stack<Qualident> packageNames_q = new Stack<Qualident>();
-	public @NotNull Attached _a = new AttachedImpl();
+	public @NotNull Attached _a;
 	public @NotNull List<EntryPoint> entryPoints = new ArrayList<EntryPoint>();
 	public @NotNull List<ModuleItem> items = new ArrayList<ModuleItem>();
 	public OS_Module prelude;
@@ -48,6 +45,10 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	private LibraryStatementPart lsp;
 	private Compilation parent;
 	private FluffyModuleImpl _fluffy;
+
+	public OS_ModuleImpl() {
+		_a = new AttachedImpl(null);
+	}
 
 	@Override
 	public void add(final OS_Element anElement) {
@@ -68,6 +69,32 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	public @NotNull List<EntryPoint> entryPoints() {
 		return entryPoints;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	public interface Complaint {
 		void reportWarning(@NotNull OS_Module aModule, String aS);
@@ -289,6 +316,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 
 	@Override
 	public void setContext(final ModuleContext mctx) {
+		// README 10/15 hm
 		_a.setContext(mctx);
 	}
 
@@ -326,6 +354,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	public void visitGen(final @NotNull ElElementVisitor visit) {
 		visit.addModule(this); // visitModule
 	}
+
 }
 
 //
