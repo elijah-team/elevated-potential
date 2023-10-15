@@ -32,19 +32,10 @@ public class WrappedStatementWrapper extends StatementWrapperImpl implements OS_
 		}
 
 		@Override
-		public @Nullable OS_Type getType() {
-			return null;
-		}
-
-		@Override
 		public boolean is_simple() {
 			return expression.is_simple();
 		}
 
-		@Override
-		public void setType(final OS_Type deducedExpression) {
-
-		}
 	}
 
 	private final VariableStatementImpl vs;

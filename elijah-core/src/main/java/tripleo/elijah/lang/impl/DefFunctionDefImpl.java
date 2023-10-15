@@ -38,7 +38,7 @@ public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elija
 		} else {
 			throw new IllegalStateException("adding DefFunctionDef to " + aElement.getClass().getName());
 		}
-		_a.setContext(new FunctionContext(aContext, this));
+		_a = new AttachedImpl(new FunctionContext(aContext, this));
 		setSpecies(Species.DEF_FUN);
 	}
 

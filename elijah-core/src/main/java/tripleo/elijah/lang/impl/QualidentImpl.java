@@ -143,11 +143,6 @@ public class QualidentImpl implements tripleo.elijah.lang.i.Qualident {
 	}
 
 	@Override
-	public void setType(final OS_Type deducedExpression) {
-		throw new UnintendedUseException(); // TODO 10/15 eventually remove this
-	}
-
-	@Override
 	public @NotNull String toString() {
 		return asSimpleString();
 	}

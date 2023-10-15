@@ -38,6 +38,4 @@ public interface Qualident extends IExpression {
 	@Override
 	void setLeft(IExpression iexpression);
 
-	@Override
-	void setType(OS_Type deducedExpression);
 }

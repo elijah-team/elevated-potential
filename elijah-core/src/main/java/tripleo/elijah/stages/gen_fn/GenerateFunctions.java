@@ -449,10 +449,9 @@ public class GenerateFunctions implements ReactiveDimension {
 //				LOG.info(String.format("8004-2 %s %s;", stype, vs.getName()));
 				switch (state) {
 				case 1: {
-					final int ci = addConstantTableEntry(variable_name, initialValue, initialValue.getType(), gf);
+					final int ci = addConstantTableEntry(variable_name, initialValue, null, gf);
 					final int vte_num = addVariableTableEntry(variable_name,
-							gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, (initialValue.getType()),
-									vs.getNameToken()),
+							gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null, vs.getNameToken()),
 							gf, vs.getNameToken());
 					final @NotNull IExpression iv = initialValue;
 					add_i(gf, InstructionName.DECL, List_of(new SymbolIA("const"), new IntegerIA(vte_num, gf)), cctx);
@@ -462,7 +461,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				}
 				case 2: {
 					final int vte_num = addVariableTableEntry(variable_name, gf.newTypeTableEntry(
-							TypeTableEntry.Type.SPECIFIED, (initialValue.getType()), vs.getNameToken()), gf, vs);
+							TypeTableEntry.Type.SPECIFIED, null, vs.getNameToken()), gf, vs);
 					add_i(gf, InstructionName.DECL, List_of(new SymbolIA("val"), new IntegerIA(vte_num, gf)), cctx);
 					final @NotNull IExpression iv = initialValue;
 					assign_variable(gf, vte_num, iv, cctx);
@@ -474,8 +473,8 @@ public class GenerateFunctions implements ReactiveDimension {
 						tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, new OS_UserType(vs.typeName()),
 								vs.getNameToken());
 					} else {
-						tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, initialValue.getType(),
-								vs.getNameToken());
+						tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null,
+												   vs.getNameToken());
 					}
 					final int vte_num = addVariableTableEntry(variable_name, tte, gf, vs); // TODO why not
 																							// vs.initialValue ??
@@ -486,7 +485,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				}
 				case 4: {
 					final int vte_num = addVariableTableEntry(variable_name,
-							gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, (initialValue.getType()),
+							gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, (null),
 									vs.getNameToken()),
 							gf, vs.getNameToken());
 					add_i(gf, InstructionName.DECL, List_of(new SymbolIA("const"), new IntegerIA(vte_num, gf)), cctx);
@@ -572,8 +571,7 @@ public class GenerateFunctions implements ReactiveDimension {
 		public void mathematical(@NotNull BaseEvaFunction gf, @NotNull IExpression left, ExpressionKind kind,
 				@NotNull IExpression right1, @NotNull Context cctx) {
 			// TODO doesn't use kind
-			final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, right1.getType(),
-					right1);
+			final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null, right1);
 
 			InstructionArgument left_ia = simplify_expression(left, gf, cctx);
 			InstructionArgument right_ia = simplify_expression(right1, gf, cctx);
@@ -595,8 +593,7 @@ public class GenerateFunctions implements ReactiveDimension {
 		public void neg(@NotNull BaseEvaFunction gf, @NotNull IExpression left, ExpressionKind aKind,
 				@NotNull IExpression right1, @NotNull Context cctx) {
 			// TODO doesn't use kind
-			final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, right1.getType(),
-					right1);
+			final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null, right1);
 
 			InstructionArgument left_ia = simplify_expression(left, gf, cctx);
 			InstructionArgument right_ia = simplify_expression(right1, gf, cctx);
@@ -619,7 +616,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				@NotNull Context cctx) {
 			@NotNull
 			final InstructionArgument agn_path = gf.get_assignment_path(left, GenerateFunctions.this, cctx);
-			final int cte = addConstantTableEntry("", ne, ne.getType(), gf);
+			final int cte = addConstantTableEntry("", ne, null, gf);
 
 			final int agn_inst = add_i(gf, InstructionName.AGN, List_of(agn_path, new ConstTableIA(cte, gf)), cctx);
 			// TODO what now??
@@ -1007,10 +1004,9 @@ public class GenerateFunctions implements ReactiveDimension {
 //				LOG.info(String.format("8004-2 %s %s;", stype, vs.getName()));
 				switch (state) {
 				case 1: {
-					final int ci = addConstantTableEntry(variable_name, initialValue, initialValue.getType(), gf);
+					final int ci = addConstantTableEntry(variable_name, initialValue, null, gf);
 					final int vte_num = addVariableTableEntry(variable_name,
-							gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, (initialValue.getType()),
-									vs.getNameToken()),
+							gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null, vs.getNameToken()),
 							gf, vs.getNameToken());
 					final @NotNull IExpression iv = initialValue;
 					add_i(gf, InstructionName.DECL, List_of(new SymbolIA("const"), new IntegerIA(vte_num, gf)), cctx);
@@ -1020,8 +1016,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				}
 				case 2: {
 					final int vte_num = addVariableTableEntry(variable_name,
-							gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, (initialValue.getType()),
-									vs.getNameToken()),
+							gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null, vs.getNameToken()),
 							gf, vs.getNameToken());
 					add_i(gf, InstructionName.DECL, List_of(new SymbolIA("val"), new IntegerIA(vte_num, gf)), cctx);
 					final @NotNull IExpression iv = initialValue;
@@ -1034,8 +1029,7 @@ public class GenerateFunctions implements ReactiveDimension {
 						tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, new OS_UserType(vs.typeName()),
 								vs.getNameToken());
 					} else {
-						tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, initialValue.getType(),
-								vs.getNameToken());
+						tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null, vs.getNameToken());
 					}
 					final int vte_num = addVariableTableEntry(variable_name, tte, gf, vs); // TODO why not
 																							// vs.initialValue ??
@@ -1046,9 +1040,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				}
 				case 4: {
 					final int vte_num = addVariableTableEntry(variable_name,
-							gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, (initialValue.getType()),
-									vs.getNameToken()),
-							gf, vs.getNameToken());
+							gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null, vs.getNameToken()), gf, vs.getNameToken());
 					add_i(gf, InstructionName.DECL, List_of(new SymbolIA("const"), new IntegerIA(vte_num, gf)), cctx);
 					assign_variable(gf, vte_num, initialValue, cctx);
 					break;
@@ -1083,7 +1075,7 @@ public class GenerateFunctions implements ReactiveDimension {
 			left = bbe.getLeft();
 
 			lookup = gfs.simplify_expression(left, gf, cctx);
-			tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, bbe.getType(), left);
+			tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null, left);
 
 			expression_to_call = gfs.expression_to_call(pce, gf, cctx);
 			list_of_fn_call = List_of(lookup, new FnCallArgs(expression_to_call, gf));
@@ -1297,7 +1289,7 @@ public class GenerateFunctions implements ReactiveDimension {
 			vte_proccall.addPotentialType(ii2, tte_proccall);
 			break;
 		case NUMERIC:
-			final int ci = addConstantTableEntry(null, value, value.getType(), gf);
+			final int ci = addConstantTableEntry(null, value, null, gf);
 			final int ii = add_i(gf, InstructionName.AGNK, List_of(new IntegerIA(vte, gf), new ConstTableIA(ci, gf)),
 					cctx);
 			final @NotNull VariableTableEntry vte_numeric = gf.getVarTableEntry(vte);
@@ -1858,7 +1850,7 @@ public class GenerateFunctions implements ReactiveDimension {
 	}
 
 	private @NotNull TypeTableEntry getType(@NotNull final IExpression arg, final @NotNull BaseEvaFunction gf) {
-		final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, arg.getType(), arg);
+		final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null, arg);
 		return tte;
 	}
 
@@ -1967,17 +1959,17 @@ public class GenerateFunctions implements ReactiveDimension {
 			return i;
 		case NUMERIC: {
 			final @NotNull NumericExpression ne = (NumericExpression) expression;
-			final int ii = addConstantTableEntry2(null, ne, ne.getType(), gf);
+			final int ii = addConstantTableEntry2(null, ne, null, gf);
 			return new ConstTableIA(ii, gf);
 		}
 		case STRING_LITERAL: {
 			final @NotNull StringExpression se = (StringExpression) expression;
-			final int ii = addConstantTableEntry2(null, se, se.getType(), gf);
+			final int ii = addConstantTableEntry2(null, se, null, gf);
 			return new ConstTableIA(ii, gf);
 		}
 		case CHAR_LITERAL: {
 			final @NotNull CharLitExpression cle = (CharLitExpression) expression;
-			final int ii = addConstantTableEntry2(null, cle, cle.getType(), gf);
+			final int ii = addConstantTableEntry2(null, cle, null, gf);
 			return new ConstTableIA(ii, gf);
 		}
 		case GET_ITEM: {
@@ -1992,7 +1984,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				} else {
 					// a constant
 					assert LangGlobals.isConstant(right);
-					final int left_constant_num = addConstantTableEntry2(null, left, left.getType(), gf);
+					final int left_constant_num = addConstantTableEntry2(null, left, null, gf);
 					left_instruction = new ConstTableIA(left_constant_num, gf);
 				}
 			} else {
@@ -2005,7 +1997,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				} else {
 					// a constant
 					assert LangGlobals.isConstant(right);
-					final int right_constant_num = addConstantTableEntry2(null, right, right.getType(), gf);
+					final int right_constant_num = addConstantTableEntry2(null, right, null, gf);
 					right_instruction = new ConstTableIA(right_constant_num, gf);
 				}
 			} else {
@@ -2062,7 +2054,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				} else {
 					// a constant
 					if (LangGlobals.isConstant(left)) {
-						final int left_constant_num = addConstantTableEntry2(null, left, left.getType(), gf);
+						final int left_constant_num = addConstantTableEntry2(null, left, null, gf);
 						left_instruction = new ConstTableIA(left_constant_num, gf);
 					} else {
 						left_instruction = simplify_expression(left, gf, cctx);
@@ -2078,7 +2070,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				} else {
 					// a constant
 					if (LangGlobals.isConstant(right)) {
-						final int right_constant_num = addConstantTableEntry2(null, right, right.getType(), gf);
+						final int right_constant_num = addConstantTableEntry2(null, right, null, gf);
 						right_instruction = new ConstTableIA(right_constant_num, gf);
 					} else {
 						right_instruction = simplify_expression(right, gf, cctx);
@@ -2120,7 +2112,7 @@ public class GenerateFunctions implements ReactiveDimension {
 					left_instruction = simplify_expression(left, gf, cctx);
 				} else {
 					// a constant
-					final int left_constant_num = addConstantTableEntry2(null, left, left.getType(), gf);
+					final int left_constant_num = addConstantTableEntry2(null, left, null, gf);
 					left_instruction = new ConstTableIA(left_constant_num, gf);
 				}
 			} else {

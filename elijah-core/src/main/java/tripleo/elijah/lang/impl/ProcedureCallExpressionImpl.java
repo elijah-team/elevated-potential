@@ -35,16 +35,10 @@ public class ProcedureCallExpressionImpl implements ProcedureCallExpression {
 	 * @return the argument list
 	 */
 	@Override
-	public ExpressionList exprList() {
-		return args;
-	}
-
-	@Override
 	public ExpressionList getArgs() {
 		return args;
 	}
 
-	@Override
 	public OS_Type getType() {
 		return _type;
 	}

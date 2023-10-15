@@ -18,7 +18,7 @@ import java.util.List;
 
 public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 
-	private final Attached _a = new AttachedImpl();
+	private final Attached _a;
 	private final OS_Element parent;
 	IdentExpression iterName;
 	private IExpression expr;
@@ -32,9 +32,11 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 	@Deprecated
 	public LoopImpl(final OS_Element aParent) {
 		// document assumption
-		if (!(aParent instanceof FunctionDef) && !(aParent instanceof Loop))
+		if (!(aParent instanceof FunctionDef) && !(aParent instanceof Loop)) {
 			tripleo.elijah.util.Stupidity.println_out_2("parent is not FunctionDef or Loop");
+		}
 		parent = aParent;
+		_a = new AttachedImpl(parent.getContext());
 	}
 
 	public LoopImpl(final OS_Element aParent, final Context ctx) {
@@ -42,7 +44,7 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 		if (!(aParent instanceof FunctionDef) && !(aParent instanceof Loop))
 			tripleo.elijah.util.Stupidity.println_out_2("parent is not FunctionDef or Loop");
 		parent = aParent;
-		_a.setContext(new LoopContext(ctx, this));
+		_a = new AttachedImpl(new LoopContext(ctx, this));
 	}
 
 	@Override

@@ -21,13 +21,7 @@ public interface ListExpression extends IExpression, Locatable {
 	int getLineEnd();
 
 	@Override
-	OS_Type getType();
-
-	@Override
 	boolean is_simple();
 
 	void setContents(ExpressionList aList);
-
-	@Override
-	void setType(OS_Type deducedExpression);
 }
