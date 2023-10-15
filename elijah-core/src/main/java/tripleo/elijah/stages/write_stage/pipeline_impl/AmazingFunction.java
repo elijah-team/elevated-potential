@@ -95,7 +95,7 @@ class AmazingFunction implements Amazing {
 			if (f instanceof EvaFunction ff) {
 				ggc.generateCodeForMethod(fileGen, ff);
 			} else if (f instanceof EvaConstructor fc) {
-				ggc.generateCodeForConstructor(fileGen, fc);
+				ggc.generateCodeForConstructor_1(fc, fileGen);
 			}
 
 			itms.addItem(of);

@@ -162,7 +162,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 	public void generate_constructor(@NotNull EvaConstructor aEvaConstructor, GenerateResult gr, @NotNull WorkList wl,
 	                                 final GenerateResultSink aResultSink, final WorkManager aWorkManager,
 	                                 final @NotNull GenerateResultEnv aFileGen) {
-		generateCodeForConstructor(aEvaConstructor, gr, wl, aFileGen);
+		generateCodeForConstructor(aEvaConstructor, aFileGen);
 		postGenerateCodeForConstructor(aEvaConstructor, wl, aFileGen);
 	}
 
@@ -557,10 +557,6 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		var ncc = new WhyNotGarish_Class(aGc, this);
 		a_directory.put(aGc, ncc);
 		return ncc;
-	}	@Override
-	public void generate_constructor(@NotNull EvaConstructor aEvaConstructor, GenerateResult gr, @NotNull WorkList wl, final GenerateResultSink aResultSink, final WorkManager aWorkManager, final @NotNull GenerateResultEnv aFileGen) {
-		generateCodeForConstructor(aEvaConstructor, aFileGen);
-		postGenerateCodeForConstructor(aEvaConstructor, wl, aFileGen);
 	}
 
 	public WhyNotGarish_Namespace a_lookup(final EvaNamespace en) {
@@ -584,10 +580,6 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 
 	String getTypeNameForVariableEntry(@NotNull VariableTableEntry input) {
 		return GetTypeName.forVTE(input);
-	}	@Override
-	public void generate_function(@NotNull EvaFunction aEvaFunction, GenerateResult gr, @NotNull WorkList wl, final GenerateResultSink aResultSink) {
-		generateCodeForMethod(_fileGen, aEvaFunction);
-		_post_generate_function(aEvaFunction, wl, _fileGen);
 	}
 
 	@NotNull
@@ -1015,7 +1007,9 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 			String             x   = getRealTargetName(gf, vte);
 			return x;
 		}
-	}	private void _post_generate_function(final @NotNull EvaFunction aEvaFunction, final @NotNull WorkList wl, final @NotNull GenerateResultEnv fileGen) {
+	}
+
+	private void _post_generate_function(final @NotNull EvaFunction aEvaFunction, final @NotNull WorkList wl, final @NotNull GenerateResultEnv fileGen) {
 		for (IdentTableEntry identTableEntry : aEvaFunction.idte_list) {
 			if (identTableEntry.isResolved()) {
 				EvaNode x = identTableEntry.resolvedType();
@@ -1141,13 +1135,23 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 	}
 
 	private void generateCodeForConstructor(@NotNull EvaConstructor aEvaConstructor, final @NotNull GenerateResultEnv aGenerateResultEnv) {
-		if (aEvaConstructor.getFD() == null) return;
-		Generate_Code_For_Method gcfm = new Generate_Code_For_Method(this, LOG);
-
 		var yf = a_lookup(aEvaConstructor);
-		var dgf = yf.deduced(aEvaConstructor);
 
-		gcfm.generateCodeForConstructor(dgf, aGenerateResultEnv);
+		if (true) {
+			if (aEvaConstructor.getFD() == null) return;
+
+			final Generate_Code_For_Method gcfm = new Generate_Code_For_Method(this, LOG);
+			final DeducedEvaConstructor    dgf  = yf.deduced(aEvaConstructor);
+
+			gcfm.generateCodeForConstructor(dgf, aGenerateResultEnv);
+		} else {
+			yf.resolveFileGenPromise(aGenerateResultEnv);
+		}
+	}
+
+	 public void generateCodeForConstructor_1(@NotNull EvaConstructor aEvaConstructor, final @NotNull GenerateResultEnv aGenerateResultEnv) {
+		final WhyNotGarish_Constructor yf = a_lookup(aEvaConstructor);
+		yf.resolveFileGenPromise(aGenerateResultEnv);
 	}
 
 	public void generateCodeForMethod(final GenerateResultEnv aFileGen, final BaseEvaFunction aEvaFunction) {
