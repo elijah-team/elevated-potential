@@ -99,6 +99,10 @@ public enum Helpers {
 		list3.addAll(list2);
 		return list3;
 	}
+
+	public static boolean String_equals(String aS, String aS1) {
+		return Objects.equals(aS, aS1);
+	}
 }
 
 //
