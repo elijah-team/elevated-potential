@@ -38,7 +38,7 @@ public interface IdentExpression extends IExpression, OS_Element, Locatable {
 	void setContext(Context context);
 
 	@Override
-	void setKind(ExpressionKind aIncrement);
+	void setKind(ExpressionKind aExpressionKind);
 
 	@Override
 	void setLeft(IExpression iexpression);

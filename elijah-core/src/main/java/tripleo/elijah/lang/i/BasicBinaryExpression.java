@@ -1,23 +1,14 @@
 package tripleo.elijah.lang.i;
 
 public interface BasicBinaryExpression extends IBinaryExpression {
-
 	@Override
-	void setKind(ExpressionKind aKind);
+	void setKind(ExpressionKind aExpressionKind);
 
 	@Override
 	void setLeft(IExpression aLeft);
 
-	@Override
-	void setType(OS_Type deducedExpression);
+	//void shift(ExpressionKind aType);
 
-	void shift(ExpressionKind aType);
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	String toString();
 }

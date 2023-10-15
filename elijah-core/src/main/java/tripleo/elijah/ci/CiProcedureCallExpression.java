@@ -9,8 +9,10 @@ public interface CiProcedureCallExpression extends IExpression {
 
 	CiExpressionList getExpressionList();
 
+	@Override
 	@NotNull ExpressionKind getKind();
 
+	@Override
 	IExpression getLeft();
 
 	@Override
@@ -23,13 +25,15 @@ public interface CiProcedureCallExpression extends IExpression {
 
 	String printableString();
 
+	@Override
 	String repr_();
 
 	@Override
-	void setKind(ExpressionKind aIncrement);
+	void setKind(ExpressionKind aExpressionKind);
 
 	void setExpressionList(CiExpressionList ael);
 
+	@Override
 	void setLeft(IExpression iexpression);
 
 	@Override

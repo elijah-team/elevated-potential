@@ -4,13 +4,6 @@
  * The contents of this library are released under the LGPL licence v3,
  * the GNU Lesser General Public License text was downloaded from
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
-/*
- * Created on Sep 1, 2005 4:55:12 PM
- *
- * $Id$
- *
  */
 package tripleo.elijah.lang.impl;
 
@@ -22,11 +15,12 @@ import java.util.*;
 
 import static tripleo.elijah.util.Helpers.*;
 
-public class VariableTypeNameImpl extends AbstractTypeName
-		implements NormalTypeName, tripleo.elijah.lang.i.VariableTypeName {
+/*
+ * Created on Sep 1, 2005 4:55:12 PM
+ */
+public class VariableTypeNameImpl extends AbstractTypeName implements NormalTypeName, VariableTypeName { // TODO 10/15 hm
 
 	private Context _ctx;
-	// private OS_Type _resolved;
 	private OS_Element _resolvedElement;
 	private TypeNameList genericPart;
 
@@ -137,7 +131,7 @@ public class VariableTypeNameImpl extends AbstractTypeName
 		final String result;
 		if (pr_name != null) {
 			if (genericPart != null) {
-				result = String.format("%s[%s]", pr_name.toString(), genericPart.toString());
+				result = String.format("%s[%s]", pr_name.repr_(), genericPart.toString());
 			} else {
 				result = pr_name.toString();
 			}

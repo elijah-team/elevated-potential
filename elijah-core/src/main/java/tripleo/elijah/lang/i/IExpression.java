@@ -9,28 +9,10 @@
 
 /*
  * Created on Sep 2, 2005 2:08:03 PM
- *
- * $Id$
- *
  */
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.impl.BasicBinaryExpressionImpl;
-
 public interface IExpression {
-
-	IExpression UNASSIGNED = new BasicBinaryExpressionImpl() {
-		@Override
-		public @NotNull String toString() {
-			return "<UNASSIGNED expression>";
-		}
-	};
-
-	static boolean isConstant(final IExpression expression) {
-		return expression instanceof StringExpression || expression instanceof CharLitExpression
-				|| expression instanceof FloatExpression || expression instanceof NumericExpression;
-	}
 
 	// @NotNull List<FormalArgListItem> getArgs();
 	//
@@ -39,8 +21,6 @@ public interface IExpression {
 	ExpressionKind getKind();
 
 	IExpression getLeft();
-
-	@Deprecated OS_Type getType();
 
 	boolean is_simple();
 
@@ -58,11 +38,10 @@ public interface IExpression {
 //		}
 //	}
 
-	void setKind(ExpressionKind aIncrement);
+	void setKind(ExpressionKind aExpressionKind);
 
 	void setLeft(IExpression iexpression);
 
-	void setType(OS_Type deducedExpression);
 }
 
 //

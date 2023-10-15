@@ -24,10 +24,6 @@ public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression 
 		return expressionList;
 	}
 
-	// endregion
-
-	// region left-side
-
 	/**
 	 * change then argument list all at once
 	 *
@@ -43,9 +39,9 @@ public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression 
 		return ExpressionKind.PROCEDURE_CALL;
 	}
 
-	//	@Override
-	public void setKind(final ExpressionKind aIncrement) {
-		throw new IllegalArgumentException();
+	@Override
+	public void setKind(final ExpressionKind aExpressionKind) {
+		throw new UnintendedUseException();
 	}
 
 	@Override
@@ -64,10 +60,6 @@ public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression 
 	@Override
 	public void setLeft(final IExpression iexpression) {
 		_left = iexpression;
-	}
-
-	public @NotNull String getReturnTypeString() {
-		return "int"; // TODO hardcoded
 	}
 
 	@Override
@@ -92,13 +84,16 @@ public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression 
 
 	@Override
 	public String printableString() {
-		return String.format("%s%s", getLeft(), expressionList != null ? expressionList.toString() : "()");
+		return String.format("%s%s", getLeft(), expressionListPrintableString());
+	}
+
+	private String expressionListPrintableString() {
+		return expressionList != null ? expressionList.toString() : "()";
 	}
 
 	@Override
 	public String repr_() {
-		String s = expressionList != null ? expressionList.toString() : "()";
-		return "ProcedureCallExpression{%s %s}".formatted(getLeft(), s);
+		return "ProcedureCallExpression{%s %s}".formatted(getLeft(), expressionListPrintableString());
 	}
 
 	@Override
@@ -110,6 +105,4 @@ public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression 
 	public void setArgs(CiExpressionList aEl) {
 		throw new UnintendedUseException();
 	}
-
-	// endregion
 }

@@ -33,7 +33,7 @@ public interface Qualident extends IExpression {
 	String repr_();
 
 	@Override
-	void setKind(ExpressionKind aIncrement);
+	void setKind(ExpressionKind aExpressionKind);
 
 	@Override
 	void setLeft(IExpression iexpression);

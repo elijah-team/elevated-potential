@@ -27,8 +27,8 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 	// private Scope3 scope3;
 	// private FormalArgList argList = new FormalArgListImpl();
 	private TypeName _returnType;
-	private OS_Type _type;
 
+	@Override
 	public @NotNull List<FormalArgListItem> falis() {
 		return mFal.falis();
 	}
@@ -127,7 +127,7 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 	}
 
 	@Override
-	public void setKind(final ExpressionKind aKind) {
+	public void setKind(final ExpressionKind aExpressionKind) {
 		throw new NotImplementedException();
 	}
 

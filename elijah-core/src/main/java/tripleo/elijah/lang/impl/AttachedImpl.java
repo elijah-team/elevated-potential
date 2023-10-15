@@ -8,35 +8,19 @@
  */
 package tripleo.elijah.lang.impl;
 
+import tripleo.elijah.lang.i.Attached;
 import tripleo.elijah.lang.i.Context;
 
-/*
+/**
  * Created on 5/19/2019 at 02:09
- *
- * $Id$
- *
  */
-public class AttachedImpl implements tripleo.elijah.lang.i.Attached {
-	// int _code;
+// TODO 10/15 this is everywhere. investigate for something else
+public class AttachedImpl implements Attached {
 	Context _context;
-//	Node    _node;
-
-	public AttachedImpl() {
-	}
 
 	public AttachedImpl(final Context aContext) {
 		_context = aContext;
 	}
-
-//	@Override
-//	public int getCode() {
-//		return _code;
-//	}
-//
-//	@Override
-//	public void setCode(final int aCode) {
-//		_code = aCode;
-//	}
 
 	@Override
 	public Context getContext() {
@@ -47,17 +31,6 @@ public class AttachedImpl implements tripleo.elijah.lang.i.Attached {
 	public void setContext(final Context aContext) {
 		_context = aContext;
 	}
-
-//	@Override
-//	public Node getNode() {
-//		return _node;
-//	}
-//
-//	@Override
-//	public void setNode(final Node aNode) {
-//		_node = aNode;
-//	}
-
 }
 
 //
