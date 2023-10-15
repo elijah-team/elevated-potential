@@ -10,18 +10,14 @@ package tripleo.elijah.lang.impl;
 
 import tripleo.elijah.lang.i.ExpressionKind;
 import tripleo.elijah.lang.i.IExpression;
-
-/*
- * Created on Apr 18, 2020 at 23:03
- *
- * $Id$
- *
- */
+import tripleo.elijah.lang.i.ToExpression;
 
 /**
  * really belongs in stages.deduce
+ *
+ * Created on Apr 18, 2020 at 23:03
  */
-public class ToExpressionImpl extends BasicBinaryExpressionImpl implements tripleo.elijah.lang.i.ToExpression {
+public class ToExpressionImpl extends BasicBinaryExpressionImpl implements ToExpression {
 
 	public ToExpressionImpl(final IExpression fromPart, final IExpression toPart) {
 		left = fromPart;

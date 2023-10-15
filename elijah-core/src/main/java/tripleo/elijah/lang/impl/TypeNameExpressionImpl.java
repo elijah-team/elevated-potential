@@ -10,16 +10,12 @@ package tripleo.elijah.lang.impl;
 
 import tripleo.elijah.lang.i.BasicBinaryExpression;
 import tripleo.elijah.lang.i.NormalTypeName;
+import tripleo.elijah.lang.i.TypeNameExpression;
 
 /*
  * Created on Sep 1, 2005 8:10:27 PM
- *
- * $Id$
- *
  */
-
-public class TypeNameExpressionImpl extends BasicBinaryExpressionImpl
-		implements BasicBinaryExpression, tripleo.elijah.lang.i.TypeNameExpression {
+public class TypeNameExpressionImpl extends BasicBinaryExpressionImpl implements BasicBinaryExpression, TypeNameExpression {
 
 	public TypeNameExpressionImpl(final NormalTypeName aVr) {
 		// TODO Auto-generated constructor stub
