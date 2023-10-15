@@ -49,8 +49,7 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 		carrier.noteDependencies(d);
 	}
 
-	@NotNull
-	public DT_Resolvabley _getIdentIAResolvable(final @NotNull IdentIA aIdentIA) {
+	public @NotNull DT_Resolvabley _getIdentIAResolvable(final @NotNull IdentIA aIdentIA) {
 		return carrier._getIdentIAResolvable(aIdentIA);
 	}
 
@@ -118,8 +117,7 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	@Override
-	@NotNull
-	public ConstantTableEntry getConstTableEntry(final int index) {
+	public @NotNull ConstantTableEntry getConstTableEntry(final int index) {
 		return carrier.getConstTableEntry(index);
 	}
 
@@ -129,14 +127,12 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	@Override
-	@NotNull
-	public Dependency getDependency() {
+	public @NotNull Dependency getDependency() {
 		return carrier.getDependency();
 	}
 
 	@Override
-	@NotNull
-	public String getFunctionName() {
+	public @NotNull String getFunctionName() {
 		return carrier.getFunctionName();
 	}
 
@@ -158,20 +154,17 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	@Override
-	@NotNull
-	public String getIdentIAPathNormal(final @NotNull IdentIA ia2) {
+	public @NotNull String getIdentIAPathNormal(final @NotNull IdentIA ia2) {
 		return carrier.getIdentIAPathNormal(ia2);
 	}
 
 	@Override
-	@NotNull
-	public IdentTableEntry getIdentTableEntry(final int index) {
+	public @NotNull IdentTableEntry getIdentTableEntry(final int index) {
 		return carrier.getIdentTableEntry(index);
 	}
 
 	@Override
-	@Nullable
-	public IdentTableEntry getIdentTableEntryFor(final @NotNull IExpression expression) {
+	public @Nullable IdentTableEntry getIdentTableEntryFor(final @NotNull IExpression expression) {
 		return carrier.getIdentTableEntryFor(expression);
 	}
 
@@ -190,14 +183,12 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	@Override
-	@NotNull
-	public ProcTableEntry getProcTableEntry(final int index) {
+	public @NotNull ProcTableEntry getProcTableEntry(final int index) {
 		return carrier.getProcTableEntry(index);
 	}
 
 	@Override
-	@NotNull
-	public TypeTableEntry getTypeTableEntry(final int index) {
+	public @NotNull TypeTableEntry getTypeTableEntry(final int index) {
 		return carrier.getTypeTableEntry(index);
 	}
 
@@ -206,8 +197,7 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	@Override
-	@NotNull
-	public VariableTableEntry getVarTableEntry(final int index) {
+	public @NotNull VariableTableEntry getVarTableEntry(final int index) {
 		return carrier.getVarTableEntry(index);
 	}
 
@@ -222,26 +212,27 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	@Override
-	@NotNull
-	public TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1, final OS_Type type) {
+	public @NotNull TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1, final OS_Type type) {
 		return carrier.newTypeTableEntry(type1, type);
 	}
 
 	@Override
-	@NotNull
-	public TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1, final OS_Type type, final IExpression expression) {
+	public @NotNull TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1, final OS_Type type, final IExpression expression) {
 		return carrier.newTypeTableEntry(type1, type, expression);
 	}
 
 	@Override
-	@NotNull
-	public TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1, final OS_Type type, final IExpression expression, final TableEntryIV aTableEntryIV) {
+	public @NotNull TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1,
+	                                        final OS_Type type,
+	                                        final IExpression expression,
+	                                        final TableEntryIV aTableEntryIV) {
 		return carrier.newTypeTableEntry(type1, type, expression, aTableEntryIV);
 	}
 
 	@Override
-	@NotNull
-	public TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1, final OS_Type type, final TableEntryIV aTableEntryIV) {
+	public @NotNull TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1,
+	                                                 final OS_Type type,
+	                                                 final TableEntryIV aTableEntryIV) {
 		return carrier.newTypeTableEntry(type1, type, aTableEntryIV);
 	}
 
@@ -300,8 +291,7 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	@Override
-	@NotNull
-	public DeferredObject<GenType, Void, Void> typeDeferred() {
+	public @NotNull DeferredObject<GenType, Void, Void> typeDeferred() {
 		return carrier.typeDeferred();
 	}
 
@@ -329,8 +319,7 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	@Override
-	@Nullable
-	public VariableTableEntry getSelf() {
+	public @Nullable VariableTableEntry getSelf() {
 		return carrier.getSelf();
 	}
 }

@@ -9,6 +9,7 @@ import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.world.i.WorldModule;
 
 import java.io.*;
 import java.util.*;
@@ -32,4 +33,6 @@ public interface CompFactory {
 	CY_ElijahSpecParser defaultElijahSpecParser(ElijahCache aElijahCache);
 
 	CY_EzSpecParser defaultEzSpecParser(EzCache aEzCache);
+
+	WorldModule createWorldModule(OS_Module aModule);
 }

@@ -25,9 +25,7 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.IFixedList;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.*;
 import tripleo.elijah.work.WorkJob;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
@@ -48,7 +46,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 	private static final   String                          PHASE                     = "GenerateC";
 	final                  GI_Repo                         _repo                     = new GI_Repo(this);
 	final                  Zone                            _zone                     = new Zone();
-	final @NotNull         CompilationEnclosure            ce;
+	final CompilationEnclosure ce;
 	final @NotNull         ErrSink                         errSink;
 	final @NotNull         ElLog                           LOG;
 	private final          Map<EvaNode, WhyNotGarish_Item> a_directory               = new HashMap<>();
@@ -68,10 +66,9 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		LOG = new ElLog(mod.getFileName(), verbosity, PHASE);
 
 		ce = aParams.getCompilationEnclosure();
-		ce.getAccessBusPromise()
-				.then(ab -> {
-					ab.subscribePipelineLogic(pl -> pl.addLog(LOG));
-				});
+		ce.getAccessBusPromise().then(ab -> {
+			ab.subscribePipelineLogic(pl -> pl.addLog(LOG));
+		});
 
 		ce.addReactiveDimension(this);
 
@@ -87,7 +84,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		case DEF_FUN:
 			if (!(fd.getParent() instanceof ClassStatement)) return false;
 			for (AnnotationPart anno : ((ClassStatement) fd.getParent()).annotationIterable()) {
-				if (anno.annoClass().equals(Helpers.string_to_qualident("Primitive"))) {
+				if (anno.annoClass().equals(Helpers0.string_to_qualident("Primitive"))) {
 					return true;
 				}
 			}
@@ -322,7 +319,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		return ncc;
 	}	@Override
 	public void generate_constructor(@NotNull EvaConstructor aEvaConstructor, GenerateResult gr, @NotNull WorkList wl, final GenerateResultSink aResultSink, final WorkManager aWorkManager, final @NotNull GenerateResultEnv aFileGen) {
-		generateCodeForConstructor(aEvaConstructor, gr, wl, aFileGen);
+		generateCodeForConstructor(aEvaConstructor, aFileGen);
 		postGenerateCodeForConstructor(aEvaConstructor, wl, aFileGen);
 	}
 
@@ -869,7 +866,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 	@Override
 	public void generate_namespace(final @NotNull EvaNamespace x, final GenerateResult gr, final @NotNull GenerateResultSink aResultSink) {
 		final LivingNamespace ln = aResultSink.getLivingNamespaceForEva(x); // TODO could also add _living property
-		ln.garish(this, gr, aResultSink);
+	//	ln.garish(this, gr, aResultSink); // 10/14 xxx
 	}
 
 
@@ -903,10 +900,14 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		return _fileGen;
 	}
 
-	private void generateCodeForConstructor(@NotNull EvaConstructor aEvaConstructor, GenerateResult aGenerateResult, WorkList aWorkList, final @NotNull GenerateResultEnv aFileGen) {
+	private void generateCodeForConstructor(@NotNull EvaConstructor aEvaConstructor, final @NotNull GenerateResultEnv aGenerateResultEnv) {
 		if (aEvaConstructor.getFD() == null) return;
 		Generate_Code_For_Method gcfm = new Generate_Code_For_Method(this, LOG);
-		gcfm.generateCodeForConstructor(aEvaConstructor, aGenerateResult, aWorkList, aFileGen);
+
+		var yf = a_lookup(aEvaConstructor);
+		var dgf = yf.deduced(aEvaConstructor);
+
+		gcfm.generateCodeForConstructor(dgf, aGenerateResultEnv);
 	}
 
 	public void generateCodeForMethod(final GenerateResultEnv aFileGen, final BaseEvaFunction aEvaFunction) {

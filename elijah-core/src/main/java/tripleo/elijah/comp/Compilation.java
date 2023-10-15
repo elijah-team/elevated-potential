@@ -4,9 +4,12 @@ import antlr.*;
 import io.reactivex.rxjava3.core.Observer;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
+import tripleo.elijah.ci_impl.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
@@ -21,202 +24,205 @@ import tripleo.elijah.world.i.*;
 import java.util.*;
 
 public interface Compilation {
-	static ElLog.@NotNull Verbosity gitlabCIVerbosity() {
-		final boolean gitlab_ci = isGitlab_ci();
-		return gitlab_ci ? ElLog.Verbosity.SILENT : ElLog.Verbosity.VERBOSE;
-	}
+    static ElLog.@NotNull Verbosity gitlabCIVerbosity() {
+        final boolean gitlab_ci = isGitlab_ci();
+        return gitlab_ci ? ElLog.Verbosity.SILENT : ElLog.Verbosity.VERBOSE;
+    }
 
-	static boolean isGitlab_ci() {
-		return System.getenv("GITLAB_CI") != null;
-	}
+    static boolean isGitlab_ci() {
+        return System.getenv("GITLAB_CI") != null;
+    }
 
-	// TODO remove this 04/20
-//	void addFunctionMapHook(IFunctionMapHook aFunctionMapHook);
+//	CompilerBeginning beginning(final CompilationRunner compilationRunner);
 
-	CompilationEnclosure getCompilationEnclosure();
+    CK_ObjectTree getObjectTree();
 
-//	void setCompilationEnclosure(CompilationEnclosure aCompilationEnclosure);
+    CIS _cis();
 
-//	void addModule__(@NotNull OS_Module module, @NotNull String fn);
+    CompilationConfig cfg();
 
-//	int compilationNumber();
+    CompFactory con();
 
-	CompFactory con();
+    int errorCount();
 
-	int errorCount();
+    void feedCmdLine(@NotNull List<String> args) throws Exception;
 
-	void feedInputs(@NotNull List<CompilerInput> inputs, CompilerController controller);
+    void feedInputs(@NotNull List<CompilerInput> inputs, CompilerController controller);
 
-	//void fakeFlow(List<CompilerInput> aInputs, CompilationFlow aFlow);
+    Operation2<WorldModule> findPrelude(String prelude_name);
 
-	void feedCmdLine(@NotNull List<String> args) throws Exception;
+    IPipelineAccess get_pa();
 
-	CompilationClosure getCompilationClosure();
+    void set_pa(IPipelineAccess a_pa);
 
-	Operation2<WorldModule> findPrelude(String prelude_name);
+    CompilationClosure getCompilationClosure();
 
-	IPipelineAccess get_pa();
+    CompilationEnclosure getCompilationEnclosure();
 
-	@NotNull FluffyComp getFluffy();
+    String getCompilationNumberString();
 
-	@Contract(pure = true)
-	List<CompilerInput> getInputs();
+    CompilerInputListener getCompilerInputListener();
 
-	String getCompilationNumberString();
+    ErrSink getErrSink();
 
-	ErrSink getErrSink();
+    @NotNull
+    FluffyComp getFluffy();
 
-	IO getIO();
+    @Contract(pure = true)
+    List<CompilerInput> getInputs();
 
-	void setIO(IO io);
+    EIT_InputTree getInputTree();
 
-	OS_Package getPackage(@NotNull Qualident pkg_name);
+    IO getIO();
 
-	String getProjectName();
+    void setIO(IO io);
 
-	@NotNull Operation<Ok> hasInstructions(List<CompilerInstructions> cis);
+    @NotNull
+    EOT_OutputTree getOutputTree();
 
-	void hasInstructions(@NotNull List<CompilerInstructions> cis,
-						 @NotNull IPipelineAccess pa);
+    OS_Package getPackage(@NotNull Qualident pkg_name);
 
-	@Deprecated
-	int instructionCount();
+    String getProjectName();
 
-	boolean isPackage(@NotNull String pkg);
+    CompilerInstructions getRootCI();
 
-	OS_Package makePackage(Qualident pkg_name);
+    void setRootCI(CompilerInstructions aRoot);
 
-	ModuleBuilder moduleBuilder();
+    Operation<Ok> hasInstructions(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
 
-	IPipelineAccess pa();
+    @Deprecated
+    int instructionCount();
 
-	void set_pa(IPipelineAccess a_pa);
+    boolean isPackage(@NotNull String pkg);
 
-	void pushItem(CompilerInstructions aci);
+    OS_Package makePackage(Qualident pkg_name);
 
-	void subscribeCI(Observer<CompilerInstructions> aCio);
+    ModuleBuilder moduleBuilder();
 
-	void use(@NotNull CompilerInstructions compilerInstructions, boolean do_out);
+    IPipelineAccess pa();
 
-	LivingRepo world();
+    CP_Paths paths();
 
-	CP_Paths paths();
-
-	EIT_InputTree getInputTree();
-
-	@NotNull EOT_OutputTree getOutputTree();
-
-	CompilationConfig cfg();
-
-	CompilerBeginning beginning(final CompilationRunner compilationRunner);
-
-	__Compilation1.CCI_Acceptor__CompilerInputListener cci_listener();
+    void pushItem(CompilerInstructions aci);
 
     Finally reports();
 
-	void setRootCI(CompilerInstructions aRoot);
+    void subscribeCI(Observer<CompilerInstructions> aCio);
 
-	CompilerInstructions getRootCI();
+    void use(@NotNull CompilerInstructions compilerInstructions, USE.USE_Reasoning aReasoning);
 
-	enum CompilationAlways {
-		;
+    LivingRepo world();
 
-		@NotNull
-		public static String defaultPrelude() {
-			return "c";
-		}
+    ElijahCache use_elijahCache();
 
-		public enum Tokens {
-			;
-			public static final DriverToken COMPILATION_RUNNER_FIND_STDLIB2 = DriverToken.makeToken("COMPILATION_RUNNER_FIND_STDLIB2");
-			public static final DriverToken COMPILATION_RUNNER_START        = DriverToken.makeToken("COMPILATION_RUNNER_START");
-		}
-	}
+    enum CompilationAlways {
+        ;
 
-	class CompilationConfig {
-		public          boolean do_out;
-		public          boolean showTree = false;
-		public          boolean silent   = false;
-		public @NotNull Stages  stage    = Stages.O; // Output
-	}
+        @NotNull
+        public static String defaultPrelude() {
+            return "c";
+        }
 
-	Map<String, CompilerInstructions> fn2ci();
+        public enum Tokens {
+            ;
+            public static final DriverToken COMPILATION_RUNNER_FIND_STDLIB2 = DriverToken
+                    .makeToken("COMPILATION_RUNNER_FIND_STDLIB2");
+            public static final DriverToken COMPILATION_RUNNER_START = DriverToken
+                    .makeToken("COMPILATION_RUNNER_START");
+        }
+    }
 
-	USE use();
+    class PCon {
+        public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aEk,
+                                                   final IExpression aE2) {
+            return ExpressionBuilder.build(aEe, aEk, aE2);
+        }
 
-	CIS _cis();
+        public IExpression newCharLitExpressionImpl(final Token aC) {
+            return new CharLitExpressionImpl(aC);
+        }
 
-	class PCon {
-		public LibraryStatementPart newLibraryStatementPartImpl() {
-			return new LibraryStatementPartImpl();
-		}
+        public CompilerInstructions newCompilerInstructionsImpl() {
+            return new CompilerInstructionsImpl();
+        }
 
-		public CompilerInstructions newCompilerInstructionsImpl() {
-			return new CompilerInstructionsImpl();
-		}
+        public IExpression newDotExpressionImpl(final IExpression aE1, final IdentExpression aE) {
+            return new DotExpressionImpl(aE1, aE);
+        }
 
-		public IExpression newDotExpressionImpl(final IExpression aE1, final IdentExpression aE) {
-			return new DotExpressionImpl(aE1, aE);
-		}
+        public ExpressionList newExpressionListImpl() {
+            return new ExpressionListImpl();
+        }
 
-		public ProcedureCallExpression newProcedureCallExpressionImpl() {
-			return new ProcedureCallExpressionImpl();
-		}
+        public IExpression newFloatExpressionImpl(final Token aF) {
+            return new FloatExpressionImpl(aF);
+        }
 
-		public IExpression newStringExpressionImpl(final Token aS) {
-			return new StringExpressionImpl(aS);
-		}
+        public GenerateStatement newGenerateStatementImpl() {
+            return new GenerateStatementImpl();
+        }
 
-		public IExpression newCharLitExpressionImpl(final Token aC) {
-			return new CharLitExpressionImpl(aC);
-		}
+        public IExpression newGetItemExpressionImpl(final IExpression aEe, final IExpression aExpr) {
+            return new GetItemExpressionImpl(aEe, aExpr);
+        }
 
-		public IExpression newNumericExpressionImpl(final Token aN) {
-			return new NumericExpressionImpl(aN);
-		}
+        public IdentExpression newIdentExpressionImpl(final Token aR1, final String aFilename, final Context aCur) {
+            return new IdentExpressionImpl(aR1, aFilename, aCur);
+        }
 
-		public IExpression newFloatExpressionImpl(final Token aF) {
-			return new FloatExpressionImpl(aF);
-		}
+        public IdentExpression newIdentExpressionImpl(final Token aR1, final Context aCur) {
+            return new IdentExpressionImpl(aR1, aCur);
+        }
 
-		public OS_Type newOS_BuiltinType(final BuiltInTypes aBuiltInTypes) {
-			return new OS_BuiltinType(aBuiltInTypes);
-		}
+        public LibraryStatementPart newLibraryStatementPartImpl() {
+            return new LibraryStatementPartImpl();
+        }
 
-		public ExpressionList newExpressionListImpl() {
-			return new ExpressionListImpl();
-		}
+        public IExpression newListExpressionImpl() {
+            return new ListExpressionImpl();
+        }
 
-		public GenerateStatement newGenerateStatementImpl() {
-			return new GenerateStatementImpl();
-		}
+        public IExpression newNumericExpressionImpl(final Token aN) {
+            return new NumericExpressionImpl(aN);
+        }
 
-		public IdentExpression newIdentExpressionImpl(final Token aR1, final String aFoo, final Context aCur) {
-			return new IdentExpressionImpl(aR1, aFoo, aCur);
-		}
+        public OS_Type newOS_BuiltinType(final BuiltInTypes aBuiltInTypes) {
+            return new OS_BuiltinType(aBuiltInTypes);
+        }
 
-		public IExpression newGetItemExpressionImpl(final IExpression aEe, final IExpression aExpr) {
-			return new GetItemExpressionImpl(aEe, aExpr);
-		}
+        public ProcedureCallExpression newProcedureCallExpressionImpl() {
+            return new ProcedureCallExpressionImpl();
+        }
 
-		public IExpression newSetItemExpressionImpl(final GetItemExpression aEe, final IExpression aExpr) {
-			return new SetItemExpressionImpl(aEe, aExpr);
-		}
+        public Qualident newQualidentImpl() {
+            return new QualidentImpl();
+        }
 
-		public IExpression newSubExpressionImpl(final IExpression aEe) {
-			return new SubExpressionImpl(aEe);
-		}
+        public IExpression newSetItemExpressionImpl(final GetItemExpression aEe, final IExpression aExpr) {
+            return new SetItemExpressionImpl(aEe, aExpr);
+        }
 
-		public Qualident newQualidentImpl() {
-			return new QualidentImpl();
-		}
+        public IExpression newStringExpressionImpl(final Token aS) {
+            return new StringExpressionImpl(aS);
+        }
 
-		public IExpression newListExpressionImpl() {
-			return new ListExpressionImpl();
-		}
+        public IExpression newSubExpressionImpl(final IExpression aEe) {
+            return new SubExpressionImpl(aEe);
+        }
 
-		public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aEk, final IExpression aE2) {
-			return ExpressionBuilder.build(aEe, aEk, aE2);
-		}
-	}
+        public CiExpressionList newCiExpressionListImpl() {
+            return new CiExpressionListImpl();
+        }
+
+        public CiProcedureCallExpression newCiProcedureCallExpressionImpl() {
+            return new CiProcedureCallExpressionImpl();
+        }
+    }
+
+    class CompilationConfig {
+        public boolean do_out;
+        public boolean showTree = false;
+        public boolean silent = false;
+        public @NotNull Stages stage = Stages.O; // Output
+    }
 }

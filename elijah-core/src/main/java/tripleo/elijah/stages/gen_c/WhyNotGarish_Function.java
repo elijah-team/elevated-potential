@@ -23,7 +23,7 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 
 	@Contract(pure = true)
 	@Nullable
-	public BaseEvaFunction deduced(final @NotNull BaseEvaFunction aEvaFunction) {
+	public DeducedBaseEvaFunction deduced(final @NotNull BaseEvaFunction aEvaFunction) {
 		final GM_GenerateModule generateModule = generateC.getFileGen().gmgm();
 		final DeducePhase deducePhase = generateModule.gmr().env().pa().getCompilationEnclosure().getPipelineLogic().dp;
 
@@ -31,7 +31,7 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 				ElLog.Verbosity.VERBOSE);
 		dt2.deduceOneFunction((EvaFunction) aEvaFunction, deducePhase);
 
-		return aEvaFunction;
+		return new DefaultDeducedBaseEvaFunction(aEvaFunction);
 	}
 
 	@Override

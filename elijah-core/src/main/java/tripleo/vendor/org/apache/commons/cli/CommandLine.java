@@ -141,7 +141,9 @@ public class CommandLine implements Serializable {
 	 */
 	public String @NotNull [] getArgs() {
 //        return args.toArray(Util.EMPTY_STRING_ARRAY);
-		List<String> l = ci_args.stream().filter(inp -> inp.isNull()).map(inp -> inp.getInp())
+		List<String> l = ci_args.stream()
+				.filter(inp -> inp.isNull())
+				.map(inp -> inp.getInp())
 				.collect(Collectors.toList());
 
 		String[] r = new String[l.size()];

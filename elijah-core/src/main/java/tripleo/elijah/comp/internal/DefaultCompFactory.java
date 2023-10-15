@@ -28,6 +28,8 @@ import tripleo.elijah.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.util.Helpers0;
 import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.Operation2;
+import tripleo.elijah.world.i.*;
+import tripleo.elijah.world.impl.*;
 
 import java.io.*;
 import java.util.*;
@@ -117,5 +119,10 @@ class DefaultCompFactory implements CompFactory {
 				return Operation2.convert(cio);
 			}
 		};
+	}
+
+	@Override
+	public WorldModule createWorldModule(OS_Module aModule) {
+		return new DefaultWorldModule(aModule, compilation.getCompilationEnclosure());
 	}
 }
