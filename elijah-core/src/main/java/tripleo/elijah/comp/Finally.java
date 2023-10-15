@@ -18,6 +18,14 @@ public class Finally {
 		return l;
 	}
 
+	public int inputCount() {
+		return inputs.size();
+	}
+
+	public int outputCount() {
+		return outputs.size();
+	}
+
 	public static class Input {
 		private final Nameable nameable;
 		private final Out2 ty;
