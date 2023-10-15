@@ -248,4 +248,11 @@ public class PConParser {
 	public IndexingItem new_IndexingItemImpl(final Token aI1, final ExpressionList aEl) {
 		return new IndexingItemImpl(aI1, aEl);
 	}
+
+	public ProcedureCallExpression new_ProcedureCallExpressionImpl(final IExpression ee, final ExpressionList el) {
+		final ProcedureCallExpression pce = new_ProcedureCallExpressionImpl();
+		pce.identifier(ee);
+		pce.setArgs(el);
+		return pce;
+	}
 }
