@@ -277,7 +277,7 @@ public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
 		});
 	}
 
-	private @NotNull List<ProcessedNode> processLgc(final @NotNull List<EvaNode> aLgc) {
+	public static @NotNull List<ProcessedNode> processLgc(final @NotNull List<EvaNode> aLgc) {
 		final List<ProcessedNode> l = new ArrayList<>();
 
 		for (EvaNode evaNode : aLgc) {

@@ -1,5 +1,5 @@
-//package tripleo.elijah.nextgen.inputtree;
-//
+package tripleo.elijah.nextgen.inputtree;
+
 //import org.jetbrains.annotations.*;
 //import tripleo.elijah.comp.*;
 //import tripleo.elijah.entrypoints.*;
@@ -15,7 +15,7 @@
 //import java.util.function.*;
 //import java.util.stream.*;
 //
-//public class EIT_ModuleList {
+public class EIT_ModuleList {
 //	private static class _ProcessParams {
 //		private final @NotNull DeducePhase deducePhase;
 //		@NotNull
@@ -66,10 +66,10 @@
 //	}
 //
 //	private final List<WorldModule> mods = new ArrayList<>();
-//
-//	public EIT_ModuleList() {
-//	}
-//
+
+	public EIT_ModuleList() {
+	}
+
 //	private void __process__PL__each(final @NotNull _ProcessParams plp) {
 //		final List<EvaNode> resolved_nodes = new ArrayList<EvaNode>();
 //
@@ -162,4 +162,4 @@
 //	public Stream<WorldModule> stream() {
 //		return mods.stream();
 //	}
-//}
+}

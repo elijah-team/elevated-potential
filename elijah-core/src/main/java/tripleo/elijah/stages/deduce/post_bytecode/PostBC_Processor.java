@@ -112,7 +112,7 @@ public interface PostBC_Processor {
 				deduceTypes2().LOG_err("703-0000 " + vte.getName() + " " + vte.potentialTypes());
 				aDeduceType3.reportDiagnostic(errSink1);
 			} else {
-				vte.getType().setAttached(aDeduceType3.getGenType());
+				vte.getTypeTableEntry().setAttached(aDeduceType3.getGenType());
 			}
 		}
 
@@ -126,7 +126,7 @@ public interface PostBC_Processor {
 				final Context fd_ctx, final ErrSink errSink) {
 			final DeduceType3 r;
 			final DeduceTypes2.DeduceClient1 deduceClient1 = deduceTypes2();
-			final OS_Type vte_type_attached = vte.getType().getAttached();
+			final OS_Type vte_type_attached = vte.getTypeTableEntry().getAttached();
 
 			final DeferredObject<DeduceType3, Diagnostic, Void> rr = new DeferredObject<DeduceType3, Diagnostic, Void>();
 
@@ -425,7 +425,7 @@ public interface PostBC_Processor {
 	@Contract("_, _, _ -> new")
 	static @NotNull PostBC_Processor make_VTE(@NotNull final VariableTableEntry aVariableTableEntry,
 			final Context aFd_ctx, final DeduceTypes2.DeduceClient1 aDeduceTypes2) {
-		final OS_Type vte_type_attached = aVariableTableEntry.getType().getAttached();
+		final OS_Type vte_type_attached = aVariableTableEntry.getTypeTableEntry().getAttached();
 
 		switch (aVariableTableEntry.getVtt()) {
 		case SELF:

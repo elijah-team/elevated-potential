@@ -22,7 +22,7 @@ public class FT_FCA_FormalArgListItem {
 	public void _FunctionCall_Args_doLogic0(final @NotNull VariableTableEntry vte,
 			final @NotNull VariableTableEntry vte1, final @NotNull ErrSink errSink) {
 		final @NotNull OS_Type osType = new OS_UserType(fali.typeName());
-		if (!osType.equals(vte.getType().getAttached())) {
+		if (!osType.equals(vte.getTypeTableEntry().getAttached())) {
 			@NotNull
 			TypeTableEntry tte1 = generatedFunction.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, osType,
 					fali.getNameToken(), vte1);
@@ -35,7 +35,7 @@ public class FT_FCA_FormalArgListItem {
 				final OS_Type attached = tte1.getAttached();
 				switch (attached.getType()) {
 				case USER:
-					vte1.getType().setAttached(attached); // !!
+					vte1.getTypeTableEntry().setAttached(attached); // !!
 					break;
 				case USER_CLASS:
 					final GenType gt = vte1.getGenType();

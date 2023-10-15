@@ -212,9 +212,12 @@ public class DefaultLivingRepo implements LivingRepo {
 	}
 
 	@Override
-	public WorldModule findModule(OS_Module mod) {
+	public @Nullable WorldModule findModule(final @NotNull OS_Module mod) {
 		// noinspection UnnecessaryLocalVariable
-		final WorldModule result = _modules.stream().filter(wm -> wm.module() == mod).findFirst().orElse(null);
+		final WorldModule result = _modules.stream()
+				.filter(wm -> wm.module() == mod)
+				.findFirst()
+				.orElse(null);
 
 		return result;
 	}

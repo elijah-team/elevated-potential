@@ -63,7 +63,7 @@ class Resolve_Variable_Table_Entry {
 	}
 
 	private void action_ARG(@NotNull VariableTableEntry vte) {
-		TypeTableEntry tte = vte.getType();
+		TypeTableEntry tte = vte.getTypeTableEntry();
 		final OS_Type attached = tte.getAttached();
 		if (attached != null) {
 			final GenType genType = tte.genType;
@@ -114,7 +114,7 @@ class Resolve_Variable_Table_Entry {
 	}
 
 	private void action_VAR(@NotNull VariableTableEntry vte) {
-		if (vte.getType().getAttached() == null && vte.getPotentialTypes().size() == 1) {
+		if (vte.getTypeTableEntry().getAttached() == null && vte.getPotentialTypes().size() == 1) {
 			TypeTableEntry pot = deduceTypes2._inj().new_ArrayList__TypeTableEntry(vte.potentialTypes()).get(0);
 			if (pot.getAttached() instanceof OS_FuncExprType) {
 				action_VAR_potsize_1_and_FuncExprType(vte, (OS_FuncExprType) pot.getAttached(), pot.genType,

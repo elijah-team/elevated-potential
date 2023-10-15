@@ -182,7 +182,7 @@ public enum VTE_TypePromises {
 					System.err.println("EVTE-159 violation (likely String vs ConstString)");
 				}
 
-				final GenType genType1 = aVariableTableEntry.getType().genType;
+				final GenType genType1 = aVariableTableEntry.getTypeTableEntry().genType;
 
 				if (genType1 instanceof ForwardingGenType fgt)
 					fgt.unsparkled();
@@ -240,7 +240,7 @@ public enum VTE_TypePromises {
 
 				@NotNull
 				ProcTableListener.E_Is_FunctionDef e_Is_FunctionDef = aProcTableListener.new E_Is_FunctionDef(pte, fd,
-						fd.getParent()).invoke(aVariableTableEntry.getType().genType.getNonGenericTypeName());
+						fd.getParent()).invoke(aVariableTableEntry.getTypeTableEntry().genType.getNonGenericTypeName());
 				@Nullable
 				FunctionInvocation fi = e_Is_FunctionDef.getFi();
 				GenType genType = e_Is_FunctionDef.getGenType();

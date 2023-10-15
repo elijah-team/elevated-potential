@@ -351,7 +351,7 @@ public class ProcTableListener implements BaseTableEntry.StatusListener {
 					@Nullable
 					InstructionArgument vte_ia = generatedFunction.vte_lookup(text);
 					if (vte_ia != null) {
-						GenType gt = ((IntegerIA) vte_ia).getEntry().getType().genType;
+						GenType gt = ((IntegerIA) vte_ia).getEntry().getTypeTableEntry().genType;
 						typeName = gt.getNonGenericTypeName() != null ? gt.getNonGenericTypeName()
 								: gt.getTypeName().getTypeName();
 					} else {

@@ -188,7 +188,6 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 				continue;
 
 			if (evaNode instanceof final @NotNull EvaClass evaClass) {
-
 				evaClass.fixupUserClasses(deduceTypes2, evaClass.getKlass().getContext());
 				deduceTypes2.deduceOneClass(evaClass);
 			}
@@ -328,6 +327,8 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 				}
 			}
 		}
+
+		waits.clear();
 	}
 
 	public void forFunction(@NotNull DeduceTypes2 deduceTypes2,
@@ -477,7 +478,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 							// TODO just getting first element here (without processing of any kind); HACK
 							final List<EvaContainer.VarTableEntry.ConnectionPair> connectionPairs = gc_vte.connectionPairs;
 							if (!connectionPairs.isEmpty()) {
-								final GenType ty = connectionPairs.get(0).vte.getType().genType;
+								final GenType ty = connectionPairs.get(0).vte.getTypeTableEntry().genType;
 								assert ty.getResolved() != null;
 								gc_vte.varType = ty.getResolved(); // TODO make sure this is right in all cases
 								if (deferredMember.typeResolved().isPending())
@@ -772,6 +773,10 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		public Iterable<DeduceTypes2> iterator() {
 			return waits;
 		}
+
+		public void clear() {
+			waits.clear();
+		}
 	}
 
 	class Country1 implements Country {
@@ -863,9 +868,11 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 			return new ElLog(aS, aVerbosity, aDeducePhase);
 		}
 
-		public FunctionInvocation new_FunctionInvocation(final FunctionDef aF, final ProcTableEntry aO,
-		                                                 final IInvocation aCi, final GeneratePhase aGeneratePhase) {
-			return new FunctionInvocation(aF, aO, aCi, aGeneratePhase);
+		public FunctionInvocation new_FunctionInvocation(final FunctionDef aF,
+		                                                 final ProcTableEntry aProcTableEntry,
+		                                                 final IInvocation aCi,
+		                                                 final GeneratePhase aGeneratePhase) {
+			return new FunctionInvocation(aF, aProcTableEntry, aCi, aGeneratePhase);
 		}
 
 		public GeneratedClasses new_GeneratedClasses(final DeducePhase aDeducePhase) {

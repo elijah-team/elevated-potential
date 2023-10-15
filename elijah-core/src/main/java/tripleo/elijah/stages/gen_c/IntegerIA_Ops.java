@@ -18,7 +18,7 @@ public class IntegerIA_Ops {
 			final VariableTableEntry vte = integerIA.getEntry();
 
 			if (sSize == 1) {
-				final EvaNode resolved = vte.getType().resolved();
+				final EvaNode resolved = vte.getTypeTableEntry().resolved();
 				if (resolved != null) {
 					_resolved = resolved;
 				} else {

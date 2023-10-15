@@ -47,7 +47,7 @@ public class CompilationImpl implements Compilation {
     @Getter
     private final CompilationEnclosure compilationEnclosure;
     private final CP_Paths paths;
-    private final EIT_InputTree _input_tree;
+    final EIT_InputTree _input_tree;
     private final @NotNull ErrSink errSink;
     private final int _compilationNumber;
     private final CompilerInputMaster master;
@@ -397,48 +397,6 @@ public class CompilationImpl implements Compilation {
         return use.getElijahCache();
     }
 
-    public class DefaultObjectTree implements CK_ObjectTree {
-        @Override
-        public void asseverate(Object o, Asseverate asseveration) {
-            switch (asseveration) {
-                case ELIJAH_PARSED -> {
-/*
-				var x = (Pair<ElijahSpec, Operation<OS_Module>>)o;
-
-				var spec = x.getLeft();
-				var calm = x.getRight();
-
-				var pl = getCompilationEnclosure().getPipelineLogic();
-
-				var wm = new DefaultWorldModule(calm.success(), getCompilationEnclosure());
-				System.err.println("**************************************************Comp ELIJAH_PARSED  "+wm.module().getFileName());
-//				pl.addModule(wm);
-*/
-                }
-                case CI_HASHED -> {
-                    Triple<EzSpec, CK_SourceFile, Operation<String>> t = (Triple<EzSpec, CK_SourceFile, Operation<String>>) o;
-
-                    var spec = t.getLeft();
-                    var hash = t.getRight();
-                    var p = t.getMiddle();
-
-                    getCompilationEnclosure().logProgress(CompProgress.Ez__HasHash, Pair.of(spec, hash.success()));
-
-                    if (p.compilerInput() != null) {
-                        p.compilerInput().accept_hash(hash.success());
-                    } else {
-                        NotImplementedException.raise_stop();
-                    }
-                }
-            }
-//			NotImplementedException.raise_stop();
-        }
-
-        @Override
-        public void asseverate(final Asseveration aAsseveration) {
-            aAsseveration.onLogProgress(getCompilationEnclosure());
-        }
-    }
 }
 
 //

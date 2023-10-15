@@ -22,16 +22,17 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 	}
 
 	@Contract(pure = true)
-	@Nullable
-	public DeducedBaseEvaFunction deduced(final @NotNull BaseEvaFunction aEvaFunction) {
+	private @Nullable DeducedBaseEvaFunction deduced(final @NotNull BaseEvaFunction aEvaFunction) {
 		final GM_GenerateModule generateModule = generateC.getFileGen().gmgm();
-		final DeducePhase deducePhase = generateModule.gmr().env().pa().getCompilationEnclosure().getPipelineLogic().dp;
-
+		final DeducePhase       deducePhase    = generateModule.gmr().env().pa().getCompilationEnclosure().getPipelineLogic().dp;
 		final DeduceTypes2 dt2 = deducePhase._inj().new_DeduceTypes2(aEvaFunction.module(), deducePhase,
-				ElLog.Verbosity.VERBOSE);
+		                                                             ElLog.Verbosity.VERBOSE);
+
 		dt2.deduceOneFunction((EvaFunction) aEvaFunction, deducePhase);
 
-		return new DefaultDeducedBaseEvaFunction(aEvaFunction);
+		var dd = new DefaultDeducedBaseEvaFunction(aEvaFunction);
+
+		return dd;
 	}
 
 	@Override

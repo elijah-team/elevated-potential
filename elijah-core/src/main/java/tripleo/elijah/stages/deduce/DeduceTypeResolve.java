@@ -67,7 +67,7 @@ public class DeduceTypeResolve {
 					evaClass.functionMapDeferred((FunctionDef) eh.getElement(), aGenType::setNode);
 				}
 			}
-			variableTableEntry.getType().setAttached(aGenType);
+			variableTableEntry.getTypeTableEntry().setAttached(aGenType);
 		}
 
 		private void _203_backlink_isIDTE(final @NotNull GenType result,
@@ -147,7 +147,7 @@ public class DeduceTypeResolve {
 				public void visitFormalArgListItem(final @NotNull FormalArgListItem aFormalArgListItem) {
 					final OS_Type attached;
 					if (bte instanceof VariableTableEntry)
-						attached = ((VariableTableEntry) bte).getType().getAttached();
+						attached = ((VariableTableEntry) bte).getTypeTableEntry().getAttached();
 					else if (bte instanceof IdentTableEntry) {
 						final IdentTableEntry identTableEntry = (IdentTableEntry) DeduceTypeResolve.this.bte;
 						if (identTableEntry.type == null)

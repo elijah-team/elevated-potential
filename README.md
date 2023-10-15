@@ -5,9 +5,9 @@ Elijah is:
 
 - ... a high-level language suitable for replacement of* Java and C/C++.
 - ... a historical curiosity.
-- ... is meant to integrate into current C and Java projects.
-- ... is free software intended for use on all systems, including GNU/Linux.
-- ... is licensed under LGPL.
+- ... meant to integrate into current C and Java projects.
+- ... free software intended for use on all systems, including GNU/Linux.
+- ... licensed under LGPL.
 
 `elevated-potential` is:
 
@@ -24,8 +24,9 @@ Instructions
 git clone https://github.com/elijah-team/elevated-potential
 cd elevated-potential
 mkdir COMP
-nix-shell -p gradle jdk17
 gradle test
+# or 
+nix-shell -p gradle jdk17 --pure --command "gradle clean test"
 ```
 
 Goals
