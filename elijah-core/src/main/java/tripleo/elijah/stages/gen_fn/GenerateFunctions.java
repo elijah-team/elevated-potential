@@ -1782,8 +1782,7 @@ public class GenerateFunctions implements ReactiveDimension {
 			return R;
 		//
 		for (final @NotNull IExpression arg : args) {
-			final OS_Type type = arg.getType();
-//			LOG.err(String.format("108 %s %s", arg, type));
+//			LOG.err(String.format("108 %s %s", arg, /*type*/null));
 			if (arg instanceof IdentExpression) {
 				final @org.jetbrains.annotations.Nullable InstructionArgument x = gf
 						.vte_lookup(((IdentExpression) arg).getText());
@@ -1799,7 +1798,7 @@ public class GenerateFunctions implements ReactiveDimension {
 					// WHEN VTE_LOOKUP FAILS, IE WHEN A MEMBER VARIABLE
 					//
 					int idte_index = gf.addIdentTableEntry((IdentExpression) arg, aContext);
-					tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, type, arg);
+					tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null, arg);
 					gf.getIdentTableEntry(idte_index).type = tte;
 				}
 				R.add(tte);

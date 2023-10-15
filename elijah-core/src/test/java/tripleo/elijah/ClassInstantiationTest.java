@@ -26,8 +26,7 @@ public class ClassInstantiationTest {
 
 		System.err.println("Errorcount is " + t.errorCount());
 
-		final int curious_that_this_does_not_fail = 0/*100*/;
-		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+		assertEquals(4, t.errorCount());
 	}
 
 	@Test
