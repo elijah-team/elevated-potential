@@ -578,15 +578,21 @@ public class Generate_Code_For_Method {
 		}
 	}
 
-	public void generateCodeForMethod2(final @NotNull DeducedBaseEvaFunction gf, final @NotNull GenerateResultEnv aFileGen) {
+/*
+	public void generateCodeForMethod2(final @NotNull DeducedBaseEvaFunction dgf, final @NotNull GenerateResultEnv aFileGen) {
+		assert false;
+
+		final BaseEvaFunction gf = (BaseEvaFunction) dgf.getCarrier();
+
 		assert gf.deducedAlready;
 
 		var yf = gc.a_lookup(gf);
-		var dgf = yf.deduced(gf);
+		//var dgf = yf.deduced(gf);
 
-        assert dgf != null;
+        //assert dgf != null;
         generateCodeForMethod(dgf, aFileGen);
 	}
+*/
 
 /*
 	public void generateCodeForMethod2(final @NotNull EvaConstructor gf) {
