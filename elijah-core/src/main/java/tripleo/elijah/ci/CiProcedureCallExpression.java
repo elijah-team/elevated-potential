@@ -16,9 +16,6 @@ public interface CiProcedureCallExpression extends IExpression {
 	IExpression getLeft();
 
 	@Override
-	OS_Type getType();
-
-	@Override
 	boolean is_simple();
 
 	void identifier(IExpression ee);
@@ -35,9 +32,6 @@ public interface CiProcedureCallExpression extends IExpression {
 
 	@Override
 	void setLeft(IExpression iexpression);
-
-	@Override
-	void setType(OS_Type deducedExpression);
 
 	@Override
 	String toString();
