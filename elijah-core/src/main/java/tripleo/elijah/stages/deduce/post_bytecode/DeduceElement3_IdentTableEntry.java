@@ -539,7 +539,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 
 								}
 
-								var retvtety = retvte.getType();
+								var retvtety = retvte.getTypeTableEntry();
 								if (retvtety.getAttached() != null) {
 									var att  = retvtety.getAttached();
 									var resl = att.resolve(principal.getIdent().getContext());

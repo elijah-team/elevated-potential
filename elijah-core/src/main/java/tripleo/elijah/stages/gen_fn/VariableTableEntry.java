@@ -194,7 +194,7 @@ public class VariableTableEntry extends BaseTableEntry1
 		return tempNum;
 	}
 
-	public TypeTableEntry getType() {
+	public TypeTableEntry getTypeTableEntry() {
 		return type;
 	}
 

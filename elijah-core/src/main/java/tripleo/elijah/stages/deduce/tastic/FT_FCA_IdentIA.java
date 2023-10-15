@@ -98,7 +98,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 		private void doLogic0() {
 			// README moved up here to elimiate work
 			if (p.isResolved()) {
-				System.out.printf("890-1 Already resolved type: vte1.type = %s, gf = %s %n", vte1.getType(),
+				System.out.printf("890-1 Already resolved type: vte1.type = %s, gf = %s %n", vte1.getTypeTableEntry(),
 						generatedFunction);
 				return;
 			}
@@ -122,7 +122,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 			if (p.isResolved()) {
 				FTFnCallArgs.LOG
 						.info(String.format("1047 (vte already resolved) %s vte1.type = %s, gf = %s, tte1 = %s %n",
-								vte1.getName(), vte1.getType(), generatedFunction, potentialTypes.get(0)));
+						                    vte1.getName(), vte1.getTypeTableEntry(), generatedFunction, potentialTypes.get(0)));
 				return;
 			}
 
@@ -131,7 +131,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 				return;
 			switch (attached.getType()) {
 			case USER:
-				vte1.getType().setAttached(attached); // !!
+				vte1.getTypeTableEntry().setAttached(attached); // !!
 				break;
 			case USER_CLASS:
 				final GenType gt = vte1.getGenType();
@@ -256,7 +256,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 				} else if (best instanceof final @NotNull VariableStatementImpl vs) {
 					@Nullable
 					InstructionArgument vte_ia = generatedFunction.vte_lookup(vs.getName());
-					TypeTableEntry tte1 = ((IntegerIA) Objects.requireNonNull(vte_ia)).getEntry().getType();
+					TypeTableEntry tte1 = ((IntegerIA) Objects.requireNonNull(vte_ia)).getEntry().getTypeTableEntry();
 					tte.setAttached(tte1.getAttached());
 				} else {
 					final int y = 2;

@@ -356,7 +356,7 @@ class Resolve_Ident_IA2 {
 			}
 		}
 
-		OS_Type attached = vte.getType().getAttached();
+		OS_Type attached = vte.getTypeTableEntry().getAttached();
 		if (attached != null) {
 			switch (attached.getType()) {
 			case USER_CLASS:
@@ -463,14 +463,14 @@ class Resolve_Ident_IA2 {
 				if (el2 != null) {
 					state = 1;
 					ectx = el2.getContext();
-					aVte.getType().setAttached(attached1);
+					aVte.getTypeTableEntry().setAttached(attached1);
 				}
 			}
 		}
 		switch (state) {
 		case 0 -> {
 			assert attached1 != null;
-			aVte.getType().setAttached(attached1);
+			aVte.getTypeTableEntry().setAttached(attached1);
 			// TODO this will break
 			switch (attached1.getType()) {
 			case USER -> {

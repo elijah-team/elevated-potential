@@ -87,7 +87,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 			@Nullable
 			GenType ty2 = null;
 			if (bte instanceof VariableTableEntry vte) {
-				final TypeTableEntry vte_tte = vte.getType();
+				final TypeTableEntry vte_tte = vte.getTypeTableEntry();
 				ty2 = _inj().new_GenTypeImpl();
 				ty2.copy(vte_tte.genType);
 
@@ -262,10 +262,10 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 		private void onChangeVTE(@NotNull VariableTableEntry vte) {
 			@NotNull
 			List<TypeTableEntry> pot = dt2.getPotentialTypesVte(vte);
-			if (vte.getStatus() == BaseTableEntry.Status.KNOWN && vte.getType().getAttached() != null
+			if (vte.getStatus() == BaseTableEntry.Status.KNOWN && vte.getTypeTableEntry().getAttached() != null
 					&& vte.getResolvedElement() != null) {
 
-				final OS_Type ty = vte.getType().getAttached();
+				final OS_Type ty = vte.getTypeTableEntry().getAttached();
 
 				@Nullable
 				OS_Element ele2 = null;
@@ -275,9 +275,9 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 						@NotNull
 						GenType ty2 = dt2.resolve_type(ty, ty.getTypeName().getContext());
 						OS_Element ele;
-						if (vte.getType().genType.getResolved() == null) {
+						if (vte.getTypeTableEntry().genType.getResolved() == null) {
 							if (ty2.getResolved().getType() == OS_Type.Type.USER_CLASS) {
-								vte.getType().genType.copy(ty2);
+								vte.getTypeTableEntry().genType.copy(ty2);
 							}
 						}
 						ele = ty2.getResolved().getElement();
@@ -455,7 +455,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 				ite.setResolvedElement(best);
 
 				final @NotNull GenType genType = dt2._inj().new_GenTypeImpl(klass);
-				final TypeName typeName = vte.getType().genType.getNonGenericTypeName();
+				final TypeName typeName = vte.getTypeTableEntry().genType.getNonGenericTypeName();
 				final @Nullable ClassInvocation ci = genType.genCI(typeName, dt2, dt2._errSink(), dt2.phase);
 //							resolve_vte_for_class(vte, klass);
 				ci.resolvePromise().done(new DoneCallback<EvaClass>() {

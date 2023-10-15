@@ -131,7 +131,7 @@ public class DeduceTypes2 {
 					gt.setResolved(evaClass.getKlass().getOS_Type());
 					gt.setTypeName(gt.getResolved());
 
-					vte.getType().setAttached(gt);
+					vte.getTypeTableEntry().setAttached(gt);
 				} else if (xx instanceof EvaConstructor evaConstructor) {
 					if (gt.getCi() == null) {
 //						gt.ci = evaConstructor.ci;
@@ -140,7 +140,7 @@ public class DeduceTypes2 {
 					gt.setResolved(evaConstructor.fi.getClassInvocation().getKlass().getOS_Type());
 					gt.setTypeName(gt.getResolved());
 
-					vte.getType().setAttached(gt);
+					vte.getTypeTableEntry().setAttached(gt);
 				}
 			});
 		}
@@ -164,7 +164,7 @@ public class DeduceTypes2 {
 
 	private void __checkVteList_each(final @NotNull VariableTableEntry vte) {
 		if (vte.getVtt() == VariableTableType.ARG) {
-			final TypeTableEntry vteType = vte.getType();
+			final TypeTableEntry vteType = vte.getTypeTableEntry();
 
 			if (vteType.genType instanceof ForwardingGenType fgt)
 				fgt.unsparkled();
@@ -258,7 +258,7 @@ public class DeduceTypes2 {
 			VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
 			if (vte.resolvedType() == null) {
 				GenType b = vte.getGenType();
-				OS_Type a = vte.getType().getAttached();
+				OS_Type a = vte.getTypeTableEntry().getAttached();
 				if (a != null) {
 					// see resolve_function_return_type
 					switch (a.getType()) {
@@ -325,10 +325,10 @@ public class DeduceTypes2 {
 
 	private void __post_vte_list_002(final @NotNull BaseEvaFunction generatedFunction, final Context fd_ctx) {
 		for (final @NotNull VariableTableEntry vte : generatedFunction.vte_list) {
-			if (vte.getType().getAttached() == null) {
+			if (vte.getTypeTableEntry().getAttached() == null) {
 				int potential_size = vte.potentialTypes().size();
 				if (potential_size == 1)
-					vte.getType().setAttached(getPotentialTypesVte(vte).get(0).getAttached());
+					vte.getTypeTableEntry().setAttached(getPotentialTypesVte(vte).get(0).getAttached());
 				else if (potential_size > 1) {
 					// TODO Check type compatibility
 					LOG.err("703 " + vte.getName() + " " + vte.potentialTypes());
@@ -343,7 +343,7 @@ public class DeduceTypes2 {
 			} else if (vte.getVtt() == VariableTableType.RESULT) {
 
 				int           state    = 0;
-				final OS_Type attached = vte.getType().getAttached();
+				final OS_Type attached = vte.getTypeTableEntry().getAttached();
 				if (attached.getType() == OS_Type.Type.USER) {
 					try {
 						// FIXME 07/03 HACK
@@ -357,7 +357,7 @@ public class DeduceTypes2 {
 						}
 
 						if (state == 0)
-							vte.getType().setAttached(resolve_type(attached, fd_ctx));
+							vte.getTypeTableEntry().setAttached(resolve_type(attached, fd_ctx));
 					} catch (ResolveError aResolveError) {
 						aResolveError.printStackTrace();
 						assert false;
@@ -758,7 +758,7 @@ public class DeduceTypes2 {
 		final @NotNull ConstTableIA       ctia = (ConstTableIA) i2;
 
 		{
-			if (vte.getType().getAttached() != null) {
+			if (vte.getTypeTableEntry().getAttached() != null) {
 				// TODO check types
 			}
 			final @NotNull ConstantTableEntry cte = generatedFunction.getConstTableEntry(ctia.getIndex());
@@ -815,13 +815,13 @@ public class DeduceTypes2 {
 			final InstructionArgument i2 = instruction.getArg(1);
 			if (i2 instanceof IntegerIA) {
 				final @NotNull VariableTableEntry vte2 = generatedFunction.getVarTableEntry(to_int(i2));
-				vte.addPotentialType(instruction.getIndex(), vte2.getType());
+				vte.addPotentialType(instruction.getIndex(), vte2.getTypeTableEntry());
 			} else if (i2 instanceof final @NotNull FnCallArgs fca) {
 				final @Nullable ITastic fcat = tasticFor(fca);
 
 				fcat.do_assign_call(generatedFunction, aContext, vte, instruction, name);
 			} else if (i2 instanceof ConstTableIA) {
-				if (vte.getType().getAttached() != null) {
+				if (vte.getTypeTableEntry().getAttached() != null) {
 					// TODO check types
 				}
 				final @NotNull ConstantTableEntry cte = generatedFunction
@@ -848,7 +848,7 @@ public class DeduceTypes2 {
 			final InstructionArgument      agn_rhs_ia  = instruction.getArg(1);
 			if (agn_rhs_ia instanceof IntegerIA) {
 				final @NotNull VariableTableEntry vte2 = generatedFunction.getVarTableEntry(to_int(agn_rhs_ia));
-				agn_lhs_ite.addPotentialType(instruction.getIndex(), vte2.getType());
+				agn_lhs_ite.addPotentialType(instruction.getIndex(), vte2.getTypeTableEntry());
 			} else if (agn_rhs_ia instanceof final @NotNull FnCallArgs fca) {
 				tasticFor(agn_rhs_ia).do_assign_call(generatedFunction, aFd_ctx, agn_lhs_ite, instruction.getIndex());
 			} else if (agn_rhs_ia instanceof IdentIA identIA) {
@@ -937,7 +937,7 @@ public class DeduceTypes2 {
 								@Nullable
 								InstructionArgument x = generatedFunction.vte_lookup("Result");
 								assert x != null;
-								((IntegerIA) x).getEntry().getType().setAttached(gt(aType));
+								((IntegerIA) x).getEntry().getTypeTableEntry().setAttached(gt(aType));
 							}
 						});
 					}
@@ -1971,9 +1971,7 @@ public class DeduceTypes2 {
 		                                       final ProcTableEntry aPte, final FT_FCA_IdentIA.FakeDC4 aDc, final ElLog aLOG, final Context aCtx,
 		                                       final BaseEvaFunction aGeneratedFunction, final int aInstructionIndex, final IdentIA aIdentIA,
 		                                       final VariableTableEntry aVte) {
-			return new DT_External_2(aEntry, aModule, aPte, aDc, aLOG, aCtx, aGeneratedFunction, aInstructionIndex,
-			                         aIdentIA, aVte
-			);
+			return new DT_External_2(aIdentTableEntry, aModule, aPte, aDc, aLOG, aCtx, aGeneratedFunction, aInstructionIndex, aIdentIA, aVte);
 		}
 
 		public DTR_IdentExpression new_DTR_IdentExpression(final DeduceTypeResolve aDeduceTypeResolve,

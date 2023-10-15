@@ -162,10 +162,10 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 				final @NotNull DeducePhase phase = dt2._phase();
 				final @NotNull ElLog LOG = dt2._LOG();
 
-				if (vte.getType() == null)
+				if (vte.getTypeTableEntry() == null)
 					return; // TODO only for tests
 
-				final @Nullable OS_Type attached = vte.getType().getAttached();
+				final @Nullable OS_Type attached = vte.getTypeTableEntry().getAttached();
 
 				if (attached == null)
 					return;
@@ -408,7 +408,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 			final @NotNull String e_text, final @NotNull VariableTableEntry vte) {
 		// README moved up here to elimiate work
 		if (p.isResolved()) {
-			System.out.printf("890-1 Already resolved type: vte1.type = %s, gf = %s %n", vte1.getType(),
+			System.out.printf("890-1 Already resolved type: vte1.type = %s, gf = %s %n", vte1.getTypeTableEntry(),
 					generatedFunction);
 			return;
 		}
@@ -429,7 +429,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 	private void __doLogic_pot_size_0__fali(final @NotNull VariableTableEntry vte1, final @NotNull ErrSink errSink,
 			final @NotNull VariableTableEntry vte, final @NotNull FormalArgListItem fali) {
 		final @NotNull OS_Type osType = deduceTypes2._inj().new_OS_UserType(fali.typeName());
-		if (!osType.equals(vte.getType().getAttached())) {
+		if (!osType.equals(vte.getTypeTableEntry().getAttached())) {
 			final TypeTableEntry tte1 = generatedFunction.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, osType,
 					fali.getNameToken(), vte1);
 			/*
@@ -463,11 +463,11 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 		@NotNull
 		final VariableTableEntry vte2 = generatedFunction.getVarTableEntry(to_int(vte2_ia));
 		if (p.isResolved())
-			System.out.printf("915 Already resolved type: vte2.type = %s, gf = %s %n", vte1.getType(),
+			System.out.printf("915 Already resolved type: vte2.type = %s, gf = %s %n", vte1.getTypeTableEntry(),
 					generatedFunction);
 		else {
 			final GenType gt = vte1.getGenType();
-			final OS_Type attached = vte2.getType().getAttached();
+			final OS_Type attached = vte2.getTypeTableEntry().getAttached();
 			gt.setResolved(attached);
 			vte1.resolveType(gt);
 		}
@@ -484,14 +484,14 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 //							vte.addPotentialType(instructionIndex, ll.get(0));
 		if (p.isResolved()) {
 			LOG.info(String.format("1047 (vte already resolved) %s vte1.type = %s, gf = %s, tte1 = %s %n",
-					vte1.getName(), vte1.getType(), generatedFunction, potentialTypes.get(0)));
+			                       vte1.getName(), vte1.getTypeTableEntry(), generatedFunction, potentialTypes.get(0)));
 		} else {
 			final OS_Type attached = potentialTypes.get(0).getAttached();
 			if (attached == null)
 				return;
 			switch (attached.getType()) {
 			case USER:
-				vte1.getType().setAttached(attached); // !!
+				vte1.getTypeTableEntry().setAttached(attached); // !!
 				break;
 			case USER_CLASS:
 				final GenType gt = vte1.getGenType();
@@ -702,7 +702,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 
 		final VariableTableEntry vte = principal;
 
-		final OS_Type x = vte.getType().getAttached();
+		final OS_Type x = vte.getTypeTableEntry().getAttached();
 		if (x == null && vte.potentialTypes().isEmpty()) {
 			final Diagnostic diag;
 			if (vte.getVtt() == VariableTableType.TEMP) {

@@ -485,14 +485,14 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		}
 
 		static String forVTE(@NotNull VariableTableEntry input) {
-			OS_Type attached = input.getType().getAttached();
+			OS_Type attached = input.getTypeTableEntry().getAttached();
 			if (attached == null)
 				return Emit.emit("/*390*/") + "Z__Unresolved*"; // TODO remove this ASAP
 			//
 			// special case
 			//
-			if (input.getType().genType.getNode() != null)
-				return Emit.emit("/*395*/") + getTypeNameForEvaNode(input.getType().genType.getNode()) + "*";
+			if (input.getTypeTableEntry().genType.getNode() != null)
+				return Emit.emit("/*395*/") + getTypeNameForEvaNode(input.getTypeTableEntry().genType.getNode()) + "*";
 			//
 			if (input.getStatus() == BaseTableEntry.Status.UNCHECKED)
 				return "Error_UNCHECKED_Type";

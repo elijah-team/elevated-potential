@@ -307,7 +307,7 @@ public class GenerateFunctions implements ReactiveDimension {
 							final int tmp = addTempTableEntry(new OS_UserType(tn), id, gf, id); // TODO no context!
 							@NotNull
 							VariableTableEntry vte_tmp = gf.getVarTableEntry(tmp);
-							final TypeTableEntry t = vte_tmp.getType();
+							final TypeTableEntry t = vte_tmp.getTypeTableEntry();
 							add_i(gf, InstructionName.IS_A,
 									List_of(i, new IntegerIA(t.getIndex(), gf), /* TODO not */new LabelIA(label_next)),
 									cctx);
@@ -377,7 +377,7 @@ public class GenerateFunctions implements ReactiveDimension {
 					final @NotNull IdentExpression fn_aug_name = Helpers0
 							.string_to_ident(SpecialFunctions.of(expressionKind));
 					final @NotNull List<TypeTableEntry> argument_types = List_of(
-							gf.getVarTableEntry(to_int(left)).getType(), gf.getVarTableEntry(to_int(right)).getType());
+							gf.getVarTableEntry(to_int(left)).getTypeTableEntry(), gf.getVarTableEntry(to_int(right)).getTypeTableEntry());
 //						LOG.info("801.2 "+argument_types);
 					final int fn_aug = addProcTableEntry(fn_aug_name, null, argument_types, gf);
 					final int i = add_i(gf, InstructionName.CALLS, List_of(new ProcIA(fn_aug, gf), left, right), cctx);
@@ -561,7 +561,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				if (vte_left != null) {
 					final @NotNull VariableTableEntry vte = gf.getVarTableEntry(to_int(vte_left));
 					// ^^
-					vte.addPotentialType(inst, gf.getVarTableEntry(to_int(vte_right)).getType());
+					vte.addPotentialType(inst, gf.getVarTableEntry(to_int(vte_right)).getTypeTableEntry());
 				} else if (some_left instanceof IdentIA) {
 //					((IdentIA) some_left).getEntry().addPotentialType(inst, unknown_type);
 				}
@@ -865,7 +865,7 @@ public class GenerateFunctions implements ReactiveDimension {
 							final int tmp = addTempTableEntry(new OS_UserType(tn), id, gf, id); // TODO no context!
 							@NotNull
 							VariableTableEntry vte_tmp = gf.getVarTableEntry(tmp);
-							final TypeTableEntry t = vte_tmp.getType();
+							final TypeTableEntry t = vte_tmp.getTypeTableEntry();
 							add_i(gf, InstructionName.IS_A,
 									List_of(i, new IntegerIA(t.getIndex(), gf), /* TODO not */new LabelIA(label_next)),
 									cctx);
@@ -935,7 +935,7 @@ public class GenerateFunctions implements ReactiveDimension {
 					final @NotNull IdentExpression fn_aug_name = Helpers0
 							.string_to_ident(SpecialFunctions.of(expressionKind));
 					final @NotNull List<TypeTableEntry> argument_types = List_of(
-							gf.getVarTableEntry(to_int(left)).getType(), gf.getVarTableEntry(to_int(right)).getType());
+							gf.getVarTableEntry(to_int(left)).getTypeTableEntry(), gf.getVarTableEntry(to_int(right)).getTypeTableEntry());
 //						LOG.info("801.2 "+argument_types);
 					final int fn_aug = addProcTableEntry(fn_aug_name, null, argument_types, gf);
 					final int i = add_i(gf, InstructionName.CALLS, List_of(new ProcIA(fn_aug, gf), left, right), cctx);
@@ -1807,6 +1807,7 @@ public class GenerateFunctions implements ReactiveDimension {
 		}
 		assert R.size() == args.size();
 		return R;
+			tte = vte.getTypeTableEntry();
 	}
 
 	private @NotNull List<TypeTableEntry> get_args_types(final @NotNull List<FormalArgListItem> args,

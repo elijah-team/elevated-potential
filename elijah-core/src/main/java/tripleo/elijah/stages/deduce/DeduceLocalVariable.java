@@ -192,7 +192,7 @@ public class DeduceLocalVariable {
 				}
 			});
 			procTableEntry.typePromise().then((final @NotNull GenType result) -> {
-				vte.getType().setAttached(result);
+				vte.getTypeTableEntry().setAttached(result);
 				vte.resolveType(result);
 
 				EvaNode node = result.getNode();
@@ -281,7 +281,7 @@ public class DeduceLocalVariable {
 		procTableEntry.typePromise().then(new DoneCallback<GenType>() {
 			@Override
 			public void onDone(final @NotNull GenType result) {
-				vte.getType().setAttached(result);
+				vte.getTypeTableEntry().setAttached(result);
 				vte.resolveType(result);
 				vte.resolveTypeToClass(result.getNode());
 			}
@@ -293,7 +293,7 @@ public class DeduceLocalVariable {
 		final Context ctx = context;
 
 		if (vte.getVtt() == VariableTableType.TEMP) {
-			final GenType genType = vte.getType().genType;
+			final GenType genType = vte.getTypeTableEntry().genType;
 			int pts = vte.potentialTypes().size();
 			if (genType.getTypeName() != null && genType.getTypeName() == genType.getResolved()) {
 				try {
@@ -319,41 +319,41 @@ public class DeduceLocalVariable {
 		if (vte.getResolvedElement() == null)
 			return;
 		{
-			if (vte.getType().getAttached() == null && vte.getConstructable_pte() != null) {
+			if (vte.getTypeTableEntry().getAttached() == null && vte.getConstructable_pte() != null) {
 				ClassStatement c = vte.getConstructable_pte().getFunctionInvocation().getClassInvocation().getKlass();
 				final @NotNull OS_Type attached = c.getOS_Type();
 				// TODO this should have been set somewhere already
 				// typeName and nonGenericTypeName are not set
 				// but at this point probably wont be needed
-				vte.getType().genType.setResolved(attached);
-				vte.getType().setAttached(attached);
+				vte.getTypeTableEntry().genType.setResolved(attached);
+				vte.getTypeTableEntry().setAttached(attached);
 			}
-			if (vte.getType().getAttached() == null && vte.potentialTypes().size() > 0) {
+			if (vte.getTypeTableEntry().getAttached() == null && vte.potentialTypes().size() > 0) {
 				final List<TypeTableEntry> attached_list = vte.potentialTypes().stream()
 						.filter(x -> x.getAttached() != null).collect(Collectors.toList());
 
 				if (attached_list.size() == 1) {
 					final TypeTableEntry pot = attached_list.get(0);
-					vte.getType().setAttached(pot.getAttached());
-					vte.getType().genType.genCI(null, deduceTypes2, deduceTypes2._errSink(), deduceTypes2.phase);
-					final @Nullable ClassInvocation classInvocation = (ClassInvocation) vte.getType().genType.getCi();
+					vte.getTypeTableEntry().setAttached(pot.getAttached());
+					vte.getTypeTableEntry().genType.genCI(null, deduceTypes2, deduceTypes2._errSink(), deduceTypes2.phase);
+					final @Nullable ClassInvocation classInvocation = (ClassInvocation) vte.getTypeTableEntry().genType.getCi();
 					if (classInvocation != null) {
 						classInvocation.resolvePromise().then(new DoneCallback<EvaClass>() {
 							@Override
 							public void onDone(final @NotNull EvaClass result) {
 								vte.resolveTypeToClass(result);
-								vte.getGenType().copy(vte.getType().genType); // TODO who knows if this is necessary?
+								vte.getGenType().copy(vte.getTypeTableEntry().genType); // TODO who knows if this is necessary?
 							}
 						});
 					}
 				} else {
 					resolve_var_table_entry_potential_types_1(vte, generatedFunction);
 				}
-			} else if (vte.getType().getAttached() == null && vte.potentialTypes().size() == 0) {
+			} else if (vte.getTypeTableEntry().getAttached() == null && vte.potentialTypes().size() == 0) {
 				NotImplementedException.raise();
 			}
 			{
-				final GenType genType = vte.getType().genType;
+				final GenType genType = vte.getTypeTableEntry().genType;
 				int pts = vte.potentialTypes().size();
 				if (genType.getTypeName() != null && genType.getTypeName() == genType.getResolved()) {
 					try {
@@ -371,7 +371,7 @@ public class DeduceLocalVariable {
 			vte.setStatus(BaseTableEntry.Status.KNOWN,
 					deduceTypes2._inj().new_GenericElementHolder(vte.getResolvedElement()));
 			{
-				final GenType genType = vte.getType().genType;
+				final GenType genType = vte.getTypeTableEntry().genType;
 				if (genType.getResolved() != null && genType.getNode() == null) {
 					if (genType.getResolved().getType() != OS_Type.Type.USER_CLASS
 							&& genType.getResolved().getType() != OS_Type.Type.FUNCTION) {

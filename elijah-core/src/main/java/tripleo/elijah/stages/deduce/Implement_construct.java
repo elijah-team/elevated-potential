@@ -396,14 +396,14 @@ public class Implement_construct {
 	public void action_IntegerIA() {
 		@NotNull
 		VariableTableEntry vte = ((IntegerIA) expression).getEntry();
-		final @Nullable OS_Type attached = vte.getType().getAttached();
+		final @Nullable OS_Type attached = vte.getTypeTableEntry().getAttached();
 //			assert attached != null; // TODO will fail when empty variable expression
 		if (attached != null && attached.getType() == OS_Type.Type.USER) {
-			implement_construct_type(vte, attached, null, vte.getType().genType);
+			implement_construct_type(vte, attached, null, vte.getTypeTableEntry().genType);
 		} else {
-			final OS_Type ty2 = vte.getType().genType.getTypeName();
+			final OS_Type ty2 = vte.getTypeTableEntry().genType.getTypeName();
 			assert ty2 != null;
-			implement_construct_type(vte, ty2, null, vte.getType().genType);
+			implement_construct_type(vte, ty2, null, vte.getTypeTableEntry().genType);
 		}
 	}
 
@@ -413,7 +413,7 @@ public class Implement_construct {
 			idte3.type.genTypeCI(aClsinv);
 			aClsinv.resolvePromise().then(idte3::resolveTypeToClass);
 		} else if (co instanceof final @NotNull VariableTableEntry vte) {
-			vte.getType().genTypeCI(aClsinv);
+			vte.getTypeTableEntry().genTypeCI(aClsinv);
 			aClsinv.resolvePromise().then(vte::resolveTypeToClass);
 		}
 	}

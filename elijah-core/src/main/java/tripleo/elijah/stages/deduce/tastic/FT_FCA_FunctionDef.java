@@ -51,8 +51,8 @@ public class FT_FCA_FunctionDef {
 			public void typeDecided(@NotNull GenType aType) {
 				if (!vte.typeDeferred_isPending()) {
 					if (vte.resolvedType() == null) {
-						final @Nullable ClassInvocation ci = aDoAssignCall.dc.genCI(aType, null);
-						vte.getType().genTypeCI(ci);
+						final @Nullable ClassInvocation ci = aDoAssignCall.dc().genCI(aType, null);
+						vte.getTypeTableEntry().genTypeCI(ci);
 						ci.resolvePromise().then(new DoneCallback<EvaClass>() {
 							@Override
 							public void onDone(@NotNull EvaClass result) {
