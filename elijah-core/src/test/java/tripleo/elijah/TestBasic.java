@@ -20,7 +20,7 @@ import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.StdErrSink;
-import tripleo.elijah.comp.i.CompilationEnclosure;
+import tripleo.elijah.comp.i.AssOutFile;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.DefaultCompilerController;
@@ -196,7 +196,7 @@ public class TestBasic {
 			assertTrue(c.getIO().recordedwrites.size() > 0);
 
 			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
-			for (Triple<CompilationEnclosure.AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> aof : aofs) {
+			for (Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> aof : aofs) {
 				System.err.println(aof);
 			}
 

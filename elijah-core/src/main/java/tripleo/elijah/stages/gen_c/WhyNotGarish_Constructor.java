@@ -1,15 +1,19 @@
 package tripleo.elijah.stages.gen_c;
 
+import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.DebugFlags;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
+import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
+import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.world.WorldGlobals;
@@ -94,13 +98,13 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 			gcfc.respondTo(generateC);
 		}
 
-		// FIXME 06/17
+		// FIXME 06/17; 10/13 what's wrong with it?
 		final GenerateResultSink sink = aFileGen.resultSink();
 
 		if (sink != null) {
 			sink.addFunction(gf, rs, generateC);
 		} else {
-			System.err.println("sink failed");
+			logProgress(9992, "sink failed");
 		}
 	}
 
@@ -140,7 +144,24 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 		fileGenPromise.resolve(aFileGen);
 	}
 
+	private void logProgress(int code, String message) {
+		generateC._ce().logProgress(CompProgress.GenerateC, Pair.of(code, message));
+	}
+
 	public List<C2C_Result> getResults() {
 		return _c2c_results;
+	}
+
+    public DeducedEvaConstructor deduced(final EvaConstructor gf) {
+
+		// TODO/FIXME 10/15 cache results
+
+		final GM_GenerateModule generateModule = generateC.getFileGen().gmgm();
+		final DeducePhase deducePhase = generateModule.gmr().env().pa().getCompilationEnclosure().getPipelineLogic().dp;
+		final DeduceTypes2 dt2 = deducePhase._inj().new_DeduceTypes2(gf.module(), deducePhase, ElLog.Verbosity.VERBOSE);
+
+		dt2.deduceOneConstructor(gf, deducePhase);
+
+		return new DefaultDeducedEvaConstructor(gf);
 	}
 }

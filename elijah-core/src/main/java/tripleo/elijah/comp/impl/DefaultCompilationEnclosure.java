@@ -123,7 +123,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		compilation.world().addModuleProcess(new ModuleListener_ModuleCompletableProcess());
 	}
 
-	@Override
+//	@Override
 	public void addEntryPoint(final @NotNull Mirror_EntryPoint aMirrorEntryPoint, final IClassGenerator dcg) {
 		aMirrorEntryPoint.generate(dcg);
 	}
@@ -274,20 +274,21 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	public CompilationClosure getCompilationClosure() {
 		return this.getCompilation().getCompilationClosure();
 	}
-	@Override
+
 	@Contract(pure = true)
+	@Override
 	public CompilerDriver getCompilationDriver() {
 		return getCompilationBus().getCompilerDriver();
 	}
 
-	@Override
 	@Contract(pure = true)
+	@Override
 	public CompilationRunner getCompilationRunner() {
 		return compilationRunner;
 	}
 
-	@Override
 	@Contract(pure = true)
+	@Override
 	public List<CompilerInput> getCompilerInput() {
 		return inp;
 	}
@@ -300,20 +301,20 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		return addModuleThing(aMod);
 	}
 
-	@Override
 	@Contract(pure = true)
+	@Override
 	public IPipelineAccess getPipelineAccess() {
 		return pa;
 	}
 
-	@Override
 	@Contract(pure = true)
+	@Override
 	public @NotNull Promise<IPipelineAccess, Void, Void> getPipelineAccessPromise() {
 		return pipelineAccessPromise;
 	}
 
-	@Override
 	@Contract(pure = true)
+	@Override
 	public PipelineLogic getPipelineLogic() {
 		return pipelineLogic;
 	}
@@ -473,6 +474,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		}
 	}
 }
+
 //
 // vim:set shiftwidth=4 softtabstop=0 noexpandtab:
 //

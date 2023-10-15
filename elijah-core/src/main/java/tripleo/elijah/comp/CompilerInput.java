@@ -12,26 +12,6 @@ import java.util.*;
 import java.util.regex.*;
 
 public class CompilerInput extends __Extensionable {
-    public File makeFile() {
-	    return switch (ty) {
-		    case SOURCE_ROOT -> dir_carrier;
-		    case ROOT -> new File(new File(inp).getParent());
-		    default -> null;
-	    };
-    }
-
-    public enum CompilerInputField {
-        TY, HASH, ACCEPT_CI, DIRECTORY_RESULTS
-    }
-
-    public enum Ty {
-        NULL, /* as is from command line/ */
-        SOURCE_ROOT,
-        ROOT, /* the base of the compilation */
-        ARG, /* represents a compiler change (CC) */
-        STDLIB
-    }
-
     @Getter
     private final String                           inp;
     private       Maybe<ILazyCompilerInstructions> accept_ci;
@@ -144,5 +124,25 @@ public class CompilerInput extends __Extensionable {
 
     public Ty ty() {
         return ty;
+    }
+
+    public File makeFile() {
+	    return switch (ty) {
+		    case SOURCE_ROOT -> dir_carrier;
+		    case ROOT -> new File(new File(inp).getParent());
+		    default -> null;
+	    };
+    }
+
+    public enum CompilerInputField {
+        TY, HASH, ACCEPT_CI, DIRECTORY_RESULTS
+    }
+
+    public enum Ty {
+        NULL, /* as is from command line/ */
+        SOURCE_ROOT,
+        ROOT, /* the base of the compilation */
+        ARG, /* represents a compiler change (CC) */
+        STDLIB
     }
 }

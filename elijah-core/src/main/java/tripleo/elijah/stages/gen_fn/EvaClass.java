@@ -274,7 +274,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 	@Deprecated
 	@Override
 	public int getCode() {
-		return _living.getCode();
+		return world().getCode();
 	}
 
 	@Override
@@ -287,7 +287,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 	}
 
 	public LivingClass getLiving() {
-		return _living;
+		return world();
 	}
 
 	@NotNull
@@ -381,7 +381,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 
 	@Override
 	public void setCode(final int aCode) {
-		_living.setCode(aCode);
+		world().setCode(aCode);
 	}
 
 	public void setLiving(LivingClass _living) {
@@ -392,6 +392,10 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 	public @NotNull String toString() {
 		return "EvaClass{" + "klass=" + klass + ", code=" + getCode() + ", module=" + module.getFileName() + ", ci="
 				+ ci.finalizedGenericPrintable() + '}';
+	}
+
+	public LivingClass world() {
+		return _living;
 	}
 }
 

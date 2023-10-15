@@ -624,14 +624,12 @@ public class Generate_Code_For_Method {
 		tos.put_string_ln("}");
 	}
 
-	void generateCodeForConstructor(final @NotNull EvaConstructor gf, final GenerateResult gr__,
-			final WorkList aWorkList__, final @NotNull GenerateResultEnv fileGen) {
-
-		var gr = fileGen.gr();
-		var aWorkList = fileGen.wl();
-
-		var yf = gc.a_lookup(gf);
-
+	void generateCodeForConstructor(final @NotNull DeducedEvaConstructor dgf,
+									final @NotNull GenerateResultEnv fileGen) {
+		final EvaConstructor gf = dgf.getCarrier();
+		final GenerateResult gr = fileGen.gr();
+		final WorkList aWorkList = fileGen.wl();
+		final WhyNotGarish_Constructor yf = gc.a_lookup(gf);
 		final C2C_CodeForConstructor cfm = new C2C_CodeForConstructor(this, fileGen, yf);
 
 		// cfm.calculate();
@@ -651,28 +649,46 @@ public class Generate_Code_For_Method {
 	public void generateCodeForMethod2(final @NotNull BaseEvaFunction gf, final @NotNull GenerateResultEnv aFileGen) {
 		assert gf.deducedAlready;
 
-		generateCodeForMethod(/*deduced*/(gf), aFileGen);
+		var yf = gc.a_lookup(gf);
+		var dgf = yf.deduced(gf);
+
+        assert dgf != null;
+        generateCodeForMethod(dgf, aFileGen);
 	}
-	public void generateCodeForMethod2(final @NotNull EvaConstructor gf, final @NotNull GenerateResultEnv aFileGen) {
+
+/*
+	public void generateCodeForMethod2(final @NotNull EvaConstructor gf) {
 		assert gf.deducedAlready;
 
-		generateCodeForMethod(/*deduced*/(gf), aFileGen);
-	}
+		final var yf = gc.a_lookup(gf);
+		final var dgf = yf.deduced(gf);
 
-	void generateCodeForMethod(final @NotNull BaseEvaFunction gf, final @NotNull GenerateResultEnv aFileGen) {
+		assert dgf != null;
+		generateCodeForConstructor(dgf, null); // TODO !! will fail
+	}
+*/
+
+	void generateCodeForMethod(final @NotNull DeducedBaseEvaFunction dgf, final @NotNull GenerateResultEnv aFileGen) {
 		// var xx = gc.a_lookup(gf);
+
+		final IEvaFunctionBase gf = dgf.getCarrier();
+		final BaseEvaFunction bef = (BaseEvaFunction) gf;
+
 		// xx.onFileGen(aFileGen);
 		// TODO separate into method and method_header??
-		C2C_CodeForMethod cfm = new C2C_CodeForMethod(this, gf, aFileGen);
+		final C2C_CodeForMethod cfm = new C2C_CodeForMethod(this, bef, aFileGen);
 
 		// cfm.calculate();
 		var rs = cfm.getResults();
 
 		GenerateResult gr = cfm.getGenerateResult();
+		
+//		var yf = gc.a_lookup(bef);
+//		var dgf = yf.deduced(bef);
 
-		final GCFM gcfm = new GCFM(rs, gf, gr);
+		final GCFM gcfm = new GCFM(rs, dgf, gr);
 
-		gf.reactive().add(gcfm);
+		dgf.reactive().add(gcfm);
 
 		if (!MANUAL_DISABLED) {
 			gcfm.respondTo(this.gc);
@@ -682,7 +698,7 @@ public class Generate_Code_For_Method {
 		final GenerateResultSink sink = aFileGen.resultSink();
 
 		if (sink != null) {
-			sink.addFunction(gf, rs, gc);
+			sink.addFunction((BaseEvaFunction) gf, rs, gc);
 		} else {
 			logProgress(9990, "sink failed");
 		}

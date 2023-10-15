@@ -41,7 +41,7 @@ public class GenerateResultFwSink implements GenerateResult {
 
 	@Override
 	public void addClass(TY ty, EvaClass aClass, Buffer aBuf, LibraryStatementPart aLsp) {
-		var garishClass = aClass._living.getGarish();
+		var garishClass = aClass.world().getGarish();
 
 		resultSink.addClass_1(garishClass, this, generateC);
 	}
