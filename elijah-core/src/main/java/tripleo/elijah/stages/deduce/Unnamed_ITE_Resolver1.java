@@ -281,8 +281,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 							}
 						}
 						ele = ty2.getResolved().getElement();
-						LookupResultList lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(), ele.getContext(),
-								dt2);
+						LookupResultList lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(), ele.getContext(), dt2);
 						ele2 = lrl.chooseBest(null);
 					} else
 						ele2 = ty.getElement();
@@ -318,11 +317,9 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 								dt2);
 						@Nullable
 						OS_Element best = lrl.chooseBest(null);
-						// README commented out because only firing for dir.listFiles, and we always use
-						// `best'
-//					if (best != ele2) LOG.err(String.format("2824 Divergent for %s, %s and %s", ite, best, ele2));;
-						ite.setStatus(BaseTableEntry.Status.KNOWN,
-								_inj().new_GenericElementHolderWithType(best, ty, dt2));
+						// README commented out because only firing for dir.listFiles, and we always use `best'
+						// if (best != ele2) LOG.err(String.format("2824 Divergent for %s, %s and %s", ite, best, ele2));;
+						ite.setStatus(BaseTableEntry.Status.KNOWN, _inj().new_GenericElementHolderWithType(best, ty, dt2));
 					}
 				} catch (ResolveError aResolveError) {
 					aResolveError.printStackTrace();
