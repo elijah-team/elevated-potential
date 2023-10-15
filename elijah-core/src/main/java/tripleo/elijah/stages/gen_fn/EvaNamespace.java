@@ -15,7 +15,6 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;
 import tripleo.elijah.nextgen.reactive.Reactive;
-import tripleo.elijah.stages.garish.GarishNamespace_Generator;
 import tripleo.elijah.stages.gen_generic.CodeGenerator;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
@@ -59,7 +58,7 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 		Scope3Impl scope3 = new Scope3Impl(fd);
 		fd.scope(scope3);
 		for (VarTableEntry varTableEntry : varTable) {
-			if (varTableEntry.initialValue != IExpression.UNASSIGNED) {
+			if (varTableEntry.initialValue != LangGlobals.UNASSIGNED) {
 				IExpression left = varTableEntry.nameToken;
 				IExpression right = varTableEntry.initialValue;
 

@@ -39,7 +39,7 @@ class Resolve_Ident_IA2 {
 
 		public void run() {
 			try {
-				final boolean has_initial_value = vs.initialValue() != IExpression.UNASSIGNED;
+				final boolean has_initial_value = vs.initialValue() != LangGlobals.UNASSIGNED;
 				if (!vs.typeName().isNull()) {
 					typeName_is_not_null(has_initial_value);
 				} else if (has_initial_value) {

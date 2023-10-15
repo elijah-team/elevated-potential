@@ -81,7 +81,7 @@ public class WlGenerateDefaultCtor implements WorkJob {
 			Scope3Impl scope3 = new Scope3Impl(cd);
 			cd.scope(scope3);
 			for (EvaContainer.VarTableEntry varTableEntry : genClass.varTable) {
-				if (varTableEntry.initialValue != IExpression.UNASSIGNED) {
+				if (varTableEntry.initialValue != LangGlobals.UNASSIGNED) {
 					IExpression left = varTableEntry.nameToken;
 					IExpression right = varTableEntry.initialValue;
 
