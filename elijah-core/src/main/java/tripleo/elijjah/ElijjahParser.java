@@ -5350,8 +5350,8 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 								}
 								e3 = shiftExpression();
 								if (inputState.guessing == 0) {
-									ee = ExpressionBuilder.build(ee, e2, e3);
-									ee.setType(pcon.new_OS_BuiltinType(BuiltInTypes.Boolean));
+									var t = pcon.new_OS_BuiltinType(BuiltInTypes.Boolean);
+									ee = ExpressionBuilder.build(ee, e2, e3, t);
 								}
 							} else {
 								break _loop205;

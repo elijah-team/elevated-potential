@@ -28,8 +28,7 @@ public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elija
 
 //	private @Nullable TypeName rt;
 
-	public ConstructorDefImpl(final @Nullable IdentExpression aConstructorName, final _CommonNC aParent,
-			final Context context) {
+	public ConstructorDefImpl(final @Nullable IdentExpression aConstructorName, final _CommonNC aParent, final Context context) {
 		parent = (OS_Element) aParent;
 		if (parent != null) {
 			if (aParent instanceof OS_Container) {
@@ -37,7 +36,7 @@ public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elija
 			} else {
 				throw new IllegalStateException("adding FunctionDef to " + aParent.getClass().getName());
 			}
-			_a.setContext(new FunctionContext(context, this));
+			_a = new AttachedImpl(new FunctionContext(context, this));
 		}
 
 		if (aConstructorName != null)

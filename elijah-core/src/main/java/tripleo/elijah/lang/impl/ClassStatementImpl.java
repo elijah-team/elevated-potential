@@ -61,7 +61,7 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 			}
 		}
 
-		setContext(new ClassContext(parentContext, this));
+		_a = new AttachedImpl(new ClassContext(parentContext, this));
 	}
 
 	@Override // OS_Container

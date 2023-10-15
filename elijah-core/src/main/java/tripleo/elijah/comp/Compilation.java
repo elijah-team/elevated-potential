@@ -217,6 +217,11 @@ public interface Compilation {
         public CiProcedureCallExpression newCiProcedureCallExpressionImpl() {
             return new CiProcedureCallExpressionImpl();
         }
+
+        public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aE2, final IExpression aE3, final OS_Type aT) {
+            // TODO 10/15 look at me
+            return ExpressionBuilder_build(aEe, aE2, aE3);
+        }
     }
 
     class CompilationConfig {

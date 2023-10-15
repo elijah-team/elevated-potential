@@ -38,6 +38,10 @@ public class ExpressionBuilder {
 		return new BasicBinaryExpressionImpl(left, aType, null);
 	}
 
+	public static IExpression build(final IExpression aEe, final ExpressionKind aE2, final IExpression aE3, final OS_Type aT) {
+		// TODO 10/15 look at me
+		return build(aEe, aE2, aE3);
+	}
 }
 
 //

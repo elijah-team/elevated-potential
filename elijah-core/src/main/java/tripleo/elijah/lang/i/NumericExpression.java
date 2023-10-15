@@ -13,10 +13,6 @@ public interface NumericExpression extends IExpression, Locatable {
 	@Override
 	int getLine();
 
-	@Override
-	// IExpression
-	OS_Type getType();
-
 	int getValue();
 
 	@Override
@@ -30,10 +26,6 @@ public interface NumericExpression extends IExpression, Locatable {
 
 	@Override
 	void setLeft(IExpression aLeft);
-
-	@Override
-	// IExpression
-	void setType(OS_Type deducedExpression);
 
 	@Override
 	String toString();

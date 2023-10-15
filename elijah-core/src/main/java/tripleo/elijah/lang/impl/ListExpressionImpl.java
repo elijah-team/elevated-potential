@@ -88,7 +88,6 @@ public class ListExpressionImpl extends AbstractExpression implements tripleo.el
 		return 0;
 	}
 
-	@Override
 	public @Nullable OS_Type getType() {
 		return null;
 	}
@@ -101,11 +100,6 @@ public class ListExpressionImpl extends AbstractExpression implements tripleo.el
 	@Override
 	public void setContents(final ExpressionList aList) {
 		contents = aList;
-	}
-
-	@Override
-	public void setType(OS_Type deducedExpression) {
-
 	}
 
 	// endregion

@@ -29,7 +29,6 @@ public class TypeCheckExpressionImpl extends AbstractExpression implements tripl
 		this.checkfor = p1;
 	}
 
-	@Override
 	public @NotNull OS_Type getType() {
 		return new OS_BuiltinType(BuiltInTypes.Boolean);
 	}
@@ -39,8 +38,4 @@ public class TypeCheckExpressionImpl extends AbstractExpression implements tripl
 		return true; // TODO is not const tho
 	}
 
-	@Override
-	public void setType(final OS_Type deducedExpression) {
-		throw new IllegalStateException("Type of TypeCheckExpression is always boolean");
-	}
 }

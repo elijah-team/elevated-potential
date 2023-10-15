@@ -21,7 +21,6 @@ public class TypeCastExpressionImpl extends AbstractExpression implements triple
 
 	TypeName tn;
 
-	@Override
 	public @Nullable OS_Type getType() {
 		return null;
 	}
@@ -34,11 +33,6 @@ public class TypeCastExpressionImpl extends AbstractExpression implements triple
 	@Override
 	public boolean is_simple() {
 		return false;
-	}
-
-	@Override
-	public void setType(final OS_Type deducedExpression) {
-
 	}
 
 	@Override
