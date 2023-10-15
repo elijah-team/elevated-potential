@@ -77,7 +77,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded {
 		Scope3 scope3 = new Scope3Impl(fd);
 		fd.scope(scope3);
 		for (VarTableEntry varTableEntry : varTable) {
-			if (varTableEntry.initialValue != IExpression.UNASSIGNED) {
+			if (varTableEntry.initialValue != LangGlobals.UNASSIGNED) {
 				IExpression left = varTableEntry.nameToken;
 				IExpression right = varTableEntry.initialValue;
 

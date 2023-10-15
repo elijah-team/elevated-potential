@@ -22,6 +22,7 @@ import tripleo.elijah.entrypoints.ArbitraryFunctionEntryPoint;
 import tripleo.elijah.entrypoints.EntryPoint;
 import tripleo.elijah.entrypoints.MainClassEntryPoint;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.lang.impl.MatchConditionalImpl;
 import tripleo.elijah.lang.impl.MatchConditionalImpl.MatchArm_TypeMatch;
 import tripleo.elijah.lang.impl.MatchConditionalImpl.MatchConditionalPart2;
@@ -469,7 +470,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				}
 				case 3: {
 					final @NotNull TypeTableEntry tte;
-					if (initialValue == IExpression.UNASSIGNED && vs.typeName() != null) {
+					if (initialValue == LangGlobals.UNASSIGNED && vs.typeName() != null) {
 						tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, new OS_UserType(vs.typeName()),
 								vs.getNameToken());
 					} else {
@@ -1029,7 +1030,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				}
 				case 3: {
 					final @NotNull TypeTableEntry tte;
-					if (initialValue == IExpression.UNASSIGNED && vs.typeName() != null) {
+					if (initialValue == LangGlobals.UNASSIGNED && vs.typeName() != null) {
 						tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, new OS_UserType(vs.typeName()),
 								vs.getNameToken());
 					} else {
@@ -1271,7 +1272,7 @@ public class GenerateFunctions implements ReactiveDimension {
 
 	private void assign_variable(final @NotNull BaseEvaFunction gf, final int vte, @NotNull final IExpression value,
 			final @NotNull Context cctx) {
-		if (value == IExpression.UNASSIGNED)
+		if (value == LangGlobals.UNASSIGNED)
 			return; // default_expression
 		switch (value.getKind()) {
 		case PROCEDURE_CALL:
@@ -1990,7 +1991,7 @@ public class GenerateFunctions implements ReactiveDimension {
 					left_instruction = simplify_expression(left, gf, cctx);
 				} else {
 					// a constant
-					assert IExpression.isConstant(right);
+					assert LangGlobals.isConstant(right);
 					final int left_constant_num = addConstantTableEntry2(null, left, left.getType(), gf);
 					left_instruction = new ConstTableIA(left_constant_num, gf);
 				}
@@ -2003,7 +2004,7 @@ public class GenerateFunctions implements ReactiveDimension {
 					right_instruction = simplify_expression(right, gf, cctx);
 				} else {
 					// a constant
-					assert IExpression.isConstant(right);
+					assert LangGlobals.isConstant(right);
 					final int right_constant_num = addConstantTableEntry2(null, right, right.getType(), gf);
 					right_instruction = new ConstTableIA(right_constant_num, gf);
 				}
@@ -2060,7 +2061,7 @@ public class GenerateFunctions implements ReactiveDimension {
 					left_instruction = simplify_expression(left, gf, cctx);
 				} else {
 					// a constant
-					if (IExpression.isConstant(left)) {
+					if (LangGlobals.isConstant(left)) {
 						final int left_constant_num = addConstantTableEntry2(null, left, left.getType(), gf);
 						left_instruction = new ConstTableIA(left_constant_num, gf);
 					} else {
@@ -2076,7 +2077,7 @@ public class GenerateFunctions implements ReactiveDimension {
 					right_instruction = simplify_expression(right, gf, cctx);
 				} else {
 					// a constant
-					if (IExpression.isConstant(right)) {
+					if (LangGlobals.isConstant(right)) {
 						final int right_constant_num = addConstantTableEntry2(null, right, right.getType(), gf);
 						right_instruction = new ConstTableIA(right_constant_num, gf);
 					} else {
@@ -2185,8 +2186,8 @@ public class GenerateFunctions implements ReactiveDimension {
 				left_ia = ia;
 			} else {
 				// for "".strip() etc
-				assert IExpression.isConstant(left);
-				final int x = addConstantTableEntry(null, left, left.getType(), gf);
+				assert LangGlobals.isConstant(left);
+				final int x = addConstantTableEntry(null, left, null/*left.getType()*/, gf);
 				left_ia = new ConstTableIA(x, gf);
 //						throw new IllegalStateException("Cant be here");
 			}
@@ -2210,8 +2211,8 @@ public class GenerateFunctions implements ReactiveDimension {
 						ia = simplify_expression(se.getExpression(), gf, cctx);
 						iat = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null, arg);
 					} else {
-						assert IExpression.isConstant(arg);
-						final int x = addConstantTableEntry(null, arg, arg.getType(), gf);
+						assert LangGlobals.isConstant(arg);
+						final int x = addConstantTableEntry(null, arg, null/*arg.getType()*/, gf);
 						ia = new ConstTableIA(x, gf);
 						iat = gf.getConstTableEntry(x).type;
 					}

@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.contexts.FunctionContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.AliasStatementImpl;
+import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.lang.impl.LookupResultListImpl;
 import tripleo.elijah.lang.impl.VariableStatementImpl;
 import tripleo.elijah.lang.types.OS_UnknownType;
@@ -155,7 +156,7 @@ public enum DeduceLookupUtils {
 							R.setTypeName(aDeduceTypes2._inj().new_OS_UserType(vs.typeName()));
 							result = R;
 						}
-					} else if (vs.initialValue() == IExpression.UNASSIGNED) {
+					} else if (vs.initialValue() == LangGlobals.UNASSIGNED) {
 						R.setTypeName(aDeduceTypes2._inj().new_OS_UnknownType(vs));
 //				return deduceExpression(vs.initialValue(), ctx); // infinite recursion
 					} else {
@@ -257,7 +258,7 @@ public enum DeduceLookupUtils {
 						R.setTypeName(dt2._inj().new_OS_UserType(vs.typeName()));
 						result = R;
 					}
-				} else if (vs.initialValue() == IExpression.UNASSIGNED) {
+				} else if (vs.initialValue() == LangGlobals.UNASSIGNED) {
 					R.setTypeName(dt2._inj().new_OS_UnknownType(vs));
 //				return deduceExpression(vs.initialValue(), ctx); // infinite recursion
 				} else {

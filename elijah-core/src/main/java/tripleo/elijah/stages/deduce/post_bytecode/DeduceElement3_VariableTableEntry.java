@@ -281,7 +281,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 
 	public void __action_VAR_pot_1_tableEntry_null(final @NotNull VariableStatement aVariableStatement) {
 		final @NotNull IExpression iv = aVariableStatement.initialValue();
-		if (iv == IExpression.UNASSIGNED) {
+		if (iv == LangGlobals.UNASSIGNED) {
 			NotImplementedException.raise();
 		}
 
