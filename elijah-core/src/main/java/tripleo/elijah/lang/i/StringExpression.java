@@ -10,9 +10,6 @@ public interface StringExpression extends IExpression {
 	String getText();
 
 	@Override
-	OS_Type getType();
-
-	@Override
 	boolean is_simple();
 
 	@Override
@@ -22,9 +19,6 @@ public interface StringExpression extends IExpression {
 
 	@Override
 	void setLeft(IExpression iexpression);
-
-	@Override
-	void setType(OS_Type deducedExpression);
 
 	@Override
 	String toString();

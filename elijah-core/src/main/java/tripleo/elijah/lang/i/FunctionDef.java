@@ -7,7 +7,7 @@ import tripleo.elijah.lang2.*;
 
 import java.util.*;
 
-public interface FunctionDef extends OS_Element, OS_Element2 {
+public interface FunctionDef extends OS_Element, OS_Element2, Documentable, ClassItem {
 	enum Species {
 		CTOR, DEF_FUN, DTOR, FUNC_EXPR, PROP_GET, PROP_SET, REG_FUN
 	}
@@ -66,6 +66,11 @@ public interface FunctionDef extends OS_Element, OS_Element2 {
 	@Override
 	String toString();
 
-	@Override
-	void visitGen(ElElementVisitor visit); // OS_Element
+	@Override // OS_Element
+	void visitGen(ElElementVisitor visit);
+
 }
+
+//
+//
+//
