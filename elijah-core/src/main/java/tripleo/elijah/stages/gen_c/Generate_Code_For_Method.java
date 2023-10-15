@@ -637,6 +637,10 @@ public class Generate_Code_For_Method {
 		}
 	}
 
+	public GenerateC _gc() {
+		return this.gc;
+	}
+
 	public enum AOG {
 		ASSIGN, GET
 	}

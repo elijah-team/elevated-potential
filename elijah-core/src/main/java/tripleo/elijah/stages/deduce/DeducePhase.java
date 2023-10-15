@@ -188,7 +188,6 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 				continue;
 
 			if (evaNode instanceof final @NotNull EvaClass evaClass) {
-
 				evaClass.fixupUserClasses(deduceTypes2, evaClass.getKlass().getContext());
 				deduceTypes2.deduceOneClass(evaClass);
 			}
@@ -479,7 +478,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 							// TODO just getting first element here (without processing of any kind); HACK
 							final List<EvaContainer.VarTableEntry.ConnectionPair> connectionPairs = gc_vte.connectionPairs;
 							if (!connectionPairs.isEmpty()) {
-								final GenType ty = connectionPairs.get(0).vte.getType().genType;
+								final GenType ty = connectionPairs.get(0).vte.getTypeTableEntry().genType;
 								assert ty.getResolved() != null;
 								gc_vte.varType = ty.getResolved(); // TODO make sure this is right in all cases
 								if (deferredMember.typeResolved().isPending())

@@ -25,7 +25,7 @@ public class C2C_CodeForMethod implements Generate_Code_For_Method.C2C_Results {
 //		fileGen               = aFileGen;
 		gr                    = aFileGen.gr();
 
-		final GenerateC gc = aGenerateCodeForMethod.gc;
+		final GenerateC gc = aGenerateCodeForMethod._gc();
 		whyNotGarishFunction = aDeducedBaseEvaFunction.getWhyNotGarishFunction(gc);//gc.a_lookup(aGf);
 	}
 
@@ -35,7 +35,7 @@ public class C2C_CodeForMethod implements Generate_Code_For_Method.C2C_Results {
 			final BufferTabbedOutputStream tosHdr = generateCodeForMethod.tosHdr;
 
 
-			final Generate_Method_Header gmh = new Generate_Method_Header(whyNotGarishFunction.cheat(), generateCodeForMethod.gc, generateCodeForMethod.LOG);
+			final Generate_Method_Header gmh = new Generate_Method_Header(whyNotGarishFunction.cheat(), generateCodeForMethod._gc(), generateCodeForMethod.LOG);
 
 			tos.put_string_ln(String.format("%s {", gmh.header_string));
 			tosHdr.put_string_ln(String.format("%s;", gmh.header_string));
