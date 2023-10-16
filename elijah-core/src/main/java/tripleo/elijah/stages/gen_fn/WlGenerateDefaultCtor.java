@@ -12,7 +12,6 @@ import org.jdeferred2.DoneCallback;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.deduce.Deduce_CreationClosure;
 import tripleo.elijah.stages.deduce.FunctionInvocation;
 import tripleo.elijah.stages.deduce.nextgen.DeduceCreationContext;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
@@ -36,11 +35,11 @@ public class WlGenerateDefaultCtor implements WorkJob {
 
 	public WlGenerateDefaultCtor(final OS_Module module,
 								 final FunctionInvocation aFunctionInvocation,
-								 final @NotNull Deduce_CreationClosure crcl) {
-		this(crcl.generatePhase().getGenerateFunctions(module),
+								 final @NotNull DeduceCreationContext crcl) {
+		this(crcl.getGeneratePhase().getGenerateFunctions(module),
 			 aFunctionInvocation,
-			 crcl.dcc(),
-			 crcl.deducePhase().getCodeRegistrar());
+			 crcl,
+			 crcl.getDeducePhase().getCodeRegistrar());
 	}
 
 	@Contract(pure = true)

@@ -2334,40 +2334,47 @@ public class DeduceTypes2 {
 		}
 
 		public WlGenerateCtor new_WlGenerateCtor(final GenerateFunctions aGenerateFunctions,
-		                                         final FunctionInvocation aFi, final IdentExpression aO, final ICodeRegistrar aCodeRegistrar) {
-			return new WlGenerateCtor(aGenerateFunctions, aFi, aO, aCodeRegistrar);
+												 final FunctionInvocation aFi,
+												 final IdentExpression aIdentExpression,
+												 final ICodeRegistrar aCodeRegistrar) {
+			return new WlGenerateCtor(aGenerateFunctions, aFi, aIdentExpression, aCodeRegistrar);
 		}
 
-		public WlGenerateCtor new_WlGenerateCtor(final OS_Module aModule, final IdentExpression aNameNode,
-		                                         final FunctionInvocation aFunctionInvocation, final Deduce_CreationClosure aCl) {
-			return new WlGenerateCtor(aModule, aFunctionInvocation.getFunction().getNameNode(), aFunctionInvocation,
-			                          aCl
-			);
+		public WlGenerateCtor new_WlGenerateCtor(final OS_Module aModule,
+												 final IdentExpression aNameNode,
+												 final FunctionInvocation aFunctionInvocation,
+												 final DeduceCreationContext aCl) {
+			return new WlGenerateCtor(aModule, aFunctionInvocation.getFunction().getNameNode(), aFunctionInvocation, aCl);
 		}
 
 		public @NotNull WlGenerateDefaultCtor new_WlGenerateDefaultCtor(final GenerateFunctions aGf,
-		                                                                final FunctionInvocation aDependentFunction, final DeduceCreationContext aDeduceCreationContext,
+		                                                                final FunctionInvocation aDependentFunction,
+																		final DeduceCreationContext aDeduceCreationContext,
 		                                                                final ICodeRegistrar aCodeRegistrar) {
 			return new WlGenerateDefaultCtor(aGf, aDependentFunction, aDeduceCreationContext, aCodeRegistrar);
 		}
 
 		public WlGenerateDefaultCtor new_WlGenerateDefaultCtor(final OS_Module aModule,
-		                                                       final FunctionInvocation aFunctionInvocation, final Deduce_CreationClosure aCl) {
+															   final FunctionInvocation aFunctionInvocation,
+															   final @NotNull DeduceCreationContext aCl) {
 			return new WlGenerateDefaultCtor(aModule, aFunctionInvocation, aCl);
 		}
 
 		public @Nullable WlGenerateFunction new_WlGenerateFunction(final GenerateFunctions aGf,
-		                                                           final FunctionInvocation aDependentFunction, final ICodeRegistrar aCodeRegistrar) {
+		                                                           final FunctionInvocation aDependentFunction,
+																   final ICodeRegistrar aCodeRegistrar) {
 			return new WlGenerateFunction(aGf, aDependentFunction, aCodeRegistrar);
 		}
 
 		public WlGenerateFunction new_WlGenerateFunction(final OS_Module aModule,
-		                                                 final FunctionInvocation aDependentFunction, final Deduce_CreationClosure aCl) {
+														 final FunctionInvocation aDependentFunction,
+														 final DeduceCreationContext aCl) {
 			return new WlGenerateFunction(aModule, aDependentFunction, aCl);
 		}
 
 		public WlGenerateNamespace new_WlGenerateNamespace(final GenerateFunctions aGenerateFunctions,
-		                                                   final NamespaceInvocation aCi, final DeducePhase.GeneratedClasses aGeneratedClasses,
+		                                                   final NamespaceInvocation aCi,
+														   final DeducePhase.GeneratedClasses aGeneratedClasses,
 		                                                   final ICodeRegistrar aCodeRegistrar) {
 			return new WlGenerateNamespace(aGenerateFunctions, aCi, aGeneratedClasses, aCodeRegistrar);
 		}
@@ -2421,7 +2428,7 @@ public class DeduceTypes2 {
 
 		@Contract(pure = true)
 		public boolean hasGenericPart() {
-			return classStatement.getGenericPart().size() > 0;
+			return !classStatement.getGenericPart().isEmpty();
 		}
 	}
 
