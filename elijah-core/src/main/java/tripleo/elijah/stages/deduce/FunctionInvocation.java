@@ -14,9 +14,9 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
+import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.work.*;
-import tripleo.elijah.world.*;
+import tripleo.elijah.work.WorkList;
 
 import java.util.*;
 
@@ -111,7 +111,7 @@ public class FunctionInvocation implements IInvocation {
 				new WorkList(), deduceTypes2);
 		final DeduceTypes2.DeduceTypes2Injector injector = deduceTypes2._inj();
 
-		if (fd == WorldGlobals.defaultVirtualCtor) {
+		if (fd == LangGlobals.defaultVirtualCtor) {
 			eef.resolve(xxx___forDefaultVirtualCtor(cl, injector, module));
 			return eef;
 		} else if (fd instanceof ConstructorDef cd) {
