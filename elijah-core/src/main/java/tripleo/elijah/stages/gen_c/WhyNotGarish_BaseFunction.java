@@ -69,11 +69,11 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	}
 
 	public boolean pointsToConstructor() {
-		return getGf().getFD() instanceof ConstructorDef;
+		return declaringContext().pointsToConstructor();
 	}
 
 	public boolean pointsToConstructor2() {
-		return getGf() instanceof EvaConstructor;
+		return declaringContext().pointsToConstructor2();
 	}
 
 	@Override
