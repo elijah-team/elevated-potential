@@ -164,8 +164,6 @@ public class FunctionInvocation implements IInvocation {
 											 final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
 											 final @NotNull OS_Module module) {
 
-		final GeneratePhase generatePhase = cl.generatePhase();
-		final DeducePhase   deducePhase   = cl.deducePhase();
 		final GeneratePhase generatePhase = cl.getGeneratePhase();
 		final DeducePhase   deducePhase   = cl.getDeducePhase();
 
