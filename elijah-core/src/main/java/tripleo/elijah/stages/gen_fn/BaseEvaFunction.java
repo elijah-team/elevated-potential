@@ -9,11 +9,8 @@
 package tripleo.elijah.stages.gen_fn;
 
 import org.jdeferred2.DoneCallback;
-import org.jdeferred2.Promise;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.*;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;
@@ -29,6 +26,9 @@ import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.world.impl.DefaultLivingFunction;
 import tripleo.util.range.Range;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -40,93 +40,29 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
 public abstract class BaseEvaFunction
 		extends AbstractDependencyTracker
 		implements EvaNode, DeduceTypes2.ExpectationBase, IDependencyReferent, IEvaFunctionBase {
-	public class __Reactive extends DefaultReactive implements BaseEvaFunction_Reactive {
-		@Override
-		public <T> void addListener(final Consumer<T> t) {
-			throw new UnintendedUseException();
-		}
-	}
-
-	public static @NotNull List<InstructionArgument> _getIdentIAPathList(@NotNull InstructionArgument oo) {
-		LinkedList<InstructionArgument> s = new LinkedList<InstructionArgument>();
-		while (oo != null) {
-			if (oo instanceof IntegerIA) {
-				s.addFirst(oo);
-				oo = null;
-			} else if (oo instanceof IdentIA) {
-				final IdentTableEntry ite1 = ((IdentIA) oo).getEntry();
-				s.addFirst(oo);
-				oo = ite1.getBacklink();
-			} else if (oo instanceof ProcIA) {
-				s.addFirst(oo);
-				oo = null;
-			} else
-				throw new IllegalStateException("Invalid InstructionArgument");
-		}
-		return s;
-	}
-
-	public static @NotNull List<DT_Resolvable> _getIdentIAResolvableList(@NotNull InstructionArgument oo) {
-		LinkedList<DT_Resolvable> R = new LinkedList<>();
-		while (oo != null) {
-			if (oo instanceof IntegerIA integerIA) {
-				var vte = integerIA.getEntry();
-
-				if (vte._vs == null) {
-					final OS_Element[] el = { null };
-					vte._p_elementPromise.then(el1 -> el[0] = el1);
-
-					assert el[0] != null;
-
-					R.addFirst(DT_Resolvable.from(oo, el[0], null));
-				} else {
-					R.addFirst(DT_Resolvable.from(oo, vte._vs, null));
-				}
-				oo = null;
-			} else if (oo instanceof final IdentIA identIA) {
-				final IdentTableEntry ite1 = identIA.getEntry();
-
-				final OS_Element[] el = { null };
-				ite1._p_resolvedElementPromise.then(el1 -> el[0] = el1);
-
-				// assert el[0] != null;
-
-				FunctionInvocation cfi = null;
-				if (ite1._callable_pte() != null) {
-					var cpte = ite1._callable_pte();
-					if (cpte.getFunctionInvocation() != null) {
-						cfi = cpte.getFunctionInvocation();
-					}
-				}
-
-				// assert cfi != null;
-				// ^^ fails for folders.forEach
-
-				R.addFirst(DT_Resolvable.from(oo, el[0], cfi));
-				oo = ite1.getBacklink();
-			} else if (oo instanceof ProcIA procIA) {
-				var pte = procIA.getEntry();
-				assert pte != null;
-
-				final OS_Element[] el = { null };
-				pte._p_elementPromise.then(el1 -> el[0] = el1);
-
-				assert el[0] != null;
-
-				FunctionInvocation cfi = null;
-				if (pte.getFunctionInvocation() != null) {
-					cfi = pte.getFunctionInvocation();
-				}
-
-				assert cfi != null;
-
-				R.addFirst(DT_Resolvable.from(oo, el[0], cfi));
-				oo = null;
-			} else
-				throw new IllegalStateException("Invalid InstructionArgument");
-		}
-		return R;
-	}
+	private final    Eventual<EvaClass>             _p_assignEvaClass = new Eventual<>();
+	private final    Eventual<GenType>              _p_assignGenType  = new Eventual<>();
+	private final    Dependency                     dependency        = new Dependency(this);
+	private final    List<Label>                    labelList         = new ArrayList<Label>();
+	public @NotNull  List<DR_Item>                  drs               = new ArrayList<>();
+	public           DefaultLivingFunction          _living;
+	public @NotNull  List<ConstantTableEntry>       cte_list          = new ArrayList<ConstantTableEntry>();
+	public           boolean                        deducedAlready;
+	public @NotNull  List<Integer>                  deferred_calls    = new ArrayList<Integer>();
+	public           FunctionInvocation             fi;
+	public @NotNull  List<IdentTableEntry>          idte_list         = new ArrayList<IdentTableEntry>();
+	public @NotNull  List<Instruction>              instructionsList  = new ArrayList<Instruction>();
+	public @NotNull  List<ProcTableEntry>           prte_list         = new ArrayList<ProcTableEntry>();
+	public @NotNull  List<TypeTableEntry>           tte_list          = new ArrayList<TypeTableEntry>();
+	public @NotNull  List<VariableTableEntry>       vte_list          = new ArrayList<VariableTableEntry>();
+	private @NotNull Map<OS_Element, DeduceElement> elements          = new HashMap<OS_Element, DeduceElement>();
+	private          int                            _nextTemp         = 0;
+	private          __Reactive                     _reactive;
+	private          int                            code              = 0;
+	private          EvaNode                        genClass;
+	private          int                            instruction_index = 0;
+	private          int                            label_count       = 0;
+	private          EvaContainerNC                 parent;
 
 	static void printTables(@NotNull EvaFunction gf) {
 		tripleo.elijah.util.Stupidity.println_out_2("VariableTable ");
@@ -151,59 +87,73 @@ public abstract class BaseEvaFunction
 		}
 	}
 
-	private final DeferredObject<EvaClass, Void, Void> _p_assignEvaClass = new DeferredObject<>();
-	private final Dependency dependency = new Dependency(this);
-	public @NotNull List<DR_Item> drs = new ArrayList<>();
-	private final List<Label> labelList = new ArrayList<Label>();
-	//
-	// region INSTRUCTIONS
-	//
-	private final DeferredObject<GenType, Void, Void> _p_assignGenType = new DeferredObject<GenType, Void, Void>();
-	public DefaultLivingFunction _living;
-	public @NotNull List<ConstantTableEntry> cte_list = new ArrayList<ConstantTableEntry>();
-	public boolean deducedAlready;
-	public @NotNull List<Integer> deferred_calls = new ArrayList<Integer>();
-	public FunctionInvocation fi;
-	public @NotNull List<IdentTableEntry> idte_list = new ArrayList<IdentTableEntry>();
-	public @NotNull List<Instruction> instructionsList = new ArrayList<Instruction>();
-	public @NotNull List<ProcTableEntry> prte_list = new ArrayList<ProcTableEntry>();
-	public @NotNull List<TypeTableEntry> tte_list = new ArrayList<TypeTableEntry>();
-	public @NotNull List<VariableTableEntry> vte_list = new ArrayList<VariableTableEntry>();
-	@NotNull
-	Map<OS_Element, DeduceElement> elements = new HashMap<OS_Element, DeduceElement>();
-	private int _nextTemp = 0;
-	private __Reactive _reactive;
-	private int code = 0;
-
-	private EvaNode genClass;
-
-	// endregion
-
-	//
-	// region LABELS
-	//
-
-	private int instruction_index = 0;
-
-	private int label_count = 0;
-
-	// endregion
-	//
-	// region Ident-IA
-	//
-	private EvaContainerNC parent;
-
 	public @NotNull DT_Resolvabley _getIdentIAResolvable(final @NotNull IdentIA aIdentIA) {
 		var x = _getIdentIAResolvableList(aIdentIA);
 
 		return new DT_Resolvabley(x);
 	}
 
-	// endregion
+	public static @NotNull List<DT_Resolvable> _getIdentIAResolvableList(@NotNull InstructionArgument oo) {
+		LinkedList<DT_Resolvable> R = new LinkedList<>();
+		while (oo != null) {
+			if (oo instanceof IntegerIA integerIA) {
+				var vte = integerIA.getEntry();
 
-	//
-	// region get-entries
-	//
+				if (vte._vs == null) {
+					final OS_Element[] el = {null};
+					vte._p_elementPromise.then(el1 -> el[0] = el1);
+
+					assert el[0] != null;
+
+					R.addFirst(DT_Resolvable.from(oo, el[0], null));
+				} else {
+					R.addFirst(DT_Resolvable.from(oo, vte._vs, null));
+				}
+				oo = null;
+			} else if (oo instanceof final IdentIA identIA) {
+				final IdentTableEntry ite1 = identIA.getEntry();
+
+				final OS_Element[] el = {null};
+				ite1._p_resolvedElementPromise.then(el1 -> el[0] = el1);
+
+				// assert el[0] != null;
+
+				FunctionInvocation cfi = null;
+				if (ite1._callable_pte() != null) {
+					var cpte = ite1._callable_pte();
+					if (cpte.getFunctionInvocation() != null) {
+						cfi = cpte.getFunctionInvocation();
+					}
+				}
+
+				// assert cfi != null;
+				// ^^ fails for folders.forEach
+
+				R.addFirst(DT_Resolvable.from(oo, el[0], cfi));
+				oo = ite1.getBacklink();
+			} else if (oo instanceof ProcIA procIA) {
+				var pte = procIA.getEntry();
+				assert pte != null;
+
+				final OS_Element[] el = {null};
+				pte._p_elementPromise.then(el1 -> el[0] = el1);
+
+				assert el[0] != null;
+
+				FunctionInvocation cfi = null;
+				if (pte.getFunctionInvocation() != null) {
+					cfi = pte.getFunctionInvocation();
+				}
+
+				assert cfi != null;
+
+				R.addFirst(DT_Resolvable.from(oo, el[0], cfi));
+				oo = null;
+			} else
+				throw new IllegalStateException("Invalid InstructionArgument");
+		}
+		return R;
+	}
 
 	@Override
 	public int add(final InstructionName aName, final List<InstructionArgument> args_, final Context ctx) {
@@ -246,11 +196,9 @@ public abstract class BaseEvaFunction
 		return addLabel("__label", true);
 	}
 
-	// endregion
-
 	@Override
 	public @NotNull Label addLabel(final String base_name, final boolean append_int) {
-		final Label label = new Label(this);
+		final Label  label = new Label(this);
 		final String name;
 		if (append_int) {
 			label.setNumber(label_count);
@@ -267,25 +215,10 @@ public abstract class BaseEvaFunction
 
 	@Override
 	public int addVariableTableEntry(final String name, final VariableTableType vtt, final TypeTableEntry type,
-			OS_Element el) {
+									 OS_Element el) {
 		final VariableTableEntry vte = new VariableTableEntry(vte_list.size(), vtt, name, type, el);
 		vte_list.add(vte);
 		return vte.getIndex();
-	}
-
-	public @NotNull DR_Type buildDrTypeFromNonGenericTypeName(final TypeName aNonGenericTypeName) {
-		var r = new DR_Type(this, aNonGenericTypeName);
-		r.build();
-		return r;
-	}
-
-	public Map<OS_Element, DeduceElement> elements() {
-		return elements;
-	}
-
-	@Override
-	public String expectationString() {
-		return toString();
 	}
 
 	@Override
@@ -296,8 +229,6 @@ public abstract class BaseEvaFunction
 		}
 		return null;
 	}
-
-//	Map<Range, ContextImpl> contextToRangeMap = new HashMap<Range, ContextImpl>();
 
 	@Override
 	public @NotNull InstructionArgument get_assignment_path(final @NotNull IExpression expression,
@@ -317,7 +248,7 @@ public abstract class BaseEvaFunction
 				final int                  idte_index = addIdentTableEntry(identExpression, identExpression.getContext());
 				final IdentIA              identIA    = new IdentIA(idte_index, this);
 				final List<TypeTableEntry> args_types = generateFunctions.get_args_types(pce.getArgs(), this, context);
-				final int i = generateFunctions.addProcTableEntry(pce, identIA, args_types, this);
+				final int                  i          = generateFunctions.addProcTableEntry(pce, identIA, args_types, this);
 				return new ProcIA(i, this);
 			}
 			// TODO this looks wrong. what are we supposed to be doing here?
@@ -334,40 +265,6 @@ public abstract class BaseEvaFunction
 			return new IdentIA(ite, this);
 		}
 		default -> throw new IllegalStateException("Unexpected value: " + expression.getKind());
-		}
-	}
-
-	private @NotNull InstructionArgument get_assignment_path(@NotNull final InstructionArgument prev,
-															 @NotNull final IExpression expression,
-															 @NotNull final GenerateFunctions generateFunctions,
-															 @NotNull final Context context) {
-		switch (expression.getKind()) {
-		case DOT_EXP: {
-			final DotExpression de = (DotExpression) expression;
-			final InstructionArgument left_part = get_assignment_path(de.getLeft(), generateFunctions, context);
-			if (left_part instanceof IdentIA) {
-				((IdentIA) left_part).setPrev(prev);
-//				getIdentTableEntry(to_int(left_part)).addStatusListener(new DeduceTypes2.FoundParent());
-			} else
-				throw new NotImplementedException();
-			return get_assignment_path(left_part, de.getRight(), generateFunctions, context);
-		}
-		case QIDENT:
-			throw new NotImplementedException();
-		case PROCEDURE_CALL:
-			throw new NotImplementedException();
-		case GET_ITEM:
-			throw new NotImplementedException();
-		case IDENT: {
-			final IdentExpression ie = (IdentExpression) expression;
-			final int ite = addIdentTableEntry(ie, context);
-			final IdentIA identIA = new IdentIA(ite, this);
-			identIA.setPrev(prev);
-//			getIdentTableEntry(ite).addStatusListener(new DeduceTypes2.FoundParent()); // inject!
-			return identIA;
-		}
-		default:
-			throw new IllegalStateException("Unexpected value: " + expression.getKind());
 		}
 	}
 
@@ -397,13 +294,15 @@ public abstract class BaseEvaFunction
 		return dependency;
 	}
 
+//	Map<Range, ContextImpl> contextToRangeMap = new HashMap<Range, ContextImpl>();
+
 	@Override
 	public @NotNull String getFunctionName() {
 		// TODO change to abstract with override??
 		if (this instanceof EvaConstructor) {
-			int y = 2;
+			int                   y               = 2;
 			final IdentExpression constructorName = this.getFD().getNameNode();
-			final String constructorNameText;
+			final String          constructorNameText;
 			if (constructorName == LangGlobals.emptyConstructorName) {
 				constructorNameText = "";
 			} else {
@@ -418,24 +317,6 @@ public abstract class BaseEvaFunction
 	@Override
 	public EvaNode getGenClass() {
 		return genClass;
-	}
-
-	public @NotNull DR_Ident getIdent(final IdentExpression aIdent, final VariableTableEntry aVteBl1) {
-		final DR_Ident e = DR_Ident.create(aIdent, aVteBl1, this);
-		drs.add(e);
-		return e;
-	}
-
-	public @NotNull DR_Ident getIdent(final @NotNull IdentTableEntry aIdentTableEntry) {
-		final DR_Ident e = DR_Ident.create(aIdentTableEntry, this);
-		drs.add(e);
-		return e;
-	}
-
-	public @NotNull DR_Ident getIdent(final VariableTableEntry aVteBl1) {
-		final DR_Ident e = DR_Ident.create(aVteBl1, this);
-		drs.add(e);
-		return e;
 	}
 
 	/**
@@ -476,6 +357,25 @@ public abstract class BaseEvaFunction
 		return Helpers.String_join(".", sl);
 	}
 
+	public static @NotNull List<InstructionArgument> _getIdentIAPathList(@NotNull InstructionArgument oo) {
+		LinkedList<InstructionArgument> s = new LinkedList<InstructionArgument>();
+		while (oo != null) {
+			if (oo instanceof IntegerIA) {
+				s.addFirst(oo);
+				oo = null;
+			} else if (oo instanceof IdentIA) {
+				final IdentTableEntry ite1 = ((IdentIA) oo).getEntry();
+				s.addFirst(oo);
+				oo = ite1.getBacklink();
+			} else if (oo instanceof ProcIA) {
+				s.addFirst(oo);
+				oo = null;
+			} else
+				throw new IllegalStateException("Invalid InstructionArgument");
+		}
+		return s;
+	}
+
 	@Override
 	@NotNull
 	public IdentTableEntry getIdentTableEntry(final int index) {
@@ -511,12 +411,6 @@ public abstract class BaseEvaFunction
 		return parent;
 	}
 
-	public @NotNull DR_ProcCall getProcCall(final IExpression aZ, final ProcTableEntry aPte) {
-		DR_ProcCall e = new DR_ProcCall(aZ, aPte, this);
-		drs.add(e);
-		return e;
-	}
-
 	@Override
 	@NotNull
 	public ProcTableEntry getProcTableEntry(final int index) {
@@ -527,12 +421,6 @@ public abstract class BaseEvaFunction
 	@NotNull
 	public TypeTableEntry getTypeTableEntry(final int index) {
 		return tte_list.get(index);
-	}
-
-	public @NotNull DR_Variable getVar(final VariableStatement aElement) {
-		DR_Variable e = new DR_Variable(aElement, this);
-		drs.add(e);
-		return e;
 	}
 
 	@Override
@@ -558,15 +446,15 @@ public abstract class BaseEvaFunction
 
 	@Override
 	public @NotNull TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1, final OS_Type type,
-			final IExpression expression) {
+													 final IExpression expression) {
 		return newTypeTableEntry(type1, type, expression, null);
 	}
 
 	@Override
 	public @NotNull TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1, final OS_Type type,
-			final IExpression expression, TableEntryIV aTableEntryIV) {
+													 final IExpression expression, TableEntryIV aTableEntryIV) {
 		final TypeTableEntry typeTableEntry = new TypeTableEntry(tte_list.size(), type1, type, expression,
-				aTableEntryIV);
+																 aTableEntryIV);
 		typeTableEntry.setAttached(type); // README make sure tio call callback
 		tte_list.add(typeTableEntry);
 		return typeTableEntry;
@@ -574,7 +462,7 @@ public abstract class BaseEvaFunction
 
 	@Override
 	public @NotNull TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1, final OS_Type type,
-			TableEntryIV aTableEntryIV) {
+													 TableEntryIV aTableEntryIV) {
 		return newTypeTableEntry(type1, type, null, aTableEntryIV);
 	}
 
@@ -584,22 +472,9 @@ public abstract class BaseEvaFunction
 		return _nextTemp;
 	}
 
-	/*
-	 * Hook in for GeneratedClass
-	 */
-	public void onGenClass(final @NotNull OnGenClass aOnGenClass) {
-		_p_assignEvaClass.then(aOnGenClass::accept);
-	}
-
 	@Override
 	public void place(@NotNull final Label label) {
 		label.setIndex(instruction_index);
-	}
-
-	public @NotNull __Reactive reactive() {
-		if (_reactive == null)
-			_reactive = new __Reactive();
-		return _reactive;
 	}
 
 	@Override
@@ -615,13 +490,16 @@ public abstract class BaseEvaFunction
 				}
 			});
 			tripleo.elijah.util.Stupidity.println_err_2(String.format("Trying to resolve function twice 1) %s 2) %s",
-					holder.get().asString(), aType.asString()));
+																	  holder.get().asString(), aType.asString()));
 		}
 	}
 
 	@Override
 	public void setClass(@NotNull EvaNode aNode) {
 		assert aNode instanceof EvaClass || aNode instanceof EvaNamespace;
+
+		assert ((EvaContainerNC) aNode).getCode() != 0;
+
 		genClass = aNode;
 
 		if (aNode instanceof EvaClass) {
@@ -632,29 +510,24 @@ public abstract class BaseEvaFunction
 	}
 
 	@Override
-	public void setCode(int aCode) {
-		code = aCode;
-	}
-
-	@Override
 	public void setParent(EvaContainerNC aGeneratedContainerNC) {
 		parent = aGeneratedContainerNC;
 	}
 
 	@Override
-	public @NotNull DeferredObject<GenType, Void, Void> typeDeferred() {
+	public Eventual<GenType> typeDeferred() {
 		return _p_assignGenType;
 	}
 
 	@Override
-	public Promise<GenType, Void, Void> typePromise() {
-		return _p_assignGenType.promise();
+	public Eventual<GenType> typePromise() {
+		return _p_assignGenType;
 	}
 
 	/**
 	 * @param text variable name from the source file
 	 * @return {@link IntegerIA} or {@link ConstTableIA} or null if not found,
-	 *         meaning not a local variable
+	 * meaning not a local variable
 	 */
 	@Override
 	public @Nullable InstructionArgument vte_lookup(final String text) {
@@ -675,6 +548,110 @@ public abstract class BaseEvaFunction
 			index++;
 		}
 		return null;
+	}
+
+	@Override
+	public void setCode(int aCode) {
+		code = aCode;
+	}
+
+	public @NotNull DR_Type buildDrTypeFromNonGenericTypeName(final TypeName aNonGenericTypeName) {
+		var r = new DR_Type(this, aNonGenericTypeName);
+		r.build();
+		return r;
+	}
+
+	public Map<OS_Element, DeduceElement> elements() {
+		return elements;
+	}
+
+	@Override
+	public String expectationString() {
+		return toString();
+	}
+
+	private @NotNull InstructionArgument get_assignment_path(@NotNull final InstructionArgument prev,
+															 @NotNull final IExpression expression,
+															 @NotNull final GenerateFunctions generateFunctions,
+															 @NotNull final Context context) {
+		switch (expression.getKind()) {
+		case DOT_EXP: {
+			final DotExpression       de        = (DotExpression) expression;
+			final InstructionArgument left_part = get_assignment_path(de.getLeft(), generateFunctions, context);
+			if (left_part instanceof IdentIA) {
+				((IdentIA) left_part).setPrev(prev);
+//				getIdentTableEntry(to_int(left_part)).addStatusListener(new DeduceTypes2.FoundParent());
+			} else
+				throw new NotImplementedException();
+			return get_assignment_path(left_part, de.getRight(), generateFunctions, context);
+		}
+		case QIDENT:
+			throw new NotImplementedException();
+		case PROCEDURE_CALL:
+			throw new NotImplementedException();
+		case GET_ITEM:
+			throw new NotImplementedException();
+		case IDENT: {
+			final IdentExpression ie      = (IdentExpression) expression;
+			final int             ite     = addIdentTableEntry(ie, context);
+			final IdentIA         identIA = new IdentIA(ite, this);
+			identIA.setPrev(prev);
+//			getIdentTableEntry(ite).addStatusListener(new DeduceTypes2.FoundParent()); // inject!
+			return identIA;
+		}
+		default:
+			throw new IllegalStateException("Unexpected value: " + expression.getKind());
+		}
+	}
+
+	public @NotNull DR_Ident getIdent(final IdentExpression aIdent, final VariableTableEntry aVteBl1) {
+		final DR_Ident e = DR_Ident.create(aIdent, aVteBl1, this);
+		drs.add(e);
+		return e;
+	}
+
+	public @NotNull DR_Ident getIdent(final @NotNull IdentTableEntry aIdentTableEntry) {
+		final DR_Ident e = DR_Ident.create(aIdentTableEntry, this);
+		drs.add(e);
+		return e;
+	}
+
+	public @NotNull DR_Ident getIdent(final VariableTableEntry aVteBl1) {
+		final DR_Ident e = DR_Ident.create(aVteBl1, this);
+		drs.add(e);
+		return e;
+	}
+
+	public @NotNull DR_ProcCall getProcCall(final IExpression aZ, final ProcTableEntry aPte) {
+		DR_ProcCall e = new DR_ProcCall(aZ, aPte, this);
+		drs.add(e);
+		return e;
+	}
+
+	public @NotNull DR_Variable getVar(final VariableStatement aElement) {
+		DR_Variable e = new DR_Variable(aElement, this);
+		drs.add(e);
+		return e;
+	}
+
+	/*
+	 * Hook in for GeneratedClass
+	 */
+	public void onGenClass(final @NotNull OnGenClass aOnGenClass) {
+		_p_assignEvaClass.then(aOnGenClass::accept);
+	}
+
+	public @NotNull __Reactive reactive() {
+		if (_reactive == null)
+			_reactive = new __Reactive();
+		return _reactive;
+	}
+
+	public class __Reactive extends DefaultReactive implements BaseEvaFunction_Reactive {
+		@Override
+		public <T> void addListener(final Consumer<T> t) {
+			throw new UnintendedUseException();
+		}
 	}
 }
 
