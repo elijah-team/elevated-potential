@@ -31,18 +31,17 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 	}
 
 	@Contract(pure = true)
-	private @Nullable DeducedBaseEvaFunction deduced(final @NotNull BaseEvaFunction aEvaFunction) {
+	public @NotNull DeducedBaseEvaFunction deduced() {
 		if (__deduced == null) {
 			final GM_GenerateModule generateModule = generateC.getFileGen().gmgm();
 			final DeducePhase       deducePhase    = generateModule.gmr().env().pa().getCompilationEnclosure().getPipelineLogic().dp;
 
 			// TODO 10/16 cached: tho this may not matter
-			final DeduceTypes2 dt2 = deducePhase._inj().new_DeduceTypes2(aEvaFunction.module(), deducePhase,
-																		 ElLog.Verbosity.VERBOSE);
+			final DeduceTypes2 dt2 = deducePhase._inj().new_DeduceTypes2(gf.module(), deducePhase, ElLog.Verbosity.VERBOSE);
 
-			dt2.deduceOneFunction((EvaFunction) aEvaFunction, deducePhase);
+			dt2.deduceOneFunction((EvaFunction) gf, deducePhase);
 
-			__deduced = new DefaultDeducedBaseEvaFunction(aEvaFunction);
+			__deduced = new DefaultDeducedBaseEvaFunction(gf);
 		}
 
 		return __deduced;
@@ -83,9 +82,5 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 		} else {
 			System.out.println("twice for " + generateC);
 		}
-	}
-
-	public @Nullable DeducedBaseEvaFunction deduced() {
-		return deduced(gf);
 	}
 }
