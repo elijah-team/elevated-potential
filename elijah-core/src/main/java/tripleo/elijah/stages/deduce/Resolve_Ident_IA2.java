@@ -450,7 +450,7 @@ class Resolve_Ident_IA2 {
 		if (te instanceof final @NotNull ProcTableEntry procTableEntry) {
 			// This is how it should be done, with an Incremental
 			procTableEntry.getFunctionInvocation().generateDeferred()
-					.done(result -> result.typePromise().then(result1 -> {
+					.then(result -> result.typePromise().then(result1 -> {
 						int y = 2;
 						aVte.resolveType(result1); // save for later
 					}));

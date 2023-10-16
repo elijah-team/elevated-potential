@@ -335,7 +335,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 	                        @NotNull FunctionInvocation fi,
 	                        @NotNull ForFunction forFunction) {
 //		LOG.err("272 forFunction\n\t"+fi.getFunction()+"\n\t"+fi.pte);
-		fi.generateDeferred().promise().then(result -> result.typePromise().then(forFunction::typeDecided));
+		fi.generateDeferred().then(result -> result.typePromise().then(forFunction::typeDecided));
 	}
 
 	public @NotNull Eventual<ClassDefinition> generateClass2(final GenerateFunctions gf,

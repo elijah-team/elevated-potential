@@ -219,7 +219,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 					FunctionInvocation fi = aPte.getFunctionInvocation();
 					FunctionDef fd = fi.getFunction();
 					if (fd instanceof ConstructorDef) {
-						fi.generateDeferred().done(new DoneCallback<BaseEvaFunction>() {
+						fi.generateDeferred().then(new DoneCallback<BaseEvaFunction>() {
 							@Override
 							public void onDone(BaseEvaFunction result) {
 								@NotNull IEvaConstructor constructorDef = (IEvaConstructor) result;

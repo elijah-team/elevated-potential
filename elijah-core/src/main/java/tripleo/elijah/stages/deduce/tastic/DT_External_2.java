@@ -165,7 +165,7 @@ public class DT_External_2 implements DT_External {
 			}
 
 			pte.onFunctionInvocation((@NotNull FunctionInvocation functionInvocation) -> {
-				functionInvocation.generateDeferred().done((@NotNull BaseEvaFunction bgf) -> {
+				functionInvocation.generateDeferred().then((@NotNull BaseEvaFunction bgf) -> {
 					@NotNull
 					PromiseExpectation<GenType> pe = dc.promiseExpectation(bgf, "Function Result type");
 					bgf.typePromise().then((@NotNull GenType result) -> {
