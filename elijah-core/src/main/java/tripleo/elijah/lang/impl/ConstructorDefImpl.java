@@ -13,12 +13,11 @@ import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.nextgen.names.i.*;
 import tripleo.elijah.lang2.*;
-import tripleo.elijah.world.*;
 
 /**
  * @author Tripleo
- *         <p>
- *         Created Apr 16, 2020 at 7:34:07 AM
+ * <p>
+ * Created Apr 16, 2020 at 7:34:07 AM
  */
 public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elijah.lang.i.ConstructorDef {
 
@@ -39,10 +38,11 @@ public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elija
 			_a = new AttachedImpl(new FunctionContext(context, this));
 		}
 
-		if (aConstructorName != null)
+		if (aConstructorName != null) {
 			setName(aConstructorName);
-		else
-			setName(WorldGlobals.emptyConstructorName); // hack for Context#lookup
+		} else {
+			setName(LangGlobals.emptyConstructorName); // hack for Context#lookup
+		}
 		setSpecies(Species.CTOR);
 
 		__n = EN_Name.create(funName.getText()); // !!

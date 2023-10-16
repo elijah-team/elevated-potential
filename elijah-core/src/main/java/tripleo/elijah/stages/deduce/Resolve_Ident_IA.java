@@ -22,7 +22,6 @@ import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
-import tripleo.elijah.world.*;
 
 import java.text.*;
 import java.util.*;
@@ -288,12 +287,13 @@ public class Resolve_Ident_IA {
 				final @NotNull WorkList wl = dt2._inj().new_WorkList();
 				final @NotNull OS_Module module = ci.getKlass().getContext().module();
 				final @NotNull GenerateFunctions generateFunctions = dc.getGenerateFunctions(module);
-				if (pte.getFunctionInvocation().getFunction() == WorldGlobals.defaultVirtualCtor)
+				if (pte.getFunctionInvocation().getFunction() == LangGlobals.defaultVirtualCtor) {
 					wl.addJob(dt2._inj().new_WlGenerateDefaultCtor(generateFunctions, fi,
 							dc.deduceTypes2.creationContext(), phase.getCodeRegistrar()));
-				else
+				} else {
 					wl.addJob(dt2._inj().new_WlGenerateCtor(generateFunctions, fi, null,
 							dc.deduceTypes2.phase.getCodeRegistrar()));
+				}
 				dc.addJobs(wl);
 //				generatedFunction.addDependentType(genType);
 //				generatedFunction.addDependentFunction(fi);
@@ -315,7 +315,7 @@ public class Resolve_Ident_IA {
 		if (pte.getArgs().size() == 0 && cs.size() == 0) {
 			// TODO use a virtual default ctor
 			LOG.info("2262 use a virtual default ctor for " + pte.__debug_expression);
-			selected_constructor = WorldGlobals.defaultVirtualCtor;
+			selected_constructor = LangGlobals.defaultVirtualCtor;
 		} else {
 			// TODO find a ctor that matches prte.getArgs()
 			final List<TypeTableEntry> x = pte.getArgs();

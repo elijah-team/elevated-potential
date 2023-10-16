@@ -7,6 +7,7 @@ import tripleo.elijah.DebugFlags;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.lang.i.IdentExpression;
+import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
@@ -16,7 +17,6 @@ import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.work.WorkList;
-import tripleo.elijah.world.WorldGlobals;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 		final IdentExpression constructorName = gf.getFD().getNameNode();
 
 		final String constructorNameText;
-		if (constructorName == WorldGlobals.emptyConstructorName) {
+		if (constructorName == LangGlobals.emptyConstructorName) {
 			constructorNameText = "";
 		} else {
 			constructorNameText = constructorName.getText();

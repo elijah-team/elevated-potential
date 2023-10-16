@@ -12,7 +12,6 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
-import tripleo.elijah.world.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -128,8 +127,8 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		// de3.set
 
 		@NotNull
-		FunctionInvocation fi2 = aDeduceTypes2._phase().newFunctionInvocation(WorldGlobals.defaultVirtualCtor, pte,
-				invocation);
+		FunctionInvocation fi2 = aDeduceTypes2._phase().newFunctionInvocation(LangGlobals.defaultVirtualCtor, pte,
+																			  invocation);
 
 		// FIXME use `q'
 		final WlGenerateDefaultCtor wldc = aDeduceTypes2._inj().new_WlGenerateDefaultCtor(
@@ -172,7 +171,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		final FunctionDef fd2 = fi.getFunction();
 		int state = 0;
 
-		if (fd2 == WorldGlobals.defaultVirtualCtor) {
+		if (fd2 == LangGlobals.defaultVirtualCtor) {
 			if (fi.pte.getArgs().size() == 0)
 				state = 1;
 			else
@@ -461,7 +460,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 			ci = fi.pte.getClassInvocation();
 		}
 		FunctionDef fd3 = fi.getFunction();
-		if (fd3 == WorldGlobals.defaultVirtualCtor) {
+		if (fd3 == LangGlobals.defaultVirtualCtor) {
 			if (ci == null) {
 				if (/* fi.getClassInvocation() == null && */ fi.getNamespaceInvocation() == null) {
 					// Assume default constructor

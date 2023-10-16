@@ -10,12 +10,12 @@ package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.world.*;
 
 import java.util.*;
 
@@ -285,7 +285,7 @@ public class ProcTableListener implements BaseTableEntry.StatusListener {
 
 		ci = dcs.classInvocation();
 		ci = dc.registerClassInvocation(ci);
-		fi = dc.newFunctionInvocation(WorldGlobals.defaultVirtualCtor, pte, ci); // TODO might not be virtual ctor, so
+		fi = dc.newFunctionInvocation(LangGlobals.defaultVirtualCtor, pte, ci); // TODO might not be virtual ctor, so
 																					// check
 		pte.setFunctionInvocation(fi);
 
