@@ -1,8 +1,7 @@
 package tripleo.elijah.stages.gen_c;
 
 import io.reactivex.rxjava3.subjects.*;
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
+
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
@@ -293,12 +292,12 @@ public class DefaultDeducedEvaConstructor implements DeducedEvaConstructor {
     }
 
     @Override
-    public @NotNull DeferredObject<GenType, Void, Void> typeDeferred() {
+    public Eventual<GenType> typeDeferred() {
         return carrier.typeDeferred();
     }
 
     @Override
-    public Promise<GenType, Void, Void> typePromise() {
+    public Eventual<GenType> typePromise() {
         return carrier.typePromise();
     }
 
