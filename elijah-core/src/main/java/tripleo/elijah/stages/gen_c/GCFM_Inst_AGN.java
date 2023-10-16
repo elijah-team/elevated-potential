@@ -12,20 +12,21 @@ import java.util.function.Supplier;
 class GCFM_Inst_AGN implements GenerateC_Statement {
 
 	private final GenerateC gc;
-	private final Generate_Code_For_Method generateCodeForMethod;
+	//private final Generate_Code_For_Method generateCodeForMethod;
 	private final WhyNotGarish_BaseFunction yf;
 	private final Instruction instruction;
-	//private final BaseEvaFunction gf;
 	private boolean _calculated;
 
 	private String _calculatedText;
 
-	public GCFM_Inst_AGN(final Generate_Code_For_Method aGenerateCodeForMethod, final GenerateC aGc,
-			final WhyNotGarish_BaseFunction aGf, final Instruction aInstruction) {
-		generateCodeForMethod = aGenerateCodeForMethod;
-		gc = aGc;
-		yf = aGf;
-		instruction = aInstruction;
+	public GCFM_Inst_AGN(final Generate_Code_For_Method aGenerateCodeForMethod,
+						 final GenerateC aGc,
+						 final WhyNotGarish_BaseFunction aGf,
+						 final Instruction aInstruction) {
+		//generateCodeForMethod = aGenerateCodeForMethod;
+		gc                    = aGc;
+		yf                    = aGf;
+		instruction           = aInstruction;
 	}
 
 	@Override
@@ -35,8 +36,7 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 			final InstructionArgument value = instruction.getArg(1);
 
 			if (target instanceof IntegerIA) {
-				final String realTarget = yf.getRealTargetName(gc, (IntegerIA) target,
-						Generate_Code_For_Method.AOG.ASSIGN);
+				final String realTarget = yf.getRealTargetName(gc, (IntegerIA) target, Generate_Code_For_Method.AOG.ASSIGN);
 				final String assignmentValue = yf.getAssignmentValue(gc, value);
 
 				var z = new ReasonedStringListStatement();
@@ -78,8 +78,7 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 			final InstructionArgument value = instruction.getArg(1);
 
 			if (target instanceof IntegerIA integerIA) {
-				final Supplier<String> realTargetSupplier = () -> yf.getRealTargetName(gc, integerIA,
-						Generate_Code_For_Method.AOG.ASSIGN);
+				final Supplier<String> realTargetSupplier = () -> yf.getRealTargetName(gc, integerIA, Generate_Code_For_Method.AOG.ASSIGN);
 				final Supplier<String> assignmentValueSupplier = () -> yf.getAssignmentValue(gc, value);
 
 				z.append(realTargetSupplier, "real-target-name");
@@ -89,8 +88,7 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 						assignmentValueSupplier.get());
 			} else {
 				final Supplier<String> assignmentValueSupplier = () -> yf.getAssignmentValue(gc, value);
-				final Supplier<String> s = () -> yf.getRealTargetName(gc, (IdentIA) target,
-						Generate_Code_For_Method.AOG.ASSIGN, assignmentValueSupplier.get());
+				final Supplier<String> s = () -> yf.getRealTargetName(gc, (IdentIA) target, Generate_Code_For_Method.AOG.ASSIGN, assignmentValueSupplier.get());
 
 				final String realTargetName = s.get();
 
