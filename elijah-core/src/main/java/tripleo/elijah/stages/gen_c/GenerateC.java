@@ -153,18 +153,24 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 	}
 
 	@Override
-	public void generate_constructor(@NotNull EvaConstructor aEvaConstructor, GenerateResult gr, @NotNull WorkList wl,
-	                                 final GenerateResultSink aResultSink, final WorkManager aWorkManager,
-	                                 final @NotNull GenerateResultEnv aFileGen) {
-		generateCodeForConstructor(aEvaConstructor, aFileGen);
+	public void generate_constructor(final @NotNull EvaConstructor aEvaConstructor,
+									 final @NotNull GenerateResult gr,
+									 final @NotNull WorkList wl,
+									 final @NotNull GenerateResultSink __aResultSink,
+									 final @NotNull WorkManager aWorkManager,
+									 final @NotNull GenerateResultEnv aFileGen) {
+		// TODO 10/16 argument ordering
+		generateCodeForConstructor(aFileGen, aEvaConstructor);
 		postGenerateCodeForConstructor(aEvaConstructor, wl, aFileGen);
 	}
 
 	@Override
-	public void generate_function(@NotNull EvaFunction aEvaFunction, GenerateResult gr, @NotNull WorkList wl,
-	                              final GenerateResultSink aResultSink) {
+	public void generate_function(final @NotNull EvaFunction aEvaFunction,
+								  final @NotNull GenerateResult gr,
+								  final @NotNull WorkList wl,
+								  final @NotNull GenerateResultSink aResultSink) {
 		generateCodeForMethod(_fileGen, aEvaFunction);
-		_post_generate_function(aEvaFunction, wl, _fileGen);
+		postGenerateCodeForFunction(aEvaFunction, wl, _fileGen);
 	}
 
 	@Override
@@ -802,11 +808,12 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		}
 
 		@Override
-		public void run(WorkManager aWorkManager) {
-			if (gf instanceof EvaFunction)
+		public void run(final WorkManager aWorkManager) {
+			if (gf instanceof EvaFunction) {
 				generateC.generate_function((EvaFunction) gf, gr, wl, resultSink);
-			else
+			} else {
 				generateC.generate_constructor((EvaConstructor) gf, gr, wl, resultSink, aWorkManager, fileGen);
+			}
 			_isDone = true;
 		}
 	}
@@ -1018,7 +1025,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		}
 	}
 
-	private void _post_generate_function(final @NotNull EvaFunction aEvaFunction, final @NotNull WorkList wl, final @NotNull GenerateResultEnv fileGen) {
+	private void postGenerateCodeForFunction(final @NotNull EvaFunction aEvaFunction, final @NotNull WorkList wl, final @NotNull GenerateResultEnv fileGen) {
 		for (IdentTableEntry identTableEntry : aEvaFunction.idte_list) {
 			if (identTableEntry.isResolved()) {
 				EvaNode x = identTableEntry.resolvedType();
@@ -1143,14 +1150,17 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		return _fileGen;
 	}
 
-	private void generateCodeForConstructor(@NotNull EvaConstructor aEvaConstructor, final @NotNull GenerateResultEnv aGenerateResultEnv) {
+	private void generateCodeForConstructor(final @NotNull GenerateResultEnv aGenerateResultEnv,
+											final @NotNull EvaConstructor    aEvaConstructor) {
 		var yf = a_lookup(aEvaConstructor);
 
 		if (true) {
 			if (aEvaConstructor.getFD() == null) return;
 
+			//var inj = _inj // TODO this virus hasn't spread this far?
+
 			final Generate_Code_For_Method gcfm = new Generate_Code_For_Method(this, LOG);
-			final DeducedEvaConstructor    dgf  = yf.deduced(aEvaConstructor);
+			final DeducedEvaConstructor    dgf  = yf.deduced();
 
 			gcfm.generateCodeForConstructor(dgf, aGenerateResultEnv);
 		} else {
@@ -1163,12 +1173,10 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		yf.resolveFileGenPromise(aGenerateResultEnv);
 	}
 
-	public void generateCodeForMethod(final GenerateResultEnv aFileGen, final BaseEvaFunction aEvaFunction) {
-		final WhyNotGarish_Function cf = this.a_lookup(aEvaFunction);
-
-		cf.resolveFileGenPromise(aFileGen);
+	public void generateCodeForMethod(final GenerateResultEnv aGenerateResultEnv, final BaseEvaFunction aEvaFunction) {
+		final WhyNotGarish_Function yf = this.a_lookup(aEvaFunction);
+		yf.resolveFileGenPromise(aGenerateResultEnv);
 	}
-
 
 	@Override
 	public GenerateResult resultsFromNodes(final @NotNull List<EvaNode> aNodes,
