@@ -113,8 +113,9 @@ public class NamespaceStatementImpl extends _CommonNC implements Documentable, C
 
 	}
 
+	@Override
 	public void setContext(final NamespaceContext ctx) {
-		_a.setContext(ctx);
+		_a = new AttachedImpl(ctx);
 	}
 
 	@Override
