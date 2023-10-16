@@ -1,8 +1,5 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.apache.commons.lang3.tuple.Pair;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.ConstructorDef;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.lang.i.OS_Type;
@@ -11,14 +8,25 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.instructions.*;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.List;
 import java.util.Map;
 
 public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
+	/**
+	 * In places where this is used, change to "something else"
+	 * @return
+	 */
 	@Deprecated
 	public BaseEvaFunction cheat() {
 		return getGf();
 	}
+
+	public abstract BaseEvaFunction getGf();
 
 	public @Nullable Map<TypeName, OS_Type> classInvcationGenericPart() {
 		return getGf().fi.getClassInvocation().genericPart().getMap();
@@ -39,8 +47,6 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	public EvaNode getGenClass() {
 		return getGf().getGenClass();
 	}
-
-	public abstract BaseEvaFunction getGf();
 
 	public @NotNull ProcTableEntry getProcTableEntry(final int aIndex) {
 		return getGf().getProcTableEntry(aIndex);
@@ -80,8 +86,7 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 			// if there is no Result, there should be Value
 			result_index = getGf().vte_lookup("Value");
 			// but Value might be passed in. If it is, discard value
-			@NotNull
-			final VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
+			@NotNull final VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
 			if (vte.getVtt() != VariableTableType.RESULT)
 				result_index = null;
 			if (result_index == null)
@@ -94,11 +99,9 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	}
 
 	public @NotNull TypeTableEntry tte_for_self() {
-		@Nullable
-		final InstructionArgument result_index = getGf().vte_lookup("self");
+		@Nullable final InstructionArgument result_index = getGf().vte_lookup("self");
 		final IntegerIA resultIA = (IntegerIA) result_index;
-		@NotNull
-		final VariableTableEntry vte = resultIA.getEntry();
+		@NotNull final VariableTableEntry vte = resultIA.getEntry();
 		assert vte.getVtt() == VariableTableType.SELF;
 
 		var tte1 = getGf().getTypeTableEntry(resultIA.getIndex());
@@ -109,4 +112,6 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	public @Nullable InstructionArgument vte_lookup(final String aText) {
 		return getGf().vte_lookup(aText);
 	}
+
+	public abstract WhyNotGarish_DeclaringContext declaringContext();
 }
