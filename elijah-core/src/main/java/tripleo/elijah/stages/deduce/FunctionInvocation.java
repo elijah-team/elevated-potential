@@ -17,6 +17,7 @@ import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.lang.i.OS_Element;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.impl.LangGlobals;
+import tripleo.elijah.stages.deduce.nextgen.DeduceCreationContext;
 import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_ProcTableEntry;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.work.WorkList;
@@ -97,11 +98,10 @@ public class FunctionInvocation implements IInvocation {
 		_generated = aGeneratedFunction;
 	}
 
-	public Eventual<BaseEvaFunction> makeGenerated__Eventual(final @NotNull Deduce_CreationClosure cl,
+	public Eventual<BaseEvaFunction> makeGenerated__Eventual(final @NotNull DeduceCreationContext cl,
 															 final EventualRegister register) {
-		final DeduceTypes2 deduceTypes2 = cl.deduceTypes2();
-
-		final Eventual<BaseEvaFunction> eef = new Eventual<>();
+		final DeduceTypes2              deduceTypes2 = cl.getDeduceTypes2();
+		final Eventual<BaseEvaFunction> eef          = new Eventual<>();
 
 		if (register != null) {
 			eef.register(register);
@@ -137,7 +137,7 @@ public class FunctionInvocation implements IInvocation {
 	}
 
 	@NotNull
-	private BaseEvaFunction xxx___forDefaultVirtualCtor(final Deduce_CreationClosure cl,
+	private BaseEvaFunction xxx___forDefaultVirtualCtor(final @NotNull DeduceCreationContext cl,
 														final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
 														final @NotNull OS_Module module) {
 		final @NotNull WlGenerateDefaultCtor wlgdc = injector.new_WlGenerateDefaultCtor(module, this, cl);
@@ -148,24 +148,26 @@ public class FunctionInvocation implements IInvocation {
 	}
 
 	@NotNull
-	private BaseEvaFunction xxxForConstructorDef(final Deduce_CreationClosure cl,
+	private BaseEvaFunction xxxForConstructorDef(final @NotNull DeduceCreationContext cl,
 												 final @NotNull ConstructorDef cd,
 												 final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
 												 final @NotNull OS_Module module) {
-		@NotNull
-		WlGenerateCtor wlgf = injector.new_WlGenerateCtor(module, cd.getNameNode(), this, cl);
+		final @NotNull WlGenerateCtor wlgf = injector.new_WlGenerateCtor(module, cd.getNameNode(), this, cl);
 		wlgf.run(null);
-		BaseEvaFunction gf = wlgf.getResult();
+
+		final BaseEvaFunction gf = wlgf.getResult();
 		return gf;
 	}
 
 	@NotNull
-	private BaseEvaFunction xxx__forFunction(final @NotNull Deduce_CreationClosure cl,
+	private BaseEvaFunction xxx__forFunction(final @NotNull DeduceCreationContext cl,
 											 final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
 											 final @NotNull OS_Module module) {
 
 		final GeneratePhase generatePhase = cl.generatePhase();
 		final DeducePhase   deducePhase   = cl.deducePhase();
+		final GeneratePhase generatePhase = cl.getGeneratePhase();
+		final DeducePhase   deducePhase   = cl.getDeducePhase();
 
 		@NotNull
 		WlGenerateFunction wlgf = injector.new_WlGenerateFunction(module, this, cl);
