@@ -8,35 +8,45 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
+import lombok.Getter;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.EventualRegister;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.lang.i.ConstructorDef;
+import tripleo.elijah.lang.i.FunctionDef;
+import tripleo.elijah.lang.i.OS_Element;
+import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.impl.LangGlobals;
+import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_ProcTableEntry;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.work.WorkList;
 
-import java.util.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import static tripleo.elijah.util.Helpers.*;
+import java.util.List;
+
+import static tripleo.elijah.util.Helpers.List_of;
 
 /**
  * Created 1/21/21 9:04 PM
  */
 public class FunctionInvocation implements IInvocation {
-	public final ProcTableEntry pte;
-	public CI_Hint hint;
-	private @Nullable BaseEvaFunction _generated = null;
-	final FunctionDef fd;
-	private final DeferredObject<BaseEvaFunction, Void, Void> generateDeferred = new DeferredObject<BaseEvaFunction, Void, Void>();
-	private NamespaceInvocation namespaceInvocation;
-	private ClassInvocation classInvocation;
+	public final      ProcTableEntry            pte;
+	final             FunctionDef               fd;
+	private final     Eventual<BaseEvaFunction> generateDeferred = new Eventual<>();
+	public            CI_Hint                   hint;
+	private @Nullable BaseEvaFunction     _generated       = null;
+	@lombok.Setter
+	@Getter
+	private           NamespaceInvocation namespaceInvocation;
+	@lombok.Setter
+	@Getter
+	private           ClassInvocation     classInvocation;
 
 	public FunctionInvocation(FunctionDef aFunctionDef, ProcTableEntry aProcTableEntry, @NotNull IInvocation invocation,
-			GeneratePhase phase) {
-		this.fd = aFunctionDef;
+							  GeneratePhase phase) {
+		this.fd  = aFunctionDef;
 		this.pte = aProcTableEntry;
 		assert invocation != null;
 		invocation.setForFunctionInvocation(this);
@@ -46,22 +56,22 @@ public class FunctionInvocation implements IInvocation {
 	/*
 	 * public void setPhase(final GeneratePhase generatePhase) { if (pte != null)
 	 * pte.completeDeferred().then(new DoneCallback<ProcTableEntry>() {
-	 * 
+	 *
 	 * @Override public void onDone(ProcTableEntry result) {
 	 * makeGenerated(generatePhase, null); } }); else makeGenerated(generatePhase,
 	 * null); }
 	 */
 
-	public @NotNull DeferredObject<BaseEvaFunction, Void, Void> generateDeferred() {
-		return generateDeferred;
-	}
-
 	public WlGenerateFunction generateFunction(final DeduceTypes2 aDeduceTypes2, final OS_Element aBest) {
 		throw new IllegalStateException("Error");
 	}
 
-	public Promise<BaseEvaFunction, Void, Void> generatePromise() {
-		return generateDeferred.promise();
+	public Eventual<BaseEvaFunction> generateDeferred() {
+		return generateDeferred;
+	}
+
+	public Eventual<BaseEvaFunction> generatePromise() {
+		return generateDeferred;
 	}
 
 	public List<TypeTableEntry> getArgs() {
@@ -70,12 +80,9 @@ public class FunctionInvocation implements IInvocation {
 		return pte.args;
 	}
 
-	public ClassInvocation getClassInvocation() {
-		return classInvocation;
-	}
-
 	public @Nullable BaseEvaFunction getEva() {
-		return null; // TODO 04/15
+		throw new UnintendedUseException(); // TODO 10/15
+		//return null; // TODO 04/15
 	}
 
 	public FunctionDef getFunction() {
@@ -86,12 +93,12 @@ public class FunctionInvocation implements IInvocation {
 		return _generated;
 	}
 
-	public NamespaceInvocation getNamespaceInvocation() {
-		return namespaceInvocation;
+	public void setGenerated(BaseEvaFunction aGeneratedFunction) {
+		_generated = aGeneratedFunction;
 	}
 
 	public Eventual<BaseEvaFunction> makeGenerated__Eventual(final @NotNull Deduce_CreationClosure cl,
-			final EventualRegister register) {
+															 final EventualRegister register) {
 		final DeduceTypes2 deduceTypes2 = cl.deduceTypes2();
 
 		final Eventual<BaseEvaFunction> eef = new Eventual<>();
@@ -107,8 +114,9 @@ public class FunctionInvocation implements IInvocation {
 		if (module == null)
 			module = classInvocation.getKlass().getContext().module(); // README for constructors
 
+		// TODO 10/15 is this q?
 		final DeduceElement3_ProcTableEntry.__LFOE_Q q = new DeduceElement3_ProcTableEntry.__LFOE_Q(null,
-				new WorkList(), deduceTypes2);
+																									new WorkList(), deduceTypes2);
 		final DeduceTypes2.DeduceTypes2Injector injector = deduceTypes2._inj();
 
 		if (fd == LangGlobals.defaultVirtualCtor) {
@@ -128,39 +136,36 @@ public class FunctionInvocation implements IInvocation {
 		// }
 	}
 
-	public void setClassInvocation(@NotNull ClassInvocation aClassInvocation) {
-		classInvocation = aClassInvocation;
-	}
+	@NotNull
+	private BaseEvaFunction xxx___forDefaultVirtualCtor(final Deduce_CreationClosure cl,
+														final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
+														final @NotNull OS_Module module) {
+		final @NotNull WlGenerateDefaultCtor wlgdc = injector.new_WlGenerateDefaultCtor(module, this, cl);
+		wlgdc.run(null);
 
-	@Override
-	public void setForFunctionInvocation(final FunctionInvocation aFunctionInvocation) {
-		throw new IllegalStateException("maybe this shouldn't be done?");
-	}
-
-	public void setGenerated(BaseEvaFunction aGeneratedFunction) {
-		_generated = aGeneratedFunction;
-	}
-
-	public void setNamespaceInvocation(NamespaceInvocation aNamespaceInvocation) {
-		namespaceInvocation = aNamespaceInvocation;
+		final BaseEvaFunction gf = wlgdc.getResult();
+		return gf;
 	}
 
 	@NotNull
-	private BaseEvaFunction xxx___forDefaultVirtualCtor(final Deduce_CreationClosure cl,
-			final DeduceTypes2.@NotNull DeduceTypes2Injector injector, final @NotNull OS_Module module) {
+	private BaseEvaFunction xxxForConstructorDef(final Deduce_CreationClosure cl,
+												 final @NotNull ConstructorDef cd,
+												 final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
+												 final @NotNull OS_Module module) {
 		@NotNull
-		WlGenerateDefaultCtor wlgdc = injector.new_WlGenerateDefaultCtor(module, this, cl);
-		wlgdc.run(null);
-		BaseEvaFunction gf = wlgdc.getResult();
+		WlGenerateCtor wlgf = injector.new_WlGenerateCtor(module, cd.getNameNode(), this, cl);
+		wlgf.run(null);
+		BaseEvaFunction gf = wlgf.getResult();
 		return gf;
 	}
 
 	@NotNull
 	private BaseEvaFunction xxx__forFunction(final @NotNull Deduce_CreationClosure cl,
-			final DeduceTypes2.@NotNull DeduceTypes2Injector injector, final @NotNull OS_Module module) {
+											 final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
+											 final @NotNull OS_Module module) {
 
 		final GeneratePhase generatePhase = cl.generatePhase();
-		final DeducePhase deducePhase = cl.deducePhase();
+		final DeducePhase   deducePhase   = cl.deducePhase();
 
 		@NotNull
 		WlGenerateFunction wlgf = injector.new_WlGenerateFunction(module, this, cl);
@@ -176,7 +181,9 @@ public class FunctionInvocation implements IInvocation {
 
 				@NotNull
 				WlGenerateNamespace wlgn = injector.new_WlGenerateNamespace(generatePhase.getGenerateFunctions(module),
-						namespaceInvocation, deducePhase.generatedClasses, deducePhase.getCodeRegistrar());
+																			namespaceInvocation,
+																			deducePhase.generatedClasses,
+																			deducePhase.getCodeRegistrar());
 				wlgn.run(null);
 				int y = 2;
 			}
@@ -185,14 +192,9 @@ public class FunctionInvocation implements IInvocation {
 		return gf;
 	}
 
-	@NotNull
-	private BaseEvaFunction xxxForConstructorDef(final Deduce_CreationClosure cl, final @NotNull ConstructorDef cd,
-			final DeduceTypes2.@NotNull DeduceTypes2Injector injector, final @NotNull OS_Module module) {
-		@NotNull
-		WlGenerateCtor wlgf = injector.new_WlGenerateCtor(module, cd.getNameNode(), this, cl);
-		wlgf.run(null);
-		BaseEvaFunction gf = wlgf.getResult();
-		return gf;
+	@Override
+	public void setForFunctionInvocation(final FunctionInvocation aFunctionInvocation) {
+		throw new IllegalStateException("maybe this shouldn't be done?");
 	}
 }
 
