@@ -4,6 +4,7 @@ import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.lang.i.ClassStatement;
+import tripleo.elijah.lang.i.ConstructorDef;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
@@ -26,6 +27,16 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 			@Override
 			public boolean isClassStatement() {
 				return gf.getFD().getParent() instanceof ClassStatement;
+			}
+
+			@Override
+			public boolean pointsToConstructor() {
+				return getGf().getFD() instanceof ConstructorDef;
+			}
+
+			@Override
+			public boolean pointsToConstructor2() {
+				return getGf() instanceof EvaConstructor;
 			}
 		};
 	}
