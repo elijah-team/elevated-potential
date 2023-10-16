@@ -16,7 +16,7 @@ public class TestCompilation {
 	}
 
 	private static class TestCompilation_SimpleTest implements SimpleTest {
-		private CompilationImpl c;
+		private Compilation c;
 		private String          _f;
 
 		@Override
@@ -29,7 +29,7 @@ public class TestCompilation {
 		public SimpleTest run() throws Exception {
 			assert _f != null;
 
-			Compilation c = build();
+			c = build();
 			c.feedCmdLine(List_of(_f));
 
 			return this;
