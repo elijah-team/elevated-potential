@@ -6,4 +6,6 @@ public interface WhyNotGarish_DeclaringContext {
 	boolean pointsToConstructor();
 
 	boolean pointsToConstructor2();
+
+	boolean isDefaultConstructor();
 }

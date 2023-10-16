@@ -21,6 +21,7 @@ import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.work.WorkList;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -53,6 +54,14 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 			@Override
 			public boolean pointsToConstructor2() {
 				return getGf() instanceof EvaConstructor;
+			}
+
+			@Override
+			public boolean isDefaultConstructor() {
+				final String constructorName_ = cd().name();
+				if (constructorName_.equals("<>"))
+					return true;
+				return false;
 			}
 		};
 	}
@@ -194,5 +203,9 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 		}
 
 		return __deduced;
+	}
+
+	public @Nullable ConstructorDef cd() {
+		return gf.cd;
 	}
 }

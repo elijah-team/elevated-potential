@@ -1,14 +1,16 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.NotNull;
-
-import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_fn.EvaClass;
+import tripleo.elijah.stages.gen_fn.EvaContainerNC;
+import tripleo.elijah.stages.gen_fn.EvaNamespace;
+import tripleo.elijah.stages.gen_fn.EvaNode;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.util.BufferTabbedOutputStream;
 import tripleo.util.buffer.Buffer;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 	final                  GenerateResult           gr;
 	private final          Generate_Code_For_Method generateCodeForMethod;
 	//	private final GenerateResultEnv             fileGen;
-	private final          EvaConstructor           gf;
+	//private final          EvaConstructor           gf;
 	private final @NotNull WhyNotGarish_Constructor yf;
 	EG_Statement st;
 	private boolean    _calculated;
@@ -32,7 +34,7 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 
 		this.yf = aYf;
 
-		gf = aYf.cheat();
+		//gf = aYf.cheat();
 //		fileGen = aFileGen;
 		gr = aFileGen.gr();
 	}
@@ -54,7 +56,7 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 			// TODO this code is only correct for classes and not meant for namespaces
 			assert yf.declaringContext().isClassStatement();
 			
-			EvaNode genClass = gf.getGenClass();
+			EvaNode genClass = yf.getGenClass();
 
 			if (genClass instanceof EvaClass x) {
 				switch (x.getKlass().getType()) {
@@ -70,15 +72,10 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 				final String class_name = GenerateC.GetTypeName.forGenClass(x);
 				final int    class_code = x.getCode();
 
-				assert gf.cd != null;
-				final String constructorName_ = gf.cd.name();
-				final String constructorName;
-				if (constructorName_.equals("<>"))
-					constructorName = "";
-				else
-					constructorName = constructorName_;
+				assert yf.cd() != null; // TODO 10/16 can we remove this?
 
-				final C2C_CodeForConstructor_Statement xx = new C2C_CodeForConstructor_Statement(class_name, class_code, constructorName, decl, x);
+				final String                           constructorName = yf.getConstructorNameText();
+				final C2C_CodeForConstructor_Statement xx              = new C2C_CodeForConstructor_Statement(class_name, class_code, constructorName, decl, x);
 				xx.getTextInto(tos); // README created because non-recursive interpreter
 				this.st = xx;
 
@@ -122,7 +119,7 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 		final String                 args_string = gmh.args_string;
 
 		// NOTE getGenClass is always a class or namespace, getParent can be a function
-		final EvaContainerNC parent = (EvaContainerNC) gf.getGenClass();
+		final EvaContainerNC parent = (EvaContainerNC) yf.getGenClass();
 
 		assert parent == x;
 

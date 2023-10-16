@@ -38,6 +38,11 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 			public boolean pointsToConstructor2() {
 				return getGf() instanceof EvaConstructor;
 			}
+
+			@Override
+			public boolean isDefaultConstructor() {
+				return false;
+			}
 		};
 	}
 
