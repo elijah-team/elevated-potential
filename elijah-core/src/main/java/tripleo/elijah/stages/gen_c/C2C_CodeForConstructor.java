@@ -1,6 +1,8 @@
 package tripleo.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.NotNull;
+
+import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
@@ -50,15 +52,17 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 	private void calculate(BufferTabbedOutputStream tos, BufferTabbedOutputStream tosHdr) {
 		if (_calculated == false) {
 			// TODO this code is only correct for classes and not meant for namespaces
+			assert gf.getFD().getParent() instanceof ClassStatement;
+			
 			EvaNode genClass = gf.getGenClass();
 
 			if (genClass instanceof EvaClass x) {
 				switch (x.getKlass().getType()) {
-					// Don't generate class definition for these three
-					case INTERFACE:
-					case SIGNATURE:
-					case ABSTRACT:
-						return;
+				// Don't generate class definition for these three
+				case INTERFACE:
+				case SIGNATURE:
+				case ABSTRACT:
+					return;
 				}
 				final CClassDecl decl = new CClassDecl(x);
 				decl.evaluatePrimitive();
