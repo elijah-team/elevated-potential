@@ -15,8 +15,8 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.deduce.Deduce_CreationClosure;
 import tripleo.elijah.stages.deduce.FunctionInvocation;
+import tripleo.elijah.stages.deduce.nextgen.DeduceCreationContext;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.util.Holder;
 import tripleo.elijah.work.WorkJob;
@@ -39,18 +39,23 @@ public class WlGenerateCtor implements WorkJob {
 
 	@Contract(pure = true)
 	public WlGenerateCtor(@NotNull GenerateFunctions aGenerateFunctions,
-			@NotNull FunctionInvocation aFunctionInvocation, @Nullable IdentExpression aConstructorName,
-			final ICodeRegistrar aCodeRegistrar) {
+						  @NotNull FunctionInvocation aFunctionInvocation,
+						  @Nullable IdentExpression aConstructorName,
+						  final ICodeRegistrar aCodeRegistrar) {
 		generateFunctions = aGenerateFunctions;
 		functionInvocation = aFunctionInvocation;
 		constructorName = aConstructorName;
 		codeRegistrar = aCodeRegistrar;
 	}
 
-	public WlGenerateCtor(final OS_Module aModule, final IdentExpression aNameNode,
-			final FunctionInvocation aFunctionInvocation, final @NotNull Deduce_CreationClosure aCl) {
-		this(aCl.generatePhase().getGenerateFunctions(aModule), aFunctionInvocation, aNameNode,
-				aCl.generatePhase().getCodeRegistrar());
+	public WlGenerateCtor(final OS_Module aModule,
+						  final IdentExpression aNameNode,
+						  final FunctionInvocation aFunctionInvocation,
+						  final @NotNull DeduceCreationContext aCl) {
+		this(aCl.getGeneratePhase().getGenerateFunctions(aModule),
+			 aFunctionInvocation,
+			 aNameNode,
+			 aCl.getGeneratePhase().getCodeRegistrar());
 	}
 
 	private boolean getPragma(String aAuto_construct) {
@@ -167,9 +172,8 @@ public class WlGenerateCtor implements WorkJob {
 			}
 
 			@NotNull
-			EvaConstructor gf = generateFunctions.generateConstructor(cd, (ClassStatement) classStatement_,
-					functionInvocation);
-//		lgf.add(gf);
+			EvaConstructor gf = generateFunctions.generateConstructor(cd, (ClassStatement) classStatement_, functionInvocation);
+//			lgf.add(gf);
 
 			final ClassInvocation ci = functionInvocation.getClassInvocation();
 			ci.resolvePromise().done(result -> {
