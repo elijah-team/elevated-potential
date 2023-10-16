@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
@@ -25,7 +26,6 @@ import tripleo.elijah.stages.inter.ModuleThing;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.Holder;
 import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.world.WorldGlobals;
 import tripleo.elijah.world.impl.DefaultLivingFunction;
 import tripleo.util.range.Range;
 
@@ -404,7 +404,7 @@ public abstract class BaseEvaFunction
 			int y = 2;
 			final IdentExpression constructorName = this.getFD().getNameNode();
 			final String constructorNameText;
-			if (constructorName == WorldGlobals.emptyConstructorName) {
+			if (constructorName == LangGlobals.emptyConstructorName) {
 				constructorNameText = "";
 			} else {
 				constructorNameText = constructorName.getText();

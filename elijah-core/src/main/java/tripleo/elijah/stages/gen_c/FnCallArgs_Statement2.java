@@ -1,6 +1,8 @@
 package tripleo.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.NotNull;
+
+import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 import tripleo.elijah.stages.deduce.DeduceTypes2;
@@ -14,7 +16,6 @@ import tripleo.elijah.stages.instructions.IdentIA;
 import tripleo.elijah.stages.instructions.Instruction;
 import tripleo.elijah.stages.instructions.IntegerIA;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.world.WorldGlobals;
 
 import java.util.List;
 
@@ -67,7 +68,7 @@ class FnCallArgs_Statement2 implements EG_Statement {
 			if (idte.getStatus() == BaseTableEntry.Status.KNOWN) {
 				final CReference reference = new CReference(aGenerateC._repo, aGenerateC.ce);
 				final FunctionInvocation functionInvocation = pte.getFunctionInvocation();
-				if (functionInvocation == null || functionInvocation.getFunction() == WorldGlobals.defaultVirtualCtor) {
+				if (functionInvocation == null || functionInvocation.getFunction() == LangGlobals.defaultVirtualCtor) {
 					reference.getIdentIAPath(ia2, Generate_Code_For_Method.AOG.GET, null);
 					final GetAssignmentValueArgsStatement ava = getAssignmentValue.getAssignmentValueArgs(inst, gf,
 							generateC.LOG);

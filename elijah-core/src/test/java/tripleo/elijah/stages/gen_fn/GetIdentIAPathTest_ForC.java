@@ -33,7 +33,6 @@ import tripleo.elijah.stages.instructions.IntegerIA;
 import tripleo.elijah.stages.instructions.VariableTableType;
 import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.*;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
 import static org.mockito.Mockito.mock;
@@ -210,7 +209,7 @@ public class GetIdentIAPathTest_ForC {
 		LookupResultList lrl = new LookupResultListImpl();
 		LookupResultList lrl2 = new LookupResultListImpl();
 
-		when(mod.pullPackageName()).thenReturn(WorldGlobals.default_package);
+		when(mod.pullPackageName()).thenReturn(LangGlobals.default_package);
 		when(mod.getFileName()).thenReturn("filename.elijah");
 		// mod.add(anyObject(ClassStatement.class));
 		// replay(mod);
