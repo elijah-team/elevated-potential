@@ -70,6 +70,7 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 		final Generate_Code_For_Method gcfm = new Generate_Code_For_Method(generateC, generateC.elLog());
 
 		var yf = generateC.a_lookup(gf);
+		assert yf == this;
 
 		// TODO separate into method and method_header??
 		final C2C_CodeForConstructor cfm = new C2C_CodeForConstructor(gcfm, aFileGen, yf);
