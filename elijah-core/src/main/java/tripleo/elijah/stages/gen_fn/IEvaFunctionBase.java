@@ -1,9 +1,9 @@
 package tripleo.elijah.stages.gen_fn;
 
-import org.jdeferred2.Promise;
-import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import tripleo.elijah.Eventual;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.deduce.DeduceElement;
@@ -104,9 +104,9 @@ public interface IEvaFunctionBase {
 
 	void setParent(EvaContainerNC aGeneratedContainerNC);
 
-	DeferredObject<GenType, Void, Void> typeDeferred();
+	Eventual<GenType> typeDeferred();
 
-	Promise<GenType, Void, Void> typePromise();
+	Eventual<GenType> typePromise();
 
 	@Nullable
 	InstructionArgument vte_lookup(String text);
