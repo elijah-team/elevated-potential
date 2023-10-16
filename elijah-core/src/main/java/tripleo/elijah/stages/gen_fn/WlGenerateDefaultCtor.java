@@ -9,8 +9,6 @@
 package tripleo.elijah.stages.gen_fn;
 
 import org.jdeferred2.DoneCallback;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.ClassInvocation;
@@ -21,32 +19,39 @@ import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.util.Holder;
 import tripleo.elijah.work.WorkJob;
 import tripleo.elijah.work.WorkManager;
-import tripleo.elijah.world.WorldGlobals;
+
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Created 5/31/21 2:26 AM
  */
 public class WlGenerateDefaultCtor implements WorkJob {
-	private final FunctionInvocation functionInvocation;
-	private final @NotNull GenerateFunctions generateFunctions;
-	private boolean _isDone = false;
-	private BaseEvaFunction Result;
-	private DeduceCreationContext dcc;
-	private final ICodeRegistrar codeRegistrar;
+	private final          FunctionInvocation    functionInvocation;
+	private final @NotNull GenerateFunctions     generateFunctions;
+	private final          ICodeRegistrar        codeRegistrar;
+	private                boolean               _isDone = false;
+	private                BaseEvaFunction       Result;
+	private                DeduceCreationContext dcc;
 
-	@Contract(pure = true)
-	public WlGenerateDefaultCtor(@NotNull GenerateFunctions aGenerateFunctions, FunctionInvocation aFunctionInvocation,
-			DeduceCreationContext aDcc, final ICodeRegistrar aCodeRegistrar) {
-		generateFunctions = aGenerateFunctions;
-		functionInvocation = aFunctionInvocation;
-		dcc = aDcc;
-		codeRegistrar = aCodeRegistrar;
+	public WlGenerateDefaultCtor(final OS_Module module,
+								 final FunctionInvocation aFunctionInvocation,
+								 final @NotNull Deduce_CreationClosure crcl) {
+		this(crcl.generatePhase().getGenerateFunctions(module),
+			 aFunctionInvocation,
+			 crcl.dcc(),
+			 crcl.deducePhase().getCodeRegistrar());
 	}
 
-	public WlGenerateDefaultCtor(final OS_Module module, final FunctionInvocation aFunctionInvocation,
-			final @NotNull Deduce_CreationClosure crcl) {
-		this(crcl.generatePhase().getGenerateFunctions(module), aFunctionInvocation, crcl.dcc(),
-				crcl.deducePhase().getCodeRegistrar());
+	@Contract(pure = true)
+	public WlGenerateDefaultCtor(final @NotNull GenerateFunctions aGenerateFunctions,
+								 final FunctionInvocation aFunctionInvocation,
+								 final DeduceCreationContext aDcc,
+								 final ICodeRegistrar aCodeRegistrar) {
+		generateFunctions  = aGenerateFunctions;
+		functionInvocation = aFunctionInvocation;
+		dcc                = aDcc;
+		codeRegistrar      = aCodeRegistrar;
 	}
 
 	private boolean getPragma(String aAuto_construct) {
@@ -65,8 +70,9 @@ public class WlGenerateDefaultCtor implements WorkJob {
 	@Override
 	public void run(WorkManager aWorkManager) {
 		if (functionInvocation.generateDeferred().isPending()) {
-			final ClassStatement klass = functionInvocation.getClassInvocation().getKlass();
-			Holder<EvaClass> hGenClass = new Holder<>();
+			final ClassStatement   klass     = functionInvocation.getClassInvocation().getKlass();
+			final Holder<EvaClass> hGenClass = new Holder<>();
+
 			functionInvocation.getClassInvocation().resolvePromise().then(new DoneCallback<EvaClass>() {
 				@Override
 				public void onDone(EvaClass result) {
@@ -76,43 +82,31 @@ public class WlGenerateDefaultCtor implements WorkJob {
 			EvaClass genClass = hGenClass.get();
 			assert genClass != null;
 
-			ConstructorDef cd = new ConstructorDefImpl(null, (_CommonNC) klass, klass.getContext());
-			cd.setName(WorldGlobals.emptyConstructorName);
-			Scope3Impl scope3 = new Scope3Impl(cd);
+			final ConstructorDef cd     = new ConstructorDefImpl(null, (_CommonNC) klass, klass.getContext());
+			final Scope3Impl     scope3 = new Scope3Impl(cd);
+			cd.setName(LangGlobals.emptyConstructorName);
 			cd.scope(scope3);
-			for (EvaContainer.VarTableEntry varTableEntry : genClass.varTable) {
-				if (varTableEntry.initialValue != LangGlobals.UNASSIGNED) {
-					IExpression left = varTableEntry.nameToken;
-					IExpression right = varTableEntry.initialValue;
-
-					IExpression e = ExpressionBuilder.build(left, ExpressionKind.ASSIGNMENT, right);
-					scope3.add(new WrappedStatementWrapper(e, cd.getContext(), cd,
-							(VariableStatementImpl) varTableEntry.vs()));
-				} else {
-					if (true) {
-						scope3.add(
-								new ConstructStatementImpl(cd, cd.getContext(), varTableEntry.nameToken, null, null));
-					}
+			for (final EvaContainer.VarTableEntry varTableEntry : genClass.varTable) {
+				OS_Element element;
+				element = __getElement(varTableEntry, cd);
+				if (element != null) {
+					scope3.add(element);
 				}
 			}
 
-			OS_Element classStatement = cd.getParent();
+			final OS_Element classStatement = cd.getParent();
 			assert classStatement instanceof ClassStatement;
-			@NotNull
-			EvaConstructor gf = generateFunctions.generateConstructor(cd, (ClassStatement) classStatement,
-					functionInvocation);
-//		lgf.add(gf);
+
+			final @NotNull EvaConstructor gf = generateFunctions.generateConstructor(cd, (ClassStatement) classStatement, functionInvocation);
+			// lgf.add(gf);
 
 			final ClassInvocation ci = functionInvocation.getClassInvocation();
-			ci.resolvePromise().done(new DoneCallback<EvaClass>() {
-				@Override
-				public void onDone(@NotNull EvaClass result) {
-					codeRegistrar.registerFunction1(gf);
-					// gf.setCode(generateFunctions.module.getCompilation().nextFunctionCode());
+			ci.resolvePromise().done((@NotNull EvaClass result) -> {
+				codeRegistrar.registerFunction1(gf);
+				// gf.setCode(generateFunctions.module.getCompilation().nextFunctionCode());
 
-					gf.setClass(result);
-					result.constructors.put(cd, gf);
-				}
+				gf.setClass(result);
+				result.constructors.put(cd, gf);
 			});
 
 			functionInvocation.generateDeferred().resolve(gf);
@@ -128,6 +122,26 @@ public class WlGenerateDefaultCtor implements WorkJob {
 		}
 
 		_isDone = true;
+	}
+
+	@NotNull
+	private static OS_Element __getElement(final EvaContainer.VarTableEntry varTableEntry, final ConstructorDef cd) {
+		OS_Element element;
+		if (varTableEntry.initialValue != LangGlobals.UNASSIGNED) {
+			final IExpression left  = varTableEntry.nameToken;
+			final IExpression right = varTableEntry.initialValue;
+
+			final IExpression wrapped = ExpressionBuilder.build(left, ExpressionKind.ASSIGNMENT, right);
+
+			final VariableStatementImpl   vs      = (VariableStatementImpl) varTableEntry.vs();
+			final WrappedStatementWrapper wrapper = new WrappedStatementWrapper(wrapped, cd.getContext(), cd, vs);
+
+			element = wrapper;
+		} else {
+			final ConstructStatementImpl element3 = new ConstructStatementImpl(cd, cd.getContext(), varTableEntry.nameToken, null, null);
+			element = element3;
+		}
+		return element;
 	}
 }
 

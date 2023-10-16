@@ -22,7 +22,6 @@ import tripleo.elijah.stages.deduce.fluffy.impl.FluffyModuleImpl;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.util.Stupidity;
-import tripleo.elijah.world.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -276,8 +275,9 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	@Override
 	@NotNull
 	public OS_Package pullPackageName() {
-		if (packageNames_q.empty())
-			return WorldGlobals.default_package;
+		if (packageNames_q.empty()) {
+			return LangGlobals.default_package;
+		}
 		// Dont know if this is correct behavior
 		return parent.makePackage(packageNames_q.peek());
 	}
