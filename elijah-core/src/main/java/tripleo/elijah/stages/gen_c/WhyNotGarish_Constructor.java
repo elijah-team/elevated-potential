@@ -5,6 +5,7 @@ import tripleo.elijah.Eventual;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.comp.notation.GM_GenerateModule;
 import tripleo.elijah.lang.i.ClassStatement;
+import tripleo.elijah.lang.i.ConstructorDef;
 import tripleo.elijah.lang.i.IdentExpression;
 import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.stages.deduce.DeducePhase;
@@ -42,6 +43,16 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 			@Override
 			public boolean isClassStatement() {
 				return gf.getFD().getParent() instanceof ClassStatement;
+			}
+
+			@Override
+			public boolean pointsToConstructor() {
+				return getGf().getFD() instanceof ConstructorDef;
+			}
+
+			@Override
+			public boolean pointsToConstructor2() {
+				return getGf() instanceof EvaConstructor;
 			}
 		};
 	}
