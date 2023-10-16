@@ -1553,10 +1553,9 @@ public class GenerateFunctions implements ReactiveDimension {
 		return Result;
 	}
 
-	public @NotNull EvaConstructor generateConstructor(@NotNull ConstructorDef aConstructorDef, ClassStatement parent, // TODO
-																														// Namespace
-																														// constructors
-			@NotNull FunctionInvocation aFunctionInvocation) {
+	public @NotNull EvaConstructor generateConstructor(@NotNull ConstructorDef aConstructorDef,
+													   ClassStatement parent, // TODO Namespace constructors
+													   @NotNull FunctionInvocation aFunctionInvocation) {
 		final @NotNull EvaConstructor gf = new EvaConstructor(aConstructorDef);
 		gf.setFunctionInvocation(aFunctionInvocation);
 		if (parent instanceof ClassStatement) {

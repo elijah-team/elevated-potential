@@ -558,11 +558,11 @@ public class Generate_Code_For_Method {
 
 	void generateCodeForConstructor(final @NotNull DeducedEvaConstructor dgf,
 									final @NotNull GenerateResultEnv fileGen) {
-		final EvaConstructor gf = dgf.getCarrier();
-		final GenerateResult gr = fileGen.gr();
-		final WorkList aWorkList = fileGen.wl();
-		final WhyNotGarish_Constructor yf = gc.a_lookup(gf);
-		final C2C_CodeForConstructor cfm = new C2C_CodeForConstructor(this, fileGen, yf);
+		final EvaConstructor           gf        = dgf.getCarrier();
+		final GenerateResult           gr        = fileGen.gr();
+		final WorkList                 aWorkList = fileGen.wl();
+		final WhyNotGarish_Constructor yf        = gc.a_lookup(gf);
+		final C2C_CodeForConstructor   cfm       = new C2C_CodeForConstructor(this, fileGen, yf);
 
 		// cfm.calculate();
 		var rs = cfm.getResults();

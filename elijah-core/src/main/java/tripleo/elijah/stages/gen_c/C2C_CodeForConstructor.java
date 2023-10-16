@@ -52,7 +52,7 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 	private void calculate(BufferTabbedOutputStream tos, BufferTabbedOutputStream tosHdr) {
 		if (_calculated == false) {
 			// TODO this code is only correct for classes and not meant for namespaces
-			assert gf.getFD().getParent() instanceof ClassStatement;
+			assert yf.declaringContext().isClassStatement();
 			
 			EvaNode genClass = gf.getGenClass();
 
