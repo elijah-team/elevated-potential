@@ -12,7 +12,7 @@ public enum ProgressSinkComponent {
 
 		@Override
 		public @NotNull String printErr(final IProgressSink.Codes aCode, final int aType, final Object[] aParams) {
-			return "*** CCI ->> " + aParams[0]; // ci.getName
+			return "[-- CCI progress ] " + aType + " " + aParams[0]; // ci.getName
 		}
 	},
 	CompilationBus_ {

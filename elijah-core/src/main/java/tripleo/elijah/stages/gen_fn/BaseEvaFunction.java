@@ -498,14 +498,18 @@ public abstract class BaseEvaFunction
 	public void setClass(@NotNull EvaNode aNode) {
 		assert aNode instanceof EvaClass || aNode instanceof EvaNamespace;
 
-		assert ((EvaContainerNC) aNode).getCode() != 0;
+		//assert ((EvaContainerNC) aNode).getCode() != 0;
+		if (((EvaContainerNC) aNode).getCode() == 0) {
+			//throw new AssertionError();
+			System.err.println("504504 node is not coded in setClass "+aNode.identityString());
+		}
 
 		genClass = aNode;
 
 		if (aNode instanceof EvaClass) {
 			_p_assignEvaClass.resolve((EvaClass) aNode);
 		} else {
-			throw new IllegalArgumentException("aNode is not EvaClass");
+			throw new IllegalArgumentException("504512 aNode is not EvaClass");
 		}
 	}
 
