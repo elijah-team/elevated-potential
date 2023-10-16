@@ -2,7 +2,6 @@ package tripleo.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.stages.gen_c.statements.ReasonedStringListStatement;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.instructions.IdentIA;
 import tripleo.elijah.stages.instructions.Instruction;
 import tripleo.elijah.stages.instructions.InstructionArgument;
@@ -16,7 +15,7 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 	private final Generate_Code_For_Method generateCodeForMethod;
 	private final WhyNotGarish_BaseFunction yf;
 	private final Instruction instruction;
-	private final BaseEvaFunction gf;
+	//private final BaseEvaFunction gf;
 	private boolean _calculated;
 
 	private String _calculatedText;
@@ -27,8 +26,6 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 		gc = aGc;
 		yf = aGf;
 		instruction = aInstruction;
-
-		this.gf = yf.cheat();
 	}
 
 	@Override
@@ -38,9 +35,9 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 			final InstructionArgument value = instruction.getArg(1);
 
 			if (target instanceof IntegerIA) {
-				final String realTarget = gc.getRealTargetName(gf, (IntegerIA) target,
+				final String realTarget = yf.getRealTargetName(gc, (IntegerIA) target,
 						Generate_Code_For_Method.AOG.ASSIGN);
-				final String assignmentValue = gc.getAssignmentValue(gf.getSelf(), value, gf);
+				final String assignmentValue = yf.getAssignmentValue(gc, value);
 
 				var z = new ReasonedStringListStatement();
 				z.append(Emit.emit("/*267*/"), "emit-code");
@@ -51,12 +48,11 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 
 				_calculatedText = z.getText();
 			} else {
-				final String assignmentValue = gc.getAssignmentValue(gf.getSelf(), value, gf);
+				final String assignmentValue = yf.getAssignmentValue(gc, value);
 
 				var zz = new ReasonedStringListStatement();
 				zz.append(Emit.emit("/*501*/"), "emit-code");
-				zz.append(() -> gc.getRealTargetName(gf, (IdentIA) target, Generate_Code_For_Method.AOG.ASSIGN,
-						assignmentValue), "real-target");
+				zz.append(() -> yf.getRealTargetName(gc, (IdentIA) target, Generate_Code_For_Method.AOG.ASSIGN, assignmentValue), "real-target");
 
 				var z = new ReasonedStringListStatement();
 				z.append(Emit.emit("/*249*/"), "emit-code");
@@ -82,9 +78,9 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 			final InstructionArgument value = instruction.getArg(1);
 
 			if (target instanceof IntegerIA integerIA) {
-				final Supplier<String> realTargetSupplier = () -> gc.getRealTargetName(gf, integerIA,
+				final Supplier<String> realTargetSupplier = () -> yf.getRealTargetName(gc, integerIA,
 						Generate_Code_For_Method.AOG.ASSIGN);
-				final Supplier<String> assignmentValueSupplier = () -> gc.getAssignmentValue(gf.getSelf(), value, gf);
+				final Supplier<String> assignmentValueSupplier = () -> yf.getAssignmentValue(gc, value);
 
 				z.append(realTargetSupplier, "real-target-name");
 				z.append(assignmentValueSupplier, "assignment-value");
@@ -92,8 +88,8 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 				_calculatedText = String.format(Emit.emit("/*267*/") + "%s = %s;", realTargetSupplier.get(),
 						assignmentValueSupplier.get());
 			} else {
-				final Supplier<String> assignmentValueSupplier = () -> gc.getAssignmentValue(gf.getSelf(), value, gf);
-				final Supplier<String> s = () -> gc.getRealTargetName(gf, (IdentIA) target,
+				final Supplier<String> assignmentValueSupplier = () -> yf.getAssignmentValue(gc, value);
+				final Supplier<String> s = () -> yf.getRealTargetName(gc, (IdentIA) target,
 						Generate_Code_For_Method.AOG.ASSIGN, assignmentValueSupplier.get());
 
 				final String realTargetName = s.get();
