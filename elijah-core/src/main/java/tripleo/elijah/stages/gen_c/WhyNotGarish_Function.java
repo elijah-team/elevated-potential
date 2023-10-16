@@ -64,7 +64,7 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 			throw new IllegalStateException("[WhyNotGarish_Function::onFileGen] gf.getFD() == null");
 		}
 		Generate_Code_For_Method gcfm = new Generate_Code_For_Method(generateC, generateC.LOG);
-		gcfm.generateCodeForMethod(deduced(gf), aFileGen);
+		gcfm.generateCodeForMethod(this, aFileGen);
 	}
 
 	@Override
@@ -83,5 +83,9 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 		} else {
 			System.out.println("twice for " + generateC);
 		}
+	}
+
+	public @Nullable DeducedBaseEvaFunction deduced() {
+		return deduced(gf);
 	}
 }

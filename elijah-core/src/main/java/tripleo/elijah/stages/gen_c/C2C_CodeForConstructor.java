@@ -82,7 +82,7 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 				xx.getTextInto(tos); // README created because non-recursive interpreter
 				this.st = xx;
 
-				var gmh = new Generate_Method_Header(yf.cheat(), generateCodeForMethod._gc(), generateCodeForMethod._gc().LOG);
+				var gmh = new Generate_Method_Header(yf, generateCodeForMethod._gc(), generateCodeForMethod._gc().LOG);
 				generateCodeForMethod.action_invariant(yf, gmh);
 
 				tos.put_string_ln("return R;");
@@ -118,7 +118,7 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 								   final int class_code,
 								   final String constructorName) {
 		final String                 header_string;
-		final Generate_Method_Header gmh         = new Generate_Method_Header(gf, generateCodeForMethod._gc(), generateCodeForMethod.LOG);
+		final Generate_Method_Header gmh         = new Generate_Method_Header(yf, generateCodeForMethod._gc(), generateCodeForMethod.LOG);
 		final String                 args_string = gmh.args_string;
 
 		// NOTE getGenClass is always a class or namespace, getParent can be a function

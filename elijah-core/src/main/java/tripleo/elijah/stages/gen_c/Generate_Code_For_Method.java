@@ -606,15 +606,14 @@ public class Generate_Code_For_Method {
 	}
 */
 
-	void generateCodeForMethod(final @NotNull DeducedBaseEvaFunction dgf, final @NotNull GenerateResultEnv aFileGen) {
-		// var xx = gc.a_lookup(gf);
+	void generateCodeForMethod(final WhyNotGarish_Function yf, final @NotNull GenerateResultEnv aFileGen) {
+		final DeducedBaseEvaFunction dgf = yf.deduced();
+		final IEvaFunctionBase       gf  = dgf.getCarrier();
+		final BaseEvaFunction        bef = (BaseEvaFunction) gf;
 
-		final IEvaFunctionBase gf = dgf.getCarrier();
-		final BaseEvaFunction bef = (BaseEvaFunction) gf;
-
-		// xx.onFileGen(aFileGen);
+		// yf.onFileGen(aFileGen);
 		// TODO separate into method and method_header??
-		final C2C_CodeForMethod cfm = new C2C_CodeForMethod(this, dgf, aFileGen);
+		final C2C_CodeForMethod cfm = new C2C_CodeForMethod(this, yf, aFileGen);
 
 		// cfm.calculate();
 		var rs = cfm.getResults();
