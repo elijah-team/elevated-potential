@@ -114,4 +114,19 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	}
 
 	public abstract WhyNotGarish_DeclaringContext declaringContext();
+
+	public String getRealTargetName(final GenerateC gc, final IntegerIA target, final Generate_Code_For_Method.AOG aAOG) {
+		return gc.getRealTargetName(getGf(), target, aAOG);
+	}
+
+	public String getAssignmentValue(final GenerateC gc, final InstructionArgument value) {
+		var gf = getGf();
+		final String assignmentValue = gc.getAssignmentValue(gf.getSelf(), value, gf);
+		return assignmentValue;
+	}
+
+	public String getRealTargetName(final GenerateC gc, final IdentIA target, final Generate_Code_For_Method.AOG aAOG, final String assignmentValue) {
+		var gf = getGf();
+		return gc.getRealTargetName(gf, (IdentIA) target, aAOG, assignmentValue);
+	}
 }
