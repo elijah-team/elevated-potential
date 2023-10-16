@@ -18,7 +18,7 @@ public class CX_ParseEzFile {
 		lexer.setFilename(aAbsolutePath);
 		final EzParser parser = new EzParser(lexer);
 		parser.setFilename(aAbsolutePath);
-		parser.pcon = new Compilation.PCon();
+		parser.pcon = new PCon();
 		parser.ci   = parser.pcon.newCompilerInstructionsImpl();
 		try {
 			parser.program();
