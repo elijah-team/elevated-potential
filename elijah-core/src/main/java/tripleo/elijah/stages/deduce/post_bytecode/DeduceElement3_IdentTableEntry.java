@@ -487,7 +487,9 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 		return el;
 	}
 
-	private void __sneak_el_null__bl1_not_null__possible_type_part(final @NotNull VariableTableEntry vte_bl1, final @Nullable DeduceTypes2 dt2, final DR_Ident b) {
+	private void __sneak_el_null__bl1_not_null__possible_type_part(final @NotNull VariableTableEntry vte_bl1,
+																   final @Nullable DeduceTypes2 dt2,
+																   final DR_Ident b) {
 		for (TypeTableEntry potentialType : vte_bl1.potentialTypes()) {
 			var y = potentialType.tableEntry;
 			if (y instanceof ProcTableEntry pte) {
@@ -515,9 +517,9 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 
 					eef.then(new DoneCallback<>() {
 						private static void printString(final int code, final String txt) {
-							if (code == 330)
-								return;
-							System.err.printf("%d %s%n", code, txt);
+							//if (code == 330)
+							//	return;
+							System.err.printf("130522 %d %s%n", code, txt);
 							if (code == 336)
 								printString(336, "********************");
 						}
