@@ -40,7 +40,7 @@ public class FunctionDefImpl extends BaseFunctionDef implements FunctionDef {
 		} else {
 			throw new IllegalStateException("adding FunctionDef to " + element.getClass().getName());
 		}
-		_a.setContext(new FunctionContext(context, this));
+		_a = new AttachedImpl(new FunctionContext(context, this));
 	}
 
 	@Override
