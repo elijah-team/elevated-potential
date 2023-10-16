@@ -47,8 +47,11 @@ class Generate_Method_Header {
 
 	TypeTableEntry tte;
 
-	public Generate_Method_Header(final @NotNull BaseEvaFunction gf, @NotNull final GenerateC aGenerateC,
-			final @NotNull ElLog LOG) {
+	public Generate_Method_Header(final @NotNull WhyNotGarish_BaseFunction yf,
+								  final @NotNull GenerateC aGenerateC,
+								  final @NotNull ElLog LOG) {
+		var gf = yf.cheat();
+
 		gc = aGenerateC;
 		name = gf.getFD().name();
 		//
