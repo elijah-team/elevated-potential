@@ -257,6 +257,7 @@ public class DefaultDeducedEvaConstructor implements DeducedEvaConstructor {
         return carrier.nextTemp();
     }
 
+    @Override
     public void onGenClass(@NotNull OnGenClass aOnGenClass) {
         carrier.onGenClass(aOnGenClass);
     }

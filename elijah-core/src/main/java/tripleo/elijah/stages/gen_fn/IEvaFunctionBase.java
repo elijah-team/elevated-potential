@@ -7,6 +7,7 @@ import tripleo.elijah.Eventual;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.deduce.DeduceElement;
+import tripleo.elijah.stages.deduce.OnGenClass;
 import tripleo.elijah.stages.gen_generic.Dependency;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.util.range.Range;
@@ -110,6 +111,11 @@ public interface IEvaFunctionBase {
 
 	@Nullable
 	InstructionArgument vte_lookup(String text);
+
+	/*
+	 * Hook in for GeneratedClass
+	 */
+	void onGenClass(@NotNull OnGenClass aOnGenClass);
 
 	interface BaseEvaFunction_Reactive extends Reactive {}
 }
