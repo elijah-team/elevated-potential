@@ -27,15 +27,13 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 		fd = functionDef;
 	}
 
-	//
-	// region toString
-	//
-
 	@Override
 	public @NotNull FunctionDef getFD() {
-		if (fd != null)
+		if (fd == null) {
+			throw new IllegalStateException("No function");
+		} else {
 			return fd;
-		throw new IllegalStateException("No function");
+		}
 	}
 
 	@Override
@@ -45,13 +43,12 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 
 	@Override
 	public @Nullable VariableTableEntry getSelf() {
-		if (getFD().getParent() instanceof ClassStatement)
+		if (getFD().getParent() instanceof ClassStatement) {
 			return getVarTableEntry(0);
-		else
+		} else {
 			return null;
+		}
 	}
-
-	// endregion
 
 	@Override
 	public String identityString() {
