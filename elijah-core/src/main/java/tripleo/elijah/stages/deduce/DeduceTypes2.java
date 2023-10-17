@@ -3186,15 +3186,18 @@ public class DeduceTypes2 {
 					}
 					generatedFunction1.deducedAlready = true;
 				}
-			} else if (workJob instanceof WlGenerateDefaultCtor) {
-				final EvaConstructor evaConstructor = (EvaConstructor) ((WlGenerateDefaultCtor) workJob).getResult();
-				if (!coll.contains(evaConstructor)) {
-					coll.add(evaConstructor);
-					if (!evaConstructor.deducedAlready) {
-						deduce_generated_constructor(evaConstructor);
+			} else if (workJob instanceof final WlGenerateDefaultCtor generateDefaultCtor) {
+				// TODO 10/17 PromiseExpectationBuilder, annoy
+				generateDefaultCtor.getGenerated().then(result -> {
+					final EvaConstructor evaConstructor = (EvaConstructor) result;
+					if (!coll.contains(evaConstructor)) {
+						coll.add(evaConstructor);
+						if (!evaConstructor.deducedAlready) { // TODO 10/17 queue_deduce
+							deduce_generated_constructor(evaConstructor);
+						}
+						evaConstructor.deducedAlready = true;
 					}
-					evaConstructor.deducedAlready = true;
-				}
+				});
 			} else if (workJob instanceof WlGenerateCtor) {
 				final EvaConstructor evaConstructor = ((WlGenerateCtor) workJob).getResult();
 				if (!coll.contains(evaConstructor)) {

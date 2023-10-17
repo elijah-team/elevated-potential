@@ -8,7 +8,7 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jdeferred2.DoneCallback;
+import tripleo.elijah.Eventual;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.ClassInvocation;
@@ -32,6 +32,12 @@ public class WlGenerateDefaultCtor implements WorkJob {
 	private                boolean               _isDone = false;
 	private                BaseEvaFunction       Result;
 	private                DeduceCreationContext dcc;
+
+	public Eventual<BaseEvaFunction> getGenerated() {
+		return generated;
+	}
+
+	private Eventual<BaseEvaFunction> generated = new Eventual<>();
 
 	public WlGenerateDefaultCtor(final OS_Module module,
 								 final FunctionInvocation aFunctionInvocation,
@@ -57,10 +63,6 @@ public class WlGenerateDefaultCtor implements WorkJob {
 		return false;
 	}
 
-	public BaseEvaFunction getResult() {
-		return Result;
-	}
-
 	@Override
 	public boolean isDone() {
 		return _isDone;
@@ -70,54 +72,45 @@ public class WlGenerateDefaultCtor implements WorkJob {
 	public void run(WorkManager aWorkManager) {
 		if (functionInvocation.generateDeferred().isPending()) {
 			final ClassStatement   klass     = functionInvocation.getClassInvocation().getKlass();
-			final Holder<EvaClass> hGenClass = new Holder<>();
 
-			functionInvocation.getClassInvocation().resolvePromise().then(new DoneCallback<EvaClass>() {
-				@Override
-				public void onDone(EvaClass result) {
-					hGenClass.set(result);
+			// TODO 10/17 PromiseExpectation/EventualRegister
+			functionInvocation.getClassInvocation().resolvePromise().then(result -> {
+				EvaClass genClass = result;
+
+				final ConstructorDef cd     = new ConstructorDefImpl(null, (_CommonNC) klass, klass.getContext());
+				final Scope3Impl     scope3 = new Scope3Impl(cd);
+				cd.setName(LangGlobals.emptyConstructorName);
+				cd.scope(scope3);
+				for (final EvaContainer.VarTableEntry varTableEntry : genClass.varTable) {
+					OS_Element element;
+					element = __getElement(varTableEntry, cd);
+					if (element != null) {
+						scope3.add(element);
+					}
 				}
+
+				final OS_Element classStatement = cd.getParent();
+				assert classStatement instanceof ClassStatement;
+
+				final @NotNull EvaConstructor gf = generateFunctions.generateConstructor(cd, (ClassStatement) classStatement, functionInvocation);
+				// lgf.add(gf);
+
+				final ClassInvocation ci = functionInvocation.getClassInvocation();
+				ci.resolvePromise().done((@NotNull EvaClass result2) -> {
+					codeRegistrar.registerFunction1(gf);
+					// gf.setCode(generateFunctions.module.getCompilation().nextFunctionCode());
+
+					gf.setClass(result2);
+					result2.constructors.put(cd, gf);
+				});
+
+				functionInvocation.generateDeferred().resolve(gf);
+				functionInvocation.setGenerated(gf);
+
+				generated.resolve(gf);
 			});
-			EvaClass genClass = hGenClass.get();
-			assert genClass != null;
-
-			final ConstructorDef cd     = new ConstructorDefImpl(null, (_CommonNC) klass, klass.getContext());
-			final Scope3Impl     scope3 = new Scope3Impl(cd);
-			cd.setName(LangGlobals.emptyConstructorName);
-			cd.scope(scope3);
-			for (final EvaContainer.VarTableEntry varTableEntry : genClass.varTable) {
-				OS_Element element;
-				element = __getElement(varTableEntry, cd);
-				if (element != null) {
-					scope3.add(element);
-				}
-			}
-
-			final OS_Element classStatement = cd.getParent();
-			assert classStatement instanceof ClassStatement;
-
-			final @NotNull EvaConstructor gf = generateFunctions.generateConstructor(cd, (ClassStatement) classStatement, functionInvocation);
-			// lgf.add(gf);
-
-			final ClassInvocation ci = functionInvocation.getClassInvocation();
-			ci.resolvePromise().done((@NotNull EvaClass result) -> {
-				codeRegistrar.registerFunction1(gf);
-				// gf.setCode(generateFunctions.module.getCompilation().nextFunctionCode());
-
-				gf.setClass(result);
-				result.constructors.put(cd, gf);
-			});
-
-			functionInvocation.generateDeferred().resolve(gf);
-			functionInvocation.setGenerated(gf);
-			Result = gf;
 		} else {
-			functionInvocation.generatePromise().then(new DoneCallback<BaseEvaFunction>() {
-				@Override
-				public void onDone(final BaseEvaFunction result) {
-					Result = result;
-				}
-			});
+			functionInvocation.generatePromise().then(generated::resolve);
 		}
 
 		_isDone = true;

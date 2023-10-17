@@ -120,7 +120,7 @@ public class FunctionInvocation implements IInvocation {
 		final DeduceTypes2.DeduceTypes2Injector injector = deduceTypes2._inj();
 
 		if (fd == LangGlobals.defaultVirtualCtor) {
-			eef.resolve(xxx___forDefaultVirtualCtor(cl, injector, module));
+			xxx___forDefaultVirtualCtor(cl, injector, module).then(eef::resolve);
 			return eef;
 		} else if (fd instanceof ConstructorDef cd) {
 			eef.resolve(xxxForConstructorDef(cl, cd, injector, module));
@@ -136,15 +136,12 @@ public class FunctionInvocation implements IInvocation {
 		// }
 	}
 
-	@NotNull
-	private BaseEvaFunction xxx___forDefaultVirtualCtor(final @NotNull DeduceCreationContext cl,
-														final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
-														final @NotNull OS_Module module) {
+	private Eventual<BaseEvaFunction> xxx___forDefaultVirtualCtor(final @NotNull DeduceCreationContext cl,
+																  final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
+																  final @NotNull OS_Module module) {
 		final @NotNull WlGenerateDefaultCtor wlgdc = injector.new_WlGenerateDefaultCtor(module, this, cl);
 		wlgdc.run(null);
-
-		final BaseEvaFunction gf = wlgdc.getResult();
-		return gf;
+		return wlgdc.getGenerated();
 	}
 
 	@NotNull
