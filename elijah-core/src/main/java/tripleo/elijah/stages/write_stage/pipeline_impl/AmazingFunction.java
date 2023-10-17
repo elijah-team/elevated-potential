@@ -90,7 +90,7 @@ class AmazingFunction implements Amazing {
 												new WorkList(),
 												generateModule);
 
-			var generateModuleResult = generateModule.getModuleResult(fileGen.wm(), fileGen.resultSink());
+//			var generateModuleResult = generateModule.getModuleResult(fileGen.wm(), fileGen.resultSink());
 
 			if (f instanceof EvaFunction ff) {
 				ggc.generateCodeForMethod(fileGen, ff);
