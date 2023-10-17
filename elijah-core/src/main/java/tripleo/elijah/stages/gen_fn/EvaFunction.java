@@ -19,7 +19,7 @@ import java.util.*;
  * Created 6/27/21 9:40 AM
  */
 public class EvaFunction extends BaseEvaFunction implements GNCoded {
-	public final @Nullable FunctionDef fd;
+	private final @Nullable FunctionDef fd;
 
 	public @NotNull Set<DR_Item> _idents = new HashSet<>();
 
@@ -61,9 +61,7 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 	}
 
 	public String name() {
-		if (fd == null)
-			throw new IllegalArgumentException("null fd");
-		return fd.name();
+		return getFD().name();
 	}
 
 	@Override
@@ -94,6 +92,10 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 			return String.format("<EvaFunction %s %s %s>", pparent, name, pte_string);
 		}
 	}
+
+	//public FunctionDef fd() {
+	//	return fd;
+	//}
 }
 
 //
