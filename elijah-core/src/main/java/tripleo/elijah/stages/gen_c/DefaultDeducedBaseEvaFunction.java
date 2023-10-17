@@ -242,6 +242,7 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 		return carrier.nextTemp();
 	}
 
+	@Override
 	public void onGenClass(final @NotNull OnGenClass aOnGenClass) {
 		carrier.onGenClass(aOnGenClass);
 	}
