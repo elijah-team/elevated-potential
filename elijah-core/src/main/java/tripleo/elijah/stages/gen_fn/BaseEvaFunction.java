@@ -641,6 +641,7 @@ public abstract class BaseEvaFunction
 	/*
 	 * Hook in for GeneratedClass
 	 */
+	@Override
 	public void onGenClass(final @NotNull OnGenClass aOnGenClass) {
 		_p_assignEvaClass.then(aOnGenClass::accept);
 	}
