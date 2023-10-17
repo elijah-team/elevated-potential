@@ -154,15 +154,18 @@ public class ProcTableEntry extends BaseTableEntry implements TableEntryIV {
 		return classInvocation;
 	}
 
-	public IDeduceElement3 getDeduceElement3() {
+	public DeduceElement3_ProcTableEntry getDeduceElement3() {
 		// assert dpc._deduceTypes2() != null; // TODO setDeduce... called; Promise?
 		//
 		// return getDeduceElement3(dpc._deduceTypes2(), dpc._generatedFunction());
 
+		assert __gf != null;
+		assert _deduceTypes2() != null;
+
 		return getDeduceElement3(_deduceTypes2(), __gf);
 	}
 
-	public @NotNull IDeduceElement3 getDeduceElement3(final @NotNull DeduceTypes2 aDeduceTypes2,
+	public @NotNull DeduceElement3_ProcTableEntry getDeduceElement3(final @NotNull DeduceTypes2 aDeduceTypes2,
 			final @NotNull BaseEvaFunction aGeneratedFunction) {
 		if (_de3 == null) {
 			_de3 = new DeduceElement3_ProcTableEntry(this, aDeduceTypes2, aGeneratedFunction);
