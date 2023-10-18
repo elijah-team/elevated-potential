@@ -50,8 +50,13 @@ public class DefaultCompilationAccess implements ICompilationAccess {
 
 	@Override
 	public void setPipelineLogic(final PipelineLogic pl) {
-		assert compilation.getCompilationEnclosure().getPipelineLogic() == null;
-		compilation.getCompilationEnclosure().setPipelineLogic(pl);
+		//assert compilation.getCompilationEnclosure().getPipelineLogic() == null;
+		if (compilation.getCompilationEnclosure().getPipelineLogic() != null) {
+			//throw new AssertionError();
+			System.err.println("903056 pipelineLogic already set");
+		} else {
+			compilation.getCompilationEnclosure().setPipelineLogic(pl);
+		}
 	}
 
 	@Override

@@ -63,6 +63,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
@@ -415,7 +416,12 @@ public class DeduceTypes2 {
 			for (@NotNull
 			ProcTableEntry pte : generatedFunction.prte_list) {
 				final DeduceElement3_ProcTableEntry de3_pte = convertPTE(generatedFunction, pte);
-				de3_pte.lfoe_action(DeduceTypes2.this, wl, (j) -> wm.addJobs(j), null);
+				de3_pte.lfoe_action(DeduceTypes2.this, wl, (j) -> wm.addJobs(j), new Consumer<DeduceElement3_ProcTableEntry.LFOE_Action_Results>() {
+					@Override
+					public void accept(final DeduceElement3_ProcTableEntry.LFOE_Action_Results aLFOEActionResults) {
+						int y=2;
+					}
+				});
 			}
 
 			wm.addJobs(wl);
@@ -1585,7 +1591,7 @@ public class DeduceTypes2 {
 
 		@Override
 		public void connect(final VariableTableEntry aVte, final String aName) {
-			PromiseExpectation<EvaClass> pe_evaClass = deduceTypes2._inj().new_PromiseExpectation(null, "evaConstructor.onGenClass", deduceTypes2);
+			PromiseExpectation<EvaClass> pe_evaClass = deduceTypes2._inj().new_PromiseExpectation(evaConstructor, "evaConstructor.onGenClass", deduceTypes2);
 
 			evaConstructor.onGenClass((EvaClass aGeneratedClass) -> {
 				pe_evaClass.satisfy(aGeneratedClass);

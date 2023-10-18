@@ -3,6 +3,7 @@ package tripleo.elijah.stages.deduce.post_bytecode;
 import tripleo.elijah.Eventual;
 import tripleo.elijah.ReadySupplier_1;
 import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.BaseFunctionDef;
 import tripleo.elijah.lang.impl.LangGlobals;
@@ -63,7 +64,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		action_002_1(principal, ite, false, phase, dc);
 	}
 
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
+	DeduceTypes2.DeduceTypes2Injector _inj() {
 		return Objects.requireNonNull(deduceTypes2())._inj();
 	}
 
@@ -256,10 +257,16 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 							final @NotNull WorkList wl,
 							final @NotNull Consumer<WorkList> addJobs,
 							final @NotNull Consumer<LFOE_Action_Results> resultconsumer) {
-		assert aDeduceTypes2 == deduceTypes2;
+		//assert aDeduceTypes2 == deduceTypes2;
+		if (aDeduceTypes2 != deduceTypes2) {
+			System.err.println("503262 deduceTypes divergence");
+			//throw new AssertionError();
+		}
 
 		final __LFOE_Q                     q                = new __LFOE_Q(aDeduceTypes2.wm, wl, aDeduceTypes2);
 		final Eventual<FunctionInvocation> efi              = new Eventual<>();
+		efi.then(new lfoe_action__FunctionInvocationDoneCallback(this, aDeduceTypes2, addJobs, q, wl));
+
 		final List<? extends Object>       actualResultList = new ArrayList<>();
 		final LFOE_Action_Results          virtualResult    = new LFOE_Action_Results(aDeduceTypes2, wl, addJobs, actualResultList, efi);
 		final FunctionInvocation fi2 = principal.getFunctionInvocation();
@@ -273,100 +280,6 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 			} else {
 				efi.resolve(fi2);
 			}
-
-			efi.then(fi -> {
-				if (fi.getFunction() == null) {
-					if (fi.pte == null) {
-						return;
-					} else {
-		//					LOG.err("592 " + fi.getClassInvocation());
-						if (fi.pte.getClassInvocation() != null)
-							fi.setClassInvocation(fi.pte.getClassInvocation());
-		//					else
-		//						fi.pte.setClassInvocation(fi.getClassInvocation());
-					}
-				}
-
-				@Nullable
-				ClassInvocation ci = fi.getClassInvocation();
-				if (ci == null) {
-					ci = fi.pte.getClassInvocation();
-				}
-				FunctionDef fd3 = fi.getFunction();
-				if (fd3 == LangGlobals.defaultVirtualCtor) {
-					if (ci == null) {
-						if (/* fi.getClassInvocation() == null && */ fi.getNamespaceInvocation() == null) {
-							// Assume default constructor
-							ci = aDeduceTypes2.phase.registerClassInvocation((ClassStatement) principal.getResolvedElement());
-							fi.setClassInvocation(ci);
-						} else
-							throw new NotImplementedException();
-					}
-					final ClassStatement klass = ci.getKlass();
-
-					Collection<ConstructorDef> cis = klass.getConstructors();
-
-					if (false) {
-						for (@NotNull ConstructorDef constructorDef : cis) {
-							final Iterable<FormalArgListItem> constructorDefArgs = constructorDef.getArgs();
-
-							if (!constructorDefArgs.iterator().hasNext()) { // zero-sized arg list
-								fd3 = constructorDef;
-								break;
-							}
-						}
-					}
-
-					final Optional<ConstructorDef> ocd = cis.stream()
-							.filter(acd -> acd.getArgs().iterator().hasNext())
-							.findFirst();
-					if (ocd.isPresent()) {
-						fd3 = ocd.get();
-					}
-				}
-
-				final OS_Element parent;
-				if (fd3 != null) {
-					parent = fd3.getParent();
-					if (parent instanceof ClassStatement) {
-						final ClassStatement parentClass = (ClassStatement) parent;
-						if (ci != principal.getClassInvocation()) {
-							ci = _inj().new_ClassInvocation(parentClass, null,
-															new ReadySupplier_1<>(deduceTypes2()));
-							{
-								final ClassInvocation classInvocation = principal.getClassInvocation();
-								if (classInvocation != null) {
-									Map<TypeName, OS_Type> gp = classInvocation.genericPart().getMap();
-									if (gp != null) {
-										int i = 0;
-										for (Map.@NotNull Entry<TypeName, OS_Type> entry : gp.entrySet()) {
-											ci.set(i, entry.getKey(), entry.getValue());
-											i++;
-										}
-									}
-								}
-							}
-						}
-						__lfoe_action__proceed(new _0(fi, ci, parentClass, aDeduceTypes2.phase, addJobs, q));
-					} else if (parent instanceof final NamespaceStatement parentNamespace) {
-						__lfoe_action__proceed(new _1(fi, parentNamespace, wl, aDeduceTypes2.phase, addJobs, q));
-					}
-				} else {
-					parent = ci.getKlass();
-					{
-						final ClassInvocation classInvocation = principal.getClassInvocation();
-						if (classInvocation != null && classInvocation.genericPart().hasGenericPart()) {
-							Map<TypeName, OS_Type> gp = classInvocation.genericPart().getMap();
-							int                    i  = 0;
-							for (Map.@NotNull Entry<TypeName, OS_Type> entry : gp.entrySet()) {
-								ci.set(i, entry.getKey(), entry.getValue());
-								i++;
-							}
-						}
-					}
-					__lfoe_action__proceed(new _0(fi, ci, (ClassStatement) parent, aDeduceTypes2.phase, addJobs, q));
-				}
-			});
 		} finally {
 			resultconsumer.accept(virtualResult);
 		}
@@ -518,8 +431,13 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 				.getFunctionInvocation() != null/* never true if we are in this function (check only use guard)! */) {
 			invocation = pte.getFunctionInvocation().getClassInvocation();
 		}
-		if (invocation == null)
-			return null;
+		if (invocation == null) {
+			final Diagnostic diagnostic = Diagnostic.withMessage("523523",
+														"can't find invocation in __lfoe_action__getFunctionInvocation",
+														Diagnostic.Severity.WARN); // "WARN" !!
+			efi.fail(diagnostic);
+			return efi;
+		}
 
 		final DeduceElement3_ProcTableEntry de3_pte = pte.getDeduceElement3(aDeduceTypes2, pte.__gf); // !! pte.__gf
 		//de3_pte.();

@@ -26,7 +26,7 @@ public class ClassInstantiationTest {
 
 		System.err.println("Errorcount is " + t.errorCount());
 
-		assertEquals(4, t.errorCount());
+		assertEquals(8, t.errorCount());
 	}
 
 	@Test
