@@ -41,6 +41,8 @@ public class Feb2021Test {
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+
+		assert t.c().reports().codeOutputSize() > 0;
 	}
 
 	@Test
@@ -51,6 +53,8 @@ public class Feb2021Test {
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+
+		assert t.c().reports().codeOutputSize() > 0;
 	}
 
 	@Test
@@ -61,6 +65,8 @@ public class Feb2021Test {
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+
+		assert t.c().reports().codeOutputSize() > 0;
 	}
 
 	@Test
@@ -71,6 +77,8 @@ public class Feb2021Test {
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+
+		assert t.c().reports().codeOutputSize() > 0;
 	}
 }
 
