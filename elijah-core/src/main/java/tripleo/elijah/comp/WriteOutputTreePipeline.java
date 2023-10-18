@@ -14,7 +14,7 @@ import java.util.*;
 
 import static tripleo.elijah.util.Helpers.*;
 
-public class WriteOutputTreePipeline implements PipelineMember {
+public class WriteOutputTreePipeline extends PipelineMember {
 	private static void addLogs(final @NotNull List<EOT_OutputFile> l, final @NotNull IPipelineAccess aPa) {
 		final List<ElLog> logs = aPa.getCompilationEnclosure().getPipelineLogic().getLogs();
 		final String s1 = logs.get(0).getFileName();

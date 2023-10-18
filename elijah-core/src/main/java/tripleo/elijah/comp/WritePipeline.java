@@ -33,7 +33,7 @@ import static tripleo.elijah.util.Helpers.*;
 /**
  * Created 8/21/21 10:19 PM
  */
-public class WritePipeline implements PipelineMember, Consumer<Supplier<GenerateResult>>, AB_GenerateResultListener {
+public class WritePipeline extends PipelineMember implements Consumer<Supplier<GenerateResult>>, AB_GenerateResultListener {
 	private static class CompletedItemsHandler {
 		// README debugging purposes
 		private final List<GenerateResultItem> abs = new ArrayList<>();
