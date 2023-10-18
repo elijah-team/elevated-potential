@@ -83,9 +83,10 @@ public class CR_FindCIs extends DefaultStateful implements CR_Action, Sensable {
 			_processInput(c, errSink, senseList, input);
 		}
 
-//        for (final SenseList.Sensible sensible : senseList) {
+        for (final SenseList.Sensible sensible : senseList) {
+			Stupidity.println_out_3("8989 "+sensible.toString());
 //            sensible.checkDirectoryResults(cci, _ps);
-//        }
+        }
 
 		return Operation.success(Ok.instance());
 	}
