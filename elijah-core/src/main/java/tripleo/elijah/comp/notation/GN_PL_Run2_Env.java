@@ -5,6 +5,7 @@ import tripleo.elijah.comp.PipelineLogic;
 import tripleo.elijah.comp.i.CompilationEnclosure;
 import tripleo.elijah.world.i.WorldModule;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public final class GN_PL_Run2_Env implements GN_Env {

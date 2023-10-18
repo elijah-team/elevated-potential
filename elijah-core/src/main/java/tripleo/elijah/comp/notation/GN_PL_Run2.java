@@ -16,15 +16,53 @@ import java.util.*;
 import java.util.function.*;
 
 public class GN_PL_Run2 implements GN_Notable, EventualRegister {
-	public record GenerateFunctionsRequest(IClassGenerator classGenerator, DefaultWorldModule worldModule) {
-		public ModuleThing mt() {
-			return Objects.requireNonNull(worldModule.thing());
+	public static final class GenerateFunctionsRequest {
+		private final IClassGenerator classGenerator;
+		private final DefaultWorldModule worldModule;
+
+		public GenerateFunctionsRequest(IClassGenerator classGenerator, DefaultWorldModule worldModule) {
+			this.classGenerator = classGenerator;
+			this.worldModule    = worldModule;
 		}
 
-		public OS_Module mod() {
-			return worldModule.module();
+		public ModuleThing mt() {
+				return Objects.requireNonNull(worldModule.thing());
+			}
+
+			public OS_Module mod() {
+				return worldModule.module();
+			}
+
+		public IClassGenerator classGenerator() {
+			return classGenerator;
 		}
-	}
+
+		public DefaultWorldModule worldModule() {
+			return worldModule;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (GenerateFunctionsRequest) obj;
+			return Objects.equals(this.classGenerator, that.classGenerator) &&
+					Objects.equals(this.worldModule, that.worldModule);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(classGenerator, worldModule);
+		}
+
+		@Override
+		public String toString() {
+			return "GenerateFunctionsRequest[" +
+					"classGenerator=" + classGenerator + ", " +
+					"worldModule=" + worldModule + ']';
+		}
+
+		}
 
 	@Contract("_ -> new")
 	@SuppressWarnings("unused")

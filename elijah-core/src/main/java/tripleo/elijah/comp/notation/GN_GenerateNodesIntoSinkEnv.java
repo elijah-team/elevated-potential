@@ -13,6 +13,7 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
 import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.util.Stupidity;
 import tripleo.elijah.world.i.WorldModule;
 
 import java.util.List;
@@ -20,27 +21,44 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public record GN_GenerateNodesIntoSinkEnv(
-		List<ProcessedNode> lgc,
-		GenerateResultSink resultSink1,
-		Object/*EIT_ModuleList*/ moduleList,
-		ElLog.Verbosity verbosity,
-		GenerateResult gr,
-		IPipelineAccess pa,
-		CompilationEnclosure ce
-) implements GN_Env {
+public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
+	private final List<ProcessedNode>  lgc;
+	private final GenerateResultSink   resultSink1;
+	private final Object               moduleList;
+	private final ElLog.Verbosity      verbosity;
+	private final GenerateResult       gr;
+	private final IPipelineAccess      pa;
+	private final CompilationEnclosure ce;
+
+	public GN_GenerateNodesIntoSinkEnv(
+			List<ProcessedNode> lgc,
+			GenerateResultSink resultSink1,
+			Object/*EIT_ModuleList*/ moduleList,
+			ElLog.Verbosity verbosity,
+			GenerateResult gr,
+			IPipelineAccess pa,
+			CompilationEnclosure ce
+									  ) {
+		this.lgc         = lgc;
+		this.resultSink1 = resultSink1;
+		this.moduleList  = moduleList;
+		this.verbosity   = verbosity;
+		this.gr          = gr;
+		this.pa          = pa;
+		this.ce          = ce;
+	}
 
 	@org.jetbrains.annotations.Nullable
 	public static String getLang(final @NotNull OS_Module mod) {
 		final LibraryStatementPart lsp = mod.getLsp();
 
 		if (lsp == null) {
-			tripleo.elijah.util.Stupidity.println_err_2("7777777777777777777 mod.getFilename " + mod.getFileName());
+			Stupidity.println_err_2("7777777777777777777 mod.getFilename " + mod.getFileName());
 			return null;
 		}
 
-		final CompilerInstructions ci = lsp.getInstructions();
-		final @Nullable String lang2 = ci.genLang();
+		final CompilerInstructions ci    = lsp.getInstructions();
+		final @Nullable String     lang2 = ci.genLang();
 
 		final @Nullable String lang = lang2 == null ? "c" : lang2;
 		return lang;
@@ -48,9 +66,9 @@ public record GN_GenerateNodesIntoSinkEnv(
 
 	@NotNull
 	static GenerateFiles getGenerateFiles(final @NotNull OutputFileFactoryParams params, final @NotNull WorldModule wm,
-			final @NotNull Supplier<GenerateResultEnv> fgs) {
+										  final @NotNull Supplier<GenerateResultEnv> fgs) {
 		final GenerateResultEnv fileGen;
-		final OS_Module mod = wm.module();
+		final OS_Module         mod = wm.module();
 
 		// TODO creates more than one GenerateC, look into this
 		// TODO ^^ validate this or not plz 09/07
