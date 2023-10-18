@@ -30,7 +30,7 @@ import static tripleo.elijah.util.Helpers.*;
 /**
  * Created 9/13/21 11:58 PM
  */
-public class WriteMesonPipeline implements PipelineMember, @NotNull Consumer<Supplier<Old_GenerateResult>> {
+public class WriteMesonPipeline extends PipelineMember implements @NotNull Consumer<Supplier<Old_GenerateResult>> {
 	final Pattern pullPat = Pattern.compile("/[^/]+/(.+)");
 	private final @NotNull Compilation c;
 	private final @NotNull IPipelineAccess pa;

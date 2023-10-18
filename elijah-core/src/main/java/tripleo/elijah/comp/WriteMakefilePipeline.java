@@ -14,7 +14,7 @@ import java.util.stream.*;
 
 import static tripleo.elijah.util.Helpers.*;
 
-public class WriteMakefilePipeline implements PipelineMember, Consumer<Supplier<Old_GenerateResult>> {
+public class WriteMakefilePipeline extends PipelineMember implements Consumer<Supplier<Old_GenerateResult>> {
 	class G {
 		final StringBuilder sb = new StringBuilder();
 		final List<String> objects = new ArrayList<>();

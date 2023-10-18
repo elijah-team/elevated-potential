@@ -17,7 +17,7 @@ import tripleo.elijah.stages.deduce.pipeline_impl.DeducePipelineImpl;
 /**
  * Created 8/21/21 10:10 PM
  */
-public class DeducePipeline implements PipelineMember {
+public class DeducePipeline extends PipelineMember {
 	private final @NotNull DeducePipelineImpl impl;
 
 	public DeducePipeline(final @NotNull IPipelineAccess pa) {

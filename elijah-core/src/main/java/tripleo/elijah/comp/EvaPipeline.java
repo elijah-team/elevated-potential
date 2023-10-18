@@ -27,7 +27,7 @@ import static tripleo.elijah.util.Helpers.*;
 /**
  * Created 8/21/21 10:16 PM
  */
-public class EvaPipeline implements PipelineMember, AccessBus.AB_LgcListener {
+public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListener {
 	public static class FunctionStatement implements EG_Statement {
 		private final IEvaFunctionBase evaFunction;
 		private String filename;
