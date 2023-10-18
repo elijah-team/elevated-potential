@@ -5,7 +5,15 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-record EK_Factarray(String st, EK_Fact[] ch) {
+class EK_Factarray {
+
+	private final String st;
+	private final EK_Fact[] ch;
+
+	public EK_Factarray(String ast, EK_Fact[] ach) {
+		this.st = ast;
+		this.ch = ach;
+	}
 
 	@Override
 	public boolean equals(@Nullable Object obj) {
@@ -21,5 +29,8 @@ record EK_Factarray(String st, EK_Fact[] ch) {
 	public @NotNull String toString() {
 		return "EK_Factarray[" + "st=" + st + ", " + "ch=" + ch + ']';
 	}
+
+	public String st()    { return this.st; }
+	public EK_Fact[] ch() { return this.ch; }
 
 }
