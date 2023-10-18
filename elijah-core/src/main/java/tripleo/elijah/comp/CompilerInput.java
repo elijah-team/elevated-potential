@@ -1,8 +1,9 @@
 package tripleo.elijah.comp;
 
-import com.google.common.base.*;
 import lombok.*;
 import tripleo.elijah.*;
+import com.google.common.base.*;
+
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.util.*;
@@ -12,119 +13,118 @@ import java.util.*;
 import java.util.regex.*;
 
 public class CompilerInput extends __Extensionable {
-    @Getter
-    private final String                           inp;
-    private       Maybe<ILazyCompilerInstructions> accept_ci;
-    private       File                             dir_carrier;
-    // @Getter(fluent)
-    private       Ty                               ty;
-    private       String                           hash;
+	@Getter
+	private final String                           inp;
+	private       Maybe<ILazyCompilerInstructions> accept_ci;
+	private       File                             dir_carrier;
+	// @Getter(fluent)
+	private       Ty                               ty;
+	private       String                           hash;
+	private       CompilerInputMaster              master;
 
-    private CompilerInputMaster master;
+	@SuppressWarnings("unchecked") // README squiggly line in idea
+	@Getter
+	private List<Operation2<CompilerInstructions>> directoryResults = Collections.EMPTY_LIST;
 
-    @SuppressWarnings("unchecked") // README squiggly line in idea
-    @Getter
-    private List<Operation2<CompilerInstructions>> directoryResults = Collections.EMPTY_LIST;
+	public CompilerInput(final String aS) {
+		inp = aS;
+		ty  = Ty.NULL;
+	}
 
-    public CompilerInput(final String aS) {
-        inp = aS;
-        ty  = Ty.NULL;
-    }
+	public void accept_ci(final Maybe<ILazyCompilerInstructions> compilerInstructionsMaybe) {
+		accept_ci = compilerInstructionsMaybe;
 
-    public void accept_ci(final Maybe<ILazyCompilerInstructions> compilerInstructionsMaybe) {
-        accept_ci = compilerInstructionsMaybe;
+		if (master != null)
+			master.notifyChange(this, CompilerInputField.ACCEPT_CI);
+	}
 
-        if (master != null)
-            master.notifyChange(this, CompilerInputField.ACCEPT_CI);
-    }
+	public void accept_hash(final String hash) {
+		this.hash = hash;
 
-    public void accept_hash(final String hash) {
-        this.hash = hash;
+		if (master != null)
+			master.notifyChange(this, CompilerInputField.HASH);
+	}
 
-        if (master != null)
-            master.notifyChange(this, CompilerInputField.HASH);
-    }
+	public Maybe<ILazyCompilerInstructions> acceptance_ci() {
+		return accept_ci;
+	}
 
-    public Maybe<ILazyCompilerInstructions> acceptance_ci() {
-        return accept_ci;
-    }
+	public void certifyRoot() {
+		ty = Ty.ROOT;
 
-    public void certifyRoot() {
-        ty = Ty.ROOT;
+		if (master != null)
+			master.notifyChange(this, CompilerInputField.TY);
+	}
 
-        if (master != null)
-            master.notifyChange(this, CompilerInputField.TY);
-    }
+	public File getDirectory() {
+		Preconditions.checkNotNull(dir_carrier);
 
-    public File getDirectory() {
-        Preconditions.checkNotNull(dir_carrier);
+		return dir_carrier;
+	}
 
-        return dir_carrier;
-    }
+	public void setDirectory(File f) {
+		ty          = Ty.SOURCE_ROOT;
+		dir_carrier = f;
 
-    public boolean isElijjahFile() {
-        return Pattern.matches(".+\\.elijjah$", inp) || Pattern.matches(".+\\.elijah$", inp);
-    }
+		if (master != null)
+			master.notifyChange(this, CompilerInputField.TY);
+	}
 
-    public boolean isEzFile() {
-        // new QuerySearchEzFiles.EzFilesFilter().accept()
-        return Pattern.matches(".+\\.ez$", inp);
-    }
+	public boolean isElijjahFile() {
+		return Pattern.matches(".+\\.elijjah$", inp) || Pattern.matches(".+\\.elijah$", inp);
+	}
 
-    public boolean isNull() {
-        return ty == Ty.NULL;
-    }
+	public boolean isEzFile() {
+		// new QuerySearchEzFiles.EzFilesFilter().accept()
+		return Pattern.matches(".+\\.ez$", inp);
+	}
 
-    public boolean isSourceRoot() {
-        return ty == Ty.SOURCE_ROOT;
-    }
+	public boolean isNull() {
+		return ty == Ty.NULL;
+	}
 
-    public void setArg() {
-        ty = Ty.ARG;
+	public boolean isSourceRoot() {
+		return ty == Ty.SOURCE_ROOT;
+	}
 
-        if (master != null)
-            master.notifyChange(this, CompilerInputField.TY);
-    }
+	public void setArg() {
+		ty = Ty.ARG;
 
-    public void setDirectory(File f) {
-        ty          = Ty.SOURCE_ROOT;
-        dir_carrier = f;
+		if (master != null)
+			master.notifyChange(this, CompilerInputField.TY);
+	}
 
-        if (master != null)
-            master.notifyChange(this, CompilerInputField.TY);
-    }
-
-    public void setDirectoryResults(final List<Operation2<CompilerInstructions>> aLoci) {
-        this.directoryResults = aLoci;
+	public void setDirectoryResults(final List<Operation2<CompilerInstructions>> aLoci) {
+		this.directoryResults = aLoci;
 
         for (Operation2<CompilerInstructions> locus : aLoci) {
             var focus = locus.success();
             focus.advise(this);
         }
 
-        if (master != null)
-            master.notifyChange(this, CompilerInputField.DIRECTORY_RESULTS);
-    }
+		if (master != null)
+			master.notifyChange(this, CompilerInputField.DIRECTORY_RESULTS);
+	}
 
-    public void setMaster(CompilerInputMaster master) {
-        this.master = master;
-    }
+	public void setMaster(CompilerInputMaster master) {
+		this.master = master;
+	}
 
-    public void setSourceRoot() {
-        ty = Ty.SOURCE_ROOT;
+	public void setSourceRoot() {
+		ty = Ty.SOURCE_ROOT;
 
-        if (master != null)
-            master.notifyChange(this, CompilerInputField.TY);
-    }
+		if (master != null)
+			master.notifyChange(this, CompilerInputField.TY);
+	}
 
-    @Override
-    public String toString() {
-        return "CompilerInput{ty=%s, inp='%s'}".formatted(ty, inp);
-    }
+	@Override
+	public String toString() {
+		return "CompilerInput{ty=%s, inp='%s'}".formatted(ty, inp);
+	}
 
-    public Ty ty() {
-        return ty;
-    }
+	public Ty ty() {
+		return ty;
+	}
 
     public File makeFile() {
 	    return switch (ty) {
