@@ -76,8 +76,9 @@ public abstract class ContextImpl implements tripleo.elijah.lang.i.Context {
 	@Override
 	public @NotNull OS_Module module() {
 		Context ctx = this;// getParent();
-		while (!(ctx instanceof ModuleContext))
+		while (!(ctx instanceof ModuleContext)) {
 			ctx = ctx.getParent();
+		}
 		return ((ModuleContext) ctx).getCarrier();
 	}
 }
