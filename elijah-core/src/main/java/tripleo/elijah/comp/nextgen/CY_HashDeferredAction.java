@@ -13,8 +13,13 @@ class CY_HashDeferredAction implements DeferredAction<String> {
     private final Eventual<String> e = new Eventual<>(); // FIXME SingleShotEventual
     private final IO               io;
 
+    static boolean started;
+
     public CY_HashDeferredAction(IO aIo) {
         io           = aIo;
+
+//        if (started) throw new Error();
+        started = true;
     }
 
     @Override
