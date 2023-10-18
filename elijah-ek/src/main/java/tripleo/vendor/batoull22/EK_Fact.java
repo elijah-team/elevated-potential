@@ -5,11 +5,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+/**
+ * @author tripleo
+ */
 public class EK_Fact {
-	private char ch;
+	private final char ch;
 
-	public EK_Fact(char ach) {
-		ch = ach;
+	public EK_Fact(char aCh) {
+		ch = aCh;
 	}
 
 	public char ch() {
@@ -18,7 +21,7 @@ public class EK_Fact {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ch);
+		return /*Objects.hash*/(ch); // ??
 	}
 
 	@Override
@@ -32,6 +35,6 @@ public class EK_Fact {
 	@Contract(pure = true)
 	@Override
 	public @NotNull String toString() {
-		return "<FACT %s>".formatted(ch);
+		return "<FACT %c>".formatted(ch); // ??!! you don't actually know java, do you?
 	}
 }

@@ -2,6 +2,9 @@ package tripleo.vendor.batoull22;
 
 import java.util.Objects;
 
+/**
+ * @author tripleo
+ */
 final class EK_Push {
 	private final EK_Fact predicating;
 	private final EK_Fact resultant;
@@ -23,7 +26,7 @@ final class EK_Push {
 	public boolean equals(Object obj) {
 		if (obj == this) return true;
 		if (obj == null || obj.getClass() != this.getClass()) return false;
-		var that = (EK_Push) obj;
+		EK_Push that = (EK_Push) obj;
 		return Objects.equals(this.predicating, that.predicating) &&
 				Objects.equals(this.resultant, that.resultant);
 	}

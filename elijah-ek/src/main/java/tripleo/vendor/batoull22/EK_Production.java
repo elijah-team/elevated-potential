@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author tripleo
+ */
 class EK_Production {
 
 	private final EK_Fact[] ch;
@@ -19,22 +22,18 @@ class EK_Production {
 	}
 
 	@NotNull
-	private EK_Factarray getEkFactarray() {
-		var ep = this;
-
-		String st = ep.getString();
+	private EK_Factarray getEkFactarray() { // FIXME 10/18 too complicated
+		String st = this.getString();
 
 		List<EK_Fact> ch1 = new ArrayList<>();
 		for (char c : st.toCharArray()) {
 			ch1.add(new EK_Fact(c));
 		}
 
-		EK_Fact[] ch = Arrays.asList(ch1.toArray()).toArray(new EK_Fact[0]);
-		// .stream()
-		// .map((ch11) -> {return new EK_Fact((Character) ch11)
-		// ;}
-		// ).collect(Collectors.toList()).toArray(new EK_Fact[0]);
-		System.out.println("3737 " + Arrays.asList(ch));
+		EK_Fact[] ch = Arrays.asList(ch1.toArray())
+				.toArray(new EK_Fact[0]);
+		
+		logProgress(3737, "" + Arrays.asList(ch));
 		EK_Factarray result = new EK_Factarray(st, ch);
 		return result;
 	}
@@ -64,5 +63,9 @@ class EK_Production {
 	@Override
 	public String toString() {
 		return st;
+	}
+
+	private void logProgress(final int aI, final String aList) {
+		System.out.println(aI + " " + aList);
 	}
 }

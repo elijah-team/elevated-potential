@@ -18,23 +18,16 @@ repositories {
 
 dependencies {
     api project(':elijah-util')
-    api project(':tripleo.small')
-    api project(':tripleo.elijah.reactive')
-    api project(':tripleo.elijah.stateful')
-    api project(':elijah-nextgen-outputstatement')
+//    api project(':tripleo.small')
+//    api project(':tripleo.elijah.reactive')
+//    api project(':tripleo.elijah.stateful')
+//    api project(':elijah-nextgen-outputstatement')
 
-    api 'io.reactivex.rxjava3:rxjava:3.1.6'
-    api 'org.reactivestreams:reactive-streams:1.0.4'
-    api 'commons-codec:commons-codec:1.15'
-    api 'antlr:antlr:2.7.7'
+//    api 'io.reactivex.rxjava3:rxjava:3.1.6'
+//    api 'org.reactivestreams:reactive-streams:1.0.4'
+//    api 'commons-codec:commons-codec:1.15'
 
-    implementation project(path: ':elijah-nextgen-outputstatement')
-
-//    implementation
-    //providedCompile
-//    project(':tripleo.elijah.stateful-processor')
-    //providedCompile
-//    project(':annotation-processing')
+//    implementation project(path: ':elijah-nextgen-outputstatement')
 
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
@@ -54,8 +47,11 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
+    // TODO: we want an 11 compat jar
+//    targetCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_17
 }
 
