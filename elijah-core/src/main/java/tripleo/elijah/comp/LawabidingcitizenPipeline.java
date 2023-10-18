@@ -7,7 +7,7 @@ import tripleo.elijah.comp.internal.CB_Output;
 import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.stages.hooligan.pipeline_impl.LawabidingcitizenPipelineImpl;
 
-public class LawabidingcitizenPipeline implements PipelineMember {
+public class LawabidingcitizenPipeline extends PipelineMember {
 	private final @NotNull IPipelineAccess pa;
 	private final LawabidingcitizenPipelineImpl i = new LawabidingcitizenPipelineImpl();
 
