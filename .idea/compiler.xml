@@ -7,8 +7,10 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.m2/repository/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar" />
         </processorPath>
+        <module name="elevated-potential.elijah-ek.main" />
         <module name="elevated-potential.tripleo.elijah.core.main" />
         <module name="elevated-potential.tripleo.elijah.core.test" />
+        <module name="elevated-potential.elijah-ek.test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />
