@@ -10,28 +10,26 @@ import java.util.Scanner;
 
 /**
  * @author batoul
+ * @author tripleo
  */
+@SuppressWarnings("LombokGetterMayBeUsed")
 public class EK_ExpertSystem {
-	public EK_Fact goal;
-	public Scanner input;
-	public final List<EK_Fact> Listfacts = new ArrayList<EK_Fact>();
-	public final ArrayList<EK_Production> Listrule = new ArrayList<>();
-
-	// public static int countBackwardchaining=0;
-	// public static int countForwardchaining=0;
-
+	private       EK_Fact                  goal;
+	private final List<EK_Fact>            Listfacts = new ArrayList<EK_Fact>();
+	private final ArrayList<EK_Production> Listrule  = new ArrayList<>();
+	
 	void actualizeMerge(final EK_Production current_production, final @NotNull EK_Merge aEKMerge) {
 		Listfacts.add(aEKMerge.result());
-		System.out.println("add fact:" + aEKMerge.result());
+		logProgress(-1, "add fact:" + aEKMerge.result());
 		Listrule.remove(current_production);
-		System.out.println("remove rule: " + current_production);
+		logProgress(-1, "remove rule: " + current_production);
 	}
 
 	public void actualizePush(final @NotNull EK_Push aPush, final EK_Production current_production) {
 		Listfacts.add(aPush.resultant());
-		System.out.println("add fact: " + aPush.resultant());
+		logProgress(-1, "add fact: " + aPush.resultant());
 		Listrule.remove(current_production);
-		System.out.println("remove rule: " + current_production);
+		logProgress(-1, "remove rule: " + current_production);
 	}
 
 	public boolean Backwardchaining() {
@@ -55,10 +53,10 @@ public class EK_ExpertSystem {
 			final EK_Production ep = Listrule.get(i);
 
 			if (ep.isMerge()) {
-				var m = ep.getMerge();
+				EK_Merge m = ep.getMerge();
 
 				if (m.result() == g) { // example A.B-->C
-					System.out.println("First case income : " + m.result());
+					logProgress(-1, "First case income : " + m.result());
 					// His right side fact
 
 					final boolean hasFirst = Listfacts.contains(m.first());
@@ -68,13 +66,13 @@ public class EK_ExpertSystem {
 						Listfacts.add(g);
 						Listrule.remove(ep);
 					} else if (!hasFirst && hasSecond) {
-						System.out.println("1 not fact 2 fact");
+						logProgress(-1, "1 not fact 2 fact");
 						checkBackwardchaining(m.first());
 					} else if (hasFirst && !hasSecond) {
-						System.out.println("1 fact 2 not fact");
+						logProgress(-1, "1 fact 2 not fact");
 						checkBackwardchaining(m.second());
 					} else if (!hasFirst && !hasSecond) {
-						System.out.println("both not fact");
+						logProgress(-1, "both not fact");
 						checkBackwardchaining(m.first());
 						checkBackwardchaining(m.second());
 					}
@@ -89,7 +87,7 @@ public class EK_ExpertSystem {
 
 				if (resultant == g) { // example A-->C
 
-					System.out.println("second case income :" + resultant);
+					logProgress(-1, "second case income :" + resultant);
 
 					if (Listfacts.contains(predicating)) {
 						Listfacts.add(resultant);
@@ -147,21 +145,22 @@ public class EK_ExpertSystem {
 			final InputStream stream = getClass().getResourceAsStream("KB3.txt");
 			return Operation.success(new EK_Reader1(this, stream));
 		} catch (Exception ex) {
-			System.out.println("Error:the input file dose not exist");
+			logProgress(-1, "Error:the input file dose not exist");
 			return Operation.failure(ex);
 		}
 	}
 
 	public void print() {
-		System.out.println("factlist:" + Listfacts);
-		System.out.println("rulelist:" + Listrule);
-		System.out.println("goal:" + goal);
-		System.out.println(" ");
-		// System.out.println( c);
-		// System.out.println( j);
+		logProgress(-1, "factlist:" + Listfacts);
+		logProgress(-1, "rulelist:" + Listrule);
+		logProgress(-1, "goal:" + goal);
+		logProgress(-1, " ");
+		// logProgress(-1,  c);
+		// logProgress(-1,  j);
 	}
 
 	// Interpretation of input
+
 	public void proof(@NotNull String st) {
 		if (st.length() == 1) {
 			Listfacts.add(new EK_Fact(st.charAt(0)));
@@ -185,5 +184,21 @@ public class EK_ExpertSystem {
 				Listrule.remove(prod);
 			}
 		}
+	}
+
+	public EK_Fact getGoal() {
+		return goal;
+	}
+
+	public List<EK_Fact> getListfacts() {
+		return Listfacts;
+	}
+
+	public List<EK_Production> getListrule() {
+		return Listrule;
+	}
+
+	private void logProgress(final int code, final String message) {
+		System.out.println(code + " " + message);
 	}
 }

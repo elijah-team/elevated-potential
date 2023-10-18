@@ -5,6 +5,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
+/**
+ * @author tripleo
+ */
 class EK_Factarray {
 
 	private final String st;
@@ -21,7 +24,7 @@ class EK_Factarray {
 			return true;
 		if (obj == null || obj.getClass() != this.getClass())
 			return false;
-		var that = (EK_Factarray) obj;
+		EK_Factarray that = (EK_Factarray) obj;
 		return Objects.equals(this.st, that.st) && Objects.equals(this.ch, that.ch);
 	}
 

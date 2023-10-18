@@ -1,31 +1,41 @@
 package tripleo.vendor.batoull22;
 
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.InputStream;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * @author tripleo
+ */
 final class EK_Reader1 implements EK_Reader {
-	private final EK_ExpertSystem _system;
-	Scanner input_;
+	private final           EK_ExpertSystem _system;
+	private final @Nullable Scanner         input_;
 
 	@Contract(pure = true)
 	EK_Reader1(final EK_ExpertSystem aExpertSystem, final InputStream aStream) {
 		_system = aExpertSystem;
-		input_ = new Scanner(Objects.requireNonNull(aStream));
+		if (aStream != null) {
+			input_ = new Scanner(Objects.requireNonNull(aStream));
+		} else {
+			input_ = null;
+		}
 	}
 
 	@Override
 	public void closefile() {
-		input_.close();
+		if (input_ != null) {
+			input_.close();
+		}
 	}
 
 	@Override
 	public void print() {
-		System.out.println("factlist:" + _system.Listfacts);
-		System.out.println("rulelist:" + _system.Listrule);
-		System.out.println("goal:" + _system.goal);
+		System.out.println("factlist:" + _system.getListfacts());
+		System.out.println("rulelist:" + _system.getListrule());
+		System.out.println("goal:" + _system.getGoal());
 		System.out.println(" ");
 		// System.out.println( c);
 		// System.out.println( j);
@@ -34,10 +44,12 @@ final class EK_Reader1 implements EK_Reader {
 	@Override
 	public void readfile() {
 		// Read the line
-		while (input_.hasNext()) {
-			String a = input_.nextLine();
+		if (input_ != null) {
+			while (input_.hasNext()) {
+				String a = input_.nextLine();
 
-			_system.proof(a);
+				_system.proof(a);
+			}
 		}
 		// System.out.println("factlist:"+ Listfacts);
 		// System.out.println("goal:"+ goal);
