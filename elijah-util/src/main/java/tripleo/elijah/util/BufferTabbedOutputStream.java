@@ -15,6 +15,7 @@ import tripleo.util.buffer.TextBuffer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static tripleo.elijah.util.Helpers.*;
 
@@ -27,8 +28,45 @@ public class BufferTabbedOutputStream {
 	interface Att {
 	}
 
-	record AttStr(String s, List<Att> atts) {
-	}
+	static final class AttStr {
+		private final String s;
+		private final List<Att> atts;
+
+		AttStr(String s, List<Att> atts) {
+			this.s    = s;
+			this.atts = atts;
+		}
+
+		public String s() {
+			return s;
+		}
+
+		public List<Att> atts() {
+			return atts;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (AttStr) obj;
+			return Objects.equals(this.s, that.s) &&
+					Objects.equals(this.atts, that.atts);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(s, atts);
+		}
+
+		@Override
+		public String toString() {
+			return "AttStr[" +
+					"s=" + s + ", " +
+					"atts=" + atts + ']';
+		}
+
+		}
 
 	int tabwidth = 0;
 	@NotNull

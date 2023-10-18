@@ -4,6 +4,7 @@
 
 rootProject.name = 'elevated-potential'
 include(':elijah-util')
+include(':elijah-ek')
 include(':tripleo.elijah.stateful')
 //include(':tripleo.elijah.stateful-processor')
 include(':elijah-nextgen-outputstatement')
