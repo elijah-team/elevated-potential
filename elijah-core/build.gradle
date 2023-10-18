@@ -8,11 +8,14 @@ plugins {
 
     id "io.freefair.lombok" version "8.3"
     id "io.ktor.plugin" version "2.3.4"
+
+    id "org.xtext.xtend" version "4.0.0"
 }
 
 repositories {
     gradlePluginPortal()
-    maven {url "https://plugins.gradle.org/m2"}
+//    maven {url "https://plugins.gradle.org/m2"}
+    mavenCentral()
 }
 
 dependencies {
@@ -29,6 +32,8 @@ dependencies {
     api 'commons-codec:commons-codec:1.15'
     api 'antlr:antlr:2.7.7'
     implementation project(path: ':elijah-nextgen-outputstatement')
+
+//    implementation
     //providedCompile
 //    project(':tripleo.elijah.stateful-processor')
     //providedCompile
@@ -43,6 +48,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.10.0'
     testImplementation("org.assertj:assertj-core:3.24.2")
+
+    // http://xtext.github.io/xtext-gradle-plugin/xtend.html
+    // https://stackoverflow.com/questions/23796404/could-not-find-method-compile-for-arguments-gradle
+    implementation 'org.eclipse.xtend:org.eclipse.xtend.lib:2.30.0'
 }
 
 test {
