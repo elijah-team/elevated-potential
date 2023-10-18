@@ -21,12 +21,16 @@ public record ProcIA(int index, BaseEvaFunction generatedFunction) implements In
 		return "ProcIA{" + "index=" + index + ", " + "func=" + getEntry() + '}';
 	}
 
-	// public int getIndex() {
-	// return index;
-	// }
-
 	public @NotNull ProcTableEntry getEntry() {
 		return generatedFunction.getProcTableEntry(index);
+	}
+
+	public int index() {
+		return index;
+	}
+
+	public BaseEvaFunction generatedFunction() {
+		return generatedFunction;
 	}
 }
 

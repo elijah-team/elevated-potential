@@ -41,6 +41,41 @@ public class SenseList implements Iterable<SenseList.Sensible> {
 		x.add(new Sensible(aCompilerInput, u, aIndexable));
 	}
 
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (Sensible) obj;
+			return Objects.equals(this.input, that.input) &&
+					Objects.equals(this.u, that.u) &&
+					Objects.equals(this.indexable, that.indexable);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(input, u, indexable);
+		}
+
+		@Override
+		public String toString() {
+			return "Sensible[" +
+					"input=" + input + ", " +
+					"u=" + u + ", " +
+					"indexable=" + indexable + ']';
+		}
+
+		}
+
+	private final List<Sensible> x = new ArrayList<>();
+
+	public void add(final CompilerInput aInp) {
+		x.add(new Sensible(aInp, U.ADD, null));
+	}
+
+	public void add(CompilerInput aCompilerInput, U u, Sensable aIndexable) {
+		x.add(new Sensible(aCompilerInput, u, aIndexable));
+	}
+
 	@NotNull
 	@Override
 	public Iterator<Sensible> iterator() {

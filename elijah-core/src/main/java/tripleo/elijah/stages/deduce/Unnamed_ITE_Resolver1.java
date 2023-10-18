@@ -438,179 +438,63 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 			// LOG.err("2842 attached == null for "+((VariableTableEntry) bte).type);
 			@NotNull
 			PromiseExpectation<GenType> pe = dt2.promiseExpectation((VariableTableEntry) bte,
-					"Null USER type attached resolved");
+																	"Null USER type attached resolved");
 			VTE_TypePromises.found_parent(pe, generatedFunction, ((VariableTableEntry) bte), ite, dt2);
 		}
 
-		private void vte_pot_size_is_1_USER_CLASS_TYPE(@NotNull VariableTableEntry vte, @Nullable OS_Type aTy) {
-			ClassStatement klass = aTy.getClassOf();
-			@Nullable
-			LookupResultList lrl = null;
-			try {
-				lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(), klass.getContext(), dt2);
-				@Nullable
-				OS_Element best = lrl.chooseBest(null);
-//							ite.setStatus(BaseTableEntry.Status.KNOWN, best);
-				assert best != null;
-				ite.setResolvedElement(best);
-
-				final @NotNull GenType genType = dt2._inj().new_GenTypeImpl(klass);
-				final TypeName typeName = vte.getTypeTableEntry().genType.getNonGenericTypeName();
-				final @Nullable ClassInvocation ci = genType.genCI(typeName, dt2, dt2._errSink(), dt2.phase);
-//							resolve_vte_for_class(vte, klass);
-				ci.resolvePromise().done(new DoneCallback<EvaClass>() {
-					@Override
-					public void onDone(@NotNull EvaClass result) {
-						vte.resolveTypeToClass(result);
-					}
-				});
-			} catch (ResolveError aResolveError) {
-				dt2._errSink().reportDiagnostic(aResolveError);
-			}
+		interface DT_Rule {
+			String ruleName();
 		}
 
-		private void vte_pot_size_is_1_USER_TYPE(@NotNull VariableTableEntry vte, @Nullable OS_Type aTy) {
-			try {
+		static final class UIR1_Env {
+			UIR1_Env() {
+			}
+
+			@Override
+			public int hashCode() {
+				return 1;
+			}
+
+			@Override
+			public boolean equals(Object obj) {
+				return obj == this || obj != null && obj.getClass() == this.getClass();
+			}
+
+			@Override
+			public String toString() {
+				return "UIR1_Env[]";
+			}
+
+		}
+
+		class UIR1_Rule implements DT_Rule {
+			private final OS_Type aTy;
+
+			UIR1_Rule(final OS_Type aATy, final @NotNull VariableStatement vs) {
 				@NotNull
-				GenType ty2 = dt2.resolve_type(aTy, aTy.getTypeName().getContext());
-				// TODO ite.setAttached(ty2) ??
-				OS_Element ele = ty2.getResolved().getElement();
-				LookupResultList lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(), ele.getContext(), dt2);
-				@Nullable
-				OS_Element best = lrl.chooseBest(null);
-				ite.setStatus(BaseTableEntry.Status.KNOWN, dt2._inj().new_GenericElementHolder(best));
-//									ite.setResolvedElement(best);
+				TypeName typ = vs.typeName();
 
-				final @NotNull ClassStatement klass = (ClassStatement) ele;
+				var aTypeName = vs.typeName();
+				assert (!aTypeName.isNull());
 
-				dt2.register_and_resolve(vte, klass);
-			} catch (ResolveError resolveError) {
-				dt2._errSink().reportDiagnostic(resolveError);
-			}
-		}
-	}
-
-	private final DeduceTypes2 dt2;
-	private final Context ctx;
-	private final IdentTableEntry ite;
-
-	private final BaseEvaFunction generatedFunction;
-	private boolean _done;
-
-	private ITE_Resolver_Result _resolve_result;
-
-	Unnamed_ITE_Resolver1(final DeduceTypes2 aDeduceTypes2, IdentTableEntry aIte, BaseEvaFunction aEvaFunction,
-			Context aCtx) {
-		dt2 = aDeduceTypes2;
-		ctx = aCtx;
-		generatedFunction = aEvaFunction;
-		ite = aIte;
-	}
-
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
-		return dt2._inj();
-	}
-
-	@Override
-	public void check() {
-		resolve_ident_table_entry2();
-		ite.getIdent().getName().addUsage(_inj().new_EN_DeduceUsage(ite.getBacklink(), ite.__gf, ite));
-	}
-
-	@Override
-	public IdentTableEntry.ITE_Resolver_Result getResult() {
-		return _resolve_result;
-	}
-
-	@Override
-	public boolean isDone() {
-		return _done;
-	}
-
-	public void resolve_ident_table_entry2() {
-		@Nullable
-		InstructionArgument instructionArgument = new IdentIA(ite.getIndex(), generatedFunction);
-
-		{
-			// FIXME begging for recursion
-			while (instructionArgument != null && instructionArgument instanceof IdentIA identIA) {
-				@NotNull
-				IdentTableEntry runningEntry = identIA.getEntry();
-
-				@Nullable
-				BaseTableEntry x = null;
-				final InstructionArgument runningEntryBacklink = runningEntry.getBacklink();
-				if (runningEntryBacklink instanceof final IntegerIA runningEntryBacklinkVar) {
-					x = runningEntryBacklinkVar.getEntry();
-//					if (vte.constructable_pte != null)
-					instructionArgument = null;
-				} else if (runningEntryBacklink instanceof final IdentIA runningEntryBacklinkIdent) {
-					x = runningEntryBacklinkIdent.getEntry();
-					instructionArgument = ((IdentTableEntry) x).getBacklink();
-				} else if (runningEntryBacklink instanceof final ProcIA runningEntryBacklinkProc) {
-					x = runningEntryBacklinkProc.getEntry();
-//					if (runningEntry.getCallablePTE() == null)
-//						// turned out to be wrong (by double calling), so let's wrap it
-//						runningEntry.setCallablePTE((ProcTableEntry) x);
-					// TODO Proc cannot have backlink??
-					instructionArgument = null; // ((ProcTableEntry) x).backlink;
-				} else if (runningEntryBacklink == null) {
-					instructionArgument = null;
-					x = null;
-				}
-
-				if (x != null) {
-//					LOG.info("162 Adding FoundParent for "+runningEntry);
-//					LOG.info(String.format("1656 %s \n\t %s \n\t%s", x, runningEntry, instructionArgument));
-					x.addStatusListener(
-							new FoundParent(x, runningEntry, runningEntry.getIdent().getContext(), generatedFunction)); // TODO
-																														// context??
-				}
-			}
-		}
-
-		if (ite.hasResolvedElement()) {
-			_done = true;
-			final OS_Element e = ite.getResolvedElement();
-			_resolve_result = new ITE_Resolver_Result(e);
-			return;
-		}
-
-		ite.calculateResolvedElement();
-
-		final OS_Element re = ite.getResolvedElement();
-		if (re != null) {
-			// ite.resolveExpectation.satisfy(re);
-
-			var de3_ite = ite.getDeduceElement3(ite._deduceTypes2(), ite.__gf);
-
-			if (re instanceof VariableStatement vs) {
-				var vs_name = vs.getNameToken().getName();
-				vs_name.addUsage(_inj().new_EN_NameUsage(ite.getIdent().getName(), de3_ite));
-				vs_name.addUsage(_inj().new_EN_DeduceUsage(ite.getBacklink(), ite.__gf, ite));
-			} else if (re instanceof FunctionDef fd) {
-				var fd_name = fd.getNameNode().getName();
-				fd_name.addUsage(_inj().new_EN_NameUsage(ite.getIdent().getName(), de3_ite));
-				fd_name.addUsage(_inj().new_EN_DeduceUsage(ite.getBacklink(), ite.__gf, ite));
-			} else {
-				assert false;
+				aTy = aATy;
 			}
 
-			_done = true;
-			_resolve_result = _inj().new_ITE_Resolver_Result(re);
-			return;
-		}
-		if (true) {
-			ite.addStatusListener(new BaseTableEntry.StatusListener() {
-				@Override
-				public void onChange(final @NotNull IElementHolder eh, final BaseTableEntry.Status newStatus) {
-					if (newStatus != BaseTableEntry.Status.KNOWN)
-						return;
-
-					final OS_Element e = eh.getElement();
-					dt2.found_element_for_ite(generatedFunction, ite, e, ctx, dt2.central());
+			public @NotNull Operation<GenType> product() {
+				GenType ty2;
+				assert aTy.getTypeName() != null;
+				try {
+					ty2 = dt2.resolve_type(aTy, aTy.getTypeName().getContext());
+					return Operation.success(ty2);
+				} catch (ResolveError aE) {
+					return Operation.failure(aE);
 				}
-			});
+			}
+
+			@Override
+			public @NotNull String ruleName() {
+				return "Unnamed_ITE_Resolver1::getTY2";
+			}
 		}
 	}
 

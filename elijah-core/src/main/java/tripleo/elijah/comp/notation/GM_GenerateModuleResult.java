@@ -23,6 +23,20 @@ public record GM_GenerateModuleResult(GenerateResult generateResult, GN_Generate
 		gr.additional(generateResult);
 	}
 
+	void doResult(final @NotNull WorkManager wm) {
+		// TODO find GenerateResultEnv and centralise them
+		final WorkList wl = new WorkList();
+		final GenerateFiles generateFiles1 = generateModuleRequest.getGenerateFiles(figs);
+		final GenerateResult gr = gr();
+
+		generateFiles1.finishUp(gr, wm, wl);
+
+		wm.addJobs(wl);
+		wm.drain();
+
+		gr.additional(generateResult);
+	}
+
 	private GenerateResult gr() {
 		return generateNodesIntoSink._env().gr();
 	}

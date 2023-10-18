@@ -32,3 +32,46 @@ public class ModuleThing {
 		generalDescription = aGeneralDescription;
 	}
 }
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (GeneralDescription) obj;
+			return Objects.equals(this.aSymbol, that.aSymbol) &&
+					Objects.equals(this.aObjects, that.aObjects);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(aSymbol, aObjects);
+		}
+
+		@Override
+		public String toString() {
+			return "GeneralDescription[" +
+					"aSymbol=" + aSymbol + ", " +
+					"aObjects=" + aObjects + ']';
+		}
+
+		}
+
+	private final @NotNull List<EntryPoint> entryPoints;
+	private final @NotNull List<EvaFunction> evaFunctions = new ArrayList<>();
+	private final OS_Module mod;
+
+	private GeneralDescription generalDescription;
+
+	public ModuleThing(final OS_Module aMod) {
+		mod = aMod;
+		entryPoints = mod.entryPoints();
+	}
+
+	public void addFunction(final EvaFunction aGeneratedFunction) {
+		evaFunctions.add(aGeneratedFunction);
+	}
+
+	public void describe(final GeneralDescription aGeneralDescription) {
+		generalDescription = aGeneralDescription;
+	}
+}
