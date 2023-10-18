@@ -1,6 +1,8 @@
 package tripleo.elijah.stages.hooligan.pipeline_impl;
 
 import org.jetbrains.annotations.*;
+
+import tripleo.elijah.DebugFlags;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.nextgen.inputtree.*;
@@ -26,17 +28,19 @@ public class LawabidingcitizenPipelineImpl {
 			public void complete() {
 				Collection<WorldModule> worldModules = compilation.world().modules();
 
-				final Lawabidingcitizen.SmallWriter1 sw = hooligan.__modules2(worldModules);
-				final EOT_OutputTree cot = compilation.getOutputTree();
+				if (!DebugFlags.Lawabidingcitizen_disabled) {
+					final Lawabidingcitizen.SmallWriter1 sw = hooligan.__modules2(worldModules);
+					final EOT_OutputTree cot = compilation.getOutputTree();
 
-				final List<EIT_Input> inputs = worldModules.stream().map(WorldModule::getEITInput)
-						.collect(Collectors.toList());
+					final List<EIT_Input> inputs = worldModules.stream().map(WorldModule::getEITInput)
+							.collect(Collectors.toList());
 
-				final String text = sw.getText();
-				final EG_Statement seq = EG_Statement.of(text, EX_Explanation.withMessage("modules-sw-writer"));
-				final EOT_OutputFile off = new EOT_OutputFile(inputs, "modules-sw-writer", EOT_OutputType.SWW, seq);
+					final String text = sw.getText();
+					final EG_Statement seq = EG_Statement.of(text, EX_Explanation.withMessage("modules-sw-writer"));
+					final EOT_OutputFile off = new EOT_OutputFile(inputs, "modules-sw-writer", EOT_OutputType.SWW, seq);
 
-				cot.add(off);
+					cot.add(off);
+				}
 			}
 
 			@Override
