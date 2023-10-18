@@ -102,6 +102,10 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 
 	@Override // OS_Element
 	public Context getContext() {
+		if (_a == null) {
+			System.err.println("903106 creation logic error [IllegalStateException]");
+			return null;
+		}
 		return _a.getContext();
 	}
 
@@ -235,6 +239,7 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 		category = aCategory;
 	}
 
+	@Override
 	public void setContext(final FunctionContext ctx) {
 		_a.setContext(ctx);
 	}
