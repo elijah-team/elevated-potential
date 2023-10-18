@@ -13,7 +13,7 @@ Elijah is:
 
 - ... implemented in Java (17)
 - ... uses Gradle
-- ... not a closet Kotlin addict.
+- ... not a closet Kotlin addict
 
 Instructions
 -------------
@@ -21,7 +21,7 @@ Instructions
 [https://github.com/elijah-team/elevated-potential](https://github.com/elijah-team/elevated-potential)
 
 ```shell
-git clone https://github.com/elijah-team/elevated-potential
+git clone https://github.com/elijah-team/elevated-potential -b 2023-10industrial
 cd elevated-potential
 mkdir COMP
 gradle test
