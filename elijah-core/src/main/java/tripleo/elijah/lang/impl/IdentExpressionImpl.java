@@ -53,7 +53,7 @@ public class IdentExpressionImpl implements IdentExpression {
 	public IdentExpressionImpl(final @NotNull Token r1, final @NotNull Context cur) {
 		this.text = r1;
 		this._a   = new AttachedImpl(cur);
-		setContext(cur);
+		//setContext(cur);
 
 		this.name = EN_Name.create(text.getText());
 		cur.addName(name);

@@ -23,22 +23,22 @@ class PL_AddModules implements PipelineLogicRunnable {
 
 			@Override
 			public void complete() {
-
+				throw new UnintendedUseException();
 			}
 
 			@Override
 			public void error(final Diagnostic d) {
-
+				throw new UnintendedUseException();
 			}
 
 			@Override
 			public void preComplete() {
-
+				throw new UnintendedUseException();
 			}
 
 			@Override
 			public void start() {
-
+				System.out.println("[PL_AddModules::ModuleCompletableProcess] start");
 			}
 		});
 	}
