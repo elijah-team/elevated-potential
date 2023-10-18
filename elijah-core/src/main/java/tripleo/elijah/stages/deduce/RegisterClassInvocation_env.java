@@ -2,6 +2,7 @@ package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public final class RegisterClassInvocation_env {

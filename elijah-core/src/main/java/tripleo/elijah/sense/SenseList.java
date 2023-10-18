@@ -13,33 +13,44 @@ public class SenseList implements Iterable<SenseList.Sensible> {
 		SKIP, USE, ADD
 	}
 
-	public record Sensible(CompilerInput input, SenseList.U u, Sensable indexable) {
-		public void checkDirectoryResults(CCI cci, IProgressSink progressSink) {
-			final CompilerInput compilerInput = this.input();
-			final List<Operation2<CompilerInstructions>> directoryResults = compilerInput.getDirectoryResults();
+	public static final class Sensible {
+		private final CompilerInput input;
+		private final U             u;
+		private final Sensable      indexable;
 
-			if (directoryResults != null) {
-				if (!directoryResults.isEmpty()) {
-					for (Operation2<CompilerInstructions> directoryResult : directoryResults) {
-						if (directoryResult.mode() == Mode.SUCCESS) {
-							cci.accept(new Maybe<>(ILazyCompilerInstructions.of(directoryResult.success()), null),
-									progressSink);
+		public Sensible(CompilerInput input, U u, Sensable indexable) {
+			this.input     = input;
+			this.u         = u;
+			this.indexable = indexable;
+		}
+
+		public void checkDirectoryResults(CCI cci, IProgressSink progressSink) {
+				final CompilerInput                          compilerInput    = this.input();
+				final List<Operation2<CompilerInstructions>> directoryResults = compilerInput.getDirectoryResults();
+
+				if (directoryResults != null) {
+					if (!directoryResults.isEmpty()) {
+						for (Operation2<CompilerInstructions> directoryResult : directoryResults) {
+							if (directoryResult.mode() == Mode.SUCCESS) {
+								cci.accept(new Maybe<>(ILazyCompilerInstructions.of(directoryResult.success()), null),
+										   progressSink);
+							}
 						}
 					}
 				}
 			}
+
+		public CompilerInput input() {
+			return input;
 		}
-	}
 
-	private final List<Sensible> x = new ArrayList<>();
+		public U u() {
+			return u;
+		}
 
-	public void add(final CompilerInput aInp) {
-		x.add(new Sensible(aInp, U.ADD, null));
-	}
-
-	public void add(CompilerInput aCompilerInput, U u, Sensable aIndexable) {
-		x.add(new Sensible(aCompilerInput, u, aIndexable));
-	}
+		public Sensable indexable() {
+			return indexable;
+		}
 
 		@Override
 		public boolean equals(Object obj) {

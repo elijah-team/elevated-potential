@@ -203,13 +203,135 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 		}
 	}
 
-	public record Resolve_VTE(VariableTableEntry vte, Context ctx, ProcTableEntry pte, Instruction instruction,
-			FnCallArgs fca) {
-	}
+	public static final class Resolve_VTE {
+		private final VariableTableEntry vte;
+		private final Context            ctx;
+		private final ProcTableEntry     pte;
+		private final Instruction        instruction;
+		private final FnCallArgs         fca;
 
-	public record FT_FCA_Ctx(BaseEvaFunction generatedFunction, TypeTableEntry tte, Context ctx, ErrSink errSink,
-			DeduceTypes2.DeduceClient4 dc) {
-	}
+		public Resolve_VTE(VariableTableEntry vte, Context ctx, ProcTableEntry pte, Instruction instruction,
+						   FnCallArgs fca) {
+			this.vte         = vte;
+			this.ctx         = ctx;
+			this.pte         = pte;
+			this.instruction = instruction;
+			this.fca         = fca;
+		}
+
+		public VariableTableEntry vte() {
+			return vte;
+		}
+
+		public Context ctx() {
+			return ctx;
+		}
+
+		public ProcTableEntry pte() {
+			return pte;
+		}
+
+		public Instruction instruction() {
+			return instruction;
+		}
+
+		public FnCallArgs fca() {
+			return fca;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (Resolve_VTE) obj;
+			return Objects.equals(this.vte, that.vte) &&
+					Objects.equals(this.ctx, that.ctx) &&
+					Objects.equals(this.pte, that.pte) &&
+					Objects.equals(this.instruction, that.instruction) &&
+					Objects.equals(this.fca, that.fca);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(vte, ctx, pte, instruction, fca);
+		}
+
+		@Override
+		public String toString() {
+			return "Resolve_VTE[" +
+					"vte=" + vte + ", " +
+					"ctx=" + ctx + ", " +
+					"pte=" + pte + ", " +
+					"instruction=" + instruction + ", " +
+					"fca=" + fca + ']';
+		}
+
+		}
+
+	public static final class FT_FCA_Ctx {
+		private final BaseEvaFunction            generatedFunction;
+		private final TypeTableEntry             tte;
+		private final Context                    ctx;
+		private final ErrSink                    errSink;
+		private final DeduceTypes2.DeduceClient4 dc;
+
+		public FT_FCA_Ctx(BaseEvaFunction generatedFunction, TypeTableEntry tte, Context ctx, ErrSink errSink,
+						  DeduceTypes2.DeduceClient4 dc) {
+			this.generatedFunction = generatedFunction;
+			this.tte               = tte;
+			this.ctx               = ctx;
+			this.errSink           = errSink;
+			this.dc                = dc;
+		}
+
+		public BaseEvaFunction generatedFunction() {
+			return generatedFunction;
+		}
+
+		public TypeTableEntry tte() {
+			return tte;
+		}
+
+		public Context ctx() {
+			return ctx;
+		}
+
+		public ErrSink errSink() {
+			return errSink;
+		}
+
+		public DeduceTypes2.DeduceClient4 dc() {
+			return dc;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (FT_FCA_Ctx) obj;
+			return Objects.equals(this.generatedFunction, that.generatedFunction) &&
+					Objects.equals(this.tte, that.tte) &&
+					Objects.equals(this.ctx, that.ctx) &&
+					Objects.equals(this.errSink, that.errSink) &&
+					Objects.equals(this.dc, that.dc);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(generatedFunction, tte, ctx, errSink, dc);
+		}
+
+		@Override
+		public String toString() {
+			return "FT_FCA_Ctx[" +
+					"generatedFunction=" + generatedFunction + ", " +
+					"tte=" + tte + ", " +
+					"ctx=" + ctx + ", " +
+					"errSink=" + errSink + ", " +
+					"dc=" + dc + ']';
+		}
+
+		}
 
 	public class FT_FCA_ProcedureCall {
 		private final Context ctx;

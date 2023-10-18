@@ -19,6 +19,7 @@ dependencies {
 //    implementation 'eu.mihosoft.monacofx:monacofx:0.0.8'
 
     api project(':elijah-util')
+    api project(':elijah-ek')
     api project(':tripleo.small')
     api project(':tripleo.elijah.reactive')
     api project(':tripleo.elijah.stateful')

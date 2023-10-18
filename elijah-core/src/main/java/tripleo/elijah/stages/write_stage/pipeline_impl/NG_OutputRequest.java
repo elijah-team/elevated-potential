@@ -5,6 +5,8 @@ import tripleo.elijah.nextgen.output.NG_OutputStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 
+import java.util.Objects;
+
 // TODO 09/04 Duplication madness
 public final class NG_OutputRequest {
 	private final EOT_OutputFile.FileNameProvider fileName;

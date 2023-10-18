@@ -4,6 +4,7 @@ import tripleo.elijah.stages.gen_fn.GenerateFunctions;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public final class RegisterClassInvocation2_env {
