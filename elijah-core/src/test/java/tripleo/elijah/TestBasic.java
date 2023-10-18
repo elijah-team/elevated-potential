@@ -155,6 +155,8 @@ public class TestBasic {
 		var baa = "/Prelude/Arguments.h"; assertTrue(c.reports().containsCodeOutput(baa));
 		var bae = "/Prelude/Arguments.c"; assertTrue(c.reports().containsCodeOutput(bae));
 
+		assertEquals(6, c.reports().codeOutputSize());
+
 		var bab = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.c"; assertTrue(c.reports().containsCodeOutput(bab));
 		var bac = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.h"; assertTrue(c.reports().containsCodeOutput(bac));
 
