@@ -40,7 +40,7 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 
 	@Deprecated
 	public FuncExprImpl() {
-		throw new UnintendedUseException();
+		//throw new UnintendedUseException(); // ?? FIXME 10/18
 	}
 
 	@Override

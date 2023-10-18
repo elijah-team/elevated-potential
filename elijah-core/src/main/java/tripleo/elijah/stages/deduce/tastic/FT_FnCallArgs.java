@@ -65,6 +65,11 @@ public class FT_FnCallArgs implements ITastic {
 		LOG          = aDeduceTypes2.LOG;
 	}
 
+	public record Packet_do_assign_call(@NotNull BaseEvaFunction generatedFunction,
+										@NotNull Context ctx,
+										@NotNull IdentTableEntry idte,
+										int instructionIndex) implements  Packet {}
+
 	@Override
 	public void do_assign_call(final @NotNull BaseEvaFunction generatedFunction,
 	                           final @NotNull Context ctx,
@@ -97,39 +102,63 @@ public class FT_FnCallArgs implements ITastic {
 			}
 			}
 		}
-		{
-			final String s = ((IdentExpression) pte.__debug_expression).getText();
-			final LookupResultList lrl = ctx.lookup(s);
-			final @Nullable OS_Element best = lrl.chooseBest(null);
-			if (best != null) {
-				pte.setResolvedElement(best);
 
-				// TODO do we need to add a dependency for class, etc?
-				if (true) {
-					if (best instanceof ConstructorDef cd) {
-						// TODO Dont know how to handle this
-						int y = 2;
-					} else if (best instanceof FunctionDef || best instanceof DefFunctionDef) {
-						final OS_Element parent = best.getParent();
-						IInvocation invocation;
-						if (parent instanceof final @NotNull NamespaceStatement nsp) {
-							invocation = deduceTypes2._inj().new_NamespaceInvocation(nsp);
-						} else if (parent instanceof final @NotNull ClassStatement csp) {
-							invocation = deduceTypes2._inj().new_ClassInvocation(csp, null, new ReadySupplier_1<>(deduceTypes2));
-						} else {
-							throw new NotImplementedException();
-						}
-
-						final FunctionInvocation fi = deduceTypes2.newFunctionInvocation((FunctionDef) best, pte, invocation, deduceTypes2.phase);
-						generatedFunction.addDependentFunction(fi);
-					} else if (best instanceof ClassStatement) {
-						final GenType genType = GenTypeImpl.genCIFrom((ClassStatement) best, deduceTypes2);
-						generatedFunction.addDependentType(genType);
-					}
-				}
-			} else {
-				throw new NotImplementedException();
+		final DLU2.LookupChain lc = new DLU2.LookupChain() {
+			@Override
+			public DLU2.LookupChain getParent() {
+				return null;
 			}
+
+			@Override
+			public DLU2.LookupNode getCurrent() {
+				return DLU2.lookupNodeSimple("FT_FnCallArgs::do_assign_call");
+			}
+		};
+
+		new DLU2().lookup2(lc,
+						   new PteIdentLookupable(pte, ctx),
+						   null,
+						   new Packet_do_assign_call(generatedFunction, ctx, idte, instructionIndex),
+						   this::do_assign_call__callback);
+	}
+
+	private void do_assign_call__callback(@Nullable OS_Element best, Packet ap) {
+		final Packet_do_assign_call   p                 = (Packet_do_assign_call) ap;
+		final BaseEvaFunction         generatedFunction = p.generatedFunction();
+		final @NotNull ProcTableEntry pte               = generatedFunction.getProcTableEntry(to_int(fca.getArg(0)));
+
+		do_assign_call__callback(generatedFunction, best, pte);
+	}
+
+	private void do_assign_call__callback(final @NotNull BaseEvaFunction generatedFunction, final @Nullable OS_Element best, final @NotNull ProcTableEntry pte) {
+		if (best != null) {
+			pte.setResolvedElement(best);
+
+			// TODO do we need to add a dependency for class, etc?
+			if (true) {
+				if (best instanceof ConstructorDef cd) {
+					// TODO Dont know how to handle this
+					int y = 2;
+				} else if (best instanceof FunctionDef || best instanceof DefFunctionDef) {
+					final OS_Element parent = best.getParent();
+					IInvocation invocation;
+					if (parent instanceof final @NotNull NamespaceStatement nsp) {
+						invocation = deduceTypes2._inj().new_NamespaceInvocation(nsp);
+					} else if (parent instanceof final @NotNull ClassStatement csp) {
+						invocation = deduceTypes2._inj().new_ClassInvocation(csp, null, new ReadySupplier_1<>(deduceTypes2));
+					} else {
+						throw new NotImplementedException();
+					}
+
+					final FunctionInvocation fi = deduceTypes2.newFunctionInvocation((FunctionDef) best, pte, invocation, deduceTypes2.phase);
+					generatedFunction.addDependentFunction(fi);
+				} else if (best instanceof ClassStatement) {
+					final GenType genType = GenTypeImpl.genCIFrom((ClassStatement) best, deduceTypes2);
+					generatedFunction.addDependentType(genType);
+				}
+			}
+		} else {
+			throw new NotImplementedException();
 		}
 	}
 
@@ -200,6 +229,30 @@ public class FT_FnCallArgs implements ITastic {
 			throw new UnintendedUseException();
 		} else {
 			throw new UnintendedUseException();
+		}
+	}
+
+	private static class PteIdentLookupable implements Lookupable {
+		private final @NotNull ProcTableEntry pte;
+		private final @NotNull Context ctx;
+
+		public PteIdentLookupable(final @NotNull ProcTableEntry aPte, final @NotNull Context aCtx) {
+			pte = aPte;
+			ctx = aCtx;
+		}
+
+		@Override
+		public String s() {
+			return ident().getText();
+		}
+
+		private IdentExpression ident() {
+			return (IdentExpression) pte.__debug_expression;
+		}
+
+		@Override
+		public Context ctx() {
+			return ctx;
 		}
 	}
 }
