@@ -3,6 +3,7 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.util.Stupidity;
 
 import java.util.*;
 
@@ -30,6 +31,13 @@ class CB_FindCIs implements CB_Action {
 		for (final CR_Action action : crActionList) {
 			action.attach(compilationRunner);
 			action.execute(compilationRunner.getCrState(), o);
+		}
+
+		Stupidity.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
+
+		for (final CB_OutputString outputString : o.get()) {
+			// 08/13
+			Stupidity.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
 		}
 
 		// TODO capture action outputs
