@@ -359,7 +359,11 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	public void setCompilationRunner(final CompilationRunner aCompilationRunner) {
 		compilationRunner = aCompilationRunner;
 
-		ecr.resolve(compilationRunner);
+		if (ecr.isPending()) {
+			ecr.resolve(compilationRunner);
+		} else {
+			System.err.println("903365 compilationRunner already set");
+		}
 	}
 
 	@Override
@@ -369,7 +373,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	@Override
 	public void setCompilerInput(final List<CompilerInput> aInputs) {
-		assert inp == null;
+		//assert inp == null;
 
 		inp = aInputs;
 	}
@@ -398,7 +402,9 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	@Override
 	public void _resolvePipelineAccessPromise(IPipelineAccess aPa) {
-		pipelineAccessPromise.resolve(aPa);
+		if (!pipelineAccessPromise.isResolved()) { // FIXME 10/18 ugh
+			pipelineAccessPromise.resolve(aPa);
+		}
 	}
 
 	@Override

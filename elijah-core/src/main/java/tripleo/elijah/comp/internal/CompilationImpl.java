@@ -164,6 +164,8 @@ public class CompilationImpl implements Compilation {
 
         aController._setInputs(this, aCompilerInputs);
 
+        assert _inputs != null;
+
         for (final CompilerInput compilerInput : _inputs) {
             compilerInput.setMaster(master); // FIXME this is too much i think
         }

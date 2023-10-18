@@ -12,10 +12,7 @@ import lombok.Getter;
 import tripleo.elijah.Eventual;
 import tripleo.elijah.EventualRegister;
 import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.lang.i.ConstructorDef;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.stages.deduce.nextgen.DeduceCreationContext;
 import tripleo.elijah.stages.deduce.post_bytecode.__LFOE_Q;
@@ -108,8 +105,13 @@ public class FunctionInvocation implements IInvocation {
 		}
 
 		@Nullable OS_Module module = null;
-		if (fd != null && fd.getContext() != null)
-			module = fd.getContext().module();
+		if (fd != null) {
+			final Context ___fd_context = fd.getContext();
+			if (___fd_context != null) {
+				if (___fd_context.getParent() != null)
+					module = ___fd_context.module();
+			}
+		}
 		if (module == null)
 			module = classInvocation.getKlass().getContext().module(); // README for constructors
 
