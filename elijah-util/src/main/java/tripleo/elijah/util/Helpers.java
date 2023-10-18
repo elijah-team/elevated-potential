@@ -28,23 +28,6 @@ import java.util.stream.Collectors;
 public enum Helpers {
 	;
 
-	public static @NotNull String getHash(byte[] aBytes) throws NoSuchAlgorithmException {
-		MessageDigest md = MessageDigest.getInstance("SHA-256");
-
-//		String input;
-//		md.update(input.getBytes(StandardCharsets.UTF_8));
-		md.update(aBytes);
-
-		byte[] hashBytes = md.digest();
-
-		StringBuilder sb = new StringBuilder();
-		for (byte b : hashBytes) {
-			sb.append(String.format("%02x", b));
-		}
-
-		return sb.toString();
-	}
-
 	public static @NotNull Operation<String> getHashForFilename(final @NotNull String aFilename) {
 		try {
 			final String hdigest = new DigestUtils(MessageDigestAlgorithms.SHA_256).digestAsHex(new File(aFilename));
@@ -95,26 +78,6 @@ public enum Helpers {
 		return Objects.equals(aS, aS1);
 	}
 
-	public static @NotNull <T> List<T> __combine_list_elements(final T b, final List<T> m, final T e) {
-		final List<T> list3 = __prepend_list(b, m);
-		list3.add(e);
-		return list3;
-	}
-
-	private static @NotNull <T> List<T> __prepend_list(final T b, final @NotNull List<T> list2) {
-		final List<T> list3 = new ArrayList<>(list2.size() + 2);
-		list3.add(b);
-		list3.addAll(list2);
-		return list3;
-	}
-
-	@NotNull
-	public static <T> List<T> __combine_list_elements(final T b, final List<T> m, final T e) {
-		final List<T> list3 = __prepend_list(b, m);
-		list3.add(e);
-		return list3;
-	}
-
 	@NotNull
 	private static <T> List<T> __prepend_list(final T b, final @NotNull List<T> list2) {
 		final List<T> list3 = new ArrayList<>(list2.size() + 2);
@@ -130,13 +93,6 @@ public enum Helpers {
 		return list3;
 	}
 
-	@NotNull
-	private static <T> List<T> __prepend_list(final T b, final @NotNull List<T> list2) {
-		final List<T> list3 = new ArrayList<>(list2.size() + 2);
-		list3.add(b);
-		list3.addAll(list2);
-		return list3;
-	}
 }
 
 //
