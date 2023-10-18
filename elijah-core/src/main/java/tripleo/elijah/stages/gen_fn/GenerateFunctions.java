@@ -14,6 +14,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+//import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.EvaPipeline;
 import tripleo.elijah.comp.PipelineLogic;
 import tripleo.elijah.comp.i.IPipelineAccess;
@@ -75,8 +76,7 @@ public class GenerateFunctions implements ReactiveDimension {
 		}
 
 		void processItem(@NotNull ClassStatement klass, final @NotNull ClassItem item, final @NotNull EvaClass gc) {
-			@Nullable
-			AccessNotation an = null;
+			@Nullable AccessNotation an = null;
 
 			if (item instanceof AliasStatement) {
 				LOG.info("Skip alias statement for now");
@@ -1234,8 +1234,10 @@ public class GenerateFunctions implements ReactiveDimension {
 		return addTempTableEntry(type, null, gf, null);
 	}
 
-	private int addTempTableEntry(final OS_Type type, @Nullable final IdentExpression name,
-			@NotNull final BaseEvaFunction gf, @Nullable OS_Element el) {
+	private int addTempTableEntry(final OS_Type type,
+								  final @Nullable IdentExpression name,
+								  final @NotNull  BaseEvaFunction gf,
+								  final @Nullable OS_Element el) {
 		final @org.jetbrains.annotations.Nullable String theName;
 		final int num;
 		final @NotNull TypeTableEntry tte;
@@ -1880,27 +1882,24 @@ public class GenerateFunctions implements ReactiveDimension {
 		if (args == null)
 			return R;
 		//
-		R = Collections2.transform(args.expressions(), new Function<IExpression, InstructionArgument>() {
-			@Override
-			public @Nullable @org.jetbrains.annotations.Nullable InstructionArgument apply(
-					@Nullable final IExpression input) {
-				assert input != null;
-				@NotNull
-				final IExpression expression = input;
-				final InstructionArgument ia = simplify_expression(expression, gf, cctx);
-				if (ia != null) {
-					LOG.err("109-1 " + expression);
-				} else {
-					LOG.err("109-01 error expr not found " + expression);
-				}
-				return ia;
+		R = Collections2.transform(args.expressions(), input -> {
+			assert input != null;
+
+			final @NotNull IExpression expression = input;
+			final InstructionArgument ia = simplify_expression(expression, gf, cctx);
+			if (ia != null) {
+				LOG.err("109-1 " + expression);
+			} else {
+				LOG.err("109-01 error expr not found " + expression);
 			}
+			return ia;
 		});
 		return R;
 	}
 
 	private @NotNull InstructionArgument simplify_dot_expression(final @NotNull DotExpression dotExpression,
-			final @NotNull BaseEvaFunction gf, @NotNull Context cctx) {
+																 final @NotNull BaseEvaFunction gf,
+																 final @NotNull Context cctx) {
 		@NotNull
 		InstructionArgument x = gf.get_assignment_path(dotExpression, this, cctx);
 		LOG.info("1117 " + x);
