@@ -40,10 +40,15 @@ public class InputRequest { // TODO 09/08 Convert to record
 	}
 }
 //public record InputRequest (File file, boolean do_out, @Nullable LibraryStatementPart lsp) {
-//	private       Operation2<WorldModule> op;
+//	private       Holder<Operation2<WorldModule>> hop = new Holder<>(); // FIXME record members mus be static; use lombok, but eclipse, arrg -- no, use a generator!! (xtend??)
 //
-//	public void setOp(final Operation2<WorldModule> aOwm) {
-//		op = aOwm;
+//	public void setOp(final Operation2<WorldModule> op) {
+//		//op = op;
+//		hop.set(op);
+//	}
+//
+//	public Operation2<WorldModule> op() {
+//		return hop.get();
 //	}
 //
 //}
