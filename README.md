@@ -13,7 +13,7 @@ Elijah is:
 
 - ... implemented in Java (17)
 - ... uses Gradle
-- ... not a closet Kotlin addict
+- ... is philosophically opposed to Kotlin
 
 Instructions
 -------------
