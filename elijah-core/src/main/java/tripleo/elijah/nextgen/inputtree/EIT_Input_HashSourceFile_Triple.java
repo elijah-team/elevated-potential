@@ -67,3 +67,36 @@ public record EIT_Input_HashSourceFile_Triple(String hash, EIT_SourceOrigin sour
         throw new IllegalStateException("Unexpected value " + filename);
     }
 }
+
+	public EIT_SourceOrigin source() {
+		return source;
+	}
+
+	public String filename() {
+		return filename;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) return true;
+		if (obj == null || obj.getClass() != this.getClass()) return false;
+		var that = (EIT_Input_HashSourceFile_Triple) obj;
+		return Objects.equals(this.hash, that.hash) &&
+				Objects.equals(this.source, that.source) &&
+				Objects.equals(this.filename, that.filename);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(hash, source, filename);
+	}
+
+	@Override
+	public String toString() {
+		return "EIT_Input_HashSourceFile_Triple[" +
+				"hash=" + hash + ", " +
+				"source=" + source + ", " +
+				"filename=" + filename + ']';
+	}
+
+}

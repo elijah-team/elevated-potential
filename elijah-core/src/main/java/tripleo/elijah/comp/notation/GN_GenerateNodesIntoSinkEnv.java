@@ -75,7 +75,67 @@ public record GN_GenerateNodesIntoSinkEnv(
 	@Contract("_, _ -> new")
 	@NotNull
 	OutputFileFactoryParams getParams(final WorldModule mod,
-			final @NotNull GN_GenerateNodesIntoSink aGNGenerateNodesIntoSink) {
+									  final @NotNull GN_GenerateNodesIntoSink aGNGenerateNodesIntoSink) {
 		return new OutputFileFactoryParams(mod, aGNGenerateNodesIntoSink._env().ce());
 	}
+
+	public List<ProcessedNode> lgc() {
+		return lgc;
+	}
+
+	public GenerateResultSink resultSink1() {
+		return resultSink1;
+	}
+
+	public Object moduleList() {
+		return moduleList;
+	}
+
+	public ElLog.Verbosity verbosity() {
+		return verbosity;
+	}
+
+	public GenerateResult gr() {
+		return gr;
+	}
+
+	public IPipelineAccess pa() {
+		return pa;
+	}
+
+	public CompilationEnclosure ce() {
+		return ce;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) return true;
+		if (obj == null || obj.getClass() != this.getClass()) return false;
+		var that = (GN_GenerateNodesIntoSinkEnv) obj;
+		return Objects.equals(this.lgc, that.lgc) &&
+				Objects.equals(this.resultSink1, that.resultSink1) &&
+				Objects.equals(this.moduleList, that.moduleList) &&
+				Objects.equals(this.verbosity, that.verbosity) &&
+				Objects.equals(this.gr, that.gr) &&
+				Objects.equals(this.pa, that.pa) &&
+				Objects.equals(this.ce, that.ce);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(lgc, resultSink1, moduleList, verbosity, gr, pa, ce);
+	}
+
+	@Override
+	public String toString() {
+		return "GN_GenerateNodesIntoSinkEnv[" +
+				"lgc=" + lgc + ", " +
+				"resultSink1=" + resultSink1 + ", " +
+				"moduleList=" + moduleList + ", " +
+				"verbosity=" + verbosity + ", " +
+				"gr=" + gr + ", " +
+				"pa=" + pa + ", " +
+				"ce=" + ce + ']';
+	}
+
 }

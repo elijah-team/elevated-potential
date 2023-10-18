@@ -62,3 +62,50 @@ public class LSPrintStream implements XPrintStream {
 		sb.append('\n');
 	}
 }
+
+		@Override
+		public String toString() {
+			return "LSResult[" +
+					"buffer=" + buffer + ", " +
+					"fs=" + fs + ']';
+		}
+
+		}
+
+	public static class MyEIT_Input implements EIT_Input {
+		private final Compilation c;
+		private final String s;
+
+		public MyEIT_Input(final Compilation aC, final String aS) {
+			c = aC;
+			s = aS;
+		}
+
+		@Override
+		public EIT_InputType getType() {
+			return EIT_InputType.ELIJAH_SOURCE;
+		}
+	}
+
+	private final StringBuilder sb = new StringBuilder();
+
+	private final List<String> ff = new ArrayList<>();
+
+	public void addFile(final String aS) {
+		ff.add(aS);
+	}
+
+	public LSResult getResult() {
+		return new LSResult(List_of(getString()), ff);
+	}
+
+	public @NotNull String getString() {
+		return sb.toString();
+	}
+
+	@Override
+	public void println(final String aS) {
+		sb.append(aS);
+		sb.append('\n');
+	}
+}
