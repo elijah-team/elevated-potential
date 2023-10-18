@@ -1045,10 +1045,11 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 			if (fi == null) {
 				// TODO constructor
 			} else {
-				BaseEvaFunction gf = fi.getEva();
-				if (gf != null) {
-					wl.addJob(new WlGenerateFunctionC(fileGen, gf, this));
-				}
+				fi.generateDeferred().then(evaFunction -> wl.addJob(new WlGenerateFunctionC(fileGen, evaFunction, this)));
+				//BaseEvaFunction gf = fi.getEva();
+				//if (gf != null) {
+				//	wl.addJob(new WlGenerateFunctionC(fileGen, gf, this));
+				//}
 			}
 		}
 	}
@@ -1086,10 +1087,12 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 				// TODO constructor
 				int y = 2;
 			} else {
-				BaseEvaFunction gf = fi.getEva();
-				if (gf != null) {
-					wl.addJob(new WlGenerateFunctionC(aFileGen, gf, this));
-				}
+				fi.generateDeferred().then(evaFunction -> wl.addJob(new WlGenerateFunctionC(aFileGen, evaFunction, this)));
+
+				//BaseEvaFunction gf = fi.getEva();
+				//if (gf != null) {
+				//	wl.addJob(new WlGenerateFunctionC(aFileGen, gf, this));
+				//}
 			}
 		}
 	}
