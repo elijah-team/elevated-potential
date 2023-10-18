@@ -312,7 +312,7 @@ public class Resolve_Ident_IA {
 		Collection<ConstructorDef> cs = (((ClassStatement) el).getConstructors());
 		@Nullable
 		ConstructorDef selected_constructor = null;
-		if (pte.getArgs().size() == 0 && cs.size() == 0) {
+		if (pte.getArgs().isEmpty() && cs.isEmpty()) {
 			// TODO use a virtual default ctor
 			LOG.info("2262 use a virtual default ctor for " + pte.__debug_expression);
 			selected_constructor = LangGlobals.defaultVirtualCtor;
@@ -330,12 +330,7 @@ public class Resolve_Ident_IA {
 			@NotNull
 			GenType genType = dt2._inj().new_GenTypeImpl(ci.getKlass());
 			genType.setCi(ci);
-			ci.resolvePromise().then(new DoneCallback<EvaClass>() {
-				@Override
-				public void onDone(EvaClass result) {
-					genType.setNode(result);
-				}
-			});
+			ci.resolvePromise().then(result -> genType.setNode(result));
 			generatedFunction.addDependentType(genType);
 			generatedFunction.addDependentFunction(fi);
 		} else
@@ -397,8 +392,8 @@ public class Resolve_Ident_IA {
 			break;
 		case FUNC_EXPR: {
 			@NotNull
-			FuncExpr x = (FuncExpr) aAttached.getElement();
-			ectx = x.getContext();
+			FuncExpr funcExpr = (FuncExpr) aAttached.getElement();
+			ectx = funcExpr.getContext();
 			break;
 		}
 		default:
@@ -515,15 +510,12 @@ public class Resolve_Ident_IA {
 			assert resolvedElement != null;
 
 			if (resolvedElement instanceof IdentExpression) {
-				backlink.typePromise().then(new DoneCallback<GenType>() {
-					@Override
-					public void onDone(@NotNull GenType result) {
-						try {
-							final Context context1 = result.getResolved().getClassOf().getContext();
-							action_002_2(pte, ite, context1);
-						} catch (ResolveError aResolveError) {
-							errSink.reportDiagnostic(aResolveError);
-						}
+				backlink.typePromise().then(result -> {
+					try {
+						final Context context1 = result.getResolved().getClassOf().getContext();
+						action_002_2(pte, ite, context1);
+					} catch (ResolveError aResolveError) {
+						errSink.reportDiagnostic(aResolveError);
 					}
 				});
 			} else {
