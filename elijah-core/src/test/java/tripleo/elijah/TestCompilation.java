@@ -72,6 +72,11 @@ public class TestCompilation {
 			return result;
 		}
 
+		@Override
+		public Compilation c() {
+			return c;
+		}
+
 		private Compilation build() {
 			if (c != null) return c;
 

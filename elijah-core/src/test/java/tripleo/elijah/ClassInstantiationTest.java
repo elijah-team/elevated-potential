@@ -26,6 +26,7 @@ public class ClassInstantiationTest {
 
 		System.err.println("Errorcount is " + t.errorCount());
 
+		assert t.c().reports().codeOutputSize() > 0;
 		assertEquals(8, t.errorCount());
 	}
 
@@ -41,6 +42,8 @@ public class ClassInstantiationTest {
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+
+		assert t.c().reports().codeOutputSize() > 0;
 	}
 
 	@Test
@@ -55,6 +58,8 @@ public class ClassInstantiationTest {
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+
+		assert t.c().reports().codeOutputSize() > 0;
 	}
 
 	@Test
@@ -69,6 +74,8 @@ public class ClassInstantiationTest {
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+
+		assert t.c().reports().codeOutputSize() > 0;
 	}
 }
 
