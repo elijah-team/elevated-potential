@@ -325,8 +325,8 @@ public class Generate_Code_For_Method {
 	void action_invariant(final @NotNull WhyNotGarish_BaseFunction yf, final Generate_Method_Header aGmh) {
 		tos.incr_tabs();
 		//
-		@NotNull
-		final List<Instruction> instructions = yf.instructions();
+		@NotNull final List<Instruction> instructions = yf.instructions();
+
 		for (int instruction_index = 0; instruction_index < instructions.size(); instruction_index++) {
 			final Instruction instruction = instructions.get(instruction_index);
 //			LOG.err("8999 "+instruction);
