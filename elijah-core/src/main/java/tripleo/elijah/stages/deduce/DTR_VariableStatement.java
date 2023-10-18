@@ -10,8 +10,53 @@ import tripleo.elijah.util.*;
 import java.util.*;
 
 public class DTR_VariableStatement {
-	record DTR_VS_Ctx(IElementHolder eh, GenType genType, NormalTypeName normalTypeName) {
-	}
+	static final class DTR_VS_Ctx {
+		private final IElementHolder eh;
+		private final GenType        genType;
+		private final NormalTypeName normalTypeName;
+
+		DTR_VS_Ctx(IElementHolder eh, GenType genType, NormalTypeName normalTypeName) {
+			this.eh             = eh;
+			this.genType        = genType;
+			this.normalTypeName = normalTypeName;
+		}
+
+		public IElementHolder eh() {
+			return eh;
+		}
+
+		public GenType genType() {
+			return genType;
+		}
+
+		public NormalTypeName normalTypeName() {
+			return normalTypeName;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (DTR_VS_Ctx) obj;
+			return Objects.equals(this.eh, that.eh) &&
+					Objects.equals(this.genType, that.genType) &&
+					Objects.equals(this.normalTypeName, that.normalTypeName);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(eh, genType, normalTypeName);
+		}
+
+		@Override
+		public String toString() {
+			return "DTR_VS_Ctx[" +
+					"eh=" + eh + ", " +
+					"genType=" + genType + ", " +
+					"normalTypeName=" + normalTypeName + ']';
+		}
+
+		}
 
 	private final DeduceTypeResolve deduceTypeResolve;
 

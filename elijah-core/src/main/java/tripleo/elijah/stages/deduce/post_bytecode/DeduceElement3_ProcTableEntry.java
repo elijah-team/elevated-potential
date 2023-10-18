@@ -246,12 +246,73 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		return principal;
 	}
 
-	public record LFOE_Action_Results(@NotNull DeduceTypes2 aDeduceTypes2, // input/not really needed
-									  @NotNull WorkList wl,                // input/not really needed
-									  @NotNull Consumer<WorkList> addJobs, // input/not really needed
-									  @NotNull List<? extends Object> actualResults,
-									  @NotNull Eventual<FunctionInvocation> createdFunctionInvocation
-									  ) {}
+	public static final class LFOE_Action_Results {
+		private final @NotNull DeduceTypes2                 aDeduceTypes2;
+		private final @NotNull WorkList                     wl;
+		private final @NotNull Consumer<WorkList>           addJobs;
+		private final @NotNull List<? extends Object>       actualResults;
+		private final @NotNull Eventual<FunctionInvocation> createdFunctionInvocation;
+
+		public LFOE_Action_Results(@NotNull DeduceTypes2 aDeduceTypes2, // input/not really needed
+								   @NotNull WorkList wl,                // input/not really needed
+								   @NotNull Consumer<WorkList> addJobs, // input/not really needed
+								   @NotNull List<? extends Object> actualResults,
+								   @NotNull Eventual<FunctionInvocation> createdFunctionInvocation
+								  ) {
+			this.aDeduceTypes2             = aDeduceTypes2;
+			this.wl                        = wl;
+			this.addJobs                   = addJobs;
+			this.actualResults             = actualResults;
+			this.createdFunctionInvocation = createdFunctionInvocation;
+		}
+
+		public @NotNull DeduceTypes2 aDeduceTypes2() {
+			return aDeduceTypes2;
+		}
+
+		public @NotNull WorkList wl() {
+			return wl;
+		}
+
+		public @NotNull Consumer<WorkList> addJobs() {
+			return addJobs;
+		}
+
+		public @NotNull List<? extends Object> actualResults() {
+			return actualResults;
+		}
+
+		public @NotNull Eventual<FunctionInvocation> createdFunctionInvocation() {
+			return createdFunctionInvocation;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (LFOE_Action_Results) obj;
+			return Objects.equals(this.aDeduceTypes2, that.aDeduceTypes2) &&
+					Objects.equals(this.wl, that.wl) &&
+					Objects.equals(this.addJobs, that.addJobs) &&
+					Objects.equals(this.actualResults, that.actualResults) &&
+					Objects.equals(this.createdFunctionInvocation, that.createdFunctionInvocation);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(aDeduceTypes2, wl, addJobs, actualResults, createdFunctionInvocation);
+		}
+
+		@Override
+		public String toString() {
+			return "LFOE_Action_Results[" +
+					"aDeduceTypes2=" + aDeduceTypes2 + ", " +
+					"wl=" + wl + ", " +
+					"addJobs=" + addJobs + ", " +
+					"actualResults=" + actualResults + ", " +
+					"createdFunctionInvocation=" + createdFunctionInvocation + ']';
+		}
+	}
 
 	public void lfoe_action(final @NotNull DeduceTypes2 aDeduceTypes2,
 							final @NotNull WorkList wl,
@@ -286,23 +347,161 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 	}
 
 
-	public record _1(
-			FunctionInvocation functionInvocation,
-			NamespaceStatement parentNamespace,
-			WorkList workList,
-			DeducePhase deducePhase,
-			Consumer<WorkList> addJobs,
-			@NotNull __LFOE_Q q
-	) { }
+	public static final class _1 {
+		private final          FunctionInvocation functionInvocation;
+		private final          NamespaceStatement parentNamespace;
+		private final          WorkList           workList;
+		private final          DeducePhase        deducePhase;
+		private final          Consumer<WorkList> addJobs;
+		private final @NotNull __LFOE_Q           q;
 
-	public record _0(
-			@NotNull FunctionInvocation functionInvocation,
-			ClassInvocation classInvocation,
-			ClassStatement parentClass,
-			@NotNull DeducePhase deducePhase,
-			Consumer<WorkList> addJobs,
-			@NotNull _LFOE_Q q
-	) { }
+		public _1(
+				FunctionInvocation functionInvocation,
+				NamespaceStatement parentNamespace,
+				WorkList workList,
+				DeducePhase deducePhase,
+				Consumer<WorkList> addJobs,
+				@NotNull __LFOE_Q q
+				 ) {
+			this.functionInvocation = functionInvocation;
+			this.parentNamespace    = parentNamespace;
+			this.workList           = workList;
+			this.deducePhase        = deducePhase;
+			this.addJobs            = addJobs;
+			this.q                  = q;
+		}
+
+		public FunctionInvocation functionInvocation() {
+			return functionInvocation;
+		}
+
+		public NamespaceStatement parentNamespace() {
+			return parentNamespace;
+		}
+
+		public WorkList workList() {
+			return workList;
+		}
+
+		public DeducePhase deducePhase() {
+			return deducePhase;
+		}
+
+		public Consumer<WorkList> addJobs() {
+			return addJobs;
+		}
+
+		public @NotNull __LFOE_Q q() {
+			return q;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (_1) obj;
+			return Objects.equals(this.functionInvocation, that.functionInvocation) &&
+					Objects.equals(this.parentNamespace, that.parentNamespace) &&
+					Objects.equals(this.workList, that.workList) &&
+					Objects.equals(this.deducePhase, that.deducePhase) &&
+					Objects.equals(this.addJobs, that.addJobs) &&
+					Objects.equals(this.q, that.q);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(functionInvocation, parentNamespace, workList, deducePhase, addJobs, q);
+		}
+
+		@Override
+		public String toString() {
+			return "_1[" +
+					"functionInvocation=" + functionInvocation + ", " +
+					"parentNamespace=" + parentNamespace + ", " +
+					"workList=" + workList + ", " +
+					"deducePhase=" + deducePhase + ", " +
+					"addJobs=" + addJobs + ", " +
+					"q=" + q + ']';
+		}
+	}
+
+	public static final class _0 { // TODO 10/18 $env.process($this)
+		private final @NotNull FunctionInvocation functionInvocation;
+		private final          ClassInvocation    classInvocation;
+		private final          ClassStatement     parentClass;
+		private final @NotNull DeducePhase        deducePhase;
+		private final          Consumer<WorkList> addJobs;
+		private final @NotNull _LFOE_Q            q;
+
+		public _0(
+				@NotNull FunctionInvocation functionInvocation,
+				ClassInvocation classInvocation,
+				ClassStatement parentClass,
+				@NotNull DeducePhase deducePhase,
+				Consumer<WorkList> addJobs,
+				@NotNull _LFOE_Q q
+				 ) {
+			this.functionInvocation = functionInvocation;
+			this.classInvocation    = classInvocation;
+			this.parentClass        = parentClass;
+			this.deducePhase        = deducePhase;
+			this.addJobs            = addJobs;
+			this.q                  = q;
+		}
+
+		public @NotNull FunctionInvocation functionInvocation() {
+			return functionInvocation;
+		}
+
+		public ClassInvocation classInvocation() {
+			return classInvocation;
+		}
+
+		public ClassStatement parentClass() {
+			return parentClass;
+		}
+
+		public @NotNull DeducePhase deducePhase() {
+			return deducePhase;
+		}
+
+		public Consumer<WorkList> addJobs() {
+			return addJobs;
+		}
+
+		public @NotNull _LFOE_Q q() {
+			return q;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (_0) obj;
+			return Objects.equals(this.functionInvocation, that.functionInvocation) &&
+					Objects.equals(this.classInvocation, that.classInvocation) &&
+					Objects.equals(this.parentClass, that.parentClass) &&
+					Objects.equals(this.deducePhase, that.deducePhase) &&
+					Objects.equals(this.addJobs, that.addJobs) &&
+					Objects.equals(this.q, that.q);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(functionInvocation, classInvocation, parentClass, deducePhase, addJobs, q);
+		}
+
+		@Override
+		public String toString() {
+			return "_0[" +
+					"functionInvocation=" + functionInvocation + ", " +
+					"classInvocation=" + classInvocation + ", " +
+					"parentClass=" + parentClass + ", " +
+					"deducePhase=" + deducePhase + ", " +
+					"addJobs=" + addJobs + ", " +
+					"q=" + q + ']';
+		}
+	}
 
 	void __lfoe_action__proceed(_0 o0) {
 		@NotNull FunctionInvocation fi = o0.functionInvocation();

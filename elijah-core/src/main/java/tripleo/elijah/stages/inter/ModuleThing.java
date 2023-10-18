@@ -8,30 +8,25 @@ import tripleo.small.ES_Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ModuleThing {
-	public record GeneralDescription(ES_Symbol aSymbol, @NotNull List<Object> aObjects) {
-	}
+	public static final class GeneralDescription {
+		private final          ES_Symbol    aSymbol;
+		private final @NotNull List<Object> aObjects;
 
-	private final @NotNull List<EntryPoint> entryPoints;
-	private final @NotNull List<EvaFunction> evaFunctions = new ArrayList<>();
-	private final OS_Module mod;
+		public GeneralDescription(ES_Symbol aSymbol, @NotNull List<Object> aObjects) {
+			this.aSymbol  = aSymbol;
+			this.aObjects = aObjects;
+		}
 
-	private GeneralDescription generalDescription;
+		public ES_Symbol aSymbol() {
+			return aSymbol;
+		}
 
-	public ModuleThing(final OS_Module aMod) {
-		mod = aMod;
-		entryPoints = mod.entryPoints();
-	}
-
-	public void addFunction(final EvaFunction aGeneratedFunction) {
-		evaFunctions.add(aGeneratedFunction);
-	}
-
-	public void describe(final GeneralDescription aGeneralDescription) {
-		generalDescription = aGeneralDescription;
-	}
-}
+		public @NotNull List<Object> aObjects() {
+			return aObjects;
+		}
 
 		@Override
 		public boolean equals(Object obj) {

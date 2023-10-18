@@ -58,8 +58,37 @@ public class IdentTableEntry extends BaseTableEntry1
 		}
 	}
 
-	public record ITE_Resolver_Result(OS_Element element) {
-	}
+	public static final class ITE_Resolver_Result {
+		private final OS_Element element;
+
+		public ITE_Resolver_Result(OS_Element element) {
+			this.element = element;
+		}
+
+		public OS_Element element() {
+			return element;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (ITE_Resolver_Result) obj;
+			return Objects.equals(this.element, that.element);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(element);
+		}
+
+		@Override
+		public String toString() {
+			return "ITE_Resolver_Result[" +
+					"element=" + element + ']';
+		}
+
+		}
 
 	public final DeferredObject<OS_Element, ResolveError, Void> _p_resolvedElementPromise = new DeferredObject<>();
 	private final DeferredObject<InstructionArgument, Void, Void> _p_backlinkSet = new DeferredObject<InstructionArgument, Void, Void>();

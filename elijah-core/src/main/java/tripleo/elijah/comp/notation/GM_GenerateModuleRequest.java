@@ -7,15 +7,13 @@ import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.OutputFileFactoryParams;
 import tripleo.elijah.world.i.WorldModule;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
-public record GM_GenerateModuleRequest(@NotNull GN_GenerateNodesIntoSink generateNodesIntoSink,
-		@NotNull WorldModule mod, @NotNull GN_GenerateNodesIntoSinkEnv env) implements GN_Env {
-	@Contract("_ -> new")
-	public @NotNull GenerateFiles getGenerateFiles(final Supplier<GenerateResultEnv> fgs) {
-		var params = params();
-		return env.getGenerateFiles(params, params.getWorldMod(), fgs);
-	}
+public final class GM_GenerateModuleRequest implements GN_Env {
+	private final @NotNull GN_GenerateNodesIntoSink    generateNodesIntoSink;
+	private final @NotNull WorldModule                 mod;
+	private final @NotNull GN_GenerateNodesIntoSinkEnv env;
 
 	public GM_GenerateModuleRequest(@NotNull GN_GenerateNodesIntoSink generateNodesIntoSink,
 									@NotNull WorldModule mod, @NotNull GN_GenerateNodesIntoSinkEnv env) {
