@@ -652,6 +652,16 @@ public abstract class BaseEvaFunction
 		return _reactive;
 	}
 
+	public int findIdentTableIndex(final IdentTableEntry aIdentTableEntry) {
+		for (int i = 0; i < idte_list.size(); i++) {
+			final IdentTableEntry identTableEntry = idte_list.get(i);
+			if (identTableEntry == aIdentTableEntry) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	public class __Reactive extends DefaultReactive implements BaseEvaFunction_Reactive {
 		@Override
 		public <T> void addListener(final Consumer<T> t) {
