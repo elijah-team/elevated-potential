@@ -659,13 +659,8 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 			String z;
 			switch (ty.getType()) {
 			case USER_CLASS:
-				final ClassStatement el = ty.getClassOf();
-				final String name;
-				if (ty instanceof NormalTypeName)
-					name = ((NormalTypeName) ty).getName();
-				else
-					name = el.getName();
-				z = Emit.emit("/*443*/") + String.format("Z%d/*%s*/", -4 /*el._a.getCode()*/, name);//.getName();
+				final String name = __Tests_OS_Type.boundedClassName_NormalTypeName(ty);
+				z = Emit.emit("/*443*/") + String.format("Z%d/*%s*/", -4 /*el._a.getCode()*/, name);
 				break;
 			case FUNCTION:
 				z = "<function>";
