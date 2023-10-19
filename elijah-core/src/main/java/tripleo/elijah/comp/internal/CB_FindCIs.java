@@ -3,11 +3,11 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.util.Stupidity;
+import tripleo.elijah.util.*;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 class CB_FindCIs implements CB_Action {
 	private final CompilationRunner   compilationRunner;
@@ -26,7 +26,7 @@ class CB_FindCIs implements CB_Action {
 		final List<CR_Action> crActionList = List_of(
 				compilationRunner.cr_find_cis()
 				, compilationRunner.cr_AlmostComplete() //hmm
-		);
+													);
 
 		for (final CR_Action action : crActionList) {
 			action.attach(compilationRunner);

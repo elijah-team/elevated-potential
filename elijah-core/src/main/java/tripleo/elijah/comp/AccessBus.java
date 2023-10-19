@@ -23,8 +23,8 @@ public class AccessBus {
 	}
 
 	public final Old_GenerateResult gr = new Old_GenerateResult();
-	private final Compilation _c;
-	private final IPipelineAccess _pa;
+	private final Compilation                _c;
+	private final IPipelineAccess            _pa;
 	private final stepA_mal.@NotNull MalEnv2 env;
 	private final DeferredObject<GenerateResult, Void, Void> generateResultPromise = new DeferredObject<>();
 

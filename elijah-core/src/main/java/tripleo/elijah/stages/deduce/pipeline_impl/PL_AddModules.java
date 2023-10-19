@@ -3,7 +3,7 @@ package tripleo.elijah.stages.deduce.pipeline_impl;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.IPipelineAccess;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
@@ -19,21 +19,22 @@ class PL_AddModules implements PipelineLogicRunnable {
 			@Override
 			public void add(final WorldModule item) {
 //				plp.then(pipelineLogic -> pipelineLogic.addModule(item));
+				System.err.println("[PL_AddModules::ModuleCompletableProcess] add "+item.module().getFileName());
 			}
 
 			@Override
 			public void complete() {
-				throw new UnintendedUseException();
+				NotImplementedException.raise_stop();
 			}
 
 			@Override
 			public void error(final Diagnostic d) {
-				throw new UnintendedUseException();
+			//	throw new UnintendedUseException();
 			}
 
 			@Override
 			public void preComplete() {
-				throw new UnintendedUseException();
+				//throw new UnintendedUseException();
 			}
 
 			@Override

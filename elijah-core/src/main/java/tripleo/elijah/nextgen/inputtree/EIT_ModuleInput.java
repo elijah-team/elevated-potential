@@ -26,7 +26,6 @@ import tripleo.elijah.world.i.WorldModule;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class EIT_ModuleInput implements EIT_Input {
 	private final Compilation c;

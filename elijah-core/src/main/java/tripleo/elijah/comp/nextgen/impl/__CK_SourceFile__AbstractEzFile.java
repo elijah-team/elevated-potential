@@ -102,7 +102,7 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 
 			@Override
 			public void onLogProgress(CompilationEnclosure ce) {
-				ce.logProgress2(CompProgress.Ez__HasHash, new AssererationLogProgress() {
+				ce.logProgress2(CompProgress.Ez__HasHash, new AsseverationLogProgress() {
 					@Override
 					public void call(PrintStream out, PrintStream err) {
 						out.printf("[-- Ez has HASH ] %s %s%n", file_name, hash.success());

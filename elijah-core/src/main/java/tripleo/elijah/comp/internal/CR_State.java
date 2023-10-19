@@ -14,6 +14,7 @@ import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.lang.i.*;
@@ -22,6 +23,7 @@ import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 
 import java.lang.reflect.*;
 import java.util.*;
@@ -82,8 +84,8 @@ public class CR_State {
 		private final @NotNull DeferredObject<PipelineLogic, Void, Void> ppl = new DeferredObject<>();
 		@NotNull
 		List<BaseEvaFunction> activeFunctions = new ArrayList<BaseEvaFunction>();
-		private AccessBus _ab;
-		private WritePipeline _wpl;
+		private AccessBus          _ab;
+		private WritePipeline      _wpl;
 		private GenerateResultSink grs;
 		private List<CompilerInput> inp;
 
@@ -296,12 +298,29 @@ public class CR_State {
 			assert v != null;
 			v.then(ggc -> cb.accept(ggc));
 		}
+
+		@Override
+		public void finishPipeline(final PipelineMember aPM, final WP_Flow.OPS aOps) {
+			System.err.println("[FinishPipeline] %s %s".formatted(aPM.finishPipeline_asString(), aOps));
+		}
+
+		@Override
+		public void runStepsNow(final CK_Steps aSteps, final CK_StepsContext aStepsContext) {
+			CK_Monitor monitor = null;
+
+			// TODO maybe not here
+			//aStepsContext.begin();
+
+			for (CK_Action step : aSteps.steps()) {
+				step.execute(aStepsContext, monitor);
+			}
+		}
 	}
 
 	private static class ProcessRecordImpl implements ProcessRecord {
 		// private final DeducePipeline dpl;
 		private final @NotNull ICompilationAccess ca;
-		private final IPipelineAccess pa;
+		private final          IPipelineAccess    pa;
 		private final @NotNull PipelineLogic pipelineLogic;
 		private AccessBus ab;
 

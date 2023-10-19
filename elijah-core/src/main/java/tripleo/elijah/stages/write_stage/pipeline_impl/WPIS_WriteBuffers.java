@@ -5,8 +5,11 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.WritePipeline;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.nextgen.CP_Path;
 import tripleo.elijah.comp.nextgen.CP_Paths;
+import tripleo.elijah.comp.nextgen.pn.SC_I;
+import tripleo.elijah.comp.nextgen.pn.SC_Suc_;
 import tripleo.elijah.nextgen.inputtree.EIT_Input;
 import tripleo.elijah.nextgen.outputstatement.EG_Naming;
 import tripleo.elijah.nextgen.outputstatement.EG_SequenceStatement;
@@ -14,8 +17,11 @@ import tripleo.elijah.nextgen.outputstatement.EG_SingleStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
+import tripleo.elijah.nextgen.pn.SC_Fai;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.Old_GenerateResultItem;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,7 +30,17 @@ import java.util.List;
 
 import static tripleo.elijah.util.Helpers.List_of;
 
-public class WPIS_WriteBuffers implements WP_Indiviual_Step {
+public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
+	@Override
+	public String sc_i_asString() {
+		return "WPIS_WriteBuffers :: <interesting stuff here>";
+	}
+
+	//@Override
+	public Operation<Ok> execute(final CK_Monitor aMonitor) {
+		return null;
+	}
+
 	static class Bus {
 		private Compilation c;
 
@@ -59,7 +75,7 @@ public class WPIS_WriteBuffers implements WP_Indiviual_Step {
 		return off1;
 	}
 
-	private final WritePipeline writePipeline;
+	private final WritePipeline PM;
 
 	private final DeferredObject<LSPrintStream.LSResult, Object, Object> spsp = new DeferredObject<LSPrintStream.LSResult, Object, Object>();
 
@@ -69,7 +85,7 @@ public class WPIS_WriteBuffers implements WP_Indiviual_Step {
 
 	@Contract(pure = true)
 	public WPIS_WriteBuffers(final WritePipeline aWritePipeline) {
-		writePipeline = aWritePipeline;
+		PM = aWritePipeline;
 
 		compilationPromise.then(_m_bus::setCompilation);
 
@@ -87,8 +103,18 @@ public class WPIS_WriteBuffers implements WP_Indiviual_Step {
 		// 5. write buffers
 		try {
 			debug_buffers(st);
+			sc.markSuccess(SC_Suc_.i(this));
 		} catch (FileNotFoundException aE) {
-			sc.exception(aE);
+			sc.markFailure(new SC_Fai() {
+				@Override public void signal() {
+					sc.exception(aE);
+				}
+
+				@Override
+				public String sc_fai_asString() {
+					return aE.toString();
+				}
+			});
 		}
 	}
 
@@ -109,7 +135,7 @@ public class WPIS_WriteBuffers implements WP_Indiviual_Step {
 			// Stupidity.println_err_3("8383 " + s1);
 
 			// TODO nested promises is a latch
-			writePipeline.generateResultPromise.then((final @NotNull GenerateResult result) -> {
+			PM.getGenerateResultPromise().then((final @NotNull GenerateResult result) -> {
 				final GenerateResult result1 = st.getGr();
 				final LSPrintStream sps = new LSPrintStream();
 

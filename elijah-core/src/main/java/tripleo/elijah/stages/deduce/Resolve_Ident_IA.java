@@ -12,7 +12,7 @@ import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.nextgen.names.impl.*;
@@ -210,8 +210,8 @@ public class Resolve_Ident_IA {
 	}
 
 	private final @NotNull Context context;
-	private final DeduceElementIdent dei;
-	private final @NotNull ErrSink errSink;
+	private final          DeduceElementIdent         dei;
+	private final @NotNull ErrSink                    errSink;
 	private final @NotNull DeduceTypes2.DeduceClient3 dc;
 	private final @NotNull FoundElement foundElement;
 	private final BaseEvaFunction generatedFunction;

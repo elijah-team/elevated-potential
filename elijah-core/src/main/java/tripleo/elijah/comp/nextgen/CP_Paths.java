@@ -2,6 +2,7 @@ package tripleo.elijah.comp.nextgen;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.nextgen.*;
 

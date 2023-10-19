@@ -11,7 +11,7 @@ package tripleo.elijah.stages.deduce;
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
@@ -109,8 +109,8 @@ class Resolve_Ident_IA2 {
 		CONTINUE, NEXT, RETURN
 	}
 
-	private final DeduceTypes2 deduceTypes2;
-	private final ErrSink errSink;
+	private final          DeduceTypes2 deduceTypes2;
+	private final          ErrSink      errSink;
 	private final @NotNull FoundElement foundElement;
 	private final @NotNull ElLog LOG;
 	private final DeducePhase phase;

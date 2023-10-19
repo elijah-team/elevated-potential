@@ -10,7 +10,7 @@ package tripleo.elijah.stages.deduce;
 
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
@@ -32,7 +32,7 @@ class Resolve_Variable_Table_Entry {
 	private final Context ctx;
 	private final DeduceTypes2 deduceTypes2;
 
-	private final ErrSink errSink;
+	private final ErrSink         errSink;
 	private final BaseEvaFunction generatedFunction;
 	private final @NotNull ElLog LOG;
 	private final @NotNull DeducePhase phase;

@@ -17,7 +17,9 @@ import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.CompilationEnclosure;
+import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.comp.i.IPipelineAccess;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
@@ -39,7 +41,6 @@ import tripleo.elijah.world.i.*;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
-import java.util.stream.*;
 
 import static tripleo.elijah.util.Helpers.*;
 

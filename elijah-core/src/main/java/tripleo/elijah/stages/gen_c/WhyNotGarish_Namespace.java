@@ -3,7 +3,7 @@ package tripleo.elijah.stages.gen_c;
 import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.nextgen.reactive.Reactivable;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah.stages.gen_fn.EvaNamespace;
