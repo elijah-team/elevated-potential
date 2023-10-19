@@ -92,7 +92,9 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 		final List<WP_Individual_Step> pises = List_of(wpis_go, wpis_wi, wpis_wb);
 		final WP_Flow                  f     = new WP_Flow(WritePipeline.this, pa, pises);
 
-		ops = f.act();
+
+		// comment
+		//ops = f.act();
 
 		CK_Steps steps = new CK_Steps() {
 
@@ -104,6 +106,9 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 						.collect(Collectors.toList());
 			}
 		};
+
+		// comment
+		f.sc = new WP_State_Control_1();
 
 		CK_StepsContext stepsContext = f;
 		pa.runStepsNow(steps, stepsContext);

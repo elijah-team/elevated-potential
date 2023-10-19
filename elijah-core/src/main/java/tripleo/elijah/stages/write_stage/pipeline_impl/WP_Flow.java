@@ -48,7 +48,7 @@ public class WP_Flow extends CK_AbstractStepsContext {
 		return writePipeline.getSt();
 	}
 
-	private WP_State_Control_1 sc;
+	public WP_State_Control_1 sc;
 
 	public WP_State_Control context_sc() {
 		return sc;
