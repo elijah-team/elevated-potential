@@ -72,7 +72,7 @@ public class GN_PL_Run2 implements GN_Notable, EventualRegister {
 	}
 
 	private final @NotNull WorldModule mod;
-	private final PipelineLogic pipelineLogic;
+	private final PipelineLogic        pipelineLogic;
 	private final CompilationEnclosure ce;
 
 	private final DefaultClassGenerator dcg;

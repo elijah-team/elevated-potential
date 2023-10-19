@@ -11,7 +11,7 @@ package tripleo.elijah.stages.deduce.tastic;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
 import tripleo.elijah.stages.deduce.*;

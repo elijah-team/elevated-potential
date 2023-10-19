@@ -1,19 +1,16 @@
 package tripleo.elijah.comp;
 
-import antlr.*;
 import io.reactivex.rxjava3.core.Observer;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.ci_impl.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.nextgen.pn.*;
+import tripleo.elijah.comp.nextgen.pw.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.lang.types.*;
-import tripleo.elijah.lang2.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.deduce.fluffy.i.*;
@@ -115,6 +112,8 @@ public interface Compilation {
 
     ElijahCache use_elijahCache();
 
+    void pushWork(PW_PushWork aInstance, final PN_Ping aPing);
+
     enum CompilationAlways {
         ;
 
@@ -127,7 +126,7 @@ public interface Compilation {
             ;
             public static final DriverToken COMPILATION_RUNNER_FIND_STDLIB2 = DriverToken
                     .makeToken("COMPILATION_RUNNER_FIND_STDLIB2");
-            public static final DriverToken COMPILATION_RUNNER_START = DriverToken
+            public static final DriverToken COMPILATION_RUNNER_START        = DriverToken
                     .makeToken("COMPILATION_RUNNER_START");
         }
     }

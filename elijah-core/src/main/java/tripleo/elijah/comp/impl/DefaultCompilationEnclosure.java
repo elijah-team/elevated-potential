@@ -413,7 +413,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	@Override
-	public void logProgress2(final CompProgress aCompProgress, final AssererationLogProgress alp) {
+	public void logProgress2(final CompProgress aCompProgress, final AsseverationLogProgress alp) {
 		alp.call(System.out, System.err);
 	}
 

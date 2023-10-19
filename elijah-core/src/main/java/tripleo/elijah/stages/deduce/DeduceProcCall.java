@@ -12,7 +12,7 @@ package tripleo.elijah.stages.deduce;
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
@@ -95,8 +95,8 @@ public class DeduceProcCall {
 	private final DT_Resolvable11<DeduceElement> _pr_target = new DT_Resolvable11<>();
 	private final DeferredObject2<DeduceElement, FCA_Stop, Void> _p_targetP2 = new DeferredObject2<>();
 	private Context _g_context;
-	private DeduceTypes2 _g_deduceTypes2;
-	private ErrSink _g_errSink;
+	private DeduceTypes2    _g_deduceTypes2;
+	private ErrSink         _g_errSink;
 	private BaseEvaFunction _g_generatedFunction;
 
 	private DeduceElement target;

@@ -2,6 +2,7 @@ package tripleo.elijah.stages.write_stage.pipeline_impl;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.nextgen.inputtree.EIT_Input_HashSourceFile_Triple;
 import tripleo.elijah.nextgen.outputstatement.EG_Naming;
 import tripleo.elijah.nextgen.outputstatement.EG_SequenceStatement;
@@ -11,6 +12,7 @@ import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 import tripleo.util.buffer.DefaultBuffer;
 import tripleo.util.buffer.TextBuffer;
@@ -22,7 +24,7 @@ import java.util.Map;
 
 import static tripleo.elijah.util.Helpers.List_of;
 
-public class WPIS_WriteInputs implements WP_Indiviual_Step {
+public class WPIS_WriteInputs implements WP_Individual_Step {
 	private final Map<String, Operation<String>> ops = new HashMap<>();
 
 	@Override
@@ -109,5 +111,10 @@ public class WPIS_WriteInputs implements WP_Indiviual_Step {
 		}
 
 		return hh2;
+	}
+
+	//@Override
+	public Operation<Ok> execute(final CK_Monitor aMonitor) {
+		return null;
 	}
 }

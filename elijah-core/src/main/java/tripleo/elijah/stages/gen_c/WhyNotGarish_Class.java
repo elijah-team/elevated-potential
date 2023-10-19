@@ -4,7 +4,7 @@ import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.garish.*;
 import tripleo.elijah.stages.gen_fn.*;

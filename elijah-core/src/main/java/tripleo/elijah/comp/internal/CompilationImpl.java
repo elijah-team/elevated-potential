@@ -10,7 +10,6 @@ package tripleo.elijah.comp.internal;
 
 import com.google.common.base.*;
 import lombok.*;
-import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
@@ -18,7 +17,8 @@ import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.nextgen.*;
-import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.comp.nextgen.pn.*;
+import tripleo.elijah.comp.nextgen.pw.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
@@ -32,6 +32,7 @@ import tripleo.elijah.world.impl.*;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.stream.*;
 
 public class CompilationImpl implements Compilation {
@@ -47,9 +48,9 @@ public class CompilationImpl implements Compilation {
     @Getter
     private final CompilationEnclosure compilationEnclosure;
     private final CP_Paths paths;
-    final EIT_InputTree _input_tree;
-    private final @NotNull ErrSink errSink;
-    private final int _compilationNumber;
+    final                  EIT_InputTree _input_tree;
+    private final @NotNull ErrSink       errSink;
+    private final          int           _compilationNumber;
     private final CompilerInputMaster master;
     private final Finally _finally;
     private final CK_ObjectTree objectTree;
@@ -59,8 +60,8 @@ public class CompilationImpl implements Compilation {
     @Getter
     private CompilerInstructions rootCI;
     private List<CompilerInput> _inputs;
-    private IPipelineAccess _pa;
-    private IO io;
+    private IPipelineAccess     _pa;
+    private IO                  io;
     private boolean _inside;
 
     public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
@@ -397,6 +398,51 @@ public class CompilationImpl implements Compilation {
     @Override
     public ElijahCache use_elijahCache() {
         return use.getElijahCache();
+    }
+
+    PW_Controller pw_controller = new PW_CompilerController(this);
+
+	@Override
+	public void pushWork(final PW_PushWork aInstance, final PN_Ping aPing) {
+        ((PW_CompilerController) pw_controller).submitWork(aInstance);
+	}
+
+    public static class PW_CompilerController implements PW_Controller, Runnable {
+        private final CompilationImpl compilation;
+
+        PW_CompilerController(final CompilationImpl aC) {
+            new Thread(this).run();
+            compilation = aC;
+        }
+
+        private final Queue<PW_PushWork> wq = new ConcurrentLinkedQueue<>();
+
+        @Override
+        public void run() {
+            // FIXME 10/18 this is also a steps: A+O
+////             FIXME passing sh*t between threads (P.O.!)
+            //_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
+            boolean x = true;
+            while (x) {
+                final PW_PushWork poll = wq.poll();
+
+                if (poll != null) {
+    //                _defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5757, new Object[]{poll.name()});
+                    poll.execute(this);
+                } else {
+      //              _defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
+                    x = false;
+                }
+            }
+        }
+
+        public void submitWork(final PW_PushWork aInstance) {
+            wq.add(aInstance);
+        }
+
+        public CP_Paths paths() {
+            return compilation.paths;
+        }
     }
 
 }

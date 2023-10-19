@@ -8,7 +8,6 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jdeferred2.DoneCallback;

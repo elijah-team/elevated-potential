@@ -8,22 +8,20 @@ import tripleo.elijah.comp.caches.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.stateful.*;
-import tripleo.elijah.util.*;
 
-import java.util.*;
 import java.util.function.*;
 
 public class CompilationRunner extends _RegistrationTarget {
 	public final @NotNull  EzCache                         ezCache = new DefaultEzCache();
-	private final @NotNull Compilation                     _compilation;
-	private final @NotNull ICompilationBus                 cb;
+	private final @NotNull Compilation     _compilation;
+	private final @NotNull ICompilationBus cb;
 	@Getter
-	private final @NotNull CR_State                        crState;
+	private final @NotNull CR_State        crState;
 	@Getter
-	private final @NotNull IProgressSink                   progressSink;
-	private final @NotNull CCI                             cci;
+	private final @NotNull IProgressSink   progressSink;
+	private final @NotNull CCI             cci;
 	@Getter
-	private final @NotNull CIS                             cis;
+	private final @NotNull CIS             cis;
 	private /*@NotNull*/       CB_StartCompilationRunnerAction startAction;
 	private /*@NotNull*/       CR_FindCIs                      cr_find_cis;
 	private /*@NotNull*/       CR_AlmostComplete               _CR_AlmostComplete;

@@ -1,11 +1,9 @@
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.IPipelineAccess;
-import tripleo.elijah.comp.internal.CB_Output;
-import tripleo.elijah.comp.internal.CR_State;
-import tripleo.elijah.stages.hooligan.pipeline_impl.LawabidingcitizenPipelineImpl;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.stages.hooligan.pipeline_impl.*;
 
 public class LawabidingcitizenPipeline extends PipelineMember {
 	private final @NotNull IPipelineAccess pa;
@@ -26,5 +24,10 @@ public class LawabidingcitizenPipeline extends PipelineMember {
 			int y = 2;
 			y = y;
 		}
+	}
+
+	@Override
+	public String finishPipeline_asString() {
+		return this.getClass().toString();
 	}
 }

@@ -29,9 +29,9 @@ public enum DebugBuffersLogic {
 
 	public static void debug_buffers_logic(final @NotNull GenerateResult result,
 			final @NotNull XPrintStream db_stream) {
-		final List<Old_GenerateResultItem> generateResultItems = result.results();
-		for (final Old_GenerateResultItem ab : generateResultItems) {
-			__debug_buffers_logic_each(db_stream, ab);
-		}
+		//final List<Old_GenerateResultItem> generateResultItems = result.results();
+		//for (final Old_GenerateResultItem ab : generateResultItems) {
+		//	__debug_buffers_logic_each(db_stream, ab);
+		//}
 	}
 }

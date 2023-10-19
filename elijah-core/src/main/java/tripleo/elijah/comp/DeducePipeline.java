@@ -8,11 +8,10 @@
  */
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.IPipelineAccess;
-import tripleo.elijah.comp.internal.CB_Output;
-import tripleo.elijah.comp.internal.CR_State;
-import tripleo.elijah.stages.deduce.pipeline_impl.DeducePipelineImpl;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.stages.deduce.pipeline_impl.*;
 
 /**
  * Created 8/21/21 10:10 PM
@@ -34,6 +33,12 @@ public class DeducePipeline extends PipelineMember {
 		// logProgress("***** Hit DeducePipeline #run");
 		impl.run();
 	}
+
+	@Override
+	public String finishPipeline_asString() {
+		return this.getClass().toString();
+	}
+
 }
 
 //

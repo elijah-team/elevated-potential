@@ -2,8 +2,8 @@ package tripleo.elijah.nextgen;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.graph.i.*;
+import tripleo.elijah.comp.graph.i.CE_Path;
 import tripleo.elijah.comp.nextgen.*;
-import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 
 import java.nio.file.*;

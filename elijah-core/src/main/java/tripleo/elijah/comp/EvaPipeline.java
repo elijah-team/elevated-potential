@@ -22,7 +22,7 @@ import tripleo.elijah.stages.instructions.*;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 /**
  * Created 8/21/21 10:16 PM
@@ -107,8 +107,8 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 		}
 	}
 
-	private final CompilationEnclosure ce;
-	private final @NotNull IPipelineAccess pa;
+	private final          CompilationEnclosure ce;
+	private final @NotNull IPipelineAccess      pa;
 	private final @NotNull DefaultGenerateResultSink grs;
 	private final @NotNull DoubleLatch<List<EvaNode>> latch2;
 	private List<EvaNode> _lgc;
@@ -293,6 +293,11 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 		_processOutput = aOutput;
 
 		latch2.notifyLatch(true);
+	}
+
+	@Override
+	public String finishPipeline_asString() {
+		return this.getClass().toString();
 	}
 
 //	public void simpleUsageExample() {

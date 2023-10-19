@@ -13,8 +13,8 @@ import java.util.*;
 
 public class CR_FindCIs extends DefaultStateful implements CR_Action, Sensable {
 	private final @NotNull List<CompilerInput> inputs;
-	private final @NotNull CCI cci;
-	private final @NotNull IProgressSink _ps;
+	private final @NotNull CCI                 cci;
+	private final @NotNull IProgressSink       _ps;
 	SenseList senseList = new SenseList();
 
 	public CR_FindCIs(final @NotNull CompilerBeginning beginning) {
@@ -34,7 +34,7 @@ public class CR_FindCIs extends DefaultStateful implements CR_Action, Sensable {
 	}
 
 	private void _processInput(final @NotNull Compilation c, final @NotNull ErrSink errSink, final @NotNull SenseList x,
-			final @NotNull CompilerInput input) {
+							   final @NotNull CompilerInput input) {
 		switch (input.ty()) {
 		case NULL -> {
 		}

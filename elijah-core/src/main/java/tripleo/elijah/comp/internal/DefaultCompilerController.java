@@ -48,7 +48,7 @@ public class DefaultCompilerController implements CompilerController {
 
 	@Override
 	public Operation<Ok> processOptions() {
-		final OptionsProcessor op = new ApacheOptionsProcessor();
+		final OptionsProcessor             op  = new ApacheOptionsProcessor();
 		final CompilerInstructionsObserver cio = new CompilerInstructionsObserver(c);
 
 		final CompilationEnclosure compilationEnclosure = c.getCompilationEnclosure();

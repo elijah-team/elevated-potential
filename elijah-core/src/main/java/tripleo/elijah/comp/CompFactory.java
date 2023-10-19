@@ -8,12 +8,10 @@ import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.world.i.*;
 
 import java.io.*;
 import java.util.*;
-import java.util.function.*;
 
 public interface CompFactory {
 	CompilerBeginning createBeginning(CompilationRunner aCompilationRunner);

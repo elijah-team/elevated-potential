@@ -19,7 +19,6 @@ import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.logging.*;
@@ -39,8 +38,8 @@ public class PipelineLogic implements @NotNull EventualRegister {
 	private final @NonNull List<ElLog>              elLogs = new LinkedList<>();
 //	private final @NonNull EIT_ModuleList           mods   = new EIT_ModuleList();
 	private final @NonNull ModuleCompletableProcess mcp    = new ModuleCompletableProcess();
-	private final @NonNull ModMap                   modMap = new ModMap();
-	private final @NonNull IPipelineAccess          pa;
+	private final @NonNull ModMap          modMap = new ModMap();
+	private final @NonNull IPipelineAccess pa;
 	@Getter
 	private final @NonNull ElLog.Verbosity verbosity;
 	private List<Eventual<?>> _eventuals = new ArrayList<>();

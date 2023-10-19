@@ -12,7 +12,7 @@ import tripleo.elijah.stages.logging.*;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 public class WriteOutputTreePipeline extends PipelineMember {
 	private static void addLogs(final @NotNull List<EOT_OutputFile> l, final @NotNull IPipelineAccess aPa) {
@@ -97,6 +97,11 @@ public class WriteOutputTreePipeline extends PipelineMember {
 		}
 
 		paths.renderNodes();
+	}
+
+	@Override
+	public String finishPipeline_asString() {
+		return this.getClass().toString();
 	}
 
 }

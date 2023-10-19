@@ -2,7 +2,7 @@ package tripleo.elijah.stages.write_stage.pipeline_impl;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.IPipelineAccess;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.output.*;
 import tripleo.elijah.stages.gen_c.*;
