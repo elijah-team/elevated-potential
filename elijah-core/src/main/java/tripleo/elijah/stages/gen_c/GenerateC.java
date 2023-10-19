@@ -47,7 +47,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
 public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimension {
 	private static final   String                          PHASE                     = "GenerateC";
 	final                  GI_Repo                         _repo                     = new GI_Repo(this);
-	final          Zone                 _zone                     = new Zone();
+	final          Zone                 _zone                     = new Zone(this);
 	final          CompilationEnclosure ce;
 	final @NotNull ErrSink              errSink;
 	final @NotNull ElLog                LOG;
@@ -79,6 +79,10 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 
 	static boolean isValue(@NotNull BaseEvaFunction gf, @NotNull String name) {
 		return __Tests_BaseEvaFunction.testIsValue(gf, name);
+	}
+
+	static boolean isValue(@NotNull WhyNotGarish_Function yf, @NotNull String name) {
+		return __Tests_BaseEvaFunction.testIsValue(yf, name);
 	}
 
 	public WhyNotGarish_Function a_lookup(final BaseEvaFunction aGf) {
