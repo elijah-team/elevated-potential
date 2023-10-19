@@ -14,12 +14,17 @@ import static tripleo.elijah.stages.gen_c.CReference._getIdentIAPathList;
 
 class Zone {
 	private final Map<Object, ZoneMember> members = new HashMap<Object, ZoneMember>();
+	private final GenerateC generateC;
+
+	Zone(final GenerateC aGenerateC) {
+		generateC = aGenerateC;
+	}
 
 	public ZoneVTE get(final VariableTableEntry aVarTableEntry, final BaseEvaFunction aGf) {
 		if (members.containsKey(aVarTableEntry))
 			return (ZoneVTE) members.get(aVarTableEntry);
 
-		final ZoneVTE r = new ZoneVTE__1(aVarTableEntry, aGf);
+		final ZoneVTE r = new ZoneVTE__1(aVarTableEntry, aGf, this.generateC);
 		members.put(aVarTableEntry, r);
 		return r;
 	}
