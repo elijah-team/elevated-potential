@@ -4,6 +4,7 @@ import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.lang.i.*;
@@ -12,6 +13,7 @@ import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -83,4 +85,8 @@ public interface IPipelineAccess {
 	void setWritePipeline(WritePipeline aWritePipeline);
 
 	void waitGenC(OS_Module mod, Consumer<GenerateC> aCb);
+
+	void finishPipeline(PipelineMember aPM, WP_Flow.OPS aOps);
+
+	void runStepsNow(CK_Steps aSteps, CK_StepsContext aStepsContext);
 }

@@ -21,6 +21,7 @@ interface PipelineMember {
 */
 abstract class PipelineMember {
 	def abstract void run( CR_State aState,  CB_Output aOutput)  throws Exception
+	def abstract String finishPipeline_asString();
 }
 // https://youtrack.jetbrains.com/issue/IDEA-104897
 // https://youtrack.jetbrains.com/issue/IDEA-168555

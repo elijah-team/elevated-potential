@@ -15,8 +15,8 @@ public class CIS implements Observer<CompilerInstructions> {
 	private final ObservableCompletableProcess<CompilerInstructions> ocp_ci = new ObservableCompletableProcess<>();
 	private final Subject<CompilerInstructions> compilerInstructionsSubject = ReplaySubject
 			.<CompilerInstructions>create();
-	public IProgressSink ps;
-	private CompilerInstructionsObserver _cio;
+	public        IProgressSink                 ps;
+	private       CompilerInstructionsObserver  _cio;
 	private boolean FOO = true;
 
 	public @NotNull Operation<Ok> almostComplete() {

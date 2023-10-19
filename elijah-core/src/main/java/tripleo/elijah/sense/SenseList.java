@@ -3,7 +3,9 @@ package tripleo.elijah.sense;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.CCI;
+import tripleo.elijah.comp.i.ILazyCompilerInstructions;
+import tripleo.elijah.comp.i.IProgressSink;
 import tripleo.elijah.util.*;
 
 import java.util.*;

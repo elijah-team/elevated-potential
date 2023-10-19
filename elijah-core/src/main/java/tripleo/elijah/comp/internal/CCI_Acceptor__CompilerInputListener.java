@@ -12,8 +12,8 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 	private final Compilation     compilation;
 	public final  InstructionDoer   id;
 	private final CompilationRunner cr;
-	private       CCI             cci;
-	private       IProgressSink   _ps;
+	private       CCI               cci;
+	private       IProgressSink     _ps;
 
 	public CCI_Acceptor__CompilerInputListener(CompilationImpl aCompilation) {
 		this.compilation = aCompilation;

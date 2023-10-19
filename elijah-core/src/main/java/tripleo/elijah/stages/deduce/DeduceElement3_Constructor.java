@@ -2,7 +2,7 @@ package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.CompilationEnclosure;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;

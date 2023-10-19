@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 public class WriteMakefilePipeline extends PipelineMember implements Consumer<Supplier<Old_GenerateResult>> {
 	class G {
@@ -94,6 +94,11 @@ public class WriteMakefilePipeline extends PipelineMember implements Consumer<Su
 		final EOT_OutputFile eof = testable_part(list1);
 
 		cot.add(eof);
+	}
+
+	@Override
+	public String finishPipeline_asString() {
+		return this.getClass().toString();
 	}
 
 	@NotNull

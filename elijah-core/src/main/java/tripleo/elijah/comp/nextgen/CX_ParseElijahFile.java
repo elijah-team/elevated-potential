@@ -15,7 +15,7 @@ import tripleo.elijjah.*;
 
 import java.io.*;
 
-import static tripleo.elijah.util.Stupidity.*;
+import static tripleo.elijah.util.Stupidity.println_err2;
 
 public class CX_ParseElijahFile {
 

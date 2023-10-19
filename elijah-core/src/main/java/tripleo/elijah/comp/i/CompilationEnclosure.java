@@ -101,5 +101,5 @@ public interface CompilationEnclosure {
 
 	void waitCompilationRunner(Consumer<CompilationRunner> ccr);
 
-	void logProgress2(CompProgress aCompProgress, AssererationLogProgress aAssererationLogProgress);
+	void logProgress2(CompProgress aCompProgress, AsseverationLogProgress aAsseverationLogProgress);
 }

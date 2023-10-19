@@ -25,16 +25,17 @@ import java.util.function.*;
 import java.util.regex.*;
 import java.util.stream.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.String_join;
 
 /**
  * Created 9/13/21 11:58 PM
  */
 public class WriteMesonPipeline extends PipelineMember implements @NotNull Consumer<Supplier<Old_GenerateResult>> {
 	final Pattern pullPat = Pattern.compile("/[^/]+/(.+)");
-	private final @NotNull Compilation c;
+	private final @NotNull Compilation     c;
 	private final @NotNull IPipelineAccess pa;
-	private final WritePipeline writePipeline;
+	private final          WritePipeline   writePipeline;
 	@NotNull
 	DoubleLatch<Multimap<CompilerInstructions, String>> write_makefiles_latch = new DoubleLatch<>(
 			this::write_makefiles_action);
@@ -43,12 +44,12 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 
 	public WriteMesonPipeline(final @NotNull IPipelineAccess pa0) {
 		final AccessBus ab = pa0.getAccessBus();
-		final Compilation compilation = ab.getCompilation();
-		final WritePipeline writePipeline1 = ab.getPipelineAccess().getWitePipeline();
+		final Compilation   compilation    = ab.getCompilation();
+		final WritePipeline WritePipeline1 = ab.getPipelineAccess().getWitePipeline();
 
 		pa = pa0;
-		c = compilation;
-		writePipeline = writePipeline1;
+		c             = compilation;
+		writePipeline = WritePipeline1;
 	}
 
 	@Override
@@ -106,6 +107,11 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 		write_makefiles();
 	}
 
+	@Override
+	public String finishPipeline_asString() {
+		return this.getClass().toString();
+	}
+
 	private void write_lsp(@NotNull Multimap<CompilerInstructions, String> lsp_outputs,
 			CompilerInstructions compilerInstructions, String aSub_dir) throws IOException {
 		if (true || false) {
@@ -130,7 +136,7 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 	}
 
 	private void write_makefiles() {
-		Multimap<CompilerInstructions, String> lsp_outputs = writePipeline.st.lsp_outputs; // TODO move this
+		Multimap<CompilerInstructions, String> lsp_outputs = writePipeline.getSt().lsp_outputs; // TODO move this
 		write_makefiles_consumer().accept(lsp_outputs);
 
 		// write_makefiles_latch.notify(lsp_outputs);

@@ -4,12 +4,11 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.nextgen.query.*;
 import tripleo.elijah.util.*;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 
@@ -23,8 +22,8 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 
 		final @NotNull List<CR_Action>     crActionList       = List_of(/* f1, */ f2,
 				/*f3,*/ // hmm
-				f3,
-				                                                                  f4);
+																				  f3,
+																				  f4);
 		final @NotNull List<Operation<Ok>> crActionResultList = new ArrayList<>(crActionList.size());
 
 		for (final CR_Action each : crActionList) {
