@@ -14,7 +14,7 @@ public final class PW_signalCalculateFinishParse implements PW_PushWork {
 
 	@Override
 	public void handle(final PW_Controller pwc, final PW_PushWork otherInstance) {
-		if (pwc instanceof CompilationImpl.PW_CompilerController pwcc) {
+		if (pwc instanceof PW_CompilerController pwcc) {
 			final CP_Paths paths = pwcc.paths();
 			paths.signalCalculateFinishParse(); // TODO maybe move this 06/22
 		}
