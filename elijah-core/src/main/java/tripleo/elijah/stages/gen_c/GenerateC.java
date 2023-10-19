@@ -78,25 +78,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 	}
 
 	static boolean isValue(@NotNull BaseEvaFunction gf, @NotNull String name) {
-		if (!name.equals("Value")) return false;
-		//
-		FunctionDef fd = (FunctionDef) gf.getFD();
-		switch (fd.getSpecies()) {
-		case REG_FUN:
-		case DEF_FUN:
-			if (!(fd.getParent() instanceof ClassStatement)) return false;
-			for (AnnotationPart anno : ((ClassStatement) fd.getParent()).annotationIterable()) {
-				if (anno.annoClass().equals(Helpers0.string_to_qualident("Primitive"))) {
-					return true;
-				}
-			}
-			return false;
-		case PROP_GET:
-		case PROP_SET:
-			return true;
-		default:
-			throw new IllegalStateException("Unexpected value: " + fd.getSpecies());
-		}
+		return __Tests_BaseEvaFunction.testIsValue(gf, name);
 	}
 
 	public WhyNotGarish_Function a_lookup(final BaseEvaFunction aGf) {
