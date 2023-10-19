@@ -224,6 +224,11 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 	}
 
 	@Override
+	public void setContext(final ICaseContext ctx) {
+		// FIXME 10/19
+		throw new UnintendedUseException();
+	}
+
 	public void setContext(final CaseContext ctx) {
 		__ctx = ctx;
 	}
