@@ -8,6 +8,8 @@ include(':dlog')
 include(':tripleo.small')
 include(':elijah-ek')
 
+include(':elijah-core-api')
+
 include(':tripleo.elijah.stateful')
 //include(':tripleo.elijah.stateful-processor')
 
