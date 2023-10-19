@@ -161,7 +161,6 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 	}
 
 	private final OS_Element parent;
-	private @Nullable CaseContext __ctx = null; // TODO look into removing this
 	private @Nullable SingleIdentContext _ctx = null;
 	private @Nullable CaseConditional default_case_scope = null;
 	private IExpression expr;
