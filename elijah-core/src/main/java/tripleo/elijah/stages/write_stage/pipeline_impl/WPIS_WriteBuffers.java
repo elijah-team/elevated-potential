@@ -10,7 +10,6 @@ import tripleo.elijah.comp.nextgen.pn.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.nextgen.pn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.util.*;
 
@@ -80,17 +79,7 @@ public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
 			debug_buffers(st);
 			sc.markSuccess(SC_Suc_.i(this));
 		} catch (FileNotFoundException aE) {
-			sc.markFailure(new SC_Fai() {
-				@Override
-				public void signal() {
-					sc.exception(aE);
-				}
-
-				@Override
-				public String sc_fai_asString() {
-					return aE.toString();
-				}
-			});
+			sc.markFailure(SC_Fai_.f(sc, aE));
 		}
 	}
 
