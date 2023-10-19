@@ -36,17 +36,17 @@ public class WPIS_WriteInputs implements WP_Individual_Step {
 
 		final List<IO._IO_ReadFile> recordedreads = st.c.getIO().recordedreads_io();
 
-		for (final IO._IO_ReadFile readFile : recordedreads) {
-			final String fn = readFile.getFileName();
-
-			final Operation<String> op = append_hash(buf, readFile);
-
-			ops.put(fn, op);
-
-			if (op.mode() == Mode.FAILURE) {
-				break;
-			}
-		}
+		//for (final IO._IO_ReadFile readFile : recordedreads) {
+		//	final String fn = readFile.getFileName();
+		//
+		//	final Operation<String> op = append_hash(buf, readFile);
+		//
+		//	ops.put(fn, op);
+		//
+		//	if (op.mode() == Mode.FAILURE) {
+		//		break;
+		//	}
+		//}
 
 		String s = buf.getText();
 
@@ -58,17 +58,22 @@ public class WPIS_WriteInputs implements WP_Individual_Step {
 			for (final IO._IO_ReadFile file : recordedreads) {
 				var decoded = EIT_Input_HashSourceFile_Triple.decode(file);
 				yys.add(decoded);
+
+				ops.put(decoded.filename(), Operation.success(decoded.hash())); // FIXME extract actual operation
 			}
 		}
 
-		final EG_SequenceStatement seq = new EG_SequenceStatement(new EG_Naming("<<WPIS_WriteInputs>>"),
+		final EG_SequenceStatement seq = new EG_SequenceStatement(
+				new EG_Naming("<<WPIS_WriteInputs>>"),
 				List_of(EG_Statement.of(s, () -> "<<WPIS_WriteInputs>> >> statement")));
 
 		fn1.getPathPromise().then(pp -> {
 			String string = "inputs.txt";// pp.toFile().toString(); //fn1.getPath().toFile().toString();
 
-			final EOT_OutputFile off = new EOT_OutputFile(List_of(), new EOT_OutputFile.DefaultFileNameProvider(string),
-					EOT_OutputType.INPUTS, seq);
+			final EOT_OutputFile off = new EOT_OutputFile(List_of(),
+														  new EOT_OutputFile.DefaultFileNameProvider(string),
+														  EOT_OutputType.INPUTS,
+														  seq);
 
 			off.x = yys;
 

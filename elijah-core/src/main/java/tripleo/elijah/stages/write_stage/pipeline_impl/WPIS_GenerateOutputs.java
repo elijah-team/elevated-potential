@@ -43,23 +43,15 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 
 		this.st = st;
 
-		act0(st, result, st.pa);
-	}
-
-	private void act0(final @NotNull WritePipelineSharedState st,
-					  final @NotNull GenerateResult result,
-					  final IPipelineAccess aPa) {
-
-
 		final OutputItems itms = new OutputItems();
 
 		st.c.pushWork(PW_signalCalculateFinishParse.instance(), new PN_Ping() {
 			@Override
 			public void ping(final Object t) {
 //				final OutputItems itms = new OutputItems(); // maybe belongs here?
-				var cs = aPa.getActiveClasses();
-				var ns = aPa.getActiveNamespaces();
-				var fs = aPa.getActiveFunctions();
+				var cs = st.pa.getActiveClasses();
+				var ns = st.pa.getActiveNamespaces();
+				var fs = st.pa.getActiveFunctions();
 
 				pmPN_signalCalculateFinishParse(result, cs, ns, fs, itms);
 			}

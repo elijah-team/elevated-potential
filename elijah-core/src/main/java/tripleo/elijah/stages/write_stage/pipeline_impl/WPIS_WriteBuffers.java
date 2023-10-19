@@ -1,36 +1,68 @@
 package tripleo.elijah.stages.write_stage.pipeline_impl;
 
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.WritePipeline;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.nextgen.CP_Path;
-import tripleo.elijah.comp.nextgen.CP_Paths;
-import tripleo.elijah.comp.nextgen.pn.SC_I;
-import tripleo.elijah.comp.nextgen.pn.SC_Suc_;
-import tripleo.elijah.nextgen.inputtree.EIT_Input;
-import tripleo.elijah.nextgen.outputstatement.EG_Naming;
-import tripleo.elijah.nextgen.outputstatement.EG_SequenceStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_SingleStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
-import tripleo.elijah.nextgen.pn.SC_Fai;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.Old_GenerateResultItem;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.nextgen.pn.*;
+import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.nextgen.pn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.util.List;
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
 
 import static tripleo.elijah.util.Helpers.List_of;
 
 public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
+	private final WritePipeline                           writePipeline;
+	private final Eventual<LSPrintStream.LSResult>        _p_spsp            = new Eventual<>();
+	private final DeferredObject<Compilation, Void, Void> compilationPromise = new DeferredObject<>();
+	private final Bus                                     _m_bus             = new Bus();
+
+	@Contract(pure = true)
+	public WPIS_WriteBuffers(final WritePipeline aWritePipeline) {
+		writePipeline = aWritePipeline;
+
+		compilationPromise.then(_m_bus::setCompilation);
+
+		// TODO see if clj has anything for csp
+		_p_spsp.then((LSPrintStream.LSResult ls) -> {
+			compilationPromise.then(c -> {
+				final EOT_OutputFile outputFile = createOutputFile(ls, c, c.paths());
+				_m_bus.addOutputFile(outputFile);
+			});
+		});
+	}
+
+	@NotNull
+	private static EOT_OutputFile createOutputFile(final LSPrintStream.LSResult ls, final @NotNull Compilation c,
+												   final @NotNull CP_Paths paths) {
+		final CP_Path or    = paths.outputRoot();
+		final File    file1 = or.subFile("buffers.txt").toFile(); // TODO subFile vs child
+
+		final List<EIT_Input> fs;
+		final EG_Statement    sequence;
+
+		if (ls == null) {
+			sequence = new EG_SingleStatement("<<>>");
+			fs       = List_of();
+		} else {
+			sequence = new EG_SequenceStatement(new EG_Naming("WriteBuffers"), ls.getStatement());
+			fs       = ls.fs2(c);
+		}
+
+		// noinspection UnnecessaryLocalVariable
+		final EOT_OutputFile off1 = new EOT_OutputFile(fs, file1.toString(), EOT_OutputType.BUFFERS, sequence);
+		return off1;
+	}
+
 	@Override
 	public String sc_i_asString() {
 		return "WPIS_WriteBuffers :: <interesting stuff here>";
@@ -41,63 +73,6 @@ public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
 		return null;
 	}
 
-	static class Bus {
-		private Compilation c;
-
-		public void addOutputFile(final @NotNull EOT_OutputFile off) {
-			c.getOutputTree().add(off);
-		}
-
-		public void setCompilation(final @NotNull Compilation cc) {
-			c = cc;
-		}
-	}
-
-	@NotNull
-	private static EOT_OutputFile createOutputFile(final LSPrintStream.LSResult ls, final @NotNull Compilation c,
-			final @NotNull CP_Paths paths) {
-		final CP_Path or = paths.outputRoot();
-		final File file1 = or.subFile("buffers.txt").toFile(); // TODO subFile vs child
-
-		final List<EIT_Input> fs;
-		final EG_Statement sequence;
-
-		if (ls == null) {
-			sequence = new EG_SingleStatement("<<>>");
-			fs = List_of();
-		} else {
-			sequence = new EG_SequenceStatement(new EG_Naming("WriteBuffers"), ls.getStatement());
-			fs = ls.fs2(c);
-		}
-
-		// noinspection UnnecessaryLocalVariable
-		final EOT_OutputFile off1 = new EOT_OutputFile(fs, file1.toString(), EOT_OutputType.BUFFERS, sequence);
-		return off1;
-	}
-
-	private final WritePipeline PM;
-
-	private final DeferredObject<LSPrintStream.LSResult, Object, Object> spsp = new DeferredObject<LSPrintStream.LSResult, Object, Object>();
-
-	private final DeferredObject<Compilation, Void, Void> compilationPromise = new DeferredObject<>();
-
-	private final Bus _m_bus = new Bus();
-
-	@Contract(pure = true)
-	public WPIS_WriteBuffers(final WritePipeline aWritePipeline) {
-		PM = aWritePipeline;
-
-		compilationPromise.then(_m_bus::setCompilation);
-
-		// TODO see if clj has anything for csp
-		spsp.then((LSPrintStream.LSResult ls) -> {
-			compilationPromise.then(c -> {
-				final EOT_OutputFile outputFile = createOutputFile(ls, c, c.paths());
-				_m_bus.addOutputFile(outputFile);
-			});
-		});
-	}
-
 	@Override
 	public void act(final @NotNull WritePipelineSharedState st, final @NotNull WP_State_Control sc) {
 		// 5. write buffers
@@ -106,7 +81,8 @@ public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
 			sc.markSuccess(SC_Suc_.i(this));
 		} catch (FileNotFoundException aE) {
 			sc.markFailure(new SC_Fai() {
-				@Override public void signal() {
+				@Override
+				public void signal() {
 					sc.exception(aE);
 				}
 
@@ -123,7 +99,7 @@ public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
 
 		compilationPromise.resolve(st.c);
 
-		final List<Old_GenerateResultItem> generateResultItems1 = st.getGr().results();
+		//final List<Old_GenerateResultItem> generateResultItems1 = st.getGr().results();
 
 		var or = st.c.paths().outputRoot();
 
@@ -135,16 +111,28 @@ public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
 			// Stupidity.println_err_3("8383 " + s1);
 
 			// TODO nested promises is a latch
-			PM.getGenerateResultPromise().then((final @NotNull GenerateResult result) -> {
+			writePipeline.getGenerateResultPromise().then((final @NotNull GenerateResult result) -> {
 				final GenerateResult result1 = st.getGr();
-				final LSPrintStream sps = new LSPrintStream();
+				final LSPrintStream  sps     = new LSPrintStream();
 
 				DebugBuffersLogic.debug_buffers_logic(result1, sps);
 
 				final LSPrintStream.LSResult _s = sps.getResult();
 
-				spsp.resolve(_s);
+				_p_spsp.resolve(_s);
 			});
 		});
+	}
+
+	static class Bus {
+		private Compilation c;
+
+		public void addOutputFile(final @NotNull EOT_OutputFile off) {
+			c.getOutputTree().add(off);
+		}
+
+		public void setCompilation(final @NotNull Compilation cc) {
+			c = cc;
+		}
 	}
 }
