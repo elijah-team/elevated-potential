@@ -468,8 +468,9 @@ public class CReference {
 		}
 	}
 
-	public SpecialText getIdentIAPath(final @NotNull IdentIA ia2, final Generate_Code_For_Method.@NotNull AOG aog,
-			final String aValue) {
+	public SpecialText getIdentIAPath(final @NotNull IdentIA ia2,
+									  final Generate_Code_For_Method.@NotNull AOG aog,
+									  final String aValue) {
 		final BaseEvaFunction generatedFunction = ia2.gf;
 		final List<InstructionArgument> s = _getIdentIAPathList(ia2);
 		refs = new ArrayList<Reference>(s.size());

@@ -20,8 +20,9 @@ import tripleo.elijah.util.*;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GetRealTargetNameTest {
 	EvaFunction gf;
@@ -29,13 +30,13 @@ public class GetRealTargetNameTest {
 
 	@BeforeEach
 	public void setUp() {
-		final OS_Module      mod2 = new OS_ModuleImpl();
-		final ModuleContext  ctx  = new ModuleContext(mod2);
-		final ClassStatement cs = new ClassStatementImpl(mod2, ctx);
-		final ClassHeaderImpl      ch = new ClassHeaderImpl(false, Collections.emptyList());
+		final OS_Module       mod2 = new OS_ModuleImpl();
+		final ModuleContext   ctx  = new ModuleContext(mod2);
+		final ClassStatement  cs   = new ClassStatementImpl(mod2, ctx);
+		final ClassHeaderImpl ch   = new ClassHeaderImpl(false, Collections.emptyList());
 		ch.setName(Helpers0.string_to_ident("__FakeClassName__"));
 		cs.setHeader(ch);
-		final FunctionDef    fd = new FunctionDefImpl(cs, ctx);
+		final FunctionDef fd = new FunctionDefImpl(cs, ctx);
 		gf = new EvaFunction(fd);
 
 		boilerplate = new Boilerplate();
@@ -91,7 +92,8 @@ public class GetRealTargetNameTest {
 		//
 
 		final GenerateC generateC = (GenerateC) boilerplate.getGenerateFiles2(mod);
-		final String    x         = generateC.getRealTargetName(gf, ident_ia, Generate_Code_For_Method.AOG.GET, null);
+		final ZoneITE   zi        = generateC._zone.get(ident_ia);
+		final String    x         = zi.getRealTargetName2(Generate_Code_For_Method.AOG.GET, null);
 		assertEquals("vvx->vmfoo", x);
 	}
 }

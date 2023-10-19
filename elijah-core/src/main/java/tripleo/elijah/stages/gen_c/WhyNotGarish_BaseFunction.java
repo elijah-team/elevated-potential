@@ -126,7 +126,8 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	}
 
 	public String getRealTargetName(final GenerateC gc, final IdentIA target, final Generate_Code_For_Method.AOG aAOG, final String assignmentValue) {
-		var gf = getGf();
-		return gc.getRealTargetName(gf, (IdentIA) target, aAOG, assignmentValue);
+		final ZoneITE zi = gc._zone.get(target);
+
+		return zi.getRealTargetName2(aAOG, assignmentValue);
 	}
 }
