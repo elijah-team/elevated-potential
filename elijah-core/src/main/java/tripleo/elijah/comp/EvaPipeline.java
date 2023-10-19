@@ -168,7 +168,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 
 		EOT_OutputFile.FileNameProvider filename1;
 
-		final @NotNull EOT_OutputTree cot = pa.getCompilation().getOutputTree();
+		//final @NotNull EOT_OutputTree cot = pa.getCompilation().getOutputTree();
 		for (EvaNode evaNode : aLgc) {
 			String filename = null;
 			final StringBuffer sb = new StringBuffer();
