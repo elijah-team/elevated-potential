@@ -4,12 +4,15 @@
 
 rootProject.name = 'elevated-potential'
 include(':elijah-util')
+include(':dlog')
+include(':tripleo.small')
 include(':elijah-ek')
+
 include(':tripleo.elijah.stateful')
 //include(':tripleo.elijah.stateful-processor')
+
 include(':elijah-nextgen-outputstatement')
 include(':tripleo.elijah.core')
-include(':tripleo.small')
 //include(':annotation-user')
 //include(':annotation-processing')
 include(':tripleo.elijah.reactive')
@@ -19,5 +22,3 @@ project(":tripleo.elijah.stateful").projectDir = file('elijah-stateful')
 project(":tripleo.elijah.core").projectDir = file('elijah-core')
 project(":tripleo.small").projectDir = file('tripleo-small')
 project(":tripleo.elijah.reactive").projectDir = file('tripleo-reactive')
-
-include(':dlog')
