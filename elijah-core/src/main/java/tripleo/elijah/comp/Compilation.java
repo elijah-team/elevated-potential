@@ -82,12 +82,6 @@ public interface Compilation extends Compilation0 {
 		public          boolean do_out;
 		public          boolean showTree = false;
 		public          boolean silent   = false;
-		public @NotNull Stages  stage    = Stages.O; // Output
-
-		@Override
-		public GStages stage() {
-			return stage;
-		}
 
 		@Override
 		public void setDo_out(final boolean b) {
@@ -103,9 +97,5 @@ public interface Compilation extends Compilation0 {
 			silent = b;
 		}
 
-		@Override
-		public void setStage(final String s) {
-			stage = Stages.valueOf(s);
-		}
 	}
 }

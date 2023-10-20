@@ -445,10 +445,6 @@ public class CompilationImpl implements Compilation {
 		((PW_CompilerController) pw_controller).submitWork(aInstance);
 	}
 
-	public CompilerBeginning beginning(final @NotNull CompilationRunner compilationRunner) {
-		return new CompilerBeginning(this, getRootCI(), getInputs(), compilationRunner.getProgressSink(), cfg());
-	}
-
 	@Deprecated
 //	@Override
 	public List<OS_Module> modules() {

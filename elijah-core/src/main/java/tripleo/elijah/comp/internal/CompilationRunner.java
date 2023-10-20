@@ -1,45 +1,44 @@
 package tripleo.elijah.comp.internal;
 
-import lombok.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.caches.*;
+import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.caches.DefaultEzCache;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.impl.*;
-import tripleo.elijah.comp.internal_move_soon.*;
-import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.stateful.*;
+import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.specs.EzCache;
+import tripleo.elijah.stateful._RegistrationTarget;
+import tripleo.elijah.util.Operation;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class CompilationRunner extends _RegistrationTarget implements ICompilationRunner {
-	public final @NotNull  EzCache         ezCache = new DefaultEzCache();
-	private final @NotNull Compilation     _compilation;
-	private final @NotNull ICompilationBus cb;
+	public final @NotNull  EzCache                         ezCache = new DefaultEzCache();
+	private final @NotNull Compilation                     _compilation;
+	private final @NotNull ICompilationBus                 cb;
 	@Getter
-	private final @NotNull CR_State        crState;
+	private final @NotNull CR_State                        crState;
 	@Getter
-	private final @NotNull IProgressSink   progressSink;
-	private final @NotNull CCI             cci;
+	private final @NotNull IProgressSink                   progressSink;
+	private final @NotNull CCI                             cci;
 	@Getter
-	private final @NotNull CIS             cis;
-	private /*@NotNull*/       CB_StartCompilationRunnerAction startAction;
-	private /*@NotNull*/       CR_FindCIs                      cr_find_cis;
-	private /*@NotNull*/       CR_AlmostComplete               _CR_AlmostComplete;
+	private final @NotNull CIS                             cis;
+	private /*@NotNull*/   CB_StartCompilationRunnerAction startAction;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
 		this(
 				aca,
 				aCrState,
 				() -> ((DefaultCompilationEnclosure) aca.getCompilation().getCompilationEnclosure()).getCompilationBus()
-		);
+			);
 	}
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca,
-	                         final @NotNull CR_State aCrState,
-	                         final Supplier<ICompilationBus> scb) {
+							 final @NotNull CR_State aCrState,
+							 final Supplier<ICompilationBus> scb) {
 		_compilation = (Compilation) aca.getCompilation();
 
 		_compilation.getCompilationEnclosure().setCompilationAccess(aca);
@@ -73,21 +72,6 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		return _compilation;
 	}
 
-	public CR_AlmostComplete cr_AlmostComplete() {
-		if (this._CR_AlmostComplete == null) {
-			this._CR_AlmostComplete = new CR_AlmostComplete();
-		}
-		return _CR_AlmostComplete;
-	}
-
-	public CR_FindCIs cr_find_cis() {
-		if (this.cr_find_cis == null) {
-			var beginning = _accessCompilation().con().createBeginning(this);
-			this.cr_find_cis = new CR_FindCIs(beginning);
-		}
-		return this.cr_find_cis;
-	}
-
 	public EzCache ezCache() {
 		return ezCache;
 	}
@@ -107,11 +91,38 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	public void start(final CompilerInstructions aRootCI, @NotNull final GPipelineAccess pa) {
 		// FIXME only run once 06/16
 		if (startAction == null) {
-			startAction = new CB_StartCompilationRunnerAction(this, (IPipelineAccess) pa, aRootCI);
+			CB_StartCompilationRunnerAction startAction = new CB_StartCompilationRunnerAction(this, (IPipelineAccess) pa, aRootCI);
 			// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
 			cb.add(startAction.cb_Process());
 
-			startAction.execute(cb.getMonitor()); // FIXME calling automatically for some reason?
+			// FIXME calling automatically for some reason?
+			final CB_Monitor                monitor           = cb.getMonitor();
+			final CompilerDriver            compilationDriver = ((IPipelineAccess)pa).getCompilationEnclosure().getCompilationDriver();
+			final Operation<CompilerDriven> ocrsd             = compilationDriver.get(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
+
+			final @NotNull CB_Output cbOutput = startAction.o;
+
+			switch (ocrsd.mode()) {
+			case SUCCESS -> {
+				final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
+				final CR_State                  crState1               = this.getCrState();
+
+	//			assert !(started);
+				if (CB_StartCompilationRunnerAction.started) {
+					//throw new AssertionError();
+					System.err.println("twice for "+ startAction);
+				} else {
+					compilationRunnerStart.start(aRootCI, crState1, cbOutput);
+					CB_StartCompilationRunnerAction.started = true;
+				}
+
+				monitor.reportSuccess(startAction, cbOutput);
+			}
+			case FAILURE, NOTHING -> {
+				monitor.reportFailure(startAction, cbOutput);
+				throw new IllegalStateException("Error");
+			}
+			}
 		} else {
 			assert false;
 		}
