@@ -1,22 +1,19 @@
 package tripleo.elijah.comp.internal;
 
-import org.apache.commons.lang3.tuple.*;
+import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 
 public class CR_ProcessInitialAction implements CR_Action {
 	private final @NotNull CompilerInstructions rootCI;
-//	private final boolean do_out;
 
 	@Contract(pure = true)
-	public CR_ProcessInitialAction(final @NotNull CompilerBeginning beginning) {
-		rootCI = beginning.compilerInstructions();
-//		do_out = beginning.cfg().do_out;
+	public CR_ProcessInitialAction(final @NotNull CompilerInstructions aRootCI) {
+		rootCI = aRootCI;
 	}
 
 	@Override
