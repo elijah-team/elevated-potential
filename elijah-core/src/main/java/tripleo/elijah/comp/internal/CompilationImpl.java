@@ -309,13 +309,13 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
-	public boolean isPackage(@NotNull final String pkg) {
-		throw new UnintendedUseException();
+	public boolean isPackage(@NotNull final String pkg_name) {
+		return world().isPackage(pkg_name);
 	}
 
 	@Override
 	public OS_Package makePackage(final Qualident pkg_name) {
-		throw new UnintendedUseException();
+		return world().makePackage(pkg_name);
 	}
 
 	@Override
