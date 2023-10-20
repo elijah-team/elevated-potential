@@ -428,7 +428,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	@Override
 	public void logProgress(final CompProgress aCompProgress, final Pair<Integer, String> aCodeMessagePair) {
-		throw new UnintendedUseException();
+		aCompProgress.deprecated_print(aCodeMessagePair, System.out, System.err);
 	}
 
 	@Override
