@@ -312,6 +312,7 @@ public class DefaultLivingRepo implements LivingRepo {
 		return _packages.containsKey(aPackageName);
 	}
 
+	@Override
 	public boolean isPackage(final String pkg) {
 		return _packages.containsKey(pkg);
 	}
