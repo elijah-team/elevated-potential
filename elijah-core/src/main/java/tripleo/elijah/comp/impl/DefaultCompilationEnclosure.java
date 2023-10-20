@@ -11,9 +11,12 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.nextgen.reactive.*;
@@ -33,8 +36,8 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	private final Eventual<CompilationRunner> ecr = new Eventual<>();
 	private final DeferredObject<AccessBus, Void, Void> accessBusPromise = new DeferredObject<>();
-	private final CB_Output _cbOutput = new CB_ListBackedOutput();
-	private final Compilation compilation;
+	private final CB_Output                   _cbOutput        = new CB_ListBackedOutput();
+	private final Compilation                compilation;
 	private final Map<OS_Module, ModuleThing> moduleThings = new HashMap<>();
 	private final Subject<ReactiveDimension> dimensionSubject = ReplaySubject.<ReactiveDimension>create();
 	private final Subject<Reactivable> reactivableSubject = ReplaySubject.<Reactivable>create();
@@ -95,7 +98,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	private PipelineLogic pipelineLogic;
 
-	private final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> outFileAssertions = new ArrayList<>();
+	private final List<Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest>> outFileAssertions = new ArrayList<>();
 
 	private final @NonNull OFA ofa = new OFA(/* outFileAssertions */);
 
@@ -124,6 +127,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 //	@Override
+	@Override
 	public void addEntryPoint(final @NotNull Mirror_EntryPoint aMirrorEntryPoint, final IClassGenerator dcg) {
 		aMirrorEntryPoint.generate(dcg);
 	}
@@ -417,6 +421,21 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		alp.call(System.out, System.err);
 	}
 
+	@Override
+	public GModuleThing addModuleThing(final GOS_Module aModule) {
+		return addModuleThing((OS_Module) aModule);
+	}
+
+	@Override
+	public void logProgress(final CompProgress aCompProgress, final Pair<Integer, String> aCodeMessagePair) {
+		throw new UnintendedUseException();
+	}
+
+	@Override
+	public GModuleThing getModuleThing(final GOS_Module aModule) {
+		return getModuleThing((OS_Module) aModule);
+	}
+
 	private class ModuleListener_ModuleCompletableProcess implements CompletableProcess<WorldModule> {
 
 		@Override
@@ -455,7 +474,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	}
 
-	public class OFA implements Iterable<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> {
+	public class OFA implements Iterable<Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest>> {
 
 		// public OFA(final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider,
 		// NG_OutputRequest>> aOutFileAssertions) {
@@ -463,7 +482,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		// }
 
 		public boolean contains(String aFileName) {
-			for (Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> outFileAssertion : outFileAssertions) {
+			for (Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest> outFileAssertion : outFileAssertions) {
 				final String containedFilename = outFileAssertion.getMiddle().getFilename();
 
 				if (containedFilename.equals(aFileName)) {
@@ -475,7 +494,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		}
 
 		@Override
-		public Iterator<Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest>> iterator() {
+		public Iterator<Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest>> iterator() {
 			return outFileAssertions.stream().iterator();
 		}
 	}

@@ -3,6 +3,8 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.util.*;
 
 import java.util.*;
@@ -20,10 +22,6 @@ public class DefaultCompilerController implements CompilerController {
 		}
 	}
 
-	public interface Con {
-		CompilationRunner newCompilationRunner(ICompilationAccess aCompilationAccess);
-	}
-
 	List<String> args;
 	private Compilation c;
 
@@ -32,8 +30,8 @@ public class DefaultCompilerController implements CompilerController {
 	List<CompilerInput> inputs;
 
 	@Override
-	public void _setInputs(final Compilation aCompilation, final List<CompilerInput> aInputs) {
-		c = aCompilation;
+	public void _setInputs(final Compilation0 aCompilation, final List<CompilerInput> aInputs) {
+		c = (Compilation) aCompilation;
 		inputs = aInputs;
 	}
 
@@ -53,12 +51,12 @@ public class DefaultCompilerController implements CompilerController {
 
 		final CompilationEnclosure compilationEnclosure = c.getCompilationEnclosure();
 
-		compilationEnclosure.setCompilationAccess(c.con().createCompilationAccess());
-		compilationEnclosure.setCompilationBus(c.con().createCompilationBus());
+		compilationEnclosure.setCompilationAccess(((Compilation)c).con().createCompilationAccess());
+		compilationEnclosure.setCompilationBus(((Compilation)c).con().createCompilationBus());
 
 		cb = c.getCompilationEnclosure().getCompilationBus();
 
-		c._cis().set_cio(cio);
+		((Compilation)c)._cis().set_cio(cio);
 
 		return op.process(c, inputs, cb); // TODO 09/08 Make this more complicated
 	}
@@ -70,14 +68,15 @@ public class DefaultCompilerController implements CompilerController {
 
 	@Override
 	public void runner(final @NotNull Con con) {
-		c._cis().subscribeTo(c);
+		((Compilation)c)._cis().subscribeTo(c);
 
 		final CompilationEnclosure ce = c.getCompilationEnclosure();
 
 		final ICompilationAccess compilationAccess = ce.getCompilationAccess();
 		assert compilationAccess != null;
 
-		var cr = con.newCompilationRunner(compilationAccess);
+		final ICompilationRunner icr = con.newCompilationRunner(compilationAccess);
+		final CompilationRunner  cr = (CompilationRunner) icr;
 
 		ce.setCompilationRunner(cr);
 

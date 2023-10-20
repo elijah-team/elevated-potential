@@ -1,7 +1,6 @@
 package tripleo.elijah.lang.i;
 
 import tripleo.elijah.contexts.*;
-import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang2.*;
 
 import java.util.*;
@@ -9,7 +8,7 @@ import java.util.*;
 public interface NamespaceStatement extends ModuleItem, StatementItem, FunctionItem, OS_Container, OS_Element2 {
 	OS_Type getOS_Type();
 
-	public enum Kind {
+	enum Kind { // TODO 10/20 ??
 
 	}
 
@@ -35,7 +34,7 @@ public interface NamespaceStatement extends ModuleItem, StatementItem, FunctionI
 
 	OS_Package getPackageName();
 
-	InvariantStatement invariantStatement();
+	IInvariantStatement invariantStatement();
 
 	void postConstruct();
 
@@ -60,3 +59,7 @@ public interface NamespaceStatement extends ModuleItem, StatementItem, FunctionI
 
 	ProgramClosure XXX();
 }
+
+//
+//
+//

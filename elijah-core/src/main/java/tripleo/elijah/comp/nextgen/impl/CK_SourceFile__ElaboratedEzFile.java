@@ -24,7 +24,7 @@ public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEz
 		final String fileName = file_name();
 		Preconditions.checkArgument(isEzFile(fileName));
 
-		var ezSpec = new EzSpec(
+		var ezSpec = new EzSpec__(
 				fileName,
 				file, () -> {
 					try {

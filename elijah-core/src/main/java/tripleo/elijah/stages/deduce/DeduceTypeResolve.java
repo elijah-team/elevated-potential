@@ -12,6 +12,7 @@ package tripleo.elijah.stages.deduce;
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
@@ -121,13 +122,18 @@ public class DeduceTypeResolve {
 				}
 
 				@Override
+				public void visitCaseScope(final CaseConditional.CaseScope aCaseScope) {
+					throw new UnintendedUseException();
+				}
+
+				@Override
 				public void defaultAction(final OS_Element anElement) {
 					logProgress(158, "158 " + anElement);
 					throw new IllegalStateException();
 				}
 
 				@Override
-				public void visitAliasStatement(final @NotNull AliasStatementImpl aAliasStatement) {
+				public void visitAliasStatement(final @NotNull AliasStatement aAliasStatement) {
 					logProgress(127, String.format("** AliasStatementImpl %s points to %s", aAliasStatement.name(),
 							aAliasStatement.getExpression()));
 				}
@@ -177,8 +183,8 @@ public class DeduceTypeResolve {
 				}
 
 				@Override
-				public void visitMC1(final MatchConditional.MC1 aMC1) {
-					if (aMC1 instanceof final MatchConditionalImpl.@NotNull MatchArm_TypeMatch typeMatch) {
+				public void visitMC1(final MC1 aMC1) {
+					if (aMC1 instanceof final @NotNull MatchArm_TypeMatch typeMatch) {
 						NotImplementedException.raise();
 					}
 				}
@@ -190,7 +196,12 @@ public class DeduceTypeResolve {
 				}
 
 				@Override
-				public void visitVariableStatement(final VariableStatementImpl variableStatement) {
+				public void visitTypeNameElement(final OS_TypeNameElement aOS_typeNameElement) {
+
+				}
+
+				@Override
+				public void visitVariableStatement(final VariableStatement variableStatement) {
 					final DTR_VariableStatement dtr_v = _inj().new_DTR_VariableStatement(DeduceTypeResolve.this,
 							variableStatement);
 

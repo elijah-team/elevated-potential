@@ -12,8 +12,7 @@ import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode1;
 import tripleo.elijah.util.Stupidity;
-import tripleo.elijah.work.WorkList;
-import tripleo.elijah.work.WorkManager;
+import tripleo.elijah.work.*;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -32,7 +31,7 @@ public class GM_GenerateModule {
 
 		final GenerateResult gr1 = new Sub_GenerateResult();
 		final Supplier<GenerateResultEnv> fgs = () -> new GenerateResultEnv(aResultSink, gr1, wm,
-				new WorkList() /* tautology */, this);
+																			new WorkList__() /* tautology */, this);
 
 		final @NotNull GenerateFiles ggc = gmr.getGenerateFiles(fgs);
 		final List<ProcessedNode> lgc = generateNodesIntoSink._env().lgc();

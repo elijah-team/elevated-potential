@@ -16,7 +16,7 @@ import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.work.WorkList;
 
@@ -196,7 +196,7 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 			final DeducePhase       deducePhase    = generateModule.gmr().env().pa().getCompilationEnclosure().getPipelineLogic().dp;
 
 			// TODO 10/16 cached: tho this may not matter
-			final DeduceTypes2      dt2            = deducePhase._inj().new_DeduceTypes2(gf.module(), deducePhase, ElLog.Verbosity.VERBOSE);
+			final DeduceTypes2      dt2            = deducePhase._inj().new_DeduceTypes2(gf.module(), deducePhase, ElLog_.Verbosity.VERBOSE);
 
 			dt2.deduceOneConstructor(gf, deducePhase);
 

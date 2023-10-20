@@ -15,9 +15,12 @@ import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
@@ -32,17 +35,17 @@ import java.util.function.*;
 /**
  * Created 12/30/20 2:14 AM
  */
-public class PipelineLogic implements @NotNull EventualRegister {
+public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic {
 	public final @NotNull  DeducePhase              dp;
 	public final @NotNull  GeneratePhase            generatePhase;
 	private final @NonNull List<ElLog>              elLogs = new LinkedList<>();
 //	private final @NonNull EIT_ModuleList           mods   = new EIT_ModuleList();
 	private final @NonNull ModuleCompletableProcess mcp    = new ModuleCompletableProcess();
 	private final @NonNull ModMap          modMap = new ModMap();
-	private final @NonNull IPipelineAccess pa;
+	private final @NonNull IPipelineAccess  pa;
 	@Getter
-	private final @NonNull ElLog.Verbosity verbosity;
-	private List<Eventual<?>> _eventuals = new ArrayList<>();
+	private final @NonNull ElLog_.Verbosity verbosity;
+	private List<Eventual<?>>               _eventuals = new ArrayList<>();
 
 	public PipelineLogic(final IPipelineAccess aPa, final @NotNull ICompilationAccess ca) {
 		pa = aPa;
@@ -62,7 +65,8 @@ public class PipelineLogic implements @NotNull EventualRegister {
 			}
 
 			@Override
-			public void listen(final WorldModule module) {
+			public void listen(final GWorldModule module1) {
+				final WorldModule module = (WorldModule) module1;
 				module.getErq().then(rq -> {
 					final OS_Module         mod = module.module();
 					final GenerateFunctions gfm = getGenerateFunctions(mod);

@@ -3,7 +3,7 @@ package tripleo.elijah.stages.deduce.pipeline_impl;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.IPipelineAccess;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;

@@ -2,30 +2,11 @@ package tripleo.elijah.lang.i;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.contexts.*;
-import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang2.*;
 
 import java.util.*;
 
 public interface MatchConditional extends OS_Element, StatementItem, FunctionItem {
-	public interface MC1 extends OS_Element, Documentable {
-		void add(FunctionItem aItem);
-
-		@Override
-		Context getContext();
-
-		Iterable<? extends FunctionItem> getItems();
-
-		@Override
-		default void serializeTo(SmallWriter sw) {
-
-		}
-
-		@Override
-		default void visitGen(@NotNull ElElementVisitor visit) {
-			visit.visitMC1(this);
-		}
-	}
 
 	void expr(IExpression expr);
 
@@ -39,7 +20,7 @@ public interface MatchConditional extends OS_Element, StatementItem, FunctionIte
 
 	List<MC1> getParts();
 
-	MatchConditionalImpl.MatchConditionalPart2 normal();
+	@NotNull IMatchConditionalPart2 normal();
 
 	void postConstruct();
 
@@ -55,9 +36,9 @@ public interface MatchConditional extends OS_Element, StatementItem, FunctionIte
 	//
 	//
 	//
-	MatchConditionalImpl.MatchArm_TypeMatch typeMatch();
+	@NotNull MatchArm_TypeMatch typeMatch();
 
-	MatchConditionalImpl.MatchConditionalPart3 valNormal();
+	MatchConditionalPart3 valNormal();
 
 	@Override
 	void visitGen(ElElementVisitor visit);

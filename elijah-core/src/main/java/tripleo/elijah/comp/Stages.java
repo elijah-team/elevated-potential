@@ -2,17 +2,15 @@ package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.ProcessRecord;
-import tripleo.elijah.comp.i.RuntimeProcess;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.OStageProcess;
 import tripleo.elijah.util.NotImplementedException;
 
-public enum Stages {
+public enum Stages implements GStages {
 	D("D") {
 		@Override
-		public @NotNull RuntimeProcess getProcess(final ICompilationAccess aCa, final ProcessRecord aPr) {
-			return new DStageProcess(aCa, aPr);
+		public @NotNull RuntimeProcess getProcess(final ICompilationAccess aCa, final GProcessRecord aPr) {
+			return new DStageProcess(aCa, (ProcessRecord) aPr);
 		}
 
 		@Override
@@ -22,8 +20,8 @@ public enum Stages {
 	},
 	E("E") {
 		@Override
-		public @NotNull RuntimeProcess getProcess(final ICompilationAccess aCa, final ProcessRecord aPr) {
-			return new EmptyProcess(aCa, aPr);
+		public @NotNull RuntimeProcess getProcess(final ICompilationAccess aCa, final GProcessRecord aPr) {
+			return new EmptyProcess(aCa, (ProcessRecord) aPr);
 		}
 
 		@Override
@@ -33,8 +31,8 @@ public enum Stages {
 	},
 	O("O") {
 		@Override
-		public @NotNull RuntimeProcess getProcess(final ICompilationAccess aCa, final @NotNull ProcessRecord aPr) {
-			return new OStageProcess(aCa, aPr);
+		public @NotNull RuntimeProcess getProcess(final ICompilationAccess aCa, final @NotNull GProcessRecord aPr) {
+			return new OStageProcess(aCa, (ProcessRecord) aPr);
 		}
 
 		@Override
@@ -44,7 +42,7 @@ public enum Stages {
 	}, // Output, // ??
 	S("S") {
 		@Override
-		public RuntimeProcess getProcess(final ICompilationAccess aCa, final ProcessRecord aPr) {
+		public RuntimeProcess getProcess(final ICompilationAccess aCa, final GProcessRecord aPr) {
 			throw new NotImplementedException();
 		}
 
@@ -61,7 +59,4 @@ public enum Stages {
 		s = aO;
 	}
 
-	public abstract RuntimeProcess getProcess(final ICompilationAccess aCa, final ProcessRecord aPr);
-
-	public abstract void writeLogs(final ICompilationAccess aCompilationAccess);
 }

@@ -1,16 +1,15 @@
 package tripleo.elijah.comp.internal;
 
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.IProgressSink;
 
 import java.util.List;
 import java.util.Objects;
 
 public final class CompilerBeginning {
-	private final Compilation                   compilation;
-	private final CompilerInstructions          compilerInstructions;
+	private final Compilation         compilation;
+	private final CompilerInstructions compilerInstructions;
 	private final List<CompilerInput>           compilerInput;
 	private final IProgressSink                 progressSink;
 	private final Compilation.CompilationConfig cfg;

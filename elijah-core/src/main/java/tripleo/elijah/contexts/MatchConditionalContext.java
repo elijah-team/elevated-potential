@@ -19,9 +19,9 @@ import tripleo.elijah.lang.impl.VariableSequenceImpl;
  */
 public class MatchConditionalContext extends ContextImpl {
 	private final Context _parent;
-	private final MatchConditionalImpl.MC1 carrier;
+	private final MC1     carrier;
 
-	public MatchConditionalContext(final Context parent, final MatchConditionalImpl.MC1 part) {
+	public MatchConditionalContext(final Context parent, final MC1 part) {
 		this._parent = parent;
 		this.carrier = part;
 	}
@@ -33,10 +33,10 @@ public class MatchConditionalContext extends ContextImpl {
 
 	@Override
 	public LookupResultList lookup(final @NotNull String name, final int level, final @NotNull LookupResultList Result,
-			final @NotNull SearchList alreadySearched, final boolean one) {
+								   final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
-		if (carrier instanceof final MatchConditionalImpl.@NotNull MatchArm_TypeMatch carrier2) {
+		if (carrier instanceof final @NotNull MatchArm_TypeMatch carrier2) {
 			if (name.equals(carrier2.getIdent().getText()))
 				Result.add(name, level, carrier2, this);
 		}

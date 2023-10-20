@@ -2,10 +2,9 @@ package tripleo.elijah.stages.write_stage.pipeline_impl;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.WritePipeline;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 

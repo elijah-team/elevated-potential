@@ -1,9 +1,8 @@
 package tripleo.elijah.comp.internal;
 
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.ProcessRecord;
-import tripleo.elijah.comp.i.RuntimeProcess;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 
 public final class EmptyProcess implements RuntimeProcess {
 	public EmptyProcess(final ICompilationAccess aCompilationAccess, final ProcessRecord aPr) {
@@ -18,6 +17,12 @@ public final class EmptyProcess implements RuntimeProcess {
 	}
 
 	@Override
+	public void run(final Compilation0 aComp, final RP_Context ctx0) {
+		var ctx = (Pipeline.RP_Context_1) ctx0;
+		run((Compilation) aComp, ctx.getState(), ctx.getContext());
+	}
+
+	//@Override
 	public void run(final Compilation aComp, final CR_State st, final CB_Output output) {
 
 	}

@@ -48,7 +48,7 @@ public class Scope3Impl implements Scope3, Documentable {
 		@Override
 		public @NotNull IfConditional ifConditional(final OS_Element aParent, final Context cur) {
 			IfConditional ifex = new IfConditionalImpl(aParent);
-			ifex.setContext(new IfConditionalContext(cur, ifex));
+			ifex.setContext(new IfConditionalContext__(cur, ifex));
 			add(ifex);
 			return ifex;
 		}

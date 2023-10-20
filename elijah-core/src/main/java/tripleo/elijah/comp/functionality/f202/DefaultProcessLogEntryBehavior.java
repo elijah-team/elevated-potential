@@ -10,7 +10,7 @@ package tripleo.elijah.comp.functionality.f202;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.stages.logging.LogEntry;
+import tripleo.elijah.stages.logging.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,9 +44,9 @@ public class DefaultProcessLogEntryBehavior implements ProcessLogEntryBehavior {
 	}
 
 	@Override
-	public void processLogEntry(@NotNull LogEntry entry) {
-		final String logentry = String.format("[%s] [%tD %tT] %s %s", s1, entry.time, entry.time, entry.level,
-				entry.message);
+	public void processLogEntry(LogEntry entry) {
+		final String logentry = String.format("[%s] [%tD %tT] %s %s", s1, entry.time(), entry.time(), entry.level(),
+				entry.message());
 		ps.println(logentry);
 	}
 

@@ -1,7 +1,7 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
@@ -85,8 +85,8 @@ public class WriteMakefilePipeline extends PipelineMember implements Consumer<Su
 
 	@Override
 	public void run(@NotNull CR_State st, CB_Output aOutput) throws Exception {
-		final Compilation c = st.ca().getCompilation();
-		var cot = c.getOutputTree();
+		final Compilation c   = (Compilation) st.ca().getCompilation();
+		var                cot = c.getOutputTree();
 
 		cot.recompute();
 		final List<EOT_OutputFile> list1 = cot.getList();
@@ -150,7 +150,7 @@ public class WriteMakefilePipeline extends PipelineMember implements Consumer<Su
 		 * EIT_ModuleInput(string_to_module(s), null)) .collect(Collectors.toList());
 		 */
 
-		final EOT_OutputFile eof = new EOT_OutputFile(List_of(), "Makefile", EOT_OutputType.BUILD, seq);
+		final EOT_OutputFile eof = new EOT_OutputFileImpl(List_of(), "Makefile", EOT_OutputType.BUILD, seq);
 		return eof;
 	}
 }

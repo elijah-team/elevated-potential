@@ -115,6 +115,11 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 		mFal = argList;
 	}
 
+	@Override
+	public void setContext(final IFuncExprContext ctx) {
+		setContext((FuncExprContext) ctx);
+	}
+
 	public void setArgs(final ExpressionList ael) {
 		// mFal = new FormalArgListImpl();
 		// for (IExpression iExpression : ael) {
@@ -122,7 +127,6 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 		// }
 	}
 
-	@Override
 	public void setContext(final FuncExprContext ctx) {
 		_ctx = ctx;
 	}

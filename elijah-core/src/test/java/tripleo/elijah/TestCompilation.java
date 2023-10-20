@@ -1,8 +1,6 @@
 package tripleo.elijah;
 
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.IO;
-import tripleo.elijah.comp.StdErrSink;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.factory.comp.CompilationFactory;
 
@@ -16,8 +14,8 @@ public class TestCompilation {
 	}
 
 	private static class TestCompilation_SimpleTest implements SimpleTest {
-		private Compilation c;
-		private String          _f;
+		private Compilation0 c;
+		private String       _f;
 
 		@Override
 		public SimpleTest setFile(final String aS) {
@@ -43,8 +41,9 @@ public class TestCompilation {
 
 		@Override
 		public boolean assertLiveClass(final String aClassName) {
-			var ce = c.getCompilationEnclosure();
-			var world = c.world();
+			var cc = (CompilationImpl) c;
+//			var ce = cc.getCompilationEnclosure();
+			var world = cc.world();
 			var classes = world.findClass(aClassName);
 
 			boolean result = classes.stream()
@@ -56,8 +55,9 @@ public class TestCompilation {
 
 		@Override
 		public AssertingLiveClass assertingLiveClass(final String aClassName) {
-			var ce = c.getCompilationEnclosure();
-			var world = c.world();
+			CompilationImpl cc = (CompilationImpl) c;
+//			var ce = cc.getCompilationEnclosure();
+			var world = cc.world();
 			var classes = world.findClass(aClassName);
 
 			var result = new AssertingLiveClass();
@@ -73,14 +73,14 @@ public class TestCompilation {
 		}
 
 		@Override
-		public Compilation c() {
+		public Compilation0 c() {
 			return c;
 		}
 
-		private Compilation build() {
+		private Compilation0 build() {
 			if (c != null) return c;
 
-			c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
+			c = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
 
 			return c;
 		}

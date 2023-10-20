@@ -23,9 +23,9 @@ import java.util.stream.*;
 public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	private final DeferredObject<Path, Void, Void> _pathPromise = new DeferredObject<>();
 
-	private final CY_HashDeferredAction            hda;
-	private final Compilation                      c;
-	private       File                             root; // COMP/...
+	private final CY_HashDeferredAction hda;
+	private final Compilation          c;
+	private       File                  root; // COMP/...
 	private       boolean                          _testShim;
 
 	public CP_OutputPath(final Compilation cc) {
@@ -69,7 +69,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 
 	@Override
 	public CP_Path child(final String aSubPath) {
-		return new CP_SubFile(this, aSubPath).getPath();
+		return new CP_SubFile__(this, aSubPath).getPath();
 	}
 
 	public static void append_sha_string_then_newline(StringBuilder sb1, String sha256) {
@@ -183,7 +183,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 
 	@Override
 	public @NotNull CP_SubFile subFile(final String aFile) { // s ;)
-		return new CP_SubFile(this, aFile);
+		return new CP_SubFile__(this, aFile);
 	}
 
 	public void testShim() {

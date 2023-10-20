@@ -1,6 +1,7 @@
 package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 
@@ -60,16 +61,15 @@ public class TypeOfTypeNameImpl implements TypeName, tripleo.elijah.lang.i.TypeO
 		return Type.TYPE_OF;
 	}
 
+	@Override
+	public TypeName resolve(final Context ctx, final GDeduceTypes2 deduceTypes2) throws GResolveError {
+		return resolve(ctx, (DeduceTypes2) deduceTypes2);
+	}
+
 	// region Locatable
 
-	@Override
-	public @Nullable TypeName resolve(@NotNull Context ctx, @NotNull DeduceTypes2 deduceTypes2) throws ResolveError {
-//		tripleo.elijah.util.Stupidity.println_out_2(_typeOf.toString());
-		LookupResultList lrl = DeduceLookupUtils.lookupExpression(_typeOf, ctx, deduceTypes2);
-		OS_Element best = lrl.chooseBest(null);
-		if (best instanceof VariableStatement)
-			return ((VariableStatement) best).typeName();
-		return null;
+	public @Nullable TypeName resolve(@NotNull Context ctx, @NotNull DeduceTypes2 deduceTypes2) throws GResolveError {
+		return deduceTypes2.HACKMAYBE_resolve_TypeName(this, ctx);
 	}
 
 	@Override

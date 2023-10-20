@@ -9,8 +9,9 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.*;
@@ -114,7 +115,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 	private List<EvaNode> _lgc;
 	private final @NotNull List<FunctionStatement> functionStatements = new ArrayList<>();
 	private PipelineLogic pipelineLogic;
-	private CB_Output _processOutput;
+	private CB_Output     _processOutput;
 
 	private CR_State _processState;
 
@@ -166,7 +167,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 			_processOutput.logProgress(160, "EvaPipeline.recieve >> " + evaNode);
 		}
 
-		EOT_OutputFile.FileNameProvider filename1;
+		EOT_OutputFileImpl.FileNameProvider filename1;
 
 		//final @NotNull EOT_OutputTree cot = pa.getCompilation().getOutputTree();
 		for (EvaNode evaNode : aLgc) {
@@ -186,7 +187,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 					pa.activeFunction(v);
 				}
 
-				filename1 = new EOT_OutputFile.FileNameProvider() {
+				filename1 = new EOT_OutputFileImpl.FileNameProvider() {
 					@Override
 					public String getFilename() {
 						var filename2 = "C_" + aEvaClass.getCode() + aEvaClass.getName();
@@ -206,7 +207,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 					sb.append("FUNCTION %d %s\n".formatted(v.getCode(), v.getFD().getNameNode().getText()));
 				}
 
-				filename1 = new EOT_OutputFile.FileNameProvider() {
+				filename1 = new EOT_OutputFileImpl.FileNameProvider() {
 					@Override
 					public String getFilename() {
 						var filename2 = "N_" + aEvaNamespace.getCode() + aEvaNamespace.getName();
@@ -230,7 +231,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 				filename = "F_" + code + functionName;
 
 				final int finalCode = code;
-				filename1 = new EOT_OutputFile.FileNameProvider() {
+				filename1 = new EOT_OutputFileImpl.FileNameProvider() {
 					@Override
 					public String getFilename() {
 						final String functionName = evaFunction.getFunctionName();
@@ -248,14 +249,14 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 			}
 
 			final EG_Statement seq = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("dump"));
-			final EOT_OutputFile off = new EOT_OutputFile(List_of(), filename1, EOT_OutputType.DUMP, seq);
+			final EOT_OutputFile off = new EOT_OutputFileImpl(List_of(), filename1, EOT_OutputType.DUMP, seq);
 			// cot.add(off);
 		}
 
 		for (FunctionStatement functionStatement : functionStatements) {
 			final String filename = functionStatement.getFilename(pa);
 			final EG_Statement seq = EG_Statement.of(functionStatement.getText(), EX_Explanation.withMessage("dump2"));
-			final EOT_OutputFile off = new EOT_OutputFile(List_of(), filename, EOT_OutputType.DUMP, seq);
+			final EOT_OutputFile off = new EOT_OutputFileImpl(List_of(), filename, EOT_OutputType.DUMP, seq);
 			// cot.add(off);
 		}
 
@@ -287,7 +288,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 		return l;
 	}
 
-	@Override
+//	@Override
 	public void run(final CR_State aSt, final CB_Output aOutput) {
 		_processState = aSt;
 		_processOutput = aOutput;
@@ -295,7 +296,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 		latch2.notifyLatch(true);
 	}
 
-	@Override
+//	@Override
 	public String finishPipeline_asString() {
 		return this.getClass().toString();
 	}

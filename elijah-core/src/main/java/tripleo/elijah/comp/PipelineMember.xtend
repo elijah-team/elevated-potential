@@ -7,8 +7,9 @@
  */
 package tripleo.elijah.comp
 
-import tripleo.elijah.comp.internal.CB_Output
+import tripleo.elijah.comp.i.extra.CB_Output
 import tripleo.elijah.comp.internal.CR_State
+import tripleo.elijah.comp.i.GPipelineMember
 
 /**
  * //Created 8/21/21 10:10 PM
@@ -19,9 +20,9 @@ interface PipelineMember {
 	def abstract void run( CR_State aState,  CB_Output aOutput)  throws Exception
 }
 */
-abstract class PipelineMember {
+abstract class PipelineMember implements GPipelineMember {
 	def abstract void run( CR_State aState,  CB_Output aOutput)  throws Exception
-	def abstract String finishPipeline_asString();
+	override def abstract String finishPipeline_asString();
 }
 // https://youtrack.jetbrains.com/issue/IDEA-104897
 // https://youtrack.jetbrains.com/issue/IDEA-168555

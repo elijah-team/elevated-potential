@@ -22,8 +22,8 @@ public class CW_ezDirRequest {
 	                                                           Function<File, CompilerInstructions> parseEzFile,
 	                                                           CompilationClosure cc,
 	                                                           QSEZ_Reasoning aReasoning) {
-		Compilation                            c       = cc.getCompilation();
-		ErrSink                                errSink = cc.errSink();
+		Compilation c       = (Compilation) cc.getCompilation();
+		ErrSink      errSink = cc.errSink();
 		List<Operation2<CompilerInstructions>> R       = new ArrayList<>();
 
 		for (final String file_name : files) {
@@ -34,7 +34,7 @@ public class CW_ezDirRequest {
 					R.add(Operation2.success(ezFile));
 
 					c.getObjectTree().asseverate(ezFile, Asseverate.EZ_PARSED);
-					c.reports().addInput(() -> file_name, Finally.Out2.EZ);
+					c.reports().addInput(() -> file_name, Finally_.Out2.EZ);
 				} else {
 					R.add(Operation2.failure(new QuerySearchEzFiles.Diagnostic_9995(file)));
 					errSink.reportError("9995 ezFile is null " + file); // TODO Diagnostic

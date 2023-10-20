@@ -1,8 +1,7 @@
 package tripleo.elijah.lang2;
 
-import tripleo.elijah.contexts.ClassContext;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
 
 public interface ElElementVisitor {
 	void addClass(ClassStatement klass);
@@ -19,17 +18,11 @@ public interface ElElementVisitor {
 
 	void visitAccessNotation(AccessNotation aAccessNotation);
 
-	void visitAccessNotation(AccessNotationImpl aAccessNotation);
-
 	void visitAliasStatement(AliasStatement aAliasStatement);
-
-	void visitAliasStatement(AliasStatementImpl aAliasStatement);
 
 	void visitCaseConditional(CaseConditional aCaseConditional);
 
-	void visitCaseConditional(CaseConditionalImpl caseConditionalImpl);
-
-	void visitCaseScope(CaseConditionalImpl.CaseScopeImpl aCaseScope);
+	void visitCaseScope(CaseConditional.CaseScope aCaseScope);
 
 	void visitConstructorDef(ConstructorDef aConstructorDef);
 
@@ -55,7 +48,7 @@ public interface ElElementVisitor {
 
 	void visitMatchConditional(MatchConditional aMatchConditional);
 
-	void visitMC1(MatchConditional.MC1 mc1);
+	void visitMC1(MC1 mc1);
 
 	void visitNamespaceStatement(NamespaceStatement aNamespaceStatement);
 
@@ -67,23 +60,15 @@ public interface ElElementVisitor {
 
 	void visitTypeAlias(TypeAliasStatement aTypeAliasStatement);
 
-	void visitTypeNameElement(ClassContext.OS_TypeNameElement aOS_typeNameElement);
+	void visitTypeNameElement(OS_TypeNameElement aOS_typeNameElement);
 
 	void visitVariableSequence(VariableSequence aVariableSequence);
 
-	void visitVariableSequence(VariableSequenceImpl aVariableSequence);
-
 	void visitVariableStatement(VariableStatement aVariableStatement);
-
-	void visitVariableStatement(VariableStatementImpl aVariableStatement);
 
 	void visitWithStatement(WithStatement aWithStatement);
 
-	void visitWithStatement(WithStatementImpl aWithStatement);
-
 	void visitYield(YieldExpression aYieldExpression);
-
-	void visitYield(YieldExpressionImpl aYieldExpression);
 
 	// return, continue, next
 }

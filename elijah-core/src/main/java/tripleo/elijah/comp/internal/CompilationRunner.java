@@ -6,13 +6,16 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.caches.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.impl.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.stateful.*;
 
 import java.util.function.*;
 
-public class CompilationRunner extends _RegistrationTarget {
-	public final @NotNull  EzCache                         ezCache = new DefaultEzCache();
+public class CompilationRunner extends _RegistrationTarget implements ICompilationRunner {
+	public final @NotNull  EzCache         ezCache = new DefaultEzCache();
 	private final @NotNull Compilation     _compilation;
 	private final @NotNull ICompilationBus cb;
 	@Getter
@@ -30,14 +33,14 @@ public class CompilationRunner extends _RegistrationTarget {
 		this(
 				aca,
 				aCrState,
-				() -> aca.getCompilation().getCompilationEnclosure().getCompilationBus()
+				() -> ((DefaultCompilationEnclosure) aca.getCompilation().getCompilationEnclosure()).getCompilationBus()
 		);
 	}
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca,
 	                         final @NotNull CR_State aCrState,
 	                         final Supplier<ICompilationBus> scb) {
-		_compilation = aca.getCompilation();
+		_compilation = (Compilation) aca.getCompilation();
 
 		_compilation.getCompilationEnclosure().setCompilationAccess(aca);
 
@@ -100,10 +103,11 @@ public class CompilationRunner extends _RegistrationTarget {
 		tripleo.elijah.util.Stupidity.println_err_3("%d %s".formatted(number, text));
 	}
 
-	public void start(final CompilerInstructions aRootCI, final @NotNull IPipelineAccess pa) {
+	@Override
+	public void start(final CompilerInstructions aRootCI, @NotNull final GPipelineAccess pa) {
 		// FIXME only run once 06/16
 		if (startAction == null) {
-			startAction = new CB_StartCompilationRunnerAction(this, pa, aRootCI);
+			startAction = new CB_StartCompilationRunnerAction(this, (IPipelineAccess) pa, aRootCI);
 			// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
 			cb.add(startAction.cb_Process());
 

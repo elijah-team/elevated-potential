@@ -15,7 +15,7 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 
 	private Operation2<CompilerInstructions> foundResult;
 
-	@Override
+	//@Override
 	public void findStdLib(final @NotNull CR_State crState,
 	                       final @NotNull String aPreludeName,
 	                       final @NotNull Consumer<Operation2<CompilerInstructions>> coci) {
@@ -72,6 +72,11 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 
 		foundResult = result;
 		coci.accept(result);
+	}
+
+	@Override
+	public void findStdLib(final GCR_State crState, final String aPreludeName, final Consumer<Operation2<CompilerInstructions>> coci) {
+		findStdLib((CR_State) crState, aPreludeName, coci);
 	}
 
 	@Override

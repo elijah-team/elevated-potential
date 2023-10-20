@@ -1,7 +1,7 @@
 package tripleo.elijah.comp.impl;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.CompilationChange;
 
 public class CC_SetDoOut implements CompilationChange {
@@ -12,7 +12,7 @@ public class CC_SetDoOut implements CompilationChange {
 	}
 
 	@Override
-	public void apply(final @NotNull Compilation c) {
-		c.cfg().do_out = flag;
+	public void apply(final @NotNull Compilation0 c) {
+		c.cfg().setDo_out(flag);
 	}
 }

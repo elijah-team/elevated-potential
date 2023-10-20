@@ -12,12 +12,12 @@ package tripleo.elijah.stages.generate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.Compilation0;
 
 public class ElSystemTest {
 
-	ElSystem sys;
-	Compilation c;
+	ElSystem     sys;
+	Compilation0 c;
 
 	@Disabled
 	@Test

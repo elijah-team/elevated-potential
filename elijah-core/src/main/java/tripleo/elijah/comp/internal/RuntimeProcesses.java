@@ -2,10 +2,11 @@ package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Stages;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.ProcessRecord;
 import tripleo.elijah.comp.i.RuntimeProcess;
+import tripleo.elijah.comp.i.extra.*;
 
 public class RuntimeProcesses {
 	private final @NotNull ICompilationAccess ca;
@@ -35,7 +36,7 @@ public class RuntimeProcesses {
 		// rt.run();
 		// tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess [run ]
 		// named " + process);
-		process.run(ca.getCompilation(), st, output);
+		process.run(ca.getCompilation(), new Pipeline.RP_Context_1(st, output));
 
 		// rt.postProcess(pr);
 		// tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess

@@ -97,7 +97,7 @@ class DE3_ActivePTE implements DE3_Active {
 				var env = new GN_GenerateNodesIntoSinkEnv(
 						List_of(), // !!
 						new DefaultGenerateResultSink(pa), moduleList, // !!
-						ElLog.Verbosity.VERBOSE,
+						ElLog_.Verbosity.VERBOSE,
 						new Old_GenerateResult(),
 						pa,
 						pa.getCompilationEnclosure()
@@ -107,8 +107,8 @@ class DE3_ActivePTE implements DE3_Active {
 
 				var tt = new GM_GenerateModuleRequest(new GN_GenerateNodesIntoSink(env), mod, env);
 				var t  = new GM_GenerateModule(tt);
-				fg0[0] = new GenerateResultEnv(resultSink, new Old_GenerateResult(), new WorkManager(), new WorkList(),
-				                               t
+				fg0[0] = new GenerateResultEnv(resultSink, new Old_GenerateResult(), new WorkManager__(), new WorkList__(),
+											   t
 				);
 
 				R.resolve(fg0[0]);

@@ -19,9 +19,9 @@ import java.text.*;
  */
 public class OS_GenericTypeNameType extends __Abstract_OS_Type {
 
-	private final ClassContext.OS_TypeNameElement genericTypename;
+	private final OS_TypeNameElement genericTypename;
 
-	public OS_GenericTypeNameType(final ClassContext.OS_TypeNameElement aGenericTypename) {
+	public OS_GenericTypeNameType(final OS_TypeNameElement aGenericTypename) {
 		genericTypename = aGenericTypename;
 	}
 

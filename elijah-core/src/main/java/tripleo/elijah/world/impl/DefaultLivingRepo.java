@@ -131,6 +131,11 @@ public class DefaultLivingRepo implements LivingRepo {
 	}
 
 	@Override
+	public void addModule(final OS_Module mod, final String aFilename, final Compilation0 aC) {
+		addModule(mod, aFilename, (Compilation) aC);
+	}
+
+	//@Override
 	public void addModule(final @NotNull OS_Module mod,
 	                      final @NotNull String aFilename,
 	                      final @NotNull Compilation aC) {

@@ -79,8 +79,8 @@ public class WhyNotGarish_Class implements WhyNotGarish_Item {
 
 			final GenerateResult              generateResult = aFileGen.gr();
 
-			final Compilation                 compilation    = generateC._ce().getCompilation();
-			final LivingRepo                  world          = compilation.world();
+			final Compilation compilation = generateC._ce().getCompilation();
+			final LivingRepo   world       = compilation.world();
 			final GarishClass                 garishClass    = world.getClass(gc).getGarish();
 
 			final @NotNull GenerateResultSink sink           = aFileGen.resultSink();

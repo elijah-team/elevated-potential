@@ -15,7 +15,7 @@ import tripleo.elijah.lang.impl.ContextImpl;
 /**
  * Created 8/15/20 6:32 PM
  */
-public class PackageContext extends ContextImpl {
+public class PackageContext extends ContextImpl implements IPackageContext {
 	private final Context _parent;
 	private final OS_Package carrier;
 
@@ -31,7 +31,7 @@ public class PackageContext extends ContextImpl {
 
 	@Override
 	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
-			final @NotNull SearchList alreadySearched, final boolean one) {
+								   final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(this);
 		for (OS_Element element : carrier.getElements()) {
 			if (element instanceof final @NotNull OS_Element2 element2) {

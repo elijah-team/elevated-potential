@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class MatchConditionalImpl implements MatchConditional, OS_Element, StatementItem, FunctionItem {
 
-	public class MatchArm_TypeMatch implements MC1 {
+	public class MatchArm_TypeMatch__ implements MatchArm_TypeMatch {
 
 		// private final List<FunctionItem> items = new ArrayList<FunctionItem>();
 		private final Context ___ctx = new MatchConditionalContext(// MatchConditional.this.getContext(), this);
@@ -55,6 +55,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 			return ___ctx;
 		}
 
+		@Override
 		public IdentExpression getIdent() {
 			return ident;
 		}
@@ -75,14 +76,17 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 			return MatchConditionalImpl.this;
 		}
 
+		@Override
 		public TypeName getTypeName() {
 			return tn;
 		}
 
+		@Override
 		public void ident(final IdentExpression i1) {
 			this.ident = i1;
 		}
 
+		@Override
 		public void scope(Scope3 sco) {
 			scope3 = sco;
 		}
@@ -92,12 +96,13 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 
 		}
 
+		@Override
 		public void setTypeName(final TypeName typeName) {
 			tn = typeName;
 		}
 	}
 
-	public class MatchConditionalPart2 implements MC1 {
+	public class MatchConditionalPart2 implements MC1, IMatchConditionalPart2 {
 
 		private final Context ___ctx = new MatchConditionalContext(MatchConditionalImpl.this.getContext(), this);
 
@@ -120,6 +125,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 			scope3.addDocString(text);
 		}
 
+		@Override
 		public void expr(final IExpression expr) {
 			this.matching_expression = expr;
 		}
@@ -140,6 +146,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 //			return items;
 		}
 
+		@Override
 		public IExpression getMatchingExpression() {
 			return matching_expression;
 		}
@@ -149,6 +156,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 			return MatchConditionalImpl.this;
 		}
 
+		@Override
 		public void scope(Scope3 sco) {
 			scope3 = sco;
 		}
@@ -159,7 +167,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 		}
 	}
 
-	public class MatchConditionalPart3 implements MC1 {
+	public class MatchConditionalPart3__ implements MatchConditionalPart3 {
 
 		private final Context ___ctx = new MatchConditionalContext(MatchConditionalImpl.this.getContext(), this);
 
@@ -182,6 +190,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 			scope3.addDocString(text);
 		}
 
+		@Override
 		public void expr(final IdentExpression expr) {
 			this.matching_expression = expr;
 		}
@@ -207,6 +216,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 			return MatchConditionalImpl.this;
 		}
 
+		@Override
 		public void scope(Scope3 sco) {
 			scope3 = sco;
 		}
@@ -231,6 +241,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 //		this._ctx = new SingleIdentContext(parentContext, this);
 	}
 
+	@Override
 	public void expr(final IExpression expr) {
 		this.expr = expr;
 	}
@@ -242,6 +253,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 		return __ctx;
 	}
 
+	@Override
 	public IExpression getExpr() {
 		return expr;
 	}
@@ -257,7 +269,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 	}
 
 	@Override
-	public @NotNull List<MatchConditional.MC1> getParts() {
+	public @NotNull List<MC1> getParts() {
 		return parts;
 	}
 
@@ -265,12 +277,14 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 	// EXPR
 	//
 
-	public @NotNull MatchConditionalPart2 normal() {
-		final MatchConditionalPart2 p = new MatchConditionalPart2();
+	@Override
+	public @NotNull IMatchConditionalPart2 normal() {
+		final IMatchConditionalPart2 p = new MatchConditionalPart2();
 		parts.add(p);
 		return p;
 	}
 
+	@Override
 	public void postConstruct() {
 	}
 
@@ -283,6 +297,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 		__ctx = ctx;
 	}
 
+	@Override
 	public void setParent(final OS_Element aParent) {
 		this.parent = aParent;
 	}
@@ -290,14 +305,16 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 	//
 	//
 	//
+	@Override
 	public @NotNull MatchArm_TypeMatch typeMatch() {
-		final MatchArm_TypeMatch p = new MatchArm_TypeMatch();
+		final MatchArm_TypeMatch p = new MatchArm_TypeMatch__();
 		parts.add(p);
 		return p;
 	}
 
+	@Override
 	public @NotNull MatchConditionalPart3 valNormal() {
-		final MatchConditionalPart3 p = new MatchConditionalPart3();
+		final MatchConditionalPart3 p = new MatchConditionalPart3__();
 		parts.add(p);
 		return p;
 	}

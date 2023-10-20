@@ -12,10 +12,11 @@ import antlr.Token;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.contexts.ModuleContext;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.entrypoints.EntryPoint;
 import tripleo.elijah.entrypoints.MainClassEntryPoint;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
 import tripleo.elijah.stages.deduce.fluffy.impl.FluffyModuleImpl;
@@ -42,8 +43,8 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	private IndexingStatement indexingStatement;
 	private String _fileName;
 	private LibraryStatementPart lsp;
-	private Compilation parent;
-	private FluffyModuleImpl _fluffy;
+	private Compilation         parent;
+	private FluffyModuleImpl     _fluffy;
 
 	public OS_ModuleImpl() {
 		_a = new AttachedImpl(null);
@@ -100,7 +101,9 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	}
 
 	private void find_multiple_items(Complaint c) {
-		getCompilation().getFluffy().find_multiple_items(this, c);
+		// FIXME 10/19
+		final Compilation cc = getCompilation();
+		((Compilation)cc).getFluffy().find_multiple_items(this, c);
 	}
 
 	@Override
@@ -315,6 +318,13 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	}
 
 	@Override
+	public void setContext(final GModuleContext mctx) {
+		assert mctx instanceof ModuleContext__;
+
+		setContext((ModuleContext) mctx);;
+	}
+
+	//@Override
 	public void setContext(final ModuleContext mctx) {
 		// README 10/15 hm
 		_a.setContext(mctx);
@@ -336,13 +346,18 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	}
 
 	@Override
+	public void setParent(@NotNull final Compilation0 parent) {
+
+	}
+
+	//@Override
 	public void setParent(@NotNull final Compilation parent) {
 		this.parent = parent;
 	}
 
 	@Override
-	public void setPrelude(OS_Module success) {
-		prelude = success;
+	public void setPrelude(GOS_Module success) {
+		prelude = (OS_Module) success;
 	}
 
 	@Override

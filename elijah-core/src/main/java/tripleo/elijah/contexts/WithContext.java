@@ -16,7 +16,7 @@ import tripleo.elijah.lang.impl.VariableSequenceImpl;
 /**
  * Created 8/30/20 1:42 PM
  */
-public class WithContext extends ContextImpl {
+public class WithContext extends ContextImpl implements IWithContext {
 
 	private final Context _parent;
 	private final WithStatement carrier;
@@ -33,7 +33,7 @@ public class WithContext extends ContextImpl {
 
 	@Override
 	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
-			final @NotNull SearchList alreadySearched, final boolean one) {
+								   final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
 		for (final FunctionItem item : carrier.getItems()) {
@@ -46,7 +46,7 @@ public class WithContext extends ContextImpl {
 				}
 			} else if (item instanceof VariableSequenceImpl) {
 //				tripleo.elijah.util.Stupidity.println_out_2("[FunctionContext#lookup] VariableSequenceImpl "+item);
-				for (final VariableStatement vs : ((VariableSequenceImpl) item).items()) {
+				for (final VariableStatement vs : ((VariableSequence) item).items()) {
 					if (vs.getName().equals(name))
 						Result.add(name, level, vs, this);
 				}
@@ -56,8 +56,10 @@ public class WithContext extends ContextImpl {
 
 		if (carrier.getParent() != null) {
 			final Context context = getParent();
-			if (!alreadySearched.contains(context) || !one)
+			if (!alreadySearched.contains(context) || !one) {
+				assert context != null;
 				context.lookup(name, level + 1, Result, alreadySearched, false); // TODO test this
+			}
 		}
 		return Result;
 

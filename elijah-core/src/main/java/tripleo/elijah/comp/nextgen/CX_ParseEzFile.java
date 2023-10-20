@@ -30,7 +30,7 @@ public class CX_ParseEzFile {
 		return Operation2.success(instructions);
 	}
 
-	public static Operation2<CompilerInstructions> parseAndCache(final EzSpec aSpec,
+	public static Operation2<CompilerInstructions> parseAndCache(final EzSpec__ aSpec,
 	                                                            final EzCache aEzCache,
 	                                                            final String absolutePath) {
 		final Operation2<CompilerInstructions> cio = calculate(aSpec.file_name(), aSpec.sis().get());
@@ -54,7 +54,7 @@ public class CX_ParseEzFile {
 					return cio;
 				}
 			};
-			EzSpec spec = null;
+			EzSpec__ spec = null;
 
 			return Operation.convert(parser.parse(spec));
 		} catch (final IOException aE) {

@@ -8,7 +8,7 @@
  */
 package tripleo.elijah.lang.impl;
 
-import tripleo.elijah.contexts.PackageContext;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.Context;
 import tripleo.elijah.lang.i.OS_Element;
 import tripleo.elijah.lang.i.Qualident;
@@ -29,8 +29,8 @@ public class OS_PackageImpl implements tripleo.elijah.lang.i.OS_Package {
 	}
 
 	private final int            _code;
-	private       Qualident      _name;
-	private       PackageContext _ctx;
+	private Qualident       _name;
+	private IPackageContext _ctx;
 
 	// TODO packages, elements
 
@@ -77,7 +77,7 @@ public class OS_PackageImpl implements tripleo.elijah.lang.i.OS_Package {
 	}
 
 	@Override
-	public void setContext(PackageContext cur) {
+	public void setContext(IPackageContext cur) {
 		_ctx = cur;
 	}
 }

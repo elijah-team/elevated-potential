@@ -2,10 +2,11 @@ package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.stages.hooligan.pipeline_impl.*;
 
-public class LawabidingcitizenPipeline extends PipelineMember {
+public class LawabidingcitizenPipeline extends PipelineMember implements GPipelineMember {
 	private final @NotNull IPipelineAccess pa;
 	private final LawabidingcitizenPipelineImpl i = new LawabidingcitizenPipelineImpl();
 

@@ -3,8 +3,8 @@ package tripleo.elijah.stages.write_stage.pipeline_impl;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.comp.i.IPipelineAccess;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.notation.GM_GenerateModule;
 import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
 import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
@@ -22,9 +22,8 @@ import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.work.WorkList;
-import tripleo.elijah.work.WorkManager;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.work.*;
 import tripleo.elijah.world.i.LivingClass;
 import tripleo.elijah.world.i.LivingNamespace;
 import tripleo.util.buffer.Buffer;
@@ -73,7 +72,7 @@ class AmazingFunction implements Amazing {
 			var env = new GN_GenerateNodesIntoSinkEnv(List_of(),
 													  generateResultSink,
 													  eitModuleList,
-													  ElLog.Verbosity.VERBOSE,
+													  ElLog_.Verbosity.VERBOSE,
 													  gr,
 													  pa,
 													  ce);
@@ -86,8 +85,8 @@ class AmazingFunction implements Amazing {
 
 			var fileGen = new GenerateResultEnv(new MyGenerateResultSink(of),
 												result,
-												new WorkManager(),
-												new WorkList(),
+												new WorkManager__(),
+												new WorkList__(),
 												generateModule);
 
 //			var generateModuleResult = generateModule.getModuleResult(fileGen.wm(), fileGen.resultSink());

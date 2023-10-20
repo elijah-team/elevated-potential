@@ -90,8 +90,8 @@ public class WithStatementImpl implements OS_Element, OS_Container, StatementIte
 	}
 
 	@Override
-	public void setContext(final WithContext ctx) {
-		this.ctx = ctx;
+	public void setContext(final IWithContext ctx) {
+		this.ctx = (WithContext) ctx;
 	}
 
 	@Override
