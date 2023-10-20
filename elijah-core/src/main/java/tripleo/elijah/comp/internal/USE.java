@@ -3,12 +3,10 @@ package tripleo.elijah.comp.internal;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.ci_impl.LibraryStatementPartImpl;
-import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.caches.DefaultElijahCache;
-import tripleo.elijah.comp.i.CD_FindStdLib;
-import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.comp.i.CompilationClosure;
-import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
 import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.diagnostic.Diagnostic;
@@ -36,7 +34,7 @@ public class USE {
 				|| Pattern.matches(".+\\.elijjah$", file_name);
 		return matches;
 	};
-	private final @NotNull Compilation    c;
+	private final @NotNull Compilation   c;
 	private final @NotNull ErrSink        errSink;
 
 	public ElijahCache getElijahCache() {
@@ -47,7 +45,7 @@ public class USE {
 
 	@Contract(pure = true)
 	public USE(final @NotNull CompilationClosure cc) {
-		c       = cc.getCompilation();
+		c       = (@NotNull Compilation) cc.getCompilation();
 		errSink = cc.errSink();
 	}
 
@@ -63,7 +61,7 @@ public class USE {
 	private Operation2<OS_Module> parseElijjahFile(final @NotNull File f,
 	                                               final @NotNull String file_name,
 	                                               final @NotNull LibraryStatementPart lsp) {
-		this.c.getCompilationEnclosure().logProgress(CompProgress.USE__parseElijjahFile, f.getAbsolutePath());
+		((Compilation)this.c).getCompilationEnclosure().logProgress(CompProgress.USE__parseElijjahFile, f.getAbsolutePath());
 
 		if (!f.exists()) {
 			final Diagnostic e = new FileNotFoundDiagnostic(f);
@@ -78,7 +76,7 @@ public class USE {
 					file_name,
 					f,
 					c.getIO(),
-					c.con().defaultElijahSpecParser(elijahCache)
+					((Compilation)c).con().defaultElijahSpecParser(elijahCache)
 			);
 
 			switch (om.mode()) {
@@ -90,7 +88,7 @@ public class USE {
 
 					if (mm.getLsp() == null) {
 						// TODO we don't know which prelude to find yet
-						final Operation2<OS_Module> pl = findPrelude(Compilation.CompilationAlways.defaultPrelude());
+						final Operation2<OS_Module> pl = findPrelude(CompilationImpl.CompilationAlways.defaultPrelude());
 
 						// NOTE Go. infectious. tedious. also slightly lazy
 						assert pl.mode() == Mode.SUCCESS;
@@ -127,7 +125,7 @@ public class USE {
 
 		for (final LibraryStatementPart lsp : compilerInstructions.getLibraryStatementParts()) {
 			final String dir_name = Helpers.remove_single_quotes_from_string(lsp.getDirName());
-			final File   dir;// = new File(dir_name);
+			final File    dir;// = new File(dir_name);
 			USE_Reasoning reasoning = null;
 			if (dir_name.equals("..")) {
 				dir = instruction_dir/* .getAbsoluteFile() */.getParentFile(); // FIXME 09/26 this has always been questionable
@@ -164,20 +162,6 @@ public class USE {
 
 	public Compilation _c() {
 		return c;
-	}
-
-	public enum USE_Reasoning_ {
-		USE_Reasoning__parent, USE_Reasoning__child, USE_Reasoning___default, USE_Reasoning__instruction_doer_addon, USE_Reasoning__initial, USE_Reasoning__findStdLib
-	}
-
-	public interface USE_Reasoning {
-		boolean parent();
-
-		File instruction_dir();
-
-		CompilerInstructions compilerInstructions();
-
-		USE_Reasoning_ ty();
 	}
 
 	public static class USE_Reasonings {

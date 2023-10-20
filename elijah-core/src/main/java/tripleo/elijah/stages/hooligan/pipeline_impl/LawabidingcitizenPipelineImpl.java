@@ -32,12 +32,13 @@ public class LawabidingcitizenPipelineImpl {
 					final Lawabidingcitizen.SmallWriter1 sw = hooligan.__modules2(worldModules);
 					final EOT_OutputTree cot = compilation.getOutputTree();
 
-					final List<EIT_Input> inputs = worldModules.stream().map(WorldModule::getEITInput)
+					final List<EIT_Input> inputs = worldModules.stream()
+							.map(WorldModule::getEITInput)
 							.collect(Collectors.toList());
 
 					final String text = sw.getText();
-					final EG_Statement seq = EG_Statement.of(text, EX_Explanation.withMessage("modules-sw-writer"));
-					final EOT_OutputFile off = new EOT_OutputFile(inputs, "modules-sw-writer", EOT_OutputType.SWW, seq);
+					final EG_Statement       seq = EG_Statement.of(text, EX_Explanation.withMessage("modules-sw-writer"));
+					final EOT_OutputFileImpl off = new EOT_OutputFileImpl(inputs, "modules-sw-writer", EOT_OutputType.SWW, seq);
 
 					cot.add(off);
 				}

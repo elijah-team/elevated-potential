@@ -5,7 +5,7 @@ import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.nextgen.pn.*;
 import tripleo.elijah.comp.nextgen.pw.*;
 import tripleo.elijah.lang.i.*;
@@ -49,6 +49,21 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 			@Override
 			public void ping(final Object t) {
 //				final OutputItems itms = new OutputItems(); // maybe belongs here?
+
+
+
+
+
+
+
+				System.err.println("999053 "+t.getClass().getName());
+
+
+
+
+
+
+
 				var cs = st.pa.getActiveClasses();
 				var ns = st.pa.getActiveNamespaces();
 				var fs = st.pa.getActiveFunctions();
@@ -120,7 +135,7 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 	}
 
 	interface Writable {
-		EOT_OutputFile.FileNameProvider filename();
+		EOT_OutputFileImpl.FileNameProvider filename();
 
 		List<EIT_Input> inputs();
 
@@ -136,9 +151,9 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 
 	// TODO 09/04 Duplication madness
 	private static class MyWritable implements Writable {
-		final          Collection<EG_Statement>        value;
-		final          EOT_OutputFile.FileNameProvider filename;
-		final @NotNull List<EG_Statement>              list;
+		final          Collection<EG_Statement>            value;
+		final          EOT_OutputFileImpl.FileNameProvider filename;
+		final @NotNull List<EG_Statement>                  list;
 		final @NotNull EG_SequenceStatement            statement;
 		private final  NG_OutputRequest                outputRequest;
 
@@ -153,7 +168,7 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 		}
 
 		@Override
-		public EOT_OutputFile.FileNameProvider filename() {
+		public EOT_OutputFileImpl.FileNameProvider filename() {
 			return filename;
 		}
 
@@ -222,7 +237,7 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 	}
 
 	private static class MyRunnable implements Runnable {
-		private final OutputItems outputItems;
+		private final OutputItems  outputItems;
 		private final Compilation c;
 
 		public MyRunnable(final OutputItems 			aOutputItems,
@@ -237,17 +252,17 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 				final List<NG_OutputStatement> oxs = o.getOutputs();
 				for (final NG_OutputStatement ox : oxs) {
 					final GenerateResult.TY               oxt = ox.getTy();
-					final String                          oxb = ox.getText();
-					final EOT_OutputFile.FileNameProvider s   = o.outName(outputItems.outputStrategyC, oxt);
-					final NG_OutputRequest                or  = new NG_OutputRequest(s, ox, ox, o);
+					final String                              oxb = ox.getText();
+					final EOT_OutputFileImpl.FileNameProvider s   = o.outName(outputItems.outputStrategyC, oxt);
+					final NG_OutputRequest                    or  = new NG_OutputRequest(s, ox, ox, o);
 
 					outputItems.ors1.add(or);
 				}
 			}
 
 			final Multimap<NG_OutputRequest, EG_Statement> mfss = ArrayListMultimap.create();
-			final EOT_OutputTree                           cot  = c.getOutputTree();
-			final CompilationEnclosure                     ce   = c.getCompilationEnclosure();
+			final EOT_OutputTree       cot = c.getOutputTree();
+			final CompilationEnclosure ce  = c.getCompilationEnclosure();
 
 			for (final NG_OutputRequest or : outputItems.ors1) {
 				ce.AssertOutFile(or);
@@ -276,7 +291,7 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 					statement = statement0;
 				}
 
-				final EOT_OutputFile off = new EOT_OutputFile(writable.inputs(), filename, EOT_OutputType.SOURCES, statement);
+				final EOT_OutputFileImpl off = new EOT_OutputFileImpl(writable.inputs(), filename, EOT_OutputType.SOURCES, statement);
 				cot.add(off);
 			}
 		}

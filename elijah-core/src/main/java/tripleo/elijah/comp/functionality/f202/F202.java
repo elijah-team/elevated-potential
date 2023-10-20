@@ -12,8 +12,7 @@ import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.stages.logging.LogEntry;
+import tripleo.elijah.stages.logging.*;
 
 import java.io.File;
 import java.util.Collection;
@@ -55,7 +54,7 @@ public class F202 {
 		for (ElLog elLog : aElLogs) {
 			ple.processPhase(elLog.getPhase());
 
-			for (LogEntry entry : elLog.getEntries()) {
+			for (final LogEntry entry : elLog.getEntries()) {
 				ple.processLogEntry(entry);
 			}
 

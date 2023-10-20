@@ -1,9 +1,9 @@
 package tripleo.elijah.comp.i;
 
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.g.*;
 
 public interface ModuleListener {
 	void close();
 
-	void listen(WorldModule module);
+	void listen(GWorldModule module);
 }

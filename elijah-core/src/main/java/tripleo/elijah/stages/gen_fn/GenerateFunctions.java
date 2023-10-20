@@ -16,17 +16,13 @@ import org.jetbrains.annotations.NotNull;
 //import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.EvaPipeline;
 import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.comp.i.IPipelineAccess;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.notation.GN_PL_Run2;
 import tripleo.elijah.entrypoints.ArbitraryFunctionEntryPoint;
 import tripleo.elijah.entrypoints.EntryPoint;
 import tripleo.elijah.entrypoints.MainClassEntryPoint;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.LangGlobals;
-import tripleo.elijah.lang.impl.MatchConditionalImpl;
-import tripleo.elijah.lang.impl.MatchConditionalImpl.MatchArm_TypeMatch;
-import tripleo.elijah.lang.impl.MatchConditionalImpl.MatchConditionalPart2;
-import tripleo.elijah.lang.impl.NumericExpressionImpl;
+import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.OS_BuiltinType;
 import tripleo.elijah.lang.types.OS_FuncExprType;
 import tripleo.elijah.lang.types.OS_UnitType;
@@ -42,7 +38,7 @@ import tripleo.elijah.stages.deduce.FunctionInvocation;
 import tripleo.elijah.stages.deduce.RegisterClassInvocation_env;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.inter.ModuleThing;
-import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
@@ -297,8 +293,8 @@ public class GenerateFunctions implements ReactiveDimension {
 				final @NotNull Label label_end = gf.addLabel();
 
 				{
-					for (final MatchConditional.MC1 part : mc.getParts()) {
-						if (part instanceof final MatchConditionalImpl.@NotNull MatchArm_TypeMatch mc1) {
+					for (final MC1 part : mc.getParts()) {
+						if (part instanceof final @NotNull MatchArm_TypeMatch mc1) {
 							final TypeName tn = mc1.getTypeName();
 							final IdentExpression id = mc1.getIdent();
 
@@ -328,7 +324,7 @@ public class GenerateFunctions implements ReactiveDimension {
 							add_i(gf, InstructionName.XS, List_of(new IntegerIA(begin0, gf)), cctx);
 							gf.place(label_next);
 							label_next = gf.addLabel();
-						} else if (part instanceof final MatchConditionalImpl.@NotNull MatchConditionalPart2 mc2) {
+						} else if (part instanceof final @NotNull IMatchConditionalPart2 mc2) {
 							final IExpression id = mc2.getMatchingExpression();
 
 							final int begin0 = add_i(gf, InstructionName.ES, null, cctx);
@@ -345,7 +341,7 @@ public class GenerateFunctions implements ReactiveDimension {
 							add_i(gf, InstructionName.XS, List_of(new IntegerIA(begin0, gf)), cctx);
 							gf.place(label_next);
 //							label_next = gf.addLabel();
-						} else if (part instanceof MatchConditionalImpl.MatchConditionalPart3) {
+						} else if (part instanceof MatchConditionalImpl.MatchConditionalPart3__) {
 							LOG.err("Don't know what this is");
 						}
 					}
@@ -852,7 +848,7 @@ public class GenerateFunctions implements ReactiveDimension {
 				final @NotNull Label label_end = gf.addLabel();
 
 				{
-					for (final MatchConditional.MC1 part : mc.getParts()) {
+					for (final MC1 part : mc.getParts()) {
 						if (part instanceof final @NotNull MatchArm_TypeMatch mc1) {
 							final TypeName tn = mc1.getTypeName();
 							final IdentExpression id = mc1.getIdent();
@@ -883,7 +879,7 @@ public class GenerateFunctions implements ReactiveDimension {
 							add_i(gf, InstructionName.XS, List_of(new IntegerIA(begin0, gf)), cctx);
 							gf.place(label_next);
 							label_next = gf.addLabel();
-						} else if (part instanceof final @NotNull MatchConditionalPart2 mc2) {
+						} else if (part instanceof final @NotNull IMatchConditionalPart2 mc2) {
 							final IExpression id = mc2.getMatchingExpression();
 
 							final int begin0 = add_i(gf, InstructionName.ES, null, cctx);
@@ -900,7 +896,7 @@ public class GenerateFunctions implements ReactiveDimension {
 							add_i(gf, InstructionName.XS, List_of(new IntegerIA(begin0, gf)), cctx);
 							gf.place(label_next);
 //							label_next = gf.addLabel();
-						} else if (part instanceof MatchConditionalImpl.MatchConditionalPart3) {
+						} else if (part instanceof MatchConditionalImpl.MatchConditionalPart3__) {
 							LOG.err("Don't know what this is");
 						}
 					}
@@ -1053,19 +1049,22 @@ public class GenerateFunctions implements ReactiveDimension {
 
 	static class GIA__procedure_call__one {
 
-		final @NotNull Instruction expression_to_call;
-		final IExpression left;
-		final @NotNull List<InstructionArgument> list_of_fn_call;
-		final InstructionArgument lookup;
-		final @NotNull TypeTableEntry tte;
-		private final Context cctx;
+		private final @NotNull Instruction               expression_to_call;
+		private final          IExpression               left;
+		private final @NotNull List<InstructionArgument> list_of_fn_call;
+		private final          InstructionArgument       lookup;
+		private final @NotNull TypeTableEntry            tte;
+		private final          Context                   cctx;
 		private final @NotNull Generate_item_assignment generate_item_assign;
 		private final BaseEvaFunction gf;
 		private final GenerateFunctions gfs;
 
-		public GIA__procedure_call__one(final @NotNull BasicBinaryExpression bbe, final @NotNull BaseEvaFunction gf,
-				final @NotNull Context cctx, final @NotNull Generate_item_assignment generate_item_assignment,
-				final @NotNull ProcedureCallExpression pce, final GenerateFunctions gfs1) {
+		public GIA__procedure_call__one(final @NotNull BasicBinaryExpression bbe,
+										final @NotNull BaseEvaFunction gf,
+										final @NotNull Context cctx,
+										final @NotNull Generate_item_assignment generate_item_assignment,
+										final @NotNull ProcedureCallExpression pce,
+										final GenerateFunctions gfs1) {
 			this.gf = gf;
 			this.cctx = cctx;
 			this.generate_item_assign = generate_item_assignment;
@@ -1144,6 +1143,25 @@ public class GenerateFunctions implements ReactiveDimension {
 			return gfs.addVariableTableEntry(aText, aTte, aGf, aIdentExpression);
 		}
 
+		public InstructionArgument getLookup() {
+			return lookup;
+		}
+
+		public Instruction getExpression_to_call() {
+			return expression_to_call;
+		}
+
+		public IExpression getLeft() {
+			return left;
+		}
+
+		public List<InstructionArgument> getList_of_fn_call() {
+			return list_of_fn_call;
+		}
+
+		public TypeTableEntry getTte() {
+			return tte;
+		}
 	}
 
 	private static final String PHASE = "GenerateFunctions";
@@ -1162,7 +1180,7 @@ public class GenerateFunctions implements ReactiveDimension {
 		phase = aPipelineLogic.generatePhase;
 		module = aModule;
 		//
-		LOG = new ElLog(module.getFileName(), phase.getVerbosity(), PHASE);
+		LOG = new ElLog_(module.getFileName(), phase.getVerbosity(), PHASE);
 		pa.addLog(LOG);
 	}
 
@@ -1200,8 +1218,10 @@ public class GenerateFunctions implements ReactiveDimension {
 	 * @param gf
 	 * @return the cte table index
 	 */
-	private int addConstantTableEntry2(final String name, final IExpression initialValue, final OS_Type type,
-			final @NotNull BaseEvaFunction gf) {
+	private int addConstantTableEntry2(final String name,
+									   final IExpression initialValue,
+									   final OS_Type type,
+									   final @NotNull BaseEvaFunction gf) {
 		final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, type, initialValue);
 		final @NotNull ConstantTableEntry cte = new ConstantTableEntry(gf.cte_list.size(), name, initialValue, tte);
 
@@ -1561,7 +1581,7 @@ public class GenerateFunctions implements ReactiveDimension {
 		gf.setFunctionInvocation(aFunctionInvocation);
 		if (parent instanceof ClassStatement) {
 			final OS_Type parentType = parent.getOS_Type();
-			final @NotNull IdentExpression selfIdent = IdentExpression.forString("self");
+			final @NotNull IdentExpression selfIdent = IdentExpressionImpl.forString("self");
 			final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, parentType,
 					selfIdent);
 			gf.addVariableTableEntry("self", VariableTableType.SELF, tte, null);
@@ -1651,7 +1671,7 @@ public class GenerateFunctions implements ReactiveDimension {
 		final @NotNull EvaFunction gf = new EvaFunction(fd);
 		if (parent instanceof ClassStatement)
 			gf.addVariableTableEntry("self", VariableTableType.SELF, gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED,
-					((ClassStatement) parent).getOS_Type(), IdentExpression.forString("self")), null);
+																						  ((ClassStatement) parent).getOS_Type(), IdentExpressionImpl.forString("self")), null);
 		final @NotNull OS_Type returnType;
 		final @org.jetbrains.annotations.Nullable TypeName returnType1 = fd.returnType();
 		if (returnType1 == null)
@@ -1659,7 +1679,7 @@ public class GenerateFunctions implements ReactiveDimension {
 		else
 			returnType = new OS_UserType(returnType1);
 		gf.addVariableTableEntry("Result", VariableTableType.RESULT,
-				gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, returnType, IdentExpression.forString("Result")),
+				gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, returnType, IdentExpressionImpl.forString("Result")),
 				null); // TODO what about Unit returns?
 
 		{
@@ -1712,7 +1732,7 @@ public class GenerateFunctions implements ReactiveDimension {
 
 		gf.fi = aFunctionInvocation;
 
-		pa.addFunctionStatement(new EvaPipeline.FunctionStatement(gf));
+		pa.addFunctionStatement(new EvaPipeline.FunctionStatement(gf)); // NOTE 10/19
 
 		return gf;
 	}

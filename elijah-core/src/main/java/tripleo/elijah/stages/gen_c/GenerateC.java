@@ -12,7 +12,7 @@ import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.comp.i.CompilationEnclosure;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.OS_FuncExprType;
@@ -26,11 +26,9 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah.work.WorkJob;
-import tripleo.elijah.work.WorkList;
-import tripleo.elijah.work.WorkManager;
+import tripleo.elijah.work.*;
 import tripleo.elijah.world.i.LivingClass;
 import tripleo.elijah.world.i.LivingNamespace;
 import tripleo.util.buffer.Buffer;
@@ -62,10 +60,10 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 
 		errSink = aParams.getErrSink();
 
-		final OS_Module       mod       = aParams.getMod();
-		final ElLog.Verbosity verbosity = aParams.getVerbosity();
+		final OS_Module        mod       = aParams.getMod();
+		final ElLog_.Verbosity verbosity = aParams.getVerbosity();
 
-		LOG = new ElLog(mod.getFileName(), verbosity, PHASE);
+		LOG = new ElLog_(mod.getFileName(), verbosity, PHASE);
 
 		ce = aParams.getCompilationEnclosure();
 		ce.getAccessBusPromise().then(ab -> {
@@ -177,7 +175,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 	public @NotNull GenerateResult generateCode(final @NotNull Collection<EvaNode> lgn,
 												final @NotNull GenerateResultEnv aFileGen) {
 		GenerateResult gr = new Old_GenerateResult();
-		WorkList       wl = new WorkList();
+		WorkList       wl = new WorkList__();
 
 		var                      wm          = aFileGen.wm();
 		final GenerateResultSink aResultSink = aFileGen.resultSink();

@@ -53,7 +53,7 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 			final DeducePhase       deducePhase    = generateModule.gmr().env().pa().getCompilationEnclosure().getPipelineLogic().dp;
 
 			// TODO 10/16 cached: tho this may not matter
-			final DeduceTypes2 dt2 = deducePhase._inj().new_DeduceTypes2(gf.module(), deducePhase, ElLog.Verbosity.VERBOSE);
+			final DeduceTypes2 dt2 = deducePhase._inj().new_DeduceTypes2(gf.module(), deducePhase, ElLog_.Verbosity.VERBOSE);
 
 			dt2.deduceOneFunction((EvaFunction) gf, deducePhase);
 

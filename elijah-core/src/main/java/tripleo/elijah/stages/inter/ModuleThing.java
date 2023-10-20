@@ -2,6 +2,7 @@ package tripleo.elijah.stages.inter;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.entrypoints.EntryPoint;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.gen_fn.EvaFunction;
 import tripleo.small.ES_Symbol;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ModuleThing {
+public class ModuleThing implements GModuleThing {
 	public static final class GeneralDescription {
 		private final          ES_Symbol    aSymbol;
 		private final @NotNull List<Object> aObjects;

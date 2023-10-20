@@ -151,7 +151,7 @@ class Resolve_Variable_Table_Entry {
 			fd1.scope(fe.getScope());
 			fd1.setSpecies(BaseFunctionDef.Species.FUNC_EXPR);
 //			tripleo.elijah.util.Stupidity.println_out_2("1630 "+mod_ns.getItems()); // element 0 is ctor$0
-			fd1.setName(IdentExpression.forString(String.format("$%d", mod_ns.getItems().size() + 1)));
+			fd1.setName(IdentExpressionImpl.forString(String.format("$%d", mod_ns.getItems().size() + 1)));
 
 			@NotNull
 			WorkList wl = deduceTypes2._inj().new_WorkList();
@@ -357,7 +357,7 @@ class Resolve_Variable_Table_Entry {
 	@NotNull
 	private Operation2<NamespaceStatement> lookup_module_namespace(@NotNull OS_Module aModule) {
 		try {
-			final @NotNull IdentExpression module_ident = IdentExpression.forString("__MODULE__");
+			final @NotNull IdentExpression module_ident = IdentExpressionImpl.forString("__MODULE__");
 			@Nullable
 			OS_Element e = DeduceLookupUtils.lookup(module_ident, aModule.getContext(), deduceTypes2);
 			if (e != null) {

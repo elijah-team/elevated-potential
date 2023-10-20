@@ -31,10 +31,13 @@ public enum CompProgress {
 	__parseElijjahFile_InputRequest {
 		@Override
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
+			// 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+/*
 			InputRequest aInputRequest = (InputRequest) x;
 			File         f             = aInputRequest.file();
 
 			out.printf("** [__parseElijjahFile_InputRequest] %s%n", f.getAbsolutePath());
+*/
 		}
 	},
 	__CCI_Acceptor__CompilerInputListener__change__logInput {

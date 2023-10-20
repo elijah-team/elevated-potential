@@ -9,23 +9,29 @@
 package tripleo.elijah.comp.internal;
 
 import com.google.common.base.*;
+import io.reactivex.rxjava3.core.Observer;
 import lombok.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.impl.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.nextgen.pn.*;
 import tripleo.elijah.comp.nextgen.pw.*;
 import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.fluffy.i.*;
 import tripleo.elijah.stages.deduce.fluffy.impl.*;
+import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
 import tripleo.elijah.world.impl.*;
@@ -44,10 +50,10 @@ public class CompilationImpl implements Compilation {
 	@Getter
 	private final          CompilationConfig                   cfg;
 	@Getter
-	private final          USE                                 use;
+	private final USE                  use;
 	@Getter
-	private final          CompilationEnclosure                compilationEnclosure;
-	private final          CP_Paths                            paths;
+	private final CompilationEnclosure compilationEnclosure;
+	private final CP_Paths             paths;
 	private final @NotNull ErrSink                             errSink;
 	private final          int                                 _compilationNumber;
 	private final          CompilerInputMaster                 master;
@@ -73,31 +79,40 @@ public class CompilationImpl implements Compilation {
 		objectTree           = _con.createObjectTree();
 		_repo                = new DefaultLivingRepo();
 		compilationEnclosure = new DefaultCompilationEnclosure(this);
-		_finally             = new Finally();
-		_input_tree          = new EIT_InputTree();
-		paths                = new CP_Paths(this);
+		_finally             = new Finally_();
+		_input_tree          = new EIT_InputTreeImpl();
+		paths                = new CP_Paths__(this);
 		_fluffyComp          = new FluffyCompImpl(this);
 		use                  = new USE(this.getCompilationClosure());
 		_cis                 = new CIS();
 
 		master = new CompilerInputMaster() {
-			private final List<CompilerInputListener> listeners = new ArrayList<>();
-
 			@Override
-			public void addListener(CompilerInputListener a) {
-				listeners.add(a);
+			public void addListener(final CompilerInputListener compilerInputListener) {
+				listeners.add(compilerInputListener);
 			}
 
 			@Override
-			public void notifyChange(CompilerInput compilerInput, CompilerInput.CompilerInputField compilerInputField) {
+			public void notifyChange(final CompilerInput compilerInput, final CompilerInput.CompilerInputField compilerInputField) {
 				for (CompilerInputListener listener : listeners) {
 					listener.baseNotify(compilerInput, compilerInputField);
 				}
 			}
+
+			private final List<CompilerInputListener> listeners = new ArrayList<>();
 		};
 
 		cci_listener = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
+	}
+
+	public static ElLog_.@NotNull Verbosity gitlabCIVerbosity() {
+		final boolean gitlab_ci = isGitlab_ci();
+		return gitlab_ci ? ElLog_.Verbosity.SILENT : ElLog_.Verbosity.VERBOSE;
+	}
+
+	public static boolean isGitlab_ci() {
+		return System.getenv("GITLAB_CI") != null;
 	}
 
 	public @NotNull ICompilationAccess _access() {
@@ -120,6 +135,11 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
+	public void set_pa(final GPipelineAccess aPipelineAccess) {
+		set_pa((IPipelineAccess) aPipelineAccess);
+	}
+
+	@Override
 	public @NotNull CompFactory con() {
 		return _con;
 	}
@@ -135,7 +155,7 @@ public class CompilationImpl implements Compilation {
 
 		final List<CompilerInput> inputs = args.stream()
 				.map((String s) -> {
-					final CompilerInput input = new CompilerInput(s);
+					final CompilerInput input = new CompilerInput_(s);
 
 					if (s.startsWith("-")) {
 						input.setArg();
@@ -174,8 +194,8 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
-	public Operation2<WorldModule> findPrelude(final String prelude_name) {
-		Operation2<OS_Module> prelude = use.findPrelude(prelude_name);
+	public Operation2<GWorldModule> findPrelude(final String prelude_name) {
+		final Operation2<OS_Module> prelude = use.findPrelude(prelude_name);
 
 		if (prelude.mode() == Mode.SUCCESS) {
 			final OS_Module   m        = prelude.success();
@@ -262,7 +282,7 @@ public class CompilationImpl implements Compilation {
 	@Override
 	public @NotNull EOT_OutputTree getOutputTree() {
 		if (_output_tree == null) {
-			_output_tree = new EOT_OutputTree();
+			_output_tree = new EOT_OutputTreeImpl();
 		}
 
 		return _output_tree;
@@ -281,6 +301,31 @@ public class CompilationImpl implements Compilation {
 	@Override
 	public void setRootCI(CompilerInstructions rootCI) {
 		this.rootCI = rootCI;
+	}
+
+	@Override
+	public int instructionCount() {
+		throw new UnintendedUseException();
+	}
+
+	@Override
+	public boolean isPackage(@NotNull final String pkg) {
+		throw new UnintendedUseException();
+	}
+
+	@Override
+	public OS_Package makePackage(final Qualident pkg_name) {
+		throw new UnintendedUseException();
+	}
+
+	@Override
+	public LivingRepo world2() {
+		return _repo;
+	}
+
+	@Override
+	public Operation<Ok> hasInstructions2(@NotNull final List<CompilerInstructions> cis, @NotNull final IPipelineAccess pa) {
+		return hasInstructions(cis, get_pa());
 	}
 
 	@Override
@@ -315,21 +360,21 @@ public class CompilationImpl implements Compilation {
 		return Operation.success(Ok.instance());
 	}
 
-	@Override
-	@Deprecated
-	public int instructionCount() {
-		return 4; // TODO shim !!!cis.size();
-	}
+	//@Override
+	//@Deprecated
+	//public int instructionCount() {
+	//	return 4; // TODO shim !!!cis.size();
+	//}
 
-	@Override
-	public boolean isPackage(final @NotNull String pkg) {
-		return _repo.hasPackage(pkg);
-	}
+	//@Override
+	//public boolean isPackage(final @NotNull String pkg) {
+	//	return _repo.hasPackage(pkg);
+	//}
 
-	@Override
-	public OS_Package makePackage(final Qualident pkg_name) {
-		return _repo.makePackage(pkg_name);
-	}
+	//@Override
+	//public OS_Package makePackage(final Qualident pkg_name) {
+	//	return _repo.makePackage(pkg_name);
+	//}
 
 	@Override
 	public @NotNull ModuleBuilder moduleBuilder() {
@@ -365,13 +410,18 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
-	public void subscribeCI(final @NotNull io.reactivex.rxjava3.core.Observer<CompilerInstructions> aCio) {
+	public void subscribeCI(final ICompilerInstructionsObserver aCio) {
+
+	}
+
+	@Override
+	public void subscribeCI(final @NotNull Observer<CompilerInstructions> aCio) {
 		_cis.subscribe(aCio);
 	}
 
 	@Override
-	public void use(@NotNull final CompilerInstructions compilerInstructions, final USE.USE_Reasoning aReasoning) {
-		if (aReasoning.ty() == USE.USE_Reasoning_.USE_Reasoning__findStdLib) {
+	public void use(@NotNull final CompilerInstructions compilerInstructions, final USE_Reasoning aReasoning) {
+		if (aReasoning.ty() == USE_Reasoning_.USE_Reasoning__findStdLib) {
 			pushItem(compilerInstructions);
 		}
 
@@ -401,7 +451,9 @@ public class CompilationImpl implements Compilation {
 	@Deprecated
 //	@Override
 	public List<OS_Module> modules() {
-		return this.world().modules().stream().map(WorldModule::module).collect(Collectors.toList());
+		return this.world().modules().stream()
+				.map(WorldModule::module)
+				.collect(Collectors.toList());
 	}
 
 	public void testMapHooks(final List<IFunctionMapHook> ignoredAMapHooks) {
@@ -410,6 +462,23 @@ public class CompilationImpl implements Compilation {
 
 	public CP_Paths _paths() {
 		return paths;
+	}
+
+	public enum CompilationAlways {
+		;
+
+		@NotNull
+		public static String defaultPrelude() {
+			return "c";
+		}
+
+		public enum Tokens {
+			;
+
+			// README 10/20 Disjointed needs annotation
+			public static final DriverToken COMPILATION_RUNNER_FIND_STDLIB2 = DriverToken.makeToken("COMPILATION_RUNNER_FIND_STDLIB2");
+			public static final DriverToken COMPILATION_RUNNER_START        = DriverToken.makeToken("COMPILATION_RUNNER_START");
+		}
 	}
 }
 

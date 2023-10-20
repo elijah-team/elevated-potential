@@ -11,6 +11,7 @@ package tripleo.elijah.comp.notation;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah.world.i.*;
@@ -42,15 +43,18 @@ public class GN_GenerateNodesIntoSink implements GN_Notable, ModuleListener {
 	}
 
 	@Override
-	public void listen(final @NotNull WorldModule module) {
-		var wm = new WorkManager();
+	public void listen(final @NotNull GWorldModule module1) {
+		final WorldModule module = (WorldModule) module1;
+		final WorkManager wm = new WorkManager__();
+
 		run_one_mod(module, wm);
+
 		wm.drain();
 	}
 
 	@Override
 	public void run() {
-		final WorkManager           wm   = new WorkManager();
+		final WorkManager           wm   = new WorkManager__();
 		final Collection<WorldModule> mods = env.pa().getCompilationEnclosure().getCompilation().world().getMods__();
 //				moduleList().getMods();
 

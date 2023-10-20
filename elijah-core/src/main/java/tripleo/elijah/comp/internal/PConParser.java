@@ -17,12 +17,12 @@ public class PConParser {
 		return new AccessNotationImpl();
 	}
 
-	public InvariantStatementPart new_InvariantStatementPartImpl(final InvariantStatement aCr, final Token aI1) {
+	public InvariantStatementPart new_InvariantStatementPartImpl(final IInvariantStatement aCr, final Token aI1) {
 		return new InvariantStatementPartImpl(aCr, aI1);
 	}
 
-	public NamespaceContext new_NamespaceContext(final Context aCur, final NamespaceStatement aCls) {
-		return new NamespaceContext(aCur, aCls);
+	public NamespaceContext__ new_NamespaceContext(final Context aCur, final NamespaceStatement aCls) {
+		return new NamespaceContext__(aCur, aCls);
 	}
 
 	public FunctionDef new_FunctionDefImpl(final OS_Element aParent, final Context aCtx) {
@@ -74,7 +74,7 @@ public class PConParser {
 	}
 
 	public ModuleContext new_ModuleContext(final OS_Module aModule) {
-		return new ModuleContext(aModule);
+		return new ModuleContext__(aModule);
 	}
 
 	public Context new_PackageContext(final Context aCur, final OS_Package aPkg) {
@@ -129,15 +129,15 @@ public class PConParser {
 		return new UnaryExpressionImpl(aExpressionKind, aEe);
 	}
 
-	public LoopContext new_LoopContext(final Context aCur, final Loop aLoop) {
-		return new LoopContext(aCur, aLoop);
+	public LoopContext__ new_LoopContext(final Context aCur, final Loop aLoop) {
+		return new LoopContext__(aCur, aLoop);
 	}
 
 	public WithStatement new_WithStatementImpl(final OS_Element aParent) {
 		return new WithStatementImpl(aParent);
 	}
 
-	public WithContext new_WithContext(final WithStatement aWs, final Context aCur) {
+	public IWithContext new_WithContext(final WithStatement aWs, final Context aCur) {
 		return new WithContext(aWs, aCur);
 	}
 

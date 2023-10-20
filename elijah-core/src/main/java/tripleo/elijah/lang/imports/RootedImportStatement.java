@@ -86,8 +86,8 @@ public class RootedImportStatement extends _BaseImportStatement {
 	}
 
 	@Override
-	public void setContext(final ImportContext ctx) {
-		_ctx = ctx;
+	public void setContext(final IImportContext ctx) {
+		_ctx = (Context) ctx;
 	}
 
 	public void setImportList(QualidentList qil) {

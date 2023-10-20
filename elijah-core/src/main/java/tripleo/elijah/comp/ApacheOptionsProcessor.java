@@ -9,6 +9,7 @@ import tripleo.elijah.comp.impl.CC_SetDoOut;
 import tripleo.elijah.comp.impl.CC_SetShowTree;
 import tripleo.elijah.comp.impl.CC_SetSilent;
 import tripleo.elijah.comp.impl.CC_SetStage;
+import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 import tripleo.vendor.org.apache.commons.cli.*;
@@ -27,9 +28,9 @@ public class ApacheOptionsProcessor implements OptionsProcessor {
 		options.addOption("silent", false, "suppress DeduceType output to console");
 	}
 
-	@Override
-	public Operation<Ok> process(final @NotNull Compilation c, final @NotNull List<CompilerInput> aInputs,
-			final ICompilationBus aCb) {
+	public Operation<Ok> process(final @NotNull Compilation c,
+								 final @NotNull List<CompilerInput> aInputs,
+								 final ICompilationBus aCb) {
 		try {
 			final CommandLine cmd = clp.parse(options, aInputs);
 
@@ -50,7 +51,7 @@ public class ApacheOptionsProcessor implements OptionsProcessor {
 				new CC_SetDoOut(true).apply(c);
 			}
 
-			if (Compilation.isGitlab_ci() || cmd.hasOption("silent")) {
+			if (CompilationImpl.isGitlab_ci() || cmd.hasOption("silent")) {
 				new CC_SetSilent(true).apply(c);
 			}
 
@@ -58,5 +59,10 @@ public class ApacheOptionsProcessor implements OptionsProcessor {
 		} catch (ParseException aE) {
 			return Operation.failure(/* new DiagnosticException */(aE));
 		}
+	}
+
+	@Override
+	public Operation<Ok> process(final Compilation0 aC, final List<CompilerInput> aInputs, final ICompilationBus aCb) {
+		return process((Compilation) aC, aInputs, aCb);
 	}
 }

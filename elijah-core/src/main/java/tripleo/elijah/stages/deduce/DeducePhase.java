@@ -17,9 +17,10 @@ import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.IPipelineAccess;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
@@ -95,7 +96,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		generatePhase = pipelineLogic.generatePhase;
 
 		// created
-		codeRegistrar = _inj().new_DefaultCodeRegistrar(ca.getCompilation());
+		codeRegistrar = _inj().new_DefaultCodeRegistrar((Compilation) ca.getCompilation());
 		LOG           = _inj().new_ElLog("(DEDUCE_PHASE)", pipelineLogic.getVerbosity(), PHASE);
 
 		// using
@@ -110,7 +111,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 	}
 
 	public Compilation _compilation() {
-		return ca.getCompilation();
+		return (Compilation) ca.getCompilation();
 	}
 
 	public @NotNull Multimap<FunctionDef, EvaFunction> _functionMap() {
@@ -165,11 +166,11 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 	}
 
 	public @NotNull DeduceTypes2 deduceModule(final @NotNull WorldModule aMod) {
-		return deduceModule(aMod, this.generatedClasses, Compilation.gitlabCIVerbosity());
+		return deduceModule(aMod, this.generatedClasses, CompilationImpl.gitlabCIVerbosity());
 	}
 
 	public @NotNull DeduceTypes2 deduceModule(@NotNull WorldModule wm, @NotNull Iterable<EvaNode> lgf,
-	                                          ElLog.Verbosity verbosity) {
+	                                          ElLog_.Verbosity verbosity) {
 		var mod = wm.module();
 
 		final @NotNull DeduceTypes2 deduceTypes2 = _inj().new_DeduceTypes2(mod, this, verbosity);
@@ -511,7 +512,9 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 
 	public void handleFunctionMapHooks() {
 		for (final Map.@NotNull Entry<FunctionDef, Collection<EvaFunction>> entry : functionMap.asMap().entrySet()) {
-			for (final IFunctionMapHook functionMapHook : ca.functionMapHooks()) {
+			for (final GFunctionMapHook functionMapHook1 : ca.functionMapHooks()) {
+				IFunctionMapHook functionMapHook = (IFunctionMapHook) functionMapHook1;
+
 				if (functionMapHook.matches(entry.getKey())) {
 					functionMapHook.apply(entry.getValue());
 				}
@@ -825,7 +828,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		}
 
 		public ClassDefinition new_ClassDefinition(final ClassInvocation aCi) {
-			return new ClassDefinition(aCi);
+			return new ClassDefinition__(aCi);
 		}
 
 		public @NotNull ClassInvocation new_ClassInvocation(final ClassStatement aParent, final String aConstructorName,
@@ -847,7 +850,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		}
 
 		public DeduceTypes2 new_DeduceTypes2(final OS_Module aM, final DeducePhase aDeducePhase,
-		                                     final ElLog.Verbosity aVerbosity) {
+		                                     final ElLog_.Verbosity aVerbosity) {
 			return new DeduceTypes2(aM, aDeducePhase, aVerbosity);
 		}
 
@@ -865,8 +868,8 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 			return new DRS();
 		}
 
-		public ElLog new_ElLog(final String aS, final ElLog.Verbosity aVerbosity, final String aDeducePhase) {
-			return new ElLog(aS, aVerbosity, aDeducePhase);
+		public ElLog new_ElLog(final String aS, final ElLog_.Verbosity aVerbosity, final String aDeducePhase) {
+			return new ElLog_(aS, aVerbosity, aDeducePhase);
 		}
 
 		public FunctionInvocation new_FunctionInvocation(final FunctionDef aF,
@@ -930,11 +933,11 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		}
 
 		public WorkList new_WorkList() {
-			return new WorkList();
+			return new WorkList__();
 		}
 
 		public WorkManager new_WorkManager() {
-			return new WorkManager();
+			return new WorkManager__();
 		}
 	}
 
@@ -1152,7 +1155,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 			generatePhase.getWm().addJobs(wl);
 			generatePhase.getWm().drain(); // TODO find a better place to put this
 
-			prom.resolve(new ClassDefinition(aClassInvocation));
+			prom.resolve(new ClassDefinition__(aClassInvocation));
 
 			// return prom;
 			return aClassInvocation;

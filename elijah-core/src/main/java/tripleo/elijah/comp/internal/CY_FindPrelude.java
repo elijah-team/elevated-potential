@@ -14,7 +14,7 @@ import java.util.function.*;
 
 class CY_FindPrelude {
 	private final ErrSink     errSink;
-	private final ElijahCache elijahCache;
+	private final ElijahCache  elijahCache;
 	private final Compilation c;
 
 	CY_FindPrelude(final ErrSink aErrSink1,
@@ -38,7 +38,7 @@ class CY_FindPrelude {
 		final File local_prelude = local_prelude_file(prelude_name);
 
 		try {
-			CY_ElijahSpecParser esp = c.con().defaultElijahSpecParser(elijahCache);
+			CY_ElijahSpecParser esp = ((Compilation)c).con().defaultElijahSpecParser(elijahCache);
 			return CX_ParseElijahFile.__parseEzFile(local_prelude.getName(),
 			                                        local_prelude,
 			                                        c.getIO(),

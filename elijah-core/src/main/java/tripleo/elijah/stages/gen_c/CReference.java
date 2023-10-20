@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.Eventual;
 import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.comp.i.CompilationEnclosure;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.IdentIA;

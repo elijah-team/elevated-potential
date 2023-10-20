@@ -32,8 +32,8 @@ public class NG_OutputFunction implements NG_OutputItem {
 	}
 
 	@Override
-	public EOT_OutputFile.FileNameProvider outName(final @NotNull OutputStrategyC aOutputStrategyC,
-			final GenerateResult.@NotNull TY ty) {
+	public EOT_OutputFileImpl.FileNameProvider outName(final @NotNull OutputStrategyC aOutputStrategyC,
+													   final GenerateResult.@NotNull TY ty) {
 		if (gf instanceof EvaFunction) {
 			return aOutputStrategyC.nameForFunction1((EvaFunction) gf, ty);
 		} else {

@@ -9,7 +9,7 @@ import tripleo.elijah.stages.deduce.DeducePhase;
 import tripleo.elijah.stages.deduce.FunctionInvocation;
 import tripleo.elijah.stages.deduce.NULL_DeduceTypes2;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.work.WorkList;
+import tripleo.elijah.work.*;
 
 public class DefaultClassGenerator implements IClassGenerator {
 
@@ -25,7 +25,7 @@ public class DefaultClassGenerator implements IClassGenerator {
 		cr = deducePhase.getCodeRegistrar();
 
 		// creating
-		wl = new WorkList();
+		wl = new WorkList__();
 	}
 
 	@Override

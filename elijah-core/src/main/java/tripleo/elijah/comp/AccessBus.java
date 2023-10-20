@@ -4,6 +4,7 @@ import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal.CR_State.*;
 import tripleo.elijah.stages.gen_fn.*;
@@ -22,9 +23,9 @@ public class AccessBus {
 		void lgc_slot(List<EvaNode> lgc);
 	}
 
-	public final Old_GenerateResult gr = new Old_GenerateResult();
-	private final Compilation                _c;
-	private final IPipelineAccess            _pa;
+	public final  Old_GenerateResult gr = new Old_GenerateResult();
+	private final Compilation       _c;
+	private final IPipelineAccess    _pa;
 	private final stepA_mal.@NotNull MalEnv2 env;
 	private final DeferredObject<GenerateResult, Void, Void> generateResultPromise = new DeferredObject<>();
 

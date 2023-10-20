@@ -8,8 +8,6 @@
  */
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.lang.impl.InvariantStatement;
-
 public interface Scope extends Documentable {
 
 	void add(StatementItem aItem);
@@ -20,7 +18,7 @@ public interface Scope extends Documentable {
 
 	OS_Element getParent();
 
-	InvariantStatement invariantStatement();
+	IInvariantStatement invariantStatement();
 
 	StatementClosure statementClosure();
 

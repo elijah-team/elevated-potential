@@ -42,7 +42,7 @@ public interface FuncExpr extends IExpression, OS_Element {
 
 	void setArgList(FormalArgList argList);
 
-	void setContext(FuncExprContext ctx);
+	void setContext(IFuncExprContext ctx);
 
 	void setHeader(FunctionHeader aFunctionHeader);
 

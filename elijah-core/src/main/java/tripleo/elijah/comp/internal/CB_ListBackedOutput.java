@@ -2,6 +2,7 @@ package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.CB_OutputString;
+import tripleo.elijah.comp.i.extra.*;
 
 import java.util.ArrayList;
 import java.util.List;

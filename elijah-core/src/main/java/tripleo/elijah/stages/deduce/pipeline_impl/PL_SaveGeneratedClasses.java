@@ -3,7 +3,7 @@ package tripleo.elijah.stages.deduce.pipeline_impl;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.comp.i.IPipelineAccess;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.stages.deduce.DeducePhase;
 
 class PL_SaveGeneratedClasses implements PipelineLogicRunnable {

@@ -8,9 +8,7 @@
  */
 package tripleo.elijah;
 
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.IO;
-import tripleo.elijah.comp.StdErrSink;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal.CompilationImpl;
 
 import java.util.ArrayList;
@@ -21,8 +19,8 @@ public enum Main {
 	;
 
 	public static void main(final String[] args) throws Exception {
-		final Compilation comp = new CompilationImpl(new StdErrSink(), new IO());
-		final List<String> ls1 = new ArrayList<String>();
+		final Compilation comp = new CompilationImpl(new StdErrSink(), new IO_());
+		final List<String> ls1  = new ArrayList<String>();
 
 		ls1.addAll(Arrays.asList(args));
 

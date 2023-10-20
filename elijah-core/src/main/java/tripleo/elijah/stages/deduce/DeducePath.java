@@ -104,7 +104,7 @@ public class DeducePath {
 
 		@Override
 		public @Nullable LookupResultList lookup(String name, int level, LookupResultList Result,
-				SearchList alreadySearched, boolean one) {
+												 ISearchList alreadySearched, boolean one) {
 //			if (index == 0)
 
 			if (type.getResolved() == null) {

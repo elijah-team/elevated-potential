@@ -66,7 +66,7 @@ public class LSPrintStream implements XPrintStream {
 
 	public static class MyEIT_Input implements EIT_Input {
 		private final Compilation c;
-		private final String s;
+		private final String       s;
 
 		public MyEIT_Input(final Compilation aC, final String aS) {
 			c = aC;

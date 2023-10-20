@@ -10,6 +10,8 @@ plugins {
     id "io.ktor.plugin" version "2.3.4"
 
     id "org.xtext.xtend" version "4.0.0"
+
+//    id "com.diffplug.spotless" version "6.22.0"
 }
 
 repositories {
@@ -55,6 +57,15 @@ dependencies {
     // http://xtext.github.io/xtext-gradle-plugin/xtend.html
     // https://stackoverflow.com/questions/23796404/could-not-find-method-compile-for-arguments-gradle
     implementation 'org.eclipse.xtend:org.eclipse.xtend.lib:2.30.0'
+//
+//    //spotlessLibVersion = "6.22.0"
+//    //
+//    //implementation("com.diffplug.spotless:spotless-lib:${spotlessLibVersion}")
+//    //implementation("com.diffplug.spotless:spotless-plugin-gradle:${spotlessVersion}")
+//
+//    implementation "com.diffplug.spotless:spotless-lib:6.22.0"
+//    implementation 'com.diffplug.spotless:spotless-lib-extra:2.42.0'
+//    implementation "com.diffplug.spotless:spotless-plugin-gradle:6.17.0"
 }
 
 test {
@@ -64,6 +75,20 @@ java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
+
+//spotless {
+//    java {
+//        target fileTree('.') {
+//            include '**/*.java'
+//            exclude '**/build/**', '**/build-*/**'
+//        }
+//        toggleOffOn()
+//        palantirJavaFormat()
+//        removeUnusedImports()
+//        trimTrailingWhitespace()
+//        endWithNewline()
+//    }
+//}
 
 description = 'elijah-core'
 

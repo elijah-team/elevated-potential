@@ -15,7 +15,7 @@ import tripleo.elijah.lang.impl.VariableSequenceImpl;
 /**
  * Created 8/21/20 11:53 PM
  */
-public class FuncExprContext extends FunctionContext {
+public class FuncExprContext extends FunctionContext_ implements IFuncExprContext {
 
 	private final Context _parent;
 	private final FuncExpr carrier;
@@ -33,7 +33,7 @@ public class FuncExprContext extends FunctionContext {
 
 	@Override
 	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
-			final @NotNull SearchList alreadySearched, final boolean one) {
+								   final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 		for (final FunctionItem item : carrier.getItems()) {
 			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)

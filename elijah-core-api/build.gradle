@@ -27,6 +27,12 @@ dependencies {
 
     implementation project(path: ':elijah-nextgen-outputstatement')
 
+    // TODO 10/19 remove this soon
+    api 'io.reactivex.rxjava3:rxjava:3.1.6'
+    api 'org.reactivestreams:reactive-streams:1.0.4'
+
+
+
 //    implementation
     //providedCompile
 //    project(':tripleo.elijah.stateful-processor')

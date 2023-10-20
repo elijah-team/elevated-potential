@@ -27,8 +27,8 @@ import java.util.function.Supplier;
 public class ElSystem {
 	public final Supplier<OutputStrategy> outputStrategyCreator;
 	private final Map<EvaFunction, String> gfm_map = new HashMap<EvaFunction, String>();
-	private final Compilation c;
-	private final boolean verbose;
+	private final Compilation             c;
+	private final boolean                  verbose;
 	private OutputStrategyC _os;
 
 	public ElSystem(final boolean aB, final Compilation aC, final Supplier<OutputStrategy> aCreateOutputStratgy) {

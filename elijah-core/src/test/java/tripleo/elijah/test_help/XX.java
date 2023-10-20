@@ -17,7 +17,7 @@ public enum XX {
 
 	public static @NotNull TypeTableEntry regularTypeName_specifyTableEntry(final IdentExpression aIdentExpression,
 	                                                                        final @NotNull BaseEvaFunction aBaseGeneratedFunction, final @NotNull String aTypeName) {
-		final RegularTypeName typeName = RegularTypeName.makeWithStringTypeName(aTypeName);
+		final RegularTypeName typeName = RegularTypeNameImpl.makeWithStringTypeName(aTypeName);
 		final OS_Type type = new OS_UserType(typeName);
 		final TypeTableEntry tte = aBaseGeneratedFunction.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, type,
 				aIdentExpression);

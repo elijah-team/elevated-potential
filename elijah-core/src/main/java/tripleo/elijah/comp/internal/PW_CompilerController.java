@@ -36,6 +36,16 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 				poll.execute(this);
 			} else {
 				//              _defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
+
+
+
+
+
+
+
+				// README 10/20 fails everything after one failed poll
+
+
 //nfdskj;lfndskjlfngdsjklfndsjklfdsnjfkldsnfdsjklfndsjklfndsjfkldsnkls                x = false;
 			}
 		}

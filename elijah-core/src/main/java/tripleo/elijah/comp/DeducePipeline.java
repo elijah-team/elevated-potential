@@ -9,7 +9,7 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.stages.deduce.pipeline_impl.*;
 
@@ -28,13 +28,13 @@ public class DeducePipeline extends PipelineMember {
 		tripleo.elijah.util.Stupidity.println_err_2(g);
 	}
 
-	@Override
+//	@Override
 	public void run(final CR_State aSt, final CB_Output aOutput) {
 		// logProgress("***** Hit DeducePipeline #run");
 		impl.run();
 	}
 
-	@Override
+//	@Override
 	public String finishPipeline_asString() {
 		return this.getClass().toString();
 	}

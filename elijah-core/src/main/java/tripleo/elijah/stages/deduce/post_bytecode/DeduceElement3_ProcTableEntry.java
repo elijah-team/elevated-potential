@@ -5,8 +5,7 @@ import tripleo.elijah.ReadySupplier_1;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.BaseFunctionDef;
-import tripleo.elijah.lang.impl.LangGlobals;
+import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.OS_FuncType;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
@@ -16,7 +15,7 @@ import tripleo.elijah.stages.instructions.Instruction;
 import tripleo.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah.stages.instructions.IntegerIA;
 import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.work.WorkList;
+import tripleo.elijah.work.*;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -552,7 +551,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 			// TODO should it be GenerateDefaultCtor? (check args size and ctor-name)
 			final String constructorName = fi.getClassInvocation().getConstructorName();
 			final @NotNull IdentExpression constructorName1 = constructorName != null
-					? IdentExpression.forString(constructorName)
+					? IdentExpressionImpl.forString(constructorName)
 					: null;
 			q.enqueue_ctor(generateFunctions, fi, constructorName1);
 			break;
@@ -644,7 +643,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		@NotNull FunctionInvocation fi2 = aDeduceTypes2._phase().newFunctionInvocation(LangGlobals.defaultVirtualCtor, pte,
 																					   invocation);
 
-		final _LFOE_Q q = new __LFOE_Q(aDeduceTypes2.wm, new WorkList(), aDeduceTypes2);
+		final _LFOE_Q q = new __LFOE_Q(aDeduceTypes2.wm, new WorkList__(), aDeduceTypes2);
 
 		final GenerateFunctions generateFunctions = aDeduceTypes2.getGenerateFunctions(invocation.getKlass().getContext().module());
 

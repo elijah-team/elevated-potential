@@ -6,8 +6,8 @@ import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.util.*;
 
 public class InstructionDoer implements CompletableProcess<CompilerInstructions> {
-	private final Compilation compilation1;
-	public CompilerInstructions root;
+	private final Compilation         compilation1;
+	public        CompilerInstructions root;
 
 	public InstructionDoer(Compilation compilation1) {
 		this.compilation1 = compilation1;

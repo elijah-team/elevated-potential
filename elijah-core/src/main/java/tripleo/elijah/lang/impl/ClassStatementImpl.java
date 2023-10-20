@@ -123,8 +123,8 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 	}
 
 	@Override // OS_Element
-	public ClassContext getContext() {
-		return (ClassContext) _a.getContext();
+	public IClassContext getContext() {
+		return (IClassContext) _a.getContext();
 	}
 
 	@Override
@@ -185,7 +185,7 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 	// region called from parser
 
 	@Override
-	public @org.jetbrains.annotations.Nullable InvariantStatement invariantStatement() {
+	public IInvariantStatement invariantStatement() {
 		NotImplementedException.raise();
 		return null;
 	}
@@ -239,7 +239,7 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 	}
 
 	@Override
-	public void setContext(final ClassContext ctx) {
+	public void setContext(final IClassContext ctx) {
 		_a.setContext(ctx);
 	}
 
@@ -299,6 +299,15 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 		};
 	}
 
+	public static final class __GetConstructorsHelper {
+		public static ConstructorDef castClassItemToConstructor(@Nullable ClassItem input) {
+			return (ConstructorDef) input;
+		}
+
+		public static boolean selectForConstructors(final ClassItem input) {
+			return input instanceof ConstructorDef;
+		}
+	}
 }
 
 //

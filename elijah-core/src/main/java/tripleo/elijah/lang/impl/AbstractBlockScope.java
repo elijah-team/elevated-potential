@@ -62,7 +62,7 @@ public abstract class AbstractBlockScope implements Scope {
 	}
 
 	@Override
-	public @Nullable InvariantStatement invariantStatement() {
+	public @Nullable IInvariantStatement invariantStatement() {
 		return null;
 	}
 

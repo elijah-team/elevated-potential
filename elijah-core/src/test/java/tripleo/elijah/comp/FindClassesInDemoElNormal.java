@@ -33,8 +33,8 @@ public class FindClassesInDemoElNormal {
 	@Disabled @Test
 	public final void testListFolders() throws Exception {
 		final List<String> args = List_of("test/demo-el-normal/listfolders/", "-sE");
-		final ErrSink      eee  = new StdErrSink();
-		final Compilation  c    = new CompilationImpl(eee, new IO());
+		final ErrSink      eee = new StdErrSink();
+		final Compilation  c   = new CompilationImpl(eee, new IO_());
 
 		c.feedCmdLine(args);
 
@@ -50,8 +50,8 @@ public class FindClassesInDemoElNormal {
 	public final void testParseFile() throws Exception {
 		final List<String> args = List_of("test/demo-el-normal",
 				"test/demo-el-normal/main2", "-sE");
-		final ErrSink eee = new StdErrSink();
-		final Compilation c = new CompilationImpl(eee, new IO());
+		final ErrSink      eee = new StdErrSink();
+		final Compilation  c   = new CompilationImpl(eee, new IO_());
 
 		c.feedCmdLine(args);
 

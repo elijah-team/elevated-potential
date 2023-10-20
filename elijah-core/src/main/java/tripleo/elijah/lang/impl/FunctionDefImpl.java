@@ -8,12 +8,12 @@
  */
 package tripleo.elijah.lang.impl;
 
-import tripleo.elijah.contexts.FunctionContext;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.nextgen.names.i.EN_Name;
 import tripleo.elijah.lang.nextgen.names.impl.ENU_FunctionDefinition;
 import tripleo.elijah.lang.nextgen.names.impl.ENU_FunctionName;
-import tripleo.elijah.lang.types.OS_FuncType;
+import tripleo.elijah.lang.types.*;
 import tripleo.elijah.lang2.ElElementVisitor;
 
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +40,7 @@ public class FunctionDefImpl extends BaseFunctionDef implements FunctionDef {
 		} else {
 			throw new IllegalStateException("adding FunctionDef to " + element.getClass().getName());
 		}
-		_a = new AttachedImpl(new FunctionContext(context, this));
+		_a = new AttachedImpl(new FunctionContext_(context, this));
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class FunctionDefImpl extends BaseFunctionDef implements FunctionDef {
 	@Override
 	public @NotNull OS_FuncType getOS_Type() {
 		if (osType == null)
-			osType = new OS_FuncType(this);
+			osType = new OS_FuncTypeImpl(this);
 		return osType;
 	}
 

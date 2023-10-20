@@ -6,6 +6,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.CCI;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
 import tripleo.elijah.comp.i.IProgressSink;
+import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.util.*;
 
 import java.util.*;
@@ -34,7 +35,7 @@ public class SenseList implements Iterable<SenseList.Sensible> {
 					if (!directoryResults.isEmpty()) {
 						for (Operation2<CompilerInstructions> directoryResult : directoryResults) {
 							if (directoryResult.mode() == Mode.SUCCESS) {
-								cci.accept(new Maybe<>(ILazyCompilerInstructions.of(directoryResult.success()), null),
+								cci.accept(new Maybe<>(ILazyCompilerInstructions_.of(directoryResult.success()), null),
 										   progressSink);
 							}
 						}

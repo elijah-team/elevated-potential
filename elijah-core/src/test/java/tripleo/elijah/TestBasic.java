@@ -10,10 +10,7 @@ package tripleo.elijah;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.IO;
-import tripleo.elijah.comp.StdErrSink;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.AssOutFile;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -22,8 +19,7 @@ import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.factory.comp.CompilationFactory;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
+import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_c.Emit;
 import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
 import tripleo.elijah.util.Helpers;
@@ -62,8 +58,8 @@ public class TestBasic {
 		final List<String> args     = new ArrayList<String>();
 		args.addAll(ez_files);
 		args.add("-sE");
-		final ErrSink     eee = new StdErrSink();
-		final Compilation c   = new CompilationImpl(eee, new IO());
+		final ErrSink      eee = new StdErrSink();
+		final Compilation0 c   = new CompilationImpl(eee, new IO_());
 
 		c.feedCmdLine(args);
 
@@ -80,8 +76,8 @@ public class TestBasic {
 
 		for (String s : ez_files) {
 //			List<String> args = List_of("test/basic", "-sO"/*, "-out"*/);
-			final ErrSink     eee = new StdErrSink();
-			final Compilation c   = new CompilationImpl(eee, new IO());
+			final ErrSink      eee = new StdErrSink();
+			final Compilation0 c   = new CompilationImpl(eee, new IO_());
 
 			c.feedCmdLine(List_of(s, "-sO"));
 
@@ -102,14 +98,14 @@ public class TestBasic {
 	public final void testBasic_listfolders3() throws Exception {
 		String s = "test/basic/listfolders3/listfolders3.ez";
 
-		final Compilation c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
+		final Compilation0 c = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
 
 		if (!DISABLED) {
 			Emit.emitting = false;
 
 			c.feedInputs(
 					List_of(s, "-sO").stream()
-							.map(CompilerInput::new)
+							.map(CompilerInput_::new)
 							.collect(Collectors.toList()),
 					new DefaultCompilerController());
 
@@ -182,7 +178,7 @@ public class TestBasic {
 		// TODO investigate; assertTrue(assertLiveNsMemberVariable("Prelude", "ExitSuccess", c));
 
 		var l = new ArrayList<>();
-		c.world().eachModule(m -> l.add(m.module().getFileName()));
+		((CompilationImpl)c).world().eachModule(m -> l.add(m.module().getFileName()));
 		System.err.println("184 "+l);
 
 //    const fun = function (f) { // <--
@@ -190,19 +186,20 @@ public class TestBasic {
 //		/sww/modules-sw-writer
 	}
 
-	private boolean assertLiveNsMemberVariable(final String aClassName, final String aNsMemberVariablName, final Compilation c) {
+	private boolean assertLiveNsMemberVariable(final String aClassName, final String aNsMemberVariablName, final Compilation0 c) {
 		return false;
 	}
 
-	private boolean assertLiveConstructor(final String aClassName, final Compilation c) {
+	private boolean assertLiveConstructor(final String aClassName, final Compilation0 c) {
 		return false;
 	}
 
-	private boolean assertLiveFunction(final String aClassName, final String aFunctionName, final Compilation c) {
+	private boolean assertLiveFunction(final String aClassName, final String aFunctionName, final Compilation0 c) {
 		return false;
 	}
 
-	public boolean assertLiveClass(final String aClassName, final String aPackageName, final @NotNull Compilation c) {
+	public boolean assertLiveClass(final String aClassName, final String aPackageName, final @NotNull Compilation0 c0) {
+		CompilationImpl c = (CompilationImpl) c0;
 		var ce = c.getCompilationEnclosure();
 		var world = c.world();
 
@@ -238,12 +235,12 @@ public class TestBasic {
 	public final void testBasic_listfolders3__() {
 		String s = "test/basic/listfolders3/listfolders3.ez";
 
-		final Compilation c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
+		final Compilation0 c = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
 
 		if (!DISABLED) {
 			c.feedInputs(
 					List_of(s, "-sE").stream() // -sD??
-							.map(CompilerInput::new)
+							.map(CompilerInput_::new)
 							.collect(Collectors.toList()),
 					new DefaultCompilerController());
 
@@ -254,7 +251,7 @@ public class TestBasic {
 //
 //			assertTrue(c.isPackage(qq.toString()));
 
-			var qq2 = c.con().createQualident(List_of("wpkotlin_c","demo","list_folders"));
+			var qq2 = ((Compilation)c).con().createQualident(List_of("wpkotlin_c", "demo", "list_folders"));
 
 			assertTrue(c.isPackage(qq2.toString()));
 
@@ -267,8 +264,8 @@ public class TestBasic {
 	public final void testBasic_listfolders4() throws Exception {
 		String s = "test/basic/listfolders4/listfolders4.ez";
 
-		final ErrSink     eee = new StdErrSink();
-		final Compilation c   = new CompilationImpl(eee, new IO());
+		final ErrSink      eee = new StdErrSink();
+		final Compilation0 c   = new CompilationImpl(eee, new IO_());
 
 		c.feedCmdLine(List_of(s, "-sO"));
 
@@ -281,9 +278,9 @@ public class TestBasic {
 	@Disabled @Test
 	public final void testBasic_fact1() throws Exception {
 		final String        s  = "test/basic/fact1/main2";
-		final Compilation   c  = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
-		final CompilerInput i1 = new CompilerInput(s);
-		final CompilerInput i2 = new CompilerInput("-sO");
+		final Compilation   c  = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
+		final CompilerInput i1 = new CompilerInput_(s);
+		final CompilerInput i2 = new CompilerInput_("-sO");
 		c.feedInputs(List_of(i1, i2), new DefaultCompilerController());
 
 		if (c.errorCount() != 0) {
@@ -293,10 +290,10 @@ public class TestBasic {
 		if (!DISABLED) {
 			assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
 			assertTrue(c.getOutputTree().getList().size() > 0);
-			assertTrue(c.getIO().recordedwrites.size() > 0);
+			assertTrue(c.getIO().recordedwrites().size() > 0);
 
 			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
-			for (Triple<AssOutFile, EOT_OutputFile.FileNameProvider, NG_OutputRequest> aof : aofs) {
+			for (Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest> aof : aofs) {
 				System.err.println(aof);
 			}
 
@@ -358,12 +355,12 @@ public class TestBasic {
 
 	class testBasic_fact1 {
 
-		Compilation c;
+		Compilation0 c;
 
 		public void start() throws Exception {
 			String s = "test/basic/fact1/main2";
 
-			c = CompilationFactory.mkCompilation(new StdErrSink(), new IO());
+			c = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
 
 			c.feedCmdLine(List_of(s, "-sO"));
 

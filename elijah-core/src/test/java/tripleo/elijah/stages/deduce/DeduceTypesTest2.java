@@ -14,8 +14,8 @@ import org.jetbrains.annotations.Nullable;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.i.CompilationEnclosure;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.contexts.FunctionContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -69,10 +69,10 @@ public class DeduceTypesTest2 {
 	public void testDeduceIdentExpression() throws ResolveError {
 		final Boilerplate b = new Boilerplate();
 		b.get();
-		final Compilation c = b.comp;
+		final Compilation0 c = b.comp;
 
 		// b.defaultMod();
-		final OS_Module mod = c.moduleBuilder().withPrelude("c").setContext().build();
+		final OS_Module mod = ((Compilation)c).moduleBuilder().withPrelude("c").setContext().build();
 
 		mod.setParent(c); // !!??
 
@@ -106,12 +106,12 @@ public class DeduceTypesTest2 {
 		 * CompilationRunner(aca);
 		 */
 
-		final CompilationEnclosure ce = c.getCompilationEnclosure();
+		final CompilationEnclosure ce = ((Compilation) c).getCompilationEnclosure();
 		assert ce.getCompilationRunner().getCrState() != null; // always true
 
 		final DeducePhase dp = b.getDeducePhase();
 
-		var wm = new DefaultWorldModule(mod, ce);
+		final DefaultWorldModule wm = new DefaultWorldModule(mod, ce);
 
 		final DeduceTypes2 d = dp.deduceModule(wm);
 

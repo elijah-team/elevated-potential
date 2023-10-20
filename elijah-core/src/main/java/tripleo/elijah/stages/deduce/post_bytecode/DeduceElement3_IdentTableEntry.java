@@ -589,7 +589,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 				continue;
 			}
 
-			if (ctx2 instanceof ModuleContext) {
+			if (ctx2 instanceof ModuleContext__) {
 				ctxs.add(ctx2);
 
 				final @NotNull Collection<ModuleItem> itms = ((ModuleContext) ctx2).getCarrier().getItems();

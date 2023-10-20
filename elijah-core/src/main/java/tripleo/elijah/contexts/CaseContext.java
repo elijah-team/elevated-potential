@@ -8,18 +8,16 @@
  */
 package tripleo.elijah.contexts;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.CaseConditional;
-import tripleo.elijah.lang.i.Context;
-import tripleo.elijah.lang.i.LookupResultList;
-import tripleo.elijah.lang.impl.ContextImpl;
-import tripleo.elijah.util.NotImplementedException;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.util.*;
 
 /**
  * Created 9/24/20 6:11 PM
  */
-public class CaseContext extends ContextImpl {
-	private final Context _parent;
+public class CaseContext extends ContextImpl implements ICaseContext {
+	private final Context         _parent;
 	private final CaseConditional carrier;
 
 	public CaseContext(final Context aParent, final CaseConditional mc) {
@@ -33,24 +31,30 @@ public class CaseContext extends ContextImpl {
 	}
 
 	@Override
-	public LookupResultList lookup(final String name, final int level, final LookupResultList Result,
-			final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final String name,
+								   final int level,
+								   final LookupResultList Result,
+								   final @NotNull ISearchList alreadySearched,
+								   final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
-		/*
-		 * if (carrier.getIterName() != null) { if (name.equals(carrier.getIterName()))
-		 * { // reversed to prevent NPEs IdentExpression ie =
-		 * carrier.getIterNameToken(); Result.add(name, level, ie, this); } }
-		 */
+		if (false) {
+			final String iterName = carrier.getIterName();
+			if (iterName != null) {
+				if (name.equals(iterName)) { // reversed to prevent NPEs IdentExpression ie =
+					carrier.getIterNameToken();
+					Result.add(name, level, carrier, this);
+				}
+			}
+		}
+		if (false) {
+			if (carrier.getParent() != null) {
+				final Context context = getParent();
+				if (!alreadySearched.contains(context) || !one) context.lookup(name, level + 1, Result, alreadySearched, false); // TODO test this } return Result;
+			}
+		}
 
 		throw new NotImplementedException(); // carrier.singleidentcontext
-
-		/*
-		 * if (carrier.getParent() != null) { final ContextImpl context = getParent();
-		 * if (!alreadySearched.contains(context) || !one) context.lookup(name, level +
-		 * 1, Result, alreadySearched, false); // TODO test this } return Result;
-		 */
-
 	}
 }
 

@@ -8,6 +8,7 @@
  */
 package tripleo.elijah.stages.deduce;
 
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.stages.gen_fn.EvaFunction;
 
@@ -16,7 +17,7 @@ import java.util.Collection;
 /**
  * Created 6/8/21 1:31 AM
  */
-public interface IFunctionMapHook {
+public interface IFunctionMapHook extends GFunctionMapHook {
 	void apply(Collection<EvaFunction> aGeneratedFunctions);
 
 	boolean matches(FunctionDef aFunctionDef);

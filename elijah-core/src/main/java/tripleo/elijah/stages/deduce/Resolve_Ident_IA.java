@@ -375,9 +375,9 @@ public class Resolve_Ident_IA {
 			break;
 		}
 		case USER:
-			if (el instanceof MatchConditionalImpl.MatchArm_TypeMatch) {
+			if (el instanceof MatchConditionalImpl.MatchArm_TypeMatch__) {
 				// for example from match conditional
-				final TypeName tn = ((MatchConditionalImpl.MatchArm_TypeMatch) el).getTypeName();
+				final TypeName tn = ((MatchArm_TypeMatch) el).getTypeName();
 				try {
 					final @NotNull GenType ty = dc.resolve_type(dt2._inj().new_OS_UserType(tn), tn.getContext());
 					ectx = ty.getResolved().getElement().getContext();

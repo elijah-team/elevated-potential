@@ -5,11 +5,12 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.entrypoints.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang2.*;
 
 import java.util.*;
 
-public interface OS_Module extends OS_Element {
+public interface OS_Module extends OS_Element, GOS_Module {
 	void add(OS_Element anElement);
 
 	@NotNull
@@ -20,7 +21,7 @@ public interface OS_Module extends OS_Element {
 	void finish();
 
 	@NotNull
-	Compilation getCompilation();
+	Compilation0 getCompilation();
 
 	@Override
 	Context getContext();
@@ -51,6 +52,8 @@ public interface OS_Module extends OS_Element {
 	@Override
 	void serializeTo(SmallWriter sw);
 
+	void setContext(GModuleContext mctx);
+
 	void setContext(ModuleContext mctx);
 
 	void setFileName(String fileName);
@@ -59,9 +62,9 @@ public interface OS_Module extends OS_Element {
 
 	void setLsp(@NotNull LibraryStatementPart lsp);
 
-	void setParent(@NotNull Compilation parent);
+	void setParent(@NotNull Compilation0 parent);
 
-	void setPrelude(OS_Module success);
+	void setPrelude(GOS_Module success);
 
 	@Override
 	void visitGen(@NotNull ElElementVisitor visit);

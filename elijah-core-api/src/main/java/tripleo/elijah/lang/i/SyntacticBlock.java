@@ -30,7 +30,7 @@ public interface SyntacticBlock extends FunctionItem {
 
 	}
 
-	void setContext(SyntacticBlockContext ctx);
+	void setContext(ISyntacticBlockContext ctx);
 
 	@Override
 	void visitGen(ElElementVisitor visit);
