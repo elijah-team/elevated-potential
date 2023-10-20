@@ -113,6 +113,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
 				try {
 					Thread.sleep(50);
+					x = 0;
 				} catch (InterruptedException aE) {
 					//throw new RuntimeException(aE);
 				}
