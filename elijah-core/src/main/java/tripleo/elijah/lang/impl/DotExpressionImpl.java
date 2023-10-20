@@ -36,8 +36,16 @@ public class DotExpressionImpl extends BasicBinaryExpressionImpl implements DotE
 		return asString();
 	}
 
-	private String asString() {
-		return String.format("%s.%s", left.repr_(), right.repr_());
+	@Override
+	public String asString() {
+		final String rightSide;
+		if (right == null) {
+			rightSide = "";
+		} else {
+			rightSide = "." + right.asString();
+		}
+		final String leftSide  = left.asString();
+		return String.format("%s%s", leftSide, rightSide);
 	}
 }
 

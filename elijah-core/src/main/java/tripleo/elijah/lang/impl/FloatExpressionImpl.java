@@ -75,7 +75,8 @@ public class FloatExpressionImpl implements FloatExpression {
 		return asString();
 	}
 
-	private String asString() {
+	@Override
+	public String asString() {
 		return String.format("FloatExpression (%f)", carrier);
 	}
 
