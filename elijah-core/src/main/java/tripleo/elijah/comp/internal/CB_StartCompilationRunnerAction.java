@@ -12,6 +12,7 @@ import static tripleo.elijah.util.Helpers.*;
 
 class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	static                 boolean              started;
+	final          CB_Output       o;
 	private final          CompilationRunner    compilationRunner;
 	private final          CompilerInstructions rootCI;
 	private final @NotNull IPipelineAccess pa;
