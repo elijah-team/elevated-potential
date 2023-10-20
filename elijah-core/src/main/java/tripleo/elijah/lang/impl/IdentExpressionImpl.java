@@ -128,6 +128,11 @@ public class IdentExpressionImpl implements IdentExpression {
 	}
 
 	@Override
+	public String asString() {
+		return getText();
+	}
+
+	@Override
 	public int getLine() {
 		return token().getLine();
 	}
@@ -185,7 +190,7 @@ public class IdentExpressionImpl implements IdentExpression {
 	 */
 	@Override
 	public @NotNull String toString() {
-		return getText();
+		return asString();
 	}
 
 	// endregion

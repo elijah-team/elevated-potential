@@ -42,6 +42,7 @@ public interface IExpression {
 
 	void setLeft(IExpression iexpression);
 
+	default String asString() {return toString();}
 }
 
 //
