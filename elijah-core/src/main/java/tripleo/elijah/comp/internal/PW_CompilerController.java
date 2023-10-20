@@ -10,8 +10,11 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 	private final CompilationImpl compilation;
 
 	PW_CompilerController(final CompilationImpl aC) {
-		new Thread(this).run();
 		compilation = aC;
+
+		final Thread thread = new Thread(this);
+		thread.setName("[PW_CompilerController]");
+		thread.start();
 	}
 
 	//private final Queue<PW_PushWork> wq = new LinkedBlockingQueue/*ConcurrentLinkedQueue*/<>();
