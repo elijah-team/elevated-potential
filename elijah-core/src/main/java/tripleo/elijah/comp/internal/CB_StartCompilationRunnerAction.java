@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import lombok.Getter;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
