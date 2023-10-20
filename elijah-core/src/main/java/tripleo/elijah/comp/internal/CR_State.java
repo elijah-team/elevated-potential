@@ -35,6 +35,13 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class CR_State implements GCR_State {
+
+	private final CompilationEnclosure ce;
+
+	public CompilationEnclosure getCompilationEnclosure() {
+		return ce;
+	}
+
 	class ProcessRecord_PipelineAccess implements IPipelineAccess {
 		private final @NotNull List<EvaNode>  _l_classes    = new ArrayList<>();
 		private final @NotNull List<EvaClass> activeClasses = new ArrayList<>();
@@ -392,6 +399,8 @@ public class CR_State implements GCR_State {
 		ca = aCa;
 		ca.getCompilation().set_pa(new ProcessRecord_PipelineAccess()); // FIXME 05/28
 		pr = new ProcessRecordImpl(ca);
+
+		ce = (CompilationEnclosure) ca.getCompilation().getCompilationEnclosure();
 	}
 
 	public ICompilationAccess ca() {

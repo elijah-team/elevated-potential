@@ -3,14 +3,11 @@ package tripleo.elijah.comp.internal;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah.comp.i.IProgressSink;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.nextgen.CK_DefaultStepRunner;
-import tripleo.elijah.util.*;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +18,7 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 	private CK_Steps                steps;
 	private List<CK_Action>         stepActions = new ArrayList<>();
 	private List<CR_Action>         crActionList;
+	private List<Operation<Ok>>     crActionResultList;
 	private CK_AbstractStepsContext stepContext;
 
 	@Override
@@ -29,69 +27,40 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 					  final @NotNull CB_Output out) {
 		this.stepContext = new CD_CRS_StepsContext(crState, out);
 
-		final @NotNull CompilationRunner             cr            = crState.runner();
-		final @NotNull Compilation                   compilation   = cr._accessCompilation();
-		final @NotNull IPipelineAccess               pa            = compilation.getCompilationEnclosure().getPipelineAccess();
-		final @NotNull Compilation.CompilationConfig cfg           = compilation.cfg();
-		final @NotNull List<CompilerInput>           compilerInput = pa.getCompilerInput();
-		final @NotNull IProgressSink                 progressSink  = cr.getProgressSink();
+		//final @NotNull CompilationRunner             cr                   = crState.runner();
+		final @NotNull CompilationEnclosure compilationEnclosure = crState.getCompilationEnclosure();
+		//final @NotNull Compilation          compilation          = compilationEnclosure.getCompilation();
+		//final @NotNull IPipelineAccess               pa                   = compilationEnclosure.getPipelineAccess();
+		//final @NotNull Compilation.CompilationConfig cfg                  = compilation.cfg();
+		//final @NotNull List<CompilerInput>           compilerInput        = pa.getCompilerInput();
+		//final @NotNull IProgressSink                 progressSink         = cr.getProgressSink();
 
-		final CompilerBeginning beginning = new CompilerBeginning(compilation, aRootCI, compilerInput, progressSink, cfg);
-
-		initialiseCrActions(crState, beginning);
+		initialiseCrActions(crState, aRootCI);
 		initialiseSteps();
 
-		final @NotNull List<Operation<Ok>> crActionResultList = new ArrayList<>(crActionList.size());
+		crActionResultList = new ArrayList<>(crActionList.size());
 
-		for (final CR_Action action : crActionList) {
-			action.attach(crState.runner());
+		//for (final CR_Action action : crActionList) {
+		//	action.attach(crState.runner());
+		//
+		//	final Operation<Ok> res = action.execute(crState, out);
+		//
+		//	// FIXME 10/20 dlog this
+		//	crActionResultList.add(res);
+		//}
+		//
+		//// TODO execute should do this automatically
+		//for (int i = 0; i < crActionResultList.size(); i++) {
+		//	final Operation<Ok> act5ionResult = crActionResultList.get(i);
+		//
+		//	out.logProgress(new CodedOperationDiagnostic<Ok>(5959, "[CR_Action]", act5ionResult));
+		//}
 
-			final Operation<Ok> res = action.execute(crState, out);
-
-			// FIXME 10/20 dlog this
-			crActionResultList.add(res);
-		}
-
-		// TODO execute should do this automatically
-		for (int i = 0; i < crActionResultList.size(); i++) {
-			final Operation<Ok> act5ionResult = crActionResultList.get(i);
-
-			out.logProgress(new CodedOperationDiagnostic<Ok>(5959, "[CR_Action]", act5ionResult));
-		}
-
-		final CK_Monitor monitor = ((CompilationImpl) compilation).getDefaultMonitor();
-		CK_DefaultStepRunner.runStepsNow(steps, stepContext, monitor);
+		compilationEnclosure.runStepsNow(steps, stepContext);
 	}
 
-	protected void ___start(final @NotNull CR_State crState,
-							final @NotNull CompilerBeginning beginning,
-							final @NotNull CB_Output out) {
-		initialiseCrActions(crState, beginning);
-		initialiseSteps();
-
-		final @NotNull List<Operation<Ok>> crActionResultList = new ArrayList<>(crActionList.size());
-
-		for (final CR_Action action : crActionList) {
-			action.attach(crState.runner());
-
-			final Operation<Ok> res = action.execute(crState, out);
-
-			// FIXME 10/20 dlog this
-			crActionResultList.add(res);
-		}
-
-		// TODO execute should do this automatically
-		for (int i = 0; i < crActionResultList.size(); i++) {
-			final Operation<Ok> act5ionResult = crActionResultList.get(i);
-
-			out.logProgress(new CodedOperationDiagnostic<Ok>(5959, "[CR_Action]", act5ionResult));
-		}
-
-		NotImplementedException.raise_stop();
-	}
-
-	private void initialiseCrActions(final @NotNull CR_State crState, final CompilerBeginning beginning) {
-		final CR_ProcessInitialAction f2 = new CR_ProcessInitialAction(beginning); // TODO pointless
+	private void initialiseCrActions(final @NotNull CR_State crState, final @NotNull CompilerInstructions aRootCI) {
+		final CR_ProcessInitialAction f2 = new CR_ProcessInitialAction(aRootCI); // TODO pointless
 		final CR_AlmostComplete       f3 = crState.runner().cr_AlmostComplete();
 		final CR_RunBetterAction      f4 = new CR_RunBetterAction();
 
@@ -118,9 +87,12 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 			state  = aState;
 			output = aOutput;
 		}
+
+		//void addOutputString(CB_OutputString os);
+		//void addDiagnostic(Diagnostic d);
 	}
 
-	private static class CD_CRS_CK_Action implements CK_Action {
+	private class CD_CRS_CK_Action implements CK_Action {
 		private final CR_Action action;
 
 		public CD_CRS_CK_Action(final CR_Action aAction) {
@@ -130,7 +102,12 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 		@Override
 		public Operation<Ok> execute(final CK_StepsContext context1, final CK_Monitor aMonitor) {
 			final CD_CRS_StepsContext context = (CD_CRS_StepsContext) context1;
-			return action.execute(context.getState(), context.getOutput());
+
+			final Operation<Ok>       result = action.execute(context.getState(), context.getOutput());
+
+			crActionResultList.add(result); // FIXME 10/20 associate result with action in list (steps)
+
+			return result;
 		}
 	}
 }
