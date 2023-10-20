@@ -100,7 +100,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 			final CompilerDriver            compilationDriver = ((IPipelineAccess)pa).getCompilationEnclosure().getCompilationDriver();
 			final Operation<CompilerDriven> ocrsd             = compilationDriver.get(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
 
-			final @NotNull CB_Output cbOutput = startAction.o;
+			final @NotNull CB_Output cbOutput = startAction.getO();
 
 			switch (ocrsd.mode()) {
 			case SUCCESS -> {
