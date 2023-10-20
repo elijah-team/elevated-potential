@@ -102,8 +102,8 @@ public class DefaultCompilationBus implements ICompilationBus {
 	private void __run_all_thread(final Queue<CB_Process> procs) {
 		// FIXME passing sh*t between threads (P.O.!)
 		_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
-		boolean x = true;
-		while (x) {
+		long x = 0;
+		while (x < 100) {
 			final CB_Process poll = procs.poll();
 
 			if (poll != null) {
@@ -111,8 +111,14 @@ public class DefaultCompilationBus implements ICompilationBus {
 				poll.execute(this);
 			} else {
 				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
-				x = false;
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException aE) {
+					//throw new RuntimeException(aE);
+				}
+				++x;
 			}
+
 		}
 	}
 

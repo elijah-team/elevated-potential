@@ -14,7 +14,6 @@ import java.io.*;
 import java.util.*;
 
 public interface CompFactory {
-	CompilerBeginning createBeginning(CompilationRunner aCompilationRunner);
 
 	ICompilationAccess createCompilationAccess();
 

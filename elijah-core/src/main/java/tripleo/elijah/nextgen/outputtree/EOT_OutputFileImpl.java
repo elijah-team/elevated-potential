@@ -61,7 +61,7 @@ public class EOT_OutputFileImpl implements EOT_OutputFile {
 
 	@Override
 	public String toString() {
-		return "(%s) '%s'".formatted(_type, _filename);
+		return "(%s) '%s'".formatted(_type, _filename.getFilename());
 	}
 
 	// rules/constraints whatever

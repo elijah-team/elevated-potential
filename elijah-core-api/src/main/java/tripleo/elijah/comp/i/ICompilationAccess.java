@@ -14,13 +14,10 @@ public interface ICompilationAccess {
 
 	Compilation0 getCompilation();
 
-	GStages getStage();
-
 	GPipeline internal_pipelines();
 
 	void setPipelineLogic(final GPipelineLogic pl);
 
 	ElLog.Verbosity testSilence();
 
-	void writeLogs();
 }

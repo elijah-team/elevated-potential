@@ -23,7 +23,7 @@ public class CK_ProcessInitialAction implements CK_Action {
 		final CR_State            crState = context.getState();
 		final CB_Output           output  = context.getOutput();
 
-		CompilationRunner compilationRunner = crState.runner();
+		final CompilationRunner compilationRunner = crState.runner();
 
 		try {
 			compilationRunner._accessCompilation().use(rootCI, USE.USE_Reasonings.initial(Triple.of(this, compilationRunner, output)));
