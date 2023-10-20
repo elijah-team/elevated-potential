@@ -12,7 +12,6 @@ import tripleo.elijah.comp.i.CY_ElijahSpecParser;
 import tripleo.elijah.comp.i.CY_EzSpecParser;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.ICompilationBus;
-import tripleo.elijah.comp.i.IProgressSink;
 import tripleo.elijah.comp.nextgen.CX_realParseEzFile2;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.OS_Module;
@@ -33,17 +32,6 @@ class DefaultCompFactory implements CompFactory {
 
 	public DefaultCompFactory(CompilationImpl aCompilation) {
 		compilation = aCompilation;
-	}
-
-	@Contract("_ -> new")
-	@Override
-	public @NotNull CompilerBeginning createBeginning(final @NotNull CompilationRunner aCompilationRunner) {
-		final CompilerInstructions          rootCI       = compilation.getRootCI();
-		final List<CompilerInput>           inputs       = compilation.getInputs();
-		final IProgressSink                 progressSink = aCompilationRunner.getProgressSink();
-		final Compilation.CompilationConfig cfg          = compilation.cfg();
-
-		return new CompilerBeginning(compilation, rootCI, inputs, progressSink, cfg);
 	}
 
 	@Contract(" -> new")

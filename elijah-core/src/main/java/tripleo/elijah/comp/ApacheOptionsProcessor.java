@@ -2,14 +2,9 @@ package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.CompilationChange;
-import tripleo.elijah.comp.i.ICompilationBus;
-import tripleo.elijah.comp.i.OptionsProcessor;
-import tripleo.elijah.comp.impl.CC_SetDoOut;
-import tripleo.elijah.comp.impl.CC_SetShowTree;
-import tripleo.elijah.comp.impl.CC_SetSilent;
-import tripleo.elijah.comp.impl.CC_SetStage;
-import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.impl.*;
+import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 import tripleo.vendor.org.apache.commons.cli.*;
@@ -41,9 +36,6 @@ public class ApacheOptionsProcessor implements OptionsProcessor {
 			// TODO 09/08 promises??
 			// c.getCompilationEnclosure().getCompilationBus().option();
 
-			if (cmd.hasOption("s")) {
-				new CC_SetStage(cmd.getOptionValue('s')).apply(c);
-			}
 			if (cmd.hasOption("showtree")) {
 				new CC_SetShowTree(true).apply(c);
 			}

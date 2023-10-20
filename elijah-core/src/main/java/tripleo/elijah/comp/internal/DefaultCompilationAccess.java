@@ -1,15 +1,14 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal_move_soon.*;
-import tripleo.elijah.comp.notation.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.deduce.IFunctionMapHook;
+import tripleo.elijah.stages.logging.ElLog_;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 public class DefaultCompilationAccess implements ICompilationAccess {
 	protected final Compilation compilation;
@@ -42,11 +41,6 @@ public class DefaultCompilationAccess implements ICompilationAccess {
 	}
 
 	@Override
-	public @NotNull Stages getStage() {
-		return Stages.O;
-	}
-
-	@Override
 	public @NotNull GPipeline internal_pipelines() {
 		return pipelines;
 	}
@@ -73,12 +67,4 @@ public class DefaultCompilationAccess implements ICompilationAccess {
 		return compilation.cfg().silent ? ElLog_.Verbosity.SILENT : ElLog_.Verbosity.VERBOSE;
 	}
 
-	@Override
-	public void writeLogs() {
-		final CompilationEnclosure ce            = compilation.getCompilationEnclosure();
-		final PipelineLogic   pipelineLogic = ce.getPipelineLogic();
-		final IPipelineAccess pa            = compilation.pa();
-
-		pa.notate(Provenance.DefaultCompilationAccess__writeLogs, new GN_WriteLogs(this, pipelineLogic.getLogs()));
-	}
 }
