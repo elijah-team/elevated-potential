@@ -14,7 +14,8 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 		compilation = aC;
 	}
 
-	private final Queue<PW_PushWork> wq = new LinkedBlockingQueue/*ConcurrentLinkedQueue*/<>();
+	//private final Queue<PW_PushWork> wq = new LinkedBlockingQueue/*ConcurrentLinkedQueue*/<>();
+	private final Queue<PW_PushWork> wq = new ConcurrentLinkedQueue<>();
 
 	@Override
 	public void run() {
@@ -23,13 +24,13 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 		//_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
 		boolean x = true;
 		while (x) {
-			//final PW_PushWork poll = wq.poll();
-			final PW_PushWork poll;
-			try {
-				poll = ((BlockingQueue<PW_PushWork>) wq).take();
-			} catch (InterruptedException aE) {
-				throw new RuntimeException(aE);
-			}
+			final PW_PushWork poll = wq.poll();
+			//final PW_PushWork poll;
+			//try {
+			//	poll = ((BlockingQueue<PW_PushWork>) wq).take();
+			//} catch (InterruptedException aE) {
+			//	throw new RuntimeException(aE);
+			//}
 
 			if (poll != null) {
 //                _defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5757, new Object[]{poll.name()});
@@ -46,7 +47,8 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 				// README 10/20 fails everything after one failed poll
 
 
-//nfdskj;lfndskjlfngdsjklfndsjklfdsnjfkldsnfdsjklfndsjklfndsjfkldsnkls                x = false;
+//nfdskj;lfndskjlfngdsjklfndsjklfdsnjfkldsnfdsjklfndsjklfndsjfkldsnkls
+ x = false;
 			}
 		}
 	}
