@@ -22,7 +22,7 @@ interface PipelineMember {
 */
 abstract class PipelineMember implements GPipelineMember {
 	def abstract void run( CR_State aState,  CB_Output aOutput)  throws Exception
-	override def abstract String finishPipeline_asString();
+	override abstract String finishPipeline_asString();
 }
 // https://youtrack.jetbrains.com/issue/IDEA-104897
 // https://youtrack.jetbrains.com/issue/IDEA-168555
