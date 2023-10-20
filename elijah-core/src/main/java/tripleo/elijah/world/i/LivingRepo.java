@@ -23,6 +23,8 @@ import java.util.function.*;
 public interface LivingRepo {
 	Collection<WorldModule> getMods__();
 
+	boolean isPackage(String aPkgName);
+
 	enum Add {
 		MAIN_CLASS, MAIN_FUNCTION, NONE
 	}
