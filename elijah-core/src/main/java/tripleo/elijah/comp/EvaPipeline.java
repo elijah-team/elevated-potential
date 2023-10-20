@@ -45,13 +45,12 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 
 		public @NotNull String getFilename(@NotNull IPipelineAccess pa) {
 			// HACK 07/07 register if not registered
-			EvaFunction v = (EvaFunction) evaFunction;
+			final EvaFunction v = (EvaFunction) evaFunction;
 			int code = v.getCode();
-
-			var ce = pa.getCompilationEnclosure();
+			final CompilationEnclosure ce = pa.getCompilationEnclosure();
 
 			if (code == 0) {
-				var cr = ce.getPipelineLogic().dp.getCodeRegistrar();
+				final ICodeRegistrar cr = ce.getPipelineLogic().dp.getCodeRegistrar();
 				cr.registerFunction1(v);
 
 				code = v.getCode();

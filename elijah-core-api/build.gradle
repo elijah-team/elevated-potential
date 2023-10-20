@@ -2,7 +2,7 @@ plugins {
     id 'tripleo.elijah.java-conventions'
 
     id "io.freefair.lombok" version "8.3"
-    id "io.ktor.plugin" version "2.3.4"
+//    id "io.ktor.plugin" version "2.3.4"
 
 //    id "org.xtext.xtend" version "4.0.0"
 }
@@ -63,3 +63,4 @@ java {
 }
 
 description = 'elijah-core-api'
+
