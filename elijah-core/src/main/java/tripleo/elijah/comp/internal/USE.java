@@ -1,27 +1,19 @@
 package tripleo.elijah.comp.internal;
 
+import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.ci_impl.LibraryStatementPartImpl;
-import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.caches.DefaultElijahCache;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
 import tripleo.elijah.comp.specs.ElijahCache;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.diagnostic.ExceptionDiagnostic;
-import tripleo.elijah.diagnostic.FileNotFoundDiagnostic;
+import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.Helpers0;
-import tripleo.elijah.util.Mode;
-import tripleo.elijah.util.Operation2;
-
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-
-import org.apache.commons.lang3.tuple.Triple;
+import tripleo.elijah.util.*;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -293,7 +285,7 @@ public class USE {
 			};
 		}
 
-		public static USE_Reasoning initial(final Triple<CR_ProcessInitialAction, CompilationRunner, CB_Output> triple) {
+		public static USE_Reasoning initial(final Triple<CK_ProcessInitialAction, CompilationRunner, CB_Output> triple) {
 			return new USE_Reasoning() {
 				@Override
 				public boolean parent() {
