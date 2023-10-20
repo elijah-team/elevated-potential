@@ -10,10 +10,12 @@ import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.comp.nextgen.CK_DefaultStepRunner;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.g.*;
@@ -419,6 +421,17 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	@Override
 	public void logProgress2(final CompProgress aCompProgress, final AsseverationLogProgress alp) {
 		alp.call(System.out, System.err);
+	}
+
+	@Override
+	public CK_Monitor getDefaultMonitor() {
+		return ((CompilationImpl) compilation).getDefaultMonitor();
+	}
+
+	@Override
+	public void runStepsNow(final CK_Steps aSteps, final CK_AbstractStepsContext aStepContext) {
+		final CK_Monitor monitor = getDefaultMonitor();
+		CK_DefaultStepRunner.runStepsNow(aSteps, aStepContext, monitor);
 	}
 
 	@Override

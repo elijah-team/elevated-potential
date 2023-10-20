@@ -4,6 +4,7 @@ import io.reactivex.rxjava3.annotations.*;
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.impl.*;
@@ -105,4 +106,8 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 
 	@Override
 	void logProgress2(CompProgress aCompProgress, AsseverationLogProgress aAsseverationLogProgress);
+
+	CK_Monitor getDefaultMonitor();
+
+	void runStepsNow(CK_Steps aSteps, CK_AbstractStepsContext aStepContext);
 }
