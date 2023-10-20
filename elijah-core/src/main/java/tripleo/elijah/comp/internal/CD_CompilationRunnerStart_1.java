@@ -6,8 +6,7 @@ import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +17,7 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 	private CK_Steps                steps;
 	private List<CK_Action>         stepActions = new ArrayList<>();
 	private List<CR_Action>         crActionList;
+	@Getter
 	private List<Operation<Ok>>     crActionResultList;
 	private CK_AbstractStepsContext stepContext;
 
@@ -34,8 +34,9 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 		//final @NotNull Compilation.CompilationConfig cfg                  = compilation.cfg();
 		//final @NotNull List<CompilerInput>           compilerInput        = pa.getCompilerInput();
 		//final @NotNull IProgressSink                 progressSink         = cr.getProgressSink();
+		final @NotNull CK_Monitor monitor = compilationEnclosure.getDefaultMonitor();
 
-		initialiseCrActions(crState, aRootCI);
+		initialiseCrActions(crState, aRootCI, monitor);
 		initialiseSteps();
 
 		crActionResultList = new ArrayList<>(crActionList.size());
@@ -59,10 +60,10 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 		compilationEnclosure.runStepsNow(steps, stepContext);
 	}
 
-	private void initialiseCrActions(final @NotNull CR_State crState, final @NotNull CompilerInstructions aRootCI) {
-		final CR_ProcessInitialAction f2 = new CR_ProcessInitialAction(aRootCI); // TODO pointless
-		final CR_AlmostComplete       f3 = crState.runner().cr_AlmostComplete();
-		final CR_RunBetterAction      f4 = new CR_RunBetterAction();
+	private void initialiseCrActions(final @NotNull CR_State crState, final @NotNull CompilerInstructions aRootCI, final CK_Monitor monitor) {
+		final CR_CK_ActionWrapper f2 = new CR_CK_ActionWrapper(this, new CK_ProcessInitialAction(aRootCI), monitor);
+		final CR_AlmostComplete   f3 = crState.runner().cr_AlmostComplete();
+		final CR_RunBetterAction  f4 = new CR_RunBetterAction();
 
 		// hmm
 		//final @NotNull List<CR_Action> crActionList = List_of(f2, f4);
@@ -71,43 +72,14 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 
 	private void initialiseSteps() {
 		for (final CR_Action action : crActionList) {
-			stepActions.add(new CD_CRS_CK_Action(action));
+			stepActions.add(new CD_CRS_CK_Action(this, action));
 		}
 
 		steps = () -> stepActions;
 	}
 
-	private static class CD_CRS_StepsContext extends CK_AbstractStepsContext {
-		@Getter
-		private final CR_State  state;
-		@Getter
-		private final CB_Output output;
-
-		public CD_CRS_StepsContext(final CR_State aState, final CB_Output aOutput) {
-			state  = aState;
-			output = aOutput;
-		}
-
-		//void addOutputString(CB_OutputString os);
-		//void addDiagnostic(Diagnostic d);
-	}
-
-	private class CD_CRS_CK_Action implements CK_Action {
-		private final CR_Action action;
-
-		public CD_CRS_CK_Action(final CR_Action aAction) {
-			action = aAction;
-		}
-
-		@Override
-		public Operation<Ok> execute(final CK_StepsContext context1, final CK_Monitor aMonitor) {
-			final CD_CRS_StepsContext context = (CD_CRS_StepsContext) context1;
-
-			final Operation<Ok>       result = action.execute(context.getState(), context.getOutput());
-
-			crActionResultList.add(result); // FIXME 10/20 associate result with action in list (steps)
-
-			return result;
-		}
-	}
 }
+
+//
+//
+//
