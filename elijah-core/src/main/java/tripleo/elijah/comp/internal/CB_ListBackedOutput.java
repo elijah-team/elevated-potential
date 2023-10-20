@@ -1,8 +1,9 @@
 package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.CB_OutputString;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.diagnostic.Diagnostic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,4 +29,18 @@ public class CB_ListBackedOutput implements CB_Output {
 	public void print(final String s) {
 		x.add(() -> s);
 	}
+
+	@Override
+	public void logProgress(final Diagnostic aDiagnostic) {
+		if (aDiagnostic instanceof CodedOperationDiagnostic<?> coded) {
+			logProgress(coded.intCode(), coded.message());
+		} else {
+			// FIXME 10/20 dont worry about this yet
+//			logProgress(aDiagnostic.code(), aDiagnostic.message());
+		}
+	}
 }
+
+//
+//
+//

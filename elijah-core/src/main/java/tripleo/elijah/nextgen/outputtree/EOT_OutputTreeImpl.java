@@ -34,7 +34,7 @@ public class EOT_OutputTreeImpl implements EOT_OutputTree {
 	public void recompute() {
 		// TODO big wtf
 		final Multimap<String, EOT_OutputFile> mmfn = ArrayListMultimap.create();
-		for (EOT_OutputFile outputFile : list) {
+		for (final EOT_OutputFile outputFile : list) {
 			mmfn.put(outputFile.getFilename(), outputFile);
 		}
 

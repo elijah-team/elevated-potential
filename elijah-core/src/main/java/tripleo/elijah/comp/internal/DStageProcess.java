@@ -1,14 +1,10 @@
 package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.Contract;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.Compilation0;
-import tripleo.elijah.comp.Stages;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.ProcessRecord;
-import tripleo.elijah.comp.i.RP_Context;
-import tripleo.elijah.comp.i.RuntimeProcess;
-import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
 
 public class DStageProcess implements RuntimeProcess {
 	private final ICompilationAccess ca;
@@ -34,7 +30,8 @@ public class DStageProcess implements RuntimeProcess {
 	}
 
 	@Override
-	public void run(Compilation0 aComp, RP_Context ctx) {
+	public Operation<Ok> run(Compilation0 aComp, RP_Context ctx) {
 		run_((Compilation)aComp, null, null);
+		return null;
 	}
 }

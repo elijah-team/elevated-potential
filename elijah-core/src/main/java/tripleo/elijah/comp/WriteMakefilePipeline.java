@@ -1,41 +1,24 @@
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.nextgen.outputstatement.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.CB_Output;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.internal.CR_State;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
+import tripleo.elijah.util.Helpers;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static tripleo.elijah.util.Helpers.List_of;
 
 public class WriteMakefilePipeline extends PipelineMember implements Consumer<Supplier<Old_GenerateResult>> {
-	class G {
-		final StringBuilder sb = new StringBuilder();
-		final List<String> objects = new ArrayList<>();
-
-		public void add_object(final String obj) {
-			objects.add(obj);
-		}
-
-		public void append(final String aString) {
-			sb.append(aString);
-		}
-
-		public void append_string(final String s) {
-			sb.append(s);
-		}
-
-		public @NotNull String getText() {
-			return sb.toString();
-		}
-	}
-
 	private final IPipelineAccess pa;
 
 	public WriteMakefilePipeline(final IPipelineAccess aPipelineAccess) {
@@ -48,50 +31,15 @@ public class WriteMakefilePipeline extends PipelineMember implements Consumer<Su
 
 	}
 
-	private void process(final @NotNull G aG, final @NotNull List<EOT_OutputFile> aL) {
-		final StringBuilder sb = new StringBuilder();
-
-		for (EOT_OutputFile off : aL) {
-			var fn = off.getFilename();
-
-			if (fn.endsWith(".c")) {
-				var fn2a = fn.split("/");
-				var fn2 = List.of(fn2a);
-
-				// 08/13 System.out.println("115 "+fn2);
-
-				var fn3 = fn2.subList(1, fn2.size() - 1);
-				var fn4 = Helpers.String_join("/", fn3);
-
-				sb.append("\t-mkdir -p \"B/%s\"\n".formatted(fn4));
-
-				var fn_dot_o = fn.substring(0, fn.length() - 2) + ".o";
-				aG.add_object(fn_dot_o);
-				sb.append("\t$(CC) -c $(CODE)/%s -o B/%s -I$(CODE)\n".formatted(fn, fn_dot_o));
-			}
-		}
-
-		aG.append(sb.toString());
-	}
-
-	private void process1(final @NotNull G aG) {
-		aG.append_string("\tcc \\\n");
-		for (String object : aG.objects) {
-			aG.append_string("\t\tB/%s \\\n".formatted(object));
-		}
-		aG.append_string("\t\t-o B/output.exe -l gc\n");
-		aG.append_string("\n");
-	}
-
 	@Override
 	public void run(@NotNull CR_State st, CB_Output aOutput) throws Exception {
-		final Compilation c   = (Compilation) st.ca().getCompilation();
-		var                cot = c.getOutputTree();
+		final Compilation    c   = (Compilation) st.ca().getCompilation();
+		final EOT_OutputTree cot = c.getOutputTree();
 
 		cot.recompute();
-		final List<EOT_OutputFile> list1 = cot.getList();
 
-		final EOT_OutputFile eof = testable_part(list1);
+		final List<EOT_OutputFile> list1 = cot.getList();
+		final EOT_OutputFile       eof   = testable_part(list1);
 
 		cot.add(eof);
 	}
@@ -116,10 +64,10 @@ public class WriteMakefilePipeline extends PipelineMember implements Consumer<Su
 		// sb.append(Helpers.String_join("\n",
 		// list.stream().map(x->x.getFilename()).collect(Collectors.toList())));
 
-		final List<EOT_OutputFile> prelc = new ArrayList<>();
+		final List<EOT_OutputFile> prelc   = new ArrayList<>();
 		final List<EOT_OutputFile> stdlibc = new ArrayList<>();
 		final List<EOT_OutputFile> sourcec = new ArrayList<>();
-		final List<EOT_OutputFile> otherc = new ArrayList<>();
+		final List<EOT_OutputFile> otherc  = new ArrayList<>();
 
 		for (EOT_OutputFile off : list) {
 			var fn = off.getFilename();
@@ -152,5 +100,61 @@ public class WriteMakefilePipeline extends PipelineMember implements Consumer<Su
 
 		final EOT_OutputFile eof = new EOT_OutputFileImpl(List_of(), "Makefile", EOT_OutputType.BUILD, seq);
 		return eof;
+	}
+
+	private void process(final @NotNull G aG, final @NotNull List<EOT_OutputFile> aL) {
+		final StringBuilder sb = new StringBuilder();
+
+		for (EOT_OutputFile off : aL) {
+			var fn = off.getFilename();
+
+			if (fn.endsWith(".c")) {
+				var fn2a = fn.split("/");
+				var fn2  = List.of(fn2a);
+
+				// 08/13 System.out.println("115 "+fn2);
+
+				var fn3 = fn2.subList(1, fn2.size() - 1);
+				var fn4 = Helpers.String_join("/", fn3);
+
+				sb.append("\t-mkdir -p \"B/%s\"\n".formatted(fn4));
+
+				var fn_dot_o = fn.substring(0, fn.length() - 2) + ".o";
+				aG.add_object(fn_dot_o);
+				sb.append("\t$(CC) -c $(CODE)/%s -o B/%s -I$(CODE)\n".formatted(fn, fn_dot_o));
+			}
+		}
+
+		aG.append(sb.toString());
+	}
+
+	private void process1(final @NotNull G aG) {
+		aG.append_string("\tcc \\\n");
+		for (String object : aG.objects) {
+			aG.append_string("\t\tB/%s \\\n".formatted(object));
+		}
+		aG.append_string("\t\t-o B/output.exe -l gc\n");
+		aG.append_string("\n");
+	}
+
+	class G {
+		final StringBuilder sb      = new StringBuilder();
+		final List<String>  objects = new ArrayList<>();
+
+		public void add_object(final String obj) {
+			objects.add(obj);
+		}
+
+		public void append(final String aString) {
+			sb.append(aString);
+		}
+
+		public void append_string(final String s) {
+			sb.append(s);
+		}
+
+		public @NotNull String getText() {
+			return sb.toString();
+		}
 	}
 }

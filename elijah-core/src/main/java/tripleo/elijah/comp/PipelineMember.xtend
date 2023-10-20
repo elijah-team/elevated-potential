@@ -7,7 +7,7 @@
  */
 package tripleo.elijah.comp
 
-import tripleo.elijah.comp.i.extra.CB_Output
+import tripleo.elijah.comp.i.CB_Output
 import tripleo.elijah.comp.internal.CR_State
 import tripleo.elijah.comp.i.GPipelineMember
 

@@ -7,11 +7,9 @@ import tripleo.elijah.comp.Pipeline.RP_Context_1;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.util.*;
 import tripleo.vendor.mal.stepA_mal;
 import tripleo.vendor.mal.types;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class OStageProcess implements RuntimeProcess {
 	private static class _AddPipeline__MAL extends types.MalFunction {
@@ -86,22 +84,24 @@ public class OStageProcess implements RuntimeProcess {
 	}
 
 	@Override
-	public void run(Compilation0 aComp, RP_Context ctx0) {
+	public Operation<Ok> run(Compilation0 aComp, RP_Context ctx0) {
 		final RP_Context_1 ctx = (RP_Context_1) ctx0;
 		
-		run_((Compilation)aComp, ctx.getState(), ctx.getContext());
+		return run_((Compilation)aComp, ctx.getState(), ctx.getContext());
 	}
 
-	public void run_(final @NotNull Compilation aCompilation, final CR_State st, final CB_Output output) {
+	public Operation<Ok> run_(final @NotNull Compilation aCompilation, final CR_State st, final CB_Output output) {
 		final GPipeline gPipeline = aCompilation.getCompilationEnclosure().getCompilationAccess().internal_pipelines();
 		final Pipeline  ps        = (Pipeline) gPipeline;
 
 		try {
 			ps.run(st, output);
+			return Operation.success(Ok.instance());
 		} catch (Exception ex) {
-			Logger.getLogger(OStageProcess.class.getName()).log(Level.SEVERE, null, ex);
-			ex.printStackTrace();
-			throw new RuntimeException(ex);
+			//Logger.getLogger(OStageProcess.class.getName()).log(Level.SEVERE, null, ex);
+			//ex.printStackTrace();
+			//throw new RuntimeException(ex);
+			return Operation.failure(ex);
 		}
 	}
 }
