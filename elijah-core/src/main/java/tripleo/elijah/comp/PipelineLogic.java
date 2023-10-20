@@ -61,7 +61,7 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 		pa.getCompilationEnclosure().addModuleListener(new ModuleListener() {
 			@Override
 			public void close() {
-				NotImplementedException.raise_stop();
+				//NotImplementedException.raise_stop();
 			}
 
 			@Override

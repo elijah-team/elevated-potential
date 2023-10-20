@@ -9,6 +9,7 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.*;

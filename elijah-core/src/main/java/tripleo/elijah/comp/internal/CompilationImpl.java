@@ -69,6 +69,7 @@ public class CompilationImpl implements Compilation {
 	private           IPipelineAccess      _pa;
 	private           IO                   io;
 	private           boolean              _inside;
+	private final CK_Monitor defaultMonitor = new __CK_Monitor();
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
@@ -464,6 +465,10 @@ public class CompilationImpl implements Compilation {
 		return paths;
 	}
 
+	public CK_Monitor getDefaultMonitor() {
+		return defaultMonitor;
+	}
+
 	public enum CompilationAlways {
 		;
 
@@ -478,6 +483,18 @@ public class CompilationImpl implements Compilation {
 			// README 10/20 Disjointed needs annotation
 			public static final DriverToken COMPILATION_RUNNER_FIND_STDLIB2 = DriverToken.makeToken("COMPILATION_RUNNER_FIND_STDLIB2");
 			public static final DriverToken COMPILATION_RUNNER_START        = DriverToken.makeToken("COMPILATION_RUNNER_START");
+		}
+	}
+
+	class __CK_Monitor implements CK_Monitor {
+		@Override
+		public void reportSuccess() {
+			throw new UnintendedUseException();
+		}
+
+		@Override
+		public void reportFailure() {
+			throw new UnintendedUseException();
 		}
 	}
 }

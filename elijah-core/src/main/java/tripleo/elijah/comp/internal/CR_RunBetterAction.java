@@ -3,10 +3,9 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Stages;
-import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.GPipelineAccess;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.i.ProcessRecord;
-import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 
@@ -41,13 +40,13 @@ public class CR_RunBetterAction implements CR_Action {
 	public @NotNull Operation<Ok> execute(final @NotNull CR_State st, final CB_Output aO) {
 		try {
 			final ICompilationAccess ca = st.ca();
-
-			st.rt = StageToRuntime.get((IPipelineAccess) ca.getCompilation().pa());
-			st.rt.run_better(st, aO);
+			final GPipelineAccess    pa = ca.getCompilation().pa();
+			final RuntimeProcesses   rt = StageToRuntime.get((IPipelineAccess) pa);
+			rt.run_better(st, aO);
 
 			return Operation.success(Ok.instance());
 		} catch (final Exception aE) {
-			aE.printStackTrace(); // TODO debug 07/26
+			aE.printStackTrace(); // TODO debug 07/26; 10/20 do we still want this?? also steps
 			return Operation.failure(aE);
 		}
 	}

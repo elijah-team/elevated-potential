@@ -2,11 +2,10 @@ package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.ProcessRecord;
-import tripleo.elijah.comp.i.RuntimeProcess;
-import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.Pipeline;
+import tripleo.elijah.comp.Stages;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.util.Mode;
 
 public class RuntimeProcesses {
 	private final @NotNull ICompilationAccess ca;
@@ -25,22 +24,29 @@ public class RuntimeProcesses {
 
 	public void run_better(CR_State st, CB_Output output) throws Exception {
 		// do nothing. job over
-		if (ca.getStage() == Stages.E)
+		if (ca.getStage() == Stages.E) {
 			return;
+		}
 
 		// rt.prepare();
-		// tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess [prepare]
-		// named " + process);
+		// tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess [prepare] named " + process);
 		process.prepare();
 
 		// rt.run();
-		// tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess [run ]
-		// named " + process);
-		process.run(ca.getCompilation(), new Pipeline.RP_Context_1(st, output));
+		// tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess [run ] named " + process);
+		var res = process.run(ca.getCompilation(), new Pipeline.RP_Context_1(st, output));
+
+		if (res.mode() == Mode.FAILURE) {
+			//Logger.getLogger(OStageProcess.class.getName()).log(Level.SEVERE, null, ex);
+
+			final Exception ex = res.failure();
+			ex.printStackTrace();
+
+			//throw new RuntimeException(ex);
+		}
 
 		// rt.postProcess(pr);
-		// tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess
-		// [postProcess] named " + process);
+		// tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess [postProcess] named " + process);
 		process.postProcess();
 
 		// tripleo.elijah.util.Stupidity.println_err_2("***** RuntimeProcess^
