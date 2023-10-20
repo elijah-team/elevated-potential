@@ -112,6 +112,8 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 			cb.add(startAction.cb_Process());
 
 			startAction.execute(cb.getMonitor()); // FIXME calling automatically for some reason?
+		} else {
+			assert false;
 		}
 	}
 

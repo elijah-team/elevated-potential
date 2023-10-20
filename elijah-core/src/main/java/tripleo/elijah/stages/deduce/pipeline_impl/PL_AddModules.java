@@ -24,7 +24,7 @@ class PL_AddModules implements PipelineLogicRunnable {
 
 			@Override
 			public void complete() {
-				NotImplementedException.raise_stop();
+//				NotImplementedException.raise_stop();
 			}
 
 			@Override

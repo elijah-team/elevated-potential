@@ -9,45 +9,47 @@
  */
 package tripleo.elijah.comp.internal;
 
-import org.apache.commons.lang3.tuple.*;
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal_move_soon.*;
-import tripleo.elijah.comp.notation.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.output.*;
-import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.notation.GN_Env;
+import tripleo.elijah.comp.notation.GN_Notable;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.output.NG_OutputItem;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.stages.write_stage.pipeline_impl.*;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.write_stage.pipeline_impl.WP_Flow;
 
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CR_State implements GCR_State {
 	class ProcessRecord_PipelineAccess implements IPipelineAccess {
-		private final @NotNull List<EvaNode> _l_classes = new ArrayList<>();
+		private final @NotNull List<EvaNode>  _l_classes    = new ArrayList<>();
 		private final @NotNull List<EvaClass> activeClasses = new ArrayList<>();
-		private final @NotNull List<EvaNamespace> activeNamespaces = new ArrayList<>();
-		private final DeferredObject<EvaPipeline, Void, Void> EvaPipelinePromise = new DeferredObject<>();
-		private final Map<OS_Module, DeferredObject<GenerateC, Void, Void>> gc2m_map = new HashMap<>();
-		private final @NotNull Map<Provenance, Pair<Class, Class>> installs = new HashMap<>();
-		private final DeferredObject<List<EvaNode>, Void, Void> nlp = new DeferredObject<>();
-		private final List<NG_OutputItem> outputs = new ArrayList<NG_OutputItem>();
-		private final @NotNull DeferredObject<PipelineLogic, Void, Void> ppl = new DeferredObject<>();
+		private final @NotNull List<EvaNamespace>                                    activeNamespaces   = new ArrayList<>();
+		private final          DeferredObject<EvaPipeline, Void, Void>               EvaPipelinePromise = new DeferredObject<>();
+		private final          Map<OS_Module, DeferredObject<GenerateC, Void, Void>> gc2m_map = new HashMap<>();
+		private final @NotNull Map<Provenance, Pair<Class, Class>>                   installs = new HashMap<>();
+		private final          DeferredObject<List<EvaNode>, Void, Void>             nlp      = new DeferredObject<>();
+		private final List<NG_OutputItem>                                            outputs            = new ArrayList<NG_OutputItem>();
+		private final @NotNull DeferredObject<PipelineLogic, Void, Void>             ppl                = new DeferredObject<>();
 		@NotNull
 		List<BaseEvaFunction> activeFunctions = new ArrayList<BaseEvaFunction>();
-		private AccessBus          _ab;
-		private WritePipeline      _wpl;
-		private GenerateResultSink grs;
+		private AccessBus     _ab;
+		private WritePipeline       _wpl;
+		private GenerateResultSink  grs;
 		private List<CompilerInput> inp;
 
 		@Override
@@ -274,13 +276,7 @@ public class CR_State implements GCR_State {
 		@Override
 		public void runStepsNow(final CK_Steps aSteps, final CK_StepsContext aStepsContext) {
 			CK_Monitor monitor = null;
-
-			// TODO maybe not here
-			//aStepsContext.begin();
-
-			for (CK_Action step : aSteps.steps()) {
-				step.execute(aStepsContext, monitor);
-			}
+			tripleo.elijah.comp.nextgen.CK_DefaultStepRunner.runStepsNow(aSteps, aStepsContext, monitor);
 		}
 	}
 
@@ -385,7 +381,7 @@ public class CR_State implements GCR_State {
 
 	public ProcessRecord pr;
 
-	public RuntimeProcesses rt;
+	//public RuntimeProcesses rt;
 
 	ICompilationAccess ca;
 

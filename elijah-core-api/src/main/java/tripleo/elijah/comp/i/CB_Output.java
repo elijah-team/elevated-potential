@@ -1,9 +1,9 @@
-package tripleo.elijah.comp.i.extra;
+package tripleo.elijah.comp.i;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.CB_OutputString;
+import tripleo.elijah.diagnostic.Diagnostic;
 
-import java.util.List;
+import java.util.*;
 
 // 09/27 what the hell is this?
 public interface CB_Output {
@@ -13,4 +13,6 @@ public interface CB_Output {
 	void logProgress(int number, String text);
 
 	void print(String s);
+
+	void logProgress(Diagnostic aDiagnostic);
 }
