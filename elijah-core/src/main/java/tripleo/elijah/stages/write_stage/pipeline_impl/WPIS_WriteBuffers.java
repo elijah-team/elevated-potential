@@ -39,9 +39,9 @@ public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
 			});
 		});
 	}
-
 	@NotNull
-	private static EOT_OutputFile createOutputFile(final LSPrintStream.LSResult ls, final @NotNull Compilation c,
+	private static EOT_OutputFile createOutputFile(final LSPrintStream.LSResult ls,
+												   final @NotNull Compilation c,
 												   final @NotNull CP_Paths paths) {
 		final CP_Path or    = paths.outputRoot();
 		final File    file1 = or.subFile("buffers.txt").toFile(); // TODO subFile vs child
