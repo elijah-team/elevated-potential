@@ -81,6 +81,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 		var procs = pq;
 
 		final Thread thread = new Thread(() -> __run_all_thread(procs));
+		thread.setName("[DefaultCompilationBus]");
 		thread.start();
 
 		try {
