@@ -19,8 +19,7 @@ import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.notation.GN_Env;
-import tripleo.elijah.comp.notation.GN_Notable;
+import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.output.NG_OutputItem;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
@@ -37,24 +36,194 @@ import java.util.function.Consumer;
 public class CR_State implements GCR_State {
 
 	private final CompilationEnclosure ce;
+	public        CB_Action            cur;
+	public  ProcessRecord      pr;
+	private ICompilationAccess ca;
+	private CompilationRunner  compilationRunner;
+
+	@Contract(pure = true)
+	public CR_State(ICompilationAccess aCa) {
+		ca = aCa;
+		ca.getCompilation().set_pa(new ProcessRecord_PipelineAccess()); // FIXME 05/28
+		pr = new ProcessRecordImpl(ca);
+
+		ce = (CompilationEnclosure) ca.getCompilation().getCompilationEnclosure();
+	}
 
 	public CompilationEnclosure getCompilationEnclosure() {
 		return ce;
 	}
 
+	public ICompilationAccess ca() {
+		return ca;
+	}
+
+	public CompilationRunner runner() {
+		return compilationRunner;
+	}
+
+	public void setRunner(CompilationRunner aCompilationRunner) {
+		compilationRunner = aCompilationRunner;
+	}
+
+	//public RuntimeProcesses rt;
+
+	public interface PipelinePlugin {
+		PipelineMember instance(final @NotNull AccessBus ab0);
+
+		String name();
+	}
+
+	private static class ProcessRecordImpl implements ProcessRecord {
+		// private final DeducePipeline dpl;
+		private final @NotNull ICompilationAccess ca;
+		private final          IPipelineAccess    pa;
+		private final @NotNull PipelineLogic      pipelineLogic;
+		private                AccessBus          ab;
+
+		public ProcessRecordImpl(final @NotNull ICompilationAccess ca0) {
+			ca = ca0;
+
+			((Compilation) ca.getCompilation()).getCompilationEnclosure().getAccessBusPromise().then((final @NotNull AccessBus iab) -> {
+				ab = iab;
+			});
+
+			pa = ((Compilation) ca.getCompilation()).get_pa();
+
+			pipelineLogic = new PipelineLogic(pa, ca);
+		}
+
+		@Contract(pure = true)
+		@Override
+		public AccessBus ab() {
+			return ab;
+		}
+
+		@Contract(pure = true)
+		@Override
+		public ICompilationAccess ca() {
+			return ca;
+		}
+
+		@Contract(pure = true)
+		@Override
+		public IPipelineAccess pa() {
+			return pa;
+		}
+
+		@Contract(pure = true)
+		@Override
+		public PipelineLogic pipelineLogic() {
+			return pipelineLogic;
+		}
+
+		@Override
+		public void writeLogs() {
+			final CompilationEnclosure ce            = pa.getCompilationEnclosure();
+			final PipelineLogic        pipelineLogic = ce.getPipelineLogic();
+			final GN_WriteLogs         notable       = new GN_WriteLogs(ce.getCompilationAccess(), pipelineLogic.getLogs());
+
+			pa.notate(Provenance.DefaultCompilationAccess__writeLogs, notable);
+		}
+	}
+
+	public static class WriteMakefilePipelinePlugin implements PipelinePlugin {
+		@Override
+		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
+			return new WriteMakefilePipeline(ab0.getPipelineAccess());
+		}
+
+		@Override
+		public @NotNull String name() {
+			return "WriteMakefilePipeline";
+		}
+	}
+
+	public static class WriteMesonPipelinePlugin implements PipelinePlugin {
+		@Override
+		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
+			return new WriteMesonPipeline(ab0.getPipelineAccess());
+		}
+
+		@Override
+		public @NotNull String name() {
+			return "WriteMesonPipeline";
+		}
+	}
+
+	public static class WriteOutputTreePipelinePlugin implements PipelinePlugin {
+		@Override
+		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
+			return new WriteOutputTreePipeline(ab0.getPipelineAccess());
+		}
+
+		@Override
+		public @NotNull String name() {
+			return "WriteOutputTreePipeline";
+		}
+	}
+
+	public static class WritePipelinePlugin implements PipelinePlugin {
+		@Override
+		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
+			return new WritePipeline(ab0.getPipelineAccess());
+		}
+
+		@Override
+		public @NotNull String name() {
+			return "WritePipeline";
+		}
+	}
+
+	public static class DeducePipelinePlugin implements PipelinePlugin {
+		@Override
+		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
+			return new DeducePipeline(ab0.getPipelineAccess());
+		}
+
+		@Override
+		public @NotNull String name() {
+			return "DeducePipeline";
+		}
+	}
+
+	public static class EvaPipelinePlugin implements PipelinePlugin {
+		@Override
+		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
+			return new EvaPipeline(ab0.getPipelineAccess());
+		}
+
+		@Override
+		public @NotNull String name() {
+			return "EvaPipeline";
+		}
+	}
+
+	public static class LawabidingcitizenPipelinePlugin implements PipelinePlugin {
+		@Override
+		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
+			return new LawabidingcitizenPipeline(ab0.getPipelineAccess());
+		}
+
+		@Override
+		public @NotNull String name() {
+			return "LawabidingcitizenPipeline";
+		}
+	}
+
 	class ProcessRecord_PipelineAccess implements IPipelineAccess {
-		private final @NotNull List<EvaNode>  _l_classes    = new ArrayList<>();
-		private final @NotNull List<EvaClass> activeClasses = new ArrayList<>();
+		private final @NotNull List<EvaNode>                                         _l_classes         = new ArrayList<>();
+		private final @NotNull List<EvaClass>                                        activeClasses      = new ArrayList<>();
 		private final @NotNull List<EvaNamespace>                                    activeNamespaces   = new ArrayList<>();
 		private final          DeferredObject<EvaPipeline, Void, Void>               EvaPipelinePromise = new DeferredObject<>();
-		private final          Map<OS_Module, DeferredObject<GenerateC, Void, Void>> gc2m_map = new HashMap<>();
-		private final @NotNull Map<Provenance, Pair<Class, Class>>                   installs = new HashMap<>();
-		private final          DeferredObject<List<EvaNode>, Void, Void>             nlp      = new DeferredObject<>();
-		private final List<NG_OutputItem>                                            outputs            = new ArrayList<NG_OutputItem>();
+		private final          Map<OS_Module, DeferredObject<GenerateC, Void, Void>> gc2m_map           = new HashMap<>();
+		private final @NotNull Map<Provenance, Pair<Class, Class>>                   installs           = new HashMap<>();
+		private final          DeferredObject<List<EvaNode>, Void, Void>             nlp                = new DeferredObject<>();
+		private final          List<NG_OutputItem>                                   outputs            = new ArrayList<NG_OutputItem>();
 		private final @NotNull DeferredObject<PipelineLogic, Void, Void>             ppl                = new DeferredObject<>();
 		@NotNull
 		List<BaseEvaFunction> activeFunctions = new ArrayList<BaseEvaFunction>();
-		private AccessBus     _ab;
+		private AccessBus           _ab;
 		private WritePipeline       _wpl;
 		private GenerateResultSink  grs;
 		private List<CompilerInput> inp;
@@ -82,19 +251,6 @@ public class CR_State implements GCR_State {
 		@Override
 		public void activeNamespace(final EvaNamespace aEvaNamespace) {
 			activeNamespaces.add(aEvaNamespace);
-		}
-
-		@Override
-		public void addFunctionStatement(final EG_Statement aStatement) {
-			if (aStatement instanceof EvaPipeline.FunctionStatement fs) {
-				addFunctionStatement(fs);
-			}
-		}
-
-		public void addFunctionStatement(final EvaPipeline.FunctionStatement aFunctionStatement) {
-			EvaPipelinePromise.then(gp -> {
-				gp.addFunctionStatement(aFunctionStatement);
-			});
 		}
 
 		@Override
@@ -134,7 +290,7 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public CompilationEnclosure getCompilationEnclosure() {
-			return ((CompilationImpl)getCompilation()).getCompilationEnclosure();
+			return getCompilation().getCompilationEnclosure();
 		}
 
 		@Override
@@ -147,11 +303,6 @@ public class CR_State implements GCR_State {
 			return grs;
 		}
 
-		// @Override
-		// public @NotNull List<NG_OutputItem> getOutputs() {
-		// return outputs;
-		// }
-
 		@Override
 		public @NotNull DeferredObject<PipelineLogic, Void, Void> getPipelineLogicPromise() {
 			return ppl;
@@ -162,14 +313,20 @@ public class CR_State implements GCR_State {
 			return pr;
 		}
 
+		// @Override
+		// public @NotNull List<NG_OutputItem> getOutputs() {
+		// return outputs;
+		// }
+
 		@Override
 		public WritePipeline getWitePipeline() {
 			return _wpl;
 		}
 
 		@Override
-		public void install_notate(final Provenance aProvenance, final Class<? extends GN_Notable> aRunClass,
-				final Class<? extends GN_Env> aEnvClass) {
+		public void install_notate(final Provenance aProvenance,
+								   final Class<? extends GN_Notable> aRunClass,
+								   final Class<? extends GN_Env> aEnvClass) {
 			installs.put(aProvenance, Pair.of(aRunClass, aEnvClass));
 		}
 
@@ -238,22 +395,6 @@ public class CR_State implements GCR_State {
 		}
 
 		@Override
-		public void setCompilerInput(final List<CompilerInput> aInputs) {
-			getCompilationEnclosure().setCompilerInput(aInputs);
-		}
-
-		@Override
-		public void setEvaPipeline(final @NotNull EvaPipeline agp) {
-			if (EvaPipelinePromise.isResolved()) {
-				EvaPipelinePromise.then(ep -> {
-					assert ep == agp;
-				});
-			} else {
-				EvaPipelinePromise.resolve(agp);
-			}
-		}
-
-		@Override
 		public void setGenerateResultSink(final GenerateResultSink aGenerateResultSink) {
 			grs = aGenerateResultSink;
 		}
@@ -285,176 +426,35 @@ public class CR_State implements GCR_State {
 			CK_Monitor monitor = null;
 			tripleo.elijah.comp.nextgen.CK_DefaultStepRunner.runStepsNow(aSteps, aStepsContext, monitor);
 		}
-	}
 
-	private static class ProcessRecordImpl implements ProcessRecord {
-		// private final DeducePipeline dpl;
-		private final @NotNull ICompilationAccess ca;
-		private final          IPipelineAccess    pa;
-		private final @NotNull PipelineLogic pipelineLogic;
-		private AccessBus ab;
+		@Override
+		public void addFunctionStatement(final EG_Statement aStatement) {
+			if (aStatement instanceof EvaPipeline.FunctionStatement fs) {
+				addFunctionStatement(fs);
+			}
+		}
 
-		public ProcessRecordImpl(final @NotNull ICompilationAccess ca0) {
-			ca = ca0;
-
-			((Compilation)ca.getCompilation()).getCompilationEnclosure().getAccessBusPromise().then((final @NotNull AccessBus iab) -> {
-				ab = iab;
+		public void addFunctionStatement(final EvaPipeline.FunctionStatement aFunctionStatement) {
+			EvaPipelinePromise.then(gp -> {
+				gp.addFunctionStatement(aFunctionStatement);
 			});
-
-			pa = ((Compilation) ca.getCompilation()).get_pa();
-
-			pipelineLogic = new PipelineLogic(pa, ca);
-		}
-
-		@Contract(pure = true)
-		@Override
-		public AccessBus ab() {
-			return ab;
-		}
-
-		@Contract(pure = true)
-		@Override
-		public ICompilationAccess ca() {
-			return ca;
-		}
-
-		@Contract(pure = true)
-		@Override
-		public IPipelineAccess pa() {
-			return pa;
-		}
-
-		@Contract(pure = true)
-		@Override
-		public PipelineLogic pipelineLogic() {
-			return pipelineLogic;
 		}
 
 		@Override
-		public void writeLogs() {
-			ca.getCompilation().cfg().stage().writeLogs(ca);
-		}
-	}
-
-	public static class WriteMakefilePipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new WriteMakefilePipeline(ab0.getPipelineAccess());
+		public void setCompilerInput(final List<CompilerInput> aInputs) {
+			getCompilationEnclosure().setCompilerInput(aInputs);
 		}
 
 		@Override
-		public @NotNull String name() {
-			return "WriteMakefilePipeline";
+		public void setEvaPipeline(final @NotNull EvaPipeline agp) {
+			if (EvaPipelinePromise.isResolved()) {
+				EvaPipelinePromise.then(ep -> {
+					assert ep == agp;
+				});
+			} else {
+				EvaPipelinePromise.resolve(agp);
+			}
 		}
-	}
-
-	public static class WriteMesonPipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new WriteMesonPipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "WriteMesonPipeline";
-		}
-	}
-
-	public static class WriteOutputTreePipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new WriteOutputTreePipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "WriteOutputTreePipeline";
-		}
-	}
-
-	public static class WritePipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new WritePipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "WritePipeline";
-		}
-	}
-
-	public CB_Action cur;
-
-	public ProcessRecord pr;
-
-	//public RuntimeProcesses rt;
-
-	ICompilationAccess ca;
-
-	private CompilationRunner compilationRunner;
-
-	@Contract(pure = true)
-	public CR_State(ICompilationAccess aCa) {
-		ca = aCa;
-		ca.getCompilation().set_pa(new ProcessRecord_PipelineAccess()); // FIXME 05/28
-		pr = new ProcessRecordImpl(ca);
-
-		ce = (CompilationEnclosure) ca.getCompilation().getCompilationEnclosure();
-	}
-
-	public ICompilationAccess ca() {
-		return ca;
-	}
-
-	public CompilationRunner runner() {
-		return compilationRunner;
-	}
-
-	public void setRunner(CompilationRunner aCompilationRunner) {
-		compilationRunner = aCompilationRunner;
-	}
-
-	public static class DeducePipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new DeducePipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "DeducePipeline";
-		}
-	}
-
-	public static class EvaPipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new EvaPipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "EvaPipeline";
-		}
-	}
-
-	public static class LawabidingcitizenPipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new LawabidingcitizenPipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "LawabidingcitizenPipeline";
-		}
-	}
-
-	public interface PipelinePlugin {
-		PipelineMember instance(final @NotNull AccessBus ab0);
-
-		String name();
 	}
 }
 
