@@ -15,7 +15,12 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	private final          CompilationRunner    compilationRunner;
 	private final          CompilerInstructions rootCI;
 	private final @NotNull IPipelineAccess pa;
-	private final          CB_Output       o;
+
+	public CB_Output getO() {
+		return o;
+	}
+
+	final CB_Output o;
 
 	@Contract(pure = true)
 	public CB_StartCompilationRunnerAction(final CompilationRunner aCompilationRunner,
