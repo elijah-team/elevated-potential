@@ -8,7 +8,7 @@
 package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.OS_Package;
 import tripleo.elijah.lang.i.Qualident;
@@ -20,7 +20,8 @@ public class ParserClosureImpl extends ProgramClosureImpl implements tripleo.eli
 	public final OS_Module module;
 
 	public ParserClosureImpl(final String fn, @NotNull final Compilation compilation) {
-		module = compilation.moduleBuilder().withFileName(fn).addToCompilation().build();
+		var c2 = (Compilation)compilation;
+		module = c2.moduleBuilder().withFileName(fn).addToCompilation().build();
 	}
 
 	@Override

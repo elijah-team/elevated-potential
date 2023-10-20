@@ -20,7 +20,7 @@ import java.util.*;
 /**
  * Created 8/15/20 7:09 PM
  */
-public class ImportContext extends ContextImpl implements Context {
+public class ImportContext extends ContextImpl implements Context, IImportContext {
 	protected class NPC {
 		static boolean isModuleNamespace(OS_Element ns) {
 			if (!(ns instanceof NamespaceStatement))
@@ -38,7 +38,7 @@ public class ImportContext extends ContextImpl implements Context {
 		}
 
 		private void checkLast(final String name, final int level, final @NotNull LookupResultList Result,
-				final @NotNull SearchList alreadySearched, final @NotNull Compilation compilation) {
+							   final @NotNull ISearchList alreadySearched, final @NotNull Compilation compilation) {
 			final IdentExpression last = x.get(x.size() - 1);
 			if (last.getText().equals(name)) {
 				Qualident cl = new QualidentImpl();
@@ -61,8 +61,8 @@ public class ImportContext extends ContextImpl implements Context {
 		}
 
 		private void checkLastHelper(final String name, final int level, final @NotNull LookupResultList Result,
-				final @NotNull SearchList alreadySearched, final @NotNull Compilation compilation,
-				final @NotNull Qualident cl) {
+									 final @NotNull ISearchList alreadySearched, final @NotNull Compilation compilation,
+									 final @NotNull Qualident cl) {
 			final OS_Package aPackage = compilation.getPackage(cl);
 			// LogEvent.logEvent(4003 , ""+aPackage.getElements());
 			for (final OS_Element element : aPackage.getElements()) {
@@ -101,7 +101,7 @@ public class ImportContext extends ContextImpl implements Context {
 	private final ImportStatement carrier;
 
 	@NotNull
-	Map<List<IdentExpression>, NPC> npcs = new LinkedHashMap();
+	Map<List<IdentExpression>, NPC> npcs = new HashMap<>();
 
 	public ImportContext(final Context aParent, final ImportStatement imp) {
 		_parent = aParent;
@@ -110,7 +110,7 @@ public class ImportContext extends ContextImpl implements Context {
 
 	@Override
 	public @NotNull Compilation compilation() {
-		return module().getCompilation();
+		return (@NotNull Compilation) module().getCompilation();
 	}
 
 	private NPC getNonPackageComprehension(final List<IdentExpression> x) {
@@ -130,7 +130,7 @@ public class ImportContext extends ContextImpl implements Context {
 
 	@Override
 	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
-			final @NotNull SearchList alreadySearched, final boolean one) {
+								   final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(this);
 //		tripleo.elijah.util.Stupidity.println_err_2("2002 "+importStatement.importList());
 		Compilation compilation = compilation();

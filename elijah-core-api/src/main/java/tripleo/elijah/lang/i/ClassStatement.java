@@ -2,23 +2,12 @@ package tripleo.elijah.lang.i;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.contexts.*;
-import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang2.*;
 
 import java.util.*;
 import java.util.stream.*;
 
-public interface ClassStatement
-		extends ModuleItem, StatementItem, FunctionItem, OS_Element, OS_Element2, Documentable, OS_Container {
-	final class __GetConstructorsHelper {
-		public static ConstructorDef castClassItemToConstructor(@Nullable ClassItem input) {
-			return (ConstructorDef) input;
-		}
-
-		public static boolean selectForConstructors(final ClassItem input) {
-			return input instanceof ConstructorDef;
-		}
-	}
+public interface ClassStatement extends ModuleItem, StatementItem, FunctionItem, OS_Element, OS_Element2, Documentable, OS_Container {
 
 	void addAccess(AccessNotation aAcs);
 
@@ -38,9 +27,8 @@ public interface ClassStatement
 
 	Collection<ConstructorDef> getConstructors();
 
-	@Override
-	// OS_Element
-	ClassContext getContext();
+	@Override // OS_Element
+	IClassContext getContext();
 
 	@NotNull
 	List<TypeName> getGenericPart();
@@ -63,7 +51,7 @@ public interface ClassStatement
 
 	ClassTypes getType();
 
-	InvariantStatement invariantStatement();
+	IInvariantStatement invariantStatement();
 
 	void postConstruct();
 
@@ -74,7 +62,7 @@ public interface ClassStatement
 
 	}
 
-	void setContext(ClassContext ctx);
+	void setContext(IClassContext ctx);
 
 	void setHeader(ClassHeader aCh);
 

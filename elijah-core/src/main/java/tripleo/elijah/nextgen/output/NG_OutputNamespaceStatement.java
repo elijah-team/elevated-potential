@@ -1,6 +1,7 @@
 package tripleo.elijah.nextgen.output;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputstatement.*;
@@ -31,7 +32,7 @@ public class NG_OutputNamespaceStatement implements NG_OutputStatement {
 	public EIT_ModuleInput getModuleInput() {
 		var m = moduleDependency().module();
 
-		final EIT_ModuleInput moduleInput = new EIT_ModuleInput(m, m.getCompilation());
+		final EIT_ModuleInput moduleInput = new EIT_ModuleInputImpl(m, (Compilation) m.getCompilation());
 		return moduleInput;
 	}
 

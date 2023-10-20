@@ -1,25 +1,24 @@
 package tripleo.elijah.comp.i;
 
 import tripleo.elijah.comp.*;
-import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.logging.*;
 
 import java.util.*;
 
 public interface ICompilationAccess {
-	void addFunctionMapHook(IFunctionMapHook aFunctionMapHook);
+	void addFunctionMapHook(GFunctionMapHook aFunctionMapHook);
 
-	void addPipeline(final PipelineMember pl);
+	List<GFunctionMapHook> functionMapHooks();
 
-	List<IFunctionMapHook> functionMapHooks();
+	void addPipeline(final GPipelineMember pl);
 
-	Compilation getCompilation();
+	Compilation0 getCompilation();
 
-	Stages getStage();
+	GStages getStage();
 
-	Pipeline internal_pipelines();
+	GPipeline internal_pipelines();
 
-	void setPipelineLogic(final PipelineLogic pl);
+	void setPipelineLogic(final GPipelineLogic pl);
 
 	ElLog.Verbosity testSilence();
 

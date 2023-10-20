@@ -1,6 +1,6 @@
 package tripleo.elijah.comp.graph.i;
 
-import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.comp.nextgen.i.Asseveration;
 import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
 import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
 

@@ -9,7 +9,7 @@
 package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.contexts.LoopContext;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
 
@@ -44,7 +44,7 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 		if (!(aParent instanceof FunctionDef) && !(aParent instanceof Loop))
 			tripleo.elijah.util.Stupidity.println_out_2("parent is not FunctionDef or Loop");
 		parent = aParent;
-		_a = new AttachedImpl(new LoopContext(ctx, this));
+		_a = new AttachedImpl(new LoopContext__(ctx, this));
 	}
 
 	@Override

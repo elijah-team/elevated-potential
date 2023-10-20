@@ -4,7 +4,7 @@ import org.jdeferred2.DoneCallback;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.BaseFunctionDef;
 import tripleo.elijah.lang.impl.VariableStatementImpl;
-import tripleo.elijah.lang.types.OS_FuncType;
+import tripleo.elijah.lang.types.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_fn.IdentTableEntry.ITE_Resolver_Result;
 import tripleo.elijah.stages.instructions.IdentIA;
@@ -200,7 +200,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 					} else
 						ele2 = ty.getElement();
 
-					if (ty instanceof OS_FuncType) {
+					if (ty instanceof OS_FuncTypeImpl) {
 						vte.typePromise().then(new DoneCallback<GenType>() {
 							@Override
 							public void onDone(final @NotNull GenType result) {

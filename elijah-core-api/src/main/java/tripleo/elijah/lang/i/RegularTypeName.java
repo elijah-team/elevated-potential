@@ -1,18 +1,6 @@
 package tripleo.elijah.lang.i;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.impl.RegularTypeNameImpl;
-import tripleo.elijah.util.*;
-
 public interface RegularTypeName extends NormalTypeName {
-	/*
-	 * Null context. Possibly only for testing.
-	 */
-	static @NotNull RegularTypeName makeWithStringTypeName(@NotNull String aTypeName) {
-		final RegularTypeName R = new RegularTypeNameImpl(null);
-		R.setName(Helpers0.string_to_qualident(aTypeName));
-		return R;
-	}
 
 	void addGenericPart(TypeNameList tn2);
 

@@ -29,8 +29,8 @@ public class CompilationTest {
 	@Disabled @Test
 	public final void testEz() throws Exception {
 		final List<String> args = List_of("test/comp_test/main3", "-sE"/* , "-out" */);
-		final ErrSink      eee  = new StdErrSink();
-		final Compilation  c    = new CompilationImpl(eee, new IO());
+		final ErrSink      eee = new StdErrSink();
+		final Compilation  c   = new CompilationImpl(eee, new IO_());
 
 		c.feedCmdLine(args);
 

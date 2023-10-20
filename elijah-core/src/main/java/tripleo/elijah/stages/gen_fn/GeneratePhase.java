@@ -12,15 +12,15 @@ import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.comp.i.IPipelineAccess;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.i.ModuleListener;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.work.WorkManager;
-import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.work.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,14 +33,14 @@ public class GeneratePhase implements ReactiveDimension, ModuleListener {
 	private @NotNull final IPipelineAccess pa;
 
 	@Getter
-	private final @NotNull ElLog.Verbosity verbosity;
+	private final @NotNull ElLog_.Verbosity verbosity;
 	@Getter
-	private final @NotNull WorkManager wm = new WorkManager();
+	private final @NotNull WorkManager      wm = new WorkManager__();
 	private final @NotNull Map<OS_Module, GenerateFunctions> generateFunctions = new HashMap<OS_Module, GenerateFunctions>();
 	@Getter
 	private @Nullable ICodeRegistrar codeRegistrar;
 
-	public GeneratePhase(ElLog.Verbosity aVerbosity, final @NotNull IPipelineAccess aPa, PipelineLogic aPipelineLogic) {
+	public GeneratePhase(ElLog_.Verbosity aVerbosity, final @NotNull IPipelineAccess aPa, PipelineLogic aPipelineLogic) {
 		verbosity = aVerbosity;
 		pipelineLogic = aPipelineLogic;
 		pa = aPa;
@@ -67,8 +67,8 @@ public class GeneratePhase implements ReactiveDimension, ModuleListener {
 	}
 
 	@Override
-	public void listen(final @NotNull WorldModule module) {
-		final GenerateFunctions x = getGenerateFunctions(module.module());
+	public void listen(final @NotNull GWorldModule module) {
+		//final GenerateFunctions x = getGenerateFunctions(module.module());
 	}
 
 	public void setCodeRegistrar(ICodeRegistrar aCodeRegistrar) {

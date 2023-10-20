@@ -39,7 +39,7 @@ public class NamespaceStatementImpl extends _CommonNC implements Documentable, C
 		} else {
 			throw new IllegalStateException(String.format("Cant add NamespaceStatement to %s", aElement));
 		}
-		setContext(new NamespaceContext(context, this));
+		setContext(new NamespaceContext__(context, this));
 	}
 
 	@Override
@@ -85,7 +85,7 @@ public class NamespaceStatementImpl extends _CommonNC implements Documentable, C
 	}
 
 	@Override
-	public InvariantStatement invariantStatement() {
+	public IInvariantStatement invariantStatement() {
 		throw new NotImplementedException();
 	}
 
@@ -113,7 +113,7 @@ public class NamespaceStatementImpl extends _CommonNC implements Documentable, C
 
 	}
 
-	@Override
+//	@Override
 	public void setContext(final NamespaceContext ctx) {
 		_a = new AttachedImpl(ctx);
 	}

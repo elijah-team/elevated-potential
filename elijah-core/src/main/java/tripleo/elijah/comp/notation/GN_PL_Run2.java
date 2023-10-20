@@ -3,7 +3,7 @@ package tripleo.elijah.comp.notation;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;

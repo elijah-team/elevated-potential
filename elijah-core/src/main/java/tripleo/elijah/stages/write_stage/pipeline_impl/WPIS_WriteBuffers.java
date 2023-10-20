@@ -21,9 +21,9 @@ import static tripleo.elijah.util.Helpers.List_of;
 
 public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
 	private final WritePipeline                           writePipeline;
-	private final Eventual<LSPrintStream.LSResult>        _p_spsp            = new Eventual<>();
+	private final Eventual<LSPrintStream.LSResult>         _p_spsp            = new Eventual<>();
 	private final DeferredObject<Compilation, Void, Void> compilationPromise = new DeferredObject<>();
-	private final Bus                                     _m_bus             = new Bus();
+	private final Bus                                      _m_bus             = new Bus();
 
 	@Contract(pure = true)
 	public WPIS_WriteBuffers(final WritePipeline aWritePipeline) {
@@ -58,7 +58,7 @@ public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
 		}
 
 		// noinspection UnnecessaryLocalVariable
-		final EOT_OutputFile off1 = new EOT_OutputFile(fs, file1.toString(), EOT_OutputType.BUFFERS, sequence);
+		final EOT_OutputFile off1 = new EOT_OutputFileImpl(fs, file1.toString(), EOT_OutputType.BUFFERS, sequence);
 		return off1;
 	}
 

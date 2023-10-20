@@ -9,9 +9,10 @@ import tripleo.elijah.util.*;
 import java.util.function.*;
 
 public class CW_inputIsEzFile implements Sensable {
-	public void apply(final @NotNull CompilerInput input, final @NotNull CompilationClosure cc,
-			final @NotNull Consumer<CompilerInput> x) {
-		final ILazyCompilerInstructions ilci = ILazyCompilerInstructions.of(input, cc);
+	public void apply(final @NotNull CompilerInput input,
+					  final @NotNull CompilationClosure cc,
+					  final @NotNull Consumer<CompilerInput> x) {
+		final ILazyCompilerInstructions ilci = ILazyCompilerInstructions_.of(input, cc);
 
 		final Maybe<ILazyCompilerInstructions> m4 = Maybe.of(ilci);
 		input.accept_ci(m4);

@@ -14,12 +14,12 @@ import java.util.*;
 import java.util.regex.*;
 
 public class QuerySearchEzFiles {
-	private final          Compilation        c;
+	private final          Compilation       c;
 	private final @NotNull CompilationClosure cc;
 	private final          FilenameFilter     ez_files_filter = new EzFilesFilter();
 
 	public QuerySearchEzFiles(final @NotNull CompilationClosure ccl) {
-		c = ccl.getCompilation();
+		c = (Compilation) ccl.getCompilation();
 
 		this.cc = ccl;
 	}

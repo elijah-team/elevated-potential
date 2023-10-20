@@ -14,6 +14,7 @@ package tripleo.elijah.nextgen;
  * Created 3/4/22 7:24 AM
  */
 public interface ClassExpectationMatch {
+	// TODO 10/20 ;)
 	// TODO do we need ClassSystem here?
 	void onMatch(ClassDefinition aClassDefinition);
 }

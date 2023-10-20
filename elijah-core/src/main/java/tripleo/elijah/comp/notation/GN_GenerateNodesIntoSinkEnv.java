@@ -5,14 +5,14 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.i.CompilationEnclosure;
-import tripleo.elijah.comp.i.IPipelineAccess;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
-import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.Stupidity;
 import tripleo.elijah.world.i.WorldModule;
 
@@ -24,9 +24,9 @@ import java.util.function.Supplier;
 public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 	private final List<ProcessedNode>  lgc;
 	private final GenerateResultSink   resultSink1;
-	private final Object               moduleList;
-	private final ElLog.Verbosity      verbosity;
-	private final GenerateResult       gr;
+	private final Object           moduleList;
+	private final ElLog_.Verbosity verbosity;
+	private final GenerateResult   gr;
 	private final IPipelineAccess      pa;
 	private final CompilationEnclosure ce;
 
@@ -34,7 +34,7 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 			List<ProcessedNode> lgc,
 			GenerateResultSink resultSink1,
 			Object/*EIT_ModuleList*/ moduleList,
-			ElLog.Verbosity verbosity,
+			ElLog_.Verbosity verbosity,
 			GenerateResult gr,
 			IPipelineAccess pa,
 			CompilationEnclosure ce
@@ -86,7 +86,7 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 			fileGen = fgs.get();
 		}
 
-		String lang1 = Optional.ofNullable(lang).orElse(Compilation.CompilationAlways.defaultPrelude());
+		String lang1 = Optional.ofNullable(lang).orElse(CompilationImpl.CompilationAlways.defaultPrelude());
 		return OutputFileFactory.create(lang1, params, fileGen);
 	}
 
@@ -109,7 +109,7 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 		return moduleList;
 	}
 
-	public ElLog.Verbosity verbosity() {
+	public ElLog_.Verbosity verbosity() {
 		return verbosity;
 	}
 

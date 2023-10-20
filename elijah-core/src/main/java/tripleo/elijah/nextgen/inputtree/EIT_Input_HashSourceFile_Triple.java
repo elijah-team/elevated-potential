@@ -1,7 +1,7 @@
 package tripleo.elijah.nextgen.inputtree;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.IO;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.Operation;
@@ -49,7 +49,7 @@ public final class EIT_Input_HashSourceFile_Triple
 		throw new IllegalStateException("hash failure"); // Operation??
 	}
 
-	public static EIT_Input_HashSourceFile_Triple decode(IO._IO_ReadFile aFile) {
+	public static EIT_Input_HashSourceFile_Triple decode(IO_._IO_ReadFile aFile) {
 		final String            fn  = aFile.getFileName();
 		final Operation<String> op2 = aFile.hash();
 

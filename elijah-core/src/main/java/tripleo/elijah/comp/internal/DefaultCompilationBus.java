@@ -3,6 +3,7 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -13,7 +14,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 	private final          CB_Monitor        _monitor;
 	@lombok.Getter
 	private final @NotNull CompilerDriver    compilerDriver;
-	private final @NotNull Compilation       c;
+	private final @NotNull Compilation      c;
 	//	private final @NotNull List<CB_Process> _processes = new ArrayList<>();
 	@SuppressWarnings("TypeMayBeWeakened")
 	private final          Queue<CB_Process> pq = new ConcurrentLinkedQueue<>();
@@ -28,11 +29,11 @@ public class DefaultCompilationBus implements ICompilationBus {
 //	};
 
 	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
-		c                    = ace.getCompilationAccess().getCompilation();
+		c                    = (@NotNull Compilation) ace.getCompilationAccess().getCompilation();
 		_monitor             = new CompilationRunner.__CompRunner_Monitor();
 		_defaultProgressSink = new DefaultProgressSink();
 
-		compilerDriver       = new CompilerDriver(this);
+		compilerDriver       = new CompilerDriver__(this);
 		ace.setCompilerDriver(compilerDriver);
 	}
 

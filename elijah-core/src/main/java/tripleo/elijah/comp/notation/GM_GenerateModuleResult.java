@@ -22,7 +22,7 @@ public class GM_GenerateModuleResult {
 
 	void doResult(final @NotNull WorkManager wm) {
 		// TODO find GenerateResultEnv and centralise them
-		final WorkList wl = new WorkList();
+		final WorkList wl = new WorkList__();
 		final GenerateFiles generateFiles1 = generateModuleRequest.getGenerateFiles(figs);
 		final GenerateResult gr = gr();
 

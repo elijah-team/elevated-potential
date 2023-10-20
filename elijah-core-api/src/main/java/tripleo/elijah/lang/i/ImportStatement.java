@@ -10,7 +10,6 @@ package tripleo.elijah.lang.i;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.contexts.*;
-import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang2.*;
 
 import java.util.*;
@@ -23,9 +22,9 @@ public interface ImportStatement extends ModuleItem, ClassItem, StatementItem {
 
 	}
 
-	void setAccess(AccessNotationImpl aNotation);
+	void setAccess(AccessNotation aNotation);
 
-	void setContext(ImportContext ctx);
+	void setContext(IImportContext ctx);
 
 	@Override
 	default void visitGen(final @NotNull ElElementVisitor visit) {

@@ -8,7 +8,7 @@
 package tripleo.elijah.lang.impl;
 
 import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.contexts.FunctionContext;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
 import tripleo.elijah.util.NotImplementedException;
@@ -38,7 +38,7 @@ public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elija
 		} else {
 			throw new IllegalStateException("adding DefFunctionDef to " + aElement.getClass().getName());
 		}
-		_a = new AttachedImpl(new FunctionContext(aContext, this));
+		_a = new AttachedImpl(new FunctionContext_(aContext, this));
 		setSpecies(Species.DEF_FUN);
 	}
 

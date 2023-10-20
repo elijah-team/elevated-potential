@@ -8,6 +8,7 @@
  */
 package tripleo.elijah.lang.impl;
 
+import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.contexts.*;
@@ -64,7 +65,7 @@ public abstract class ContextImpl implements tripleo.elijah.lang.i.Context {
 	@Override
 	public @NotNull Compilation compilation() {
 		OS_Module module = module();
-		return module.getCompilation();
+		return (Compilation) module.getCompilation();
 	}
 
 	@Override
@@ -76,10 +77,30 @@ public abstract class ContextImpl implements tripleo.elijah.lang.i.Context {
 	@Override
 	public @NotNull OS_Module module() {
 		Context ctx = this;// getParent();
-		while (!(ctx instanceof ModuleContext)) {
+		while (!(ctx instanceof ModuleContext__)) {
 			ctx = ctx.getParent();
 		}
 		return ((ModuleContext) ctx).getCarrier();
+	}
+
+	public static class SearchList implements ISearchList {
+		@NotNull
+		List<Context> alreadySearched = new ArrayList<>();
+
+		@Override
+		public void add(Context c) {
+			alreadySearched.add(c);
+		}
+
+		@Override
+		public boolean contains(Context context) {
+			return alreadySearched.contains(context);
+		}
+
+		@Override
+		public @NotNull ImmutableList<Context> getList() {
+			return ImmutableList.copyOf(alreadySearched);
+		}
 	}
 }
 

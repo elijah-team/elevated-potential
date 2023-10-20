@@ -7,9 +7,7 @@ import tripleo.elijah.nextgen.inputtree.EIT_Input_HashSourceFile_Triple;
 import tripleo.elijah.nextgen.outputstatement.EG_Naming;
 import tripleo.elijah.nextgen.outputstatement.EG_SequenceStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
+import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.Ok;
@@ -34,7 +32,7 @@ public class WPIS_WriteInputs implements WP_Individual_Step {
 
 		final DefaultBuffer buf = new DefaultBuffer("");
 
-		final List<IO._IO_ReadFile> recordedreads = st.c.getIO().recordedreads_io();
+		final List<IO_._IO_ReadFile> recordedreads = st.c.getIO().recordedreads_io();
 
 		//for (final IO._IO_ReadFile readFile : recordedreads) {
 		//	final String fn = readFile.getFileName();
@@ -55,7 +53,7 @@ public class WPIS_WriteInputs implements WP_Individual_Step {
 		final List<EIT_Input_HashSourceFile_Triple> yys = new ArrayList<>();
 
 		{
-			for (final IO._IO_ReadFile file : recordedreads) {
+			for (final IO_._IO_ReadFile file : recordedreads) {
 				var decoded = EIT_Input_HashSourceFile_Triple.decode(file);
 				yys.add(decoded);
 
@@ -70,10 +68,10 @@ public class WPIS_WriteInputs implements WP_Individual_Step {
 		fn1.getPathPromise().then(pp -> {
 			String string = "inputs.txt";// pp.toFile().toString(); //fn1.getPath().toFile().toString();
 
-			final EOT_OutputFile off = new EOT_OutputFile(List_of(),
-														  new EOT_OutputFile.DefaultFileNameProvider(string),
-														  EOT_OutputType.INPUTS,
-														  seq);
+			final EOT_OutputFileImpl off = new EOT_OutputFileImpl(List_of(),
+																  new EOT_OutputFileImpl.DefaultFileNameProvider(string),
+																  EOT_OutputType.INPUTS,
+																  seq);
 
 			off.x = yys;
 
@@ -100,7 +98,7 @@ public class WPIS_WriteInputs implements WP_Individual_Step {
 	}
 
 	public @NotNull Operation<String> append_hash(@NotNull TextBuffer outputBuffer,
-			@NotNull IO._IO_ReadFile aReadFile) {
+			@NotNull IO_._IO_ReadFile aReadFile) {
 		final @NotNull Operation<String> hh2 = aReadFile.hash();
 
 		if (hh2.mode() == Mode.SUCCESS) {

@@ -13,18 +13,12 @@ import tripleo.elijah.util.*;
 
 public class CIS implements Observer<CompilerInstructions> {
 	private final ObservableCompletableProcess<CompilerInstructions> ocp_ci = new ObservableCompletableProcess<>();
-	private final Subject<CompilerInstructions> compilerInstructionsSubject = ReplaySubject
-			.<CompilerInstructions>create();
+	private final Subject<CompilerInstructions> compilerInstructionsSubject = ReplaySubject.<CompilerInstructions>create();
 	public        IProgressSink                 ps;
-	private       CompilerInstructionsObserver  _cio;
-	private boolean FOO = true;
+	private       CompilerInstructionsObserver _cio;
 
 	public @NotNull Operation<Ok> almostComplete() {
 		return _cio.almostComplete();
-	}
-
-	public CompilerInstructionsObserver get_cio() {
-		return _cio;
 	}
 
 	@Override
@@ -34,7 +28,7 @@ public class CIS implements Observer<CompilerInstructions> {
 
 	@Override
 	public void onError(@NonNull final Throwable e) {
-		if (FOO) {
+		if (DebugFlags.CIS_ocp_ci__FeatureGate) {
 			compilerInstructionsSubject.onError(e);
 		} else {
 			ocp_ci.onError(e);
@@ -43,7 +37,7 @@ public class CIS implements Observer<CompilerInstructions> {
 
 	@Override
 	public void onNext(@NonNull final CompilerInstructions aCompilerInstructions) {
-		if (FOO) { // l.add
+		if (DebugFlags.CIS_ocp_ci__FeatureGate) { // l.add
 			compilerInstructionsSubject.onNext(aCompilerInstructions);
 		} else {
 			ocp_ci.onNext(aCompilerInstructions);
@@ -52,7 +46,7 @@ public class CIS implements Observer<CompilerInstructions> {
 
 	@Override
 	public void onSubscribe(@NonNull final Disposable d) {
-		if (FOO) {
+		if (DebugFlags.CIS_ocp_ci__FeatureGate) {
 			compilerInstructionsSubject.onSubscribe(d);
 		} else {
 			ocp_ci.onSubscribe(d);
@@ -64,7 +58,7 @@ public class CIS implements Observer<CompilerInstructions> {
 	}
 
 	public void subscribe(final @NotNull Observer<CompilerInstructions> aCio) {
-		if (FOO) {
+		if (DebugFlags.CIS_ocp_ci__FeatureGate) {
 			compilerInstructionsSubject.subscribe(aCio);
 		} else {
 			ocp_ci.subscribe(aCio);
@@ -72,6 +66,6 @@ public class CIS implements Observer<CompilerInstructions> {
 	}
 
 	public void subscribeTo(final Compilation aC) {
-		aC.subscribeCI(_cio);
+		aC.subscribeCI((Observer<CompilerInstructions>) _cio);
 	}
 }

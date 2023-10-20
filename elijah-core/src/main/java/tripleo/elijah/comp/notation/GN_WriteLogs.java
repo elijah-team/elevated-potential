@@ -4,6 +4,8 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.functionality.f202.F202;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.stages.logging.ElLog;
@@ -33,7 +35,7 @@ public class GN_WriteLogs implements GN_Notable {
 				logMap.put(deduceLog.getFileName(), deduceLog);
 			}
 
-			final F202 f202 = new F202(ca.getCompilation().getErrSink(), ca.getCompilation());
+			final F202 f202 = new F202(ca.getCompilation().getErrSink(), (Compilation) ca.getCompilation());
 
 			for (final Map.Entry<String, Collection<ElLog>> stringCollectionEntry : logMap.asMap().entrySet()) {
 				f202.processLogs(stringCollectionEntry.getValue());

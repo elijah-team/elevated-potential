@@ -34,7 +34,7 @@ public interface WithStatement extends FunctionItem {
 
 	}
 
-	void setContext(WithContext ctx);
+	void setContext(IWithContext ctx);
 
 	@Override
 	void visitGen(ElElementVisitor visit);

@@ -6,10 +6,7 @@ import org.jetbrains.annotations.Nullable;
 
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.comp.CompFactory;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.InputRequest;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.i.CY_ElijahSpecParser;
 import tripleo.elijah.comp.i.CY_EzSpecParser;
@@ -17,14 +14,11 @@ import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.ICompilationBus;
 import tripleo.elijah.comp.i.IProgressSink;
 import tripleo.elijah.comp.nextgen.CX_realParseEzFile2;
-import tripleo.elijah.comp.specs.ElijahCache;
-import tripleo.elijah.comp.specs.ElijahSpec;
-import tripleo.elijah.comp.specs.EzCache;
-import tripleo.elijah.comp.specs.EzSpec;
+import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.lang.impl.QualidentImpl;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleInput;
+import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.util.Helpers0;
 import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.Operation2;
@@ -75,7 +69,7 @@ class DefaultCompFactory implements CompFactory {
 	@Contract("_ -> new")
 	@Override
 	public @NotNull EIT_ModuleInput createModuleInput(final OS_Module aModule) {
-		return new EIT_ModuleInput(aModule, compilation);
+		return new EIT_ModuleInputImpl(aModule, compilation);
 	}
 
 	@Contract("_ -> new")
@@ -101,7 +95,7 @@ class DefaultCompFactory implements CompFactory {
 		return new CY_ElijahSpecParser() {
 			@Override
 			public Operation2<OS_Module> parse(ElijahSpec spec) {
-				final Compilation c = compilation;
+				final Compilation          c  = compilation;
 				final Operation2<OS_Module> om = CX_realParseElijjahFile2.realParseElijjahFile2(spec, elijahCache, c);
 				return om;
 			}
@@ -114,7 +108,7 @@ class DefaultCompFactory implements CompFactory {
 		return new CY_EzSpecParser() {
 			@Override
 			public Operation2<CompilerInstructions> parse(EzSpec spec) {
-				final Compilation c = compilation;
+				final Compilation                    c   = compilation;
 				final Operation<CompilerInstructions> cio = CX_realParseEzFile2.realParseEzFile(c, spec, aEzCache);
 				return Operation2.convert(cio);
 			}

@@ -29,7 +29,7 @@ public class CK_SourceFile__SpecifiedEzFile extends __CK_SourceFile__AbstractEzF
 		final String fileName = file_name();
 		Preconditions.checkArgument(isEzFile(fileName));
 
-		var ezSpec = new EzSpec(
+		var ezSpec = new EzSpec__(
 				fileName,
 				file, () -> {
 					try {

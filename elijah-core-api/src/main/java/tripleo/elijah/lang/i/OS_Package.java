@@ -1,6 +1,6 @@
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.contexts.PackageContext;
+import tripleo.elijah.contexts.*;
 
 import java.util.List;
 
@@ -15,5 +15,5 @@ public interface OS_Package {
 
 	Qualident getName2();
 
-	void setContext(PackageContext cur);
+	void setContext(IPackageContext cur);
 }

@@ -17,11 +17,13 @@ import org.jdeferred2.DoneCallback;
 import org.jdeferred2.impl.DeferredObject;
 import tripleo.elijah.Eventual;
 import tripleo.elijah.ReadySupplier_1;
-import tripleo.elijah.comp.i.CompilationEnclosure;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.IPipelineAccess;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.nextgen.names.i.EN_Name;
@@ -50,13 +52,11 @@ import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.inter.ModuleThing;
-import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.Holder;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.util.Operation;
-import tripleo.elijah.work.WorkJob;
-import tripleo.elijah.work.WorkList;
-import tripleo.elijah.work.WorkManager;
+import tripleo.elijah.work.*;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -70,7 +70,7 @@ import java.util.regex.Pattern;
 /**
  * Created 9/15/20 12:51 PM
  */
-public class DeduceTypes2 {
+public class DeduceTypes2 implements GDeduceTypes2 {
 	private static final   String                   PHASE = "DeduceTypes2";
 	public final @NotNull  ElLog                    LOG;
 	public final @NotNull  OS_Module                module;
@@ -91,10 +91,10 @@ public class DeduceTypes2 {
 	private final @NotNull List<DT_External>        externals;
 
 	public DeduceTypes2(@NotNull OS_Module module, @NotNull DeducePhase phase) {
-		this(module, phase, ElLog.Verbosity.VERBOSE);
+		this(module, phase, ElLog_.Verbosity.VERBOSE);
 	}
 
-	public DeduceTypes2(@NotNull OS_Module aModule, @NotNull DeducePhase aDeducePhase, ElLog.Verbosity aVerbosity) {
+	public DeduceTypes2(@NotNull OS_Module aModule, @NotNull DeducePhase aDeducePhase, ElLog_.Verbosity aVerbosity) {
 		__inj                   = new DeduceTypes2Injector();
 		wm                      = _inj().new_WorkManager();
 		_p_tasticMap            = _inj().new_TasticMap();
@@ -188,11 +188,12 @@ public class DeduceTypes2 {
 		var mt = ce.addModuleThing(generatedFunction.module());
 
 		final @NotNull ConstructorDef fd = (ConstructorDef) generatedFunction.getFD();
-		deduce_generated_function_base(generatedFunction, fd, mt);
+		deduce_generated_function_base(generatedFunction, fd, (ModuleThing) mt);
 	}
 
 	public void deduce_generated_function_base(final @NotNull BaseEvaFunction generatedFunction,
-											   final @NotNull FunctionDef fd, final @NotNull ModuleThing ignoredAMt) {
+											   final @NotNull FunctionDef fd,
+											   final @NotNull ModuleThing ignoredAMt) {
 		fix_tables(generatedFunction);
 
 		final Context fd_ctx = fd.getContext();
@@ -1103,11 +1104,13 @@ public class DeduceTypes2 {
 		var ce = aDeducePhase.ca().getCompilation().getCompilationEnclosure();
 		var mt = ce.getModuleThing(aGeneratedFunction.module());
 
-		if (aGeneratedFunction.deducedAlready)
+		if (aGeneratedFunction.deducedAlready) {
 			return false;
-		deduce_generated_function(aGeneratedFunction, mt);
+		}
 
-		mt.addFunction(aGeneratedFunction);
+		deduce_generated_function(aGeneratedFunction, (ModuleThing) mt);
+
+		((ModuleThing) mt).addFunction(aGeneratedFunction);
 
 		aGeneratedFunction.deducedAlready = true;
 		__post_dof_idte_register_resolved(aGeneratedFunction, aDeducePhase);
@@ -1299,7 +1302,7 @@ public class DeduceTypes2 {
 			return false;
 
 		final ICompilationAccess   compilationAccess = aDeducePhase.ca();
-		final CompilationEnclosure ce                = compilationAccess.getCompilation().getCompilationEnclosure();
+		final CompilationEnclosure ce                = (CompilationEnclosure) compilationAccess.getCompilation().getCompilationEnclosure();
 
 		final DeduceElement3_Constructor ccc = new DeduceElement3_Constructor(evaConstructor, this, ce);
 
@@ -1352,9 +1355,9 @@ public class DeduceTypes2 {
 	DeferredMemberFunction deferred_member_function(OS_Element aParent, @Nullable IInvocation aInvocation,
 													@NotNull FunctionDef aFunctionDef, final @NotNull FunctionInvocation aFunctionInvocation) {
 		if (aInvocation == null) {
-			if (aParent instanceof NamespaceStatement)
+			if (aParent instanceof NamespaceStatement) {
 				aInvocation = phase.registerNamespaceInvocation((NamespaceStatement) aParent);
-			else if (aParent instanceof OS_SpecialVariable) {
+			} else if (aParent instanceof OS_SpecialVariable) {
 				aInvocation = ((OS_SpecialVariable) aParent).getInvocation(this);
 			}
 		}
@@ -1399,10 +1402,12 @@ public class DeduceTypes2 {
 	}
 
 	private @Nullable IInvocation getInvocationFromBacklink(@Nullable InstructionArgument aBacklink) {
-		if (aBacklink == null)
+		if (aBacklink == null) {
 			return null;
-		// TODO implement me
-		return null;
+		} else {
+			// TODO implement me
+			return null;
+		}
 	}
 
 	@NotNull
@@ -1485,6 +1490,18 @@ public class DeduceTypes2 {
 	public DeduceElement3_VariableTableEntry zeroGet(final VariableTableEntry aVte,
 													 final BaseEvaFunction aGeneratedFunction) {
 		return _p_zero.get(aVte, aGeneratedFunction);
+	}
+
+	public TypeName HACKMAYBE_resolve_TypeName(final TypeOfTypeNameImpl aTypeOfTypeName, final Context aCtx) throws ResolveError {
+		//		tripleo.elijah.util.Stupidity.println_out_2(_typeOf.toString());
+		final LookupResultList lrl  = DeduceLookupUtils.lookupExpression(aTypeOfTypeName.typeOf(), aCtx, this);
+		final OS_Element       best = lrl.chooseBest(null);
+
+		if (best instanceof VariableStatement) {
+			return ((VariableStatement) best).typeName();
+		} else {
+			return null;
+		}
 	}
 
 	public enum ClassInvocationMake {
@@ -2020,12 +2037,12 @@ public class DeduceTypes2 {
 		}
 
 		public DTR_VariableStatement new_DTR_VariableStatement(final DeduceTypeResolve aDeduceTypeResolve,
-															   final VariableStatementImpl aVariableStatement) {
+															   final VariableStatement aVariableStatement) {
 			return new DTR_VariableStatement(aDeduceTypeResolve, aVariableStatement);
 		}
 
-		public ElLog new_ElLog(final String aFileName, final ElLog.Verbosity aVerbosity, final String aPhase) {
-			return new ElLog(aFileName, aVerbosity, aPhase);
+		public ElLog new_ElLog(final String aFileName, final ElLog_.Verbosity aVerbosity, final String aPhase) {
+			return new ElLog_(aFileName, aVerbosity, aPhase);
 		}
 
 		public EN_Usage new_EN_DeduceUsage(final InstructionArgument aBacklink, final BaseEvaFunction aGf,
@@ -2416,11 +2433,11 @@ public class DeduceTypes2 {
 		}
 
 		public WorkList new_WorkList() {
-			return new WorkList();
+			return new WorkList__();
 		}
 
 		public WorkManager new_WorkManager() {
-			return new WorkManager();
+			return new WorkManager__();
 		}
 
 		public Zero new_Zero(final DeduceTypes2 aDeduceTypes2) {
@@ -2879,7 +2896,7 @@ public class DeduceTypes2 {
 				final Eventual<ClassDefinition> pcd = phase.generateClass2(gf, ci, wm);
 
 				pcd.then(result -> {
-					final EvaClass genclass = result.getNode();
+					final EvaClass genclass = (EvaClass) result.getNode();
 
 					genType.setNode(genclass);
 					genclass.dependentTypes().add(genType);
@@ -3295,10 +3312,10 @@ public class DeduceTypes2 {
 				if (!coll.contains(generatedFunction1)) {
 					coll.add(generatedFunction1);
 					if (!generatedFunction1.deducedAlready) {
-						var ce = _phase().ca().getCompilation().getCompilationEnclosure();
-						var mt = ce.addModuleThing(generatedFunction1.module());
+						GCompilationEnclosure ce = _phase().ca().getCompilation().getCompilationEnclosure();
+						GModuleThing          mt = ce.addModuleThing(generatedFunction1.module());
 
-						deduce_generated_function(generatedFunction1, mt);
+						deduce_generated_function(generatedFunction1, (ModuleThing) mt);
 					}
 					generatedFunction1.deducedAlready = true;
 				}

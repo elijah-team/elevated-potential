@@ -61,6 +61,11 @@ public class IdentExpressionImpl implements IdentExpression {
 		this._fileName = null;
 	}
 
+	@Contract("_ -> new")
+	public static @NotNull IdentExpression forString(String string) {
+		return new IdentExpressionImpl(Helpers0.makeToken(string), "<inline-absent2>");
+	}
+
 	public @NotNull List<FormalArgListItem> getArgs() {
 		throw new UnintendedUseException();
 	}

@@ -17,6 +17,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.AccessBus.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_generic.*;
@@ -34,7 +35,7 @@ import static tripleo.elijah.util.Helpers.List_of;
 /**
  * Created 8/21/21 10:19 PM
  */
-public class WritePipeline extends PipelineMember implements Consumer<Supplier<GenerateResult>>, AB_GenerateResultListener {
+public class WritePipeline extends PipelineMember implements Consumer<Supplier<GenerateResult>>, AB_GenerateResultListener, GPipelineMember {
 	private final          DeferredObject<GenerateResult, Void, Void> generateResultPromise = new DeferredObject<>();
 	private final @NotNull WritePipelineSharedState                   st;
 	private final @NotNull CompletedItemsHandler                      cih;
@@ -153,7 +154,7 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 		gr1.subscribeCompletedItems(cih.observer());
 	}
 
-	@Override
+	//@Override
 	public void run(final CR_State aSt, final CB_Output aOutput) throws Exception {
 		latch.notifyLatch(true);
 	}
@@ -182,10 +183,10 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 		public CompletedItemsHandler(final WritePipelineSharedState aSharedState) {
 			sharedState = aSharedState;
 
-			final ElLog.Verbosity verbosity = sharedState.c.cfg().silent ? ElLog.Verbosity.SILENT
-					: ElLog.Verbosity.VERBOSE;
+			final ElLog_.Verbosity verbosity = sharedState.c.cfg().silent ? ElLog_.Verbosity.SILENT
+					: ElLog_.Verbosity.VERBOSE;
 
-			LOG = new ElLog("(WRITE-PIPELINE)", verbosity, "(write-pipeline)");
+			LOG = new ElLog_("(WRITE-PIPELINE)", verbosity, "(write-pipeline)");
 
 			sharedState.pa.addLog(LOG);
 		}

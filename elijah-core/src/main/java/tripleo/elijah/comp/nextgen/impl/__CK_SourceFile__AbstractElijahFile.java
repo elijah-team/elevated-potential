@@ -17,8 +17,8 @@ import java.util.regex.*;
 
 abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {
 //	private final __CK_SourceFile__AbstractElijjahFile CKSourceFile__abstractElijahFile;
-	protected     Compilation                     compilation;
-	protected     CompilerInput                   input;
+	protected Compilation  compilation;
+	protected CompilerInput input;
 
 //	public __CK_SourceFile__AbstractElijjahFile(final __CK_SourceFile__AbstractElijjahFile aCKSourceFile__abstractElijahFile) {
 //		CKSourceFile__abstractElijahFile = aCKSourceFile__abstractElijahFile;
@@ -62,13 +62,13 @@ abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {
 
 	@Override
 	public void associate(final CompilationClosure aCc) {
-		compilation = aCc.getCompilation();
+		compilation = (Compilation) aCc.getCompilation();
 	}
 
 	@Override
 	public void associate(final CompilerInput aInput, final CompilationClosure aCc) {
 		input       = aInput;
-		compilation = aCc.getCompilation();
+		compilation = (Compilation) aCc.getCompilation();
 	}
 
 	@Override

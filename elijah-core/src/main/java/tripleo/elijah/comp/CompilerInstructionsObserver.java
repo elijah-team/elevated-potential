@@ -10,14 +10,15 @@ import tripleo.elijah.util.*;
 
 import java.util.*;
 
-public class CompilerInstructionsObserver implements Observer<CompilerInstructions> {
-	private final Compilation compilation;
+public class CompilerInstructionsObserver implements Observer<CompilerInstructions>, ICompilerInstructionsObserver {
+	private final Compilation               compilation;
 	private final List<CompilerInstructions> l = new ArrayList<>();
 
 	public CompilerInstructionsObserver(final Compilation aCompilation) {
 		compilation = aCompilation;
 	}
 
+	@Override
 	public @NotNull Operation<Ok> almostComplete() {
 		return compilation.hasInstructions(l, compilation.pa());
 	}

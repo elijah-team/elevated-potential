@@ -12,6 +12,7 @@ import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.nextgen.outputstatement.*;
@@ -31,9 +32,9 @@ import static tripleo.elijah.util.Helpers.String_join;
 /**
  * Created 9/13/21 11:58 PM
  */
-public class WriteMesonPipeline extends PipelineMember implements @NotNull Consumer<Supplier<Old_GenerateResult>> {
-	final Pattern pullPat = Pattern.compile("/[^/]+/(.+)");
-	private final @NotNull Compilation     c;
+public class WriteMesonPipeline extends PipelineMember implements @NotNull Consumer<Supplier<Old_GenerateResult>>, GPipelineMember {
+	final                  Pattern         pullPat = Pattern.compile("/[^/]+/(.+)");
+	private final @NotNull Compilation    c;
 	private final @NotNull IPipelineAccess pa;
 	private final          WritePipeline   writePipeline;
 	@NotNull
@@ -43,8 +44,8 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 	private Supplier<Old_GenerateResult> grs;
 
 	public WriteMesonPipeline(final @NotNull IPipelineAccess pa0) {
-		final AccessBus ab = pa0.getAccessBus();
-		final Compilation   compilation    = ab.getCompilation();
+		final AccessBus     ab             = pa0.getAccessBus();
+		final Compilation  compilation    = ab.getCompilation();
 		final WritePipeline WritePipeline1 = ab.getPipelineAccess().getWitePipeline();
 
 		pa = pa0;
@@ -127,7 +128,7 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 					// final String pathString = mesonFile.getPathString();
 					final String pathString2 = ppp.toString();
 
-					final EOT_OutputFile off = new EOT_OutputFile(List_of(), pathString2, EOT_OutputType.BUILD, stmt);
+					final EOT_OutputFile off = new EOT_OutputFileImpl(List_of(), pathString2, EOT_OutputType.BUILD, stmt);
 					c.getOutputTree().add(off);
 				});
 
@@ -208,7 +209,7 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 			@NotNull
 			final EG_Statement stmt = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("WriteMesonPipeline"));
 			final String s = ppath.toString();
-			final EOT_OutputFile off = new EOT_OutputFile(List_of(), s, EOT_OutputType.BUILD, stmt);
+			final EOT_OutputFile off = new EOT_OutputFileImpl(List_of(), s, EOT_OutputType.BUILD, stmt);
 			c.getOutputTree().add(off);
 		}
 

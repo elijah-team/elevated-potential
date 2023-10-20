@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.contexts.ClassContext;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.stages.deduce.*;
@@ -67,7 +67,7 @@ public interface GenType {
 
 			DeduceTypes2.ProcessElement.processElement(el, new DeduceTypes2.IElementProcessor() {
 				private void __hasElement__typeNameElement(
-						final ClassContext.@NotNull OS_TypeNameElement typeNameElement) {
+						final @NotNull OS_TypeNameElement typeNameElement) {
 					assert aGenericPart != null;
 
 					final OS_Type x = aGenericPart.get(typeNameElement.getTypeName());
@@ -127,7 +127,7 @@ public interface GenType {
 						gt.setResolved(classStatement.getOS_Type());
 						break;
 					case TYPE_NAME_ELEMENT:
-						final ClassContext.OS_TypeNameElement typeNameElement = (ClassContext.OS_TypeNameElement) best;
+						final OS_TypeNameElement typeNameElement = (OS_TypeNameElement) best;
 						__hasElement__typeNameElement(typeNameElement);
 						break;
 					default:

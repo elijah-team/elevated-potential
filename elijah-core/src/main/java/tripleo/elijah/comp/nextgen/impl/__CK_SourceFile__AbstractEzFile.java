@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.regex.*;
 
 abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
-	protected Compilation   compilation;
+	protected Compilation  compilation;
 	protected CompilerInput input;
 
 	/**
@@ -36,7 +36,7 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 	 * @param cache
 	 * @return
 	 */
-	public static Operation2<CompilerInstructions> realParseEzFile(final EzSpec spec, final EzCache cache) {
+	public static Operation2<CompilerInstructions> realParseEzFile(final EzSpec__ spec, final EzCache cache) {
 		final Operation<String> op = spec.absolute1();
 
 		if (op.mode() == Mode.FAILURE) {
@@ -57,13 +57,13 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 
 	@Override
 	public void associate(final CompilationClosure aCc) {
-		compilation = aCc.getCompilation();
+		compilation = (Compilation) aCc.getCompilation();
 	}
 
 	@Override
 	public void associate(final CompilerInput aInput, final CompilationClosure aCc) {
 		input       = aInput;
-		compilation = aCc.getCompilation();
+		compilation = (Compilation) aCc.getCompilation();
 	}
 
 	@Override
@@ -101,14 +101,19 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 			}
 
 			@Override
-			public void onLogProgress(CompilationEnclosure ce) {
-				ce.logProgress2(CompProgress.Ez__HasHash, new AsseverationLogProgress() {
+			public void onLogProgress(final Asseverable ce) {
+				// !!
+				assert ce instanceof GCompilationEnclosure;
+
+				((GCompilationEnclosure) ce).logProgress2(CompProgress.Ez__HasHash, new AsseverationLogProgress() {
 					@Override
 					public void call(PrintStream out, PrintStream err) {
 						out.printf("[-- Ez has HASH ] %s %s%n", file_name, hash.success());
 					}
 				});
 			}
+
+			//@Override
 		});
 	}
 

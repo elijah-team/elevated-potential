@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.i.IPipelineAccess;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.generate.ElSystem;
@@ -15,7 +15,7 @@ import tripleo.util.buffer.Buffer;
  * Really a record, but state is not all set at once
  */
 public final class WritePipelineSharedState {
-	public Compilation c;
+	public Compilation    c;
 	public IPipelineAccess pa;
 	public GenerateResultSink grs;
 	public Multimap<CompilerInstructions, String> lsp_outputs;

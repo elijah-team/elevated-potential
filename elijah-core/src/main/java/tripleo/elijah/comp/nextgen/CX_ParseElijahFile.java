@@ -28,8 +28,8 @@ public class CX_ParseElijahFile {
 		try {
 			final IO              io       = compilation.getIO();
 			final String          f        = aSpec.file_name();
-			final File            file     = aSpec.file();
-			final IO._IO_ReadFile readFile = io.readFile2(file);
+			final File             file     = aSpec.file();
+			final IO_._IO_ReadFile readFile = io.readFile2(file);
 
 			try (final InputStream s = readFile.getInputStream()) {
 				calm = calculate(f, s, compilation, readFile.getLongPath1());
@@ -96,7 +96,7 @@ public class CX_ParseElijahFile {
 	                                                  IO io,
 	                                                  @NotNull CY_ElijahSpecParser parser) throws IOException {
 		try (final InputStream readFile = io.readFile(file)) {
-			final ElijahSpec spec = new ElijahSpec(file_name, file, readFile);
+			final ElijahSpec spec = new ElijahSpec_(file_name, file, readFile);
 			return parser.parse(spec);
 		}
 	}

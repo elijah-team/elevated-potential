@@ -4,13 +4,14 @@ import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.util.*;
 
 import java.util.*;
 
 public /* static */ class CCI_Acceptor__CompilerInputListener implements CompilerInputListener {
-	private final Compilation     compilation;
-	public final  InstructionDoer   id;
+	private final Compilation    compilation;
+	public final  InstructionDoer id;
 	private final CompilationRunner cr;
 	private       CCI               cci;
 	private       IProgressSink     _ps;
@@ -28,7 +29,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 	}
 
 	@Override
-	public void change(CompilerInput i, CompilerInput.CompilerInputField field) {
+	public void change(CompilerInput i, CompilerInput_.CompilerInputField field) {
 		var inputTree = compilation.getInputTree();
 
 		compilation.getCompilationEnclosure().logProgress(CompProgress.__CCI_Acceptor__CompilerInputListener__change__logInput, i);
@@ -74,7 +75,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 				}
 			}
 			case ACCEPT_CI -> {
-				if (i.ty() == CompilerInput.Ty.ROOT) {
+				if (i.ty() == CompilerInput_.Ty.ROOT) {
 					final CompilationRunner                cr                = compilation.getCompilationEnclosure().getCompilationRunner();
 					final Maybe<ILazyCompilerInstructions> instructionsMaybe = i.acceptance_ci();
 					if (instructionsMaybe != null) {
@@ -104,7 +105,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 
 					for (Operation2<CompilerInstructions> directoryResult : directoryResults) {
 						if (directoryResult.mode() == Mode.SUCCESS) {
-						ILazyCompilerInstructions iLazyCompilerInstructions = ILazyCompilerInstructions.of(directoryResult.success());
+						ILazyCompilerInstructions iLazyCompilerInstructions = ILazyCompilerInstructions_.of(directoryResult.success());
 
 							id.add(iLazyCompilerInstructions.get());
 

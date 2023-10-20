@@ -31,7 +31,7 @@ public class GetRealTargetNameTest {
 	@BeforeEach
 	public void setUp() {
 		final OS_Module       mod2 = new OS_ModuleImpl();
-		final ModuleContext   ctx  = new ModuleContext(mod2);
+		final ModuleContext   ctx  = new ModuleContext__(mod2);
 		final ClassStatement  cs   = new ClassStatementImpl(mod2, ctx);
 		final ClassHeaderImpl ch   = new ClassHeaderImpl(false, Collections.emptyList());
 		ch.setName(Helpers0.string_to_ident("__FakeClassName__"));

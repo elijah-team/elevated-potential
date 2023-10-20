@@ -16,9 +16,12 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.output.*;
+import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
@@ -29,49 +32,7 @@ import java.lang.reflect.*;
 import java.util.*;
 import java.util.function.*;
 
-public class CR_State {
-	public static class DeducePipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new DeducePipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "DeducePipeline";
-		}
-	}
-
-	public static class EvaPipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new EvaPipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "EvaPipeline";
-		}
-	}
-
-	public static class LawabidingcitizenPipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new LawabidingcitizenPipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "LawabidingcitizenPipeline";
-		}
-	}
-
-	public interface PipelinePlugin {
-		PipelineMember instance(final @NotNull AccessBus ab0);
-
-		String name();
-	}
-
+public class CR_State implements GCR_State {
 	class ProcessRecord_PipelineAccess implements IPipelineAccess {
 		private final @NotNull List<EvaNode> _l_classes = new ArrayList<>();
 		private final @NotNull List<EvaClass> activeClasses = new ArrayList<>();
@@ -115,6 +76,12 @@ public class CR_State {
 		}
 
 		@Override
+		public void addFunctionStatement(final EG_Statement aStatement) {
+			if (aStatement instanceof EvaPipeline.FunctionStatement fs) {
+				addFunctionStatement(fs);
+			}
+		}
+
 		public void addFunctionStatement(final EvaPipeline.FunctionStatement aFunctionStatement) {
 			EvaPipelinePromise.then(gp -> {
 				gp.addFunctionStatement(aFunctionStatement);
@@ -153,12 +120,12 @@ public class CR_State {
 
 		@Override
 		public Compilation getCompilation() {
-			return ca.getCompilation();
+			return (Compilation) ca.getCompilation();
 		}
 
 		@Override
 		public CompilationEnclosure getCompilationEnclosure() {
-			return getCompilation().getCompilationEnclosure();
+			return ((CompilationImpl)getCompilation()).getCompilationEnclosure();
 		}
 
 		@Override
@@ -300,7 +267,7 @@ public class CR_State {
 		}
 
 		@Override
-		public void finishPipeline(final PipelineMember aPM, final WP_Flow.OPS aOps) {
+		public void finishPipeline(final GPipelineMember aPM, final WP_Flow.OPS aOps) {
 			System.err.println("[FinishPipeline] %s %s".formatted(aPM.finishPipeline_asString(), aOps));
 		}
 
@@ -327,11 +294,11 @@ public class CR_State {
 		public ProcessRecordImpl(final @NotNull ICompilationAccess ca0) {
 			ca = ca0;
 
-			ca.getCompilation().getCompilationEnclosure().getAccessBusPromise().then((final @NotNull AccessBus iab) -> {
+			((Compilation)ca.getCompilation()).getCompilationEnclosure().getAccessBusPromise().then((final @NotNull AccessBus iab) -> {
 				ab = iab;
 			});
 
-			pa = ca.getCompilation().get_pa();
+			pa = ((Compilation) ca.getCompilation()).get_pa();
 
 			pipelineLogic = new PipelineLogic(pa, ca);
 		}
@@ -362,7 +329,7 @@ public class CR_State {
 
 		@Override
 		public void writeLogs() {
-			ca.getCompilation().cfg().stage.writeLogs(ca);
+			ca.getCompilation().cfg().stage().writeLogs(ca);
 		}
 	}
 
@@ -441,6 +408,48 @@ public class CR_State {
 
 	public void setRunner(CompilationRunner aCompilationRunner) {
 		compilationRunner = aCompilationRunner;
+	}
+
+	public static class DeducePipelinePlugin implements PipelinePlugin {
+		@Override
+		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
+			return new DeducePipeline(ab0.getPipelineAccess());
+		}
+
+		@Override
+		public @NotNull String name() {
+			return "DeducePipeline";
+		}
+	}
+
+	public static class EvaPipelinePlugin implements PipelinePlugin {
+		@Override
+		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
+			return new EvaPipeline(ab0.getPipelineAccess());
+		}
+
+		@Override
+		public @NotNull String name() {
+			return "EvaPipeline";
+		}
+	}
+
+	public static class LawabidingcitizenPipelinePlugin implements PipelinePlugin {
+		@Override
+		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
+			return new LawabidingcitizenPipeline(ab0.getPipelineAccess());
+		}
+
+		@Override
+		public @NotNull String name() {
+			return "LawabidingcitizenPipeline";
+		}
+	}
+
+	public interface PipelinePlugin {
+		PipelineMember instance(final @NotNull AccessBus ab0);
+
+		String name();
 	}
 }
 

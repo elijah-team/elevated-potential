@@ -3,19 +3,19 @@ package tripleo.elijah.stages.write_stage.pipeline_impl;
 import tripleo.elijah.nextgen.output.NG_OutputItem;
 import tripleo.elijah.nextgen.output.NG_OutputStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
+import tripleo.elijah.nextgen.outputtree.*;
 
 import java.util.Objects;
 
 // TODO 09/04 Duplication madness
 public final class NG_OutputRequest {
-	private final EOT_OutputFile.FileNameProvider fileName;
-	private final EG_Statement                    statement;
+	private final EOT_OutputFileImpl.FileNameProvider fileName;
+	private final EG_Statement                        statement;
 	private final NG_OutputStatement              outputStatement;
 	private final NG_OutputItem                   outputItem;
 
 	public NG_OutputRequest(
-			EOT_OutputFile.FileNameProvider fileName,
+			EOT_OutputFileImpl.FileNameProvider fileName,
 			EG_Statement statement,
 			NG_OutputStatement outputStatement,
 			NG_OutputItem outputItem
@@ -26,7 +26,7 @@ public final class NG_OutputRequest {
 		this.outputItem      = outputItem;
 	}
 
-	public EOT_OutputFile.FileNameProvider fileName() {
+	public EOT_OutputFileImpl.FileNameProvider fileName() {
 		return fileName;
 	}
 

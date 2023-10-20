@@ -146,7 +146,7 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 
 	@Override
 	public OS_FuncType getOS_Type() {
-		return new OS_FuncType(this);
+		return new OS_FuncTypeImpl(this);
 	}
 
 	@Override // OS_Element

@@ -3,6 +3,7 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.sense.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
@@ -24,7 +25,7 @@ public class CR_FindCIs extends DefaultStateful implements CR_Action, Sensable {
 		var progressSink = beginning.progressSink();
 
 		// TODO 09/05 look at 2 different progressSinks
-		cci = new DefaultCCI(comp, comp._cis(), progressSink);
+		cci = new DefaultCCI(comp, ((Compilation)comp)._cis(), progressSink);
 //        _ps = comp.getCompilationEnclosure().getCompilationBus().defaultProgressSink();;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		_ps = progressSink;
 
@@ -33,7 +34,9 @@ public class CR_FindCIs extends DefaultStateful implements CR_Action, Sensable {
 		}
 	}
 
-	private void _processInput(final @NotNull Compilation c, final @NotNull ErrSink errSink, final @NotNull SenseList x,
+	private void _processInput(final @NotNull Compilation c,
+							   final @NotNull ErrSink errSink,
+							   final @NotNull SenseList x,
 							   final @NotNull CompilerInput input) {
 		switch (input.ty()) {
 		case NULL -> {
@@ -76,7 +79,7 @@ public class CR_FindCIs extends DefaultStateful implements CR_Action, Sensable {
 
 	@Override
 	public @NotNull Operation<Ok> execute(final @NotNull CR_State st, final @NotNull CB_Output aO) {
-		final Compilation c = st.ca().getCompilation();
+		final Compilation     c       = (Compilation) st.ca().getCompilation();
 		final @NotNull ErrSink errSink = c.getErrSink();
 
 		for (final CompilerInput input : inputs) {

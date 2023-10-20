@@ -4,7 +4,7 @@ import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.i.CR_Action;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 
