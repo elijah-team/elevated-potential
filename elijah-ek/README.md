@@ -8,8 +8,8 @@
 - Do some testing (property, fuzz)
 - Ditto. (Might be good for formal; don't know which one yet)
 - Improve interfaces
-  * `char`
-  * Add another interface fpor some things (that I will expound later)
+  * `char` (64K not 256 -- what do you actually need?)
+  * Add another interface for some things (that I will expound later)
 
 - Integrate into parent project more (a lot)
 - Great for codegen
