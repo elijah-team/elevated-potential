@@ -347,12 +347,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 
 	@Override
 	public void setParent(@NotNull final Compilation0 parent) {
-
-	}
-
-	//@Override
-	public void setParent(@NotNull final Compilation parent) {
-		this.parent = parent;
+		this.parent = (Compilation) parent;
 	}
 
 	@Override
