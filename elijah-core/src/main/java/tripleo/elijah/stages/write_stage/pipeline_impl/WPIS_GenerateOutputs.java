@@ -35,11 +35,11 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 
 		GenerateResult result = st.getGr();
 
-		final SPrintStream sps = new SPrintStream();
-		DebugBuffersLogic.debug_buffers_logic(result, sps);
+		//final SPrintStream sps = new SPrintStream();
+		//DebugBuffersLogic.debug_buffers_logic(result, sps);
 
-		final Default_WPIS_GenerateOutputs_Behavior_PrintDBLString printDBLString = new Default_WPIS_GenerateOutputs_Behavior_PrintDBLString();
-		printDBLString.print(sps.getString());
+		//final Default_WPIS_GenerateOutputs_Behavior_PrintDBLString printDBLString = new Default_WPIS_GenerateOutputs_Behavior_PrintDBLString();
+		//printDBLString.print(sps.getString());
 
 		this.st = st;
 
