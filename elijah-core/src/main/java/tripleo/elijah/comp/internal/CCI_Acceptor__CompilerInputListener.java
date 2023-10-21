@@ -84,7 +84,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 						assert ci != null;
 
 						if (true || false) {
-							cr._cis().onNext(ci);
+							//cr._cis().onNext(ci);
 							id.add(ci);
 //								hasInstructions(List_of(i.acceptance_ci().o.get()));
 						}

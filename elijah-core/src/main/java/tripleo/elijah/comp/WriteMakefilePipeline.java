@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.CR_State;
+import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 import tripleo.elijah.nextgen.outputtree.*;
@@ -21,8 +22,8 @@ import static tripleo.elijah.util.Helpers.List_of;
 public class WriteMakefilePipeline extends PipelineMember implements Consumer<Supplier<Old_GenerateResult>> {
 	private final IPipelineAccess pa;
 
-	public WriteMakefilePipeline(final IPipelineAccess aPipelineAccess) {
-		pa = aPipelineAccess;
+	public WriteMakefilePipeline(final @NotNull GPipelineAccess pa0) {
+		pa = (IPipelineAccess) pa0;
 	}
 
 	@Override

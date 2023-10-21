@@ -21,4 +21,5 @@ public interface ICompilationAccess {
 
 	ElLog.Verbosity testSilence();
 
+	GCompilationEnclosure getCompilationEnclosure();
 }

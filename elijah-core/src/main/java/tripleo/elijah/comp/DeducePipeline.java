@@ -10,8 +10,9 @@ package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.stages.deduce.pipeline_impl.*;
 
 /**
@@ -20,8 +21,10 @@ import tripleo.elijah.stages.deduce.pipeline_impl.*;
 public class DeducePipeline extends PipelineMember {
 	private final @NotNull DeducePipelineImpl impl;
 
-	public DeducePipeline(final @NotNull IPipelineAccess pa) {
+	public DeducePipeline(final @NotNull GPipelineAccess pa0) {
 		// logProgress("***** Hit DeducePipeline constructor");
+		final IPipelineAccess pa = (IPipelineAccess) pa0;
+
 		impl = new DeducePipelineImpl(pa);
 	}
 
@@ -29,7 +32,7 @@ public class DeducePipeline extends PipelineMember {
 		tripleo.elijah.util.Stupidity.println_err_2(g);
 	}
 
-//	@Override
+	@Override
 	public void run(final CR_State aSt, final CB_Output aOutput) {
 		// logProgress("***** Hit DeducePipeline #run");
 		impl.run();

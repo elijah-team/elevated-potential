@@ -8,14 +8,16 @@
  */
 package tripleo.elijah.comp.internal;
 
-import com.google.common.base.*;
+import com.google.common.base.Preconditions;
 import io.reactivex.rxjava3.core.Observer;
-import lombok.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.ci.*;
+import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.graph.i.*;
+import tripleo.elijah.comp.graph.i.CK_Monitor;
+import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
@@ -30,22 +32,23 @@ import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.inputtree.*;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.fluffy.i.*;
-import tripleo.elijah.stages.deduce.fluffy.impl.*;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
+import tripleo.elijah.stages.deduce.IFunctionMapHook;
+import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
+import tripleo.elijah.stages.deduce.fluffy.impl.FluffyCompImpl;
+import tripleo.elijah.stages.logging.ElLog_;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
-import tripleo.elijah.world.impl.*;
+import tripleo.elijah.world.i.LivingRepo;
+import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.world.impl.DefaultLivingRepo;
 
-import java.io.*;
+import java.io.File;
 import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 public class CompilationImpl implements Compilation {
-	final                  EIT_InputTree                       _input_tree;
+	EIT_InputTree                       _input_tree;
 	private final @NotNull FluffyCompImpl                      _fluffyComp;
 	@Getter
 	private final          CIS                                 _cis;
@@ -54,23 +57,25 @@ public class CompilationImpl implements Compilation {
 	@Getter
 	private final          CompilationConfig                   cfg;
 	@Getter
-	private final USE                  use;
+	private final          USE                                 use;
 	@Getter
-	private final CompilationEnclosure compilationEnclosure;
-	private final CP_Paths             paths;
+	private final          CompilationEnclosure                compilationEnclosure;
+	private final          CP_Paths                            paths;
 	private final @NotNull ErrSink                             errSink;
 	private final          int                                 _compilationNumber;
 	private final          CompilerInputMaster                 master;
 	private final          Finally                             _finally;
-	private final          CK_ObjectTree                       objectTree;
-	public                 CCI_Acceptor__CompilerInputListener cci_listener;
+	private final CK_ObjectTree                       objectTree;
+	@Getter
+	private final CK_Monitor                          defaultMonitor = new __CK_Monitor();
+	public        CCI_Acceptor__CompilerInputListener cci_listener;
 	List<CompilerInstructions> xxx;
 	PW_Controller              pw_controller;
-	private @Nullable      EOT_OutputTree                      _output_tree   = null;
-	private                List<CompilerInput>                 _inputs;
-	private                IPipelineAccess                     _pa;
-	private                IO                                  io;
-	private                boolean                             _inside;
+	private @Nullable EOT_OutputTree      _output_tree = null;
+	private           List<CompilerInput> _inputs;
+	private           IPipelineAccess     _pa;
+	private           IO                  io;
+	private           boolean             _inside;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
@@ -82,30 +87,16 @@ public class CompilationImpl implements Compilation {
 		_repo                = new DefaultLivingRepo();
 		compilationEnclosure = new DefaultCompilationEnclosure(this);
 		_finally             = new Finally_();
-		_input_tree          = new EIT_InputTreeImpl();
 		paths                = new CP_Paths__(this);
 		_fluffyComp          = new FluffyCompImpl(this);
 		use                  = new USE(this.getCompilationClosure());
 		_cis                 = new CIS();
 
-		master = new CompilerInputMaster() {
-			@Override
-			public void addListener(final CompilerInputListener compilerInputListener) {
-				listeners.add(compilerInputListener);
-			}
+		master               = _con.createCompilerInputMaster();
 
-			@Override
-			public void notifyChange(final CompilerInput compilerInput, final CompilerInput.CompilerInputField compilerInputField) {
-				for (CompilerInputListener listener : listeners) {
-					listener.baseNotify(compilerInput, compilerInputField);
-				}
-			}
-
-			private final List<CompilerInputListener> listeners = new ArrayList<>();
-		};
-
-		cci_listener = new CCI_Acceptor__CompilerInputListener(this);
+		cci_listener         = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
+
 		pw_controller = new PW_CompilerController(this);
 		xxx           = new ArrayList<>();
 	}
@@ -126,26 +117,6 @@ public class CompilationImpl implements Compilation {
 	@Override
 	public CK_ObjectTree getObjectTree() {
 		return objectTree;
-	}
-
-	@Override
-	public CIS _cis() {
-		return get_cis();
-	}
-
-	@Override
-	public @NotNull CompilationConfig cfg() {
-		return cfg;
-	}
-
-	@Override
-	public void set_pa(final GPipelineAccess aPipelineAccess) {
-		set_pa((IPipelineAccess) aPipelineAccess);
-	}
-
-	@Override
-	public @NotNull CompFactory con() {
-		return _con;
 	}
 
 	@Override
@@ -198,32 +169,6 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
-	public Operation2<GWorldModule> findPrelude(final String prelude_name) {
-		final Operation2<OS_Module> prelude = use.findPrelude(prelude_name);
-
-		if (prelude.mode() == Mode.SUCCESS) {
-			final OS_Module   m        = prelude.success();
-			final WorldModule prelude1 = _con.createWorldModule(m);
-
-			return Operation2.success(prelude1);
-		} else {
-			return Operation2.failure(prelude.failure()); // FIXME 10/15 chain
-		}
-	}
-
-	@Override
-	public IPipelineAccess get_pa() {
-		return _pa;
-	}
-
-	@Override
-	public void set_pa(IPipelineAccess a_pa) {
-		_pa = a_pa;
-
-		compilationEnclosure._resolvePipelineAccessPromise(_pa);
-	}
-
-	@Override
 	public @NotNull CompilationClosure getCompilationClosure() {
 		return new CompilationClosure() {
 			@Override
@@ -256,40 +201,6 @@ public class CompilationImpl implements Compilation {
 	@Override
 	public @NotNull ErrSink getErrSink() {
 		return errSink;
-	}
-
-	@Override
-	public @NotNull FluffyComp getFluffy() {
-		return _fluffyComp;
-	}
-
-	@Override
-	public List<CompilerInput> getInputs() {
-		return _inputs;
-	}
-
-	@Override
-	public @NotNull EIT_InputTree getInputTree() {
-		return _input_tree;
-	}
-
-	@Override
-	public IO getIO() {
-		return io;
-	}
-
-	@Override
-	public void setIO(final IO io) {
-		this.io = io;
-	}
-
-	@Override
-	public @NotNull EOT_OutputTree getOutputTree() {
-		if (_output_tree == null) {
-			_output_tree = new EOT_OutputTreeImpl();
-		}
-
-		return _output_tree;
 	}
 
 	@Override
@@ -328,18 +239,24 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
-	public LivingRepo world2() {
-		return _repo;
+	public IO getIO() {
+		return io;
 	}
 
 	@Override
-	public Operation<Ok> hasInstructions2(@NotNull final List<CompilerInstructions> cis, @NotNull final IPipelineAccess pa) {
-		return hasInstructions(cis, get_pa());
+	public void setIO(final IO io) {
+		this.io = io;
+	}
+
+	@Override
+	public @NotNull FluffyComp getFluffy() {
+		return _fluffyComp;
 	}
 
 	@Override
 	public Operation<Ok> hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
 		if (cis.isEmpty()) {
+			assert false;
 			// README IDEA misconfiguration
 			String absolutePath = new File(".").getAbsolutePath();
 
@@ -370,32 +287,9 @@ public class CompilationImpl implements Compilation {
 		return Operation.success(Ok.instance());
 	}
 
-	//@Override
-	//@Deprecated
-	//public int instructionCount() {
-	//	return 4; // TODO shim !!!cis.size();
-	//}
-
-	//@Override
-	//public boolean isPackage(final @NotNull String pkg) {
-	//	return _repo.hasPackage(pkg);
-	//}
-
-	//@Override
-	//public OS_Package makePackage(final Qualident pkg_name) {
-	//	return _repo.makePackage(pkg_name);
-	//}
-
 	@Override
 	public @NotNull ModuleBuilder moduleBuilder() {
 		return new ModuleBuilder(this);
-	}
-
-	@Override
-	public IPipelineAccess pa() {
-		Preconditions.checkNotNull(_pa);
-
-		return _pa;
 	}
 
 	@Override
@@ -420,13 +314,18 @@ public class CompilationImpl implements Compilation {
 	}
 
 	@Override
-	public void subscribeCI(final ICompilerInstructionsObserver aCio) {
-
+	public void subscribeCI(final @NotNull Observer<CompilerInstructions> aCio) {
+		_cis.subscribe(aCio);
 	}
 
 	@Override
-	public void subscribeCI(final @NotNull Observer<CompilerInstructions> aCio) {
-		_cis.subscribe(aCio);
+	public @NotNull CompilationConfig cfg() {
+		return cfg;
+	}
+
+	@Override
+	public List<CompilerInput> getInputs() {
+		return _inputs;
 	}
 
 	@Override
@@ -454,13 +353,92 @@ public class CompilationImpl implements Compilation {
 		((PW_CompilerController) pw_controller).submitWork(aInstance);
 	}
 
-	@Deprecated
-//	@Override
-	public List<OS_Module> modules() {
-		return this.world().modules().stream()
-				.map(WorldModule::module)
-				.collect(Collectors.toList());
+	@Override
+	public @NotNull EOT_OutputTree getOutputTree() {
+		if (_output_tree == null) {
+			_output_tree = _con.createOutputTree();
+		}
+
+		return _output_tree;
 	}
+
+	@Override
+	public @NotNull EIT_InputTree getInputTree() {
+		if (_input_tree == null) {
+			_input_tree          = _con.createInputTree();
+		}
+
+		return _input_tree;
+	}
+
+	@Override
+	public void subscribeCI(final ICompilerInstructionsObserver aCio) {
+		throw new UnintendedUseException(); // If this doesn't trigger on Core tests, remove
+	}
+
+	@Override
+	public LivingRepo world2() {
+		return _repo;
+	}
+
+	@Override
+	public Operation<Ok> hasInstructions2(@NotNull final List<CompilerInstructions> cis, @NotNull final IPipelineAccess pa) {
+		return hasInstructions(cis, get_pa());
+	}
+
+	@Override
+	public IPipelineAccess pa() {
+		Preconditions.checkNotNull(_pa);
+
+		return _pa;
+	}
+
+	@Override
+	public Operation2<GWorldModule> findPrelude(final String prelude_name) {
+		final Operation2<OS_Module> prelude = use.findPrelude(prelude_name);
+
+		if (prelude.mode() == Mode.SUCCESS) {
+			final OS_Module   m        = prelude.success();
+			final WorldModule prelude1 = _con.createWorldModule(m);
+
+			return Operation2.success(prelude1);
+		} else {
+			return Operation2.failure(prelude.failure()); // FIXME 10/15 chain
+		}
+	}
+
+	@Override
+	public IPipelineAccess get_pa() {
+		return _pa;
+	}
+
+	@Override
+	public void set_pa(final GPipelineAccess aPipelineAccess) {
+		set_pa((IPipelineAccess) aPipelineAccess);
+	}
+
+	@Override
+	public void set_pa(IPipelineAccess a_pa) {
+		_pa = a_pa;
+	}
+
+	@Override
+	public CIS _cis() {
+		return get_cis();
+	}
+
+	@Override
+	public @NotNull CompFactory con() {
+		return _con;
+	}
+
+	//@Deprecated
+//	@Override
+//	public List<OS_Module> modules() {
+//		return this.world().modules().stream()
+//				.map(WorldModule::module)
+//				.collect(Collectors.toList());
+//	}
 
 	public void testMapHooks(final List<IFunctionMapHook> ignoredAMapHooks) {
 		// pipelineLogic.dp.
@@ -468,10 +446,6 @@ public class CompilationImpl implements Compilation {
 
 	public CP_Paths _paths() {
 		return paths;
-	}
-
-	public CK_Monitor getDefaultMonitor() {
-		return defaultMonitor;
 	}
 
 	public enum CompilationAlways {

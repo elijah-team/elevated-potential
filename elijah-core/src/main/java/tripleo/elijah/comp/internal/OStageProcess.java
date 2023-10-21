@@ -13,10 +13,10 @@ import tripleo.vendor.mal.types;
 
 public class OStageProcess implements RuntimeProcess {
 	private static class _AddPipeline__MAL extends types.MalFunction {
-		private final AccessBus ab;
+		private final CompilationEnclosure ce;
 
-		public _AddPipeline__MAL(final AccessBus aAb) {
-			ab = aAb;
+		public _AddPipeline__MAL(final CompilationEnclosure aCompilationEnclosure) {
+			this.ce = aCompilationEnclosure;
 		}
 
 		@Override
@@ -28,12 +28,12 @@ public class OStageProcess implements RuntimeProcess {
 				final String pipelineName = pipelineSymbol.getName();
 
 				// 1. observe side effect
-				final CR_State.PipelinePlugin pipelinePlugin = ab.getPipelinePlugin(pipelineName);
+				final PipelinePlugin pipelinePlugin = ce.getPipelinePlugin(pipelineName);
 				if (pipelinePlugin == null)
 					return types.False;
 
 				// 2. produce effect
-				ab.add(pipelinePlugin::instance);
+				ce.addPipelinePlugin(pipelinePlugin::instance);
 				return types.True;
 			} else {
 				// TODO exception? errSink??
@@ -59,7 +59,7 @@ public class OStageProcess implements RuntimeProcess {
 			env = ab.env();
 
 			Preconditions.checkNotNull(ab);
-			env.set(new types.MalSymbol("add-pipeline"), new _AddPipeline__MAL(ab));
+			env.set(new types.MalSymbol("add-pipeline"), new _AddPipeline__MAL(compilationEnclosure));
 		});
 
 	}
