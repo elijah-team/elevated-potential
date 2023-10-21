@@ -1,20 +1,21 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 public class DefaultCompilationBus implements ICompilationBus {
 	private final          CB_Monitor        _monitor;
 	@lombok.Getter
 	private final @NotNull CompilerDriver    compilerDriver;
-	private final @NotNull Compilation      c;
+	private final @NotNull Compilation       c;
 	//	private final @NotNull List<CB_Process> _processes = new ArrayList<>();
 	@SuppressWarnings("TypeMayBeWeakened")
 	private final          Queue<CB_Process> pq = new ConcurrentLinkedQueue<>();
@@ -33,7 +34,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 		_monitor             = new CompilationRunner.__CompRunner_Monitor();
 		_defaultProgressSink = new DefaultProgressSink();
 
-		compilerDriver       = new CompilerDriver__(this);
+		compilerDriver = new CompilerDriver__(this);
 		ace.setCompilerDriver(compilerDriver);
 	}
 
@@ -63,8 +64,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 				IProgressSink.Codes.LazyCompilerInstructions_inst,
 				ProgressSinkComponent.CompilationBus_,
 				-1,
-				new Object[]{aLazyCompilerInstructions.get()}
-		);
+				new Object[]{aLazyCompilerInstructions.get()});
 	}
 
 	@Override

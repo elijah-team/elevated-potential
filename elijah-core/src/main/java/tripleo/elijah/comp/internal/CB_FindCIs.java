@@ -28,21 +28,23 @@ class CB_FindCIs implements CB_Action, Sensable {
 
 	@Override
 	public void execute(CB_Monitor aMonitor) {
-		final SenseList        senseList = new SenseList();
 		final CK_Monitor       monitor   = compilationRunner.getCompilationEnclosure().getDefaultMonitor();
-		final CK_StepsContext  context   = new CD_CRS_StepsContext(compilationRunner.getCrState(), o);
 		final CR_State         st        = compilationRunner.getCrState();
 		final Compilation      c         = (Compilation) st.ca().getCompilation();
 		final @NotNull ErrSink errSink   = c.getErrSink();
+		final CK_StepsContext  context   = new CD_CRS_StepsContext(st, o);
+		final SenseList        senseList = new SenseList();
 
 		for (final CompilerInput input : c.getCompilationEnclosure().getCompilerInput()) {
 			_processInput(c, errSink, senseList, input);
 		}
 
 		for (final SenseList.Sensible sensible : senseList) {
-			Stupidity.println_out_3("8989 " + sensible.toString());
+			logProgress_ofSensible(sensible);
 //            sensible.checkDirectoryResults(cci, _ps);
 		}
+
+		logProgress_Stating("outputString.size", ""+o.get().size());
 
 		Stupidity.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
 
@@ -65,48 +67,44 @@ class CB_FindCIs implements CB_Action, Sensable {
 		return "FindCIs";
 	}
 
-
-	private void _processInput(final @NotNull Compilation c,
-							   final @NotNull ErrSink errSink,
-							   final @NotNull SenseList x,
-							   final @NotNull CompilerInput input) {
-		switch (input.ty()) {
+	private void _processInput(final @NotNull Compilation aCompilation,
+							   final @NotNull ErrSink aErrSink,
+							   final @NotNull SenseList aSenseList,
+							   final @NotNull CompilerInput aCompilerInput) {
+		switch (aCompilerInput.ty()) {
 		case NULL -> {
 		}
 		case SOURCE_ROOT -> {
 		}
 		default -> {
-			x.skip(input, SenseList.U.SKIP, this);
+			aSenseList.skip(aCompilerInput, SenseList.U.SKIP, this);
 			return;
 		}
 		}
 
-		final String file_name = input.getInp();
-		final File   f         = new File(file_name);
+		final String             file_name          = aCompilerInput.getInp();
+		final File               f                  = new File(file_name);
+		final CompilationClosure compilationClosure = aCompilation.getCompilationClosure();
 
-		final CompilationClosure compilationClosure = c.getCompilationClosure();
-
-		if (input.isEzFile()) {
-			if (input.isNull()) {
-				input.certifyRoot();
+		if (aCompilerInput.isEzFile()) {
+			if (aCompilerInput.isNull()) {
+				aCompilerInput.certifyRoot();
 			}
 
-			final CW_inputIsEzFile cw = new CW_inputIsEzFile();
-
-			cw.apply(input, compilationClosure, inp -> x.add(inp, SenseList.U.ADD, cw));
+			CW_inputIsEzFile.apply(aCompilerInput, compilationClosure, inp -> aSenseList.add(inp, SenseList.U.ADD, () -> SenseIndex.senseIndex_CW_inputIsEzFile));
 		} else {
-			// errSink.reportError("9996 Not an .ez file "+file_name);
+			// aErrSink.reportError("9996 Not an .ez file "+file_name);
 			if (f.isDirectory()) {
-				CW_inputIsDirectory.apply(input, compilationClosure, x::add);
+				CW_inputIsDirectory.apply(aCompilerInput, compilationClosure, aSenseList::add);
 			} else {
 				final NotDirectoryException d = new NotDirectoryException(f.toString());
-				errSink.reportError("9995 Not a directory " + f.getAbsolutePath());
+				aErrSink.reportError("9995 Not a directory " + f.getAbsolutePath());
 			}
 		}
 	}
 
 	@Override
-	public SenseIndex index() {
+	public SenseIndex getSenseIndex() {
 		return SenseIndex.senseIndex_CB_FindCIs;
 	}
 }
