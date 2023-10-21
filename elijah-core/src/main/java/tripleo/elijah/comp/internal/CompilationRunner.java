@@ -23,9 +23,6 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	private final @NotNull CR_State                        crState;
 	@Getter
 	private final @NotNull IProgressSink                   progressSink;
-	private final @NotNull CCI                             cci;
-	@Getter
-	private final @NotNull CIS                             cis;
 	private /*@NotNull*/   CB_StartCompilationRunnerAction startAction;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
@@ -41,22 +38,21 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 							 final Supplier<ICompilationBus> scb) {
 		_compilation = (Compilation) aca.getCompilation();
 
-		_compilation.getCompilationEnclosure().setCompilationAccess(aca);
+		final CompilationEnclosure compilationEnclosure = _compilation.getCompilationEnclosure();
 
-		cis = _compilation._cis();
+		compilationEnclosure.setCompilationAccess(aca);
 
-		var cb1 = _compilation.getCompilationEnclosure().getCompilationBus();
+		//final @NotNull CIS    cis = _compilation._cis();
+		final ICompilationBus compilationBus = compilationEnclosure.getCompilationBus();
 
-		if (cb1 == null) {
+		if (compilationBus == null) {
 			cb = scb.get();
-			_compilation.getCompilationEnclosure().setCompilationBus(cb);
+			compilationEnclosure.setCompilationBus(cb);
 		} else {
-			cb = _compilation.getCompilationEnclosure().getCompilationBus();
+			cb = compilationEnclosure.getCompilationBus();
 		}
 
 		progressSink = cb.defaultProgressSink();
-
-		cci     = new DefaultCCI(_compilation, cis, progressSink);
 		crState = aCrState;
 	}
 
@@ -65,7 +61,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	}
 
 	public CIS _cis() {
-		return cis;
+		return _compilation._cis();
 	}
 
 	public Compilation c() {
@@ -91,13 +87,13 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	public void start(final CompilerInstructions aRootCI, @NotNull final GPipelineAccess pa) {
 		// FIXME only run once 06/16
 		if (startAction == null) {
-			CB_StartCompilationRunnerAction startAction = new CB_StartCompilationRunnerAction(this, (IPipelineAccess) pa, aRootCI);
+			startAction = new CB_StartCompilationRunnerAction(this, (IPipelineAccess) pa, aRootCI);
 			// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
 			cb.add(startAction.cb_Process());
 
 			// FIXME calling automatically for some reason?
 			final CB_Monitor                monitor           = cb.getMonitor();
-			final CompilerDriver            compilationDriver = ((IPipelineAccess)pa).getCompilationEnclosure().getCompilationDriver();
+			final CompilerDriver            compilationDriver = ((IPipelineAccess) pa).getCompilationEnclosure().getCompilationDriver();
 			final Operation<CompilerDriven> ocrsd             = compilationDriver.get(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
 
 			final @NotNull CB_Output cbOutput = startAction.getO();
@@ -107,10 +103,10 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 				final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
 				final CR_State                  crState1               = this.getCrState();
 
-	//			assert !(started);
+				// assert !(started);
 				if (CB_StartCompilationRunnerAction.started) {
 					//throw new AssertionError();
-					System.err.println("twice for "+ startAction);
+					System.err.println("twice for " + startAction);
 				} else {
 					compilationRunnerStart.start(aRootCI, crState1, cbOutput);
 					CB_StartCompilationRunnerAction.started = true;
