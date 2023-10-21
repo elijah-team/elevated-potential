@@ -40,7 +40,7 @@ public class CR_FindCIs extends DefaultStateful implements CR_Action, Sensable {
 	}
 
 	@Override
-	public SenseIndex index() {
+	public SenseIndex getSenseIndex() {
 		return null;
 	}
 }
