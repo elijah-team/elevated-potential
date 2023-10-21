@@ -11,6 +11,7 @@ package tripleo.elijah.comp;
 import tripleo.elijah.__Extensionable;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CR_State;
+import tripleo.elijah.g.GPipeline;
 
 import java.util.ArrayList;
 import java.util.List;

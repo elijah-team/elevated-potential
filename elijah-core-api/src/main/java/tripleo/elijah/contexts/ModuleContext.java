@@ -3,7 +3,7 @@ package tripleo.elijah.contexts;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 
-public interface ModuleContext extends Context, GModuleContext {
+public interface ModuleContext extends Context {
 	OS_Module getCarrier();
 
 	@Override

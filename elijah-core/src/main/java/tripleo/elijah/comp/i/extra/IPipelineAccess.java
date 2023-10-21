@@ -9,6 +9,8 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.g.GPipelineMember;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.output.*;
 import tripleo.elijah.nextgen.outputstatement.*;

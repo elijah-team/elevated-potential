@@ -318,13 +318,6 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	}
 
 	@Override
-	public void setContext(final GModuleContext mctx) {
-		assert mctx instanceof ModuleContext__;
-
-		setContext((ModuleContext) mctx);;
-	}
-
-	//@Override
 	public void setContext(final ModuleContext mctx) {
 		// README 10/15 hm
 		_a.setContext(mctx);

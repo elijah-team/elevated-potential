@@ -1,10 +1,8 @@
-package tripleo.elijah.comp;
+package tripleo.elijah.g;
 
-import org.apache.commons.lang3.tuple.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.nextgen.i.*;
-import tripleo.elijah.g.*;
-import tripleo.elijah.lang.i.*;
+import org.apache.commons.lang3.tuple.Pair;
+import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.comp.nextgen.i.AsseverationLogProgress;
 
 public interface GCompilationEnclosure {
 	GModuleThing addModuleThing(GOS_Module aModule);

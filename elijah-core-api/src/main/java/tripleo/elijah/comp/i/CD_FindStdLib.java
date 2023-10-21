@@ -1,6 +1,7 @@
 package tripleo.elijah.comp.i;
 
 import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.g.GCR_State;
 import tripleo.elijah.util.*;
 
 import java.util.function.Consumer;

@@ -25,6 +25,8 @@ import tripleo.elijah.comp.nextgen.pn.*;
 import tripleo.elijah.comp.nextgen.pw.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.g.*;
+import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;

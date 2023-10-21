@@ -1,6 +1,7 @@
 package tripleo.elijah.comp.i;
 
 import tripleo.elijah.comp.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.stages.logging.*;
 
 import java.util.*;

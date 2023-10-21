@@ -9,6 +9,7 @@ import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.g.GCompilationEnclosure;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.util.*;
