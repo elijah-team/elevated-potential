@@ -99,8 +99,9 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	public File makeFile() {
 		if (advised != null) {
 			return new File(advised.makeFile(), getFilename());
-		} else
+		} else {
 			return new File(getFilename());
+		}
 	}
 
 	@Override
