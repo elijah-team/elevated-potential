@@ -1,57 +1,57 @@
 package tripleo.elijah.comp.impl;
 
-import io.reactivex.rxjava3.annotations.*;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.subjects.*;
-import org.apache.commons.lang3.tuple.*;
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import io.reactivex.rxjava3.subjects.ReplaySubject;
+import io.reactivex.rxjava3.subjects.Subject;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.Eventual;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.CK_DefaultStepRunner;
-import tripleo.elijah.comp.nextgen.i.*;
-import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.comp.nextgen.i.AsseverationLogProgress;
+import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.g.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputFileImpl;
 import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.pre_world.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.generate.*;
-import tripleo.elijah.stages.inter.*;
-import tripleo.elijah.stages.write_stage.pipeline_impl.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.pre_world.Mirror_EntryPoint;
+import tripleo.elijah.stages.gen_fn.IClassGenerator;
+import tripleo.elijah.stages.generate.OutputStrategyC;
+import tripleo.elijah.stages.inter.ModuleThing;
+import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
+import tripleo.elijah.util.CompletableProcess;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.world.i.WorldModule;
 
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class DefaultCompilationEnclosure implements CompilationEnclosure {
-	public final DeferredObject<IPipelineAccess, Void, Void> pipelineAccessPromise = new DeferredObject<>();
-
-	private final Eventual<CompilationRunner> ecr = new Eventual<>();
-	private final DeferredObject<AccessBus, Void, Void> accessBusPromise = new DeferredObject<>();
-	private final CB_Output                   _cbOutput        = new CB_ListBackedOutput();
-	private final Compilation                compilation;
-	private final Map<OS_Module, ModuleThing> moduleThings = new HashMap<>();
-	private final Subject<ReactiveDimension> dimensionSubject = ReplaySubject.<ReactiveDimension>create();
-	private final Subject<Reactivable> reactivableSubject = ReplaySubject.<Reactivable>create();
-	private final List<ModuleListener> _moduleListeners = new ArrayList<>();
-	Observer<ReactiveDimension> dimensionObserver = new Observer<ReactiveDimension>() {
+	public final           Eventual<IPipelineAccess>                                                       pipelineAccessPromise = new Eventual<>();
+	private final          Map<String, PipelinePlugin>                                                     pipelinePlugins       = new HashMap<>();
+	private final          Eventual<CompilationRunner>                                                     ecr                   = new Eventual<>();
+	private final          Eventual<AccessBus>                                                             accessBusPromise      = new Eventual<>();
+	private final          CB_Output                                                                       _cbOutput             = new CB_ListBackedOutput();
+	private final          Compilation                                                                     compilation;
+	private final          Map<OS_Module, ModuleThing>                                                     moduleThings          = new HashMap<>();
+	private final          Subject<ReactiveDimension>                                                      dimensionSubject      = ReplaySubject.<ReactiveDimension>create();
+	private final          Subject<Reactivable>                                                            reactivableSubject    = ReplaySubject.<Reactivable>create();
+	private final          List<ModuleListener>                                                            _moduleListeners      = new ArrayList<>();
+	private final          List<Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest>> outFileAssertions     = new ArrayList<>();
+	private final @NonNull OFA                                                                             ofa                   = new OFA(/* outFileAssertions */);
+	Observer<ReactiveDimension> dimensionObserver   = new Observer<ReactiveDimension>() {
 		@Override
-		public void onComplete() {
-
-		}
-
-		@Override
-		public void onError(@NonNull final Throwable e) {
+		public void onSubscribe(@NonNull final Disposable d) {
 
 		}
 
@@ -62,19 +62,19 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		}
 
 		@Override
-		public void onSubscribe(@NonNull final Disposable d) {
+		public void onError(@NonNull final Throwable e) {
 
 		}
-	};
-	Observer<Reactivable> reactivableObserver = new Observer<Reactivable>() {
 
 		@Override
 		public void onComplete() {
 
 		}
+	};
+	Observer<Reactivable>       reactivableObserver = new Observer<Reactivable>() {
 
 		@Override
-		public void onError(@NonNull final Throwable e) {
+		public void onSubscribe(@NonNull final Disposable d) {
 
 		}
 
@@ -85,40 +85,42 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		}
 
 		@Override
-		public void onSubscribe(@NonNull final Disposable d) {
+		public void onError(@NonNull final Throwable e) {
+
+		}
+
+		@Override
+		public void onComplete() {
 
 		}
 	};
-	private AccessBus ab;
-	private ICompilationAccess ca;
-	private ICompilationBus compilationBus;
-	private CompilationRunner compilationRunner;
-	private CompilerDriver compilerDriver;
+	private AccessBus           ab;
+	private ICompilationAccess  ca;
+	private ICompilationBus     compilationBus;
+	private CompilationRunner   compilationRunner;
+	private CompilerDriver      compilerDriver;
 	private List<CompilerInput> inp;
-
-	private IPipelineAccess pa;
-
-	private PipelineLogic pipelineLogic;
-
-	private final List<Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest>> outFileAssertions = new ArrayList<>();
-
-	private final @NonNull OFA ofa = new OFA(/* outFileAssertions */);
+	private IPipelineAccess     pa;
+	private PipelineLogic       pipelineLogic;
 
 	public DefaultCompilationEnclosure(final Compilation aCompilation) {
 		compilation = aCompilation;
 
 		getPipelineAccessPromise().then(pa -> {
+			final CompilationEnclosure ce = compilation.getCompilationEnclosure();
+
 			ab = new AccessBus(getCompilation(), pa);
 
 			accessBusPromise.resolve(ab);
 
-			ab.addPipelinePlugin(new CR_State.LawabidingcitizenPipelinePlugin());
-			ab.addPipelinePlugin(new CR_State.EvaPipelinePlugin());
-			ab.addPipelinePlugin(new CR_State.DeducePipelinePlugin());
-			ab.addPipelinePlugin(new CR_State.WritePipelinePlugin());
-			ab.addPipelinePlugin(new CR_State.WriteMakefilePipelinePlugin());
-			ab.addPipelinePlugin(new CR_State.WriteMesonPipelinePlugin());
-			ab.addPipelinePlugin(new CR_State.WriteOutputTreePipelinePlugin());
+			// README these need pipeline access to be created. wanted ce, but went with that
+			ce.addPipelinePlugin(new __Plugins.LawabidingcitizenPipelinePlugin());
+			ce.addPipelinePlugin(new __Plugins.EvaPipelinePlugin());
+			ce.addPipelinePlugin(new __Plugins.DeducePipelinePlugin());
+			ce.addPipelinePlugin(new __Plugins.WritePipelinePlugin());
+			ce.addPipelinePlugin(new __Plugins.WriteMakefilePipelinePlugin());
+			ce.addPipelinePlugin(new __Plugins.WriteMesonPipelinePlugin());
+			ce.addPipelinePlugin(new __Plugins.WriteOutputTreePipelinePlugin());
 
 			pa._setAccessBus(ab);
 
@@ -128,7 +130,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		compilation.world().addModuleProcess(new ModuleListener_ModuleCompletableProcess());
 	}
 
-//	@Override
+	//	@Override
 	@Override
 	public void addEntryPoint(final @NotNull Mirror_EntryPoint aMirrorEntryPoint, final IClassGenerator dcg) {
 		aMirrorEntryPoint.generate(dcg);
@@ -155,13 +157,8 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		// reactivableObserver.
 		dimensionSubject.subscribe(new Observer<ReactiveDimension>() {
 			@Override
-			public void onComplete() {
+			public void onSubscribe(@NonNull final Disposable d) {
 
-			}
-
-			@Override
-			public void onError(@NonNull final @NotNull Throwable e) {
-				e.printStackTrace();
 			}
 
 			@Override
@@ -171,7 +168,12 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 			}
 
 			@Override
-			public void onSubscribe(@NonNull final Disposable d) {
+			public void onError(@NonNull final @NotNull Throwable e) {
+				e.printStackTrace();
+			}
+
+			@Override
+			public void onComplete() {
 
 			}
 		});
@@ -181,13 +183,8 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	public void addReactive(@NotNull Reactive r) {
 		dimensionSubject.subscribe(new Observer<ReactiveDimension>() {
 			@Override
-			public void onComplete() {
+			public void onSubscribe(@NonNull final Disposable d) {
 
-			}
-
-			@Override
-			public void onError(@NonNull final @NotNull Throwable e) {
-				e.printStackTrace();
 			}
 
 			@Override
@@ -196,7 +193,12 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 			}
 
 			@Override
-			public void onSubscribe(@NonNull final Disposable d) {
+			public void onError(@NonNull final @NotNull Throwable e) {
+				e.printStackTrace();
+			}
+
+			@Override
+			public void onComplete() {
 
 			}
 		});
@@ -208,13 +210,8 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 		reactivableSubject.subscribe(new Observer<Reactivable>() {
 			@Override
-			public void onComplete() {
+			public void onSubscribe(@NonNull final Disposable d) {
 
-			}
-
-			@Override
-			public void onError(@NonNull final @NotNull Throwable e) {
-				e.printStackTrace();
 			}
 
 			@Override
@@ -223,7 +220,12 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 			}
 
 			@Override
-			public void onSubscribe(@NonNull final Disposable d) {
+			public void onError(@NonNull final @NotNull Throwable e) {
+				e.printStackTrace();
+			}
+
+			@Override
+			public void onComplete() {
 
 			}
 		});
@@ -246,7 +248,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	@Override
-	public @NotNull Promise<AccessBus, Void, Void> getAccessBusPromise() {
+	public @NotNull Eventual<AccessBus> getAccessBusPromise() {
 		return accessBusPromise;
 	}
 
@@ -315,7 +317,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	@Contract(pure = true)
 	@Override
-	public @NotNull Promise<IPipelineAccess, Void, Void> getPipelineAccessPromise() {
+	public @NotNull Eventual<IPipelineAccess> getPipelineAccessPromise() {
 		return pipelineAccessPromise;
 	}
 
@@ -349,39 +351,6 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 		// aReactive.join();
 		System.err.println("reactiveJoin " + aReactive.toString());
-	}
-
-	@Override
-	public void setCompilationAccess(@NotNull ICompilationAccess aca) {
-		ca = aca;
-	}
-
-	@Override
-	public void setCompilationBus(final ICompilationBus aCompilationBus) {
-		compilationBus = aCompilationBus;
-	}
-
-	@Override
-	public void setCompilationRunner(final CompilationRunner aCompilationRunner) {
-		compilationRunner = aCompilationRunner;
-
-		if (ecr.isPending()) {
-			ecr.resolve(compilationRunner);
-		} else {
-			System.err.println("903365 compilationRunner already set");
-		}
-	}
-
-	@Override
-	public void setCompilerDriver(final CompilerDriver aCompilerDriver) {
-		compilerDriver = aCompilerDriver;
-	}
-
-	@Override
-	public void setCompilerInput(final List<CompilerInput> aInputs) {
-		//assert inp == null;
-
-		inp = aInputs;
 	}
 
 	@Override
@@ -435,6 +404,61 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	@Override
+	public PipelinePlugin getPipelinePlugin(final String aPipelineName) {
+		if (!(pipelinePlugins.containsKey(aPipelineName))) {
+			return null;
+		}
+
+		return pipelinePlugins.get(aPipelineName);
+	}
+
+	@Override
+	public void addPipelinePlugin(final @NotNull Function<GPipelineAccess, PipelineMember> aCr) {
+		pipelineAccessPromise.then(pa -> {
+			final PipelinePlugin plugin = (PipelinePlugin) aCr.apply(pa);
+			pipelinePlugins.put(plugin.name(), plugin);
+		});
+	}
+
+	@Override
+	public void addPipelinePlugin(final @NotNull PipelinePlugin aPlugin) {
+		pipelinePlugins.put(aPlugin.name(), aPlugin);
+	}
+
+	@Override
+	public void setCompilerInput(final List<CompilerInput> aInputs) {
+		//assert inp == null;
+
+		inp = aInputs;
+	}
+
+	@Override
+	public void setCompilationRunner(final CompilationRunner aCompilationRunner) {
+		compilationRunner = aCompilationRunner;
+
+		if (ecr.isPending()) {
+			ecr.resolve(compilationRunner);
+		} else {
+			System.err.println("903365 compilationRunner already set");
+		}
+	}
+
+	@Override
+	public void setCompilerDriver(final CompilerDriver aCompilerDriver) {
+		compilerDriver = aCompilerDriver;
+	}
+
+	@Override
+	public void setCompilationBus(final ICompilationBus aCompilationBus) {
+		compilationBus = aCompilationBus;
+	}
+
+	@Override
+	public void setCompilationAccess(@NotNull ICompilationAccess aca) {
+		ca = aca;
+	}
+
+	@Override
 	public GModuleThing addModuleThing(final GOS_Module aModule) {
 		return addModuleThing((OS_Module) aModule);
 	}
@@ -460,6 +484,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 				moduleListener.listen(item);
 			}
 		}
+
 		@Override
 		public void complete() {
 			// 09/26 System.err.println("[ModuleListener_ModuleCompletableProcess] complete");

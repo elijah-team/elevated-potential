@@ -1,8 +1,8 @@
 package tripleo.elijah.comp.internal_move_soon;
 
 import io.reactivex.rxjava3.annotations.*;
-import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.Eventual;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
@@ -11,6 +11,7 @@ import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.g.GCompilationEnclosure;
+import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.pre_world.*;
@@ -38,7 +39,7 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 
 	void AssertOutFile(@NotNull NG_OutputRequest aOutputRequest);
 
-	@NotNull Promise<AccessBus, Void, Void> getAccessBusPromise();
+	@NotNull Eventual<AccessBus> getAccessBusPromise();
 
 	@Contract(pure = true)
 	CB_Output getCB_Output();
@@ -49,8 +50,12 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	@Contract(pure = true)
 	@NotNull ICompilationAccess getCompilationAccess();
 
+	void setCompilationAccess(@NotNull ICompilationAccess aca);
+
 	@Contract(pure = true)
 	ICompilationBus getCompilationBus();
+
+	void setCompilationBus(ICompilationBus aCompilationBus);
 
 	// @Contract(pure = true) //??
 	CompilationClosure getCompilationClosure();
@@ -61,8 +66,12 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	@Contract(pure = true)
 	CompilationRunner getCompilationRunner();
 
+	void setCompilationRunner(CompilationRunner aCompilationRunner);
+
 	@Contract(pure = true)
 	List<CompilerInput> getCompilerInput();
+
+	void setCompilerInput(List<CompilerInput> aInputs);
 
 	ModuleThing getModuleThing(OS_Module aMod);
 
@@ -70,10 +79,12 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	IPipelineAccess getPipelineAccess();
 
 	@Contract(pure = true)
-	@NotNull Promise<IPipelineAccess, Void, Void> getPipelineAccessPromise();
+	@NotNull Eventual<IPipelineAccess> getPipelineAccessPromise();
 
 	@Contract(pure = true)
 	PipelineLogic getPipelineLogic();
+
+	void setPipelineLogic(PipelineLogic aPipelineLogic);
 
 	void logProgress(@NotNull CompProgress aCompProgress, Object x);
 
@@ -83,17 +94,7 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 
 	void reactiveJoin(Reactive aReactive);
 
-	void setCompilationAccess(@NotNull ICompilationAccess aca);
-
-	void setCompilationBus(ICompilationBus aCompilationBus);
-
-	void setCompilationRunner(CompilationRunner aCompilationRunner);
-
 	void setCompilerDriver(CompilerDriver aCompilerDriver);
-
-	void setCompilerInput(List<CompilerInput> aInputs);
-
-	void setPipelineLogic(PipelineLogic aPipelineLogic);
 
 	void AssertOutFile_Class(OutputStrategyC.OSC_NFC aNfc, NG_OutputRequest aOutputRequest);
 
@@ -111,4 +112,10 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	CK_Monitor getDefaultMonitor();
 
 	void runStepsNow(CK_Steps aSteps, CK_AbstractStepsContext aStepContext);
+
+	PipelinePlugin getPipelinePlugin(String aPipelineName);
+
+	void addPipelinePlugin(final @NotNull Function<GPipelineAccess, PipelineMember> aCr);
+
+	void addPipelinePlugin(PipelinePlugin aPipelinePlugin);
 }

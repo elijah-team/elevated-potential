@@ -6,6 +6,7 @@ import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.g.GPipelineMember;
 import tripleo.elijah.nextgen.*;
 import tripleo.elijah.nextgen.outputstatement.*;
@@ -46,8 +47,8 @@ public class WriteOutputTreePipeline extends PipelineMember implements GPipeline
 
 	private final IPipelineAccess pa;
 
-	public WriteOutputTreePipeline(final IPipelineAccess aPipelineAccess) {
-		pa = aPipelineAccess;
+	public WriteOutputTreePipeline(final @NotNull GPipelineAccess pa0) {
+		pa = (IPipelineAccess) pa0;
 	}
 
 	@Override
