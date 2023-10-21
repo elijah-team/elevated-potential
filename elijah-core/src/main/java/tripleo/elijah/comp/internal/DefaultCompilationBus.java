@@ -78,21 +78,21 @@ public class DefaultCompilationBus implements ICompilationBus {
 	}
 
 	public void runProcesses() {
-		var procs = pq;
-
-		final Thread thread = new Thread(() -> __run_all_thread(procs));
-		thread.setName("[DefaultCompilationBus]");
-		thread.start();
+		final Queue<CB_Process> procs       = pq;
+		final Compilation       compilation = this.c;
+		final Startable         task        = compilation.con().askConcurrent(() -> __run_all_thread(procs), "[DefaultCompilationBus]");
+		task.start();
 
 		try {
+			// TODO 10/20 Remove this soon
+			final Thread thread = task.stealThread();
+
 			thread.join();//TimeUnit.MINUTES.toMillis(1));
 
-/*
 			for (final CB_Process process : pq) {
 				System.err.println("5757 " + process.name());
-				process.execute(this);
+//				process.execute(this);
 			}
-*/
 
 			thread.stop();
 		} catch (InterruptedException aE) {
