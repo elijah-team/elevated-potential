@@ -1,24 +1,25 @@
 package tripleo.elijah.comp.internal;
 
-import tripleo.elijah.comp.nextgen.*;
-import tripleo.elijah.comp.nextgen.pw.*;
-
-import java.util.*;
-import java.util.concurrent.*;
+import tripleo.elijah.comp.nextgen.CP_Paths;
+import tripleo.elijah.comp.nextgen.pw.PW_Controller;
+import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
+import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue;
 
 public class PW_CompilerController implements PW_Controller, Runnable {
 	private final CompilationImpl compilation;
+	private final PW_PushWorkQueue wq;
 
 	PW_CompilerController(final CompilationImpl aC) {
 		compilation = aC;
 
-		final Thread thread = new Thread(this);
-		thread.setName("[PW_CompilerController]");
-		thread.start();
-	}
+		// TODO 10/20 Make a start latch, then overcomplicate (Lifetime erl etc)
+		//  for now just return a "startable"
+		Startable task = compilation.con().askConcurrent(this, "[PW_CompilerController]");
 
-	//private final Queue<PW_PushWork> wq = new LinkedBlockingQueue/*ConcurrentLinkedQueue*/<>();
-	private final Queue<PW_PushWork> wq = new ConcurrentLinkedQueue<>();
+		wq = compilation.con().createWorkQueue();
+
+		task.start();
+	}
 
 	@Override
 	public void run() {
@@ -28,12 +29,6 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 		boolean x = true;
 		while (x) {
 			final PW_PushWork poll = wq.poll();
-			//final PW_PushWork poll;
-			//try {
-			//	poll = ((BlockingQueue<PW_PushWork>) wq).take();
-			//} catch (InterruptedException aE) {
-			//	throw new RuntimeException(aE);
-			//}
 
 			if (poll != null) {
 //                _defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5757, new Object[]{poll.name()});
@@ -42,16 +37,11 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 				//              _defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
 
 
-
-
-
-
-
 				// README 10/20 fails everything after one failed poll
 
 
 //nfdskj;lfndskjlfngdsjklfndsjklfdsnjfkldsnfdsjklfndsjklfndsjfkldsnkls
- x = false;
+				x = false;
 			}
 		}
 	}
@@ -64,3 +54,7 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 		return compilation._paths();
 	}
 }
+
+//
+//
+//
