@@ -17,14 +17,16 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.impl.*;
-import tripleo.elijah.comp.internal_move_soon.*;
-import tripleo.elijah.comp.nextgen.*;
-import tripleo.elijah.comp.nextgen.pn.*;
-import tripleo.elijah.comp.nextgen.pw.*;
-import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.g.*;
+import tripleo.elijah.comp.i.extra.CompilerInputListener;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.nextgen.CP_Paths;
+import tripleo.elijah.comp.nextgen.CP_Paths__;
+import tripleo.elijah.comp.nextgen.pn.PN_Ping;
+import tripleo.elijah.comp.nextgen.pw.PW_Controller;
+import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
+import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.*;
@@ -62,14 +64,13 @@ public class CompilationImpl implements Compilation {
 	private final          Finally                             _finally;
 	private final          CK_ObjectTree                       objectTree;
 	public                 CCI_Acceptor__CompilerInputListener cci_listener;
-	List<CompilerInstructions> xxx = new ArrayList<>();
-	PW_Controller pw_controller = new PW_CompilerController(this);
-	private @Nullable EOT_OutputTree       _output_tree = null;
-	private           List<CompilerInput>  _inputs;
-	private           IPipelineAccess      _pa;
-	private           IO                   io;
-	private           boolean              _inside;
-	private final CK_Monitor defaultMonitor = new __CK_Monitor();
+	List<CompilerInstructions> xxx;
+	PW_Controller              pw_controller;
+	private @Nullable      EOT_OutputTree                      _output_tree   = null;
+	private                List<CompilerInput>                 _inputs;
+	private                IPipelineAccess                     _pa;
+	private                IO                                  io;
+	private                boolean                             _inside;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
@@ -105,6 +106,8 @@ public class CompilationImpl implements Compilation {
 
 		cci_listener = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
+		pw_controller = new PW_CompilerController(this);
+		xxx           = new ArrayList<>();
 	}
 
 	public static ElLog_.@NotNull Verbosity gitlabCIVerbosity() {
