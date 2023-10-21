@@ -296,7 +296,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 		latch2.notifyLatch(true);
 	}
 
-//	@Override
+	@Override
 	public String finishPipeline_asString() {
 		return this.getClass().toString();
 	}

@@ -1,4 +1,4 @@
-package tripleo.elijah.comp;
+package tripleo.elijah.g;
 
 public interface GCompilationConfig {
 
