@@ -61,6 +61,14 @@ class CB_FindCIs implements CB_Action, Sensable {
 		almostComplete.execute(context, monitor);
 	}
 
+	private void logProgress_Stating(final String aSection, final String aStatement) {
+		Stupidity.println_out_3("** CB_FindCIs :: %s :: %s".formatted(aSection, aStatement));
+	}
+
+	private void logProgress_ofSensible(final SenseList.Sensible sensible) {
+		Stupidity.println_out_3("** CB_FindCIs :: LOG_SENSIBLE :: " + sensible.toString());
+	}
+
 	@Contract(pure = true)
 	@Override
 	public @NotNull String name() {
