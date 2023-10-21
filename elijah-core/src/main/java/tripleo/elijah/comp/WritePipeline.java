@@ -19,6 +19,7 @@ import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.g.GPipelineMember;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_generic.*;
@@ -56,7 +57,9 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 		}
 	};
 
-	public WritePipeline(final @NotNull IPipelineAccess pa) {
+	public WritePipeline(final @NotNull GPipelineAccess pa0) {
+		final IPipelineAccess pa = (IPipelineAccess) pa0;
+
 		st = new WritePipelineSharedState(pa);
 
 		// computed

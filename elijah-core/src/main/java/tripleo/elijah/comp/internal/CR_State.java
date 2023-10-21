@@ -46,10 +46,10 @@ public class CR_State implements GCR_State {
 	@Contract(pure = true)
 	public CR_State(ICompilationAccess aCa) {
 		ca = aCa;
-		ca.getCompilation().set_pa(new ProcessRecord_PipelineAccess()); // FIXME 05/28
 		pr = new ProcessRecordImpl(ca);
+		ce = (CompilationEnclosure) ca.getCompilationEnclosure();
 
-		ce = (CompilationEnclosure) ca.getCompilation().getCompilationEnclosure();
+		ce._resolvePipelineAccessPromise(new ProcessRecord_PipelineAccess());
 	}
 
 	public CompilationEnclosure getCompilationEnclosure() {
@@ -68,27 +68,19 @@ public class CR_State implements GCR_State {
 		compilationRunner = aCompilationRunner;
 	}
 
-	//public RuntimeProcesses rt;
-
-	public interface PipelinePlugin {
-		PipelineMember instance(final @NotNull AccessBus ab0);
-
-		String name();
-	}
-
 	private static class ProcessRecordImpl implements ProcessRecord {
 		// private final DeducePipeline dpl;
 		private final @NotNull ICompilationAccess ca;
 		private final          IPipelineAccess    pa;
 		private final @NotNull PipelineLogic      pipelineLogic;
-		private                AccessBus          ab;
+		//private                AccessBus          ab;
 
 		public ProcessRecordImpl(final @NotNull ICompilationAccess ca0) {
 			ca = ca0;
 
-			((Compilation) ca.getCompilation()).getCompilationEnclosure().getAccessBusPromise().then((final @NotNull AccessBus iab) -> {
-				ab = iab;
-			});
+			//((Compilation) ca.getCompilation()).getCompilationEnclosure().getAccessBusPromise().then((final @NotNull AccessBus iab) -> {
+				//ab = iab;
+			//});
 
 			pa = ((Compilation) ca.getCompilation()).get_pa();
 
@@ -98,7 +90,7 @@ public class CR_State implements GCR_State {
 		@Contract(pure = true)
 		@Override
 		public AccessBus ab() {
-			return ab;
+			return null;//ab;
 		}
 
 		@Contract(pure = true)
@@ -126,90 +118,6 @@ public class CR_State implements GCR_State {
 			final GN_WriteLogs         notable       = new GN_WriteLogs(ce.getCompilationAccess(), pipelineLogic.getLogs());
 
 			pa.notate(Provenance.DefaultCompilationAccess__writeLogs, notable);
-		}
-	}
-
-	public static class WriteMakefilePipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new WriteMakefilePipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "WriteMakefilePipeline";
-		}
-	}
-
-	public static class WriteMesonPipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new WriteMesonPipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "WriteMesonPipeline";
-		}
-	}
-
-	public static class WriteOutputTreePipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new WriteOutputTreePipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "WriteOutputTreePipeline";
-		}
-	}
-
-	public static class WritePipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new WritePipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "WritePipeline";
-		}
-	}
-
-	public static class DeducePipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new DeducePipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "DeducePipeline";
-		}
-	}
-
-	public static class EvaPipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new EvaPipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "EvaPipeline";
-		}
-	}
-
-	public static class LawabidingcitizenPipelinePlugin implements PipelinePlugin {
-		@Override
-		public @NotNull PipelineMember instance(final @NotNull AccessBus ab0) {
-			return new LawabidingcitizenPipeline(ab0.getPipelineAccess());
-		}
-
-		@Override
-		public @NotNull String name() {
-			return "LawabidingcitizenPipeline";
 		}
 	}
 

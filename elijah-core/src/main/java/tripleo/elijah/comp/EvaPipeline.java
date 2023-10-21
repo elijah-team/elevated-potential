@@ -14,6 +14,7 @@ import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
@@ -120,12 +121,12 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 	private CR_State _processState;
 
 	@Contract(pure = true)
-	public EvaPipeline(@NotNull IPipelineAccess pa0) {
-		pa = pa0;
+	public EvaPipeline(@NotNull GPipelineAccess pa0) {
+		pa = (IPipelineAccess) pa0;
 
 		//
 
-		ce = pa0.getCompilationEnclosure();
+		ce = pa.getCompilationEnclosure();
 
 		//
 
@@ -145,8 +146,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 
 		pa.setEvaPipeline(this);
 
-		pa.install_notate(Provenance.EvaPipeline__lgc_slot, GN_GenerateNodesIntoSink.class,
-				GN_GenerateNodesIntoSinkEnv.class);
+		pa.install_notate(Provenance.EvaPipeline__lgc_slot, GN_GenerateNodesIntoSink.class, GN_GenerateNodesIntoSinkEnv.class);
 	}
 
 	public void addFunctionStatement(final FunctionStatement aFunctionStatement) {

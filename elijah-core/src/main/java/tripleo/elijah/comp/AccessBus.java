@@ -1,18 +1,15 @@
 package tripleo.elijah.comp;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.internal.CR_State.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.vendor.mal.*;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.stages.gen_fn.EvaNode;
+import tripleo.elijah.stages.gen_generic.GenerateResult;
+import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
+import tripleo.vendor.mal.stepA_mal;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.List;
 
 public class AccessBus {
 	public interface AB_GenerateResultListener {
@@ -31,22 +28,11 @@ public class AccessBus {
 
 	private final DeferredObject<List<EvaNode>, Void, Void> lgcPromise = new DeferredObject<>();
 
-	private final Map<String, CR_State.PipelinePlugin> pipelinePlugins = new HashMap<>();
-
 	public AccessBus(final Compilation aC, final IPipelineAccess aPa) {
 		_c = aC;
 		_pa = aPa;
 
 		env = new stepA_mal.MalEnv2(null); // TODO what does null mean?
-	}
-
-	public void add(final @NotNull Function<AccessBus, PipelineMember> aCr) {
-		final PipelineMember x = aCr.apply(this);
-		_c.getCompilationEnclosure().getCompilationAccess().addPipeline(x);
-	}
-
-	public void addPipelinePlugin(final @NotNull PipelinePlugin aPlugin) {
-		pipelinePlugins.put(aPlugin.name(), aPlugin);
 	}
 
 	public stepA_mal.@NotNull MalEnv2 env() {
@@ -59,13 +45,6 @@ public class AccessBus {
 
 	public IPipelineAccess getPipelineAccess() {
 		return _pa;
-	}
-
-	public @Nullable PipelinePlugin getPipelinePlugin(final String aPipelineName) {
-		if (!(pipelinePlugins.containsKey(aPipelineName)))
-			return null;
-
-		return pipelinePlugins.get(aPipelineName);
 	}
 
 	public void resolveGenerateResult(final GenerateResult aGenerateResult) {

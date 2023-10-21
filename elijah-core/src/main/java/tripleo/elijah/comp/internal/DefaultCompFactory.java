@@ -20,6 +20,8 @@ import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.lang.impl.QualidentImpl;
 import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputTreeImpl;
 import tripleo.elijah.util.Helpers0;
 import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.Operation2;
@@ -131,5 +133,15 @@ class DefaultCompFactory implements CompFactory {
 				return thread;
 			}
 		};
+	}
+
+	@Override
+	public EOT_OutputTree createOutputTree() {
+		return new EOT_OutputTreeImpl();
+	}
+
+	@Override
+	public EIT_InputTree createInputTree() {
+		return new EIT_InputTreeImpl();
 	}
 }

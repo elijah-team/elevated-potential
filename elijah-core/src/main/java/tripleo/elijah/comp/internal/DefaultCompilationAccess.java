@@ -68,4 +68,9 @@ public class DefaultCompilationAccess implements ICompilationAccess {
 		return compilation.cfg().silent ? ElLog_.Verbosity.SILENT : ElLog_.Verbosity.VERBOSE;
 	}
 
+	@Override
+	public GCompilationEnclosure getCompilationEnclosure() {
+		return getCompilation().getCompilationEnclosure();
+	}
+
 }
