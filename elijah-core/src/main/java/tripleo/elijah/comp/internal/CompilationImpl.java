@@ -63,8 +63,6 @@ public class CompilationImpl implements Compilation {
 	List<CompilerInstructions> xxx = new ArrayList<>();
 	PW_Controller pw_controller = new PW_CompilerController(this);
 	private @Nullable EOT_OutputTree       _output_tree = null;
-	@Getter
-	private           CompilerInstructions rootCI;
 	private           List<CompilerInput>  _inputs;
 	private           IPipelineAccess      _pa;
 	private           IO                   io;
@@ -296,12 +294,17 @@ public class CompilationImpl implements Compilation {
 
 	@Override
 	public String getProjectName() {
-		return rootCI.getName();
+		return getRootCI().getName();
+	}
+
+	@Override
+	public CompilerInstructions getRootCI() {
+		return cci_listener._root();
 	}
 
 	@Override
 	public void setRootCI(CompilerInstructions rootCI) {
-		this.rootCI = rootCI;
+		cci_listener.id.root = rootCI;
 	}
 
 	@Override
@@ -339,9 +342,9 @@ public class CompilationImpl implements Compilation {
 
 			//return Operation.failure(new Exception("cis empty"));
 
-			rootCI = cci_listener._root();
-		} else if (rootCI == null) {
-			rootCI = cis.get(0);
+			setRootCI(cci_listener._root());
+		} else if (getRootCI() == null) {
+			setRootCI(cis.get(0));
 		}
 
 		if (null == pa.getCompilation().getInputs()) {
@@ -351,11 +354,12 @@ public class CompilationImpl implements Compilation {
 		if (!_inside) {
 			_inside = true;
 
-
-			rootCI.advise(_inputs.get(0));
+			getRootCI().advise(_inputs.get(0));
 
 
 			getCompilationEnclosure().getCompilationRunner().start(this.cci_listener._root(), pa);
+		} else {
+			NotImplementedException.raise_stop();
 		}
 
 		return Operation.success(Ok.instance());
