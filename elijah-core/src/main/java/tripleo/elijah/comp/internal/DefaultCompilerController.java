@@ -1,42 +1,24 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.util.*;
 
-import java.util.*;
+import java.util.List;
 
 public class DefaultCompilerController implements CompilerController {
-	public class _DefaultCon implements Con {
-		@Override
-		public CompilationRunner newCompilationRunner(final ICompilationAccess compilationAccess) {
-			final CR_State crState = new CR_State(compilationAccess);
-			final CompilationRunner cr = new CompilationRunner(compilationAccess, crState);
-
-			crState.setRunner(cr);
-
-			return cr;
-		}
-	}
-
-	List<String> args;
-	private Compilation c;
-
-	ICompilationBus cb;
-
+	List<String>        args;
+	ICompilationBus     cb;
 	List<CompilerInput> inputs;
+	private Compilation c;
 
 	@Override
 	public void _setInputs(final Compilation0 aCompilation, final List<CompilerInput> aInputs) {
-		c = (Compilation) aCompilation;
+		c      = (Compilation) aCompilation;
 		inputs = aInputs;
-	}
-
-	public void hook(final CompilationRunner aCr) {
-
 	}
 
 	@Override
@@ -46,17 +28,14 @@ public class DefaultCompilerController implements CompilerController {
 
 	@Override
 	public Operation<Ok> processOptions() {
-		final OptionsProcessor             op  = new ApacheOptionsProcessor();
-		final CompilerInstructionsObserver cio = new CompilerInstructionsObserver(c);
+		final OptionsProcessor             op                   = new ApacheOptionsProcessor();
+		final CompilerInstructionsObserver cio                  = new CompilerInstructionsObserver(c);
+		final CompilationEnclosure         compilationEnclosure = c.getCompilationEnclosure();
 
-		final CompilationEnclosure compilationEnclosure = c.getCompilationEnclosure();
+		compilationEnclosure.setCompilationAccess(c.con().createCompilationAccess());
+		compilationEnclosure.setCompilationBus(cb = c.con().createCompilationBus());
 
-		compilationEnclosure.setCompilationAccess(((Compilation)c).con().createCompilationAccess());
-		compilationEnclosure.setCompilationBus(((Compilation)c).con().createCompilationBus());
-
-		cb = c.getCompilationEnclosure().getCompilationBus();
-
-		((Compilation)c)._cis().set_cio(cio);
+		c._cis().set_cio(cio);
 
 		return op.process(c, inputs, cb); // TODO 09/08 Make this more complicated
 	}
@@ -66,9 +45,13 @@ public class DefaultCompilerController implements CompilerController {
 		runner(new _DefaultCon());
 	}
 
+	public void hook(final CompilationRunner aCr) {
+
+	}
+
 	@Override
 	public void runner(final @NotNull Con con) {
-		((Compilation)c)._cis().subscribeTo(c);
+		c._cis().subscribeTo(c);
 
 		final CompilationEnclosure ce = c.getCompilationEnclosure();
 
@@ -76,7 +59,7 @@ public class DefaultCompilerController implements CompilerController {
 		assert compilationAccess != null;
 
 		final ICompilationRunner icr = con.newCompilationRunner(compilationAccess);
-		final CompilationRunner  cr = (CompilationRunner) icr;
+		final CompilationRunner  cr  = (CompilationRunner) icr;
 
 		ce.setCompilationRunner(cr);
 
@@ -97,5 +80,17 @@ public class DefaultCompilerController implements CompilerController {
 //		}
 
 		((DefaultCompilationBus) cb).runProcesses();
+	}
+
+	public class _DefaultCon implements Con {
+		@Override
+		public CompilationRunner newCompilationRunner(final ICompilationAccess compilationAccess) {
+			final CR_State          crState = new CR_State(compilationAccess);
+			final CompilationRunner cr      = new CompilationRunner(compilationAccess, crState);
+
+			crState.setRunner(cr);
+
+			return cr;
+		}
 	}
 }
