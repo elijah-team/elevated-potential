@@ -3,7 +3,7 @@ package tripleo.elijah.comp.internal;
 import tripleo.elijah.comp.Pipeline;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.GPipelineAccess;
+import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.util.*;
 

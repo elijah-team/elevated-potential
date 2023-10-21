@@ -4,6 +4,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.g.GPipelineMember;
 import tripleo.elijah.stages.hooligan.pipeline_impl.*;
 
 public class LawabidingcitizenPipeline extends PipelineMember implements GPipelineMember {

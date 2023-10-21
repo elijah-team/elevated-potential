@@ -10,6 +10,7 @@ import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.g.GCompilationEnclosure;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.pre_world.*;

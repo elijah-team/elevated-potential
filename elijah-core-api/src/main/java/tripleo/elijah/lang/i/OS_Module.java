@@ -52,8 +52,6 @@ public interface OS_Module extends OS_Element, GOS_Module {
 	@Override
 	void serializeTo(SmallWriter sw);
 
-	void setContext(GModuleContext mctx);
-
 	void setContext(ModuleContext mctx);
 
 	void setFileName(String fileName);

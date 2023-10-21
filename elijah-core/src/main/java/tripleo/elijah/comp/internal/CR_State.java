@@ -20,6 +20,8 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.g.GCR_State;
+import tripleo.elijah.g.GPipelineMember;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.output.NG_OutputItem;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;

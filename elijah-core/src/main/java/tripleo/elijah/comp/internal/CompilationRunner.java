@@ -10,6 +10,7 @@ import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.specs.EzCache;
+import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.stateful._RegistrationTarget;
 import tripleo.elijah.util.Operation;
 

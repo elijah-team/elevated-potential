@@ -19,6 +19,7 @@ import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.g.GPipelineMember;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.generate.*;

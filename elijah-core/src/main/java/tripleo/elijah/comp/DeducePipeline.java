@@ -35,7 +35,7 @@ public class DeducePipeline extends PipelineMember {
 		impl.run();
 	}
 
-//	@Override
+	@Override
 	public String finishPipeline_asString() {
 		return this.getClass().toString();
 	}

@@ -15,6 +15,7 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.g.GPipelineMember;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_generic.*;

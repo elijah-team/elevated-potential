@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.i;
+package tripleo.elijah.g;
 
 public interface GPipeline {
 }

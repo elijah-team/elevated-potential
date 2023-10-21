@@ -6,6 +6,7 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.nextgen.impl.*;
+import tripleo.elijah.g.GCR_State;
 import tripleo.elijah.util.*;
 
 import java.io.*;

@@ -8,7 +8,7 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.g.GFunctionMapHook;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.stages.gen_fn.EvaFunction;
 

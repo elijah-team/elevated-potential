@@ -22,6 +22,7 @@ import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.g.GFunctionMapHook;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
 import tripleo.elijah.nextgen.*;
