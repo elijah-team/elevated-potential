@@ -8,22 +8,16 @@ public interface FloatExpression extends IExpression {
 	IExpression getLeft();
 
 	@Override
-	OS_Type getType();
-
-	@Override
 	boolean is_simple();
 
 	@Override
 	String repr_();
 
 	@Override
-	void setKind(ExpressionKind aType);
+	void setKind(ExpressionKind aExpressionKind);
 
 	@Override
 	void setLeft(IExpression aLeft);
-
-	@Override
-	void setType(OS_Type deducedExpression);
 
 	@Override
 	String toString();

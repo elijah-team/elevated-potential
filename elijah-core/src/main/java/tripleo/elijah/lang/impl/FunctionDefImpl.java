@@ -6,15 +6,8 @@
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
  *
  */
-/*
- * Created on Aug 30, 2005 8:43:27 PM
- *
- * $Id$
- */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.contexts.FunctionContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.nextgen.names.i.EN_Name;
@@ -23,19 +16,20 @@ import tripleo.elijah.lang.nextgen.names.impl.ENU_FunctionName;
 import tripleo.elijah.lang.types.OS_FuncType;
 import tripleo.elijah.lang2.ElElementVisitor;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+/*
+ * Created on Aug 30, 2005 8:43:27 PM
+ */
 // TODO FunctionDef is not a Container is it?
-public class FunctionDefImpl extends BaseFunctionDef
-		implements Documentable, ClassItem, tripleo.elijah.lang.i.FunctionDef {
+public class FunctionDefImpl extends BaseFunctionDef implements FunctionDef {
 
-	private final OS_Element parent;
-	// region constructor
-	private FunctionModifiers _mod;
-	private boolean _isAbstract;
-	// region modifiers
-	private OS_FuncType osType;
-
-	// endregion
-	private @Nullable TypeName _returnType = null;
+	private final     OS_Element        parent;
+	private           FunctionModifiers _mod;
+	private           boolean           _isAbstract;
+	private           OS_FuncType       osType;
+	private @Nullable TypeName          _returnType = null;
 
 	public FunctionDefImpl(OS_Element element, Context context) {
 		parent = element;
@@ -64,10 +58,6 @@ public class FunctionDefImpl extends BaseFunctionDef
 		return funName.getName();
 	}
 
-	// endregion
-
-	// region abstract
-
 	@Override
 	public @NotNull OS_FuncType getOS_Type() {
 		if (osType == null)
@@ -80,11 +70,9 @@ public class FunctionDefImpl extends BaseFunctionDef
 		return parent;
 	}
 
-	// endregion
-
 	@Override
-	public void postConstruct() { // TODO
-
+	public void postConstruct() {
+		// TODO
 	}
 
 	/**
@@ -150,17 +138,16 @@ public class FunctionDefImpl extends BaseFunctionDef
 	}
 
 	@Override
-	public String toString() {
-		return String.format("<Function %s %s %s>", parent, name(), getArgs());
-	}
-
-	@Override
 	public void visitGen(final @NotNull ElElementVisitor visit) {
 		visit.visitFunctionDef(this);
 	}
+
+	@Override
+	public String toString() {
+		return String.format("<Function %s %s %s>", parent, name(), getArgs());
+	}
 }
 
-//
 //
 //
 //

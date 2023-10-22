@@ -181,8 +181,8 @@ public class PConParser {
 		return new DefFunctionDefImpl(aParent, aCtx);
 	}
 
-	public IExpression new_DotExpressionImpl(final IExpression aE1, final IdentExpression aE) {
-		return new DotExpressionImpl(aE1, aE1);
+	public IExpression new_DotExpressionImpl(final IExpression aDotExpressionLeft, final IdentExpression aDotExpressionRight) {
+		return new DotExpressionImpl(aDotExpressionLeft, aDotExpressionRight);
 	}
 
 	public FormalArgList new_FormalArgListImpl() {

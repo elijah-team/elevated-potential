@@ -22,7 +22,6 @@ import tripleo.elijah.lang.i.OS_Type;
 public class GetItemExpressionImpl extends AbstractExpression implements tripleo.elijah.lang.i.GetItemExpression { // TODO
 	// binary?
 
-	OS_Type _type;
 	public IExpression index; // TODO what about multidimensional arrays?
 
 	public GetItemExpressionImpl(final IExpression ee, final IExpression expr) {
@@ -31,19 +30,9 @@ public class GetItemExpressionImpl extends AbstractExpression implements tripleo
 		this._kind = ExpressionKind.GET_ITEM;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see tripleo.elijah.lang.impl.IExpression#getKind()
-	 */
 	@Override
 	public @NotNull ExpressionKind getKind() {
 		return ExpressionKind.GET_ITEM;
-	}
-
-	@Override
-	public OS_Type getType() {
-		return _type;
 	}
 
 	@Override
@@ -51,11 +40,6 @@ public class GetItemExpressionImpl extends AbstractExpression implements tripleo
 		return index;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see tripleo.elijah.lang.impl.IExpression#is_simple()
-	 */
 	@Override
 	public boolean is_simple() {
 		return false; // TODO is this correct? Let's err on the side of caution
@@ -64,12 +48,9 @@ public class GetItemExpressionImpl extends AbstractExpression implements tripleo
 	@Override
 	public void parens(final Token lb, final Token rb) {
 		// TODO implement me later
-
-	}
-
-	@Override
-	public void setType(final OS_Type deducedExpression) {
-		_type = deducedExpression;
+		// _syntax
+		// https://en.wikipedia.org/w/index.php?title=Concrete_syntax_tree&redirect=no
+		// https://docs.openrewrite.org/concepts-explanations/lossless-semantic-trees
 	}
 
 }

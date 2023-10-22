@@ -18,9 +18,6 @@ public interface CharLitExpression extends IExpression {
 	IExpression getLeft();
 
 	@Override
-	OS_Type getType();
-
-	@Override
 	boolean is_simple();
 
 	/*
@@ -38,7 +35,7 @@ public interface CharLitExpression extends IExpression {
 	 * ExpressionType)
 	 */
 	@Override
-	void setKind(ExpressionKind aIncrement);
+	void setKind(ExpressionKind aExpressionKind);
 
 	/*
 	 * (non-Javadoc)
@@ -48,9 +45,6 @@ public interface CharLitExpression extends IExpression {
 	 */
 	@Override
 	void setLeft(IExpression iexpression);
-
-	@Override
-	void setType(OS_Type deducedExpression);
 
 	@Override
 	String toString();
