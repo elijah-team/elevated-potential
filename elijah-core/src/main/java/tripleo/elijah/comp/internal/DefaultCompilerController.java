@@ -23,7 +23,7 @@ public class DefaultCompilerController implements CompilerController {
 
 	@Override
 	public void printUsage() {
-		Stupidity.println_out_2("Usage: eljc [--showtree] [-sE|O] <directory or .ez file names>");
+		SimplePrintLoggerToRemoveSoon.println_out_2("Usage: eljc [--showtree] [-sE|O] <directory or .ez file names>");
 	}
 
 	@Override

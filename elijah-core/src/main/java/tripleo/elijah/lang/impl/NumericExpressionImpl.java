@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.io.File;
 import java.util.List;
@@ -125,7 +126,7 @@ public class NumericExpressionImpl implements NumericExpression {
 	@Override // IExpression
 	public void setKind(final @NotNull ExpressionKind aExpressionKind) {
 		// log and ignore
-		tripleo.elijah.util.Stupidity
+		SimplePrintLoggerToRemoveSoon
 				.println_err_2("Trying to set ExpressionType of NumericExpression to " + aExpressionKind.toString());
 	}
 

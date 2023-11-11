@@ -19,6 +19,7 @@ import tripleo.elijah.lang.i.OS_Type;
 import tripleo.elijah.lang.i.VariableStatement;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.IntegerIA;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.Objects;
 
@@ -64,11 +65,11 @@ public enum VTE_TypePromises {
 								aDeduceTypes2.phase);
 						pte.setFunctionInvocation(fi);
 					} else
-						tripleo.elijah.util.Stupidity.println_out_2("175 pte.fi is not null");
+						SimplePrintLoggerToRemoveSoon.println_out_2("175 pte.fi is not null");
 					aIntegerIA.gf.addDependentFunction(pte.getFunctionInvocation()); // TODO is this needed (here)?
 				} else {
 					int y = 3;
-					tripleo.elijah.util.Stupidity.println_out_2("3074");
+					SimplePrintLoggerToRemoveSoon.println_out_2("3074");
 				}
 			}
 		});
@@ -86,41 +87,41 @@ public enum VTE_TypePromises {
 					switch (attached1.getType()) {
 					case USER_CLASS:
 						if (ite.type == null) {
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
-							tripleo.elijah.util.Stupidity
+							SimplePrintLoggerToRemoveSoon
 									.println_err_2("198 ======================================================");
 
 							break;
@@ -235,7 +236,7 @@ public enum VTE_TypePromises {
 			@Override
 			public void onDone(@NotNull GenType result) {
 				if (result.getResolved().getClassOf() != fd.getParent()) {
-					tripleo.elijah.util.Stupidity.println_err_2("** Failed assertion");
+					SimplePrintLoggerToRemoveSoon.println_err_2("** Failed assertion");
 				}
 
 				@NotNull

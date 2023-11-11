@@ -14,6 +14,7 @@ import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.stages.deduce.pipeline_impl.*;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 /**
  * Created 8/21/21 10:10 PM
@@ -29,7 +30,7 @@ public class DeducePipeline extends PipelineMember {
 	}
 
 	protected void logProgress(final String g) {
-		tripleo.elijah.util.Stupidity.println_err_2(g);
+		SimplePrintLoggerToRemoveSoon.println_err_2(g);
 	}
 
 	@Override

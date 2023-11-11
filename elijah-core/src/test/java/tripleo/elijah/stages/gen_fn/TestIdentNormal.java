@@ -20,6 +20,7 @@ import tripleo.elijah.stages.instructions.IdentIA;
 import tripleo.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class TestIdentNormal {
 		final InstructionArgument s = generateFunctions.simplify_expression(pce, generatedFunction, ctx2);
 		@NotNull
 		final List<InstructionArgument> l = BaseEvaFunction._getIdentIAPathList(s);
-		tripleo.elijah.util.Stupidity.println_out_2(String.valueOf(l));
+		SimplePrintLoggerToRemoveSoon.println_out_2(String.valueOf(l));
 //      tripleo.elijah.util.Stupidity.println_out_2(generatedFunction.getIdentIAPathNormal());
 
 		//

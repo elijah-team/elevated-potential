@@ -8,7 +8,7 @@ import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_StepsContext;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.sense.*;
-import tripleo.elijah.util.Stupidity;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.io.File;
 import java.nio.file.NotDirectoryException;
@@ -46,11 +46,11 @@ class CB_FindCIs implements CB_Action, Sensable {
 
 		logProgress_Stating("outputString.size", ""+o.get().size());
 
-		Stupidity.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
+		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
 
 		for (final CB_OutputString outputString : o.get()) {
 			// 08/13
-			Stupidity.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
+			SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
 		}
 
 		// TODO capture action outputs
@@ -62,11 +62,11 @@ class CB_FindCIs implements CB_Action, Sensable {
 	}
 
 	private void logProgress_Stating(final String aSection, final String aStatement) {
-		Stupidity.println_out_3("** CB_FindCIs :: %s :: %s".formatted(aSection, aStatement));
+		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: %s :: %s".formatted(aSection, aStatement));
 	}
 
 	private void logProgress_ofSensible(final SenseList.Sensible sensible) {
-		Stupidity.println_out_3("** CB_FindCIs :: LOG_SENSIBLE :: " + sensible.toString());
+		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: LOG_SENSIBLE :: " + sensible.toString());
 	}
 
 	@Contract(pure = true)

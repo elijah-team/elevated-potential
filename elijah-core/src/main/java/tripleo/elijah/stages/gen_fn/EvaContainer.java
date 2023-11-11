@@ -22,6 +22,7 @@ import tripleo.elijah.stages.deduce.RegisterClassInvocation_env;
 import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_VarTableEntry;
 import tripleo.elijah.util.Maybe;
 import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -124,7 +125,7 @@ public interface EvaContainer extends EvaNode {
 		}
 
 		public void resolve(@NotNull EvaNode aResolvedType) {
-			tripleo.elijah.util.Stupidity
+			SimplePrintLoggerToRemoveSoon
 					.println_out_2(String.format("** [GeneratedContainer 56] resolving VarTableEntry %s to %s",
 							nameToken, aResolvedType.identityString()));
 			_resolvedType = aResolvedType;

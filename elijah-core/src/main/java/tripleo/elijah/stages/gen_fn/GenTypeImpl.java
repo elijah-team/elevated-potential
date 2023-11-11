@@ -26,6 +26,7 @@ import tripleo.elijah.stages.deduce.post_bytecode.setup_GenType_Action;
 import tripleo.elijah.stages.deduce.post_bytecode.setup_GenType_Action_Arena;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -402,7 +403,7 @@ public class GenTypeImpl implements GenType {
 		case USER_CLASS:
 			resolved = aType;
 		default:
-			tripleo.elijah.util.Stupidity.println_err_2("48 Unknown in set: " + aType);
+			SimplePrintLoggerToRemoveSoon.println_err_2("48 Unknown in set: " + aType);
 		}
 	}
 

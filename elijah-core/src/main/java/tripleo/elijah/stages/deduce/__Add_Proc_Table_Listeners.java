@@ -60,7 +60,7 @@ public class __Add_Proc_Table_Listeners {
 					@Nullable
 					ProcTableEntry procTableEntry = idte2.getCallablePTE();
 					if (procTableEntry == pte)
-						tripleo.elijah.util.Stupidity.println_err_2("940 procTableEntry == pte");
+						SimplePrintLoggerToRemoveSoon.println_err_2("940 procTableEntry == pte");
 					if (procTableEntry != null) {
 						// TODO doesn't seem like we need this
 						procTableEntry.onFunctionInvocation(functionInvocation -> {
@@ -76,7 +76,7 @@ public class __Add_Proc_Table_Listeners {
 								if (functionInvocation.getClassInvocation() == fi.getClassInvocation()
 										&& functionInvocation.getFunction() == fi.getFunction()
 										&& functionInvocation.pte == fi.pte)
-									tripleo.elijah.util.Stupidity
+									SimplePrintLoggerToRemoveSoon
 											.println_err_2("955 It seems like we are generating the same thing...");
 								else {
 									int ok = 2;

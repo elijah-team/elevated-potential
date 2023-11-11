@@ -22,7 +22,7 @@ import tripleo.elijah.lang2.ElElementVisitor;
 import tripleo.elijah.stages.deduce.fluffy.impl.FluffyModuleImpl;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Stupidity;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -257,7 +257,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 					}
 					assert entryPoints.size() == eps || entryPoints.size() == eps + 1; // TODO this will fail one day
 
-					Stupidity.println_out_2("243 " + entryPoints + " " + _fileName);
+					SimplePrintLoggerToRemoveSoon.println_out_2("243 " + entryPoints + " " + _fileName);
 //					break; // allow for "extend" class
 				}
 			}

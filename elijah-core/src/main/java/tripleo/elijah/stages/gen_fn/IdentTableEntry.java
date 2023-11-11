@@ -27,6 +27,7 @@ import tripleo.elijah.stages.instructions.IdentIA;
 import tripleo.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah.stages.instructions.IntegerIA;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -395,7 +396,7 @@ public class IdentTableEntry extends BaseTableEntry1
 		else {
 			// final Holder<ProcTableEntry> holder = new Holder<ProcTableEntry>();
 			_p_constructableDeferred.then(el -> {
-				tripleo.elijah.util.Stupidity
+				SimplePrintLoggerToRemoveSoon
 						.println_err_2(String.format("Setting constructable_pte twice 1) %s and 2) %s", el, aPte));
 				// holder.set(el);
 			});

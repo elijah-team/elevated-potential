@@ -23,6 +23,7 @@ import tripleo.elijah.stages.inter.ModuleThing;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.Holder;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah.world.impl.DefaultLivingFunction;
 import tripleo.util.range.Range;
 
@@ -65,25 +66,25 @@ public abstract class BaseEvaFunction
 	private          EvaContainerNC                 parent;
 
 	static void printTables(@NotNull EvaFunction gf) {
-		tripleo.elijah.util.Stupidity.println_out_2("VariableTable ");
+		SimplePrintLoggerToRemoveSoon.println_out_2("VariableTable ");
 		for (VariableTableEntry variableTableEntry : gf.vte_list) {
-			tripleo.elijah.util.Stupidity.println_out_2("\t" + variableTableEntry);
+			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + variableTableEntry);
 		}
-		tripleo.elijah.util.Stupidity.println_out_2("ConstantTable ");
+		SimplePrintLoggerToRemoveSoon.println_out_2("ConstantTable ");
 		for (ConstantTableEntry constantTableEntry : gf.cte_list) {
-			tripleo.elijah.util.Stupidity.println_out_2("\t" + constantTableEntry);
+			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + constantTableEntry);
 		}
-		tripleo.elijah.util.Stupidity.println_out_2("ProcTable     ");
+		SimplePrintLoggerToRemoveSoon.println_out_2("ProcTable     ");
 		for (ProcTableEntry procTableEntry : gf.prte_list) {
-			tripleo.elijah.util.Stupidity.println_out_2("\t" + procTableEntry);
+			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + procTableEntry);
 		}
-		tripleo.elijah.util.Stupidity.println_out_2("TypeTable     ");
+		SimplePrintLoggerToRemoveSoon.println_out_2("TypeTable     ");
 		for (TypeTableEntry typeTableEntry : gf.tte_list) {
-			tripleo.elijah.util.Stupidity.println_out_2("\t" + typeTableEntry);
+			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + typeTableEntry);
 		}
-		tripleo.elijah.util.Stupidity.println_out_2("IdentTable    ");
+		SimplePrintLoggerToRemoveSoon.println_out_2("IdentTable    ");
 		for (IdentTableEntry identTableEntry : gf.idte_list) {
-			tripleo.elijah.util.Stupidity.println_out_2("\t" + identTableEntry);
+			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + identTableEntry);
 		}
 	}
 
@@ -489,7 +490,7 @@ public abstract class BaseEvaFunction
 					holder.set(result);
 				}
 			});
-			tripleo.elijah.util.Stupidity.println_err_2(String.format("Trying to resolve function twice 1) %s 2) %s",
+			SimplePrintLoggerToRemoveSoon.println_err_2(String.format("Trying to resolve function twice 1) %s 2) %s",
 																	  holder.get().asString(), aType.asString()));
 		}
 	}
