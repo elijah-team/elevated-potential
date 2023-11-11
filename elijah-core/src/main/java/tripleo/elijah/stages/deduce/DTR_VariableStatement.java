@@ -240,7 +240,7 @@ public class DTR_VariableStatement {
 					}
 				}
 			} else {
-				tripleo.elijah.util.Stupidity
+				SimplePrintLoggerToRemoveSoon
 						.println_err("Unexpected value: " + state + "for " + variableStatement.getName());
 			}
 		}

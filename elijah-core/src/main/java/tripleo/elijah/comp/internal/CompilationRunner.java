@@ -13,6 +13,7 @@ import tripleo.elijah.comp.specs.EzCache;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.stateful._RegistrationTarget;
 import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.function.Supplier;
 
@@ -81,7 +82,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		if (number == 130)
 			return;
 
-		tripleo.elijah.util.Stupidity.println_err_3("%d %s".formatted(number, text));
+		SimplePrintLoggerToRemoveSoon.println_err_3("%d %s".formatted(number, text));
 	}
 
 	@Override

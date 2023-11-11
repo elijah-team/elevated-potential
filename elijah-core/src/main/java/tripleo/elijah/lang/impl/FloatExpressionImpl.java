@@ -62,7 +62,7 @@ public class FloatExpressionImpl implements FloatExpression {
 	@Override
 	public void setKind(final @NotNull ExpressionKind aExpressionKind) {
 		// log and ignore
-		tripleo.elijah.util.Stupidity.println_err_2("Trying to set ExpressionType of FloatExpression to " + aExpressionKind.toString());
+		SimplePrintLoggerToRemoveSoon.println_err_2("Trying to set ExpressionType of FloatExpression to " + aExpressionKind.toString());
 	}
 
 	@Override

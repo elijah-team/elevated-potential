@@ -107,7 +107,7 @@ public class IdentExpressionImpl implements IdentExpression {
 	@Override
 	public void setKind(final @NotNull ExpressionKind aExpressionKind) {
 		// log and ignore
-		tripleo.elijah.util.Stupidity
+		SimplePrintLoggerToRemoveSoon
 				.println_err_2("Trying to set ExpressionType of IdentExpression to " + aExpressionKind.toString());
 	}
 

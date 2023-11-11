@@ -47,7 +47,7 @@ public class CX_realParseEzFile2 {
 			case FAILURE -> {
 				final Exception e = cio.failure();
 				assert e != null;
-				Stupidity.println_err_2(("parser exception: " + e));
+				SimplePrintLoggerToRemoveSoon.println_err_2(("parser exception: " + e));
 				e.printStackTrace(System.err);
 				return cio;
 			}

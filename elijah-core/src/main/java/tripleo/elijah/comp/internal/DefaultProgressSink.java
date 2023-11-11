@@ -14,7 +14,7 @@ public class DefaultProgressSink implements IProgressSink {
 		// component.note(code, type, params);
 		if (component.isPrintErr(code, type)) {
 			final String s = component.printErr(code, type, params);
-			Stupidity.println_err_3(s);
+			SimplePrintLoggerToRemoveSoon.println_err_3(s);
 		}
 	}
 }

@@ -15,6 +15,7 @@ import tripleo.elijah.stages.instructions.Instruction;
 import tripleo.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah.stages.instructions.IntegerIA;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah.work.*;
 
 import org.jetbrains.annotations.NotNull;
@@ -102,7 +103,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 				if (ci != null) {
 					pte.setClassInvocation(ci);
 				} else
-					tripleo.elijah.util.Stupidity.println_err2("542 Null ClassInvocation");
+					SimplePrintLoggerToRemoveSoon.println_err2("542 Null ClassInvocation");
 			}
 
 			pte.setFunctionInvocation(fi);

@@ -18,11 +18,11 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 	}
 
 	private static void noteNonsense(int code, String message) {
-		Stupidity.println_out_2(String.format("%d %s%n", code, message));
+		SimplePrintLoggerToRemoveSoon.println_out_2(String.format("%d %s%n", code, message));
 	}
 
 	private static void noteNonsenseErr(int code, String message) {
-		Stupidity.println_err2(String.format("** [noteNonsenseErr] %d %s%n", code, message));
+		SimplePrintLoggerToRemoveSoon.println_err2(String.format("** [noteNonsenseErr] %d %s%n", code, message));
 	}
 
 	private final EvaContainer.VarTableEntry _principal;
