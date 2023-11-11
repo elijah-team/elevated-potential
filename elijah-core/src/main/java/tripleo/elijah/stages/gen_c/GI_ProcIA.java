@@ -20,6 +20,7 @@ import tripleo.elijah.stages.instructions.Instruction;
 import tripleo.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah.stages.instructions.ProcIA;
 import tripleo.elijah.util.Operation2;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -109,7 +110,7 @@ class GI_ProcIA implements GenerateC_Item {
 		final FunctionInvocation fi = pte.getFunctionInvocation();
 
 		if (fi == null) {
-			tripleo.elijah.util.Stupidity.println_err_2("7777777777777777 fi getIdentIAPath_Proc " + pte);
+			SimplePrintLoggerToRemoveSoon.println_err_2("7777777777777777 fi getIdentIAPath_Proc " + pte);
 
 			return null;// throw new IllegalStateException();
 		}

@@ -102,7 +102,7 @@ public class DeduceTypeResolve {
 		GenType genType = _inj().new_GenTypeImpl();
 
 		public void logProgress(int ignoredCode, String message) {
-			tripleo.elijah.util.Stupidity.println_err_2(message);
+			SimplePrintLoggerToRemoveSoon.println_err_2(message);
 		}
 
 		@Override

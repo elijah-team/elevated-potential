@@ -14,7 +14,7 @@ import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.GenerateResultItem;
 import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
-import tripleo.elijah.util.Stupidity;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -89,7 +89,7 @@ public class ElSystem {
 		// 30: EvaFunction
 		// 55: EvaConstructor
 		// 140: not above
-		Stupidity.println_out_2(MessageFormat.format("{0} {1} {2}", code, evaNode.toString(), s));
+		SimplePrintLoggerToRemoveSoon.println_out_2(MessageFormat.format("{0} {1} {2}", code, evaNode.toString(), s));
 	}
 }
 
