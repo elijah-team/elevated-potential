@@ -17,6 +17,7 @@ import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah.util.io.*;
 
 import java.io.*;
@@ -64,7 +65,7 @@ public class WriteMesonPipeline implements PipelineMember, @NotNull Consumer<Sup
 			@Override
 			public void accept(final Supplier<Old_GenerateResult> aGenerateResultSupplier) {
 				if (grs != null) {
-					tripleo.elijah.util.Stupidity.println_err_2("234 grs not null " + grs.getClass().getName());
+					SimplePrintLoggerToRemoveSoon.println_err_2("234 grs not null " + grs.getClass().getName());
 					return;
 				}
 

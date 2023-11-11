@@ -11,6 +11,7 @@ package tripleo.elijah.lang.impl;
 import antlr.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 public class VariableReferenceImpl extends AbstractExpression
 		implements OS_Expression, tripleo.elijah.lang.i.VariableReference {
@@ -59,14 +60,14 @@ public class VariableReferenceImpl extends AbstractExpression
 	@Override
 	public void setMain(final String s) {
 		main = s;
-		tripleo.elijah.util.Stupidity.println_out_2(repr_());
+		SimplePrintLoggerToRemoveSoon.println_out_2(repr_());
 	}
 
 	@Override
 	public void setMain(final @NotNull Token t) {
 		final String s = t.getText();
 		main = s;
-		tripleo.elijah.util.Stupidity.println_out_2(repr_());
+		SimplePrintLoggerToRemoveSoon.println_out_2(repr_());
 	}
 
 	@Override

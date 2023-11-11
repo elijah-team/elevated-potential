@@ -47,7 +47,7 @@ public class CompilationTest {
 
 		worldModules.stream().forEach(wm -> {
 			var mod = wm.module();
-			Stupidity.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
+			SimplePrintLoggerToRemoveSoon.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
 		});
 
 		assertEquals(3/*7*//* 12 */, worldModules.size());

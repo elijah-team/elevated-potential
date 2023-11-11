@@ -23,6 +23,7 @@ import tripleo.elijah.lang.types.OS_UserType;
 import tripleo.elijah.stages.gen_fn.GenType;
 import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
 import java.util.Objects;
@@ -116,7 +117,7 @@ public class DeduceTypesTest2 {
 		final DeduceTypes2 d = dp.deduceModule(wm);
 
 		final GenType x = DeduceLookupUtils.deduceExpression(d, x1, fc);
-		tripleo.elijah.util.Stupidity.println_out_2("-- deduceExpression >>" + x);
+		SimplePrintLoggerToRemoveSoon.println_out_2("-- deduceExpression >>" + x);
 //		assertEquals(new OS_BuiltInType(BuiltInTypes..SystemInteger).getBType(), x.getBType());
 //		final RegularTypeName tn = new RegularTypeNameImpl();
 		final VariableTypeName tn = new VariableTypeNameImpl();

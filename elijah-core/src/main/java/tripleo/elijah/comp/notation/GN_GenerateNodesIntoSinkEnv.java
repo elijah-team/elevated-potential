@@ -13,6 +13,7 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
 import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah.world.i.WorldModule;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public record GN_GenerateNodesIntoSinkEnv(
 		final LibraryStatementPart lsp = mod.getLsp();
 
 		if (lsp == null) {
-			tripleo.elijah.util.Stupidity.println_err_2("7777777777777777777 mod.getFilename " + mod.getFileName());
+			SimplePrintLoggerToRemoveSoon.println_err_2("7777777777777777777 mod.getFilename " + mod.getFileName());
 			return null;
 		}
 

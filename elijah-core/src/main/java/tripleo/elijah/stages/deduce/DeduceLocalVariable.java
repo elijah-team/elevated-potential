@@ -246,20 +246,20 @@ public class DeduceLocalVariable {
 		}
 
 		if (Self == null) {
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
 
 			return;
 		}

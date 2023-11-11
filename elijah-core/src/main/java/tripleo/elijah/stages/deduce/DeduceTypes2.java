@@ -2814,7 +2814,7 @@ public class DeduceTypes2 {
 	public void found_element_for_ite(BaseEvaFunction generatedFunction, @NotNull IdentTableEntry ite,
 			@Nullable OS_Element y, Context ctx, final DeduceCentral central) {
 		if (y != ite.getResolvedElement()) {
-			tripleo.elijah.util.Stupidity
+			SimplePrintLoggerToRemoveSoon
 					.println_err_2(String.format("2571 Setting FoundElement for ite %s to %s when it is already %s",
 							ite, y, ite.getResolvedElement()));
 		}
@@ -3182,7 +3182,7 @@ public class DeduceTypes2 {
 			try {
 				cte.getTypeTableEntry().setAttached(resolve_type(_inj().new_OS_BuiltinType(aBuiltInType), aContext));
 			} catch (ResolveError resolveError) {
-				tripleo.elijah.util.Stupidity.println_out_2("117 Can't be here");
+				SimplePrintLoggerToRemoveSoon.println_out_2("117 Can't be here");
 				resolveError.printStackTrace(); // TODO print diagnostic
 			}
 		}

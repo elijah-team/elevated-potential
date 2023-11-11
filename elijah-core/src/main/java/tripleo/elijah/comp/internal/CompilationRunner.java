@@ -10,7 +10,6 @@ import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
 
-import java.util.*;
 import java.util.function.*;
 
 public class CompilationRunner extends _RegistrationTarget {
@@ -99,7 +98,7 @@ public class CompilationRunner extends _RegistrationTarget {
 		if (number == 130)
 			return;
 
-		tripleo.elijah.util.Stupidity.println_err_3("%d %s".formatted(number, text));
+		SimplePrintLoggerToRemoveSoon.println_err_3("%d %s".formatted(number, text));
 	}
 
 	public void start(final CompilerInstructions aRootCI, final @NotNull IPipelineAccess pa) {

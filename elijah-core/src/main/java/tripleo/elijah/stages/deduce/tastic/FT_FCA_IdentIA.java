@@ -577,7 +577,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 			case MODULO:
 			case SUBTRACTION:
 				int y = 2;
-				tripleo.elijah.util.Stupidity.println_err_2("2363");
+				SimplePrintLoggerToRemoveSoon.println_err_2("2363");
 				break;
 			case GET_ITEM:
 				final @NotNull GetItemExpression gie = (GetItemExpression) e;

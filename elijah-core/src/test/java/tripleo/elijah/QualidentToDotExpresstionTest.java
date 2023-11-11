@@ -6,6 +6,7 @@ import tripleo.elijah.lang.i.IExpression;
 import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.lang.impl.QualidentImpl;
 import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 public class QualidentToDotExpresstionTest {
 
@@ -16,7 +17,7 @@ public class QualidentToDotExpresstionTest {
 		q.append(tripleo.elijah.util.Helpers.string_to_ident("b"));
 		q.append(tripleo.elijah.util.Helpers.string_to_ident("c"));
 		final IExpression e = Helpers.qualidentToDotExpression2(q);
-		tripleo.elijah.util.Stupidity.println_out_2(e);
+		SimplePrintLoggerToRemoveSoon.println_out_2(e);
 		assertEquals("a.b.c", e.toString());
 	}
 }

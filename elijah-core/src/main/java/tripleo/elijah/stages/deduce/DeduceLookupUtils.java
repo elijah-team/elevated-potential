@@ -24,6 +24,7 @@ import tripleo.elijah.stages.gen_fn.GenType;
 import tripleo.elijah.stages.gen_fn.IdentTableEntry;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -329,7 +330,7 @@ public enum DeduceLookupUtils {
 		@Nullable
 		GenType result = deduceTypes2._inj().new_GenTypeImpl();
 		boolean finished = false;
-		tripleo.elijah.util.Stupidity.println_err_2("979 During deduceProcedureCall " + pce);
+		SimplePrintLoggerToRemoveSoon.println_err_2("979 During deduceProcedureCall " + pce);
 		@Nullable
 		OS_Element best = null;
 		try {
@@ -357,7 +358,7 @@ public enum DeduceLookupUtils {
 																								// somewhere
 					}
 				} else {
-					tripleo.elijah.util.Stupidity.println_err_2("992 " + best.getClass().getName());
+					SimplePrintLoggerToRemoveSoon.println_err_2("992 " + best.getClass().getName());
 					throw new NotImplementedException();
 				}
 			}

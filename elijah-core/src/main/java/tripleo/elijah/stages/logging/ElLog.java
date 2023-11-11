@@ -9,6 +9,7 @@
 package tripleo.elijah.stages.logging;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class ElLog {
 		long time = System.currentTimeMillis();
 		entries.add(new LogEntry(time, LogEntry.Level.ERROR, aMessage));
 		if (verbose == Verbosity.VERBOSE)
-			tripleo.elijah.util.Stupidity.println_err_2(aMessage);
+			SimplePrintLoggerToRemoveSoon.println_err_2(aMessage);
 	}
 
 	public @NotNull List<LogEntry> getEntries() {
@@ -56,7 +57,7 @@ public class ElLog {
 		long time = System.currentTimeMillis();
 		entries.add(new LogEntry(time, LogEntry.Level.INFO, aMessage));
 		if (verbose == Verbosity.VERBOSE)
-			tripleo.elijah.util.Stupidity.println_out_2(aMessage);
+			SimplePrintLoggerToRemoveSoon.println_out_2(aMessage);
 	}
 }
 

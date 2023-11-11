@@ -46,7 +46,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 		@Override
 		public void note(final Codes aCode, final @NotNull ProgressSinkComponent aProgressSinkComponent,
 				final int aType, final Object[] aParams) {
-			Stupidity.println_err_2(aProgressSinkComponent.printErr(aCode, aType, aParams));
+			SimplePrintLoggerToRemoveSoon.println_err_2(aProgressSinkComponent.printErr(aCode, aType, aParams));
 		}
 	};
 

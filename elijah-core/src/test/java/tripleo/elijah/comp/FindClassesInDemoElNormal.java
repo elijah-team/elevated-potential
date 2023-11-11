@@ -11,15 +11,10 @@ package tripleo.elijah.comp;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.*;
 
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.entrypoints.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.*;
 
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -30,9 +25,6 @@ import tripleo.elijah.util.*;
 import java.util.*;
 import java.util.stream.*;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static tripleo.elijah.util.Helpers.*;
 
@@ -81,7 +73,7 @@ public class FindClassesInDemoElNormal {
 
 		final List<ClassStatement> aClassList = c.world().findClass("Main");
 		for (final ClassStatement classStatement : aClassList) {
-			Stupidity.println_out_2(classStatement.getPackageName().getName());
+			SimplePrintLoggerToRemoveSoon.println_out_2(classStatement.getPackageName().getName());
 		}
 
 		final List<String> classNames = aClassList.stream()
