@@ -2171,7 +2171,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 	public final void frobeIteration(StatementClosure cr) throws RecognitionException, TokenStreamException {
 
 		Loop            loop = cr.loop();
-		LoopContext__   ctx  = null;
+		LoopContextImpl ctx  = null;
 		IdentExpression i1   = null, i2 = null, i3 = null;
 
 		try { // for error handling
@@ -2315,9 +2315,9 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 	public final void funcExpr(FuncExpr pc) throws RecognitionException, TokenStreamException {
 
 		Scope3 sc = null;
-		TypeName tn = null;
-		FuncExprContext ctx = null;
-		FormalArgList fal = null;
+		TypeName            tn  = null;
+		FuncExprContextImpl ctx = null;
+		FormalArgList       fal = null;
 
 		try { // for error handling
 			{
@@ -6230,8 +6230,8 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 	public final void whileLoop(StatementClosure cr) throws RecognitionException, TokenStreamException {
 
-		Loop loop = cr.loop();
-		LoopContext ctx;
+		Loop         loop = cr.loop();
+		ILoopContext ctx;
 
 		try { // for error handling
 			{
@@ -6247,7 +6247,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 					}
 					if (inputState.guessing == 0) {
 						ctx = pcon.new_LoopContext(cur, loop);
-						loop.setContext((LoopContext__) ctx);
+						loop.setContext((LoopContextImpl) ctx);
 						cur = ctx;
 					}
 					sco = scope3(loop);
@@ -6263,7 +6263,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 					}
 					if (inputState.guessing == 0) {
 						ctx = pcon.new_LoopContext(cur, loop);
-						loop.setContext((LoopContext__) ctx);
+						loop.setContext((LoopContextImpl) ctx);
 						cur = ctx;
 					}
 					sco = scope3(loop);

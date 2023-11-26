@@ -240,7 +240,7 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 	}
 
 	@Override
-	public void setContext(final FunctionContext ctx) {
+	public void setContext(final IFunctionContext ctx) {
 		if (_a == null) {
 			_a = new AttachedImpl(ctx);
 		} else

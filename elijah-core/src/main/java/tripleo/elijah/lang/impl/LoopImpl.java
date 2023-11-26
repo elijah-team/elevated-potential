@@ -45,7 +45,7 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 		if (!(aParent instanceof FunctionDef) && !(aParent instanceof Loop))
 			SimplePrintLoggerToRemoveSoon.println_out_2("parent is not FunctionDef or Loop");
 		parent = aParent;
-		_a = new AttachedImpl(new LoopContext__(ctx, this));
+		_a = new AttachedImpl(new LoopContextImpl(ctx, this));
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 	}
 
 	@Override
-	public void setContext(final LoopContext ctx) {
+	public void setContext(final ILoopContext ctx) {
 		_a.setContext(ctx);
 	}
 

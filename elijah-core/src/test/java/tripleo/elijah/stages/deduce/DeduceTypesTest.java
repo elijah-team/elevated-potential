@@ -82,8 +82,8 @@ public class DeduceTypesTest {
 		fd.postConstruct();
 		cs.postConstruct();
 		mod.postConstruct();
-		final FunctionContext fc = (FunctionContext) fd.getContext(); // TODO needs to be mocked
-		final IdentExpression x1 = Helpers0.string_to_ident("x");
+		final IFunctionContext fc = (IFunctionContext) fd.getContext(); // TODO needs to be mocked
+		final IdentExpression  x1 = Helpers0.string_to_ident("x");
 		x1.setContext(fc);
 
 		final Compilation0 compilation = mod.getCompilation();

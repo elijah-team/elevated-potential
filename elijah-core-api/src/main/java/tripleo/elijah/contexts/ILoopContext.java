@@ -3,11 +3,11 @@ package tripleo.elijah.contexts;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 
-public interface FunctionContext extends Context {
+public interface ILoopContext extends Context {
 	@Override
-	@Nullable Context getParent();
+	Context getParent();
 
 	@Override
-	LookupResultList lookup(String name, int level, @NotNull LookupResultList Result,
+	LookupResultList lookup(@NotNull String name, int level, @NotNull LookupResultList Result,
 							@NotNull ISearchList alreadySearched, boolean one);
 }

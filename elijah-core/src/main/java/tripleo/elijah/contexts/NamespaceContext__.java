@@ -27,9 +27,10 @@ public class NamespaceContext__ extends ContextImpl implements NamespaceContext 
 	private final Context _parent;
 	public NamespaceStatement carrier;
 
-//	public NamespaceContext(NamespaceStatement namespaceStatement) {
-//		carrier = namespaceStatement;
-//	}
+	public NamespaceContext__(NamespaceStatement namespaceStatement) {
+		_parent = null;
+		carrier = namespaceStatement;
+	}
 
 	public NamespaceContext__(final Context aParent, final NamespaceStatement ns) {
 		_parent = aParent;
@@ -42,9 +43,13 @@ public class NamespaceContext__ extends ContextImpl implements NamespaceContext 
 	}
 
 	@Override
-	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
-								   final @NotNull ISearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final String name,
+								   final int level,
+								   final @NotNull LookupResultList Result,
+								   final @NotNull ISearchList alreadySearched,
+								   final boolean one) {
 		alreadySearched.add(carrier.getContext());
+
 		for (final ClassItem item : carrier.getItems()) {
 			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
 					&& !(item instanceof VariableSequenceImpl) && !(item instanceof AliasStatementImpl)
@@ -63,12 +68,15 @@ public class NamespaceContext__ extends ContextImpl implements NamespaceContext 
 				}
 			}
 		}
+
 		if (getParent() != null) {
 			final Context context = getParent();
-			if (!alreadySearched.contains(context) || !one)
-				return context.lookup(name, level + 1, Result, alreadySearched, false);
-		}
-		return Result;
 
+			if (!alreadySearched.contains(context) || !one) {
+				return context.lookup(name, level + 1, Result, alreadySearched, false);
+			}
+		}
+
+		return Result;
 	}
 }

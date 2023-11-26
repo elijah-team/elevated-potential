@@ -12,23 +12,35 @@
 package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.i.ClassStatement;
+import tripleo.elijah.lang.i.Context;
+import tripleo.elijah.lang.i.FunctionDef;
+import tripleo.elijah.lang.i.ISearchList;
+import tripleo.elijah.lang.i.IdentExpression;
+import tripleo.elijah.lang.i.LookupResultList;
+import tripleo.elijah.lang.i.Loop;
+import tripleo.elijah.lang.i.NamespaceStatement;
+import tripleo.elijah.lang.i.OS_Element;
+import tripleo.elijah.lang.i.OS_Element2;
+import tripleo.elijah.lang.i.StatementItem;
+import tripleo.elijah.lang.i.VariableSequence;
+import tripleo.elijah.lang.i.VariableStatement;
 import tripleo.elijah.lang.impl.AliasStatementImpl;
 import tripleo.elijah.lang.impl.ContextImpl;
 import tripleo.elijah.lang.impl.VariableSequenceImpl;
+import tripleo.elijah.util.ProgramIsLikelyWrong;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 /**
+ * Created Mar 26, 2020 at 9:40:43 PM
+ * <p>
  * @author Tripleo
- *         <p>
- *         Created Mar 26, 2020 at 9:40:43 PM
  */
-public class LoopContext__ extends ContextImpl implements LoopContext {
-
+public class LoopContextImpl extends ContextImpl implements ILoopContext {
 	private final Context _parent;
 	private final Loop carrier;
 
-	public LoopContext__(final Context cur, final Loop loop) {
+	public LoopContextImpl(final Context cur, final Loop loop) {
 		carrier = loop;
 		_parent = cur;
 	}
@@ -64,22 +76,27 @@ public class LoopContext__ extends ContextImpl implements LoopContext {
 			}
 			if (item instanceof VariableSequenceImpl) {
 				SimplePrintLoggerToRemoveSoon.println_out_2("1102 " + item);
-				for (final VariableStatement vs : ((VariableSequenceImpl) item).items()) {
-					if (vs.getName().equals(name))
+				for (final VariableStatement vs : ((VariableSequence) item).items()) {
+					if (vs.getName().equals(name)) {
 						Result.add(name, level, vs, this);
+					}
 				}
 			}
 		}
 
 		if (carrier.getParent() != null) {
 			final Context context = getParent();
-			if (!alreadySearched.contains(context) || !one)
-				context.lookup(name, level + 1, Result, alreadySearched, false); // TODO test this
+			if (!alreadySearched.contains(context) || !one) {
+				if (context != null) {
+					context.lookup(name, level + 1, Result, alreadySearched, false); // TODO test this
+				} else {
+					throw new ProgramIsLikelyWrong();
+				}
+			}
 		}
+
 		return Result;
-
 	}
-
 }
 
 //
