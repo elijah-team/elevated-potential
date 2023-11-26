@@ -40,7 +40,7 @@ public interface Loop extends StatementItem, FunctionItem, OS_Element {
 
 	}
 
-	void setContext(LoopContext ctx);
+	void setContext(ILoopContext ctx);
 
 	void topart(IExpression aExpr);
 

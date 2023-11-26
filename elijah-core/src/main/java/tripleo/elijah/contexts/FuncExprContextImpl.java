@@ -10,30 +10,22 @@ package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.BaseFunctionDef;
 import tripleo.elijah.lang.impl.ContextImpl;
 import tripleo.elijah.lang.impl.VariableSequenceImpl;
+import tripleo.elijah.lang.nextgen.names.i.EN_Name;
 
 /**
- * @author Tripleo
- *         <p>
- *         Created Mar 26, 2020 at 6:13:58 AM
+ * Created 8/21/20 11:53 PM
  */
-public class FunctionContext_ extends ContextImpl implements FunctionContext {
+public class FuncExprContextImpl extends ContextImpl implements IFuncExprContext {
+	private final Context _parent;
+	private final FuncExpr carrier;
 
-	private final @Nullable Context _parent;
-	private final BaseFunctionDef carrier;
-
-	public FunctionContext_(final Context aParent, final BaseFunctionDef fd) {
-		_parent = aParent;
-		carrier = fd;
-	}
-
-	public FunctionContext_(Context cur, FuncExpr pc) {
-		_parent = null;// aParent;
-		carrier = (BaseFunctionDef) pc;
-		// throw new IllegalStateException();
+	public FuncExprContextImpl(final Context cur, final FuncExpr pc) {
+		_parent = cur;
+		carrier = pc;
 	}
 
 	@Override
@@ -61,7 +53,7 @@ public class FunctionContext_ extends ContextImpl implements FunctionContext {
 				}
 			}
 		}
-		for (final FormalArgListItem arg : carrier.getArgs()) {
+		for (final FormalArgListItem arg : carrier.falis()) {
 			if (arg.name().equals(name)) {
 				Result.add(name, level, arg, this);
 			}
@@ -73,6 +65,12 @@ public class FunctionContext_ extends ContextImpl implements FunctionContext {
 		}
 		return Result;
 	}
+
+	@Override
+	public @NotNull OS_Module module() {
+		return null;
+	}
+
 }
 
 //

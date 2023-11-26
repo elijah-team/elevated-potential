@@ -11,7 +11,7 @@ package tripleo.elijah.stages.deduce;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.FunctionContext;
+import tripleo.elijah.contexts.IFunctionContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.AliasStatementImpl;
 import tripleo.elijah.lang.impl.LangGlobals;
@@ -102,10 +102,14 @@ public enum DeduceLookupUtils {
 
 	@Contract("_, _ -> param1")
 	public static @NotNull DeduceElement3_IdentTableEntry deduceExpression2(
-			final @NotNull DeduceElement3_IdentTableEntry de3_ite, final FunctionContext aFc) {
-		final IdentExpression identExpression = de3_ite.principal.getIdent();
-		final IdentTableEntry ite = de3_ite.principal._deduceTypes2()._inj().new_IdentTableEntry(0, identExpression,
-				identExpression.getContext(), de3_ite.generatedFunction);
+			final @NotNull DeduceElement3_IdentTableEntry de3_ite,
+			final @NotNull IFunctionContext aFunctionContext) {
+		final IdentExpression                   identExpression      = de3_ite.principal.getIdent();
+		final DeduceTypes2                      deduceTypes2         = de3_ite.principal._deduceTypes2();
+		final DeduceTypes2.DeduceTypes2Injector deduceTypes2Injector = deduceTypes2._inj();
+		//final IdentTableEntry ite = deduceTypes2Injector.new_IdentTableEntry(0, identExpression,
+		//																	 identExpression.getContext(),
+		//																	 de3_ite.generatedFunction);
 
 		try {
 			deduceIdentExpression2(de3_ite);

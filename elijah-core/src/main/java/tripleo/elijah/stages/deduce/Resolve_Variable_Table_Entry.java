@@ -147,7 +147,7 @@ class Resolve_Variable_Table_Entry {
 			@NotNull
 			FunctionDef fd1 = deduceTypes2._inj().new_FunctionDefImpl(mod_ns, mod_ns.getContext());
 			fd1.setFal(fe.fal());
-			fd1.setContext((FunctionContext) fe.getContext());
+			fd1.setContext((IFunctionContext) fe.getContext());
 			fd1.scope(fe.getScope());
 			fd1.setSpecies(BaseFunctionDef.Species.FUNC_EXPR);
 //			tripleo.elijah.util.Stupidity.println_out_2("1630 "+mod_ns.getItems()); // element 0 is ctor$0

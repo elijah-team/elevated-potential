@@ -29,7 +29,7 @@ public class DestructorDefImpl extends BaseFunctionDef implements tripleo.elijah
 		} else {
 			throw new IllegalStateException("adding DestructorDef to " + aClassStatement.getClass().getName());
 		}
-		_a = new AttachedImpl(new FunctionContext_(context, this));
+		_a = new AttachedImpl(new FunctionContextImpl(context, this));
 		setSpecies(Species.DTOR);
 	}
 

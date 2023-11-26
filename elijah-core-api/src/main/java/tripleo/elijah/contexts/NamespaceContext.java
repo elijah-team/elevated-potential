@@ -3,7 +3,7 @@ package tripleo.elijah.contexts;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 
-public interface NamespaceContext extends tripleo.elijah.lang.i.Context {
+public interface NamespaceContext extends Context {
 	@Override
 	Context getParent();
 

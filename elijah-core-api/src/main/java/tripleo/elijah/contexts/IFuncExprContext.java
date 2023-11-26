@@ -4,7 +4,7 @@ import tripleo.elijah.lang.i.Context;
 import tripleo.elijah.lang.i.ISearchList;
 import tripleo.elijah.lang.i.LookupResultList;
 
-public interface IFuncExprContext {
+public interface IFuncExprContext extends IFunctionContext {
 
 	Context getParent();
 

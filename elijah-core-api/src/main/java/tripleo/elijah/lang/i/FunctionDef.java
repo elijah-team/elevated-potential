@@ -51,7 +51,7 @@ public interface FunctionDef extends OS_Element, OS_Element2, Documentable, Clas
 
 	void setBody(FunctionBody aFunctionBody);
 
-	void setContext(FunctionContext aContext);
+	void setContext(IFunctionContext aContext);
 
 	void setFal(FormalArgList aFal);
 
