@@ -5,8 +5,7 @@ import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static tripleo.elijah.util.Helpers.List_of;
@@ -91,7 +90,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 			for (final CB_Process process : pq) {
 				System.err.println("5757 " + process.name());
-//				process.execute(this);
+				execute_process(this, process);
 			}
 
 			thread.stop();
@@ -99,6 +98,15 @@ public class DefaultCompilationBus implements ICompilationBus {
 			throw new RuntimeException(aE);
 		}
 	}
+
+	private void execute_process(final DefaultCompilationBus ignoredADefaultCompilationBus, final CB_Process aProcess) {
+		//CompilationUnitTree
+		//Compilation.Cheat.executeCB_Action(aProcess);
+		if (alreadyP.contains(aProcess)) throw new Error();
+		alreadyP.add(aProcess);
+	}
+
+	List<CB_Process> alreadyP = new ArrayList<>();
 
 	private void __run_all_thread(final Queue<CB_Process> procs) {
 		// FIXME passing sh*t between threads (P.O.!)
