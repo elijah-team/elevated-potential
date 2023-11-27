@@ -213,7 +213,7 @@ public class CompilationImpl implements Compilation {
 
 	@Override
 	public void setRootCI(CompilerInstructions rootCI) {
-		cci_listener.id.root = rootCI;
+		//cci_listener.id.root = rootCI;
 	}
 
 	@Override
@@ -269,10 +269,12 @@ public class CompilationImpl implements Compilation {
 		if (!_inside) {
 			_inside = true;
 
-			getRootCI().advise(_inputs.get(0));
+			final CompilerInstructions rootCI = getRootCI();
+			//final CompilerInstructions rootCI = this.cci_listener._root();
+			rootCI.advise(_inputs.get(0));
 
-
-			getCompilationEnclosure().getCompilationRunner().start(this.cci_listener._root(), pa);
+			final CompilationRunner compilationRunner = getCompilationEnclosure().getCompilationRunner();
+			compilationRunner.start(rootCI, pa);
 		} else {
 			NotImplementedException.raise_stop();
 		}
