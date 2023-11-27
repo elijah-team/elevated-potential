@@ -38,7 +38,10 @@ public class DefaultObjectTree implements CK_ObjectTree {
 
 			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("**************************************************Comp ELIJAH_PARSED  "+wm.module().getFileName());
 
-			//pl.addModule(wm);
+			if (DebugFlags.MakeSense) {
+				final WorldModule worldModule = compilation.con().createWorldModule(calm.success());
+				compilation.world().addModule2(worldModule);
+			}
 		}
 		case CI_HASHED -> {
 			Triple<EzSpec, CK_SourceFile, Operation<String>> t = (Triple<EzSpec, CK_SourceFile, Operation<String>>) o;
