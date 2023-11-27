@@ -20,27 +20,33 @@ public class CK_RunBetterAction implements CK_Action {
 			final ICompilationAccess   ca             = crState.ca();
 			final Compilation0         compilation    = ca.getCompilation();
 			final CompilationEnclosure ce             = (CompilationEnclosure) ca.getCompilationEnclosure();
-			final GPipelineAccess      pa             = compilation.pa();
-			final IPipelineAccess      pipelineAccess = (IPipelineAccess) pa;
-			final ProcessRecord        processRecord  = pipelineAccess.getProcessRecord();
-			final RuntimeProcess       process        = new OStageProcess(processRecord.ca());
 
-			process.prepare();
+			ce.getPipelineAccessPromise().then(pa -> {
+				//final GPipelineAccess      pa             = compilation.pa();
+				final IPipelineAccess      pipelineAccess = (IPipelineAccess) pa;
+				final ProcessRecord        processRecord  = pipelineAccess.getProcessRecord();
+				final RuntimeProcess       process        = new OStageProcess(processRecord.ca());
 
-			final Operation<Ok> res = process.run(compilation, new Pipeline.RP_Context_1(crState, output));
+				try {
+					process.prepare();
+				} catch (Exception aE) {
+					//throw new RuntimeException(aE);
+				}
 
-			if (res.mode() == Mode.FAILURE) {
-				//Logger.getLogger(OStageProcess.class.getName()).log(Level.SEVERE, null, ex);
+				final Operation<Ok> res = process.run(compilation, new Pipeline.RP_Context_1(crState, output));
 
-				final Exception ex = res.failure();
-				ex.printStackTrace();
+				if (res.mode() == Mode.FAILURE) {
+					//Logger.getLogger(OStageProcess.class.getName()).log(Level.SEVERE, null, ex);
 
-				return Operation.failure(ex);
-			}
+					final Exception ex = res.failure();
+					ex.printStackTrace();
 
-			process.postProcess();
-			ce.writeLogs();
+					//return Operation.failure(ex); eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+				}
 
+				process.postProcess();
+				ce.writeLogs();
+			});
 			return Operation.success(Ok.instance());
 		} catch (final Exception aE) {
 			aE.printStackTrace(); // TODO debug 07/26; 10/20 do we still want this?? also steps

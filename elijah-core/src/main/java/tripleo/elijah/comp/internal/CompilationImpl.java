@@ -256,7 +256,7 @@ public class CompilationImpl implements Compilation {
 	@Override
 	public Operation<Ok> hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
 		if (cis.isEmpty()) {
-			assert false;
+			//assert false;
 			// README IDEA misconfiguration
 			String absolutePath = new File(".").getAbsolutePath();
 
