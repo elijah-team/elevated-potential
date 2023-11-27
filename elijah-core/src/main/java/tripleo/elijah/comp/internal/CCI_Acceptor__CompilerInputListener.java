@@ -31,6 +31,14 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 	@Override
 	public void change(CompilerInput i, CompilerInput_.CompilerInputField field) {
 		if (compilation.getCompilerInputListener() instanceof CCI_Acceptor__CompilerInputListener cci_listener) {
+			if (DebugFlags.CCI_gate) {
+				if (cci == null) {
+					cci = new DefaultCCI(compilation, compilation._cis(), _progressSink);
+				}
+				if (_progressSink == null) {
+					_progressSink = compilation.getCompilationEnclosure().getCompilationBus().defaultProgressSink();
+				}
+			}
 			cci_listener.set(cci, _progressSink);
 		}
 
@@ -115,7 +123,9 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 
 							id.add(iLazyCompilerInstructions.get());
 
-							cci.accept(new Maybe<>(iLazyCompilerInstructions, null), _progressSink);
+							if (DebugFlags.CCI_gate) {
+								cci.accept(new Maybe<>(iLazyCompilerInstructions, null), _progressSink);
+							}
 						}
 					}
 				}

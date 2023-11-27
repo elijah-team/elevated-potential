@@ -6,4 +6,5 @@ public class DebugFlags {
 	public static boolean Lawabidingcitizen_disabled = true;
 	public static boolean CIS_ocp_ci__FeatureGate    = true;
 	public static       boolean     writeDumps = false;
+	public static       boolean CCI_gate = false;
 }
