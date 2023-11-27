@@ -134,6 +134,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 
 		@Override
 		public void reportSuccess(final CB_Action action, final CB_Output output) {
+			int y=2;
 			for (final CB_OutputString outputString : output.get()) {
 //				Stupidity.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
 			}

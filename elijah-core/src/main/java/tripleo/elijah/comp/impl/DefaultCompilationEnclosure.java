@@ -10,6 +10,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.Eventual;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
@@ -18,6 +19,7 @@ import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.CK_DefaultStepRunner;
 import tripleo.elijah.comp.nextgen.i.AsseverationLogProgress;
+import tripleo.elijah.comp.notation.GN_WriteLogs;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.OS_Module;
@@ -27,6 +29,7 @@ import tripleo.elijah.pre_world.Mirror_EntryPoint;
 import tripleo.elijah.stages.gen_fn.IClassGenerator;
 import tripleo.elijah.stages.generate.OutputStrategyC;
 import tripleo.elijah.stages.inter.ModuleThing;
+import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
 import tripleo.elijah.util.CompletableProcess;
 import tripleo.elijah.util.NotImplementedException;
@@ -38,60 +41,61 @@ import java.util.function.Function;
 
 public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	public final           Eventual<IPipelineAccess>                                                       pipelineAccessPromise = new Eventual<>();
-	private final          Map<String, PipelinePlugin>                                                     pipelinePlugins       = new HashMap<>();
 	private final          Eventual<CompilationRunner>                                                     ecr                   = new Eventual<>();
 	private final          Eventual<AccessBus>                                                             accessBusPromise      = new Eventual<>();
-	private final          CB_Output                                                                       _cbOutput             = new CB_ListBackedOutput();
 	private final          Compilation                                                                     compilation;
+	private final          CB_Output                                                                       _cbOutput             = new CB_ListBackedOutput();
+	private final          Map<String, PipelinePlugin>                                                     pipelinePlugins       = new HashMap<>();
 	private final          Map<OS_Module, ModuleThing>                                                     moduleThings          = new HashMap<>();
 	private final          Subject<ReactiveDimension>                                                      dimensionSubject      = ReplaySubject.<ReactiveDimension>create();
 	private final          Subject<Reactivable>                                                            reactivableSubject    = ReplaySubject.<Reactivable>create();
+	private final @NonNull List<ElLog>                                                                     elLogs                = new LinkedList<>();
 	private final          List<ModuleListener>                                                            _moduleListeners      = new ArrayList<>();
 	private final          List<Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest>> outFileAssertions     = new ArrayList<>();
 	private final @NonNull OFA                                                                             ofa                   = new OFA(/* outFileAssertions */);
 	Observer<ReactiveDimension> dimensionObserver   = new Observer<ReactiveDimension>() {
 		@Override
 		public void onSubscribe(@NonNull final Disposable d) {
-
+			throw new UnintendedUseException();
 		}
 
 		@Override
 		public void onNext(@NonNull final ReactiveDimension aReactiveDimension) {
 			// aReactiveDimension.observe();
-			throw new IllegalStateException("Error");
+			throw new UnintendedUseException();
 		}
 
 		@Override
 		public void onError(@NonNull final Throwable e) {
-
+			throw new UnintendedUseException();
 		}
 
 		@Override
 		public void onComplete() {
-
+			throw new UnintendedUseException();
 		}
 	};
 	Observer<Reactivable>       reactivableObserver = new Observer<Reactivable>() {
 
 		@Override
 		public void onSubscribe(@NonNull final Disposable d) {
-
+			throw new UnintendedUseException();
 		}
 
 		@Override
 		public void onNext(@NonNull final Reactivable aReactivable) {
 //			ReplaySubject
-			throw new IllegalStateException("Error");
+			throw new UnintendedUseException();
 		}
 
 		@Override
 		public void onError(@NonNull final Throwable e) {
-
+			throw new UnintendedUseException();
 		}
 
 		@Override
 		public void onComplete() {
-
+			throw new UnintendedUseException();
 		}
 	};
 	private AccessBus           ab;
@@ -271,12 +275,22 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	@Override
+	public void setCompilationAccess(@NotNull ICompilationAccess aca) {
+		ca = aca;
+	}
+
+	// @Contract(pure = true) //??
+
+	@Override
 	@Contract(pure = true)
 	public ICompilationBus getCompilationBus() {
 		return compilationBus;
 	}
 
-	// @Contract(pure = true) //??
+	@Override
+	public void setCompilationBus(final ICompilationBus aCompilationBus) {
+		compilationBus = aCompilationBus;
+	}
 
 	@Override
 	public CompilationClosure getCompilationClosure() {
@@ -295,10 +309,28 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		return compilationRunner;
 	}
 
+	@Override
+	public void setCompilationRunner(final CompilationRunner aCompilationRunner) {
+		compilationRunner = aCompilationRunner;
+
+		if (ecr.isPending()) {
+			ecr.resolve(compilationRunner);
+		} else {
+			System.err.println("903365 compilationRunner already set");
+		}
+	}
+
 	@Contract(pure = true)
 	@Override
 	public List<CompilerInput> getCompilerInput() {
 		return inp;
+	}
+
+	@Override
+	public void setCompilerInput(final List<CompilerInput> aInputs) {
+		//assert inp == null;
+
+		inp = aInputs;
 	}
 
 	@Override
@@ -328,6 +360,13 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	@Override
+	public void setPipelineLogic(final PipelineLogic aPipelineLogic) {
+		pipelineLogic = aPipelineLogic;
+
+		getPipelineAccessPromise().then(pa -> pa.resolvePipelinePromise(aPipelineLogic));
+	}
+
+	@Override
 	public void logProgress(final @NotNull CompProgress aCompProgress, final Object x) {
 		aCompProgress.deprecated_print(x, System.out, System.err);
 	}
@@ -354,10 +393,8 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	@Override
-	public void setPipelineLogic(final PipelineLogic aPipelineLogic) {
-		pipelineLogic = aPipelineLogic;
-
-		getPipelineAccessPromise().then(pa -> pa.resolvePipelinePromise(aPipelineLogic));
+	public void setCompilerDriver(final CompilerDriver aCompilerDriver) {
+		compilerDriver = aCompilerDriver;
 	}
 
 	@Override
@@ -426,36 +463,21 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	@Override
-	public void setCompilerInput(final List<CompilerInput> aInputs) {
-		//assert inp == null;
+	public void writeLogs() {
+		final PipelineLogic pipelineLogic = this.getPipelineLogic();
+		final GN_WriteLogs  notable       = new GN_WriteLogs(this.getCompilationAccess(), pipelineLogic._pa().getCompilationEnclosure().getLogs());
 
-		inp = aInputs;
+		pa.notate(Provenance.DefaultCompilationAccess__writeLogs, notable);
 	}
 
 	@Override
-	public void setCompilationRunner(final CompilationRunner aCompilationRunner) {
-		compilationRunner = aCompilationRunner;
-
-		if (ecr.isPending()) {
-			ecr.resolve(compilationRunner);
-		} else {
-			System.err.println("903365 compilationRunner already set");
-		}
+	public void addLog(final ElLog aLOG) {
+		elLogs.add(aLOG);
 	}
 
 	@Override
-	public void setCompilerDriver(final CompilerDriver aCompilerDriver) {
-		compilerDriver = aCompilerDriver;
-	}
-
-	@Override
-	public void setCompilationBus(final ICompilationBus aCompilationBus) {
-		compilationBus = aCompilationBus;
-	}
-
-	@Override
-	public void setCompilationAccess(@NotNull ICompilationAccess aca) {
-		ca = aca;
+	public List<ElLog> getLogs() {
+		return elLogs;
 	}
 
 	@Override

@@ -20,7 +20,7 @@ public class CK_RunBetterAction implements CK_Action {
 			final GPipelineAccess    pa             = ca.getCompilation().pa();
 			final IPipelineAccess    pipelineAccess = (IPipelineAccess) pa;
 			final ProcessRecord      processRecord  = pipelineAccess.getProcessRecord();
-			final RuntimeProcess     process        = new OStageProcess(processRecord.ca(), processRecord);
+			final RuntimeProcess     process        = new OStageProcess(processRecord.ca());
 
 			process.prepare();
 

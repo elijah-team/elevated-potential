@@ -18,6 +18,7 @@ import tripleo.elijah.pre_world.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.generate.*;
 import tripleo.elijah.stages.inter.*;
+import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 import tripleo.elijah.world.i.*;
 
@@ -118,4 +119,10 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	void addPipelinePlugin(final @NotNull Function<GPipelineAccess, PipelineMember> aCr);
 
 	void addPipelinePlugin(PipelinePlugin aPipelinePlugin);
+
+	void writeLogs();
+
+	void addLog(ElLog aLOG);
+
+	List<ElLog> getLogs();
 }
