@@ -13,8 +13,8 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 	private final Compilation    compilation;
 	public final  InstructionDoer id;
 	private final CompilationRunner cr;
-	private       CCI               cci;
-	private       IProgressSink     _ps;
+	private       CCI           cci;
+	private       IProgressSink _progressSink;
 
 	public CCI_Acceptor__CompilerInputListener(CompilationImpl aCompilation) {
 		this.compilation = aCompilation;
@@ -30,6 +30,12 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 
 	@Override
 	public void change(CompilerInput i, CompilerInput_.CompilerInputField field) {
+		if (compilation.getCompilerInputListener() instanceof CCI_Acceptor__CompilerInputListener cci_listener) {
+			cci_listener.set(cci, _progressSink);
+		}
+
+
+
 		var inputTree = compilation.getInputTree();
 
 		compilation.getCompilationEnclosure().logProgress(CompProgress.__CCI_Acceptor__CompilerInputListener__change__logInput, i);
@@ -109,7 +115,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 
 							id.add(iLazyCompilerInstructions.get());
 
-							cci.accept(new Maybe<>(iLazyCompilerInstructions, null), _ps);
+							cci.accept(new Maybe<>(iLazyCompilerInstructions, null), _progressSink);
 						}
 					}
 				}
@@ -118,7 +124,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 	}
 
 	public void set(CCI aCci, IProgressSink aPs) {
-		cci = aCci;
-		_ps = aPs;
+		cci           = aCci;
+		_progressSink = aPs;
 	}
 }
