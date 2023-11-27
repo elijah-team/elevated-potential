@@ -2,6 +2,7 @@ package tripleo.elijah.comp;
 
 import io.reactivex.rxjava3.core.Observer;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.EventualRegister;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;

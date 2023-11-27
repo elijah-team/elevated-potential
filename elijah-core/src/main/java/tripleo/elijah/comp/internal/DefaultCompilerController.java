@@ -80,6 +80,8 @@ public class DefaultCompilerController implements CompilerController {
 //		}
 
 		((DefaultCompilationBus) cb).runProcesses();
+
+		c.getFluffy().checkFinishEventuals();
 	}
 
 	public class _DefaultCon implements Con {

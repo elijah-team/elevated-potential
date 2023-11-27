@@ -2,6 +2,7 @@ package tripleo.elijah.stages.deduce.fluffy.impl;
 
 import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.Eventual;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.lang.i.*;
@@ -13,30 +14,19 @@ import java.util.stream.*;
 
 public class FluffyCompImpl implements FluffyComp {
 
-	static class FluffyCompImplInjector {
-		public FluffyModuleImpl new_FluffyModuleImpl(final OS_Module aModule, final CompilationImpl aComp) {
-			return new FluffyModuleImpl(aModule, aComp);
-		}
+	private final CompilationImpl _comp;
+	private final Map<OS_Module, FluffyModule> fluffyModuleMap = new HashMap<>();
+	FluffyCompImplInjector __inj = new FluffyCompImplInjector();
+	private List<Eventual<?>> _eventuals = new ArrayList<>();
+
+	public FluffyCompImpl(final CompilationImpl aComp) {
+		_comp = aComp;
 	}
 
 	public static boolean isMainClassEntryPoint(@NotNull final OS_Element2 input) {
 		// TODO 08/27 Use understanding/~ processor for this
 		final FunctionDef fd = (FunctionDef) input;
 		return MainClassEntryPoint.is_main_function_with_no_args(fd);
-	}
-
-	private final CompilationImpl _comp;
-
-	private final Map<OS_Module, FluffyModule> fluffyModuleMap = new HashMap<>();
-
-	FluffyCompImplInjector __inj = new FluffyCompImplInjector();
-
-	public FluffyCompImpl(final CompilationImpl aComp) {
-		_comp = aComp;
-	}
-
-	private FluffyCompImplInjector _inj() {
-		return __inj;
 	}
 
 	@Override
@@ -92,5 +82,31 @@ public class FluffyCompImpl implements FluffyComp {
 		final FluffyModuleImpl fluffyModule = _inj().new_FluffyModuleImpl(aModule, _comp);
 		fluffyModuleMap.put(aModule, fluffyModule);
 		return fluffyModule;
+	}
+
+	private FluffyCompImplInjector _inj() {
+		return __inj;
+	}
+
+	@Override
+	public void checkFinishEventuals() {
+		int y = 0;
+		for (Eventual<?> eventual : _eventuals) {
+			if (eventual.isResolved()) {
+			} else {
+				System.err.println("[FluffyCompImpl::checkEventual] failed for " + eventual.description());
+			}
+		}
+	}
+
+	@Override
+	public <P> void register(final Eventual<P> e) {
+		_eventuals.add(e);
+	}
+
+	static class FluffyCompImplInjector {
+		public FluffyModuleImpl new_FluffyModuleImpl(final OS_Module aModule, final CompilationImpl aComp) {
+			return new FluffyModuleImpl(aModule, aComp);
+		}
 	}
 }

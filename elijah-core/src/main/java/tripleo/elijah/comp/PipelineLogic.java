@@ -43,8 +43,8 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 	private final @NonNull ModMap          modMap = new ModMap();
 	private final @NonNull IPipelineAccess  pa;
 	@Getter
-	private final @NonNull ElLog_.Verbosity verbosity;
-	private List<Eventual<?>>               _eventuals = new ArrayList<>();
+	private final @NonNull ElLog_.Verbosity  verbosity;
+	private final          List<Eventual<?>> _eventuals = new ArrayList<>();
 
 	public PipelineLogic(final IPipelineAccess aPa, final @NotNull ICompilationAccess ca) {
 		pa = aPa;
