@@ -35,8 +35,7 @@ public class SenseList implements Iterable<SenseList.Sensible> {
 					if (!directoryResults.isEmpty()) {
 						for (Operation2<CompilerInstructions> directoryResult : directoryResults) {
 							if (directoryResult.mode() == Mode.SUCCESS) {
-								cci.accept(new Maybe<>(ILazyCompilerInstructions_.of(directoryResult.success()), null),
-										   progressSink);
+								cci.accept(Maybe.of(ILazyCompilerInstructions_.of(directoryResult.success())), progressSink);
 							}
 						}
 					}

@@ -124,7 +124,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 							id.add(iLazyCompilerInstructions.get());
 
 							if (DebugFlags.CCI_gate) {
-								cci.accept(new Maybe<>(iLazyCompilerInstructions, null), _progressSink);
+								cci.accept(Maybe.of(iLazyCompilerInstructions), _progressSink);
 							}
 						}
 					}
