@@ -18,8 +18,8 @@ public interface EOT_OutputFile {
 	@Override
 	String toString();
 
-	@FunctionalInterface
-	interface FileNameProvider {
-		String getFilename();
-	}
+	//@Override
+	//default String toString() {
+	//	return "(%s) '%s'".formatted(_type, _filename.getFilename());
+	//}
 }

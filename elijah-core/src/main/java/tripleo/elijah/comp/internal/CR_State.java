@@ -315,7 +315,8 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public void finishPipeline(final GPipelineMember aPM, final WP_Flow.OPS aOps) {
-			System.err.println("[FinishPipeline] %s %s".formatted(aPM.finishPipeline_asString(), aOps));
+			final String formatted = "[FinishPipeline] %s %s".formatted(aPM.finishPipeline_asString(), aOps);
+			System.err.println(formatted);
 		}
 
 		@Override
@@ -332,9 +333,9 @@ public class CR_State implements GCR_State {
 		}
 
 		@Override
-		public void subscribePipelineLogic(final AccessBus.AB_PipelineLogicListener aListener) {
+		public void subscribePipelineLogic(final AccessBus.@NotNull AB_PipelineLogicListener aListener) {
 			final AccessBus ab = getAccessBus();
-			ab.subscribePipelineLogic(result -> aListener.pl_slot(result));
+			ab.subscribePipelineLogic(aListener::pl_slot);
 		}
 
 		@Override

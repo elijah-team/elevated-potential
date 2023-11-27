@@ -9,13 +9,13 @@ import java.util.Objects;
 
 // TODO 09/04 Duplication madness
 public final class NG_OutputRequest {
-	private final EOT_OutputFileImpl.FileNameProvider fileName;
-	private final EG_Statement                        statement;
-	private final NG_OutputStatement              outputStatement;
-	private final NG_OutputItem                   outputItem;
+	private final EOT_FileNameProvider fileName;
+	private final EG_Statement         statement;
+	private final NG_OutputStatement   outputStatement;
+	private final NG_OutputItem        outputItem;
 
 	public NG_OutputRequest(
-			EOT_OutputFileImpl.FileNameProvider fileName,
+			EOT_FileNameProvider fileName,
 			EG_Statement statement,
 			NG_OutputStatement outputStatement,
 			NG_OutputItem outputItem
@@ -26,7 +26,7 @@ public final class NG_OutputRequest {
 		this.outputItem      = outputItem;
 	}
 
-	public EOT_OutputFileImpl.FileNameProvider fileName() {
+	public EOT_FileNameProvider fileName() {
 		return fileName;
 	}
 
@@ -43,6 +43,11 @@ public final class NG_OutputRequest {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(fileName, statement, outputStatement, outputItem);
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) return true;
 		if (obj == null || obj.getClass() != this.getClass()) return false;
@@ -51,11 +56,6 @@ public final class NG_OutputRequest {
 				Objects.equals(this.statement, that.statement) &&
 				Objects.equals(this.outputStatement, that.outputStatement) &&
 				Objects.equals(this.outputItem, that.outputItem);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(fileName, statement, outputStatement, outputItem);
 	}
 
 	@Override

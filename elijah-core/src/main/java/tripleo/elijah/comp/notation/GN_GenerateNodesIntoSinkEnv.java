@@ -9,6 +9,7 @@ import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
@@ -33,7 +34,7 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 	public GN_GenerateNodesIntoSinkEnv(
 			List<ProcessedNode> lgc,
 			GenerateResultSink resultSink1,
-			Object/*EIT_ModuleList*/ moduleList,
+			EIT_ModuleList moduleList,
 			ElLog_.Verbosity verbosity,
 			GenerateResult gr,
 			IPipelineAccess pa,

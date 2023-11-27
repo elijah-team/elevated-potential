@@ -11,8 +11,10 @@ import tripleo.elijah.comp.notation.GM_GenerateModule;
 import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
 import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
 import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
+import tripleo.elijah.g.GCompilationEnclosure;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.impl.OS_ModuleImpl;
+import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
 import tripleo.elijah.stages.deduce.DeducePhase;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
@@ -86,12 +88,12 @@ public class Boilerplate {
 		if (generateFiles == null) {
 			List<ProcessedNode> lgc = List_of();
 			IPipelineAccess pa = pipelineLogic().dp.pa;
-			GenerateResultSink resultSink1 = new DefaultGenerateResultSink(pa);
-//			EIT_ModuleList moduleList = pipelineLogic().mods();
-			Object             moduleList = null;
+			GenerateResultSink    resultSink1 = new DefaultGenerateResultSink(pa);
+			final CompilationEnclosure ce = (CompilationEnclosure) comp.getCompilationEnclosure();
+			EIT_ModuleList        moduleList  = ce.getModuleList();
+			//Object             moduleList = null;
 			ElLog_.Verbosity   verbosity  = ElLog_.Verbosity.SILENT;
 			Old_GenerateResult gr         = new Old_GenerateResult();
-			final CompilationEnclosure ce = (CompilationEnclosure) comp.getCompilationEnclosure();
 //			CompilationEnclosure ce          = pa.getCompilationEnclosure();
 
 			final GN_GenerateNodesIntoSinkEnv generateNodesIntoSinkEnv = new GN_GenerateNodesIntoSinkEnv(

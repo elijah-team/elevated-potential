@@ -293,7 +293,7 @@ public class TestBasic {
 			assertTrue(c.getIO().recordedwrites().size() > 0);
 
 			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
-			for (Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest> aof : aofs) {
+			for (Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest> aof : aofs) {
 				System.err.println(aof);
 			}
 

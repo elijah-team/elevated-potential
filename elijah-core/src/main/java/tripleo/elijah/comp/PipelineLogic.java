@@ -129,6 +129,10 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 		_eventuals.add(e);
 	}
 
+	public Object mods() {
+		return null;
+	}
+
 	class ModMap {
 		private final Map<OS_Module, Eventual<DeducePhase.GeneratedClasses>>                    modMap = new HashMap<>();
 		private final Multimap<OS_Module, DoneCallback<Eventual<DeducePhase.GeneratedClasses>>> mmme   = ArrayListMultimap

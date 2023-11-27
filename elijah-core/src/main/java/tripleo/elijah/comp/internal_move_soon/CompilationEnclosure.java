@@ -13,6 +13,7 @@ import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.g.GCompilationEnclosure;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.pre_world.*;
 import tripleo.elijah.stages.gen_fn.*;
@@ -125,4 +126,6 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	void addLog(ElLog aLOG);
 
 	List<ElLog> getLogs();
+
+	EIT_ModuleList getModuleList();
 }

@@ -1,5 +1,7 @@
 package tripleo.elijah.stages.write_stage.pipeline_impl;
 
+import com.google.common.base.Preconditions;
+import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.UnintendedUseException;
@@ -41,7 +43,8 @@ class AmazingFunction implements Amazing {
 	private final IPipelineAccess                  pa;
 
 	public AmazingFunction(final @NotNull BaseEvaFunction aBaseEvaFunction,
-						   final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems, final @NotNull GenerateResult aGenerateResult,
+						   final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems,
+						   final @NotNull GenerateResult aGenerateResult,
 						   final @NotNull IPipelineAccess aPa) {
 		// given
 		f      = aBaseEvaFunction;
@@ -91,14 +94,53 @@ class AmazingFunction implements Amazing {
 
 //			var generateModuleResult = generateModule.getModuleResult(fileGen.wm(), fileGen.resultSink());
 
-			if (f instanceof EvaFunction ff) {
-				ggc.generateCodeForMethod(fileGen, ff);
-			} else if (f instanceof EvaConstructor fc) {
-				ggc.generateCodeForConstructor_1(fc, fileGen);
-			}
+			ProgressiveGenerateFiles
+					.of(this)
+					.then(ggc1 -> {
+						if (f instanceof EvaFunction ff) {
+							ggc1.generateCodeForMethod(fileGen, ff);
+						} else if (f instanceof EvaConstructor fc) {
+							ggc1.generateCodeForConstructor_1(fc, fileGen);
+						}
+					})
+					.with(ggc); // NOTE 11/26 too involved to back out. this is cheating, tho.
+
 
 			itms.addItem(of);
 		});
+	}
+
+	interface ProgressiveGenerateFiles_Amazing_ {
+		void with(GenerateC aGgc);
+	}
+
+	static class ProgressiveGenerateFiles_AmazingFunction implements ProgressiveGenerateFiles, ProgressiveGenerateFiles_Amazing_ {
+		private final AmazingFunction   amazingFunction;
+		private DoneCallback<GenerateC> cb;
+
+		public ProgressiveGenerateFiles_AmazingFunction(final AmazingFunction aAmazingFunction) {
+			amazingFunction = aAmazingFunction;
+		}
+
+		@Override
+		public ProgressiveGenerateFiles_Amazing_ then(final DoneCallback<GenerateC> aGenerateC) {
+			this.cb = aGenerateC;
+			return this;
+		}
+
+		@Override
+		public void with(final GenerateC aGenerateC) {
+			Preconditions.checkNotNull(cb);
+			cb.onDone(aGenerateC);
+		}
+	}
+
+	static interface ProgressiveGenerateFiles {
+		public static ProgressiveGenerateFiles of(final AmazingFunction amazingFunction) {
+			return new ProgressiveGenerateFiles_AmazingFunction(amazingFunction);
+		}
+
+		ProgressiveGenerateFiles_Amazing_ then(DoneCallback<GenerateC> aGenerateC);
 	}
 
 	private static class MyGenerateResultSink implements GenerateResultSink {

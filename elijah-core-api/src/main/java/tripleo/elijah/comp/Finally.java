@@ -14,7 +14,7 @@ public interface Finally {
 
 	int outputCount();
 
-	void addCodeOutput(EOT_OutputFile.FileNameProvider aFileNameProvider, EOT_OutputFile aOff);
+	void addCodeOutput(EOT_FileNameProvider aFileNameProvider, EOT_OutputFile aOff);
 
 	void addInput(Nameable aNameable, Out2 ty);
 
