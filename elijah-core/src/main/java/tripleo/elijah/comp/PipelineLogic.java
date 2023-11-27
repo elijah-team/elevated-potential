@@ -111,10 +111,6 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 		return generatePhase.getGenerateFunctions(mod);
 	}
 
-	public List<ElLog> getLogs() {
-		return _pa().getCompilationEnclosure().getLogs();
-	}
-
 	public Eventual<DeducePhase.GeneratedClasses> handle(final GN_PL_Run2.@NotNull GenerateFunctionsRequest rq) {
 		final OS_Module          mod = rq.mod();
 		final DefaultWorldModule wm  = rq.worldModule();
