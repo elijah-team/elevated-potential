@@ -33,7 +33,7 @@ public class OStageProcess implements RuntimeProcess {
 					return types.False;
 
 				// 2. produce effect
-				ce.addPipelinePlugin(pipelinePlugin::instance);
+				ce.addPipelinePlugin(pipelinePlugin);
 				return types.True;
 			} else {
 				// TODO exception? errSink??
