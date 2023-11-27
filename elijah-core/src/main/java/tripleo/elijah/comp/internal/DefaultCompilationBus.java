@@ -91,7 +91,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 			for (final CB_Process process : pq) {
 				System.err.println("5757 " + process.name());
-//				process.execute(this);
+				process.execute(this);
 			}
 
 			thread.stop();

@@ -4,4 +4,8 @@ public interface PW_PushWork {
 	void handle(PW_Controller pwc, PW_PushWork otherInstance);
 
 	void execute(PW_Controller aController);
+
+	default String name() {
+		return getClass().getName();
+	}
 }

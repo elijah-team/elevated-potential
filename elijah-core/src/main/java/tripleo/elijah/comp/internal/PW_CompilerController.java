@@ -45,6 +45,9 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 				// README 10/20 fails everything after one failed poll
 
 
+				poll.execute(this);
+
+
 //nfdskj;lfndskjlfngdsjklfndsjklfdsnjfkldsnfdsjklfndsjklfndsjfkldsnkls
 				x = false;
 			}
