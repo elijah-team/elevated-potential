@@ -23,7 +23,8 @@ import tripleo.elijah.comp.notation.GN_WriteLogs;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFileImpl;
+import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
+import tripleo.elijah.nextgen.outputtree.EOT_FileNameProvider;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.pre_world.Mirror_EntryPoint;
 import tripleo.elijah.stages.gen_fn.IClassGenerator;
@@ -50,9 +51,9 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	private final          Subject<ReactiveDimension>                                                      dimensionSubject      = ReplaySubject.<ReactiveDimension>create();
 	private final          Subject<Reactivable>                                                            reactivableSubject    = ReplaySubject.<Reactivable>create();
 	private final @NonNull List<ElLog>                                                                     elLogs                = new LinkedList<>();
-	private final          List<ModuleListener>                                                            _moduleListeners      = new ArrayList<>();
-	private final          List<Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest>> outFileAssertions     = new ArrayList<>();
-	private final @NonNull OFA                                                                             ofa                   = new OFA(/* outFileAssertions */);
+	private final          List<ModuleListener>                                             _moduleListeners  = new ArrayList<>();
+	private final          List<Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest>> outFileAssertions = new ArrayList<>();
+	private final @NonNull OFA                                                              ofa               = new OFA(/* outFileAssertions */);
 	Observer<ReactiveDimension> dimensionObserver   = new Observer<ReactiveDimension>() {
 		@Override
 		public void onSubscribe(@NonNull final Disposable d) {
@@ -481,6 +482,11 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	@Override
+	public EIT_ModuleList getModuleList() {
+		return compilation.getObjectTree().getModuleList();
+	}
+
+	@Override
 	public GModuleThing addModuleThing(final GOS_Module aModule) {
 		return addModuleThing((OS_Module) aModule);
 	}
@@ -534,7 +540,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	}
 
-	public class OFA implements Iterable<Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest>> {
+	public class OFA implements Iterable<Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest>> {
 
 		// public OFA(final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider,
 		// NG_OutputRequest>> aOutFileAssertions) {
@@ -542,7 +548,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		// }
 
 		public boolean contains(String aFileName) {
-			for (Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest> outFileAssertion : outFileAssertions) {
+			for (Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest> outFileAssertion : outFileAssertions) {
 				final String containedFilename = outFileAssertion.getMiddle().getFilename();
 
 				if (containedFilename.equals(aFileName)) {
@@ -554,7 +560,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		}
 
 		@Override
-		public Iterator<Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest>> iterator() {
+		public Iterator<Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest>> iterator() {
 			return outFileAssertions.stream().iterator();
 		}
 	}

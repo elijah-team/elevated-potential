@@ -3,10 +3,13 @@ package tripleo.elijah.comp.internal;
 import org.apache.commons.lang3.tuple.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.world.impl.DefaultWorldModule;
 
 public class DefaultObjectTree implements CK_ObjectTree {
 	private final CompilationImpl compilation;
@@ -14,13 +17,13 @@ public class DefaultObjectTree implements CK_ObjectTree {
 
 	public DefaultObjectTree(final CompilationImpl aCompilation) {
 		compilation = aCompilation;
+		moduleList  = new EIT_ModuleList_();
 	}
 
 	@Override
 	public void asseverate(Object o, Asseverate asseveration) {
 		switch (asseveration) {
 		case ELIJAH_PARSED -> {
-/*
 			var x = (Pair<ElijahSpec, Operation<OS_Module>>)o;
 
 			var spec = x.getLeft();
@@ -31,7 +34,6 @@ public class DefaultObjectTree implements CK_ObjectTree {
 			var wm = new DefaultWorldModule(calm.success(), getCompilationEnclosure());
 			System.err.println("**************************************************Comp ELIJAH_PARSED  "+wm.module().getFileName());
 //				pl.addModule(wm);
-*/
 		}
 		case CI_HASHED -> {
 			Triple<EzSpec, CK_SourceFile, Operation<String>> t = (Triple<EzSpec, CK_SourceFile, Operation<String>>) o;
@@ -50,6 +52,10 @@ public class DefaultObjectTree implements CK_ObjectTree {
 		}
 		}
 //			NotImplementedException.raise_stop();
+	}
+
+	private CompilationEnclosure getCompilationEnclosure() {
+		return this.compilation.getCompilationEnclosure();
 	}
 
 	@Override

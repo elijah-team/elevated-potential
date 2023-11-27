@@ -5,13 +5,13 @@ import org.jetbrains.annotations.*;
 import java.util.*;
 
 public interface ElLog {
-	void err(String aMessage);
-
 	@NotNull List<LogEntry> getEntries();
 
 	String getFileName();
 
 	String getPhase();
+
+	void err(String aMessage);
 
 	void info(String aMessage);
 

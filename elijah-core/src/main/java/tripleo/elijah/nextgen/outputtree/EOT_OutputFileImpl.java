@@ -7,7 +7,7 @@ import tripleo.elijah.nextgen.outputstatement.*;
 import java.util.*;
 
 public class EOT_OutputFileImpl implements EOT_OutputFile {
-	public static class DefaultFileNameProvider implements FileNameProvider {
+	public static class DefaultFileNameProvider implements EOT_FileNameProvider {
 		private final String r;
 
 		public DefaultFileNameProvider(final String aR) {
@@ -20,13 +20,13 @@ public class EOT_OutputFileImpl implements EOT_OutputFile {
 		}
 	}
 
-	private final @NotNull FileNameProvider _filename;
-	private final List<EIT_Input> _inputs = new ArrayList<>();
+	private final @NotNull EOT_FileNameProvider _filename;
+	private final          List<EIT_Input>      _inputs = new ArrayList<>();
 	private final @NotNull EOT_OutputType _type;
 	private final @NotNull EG_Statement _sequence; // TODO List<?> ??
 	public List<EIT_Input_HashSourceFile_Triple> x;
 
-	public EOT_OutputFileImpl(final @NotNull List<EIT_Input> inputs, final @NotNull FileNameProvider filename,
+	public EOT_OutputFileImpl(final @NotNull List<EIT_Input> inputs, final @NotNull EOT_FileNameProvider filename,
 							  final @NotNull EOT_OutputType type, final @NotNull EG_Statement sequence) {
 		_filename = filename;
 		_type = type;

@@ -9,6 +9,7 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.DebugFlags;
 import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
@@ -73,106 +74,17 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 
 	@Override
 	public void lgc_slot(final @NotNull List<EvaNode> aLgc1) {
-		var aLgc = new ArrayList<>(aLgc1);
+		var nodesThatWereProcesed = new ArrayList<>(aLgc1);
 
-		final List<ProcessedNode> nodes = processLgc(aLgc);
+		final List<ProcessedNode> nodes = processLgc(nodesThatWereProcesed);
+		int y=2;
 
-		for (EvaNode evaNode : aLgc) {
+		for (EvaNode evaNode : nodesThatWereProcesed) {
 			_processOutput.logProgress(160, "EvaPipeline.recieve >> " + evaNode);
 		}
 
-		EOT_OutputFileImpl.FileNameProvider filename1;
-
-		//final @NotNull EOT_OutputTree cot = pa.getCompilation().getOutputTree();
-		for (EvaNode evaNode : aLgc) {
-			String             filename = null;
-			final StringBuffer sb       = new StringBuffer();
-
-			if (evaNode instanceof EvaClass aEvaClass) {
-				filename = "C_" + aEvaClass.getCode() + aEvaClass.getName();
-				sb.append("CLASS %d %s\n".formatted(aEvaClass.getCode(), aEvaClass.getName()));
-				for (EvaContainer.VarTableEntry varTableEntry : aEvaClass.varTable) {
-					sb.append("MEMBER %s %s".formatted(varTableEntry.nameToken, varTableEntry.varType));
-				}
-				for (Map.Entry<FunctionDef, EvaFunction> functionEntry : aEvaClass.functionMap.entrySet()) {
-					EvaFunction v = functionEntry.getValue();
-					sb.append("FUNCTION %d %s\n".formatted(v.getCode(), v.getFD().getNameNode().getText()));
-
-					pa.activeFunction(v);
-				}
-
-				filename1 = new EOT_OutputFileImpl.FileNameProvider() {
-					@Override
-					public String getFilename() {
-						var filename2 = "C_" + aEvaClass.getCode() + aEvaClass.getName();
-						return filename2;
-					}
-				};
-
-				pa.activeClass(aEvaClass);
-			} else if (evaNode instanceof EvaNamespace aEvaNamespace) {
-				filename = "N_" + aEvaNamespace.getCode() + aEvaNamespace.getName();
-				sb.append("NAMESPACE %d %s\n".formatted(aEvaNamespace.getCode(), aEvaNamespace.getName()));
-				for (EvaContainer.VarTableEntry varTableEntry : aEvaNamespace.varTable) {
-					sb.append("MEMBER %s %s\n".formatted(varTableEntry.nameToken, varTableEntry.varType));
-				}
-				for (Map.Entry<FunctionDef, EvaFunction> functionEntry : aEvaNamespace.functionMap.entrySet()) {
-					EvaFunction v = functionEntry.getValue();
-					sb.append("FUNCTION %d %s\n".formatted(v.getCode(), v.getFD().getNameNode().getText()));
-				}
-
-				filename1 = new EOT_OutputFileImpl.FileNameProvider() {
-					@Override
-					public String getFilename() {
-						var filename2 = "N_" + aEvaNamespace.getCode() + aEvaNamespace.getName();
-						return filename2;
-					}
-				};
-
-				pa.activeNamespace(aEvaNamespace);
-			} else if (evaNode instanceof EvaFunction evaFunction) {
-				int code = evaFunction.getCode();
-
-				if (code == 0) {
-					var cr = ce.getPipelineLogic().dp.getCodeRegistrar();
-					cr.registerFunction1(evaFunction);
-
-					code = evaFunction.getCode();
-					assert code != 0;
-				}
-
-				final String functionName = evaFunction.getFunctionName();
-				filename = "F_" + code + functionName;
-
-				final int finalCode = code;
-				filename1 = new EOT_OutputFileImpl.FileNameProvider() {
-					@Override
-					public String getFilename() {
-						final String functionName = evaFunction.getFunctionName();
-						var          filename2    = "F_" + finalCode + functionName;
-						return filename2;
-					}
-				};
-
-				final String str = "FUNCTION %d %s %s\n".formatted(code, functionName,
-																   ((OS_Element2) evaFunction.getFD().getParent()).name());
-				sb.append(str);
-				pa.activeFunction(evaFunction);
-			} else {
-				throw new IllegalStateException("Can't determine node");
-			}
-
-			final EG_Statement   seq = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("dump"));
-			final EOT_OutputFile off = new EOT_OutputFileImpl(List_of(), filename1, EOT_OutputType.DUMP, seq);
-			// cot.add(off);
-		}
-
-		for (FunctionStatement functionStatement : functionStatements) {
-			final String         filename = functionStatement.getFilename(pa);
-			final EG_Statement   seq      = EG_Statement.of(functionStatement.getText(), EX_Explanation.withMessage("dump2"));
-			final EOT_OutputFile off      = new EOT_OutputFileImpl(List_of(), filename, EOT_OutputType.DUMP, seq);
-			// cot.add(off);
-		}
+		nodesThatWereProcesed.forEach(this::nodeToOutputFileDump);
+		functionStatements.forEach(this::functionStatementToOutputFileDump);
 
 		final CompilationEnclosure compilationEnclosure = pa.getCompilationEnclosure();
 
@@ -180,7 +92,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 			final var env = new GN_GenerateNodesIntoSinkEnv(
 					nodes,
 					grs,
-					null, //pa.pipelineLogic().mods(),
+					pa.pipelineLogic().mods(),
 					compilationEnclosure.getCompilationAccess().testSilence(),
 					pa.getAccessBus().gr,
 					pa,
@@ -190,6 +102,103 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 			_processOutput.logProgress(117, "EvaPipeline >> GN_GenerateNodesIntoSink");
 			pa.notate(Provenance.EvaPipeline__lgc_slot, env);
 		});
+	}
+
+	private void functionStatementToOutputFileDump(final FunctionStatement functionStatement) {
+		final String         filename = functionStatement.getFilename(pa);
+		final EG_Statement   seq      = EG_Statement.of(functionStatement.getText(), EX_Explanation.withMessage("dump2"));
+		if (DebugFlags.writeDumps) {
+			final var cot = ce.getCompilation().getOutputTree();
+			final EOT_OutputFile off = new EOT_OutputFileImpl(List_of(), filename, EOT_OutputType.DUMP, seq);
+			cot.add(off);
+		}
+	}
+
+	private void nodeToOutputFileDump(final EvaNode evaNode) {
+		EOT_FileNameProvider filename1;
+		String               filename = null;
+		final StringBuffer   sb       = new StringBuffer();
+
+		if (evaNode instanceof EvaClass aEvaClass) {
+			filename = "C_" + aEvaClass.getCode() + aEvaClass.getName();
+			sb.append("CLASS %d %s\n".formatted(aEvaClass.getCode(), aEvaClass.getName()));
+			for (EvaContainer.VarTableEntry varTableEntry : aEvaClass.varTable) {
+				sb.append("MEMBER %s %s".formatted(varTableEntry.nameToken, varTableEntry.varType));
+			}
+			for (Map.Entry<FunctionDef, EvaFunction> functionEntry : aEvaClass.functionMap.entrySet()) {
+				EvaFunction v = functionEntry.getValue();
+				sb.append("FUNCTION %d %s\n".formatted(v.getCode(), v.getFD().getNameNode().getText()));
+
+				pa.activeFunction(v);
+			}
+
+			filename1 = new EOT_FileNameProvider() {
+				@Override
+				public String getFilename() {
+					var filename2 = "C_" + aEvaClass.getCode() + aEvaClass.getName();
+					return filename2;
+				}
+			};
+
+			pa.activeClass(aEvaClass);
+		} else if (evaNode instanceof EvaNamespace aEvaNamespace) {
+			filename = "N_" + aEvaNamespace.getCode() + aEvaNamespace.getName();
+			sb.append("NAMESPACE %d %s\n".formatted(aEvaNamespace.getCode(), aEvaNamespace.getName()));
+			for (EvaContainer.VarTableEntry varTableEntry : aEvaNamespace.varTable) {
+				sb.append("MEMBER %s %s\n".formatted(varTableEntry.nameToken, varTableEntry.varType));
+			}
+			for (Map.Entry<FunctionDef, EvaFunction> functionEntry : aEvaNamespace.functionMap.entrySet()) {
+				EvaFunction v = functionEntry.getValue();
+				sb.append("FUNCTION %d %s\n".formatted(v.getCode(), v.getFD().getNameNode().getText()));
+			}
+
+			filename1 = new EOT_FileNameProvider() {
+				@Override
+				public String getFilename() {
+					var filename2 = "N_" + aEvaNamespace.getCode() + aEvaNamespace.getName();
+					return filename2;
+				}
+			};
+
+			pa.activeNamespace(aEvaNamespace);
+		} else if (evaNode instanceof EvaFunction evaFunction) {
+			int code = evaFunction.getCode();
+
+			if (code == 0) {
+				var cr = ce.getPipelineLogic().dp.getCodeRegistrar();
+				cr.registerFunction1(evaFunction);
+
+				code = evaFunction.getCode();
+				assert code != 0;
+			}
+
+			final String functionName = evaFunction.getFunctionName();
+			filename = "F_" + code + functionName;
+
+			final int finalCode = code;
+			filename1 = new EOT_FileNameProvider() {
+				@Override
+				public String getFilename() {
+					final String functionName = evaFunction.getFunctionName();
+					var          filename2    = "F_" + finalCode + functionName;
+					return filename2;
+				}
+			};
+
+			final String str = "FUNCTION %d %s %s\n".formatted(code, functionName,
+															   ((OS_Element2) evaFunction.getFD().getParent()).name());
+			sb.append(str);
+			pa.activeFunction(evaFunction);
+		} else {
+			throw new IllegalStateException("Can't determine node");
+		}
+
+		final EG_Statement   seq = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("dump"));
+		if (DebugFlags.writeDumps) {
+			final @NotNull EOT_OutputTree cot = pa.getCompilation().getOutputTree();
+			final EOT_OutputFile          off = new EOT_OutputFileImpl(List_of(), filename1, EOT_OutputType.DUMP, seq);
+			cot.add(off);
+		}
 	}
 
 	public static @NotNull List<ProcessedNode> processLgc(final @NotNull List<EvaNode> aLgc) {

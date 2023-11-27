@@ -26,7 +26,7 @@ import java.io.File;
  * Created 1/13/21 5:54 AM
  */
 public class OutputStrategyC {
-	public class OSC_NFC implements EOT_OutputFileImpl.FileNameProvider {
+	public class OSC_NFC implements EOT_FileNameProvider {
 		String lsp;
 
 		String dir;
@@ -67,7 +67,7 @@ public class OutputStrategyC {
 		}
 	}
 
-	public class OSC_NFCo implements EOT_OutputFileImpl.FileNameProvider {
+	public class OSC_NFCo implements EOT_FileNameProvider {
 		private final String s;
 
 		public OSC_NFCo(final String aS) {
@@ -80,7 +80,7 @@ public class OutputStrategyC {
 		}
 	}
 
-	public class OSC_NFF implements EOT_OutputFileImpl.FileNameProvider {
+	public class OSC_NFF implements EOT_FileNameProvider {
 		private final String s;
 
 		public OSC_NFF(final String aS) {
@@ -94,7 +94,7 @@ public class OutputStrategyC {
 
 	}
 
-	public class OSC_NFN implements EOT_OutputFileImpl.FileNameProvider {
+	public class OSC_NFN implements EOT_FileNameProvider {
 		private final @Nullable String s;
 		private final @Nullable String lsp0;
 		private final @Nullable String name0;
@@ -119,7 +119,7 @@ public class OutputStrategyC {
 		}
 	}
 
-	public class OSC_NFN_ implements EOT_OutputFileImpl.FileNameProvider {
+	public class OSC_NFN_ implements EOT_FileNameProvider {
 		private final @Nullable String s;
 
 		public OSC_NFN_(final EvaNamespace aX, final GenerateResult.TY aTy) {
@@ -331,8 +331,8 @@ public class OutputStrategyC {
 		return null;
 	}
 
-	public @NotNull EOT_OutputFileImpl.FileNameProvider nameForFunction1(final @NotNull EvaFunction aGf,
-																		 final GenerateResult.@NotNull TY aTy) {
+	public @NotNull EOT_FileNameProvider nameForFunction1(final @NotNull EvaFunction aGf,
+														  final GenerateResult.@NotNull TY aTy) {
 		return new OSC_NFF(nameForFunction(aGf, aTy));
 	}
 
@@ -371,8 +371,8 @@ public class OutputStrategyC {
 		return new OSC_NFN(lsp0, name0, filename, extension0).getFilename();
 	}
 
-	public EOT_OutputFileImpl.FileNameProvider nameForNamespace1(final @NotNull EvaNamespace aX,
-																 final GenerateResult.@NotNull TY aTy) {
+	public EOT_FileNameProvider nameForNamespace1(final @NotNull EvaNamespace aX,
+												  final GenerateResult.@NotNull TY aTy) {
 		return new OSC_NFN_(aX, aTy);
 	}
 

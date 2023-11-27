@@ -135,7 +135,7 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 	}
 
 	interface Writable {
-		EOT_OutputFileImpl.FileNameProvider filename();
+		EOT_FileNameProvider filename();
 
 		List<EIT_Input> inputs();
 
@@ -151,9 +151,9 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 
 	// TODO 09/04 Duplication madness
 	private static class MyWritable implements Writable {
-		final          Collection<EG_Statement>            value;
-		final          EOT_OutputFileImpl.FileNameProvider filename;
-		final @NotNull List<EG_Statement>                  list;
+		final          Collection<EG_Statement> value;
+		final          EOT_FileNameProvider     filename;
+		final @NotNull List<EG_Statement>       list;
 		final @NotNull EG_SequenceStatement            statement;
 		private final  NG_OutputRequest                outputRequest;
 
@@ -168,7 +168,7 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 		}
 
 		@Override
-		public EOT_OutputFileImpl.FileNameProvider filename() {
+		public EOT_FileNameProvider filename() {
 			return filename;
 		}
 
@@ -252,9 +252,9 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 				final List<NG_OutputStatement> oxs = o.getOutputs();
 				for (final NG_OutputStatement ox : oxs) {
 					final GenerateResult.TY               oxt = ox.getTy();
-					final String                              oxb = ox.getText();
-					final EOT_OutputFileImpl.FileNameProvider s   = o.outName(outputItems.outputStrategyC, oxt);
-					final NG_OutputRequest                    or  = new NG_OutputRequest(s, ox, ox, o);
+					final String               oxb = ox.getText();
+					final EOT_FileNameProvider s   = o.outName(outputItems.outputStrategyC, oxt);
+					final NG_OutputRequest     or  = new NG_OutputRequest(s, ox, ox, o);
 
 					outputItems.ors1.add(or);
 				}
