@@ -56,7 +56,7 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 
 
 
-				System.err.println("999053 "+t.getClass().getName());
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("999053 "+t.getClass().getName());
 
 
 
@@ -145,7 +145,7 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 	static class Default_WPIS_GenerateOutputs_Behavior_PrintDBLString implements WPIS_GenerateOutputs_Behavior_PrintDBLString {
 		@Override
 		public void print(final String sps) {
-			System.err.println(sps);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(sps);
 		}
 	}
 

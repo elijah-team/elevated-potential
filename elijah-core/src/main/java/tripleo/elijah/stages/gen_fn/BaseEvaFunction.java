@@ -8,32 +8,25 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jdeferred2.DoneCallback;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.UnintendedUseException;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.LangGlobals;
-import tripleo.elijah.nextgen.reactive.DefaultReactive;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.gen_generic.Dependency;
-import tripleo.elijah.stages.gen_generic.IDependencyReferent;
+import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.inter.ModuleThing;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.Holder;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
-import tripleo.elijah.world.impl.DefaultLivingFunction;
+import tripleo.elijah.stages.inter.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.world.impl.*;
 import tripleo.util.range.Range;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
-import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
+import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 
 /**
  * Created 9/10/20 2:57 PM
@@ -66,25 +59,25 @@ public abstract class BaseEvaFunction
 	private          EvaContainerNC                 parent;
 
 	static void printTables(@NotNull EvaFunction gf) {
-		SimplePrintLoggerToRemoveSoon.println_out_2("VariableTable ");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("VariableTable ");
 		for (VariableTableEntry variableTableEntry : gf.vte_list) {
-			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + variableTableEntry);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("\t" + variableTableEntry);
 		}
-		SimplePrintLoggerToRemoveSoon.println_out_2("ConstantTable ");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("ConstantTable ");
 		for (ConstantTableEntry constantTableEntry : gf.cte_list) {
-			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + constantTableEntry);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("\t" + constantTableEntry);
 		}
-		SimplePrintLoggerToRemoveSoon.println_out_2("ProcTable     ");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("ProcTable     ");
 		for (ProcTableEntry procTableEntry : gf.prte_list) {
-			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + procTableEntry);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("\t" + procTableEntry);
 		}
-		SimplePrintLoggerToRemoveSoon.println_out_2("TypeTable     ");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("TypeTable     ");
 		for (TypeTableEntry typeTableEntry : gf.tte_list) {
-			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + typeTableEntry);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("\t" + typeTableEntry);
 		}
-		SimplePrintLoggerToRemoveSoon.println_out_2("IdentTable    ");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("IdentTable    ");
 		for (IdentTableEntry identTableEntry : gf.idte_list) {
-			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + identTableEntry);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("\t" + identTableEntry);
 		}
 	}
 
@@ -490,7 +483,7 @@ public abstract class BaseEvaFunction
 					holder.set(result);
 				}
 			});
-			SimplePrintLoggerToRemoveSoon.println_err_2(String.format("Trying to resolve function twice 1) %s 2) %s",
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(String.format("Trying to resolve function twice 1) %s 2) %s",
 																	  holder.get().asString(), aType.asString()));
 		}
 	}
@@ -502,7 +495,7 @@ public abstract class BaseEvaFunction
 		//assert ((EvaContainerNC) aNode).getCode() != 0;
 		if (((EvaContainerNC) aNode).getCode() == 0) {
 			//throw new AssertionError();
-			System.err.println("504504 node is not coded in setClass "+aNode.identityString());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("504504 node is not coded in setClass "+aNode.identityString());
 		}
 
 		genClass = aNode;

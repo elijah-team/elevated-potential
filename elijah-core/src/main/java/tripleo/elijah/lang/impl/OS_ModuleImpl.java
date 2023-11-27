@@ -8,27 +8,20 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.LibraryStatementPart;
+import antlr.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.contexts.*;
-import tripleo.elijah.entrypoints.EntryPoint;
-import tripleo.elijah.entrypoints.MainClassEntryPoint;
+import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.stages.deduce.fluffy.impl.FluffyModuleImpl;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.stages.deduce.fluffy.impl.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Stack;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 /*
  * Created on Sep 1, 2005 8:16:32 PM
@@ -251,13 +244,13 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 						} else {
 							var classItemParent = classItem.getParent();
 
-//							System.err.println("159159 " + classItemParent.getClass().getName());
+//							tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("159159 " + classItemParent.getClass().getName());
 							entryPoints.add(new MainClassEntryPoint(classItem));
 						}
 					}
 					assert entryPoints.size() == eps || entryPoints.size() == eps + 1; // TODO this will fail one day
 
-					SimplePrintLoggerToRemoveSoon.println_out_2("243 " + entryPoints + " " + _fileName);
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("243 " + entryPoints + " " + _fileName);
 //					break; // allow for "extend" class
 				}
 			}

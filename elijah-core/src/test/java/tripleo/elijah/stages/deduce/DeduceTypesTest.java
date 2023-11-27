@@ -117,7 +117,7 @@ public class DeduceTypesTest {
 
 		final DeduceElement3_IdentTableEntry xxx = DeduceLookupUtils.deduceExpression2(de3_ite, fc);
 		this.x = xxx.genType();
-		SimplePrintLoggerToRemoveSoon.println_out_2(String.valueOf(this.x));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(String.valueOf(this.x));
 	}
 
 	/**

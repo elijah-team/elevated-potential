@@ -3,7 +3,7 @@ package tripleo.elijah.stages.deduce.pipeline_impl;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
@@ -19,7 +19,7 @@ class PL_AddModules implements PipelineLogicRunnable {
 			@Override
 			public void add(final WorldModule item) {
 //				plp.then(pipelineLogic -> pipelineLogic.addModule(item));
-				System.err.println("[PL_AddModules::ModuleCompletableProcess] add "+item.module().getFileName());
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[PL_AddModules::ModuleCompletableProcess] add "+item.module().getFileName());
 			}
 
 			@Override
@@ -39,7 +39,7 @@ class PL_AddModules implements PipelineLogicRunnable {
 
 			@Override
 			public void start() {
-				System.out.println("[PL_AddModules::ModuleCompletableProcess] start");
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("[PL_AddModules::ModuleCompletableProcess] start");
 			}
 		});
 	}

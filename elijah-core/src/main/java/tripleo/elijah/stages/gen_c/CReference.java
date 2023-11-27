@@ -10,29 +10,21 @@
 package tripleo.elijah.stages.gen_c;
 
 import org.apache.commons.lang3.tuple.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah.stages.instructions.ProcIA;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
-import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
-import static tripleo.elijah.util.Helpers.String_join;
+import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
+import static tripleo.elijah.util.Helpers.*;
 
 /**
  * Created 1/9/21 7:12 AM
@@ -452,19 +444,19 @@ public class CReference {
 		final List<InstructionArgument> pl = _getIdentIAPathList(identIA);
 
 		if (false) {
-			System.out.println("\\ 172-172-172-172-172 ---------------------------------------------");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("\\ 172-172-172-172-172 ---------------------------------------------");
 			for (InstructionArgument instructionArgument : pl) {
 				if (instructionArgument instanceof final @NotNull ProcIA procIA) {
-					System.out.println(procIA.getEntry().__debug_expression);
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(""+procIA.getEntry().__debug_expression);
 				} else if (instructionArgument instanceof final @NotNull IdentIA argument) {
-					System.out.println(argument.getEntry().getIdent().getText());
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(argument.getEntry().getIdent().getText());
 				} else if (instructionArgument instanceof final @NotNull IntegerIA integerIA) {
-					System.out.println(integerIA.getEntry().getName());
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(integerIA.getEntry().getName());
 				}
 			}
-			System.out.println("- 172-172-172-172-172 ---------------------------------------------");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("- 172-172-172-172-172 ---------------------------------------------");
 			System.out.printf("[%d][%s]%n", aPath.length(), aPath);
-			System.out.println("/ 172-172-172-172-172 ---------------------------------------------");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("/ 172-172-172-172-172 ---------------------------------------------");
 		}
 	}
 
@@ -575,7 +567,7 @@ public class CReference {
 		final CRI_Ident criIdent = CRI_Ident.of(idte, gf);
 		text = criIdent.getIdentIAPath(i, sSize, aog, sl, aValue, referenceConsumer, s, ia2, this, item);
 
-		// System.err.println("181181 " + text + " " + item.getText());
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("181181 " + text + " " + item.getText());
 		// assert text != null;
 		if (text == null)
 			return "<<null 181>>";

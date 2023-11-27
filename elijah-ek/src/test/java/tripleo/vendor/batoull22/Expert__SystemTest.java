@@ -22,17 +22,17 @@ public class Expert__SystemTest {
 		// reader.print();
 		reader.closefile();
 
-		// System.out.println("------------------------");
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("------------------------");
 		boolean f = i.Forwardchaining();
-		// System.out.println(" ");
-		System.out.println("Result of Forwardchaining: " + f);
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(" ");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("Result of Forwardchaining: " + f);
 
-		// System.out.println(" ");
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(" ");
 		// i.print();
 
-		// System.out.println("------------------------");
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("------------------------");
 		boolean b = i.Backwardchaining();
-		System.out.println("Result of Backwardchaining: " + b);
-		System.out.println(" ");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("Result of Backwardchaining: " + b);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(" ");
 	}
 }

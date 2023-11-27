@@ -47,12 +47,12 @@ public class CompilationTest {
 
 		worldModules.stream().forEach(wm -> {
 			var mod = wm.module();
-			SimplePrintLoggerToRemoveSoon.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
 		});
 
 		assertEquals(3/*7*//* 12 */, worldModules.size());
 
-		System.err.println("CompilationTest -- 53 " + worldModules.size());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("CompilationTest -- 53 " + worldModules.size());
 		assertTrue(worldModules.size() > 2);
 	}
 

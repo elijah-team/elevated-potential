@@ -18,11 +18,11 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 	}
 
 	private static void noteNonsense(int code, String message) {
-		SimplePrintLoggerToRemoveSoon.println_out_2(String.format("%d %s%n", code, message));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(String.format("%d %s%n", code, message));
 	}
 
 	private static void noteNonsenseErr(int code, String message) {
-		SimplePrintLoggerToRemoveSoon.println_err2(String.format("** [noteNonsenseErr] %d %s%n", code, message));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err2(String.format("** [noteNonsenseErr] %d %s%n", code, message));
 	}
 
 	private final EvaContainer.VarTableEntry _principal;
@@ -80,7 +80,7 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 
 			var dt2 = deduceTypes2();
 
-			// System.err.println((__passthru));
+			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4((__passthru));
 
 			if (attachedType == OS_Type.Type.USER_CLASS) {
 				var xci = dt2._inj().new_ClassInvocation(potentialType.getAttached().getClassOf(), null,

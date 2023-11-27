@@ -8,26 +8,17 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.IFunctionContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.AliasStatementImpl;
-import tripleo.elijah.lang.impl.LangGlobals;
-import tripleo.elijah.lang.impl.LookupResultListImpl;
-import tripleo.elijah.lang.impl.VariableStatementImpl;
-import tripleo.elijah.lang.types.OS_UnknownType;
-import tripleo.elijah.lang2.BuiltInTypes;
-import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
-import tripleo.elijah.stages.deduce.post_bytecode.IDeduceElement3;
-import tripleo.elijah.stages.gen_fn.GenType;
-import tripleo.elijah.stages.gen_fn.IdentTableEntry;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.stages.deduce.post_bytecode.*;
+import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.util.*;
 
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created 3/7/21 1:13 AM
@@ -333,7 +324,7 @@ public enum DeduceLookupUtils {
 		@Nullable
 		GenType result = deduceTypes2._inj().new_GenTypeImpl();
 		boolean finished = false;
-		SimplePrintLoggerToRemoveSoon.println_err_2("979 During deduceProcedureCall " + pce);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("979 During deduceProcedureCall " + pce);
 		@Nullable
 		OS_Element best = null;
 		try {
@@ -361,7 +352,7 @@ public enum DeduceLookupUtils {
 																								// somewhere
 					}
 				} else {
-					SimplePrintLoggerToRemoveSoon.println_err_2("992 " + best.getClass().getName());
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("992 " + best.getClass().getName());
 					throw new NotImplementedException();
 				}
 			}

@@ -152,10 +152,10 @@ public class SX_NodeTest2 {
 		final EG_SequenceStatement enc1 = getTestStatement();
 
 //		final int yy = 2;
-		System.out.println(enc1.getText());
-//		System.out.println();
-//		System.out.println(y);
-		System.out.println();
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(enc1.getText());
+//		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4();
+//		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(y);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("");
 
 		final List<EOT_OutputFile> l = rt.getList();
 		assert l != null;
@@ -167,9 +167,9 @@ public class SX_NodeTest2 {
 		// assert wmainl.size() > 0;
 
 		wmainl.stream().filter(wmain -> wmain.getType() == EOT_OutputType.SOURCES).forEach(wmain -> {
-			System.out.println("****************************");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("****************************");
 			final EG_Statement seqs = wmain.getStatementSequence();
-			System.out.println(seqs.getText());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(seqs.getText());
 		});
 	}
 }

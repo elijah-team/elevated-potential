@@ -8,31 +8,21 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.lang.types.OS_BuiltinType;
-import tripleo.elijah.lang.types.OS_GenericTypeNameType;
-import tripleo.elijah.lang.types.OS_UnknownType;
-import tripleo.elijah.lang.types.OS_UserClassType;
+import tripleo.elijah.lang.types.*;
 import tripleo.elijah.nextgen.*;
-import tripleo.elijah.nextgen.reactive.DefaultReactive;
-import tripleo.elijah.nextgen.reactive.Reactive;
+import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.garish.GarishClass_Generator;
-import tripleo.elijah.stages.gen_generic.CodeGenerator;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.Helpers0;
-import tripleo.elijah.util.Mode;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Operation;
-import tripleo.elijah.world.i.LivingClass;
+import tripleo.elijah.stages.garish.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.world.i.*;
 
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 /**
  * Created 10/29/20 4:26 AM
@@ -260,7 +250,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 	}
 
 	private static void logProgress(final int code, final String message) {
-		System.err.println(code + " " + message);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(code + " " + message);
 	}
 
 	@Override

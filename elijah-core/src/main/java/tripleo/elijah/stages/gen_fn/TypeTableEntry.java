@@ -8,14 +8,10 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.types.OS_UnitType;
-import tripleo.elijah.lang.types.OS_UserType;
-import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.stages.deduce.*;
 
 /**
  * Created 9/12/20 10:26 PM
@@ -117,7 +113,7 @@ public class TypeTableEntry {
 			break;
 		default:
 //			throw new NotImplementedException();
-			SimplePrintLoggerToRemoveSoon.println_err_2("73 " + aAttached);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("73 " + aAttached);
 			break;
 		}
 	}

@@ -2,6 +2,7 @@ package tripleo.vendor.batoull22;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,6 +67,6 @@ class EK_Production {
 	}
 
 	private void logProgress(final int aI, final String aList) {
-		System.out.println(aI + " " + aList);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(aI + " " + aList);
 	}
 }

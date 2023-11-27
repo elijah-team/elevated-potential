@@ -1,19 +1,14 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.nextgen.outputstatement.EG_CompoundStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_SingleStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
-import tripleo.elijah.stages.deduce.ExpressionConfession;
-import tripleo.elijah.stages.gen_fn.ProcTableEntry;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.*;
 
-import java.util.List;
+import java.util.*;
 
 public class GCX_FunctionCall implements EG_Statement {
 	private final GenerateC gc;
@@ -73,7 +68,7 @@ public class GCX_FunctionCall implements EG_Statement {
 
 			final String ss = est.getText();
 
-			System.out.println(ss);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(ss);
 		}
 		case exp -> {
 			final CReference reference = new CReference(gc.repo(), gc.ce);

@@ -11,25 +11,10 @@
  */
 package tripleo.elijah.contexts;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.Context;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.ISearchList;
-import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.lang.i.LookupResultList;
-import tripleo.elijah.lang.i.Loop;
-import tripleo.elijah.lang.i.NamespaceStatement;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.OS_Element2;
-import tripleo.elijah.lang.i.StatementItem;
-import tripleo.elijah.lang.i.VariableSequence;
-import tripleo.elijah.lang.i.VariableStatement;
-import tripleo.elijah.lang.impl.AliasStatementImpl;
-import tripleo.elijah.lang.impl.ContextImpl;
-import tripleo.elijah.lang.impl.VariableSequenceImpl;
-import tripleo.elijah.util.ProgramIsLikelyWrong;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.util.*;
 
 /**
  * Created Mar 26, 2020 at 9:40:43 PM
@@ -75,7 +60,7 @@ public class LoopContextImpl extends ContextImpl implements ILoopContext {
 				}
 			}
 			if (item instanceof VariableSequenceImpl) {
-				SimplePrintLoggerToRemoveSoon.println_out_2("1102 " + item);
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("1102 " + item);
 				for (final VariableStatement vs : ((VariableSequence) item).items()) {
 					if (vs.getName().equals(name)) {
 						Result.add(name, level, vs, this);

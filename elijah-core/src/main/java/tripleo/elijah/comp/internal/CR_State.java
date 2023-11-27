@@ -9,30 +9,29 @@
  */
 package tripleo.elijah.comp.internal;
 
-import org.apache.commons.lang3.tuple.Pair;
-import org.jdeferred2.DoneCallback;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.apache.commons.lang3.tuple.*;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.g.*;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.output.NG_OutputItem;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.stages.gen_c.GenerateC;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.output.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.stages.write_stage.pipeline_impl.WP_Flow;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.*;
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 public class CR_State implements GCR_State {
 
@@ -230,7 +229,7 @@ public class CR_State implements GCR_State {
 		@Override
 		public void notate(final Provenance aProvenance, final GN_Env aGNEnv) {
 			var y = installs.get(aProvenance);
-			// System.err.println("210 "+y);
+			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("210 "+y);
 
 			Class<?> x = y.getLeft();
 			// var z = y.getRight();
@@ -247,7 +246,7 @@ public class CR_State implements GCR_State {
 
 					notableAction._actual_run();  // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
-					// System.err.println("227 "+inst);
+					// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("227 "+inst);
 				}
 			} catch (NoSuchMethodException | SecurityException | InvocationTargetException | IllegalAccessException e) {
 				e.printStackTrace();
@@ -316,7 +315,7 @@ public class CR_State implements GCR_State {
 		@Override
 		public void finishPipeline(final GPipelineMember aPM, final WP_Flow.OPS aOps) {
 			final String formatted = "[FinishPipeline] %s %s".formatted(aPM.finishPipeline_asString(), aOps);
-			System.err.println(formatted);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(formatted);
 		}
 
 		@Override

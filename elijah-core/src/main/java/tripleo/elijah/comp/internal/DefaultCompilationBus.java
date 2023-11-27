@@ -1,14 +1,14 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.internal_move_soon.*;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 public class DefaultCompilationBus implements ICompilationBus {
 	private final          CB_Monitor        _monitor;
@@ -89,7 +89,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 			thread.join();//TimeUnit.MINUTES.toMillis(1));
 
 			for (final CB_Process process : pq) {
-				System.err.println("5757 " + process.name());
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("5757 " + process.name());
 				execute_process(this, process);
 			}
 

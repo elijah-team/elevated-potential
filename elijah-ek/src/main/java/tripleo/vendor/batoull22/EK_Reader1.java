@@ -2,6 +2,7 @@ package tripleo.vendor.batoull22;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.io.InputStream;
 import java.util.Objects;
@@ -33,12 +34,12 @@ final class EK_Reader1 implements EK_Reader {
 
 	@Override
 	public void print() {
-		System.out.println("factlist:" + _system.getListfacts());
-		System.out.println("rulelist:" + _system.getListrule());
-		System.out.println("goal:" + _system.getGoal());
-		System.out.println(" ");
-		// System.out.println( c);
-		// System.out.println( j);
+		SimplePrintLoggerToRemoveSoon.println_out_4("factlist:" + _system.getListfacts());
+		SimplePrintLoggerToRemoveSoon.println_out_4("rulelist:" + _system.getListrule());
+		SimplePrintLoggerToRemoveSoon.println_out_4("goal:" + _system.getGoal());
+		SimplePrintLoggerToRemoveSoon.println_out_4(" ");
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4( c);
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4( j);
 	}
 
 	@Override
@@ -51,9 +52,9 @@ final class EK_Reader1 implements EK_Reader {
 				_system.proof(a);
 			}
 		}
-		// System.out.println("factlist:"+ Listfacts);
-		// System.out.println("goal:"+ goal);
-		// System.out.println( "rulelist:"+Listrule);
-		// System.out.println( " ");
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("factlist:"+ Listfacts);
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("goal:"+ goal);
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4( "rulelist:"+Listrule);
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4( " ");
 	}
 }

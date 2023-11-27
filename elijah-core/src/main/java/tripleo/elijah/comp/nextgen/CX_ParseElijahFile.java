@@ -15,7 +15,7 @@ import tripleo.elijjah.*;
 
 import java.io.*;
 
-import static tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err2;
+import static tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.*;
 
 public class CX_ParseElijahFile {
 

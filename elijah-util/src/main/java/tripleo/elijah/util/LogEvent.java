@@ -15,7 +15,8 @@ public enum LogEvent {
 	;
 
 	public static void logEvent(final int number, final String message) {
-		System.err.println(number + " " + message);
+		final String s = "[LogEvent::logEvent] %d %s".formatted(number, message);
+		System.err.println(s);
 	}
 }
 

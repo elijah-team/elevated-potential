@@ -18,11 +18,11 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.g.GFunctionMapHook;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
 import tripleo.elijah.nextgen.*;
@@ -288,8 +288,8 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 			final BaseEvaFunction ef = pair.getLeft();
 			final DR_Item         dr = pair.getRight();
 
-			// System.err.println("611a " + ef);
-			// System.err.println("611b " + dr);
+			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("611a " + ef);
+			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("611b " + dr);
 
 			if (dr instanceof DR_ProcCall drpc) {
 				var fi = drpc.getFunctionInvocation();
@@ -299,17 +299,17 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 
 					if (ef1[0] == null) {
 						// throw new AssertionError();
-						System.err.println("****************************** no function generated");
+						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("****************************** no function generated");
 					} else {
 						pa.activeFunction(ef1[0]);
 					}
 				}
 			} else if (dr instanceof DR_Ident drid) {
-				// System.err.println(String.format("***** 623623 -- %s %b", drid.name(),
+				// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(String.format("***** 623623 -- %s %b", drid.name(),
 				// drid.isResolved()));
 
 				for (DR_Ident.Understanding understanding : drid.u) {
-					// System.err.println(String.format("**** 623626 -- %s",
+					// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(String.format("**** 623626 -- %s",
 					// understanding.asString()));
 				}
 			}

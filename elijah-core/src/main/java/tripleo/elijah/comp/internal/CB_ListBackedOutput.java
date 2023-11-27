@@ -1,12 +1,10 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.diagnostic.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class CB_ListBackedOutput implements CB_Output {
 	private final List<CB_OutputString> x = new ArrayList<>();
@@ -21,7 +19,7 @@ public class CB_ListBackedOutput implements CB_Output {
 		if (number == 130)
 			return;
 
-//		System.err.println
+//		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4
 		print(String.format("%d %s", number, text));
 	}
 

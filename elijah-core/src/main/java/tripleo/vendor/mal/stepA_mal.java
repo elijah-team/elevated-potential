@@ -75,7 +75,7 @@ public class stepA_mal {
 
 		while (true) {
 
-			// System.out.println("EVAL: " + printer._pr_str(orig_ast, true));
+			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("EVAL: " + printer._pr_str(orig_ast, true));
 			if (!orig_ast.list_Q()) {
 				return eval_ast(orig_ast, env);
 			}
@@ -331,21 +331,21 @@ public class stepA_mal {
 //			} catch (final readline.EOFException e) {
 //				break;
 //			} catch (final IOException e) {
-//				System.out.println("IOException: " + e.getMessage());
+//				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("IOException: " + e.getMessage());
 //				break;
 //			}
 //			try {
-//				System.out.println(PRINT(RE(repl_env, line)));
+//				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(PRINT(RE(repl_env, line)));
 //			} catch (final MalContinue e) {
 //				continue;
 //			} catch (final MalException e) {
-//				System.out.println("Error: " + printer._pr_str(e.getValue(), false));
+//				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("Error: " + printer._pr_str(e.getValue(), false));
 //				continue;
 //			} catch (final MalThrowable t) {
-//				System.out.println("Error: " + t.getMessage());
+//				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("Error: " + t.getMessage());
 //				continue;
 //			} catch (final Throwable t) {
-//				System.out.println("Uncaught " + t + ": " + t.getMessage());
+//				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("Uncaught " + t + ": " + t.getMessage());
 //				continue;
 //			}
 //		}

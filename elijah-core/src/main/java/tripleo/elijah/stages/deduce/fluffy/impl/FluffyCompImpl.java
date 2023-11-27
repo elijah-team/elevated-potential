@@ -2,7 +2,7 @@ package tripleo.elijah.stages.deduce.fluffy.impl;
 
 import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.lang.i.*;
@@ -93,9 +93,9 @@ public class FluffyCompImpl implements FluffyComp {
 		int y = 0;
 		for (Eventual<?> eventual : _eventuals) {
 			if (eventual.isResolved()) {
-				System.err.println("[FluffyCompImpl::checkEventual] ok for " + eventual.description());
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[FluffyCompImpl::checkEventual] ok for " + eventual.description());
 			} else {
-				System.err.println("[FluffyCompImpl::checkEventual] failed for " + eventual.description());
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[FluffyCompImpl::checkEventual] failed for " + eventual.description());
 			}
 		}
 	}

@@ -117,7 +117,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	private void logProgress(final int code, final String message) {
 		if (code == 117117)
 			return;
-		System.err.println(String.format("%d %s", code, message));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(String.format("%d %s", code, message));
 	}
 
 	public @NotNull Operation<Boolean> renderNode(final @NotNull ER_Node node) {
@@ -126,7 +126,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 
 		c.getCompilationEnclosure().logProgress(CompProgress.__CP_OutputPath_renderNode, node);
 
-		System.out.println("401b Writing path: " + path.toFile());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("401b Writing path: " + path.toFile());
 		path.getParent().toFile().mkdirs();
 
 		try (final DisposableCharSink xx = c.getIO().openWrite(path)) {

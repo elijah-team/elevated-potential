@@ -11,7 +11,7 @@ package tripleo.elijah.stages.deduce.tastic;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
 import tripleo.elijah.stages.deduce.*;
@@ -314,7 +314,7 @@ public class FT_FnCallArgs implements ITastic {
 
 			// 08/13 out
 			// 10/14 in
-			System.err.println("--------------------- 158" + (generatedFunction._getIdentIAResolvable(identIA).getNormalPath(generatedFunction, identIA)));
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("--------------------- 158" + (generatedFunction._getIdentIAResolvable(identIA).getNormalPath(generatedFunction, identIA)));
 
 			final FT_FCA_IdentIA             fca_ident = deduceTypes2._inj().new_FT_FCA_IdentIA(FT_FnCallArgs.this, identIA, vte);
 			final FT_FCA_IdentIA.Resolve_VTE rvte      = deduceTypes2._inj().new_FT_FCA_IdentIA_Resolve_VTE(vte, ctx, pte, instruction, fca);

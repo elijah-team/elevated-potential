@@ -1,44 +1,38 @@
 package tripleo.elijah.comp.impl;
 
-import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.annotations.*;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.subjects.ReplaySubject;
-import io.reactivex.rxjava3.subjects.Subject;
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.UnintendedUseException;
+import io.reactivex.rxjava3.subjects.*;
+import org.apache.commons.lang3.tuple.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.nextgen.CK_DefaultStepRunner;
-import tripleo.elijah.comp.nextgen.i.AsseverationLogProgress;
-import tripleo.elijah.comp.notation.GN_WriteLogs;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.g.*;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
-import tripleo.elijah.nextgen.outputtree.EOT_FileNameProvider;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.pre_world.Mirror_EntryPoint;
-import tripleo.elijah.stages.gen_fn.IClassGenerator;
-import tripleo.elijah.stages.generate.OutputStrategyC;
-import tripleo.elijah.stages.inter.ModuleThing;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
-import tripleo.elijah.util.CompletableProcess;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.pre_world.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.generate.*;
+import tripleo.elijah.stages.inter.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.write_stage.pipeline_impl.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.world.i.*;
 
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.function.*;
 
 public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	public final           Eventual<IPipelineAccess>                                                       pipelineAccessPromise = new Eventual<>();
@@ -317,7 +311,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		if (ecr.isPending()) {
 			ecr.resolve(compilationRunner);
 		} else {
-			System.err.println("903365 compilationRunner already set");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("903365 compilationRunner already set");
 		}
 	}
 
@@ -376,8 +370,8 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	public void noteAccept(final @NotNull WorldModule aWorldModule) {
 		var mod = aWorldModule.module();
 		var aMt = aWorldModule.rq().mt();
-		// System.err.println(mod);
-		// System.err.println(aMt);
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(mod);
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(aMt);
 	}
 
 	@Override
@@ -390,7 +384,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		// throw new IllegalStateException("Error");
 
 		// aReactive.join();
-		System.err.println("reactiveJoin " + aReactive.toString());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("reactiveJoin " + aReactive.toString());
 	}
 
 	@Override
@@ -505,7 +499,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 		@Override
 		public void add(final WorldModule item) {
-//			System.err.println("[ModuleListener_ModuleCompletableProcess] add " + item.module().getFileName());
+//			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[ModuleListener_ModuleCompletableProcess] add " + item.module().getFileName());
 
 			// TODO Reactive pattern (aka something ala ReplaySubject)
 			for (final ModuleListener moduleListener : _moduleListeners) {
@@ -515,7 +509,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 		@Override
 		public void complete() {
-			// 09/26 System.err.println("[ModuleListener_ModuleCompletableProcess] complete");
+			// 09/26 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[ModuleListener_ModuleCompletableProcess] complete");
 
 			// TODO Reactive pattern (aka something ala ReplaySubject)
 			for (final ModuleListener moduleListener : _moduleListeners) {
@@ -530,12 +524,12 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 		@Override
 		public void preComplete() {
-//			System.err.println("[ModuleListener_ModuleCompletableProcess] preComplete");
+//			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[ModuleListener_ModuleCompletableProcess] preComplete");
 		}
 
 		@Override
 		public void start() {
-//			System.err.println("[ModuleListener_ModuleCompletableProcess] start");
+//			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[ModuleListener_ModuleCompletableProcess] start");
 		}
 
 	}

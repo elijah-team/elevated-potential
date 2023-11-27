@@ -1,18 +1,17 @@
 package tripleo.elijah.comp.internal;
 
 import org.apache.commons.lang3.tuple.*;
-import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.comp.PipelineLogic;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.WorldModule;
-import tripleo.elijah.world.impl.DefaultWorldModule;
+import tripleo.elijah.world.i.*;
 
 public class DefaultObjectTree implements CK_ObjectTree {
 	private final CompilationImpl compilation;
@@ -37,7 +36,7 @@ public class DefaultObjectTree implements CK_ObjectTree {
 			PipelineLogic        pl   = getCompilationEnclosure().getPipelineLogic();
 			WorldModule          wm   = compilation.con().createWorldModule(calm.success());
 
-			System.err.println("**************************************************Comp ELIJAH_PARSED  "+wm.module().getFileName());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("**************************************************Comp ELIJAH_PARSED  "+wm.module().getFileName());
 
 			//pl.addModule(wm);
 		}

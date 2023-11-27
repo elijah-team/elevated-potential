@@ -9,20 +9,15 @@
 package tripleo.elijah.stages.gen_generic;
 
 import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.subjects.ReplaySubject;
-import io.reactivex.rxjava3.subjects.Subject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.stages.gen_c.OutputFileC;
+import io.reactivex.rxjava3.subjects.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
-import tripleo.util.buffer.Buffer;
+import tripleo.util.buffer.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
+import java.util.*;
+import java.util.function.*;
 
 /**
  * Created 4/27/21 1:11 AM
@@ -37,7 +32,7 @@ public class Old_GenerateResult implements GenerateResult {
 	private boolean _closed;
 
 	public Old_GenerateResult() {
-		// System.err.println("*** ctor Old_GenerateResult");
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("*** ctor Old_GenerateResult");
 	}
 
 	@Override
@@ -47,7 +42,7 @@ public class Old_GenerateResult implements GenerateResult {
 			throw new IllegalStateException("closed GenerateResult");
 
 		if (aLsp == null) {
-			SimplePrintLoggerToRemoveSoon.println_err_3("*************************** buffer --> " + b.getText());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_3("*************************** buffer --> " + b.getText());
 			return;
 		}
 
