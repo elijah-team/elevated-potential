@@ -17,6 +17,7 @@ import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_fn.*;
@@ -92,7 +93,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 			final var env = new GN_GenerateNodesIntoSinkEnv(
 					nodes,
 					grs,
-					pa.pipelineLogic().mods(),
+					(EIT_ModuleList) pa.pipelineLogic().mods(),
 					compilationEnclosure.getCompilationAccess().testSilence(),
 					pa.getAccessBus().gr,
 					pa,
