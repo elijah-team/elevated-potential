@@ -93,6 +93,7 @@ public class FluffyCompImpl implements FluffyComp {
 		int y = 0;
 		for (Eventual<?> eventual : _eventuals) {
 			if (eventual.isResolved()) {
+				System.err.println("[FluffyCompImpl::checkEventual] ok for " + eventual.description());
 			} else {
 				System.err.println("[FluffyCompImpl::checkEventual] failed for " + eventual.description());
 			}

@@ -38,8 +38,8 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 				if (_progressSink == null) {
 					_progressSink = compilation.getCompilationEnclosure().getCompilationBus().defaultProgressSink();
 				}
+				cci_listener.set(cci, _progressSink);
 			}
-			cci_listener.set(cci, _progressSink);
 		}
 
 

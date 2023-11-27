@@ -1,6 +1,8 @@
 package tripleo.elijah.comp.internal;
 
 import org.apache.commons.lang3.tuple.*;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.comp.PipelineLogic;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
@@ -9,6 +11,7 @@ import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
 public class DefaultObjectTree implements CK_ObjectTree {
@@ -23,17 +26,20 @@ public class DefaultObjectTree implements CK_ObjectTree {
 	@Override
 	public void asseverate(Object o, Asseverate asseveration) {
 		switch (asseveration) {
+		case CI_PARSED ->  {
+			throw new UnintendedUseException();
+		}
 		case ELIJAH_PARSED -> {
-			var x = (Pair<ElijahSpec, Operation<OS_Module>>)o;
+			var x = (Pair<ElijahSpec, Operation2<OS_Module>>)o;
 
-			var spec = x.getLeft();
-			var calm = x.getRight();
+			ElijahSpec           spec = x.getLeft();
+			Operation2<OS_Module> calm = x.getRight();
+			PipelineLogic        pl   = getCompilationEnclosure().getPipelineLogic();
+			WorldModule          wm   = compilation.con().createWorldModule(calm.success());
 
-			var pl = getCompilationEnclosure().getPipelineLogic();
-
-			var wm = new DefaultWorldModule(calm.success(), getCompilationEnclosure());
 			System.err.println("**************************************************Comp ELIJAH_PARSED  "+wm.module().getFileName());
-//				pl.addModule(wm);
+
+			//pl.addModule(wm);
 		}
 		case CI_HASHED -> {
 			Triple<EzSpec, CK_SourceFile, Operation<String>> t = (Triple<EzSpec, CK_SourceFile, Operation<String>>) o;
