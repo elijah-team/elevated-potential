@@ -19,7 +19,7 @@ import static tripleo.elijah.util.Helpers.List_of;
 
 public class WriteOutputTreePipeline extends PipelineMember implements GPipelineMember {
 	private static void addLogs(final @NotNull List<EOT_OutputFile> l, final @NotNull IPipelineAccess aPa) {
-		final List<ElLog> logs = aPa.getCompilationEnclosure().getPipelineLogic().getLogs();
+		final List<ElLog> logs = aPa.getCompilationEnclosure().getPipelineLogic()._pa().getCompilationEnclosure().getLogs();
 		final String s1 = logs.get(0).getFileName();
 
 		for (final ElLog log : logs) {

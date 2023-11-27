@@ -38,7 +38,6 @@ import java.util.function.*;
 public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic {
 	public final @NotNull  DeducePhase              dp;
 	public final @NotNull  GeneratePhase            generatePhase;
-	private final @NonNull List<ElLog>              elLogs = new LinkedList<>();
 //	private final @NonNull EIT_ModuleList           mods   = new EIT_ModuleList();
 	private final @NonNull ModuleCompletableProcess mcp    = new ModuleCompletableProcess();
 	private final @NonNull ModMap          modMap = new ModMap();
@@ -93,7 +92,7 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 	}
 
 	public void addLog(ElLog aLog) {
-		elLogs.add(aLog);
+		_pa().addLog(aLog);
 	}
 
 	@Override
@@ -113,7 +112,7 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 	}
 
 	public List<ElLog> getLogs() {
-		return elLogs;
+		return _pa().getCompilationEnclosure().getLogs();
 	}
 
 	public Eventual<DeducePhase.GeneratedClasses> handle(final GN_PL_Run2.@NotNull GenerateFunctionsRequest rq) {

@@ -1,5 +1,7 @@
 package tripleo.elijah.comp.i;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public interface CB_Process {
@@ -7,7 +9,7 @@ public interface CB_Process {
 
 	String name();
 
-	default void execute(ICompilationBus aCompilationBus) {
+	default void execute(@NotNull ICompilationBus aCompilationBus) {
 		final CB_Monitor monitor = aCompilationBus.getMonitor();
 
 		for (final CB_Action action : steps()) {

@@ -17,7 +17,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 	private final @NotNull CompilerDriver    compilerDriver;
 	private final @NotNull Compilation       c;
 	//	private final @NotNull List<CB_Process> _processes = new ArrayList<>();
-	@SuppressWarnings("TypeMayBeWeakened")
+	//@SuppressWarnings("TypeMayBeWeakened")
 	private final          Queue<CB_Process> pq = new ConcurrentLinkedQueue<>();
 
 	private final @NotNull IProgressSink _defaultProgressSink;

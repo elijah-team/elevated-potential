@@ -20,8 +20,7 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.notation.*;
-import tripleo.elijah.g.GCR_State;
-import tripleo.elijah.g.GPipelineMember;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.output.NG_OutputItem;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
@@ -71,20 +70,18 @@ public class CR_State implements GCR_State {
 	private static class ProcessRecordImpl implements ProcessRecord {
 		// private final DeducePipeline dpl;
 		private final @NotNull ICompilationAccess ca;
-		private final          IPipelineAccess    pa;
-		private final @NotNull PipelineLogic      pipelineLogic;
+		private                IPipelineAccess    pa;
+		private @NotNull       PipelineLogic      pipelineLogic;
 		//private                AccessBus          ab;
 
 		public ProcessRecordImpl(final @NotNull ICompilationAccess ca0) {
 			ca = ca0;
 
-			//((Compilation) ca.getCompilation()).getCompilationEnclosure().getAccessBusPromise().then((final @NotNull AccessBus iab) -> {
-				//ab = iab;
-			//});
-
-			pa = ((Compilation) ca.getCompilation()).get_pa();
-
-			pipelineLogic = new PipelineLogic(pa, ca);
+			final CompilationEnclosure compilationEnclosure0 = (CompilationEnclosure) ca0.getCompilationEnclosure();
+			compilationEnclosure0.getPipelineAccessPromise().then(pa0 -> {
+				pa = pa0;
+				pipelineLogic = new PipelineLogic(pa, ca);
+			});
 		}
 
 		@Contract(pure = true)
@@ -114,10 +111,7 @@ public class CR_State implements GCR_State {
 		@Override
 		public void writeLogs() {
 			final CompilationEnclosure ce            = pa.getCompilationEnclosure();
-			final PipelineLogic        pipelineLogic = ce.getPipelineLogic();
-			final GN_WriteLogs         notable       = new GN_WriteLogs(ce.getCompilationAccess(), pipelineLogic.getLogs());
-
-			pa.notate(Provenance.DefaultCompilationAccess__writeLogs, notable);
+			ce.writeLogs();
 		}
 	}
 
@@ -165,7 +159,7 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public void addLog(final ElLog aLOG) {
-			getCompilationEnclosure().getPipelineLogic().addLog(aLOG);
+			getCompilationEnclosure().addLog(aLOG);
 		}
 
 		@Override
@@ -258,7 +252,7 @@ public class CR_State implements GCR_State {
 
 					// cb.add(notableAction);
 
-					notableAction._actual_run();
+					notableAction._actual_run();  // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
 					// System.err.println("227 "+inst);
 				}
