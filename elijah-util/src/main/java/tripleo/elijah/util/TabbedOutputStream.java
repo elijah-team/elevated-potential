@@ -40,7 +40,7 @@ public class TabbedOutputStream {
 
 			tos.close();
 		} catch (final IOException ex) {
-			SimplePrintLoggerToRemoveSoon.println_out_2("error");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("error");
 		}
 	}
 

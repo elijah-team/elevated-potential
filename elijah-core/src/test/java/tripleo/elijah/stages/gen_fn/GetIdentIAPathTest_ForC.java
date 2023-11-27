@@ -49,7 +49,7 @@ public class GetIdentIAPathTest_ForC {
 			CompilationEnclosure ce) {
 		final CReference reference = new CReference(gc.repo(), ce);
 		var x = reference.getIdentIAPath2(ia2, Generate_Code_For_Method.AOG.GET, null);
-		System.err.println("258 " + x);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("258 " + x);
 		return x;// reference.build();
 	}
 

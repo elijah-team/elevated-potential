@@ -116,7 +116,7 @@ public class DeduceTypesTest2 {
 		final DeduceTypes2 d = dp.deduceModule(wm);
 
 		final GenType x = DeduceLookupUtils.deduceExpression(d, x1, fc);
-		SimplePrintLoggerToRemoveSoon.println_out_2("-- deduceExpression >>" + x);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("-- deduceExpression >>" + x);
 //		assertEquals(new OS_BuiltInType(BuiltInTypes..SystemInteger).getBType(), x.getBType());
 //		final RegularTypeName tn = new RegularTypeNameImpl();
 		final VariableTypeName tn = new VariableTypeNameImpl();

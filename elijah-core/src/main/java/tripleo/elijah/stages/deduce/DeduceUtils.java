@@ -84,7 +84,7 @@ public class DeduceUtils {
 
 				return !Lists.newArrayList(ctors2).isEmpty();
 			}
-			SimplePrintLoggerToRemoveSoon.println_out_2(String.valueOf(o));
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(String.valueOf(o));
 			return false;
 		}
 	}

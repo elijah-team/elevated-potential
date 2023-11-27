@@ -9,63 +9,45 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.annotations.*;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.subjects.Subject;
-import org.jdeferred2.DoneCallback;
-import org.jdeferred2.impl.DeferredObject;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.ReadySupplier_1;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.diagnostic.Diagnostic;
+import io.reactivex.rxjava3.subjects.*;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
-import tripleo.elijah.lang.nextgen.names.i.EN_Understanding;
-import tripleo.elijah.lang.nextgen.names.i.EN_Usage;
+import tripleo.elijah.lang.nextgen.names.i.*;
 import tripleo.elijah.lang.nextgen.names.impl.*;
-import tripleo.elijah.lang.types.OS_BuiltinType;
-import tripleo.elijah.lang.types.OS_UnitType;
-import tripleo.elijah.lang.types.OS_UnknownType;
-import tripleo.elijah.lang.types.OS_UserType;
-import tripleo.elijah.lang2.BuiltInTypes;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.lang2.SpecialFunctions;
-import tripleo.elijah.lang2.SpecialVariables;
-import tripleo.elijah.nextgen.ClassDefinition;
-import tripleo.elijah.nextgen.reactive.Reactivable;
-import tripleo.elijah.stages.deduce.Resolve_Ident_IA.DeduceElementIdent;
-import tripleo.elijah.stages.deduce.declarations.DeferredMember;
-import tripleo.elijah.stages.deduce.declarations.DeferredMemberFunction;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.nextgen.*;
+import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.stages.deduce.Resolve_Ident_IA.*;
+import tripleo.elijah.stages.deduce.declarations.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.deduce.tastic.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.inter.ModuleThing;
+import tripleo.elijah.stages.inter.*;
 import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.util.Holder;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Operation;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.regex.Pattern;
+import java.util.function.*;
+import java.util.regex.*;
 
 /**
  * Created 9/15/20 12:51 PM
@@ -1023,7 +1005,7 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 			try {
 				cte.getTypeTableEntry().setAttached(resolve_type(_inj().new_OS_BuiltinType(aBuiltInType), aContext));
 			} catch (ResolveError resolveError) {
-				SimplePrintLoggerToRemoveSoon.println_out_2("117 Can't be here");
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("117 Can't be here");
 				resolveError.printStackTrace(); // TODO print diagnostic
 			}
 		}
@@ -2468,7 +2450,7 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 			// assert genericTypeName != null;
 			if (genericTypeName == null) {
 
-				System.err.println("1860 who cares // assert genericTypeName != null");
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("1860 who cares // assert genericTypeName != null");
 
 			}
 			/*

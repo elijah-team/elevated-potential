@@ -17,7 +17,7 @@ public class DT_Resolvabley {
 
 	private static void logProgress(final int aI, final String z) {
 		if (aI == 67) {
-			System.err.println("----- 67 Should be " + z);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("----- 67 Should be " + z);
 		} else throw new Error();
 	}
 

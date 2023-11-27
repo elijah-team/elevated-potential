@@ -8,11 +8,9 @@
  */
 package tripleo.elijah.stages.logging;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import org.jetbrains.annotations.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 8/3/21 3:46 AM
@@ -36,7 +34,7 @@ public class ElLog_ implements ElLog {
 		long time = System.currentTimeMillis();
 		entries.add(new LogEntry_(time, LogEntry_.Level.ERROR, aMessage));
 		if (verbose == Verbosity.VERBOSE)
-			SimplePrintLoggerToRemoveSoon.println_err_2(aMessage);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(aMessage);
 	}
 
 	@Override
@@ -59,7 +57,7 @@ public class ElLog_ implements ElLog {
 		long time = System.currentTimeMillis();
 		entries.add(new LogEntry_(time, LogEntry_.Level.INFO, aMessage));
 		if (verbose == Verbosity.VERBOSE)
-			SimplePrintLoggerToRemoveSoon.println_out_2(aMessage);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(aMessage);
 	}
 }
 

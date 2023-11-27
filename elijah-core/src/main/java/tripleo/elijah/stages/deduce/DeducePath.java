@@ -184,7 +184,7 @@ public class DeducePath {
 			// TODO 06/19 maybe redundant
 
 			var drIdent = identTableEntry.getDefinedIdent();
-			System.err.println(drIdent);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(""+drIdent);
 
 //			identTableEntry.elementPromise((x)->{}, null);
 			identTableEntry.getDeduceElement().resolvedElementPromise().then((x) -> {
@@ -245,7 +245,7 @@ public class DeducePath {
 		if (el == null) {
 			if (procTableEntry.expression_num instanceof IdentIA identIA) {
 				var ite = (identIA.getEntry());
-				System.err.println("139 element not found for " + ite.getIdent().getText());
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("139 element not found for " + ite.getIdent().getText());
 			}
 			// throw new AssertionError();
 		}

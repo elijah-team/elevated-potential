@@ -1,23 +1,20 @@
 package tripleo.elijah.comp.internal;
 
-import org.apache.commons.lang3.tuple.Triple;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.ci_impl.LibraryStatementPartImpl;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.caches.DefaultElijahCache;
+import org.apache.commons.lang3.tuple.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.ci_impl.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.caches.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
-import tripleo.elijah.comp.specs.ElijahCache;
+import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.regex.Pattern;
+import java.io.*;
+import java.util.regex.*;
 
 @SuppressWarnings("UnnecessaryLocalVariable")
 public class USE {
@@ -109,7 +106,7 @@ public class USE {
 		final File instruction_dir = file.getParentFile();
 
 		if (instruction_dir == null) {
-			// System.err.println("106106 ************************************** "+file);
+			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("106106 ************************************** "+file);
 			// Prelude.elijjah is a special case
 			// instruction_dir = file;
 			return;

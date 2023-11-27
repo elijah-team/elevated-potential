@@ -1,14 +1,13 @@
 package tripleo.elijah.comp.notation;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.stages.deduce.DeducePhase;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.world.i.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class ResolvedNodes {
 	final List<EvaNode> resolved_nodes = new ArrayList<EvaNode>();
@@ -19,7 +18,7 @@ class ResolvedNodes {
 	}
 
 	public void init(final DeducePhase.@NotNull GeneratedClasses c) {
-		// 09/26 System.err.println("2222 " + c);
+		// 09/26 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("2222 " + c);
 
 		for (final EvaNode evaNode : c) {
 			if (!(evaNode instanceof final @NotNull GNCoded coded)) {
@@ -86,7 +85,7 @@ class ResolvedNodes {
 				.filter(evaNode -> evaNode instanceof GNCoded)
 				.map(evaNode -> (GNCoded) evaNode)
 				.filter(coded -> coded.getCode() == 0).forEach(coded -> {
-					System.err.println("-*-*- __processResolvedNodes [NOT CODED] " + coded);
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("-*-*- __processResolvedNodes [NOT CODED] " + coded);
 					coded.register(cr);
 				});
 	}

@@ -1,12 +1,11 @@
 package tripleo.elijah.comp.functionality.f203;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.i.ErrSink;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
 
-import java.io.File;
-import java.time.LocalDateTime;
+import java.io.*;
+import java.time.*;
 
 public class F203 {
 	public final @NotNull ChooseDirectoryNameBehavior cdn;
@@ -32,13 +31,13 @@ public class F203 {
 
 			p.getPathPromise().then(pp -> {
 				final File file1 = pp.toFile();
-				System.err.println("mkdirs 71b " + file1);
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 71b " + file1);
 				file1.mkdirs();
 			});
 
 			return p.toFile(); // FIXME file1;
 		} else {
-			System.err.println("mkdirs 71 " + file);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 71 " + file);
 			file.mkdirs();
 			final String fn1 = new File(file, "inputs.txt").toString();
 			return file;

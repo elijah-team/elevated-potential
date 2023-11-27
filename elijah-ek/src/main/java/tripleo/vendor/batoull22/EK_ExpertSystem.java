@@ -2,6 +2,7 @@ package tripleo.vendor.batoull22;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -199,6 +200,6 @@ public class EK_ExpertSystem {
 	}
 
 	private void logProgress(final int code, final String message) {
-		System.out.println(code + " " + message);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(code + " " + message);
 	}
 }

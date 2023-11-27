@@ -8,19 +8,15 @@
  */
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.lang.i.ParserClosure;
-import tripleo.elijah.lang.impl.ParserClosureImpl;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
-import tripleo.elijah.util.TabbedOutputStream;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.util.*;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.*;
+import java.text.*;
+import java.util.*;
 
 public class Out {
 
@@ -32,7 +28,7 @@ public class Out {
 
 	@Contract(pure = true)
 	public static void println(final String s) {
-		SimplePrintLoggerToRemoveSoon.println_out_2(s);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(s);
 	}
 
 	private final boolean do_out;

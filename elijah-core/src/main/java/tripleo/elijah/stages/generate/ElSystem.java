@@ -8,18 +8,14 @@
  */
 package tripleo.elijah.stages.generate;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.GenerateResultItem;
-import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah.stages.gen_generic.*;
 
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
+import java.text.*;
+import java.util.*;
+import java.util.function.*;
 
 /**
  * Created 1/8/21 11:02 PM
@@ -89,7 +85,7 @@ public class ElSystem {
 		// 30: EvaFunction
 		// 55: EvaConstructor
 		// 140: not above
-		SimplePrintLoggerToRemoveSoon.println_out_2(MessageFormat.format("{0} {1} {2}", code, evaNode.toString(), s));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(MessageFormat.format("{0} {1} {2}", code, evaNode.toString(), s));
 	}
 }
 

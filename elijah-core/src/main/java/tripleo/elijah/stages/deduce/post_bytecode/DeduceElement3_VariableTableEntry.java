@@ -13,7 +13,7 @@ import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.diagnostic.Diagnostic.*;
 import tripleo.elijah.lang.i.*;
@@ -656,7 +656,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 			if (ci != null) {
 				pte.setClassInvocation(ci);
 			} else
-				SimplePrintLoggerToRemoveSoon.println_err2("542 Null ClassInvocation");
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err2("542 Null ClassInvocation");
 		}
 
 		pte.setFunctionInvocation(fi);

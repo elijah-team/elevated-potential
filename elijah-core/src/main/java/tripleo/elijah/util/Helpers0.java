@@ -8,30 +8,18 @@
  */
 package tripleo.elijah.util;
 
-import antlr.CommonToken;
-import antlr.Token;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.codec.digest.MessageDigestAlgorithms;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.lang.i.IExpression;
-import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.lang.i.Qualident;
-import tripleo.elijah.lang.impl.DotExpressionImpl;
-import tripleo.elijah.lang.impl.IdentExpressionImpl;
-import tripleo.elijah.lang.impl.QualidentImpl;
-import tripleo.elijjah.ElijjahTokenTypes;
+import antlr.*;
+import org.apache.commons.codec.digest.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijjah.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.io.*;
+import java.security.*;
+import java.util.*;
+import java.util.stream.*;
 
 /**
  * Created 9/10/20 3:44 PM
@@ -131,7 +119,7 @@ public enum Helpers0 {
 	}
 
 	public static void printXML(final Object obj, @NotNull final TabbedOutputStream tos) {
-		System.err.println("** XStream support has been disabled");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("** XStream support has been disabled");
 		/*
 		 * final XStream x = new XStream(); //x.setMode(XStream.ID_REFERENCES);
 		 * x.toXML(obj, tos.getStream());

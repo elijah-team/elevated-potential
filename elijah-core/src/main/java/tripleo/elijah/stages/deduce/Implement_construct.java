@@ -169,7 +169,7 @@ public class Implement_construct {
 
 		dpc.targetP2().then((final @NotNull DeduceElement target) -> {
 			DeclAnchor xxv = target.declAnchor();
-			System.out.println("144 " + xxv);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("144 " + xxv);
 
 			{
 				// for class_instantiation2: class Bar {constructor x{}} class Main {main(){var

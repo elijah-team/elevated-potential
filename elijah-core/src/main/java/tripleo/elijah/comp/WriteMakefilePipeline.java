@@ -1,23 +1,20 @@
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal.CR_State;
-import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 public class WriteMakefilePipeline extends PipelineMember implements Consumer<Supplier<Old_GenerateResult>> {
 	private final IPipelineAccess pa;
@@ -113,7 +110,7 @@ public class WriteMakefilePipeline extends PipelineMember implements Consumer<Su
 				var fn2a = fn.split("/");
 				var fn2  = List.of(fn2a);
 
-				// 08/13 System.out.println("115 "+fn2);
+				// 08/13 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("115 "+fn2);
 
 				var fn3 = fn2.subList(1, fn2.size() - 1);
 				var fn4 = Helpers.String_join("/", fn3);

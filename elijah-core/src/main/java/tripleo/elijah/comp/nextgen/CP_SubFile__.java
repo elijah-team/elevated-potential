@@ -145,13 +145,13 @@ public class CP_SubFile__ implements CP_SubFile {
 			}
 
 			// for (CP_Path path : ps) {
-			// System.err.println("122 " + path.getName());
+			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("122 " + path.getName());
 			// }
 
 			// if (ps.size() == 0) {
-			// System.err.println("122xy " + op.getPath());
+			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("122xy " + op.getPath());
 			// } else {
-			// System.err.println("122x " + ps);
+			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("122x " + ps);
 			// }
 
 			if (parent == null) {

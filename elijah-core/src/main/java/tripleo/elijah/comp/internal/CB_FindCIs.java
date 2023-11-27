@@ -1,18 +1,14 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.graph.i.CK_Monitor;
-import tripleo.elijah.comp.graph.i.CK_StepsContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.sense.*;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
-import java.io.File;
-import java.nio.file.NotDirectoryException;
-import java.util.List;
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
 
 class CB_FindCIs implements CB_Action, Sensable {
 	private final CompilationRunner   compilationRunner;
@@ -46,11 +42,11 @@ class CB_FindCIs implements CB_Action, Sensable {
 
 		logProgress_Stating("outputString.size", ""+o.get().size());
 
-		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
 
 		for (final CB_OutputString outputString : o.get()) {
 			// 08/13
-			SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
 		}
 
 		// TODO capture action outputs
@@ -62,11 +58,11 @@ class CB_FindCIs implements CB_Action, Sensable {
 	}
 
 	private void logProgress_Stating(final String aSection, final String aStatement) {
-		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: %s :: %s".formatted(aSection, aStatement));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: %s :: %s".formatted(aSection, aStatement));
 	}
 
 	private void logProgress_ofSensible(final SenseList.Sensible sensible) {
-		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: LOG_SENSIBLE :: " + sensible.toString());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: LOG_SENSIBLE :: " + sensible.toString());
 	}
 
 	@Contract(pure = true)

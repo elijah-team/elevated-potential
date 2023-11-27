@@ -1,19 +1,15 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.AliasStatementImpl;
-import tripleo.elijah.lang.impl.VariableStatementImpl;
+import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah.world.impl.*;
 
-import java.util.List;
+import java.util.*;
 
 class CReference_getIdentIAPath_IdentIAHelper {
 	static class CodeResolver {
@@ -99,7 +95,7 @@ class CReference_getIdentIAPath_IdentIAHelper {
 			code = ((EvaContainerNC) getResolved()).getCode();
 		} else {
 			code = -1;
-			SimplePrintLoggerToRemoveSoon.println_err("** 31116 not resolved " + getResolved_element());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err("** 31116 not resolved " + getResolved_element());
 		}
 		// README might be calling reflect or Type or Name
 		// TODO what about named constructors -- should be called with construct keyword
@@ -139,7 +135,7 @@ class CReference_getIdentIAPath_IdentIAHelper {
 			code = ((BaseEvaFunction) getResolved()).getCode();
 		} else {
 			code = -1;
-			SimplePrintLoggerToRemoveSoon.println_err("** 31161 not resolved " + getResolved_element());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err("** 31161 not resolved " + getResolved_element());
 		}
 		// README Assuming this is for named constructors
 		final String text = ((ConstructorDef) getResolved_element()).name();
@@ -318,7 +314,7 @@ class CReference_getIdentIAPath_IdentIAHelper {
 			_act_FormalArgListItem(aCReference, fali);
 		} else {
 			// text = idte.getIdent().getText();
-			SimplePrintLoggerToRemoveSoon.println_out("1008 " + resolvedElement.getClass().getName());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out("1008 " + resolvedElement.getClass().getName());
 			throw new NotImplementedException();
 		}
 		return b;

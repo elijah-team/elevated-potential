@@ -1,6 +1,6 @@
 package tripleo.elijah.comp.internal;
 
-import lombok.Getter;
+import lombok.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
@@ -49,7 +49,7 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 //			assert !(started);
 			if (started) {
 				//throw new AssertionError();
-				System.err.println("twice for "+this);
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("twice for "+this);
 			} else {
 				compilationRunnerStart.start(rootCI, crState, o);
 				started = true;

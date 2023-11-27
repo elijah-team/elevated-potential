@@ -3,7 +3,7 @@ package tripleo.elijah.stages.deduce.post_bytecode;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
@@ -230,7 +230,7 @@ public interface PostBC_Processor {
 			case USER:
 				try {
 					final GenType aGenType = deduceTypes2.resolve_type(attached, fd_ctx);
-					SimplePrintLoggerToRemoveSoon.println2("xxxxxxxxxxxxxx " + aGenType);
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println2("xxxxxxxxxxxxxx " + aGenType);
 					r = Maybe.of(aGenType.getResolved()); // TODO incomplete!! (send whole GenType)
 					// -------------------------- vte.type.setAttached(aGenType);
 				} catch (final ResolveError aResolveError) {

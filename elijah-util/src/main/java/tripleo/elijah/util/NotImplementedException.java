@@ -11,7 +11,7 @@ package tripleo.elijah.util;
 @SuppressWarnings("unused")
 public class NotImplementedException extends RuntimeException {
 	public static void raise() {
-		SimplePrintLoggerToRemoveSoon.println_err_2("Should not be here");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("Should not be here");
 	}
 
 	public static void raise_stop() {
@@ -19,11 +19,11 @@ public class NotImplementedException extends RuntimeException {
 	}
 
 	public NotImplementedException() {
-		SimplePrintLoggerToRemoveSoon.println_err_2("Should not be here 2");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("Should not be here 2");
 	}
 
 	public NotImplementedException(final String message) {
 		super(message);
-		SimplePrintLoggerToRemoveSoon.println_err_2("Should not be here 2");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("Should not be here 2");
 	}
 }

@@ -9,12 +9,11 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.g.*;
 import tripleo.elijah.stages.deduce.pipeline_impl.*;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 /**
  * Created 8/21/21 10:10 PM
@@ -30,7 +29,7 @@ public class DeducePipeline extends PipelineMember {
 	}
 
 	protected void logProgress(final String g) {
-		SimplePrintLoggerToRemoveSoon.println_err_2(g);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(g);
 	}
 
 	@Override

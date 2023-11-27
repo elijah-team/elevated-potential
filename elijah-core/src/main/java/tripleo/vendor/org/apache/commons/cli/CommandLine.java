@@ -181,7 +181,7 @@ public class CommandLine implements Serializable {
 		try {
 			return getParsedOptionValue(opt);
 		} catch (final ParseException pe) {
-			System.err.println("Exception found converting " + opt + " to desired type: " + pe.getMessage());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("Exception found converting " + opt + " to desired type: " + pe.getMessage());
 			return null;
 		}
 	}

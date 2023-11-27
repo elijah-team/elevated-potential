@@ -220,7 +220,7 @@ public class DTR_VariableStatement {
 							if (entry.nameToken.getText().equals(variableStatement.getName())) {
 								entry.resolve_varType_cb(result -> {
 									int y = 2;
-									System.err.println("7676 DTR_VariableStatement >> " + result);
+									tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("7676 DTR_VariableStatement >> " + result);
 								});
 								break;
 							}

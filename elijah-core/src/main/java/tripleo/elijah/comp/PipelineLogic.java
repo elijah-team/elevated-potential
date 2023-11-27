@@ -101,7 +101,7 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 		for (Eventual<?> eventual : _eventuals) {
 			if (eventual.isResolved()) {
 			} else {
-				System.err.println("[PipelineLogic::checkEventual] failed for " + eventual.description());
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[PipelineLogic::checkEventual] failed for " + eventual.description());
 			}
 		}
 	}

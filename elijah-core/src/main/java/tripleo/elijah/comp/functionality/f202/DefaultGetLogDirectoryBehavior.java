@@ -30,7 +30,7 @@ public class DefaultGetLogDirectoryBehavior implements GetLogDirectoryBehavior {
 		final File file1 = new File("COMP", c.getCompilationNumberString());
 		final File file2 = new File(file1, "logs");
 
-		System.err.println("mkdirs 33 " + file2);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 33 " + file2);
 		file2.mkdirs();
 
 		return file2;

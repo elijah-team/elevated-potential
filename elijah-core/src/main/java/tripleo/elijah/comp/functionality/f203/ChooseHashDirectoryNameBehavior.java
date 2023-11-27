@@ -44,7 +44,7 @@ public class ChooseHashDirectoryNameBehavior implements ChooseDirectoryNameBehav
 
 		final File fn00 = new File("COMP", c_name);
 		final File fn0 = new File(fn00, date);
-		System.err.println("mkdirs 71 " + fn0);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 71 " + fn0);
 		fn0.mkdirs();
 
 		final String fn1 = new File(fn0, "inputs.txt").toString();

@@ -60,7 +60,7 @@ public class __Add_Proc_Table_Listeners {
 					@Nullable
 					ProcTableEntry procTableEntry = idte2.getCallablePTE();
 					if (procTableEntry == pte)
-						SimplePrintLoggerToRemoveSoon.println_err_2("940 procTableEntry == pte");
+						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("940 procTableEntry == pte");
 					if (procTableEntry != null) {
 						// TODO doesn't seem like we need this
 						procTableEntry.onFunctionInvocation(functionInvocation -> {

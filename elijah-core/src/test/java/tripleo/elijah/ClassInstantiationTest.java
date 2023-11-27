@@ -26,7 +26,7 @@ public class ClassInstantiationTest {
 				.setFile(f)
 				.run();
 
-		System.err.println("Errorcount is " + t.errorCount());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
 
 		//assert t.c().reports().codeOutputSize() > 0;
@@ -46,7 +46,7 @@ public class ClassInstantiationTest {
 				.setFile(f)
 				.run();
 
-		System.err.println("Errorcount is " + t.errorCount());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
@@ -65,7 +65,7 @@ public class ClassInstantiationTest {
 				.setFile(f)
 				.run();
 
-		System.err.println("Errorcount is " + t.errorCount());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
@@ -84,7 +84,7 @@ public class ClassInstantiationTest {
 				.setFile(f)
 				.run();
 
-		System.err.println("Errorcount is " + t.errorCount());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());

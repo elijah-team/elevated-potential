@@ -63,7 +63,7 @@ public class WorkManagerTest {
 
 		workManager.drain();
 
-		System.err.println(sink);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(""+sink);
 	}
 }
 

@@ -1,15 +1,13 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.g.*;
-import tripleo.elijah.stages.deduce.IFunctionMapHook;
-import tripleo.elijah.stages.logging.ElLog_;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.logging.*;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class DefaultCompilationAccess implements ICompilationAccess {
 	protected final Compilation compilation;
@@ -56,7 +54,7 @@ public class DefaultCompilationAccess implements ICompilationAccess {
 		//assert compilation.getCompilationEnclosure().getPipelineLogic() == null;
 		if (compilation.getCompilationEnclosure().getPipelineLogic() != null) {
 			//throw new AssertionError();
-			System.err.println("903056 pipelineLogic already set");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("903056 pipelineLogic already set");
 		} else {
 			compilation.getCompilationEnclosure().setPipelineLogic(pl);
 		}

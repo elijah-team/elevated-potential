@@ -3,9 +3,9 @@ package tripleo.elijah.stages.deduce;
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.notation.*;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
+import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
@@ -159,7 +159,7 @@ class DE3_ActivePTE implements DE3_Active {
 
 	private void logProgress(final int code, final String message) {
 		var ce = deduceTypes2._phase().pa.getCompilationEnclosure();
-//		System.err.println("" + code + " " + message);
+//		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("" + code + " " + message);
 		ce.logProgress(CompProgress.DeducePhase, Pair.of(code, message));
 	}
 }

@@ -6,8 +6,7 @@ import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.nextgen.i.*;
-import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.g.GPipelineMember;
+import tripleo.elijah.g.*;
 import tripleo.elijah.nextgen.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
@@ -15,7 +14,7 @@ import tripleo.elijah.stages.logging.*;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 public class WriteOutputTreePipeline extends PipelineMember implements GPipelineMember {
 	private static void addLogs(final @NotNull List<EOT_OutputFile> l, final @NotNull IPipelineAccess aPa) {
@@ -98,7 +97,7 @@ public class WriteOutputTreePipeline extends PipelineMember implements GPipeline
 			default -> throw new IllegalStateException("Unexpected value: " + outputFile.getType());
 			}
 
-			// System.err.println("106 " + pp);
+			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("106 " + pp);
 
 			paths.addNode(CP_RootType.OUTPUT, ER_Node.of(pp, seq));
 		}
