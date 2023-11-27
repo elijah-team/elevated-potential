@@ -7,4 +7,5 @@ public class DebugFlags {
 	public static boolean CIS_ocp_ci__FeatureGate    = true;
 	public static       boolean     writeDumps = false;
 	public static       boolean CCI_gate = false;
+	public static       boolean MakeSense = true;
 }
