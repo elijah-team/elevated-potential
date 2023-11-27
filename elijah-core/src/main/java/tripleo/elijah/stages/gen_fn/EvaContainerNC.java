@@ -122,9 +122,9 @@ public abstract class EvaContainerNC extends AbstractDependencyTracker implement
 	public @NotNull Maybe<VarTableEntry> getVariable(String aVarName) {
 		for (VarTableEntry varTableEntry : varTable) {
 			if (varTableEntry.nameToken.getText().equals(aVarName))
-				return new Maybe<>(varTableEntry, null);
+				return Maybe.of(varTableEntry);
 		}
-		return new Maybe<>(null, _def_VarNotFound);
+		return Maybe.of_exc(_def_VarNotFound);
 	}
 
 	@Deprecated
