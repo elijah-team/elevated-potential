@@ -60,7 +60,7 @@ public class EIT_ModuleInputImpl implements EIT_ModuleInput {
 	public void doGenerate(final List<EvaNode> nodes,
 						   final WorkManager wm,
 						   final @NotNull Consumer<GenerateResult> resultConsumer,
-						   final CompilationEnclosure ce) {
+						   final @NotNull CompilationEnclosure ce) {
 		// 0. get lang
 		final String lang = langOfModule();
 
@@ -69,14 +69,14 @@ public class EIT_ModuleInputImpl implements EIT_ModuleInput {
 		final OutputFileFactoryParams p             = new OutputFileFactoryParams(mod, ce);
 
 		var resultSink = new DefaultGenerateResultSink(c.pa());
-		var gr = new Old_GenerateResult();
-		var wl = new WorkList__();
-		var nodes1 = EvaPipeline.processLgc(nodes);
-		var gnis_env = new GN_GenerateNodesIntoSinkEnv(nodes1, resultSink, ce.getCompilation().getObjectTree().getModuleList(), ce.getPipelineLogic().getVerbosity(), gr, c.pa(), ce);
-		var gnis = new GN_GenerateNodesIntoSink(gnis_env);
-		var gmr = new GM_GenerateModuleRequest(gnis, mod, gnis_env);
-		var gmgm = new GM_GenerateModule(gmr);
-		var env = new GenerateResultEnv(resultSink, gr, wm, wl, gmgm);
+		var gr         = new Old_GenerateResult();
+		var wl         = new WorkList__();
+		var nodes1     = EvaPipeline.processLgc(nodes);
+		var gnis_env   = new GN_GenerateNodesIntoSinkEnv(nodes1, resultSink, ce.getCompilation().getObjectTree().getModuleList(), ce.getPipelineLogic().getVerbosity(), gr, c.pa(), ce);
+		var gnis       = new GN_GenerateNodesIntoSink(gnis_env);
+		var gmr        = new GM_GenerateModuleRequest(gnis, mod, gnis_env);
+		var gmgm       = new GM_GenerateModule(gmr);
+		var env        = new GenerateResultEnv(resultSink, gr, wm, wl, gmgm);
 
 		final GenerateFiles           generateFiles = OutputFileFactory.create(lang, p, env);
 

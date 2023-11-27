@@ -17,7 +17,6 @@ import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 
 import java.util.*;
@@ -33,8 +32,6 @@ public interface IPipelineAccess extends GPipelineAccess {
 	void activeFunction(BaseEvaFunction aEvaFunction);
 
 	void activeNamespace(EvaNamespace aEvaNamespace);
-
-	void addLog(ElLog aLOG);
 
 	void addOutput(NG_OutputItem aO);
 
@@ -94,4 +91,8 @@ public interface IPipelineAccess extends GPipelineAccess {
 	void runStepsNow(CK_Steps aSteps, CK_StepsContext aStepsContext);
 
 	void addFunctionStatement(EG_Statement aStatement);
+
+	void subscribePipelineLogic(AccessBus.AB_PipelineLogicListener aO);
+
+	void subscribe_lgc(AccessBus.@NotNull AB_LgcListener aO);
 }

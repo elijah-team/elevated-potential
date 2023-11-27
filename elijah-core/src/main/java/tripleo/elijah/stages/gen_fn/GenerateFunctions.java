@@ -14,8 +14,7 @@ import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 //import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.EvaPipeline;
-import tripleo.elijah.comp.PipelineLogic;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.notation.GN_PL_Run2;
 import tripleo.elijah.entrypoints.ArbitraryFunctionEntryPoint;
@@ -1732,7 +1731,7 @@ public class GenerateFunctions implements ReactiveDimension {
 
 		gf.fi = aFunctionInvocation;
 
-		pa.addFunctionStatement(new EvaPipeline.FunctionStatement(gf)); // NOTE 10/19
+		pa.addFunctionStatement(new FunctionStatement(gf)); // NOTE 10/19
 
 		return gf;
 	}
