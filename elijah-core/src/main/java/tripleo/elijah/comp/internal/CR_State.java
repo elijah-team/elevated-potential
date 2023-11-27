@@ -72,7 +72,6 @@ public class CR_State implements GCR_State {
 		private final @NotNull ICompilationAccess ca;
 		private                IPipelineAccess    pa;
 		private @NotNull       PipelineLogic      pipelineLogic;
-		//private                AccessBus          ab;
 
 		public ProcessRecordImpl(final @NotNull ICompilationAccess ca0) {
 			ca = ca0;
@@ -82,12 +81,6 @@ public class CR_State implements GCR_State {
 				pa = pa0;
 				pipelineLogic = new PipelineLogic(pa, ca);
 			});
-		}
-
-		@Contract(pure = true)
-		@Override
-		public AccessBus ab() {
-			return null;//ab;
 		}
 
 		@Contract(pure = true)
@@ -333,12 +326,24 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public void addFunctionStatement(final EG_Statement aStatement) {
-			if (aStatement instanceof EvaPipeline.FunctionStatement fs) {
+			if (aStatement instanceof FunctionStatement fs) {
 				addFunctionStatement(fs);
 			}
 		}
 
-		public void addFunctionStatement(final EvaPipeline.FunctionStatement aFunctionStatement) {
+		@Override
+		public void subscribePipelineLogic(final AccessBus.AB_PipelineLogicListener aListener) {
+			final AccessBus ab = getAccessBus();
+			ab.subscribePipelineLogic(result -> aListener.pl_slot(result));
+		}
+
+		@Override
+		public void subscribe_lgc(final AccessBus.@NotNull AB_LgcListener aListener) {
+			final AccessBus ab = getAccessBus();
+			ab.subscribe_lgc(aListener);
+		}
+
+		public void addFunctionStatement(final FunctionStatement aFunctionStatement) {
 			EvaPipelinePromise.then(gp -> {
 				gp.addFunctionStatement(aFunctionStatement);
 			});

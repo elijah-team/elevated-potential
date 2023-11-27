@@ -20,6 +20,10 @@ public class AccessBus {
 		void lgc_slot(List<EvaNode> lgc);
 	}
 
+	public interface AB_PipelineLogicListener {
+		void pl_slot(PipelineLogic lgc);
+	}
+
 	public final  Old_GenerateResult gr = new Old_GenerateResult();
 	private final Compilation       _c;
 	private final IPipelineAccess    _pa;
