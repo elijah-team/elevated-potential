@@ -40,8 +40,8 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 	public final @NotNull  GeneratePhase            generatePhase;
 //	private final @NonNull EIT_ModuleList           mods   = new EIT_ModuleList();
 	private final @NonNull ModuleCompletableProcess mcp    = new ModuleCompletableProcess();
-	private final @NonNull ModMap          modMap = new ModMap();
-	private final @NonNull IPipelineAccess  pa;
+	final @NonNull         ModMap                   modMap = new ModMap();
+	private final @NonNull IPipelineAccess          pa;
 	@Getter
 	private final @NonNull ElLog_.Verbosity  verbosity;
 	private final          List<Eventual<?>> _eventuals = new ArrayList<>();
@@ -57,30 +57,7 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 		generatePhase = new GeneratePhase(verbosity, pa, this);
 		dp            = new DeducePhase(ca, pa, this);
 
-		pa.getCompilationEnclosure().addModuleListener(new ModuleListener() {
-			@Override
-			public void close() {
-				//NotImplementedException.raise_stop();
-			}
-
-			@Override
-			public void listen(final GWorldModule module1) {
-				final WorldModule module = (WorldModule) module1;
-				module.getErq().then(rq -> {
-					final OS_Module         mod = module.module();
-					final GenerateFunctions gfm = getGenerateFunctions(mod);
-
-					gfm.generateFromEntryPoints(rq);
-
-					// ---
-
-					modMap.then(mod, (final Eventual<DeducePhase.GeneratedClasses> eventual) -> {
-						final DeducePhase.@NotNull GeneratedClasses lgc = dp.generatedClasses;
-						eventual.resolve(lgc);
-					});
-				});
-			}
-		});
+		pa.getCompilationEnclosure().addModuleListener(new PL_ModuleListener(this, pa));
 	}
 
 	public ModuleCompletableProcess _mcp() {
@@ -127,10 +104,6 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 	@Override
 	public <P> void register(final Eventual<P> e) {
 		_eventuals.add(e);
-	}
-
-	public Object mods() {
-		return null;
 	}
 
 	class ModMap {

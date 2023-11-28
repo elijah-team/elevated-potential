@@ -1,17 +1,18 @@
 package tripleo.elijah.comp.internal;
 
-import org.apache.commons.lang3.tuple.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.*;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+import tripleo.elijah.DebugFlags;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.comp.graph.CM_Module;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal_move_soon.*;
-import tripleo.elijah.comp.nextgen.i.*;
-import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.nextgen.i.Asseveration;
+import tripleo.elijah.comp.specs.EzSpec;
 import tripleo.elijah.nextgen.inputtree.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.Operation;
 
 public class DefaultObjectTree implements CK_ObjectTree {
 	private final CompilationImpl compilation;
@@ -29,18 +30,11 @@ public class DefaultObjectTree implements CK_ObjectTree {
 			throw new UnintendedUseException();
 		}
 		case ELIJAH_PARSED -> {
-			var x = (Pair<ElijahSpec, Operation2<OS_Module>>)o;
-
-			ElijahSpec           spec = x.getLeft();
-			Operation2<OS_Module> calm = x.getRight();
-			PipelineLogic        pl   = getCompilationEnclosure().getPipelineLogic();
-			WorldModule          wm   = compilation.con().createWorldModule(calm.success());
-
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("**************************************************Comp ELIJAH_PARSED  "+wm.module().getFileName());
+			final CM_Module x = (CM_Module)o;
 
 			if (DebugFlags.MakeSense) {
-				final WorldModule worldModule = compilation.con().createWorldModule(calm.success());
-				compilation.world().addModule2(worldModule);
+				x.adviseCreator(compilation);
+				x.adviseWorld(compilation.world());
 			}
 		}
 		case CI_HASHED -> {

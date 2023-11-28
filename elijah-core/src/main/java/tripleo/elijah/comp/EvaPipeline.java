@@ -93,7 +93,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 			final var env = new GN_GenerateNodesIntoSinkEnv(
 					nodes,
 					grs,
-					(EIT_ModuleList) pa.pipelineLogic().mods(),
+					null, //ce.getCompilation().world().modules(),
 					compilationEnclosure.getCompilationAccess().testSilence(),
 					pa.getAccessBus().gr,
 					pa,
