@@ -2,8 +2,6 @@ package tripleo.elijah.lang.i;
 
 import antlr.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
-
 import java.util.*;
 
 public interface MatchConditionalPart3 extends MC1 {

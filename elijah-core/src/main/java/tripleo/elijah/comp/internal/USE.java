@@ -1,6 +1,5 @@
 package tripleo.elijah.comp.internal;
 
-import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.ci_impl.*;
@@ -50,7 +49,7 @@ public class USE {
 	private Operation2<OS_Module> parseElijjahFile(final @NotNull File f,
 	                                               final @NotNull String file_name,
 	                                               final @NotNull LibraryStatementPart lsp) {
-		((Compilation)this.c).getCompilationEnclosure().logProgress(CompProgress.USE__parseElijjahFile, f.getAbsolutePath());
+		this.c.getCompilationEnclosure().logProgress(CompProgress.USE__parseElijjahFile, f.getAbsolutePath());
 
 		if (!f.exists()) {
 			final Diagnostic e = new FileNotFoundDiagnostic(f);
@@ -65,31 +64,32 @@ public class USE {
 					file_name,
 					f,
 					c.getIO(),
-					((Compilation)c).con().defaultElijahSpecParser(elijahCache)
+					c.con().defaultElijahSpecParser(elijahCache)
 			);
 
 			switch (om.mode()) {
-				case SUCCESS -> {
-					final OS_Module mm = om.success();
+			case SUCCESS -> {
+				final OS_Module mm = om.success();
 
-					// assert mm.getLsp() == null;
-					// assert mm.prelude == null;
+				assert mm.getLsp() == null;
+				assert mm.prelude() == null;
 
-					if (mm.getLsp() == null) {
-						// TODO we don't know which prelude to find yet
-						final Operation2<OS_Module> pl = findPrelude(CompilationImpl.CompilationAlways.defaultPrelude());
+				if (mm.getLsp() == null) {
+					// TODO we don't know which prelude to find yet
+					final Operation2<OS_Module> pl = findPrelude(CompilationImpl.CompilationAlways.defaultPrelude());
 
-						// NOTE Go. infectious. tedious. also slightly lazy
-						assert pl.mode() == Mode.SUCCESS;
+					// NOTE Go. infectious. tedious. also slightly lazy
+					assert pl.mode() == Mode.SUCCESS;
 
-						mm.setLsp(lsp);
-						mm.setPrelude(pl.success());
-					}
-					return Operation2.success(mm);
+					mm.setLsp(lsp);
+					mm.setPrelude(pl.success());
 				}
-				default -> {
-					return om;
-				}
+
+				return Operation2.success(mm); // TODO 11/28 why not return om; ??
+			}
+			default -> {
+				return om;
+			}
 			}
 		} catch (final Exception aE) {
 			return Operation2.failure(new ExceptionDiagnostic(aE));
@@ -106,7 +106,7 @@ public class USE {
 		final File instruction_dir = file.getParentFile();
 
 		if (instruction_dir == null) {
-			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("106106 ************************************** "+file);
+			 SimplePrintLoggerToRemoveSoon.println_err_4("106106 ************************************** "+file);
 			// Prelude.elijjah is a special case
 			// instruction_dir = file;
 			return;
@@ -146,166 +146,6 @@ public class USE {
 				final String file_name = file.toString();
 				return parseElijjahFile(file, file_name, lsp);
 			}, c, aReasoning);
-		}
-	}
-
-	public Compilation _c() {
-		return c;
-	}
-
-	public static class USE_Reasonings {
-		public static USE_Reasoning parent(CompilerInstructions aCompilerInstructions, boolean parent, File aInstructionDir, LibraryStatementPart aLsp) {
-			return new USE_Reasoning() {
-				@Override
-				public boolean parent() {
-					return parent;
-				}
-
-				@Override
-				public File instruction_dir() {
-					return aInstructionDir;
-				}
-
-				@Override
-				public CompilerInstructions compilerInstructions() {
-					return aCompilerInstructions;
-				}
-
-				@Override
-				public USE_Reasoning_ ty() {
-					return USE_Reasoning_.USE_Reasoning__parent;
-				}
-			};
-		}
-
-		public static USE_Reasoning child(CompilerInstructions aCompilerInstructions, boolean parent, File aInstructionDir, String aDirName, File aDir, LibraryStatementPart aLsp) {
-			return new USE_Reasoning() {
-				File top() {
-					return new File(aDirName);
-				}
-
-				File child() {
-					return aInstructionDir;
-				}
-
-				@Override
-				public boolean parent() {
-					return parent;
-				}
-
-				@Override
-				public File instruction_dir() {
-					return aDir;
-				}
-
-				@Override
-				public CompilerInstructions compilerInstructions() {
-					return aCompilerInstructions;
-				}
-
-				@Override
-				public USE_Reasoning_ ty() {
-					return USE_Reasoning_.USE_Reasoning__child;
-				}
-			};
-		}
-
-		public static USE_Reasoning default_(CompilerInstructions aCompilerInstructions, boolean parent, File aInstructionDir, LibraryStatementPart aLsp) {
-			return new USE_Reasoning() {
-				@Override
-				public boolean parent() {
-					return false;
-				}
-
-				@Override
-				public File instruction_dir() {
-					return aInstructionDir;
-				}
-
-				@Override
-				public CompilerInstructions compilerInstructions() {
-					return aCompilerInstructions;
-				}
-
-				@Override
-				public USE_Reasoning_ ty() {
-					return USE_Reasoning_.USE_Reasoning___default;
-				}
-			};
-		}
-
-		public static USE_Reasoning instruction_doer_addon(final CompilerInstructions item) {
-			return new USE_Reasoning() {
-				@Override
-				public boolean parent() {
-					return false;
-				}
-
-				@Override
-				public File instruction_dir() {
-					return null;
-				}
-
-				@Override
-				public CompilerInstructions compilerInstructions() {
-					return item;
-				}
-
-				@Override
-				public USE_Reasoning_ ty() {
-					return USE_Reasoning_.USE_Reasoning__instruction_doer_addon;
-				}
-			};
-		}
-
-		public static USE_Reasoning findStdLib(final CD_FindStdLib aFindStdLib) {
-			return new USE_Reasoning() {
-				@Override
-				public boolean parent() {
-					return false;
-				}
-
-				@Override
-				public File instruction_dir() {
-					return null;
-				}
-
-				@Override
-				public CompilerInstructions compilerInstructions() {
-					return aFindStdLib.maybeFoundResult();
-				}
-
-				@Override
-				public USE_Reasoning_ ty() {
-					return USE_Reasoning_.USE_Reasoning__findStdLib;
-				}
-			};
-		}
-
-		public static USE_Reasoning initial(final Triple<CK_ProcessInitialAction, CompilationRunner, CB_Output> triple) {
-			return new USE_Reasoning() {
-				@Override
-				public boolean parent() {
-					return false;
-				}
-
-				@Override
-				public File instruction_dir() {
-					return null;
-				}
-
-				@Override
-				public CompilerInstructions compilerInstructions() {
-					var left = triple.getLeft();
-
-					return left.maybeFoundResult();
-				}
-
-				@Override
-				public USE_Reasoning_ ty() {
-					return USE_Reasoning_.USE_Reasoning__initial;
-				}
-			};
 		}
 	}
 }

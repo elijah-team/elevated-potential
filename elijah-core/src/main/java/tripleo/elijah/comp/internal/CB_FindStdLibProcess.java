@@ -4,7 +4,6 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.util.*;
 
@@ -58,7 +57,7 @@ public class CB_FindStdLibProcess implements CB_Process {
 				final Compilation         c                    = ce.getCompilation();
 				final CompilerInstructions compilerInstructions = oci.success();
 
-				c.use(compilerInstructions, USE.USE_Reasonings.findStdLib(findStdLib));
+				c.use(compilerInstructions, USE_Reasonings.findStdLib(findStdLib));
 			} else {
 				throw new IllegalStateException();//oci.failure());
 			}

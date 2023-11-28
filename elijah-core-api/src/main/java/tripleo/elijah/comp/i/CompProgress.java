@@ -23,7 +23,7 @@ public enum CompProgress {
 	__CP_OutputPath_renderNode {
 		@Override
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
-			ER_Node node = (ER_Node) x;
+//			ER_Node node = (ER_Node) x;
 
 //			out.printf("** [__CP_OutputPath_renderNode] %s%n", node.getPath());
 		}
@@ -31,7 +31,7 @@ public enum CompProgress {
 	__parseElijjahFile_InputRequest {
 		@Override
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
-			// 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+			// eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 /*
 			InputRequest aInputRequest = (InputRequest) x;
 			File         f             = aInputRequest.file();
@@ -102,15 +102,15 @@ public enum CompProgress {
 		public void deprecated_print(final Object x, final PrintStream out, final PrintStream err) {
 			final Pair<Integer, String> t = (Pair<Integer, String>) x;
 
-			final int    code    = t.getLeft();
-			final String message = t.getRight();
+			final int    code     = t.getLeft();
+			final String message  = t.getRight();
 
-			final String codText = switch (code) {
+			final String codeText = switch (code) {
 				case 37939 -> "findStdLib";
 				default -> "" + code;
 			};
 
-			out.printf("[-- DriverPhase ] %s %s%n", codText, message);
+			out.printf("[-- DriverPhase ] %s %s%n", codeText, message);
 		}
 	};
 

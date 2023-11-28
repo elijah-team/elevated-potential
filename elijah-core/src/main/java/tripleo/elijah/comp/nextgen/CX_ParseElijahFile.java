@@ -75,7 +75,10 @@ public class CX_ParseElijahFile {
 		parser.setFilename(f);
 
 		parser.pcon = new PConParser();
-		//parser.ci   = parser.pcon.newCompilerInstructionsImpl(); // README just saved for reference
+
+		// README just saved for reference
+		//  this is handled by out above and `parser.out.module'
+		//parser.ci   = parser.pcon.newCompilerInstructionsImpl();
 
 		try {
 			parser.program();
@@ -86,8 +89,10 @@ public class CX_ParseElijahFile {
 		parser.out = null;
 
 		final String x = module.getFileName();
-		if (x == null)
+		if (x == null) {
+			assert false;
 			module.setFileName(absolutePath); // TODO 09/26 you mentioned that this is a bug
+		}
 		return Operation2.success(module);
 	}
 

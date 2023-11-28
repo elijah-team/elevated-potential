@@ -2,7 +2,6 @@ package tripleo.elijah.lang.i;
 
 import antlr.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
 
 import java.util.*;

@@ -1,6 +1,5 @@
 package tripleo.elijah.comp.internal;
 
-import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.i.*;
@@ -9,7 +8,6 @@ import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 
 public class CK_ProcessInitialAction implements CK_Action {
-
 	private final CompilerInstructions rootCI;
 
 	public CK_ProcessInitialAction(final CompilerInstructions aRootCI) {
@@ -26,7 +24,7 @@ public class CK_ProcessInitialAction implements CK_Action {
 		final CompilationRunner compilationRunner = crState.runner();
 
 		try {
-			compilationRunner._accessCompilation().use(rootCI, USE.USE_Reasonings.initial(Triple.of(this, compilationRunner, output)));
+			compilationRunner._accessCompilation().use(rootCI, USE_Reasonings.initial(this, compilationRunner, output));
 			return Operation.success(Ok.instance());
 		} catch (final Exception aE) {
 			return Operation.failure(aE);
@@ -41,5 +39,4 @@ public class CK_ProcessInitialAction implements CK_Action {
 	public @NotNull CompilerInstructions maybeFoundResult() {
 		return rootCI;
 	}
-
 }

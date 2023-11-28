@@ -250,9 +250,9 @@ public class CompilationImpl implements Compilation {
 	@Override
 	public Operation<Ok> hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
 		if (cis.isEmpty()) {
-			String absolutePath = new File(".").getAbsolutePath();
-
-			getCompilationEnclosure().logProgress(CompProgress.Compilation__hasInstructions__empty, absolutePath);
+			//String absolutePath = new File(".").getAbsolutePath();
+			//
+			//getCompilationEnclosure().logProgress(CompProgress.Compilation__hasInstructions__empty, absolutePath);
 
 			setRootCI(cci_listener._root());
 		} else if (getRootCI() == null) {
@@ -274,6 +274,7 @@ public class CompilationImpl implements Compilation {
 			compilationRunner.start(rootCI, pa);
 		} else {
 			NotImplementedException.raise_stop();
+			//throw new UnintendedUseException();
 		}
 
 		return Operation.success(Ok.instance());
