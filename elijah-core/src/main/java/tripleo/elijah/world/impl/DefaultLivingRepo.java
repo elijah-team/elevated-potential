@@ -15,7 +15,6 @@ import java.util.function.*;
 import java.util.stream.*;
 
 public class DefaultLivingRepo implements LivingRepo {
-
 	private final @NotNull ObservableCompletableProcess<WorldModule> wmo = new ObservableCompletableProcess<>();
 
 	private final Map<String, OS_Package> _packages = new HashMap<>();

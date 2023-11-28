@@ -51,7 +51,7 @@ public class CX_ParseElijahFile {
 			}
 
 
-			compilation.getObjectTree().asseverate(Pair.of(aSpec,calm), Asseverate.ELIJAH_PARSED);
+			compilation.getObjectTree().asseverate(compilation.megaGrande(aSpec,calm), Asseverate.ELIJAH_PARSED);
 
 			return calm;
 		} catch (final IOException aE) {

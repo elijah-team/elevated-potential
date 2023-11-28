@@ -32,10 +32,11 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 		c   = cc;
 		hda = new CY_HashDeferredAction(c.getIO());
 
-		c.world().addModuleProcess(new CompletableProcess<WorldModule>() {
+/*		c.world().addModuleProcess(new CompletableProcess<WorldModule>() {
 			@Override
 			public void add(WorldModule item) {
-
+//SimplePrintLoggerToRemoveSoon.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+				System.err.println("~~ [CP_OutputPath] >> addWorldModule " + item);
 			}
 
 			@Override
@@ -57,7 +58,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 			public void start() {
 
 			}
-		});
+		})*/;
 	}
 
 	public void _renderNodes(final @NotNull List<ER_Node> nodes) {

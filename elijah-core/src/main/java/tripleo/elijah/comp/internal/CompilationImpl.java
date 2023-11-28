@@ -15,6 +15,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
@@ -249,13 +250,9 @@ public class CompilationImpl implements Compilation {
 	@Override
 	public Operation<Ok> hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
 		if (cis.isEmpty()) {
-			//assert false;
-			// README IDEA misconfiguration
 			String absolutePath = new File(".").getAbsolutePath();
 
 			getCompilationEnclosure().logProgress(CompProgress.Compilation__hasInstructions__empty, absolutePath);
-
-			//return Operation.failure(new Exception("cis empty"));
 
 			setRootCI(cci_listener._root());
 		} else if (getRootCI() == null) {
@@ -346,6 +343,24 @@ public class CompilationImpl implements Compilation {
 	@Override
 	public void pushWork(final PW_PushWork aInstance, final PN_Ping aPing) {
 		((PW_CompilerController) pw_controller).submitWork(aInstance);
+	}
+
+	private final Map<ElijahSpec, CM_Module> megaGrande = new HashMap<>();
+
+	@Override
+	public CM_Module megaGrande(final ElijahSpec aSpec, final Operation2<OS_Module> aModuleOperation) {
+		CM_Module result;
+		if (megaGrande.containsKey(aSpec)) {
+			result = megaGrande.get(aSpec);
+		} else {
+			result = new CM_Module_();
+			megaGrande.put(aSpec, result);
+		}
+
+		result.advise(aSpec);
+		result.advise(aModuleOperation);
+
+		return result;
 	}
 
 	@Override

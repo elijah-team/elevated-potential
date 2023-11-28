@@ -4,6 +4,7 @@ import io.reactivex.rxjava3.core.Observer;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.EventualRegister;
 import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.graph.CM_Module;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
@@ -13,6 +14,7 @@ import tripleo.elijah.comp.nextgen.pn.*;
 import tripleo.elijah.comp.nextgen.pw.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.g.*;
+import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.deduce.fluffy.i.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
@@ -78,6 +80,8 @@ public interface Compilation extends Compilation0 {
 
 	@Override
 	void pushWork(PW_PushWork aInstance, PN_Ping aPing);
+
+	CM_Module megaGrande(ElijahSpec aSpec, Operation2<OS_Module> aModuleOperation);
 
 	class CompilationConfig implements GCompilationConfig {
 		public          boolean do_out;

@@ -3,6 +3,7 @@ package tripleo.elijah.world.i;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.g.GLivingRepo;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.OS_Package;
@@ -20,7 +21,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.*;
 
-public interface LivingRepo {
+public interface LivingRepo extends GLivingRepo {
 	Collection<WorldModule> getMods__();
 
 	boolean isPackage(String aPkgName);
