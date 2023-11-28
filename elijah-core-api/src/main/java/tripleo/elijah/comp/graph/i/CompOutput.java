@@ -1,6 +1,5 @@
 package tripleo.elijah.comp.graph.i;
 
-import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 
 import java.util.List;

@@ -30,7 +30,7 @@ public class InstructionDoer implements CompletableProcess<CompilerInstructions>
 
 			var compilation = __cr.c();
 
-			compilation.use(item, USE.USE_Reasonings.instruction_doer_addon(item));
+			compilation.use(item, USE_Reasonings.instruction_doer_addon(item));
 		}
 	}
 

@@ -55,7 +55,7 @@ public interface EN_Name {
 			}
 
 			@Override
-			public boolean hasUnderstanding(@NotNull Class className) {
+			public boolean hasUnderstanding(@SuppressWarnings("rawtypes") @NotNull Class className) {
 				for (EN_Understanding und : understandings) {
 					if (className.isInstance(und)) {
 						return true;
@@ -78,6 +78,6 @@ public interface EN_Name {
 
 	List<EN_Usage> getUsages();
 
-	boolean hasUnderstanding(Class className);
+	boolean hasUnderstanding(@SuppressWarnings("rawtypes") Class className);
 
 }
