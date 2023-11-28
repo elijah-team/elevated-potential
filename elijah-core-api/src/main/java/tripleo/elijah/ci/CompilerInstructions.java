@@ -31,8 +31,6 @@ public interface CompilerInstructions {
 
 	CiIndexingStatement indexingStatement();
 
-	List<LibraryStatementPart> lsps();
-
 	void setFilename(String filename);
 
 	void setName(String name);

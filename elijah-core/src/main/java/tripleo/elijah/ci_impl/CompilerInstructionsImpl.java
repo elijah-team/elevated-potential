@@ -113,11 +113,6 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	}
 
 	@Override
-	public List<LibraryStatementPart> lsps() {
-		return lsps;
-	}
-
-	@Override
 	public String toString() {
 		return "CompilerInstructionsImpl{name='%s', filename='%s'}".formatted(name, filename);
 	}
