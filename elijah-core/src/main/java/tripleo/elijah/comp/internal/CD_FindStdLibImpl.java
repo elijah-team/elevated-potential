@@ -34,20 +34,13 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 
 		@NotNull Operation2<CompilerInstructions> result = null;
 		try {
-			final File local_stdlib_1 = sle.toFile();
-
-			cc.getCompilation().getCompilationEnclosure().logProgress(CompProgress.DriverPhase, Pair.of(3939, "" + local_stdlib_1));
-
-			// TODO stdlib path here
-			//final File local_stdlib = new CY_FindPrelude().local_prelude(aPreludeName);
 			final File local_stdlib = sle.toFile();
-
+			cc.getCompilation().getCompilationEnclosure().logProgress(CompProgress.DriverPhase, Pair.of(3939, "" + local_stdlib));
 
 			if (local_stdlib.exists()) {
 				try {
-//					final String name = local_stdlib.toString();
-//					final CK_SourceFile sourceFile2 = CK_SourceFileFactory.<OS_Module>get(local_stdlib, CK_SourceFileFactory.K.SpecifiedElijahFile);
-					final CK_SourceFile<CompilerInstructions> sourceFile2 = /*sle.getSourceFile();*/CK_SourceFileFactory.get(sle, CK_SourceFileFactory.K.SpecifiedPathEzFile);
+					//final CK_SourceFile<CompilerInstructions> sourceFile2 = sle.getSourceFile();
+					final CK_SourceFile<CompilerInstructions> sourceFile2 = CK_SourceFileFactory.get(sle, CK_SourceFileFactory.K.SpecifiedPathEzFile);
 					sourceFile2.associate(cc);
 
 					result = sourceFile2.process_query();
