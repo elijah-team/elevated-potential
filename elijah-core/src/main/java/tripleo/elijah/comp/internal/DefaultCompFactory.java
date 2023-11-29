@@ -54,7 +54,7 @@ class DefaultCompFactory implements CompFactory {
 	public @NotNull InputRequest createInputRequest(final File aFile,
 	                                                final boolean aDo_out,
 	                                                final @Nullable LibraryStatementPart aLsp) {
-		return new InputRequest(aFile, aDo_out, aLsp);
+		return new InputRequest(aFile, aLsp);
 	}
 
 	@Contract("_ -> new")
