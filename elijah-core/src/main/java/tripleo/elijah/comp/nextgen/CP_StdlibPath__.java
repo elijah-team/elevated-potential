@@ -1,19 +1,28 @@
 package tripleo.elijah.comp.nextgen;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.EventualRegister;
+import tripleo.elijah.comp.Compilation;
 
-import java.io.*;
-import java.nio.file.*;
+import java.io.File;
+import java.nio.file.Path;
 
 public class CP_StdlibPath__ implements CP_StdlibPath {
-	private final Compilation                     c;
-	private final DeferredObject<Path, Void, Void> _pathPromise = new DeferredObject<>();
+	//private final Compilation                     c;
+	private final Eventual<Path> _pathPromise = new Eventual<>();
+	private final String                     compilationNumberString;
 
 	public CP_StdlibPath__(final Compilation aC) {
-		c = aC;
+		//c                       = aC;
+		compilationNumberString = aC.getCompilationNumberString();
+
+		if (aC instanceof EventualRegister er) {
+			er.register(_pathPromise);
+		} else {
+			assert false;
+		}
 	}
 
 	@Override
@@ -37,7 +46,7 @@ public class CP_StdlibPath__ implements CP_StdlibPath {
 	}
 
 	@Override
-	public @NotNull Promise<Path, Void, Void> getPathPromise() {
+	public @NotNull Eventual<Path> getPathPromise() {
 		return _pathPromise;
 	}
 
@@ -66,12 +75,12 @@ public class CP_StdlibPath__ implements CP_StdlibPath {
 		String result;
 
 		if (_pathPromise.isPending()) {
-			result = "CP_StdlibPath{UNRESOLVED c='%s'}".formatted(c.getCompilationNumberString());
+			result = "CP_StdlibPath{UNRESOLVED c='%s'}".formatted(compilationNumberString);
 		} else {
 			final String[] pathPromise = {""}; // !!
 			_pathPromise.then((Path x) -> pathPromise[0] = x.toString());
 			result = "CP_StdlibPath{RESOLVED c=%s, pathPromise=%s}"
-					.formatted(c.getCompilationNumberString(), pathPromise[0]);
+					.formatted(compilationNumberString, pathPromise[0]);
 		}
 
 		return result;
