@@ -40,7 +40,7 @@ import tripleo.elijah.world.impl.*;
 import java.util.*;
 import java.util.stream.*;
 
-public class CompilationImpl implements Compilation {
+public class CompilationImpl implements Compilation, EventualRegister {
 	private final FluffyCompImpl                      _fluffyComp;
 	@Getter
 	private final CompilationConfig                   cfg;
@@ -488,6 +488,16 @@ public class CompilationImpl implements Compilation {
 
 	public CP_Paths _paths() {
 		return paths;
+	}
+
+	@Override
+	public void checkFinishEventuals() {
+		throw new UnintendedUseException();
+	}
+
+	@Override
+	public <P> void register(final Eventual<P> aEventual) {
+		throw new UnintendedUseException();
 	}
 
 	public enum CompilationAlways {

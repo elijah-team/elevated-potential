@@ -25,6 +25,7 @@ import tripleo.elijah.nextgen.output.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.GenerateFiles;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
@@ -284,7 +285,8 @@ public class CR_State implements GCR_State {
 		}
 
 		@Override
-		public void resolveWaitGenC(final OS_Module mod, final GenerateC gc) {
+		public void resolveWaitGenC(final OS_Module mod, final GenerateFiles aGenerateFiles) {
+			final GenerateC                       gc  = (GenerateC) aGenerateFiles;
 			DeferredObject<GenerateC, Void, Void> gcp = new DeferredObject<>();
 			gcp.resolve(gc);
 			gc2m_map.put(mod, gcp);
