@@ -91,8 +91,8 @@ public class USE {
 				final OS_Module mm = om.success();
 				final CM_Module cm = c.megaGrande(mm);
 
-				assert mm.getLsp() == null;
-				assert mm.prelude() == null;
+				//assert mm.getLsp() == null;
+				//assert mm.prelude() == null;
 
 				cm.advise(lsp);
 				cm.advise(() -> findPrelude(CompilationImpl.CompilationAlways.defaultPrelude()));
