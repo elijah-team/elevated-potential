@@ -8,8 +8,6 @@ plugins {
     id "org.xtext.xtend" version "4.0.0"
 
     //    id "com.diffplug.spotless" version "6.22.0"
-
-//  id 'org.jetbrains.kotlin.jvm' version '1.9.0'
 }
 
 repositories {
@@ -21,7 +19,7 @@ repositories {
 dependencies {
 //    implementation 'eu.mihosoft.monacofx:monacofx:0.0.8'
 
-    implementation 'tripleo.elijah:elijah-core-api:2023.11.elevated-potential.2'
+    implementation 'tripleo.elijah:elijah-core-api:2023.11.elevated-potential.3'
 
     implementation 'tripleo.elijah:elijah-util:2023.11.elevated-potential.2'
     implementation 'tripleo.elijah:elijah-ek:2023.11.elevated-potential.2'
@@ -54,8 +52,6 @@ dependencies {
     // http://xtext.github.io/xtext-gradle-plugin/xtend.html
     // https://stackoverflow.com/questions/23796404/could-not-find-method-compile-for-arguments-gradle
     implementation 'org.eclipse.xtend:org.eclipse.xtend.lib:2.30.0'
-
-//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
 //
 //    //spotlessLibVersion = "6.22.0"
@@ -101,6 +97,3 @@ ktor {
         archiveFileName.set("fat.jar")
     }
 }
-//kotlin {
-//  jvmToolchain(17)
-//}
