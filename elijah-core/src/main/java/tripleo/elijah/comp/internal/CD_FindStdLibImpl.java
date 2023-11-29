@@ -33,8 +33,8 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 			cc.getCompilation().getCompilationEnclosure().logProgress(CompProgress.DriverPhase, Pair.of(3939, ""+local_stdlib_1));
 
 			// TODO stdlib path here
-//			final File local_stdlib = CY_FindPrelude.__local_prelude_file(aPreludeName);
-			final File local_stdlib = new File("lib_elijjah/lib-" + aPreludeName + "/stdlib.ez");
+			//final File local_stdlib = new CY_FindPrelude().local_prelude(aPreludeName);
+			final File local_stdlib = sle.toFile();
 
 
 			if (local_stdlib.exists()) {
