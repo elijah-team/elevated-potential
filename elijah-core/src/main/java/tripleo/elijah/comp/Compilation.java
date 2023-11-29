@@ -89,13 +89,12 @@ public interface Compilation extends Compilation0 {
 	CM_Ez megaGrande(EzSpec aEzSpec);
 
 	class CompilationConfig implements GCompilationConfig {
-		public          boolean do_out;
 		public          boolean showTree = false;
 		public          boolean silent   = false;
 
 		@Override
 		public void setDo_out(final boolean b) {
-			do_out = b;
+			throw new UnintendedUseException();
 		}
 		@Override
 		public void setShowTree(final boolean b) {

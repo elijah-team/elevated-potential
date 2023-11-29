@@ -28,7 +28,7 @@ public interface CompFactory {
 
 	ICompilationBus createCompilationBus();
 
-	InputRequest createInputRequest(File aFile, final boolean aDo_out, final @Nullable LibraryStatementPart aLsp);
+	InputRequest createInputRequest(File aFile, final @Nullable LibraryStatementPart aLsp);
 
 	EIT_ModuleInput createModuleInput(OS_Module aModule);
 
