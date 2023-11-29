@@ -11,7 +11,6 @@ import tripleo.elijah.comp.nextgen.CP_Path;
 import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue;
 import tripleo.elijah.comp.specs.ElijahCache;
-import tripleo.elijah.comp.specs.EzCache;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
