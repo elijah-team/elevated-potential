@@ -1,9 +1,11 @@
 package tripleo.elijah.comp.nextgen;
 
 import antlr.*;
+import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.Asseverate;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.diagnostic.*;
@@ -12,7 +14,7 @@ import tripleo.elijjah.*;
 
 import java.io.*;
 
-public class CX_ParseEzFile {
+public enum CX_ParseEzFile {;
 	private static Operation2<CompilerInstructions> calculate(final String aAbsolutePath, final InputStream aInputStream) {
 		final EzLexer lexer = new EzLexer(aInputStream);
 		lexer.setFilename(aAbsolutePath);
@@ -36,7 +38,12 @@ public class CX_ParseEzFile {
 		final Operation2<CompilerInstructions> cio = calculate(aSpec.file_name(), aSpec.sis().get());
 
 		if (cio.mode() == Mode.SUCCESS) {
-			aEzCache.put(aSpec, absolutePath, cio.success());
+			final CompilerInstructions R = cio.success();
+			aEzCache.put(aSpec, absolutePath, R);
+
+			var c = aEzCache.getCompilation();
+			c.getObjectTree().asseverate(Triple.of(aSpec, cio, R), Asseverate.CI_SPECCED);
+			c.getObjectTree().asseverate(R, Asseverate.CI_PARSED);
 		}
 
 		return cio;

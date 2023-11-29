@@ -37,7 +37,7 @@ public interface CompFactory {
 
 	CY_ElijahSpecParser defaultElijahSpecParser(ElijahCache aElijahCache);
 
-	CY_EzSpecParser defaultEzSpecParser(EzCache aEzCache);
+	//CY_EzSpecParser defaultEzSpecParser(EzCache aEzCache);
 
 	WorldModule createWorldModule(OS_Module aModule);
 

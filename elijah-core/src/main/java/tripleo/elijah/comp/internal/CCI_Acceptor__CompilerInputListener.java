@@ -115,7 +115,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 				int y = 2;
 
 				if (i.getDirectoryResults() != null) {
-					List<Operation2<CompilerInstructions>> directoryResults = i.getDirectoryResults();
+					List<Operation2<CompilerInstructions>> directoryResults = i.getDirectoryResults().getDirectoryResult();
 
 					for (Operation2<CompilerInstructions> directoryResult : directoryResults) {
 						if (directoryResult.mode() == Mode.SUCCESS) {

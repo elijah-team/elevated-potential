@@ -86,10 +86,10 @@ public class CompilationImpl implements Compilation {
 		cfg                  = new CompilationConfig();
 		use                  = new USE(this.getCompilationClosure());
 		_cis                 = new CIS();
+		_repo                = new DefaultLivingRepo();
 		compilationEnclosure = new DefaultCompilationEnclosure(this);
 		paths                = new CP_Paths__(this);
 		defaultMonitor       = new __CK_Monitor();
-		_repo                = new DefaultLivingRepo();
 		_finally             = new Finally_();
 		_con                 = new DefaultCompFactory(this);
 		objectTree           = _con.createObjectTree();

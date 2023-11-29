@@ -3,11 +3,13 @@ package tripleo.elijah.comp.i;
 import org.apache.commons.lang3.tuple.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.nextgen.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
+import java.util.List;
 
 // FIXME use emojis??
 // NOTE strange pattern (ie why not just directly?)
@@ -47,8 +49,11 @@ public enum CompProgress {
 
 			out.printf("[-- Ez CIL change ] %s %s%n", i, i.ty());
 
-			if (i.getDirectoryResults() != null) {
-				for (Operation2<CompilerInstructions> directoryResult : i.getDirectoryResults()) {
+			final CompilerInstructions_Result            directoryResult1 = i.getDirectoryResults();
+			if (directoryResult1 != null) {
+				final List<Operation2<CompilerInstructions>> directoryResult2 = directoryResult1.getDirectoryResult();
+
+				for (Operation2<CompilerInstructions> directoryResult : directoryResult2) {
 					if (directoryResult.mode() == Mode.SUCCESS) {
 						final CompilerInstructions compilerInstructions = directoryResult.success();
 
@@ -102,8 +107,8 @@ public enum CompProgress {
 		public void deprecated_print(final Object x, final PrintStream out, final PrintStream err) {
 			final Pair<Integer, String> t = (Pair<Integer, String>) x;
 
-			final int    code     = t.getLeft();
-			final String message  = t.getRight();
+			final int    code    = t.getLeft();
+			final String message = t.getRight();
 
 			final String codeText = switch (code) {
 				case 37939 -> "findStdLib";
