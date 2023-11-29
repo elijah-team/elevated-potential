@@ -1,11 +1,10 @@
 package tripleo.elijah.comp.nextgen;
 
 import antlr.*;
-import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.graph.i.Asseverate;
+import tripleo.elijah.comp.graph.CM_Ez;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.diagnostic.*;
@@ -41,9 +40,9 @@ public enum CX_ParseEzFile {;
 			final CompilerInstructions R = cio.success();
 			aEzCache.put(aSpec, absolutePath, R);
 
-			var c = aEzCache.getCompilation();
-			c.getObjectTree().asseverate(Triple.of(aSpec, cio, R), Asseverate.CI_SPECCED);
-			c.getObjectTree().asseverate(R, Asseverate.CI_PARSED);
+			final CM_Ez cm = ((Compilation) aEzCache.getCompilation()).megaGrande(aSpec);
+			cm.advise(cio);
+			cm.advise(aEzCache.getCompilation().getObjectTree());
 		}
 
 		return cio;
