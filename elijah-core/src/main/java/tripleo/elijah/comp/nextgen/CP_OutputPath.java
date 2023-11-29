@@ -21,7 +21,7 @@ import java.util.*;
 import java.util.stream.*;
 
 public class CP_OutputPath implements CP_Path, _CP_RootPath {
-	private final DeferredObject<Path, Void, Void> _pathPromise = new DeferredObject<>();
+	private final Eventual<Path> _pathPromise = new Eventual<>();
 
 	private final CY_HashDeferredAction hda;
 	private final Compilation          c;
@@ -97,7 +97,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	}
 
 	@Override
-	public @NotNull Promise<Path, Void, Void> getPathPromise() {
+	public @NotNull Eventual<Path> getPathPromise() {
 		return _pathPromise;
 	}
 
