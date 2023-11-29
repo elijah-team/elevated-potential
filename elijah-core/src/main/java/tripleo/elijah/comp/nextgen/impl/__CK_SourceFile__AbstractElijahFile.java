@@ -86,36 +86,8 @@ abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {
 		throw new UnintendedUseException();
 	}
 
-	protected void asserverate() {
-//		if (getFileName() == null) return;
-//		if (compilation == null) return;
-//
-//		final String            file_name = getFileName();
-//		final File              file      = getFile();
-//		final Operation<String> hash      = new CA_getHashForFile().apply(file_name, file);
-//
-//		compilation.getObjectTree().asseverate(new Asseveration() {
-//			@Override
-//			public Object target() {
-//				return CKSourceFile__abstractEzFile;
-//			}
-//
-//			@Override
-//			public Asseverate code() {
-//				return Asseverate.CI_HASHED;
-//			}
-//
-//			@Override
-//			public void onLogProgress(CompilationEnclosure ce) {
-//				ce.logProgress2(CompProgress.Ez__HasHash, new AssererationLogProgress() {
-//					@Override
-//					public void call(PrintStream out, PrintStream err) {
-//						out.printf("[-- Ez has HASH ] %s %s%n", file_name, hash.success());
-//					}
-//				});
-//			}
-//		});
-	}
+	//protected void asserverate() {
+	//}
 
 	protected abstract File getFile();
 
