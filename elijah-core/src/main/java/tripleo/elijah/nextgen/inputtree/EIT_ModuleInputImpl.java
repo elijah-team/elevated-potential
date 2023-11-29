@@ -72,7 +72,11 @@ public class EIT_ModuleInputImpl implements EIT_ModuleInput {
 		var gr         = new Old_GenerateResult();
 		var wl         = new WorkList__();
 		var nodes1     = EvaPipeline.processLgc(nodes);
-		var gnis_env   = new GN_GenerateNodesIntoSinkEnv(nodes1, resultSink, ce.getCompilation().getObjectTree().getModuleList(), ce.getPipelineLogic().getVerbosity(), gr, c.pa(), ce);
+		var gnis_env   = new GN_GenerateNodesIntoSinkEnv(nodes1,
+														 resultSink,
+														 ce.getPipelineLogic().getVerbosity(),
+														 gr,
+														 ce);
 		var gnis       = new GN_GenerateNodesIntoSink(gnis_env);
 		var gmr        = new GM_GenerateModuleRequest(gnis, mod, gnis_env);
 		var gmgm       = new GM_GenerateModule(gmr);

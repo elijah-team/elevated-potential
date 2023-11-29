@@ -67,7 +67,7 @@ public class DefaultObjectTree implements CK_ObjectTree {
 
 	@Override
 	public EIT_InputTree getInputTree() {
-		return compilation._input_tree;
+		return compilation.getInputTree();
 	}
 
 	@Override

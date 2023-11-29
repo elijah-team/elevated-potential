@@ -1,9 +1,10 @@
 package tripleo.elijah.comp.nextgen;
 
-import org.jdeferred2.*;
+import org.jdeferred2.Promise;
+import tripleo.elijah.comp.IO;
 
 import java.io.*;
-import java.nio.file.*;
+import java.nio.file.Path;
 
 public interface CP_Path {
 	CP_Path child(String aPath0);
@@ -23,4 +24,8 @@ public interface CP_Path {
 	CP_SubFile subFile(String aFile);
 
 	File toFile();
+
+	default InputStream getReadInputStream(IO aIO) throws FileNotFoundException {
+		return new FileInputStream(toFile());
+	}
 }

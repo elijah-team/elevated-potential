@@ -1,5 +1,7 @@
 package tripleo.elijah.comp.specs;
 
+import tripleo.elijah.comp.graph.CM_Module;
+
 import java.io.*;
 
 public interface ElijahSpec {
@@ -10,4 +12,6 @@ public interface ElijahSpec {
 	File file();
 
 	InputStream s();
+
+	CM_Module getModule();
 }

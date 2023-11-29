@@ -11,7 +11,6 @@ import tripleo.elijah.comp.notation.GM_GenerateModule;
 import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
 import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
 import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
-import tripleo.elijah.g.GCompilationEnclosure;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.impl.OS_ModuleImpl;
 import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
@@ -99,10 +98,8 @@ public class Boilerplate {
 			final GN_GenerateNodesIntoSinkEnv generateNodesIntoSinkEnv = new GN_GenerateNodesIntoSinkEnv(
 					lgc,
 					resultSink1,
-					moduleList,
 					verbosity,
 					gr,
-					pa,
 					ce
 			);
 

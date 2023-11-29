@@ -56,6 +56,8 @@ public class CX_ParseEzFile {
 			};
 			EzSpec__ spec = null;
 
+			assert false;
+
 			return Operation.convert(parser.parse(spec));
 		} catch (final IOException aE) {
 			return Operation.failure(aE);
