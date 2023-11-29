@@ -12,9 +12,23 @@ repositories {
     // mavenLocal()
 
     maven { url = uri('https://repo.maven.apache.org/maven2/') }
-    maven { url = uri('https://gitlab.com/api/v4/projects/10309690/packages/maven') }
-    maven { url = uri('https://gitlab.com/api/v4/projects/20346374/packages/maven') }
-    maven { url = uri('https://gitlab.com/api/v4/projects/21223510/packages/maven') }
+
+    maven {
+        url = uri('https://gitlab.com/api/v4/projects/52599914/packages/maven')
+        name = "https://gitlab.com/elijah-team/elijah-core-api"
+    }
+//    maven {
+//        url = uri('https://gitlab.com/api/v4/projects/10309690/packages/maven')
+//        name = "https://gitlab.com/elijah-team/elijah-lang"
+//    }
+    maven {
+        url = uri('https://gitlab.com/api/v4/projects/20346374/packages/maven')
+        name = "https://gitlab.com/tripleo1/buffers"
+    }
+    maven {
+        url = uri('https://gitlab.com/api/v4/projects/21223510/packages/maven')
+        name = "https://gitlab.com/Tripleo/range"
+    }
 }
 
 dependencies {

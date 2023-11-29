@@ -21,20 +21,19 @@ repositories {
 dependencies {
 //    implementation 'eu.mihosoft.monacofx:monacofx:0.0.8'
 
-    api project(':elijah-util')
-    api project(':elijah-ek')
-    api project(':tripleo.small')
-    api project(':tripleo.elijah.reactive')
-    api project(':tripleo.elijah.stateful')
-    api project(':elijah-nextgen-outputstatement')
+    implementation 'tripleo.elijah:elijah-core-api:2023.11.elevated-potential.2'
 
-    api project(':elijah-core-api')
+    implementation 'tripleo.elijah:elijah-util:2023.11.elevated-potential.2'
+    implementation 'tripleo.elijah:elijah-ek:2023.11.elevated-potential.2'
+    implementation 'tripleo.elijah:tripleo.small:2023.11.elevated-potential.2'
+    implementation 'tripleo.elijah:tripleo.elijah.reactive:2023.11.elevated-potential.2'
+    implementation 'tripleo.elijah:tripleo.elijah.stateful:2023.11.elevated-potential.2'
+    implementation 'tripleo.elijah:elijah-nextgen-outputstatement:2023.11.elevated-potential.2'
 
     api 'io.reactivex.rxjava3:rxjava:3.1.6'
     api 'org.reactivestreams:reactive-streams:1.0.4'
     api 'commons-codec:commons-codec:1.15'
     api 'antlr:antlr:2.7.7'
-    implementation project(path: ':elijah-nextgen-outputstatement')
 
 //    implementation
     //providedCompile
