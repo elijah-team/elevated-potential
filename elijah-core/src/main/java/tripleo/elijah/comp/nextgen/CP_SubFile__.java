@@ -1,26 +1,27 @@
 package tripleo.elijah.comp.nextgen;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.Eventual;
 
-import java.io.*;
-import java.nio.file.*;
-import java.util.*;
+import java.io.File;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CP_SubFile__ implements CP_SubFile {
 
-	private final _CP_RootPath rootPath;
-	private final @Nullable CP_Path parentPath;
-	private final String file;
+	private final           _CP_RootPath rootPath;
+	private final @Nullable CP_Path      parentPath;
+	private final           String       file;
 
 	private final @NotNull CP_Path _path;
 
 	public CP_SubFile__(final _CP_RootPath aCPOutputPath, final String aFile) {
-		rootPath = aCPOutputPath;
+		rootPath   = aCPOutputPath;
 		parentPath = null;
-		file = aFile;
-		_path = new CP_Path1(rootPath, file);
+		file       = aFile;
+		_path      = new CP_Path1(rootPath, file);
 	}
 
 	public CP_SubFile__(final CP_Path aParentPath, final String aFile) {
@@ -30,8 +31,8 @@ public class CP_SubFile__ implements CP_SubFile {
 			rootPath = aParentPath.getRootPath();
 
 		parentPath = aParentPath;
-		file = aFile;
-		_path = new CP_Path1(rootPath, file);
+		file       = aFile;
+		_path      = new CP_Path1(rootPath, file);
 	}
 
 	@Override
@@ -45,10 +46,10 @@ public class CP_SubFile__ implements CP_SubFile {
 	}
 
 	public static class CP_Path1 implements CP_Path {
-		public final @Nullable CP_Path                          parent;
-		public final           String                           childName;
-		public final @Nullable _CP_RootPath                     op;
-		private final          DeferredObject<Path, Void, Void> _pathPromise = new DeferredObject<>();
+		public final @Nullable CP_Path        parent;
+		public final @Nullable _CP_RootPath   op;
+		public final           String         childName;
+		private final          Eventual<Path> _pathPromise = new Eventual<>();
 		String x;
 
 		public CP_Path1(final _CP_RootPath aParent, final String aFile) {
@@ -94,7 +95,7 @@ public class CP_SubFile__ implements CP_SubFile {
 		}
 
 		@Override
-		public @NotNull Promise<Path, Void, Void> getPathPromise() {
+		public @NotNull Eventual<Path> getPathPromise() {
 			return _pathPromise;
 		}
 
