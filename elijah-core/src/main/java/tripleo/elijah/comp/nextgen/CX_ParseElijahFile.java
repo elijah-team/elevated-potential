@@ -64,7 +64,7 @@ public class CX_ParseElijahFile {
 		final ElijjahLexer lexer = new ElijjahLexer(s);
 		lexer.setFilename(f);
 		final ElijjahParser parser = new ElijjahParser(lexer);
-		parser.out = new Out(f, compilation, false);
+		parser.out = new Out(f, compilation);
 		parser.setFilename(f);
 
 		parser.pcon = new PConParser();
