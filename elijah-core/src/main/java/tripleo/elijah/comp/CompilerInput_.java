@@ -5,6 +5,7 @@ import lombok.*;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.util.*;
 
 import java.io.*;
@@ -21,9 +22,7 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 	private       String                           hash;
 	private       CompilerInputMaster              master;
 
-	@SuppressWarnings("unchecked") // README squiggly line in idea
-	@Getter
-	private List<Operation2<CompilerInstructions>> directoryResults = Collections.EMPTY_LIST;
+	private CompilerInstructions_Result directoryResults;
 
 	public CompilerInput_(final String aS) {
 		inp = aS;
@@ -105,11 +104,11 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 	}
 
 	@Override
-	public void setDirectoryResults(final List<Operation2<CompilerInstructions>> aLoci) {
+	public void setDirectoryResults(final CompilerInstructions_Result aLoci) {
 		this.directoryResults = aLoci;
 
-        for (Operation2<CompilerInstructions> locus : aLoci) {
-            var focus = locus.success();
+        for (var locus : aLoci.getDirectoryResult2()) {
+            var focus = locus.getKey().success();
             focus.advise(this);
         }
 
@@ -148,5 +147,10 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 		    default -> null;
 	    };
     }
+
+	@Override
+	public CompilerInstructions_Result getDirectoryResults() {
+		return this.directoryResults;
+	}
 
 }

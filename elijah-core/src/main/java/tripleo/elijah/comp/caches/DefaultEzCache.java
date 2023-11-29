@@ -1,12 +1,19 @@
 package tripleo.elijah.comp.caches;
 
 import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.specs.*;
 
 import java.util.*;
 
 public class DefaultEzCache implements EzCache {
 	final Map<String, CompilerInstructions> fn2ci = new HashMap<>();
+	private final Compilation compilation;
+
+	public DefaultEzCache(final Compilation aCompilation) {
+		compilation = aCompilation;
+	}
 
 	@Override
 	public Optional<CompilerInstructions> get(final String absolutePath) {
@@ -20,5 +27,9 @@ public class DefaultEzCache implements EzCache {
 	@Override
 	public void put(final EzSpec aSpec, final String aAbsolutePath, final CompilerInstructions aCompilerInstructions) {
 		fn2ci.put(aAbsolutePath, aCompilerInstructions);
+	}
+
+	@Override public Compilation0 getCompilation() {
+		return compilation;
 	}
 }

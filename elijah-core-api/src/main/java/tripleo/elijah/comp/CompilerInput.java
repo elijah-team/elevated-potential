@@ -2,6 +2,7 @@ package tripleo.elijah.comp;
 
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.util.*;
 
 import java.io.*;
@@ -30,7 +31,7 @@ public interface CompilerInput {
 
 	void setArg();
 
-	void setDirectoryResults(List<Operation2<CompilerInstructions>> aLoci);
+	void setDirectoryResults(CompilerInstructions_Result aLoci);
 
 	void setMaster(CompilerInputMaster master);
 
@@ -45,7 +46,7 @@ public interface CompilerInput {
 
 	String getInp();
 
-	List<Operation2<CompilerInstructions>> getDirectoryResults();
+	CompilerInstructions_Result getDirectoryResults();
 
 	Object getExt(Class<?> aClass);
 	

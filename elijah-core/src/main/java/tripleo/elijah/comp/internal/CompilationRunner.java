@@ -17,7 +17,7 @@ import tripleo.elijah.util.*;
 import java.util.function.*;
 
 public class CompilationRunner extends _RegistrationTarget implements ICompilationRunner {
-	public final @NotNull  EzCache                         ezCache = new DefaultEzCache();
+	public final @NotNull  EzCache                         ezCache;
 	private final @NotNull Compilation                     _compilation;
 	private final @NotNull ICompilationBus                 cb;
 	@Getter
@@ -55,6 +55,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 
 		progressSink = cb.defaultProgressSink();
 		crState = aCrState;
+		ezCache      = new DefaultEzCache((Compilation) aca.getCompilation());
 	}
 
 	public Compilation _accessCompilation() {
