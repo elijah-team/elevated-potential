@@ -41,61 +41,62 @@ import java.util.*;
 import java.util.stream.*;
 
 public class CompilationImpl implements Compilation {
-	private final @NotNull FluffyCompImpl       _fluffyComp;
+	private final FluffyCompImpl                      _fluffyComp;
 	@Getter
-	private final          CIS                  _cis;
+	private final CompilationConfig                   cfg;
 	@Getter
-	private final          USE                  use;
-	private final          CompFactory          _con;
-	private final          LivingRepo           _repo;
+	private final CompilationEnclosure                compilationEnclosure;
 	@Getter
-	private final          CompilationConfig    cfg;
+	private final CIS                                 _cis;
 	@Getter
-	private final          CompilationEnclosure compilationEnclosure;
-	private final          CP_Paths             paths;
-	private final @NotNull ErrSink              errSink;
-	private final          int                  _compilationNumber;
-	private final          CompilerInputMaster  master;
-	private final          Finally              _finally;
-
-	private final     CK_ObjectTree              objectTree;
+	private final CK_Monitor                          defaultMonitor;
 	@Getter
-	private final     CK_Monitor                 defaultMonitor  = new __CK_Monitor();
-	private final     Map<ElijahSpec, CM_Module> specToModuleMap = new HashMap<>();
-	private final     Map<OS_Module, CM_Module>  moduleToCMMap   = new HashMap<>();
-	private final     Map<EzSpec, CM_Ez>         specToEzMap     = new HashMap<>();
-	private final     List<CompilerInstructions> xxx;
+	private final USE                                 use;
+	private final CompFactory                         _con;
+	private final LivingRepo                          _repo;
+	private final CP_Paths                            paths;
+	private final ErrSink                             errSink;
+	private final int                                 _compilationNumber;
+	private final CompilerInputMaster                 master;
+	private final Finally                             _finally;
+	private final CK_ObjectTree                       objectTree;
+	private final Map<ElijahSpec, CM_Module>          specToModuleMap;
+	private final Map<OS_Module, CM_Module>           moduleToCMMap;
+	private final Map<EzSpec, CM_Ez>                  specToEzMap;
+	private final List<CompilerInstructions>          xxx;
 	private final CCI_Acceptor__CompilerInputListener cci_listener;
 	private final PW_Controller                       pw_controller;
-	private           EIT_InputTree              _input_tree;
-	private @Nullable EOT_OutputTree             _output_tree    = null;
-	private List<CompilerInput> _inputs;
-	private IPipelineAccess     _pa;
-	private IO                  io;
-	private boolean             _inside;
+	private       EIT_InputTree                       _input_tree;
+	private       EOT_OutputTree                      _output_tree;
+	private       List<CompilerInput>                 _inputs;
+	private       IPipelineAccess                     _pa;
+	private       IO                                  io;
+	@SuppressWarnings("BooleanVariableAlwaysNegated")
+	private       boolean                             _inside;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
 		io                   = aIo;
+		specToModuleMap      = new HashMap<>();
+		moduleToCMMap        = new HashMap<>();
+		specToEzMap          = new HashMap<>();
+		xxx                  = new ArrayList<>();
 		_compilationNumber   = new Random().nextInt(Integer.MAX_VALUE);
-		cfg                  = new CompilationConfig();
-		_con                 = new DefaultCompFactory(this);
-		objectTree           = _con.createObjectTree();
-		_repo                = new DefaultLivingRepo();
-		compilationEnclosure = new DefaultCompilationEnclosure(this);
-		_finally             = new Finally_();
-		paths                = new CP_Paths__(this);
 		_fluffyComp          = new FluffyCompImpl(this);
+		cfg                  = new CompilationConfig();
 		use                  = new USE(this.getCompilationClosure());
 		_cis                 = new CIS();
-
-		master = _con.createCompilerInputMaster();
-
-		cci_listener = new CCI_Acceptor__CompilerInputListener(this);
+		compilationEnclosure = new DefaultCompilationEnclosure(this);
+		paths                = new CP_Paths__(this);
+		defaultMonitor       = new __CK_Monitor();
+		_repo                = new DefaultLivingRepo();
+		_finally             = new Finally_();
+		_con                 = new DefaultCompFactory(this);
+		objectTree           = _con.createObjectTree();
+		master               = _con.createCompilerInputMaster();
+		pw_controller        = new PW_CompilerController(this);
+		cci_listener         = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
-
-		pw_controller = new PW_CompilerController(this);
-		xxx           = new ArrayList<>();
 	}
 
 	public static ElLog_.@NotNull Verbosity gitlabCIVerbosity() {
