@@ -22,13 +22,6 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/dlog" />
             <option value="$PROJECT_DIR$/elijah-core" />
-            <option value="$PROJECT_DIR$/elijah-core-api" />
-            <option value="$PROJECT_DIR$/elijah-ek" />
-            <option value="$PROJECT_DIR$/elijah-nextgen-outputstatement" />
-            <option value="$PROJECT_DIR$/elijah-stateful" />
-            <option value="$PROJECT_DIR$/elijah-util" />
-            <option value="$PROJECT_DIR$/tripleo-reactive" />
-            <option value="$PROJECT_DIR$/tripleo-small" />
           </set>
         </option>
       </GradleProjectSettings>
