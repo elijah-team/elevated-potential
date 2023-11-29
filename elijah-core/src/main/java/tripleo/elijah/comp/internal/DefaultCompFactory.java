@@ -130,4 +130,9 @@ class DefaultCompFactory implements CompFactory {
 	public EIT_InputTree createInputTree() {
 		return new EIT_InputTreeImpl();
 	}
+
+	@Override
+	public CX_ParseElijahFile.ElijahSpecReader defaultElijahSpecReader(final CP_Path aLocalPrelude) {
+		return new DefaultElijahSpecReader(aLocalPrelude, compilation);
+	}
 }
