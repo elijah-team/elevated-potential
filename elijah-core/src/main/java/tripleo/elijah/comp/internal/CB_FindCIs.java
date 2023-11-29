@@ -46,8 +46,8 @@ class CB_FindCIs implements CB_Action {
 		//  09/27 is that not being done above??
 		aMonitor.reportSuccess(this, o);
 
-		final CK_AlmostComplete almostComplete = new CK_AlmostComplete();
-		almostComplete.execute(context, monitor);
+		//final CK_AlmostComplete almostComplete = new CK_AlmostComplete();
+		//almostComplete.execute(context, monitor);
 	}
 
 	private void logProgress_Stating(final String aSection, final String aStatement) {
