@@ -7,6 +7,8 @@ import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
 import tripleo.elijah.comp.internal.Startable;
+import tripleo.elijah.comp.nextgen.CP_Path;
+import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue;
 import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.comp.specs.EzCache;
@@ -67,4 +69,6 @@ public interface CompFactory {
 	EOT_OutputTree createOutputTree();
 
 	EIT_InputTree createInputTree();
+
+	CX_ParseElijahFile.ElijahSpecReader defaultElijahSpecReader(CP_Path aLocalPrelude);
 }
