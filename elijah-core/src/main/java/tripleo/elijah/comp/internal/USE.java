@@ -1,15 +1,23 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.ci_impl.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.caches.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.nextgen.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.ci.LibraryStatementPart;
+import tripleo.elijah.ci_impl.LibraryStatementPartImpl;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.caches.DefaultElijahCache;
+import tripleo.elijah.comp.graph.CM_Module;
+import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.comp.i.CompilationClosure;
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.USE_Reasoning;
+import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
 import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.diagnostic.ExceptionDiagnostic;
+import tripleo.elijah.diagnostic.FileNotFoundDiagnostic;
+import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.util.*;
 
 import java.io.*;
@@ -39,7 +47,6 @@ public class USE {
 
 	public Operation2<OS_Module> findPrelude(final String prelude_name) {
 		final CY_FindPrelude cyFindPrelude = new CY_FindPrelude(
-				errSink,
 				() -> c,
 				() -> elijahCache
 		);
@@ -49,7 +56,7 @@ public class USE {
 	private Operation2<OS_Module> parseElijjahFile(final @NotNull File f,
 	                                               final @NotNull String file_name,
 	                                               final @NotNull LibraryStatementPart lsp) {
-		this.c.getCompilationEnclosure().logProgress(CompProgress.USE__parseElijjahFile, f.getAbsolutePath());
+		logProgress(CompProgress.USE__parseElijjahFile, f.getAbsolutePath());
 
 		if (!f.exists()) {
 			final Diagnostic e = new FileNotFoundDiagnostic(f);
@@ -60,32 +67,37 @@ public class USE {
 		Operation2<OS_Module> om;
 
 		try {
+			var rdr = new CX_ParseElijahFile.ElijahSpecReader() {
+				@Override
+				public @NotNull Operation<InputStream> get()  {
+					try {
+						final InputStream readFile = c.getIO().readFile(f);
+						return Operation.success(readFile);
+					} catch (FileNotFoundException aE) {
+						return Operation.failure(aE);
+					}
+				}
+			};
 			om = CX_ParseElijahFile.__parseEzFile(
 					file_name,
 					f,
-					c.getIO(),
+					rdr,
+					//c.getIO(),
 					c.con().defaultElijahSpecParser(elijahCache)
 			);
 
 			switch (om.mode()) {
 			case SUCCESS -> {
 				final OS_Module mm = om.success();
+				final CM_Module cm = c.megaGrande(mm);
 
 				assert mm.getLsp() == null;
 				assert mm.prelude() == null;
 
-				if (mm.getLsp() == null) {
-					// TODO we don't know which prelude to find yet
-					final Operation2<OS_Module> pl = findPrelude(CompilationImpl.CompilationAlways.defaultPrelude());
+				cm.advise(lsp);
+				cm.advise(() -> findPrelude(CompilationImpl.CompilationAlways.defaultPrelude()));
 
-					// NOTE Go. infectious. tedious. also slightly lazy
-					assert pl.mode() == Mode.SUCCESS;
-
-					mm.setLsp(lsp);
-					mm.setPrelude(pl.success());
-				}
-
-				return Operation2.success(mm); // TODO 11/28 why not return om; ??
+				return om;
 			}
 			default -> {
 				return om;
@@ -94,6 +106,10 @@ public class USE {
 		} catch (final Exception aE) {
 			return Operation2.failure(new ExceptionDiagnostic(aE));
 		}
+	}
+
+	private void logProgress(final CompProgress aCompProgress, final String aAbsolutePath) {
+		this.c.getCompilationEnclosure().logProgress(aCompProgress,aAbsolutePath);
 	}
 
 	public void use(final @NotNull CompilerInstructions compilerInstructions) {

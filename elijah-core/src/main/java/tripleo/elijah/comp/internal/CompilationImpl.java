@@ -37,39 +37,42 @@ import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
 import tripleo.elijah.world.impl.*;
 
-import java.io.*;
 import java.util.*;
 import java.util.stream.*;
 
 public class CompilationImpl implements Compilation {
-	EIT_InputTree                       _input_tree;
-	private final @NotNull FluffyCompImpl                      _fluffyComp;
+	private final @NotNull FluffyCompImpl       _fluffyComp;
 	@Getter
-	private final          CIS                                 _cis;
-	private final          CompFactory                         _con;
-	private final          LivingRepo                          _repo;
+	private final          CIS                  _cis;
 	@Getter
-	private final          CompilationConfig                   cfg;
+	private final          USE                  use;
+	private final          CompFactory          _con;
+	private final          LivingRepo           _repo;
 	@Getter
-	private final          USE                                 use;
+	private final          CompilationConfig    cfg;
 	@Getter
-	private final          CompilationEnclosure                compilationEnclosure;
-	private final          CP_Paths                            paths;
-	private final @NotNull ErrSink                             errSink;
-	private final          int                                 _compilationNumber;
-	private final          CompilerInputMaster                 master;
-	private final          Finally                             _finally;
-	private final CK_ObjectTree                       objectTree;
+	private final          CompilationEnclosure compilationEnclosure;
+	private final          CP_Paths             paths;
+	private final @NotNull ErrSink              errSink;
+	private final          int                  _compilationNumber;
+	private final          CompilerInputMaster  master;
+	private final          Finally              _finally;
+
+	private final     CK_ObjectTree              objectTree;
 	@Getter
-	private final CK_Monitor                          defaultMonitor = new __CK_Monitor();
-	public        CCI_Acceptor__CompilerInputListener cci_listener;
-	List<CompilerInstructions> xxx;
-	PW_Controller              pw_controller;
-	private @Nullable EOT_OutputTree      _output_tree = null;
-	private           List<CompilerInput> _inputs;
-	private           IPipelineAccess     _pa;
-	private           IO                  io;
-	private           boolean             _inside;
+	private final     CK_Monitor                 defaultMonitor  = new __CK_Monitor();
+	private final     Map<ElijahSpec, CM_Module> specToModuleMap = new HashMap<>();
+	private final     Map<OS_Module, CM_Module>  moduleToCMMap   = new HashMap<>();
+	private final     Map<EzSpec, CM_Ez>         specToEzMap     = new HashMap<>();
+	private final     List<CompilerInstructions> xxx;
+	private final CCI_Acceptor__CompilerInputListener cci_listener;
+	private final PW_Controller                       pw_controller;
+	private           EIT_InputTree              _input_tree;
+	private @Nullable EOT_OutputTree             _output_tree    = null;
+	private List<CompilerInput> _inputs;
+	private IPipelineAccess     _pa;
+	private IO                  io;
+	private boolean             _inside;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
@@ -86,9 +89,9 @@ public class CompilationImpl implements Compilation {
 		use                  = new USE(this.getCompilationClosure());
 		_cis                 = new CIS();
 
-		master               = _con.createCompilerInputMaster();
+		master = _con.createCompilerInputMaster();
 
-		cci_listener         = new CCI_Acceptor__CompilerInputListener(this);
+		cci_listener = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
 
 		pw_controller = new PW_CompilerController(this);
@@ -346,45 +349,57 @@ public class CompilationImpl implements Compilation {
 		((PW_CompilerController) pw_controller).submitWork(aInstance);
 	}
 
-	private final Map<ElijahSpec, CM_Module> megaGrande = new HashMap<>();
-
 	@Override
 	public CM_Module megaGrande(final ElijahSpec aSpec, final Operation2<OS_Module> aModuleOperation) {
 		CM_Module result;
-		if (megaGrande.containsKey(aSpec)) {
-			result = megaGrande.get(aSpec);
+		if (specToModuleMap.containsKey(aSpec)) {
+			result = specToModuleMap.get(aSpec);
 		} else {
-			result = new CM_Module_();
-			megaGrande.put(aSpec, result);
+			assert aModuleOperation.mode() == Mode.SUCCESS;
+			result = megaGrande(aModuleOperation.success());
+			specToModuleMap.put(aSpec, result);
 		}
 
 		result.advise(aSpec);
-		result.advise(aModuleOperation);
+		//result.advise(aModuleOperation);
 
 		return result;
 	}
 
 	@Override
-	public @NotNull EOT_OutputTree getOutputTree() {
-		if (_output_tree == null) {
-			_output_tree = _con.createOutputTree();
+	public CM_Ez megaGrande(final EzSpec aSpec) {
+		CM_Ez result;
+		if (specToEzMap.containsKey(aSpec)) {
+			result = specToEzMap.get(aSpec);
+		} else {
+			//assert aModuleOperation.mode() == Mode.SUCCESS;
+			//result = megaGrande(aModuleOperation.success());
+			result = new CM_Ez_();
+			specToEzMap.put(aSpec, result);
 		}
 
-		return _output_tree;
+		result.advise(aSpec);
+		//result.advise(aModuleOperation);
+
+		return result;
 	}
 
+	/**
+	 * This one is interesting as it doesnt quite fit
+	 */
 	@Override
-	public @NotNull EIT_InputTree getInputTree() {
-		if (_input_tree == null) {
-			_input_tree          = _con.createInputTree();
+	public CM_Module megaGrande(final OS_Module aModule) {
+		CM_Module result;
+		if (moduleToCMMap.containsKey(aModule)) {
+			result = moduleToCMMap.get(aModule);
+		} else {
+			result = new CM_Module_();
+			moduleToCMMap.put(aModule, result);
 		}
 
-		return _input_tree;
-	}
+		result.advise(Operation2.success(aModule));
 
-	@Override
-	public void subscribeCI(final ICompilerInstructionsObserver aCio) {
-		throw new UnintendedUseException(); // If this doesn't trigger on Core tests, remove
+		return result;
 	}
 
 	@Override
@@ -443,13 +458,28 @@ public class CompilationImpl implements Compilation {
 		return _con;
 	}
 
-	//@Deprecated
-//	@Override
-//	public List<OS_Module> modules() {
-//		return this.world().modules().stream()
-//				.map(WorldModule::module)
-//				.collect(Collectors.toList());
-//	}
+	@Override
+	public @NotNull EOT_OutputTree getOutputTree() {
+		if (_output_tree == null) {
+			_output_tree = _con.createOutputTree();
+		}
+
+		return _output_tree;
+	}
+
+	@Override
+	public @NotNull EIT_InputTree getInputTree() {
+		if (_input_tree == null) {
+			_input_tree = _con.createInputTree();
+		}
+
+		return _input_tree;
+	}
+
+	@Override
+	public void subscribeCI(final ICompilerInstructionsObserver aCio) {
+		throw new UnintendedUseException(); // If this doesn't trigger on Core tests, remove
+	}
 
 	public void testMapHooks(final List<IFunctionMapHook> ignoredAMapHooks) {
 		// pipelineLogic.dp.

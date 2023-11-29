@@ -4,6 +4,7 @@ import io.reactivex.rxjava3.core.Observer;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.EventualRegister;
 import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.graph.CM_Ez;
 import tripleo.elijah.comp.graph.CM_Module;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
@@ -23,6 +24,8 @@ import java.util.*;
 
 // TODO 01/19 might be fluffy
 public interface Compilation extends Compilation0 {
+	CM_Module megaGrande(OS_Module aModule);
+
 	LivingRepo world2();
 
 	Operation<Ok> hasInstructions2(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
@@ -82,6 +85,8 @@ public interface Compilation extends Compilation0 {
 	void pushWork(PW_PushWork aInstance, PN_Ping aPing);
 
 	CM_Module megaGrande(ElijahSpec aSpec, Operation2<OS_Module> aModuleOperation);
+
+	CM_Ez megaGrande(EzSpec aEzSpec);
 
 	class CompilationConfig implements GCompilationConfig {
 		public          boolean do_out;

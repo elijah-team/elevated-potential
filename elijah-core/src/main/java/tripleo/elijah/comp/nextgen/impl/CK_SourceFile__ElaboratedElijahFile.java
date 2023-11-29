@@ -35,7 +35,7 @@ public class CK_SourceFile__ElaboratedElijahFile extends __CK_SourceFile__Abstra
 			}
 		}.get();
 
-		var elijahSpec = new ElijahSpec_(fileName, file, stream);
+		final ElijahSpec elijahSpec = new ElijahSpec_(fileName, file, stream);
 
 		return __CK_SourceFile__AbstractElijahFile.realParseElijahFile(elijahSpec, elijahCache, compilation);
 	}

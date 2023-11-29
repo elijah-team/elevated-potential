@@ -28,18 +28,16 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 	public GN_GenerateNodesIntoSinkEnv(
 			List<ProcessedNode> lgc,
 			GenerateResultSink resultSink1,
-			EIT_ModuleList moduleList,
 			ElLog_.Verbosity verbosity,
 			GenerateResult gr,
-			IPipelineAccess pa,
 			CompilationEnclosure ce
 									  ) {
 		this.lgc         = lgc;
 		this.resultSink1 = resultSink1;
-		this.moduleList  = moduleList;
+		this.moduleList  = ce.getCompilation().getObjectTree().getModuleList();
 		this.verbosity   = verbosity;
 		this.gr          = gr;
-		this.pa          = pa;
+		this.pa          = ce.getPipelineAccess();
 		this.ce          = ce;
 	}
 

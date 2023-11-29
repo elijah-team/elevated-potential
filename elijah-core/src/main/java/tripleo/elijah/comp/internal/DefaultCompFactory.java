@@ -4,7 +4,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
@@ -97,14 +97,15 @@ class DefaultCompFactory implements CompFactory {
 	@Contract("_ -> new")
 	@Override
 	public CY_EzSpecParser defaultEzSpecParser(final EzCache aEzCache) {
-		return new CY_EzSpecParser() {
-			@Override
-			public Operation2<CompilerInstructions> parse(EzSpec spec) {
-				final Compilation                    c   = compilation;
-				final Operation<CompilerInstructions> cio = CX_realParseEzFile2.realParseEzFile(c, spec, aEzCache);
-				return Operation2.convert(cio);
-			}
-		};
+		throw new UnintendedUseException();
+	//	return new CY_EzSpecParser() {
+	//		@Override
+	//		public Operation2<CompilerInstructions> parse(EzSpec spec) {
+	//			final Compilation                    c   = compilation;
+	//			final Operation<CompilerInstructions> cio = CX_realParseEzFile2.realParseEzFile(c, spec, aEzCache);
+	//			return Operation2.convert(cio);
+	//		}
+	//	};
 	}
 
 	@Override
