@@ -3,30 +3,19 @@ package tripleo.elijah.stages.write_stage.pipeline_impl;
 import com.google.common.base.Preconditions;
 import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.notation.GM_GenerateModule;
-import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
 import tripleo.elijah.nextgen.output.NG_OutputFunction;
-import tripleo.elijah.stages.garish.GarishClass;
-import tripleo.elijah.stages.garish.GarishNamespace;
 import tripleo.elijah.stages.gen_c.C2C_Result;
 import tripleo.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.work.*;
-import tripleo.elijah.world.i.LivingClass;
-import tripleo.elijah.world.i.LivingNamespace;
-import tripleo.util.buffer.Buffer;
+import tripleo.elijah.stages.logging.ElLog_;
+import tripleo.elijah.work.WorkList__;
+import tripleo.elijah.work.WorkManager__;
 
 import java.util.List;
 
@@ -151,6 +140,5 @@ class AmazingFunction implements Amazing {
 								final GenerateFiles aGenerateFiles) {
 			of.setFunction(aGf, aGenerateFiles, aRs);
 		}
-
 	}
 }

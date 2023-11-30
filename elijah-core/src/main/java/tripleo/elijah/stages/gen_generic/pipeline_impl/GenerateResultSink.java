@@ -1,11 +1,9 @@
 package tripleo.elijah.stages.gen_generic.pipeline_impl;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.g.*;
-import tripleo.elijah.nextgen.GEvaClass;
 import tripleo.elijah.stages.gen_c.C2C_Result;
-import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.world.i.LivingClass;
 import tripleo.elijah.world.i.LivingNamespace;
