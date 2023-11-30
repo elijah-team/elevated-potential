@@ -19,9 +19,7 @@ import tripleo.elijah.stages.garish.GarishNamespace;
 import tripleo.elijah.stages.gen_c.C2C_Result;
 import tripleo.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.GenerateFiles;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
+import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.logging.*;
@@ -140,28 +138,11 @@ class AmazingFunction implements Amazing {
 		ProgressiveGenerateFiles_Amazing_ then(DoneCallback<GenerateC> aGenerateC);
 	}
 
-	private static class MyGenerateResultSink implements GenerateResultSink {
+	private static class MyGenerateResultSink extends DeadGenerateResultSink {
 		private final NG_OutputFunction of;
 
 		public MyGenerateResultSink(final NG_OutputFunction aOf) {
 			of = aOf;
-		}
-
-		@Override
-		public void add(final EvaNode node) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void addClass_0(final GarishClass aGarishClass, final Buffer aImplBuffer, final Buffer aHeaderBuffer) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void addClass_1(final @NotNull GarishClass aGarishClass,
-							   final @NotNull GenerateResult aGenerateResult,
-							   final @NotNull GenerateFiles aGenerateFiles) {
-			throw new UnintendedUseException();
 		}
 
 		@Override
@@ -171,31 +152,5 @@ class AmazingFunction implements Amazing {
 			of.setFunction(aGf, aGenerateFiles, aRs);
 		}
 
-		@Override
-		public void additional(final GenerateResult aGenerateResult) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void addNamespace_0(final GarishNamespace aLivingNamespace, final Buffer aImplBuffer,
-								   final Buffer aHeaderBuffer) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void addNamespace_1(final GarishNamespace aGarishNamespace, final GenerateResult aGenerateResult,
-								   final GenerateC aGenerateC) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public @Nullable LivingClass getLivingClassForEva(final EvaClass aEvaClass) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public @Nullable LivingNamespace getLivingNamespaceForEva(final EvaNamespace aEvaClass) {
-			throw new UnintendedUseException();
-		}
 	}
 }

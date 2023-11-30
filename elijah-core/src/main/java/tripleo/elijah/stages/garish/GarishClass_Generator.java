@@ -27,8 +27,7 @@ public class GarishClass_Generator {
 				return;
 			}
 
-			// aResultSink.addClass_0(this, tos.getBuffer(), tosHdr.getBuffer());
-			aResultSink.addClass_1(aGarishClass, aGenerateResult, aGenerateC);
+			aResultSink.add(new GarishClass__addClass_1(aGarishClass, aGenerateResult, aGenerateC));
 			generatedAlready = true;
 		}
 	}

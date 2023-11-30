@@ -5,24 +5,14 @@ plugins {
  */
 
 rootProject.name = 'elevated-potential'
-//include(':elijah-util')
 include(':dlog')
-//include(':tripleo.small')
-//include(':elijah-ek')
-
-//include(':elijah-core-api')
 
 //include(':tripleo.elijah.stateful')
 ////include(':tripleo.elijah.stateful-processor')
 
-//include(':elijah-nextgen-outputstatement')
 include(':tripleo.elijah.core')
 ////include(':annotation-user')
 ////include(':annotation-processing')
 //include(':tripleo.elijah.reactive')
 
-//project(":tripleo.elijah.stateful").projectDir = file('elijah-stateful')
-//project(":tripleo.elijah.stateful-processor").projectDir = file('elijah-stateful-processor')
 project(":tripleo.elijah.core").projectDir = file('elijah-core')
-//project(":tripleo.small").projectDir = file('tripleo-small')
-//project(":tripleo.elijah.reactive").projectDir = file('tripleo-reactive')
