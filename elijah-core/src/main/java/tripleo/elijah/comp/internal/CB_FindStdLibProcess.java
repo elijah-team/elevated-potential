@@ -59,7 +59,8 @@ public class CB_FindStdLibProcess implements CB_Process {
 
 				c.use(compilerInstructions, USE_Reasonings.findStdLib(findStdLib));
 			} else {
-				throw new IllegalStateException();//oci.failure());
+				//throw new IllegalStateException();//oci.failure());
+				System.err.println("6363 "+oci.failure().get());
 			}
 		}
 

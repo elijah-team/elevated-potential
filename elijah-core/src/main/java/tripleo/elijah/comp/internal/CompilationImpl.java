@@ -497,7 +497,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public <P> void register(final Eventual<P> aEventual) {
-		throw new UnintendedUseException();
+		//throw new UnintendedUseException();
 	}
 
 	public enum CompilationAlways {
