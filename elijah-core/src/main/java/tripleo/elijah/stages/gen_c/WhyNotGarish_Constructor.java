@@ -11,6 +11,7 @@ import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.stages.deduce.DeducePhase;
 import tripleo.elijah.stages.deduce.DeduceTypes2;
 import tripleo.elijah.stages.deduce.FunctionInvocation;
+import tripleo.elijah.stages.garish.GarishConstructor__addFunction;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
@@ -91,7 +92,7 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 		// FIXME 06/17; 10/13 what's wrong with it?
 		final GenerateResultSink sink = aFileGen.resultSink();
 		if (sink != null) {
-			sink.addFunction(gf, rs, generateC);
+			sink.add(new GarishConstructor__addFunction(gf, rs, generateC));
 		} else {
 			logProgress(9992, "sink failed");
 		}
