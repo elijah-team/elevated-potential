@@ -8,21 +8,22 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.g.GEvaClass;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
-import tripleo.elijah.nextgen.*;
-import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.nextgen.reactive.DefaultReactive;
+import tripleo.elijah.nextgen.reactive.Reactive;
 import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.garish.*;
+import tripleo.elijah.stages.garish.GarishClass_Generator;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.world.i.LivingClass;
 
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Consumer;
 
 /**
  * Created 10/29/20 4:26 AM
@@ -35,10 +36,10 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 		}
 	}
 
-	private LivingClass _living;
-	private final ClassStatement klass;
-	private final OS_Module module;
-	public ClassInvocation                               ci;
+	private       LivingClass    _living;
+	private final ClassStatement  klass;
+	private final   OS_Module                            module;
+	public          ClassInvocation                      ci;
 	public @NotNull Map<ConstructorDef, IEvaConstructor> constructors = new HashMap<>();
 
 	private boolean resolve_var_table_entries_already = false;
@@ -108,7 +109,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 							try {
 								@NotNull
 								final GenType rt = ResolveType.resolve_type(resolvedClass1.getContext().module(),
-										resolved, resolvedClass1.getContext(), aDeduceTypes2._LOG(), aDeduceTypes2);
+																			resolved, resolvedClass1.getContext(), aDeduceTypes2._LOG(), aDeduceTypes2);
 								int y = 2;
 
 								potentialTypes = Helpers.List_of(rt);

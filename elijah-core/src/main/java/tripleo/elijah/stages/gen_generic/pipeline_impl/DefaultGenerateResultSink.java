@@ -2,12 +2,15 @@ package tripleo.elijah.stages.gen_generic.pipeline_impl;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ElijahInternal;
 import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.nextgen.GEvaClass;
+import tripleo.elijah.g.GEvaClass;
+import tripleo.elijah.g.GEvaNamespace;
 import tripleo.elijah.nextgen.output.NG_OutputFunction;
 import tripleo.elijah.stages.gen_c.C2C_Result;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
+import tripleo.elijah.stages.gen_fn.EvaClass;
 import tripleo.elijah.stages.gen_fn.EvaNamespace;
 import tripleo.elijah.stages.gen_fn.EvaNode;
 import tripleo.elijah.stages.gen_generic.*;
@@ -51,12 +54,12 @@ public class DefaultGenerateResultSink implements GenerateResultSink {
 
 	@Override
 	public LivingClass getLivingClassForEva(final GEvaClass aEvaClass) {
-		return pa.getCompilation().world().getClass(aEvaClass);
+		return pa.getCompilation().world().getClass((EvaClass) aEvaClass);
 	}
 
 	@Override
-	public LivingNamespace getLivingNamespaceForEva(final EvaNamespace aEvaNamespace) {
-		return pa.getCompilation().world().getNamespace(aEvaNamespace);
+	public LivingNamespace getLivingNamespaceForEva(final GEvaNamespace aEvaNamespace) {
+		return pa.getCompilation().world().getNamespace((EvaNamespace) aEvaNamespace);
 	}
 
 	@ElijahInternal
