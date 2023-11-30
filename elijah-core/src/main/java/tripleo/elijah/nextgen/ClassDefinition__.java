@@ -10,9 +10,16 @@
 package tripleo.elijah.nextgen;
 
 import org.jetbrains.annotations.NotNull;
+
+import tripleo.elijah.g.GClassInvocation;
+import tripleo.elijah.g.GEvaClass;
+
 import tripleo.elijah.lang.i.ClassStatement;
+
 import tripleo.elijah.nextgen.composable.IComposable;
+
 import tripleo.elijah.stages.deduce.ClassInvocation;
+
 import tripleo.elijah.stages.gen_fn.EvaClass;
 
 import java.util.HashSet;
