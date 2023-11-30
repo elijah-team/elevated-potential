@@ -59,9 +59,7 @@ public class DefaultGenerateResultSink implements GenerateResultSink {
 		return pa.getCompilation().world().getNamespace(aEvaNamespace);
 	}
 
-	/**
-	 * @deprecated "not sure i want this"
-	 */
+	@ElijahInternal
 	@Override
 	public IPipelineAccess pa() {
 		return pa;
