@@ -107,17 +107,17 @@ public class WriteMakefilePipeline extends PipelineMember implements Consumer<Su
 			var fn = off.getFilename();
 
 			if (fn.endsWith(".c")) {
-				var fn2a = fn.split("/");
-				var fn2  = List.of(fn2a);
+				final String[]     fn2a = fn.split("/");
+				final List<String> fn2  = List.of(fn2a);
 
-				// 08/13 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("115 "+fn2);
+				SimplePrintLoggerToRemoveSoon.println_out_4(115, ""+fn2);
 
-				var fn3 = fn2.subList(1, fn2.size() - 1);
-				var fn4 = Helpers.String_join("/", fn3);
+				final List<String> fn3 = fn2.subList(1, fn2.size() - 1);
+				final String       fn4 = Helpers.String_join("/", fn3);
 
 				sb.append("\t-mkdir -p \"B/%s\"\n".formatted(fn4));
 
-				var fn_dot_o = fn.substring(0, fn.length() - 2) + ".o";
+				final String fn_dot_o = fn.substring(0, fn.length() - 2) + ".o";
 				aG.add_object(fn_dot_o);
 				sb.append("\t$(CC) -c $(CODE)/%s -o B/%s -I$(CODE)\n".formatted(fn, fn_dot_o));
 			}

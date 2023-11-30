@@ -25,8 +25,8 @@ public class CK_SourceFileFactory {
 
 	public static CK_SourceFile<CompilerInstructions> get(final CP_Path aPath, final K aK) {
 		switch (aK) {
-		case SpecifiedEzFile -> {return new CK_SourceFile__SpecifiedEzFile(aPath.toFile());}
-		case SpecifiedElijahFile -> {return new CK_SourceFile__SpecifiedElijahFile(aPath.toFile());}
+		case SpecifiedPathEzFile -> {return new CK_SourceFile__SpecifiedEzFile(aPath.toFile());}
+		case SpecifiedPathElijahFile -> {return new CK_SourceFile__SpecifiedElijahFile(aPath.toFile());}
 		default -> throw new IllegalStateException("Unexpected value: " + aK);
 		}
 	}
@@ -35,6 +35,9 @@ public class CK_SourceFileFactory {
 		SpecifiedEzFile,
 		ElaboratedEzFile,
 		ElaboratedElijahFile,
-		SpecifiedElijahFile, SpecifiedPathEzFile;
+		SpecifiedElijahFile,
+		SpecifiedPathEzFile,
+		SpecifiedPathElijahFile
+		;
 	}
 }

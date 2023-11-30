@@ -2,6 +2,7 @@ package tripleo.elijah.stages.gen_generic;
 
 import io.reactivex.rxjava3.core.Observer;
 import tripleo.elijah.ci.LibraryStatementPart;
+import tripleo.elijah.g.GGenerateResult;
 import tripleo.elijah.stages.gen_c.OutputFileC;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.util.buffer.Buffer;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public interface GenerateResult {
+public interface GenerateResult extends GGenerateResult {
 
 	public enum TY {
 		HEADER, IMPL, PRIVATE_HEADER

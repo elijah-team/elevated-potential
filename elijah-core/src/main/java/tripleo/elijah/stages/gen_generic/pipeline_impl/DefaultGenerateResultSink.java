@@ -2,23 +2,17 @@ package tripleo.elijah.stages.gen_generic.pipeline_impl;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.nextgen.output.NG_OutputClass;
+import tripleo.elijah.nextgen.GEvaClass;
 import tripleo.elijah.nextgen.output.NG_OutputFunction;
-import tripleo.elijah.nextgen.output.NG_OutputNamespace;
-import tripleo.elijah.stages.garish.GarishClass;
-import tripleo.elijah.stages.garish.GarishNamespace;
 import tripleo.elijah.stages.gen_c.C2C_Result;
-import tripleo.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_fn.EvaClass;
 import tripleo.elijah.stages.gen_fn.EvaNamespace;
 import tripleo.elijah.stages.gen_fn.EvaNode;
-import tripleo.elijah.stages.gen_generic.GenerateFiles;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
+import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.world.i.LivingClass;
 import tripleo.elijah.world.i.LivingNamespace;
-import tripleo.util.buffer.Buffer;
 
 import java.util.List;
 
@@ -31,22 +25,16 @@ public class DefaultGenerateResultSink implements GenerateResultSink {
 	}
 
 	@Override
-	public void add(final EvaNode node) {
-		throw new IllegalStateException("Error");
-	}
+	public void add(final GRS_Addable aAddable) {
+		assert aAddable instanceof EvaNode;
 
-	@Override
-	public void addClass_0(final GarishClass aGarishClass, final Buffer aImplBuffer, final Buffer aHeaderBuffer) {
-		throw new IllegalStateException("Error");
-	}
-
-	@Override
-	public void addClass_1(final @NotNull GarishClass aGarishClass,
-	                       final @NotNull GenerateResult gr,
-	                       final @NotNull GenerateFiles aGenerateFiles) {
-		NG_OutputClass o = new NG_OutputClass();
-		o.setClass(aGarishClass, aGenerateFiles);
-		pa.addOutput(o);
+		if (aAddable instanceof EvaNode) {
+			// README 11/30 Preserve original behavior by throwing
+			//throw new IllegalStateException("Error");
+			throw new UnintendedUseException();
+		} else {
+			aAddable.action(this);
+		}
 	}
 
 	@Override
@@ -62,26 +50,20 @@ public class DefaultGenerateResultSink implements GenerateResultSink {
 	}
 
 	@Override
-	public void addNamespace_0(final @NotNull GarishNamespace aGarishNamespace, final Buffer aImplBuffer,
-			final Buffer aHeaderBuffer) {
-		throw new IllegalStateException("Error");
-	}
-
-	@Override
-	public void addNamespace_1(final @NotNull GarishNamespace aGarishNamespace, final @NotNull GenerateResult gr,
-			final @NotNull GenerateC aGenerateC) {
-		NG_OutputNamespace o = new NG_OutputNamespace();
-		o.setNamespace(aGarishNamespace, aGenerateC);
-		pa.addOutput(o);
-	}
-
-	@Override
-	public LivingClass getLivingClassForEva(final EvaClass aEvaClass) {
+	public LivingClass getLivingClassForEva(final GEvaClass aEvaClass) {
 		return pa.getCompilation().world().getClass(aEvaClass);
 	}
 
 	@Override
 	public LivingNamespace getLivingNamespaceForEva(final EvaNamespace aEvaNamespace) {
 		return pa.getCompilation().world().getNamespace(aEvaNamespace);
+	}
+
+	/**
+	 * @deprecated "not sure i want this"
+	 */
+	@Override
+	public IPipelineAccess pa() {
+		return pa;
 	}
 }

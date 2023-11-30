@@ -17,11 +17,12 @@ import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.OS_FuncExprType;
 import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.nextgen.outputstatement.ReasonedStringListStatement;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah.stages.deduce.ClassInvocation;
 import tripleo.elijah.stages.deduce.FunctionInvocation;
 import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_ProcTableEntry;
-import tripleo.elijah.stages.gen_c.statements.ReasonedStringListStatement;
+import tripleo.elijah.stages.garish.GarishClass;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
@@ -135,7 +136,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		final LivingClass lc = aResultSink.getLivingClassForEva(x); // TODO could also add _living property
 
 		assert lc != null;
-		lc.getGarish().garish(this, gr, aResultSink);
+		((GarishClass)lc.getGarish()).garish(this, gr, aResultSink);
 	}
 
 	@Override
@@ -829,7 +830,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 
 					final IExpression ptex = pte.__debug_expression;
 					if (ptex instanceof IdentExpression aIdentExpression) {
-						var z = new ReasonedStringListStatement();
+						var z = new tripleo.elijah.nextgen.outputstatement.ReasonedStringListStatement();
 
 						z.append(Emit.emit("/*803*/"), "emit-code");
 						z.append(aIdentExpression.getText(), "ptex");

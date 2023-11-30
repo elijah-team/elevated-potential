@@ -1,9 +1,10 @@
 package tripleo.elijah.stages.gen_c;
 
-import tripleo.elijah.lang.i.ConstructorDef;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.lang.i.OS_Type;
 import tripleo.elijah.lang.i.TypeName;
+import tripleo.elijah.nextgen.outputstatement.IReasonedString;
+import tripleo.elijah.stages.gen_c.Generate_Code_For_Method.AOG;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.instructions.*;
@@ -125,9 +126,20 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 		return assignmentValue;
 	}
 
-	public String getRealTargetName(final GenerateC gc, final IdentIA target, final Generate_Code_For_Method.AOG aAOG, final String assignmentValue) {
+	//public String getRealTargetName(final GenerateC gc, final IdentIA target, final Generate_Code_For_Method.AOG aAOG, final String assignmentValue) {
+	//	final ZoneITE zi = gc._zone.get(target);
+	//
+	//	return zi.getRealTargetName2(aAOG, assignmentValue);
+	//}
+
+	public Garish_TargetName getRealTargetName(final GenerateC gc, final IdentIA target, final String assignmentValue) {
 		final ZoneITE zi = gc._zone.get(target);
 
-		return zi.getRealTargetName2(aAOG, assignmentValue);
+		return zi.getRealTargetName3(assignmentValue);
+	}
+
+	public IReasonedString getRealTargetNameReasonedString(final GenerateC aGc, final IdentIA aTarget, final String aAssignmentValue, final String aReason, AOG aAOG) {
+		Garish_TargetName text = getRealTargetName(aGc, aTarget, aAssignmentValue);
+		return text.reasonedForAOG(aAOG);
 	}
 }

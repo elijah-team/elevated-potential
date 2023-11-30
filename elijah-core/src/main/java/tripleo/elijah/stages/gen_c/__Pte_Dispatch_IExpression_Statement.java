@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.IExpression;
 import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.stages.gen_c.statements.ReasonedStringListStatement;
+import tripleo.elijah.nextgen.outputstatement.ReasonedStringListStatement;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.instructions.Instruction;
 import tripleo.elijah.stages.instructions.InstructionArgument;
