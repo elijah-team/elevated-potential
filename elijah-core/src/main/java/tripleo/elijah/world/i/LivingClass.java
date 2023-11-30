@@ -1,12 +1,12 @@
 package tripleo.elijah.world.i;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.g.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.g.GEvaClass;
+import tripleo.elijah.g.GGarishClass;
+import tripleo.elijah.g.GGenerateResult;
+import tripleo.elijah.g.GGenerateResultSink;
 import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.nextgen.GEvaClass;
-import tripleo.elijah.stages.garish.GarishClass;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.stages.gen_generic.GenerateFiles;
 
 public interface LivingClass extends LivingNode {
 	GEvaClass evaNode();
