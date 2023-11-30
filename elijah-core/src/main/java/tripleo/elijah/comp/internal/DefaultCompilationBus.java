@@ -112,7 +112,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 		// FIXME passing sh*t between threads (P.O.!)
 		_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
 		long x = 0;
-		while (x < 1_000_000) {
+		while (x < 12) {
 			final CB_Process poll = procs.poll();
 
 			if (poll != null) {

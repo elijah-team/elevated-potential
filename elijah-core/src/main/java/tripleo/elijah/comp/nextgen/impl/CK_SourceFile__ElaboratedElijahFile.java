@@ -42,8 +42,8 @@ public class CK_SourceFile__ElaboratedElijahFile extends __CK_SourceFile__Abstra
 
 	@Override
 	public Operation2<OS_Module> process_query() {
-		final ElijahCache ezCache = null;
-		compilation.getCompilationEnclosure().getCompilationRunner().ezCache();
+		assert false;
+		final ElijahCache ezCache = null;//compilation.getCompilationEnclosure().getCompilationRunner().ezCache();
 		final Operation2<OS_Module> om = process_query(compilation.getIO(), ezCache);
 
 		//super.asserverate();
