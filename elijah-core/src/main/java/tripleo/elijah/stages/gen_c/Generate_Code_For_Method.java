@@ -11,6 +11,7 @@ package tripleo.elijah.stages.gen_c;
 import com.google.common.base.*;
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.DebugFlags;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
@@ -29,8 +30,6 @@ import tripleo.elijah.work.*;
 
 import java.util.*;
 
-import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
-
 /**
  * Created 6/21/21 5:53 AM
  */
@@ -38,8 +37,6 @@ public class Generate_Code_For_Method {
 	final         BufferTabbedOutputStream tos             = new BufferTabbedOutputStream();
 	final         BufferTabbedOutputStream tosHdr          = new BufferTabbedOutputStream();
 	final         ElLog                    LOG;
-	// TODO 10/14 Remove this when we implement Reactive functionality properly
-	private final boolean                  MANUAL_DISABLED = false;
 	private final GenerateC                gc;
 	boolean is_constructor = false, is_unit_type = false;
 
@@ -226,7 +223,7 @@ public class Generate_Code_For_Method {
 
 		assert x instanceof ProcIA;
 
-		final ProcTableEntry pte = gf.getProcTableEntry(to_int(x));
+		final ProcTableEntry pte = gf.getProcTableEntry(DeduceTypes2.to_int(x));
 
 		final GCX_FunctionCall_Special gcx_fc = new GCX_FunctionCall_Special(pte, gf, gc, aInstruction);
 
@@ -573,7 +570,7 @@ public class Generate_Code_For_Method {
 
 		gf.reactive().add(gcfc);
 
-		if (!MANUAL_DISABLED) {
+		if (!DebugFlags.MANUAL_DISABLED) {
 			gcfc.respondTo(this.gc);
 		}
 	}
@@ -627,7 +624,7 @@ public class Generate_Code_For_Method {
 
 		dgf.reactive().add(gcfm);
 
-		if (!MANUAL_DISABLED) {
+		if (!DebugFlags.MANUAL_DISABLED) {
 			gcfm.respondTo(this.gc);
 		}
 
