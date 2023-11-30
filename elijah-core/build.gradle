@@ -95,3 +95,6 @@ ktor {
         archiveFileName.set("fat.jar")
     }
 }
+
+description = 'elijah-core'
+version = '2023.11.elevated-potential.4'
