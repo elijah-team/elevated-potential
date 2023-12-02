@@ -21,7 +21,7 @@ Instructions
 [https://github.com/elijah-team/elevated-potential](https://github.com/elijah-team/elevated-potential)
 
 ```shell
-git clone https://github.com/elijah-team/elevated-potential
+git clone https://github.com/elijah-team/elevated-potential -b 2023-10industrial
 cd elevated-potential
 mkdir COMP
 gradle test
