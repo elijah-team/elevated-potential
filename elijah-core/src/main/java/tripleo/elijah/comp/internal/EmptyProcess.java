@@ -2,7 +2,6 @@ package tripleo.elijah.comp.internal;
 
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.util.*;
 
 public final class EmptyProcess implements RuntimeProcess {
