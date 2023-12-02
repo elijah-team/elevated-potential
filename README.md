@@ -21,13 +21,15 @@ Instructions
 [https://github.com/elijah-team/elevated-potential](https://github.com/elijah-team/elevated-potential)
 
 ```shell
-git clone https://github.com/elijah-team/elevated-potential -b 2023-10industrial
+git clone https://github.com/elijah-team/elevated-potential -b 2023-12-elevated_potentia
 cd elevated-potential
 mkdir COMP
 gradle test
 # or 
 nix-shell -p gradle jdk17 --pure --command "gradle clean test"
 ```
+
+See: https://gitlab.com/elijah-team/crft-elevated-potential.git
 
 Goals
 ------
@@ -42,13 +44,3 @@ Lineage
 - srht almost
 
 - ??
-
-Tag
-----
-
-> https://github.com/elijah-team/elevated-potential/commit/64b9d9a10b9f50be3b8fe21a85357ada8cb4dc81
-
-from https://github.com/elijah-team/elevated-potential/commit/0881903085b012c6260b4643032338e5f0f4e2cd
-to https://github.com/elijah-team/elevated-potential/commit/c416c1fb76da9a2c664a5ce986f848869cb0c691
-
-https://github.com/elijah-team/elevated-potential/pull/10
