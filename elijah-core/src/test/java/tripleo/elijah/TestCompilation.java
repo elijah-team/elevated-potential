@@ -3,6 +3,7 @@ package tripleo.elijah;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.factory.comp.CompilationFactory;
+import tripleo.elijah.test_help.AssertingLiveClass;
 
 import static tripleo.elijah.util.Helpers.List_of;
 
