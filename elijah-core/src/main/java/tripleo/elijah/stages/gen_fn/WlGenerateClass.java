@@ -107,6 +107,16 @@ public class WlGenerateClass implements WorkJob {
 	public void setConsumer(Consumer<EvaClass> consumer) {
 		this.consumer = consumer;
 	}
+
+	public ClassInvocation getClassInvocation() {
+		// TODO Auto-generated method stub
+		return classInvocation;
+	}
+
+	public GenerateFunctions getGenerateFunctions() {
+		// TODO Auto-generated method stub
+		return this.generateFunctions;
+	}
 }
 
 //

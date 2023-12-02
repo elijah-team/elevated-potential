@@ -13,6 +13,8 @@ import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.lang.i.NamespaceStatement;
+import tripleo.elijah.lang.i.VariableStatement;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
@@ -76,6 +78,21 @@ public class DeferredMember {
 	// for DeducePhase
 	public @NotNull DeferredObject<GenType, Diagnostic, Void> typeResolved() {
 		return typePromise;
+	}
+
+	public IInvocation getInvocation() {
+		// TODO Auto-generated method stub
+		return this.invocation;
+	}
+
+	public DeduceElementWrapper getParent() {
+		// TODO Auto-generated method stub
+		return this.parent;
+	}
+
+	public VariableStatement getVariableStatement() {
+		// TODO Auto-generated method stub
+		return this.variableStatement;
 	}
 }
 

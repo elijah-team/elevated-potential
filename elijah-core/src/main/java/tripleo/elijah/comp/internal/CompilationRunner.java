@@ -140,4 +140,9 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 			}
 		}
 	}
+
+	public CR_State getCrState() {
+		// TODO Auto-generated method stub
+		return crState;
+	}
 }

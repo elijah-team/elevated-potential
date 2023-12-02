@@ -51,6 +51,16 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 		compilationEnclosure.runStepsNow(steps, stepContext);
 	}
 
+	public Object getCrActionResultList() {
+		// TODO Auto-generated method stub
+		return crActionResultList;
+	}
+
+	public void addCrActionResultList(Operation<Ok> result) {
+		// TODO Auto-generated method stub
+		crActionResultList.add(result);
+	}
+
 }
 
 //

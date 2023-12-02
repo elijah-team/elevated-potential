@@ -15,6 +15,16 @@ class CD_CRS_StepsContext extends CK_AbstractStepsContext {
 		output = aOutput;
 	}
 
+	public CB_Output getOutput() {
+		// TODO Auto-generated method stub
+		return output;
+	}
+
+	public CR_State getState() {
+		// TODO Auto-generated method stub
+		return state;
+	}
+
 	//void addOutputString(CB_OutputString os);
 	//void addDiagnostic(Diagnostic d);
 }

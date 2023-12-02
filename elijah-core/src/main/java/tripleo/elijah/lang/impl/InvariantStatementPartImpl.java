@@ -30,6 +30,7 @@ public class InvariantStatementPartImpl implements tripleo.elijah.lang.i.Invaria
 	public void setExpr(final IExpression expr) {
 		this.expr = expr;
 	}
+
 }
 
 //

@@ -153,4 +153,10 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 		return this.directoryResults;
 	}
 
+	@Override
+	public String getInp() {
+		// TODO Auto-generated method stub
+		return inp;
+	}
+
 }

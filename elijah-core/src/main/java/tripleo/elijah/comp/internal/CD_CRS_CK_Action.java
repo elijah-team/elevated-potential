@@ -19,7 +19,7 @@ class CD_CRS_CK_Action implements CK_Action {
 
 		final Operation<Ok> result = action.execute(context.getState(), context.getOutput());
 
-		CDCompilationRunnerStart1.getCrActionResultList().add(result); // FIXME 10/20 associate result with action in list (steps)
+		CDCompilationRunnerStart1.addCrActionResultList(result); // FIXME 10/20 associate result with action in list (steps)
 
 		return result;
 	}

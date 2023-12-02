@@ -66,6 +66,11 @@ public class MainClassEntryPoint implements EntryPoint {
 	public FunctionDef getMainFunction() {
 		return main_function;
 	}
+
+	public @NotNull ClassStatement getKlass() {
+		// TODO Auto-generated method stub
+		return this.klass;
+	}
 }
 
 //

@@ -75,4 +75,9 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	public List<CB_Action> steps() {
 		return List_of(CB_StartCompilationRunnerAction.this);
 	}
+
+	public @NotNull CB_Output getO() {
+		// TODO Auto-generated method stub
+		return o;
+	}
 }
