@@ -21,13 +21,15 @@ Instructions
 [https://github.com/elijah-team/elevated-potential](https://github.com/elijah-team/elevated-potential)
 
 ```shell
-git clone https://github.com/elijah-team/elevated-potential -b 2023-10industrial
+git clone https://github.com/elijah-team/elevated-potential -b 2023-12-elevated_potentia
 cd elevated-potential
 mkdir COMP
 gradle test
 # or 
 nix-shell -p gradle jdk17 --pure --command "gradle clean test"
 ```
+
+See: https://gitlab.com/elijah-team/crft-elevated-potential.git
 
 Goals
 ------
