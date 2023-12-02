@@ -27,7 +27,7 @@ class CB_FindCIs implements CB_Action {
 		final CR_State         st        = compilationRunner.getCrState();
 		final Compilation      c         = (Compilation) st.ca().getCompilation();
 		final @NotNull ErrSink errSink   = c.getErrSink();
-		final CK_StepsContext  context   = new CD_CRS_StepsContext(st, o);
+//		final CK_StepsContext  context   = new CD_CRS_StepsContext(st, o);
 
 		for (final CompilerInput input : c.getCompilationEnclosure().getCompilerInput()) {
 			_processInput(c, errSink, input);
