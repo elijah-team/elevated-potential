@@ -1,4 +1,4 @@
-package tripleo.elijah;
+package tripleo.elijah.test_help;
 
 public class AssertingLiveClass {
 	private String  className;

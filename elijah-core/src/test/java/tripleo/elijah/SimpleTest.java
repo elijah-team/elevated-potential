@@ -1,6 +1,7 @@
 package tripleo.elijah;
 
 import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.test_help.AssertingLiveClass;
 
 public interface SimpleTest {
 	SimpleTest setFile(String aS);
