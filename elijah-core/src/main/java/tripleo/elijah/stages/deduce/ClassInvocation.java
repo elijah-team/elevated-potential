@@ -11,8 +11,10 @@ package tripleo.elijah.stages.deduce;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.g.GClassInvocation;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
+import tripleo.elijah.nextgen.*;
 import tripleo.elijah.stages.gen_fn.*;
 
 import java.util.*;
@@ -21,7 +23,7 @@ import java.util.function.*;
 /**
  * Created 3/5/21 3:51 AM
  */
-public class ClassInvocation implements IInvocation {
+public class ClassInvocation implements IInvocation, GClassInvocation {
 	public class CI_GenericPart {
 		private final @NotNull Map<TypeName, OS_Type> genericPart;
 		private final boolean isEmpty;

@@ -26,9 +26,9 @@ public class SyntacticBlockImpl
 		implements OS_Element, OS_Container, StatementItem, tripleo.elijah.lang.i.SyntacticBlock {
 
 	private final List<FunctionItem> _items = new ArrayList<FunctionItem>();
-	private final OS_Element _parent;
-	private SyntacticBlockContext ctx;
-	private Scope3 scope3;
+	private final OS_Element             _parent;
+	private       ISyntacticBlockContext ctx;
+	private       Scope3                 scope3;
 
 	public SyntacticBlockImpl(final OS_Element aParent) {
 		_parent = aParent;
@@ -100,7 +100,7 @@ public class SyntacticBlockImpl
 	}
 
 	@Override
-	public void setContext(final SyntacticBlockContext ctx) {
+	public void setContext(final ISyntacticBlockContext ctx) {
 		this.ctx = ctx;
 	}
 

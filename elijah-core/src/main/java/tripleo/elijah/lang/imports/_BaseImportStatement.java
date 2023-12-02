@@ -55,7 +55,7 @@ public abstract class _BaseImportStatement implements ImportStatement {
 		_access = aNotation;
 	}
 
-	@Override
+	//@Override
 	public void setAccess(final AccessNotationImpl aNotation) {
 		access_note = aNotation;
 	}

@@ -1,14 +1,13 @@
 package tripleo.elijah.nextgen.output;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
+import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.garish.GarishNamespace;
 import tripleo.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah.stages.gen_fn.EvaNamespace;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.generate.OutputStrategyC;
 import tripleo.elijah.util.BufferTabbedOutputStream;
-import tripleo.util.buffer.Buffer;
 
 import java.util.List;
 
@@ -41,8 +40,8 @@ public class NG_OutputNamespace implements NG_OutputItem {
 	}
 
 	@Override
-	public EOT_OutputFile.FileNameProvider outName(final @NotNull OutputStrategyC aOutputStrategyC,
-			final GenerateResult.@NotNull TY ty) {
+	public EOT_FileNameProvider outName(final @NotNull OutputStrategyC aOutputStrategyC,
+										final GenerateResult.@NotNull TY ty) {
 		final EvaNamespace x = garishNamespace.getLiving().evaNode();
 
 		return aOutputStrategyC.nameForNamespace1(x, ty);

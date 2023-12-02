@@ -15,11 +15,13 @@ import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.logging.*;
@@ -33,17 +35,16 @@ import java.util.function.*;
 /**
  * Created 12/30/20 2:14 AM
  */
-public class PipelineLogic implements @NotNull EventualRegister {
+public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic {
 	public final @NotNull  DeducePhase              dp;
 	public final @NotNull  GeneratePhase            generatePhase;
-	private final @NonNull List<ElLog>              elLogs = new LinkedList<>();
 //	private final @NonNull EIT_ModuleList           mods   = new EIT_ModuleList();
 	private final @NonNull ModuleCompletableProcess mcp    = new ModuleCompletableProcess();
-	private final @NonNull ModMap                   modMap = new ModMap();
+	final @NonNull         ModMap                   modMap = new ModMap();
 	private final @NonNull IPipelineAccess          pa;
 	@Getter
-	private final @NonNull ElLog.Verbosity verbosity;
-	private List<Eventual<?>> _eventuals = new ArrayList<>();
+	private final @NonNull ElLog_.Verbosity  verbosity;
+	private final          List<Eventual<?>> _eventuals = new ArrayList<>();
 
 	public PipelineLogic(final IPipelineAccess aPa, final @NotNull ICompilationAccess ca) {
 		pa = aPa;
@@ -56,29 +57,7 @@ public class PipelineLogic implements @NotNull EventualRegister {
 		generatePhase = new GeneratePhase(verbosity, pa, this);
 		dp            = new DeducePhase(ca, pa, this);
 
-		pa.getCompilationEnclosure().addModuleListener(new ModuleListener() {
-			@Override
-			public void close() {
-				NotImplementedException.raise_stop();
-			}
-
-			@Override
-			public void listen(final WorldModule module) {
-				module.getErq().then(rq -> {
-					final OS_Module         mod = module.module();
-					final GenerateFunctions gfm = getGenerateFunctions(mod);
-
-					gfm.generateFromEntryPoints(rq);
-
-					// ---
-
-					modMap.then(mod, (final Eventual<DeducePhase.GeneratedClasses> eventual) -> {
-						final DeducePhase.@NotNull GeneratedClasses lgc = dp.generatedClasses;
-						eventual.resolve(lgc);
-					});
-				});
-			}
-		});
+		pa.getCompilationEnclosure().addModuleListener(new PL_ModuleListener(this, pa));
 	}
 
 	public ModuleCompletableProcess _mcp() {
@@ -90,7 +69,7 @@ public class PipelineLogic implements @NotNull EventualRegister {
 	}
 
 	public void addLog(ElLog aLog) {
-		elLogs.add(aLog);
+		_pa().addLog(aLog);
 	}
 
 	@Override
@@ -99,7 +78,7 @@ public class PipelineLogic implements @NotNull EventualRegister {
 		for (Eventual<?> eventual : _eventuals) {
 			if (eventual.isResolved()) {
 			} else {
-				System.err.println("[PipelineLogic::checkEventual] failed for " + eventual.description());
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[PipelineLogic::checkEventual] failed for " + eventual.description());
 			}
 		}
 	}
@@ -107,10 +86,6 @@ public class PipelineLogic implements @NotNull EventualRegister {
 	@NotNull
 	public GenerateFunctions getGenerateFunctions(@NotNull OS_Module mod) {
 		return generatePhase.getGenerateFunctions(mod);
-	}
-
-	public List<ElLog> getLogs() {
-		return elLogs;
 	}
 
 	public Eventual<DeducePhase.GeneratedClasses> handle(final GN_PL_Run2.@NotNull GenerateFunctionsRequest rq) {

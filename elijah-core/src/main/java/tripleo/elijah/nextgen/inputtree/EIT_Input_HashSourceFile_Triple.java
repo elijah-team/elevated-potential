@@ -1,69 +1,117 @@
 package tripleo.elijah.nextgen.inputtree;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.IO;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.Operation;
 
-public record EIT_Input_HashSourceFile_Triple(String hash, EIT_SourceOrigin source, String filename)
-        implements EIT_Input {
-    public static @NotNull EIT_Input_HashSourceFile_Triple decode(final @NotNull String fn) {
-        // move to Builder...Operation...
-        // also CP_Filename hashPromise products
-        final @NotNull Operation<String> op2 = Helpers.getHashForFilename(fn);
+import java.util.Objects;
 
-        if (op2.mode() == Mode.SUCCESS) {
-            final String hh = op2.success();
-            assert hh != null;
+public final class EIT_Input_HashSourceFile_Triple
+		implements EIT_Input {
+	private final String           hash;
+	private final EIT_SourceOrigin source;
+	private final String           filename;
 
-            EIT_SourceOrigin x;
+	public EIT_Input_HashSourceFile_Triple(String hash, EIT_SourceOrigin source, String filename) {
+		this.hash     = hash;
+		this.source   = source;
+		this.filename = filename;
+	}
 
-            // TODO EG_Statement here
+	public static @NotNull EIT_Input_HashSourceFile_Triple decode(final @NotNull String fn) {
+		// move to Builder...Operation...
+		// also CP_Filename hashPromise products
+		final @NotNull Operation<String> op2 = Helpers.getHashForFilename(fn);
 
-            if (fn.equals("lib_elijjah/lib-c/Prelude.elijjah")) {
-                x = EIT_SourceOrigin.PREL;
-            } else if (fn.startsWith("lib_elijjah/")) {
-                x = EIT_SourceOrigin.LIB;
-            } else if (fn.startsWith("test/")) {
-                x = EIT_SourceOrigin.SRC;
-            } else {
-                throw new IllegalStateException("Error"); // Operation??
-            }
+		if (op2.mode() == Mode.SUCCESS) {
+			final String hh = op2.success();
+			assert hh != null;
 
-            EIT_Input_HashSourceFile_Triple yy2 = new EIT_Input_HashSourceFile_Triple(hh, x, fn);
-            return yy2;
-        }
-        throw new IllegalStateException("hash failure"); // Operation??
-    }
+			EIT_SourceOrigin x;
 
-    public static EIT_Input_HashSourceFile_Triple decode(IO._IO_ReadFile aFile) {
-        final String            fn  = aFile.getFileName();
-        final Operation<String> op2 = aFile.hash();
+			// TODO EG_Statement here
 
-        if (op2.mode() == Mode.SUCCESS) {
-            final String hh = op2.success();
-            assert hh != null;
+			if (fn.equals("lib_elijjah/lib-c/Prelude.elijjah")) {
+				x = EIT_SourceOrigin.PREL;
+			} else if (fn.startsWith("lib_elijjah/")) {
+				x = EIT_SourceOrigin.LIB;
+			} else if (fn.startsWith("test/")) {
+				x = EIT_SourceOrigin.SRC;
+			} else {
+				throw new IllegalStateException("Error"); // Operation??
+			}
 
-            EIT_SourceOrigin x = aFile.getSourceOrigin();
+			EIT_Input_HashSourceFile_Triple yy2 = new EIT_Input_HashSourceFile_Triple(hh, x, fn);
+			return yy2;
+		}
+		throw new IllegalStateException("hash failure"); // Operation??
+	}
 
-            // TODO EG_Statement here
+	public static EIT_Input_HashSourceFile_Triple decode(IO_._IO_ReadFile aFile) {
+		final String            fn  = aFile.getFileName();
+		final Operation<String> op2 = aFile.hash();
 
-            EIT_Input_HashSourceFile_Triple yy2 = new EIT_Input_HashSourceFile_Triple(hh, x, fn);
-            return yy2;
-        }
-        throw new IllegalStateException("hash failure"); // Operation??
-    }
+		if (op2.mode() == Mode.SUCCESS) {
+			final String hh = op2.success();
+			assert hh != null;
 
-    @Override
-    public @NotNull EIT_InputType getType() {
-        // builder?? memtc st pat
-        if (filename.endsWith(".elijah")) {
-            return EIT_InputType.ELIJAH_SOURCE;
-        }
-        if (filename.endsWith(".ez")) {
-            return EIT_InputType.EZ_FILE;
-        }
-        throw new IllegalStateException("Unexpected value " + filename);
-    }
+			EIT_SourceOrigin x = aFile.getSourceOrigin();
+
+			// TODO EG_Statement here
+
+			EIT_Input_HashSourceFile_Triple yy2 = new EIT_Input_HashSourceFile_Triple(hh, x, fn);
+			return yy2;
+		}
+		throw new IllegalStateException("hash failure"); // Operation??
+	}
+
+	@Override
+	public @NotNull EIT_InputType getType() {
+		// builder?? memtc st pat
+		if (filename.endsWith(".elijah")) {
+			return EIT_InputType.ELIJAH_SOURCE;
+		}
+		if (filename.endsWith(".ez")) {
+			return EIT_InputType.EZ_FILE;
+		}
+		throw new IllegalStateException("Unexpected value " + filename);
+	}
+
+	public String hash() {
+		return hash;
+	}
+
+	public EIT_SourceOrigin source() {
+		return source;
+	}
+
+	public String filename() {
+		return filename;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) return true;
+		if (obj == null || obj.getClass() != this.getClass()) return false;
+		var that = (EIT_Input_HashSourceFile_Triple) obj;
+		return Objects.equals(this.hash, that.hash) &&
+				Objects.equals(this.source, that.source) &&
+				Objects.equals(this.filename, that.filename);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(hash, source, filename);
+	}
+
+	@Override
+	public String toString() {
+		return "EIT_Input_HashSourceFile_Triple[" +
+				"hash=" + hash + ", " +
+				"source=" + source + ", " +
+				"filename=" + filename + ']';
+	}
+
 }

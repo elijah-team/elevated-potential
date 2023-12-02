@@ -1,228 +1,111 @@
 package tripleo.elijah.comp;
 
-import antlr.*;
 import io.reactivex.rxjava3.core.Observer;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.ci_impl.*;
-import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.nextgen.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.graph.CM_Ez;
+import tripleo.elijah.comp.graph.CM_Module;
+import tripleo.elijah.comp.i.USE_Reasoning;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.internal.CIS;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.nextgen.CP_Paths;
+import tripleo.elijah.comp.nextgen.pn.PN_Ping;
+import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.lang.types.*;
-import tripleo.elijah.lang2.*;
-import tripleo.elijah.nextgen.inputtree.*;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.deduce.fluffy.i.*;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.g.GCompilationConfig;
+import tripleo.elijah.g.GWorldModule;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.world.i.LivingRepo;
 
-import java.util.*;
+import java.util.List;
 
-public interface Compilation {
-    static ElLog.@NotNull Verbosity gitlabCIVerbosity() {
-        final boolean gitlab_ci = isGitlab_ci();
-        return gitlab_ci ? ElLog.Verbosity.SILENT : ElLog.Verbosity.VERBOSE;
-    }
+// TODO 01/19 might be fluffy
+public interface Compilation extends Compilation0 {
+	CM_Module megaGrande(OS_Module aModule);
 
-    static boolean isGitlab_ci() {
-        return System.getenv("GITLAB_CI") != null;
-    }
+	LivingRepo world2();
 
-//	CompilerBeginning beginning(final CompilationRunner compilationRunner);
+	Operation<Ok> hasInstructions2(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
 
-    CK_ObjectTree getObjectTree();
+	@Override
+	IPipelineAccess pa();
 
-    CIS _cis();
+	@Override
+	Operation2<GWorldModule> findPrelude(String prelude_name);
 
-    CompilationConfig cfg();
+	IPipelineAccess get_pa();
 
-    CompFactory con();
+	void set_pa(IPipelineAccess a_pa);
 
-    int errorCount();
+	@Override
+	CompilationEnclosure getCompilationEnclosure();
 
-    void feedCmdLine(@NotNull List<String> args) throws Exception;
+	CIS _cis();
 
-    void feedInputs(@NotNull List<CompilerInput> inputs, CompilerController controller);
+	CompFactory con();
 
-    Operation2<WorldModule> findPrelude(String prelude_name);
+	void setIO(IO io);
 
-    IPipelineAccess get_pa();
+	@NotNull
+	FluffyComp getFluffy();
 
-    void set_pa(IPipelineAccess a_pa);
+	Operation<Ok> hasInstructions(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
 
-    CompilationClosure getCompilationClosure();
+	ModuleBuilder moduleBuilder();
 
-    CompilationEnclosure getCompilationEnclosure();
+	@Override
+	CP_Paths paths();
 
-    String getCompilationNumberString();
+	@Override
+	void pushItem(CompilerInstructions aci);
 
-    CompilerInputListener getCompilerInputListener();
+	@Override
+	Finally reports();
 
-    ErrSink getErrSink();
+	void subscribeCI(@NotNull Observer<CompilerInstructions> aCio);
 
-    @NotNull
-    FluffyComp getFluffy();
+	@Override
+	CompilationConfig cfg();
 
-    @Contract(pure = true)
-    List<CompilerInput> getInputs();
+	@Override
+	List<CompilerInput> getInputs();
 
-    EIT_InputTree getInputTree();
+	@Override
+	void use(@NotNull CompilerInstructions compilerInstructions, USE_Reasoning aReasoning);
 
-    IO getIO();
+	LivingRepo world();
 
-    void setIO(IO io);
+	@Override
+	ElijahCache use_elijahCache();
 
-    @NotNull
-    EOT_OutputTree getOutputTree();
+	@Override
+	void pushWork(PW_PushWork aInstance, PN_Ping aPing);
 
-    OS_Package getPackage(@NotNull Qualident pkg_name);
+	CM_Module megaGrande(ElijahSpec aSpec, Operation2<OS_Module> aModuleOperation);
 
-    String getProjectName();
+	CM_Ez megaGrande(EzSpec aEzSpec);
 
-    CompilerInstructions getRootCI();
+	class CompilationConfig implements GCompilationConfig {
+		public          boolean showTree = false;
+		public          boolean silent   = false;
 
-    void setRootCI(CompilerInstructions aRoot);
+		@Override
+		public void setDo_out(final boolean b) {
+			throw new UnintendedUseException();
+		}
+		@Override
+		public void setShowTree(final boolean b) {
+			showTree = b;
+		}
 
-    Operation<Ok> hasInstructions(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
+		@Override
+		public void setSilent(final boolean b) {
+			silent = b;
+		}
 
-    @Deprecated
-    int instructionCount();
-
-    boolean isPackage(@NotNull String pkg);
-
-    OS_Package makePackage(Qualident pkg_name);
-
-    ModuleBuilder moduleBuilder();
-
-    IPipelineAccess pa();
-
-    CP_Paths paths();
-
-    void pushItem(CompilerInstructions aci);
-
-    Finally reports();
-
-    void subscribeCI(Observer<CompilerInstructions> aCio);
-
-    void use(@NotNull CompilerInstructions compilerInstructions, USE.USE_Reasoning aReasoning);
-
-    LivingRepo world();
-
-    ElijahCache use_elijahCache();
-
-    enum CompilationAlways {
-        ;
-
-        @NotNull
-        public static String defaultPrelude() {
-            return "c";
-        }
-
-        public enum Tokens {
-            ;
-            public static final DriverToken COMPILATION_RUNNER_FIND_STDLIB2 = DriverToken
-                    .makeToken("COMPILATION_RUNNER_FIND_STDLIB2");
-            public static final DriverToken COMPILATION_RUNNER_START = DriverToken
-                    .makeToken("COMPILATION_RUNNER_START");
-        }
-    }
-
-    class PCon {
-        public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aEk,
-                                                   final IExpression aE2) {
-            return ExpressionBuilder.build(aEe, aEk, aE2);
-        }
-
-        public IExpression newCharLitExpressionImpl(final Token aC) {
-            return new CharLitExpressionImpl(aC);
-        }
-
-        public CompilerInstructions newCompilerInstructionsImpl() {
-            return new CompilerInstructionsImpl();
-        }
-
-        public IExpression newDotExpressionImpl(final IExpression aE1, final IdentExpression aE) {
-            return new DotExpressionImpl(aE1, aE);
-        }
-
-        public ExpressionList newExpressionListImpl() {
-            return new ExpressionListImpl();
-        }
-
-        public IExpression newFloatExpressionImpl(final Token aF) {
-            return new FloatExpressionImpl(aF);
-        }
-
-        public GenerateStatement newGenerateStatementImpl() {
-            return new GenerateStatementImpl();
-        }
-
-        public IExpression newGetItemExpressionImpl(final IExpression aEe, final IExpression aExpr) {
-            return new GetItemExpressionImpl(aEe, aExpr);
-        }
-
-        public IdentExpression newIdentExpressionImpl(final Token aR1, final String aFilename, final Context aCur) {
-            return new IdentExpressionImpl(aR1, aFilename, aCur);
-        }
-
-        public IdentExpression newIdentExpressionImpl(final Token aR1, final Context aCur) {
-            return new IdentExpressionImpl(aR1, aCur);
-        }
-
-        public LibraryStatementPart newLibraryStatementPartImpl() {
-            return new LibraryStatementPartImpl();
-        }
-
-        public IExpression newListExpressionImpl() {
-            return new ListExpressionImpl();
-        }
-
-        public IExpression newNumericExpressionImpl(final Token aN) {
-            return new NumericExpressionImpl(aN);
-        }
-
-        public OS_Type newOS_BuiltinType(final BuiltInTypes aBuiltInTypes) {
-            return new OS_BuiltinType(aBuiltInTypes);
-        }
-
-        public ProcedureCallExpression newProcedureCallExpressionImpl() {
-            return new ProcedureCallExpressionImpl();
-        }
-
-        public Qualident newQualidentImpl() {
-            return new QualidentImpl();
-        }
-
-        public IExpression newSetItemExpressionImpl(final GetItemExpression aEe, final IExpression aExpr) {
-            return new SetItemExpressionImpl(aEe, aExpr);
-        }
-
-        public IExpression newStringExpressionImpl(final Token aS) {
-            return new StringExpressionImpl(aS);
-        }
-
-        public IExpression newSubExpressionImpl(final IExpression aEe) {
-            return new SubExpressionImpl(aEe);
-        }
-
-        public CiExpressionList newCiExpressionListImpl() {
-            return new CiExpressionListImpl();
-        }
-
-        public CiProcedureCallExpression newCiProcedureCallExpressionImpl() {
-            return new CiProcedureCallExpressionImpl();
-        }
-    }
-
-    class CompilationConfig {
-        public boolean do_out;
-        public boolean showTree = false;
-        public boolean silent = false;
-        public @NotNull Stages stage = Stages.O; // Output
-    }
+	}
 }

@@ -4,8 +4,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.stages.deduce.DeducePhase;
 import tripleo.elijah.stages.gen_fn.GenerateFunctions;
-import tripleo.elijah.work.WorkList;
-import tripleo.elijah.work.WorkManager;
+import tripleo.elijah.work.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,7 @@ public class EntryPointList {
 		if (eps.size() == 0)
 			return; // short circuit
 
-		final WorkList wl = new WorkList();
+		final WorkList wl = new WorkList__();
 
 		for (final EntryPoint entryPoint : eps) {
 			final EntryPointProcessor epp = EntryPointProcessor.dispatch(entryPoint, deducePhase, wl,
@@ -57,7 +56,7 @@ public class EntryPointList {
 		if (eps.size() == 0)
 			return; // short circuit
 
-		final WorkList wl = new WorkList();
+		final WorkList wl = new WorkList__();
 
 		for (final EntryPoint entryPoint : eps) {
 			final EntryPointProcessor epp = EntryPointProcessor.dispatch(entryPoint, deducePhase, wl,

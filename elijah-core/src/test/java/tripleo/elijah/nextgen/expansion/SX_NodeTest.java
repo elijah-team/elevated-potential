@@ -1,7 +1,7 @@
 package tripleo.elijah.nextgen.expansion;
 
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.gen_generic.OutputFileFactoryParams;
 import tripleo.elijah.test_help.Boilerplate;
@@ -14,7 +14,7 @@ public class SX_NodeTest {
 	public void testFullText() {
 		final Boilerplate b = new Boilerplate();
 		b.get();
-		final Compilation comp = b.comp;
+		final Compilation comp = (Compilation) b.comp;
 
 		final OS_Module mod = comp.moduleBuilder().withFileName("filename.elijah").addToCompilation().build();
 

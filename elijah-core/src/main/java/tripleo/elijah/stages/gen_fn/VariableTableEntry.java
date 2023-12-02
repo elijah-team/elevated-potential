@@ -8,25 +8,16 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jdeferred2.Promise;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.Context;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.lang.i.VariableStatement;
-import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.deduce.DeduceLocalVariable;
-import tripleo.elijah.stages.deduce.DeduceTypeResolve;
-import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_VariableTableEntry;
-import tripleo.elijah.stages.deduce.post_bytecode.PostBC_Processor;
-import tripleo.elijah.stages.instructions.VariableTableType;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.deduce.post_bytecode.*;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created 9/10/20 4:51 PM
@@ -82,7 +73,7 @@ public class VariableTableEntry extends BaseTableEntry1
 
 	public void addPotentialType(final int instructionIndex, final @NotNull TypeTableEntry tte) {
 		if (!typeDeferred.isPending()) {
-			tripleo.elijah.util.Stupidity
+			SimplePrintLoggerToRemoveSoon
 					.println_err_2("62 addPotentialType while typeDeferred is already resolved " + this);// throw new
 																											// AssertionError();
 			return;
@@ -109,7 +100,7 @@ public class VariableTableEntry extends BaseTableEntry1
 				//
 //				tripleo.elijah.util.Stupidity.println_err_2("v.attached: " + v.attached);
 //				tripleo.elijah.util.Stupidity.println_err_2("tte.attached: " + tte.attached);
-				tripleo.elijah.util.Stupidity.println_out_2("72 WARNING two types at the same location.");
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("72 WARNING two types at the same location.");
 				if ((tte.getAttached() != null && tte.getAttached().getType() != OS_Type.Type.USER)
 						|| v.getAttached().getType() != OS_Type.Type.USER_CLASS) {
 					// TODO prefer USER_CLASS as we are assuming it is a resolved version of the
@@ -219,7 +210,7 @@ public class VariableTableEntry extends BaseTableEntry1
 			if (_resolveTypeCalled != null) { // TODO what a hack
 				if (_resolveTypeCalled.getResolved() != null) {
 					if (!aGenType.equals(_resolveTypeCalled)) {
-						tripleo.elijah.util.Stupidity
+						SimplePrintLoggerToRemoveSoon
 								.println_err_2(String.format("** 130 Attempting to replace %s with %s in %s",
 										_resolveTypeCalled.asString(), aGenType.asString(), this));
 						// throw new AssertionError();
@@ -232,7 +223,7 @@ public class VariableTableEntry extends BaseTableEntry1
 				return;
 			}
 			if (typeDeferred.isResolved()) {
-				tripleo.elijah.util.Stupidity.println_err_2("126 typeDeferred is resolved " + this);
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("126 typeDeferred is resolved " + this);
 			}
 			_resolveTypeCalled = aGenType;
 			typeDeferred.resolve(aGenType);

@@ -222,7 +222,7 @@ public class DeduceLocalVariable {
 
 					pdm.resolve(dm2);
 				} else {
-					System.err.println("********************************* not a Constructor");
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("********************************* not a Constructor");
 				}
 			});
 		}
@@ -246,20 +246,20 @@ public class DeduceLocalVariable {
 		}
 
 		if (Self == null) {
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
-			tripleo.elijah.util.Stupidity.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("336 ======================================================");
 
 			return;
 		}
@@ -454,7 +454,7 @@ public class DeduceLocalVariable {
 				 * DeduceElement t = null; try { t = dpc.target(); } catch (FCA_Stop aE) { throw
 				 * new RuntimeException(aE); }
 				 * 
-				 * System.err.println("410 " + t);
+				 * tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("410 " + t);
 				 */
 
 				// TODO for argument, we need a DeduceExpression (DeduceProcCall) which is

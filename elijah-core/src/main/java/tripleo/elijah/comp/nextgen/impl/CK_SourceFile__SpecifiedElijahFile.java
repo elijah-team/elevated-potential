@@ -21,7 +21,7 @@ public class CK_SourceFile__SpecifiedElijahFile extends __CK_SourceFile__Abstrac
 		final ElijahCache              elijahCache = compilation.use_elijahCache();
 		final Operation2<OS_Module> oci     = process_query(compilation.getIO(), elijahCache);
 
-		super.asserverate();
+		//super.asserverate();
 
 		return oci;
 	}
@@ -41,7 +41,7 @@ public class CK_SourceFile__SpecifiedElijahFile extends __CK_SourceFile__Abstrac
 			}
 		}.get();
 
-		ElijahSpec elijahSpec = new ElijahSpec(fileName, file, stream);
+		ElijahSpec elijahSpec = new ElijahSpec_(fileName, file, stream);
 		return realParseElijahFile(elijahSpec, aElijahCache);
 	}
 

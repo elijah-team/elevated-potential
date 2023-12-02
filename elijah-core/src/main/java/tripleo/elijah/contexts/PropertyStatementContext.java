@@ -9,10 +9,7 @@
 package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.Context;
-import tripleo.elijah.lang.i.LookupResultList;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.PropertyStatement;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.ContextImpl;
 
 /**
@@ -35,7 +32,7 @@ public class PropertyStatementContext extends ContextImpl {
 
 	@Override
 	public LookupResultList lookup(final @NotNull String name, final int level, final @NotNull LookupResultList Result,
-			final @NotNull SearchList alreadySearched, final boolean one) {
+								   final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
 		if (name.equals("get")) {

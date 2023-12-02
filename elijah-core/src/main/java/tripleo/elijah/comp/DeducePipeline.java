@@ -8,25 +8,28 @@
  */
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.IPipelineAccess;
-import tripleo.elijah.comp.internal.CB_Output;
-import tripleo.elijah.comp.internal.CR_State;
-import tripleo.elijah.stages.deduce.pipeline_impl.DeducePipelineImpl;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.stages.deduce.pipeline_impl.*;
 
 /**
  * Created 8/21/21 10:10 PM
  */
-public class DeducePipeline implements PipelineMember {
+public class DeducePipeline extends PipelineMember {
 	private final @NotNull DeducePipelineImpl impl;
 
-	public DeducePipeline(final @NotNull IPipelineAccess pa) {
+	public DeducePipeline(final @NotNull GPipelineAccess pa0) {
 		// logProgress("***** Hit DeducePipeline constructor");
+		final IPipelineAccess pa = (IPipelineAccess) pa0;
+
 		impl = new DeducePipelineImpl(pa);
 	}
 
 	protected void logProgress(final String g) {
-		tripleo.elijah.util.Stupidity.println_err_2(g);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(g);
 	}
 
 	@Override
@@ -34,6 +37,12 @@ public class DeducePipeline implements PipelineMember {
 		// logProgress("***** Hit DeducePipeline #run");
 		impl.run();
 	}
+
+	@Override
+	public String finishPipeline_asString() {
+		return this.getClass().toString();
+	}
+
 }
 
 //

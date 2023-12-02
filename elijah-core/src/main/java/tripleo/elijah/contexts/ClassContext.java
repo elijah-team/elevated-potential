@@ -11,7 +11,6 @@ package tripleo.elijah.contexts;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.lang2.*;
 
 import java.util.*;
 
@@ -22,44 +21,7 @@ import static tripleo.elijah.contexts.ClassInfo.ClassInfoType.*;
  *         <p>
  *         Created Mar 26, 2020 at 6:04:02 AM
  */
-public class ClassContext extends ContextImpl implements Context {
-
-	/**
-	 * An Element that only holds a {@link TypeName}.
-	 * <p>
-	 * NOTE: It seems to be connected to {@link ClassContext}
-	 */
-	public class OS_TypeNameElement implements OS_Element {
-		private final TypeName typeName;
-
-		public OS_TypeNameElement(TypeName aTypeName) {
-			typeName = aTypeName;
-		}
-
-		@Override
-		public @NotNull Context getContext() {
-			return ClassContext.this;
-		}
-
-		@Override
-		public OS_Element getParent() {
-			return carrier;
-		}
-
-		public TypeName getTypeName() {
-			return typeName;
-		}
-
-		@Override
-		public void serializeTo(final SmallWriter sw) {
-			throw new UnsupportedOperationException();
-		}
-
-		@Override
-		public void visitGen(@NotNull ElElementVisitor visit) {
-			visit.visitTypeNameElement(this);
-		}
-	}
+public class ClassContext extends ContextImpl implements IClassContext {
 
 	private final Context _parent;
 	private boolean _didInheritance;
@@ -72,6 +34,7 @@ public class ClassContext extends ContextImpl implements Context {
 		carrier = cls;
 	}
 
+	@Override
 	public ClassStatement getCarrier() {
 		return carrier;
 	}
@@ -81,6 +44,7 @@ public class ClassContext extends ContextImpl implements Context {
 		return _parent;
 	}
 
+	@Override
 	public Map<TypeName, ClassStatement> inheritance() {
 		if (!_didInheritance) {
 			for (final TypeName tn1 : carrier.classInheritance().tns()) {
@@ -103,8 +67,11 @@ public class ClassContext extends ContextImpl implements Context {
 	}
 
 	@Override
-	public LookupResultList lookup(final @NotNull String name, final int level, final @NotNull LookupResultList Result,
-			final @NotNull SearchList alreadySearched, final boolean one) {
+	public LookupResultList lookup(final @NotNull String name,
+								   final int level,
+								   final @NotNull LookupResultList Result,
+								   final @NotNull ISearchList alreadySearched,
+								   final boolean one) {
 		alreadySearched.add(carrier.getContext());
 		for (final ClassItem item : carrier.getItems()) {
 			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
@@ -143,7 +110,11 @@ public class ClassContext extends ContextImpl implements Context {
 //					if (best == null) {
 //						throw new AssertionError();
 //					} else
-					Result.add(name, level, new OS_TypeNameElement(tn1), this, new ClassInfo(tn, GENERIC));
+
+					final OS_TypeNameElementImpl typeNameElement = new OS_TypeNameElementImpl(this, tn1);
+					final ClassInfo              classInfo       = new ClassInfo(tn, GENERIC);
+
+					Result.add(name, level, typeNameElement, this, classInfo);
 				}
 			} else {
 				// TODO probable error

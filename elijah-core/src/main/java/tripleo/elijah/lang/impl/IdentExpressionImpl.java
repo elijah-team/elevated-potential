@@ -32,7 +32,7 @@ public class IdentExpressionImpl implements IdentExpression {
 
 	public IdentExpressionImpl(final @NotNull Token r1, @NotNull String aFilename) {
 		this.text = r1;
-		this._a   = new AttachedImpl();
+		this._a   = new AttachedImpl(null);
 
 		this.name = EN_Name.create(text.getText());
 
@@ -41,7 +41,7 @@ public class IdentExpressionImpl implements IdentExpression {
 
 	public IdentExpressionImpl(final @NotNull Token r1, @NotNull String aFilename, final @NotNull Context cur) {
 		this.text = r1;
-		this._a   = new AttachedImpl();
+		this._a   = new AttachedImpl(cur);
 		setContext(cur);
 
 		this.name = EN_Name.create(text.getText());
@@ -52,13 +52,18 @@ public class IdentExpressionImpl implements IdentExpression {
 
 	public IdentExpressionImpl(final @NotNull Token r1, final @NotNull Context cur) {
 		this.text = r1;
-		this._a   = new AttachedImpl();
-		setContext(cur);
+		this._a   = new AttachedImpl(cur);
+		//setContext(cur);
 
 		this.name = EN_Name.create(text.getText());
 		cur.addName(name);
 
 		this._fileName = null;
+	}
+
+	@Contract("_ -> new")
+	public static @NotNull IdentExpression forString(String string) {
+		return new IdentExpressionImpl(Helpers0.makeToken(string), "<inline-absent2>");
 	}
 
 	public @NotNull List<FormalArgListItem> getArgs() {
@@ -100,10 +105,10 @@ public class IdentExpressionImpl implements IdentExpression {
 	}
 
 	@Override
-	public void setKind(final @NotNull ExpressionKind aIncrement) {
+	public void setKind(final @NotNull ExpressionKind aExpressionKind) {
 		// log and ignore
-		tripleo.elijah.util.Stupidity
-				.println_err_2("Trying to set ExpressionType of IdentExpression to " + aIncrement.toString());
+		SimplePrintLoggerToRemoveSoon
+				.println_err_2("Trying to set ExpressionType of IdentExpression to " + aExpressionKind.toString());
 	}
 
 	@Override
@@ -120,6 +125,11 @@ public class IdentExpressionImpl implements IdentExpression {
 //		throw new IllegalArgumentException("Trying to set left-side of IdentExpression to " + iexpression.toString());
 ////		}
 		throw new UnintendedUseException();
+	}
+
+	@Override
+	public String asString() {
+		return getText();
 	}
 
 	@Override
@@ -149,13 +159,7 @@ public class IdentExpressionImpl implements IdentExpression {
 		return text.getText();
 	}
 
-	@Override
 	public OS_Type getType() {
-		throw new UnintendedUseException();
-	}
-
-	@Override
-	public void setType(final OS_Type deducedExpression) {
 		throw new UnintendedUseException();
 	}
 
@@ -186,7 +190,7 @@ public class IdentExpressionImpl implements IdentExpression {
 	 */
 	@Override
 	public @NotNull String toString() {
-		return getText();
+		return asString();
 	}
 
 	// endregion

@@ -6,48 +6,42 @@
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
  *
  */
-/*
- * Created on Sep 1, 2005 8:16:32 PM
- *
- * $Id$
- *
- */
 package tripleo.elijah.lang.impl;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.contexts.ModuleContext;
-import tripleo.elijah.entrypoints.EntryPoint;
-import tripleo.elijah.entrypoints.MainClassEntryPoint;
+import antlr.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.contexts.*;
+import tripleo.elijah.entrypoints.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.stages.deduce.fluffy.impl.FluffyModuleImpl;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Stupidity;
-import tripleo.elijah.world.*;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.stages.deduce.fluffy.impl.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Stack;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
+/*
+ * Created on Sep 1, 2005 8:16:32 PM
+ */
 public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.lang.i.OS_Module {
 
 	private final Stack<Qualident> packageNames_q = new Stack<Qualident>();
-	public @NotNull Attached _a = new AttachedImpl();
+	public @NotNull Attached _a;
 	public @NotNull List<EntryPoint> entryPoints = new ArrayList<EntryPoint>();
 	public @NotNull List<ModuleItem> items = new ArrayList<ModuleItem>();
 	public OS_Module prelude;
 	private IndexingStatement indexingStatement;
 	private String _fileName;
 	private LibraryStatementPart lsp;
-	private Compilation parent;
-	private FluffyModuleImpl _fluffy;
+	private Compilation         parent;
+	private FluffyModuleImpl     _fluffy;
+
+	public OS_ModuleImpl() {
+		_a = new AttachedImpl(null);
+	}
 
 	@Override
 	public void add(final OS_Element anElement) {
@@ -69,12 +63,40 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 		return entryPoints;
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public interface Complaint {
 		void reportWarning(@NotNull OS_Module aModule, String aS);
 	}
 
 	private void find_multiple_items(Complaint c) {
-		getCompilation().getFluffy().find_multiple_items(this, c);
+		// FIXME 10/19
+		final Compilation cc = getCompilation();
+		((Compilation)cc).getFluffy().find_multiple_items(this, c);
 	}
 
 	@Override
@@ -222,13 +244,13 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 						} else {
 							var classItemParent = classItem.getParent();
 
-//							System.err.println("159159 " + classItemParent.getClass().getName());
+//							tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("159159 " + classItemParent.getClass().getName());
 							entryPoints.add(new MainClassEntryPoint(classItem));
 						}
 					}
 					assert entryPoints.size() == eps || entryPoints.size() == eps + 1; // TODO this will fail one day
 
-					Stupidity.println_out_2("243 " + entryPoints + " " + _fileName);
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("243 " + entryPoints + " " + _fileName);
 //					break; // allow for "extend" class
 				}
 			}
@@ -249,8 +271,9 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	@Override
 	@NotNull
 	public OS_Package pullPackageName() {
-		if (packageNames_q.empty())
-			return WorldGlobals.default_package;
+		if (packageNames_q.empty()) {
+			return LangGlobals.default_package;
+		}
 		// Dont know if this is correct behavior
 		return parent.makePackage(packageNames_q.peek());
 	}
@@ -289,6 +312,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 
 	@Override
 	public void setContext(final ModuleContext mctx) {
+		// README 10/15 hm
 		_a.setContext(mctx);
 	}
 
@@ -308,13 +332,13 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	}
 
 	@Override
-	public void setParent(@NotNull final Compilation parent) {
-		this.parent = parent;
+	public void setParent(@NotNull final Compilation0 parent) {
+		this.parent = (Compilation) parent;
 	}
 
 	@Override
-	public void setPrelude(OS_Module success) {
-		prelude = success;
+	public void setPrelude(GOS_Module success) {
+		prelude = (OS_Module) success;
 	}
 
 	@Override
@@ -326,6 +350,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	public void visitGen(final @NotNull ElElementVisitor visit) {
 		visit.addModule(this); // visitModule
 	}
+
 }
 
 //

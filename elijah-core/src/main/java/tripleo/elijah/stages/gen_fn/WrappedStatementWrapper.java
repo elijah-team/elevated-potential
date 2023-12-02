@@ -11,6 +11,8 @@ package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.AbstractExpression;
 import tripleo.elijah.lang.impl.StatementWrapperImpl;
@@ -21,53 +23,26 @@ import tripleo.elijah.lang2.ElElementVisitor;
  * Created 9/18/21 4:03 AM
  */
 public class WrappedStatementWrapper extends StatementWrapperImpl implements OS_Element {
-	class Wrapped extends AbstractExpression {
-
-		private final IExpression expression;
-		private final VariableStatementImpl variableStatement;
-
-		public Wrapped(final VariableStatementImpl aVariableStatement, final IExpression aExpression) {
-			variableStatement = aVariableStatement;
-			expression = aExpression;
-		}
-
-		@Override
-		public @Nullable OS_Type getType() {
-			return null;
-		}
-
-		@Override
-		public boolean is_simple() {
-			return expression.is_simple();
-		}
-
-		@Override
-		public void setType(final OS_Type deducedExpression) {
-
-		}
-	}
-
 	private final VariableStatementImpl vs;
-
 	private final @NotNull Wrapped wrapped;
 
-	public WrappedStatementWrapper(final IExpression aExpression, final Context aContext, final OS_Element aParent,
-			final VariableStatementImpl aVs) {
+	public WrappedStatementWrapper(final IExpression aExpression,
+								   final Context aContext,
+								   final OS_Element aParent,
+								   final VariableStatementImpl aVariableStatement) {
 		super(aExpression, aContext, aParent);
-		vs = aVs;
-		wrapped = new Wrapped(aVs, aExpression);
+		vs      = aVariableStatement;
+		wrapped = new Wrapped(aVariableStatement, aExpression);
 	}
 
 	@Override
 	public @Nullable Context getContext() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnintendedUseException();
 	}
 
 	@Override
 	public @Nullable OS_Element getParent() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnintendedUseException();
 	}
 
 	public VariableStatementImpl getVariableStatement() {
@@ -80,13 +55,31 @@ public class WrappedStatementWrapper extends StatementWrapperImpl implements OS_
 
 	@Override
 	public void serializeTo(final SmallWriter sw) {
-
+		throw new UnintendedUseException();
 	}
 
 	@Override
 	public void visitGen(ElElementVisitor visit) {
 		// TODO Auto-generated method stub
 //		visit.visitStatementWrapper(this);
+		throw new UnintendedUseException();
+	}
+
+	class Wrapped extends AbstractExpression {
+
+		private final IExpression expression;
+		private final VariableStatementImpl variableStatement;
+
+		public Wrapped(final VariableStatementImpl aVariableStatement, final IExpression aExpression) {
+			variableStatement = aVariableStatement;
+			expression        = aExpression;
+		}
+
+		@Override
+		public boolean is_simple() {
+			return expression.is_simple();
+		}
+
 	}
 }
 

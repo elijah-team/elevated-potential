@@ -6,58 +6,56 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.caches.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.impl.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
 
-import java.util.*;
 import java.util.function.*;
 
-public class CompilationRunner extends _RegistrationTarget {
-	public final @NotNull  EzCache                         ezCache = new DefaultEzCache();
+public class CompilationRunner extends _RegistrationTarget implements ICompilationRunner {
+	public final @NotNull  EzCache                         ezCache;
 	private final @NotNull Compilation                     _compilation;
 	private final @NotNull ICompilationBus                 cb;
 	@Getter
 	private final @NotNull CR_State                        crState;
 	@Getter
 	private final @NotNull IProgressSink                   progressSink;
-	private final @NotNull CCI                             cci;
-	@Getter
-	private final @NotNull CIS                             cis;
-	private /*@NotNull*/       CB_StartCompilationRunnerAction startAction;
-	private /*@NotNull*/       CR_FindCIs                      cr_find_cis;
-	private /*@NotNull*/       CR_AlmostComplete               _CR_AlmostComplete;
+	private /*@NotNull*/   CB_StartCompilationRunnerAction startAction;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
 		this(
 				aca,
 				aCrState,
-				() -> aca.getCompilation().getCompilationEnclosure().getCompilationBus()
-		);
+				() -> ((DefaultCompilationEnclosure) aca.getCompilation().getCompilationEnclosure()).getCompilationBus()
+			);
 	}
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca,
-	                         final @NotNull CR_State aCrState,
-	                         final Supplier<ICompilationBus> scb) {
-		_compilation = aca.getCompilation();
+							 final @NotNull CR_State aCrState,
+							 final Supplier<ICompilationBus> scb) {
+		_compilation = (Compilation) aca.getCompilation();
 
-		_compilation.getCompilationEnclosure().setCompilationAccess(aca);
+		final CompilationEnclosure compilationEnclosure = _compilation.getCompilationEnclosure();
 
-		cis = _compilation._cis();
+		compilationEnclosure.setCompilationAccess(aca);
 
-		var cb1 = _compilation.getCompilationEnclosure().getCompilationBus();
+		//final @NotNull CIS    cis = _compilation._cis();
+		final ICompilationBus compilationBus = compilationEnclosure.getCompilationBus();
 
-		if (cb1 == null) {
+		if (compilationBus == null) {
 			cb = scb.get();
-			_compilation.getCompilationEnclosure().setCompilationBus(cb);
+			compilationEnclosure.setCompilationBus(cb);
 		} else {
-			cb = _compilation.getCompilationEnclosure().getCompilationBus();
+			cb = compilationEnclosure.getCompilationBus();
 		}
 
 		progressSink = cb.defaultProgressSink();
-
-		cci     = new DefaultCCI(_compilation, cis, progressSink);
 		crState = aCrState;
+		ezCache      = new DefaultEzCache((Compilation) aca.getCompilation());
 	}
 
 	public Compilation _accessCompilation() {
@@ -65,26 +63,11 @@ public class CompilationRunner extends _RegistrationTarget {
 	}
 
 	public CIS _cis() {
-		return cis;
+		return _compilation._cis();
 	}
 
 	public Compilation c() {
 		return _compilation;
-	}
-
-	public CR_AlmostComplete cr_AlmostComplete() {
-		if (this._CR_AlmostComplete == null) {
-			this._CR_AlmostComplete = new CR_AlmostComplete();
-		}
-		return _CR_AlmostComplete;
-	}
-
-	public CR_FindCIs cr_find_cis() {
-		if (this.cr_find_cis == null) {
-			var beginning = _accessCompilation().con().createBeginning(this);
-			this.cr_find_cis = new CR_FindCIs(beginning);
-		}
-		return this.cr_find_cis;
 	}
 
 	public EzCache ezCache() {
@@ -99,30 +82,61 @@ public class CompilationRunner extends _RegistrationTarget {
 		if (number == 130)
 			return;
 
-		tripleo.elijah.util.Stupidity.println_err_3("%d %s".formatted(number, text));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_3("%d %s".formatted(number, text));
 	}
 
-	public void start(final CompilerInstructions aRootCI, final @NotNull IPipelineAccess pa) {
+	@Override
+	public void start(final CompilerInstructions aRootCI, @NotNull final GPipelineAccess pa) {
 		// FIXME only run once 06/16
 		if (startAction == null) {
-			startAction = new CB_StartCompilationRunnerAction(this, pa, aRootCI);
+			startAction = new CB_StartCompilationRunnerAction(this, (IPipelineAccess) pa, aRootCI);
 			// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
 			cb.add(startAction.cb_Process());
 
-			startAction.execute(cb.getMonitor()); // FIXME calling automatically for some reason?
+			// FIXME calling automatically for some reason?
+			final CB_Monitor                monitor           = cb.getMonitor();
+			final CompilerDriver            compilationDriver = ((IPipelineAccess) pa).getCompilationEnclosure().getCompilationDriver();
+			final Operation<CompilerDriven> ocrsd             = compilationDriver.get(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
+
+			final @NotNull CB_Output cbOutput = startAction.getO();
+
+			switch (ocrsd.mode()) {
+			case SUCCESS -> {
+				final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
+				final CR_State                  crState1               = this.getCrState();
+
+				// assert !(started);
+				if (CB_StartCompilationRunnerAction.started) {
+					//throw new AssertionError();
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + startAction);
+				} else {
+					compilationRunnerStart.start(aRootCI, crState1, cbOutput);
+					CB_StartCompilationRunnerAction.started = true;
+				}
+
+				monitor.reportSuccess(startAction, cbOutput);
+			}
+			case FAILURE, NOTHING -> {
+				monitor.reportFailure(startAction, cbOutput);
+				throw new IllegalStateException("Error");
+			}
+			}
+		} else {
+			assert false;
 		}
 	}
 
 	public static class __CompRunner_Monitor implements CB_Monitor {
 		@Override
 		public void reportFailure(final CB_Action action, final CB_Output output) {
-			System.err.println(output.get());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(""+output.get());
 		}
 
 		@Override
 		public void reportSuccess(final CB_Action action, final CB_Output output) {
+			int y=2;
 			for (final CB_OutputString outputString : output.get()) {
-//				Stupidity.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
 			}
 		}
 	}

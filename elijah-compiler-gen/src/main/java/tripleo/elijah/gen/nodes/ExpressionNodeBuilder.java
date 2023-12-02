@@ -9,7 +9,6 @@
 /*
  * Created on Sep 2, 2005 2:28:42 PM
  *
- * $Id$
  *
  */
 package tripleo.elijah.gen.nodes;

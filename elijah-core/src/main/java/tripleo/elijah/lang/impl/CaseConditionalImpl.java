@@ -10,6 +10,7 @@ package tripleo.elijah.lang.impl;
 
 import antlr.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
@@ -19,21 +20,32 @@ import java.util.*;
 
 /**
  * @author Tripleo
- *         <p>
- *         Created Apr 15, 2020 at 10:09:03 PM
+ * <p>
+ * Created Apr 15, 2020 at 10:09:03 PM
  */
-public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditional {
+public class CaseConditionalImpl implements CaseConditional {
 
-	public class CaseScopeImpl implements OS_Container, OS_Element, CaseConditional {
+	private final     OS_Element         parent;
+	private @Nullable SingleIdentContext _ctx               = null;
+	private           CaseScope      default_case_scope = null;
+	private           IExpression        expr;
+	private final @NotNull HashMap<IExpression, CaseScope> scopes = new HashMap<>();
 
-		private final Map<Scope3, IExpression> _scopes = new HashMap<>();
-		private final Scope3 cscope3;
-		private final IExpression expr1;
-		private boolean _isDefault = false;
-		private CaseContext ctx;
+	public CaseConditionalImpl(final OS_Element parent, final Context parentContext) {
+		this.parent = parent;
+		this._ctx   = new SingleIdentContext(parentContext, this);
+	}
+
+	public class CaseScopeImpl implements CaseScope {
+
+		private final Map<Scope3, IExpression> _scopes    = new HashMap<>();
+		private final Scope3                   cscope3;
+		private final IExpression              expr1;
+		private       boolean                  _isDefault = false;
+		private       ICaseContext             ctx;
 
 		public CaseScopeImpl(final IExpression expression, Scope3 aScope3) {
-			this.expr1 = expression;
+			this.expr1   = expression;
 			this.cscope3 = aScope3;
 		}
 
@@ -46,16 +58,6 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 		@Override
 		public void add(final OS_Element anElement) {
 			cscope3.add(anElement);
-		}
-
-		/*
-		 * (non-Javadoc)
-		 *
-		 * @see tripleo.elijah.lang.impl.CaseConditional#addDocString(antlr.Token)
-		 */
-		@Override
-		public void addDocString(final Token s1) {
-			cscope3.addDocString(s1);
 		}
 
 		@Override
@@ -82,32 +84,8 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 
 		@Override
 		public @Nullable IExpression getExpr() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 *
-		 * @see tripleo.elijah.lang.impl.CaseConditional#getItems()
-		 */
-		public List<OS_Element> getItems() {
-			return cscope3.items();
-		}
-
-		/*
-		 * (non-Javadoc)
-		 *
-		 * @see tripleo.elijah.lang.impl.CaseConditional#getParent()
-		 */
-		@Override
-		public @NotNull OS_Element getParent() {
-			return CaseConditionalImpl.this;
-		}
-
-		@Override
-		public @Nullable HashMap<IExpression, CaseScopeImpl> getScopes() {
-			return null;
+			// FIXME 10/19
+			throw new UnintendedUseException();
 		}
 
 		/*
@@ -118,12 +96,6 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 		@Override
 		public List<OS_Element2> items() {
 			throw new NotImplementedException();
-		}
-
-		@Override
-		public void postConstruct() {
-			// TODO Auto-generated method stub
-
 		}
 
 		@Override
@@ -138,8 +110,90 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 		}
 
 		@Override
-		public void setContext(CaseContext ctx) {
+		public void add(final StatementItem aItem) {
+			// FIXME 10/19
+			throw new UnintendedUseException();
+		}
+
+		@Override
+		public BlockStatement blockStatement() {
+			// FIXME 10/19
+			throw new UnintendedUseException();
+		}
+
+		@Override
+		public OS_Element getElement() {
+			// FIXME 10/19
+			throw new UnintendedUseException();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 *
+		 * @see tripleo.elijah.lang.impl.CaseConditional#getParent()
+		 */
+		@Override
+		public @NotNull OS_Element getParent() {
+			return CaseConditionalImpl.this;
+		}
+
+		@Override
+		public IInvariantStatement invariantStatement() {
+			// FIXME 10/19
+			throw new UnintendedUseException();
+		}
+
+		@Override
+		public StatementClosure statementClosure() {
+			// FIXME 10/19
+			throw new UnintendedUseException();
+		}
+
+		@Override
+		public void statementWrapper(final IExpression aExpr) {
+			// FIXME 10/19
+			throw new UnintendedUseException();
+		}
+
+		@Override
+		public TypeAliasStatement typeAlias() {
+			// FIXME 10/19
+			throw new UnintendedUseException();
+		}
+
+		@Override
+		public void setContext(ICaseContext ctx) {
 			this.ctx = ctx;
+		}
+
+		//@Override
+		//public void postConstruct() {
+		////	 TODO Auto-generated method stub
+		//
+		//}
+
+		/*
+		 * (non-Javadoc)
+		 *
+		 * @see tripleo.elijah.lang.impl.CaseConditional#addDocString(antlr.Token)
+		 */
+		@Override
+		public void addDocString(final Token s1) {
+			cscope3.addDocString(s1);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 *
+		 * @see tripleo.elijah.lang.impl.CaseConditional#getItems()
+		 */
+		@Override
+		public List<OS_Element> getItems() {
+			return cscope3.items();
+		}
+
+		public @Nullable HashMap<IExpression, CaseScope> getScopes() {
+			return null;
 		}
 
 		/*
@@ -149,32 +203,31 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 		 */
 		@Override
 		public void setDefault() {
-			_isDefault = true;
+			_isDefault         = true;
 			default_case_scope = this;
-			_ctx.carrier = (IdentExpression) expr1;
+			_ctx.carrier       = (IdentExpression) expr1;
 		}
 
 		@Override
 		public void visitGen(final @NotNull ElElementVisitor visit) {
 			visit.visitCaseScope(this);
 		}
-	}
 
-	private final OS_Element parent;
-	private @Nullable CaseContext __ctx = null; // TODO look into removing this
-	private @Nullable SingleIdentContext _ctx = null;
-	private @Nullable CaseConditional default_case_scope = null;
-	private IExpression expr;
+		@Override
+		public String getIterName() {
+			// FIXME 10/19
+			throw new UnintendedUseException();
+		}
 
-	private @NotNull HashMap<IExpression, CaseScopeImpl> scopes = new LinkedHashMap<IExpression, CaseScopeImpl>();
-
-	public CaseConditionalImpl(final OS_Element parent, final Context parentContext) {
-		this.parent = parent;
-		this._ctx = new SingleIdentContext(parentContext, this);
+		@Override
+		public void getIterNameToken() {
+			// FIXME 10/19
+			throw new UnintendedUseException();
+		}
 	}
 
 	@Override
-	public void addScopeFor(IExpression expression, CaseConditional caseScope) {
+	public void addScopeFor(IExpression expression, CaseScope caseScope) {
 		// TODO Auto-generated method stub
 
 	}
@@ -205,7 +258,7 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 	}
 
 	@Override
-	public HashMap<IExpression, CaseScopeImpl> getScopes() {
+	public HashMap<IExpression, CaseScope> getScopes() {
 		return scopes;
 	}
 
@@ -225,8 +278,14 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 	}
 
 	@Override
+	public void setContext(final ICaseContext ctx) {
+		// FIXME 10/19
+		throw new UnintendedUseException();
+	}
+
 	public void setContext(final CaseContext ctx) {
-		__ctx = ctx;
+		// FIXME 10/19
+		throw new UnintendedUseException();
 	}
 
 	@Override
@@ -238,6 +297,18 @@ public class CaseConditionalImpl implements tripleo.elijah.lang.i.CaseConditiona
 	@Override
 	public void visitGen(final @NotNull ElElementVisitor visit) {
 		visit.visitCaseConditional(this);
+	}
+
+	@Override
+	public String getIterName() {
+		// FIXME 10/19
+		throw new UnintendedUseException();
+	}
+
+	@Override
+	public void getIterNameToken() {
+		// FIXME 10/19
+		throw new UnintendedUseException();
 	}
 }
 

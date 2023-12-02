@@ -46,12 +46,61 @@ public class FT_FnCallArgs implements ITastic {
 	/**
 	 * Created 12/12/21 12:30 AM
 	 */
-	public record DoAssignCall(DeduceTypes2.DeduceClient4 dc,
-	                           @NotNull BaseEvaFunction            generatedFunction) {
-		public OS_Module getModule()               {return dc.getModule();}
-		public @NotNull ElLog getLOG()             {return dc.getLOG();}
-		public ErrSink getErrSink()                {return dc.getErrSink();}
-	}
+		public static final class DoAssignCall {
+		private final          DeduceTypes2.DeduceClient4 dc;
+		private final @NotNull BaseEvaFunction            generatedFunction;
+
+		/**
+		 *
+		 */
+		public DoAssignCall(DeduceTypes2.DeduceClient4 dc,
+							@NotNull BaseEvaFunction generatedFunction) {
+			this.dc                = dc;
+			this.generatedFunction = generatedFunction;
+		}
+
+		public OS_Module getModule() {
+			return dc.getModule();
+		}
+
+		public @NotNull ElLog getLOG() {
+			return dc.getLOG();
+		}
+
+		public ErrSink getErrSink() {
+			return dc.getErrSink();
+		}
+
+		public DeduceTypes2.DeduceClient4 dc() {
+			return dc;
+		}
+
+		public @NotNull BaseEvaFunction generatedFunction() {
+			return generatedFunction;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (DoAssignCall) obj;
+			return Objects.equals(this.dc, that.dc) &&
+					Objects.equals(this.generatedFunction, that.generatedFunction);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(dc, generatedFunction);
+		}
+
+		@Override
+		public String toString() {
+			return "DoAssignCall[" +
+					"dc=" + dc + ", " +
+					"generatedFunction=" + generatedFunction + ']';
+		}
+
+		}
 
 	private final @NotNull ElLog        LOG;
 	private final @NotNull DeduceTypes2 deduceTypes2;
@@ -63,6 +112,64 @@ public class FT_FnCallArgs implements ITastic {
 		fca          = aFnCallArgs;
 		//
 		LOG          = aDeduceTypes2.LOG;
+	}
+
+	public static final class Packet_do_assign_call implements Packet {
+		private final @NotNull BaseEvaFunction generatedFunction;
+		private final @NotNull Context         ctx;
+		private final @NotNull IdentTableEntry idte;
+		private final          int             instructionIndex;
+
+		public Packet_do_assign_call(@NotNull BaseEvaFunction generatedFunction,
+									 @NotNull Context ctx,
+									 @NotNull IdentTableEntry idte,
+									 int instructionIndex) {
+			this.generatedFunction = generatedFunction;
+			this.ctx               = ctx;
+			this.idte              = idte;
+			this.instructionIndex  = instructionIndex;
+		}
+
+		public @NotNull BaseEvaFunction generatedFunction() {
+			return generatedFunction;
+		}
+
+		public @NotNull Context ctx() {
+			return ctx;
+		}
+
+		public @NotNull IdentTableEntry idte() {
+			return idte;
+		}
+
+		public int instructionIndex() {
+			return instructionIndex;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (Packet_do_assign_call) obj;
+			return Objects.equals(this.generatedFunction, that.generatedFunction) &&
+					Objects.equals(this.ctx, that.ctx) &&
+					Objects.equals(this.idte, that.idte) &&
+					this.instructionIndex == that.instructionIndex;
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(generatedFunction, ctx, idte, instructionIndex);
+		}
+
+		@Override
+		public String toString() {
+			return "Packet_do_assign_call[" +
+					"generatedFunction=" + generatedFunction + ", " +
+					"ctx=" + ctx + ", " +
+					"idte=" + idte + ", " +
+					"instructionIndex=" + instructionIndex + ']';
+		}
 	}
 
 	@Override
@@ -97,39 +204,63 @@ public class FT_FnCallArgs implements ITastic {
 			}
 			}
 		}
-		{
-			final String s = ((IdentExpression) pte.__debug_expression).getText();
-			final LookupResultList lrl = ctx.lookup(s);
-			final @Nullable OS_Element best = lrl.chooseBest(null);
-			if (best != null) {
-				pte.setResolvedElement(best);
 
-				// TODO do we need to add a dependency for class, etc?
-				if (true) {
-					if (best instanceof ConstructorDef cd) {
-						// TODO Dont know how to handle this
-						int y = 2;
-					} else if (best instanceof FunctionDef || best instanceof DefFunctionDef) {
-						final OS_Element parent = best.getParent();
-						IInvocation invocation;
-						if (parent instanceof final @NotNull NamespaceStatement nsp) {
-							invocation = deduceTypes2._inj().new_NamespaceInvocation(nsp);
-						} else if (parent instanceof final @NotNull ClassStatement csp) {
-							invocation = deduceTypes2._inj().new_ClassInvocation(csp, null, new ReadySupplier_1<>(deduceTypes2));
-						} else {
-							throw new NotImplementedException();
-						}
-
-						final FunctionInvocation fi = deduceTypes2.newFunctionInvocation((FunctionDef) best, pte, invocation, deduceTypes2.phase);
-						generatedFunction.addDependentFunction(fi);
-					} else if (best instanceof ClassStatement) {
-						final GenType genType = GenTypeImpl.genCIFrom((ClassStatement) best, deduceTypes2);
-						generatedFunction.addDependentType(genType);
-					}
-				}
-			} else {
-				throw new NotImplementedException();
+		final DLU2.LookupChain lc = new DLU2.LookupChain() {
+			@Override
+			public DLU2.LookupChain getParent() {
+				return null;
 			}
+
+			@Override
+			public DLU2.LookupNode getCurrent() {
+				return DLU2.lookupNodeSimple("FT_FnCallArgs::do_assign_call");
+			}
+		};
+
+		new DLU2().lookup2(lc,
+						   new PteIdentLookupable(pte, ctx),
+						   null,
+						   new Packet_do_assign_call(generatedFunction, ctx, idte, instructionIndex),
+						   this::do_assign_call__callback);
+	}
+
+	private void do_assign_call__callback(@Nullable OS_Element best, Packet ap) {
+		final Packet_do_assign_call   p                 = (Packet_do_assign_call) ap;
+		final BaseEvaFunction         generatedFunction = p.generatedFunction();
+		final @NotNull ProcTableEntry pte               = generatedFunction.getProcTableEntry(to_int(fca.getArg(0)));
+
+		do_assign_call__callback(generatedFunction, best, pte);
+	}
+
+	private void do_assign_call__callback(final @NotNull BaseEvaFunction generatedFunction, final @Nullable OS_Element best, final @NotNull ProcTableEntry pte) {
+		if (best != null) {
+			pte.setResolvedElement(best);
+
+			// TODO do we need to add a dependency for class, etc?
+			if (true) {
+				if (best instanceof ConstructorDef cd) {
+					// TODO Dont know how to handle this
+					int y = 2;
+				} else if (best instanceof FunctionDef || best instanceof DefFunctionDef) {
+					final OS_Element parent = best.getParent();
+					IInvocation invocation;
+					if (parent instanceof final @NotNull NamespaceStatement nsp) {
+						invocation = deduceTypes2._inj().new_NamespaceInvocation(nsp);
+					} else if (parent instanceof final @NotNull ClassStatement csp) {
+						invocation = deduceTypes2._inj().new_ClassInvocation(csp, null, new ReadySupplier_1<>(deduceTypes2));
+					} else {
+						throw new NotImplementedException();
+					}
+
+					final FunctionInvocation fi = deduceTypes2.newFunctionInvocation((FunctionDef) best, pte, invocation, deduceTypes2.phase);
+					generatedFunction.addDependentFunction(fi);
+				} else if (best instanceof ClassStatement) {
+					final GenType genType = GenTypeImpl.genCIFrom((ClassStatement) best, deduceTypes2);
+					generatedFunction.addDependentType(genType);
+				}
+			}
+		} else {
+			throw new NotImplementedException();
 		}
 	}
 
@@ -183,7 +314,7 @@ public class FT_FnCallArgs implements ITastic {
 
 			// 08/13 out
 			// 10/14 in
-			System.err.println("--------------------- 158" + (generatedFunction._getIdentIAResolvable(identIA).getNormalPath(generatedFunction, identIA)));
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("--------------------- 158" + (generatedFunction._getIdentIAResolvable(identIA).getNormalPath(generatedFunction, identIA)));
 
 			final FT_FCA_IdentIA             fca_ident = deduceTypes2._inj().new_FT_FCA_IdentIA(FT_FnCallArgs.this, identIA, vte);
 			final FT_FCA_IdentIA.Resolve_VTE rvte      = deduceTypes2._inj().new_FT_FCA_IdentIA_Resolve_VTE(vte, ctx, pte, instruction, fca);
@@ -200,6 +331,30 @@ public class FT_FnCallArgs implements ITastic {
 			throw new UnintendedUseException();
 		} else {
 			throw new UnintendedUseException();
+		}
+	}
+
+	private static class PteIdentLookupable implements Lookupable {
+		private final @NotNull ProcTableEntry pte;
+		private final @NotNull Context ctx;
+
+		public PteIdentLookupable(final @NotNull ProcTableEntry aPte, final @NotNull Context aCtx) {
+			pte = aPte;
+			ctx = aCtx;
+		}
+
+		@Override
+		public String s() {
+			return ident().getText();
+		}
+
+		private IdentExpression ident() {
+			return (IdentExpression) pte.__debug_expression;
+		}
+
+		@Override
+		public Context ctx() {
+			return ctx;
 		}
 	}
 }

@@ -11,7 +11,7 @@ package tripleo.elijah.stages.deduce;
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
@@ -39,7 +39,7 @@ class Resolve_Ident_IA2 {
 
 		public void run() {
 			try {
-				final boolean has_initial_value = vs.initialValue() != IExpression.UNASSIGNED;
+				final boolean has_initial_value = vs.initialValue() != LangGlobals.UNASSIGNED;
 				if (!vs.typeName().isNull()) {
 					typeName_is_not_null(has_initial_value);
 				} else if (has_initial_value) {
@@ -109,8 +109,8 @@ class Resolve_Ident_IA2 {
 		CONTINUE, NEXT, RETURN
 	}
 
-	private final DeduceTypes2 deduceTypes2;
-	private final ErrSink errSink;
+	private final          DeduceTypes2 deduceTypes2;
+	private final          ErrSink      errSink;
 	private final @NotNull FoundElement foundElement;
 	private final @NotNull ElLog LOG;
 	private final DeducePhase phase;
@@ -450,7 +450,7 @@ class Resolve_Ident_IA2 {
 		if (te instanceof final @NotNull ProcTableEntry procTableEntry) {
 			// This is how it should be done, with an Incremental
 			procTableEntry.getFunctionInvocation().generateDeferred()
-					.done(result -> result.typePromise().then(result1 -> {
+					.then(result -> result.typePromise().then(result1 -> {
 						int y = 2;
 						aVte.resolveType(result1); // save for later
 					}));

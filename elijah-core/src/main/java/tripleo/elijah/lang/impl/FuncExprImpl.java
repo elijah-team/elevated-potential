@@ -9,6 +9,7 @@
 package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
@@ -18,17 +19,30 @@ import java.util.*;
 
 /**
  * @author Tripleo
- *         <p>
- *         Created Mar 30, 2020 at 7:41:52 AM
+ * <p>
+ * Created Mar 30, 2020 at 7:41:52 AM
  */
 public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 
-	private FuncExprContext _ctx;
+	public FuncExprImpl(FuncExprContextImpl _ctx, TypeName _returnType) {
+		super();
+		setReturnType(_returnType);
+		setContext(_ctx);
+		// TODO 10/15 should the below be in the above?
+		_a = new AttachedImpl(_ctx);
+	}
+
+	private FuncExprContextImpl _ctx;
 	// private Scope3 scope3;
 	// private FormalArgList argList = new FormalArgListImpl();
-	private TypeName _returnType;
-	private OS_Type _type;
+	private TypeName            _returnType;
 
+	@Deprecated
+	public FuncExprImpl() {
+		//throw new UnintendedUseException(); // ?? FIXME 10/18
+	}
+
+	@Override
 	public @NotNull List<FormalArgListItem> falis() {
 		return mFal.falis();
 	}
@@ -71,13 +85,6 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 	}
 
 	@Override
-	public OS_Type getType() {
-		return _type;
-	}
-
-	// region arglist
-
-	@Override
 	public boolean is_simple() {
 		return false;
 	}
@@ -86,8 +93,6 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 	public void postConstruct() {
 		// nop
 	}
-
-	// endregion
 
 	@Override
 	public @Nullable String repr_() {
@@ -109,6 +114,11 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 		mFal = argList;
 	}
 
+	@Override
+	public void setContext(final IFuncExprContext ctx) {
+		setContext((FuncExprContextImpl) ctx);
+	}
+
 	public void setArgs(final ExpressionList ael) {
 		// mFal = new FormalArgListImpl();
 		// for (IExpression iExpression : ael) {
@@ -116,8 +126,7 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 		// }
 	}
 
-	@Override
-	public void setContext(final FuncExprContext ctx) {
+	public void setContext(final FuncExprContextImpl ctx) {
 		_ctx = ctx;
 	}
 
@@ -127,7 +136,7 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 	}
 
 	@Override
-	public void setKind(final ExpressionKind aKind) {
+	public void setKind(final ExpressionKind aExpressionKind) {
 		throw new NotImplementedException();
 	}
 
@@ -142,10 +151,6 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 	}
 
 	/************* FOR THE OTHER ONE ******************/
-	@Override
-	public void setType(final OS_Type deducedExpression) {
-		_type = deducedExpression;
-	}
 
 	@Override
 	public void type(final TypeModifiers modifier) {

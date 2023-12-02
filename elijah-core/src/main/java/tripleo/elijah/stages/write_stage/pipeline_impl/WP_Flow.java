@@ -3,6 +3,9 @@ package tripleo.elijah.stages.write_stage.pipeline_impl;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.WritePipeline;
+import tripleo.elijah.comp.graph.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 
 import java.util.ArrayList;
@@ -10,41 +13,83 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public class WP_Flow {
+public class WP_Flow extends CK_AbstractStepsContext {
+	private final List<WP_Individual_Step> steps = new ArrayList<>();
+	private       WritePipeline            writePipeline;
+	private final OPS                     myOps;
+
+	public WP_Flow(final WritePipeline aWritePipeline, final @NotNull IPipelineAccess aPa, final @NotNull Collection<? extends WP_Individual_Step> s) {
+		writePipeline = aWritePipeline;
+		steps.addAll(s);
+		myOps = new OPS(writePipeline, this);
+	}
+
+	public OPS act() {
+		sc = new WP_State_Control_1();
+
+		myOps.init();
+
+		for (final WP_Individual_Step step : steps) {
+			sc.cur(step, writePipeline.getSt(), ops());
+			if (sc.hasException()) {
+				break;
+			}
+		}
+
+		return myOps;
+	}
+
+	private OPS ops() {
+		return myOps;
+	}
+
+	public WritePipelineSharedState context_st() {
+		return writePipeline.getSt();
+	}
+
+	public WP_State_Control_1 sc;
+
+	public WP_State_Control context_sc() {
+		return sc;
+	}
+
+	public OPS context_ops() {
+		return this.myOps;
+	}
+
 	public enum FlowStatus {
 		FAILED, NOT_TRIED, TRIED
 	}
 
-	private final HashMap<WP_Indiviual_Step, Pair<FlowStatus, Operation<Boolean>>> ops = new HashMap<WP_Indiviual_Step, Pair<FlowStatus, Operation<Boolean>>>();
-	private final List<WP_Indiviual_Step> steps = new ArrayList<>();
+	public class OPS {
+		private final HashMap<WP_Individual_Step, Pair<FlowStatus, Operation<Ok>>> ops = new HashMap<WP_Individual_Step, Pair<FlowStatus, Operation<Ok>>>();
+		private final WP_Flow                                                      flow;
+		private final WritePipeline _writePipeline;
 
-	private final WritePipeline writePipeline;
-
-	public WP_Flow(final WritePipeline aWritePipeline, final @NotNull Collection<? extends WP_Indiviual_Step> s) {
-		writePipeline = aWritePipeline;
-		steps.addAll(s);
-	}
-
-	public @NotNull HashMap<WP_Indiviual_Step, Pair<FlowStatus, Operation<Boolean>>> act() {
-		final WP_State_Control_1 sc = new WP_State_Control_1();
-
-		for (final WP_Indiviual_Step step : steps) {
-			ops.put(step, Pair.of(FlowStatus.NOT_TRIED, null));
+		public OPS(final WritePipeline aWritePipeline, final WP_Flow aWPFlow) {
+			flow = aWPFlow;
+			_writePipeline = aWritePipeline;
+			//_writePipeline.st.pa
 		}
 
-		for (final WP_Indiviual_Step step : steps) {
-			sc.clear();
+		//public void put(final WP_Indiviual_Step aStep, final Pair<FlowStatus, Operation<Ok>> aOf) {
+		//	ops.put(aStep, aOf);
+		//}
 
-			step.act(writePipeline.st, sc);
+		public void put(final WP_Individual_Step aStep, final FlowStatus fs, final Operation<Ok> ob) {
+			ops.put(aStep, Pair.of(fs, ob)); // TODO 10/18 time (maybe somewhere else) chain
+		}
 
-			if (sc.hasException()) {
-				ops.put(step, Pair.of(FlowStatus.FAILED, Operation.failure(sc.getException())));
-				break;
-			} else {
-				ops.put(step, Pair.of(FlowStatus.TRIED, Operation.success(true)));
+		public void init() {
+			for (final WP_Individual_Step step : steps) {
+				ops.put(step, Pair.of(FlowStatus.NOT_TRIED, null)); // TODO 10/18 initailize (my) chain
 			}
 		}
-
-		return ops;
 	}
+
+	@Override
+	public void begin() {
+		//throw new UnintendedUseException();
+	}
+
 }

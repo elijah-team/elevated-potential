@@ -8,12 +8,12 @@
  */
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.gen_fn.EvaClass;
+import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created 12/24/20 7:42 AM
@@ -41,7 +41,7 @@ public class CClassDecl {
 							final String str = ((StringExpression) str0).getText();
 							setDecl(str);
 						} else {
-							tripleo.elijah.util.Stupidity.println_out_2("Illegal C.repr");
+							tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("Illegal C.repr");
 						}
 					}
 				}

@@ -10,6 +10,7 @@ package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 
 import java.io.*;
@@ -19,7 +20,7 @@ import java.util.stream.*;
 /**
  * Created 12/26/20 5:08 AM
  */
-public class ResolveError extends Exception implements Diagnostic {
+public class ResolveError extends GResolveError implements Diagnostic {
 	private final @org.jetbrains.annotations.Nullable IdentExpression ident;
 	private final LookupResultList lrl;
 	private final @org.jetbrains.annotations.Nullable TypeName typeName;

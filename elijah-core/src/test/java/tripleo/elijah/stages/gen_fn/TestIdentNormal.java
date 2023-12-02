@@ -11,6 +11,8 @@ package tripleo.elijah.stages.gen_fn;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.*;
@@ -18,6 +20,7 @@ import tripleo.elijah.stages.instructions.IdentIA;
 import tripleo.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.List;
 
@@ -43,21 +46,21 @@ public class TestIdentNormal {
 		boilerplate.getGenerateFiles(boilerplate.defaultMod());
 
 		final GenerateFunctions generateFunctions = new GenerateFunctions(boilerplate.defaultMod(),
-				boilerplate.pipelineLogic, boilerplate.comp.pa());
+				boilerplate.pipelineLogic, (IPipelineAccess) boilerplate.comp.pa());
 
 		final EvaFunction generatedFunction = new EvaFunction(fd);
 		final VariableSequence seq = new VariableSequenceImpl(ctx1);
 		final VariableStatement vs = new VariableStatementImpl(seq);
-		final IdentExpression x = IdentExpression.forString("x");
+		final IdentExpression x = IdentExpressionImpl.forString("x");
 		vs.setName(x);
-		final IdentExpression foo = IdentExpression.forString("foo");
+		final IdentExpression foo = IdentExpressionImpl.forString("foo");
 		final ProcedureCallExpression pce = new ProcedureCallExpressionImpl();
 		pce.setLeft(new DotExpressionImpl(x, foo));
 
 		final InstructionArgument s = generateFunctions.simplify_expression(pce, generatedFunction, ctx2);
 		@NotNull
 		final List<InstructionArgument> l = BaseEvaFunction._getIdentIAPathList(s);
-		tripleo.elijah.util.Stupidity.println_out_2(String.valueOf(l));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(String.valueOf(l));
 //      tripleo.elijah.util.Stupidity.println_out_2(generatedFunction.getIdentIAPathNormal());
 
 		//
@@ -81,7 +84,7 @@ public class TestIdentNormal {
 		d2.resolveIdentIA2_(ctx2, null, ss/* identIA */, generatedFunction, new FoundElement(phase) {
 			@Override
 			public void foundElement(final OS_Element e) {
-				System.err.println(e);
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(""+e);
 			}
 
 			@Override
@@ -107,13 +110,13 @@ public class TestIdentNormal {
 		//
 
 		ClassStatement cs = new ClassStatementImpl(mod, mod.getContext());
-		final IdentExpression capitalX = IdentExpression.forString("X");
+		final IdentExpression capitalX = IdentExpressionImpl.forString("X");
 		cs.setName(capitalX);
 		FunctionDef fd = new FunctionDefImpl(cs, cs.getContext());
 		Context ctx1 = fd.getContext();
-		fd.setName(IdentExpression.forString("main"));
+		fd.setName(IdentExpressionImpl.forString("main"));
 		FunctionDef fd2 = new FunctionDefImpl(cs, cs.getContext());
-		fd2.setName(IdentExpression.forString("foo"));
+		fd2.setName(IdentExpressionImpl.forString("foo"));
 
 //		EvaFunction generatedFunction = new EvaFunction(fd);
 //		TypeTableEntry tte = generatedFunction.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, new OS_UserType(cs));
@@ -125,14 +128,14 @@ public class TestIdentNormal {
 
 		VariableSequence seq = new VariableSequenceImpl(ctx1);
 		VariableStatement vs = seq.next();
-		final IdentExpression x = IdentExpression.forString("x");
+		final IdentExpression x = IdentExpressionImpl.forString("x");
 		vs.setName(x);
 		ProcedureCallExpression pce2 = new ProcedureCallExpressionImpl();
 		pce2.setLeft(capitalX);
 		vs.initial(pce2);
 		IBinaryExpression e = ExpressionBuilder.build(x, ExpressionKind.ASSIGNMENT, pce2);
 
-		final IdentExpression foo = IdentExpression.forString("foo");
+		final IdentExpression foo = IdentExpressionImpl.forString("foo");
 		ProcedureCallExpression pce = new ProcedureCallExpressionImpl();
 		pce.setLeft(new DotExpressionImpl(x, foo));
 

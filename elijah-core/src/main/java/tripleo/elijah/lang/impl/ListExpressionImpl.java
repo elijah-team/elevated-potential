@@ -20,9 +20,6 @@ import java.util.List;
 
 /*
  * Created on Sep 1, 2005 8:28:55 PM
- *
- * $Id$
- *
  */
 public class ListExpressionImpl extends AbstractExpression implements tripleo.elijah.lang.i.ListExpression {
 
@@ -42,21 +39,22 @@ public class ListExpressionImpl extends AbstractExpression implements tripleo.el
 		}
 	}
 
-	public @NotNull SyntaxImpl syntax = new SyntaxImpl();
-
-	ExpressionList contents;
+	public @NotNull SyntaxImpl _syntax = new SyntaxImpl();
+	private ExpressionList contents;
 
 	@Override
 	public int getColumn() {
-		if (syntax.startToken != null)
-			return syntax.startToken.getColumn();
+		if (_syntax.startToken != null) {
+			return _syntax.startToken.getColumn();
+		}
 		return 0;
 	}
 
 	@Override
 	public int getColumnEnd() {
-		if (syntax.endToken != null)
-			return syntax.endToken.getColumn();
+		if (_syntax.endToken != null) {
+			return _syntax.endToken.getColumn();
+		}
 		return 0;
 	}
 
@@ -64,8 +62,8 @@ public class ListExpressionImpl extends AbstractExpression implements tripleo.el
 
 	@Override
 	public @Nullable File getFile() {
-		if (syntax.startToken != null) {
-			String filename = syntax.startToken.getFilename();
+		if (_syntax.startToken != null) {
+			String filename = _syntax.startToken.getFilename();
 			if (filename != null)
 				return new File(filename);
 		}
@@ -74,8 +72,8 @@ public class ListExpressionImpl extends AbstractExpression implements tripleo.el
 
 	@Override
 	public int getLine() {
-		if (syntax.startToken != null)
-			return syntax.startToken.getLine();
+		if (_syntax.startToken != null)
+			return _syntax.startToken.getLine();
 		return 0;
 	}
 
@@ -85,12 +83,11 @@ public class ListExpressionImpl extends AbstractExpression implements tripleo.el
 
 	@Override
 	public int getLineEnd() {
-		if (syntax.endToken != null)
-			return syntax.endToken.getLine();
+		if (_syntax.endToken != null)
+			return _syntax.endToken.getLine();
 		return 0;
 	}
 
-	@Override
 	public @Nullable OS_Type getType() {
 		return null;
 	}
@@ -105,11 +102,10 @@ public class ListExpressionImpl extends AbstractExpression implements tripleo.el
 		contents = aList;
 	}
 
-	@Override
-	public void setType(OS_Type deducedExpression) {
-
-	}
-
 	// endregion
 
 }
+
+//
+//
+//

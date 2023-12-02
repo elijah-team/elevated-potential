@@ -16,7 +16,9 @@ import tripleo.elijah.lang.i.NamespaceStatement;
 import tripleo.elijah.lang.i.OS_Element;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.deduce.nextgen.DeduceCreationContext;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah.work.WorkJob;
 import tripleo.elijah.work.WorkManager;
 
@@ -40,13 +42,12 @@ public class WlGenerateFunction implements WorkJob {
 		cr = aCr;
 	}
 
-	public WlGenerateFunction(final OS_Module aModule, final FunctionInvocation aFunctionInvocation,
-			final @NotNull Deduce_CreationClosure aCl) {
-		this(
-				aCl.generatePhase().getGenerateFunctions(aModule),
-				aFunctionInvocation,
-				aCl.deducePhase().getCodeRegistrar()
-		);
+	public WlGenerateFunction(final OS_Module aModule,
+							  final FunctionInvocation aFunctionInvocation,
+							  final @NotNull DeduceCreationContext aCl) {
+		this(aCl.getGeneratePhase().getGenerateFunctions(aModule),
+			 aFunctionInvocation,
+			 aCl.getDeducePhase().getCodeRegistrar());
 	}
 
 	private void __registerClass(final @NotNull EvaClass result, final @NotNull EvaFunction gf) {
@@ -98,7 +99,7 @@ public class WlGenerateFunction implements WorkJob {
 				for (TypeTableEntry tte : functionInvocation.getArgs()) {
 					i = i + 1;
 					if (tte.getAttached() == null) {
-						tripleo.elijah.util.Stupidity
+						SimplePrintLoggerToRemoveSoon
 								.println_err_2(String.format("4949 null tte #%d %s in %s", i, tte, gf));
 					}
 				}

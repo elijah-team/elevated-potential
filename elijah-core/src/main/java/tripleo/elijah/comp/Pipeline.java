@@ -8,8 +8,10 @@
  */
 package tripleo.elijah.comp;
 
-import tripleo.elijah.comp.internal.CB_Output;
+import tripleo.elijah.__Extensionable;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CR_State;
+import tripleo.elijah.g.GPipeline;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.List;
 /**
  * Created 8/21/21 10:09 PM
  */
-public class Pipeline {
+public class Pipeline implements GPipeline {
 	private final List<PipelineMember> pls = new ArrayList<>();
 
 	public void add(PipelineMember aPipelineMember) {
@@ -32,6 +34,23 @@ public class Pipeline {
 
 	public int size() {
 		return pls.size();
+	}
+	
+	public static class RP_Context_1 extends __Extensionable implements RP_Context {
+		public RP_Context_1(CR_State aSt, CB_Output aOutput) {
+			putExt(CR_State.class, aSt);
+			putExt(CB_Output.class, aOutput);
+		}
+
+		public CR_State getState() {
+			// README this is only necessary in an object-oriented fantasy world
+			//  Honestly, it was done to remove casting, but here we are anyway
+			return (CR_State) getExt(CR_State.class);
+		}
+
+		public CB_Output getContext() {
+			return (CB_Output) getExt(CB_Output.class);
+		}
 	}
 }
 

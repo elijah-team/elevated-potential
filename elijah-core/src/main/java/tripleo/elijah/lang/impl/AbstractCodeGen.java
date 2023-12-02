@@ -9,7 +9,6 @@
  */
 package tripleo.elijah.lang.impl;
 
-import tripleo.elijah.contexts.ClassContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
 
@@ -42,35 +41,15 @@ public abstract class AbstractCodeGen implements ElElementVisitor {
 	}
 
 	@Override
-	public void visitAccessNotation(AccessNotationImpl aAccessNotation) {
-		defaultAction(aAccessNotation);
-	}
-
-	@Override
 	public void visitAliasStatement(final AliasStatement aAliasStatement) {
 		defaultAction(aAliasStatement);
 	}
-
-	@Override
-	public void visitAliasStatement(AliasStatementImpl aAliasStatement) {
-		defaultAction(aAliasStatement);
-	}
-
+	
 	@Override
 	public void visitCaseConditional(final CaseConditional aCaseConditional) {
 		defaultAction(aCaseConditional);
 	}
-
-	@Override
-	public void visitCaseConditional(CaseConditionalImpl caseConditionalImpl) {
-		defaultAction(caseConditionalImpl);
-	}
-
-	@Override
-	public void visitCaseScope(final CaseConditionalImpl.CaseScopeImpl aCaseScope) {
-		defaultAction(aCaseScope);
-	}
-
+	
 	@Override
 	public void visitConstructorDef(final ConstructorDef aConstructorDef) {
 		defaultAction(aConstructorDef);
@@ -132,7 +111,7 @@ public abstract class AbstractCodeGen implements ElElementVisitor {
 	}
 
 	@Override
-	public void visitMC1(final MatchConditional.MC1 aMC1) {
+	public void visitMC1(final MC1 aMC1) {
 		defaultAction(aMC1);
 	}
 
@@ -161,48 +140,28 @@ public abstract class AbstractCodeGen implements ElElementVisitor {
 		defaultAction(aTypeAliasStatement);
 	}
 
-	@Override
-	public void visitTypeNameElement(final ClassContext.OS_TypeNameElement aOS_typeNameElement) {
-		defaultAction(aOS_typeNameElement);
-	}
+	//@Override
+	//public void visitTypeNameElement(final OS_TypeNameElement aOS_typeNameElement) {
+	//	defaultAction(aOS_typeNameElement);
+	//}
 
 	@Override
-	public void visitVariableSequence(final VariableSequence aVariableSequence) {
+	public void visitVariableSequence(VariableSequence aVariableSequence) {
 		defaultAction(aVariableSequence);
 	}
 
 	@Override
-	public void visitVariableSequence(VariableSequenceImpl aVariableSequence) {
-		defaultAction(aVariableSequence);
-	}
-
-	@Override
-	public void visitVariableStatement(final VariableStatement aVariableStatement) {
+	public void visitVariableStatement(VariableStatement aVariableStatement) {
 		defaultAction(aVariableStatement);
 	}
 
 	@Override
-	public void visitVariableStatement(VariableStatementImpl aVariableStatement) {
-		defaultAction(aVariableStatement);
-	}
-
-	@Override
-	public void visitWithStatement(final WithStatement aWithStatement) {
+	public void visitWithStatement(WithStatement aWithStatement) {
 		defaultAction(aWithStatement);
 	}
 
 	@Override
-	public void visitWithStatement(WithStatementImpl aWithStatement) {
-		defaultAction(aWithStatement);
-	}
-
-	@Override
-	public void visitYield(final YieldExpression aYieldExpression) {
-		defaultAction(aYieldExpression);
-	}
-
-	@Override
-	public void visitYield(YieldExpressionImpl aYieldExpression) {
+	public void visitYield(YieldExpression aYieldExpression) {
 		defaultAction(aYieldExpression);
 	}
 }

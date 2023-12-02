@@ -2,10 +2,10 @@ package tripleo.elijah.world.impl;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.CompilationEnclosure;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.notation.GN_PL_Run2;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleInput;
+import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.stages.inter.ModuleThing;
 import tripleo.elijah.world.i.WorldModule;
 
@@ -25,7 +25,7 @@ public class DefaultWorldModule implements WorldModule {
 
 	@Override
 	public EIT_ModuleInput getEITInput() {
-		return new EIT_ModuleInput(mod, ce.getCompilation());
+		return new EIT_ModuleInputImpl(mod, ce.getCompilation());
 	}
 
 	@Override

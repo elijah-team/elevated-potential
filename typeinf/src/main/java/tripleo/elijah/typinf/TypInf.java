@@ -409,44 +409,134 @@ public class TypInf {
 	 * orig_node is the original AST node from which this equation was derived, for
 	 * debugging.
 	 */
-	public record TypeEquation(Type left, Type right, AstNode orig_node) {
-		@Override
-		public String toString() {
-			return String.format("%s :: %s [from %s]", left, right, orig_node);
+		public static final class TypeEquation {
+		private final Type    left;
+		private final Type    right;
+		private final AstNode orig_node;
+
+		/**
+		 *
+		 */
+		public TypeEquation(Type left, Type right, AstNode orig_node) {
+			this.left      = left;
+			this.right     = right;
+			this.orig_node = orig_node;
 		}
-	}
+
+		@Override
+			public String toString() {
+				return String.format("%s :: %s [from %s]", left, right, orig_node);
+			}
+
+		public Type left() {
+			return left;
+		}
+
+		public Type right() {
+			return right;
+		}
+
+		public AstNode orig_node() {
+			return orig_node;
+		}
+
+		@java.lang.Override
+		public boolean equals(java.lang.Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (TypeEquation) obj;
+			return java.util.Objects.equals(this.left, that.left) &&
+					java.util.Objects.equals(this.right, that.right) &&
+					java.util.Objects.equals(this.orig_node, that.orig_node);
+		}
+
+		@java.lang.Override
+		public int hashCode() {
+			return java.util.Objects.hash(left, right, orig_node);
+		}
+
+		@java.lang.Override
+		public String toString() {
+			return "TypeEquation[" +
+					"left=" + left + ", " +
+					"right=" + right + ", " +
+					"orig_node=" + orig_node + ']';
+		}
+
+		}
 
 	/**
 	 * Function (n-ary) type.
 	 *
 	 * <p>Encapsulates a sequence of argument types and a single return type.</p>
 	 */
-	public record FuncType(List<Type> argtypes, Type rettype) implements Type {
+		public static final class FuncType implements Type {
+		private final List<Type> argtypes;
+		private final Type rettype;
+
+		/**
+		 *
+		 */
+		public FuncType(List<Type> argtypes, Type rettype) {
+			this.argtypes = argtypes;
+			this.rettype  = rettype;
+		}
+
 		@Override
-		public String toString() {
-			if (argtypes.size() == 1) {
-				return String.format("(%s -> %s)", argtypes.get(0), rettype);
-			} else {
-				return String.format("((%s) -> %s)", Helpers.String_join(", ", argtypes.stream().map(t -> t.toString()).collect(Collectors.toList())), rettype);
+			public String toString() {
+				if (argtypes.size() == 1) {
+					return String.format("(%s -> %s)", argtypes.get(0), rettype);
+				} else {
+					return String.format("((%s) -> %s)", Helpers.String_join(", ", argtypes.stream().map(t -> t.toString()).collect(Collectors.toList())), rettype);
+				}
 			}
+
+			//@Override
+			public boolean equals__(Object aO) {
+				/*
+					def __eq__(self, other):
+						return (type(self) == type(other) and
+							self.rettype == other.rettype and
+									all(self.argtypes[i] == other.argtypes[i]
+									for i in range(len(self.argtypes))))
+
+				*/
+				if (this == aO) return true;
+				if (aO == null || getClass() != aO.getClass()) return false;
+				FuncType funcType = (FuncType) aO;
+				return Objects.equals(argtypes, funcType.argtypes) && Objects.equals(rettype, funcType.rettype);
+			}
+
+		public List<Type> argtypes() {
+			return argtypes;
 		}
 
-		//@Override
-		public boolean equals__(Object aO) {
-			/*
-			    def __eq__(self, other):
-        			return (type(self) == type(other) and
-                		self.rettype == other.rettype and
-               	 			all(self.argtypes[i] == other.argtypes[i]
-                    			for i in range(len(self.argtypes))))
-
-			*/
-			if (this == aO) return true;
-			if (aO == null || getClass() != aO.getClass()) return false;
-			FuncType funcType = (FuncType) aO;
-			return Objects.equals(argtypes, funcType.argtypes) && Objects.equals(rettype, funcType.rettype);
+		public Type rettype() {
+			return rettype;
 		}
-	}
+
+		@java.lang.Override
+		public boolean equals(java.lang.Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (FuncType) obj;
+			return java.util.Objects.equals(this.argtypes, that.argtypes) &&
+					java.util.Objects.equals(this.rettype, that.rettype);
+		}
+
+		@java.lang.Override
+		public int hashCode() {
+			return java.util.Objects.hash(argtypes, rettype);
+		}
+
+		@java.lang.Override
+		public String toString() {
+			return "FuncType[" +
+					"argtypes=" + argtypes + ", " +
+					"rettype=" + rettype + ']';
+		}
+
+		}
 
 	@Data
 	public static class TypeVar implements Type {

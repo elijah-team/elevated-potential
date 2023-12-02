@@ -11,7 +11,9 @@ package tripleo.elijah.slir;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
 import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.OS_Package;
 import tripleo.elijah.lang.impl.OS_ModuleImpl;
@@ -42,7 +44,7 @@ public class TestBasicSlir {
 //			c.feedCmdLine(List_of(s, "-sO"));
 //
 //			if (c.errorCount() != 0)
-//				System.err.println(String.format("Error count should be 0 but is %d for %s", c.errorCount(), s));
+//				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(String.format("Error count should be 0 but is %d for %s", c.errorCount(), s));
 //			errorCount.put(index, c.errorCount());
 //			index++;
 //		}
@@ -63,7 +65,7 @@ public class TestBasicSlir {
 //		c.feedCmdLine(List_of(s, "-sO"));
 //
 //		if (c.errorCount() != 0)
-//			System.err.println(String.format("Error count should be 0 but is %d for %s", c.errorCount(), s));
+//			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(String.format("Error count should be 0 but is %d for %s", c.errorCount(), s));
 //
 //		assertEquals(5, c.errorCount()); // TODO Error count obviously should be 0
 //	}
@@ -78,7 +80,7 @@ public class TestBasicSlir {
 //		c.feedCmdLine(List_of(s, "-sO"));
 //
 //		if (c.errorCount() != 0)
-//			System.err.println(String.format("Error count should be 0 but is %d for %s", c.errorCount(), s));
+//			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(String.format("Error count should be 0 but is %d for %s", c.errorCount(), s));
 //
 //		assertEquals(5, c.errorCount()); // TODO Error count obviously should be 0
 //	}
@@ -93,7 +95,7 @@ public class TestBasicSlir {
 //
 //		c.feedCmdLine(List_of(s, "-sO"));
 
-		final RootSlirNode rsn = new RootSlirNode(mock(Compilation.class));
+		final RootSlirNode rsn = new RootSlirNode((Compilation) mock(Compilation0.class));
 		final SlirSourceFile sf3 = new SlirSourceFile("lib_elijjah/lib-c/std.collections/collections.elijjah");
 		final SlirSourceFile sf2 = new SlirSourceFile("Prelude.elijah");
 		final SlirSourceFile sf0 = new SlirSourceFile(s0 + "/fact1.elijah");

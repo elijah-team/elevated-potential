@@ -19,7 +19,7 @@ import java.util.*;
  * Created 6/27/21 9:40 AM
  */
 public class EvaFunction extends BaseEvaFunction implements GNCoded {
-	public final @Nullable FunctionDef fd;
+	private final @Nullable FunctionDef fd;
 
 	public @NotNull Set<DR_Item> _idents = new HashSet<>();
 
@@ -27,15 +27,13 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 		fd = functionDef;
 	}
 
-	//
-	// region toString
-	//
-
 	@Override
 	public @NotNull FunctionDef getFD() {
-		if (fd != null)
+		if (fd == null) {
+			throw new IllegalStateException("No function");
+		} else {
 			return fd;
-		throw new IllegalStateException("No function");
+		}
 	}
 
 	@Override
@@ -45,13 +43,12 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 
 	@Override
 	public @Nullable VariableTableEntry getSelf() {
-		if (getFD().getParent() instanceof ClassStatement)
+		if (getFD().getParent() instanceof ClassStatement) {
 			return getVarTableEntry(0);
-		else
+		} else {
 			return null;
+		}
 	}
-
-	// endregion
 
 	@Override
 	public String identityString() {
@@ -64,9 +61,7 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 	}
 
 	public String name() {
-		if (fd == null)
-			throw new IllegalArgumentException("null fd");
-		return fd.name();
+		return getFD().name();
 	}
 
 	@Override
@@ -97,6 +92,10 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 			return String.format("<EvaFunction %s %s %s>", pparent, name, pte_string);
 		}
 	}
+
+	//public FunctionDef fd() {
+	//	return fd;
+	//}
 }
 
 //

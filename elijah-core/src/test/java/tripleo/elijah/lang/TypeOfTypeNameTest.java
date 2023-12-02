@@ -10,10 +10,11 @@ package tripleo.elijah.lang;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.PipelineLogic;
 import tripleo.elijah.comp.StdErrSink;
 import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.DeduceTypes2;
@@ -30,13 +31,13 @@ public class TypeOfTypeNameTest {
 
 	@Disabled
 	@Test
-	public void typeOfComplexQualident() throws ResolveError {
+	public void typeOfComplexQualident() throws GResolveError {
 		//
 		// CREATE MOCKS
 		//
 		Context ctx = mock(Context.class);
-		OS_Module mod = mock(OS_Module.class);
-		Compilation c = mock(Compilation.class);
+		OS_Module    mod = mock(OS_Module.class);
+		Compilation0 c   = mock(Compilation0.class);
 
 		//
 		// CREATE VARIABLES
@@ -84,7 +85,7 @@ public class TypeOfTypeNameTest {
 
 	@Disabled
 	@org.junit.jupiter.api.Test
-	public void typeOfComplexQualident2() throws ResolveError {
+	public void typeOfComplexQualident2() throws GResolveError {
 		//
 		// CREATE MOCK
 		//
@@ -98,21 +99,21 @@ public class TypeOfTypeNameTest {
 		final String typeNameString = "SystemInteger";
 
 		OS_Module mod = new OS_ModuleImpl();
-		mod.setParent(mock(Compilation.class));
+		mod.setParent(mock(Compilation0.class));
 		Context mod_ctx = mod.getContext();
 
 		ClassStatement st_af = new ClassStatementImpl(mod, mod_ctx);
 		ClassHeader ch = new ClassHeaderImpl(false, List_of());
-		ch.setName(IdentExpression.forString("AbstractFactory"));
+		ch.setName(IdentExpressionImpl.forString("AbstractFactory"));
 		st_af.setHeader(ch);
 		ClassStatement sysint = new ClassStatementImpl(mod, mod_ctx);
 		ClassHeader ch2 = new ClassHeaderImpl(false, List_of());
-		ch2.setName(IdentExpression.forString("SystemInteger"));
+		ch2.setName(IdentExpressionImpl.forString("SystemInteger"));
 		sysint.setHeader(ch2);
 
 		VariableSequence vs = new VariableSequenceImpl(st_af.getContext());
 		VariableStatement var_y = vs.next();
-		var_y.setName(IdentExpression.forString("y"));
+		var_y.setName(IdentExpressionImpl.forString("y"));
 		RegularTypeName rtn_y = new RegularTypeNameImpl(ctx);
 		rtn_y.setName(Helpers0.string_to_qualident(typeNameString));
 		var_y.setTypeName(rtn_y);
@@ -166,7 +167,7 @@ public class TypeOfTypeNameTest {
 
 	@Disabled
 	@Test
-	public void typeOfComplexQualident3() throws ResolveError {
+	public void typeOfComplexQualident3() throws GResolveError {
 		//
 		// CREATE MOCK
 		//
@@ -182,13 +183,13 @@ public class TypeOfTypeNameTest {
 		Context mod_ctx = mod.getContext();
 
 		ClassStatement st_af = new ClassStatementImpl(mod, mod_ctx);
-		st_af.setName(IdentExpression.forString("AbstractFactory"));
+		st_af.setName(IdentExpressionImpl.forString("AbstractFactory"));
 		final OS_Package package1 = new OS_PackageImpl(Helpers0.string_to_qualident("package1"), 1);
 		st_af.setPackageName(package1);
 
 		VariableSequenceImpl vs = new VariableSequenceImpl(st_af.getContext());
 		VariableStatementImpl var_y = new VariableStatementImpl(vs);
-		var_y.setName(IdentExpression.forString("y"));
+		var_y.setName(IdentExpressionImpl.forString("y"));
 		RegularTypeName rtn_y = new RegularTypeNameImpl(ctx);
 		rtn_y.setName(Helpers0.string_to_qualident(typeNameString));
 		var_y.setTypeName(rtn_y);
@@ -235,13 +236,13 @@ public class TypeOfTypeNameTest {
 
 	@Disabled
 	@Test
-	public void typeOfSimpleQualident() throws ResolveError {
+	public void typeOfSimpleQualident() throws GResolveError {
 		//
 		// CREATE MOCKS
 		//
 		Context ctx = mock(Context.class);
-		OS_Module mod = mock(OS_Module.class);
-		Compilation c = mock(Compilation.class);
+		OS_Module    mod = mock(OS_Module.class);
+		Compilation0 c   = mock(Compilation0.class);
 
 		//
 		// CREATE VARIABLES

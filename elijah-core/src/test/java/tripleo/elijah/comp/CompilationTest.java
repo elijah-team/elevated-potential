@@ -9,8 +9,8 @@
 package tripleo.elijah.comp;
 
 import org.junit.jupiter.api.*;
-import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
 
@@ -29,8 +29,8 @@ public class CompilationTest {
 	@Disabled @Test
 	public final void testEz() throws Exception {
 		final List<String> args = List_of("test/comp_test/main3", "-sE"/* , "-out" */);
-		final ErrSink eee = new StdErrSink();
-		final Compilation c = new CompilationImpl(eee, new IO());
+		final ErrSink      eee = new StdErrSink();
+		final Compilation  c   = new CompilationImpl(eee, new IO_());
 
 		c.feedCmdLine(args);
 
@@ -47,12 +47,12 @@ public class CompilationTest {
 
 		worldModules.stream().forEach(wm -> {
 			var mod = wm.module();
-			Stupidity.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
 		});
 
 		assertEquals(3/*7*//* 12 */, worldModules.size());
 
-		System.err.println("CompilationTest -- 53 " + worldModules.size());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("CompilationTest -- 53 " + worldModules.size());
 		assertTrue(worldModules.size() > 2);
 	}
 

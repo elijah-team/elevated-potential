@@ -1,10 +1,7 @@
 package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.Context;
-import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.lang.i.LookupResultList;
-import tripleo.elijah.lang.i.OS_Element;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.ContextImpl;
 
 /**
@@ -27,7 +24,7 @@ public class SingleIdentContext extends ContextImpl {
 
 	@Override
 	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
-			final @NotNull SearchList alreadySearched, final boolean one) {
+								   final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(element.getContext());
 
 		if (carrier != null && carrier.getText().equals(name))

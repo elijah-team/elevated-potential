@@ -9,12 +9,12 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.Contract;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.ProcessRecord;
-import tripleo.elijah.comp.i.RuntimeProcess;
-import tripleo.elijah.comp.internal.CB_Output;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CR_State;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
 
+// FIXME 10/18 move to Processbuilder (Steps)
 class DStageProcess implements RuntimeProcess {
 	private final ICompilationAccess ca;
 	private final ProcessRecord pr;
@@ -34,9 +34,14 @@ class DStageProcess implements RuntimeProcess {
 		// assert pr.stage == Stages.D; // FIXME
 	}
 
-	@Override
-	public void run(final Compilation aComp, final CR_State st, final CB_Output output) {
+	public void run_(final Compilation aComp, final CR_State st, final CB_Output output) {
 
+	}
+
+	@Override
+	public Operation<Ok> run(Compilation0 aComp, RP_Context ctx) {
+		run_((Compilation)aComp, null, null);
+		return null;
 	}
 }
 
@@ -52,9 +57,14 @@ final class EmptyProcess implements RuntimeProcess {
 	public void prepare() {
 	}
 
-	@Override
-	public void run(final Compilation aComp, final CR_State st, final CB_Output output) {
+	public void run_(final Compilation aComp, final CR_State st, final CB_Output output) {
 
+	}
+
+	@Override
+	public Operation<Ok> run(Compilation0 aComp, RP_Context ctx) {
+		run_((Compilation)aComp, null, null);
+		return null;
 	}
 }
 

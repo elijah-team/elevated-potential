@@ -6,14 +6,11 @@
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
  *
  */
-/*
- * Created on 4/23/2019 at 03:44
- *
- * $Id$
- *
- */
 package tripleo.elijah.gen;
 
+/*
+ * Created on 4/23/2019 at 03:44
+ */
 public class TypeRef implements Node {
 	public static final int CODE_SYS_INT = 80;
 	public static final int CODE_U64     = 81;

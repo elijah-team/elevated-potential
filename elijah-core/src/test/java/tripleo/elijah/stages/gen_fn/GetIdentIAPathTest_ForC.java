@@ -14,9 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.IO;
-import tripleo.elijah.comp.StdErrSink;
-import tripleo.elijah.comp.i.CompilationEnclosure;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.DefaultCompilationAccess;
 import tripleo.elijah.lang.i.*;
@@ -33,7 +32,6 @@ import tripleo.elijah.stages.instructions.IntegerIA;
 import tripleo.elijah.stages.instructions.VariableTableType;
 import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.*;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
 import static org.mockito.Mockito.mock;
@@ -51,7 +49,7 @@ public class GetIdentIAPathTest_ForC {
 			CompilationEnclosure ce) {
 		final CReference reference = new CReference(gc.repo(), ce);
 		var x = reference.getIdentIAPath2(ia2, Generate_Code_For_Method.AOG.GET, null);
-		System.err.println("258 " + x);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("258 " + x);
 		return x;// reference.build();
 	}
 
@@ -64,7 +62,7 @@ public class GetIdentIAPathTest_ForC {
 		Emit.emitting = false;
 
 		errSink = new StdErrSink();
-		compilation = new CompilationImpl(errSink, new IO());
+		compilation = new CompilationImpl(errSink, new IO_());
 
 		final CompilationEnclosure ce = compilation.getCompilationEnclosure();
 		ce.setCompilationAccess(new DefaultCompilationAccess(compilation));
@@ -77,9 +75,9 @@ public class GetIdentIAPathTest_ForC {
 	@org.junit.jupiter.api.Test
 	public void testManualXDotFoo() {
 		@NotNull
-		IdentExpression x_ident = IdentExpression.forString("X");
+		IdentExpression x_ident = IdentExpressionImpl.forString("X");
 		@NotNull
-		IdentExpression foo_ident = IdentExpression.forString("foo");
+		IdentExpression foo_ident = IdentExpressionImpl.forString("foo");
 		//
 		VariableSequence vsq = new VariableSequenceImpl(null);
 		vsq.setParent(mock(ClassStatement.class));
@@ -102,9 +100,9 @@ public class GetIdentIAPathTest_ForC {
 	@org.junit.jupiter.api.Test
 	public void testManualXDotFoo2() {
 		@NotNull
-		IdentExpression x_ident = IdentExpression.forString("x");
+		IdentExpression x_ident = IdentExpressionImpl.forString("x");
 		@NotNull
-		IdentExpression foo_ident = IdentExpression.forString("foo");
+		IdentExpression foo_ident = IdentExpressionImpl.forString("foo");
 		//
 		final OS_Element mock_class = mock(ClassStatement.class);
 		when(gf.getFD().getParent()).thenReturn(mock_class);
@@ -210,7 +208,7 @@ public class GetIdentIAPathTest_ForC {
 		LookupResultList lrl = new LookupResultListImpl();
 		LookupResultList lrl2 = new LookupResultListImpl();
 
-		when(mod.pullPackageName()).thenReturn(WorldGlobals.default_package);
+		when(mod.pullPackageName()).thenReturn(LangGlobals.default_package);
 		when(mod.getFileName()).thenReturn("filename.elijah");
 		// mod.add(anyObject(ClassStatement.class));
 		// replay(mod);

@@ -3,9 +3,7 @@ package tripleo.elijah.nextgen.expansion;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.IO;
-import tripleo.elijah.comp.StdErrSink;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.DefaultCompilerController;
 import tripleo.elijah.nextgen.outputstatement.*;
@@ -115,13 +113,13 @@ public class SX_NodeTest2 {
 	@Test
 	public void testFullText() {
 		final StdErrSink errSink = new StdErrSink();
-		final IO io = new IO();
+		final IO io = new IO_();
 		final CompilationImpl comp = new CompilationImpl(errSink, io);
 
 		final String f = "test/basic2/while100/";
 
 		@NotNull
-		final List<CompilerInput> inps = List_of(new CompilerInput(f));
+		final List<CompilerInput> inps = List_of(new CompilerInput_(f));
 		comp.feedInputs(inps, new DefaultCompilerController());
 
 		// comp.feedCmdLine(List_of(f));
@@ -154,10 +152,10 @@ public class SX_NodeTest2 {
 		final EG_SequenceStatement enc1 = getTestStatement();
 
 //		final int yy = 2;
-		System.out.println(enc1.getText());
-//		System.out.println();
-//		System.out.println(y);
-		System.out.println();
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(enc1.getText());
+//		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4();
+//		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(y);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("");
 
 		final List<EOT_OutputFile> l = rt.getList();
 		assert l != null;
@@ -169,9 +167,9 @@ public class SX_NodeTest2 {
 		// assert wmainl.size() > 0;
 
 		wmainl.stream().filter(wmain -> wmain.getType() == EOT_OutputType.SOURCES).forEach(wmain -> {
-			System.out.println("****************************");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("****************************");
 			final EG_Statement seqs = wmain.getStatementSequence();
-			System.out.println(seqs.getText());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(seqs.getText());
 		});
 	}
 }

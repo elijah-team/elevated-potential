@@ -119,8 +119,8 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 
 		static class ExitConvertUserTypes implements State {
 			private static void apply_normal(final @NotNull VariableTableEntry vte, final @NotNull DeduceTypes2 dt2,
-					final @NotNull ErrSink errSink, final DeducePhase phase, final @NotNull ElLog LOG,
-					final @NotNull OS_Type attached, final @NotNull TypeName x, final @NotNull String tn) {
+											 final @NotNull ErrSink errSink, final DeducePhase phase, final @NotNull ElLog LOG,
+											 final @NotNull OS_Type attached, final @NotNull TypeName x, final @NotNull String tn) {
 				final LookupResultList lrl = x.getContext().lookup(tn);
 				@Nullable
 				OS_Element best = lrl.chooseBest(null);
@@ -281,7 +281,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 
 	public void __action_VAR_pot_1_tableEntry_null(final @NotNull VariableStatement aVariableStatement) {
 		final @NotNull IExpression iv = aVariableStatement.initialValue();
-		if (iv == IExpression.UNASSIGNED) {
+		if (iv == LangGlobals.UNASSIGNED) {
 			NotImplementedException.raise();
 		}
 
@@ -656,7 +656,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 			if (ci != null) {
 				pte.setClassInvocation(ci);
 			} else
-				tripleo.elijah.util.Stupidity.println_err2("542 Null ClassInvocation");
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err2("542 Null ClassInvocation");
 		}
 
 		pte.setFunctionInvocation(fi);

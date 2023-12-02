@@ -99,8 +99,9 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	public File makeFile() {
 		if (advised != null) {
 			return new File(advised.makeFile(), getFilename());
-		} else
+		} else {
 			return new File(getFilename());
+		}
 	}
 
 	@Override
@@ -109,11 +110,6 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 			_idx = new CiIndexingStatementImpl(this);
 
 		return _idx;
-	}
-
-	@Override
-	public List<LibraryStatementPart> lsps() {
-		return lsps;
 	}
 
 	@Override

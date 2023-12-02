@@ -8,17 +8,16 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.contexts.LoopContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.lang2.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 
-	private final Attached _a = new AttachedImpl();
+	private final Attached _a;
 	private final OS_Element parent;
 	IdentExpression iterName;
 	private IExpression expr;
@@ -32,17 +31,19 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 	@Deprecated
 	public LoopImpl(final OS_Element aParent) {
 		// document assumption
-		if (!(aParent instanceof FunctionDef) && !(aParent instanceof Loop))
-			tripleo.elijah.util.Stupidity.println_out_2("parent is not FunctionDef or Loop");
+		if (!(aParent instanceof FunctionDef) && !(aParent instanceof Loop)) {
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("parent is not FunctionDef or Loop");
+		}
 		parent = aParent;
+		_a = new AttachedImpl(parent.getContext());
 	}
 
 	public LoopImpl(final OS_Element aParent, final Context ctx) {
 		// document assumption
 		if (!(aParent instanceof FunctionDef) && !(aParent instanceof Loop))
-			tripleo.elijah.util.Stupidity.println_out_2("parent is not FunctionDef or Loop");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("parent is not FunctionDef or Loop");
 		parent = aParent;
-		_a.setContext(new LoopContext(ctx, this));
+		_a = new AttachedImpl(new LoopContextImpl(ctx, this));
 	}
 
 	@Override
@@ -122,7 +123,7 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 	}
 
 	@Override
-	public void setContext(final LoopContext ctx) {
+	public void setContext(final ILoopContext ctx) {
 		_a.setContext(ctx);
 	}
 

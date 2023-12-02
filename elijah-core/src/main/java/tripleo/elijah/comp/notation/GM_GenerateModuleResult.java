@@ -7,11 +7,22 @@ import tripleo.elijah.work.*;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public record GM_GenerateModuleResult(GenerateResult generateResult, GN_GenerateNodesIntoSink generateNodesIntoSink,
-		GM_GenerateModuleRequest generateModuleRequest, Supplier<GenerateResultEnv> figs) {
+public class GM_GenerateModuleResult {
+	final GenerateResult generateResult;
+	final GN_GenerateNodesIntoSink generateNodesIntoSink;
+	final GM_GenerateModuleRequest generateModuleRequest;
+	final Supplier<GenerateResultEnv> figs;
+
+	public GM_GenerateModuleResult(final GenerateResult aGenerateResult, final GN_GenerateNodesIntoSink aGenerateNodesIntoSink, final GM_GenerateModuleRequest aGenerateModuleRequest, final Supplier<GenerateResultEnv> aFigs) {
+		generateResult        = aGenerateResult;
+		generateNodesIntoSink = aGenerateNodesIntoSink;
+		generateModuleRequest = aGenerateModuleRequest;
+		figs                  = aFigs;
+	}
+
 	void doResult(final @NotNull WorkManager wm) {
 		// TODO find GenerateResultEnv and centralise them
-		final WorkList wl = new WorkList();
+		final WorkList wl = new WorkList__();
 		final GenerateFiles generateFiles1 = generateModuleRequest.getGenerateFiles(figs);
 		final GenerateResult gr = gr();
 

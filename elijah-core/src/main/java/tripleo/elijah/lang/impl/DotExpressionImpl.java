@@ -3,25 +3,25 @@
  */
 package tripleo.elijah.lang.impl;
 
+import tripleo.elijah.lang.i.DotExpression;
 import tripleo.elijah.lang.i.ExpressionKind;
 import tripleo.elijah.lang.i.IExpression;
 import tripleo.elijah.lang.i.IdentExpression;
 
 /**
  * @author Tripleo(envy)
- *         <p>
- *         Created Mar 27, 2020 at 12:59:41 AM
+ * <p>
+ * Created Mar 27, 2020 at 12:59:41 AM
  */
-public class DotExpressionImpl extends BasicBinaryExpressionImpl implements tripleo.elijah.lang.i.DotExpression {
-
-	public DotExpressionImpl(final IExpression ee, final IdentExpression identExpression) {
-		left = ee;
-		right = identExpression;
+public class DotExpressionImpl extends BasicBinaryExpressionImpl implements DotExpression {
+	public DotExpressionImpl(final IExpression aDotExpressionLeft, final IdentExpression aDotExpressionRight) {
+		left  = aDotExpressionLeft;
+		right = aDotExpressionRight;
 		_kind = ExpressionKind.DOT_EXP;
 	}
 
 	public DotExpressionImpl(final IExpression ee, final IExpression aExpression) {
-		left = ee;
+		left  = ee;
 		right = aExpression;
 		_kind = ExpressionKind.DOT_EXP;
 	}
@@ -33,9 +33,20 @@ public class DotExpressionImpl extends BasicBinaryExpressionImpl implements trip
 
 	@Override
 	public String toString() {
-		return String.format("%s.%s", left, right);
+		return asString();
 	}
 
+	@Override
+	public String asString() {
+		final String rightSide;
+		if (right == null) {
+			rightSide = "";
+		} else {
+			rightSide = "." + right.asString();
+		}
+		final String leftSide  = left.asString();
+		return String.format("%s%s", leftSide, rightSide);
+	}
 }
 
 //

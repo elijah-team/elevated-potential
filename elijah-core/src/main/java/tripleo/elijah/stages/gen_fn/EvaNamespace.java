@@ -11,11 +11,11 @@ package tripleo.elijah.stages.gen_fn;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.g.GEvaNamespace;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;
 import tripleo.elijah.nextgen.reactive.Reactive;
-import tripleo.elijah.stages.garish.GarishNamespace_Generator;
 import tripleo.elijah.stages.gen_generic.CodeGenerator;
 import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
@@ -27,7 +27,7 @@ import java.util.function.Consumer;
 /**
  * Created 12/22/20 5:39 PM
  */
-public class EvaNamespace extends EvaContainerNC implements GNCoded {
+public class EvaNamespace extends EvaContainerNC implements GNCoded, GEvaNamespace {
 	class _Reactive_EvaNamespace extends DefaultReactive {
 		@Override
 		public <T> void addListener(final Consumer<T> t) {
@@ -59,7 +59,7 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded {
 		Scope3Impl scope3 = new Scope3Impl(fd);
 		fd.scope(scope3);
 		for (VarTableEntry varTableEntry : varTable) {
-			if (varTableEntry.initialValue != IExpression.UNASSIGNED) {
+			if (varTableEntry.initialValue != LangGlobals.UNASSIGNED) {
 				IExpression left = varTableEntry.nameToken;
 				IExpression right = varTableEntry.initialValue;
 

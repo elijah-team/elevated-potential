@@ -21,6 +21,7 @@ import tripleo.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah.stages.instructions.IntegerIA;
 import tripleo.elijah.stages.instructions.ProcIA;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +119,7 @@ public class CtorReference {
 				code = -3;
 			}
 			if (code == 0) {
-				tripleo.elijah.util.Stupidity
+				SimplePrintLoggerToRemoveSoon
 						.println_err_2("** 32135 ClassStatement with 0 code " + aClsinv.getKlass());
 			}
 

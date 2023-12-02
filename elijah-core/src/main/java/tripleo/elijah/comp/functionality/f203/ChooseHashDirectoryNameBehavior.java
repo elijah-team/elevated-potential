@@ -13,7 +13,7 @@ import java.util.stream.*;
 import static org.apache.commons.codec.digest.MessageDigestAlgorithms.*;
 
 public class ChooseHashDirectoryNameBehavior implements ChooseDirectoryNameBehavior {
-	private final Compilation c;
+	private final Compilation  c;
 	private final LocalDateTime localDateTime;
 
 	@Contract(pure = true)
@@ -23,9 +23,9 @@ public class ChooseHashDirectoryNameBehavior implements ChooseDirectoryNameBehav
 	}
 
 	private @NotNull File choose_dir_name() {
-		final List<IO._IO_ReadFile> recordedreads = c.getIO().recordedreads_io();
+		final List<IO_._IO_ReadFile> recordedreads = c.getIO().recordedreads_io();
 		final List<String> recordedread_filenames = recordedreads.stream()
-				.map((IO._IO_ReadFile t) -> t.getFile().toString()).collect(Collectors.toList());
+				.map((IO_._IO_ReadFile t) -> t.getFile().toString()).collect(Collectors.toList());
 
 		final DigestUtils digestUtils = new DigestUtils(SHA_256);
 
@@ -44,7 +44,7 @@ public class ChooseHashDirectoryNameBehavior implements ChooseDirectoryNameBehav
 
 		final File fn00 = new File("COMP", c_name);
 		final File fn0 = new File(fn00, date);
-		System.err.println("mkdirs 71 " + fn0);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 71 " + fn0);
 		fn0.mkdirs();
 
 		final String fn1 = new File(fn0, "inputs.txt").toString();

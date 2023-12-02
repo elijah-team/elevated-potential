@@ -3,6 +3,7 @@ package tripleo.elijah.stages.deduce.post_bytecode;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
@@ -12,233 +13,32 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
-import tripleo.elijah.world.*;
 
 import java.util.*;
 import java.util.function.*;
 
 public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
-	public static class __LFOE_Q implements _LFOE_Q {
-		private final @NotNull GenerateFunctions generateFunctions;
-		private final WorkList wl;
-		private final @NotNull DeduceTypes2 deduceTypes2;
-
-		public __LFOE_Q(WorkManager awm, WorkList awl, final @NotNull DeduceTypes2 aDeduceTypes2) {
-			generateFunctions = aDeduceTypes2.phase.generatePhase.getGenerateFunctions(aDeduceTypes2.module);
-			wl = awl;
-			this.deduceTypes2 = aDeduceTypes2;
-		}
-
-		@Override
-		public void enqueue_ctor(final GenerateFunctions generateFunctions1, final @NotNull FunctionInvocation fi,
-				final IdentExpression aConstructorName) {
-			// assert generateFunctions1 == generateFunctions;
-			final WlGenerateCtor wlgf = deduceTypes2._inj().new_WlGenerateCtor(generateFunctions, fi, aConstructorName,
-					deduceTypes2.phase.getCodeRegistrar());
-			wl.addJob(wlgf);
-		}
-
-		@Override
-		public void enqueue_default_ctor(final GenerateFunctions generateFunctions1,
-				final @NotNull FunctionInvocation fi) {
-			// assert generateFunctions1 == generateFunctions;
-			final WlGenerateDefaultCtor wlgf = deduceTypes2._inj().new_WlGenerateDefaultCtor(generateFunctions, fi,
-					deduceTypes2.creationContext(), deduceTypes2._phase().getCodeRegistrar());
-			wl.addJob(wlgf);
-		}
-
-		@Override
-		public void enqueue_function(final GenerateFunctions generateFunctions1, final @NotNull FunctionInvocation fi,
-				final ICodeRegistrar cr) {
-			// assert generateFunctions1 == generateFunctions;
-			final WlGenerateFunction wlgf = deduceTypes2._inj().new_WlGenerateFunction(generateFunctions, fi, cr);
-			wl.addJob(wlgf);
-		}
-
-		@Override
-		public void enqueue_function(final @NotNull Supplier<GenerateFunctions> som,
-				final @NotNull FunctionInvocation aFi, final ICodeRegistrar cr) {
-			final WlGenerateFunction wlgf = deduceTypes2._inj().new_WlGenerateFunction(som.get(), aFi, cr);
-			wl.addJob(wlgf);
-		}
-
-		@Override
-		public void enqueue_namespace(final @NotNull Supplier<GenerateFunctions> som,
-				final @NotNull NamespaceInvocation aNsi, final DeducePhase.GeneratedClasses aGeneratedClasses,
-				final ICodeRegistrar aCr) {
-			wl.addJob(deduceTypes2._inj().new_WlGenerateNamespace(som.get(), aNsi, aGeneratedClasses, aCr));
-		}
-	}
-
-	interface _LFOE_Q {
-		void enqueue_ctor(final GenerateFunctions aGenerateFunctions, final @NotNull FunctionInvocation aFi,
-				final IdentExpression aConstructorName);
-
-		void enqueue_default_ctor(final GenerateFunctions aGenerateFunctions, final @NotNull FunctionInvocation aFi);
-
-		void enqueue_function(final GenerateFunctions aGenerateFunctions, final @NotNull FunctionInvocation aFi,
-				final ICodeRegistrar cr);
-
-		void enqueue_function(final Supplier<GenerateFunctions> som, final @NotNull FunctionInvocation aFi,
-				final ICodeRegistrar aCr);
-
-		void enqueue_namespace(final Supplier<GenerateFunctions> som, NamespaceInvocation aNsi,
-				DeducePhase.GeneratedClasses aGeneratedClasses, final ICodeRegistrar aCr);
-	}
-
-	private static @Nullable FunctionInvocation __lfoe_action__getFunctionInvocation(final @NotNull ProcTableEntry pte,
-			final @NotNull DeduceTypes2 aDeduceTypes2) {
-		FunctionInvocation fi;
-		if (pte.__debug_expression != null && pte.expression_num != null) {
-			if (pte.__debug_expression instanceof final @NotNull ProcedureCallExpression exp) {
-				if (exp.getLeft() instanceof final @NotNull IdentExpression expLeft) {
-					String left = expLeft.getText();
-					final LookupResultList lrl = expLeft.getContext().lookup(left);
-					@Nullable
-					final OS_Element e = lrl.chooseBest(null);
-					if (e != null) {
-						if (e instanceof ClassStatement) {
-							ClassStatement classStatement = (ClassStatement) e;
-
-							final ClassInvocation ci = aDeduceTypes2.phase.registerClassInvocation(classStatement);
-							pte.setClassInvocation(ci);
-						} else if (e instanceof final @NotNull FunctionDef functionDef) {
-
-							ClassStatement classStatement = (ClassStatement) e.getParent();
-
-							final ClassInvocation ci = aDeduceTypes2.phase.registerClassInvocation(classStatement);
-							pte.setClassInvocation(ci);
-						} else
-							throw new NotImplementedException();
-					}
-				}
-			}
-		}
-
-		ClassInvocation invocation = pte.getClassInvocation();
-
-		if (invocation == null && pte
-				.getFunctionInvocation() != null/* never true if we are in this function (check only use guard)! */) {
-			invocation = pte.getFunctionInvocation().getClassInvocation();
-		}
-		if (invocation == null)
-			return null;
-
-		final DeduceElement3_ProcTableEntry de3_pte = (DeduceElement3_ProcTableEntry) pte.getDeduceElement3();
-		// de3.set
-
-		@NotNull
-		FunctionInvocation fi2 = aDeduceTypes2._phase().newFunctionInvocation(WorldGlobals.defaultVirtualCtor, pte,
-				invocation);
-
-		// FIXME use `q'
-		final WlGenerateDefaultCtor wldc = aDeduceTypes2._inj().new_WlGenerateDefaultCtor(
-				aDeduceTypes2.getGenerateFunctions(invocation.getKlass().getContext().module()), fi2,
-				aDeduceTypes2.creationContext(), aDeduceTypes2._phase().getCodeRegistrar());
-		wldc.run(null);
-		BaseEvaFunction ef = wldc.getResult();
-
-		DeduceElement3_ProcTableEntry zp = aDeduceTypes2.zeroGet(pte, ef);
-
-		fi = aDeduceTypes2.newFunctionInvocation(ef.getFD(), pte, invocation, aDeduceTypes2.phase);
-
-		return fi;
-	}
 
 	@Nullable
 	private final DeduceTypes2 deduceTypes2;
-
 	private final BaseEvaFunction generatedFunction;
-
 	private final ProcTableEntry principal;
-
 	private Instruction instruction;
 
-	public DeduceElement3_ProcTableEntry(final ProcTableEntry aProcTableEntry, final DeduceTypes2 aDeduceTypes2,
-			final BaseEvaFunction aGeneratedFunction) {
-		principal = aProcTableEntry;
-		deduceTypes2 = aDeduceTypes2;
+	public DeduceElement3_ProcTableEntry(final ProcTableEntry aProcTableEntry,
+										 final DeduceTypes2 aDeduceTypes2,
+										 final BaseEvaFunction aGeneratedFunction) {
+		principal         = aProcTableEntry;
+		deduceTypes2      = aDeduceTypes2;
 		generatedFunction = aGeneratedFunction;
 	}
 
-	void __lfoe_action__proceed(@NotNull FunctionInvocation fi, ClassInvocation ci, ClassStatement aParent,
-			final Consumer<WorkList> addJobs, final @NotNull _LFOE_Q q, final @NotNull DeducePhase phase) {
-		ci = phase.registerClassInvocation(ci);
-
-		@NotNull
-		ClassStatement kl = ci.getKlass(); // TODO Don't you see aParent??
-		assert kl != null;
-
-		final FunctionDef fd2 = fi.getFunction();
-		int state = 0;
-
-		if (fd2 == WorldGlobals.defaultVirtualCtor) {
-			if (fi.pte.getArgs().size() == 0)
-				state = 1;
-			else
-				state = 2;
-		} else if (fd2 instanceof ConstructorDef) {
-			if (fi.getClassInvocation().getConstructorName() != null)
-				state = 3;
-			else
-				state = 2;
-		} else {
-			if (fi.getFunction() == null && fi.getClassInvocation() != null)
-				state = 3;
-			else
-				state = 4;
-		}
-
-		final GenerateFunctions generateFunctions = null;
-
-		switch (state) {
-		case 1:
-			assert fi.pte.getArgs().size() == 0;
-			// default ctor
-			q.enqueue_default_ctor(generateFunctions, fi);
-			break;
-		case 2:
-			q.enqueue_ctor(generateFunctions, fi, fd2.getNameNode());
-			break;
-		case 3:
-			// README this is a special case to generate constructor
-			// TODO should it be GenerateDefaultCtor? (check args size and ctor-name)
-			final String constructorName = fi.getClassInvocation().getConstructorName();
-			final @NotNull IdentExpression constructorName1 = constructorName != null
-					? IdentExpression.forString(constructorName)
-					: null;
-			q.enqueue_ctor(generateFunctions, fi, constructorName1);
-			break;
-		case 4:
-			q.enqueue_function(generateFunctions, fi, phase.getCodeRegistrar());
-			break;
-		default:
-			throw new NotImplementedException();
-		}
-
-		// addJobs.accept(wl);
-	}
-
-	void __lfoe_action__proceed(@NotNull FunctionInvocation fi, @NotNull NamespaceStatement aParent,
-			@NotNull WorkList wl, final @NotNull DeducePhase phase, final @NotNull Consumer<WorkList> addJobs,
-			final @NotNull _LFOE_Q q) {
-		// ci = phase.registerClassInvocation(ci);
-
-		final @NotNull OS_Module module1 = aParent.getContext().module();
-
-		final NamespaceInvocation nsi = phase.registerNamespaceInvocation(aParent);
-
-		final ICodeRegistrar cr = phase.getCodeRegistrar();
-
-		q.enqueue_namespace(() -> phase.generatePhase.getGenerateFunctions(module1), nsi, phase.generatedClasses, cr);
-		q.enqueue_function(() -> phase.generatePhase.getGenerateFunctions(module1), fi, cr);
-
-		// addJobs.accept(wl);
-	}
-
 	public void _action_002_no_resolved_element(final InstructionArgument _backlink,
-			final @NotNull ProcTableEntry backlink, final DeduceTypes2.@NotNull DeduceClient3 dc,
-			final @NotNull IdentTableEntry ite, final @NotNull ErrSink errSink, final @NotNull DeducePhase phase) {
+												final @NotNull ProcTableEntry backlink,
+												final DeduceTypes2.@NotNull DeduceClient3 dc,
+												final @NotNull IdentTableEntry ite,
+												final @NotNull ErrSink errSink,
+												final @NotNull DeducePhase phase) {
 		final OS_Element resolvedElement = backlink.getResolvedElement();
 
 		if (resolvedElement == null)
@@ -246,8 +46,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 
 		try {
 			final LookupResultList lrl2 = dc.lookupExpression(ite.getIdent(), resolvedElement.getContext());
-			@Nullable
-			final OS_Element best = lrl2.chooseBest(null);
+			@Nullable final OS_Element best = lrl2.chooseBest(null);
 			assert best != null;
 			ite.setStatus(BaseTableEntry.Status.KNOWN, dc._deduceTypes2()._inj().new_GenericElementHolder(best));
 		} catch (final ResolveError aResolveError) {
@@ -258,13 +57,13 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		action_002_1(principal, ite, false, phase, dc);
 	}
 
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
+	DeduceTypes2.DeduceTypes2Injector _inj() {
 		return Objects.requireNonNull(deduceTypes2())._inj();
 	}
 
 	private void action_002_1(@NotNull final ProcTableEntry pte, @NotNull final IdentTableEntry ite,
-			final boolean setClassInvocation, final @NotNull DeducePhase phase,
-			final DeduceTypes2.@NotNull DeduceClient3 dc) {
+							  final boolean setClassInvocation, final @NotNull DeducePhase phase,
+							  final DeduceTypes2.@NotNull DeduceClient3 dc) {
 		final OS_Element resolvedElement = ite.getResolvedElement();
 
 		assert resolvedElement != null;
@@ -274,8 +73,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		var dt2 = dc._deduceTypes2();
 
 		if (pte.getFunctionInvocation() == null) {
-			@NotNull
-			final FunctionInvocation fi;
+			@NotNull final FunctionInvocation fi;
 
 			if (resolvedElement instanceof ClassStatement) {
 				// assuming no constructor name or generic parameters based on function syntax
@@ -298,7 +96,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 				if (ci != null) {
 					pte.setClassInvocation(ci);
 				} else
-					tripleo.elijah.util.Stupidity.println_err2("542 Null ClassInvocation");
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err2("542 Null ClassInvocation");
 			}
 
 			pte.setFunctionInvocation(fi);
@@ -311,6 +109,44 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 	@Override
 	public @Nullable DeduceTypes2 deduceTypes2() {
 		return deduceTypes2;
+	}
+
+	@Override
+	public @NotNull DED elementDiscriminator() {
+		return new DED.DED_PTE(principal);
+	}
+
+	@Override
+	public BaseEvaFunction generatedFunction() {
+		return generatedFunction;
+	}
+
+	@Override
+	public GenType genType() {
+		throw new UnsupportedOperationException("no type for PTE");
+	} // TODO check correctness
+
+	@Override
+	public OS_Element getPrincipal() {
+		// return principal.getDeduceElement3(deduceTypes2,
+		// generatedFunction).getPrincipal(); // README infinite loop
+
+		return principal.getResolvedElement();// getDeduceElement3(deduceTypes2, generatedFunction).getPrincipal();
+	}
+
+	@Override
+	public @NotNull DeduceElement3_Kind kind() {
+		return DeduceElement3_Kind.GEN_FN__PTE;
+	}
+
+	@Override
+	public void resolve(final Context aContext, final DeduceTypes2 dt2) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void resolve(final IdentIA aIdentIA, final Context aContext, final FoundElement aFoundElement) {
+		throw new UnsupportedOperationException();
 	}
 
 	public void doFunctionInvocation() {
@@ -336,8 +172,8 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 
 							vte.typePromise().then(left_type -> {
 								final ClassStatement cs = left_type.getResolved().getClassOf(); // TODO we want a
-																								// DeduceClass here.
-																								// EvaClass may suffice
+								// DeduceClass here.
+								// EvaClass may suffice
 
 								final ClassInvocation ci = deduceTypes2._phase().registerClassInvocation(cs);
 								ci.resolvePromise().then(gc2 -> {
@@ -345,14 +181,13 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 								});
 
 								final LookupResultList lrl = cs.getContext().lookup(rr.getText());
-								@Nullable
-								final OS_Element best = lrl.chooseBest(null);
+								@Nullable final OS_Element best = lrl.chooseBest(null);
 
 								if (best != null) {
 									final FunctionDef fun = (FunctionDef) best;
 
 									final FunctionInvocation fi2 = deduceTypes2._phase().newFunctionInvocation(fun,
-											null, ci); // TODO pte??
+																											   null, ci); // TODO pte??
 
 									principal.setFunctionInvocation(fi2); // TODO pte above
 
@@ -388,21 +223,6 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		}
 	}
 
-	@Override
-	public @NotNull DED elementDiscriminator() {
-		return new DED.DED_PTE(principal);
-	}
-
-	@Override
-	public BaseEvaFunction generatedFunction() {
-		return generatedFunction;
-	}
-
-	@Override
-	public GenType genType() {
-		throw new UnsupportedOperationException("no type for PTE");
-	} // TODO check correctness
-
 	public BaseEvaFunction getGeneratedFunction() {
 		return generatedFunction;
 	}
@@ -411,148 +231,437 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		return instruction;
 	}
 
-	@Override
-	public OS_Element getPrincipal() {
-		// return principal.getDeduceElement3(deduceTypes2,
-		// generatedFunction).getPrincipal(); // README infinite loop
-
-		return principal.getResolvedElement();// getDeduceElement3(deduceTypes2, generatedFunction).getPrincipal();
+	public void setInstruction(final Instruction aInstruction) {
+		instruction = aInstruction;
 	}
 
 	public ProcTableEntry getTablePrincipal() {
 		return principal;
 	}
 
-	@Override
-	public @NotNull DeduceElement3_Kind kind() {
-		return DeduceElement3_Kind.GEN_FN__PTE;
+	public static final class LFOE_Action_Results {
+		private final @NotNull DeduceTypes2                 aDeduceTypes2;
+		private final @NotNull WorkList                     wl;
+		private final @NotNull Consumer<WorkList>           addJobs;
+		private final @NotNull List<? extends Object>       actualResults;
+		private final @NotNull Eventual<FunctionInvocation> createdFunctionInvocation;
+
+		public LFOE_Action_Results(@NotNull DeduceTypes2 aDeduceTypes2, // input/not really needed
+								   @NotNull WorkList wl,                // input/not really needed
+								   @NotNull Consumer<WorkList> addJobs, // input/not really needed
+								   @NotNull List<? extends Object> actualResults,
+								   @NotNull Eventual<FunctionInvocation> createdFunctionInvocation
+								  ) {
+			this.aDeduceTypes2             = aDeduceTypes2;
+			this.wl                        = wl;
+			this.addJobs                   = addJobs;
+			this.actualResults             = actualResults;
+			this.createdFunctionInvocation = createdFunctionInvocation;
+		}
+
+		public @NotNull DeduceTypes2 aDeduceTypes2() {
+			return aDeduceTypes2;
+		}
+
+		public @NotNull WorkList wl() {
+			return wl;
+		}
+
+		public @NotNull Consumer<WorkList> addJobs() {
+			return addJobs;
+		}
+
+		public @NotNull List<? extends Object> actualResults() {
+			return actualResults;
+		}
+
+		public @NotNull Eventual<FunctionInvocation> createdFunctionInvocation() {
+			return createdFunctionInvocation;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (LFOE_Action_Results) obj;
+			return Objects.equals(this.aDeduceTypes2, that.aDeduceTypes2) &&
+					Objects.equals(this.wl, that.wl) &&
+					Objects.equals(this.addJobs, that.addJobs) &&
+					Objects.equals(this.actualResults, that.actualResults) &&
+					Objects.equals(this.createdFunctionInvocation, that.createdFunctionInvocation);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(aDeduceTypes2, wl, addJobs, actualResults, createdFunctionInvocation);
+		}
+
+		@Override
+		public String toString() {
+			return "LFOE_Action_Results[" +
+					"aDeduceTypes2=" + aDeduceTypes2 + ", " +
+					"wl=" + wl + ", " +
+					"addJobs=" + addJobs + ", " +
+					"actualResults=" + actualResults + ", " +
+					"createdFunctionInvocation=" + createdFunctionInvocation + ']';
+		}
 	}
 
-	public void lfoe_action(final @NotNull DeduceTypes2 aDeduceTypes2, final @NotNull WorkList wl,
-			final @NotNull Consumer<WorkList> addJobs) {
-		var pte = principal;
-
-		assert aDeduceTypes2 == deduceTypes2;
-
-		final __LFOE_Q q = new __LFOE_Q(aDeduceTypes2.wm, wl, aDeduceTypes2);
-
-		FunctionInvocation fi = pte.getFunctionInvocation();
-		if (fi == null) {
-			fi = __lfoe_action__getFunctionInvocation(pte, aDeduceTypes2);
-			if (fi == null)
-				return;
+	public void lfoe_action(final @NotNull DeduceTypes2 aDeduceTypes2,
+							final @NotNull WorkList wl,
+							final @NotNull Consumer<WorkList> addJobs,
+							final @NotNull Consumer<LFOE_Action_Results> resultconsumer) {
+		//assert aDeduceTypes2 == deduceTypes2;
+		if (aDeduceTypes2 != deduceTypes2) {
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("503262 deduceTypes divergence");
+			//throw new AssertionError();
 		}
 
-		if (fi.getFunction() == null) {
-			if (fi.pte == null) {
-				return;
+		final __LFOE_Q                     q                = new __LFOE_Q(aDeduceTypes2.wm, wl, aDeduceTypes2);
+		final Eventual<FunctionInvocation> efi              = new Eventual<>();
+		efi.then(new lfoe_action__FunctionInvocationDoneCallback(this, aDeduceTypes2, addJobs, q, wl));
+
+		final List<? extends Object>       actualResultList = new ArrayList<>();
+		final LFOE_Action_Results          virtualResult    = new LFOE_Action_Results(aDeduceTypes2, wl, addJobs, actualResultList, efi);
+		final FunctionInvocation fi2 = principal.getFunctionInvocation();
+
+		try {
+			if (fi2 == null) {
+				__lfoe_action__getFunctionInvocation(principal, aDeduceTypes2).then(efi::resolve);
+
+				//if (fi == null)
+				//	return;
 			} else {
-//					LOG.err("592 " + fi.getClassInvocation());
-				if (fi.pte.getClassInvocation() != null)
-					fi.setClassInvocation(fi.pte.getClassInvocation());
-//					else
-//						fi.pte.setClassInvocation(fi.getClassInvocation());
+				efi.resolve(fi2);
 			}
+		} finally {
+			resultconsumer.accept(virtualResult);
+		}
+	}
+
+
+	public static final class _1 {
+		private final          FunctionInvocation functionInvocation;
+		private final          NamespaceStatement parentNamespace;
+		private final          WorkList           workList;
+		private final          DeducePhase        deducePhase;
+		private final          Consumer<WorkList> addJobs;
+		private final @NotNull __LFOE_Q           q;
+
+		public _1(
+				FunctionInvocation functionInvocation,
+				NamespaceStatement parentNamespace,
+				WorkList workList,
+				DeducePhase deducePhase,
+				Consumer<WorkList> addJobs,
+				@NotNull __LFOE_Q q
+				 ) {
+			this.functionInvocation = functionInvocation;
+			this.parentNamespace    = parentNamespace;
+			this.workList           = workList;
+			this.deducePhase        = deducePhase;
+			this.addJobs            = addJobs;
+			this.q                  = q;
 		}
 
-		@Nullable
-		ClassInvocation ci = fi.getClassInvocation();
-		if (ci == null) {
-			ci = fi.pte.getClassInvocation();
-		}
-		FunctionDef fd3 = fi.getFunction();
-		if (fd3 == WorldGlobals.defaultVirtualCtor) {
-			if (ci == null) {
-				if (/* fi.getClassInvocation() == null && */ fi.getNamespaceInvocation() == null) {
-					// Assume default constructor
-					ci = aDeduceTypes2.phase.registerClassInvocation((ClassStatement) pte.getResolvedElement());
-					fi.setClassInvocation(ci);
-				} else
-					throw new NotImplementedException();
-			}
-			final ClassStatement klass = ci.getKlass();
-
-			Collection<ConstructorDef> cis = klass.getConstructors();
-			/*
-			 * for (@NotNull ConstructorDef constructorDef : cis) { final
-			 * Iterable<FormalArgListItem> constructorDefArgs = constructorDef.getArgs();
-			 * 
-			 * if (!constructorDefArgs.iterator().hasNext()) { // zero-sized arg list fd3 =
-			 * constructorDef; break; } }
-			 */
-
-			final Optional<ConstructorDef> ocd = cis.stream().filter(acd -> acd.getArgs().iterator().hasNext())
-					.findFirst();
-			if (ocd.isPresent()) {
-				fd3 = ocd.get();
-			}
+		public FunctionInvocation functionInvocation() {
+			return functionInvocation;
 		}
 
-		final OS_Element parent;
-		if (fd3 != null) {
-			parent = fd3.getParent();
-			if (parent instanceof ClassStatement) {
-				if (ci != pte.getClassInvocation()) {
-					ci = _inj().new_ClassInvocation((ClassStatement) parent, null,
-							new ReadySupplier_1<>(deduceTypes2()));
-					{
-						final ClassInvocation classInvocation = pte.getClassInvocation();
-						if (classInvocation != null) {
-							Map<TypeName, OS_Type> gp = classInvocation.genericPart().getMap();
-							if (gp != null) {
-								int i = 0;
-								for (Map.@NotNull Entry<TypeName, OS_Type> entry : gp.entrySet()) {
-									ci.set(i, entry.getKey(), entry.getValue());
-									i++;
-								}
+		public NamespaceStatement parentNamespace() {
+			return parentNamespace;
+		}
+
+		public WorkList workList() {
+			return workList;
+		}
+
+		public DeducePhase deducePhase() {
+			return deducePhase;
+		}
+
+		public Consumer<WorkList> addJobs() {
+			return addJobs;
+		}
+
+		public @NotNull __LFOE_Q q() {
+			return q;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (_1) obj;
+			return Objects.equals(this.functionInvocation, that.functionInvocation) &&
+					Objects.equals(this.parentNamespace, that.parentNamespace) &&
+					Objects.equals(this.workList, that.workList) &&
+					Objects.equals(this.deducePhase, that.deducePhase) &&
+					Objects.equals(this.addJobs, that.addJobs) &&
+					Objects.equals(this.q, that.q);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(functionInvocation, parentNamespace, workList, deducePhase, addJobs, q);
+		}
+
+		@Override
+		public String toString() {
+			return "_1[" +
+					"functionInvocation=" + functionInvocation + ", " +
+					"parentNamespace=" + parentNamespace + ", " +
+					"workList=" + workList + ", " +
+					"deducePhase=" + deducePhase + ", " +
+					"addJobs=" + addJobs + ", " +
+					"q=" + q + ']';
+		}
+	}
+
+	public static final class _0 { // TODO 10/18 $env.process($this)
+		private final @NotNull FunctionInvocation functionInvocation;
+		private final          ClassInvocation    classInvocation;
+		private final          ClassStatement     parentClass;
+		private final @NotNull DeducePhase        deducePhase;
+		private final          Consumer<WorkList> addJobs;
+		private final @NotNull _LFOE_Q            q;
+
+		public _0(
+				@NotNull FunctionInvocation functionInvocation,
+				ClassInvocation classInvocation,
+				ClassStatement parentClass,
+				@NotNull DeducePhase deducePhase,
+				Consumer<WorkList> addJobs,
+				@NotNull _LFOE_Q q
+				 ) {
+			this.functionInvocation = functionInvocation;
+			this.classInvocation    = classInvocation;
+			this.parentClass        = parentClass;
+			this.deducePhase        = deducePhase;
+			this.addJobs            = addJobs;
+			this.q                  = q;
+		}
+
+		public @NotNull FunctionInvocation functionInvocation() {
+			return functionInvocation;
+		}
+
+		public ClassInvocation classInvocation() {
+			return classInvocation;
+		}
+
+		public ClassStatement parentClass() {
+			return parentClass;
+		}
+
+		public @NotNull DeducePhase deducePhase() {
+			return deducePhase;
+		}
+
+		public Consumer<WorkList> addJobs() {
+			return addJobs;
+		}
+
+		public @NotNull _LFOE_Q q() {
+			return q;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (_0) obj;
+			return Objects.equals(this.functionInvocation, that.functionInvocation) &&
+					Objects.equals(this.classInvocation, that.classInvocation) &&
+					Objects.equals(this.parentClass, that.parentClass) &&
+					Objects.equals(this.deducePhase, that.deducePhase) &&
+					Objects.equals(this.addJobs, that.addJobs) &&
+					Objects.equals(this.q, that.q);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(functionInvocation, classInvocation, parentClass, deducePhase, addJobs, q);
+		}
+
+		@Override
+		public String toString() {
+			return "_0[" +
+					"functionInvocation=" + functionInvocation + ", " +
+					"classInvocation=" + classInvocation + ", " +
+					"parentClass=" + parentClass + ", " +
+					"deducePhase=" + deducePhase + ", " +
+					"addJobs=" + addJobs + ", " +
+					"q=" + q + ']';
+		}
+	}
+
+	void __lfoe_action__proceed(_0 o0) {
+		@NotNull FunctionInvocation fi = o0.functionInvocation();
+		ClassInvocation ci = o0.classInvocation();
+		ClassStatement aParent = o0.parentClass();
+		final Consumer<WorkList> addJobs = o0.addJobs();
+		final @NotNull _LFOE_Q q = o0.q();
+		final @NotNull DeducePhase phase = o0.deducePhase();
+
+		ci = phase.registerClassInvocation(ci);
+
+		@NotNull ClassStatement kl = ci.getKlass(); // TODO Don't you see aParent??
+		assert kl != null;
+
+		final FunctionDef fd2   = fi.getFunction();
+		int               state = 0;
+
+		if (fd2 == LangGlobals.defaultVirtualCtor) {
+			if (fi.pte.getArgs().size() == 0)
+				state = 1;
+			else
+				state = 2;
+		} else if (fd2 instanceof ConstructorDef) {
+			if (fi.getClassInvocation().getConstructorName() != null)
+				state = 3;
+			else
+				state = 2;
+		} else {
+			if (fi.getFunction() == null && fi.getClassInvocation() != null)
+				state = 3;
+			else
+				state = 4;
+		}
+
+		final GenerateFunctions generateFunctions = null;
+
+		switch (state) {
+		case 1:
+			assert fi.pte.getArgs().size() == 0;
+			// default ctor
+			q.enqueue_default_ctor(generateFunctions, fi, null);
+			break;
+		case 2:
+			q.enqueue_ctor(generateFunctions, fi, fd2.getNameNode());
+			break;
+		case 3:
+			// README this is a special case to generate constructor
+			// TODO should it be GenerateDefaultCtor? (check args size and ctor-name)
+			final String constructorName = fi.getClassInvocation().getConstructorName();
+			final @NotNull IdentExpression constructorName1 = constructorName != null
+					? IdentExpressionImpl.forString(constructorName)
+					: null;
+			q.enqueue_ctor(generateFunctions, fi, constructorName1);
+			break;
+		case 4:
+			q.enqueue_function(generateFunctions, fi, phase.getCodeRegistrar());
+			break;
+		default:
+			throw new NotImplementedException();
+		}
+
+		// addJobs.accept(wl);
+	}
+
+	void __lfoe_action__proceed(_1 o1) {
+		final @NotNull FunctionInvocation fi      = o1.functionInvocation();
+		final @NotNull NamespaceStatement aParent = o1.parentNamespace();
+		final @NotNull WorkList           wl      = o1.workList();
+		final @NotNull DeducePhase        phase   = o1.deducePhase();
+		final @NotNull Consumer<WorkList> addJobs = o1.addJobs();
+		final @NotNull _LFOE_Q            q       = o1.q();
+
+		// ci = phase.registerClassInvocation(ci);
+
+		final @NotNull OS_Module module1 = aParent.getContext().module();
+
+		final NamespaceInvocation nsi = phase.registerNamespaceInvocation(aParent);
+
+		final ICodeRegistrar cr = phase.getCodeRegistrar();
+
+		q.enqueue_namespace(() -> phase.generatePhase.getGenerateFunctions(module1), nsi, phase.generatedClasses, cr);
+		q.enqueue_function(() -> phase.generatePhase.getGenerateFunctions(module1), fi, cr);
+
+		// addJobs.accept(wl); // TODO 10/17 should we remove this or uncomment it?
+	}
+
+	// TODO class Action<FunctionInvocation>
+	private static @NotNull Eventual<FunctionInvocation> __lfoe_action__getFunctionInvocation(final @NotNull ProcTableEntry pte,
+																							  final @NotNull DeduceTypes2 aDeduceTypes2) {
+
+		Eventual<FunctionInvocation> efi = new Eventual<>();
+
+		// Action<FunctionInvocation> action = new ...
+		// action.provide(ClassStatement.class, (left-is-class ...|left-is-function), ...
+		// action.fail(e-is-null)
+		// action.fail(e-is-not-class-or-function)
+		FunctionInvocation fi;
+		if (pte.__debug_expression != null && pte.expression_num != null) {
+			if (pte.__debug_expression instanceof final @NotNull ProcedureCallExpression exp) {
+				if (exp.getLeft() instanceof final @NotNull IdentExpression expLeft) {
+					final @NotNull String           left = expLeft.getText();
+					final @NotNull LookupResultList lrl  = expLeft.getContext().lookup(left);
+					final @Nullable OS_Element      e    = lrl.chooseBest(null);
+					if (e != null) {
+						if (e instanceof ClassStatement classStatement) {
+							final ClassInvocation ci = aDeduceTypes2.phase.registerClassInvocation(classStatement);
+							pte.setClassInvocation(ci);
+						} else if (e instanceof final @NotNull FunctionDef functionDef) {
+							final OS_Element parent = functionDef.getParent();
+
+							if (parent instanceof ClassStatement classStatement) {
+								final ClassInvocation ci = aDeduceTypes2.phase.registerClassInvocation(classStatement);
+								pte.setClassInvocation(ci);
 							}
+						} else {
+							throw new NotImplementedException();
 						}
 					}
 				}
-				__lfoe_action__proceed(fi, ci, (ClassStatement) parent, addJobs, q, aDeduceTypes2.phase);
-			} else if (parent instanceof NamespaceStatement) {
-				__lfoe_action__proceed(fi, (NamespaceStatement) parent, wl, aDeduceTypes2.phase, addJobs, q);
 			}
-		} else {
-			parent = ci.getKlass();
-			{
-				final ClassInvocation classInvocation = pte.getClassInvocation();
-				if (classInvocation != null && classInvocation.genericPart().hasGenericPart()) {
-					Map<TypeName, OS_Type> gp = classInvocation.genericPart().getMap();
-					int i = 0;
-					for (Map.@NotNull Entry<TypeName, OS_Type> entry : gp.entrySet()) {
-						ci.set(i, entry.getKey(), entry.getValue());
-						i++;
-					}
-				}
-			}
-			__lfoe_action__proceed(fi, ci, (ClassStatement) parent, addJobs, q, aDeduceTypes2.phase);
 		}
-	}
 
-	@Override
-	public void resolve(final Context aContext, final DeduceTypes2 dt2) {
-		throw new UnsupportedOperationException();
-	}
+		ClassInvocation invocation = pte.getClassInvocation();
 
-	@Override
-	public void resolve(final IdentIA aIdentIA, final Context aContext, final FoundElement aFoundElement) {
-		throw new UnsupportedOperationException();
-	}
+		if (invocation == null && pte
+				.getFunctionInvocation() != null/* never true if we are in this function (check only use guard)! */) {
+			invocation = pte.getFunctionInvocation().getClassInvocation();
+		}
+		if (invocation == null) {
+			final Diagnostic diagnostic = Diagnostic.withMessage("523523",
+														"can't find invocation in __lfoe_action__getFunctionInvocation",
+														Diagnostic.Severity.WARN); // "WARN" !!
+			efi.fail(diagnostic);
+			return efi;
+		}
 
-	public void setInstruction(final Instruction aInstruction) {
-		instruction = aInstruction;
-	}
+		final DeduceElement3_ProcTableEntry de3_pte = pte.getDeduceElement3(aDeduceTypes2, pte.__gf); // !! pte.__gf
+		//de3_pte.();
 
+		@NotNull FunctionInvocation fi2 = aDeduceTypes2._phase().newFunctionInvocation(LangGlobals.defaultVirtualCtor, pte,
+																					   invocation);
+
+		final _LFOE_Q q = new __LFOE_Q(aDeduceTypes2.wm, new WorkList__(), aDeduceTypes2);
+
+		final GenerateFunctions generateFunctions = aDeduceTypes2.getGenerateFunctions(invocation.getKlass().getContext().module());
+
+		final ClassInvocation finalInvocation = invocation;
+		q.enqueue_default_ctor(generateFunctions, fi2, (Eventual<BaseEvaFunction> aBaseEvaFunctionEventual) -> {
+			aBaseEvaFunctionEventual.then(ef2 -> {
+				DeduceElement3_ProcTableEntry zp = aDeduceTypes2.zeroGet(pte, ef2);
+
+				var fi3 = aDeduceTypes2.newFunctionInvocation(ef2.getFD(), pte, finalInvocation, aDeduceTypes2.phase);
+				efi.resolve(fi3);
+			});
+		});
+
+		return efi;
+	}
 	public boolean sneakResolve_IDTE(@NotNull OS_Element el,
-			@NotNull DeduceElement3_IdentTableEntry aDeduceElement3IdentTableEntry) {
+									 @NotNull DeduceElement3_IdentTableEntry aDeduceElement3IdentTableEntry) {
 		boolean b = false;
 
 		final IExpression left = principal.__debug_expression.getLeft();
 		if (left == aDeduceElement3IdentTableEntry.principal.getIdent()) {
 			// TODO is this duplication ok??
 			final DeduceElement3_IdentTableEntry.DE3_ITE_Holder de3_ite_holder = _inj().new_DE3_ITE_Holder(el,
-					aDeduceElement3IdentTableEntry);
+																										   aDeduceElement3IdentTableEntry);
 			if (principal.getStatus() == BaseTableEntry.Status.UNCHECKED) {
 				principal.setStatus(BaseTableEntry.Status.KNOWN, de3_ite_holder);
 				de3_ite_holder.commitGenTypeActions();

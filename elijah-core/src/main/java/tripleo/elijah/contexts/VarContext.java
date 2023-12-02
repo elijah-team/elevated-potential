@@ -9,10 +9,7 @@
 package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.Context;
-import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.lang.i.LookupResultList;
-import tripleo.elijah.lang.i.VariableStatement;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.ContextImpl;
 import tripleo.elijah.lang.impl.VariableSequenceImpl;
 
@@ -36,7 +33,7 @@ public class VarContext extends ContextImpl {
 
 	@Override
 	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
-			final @NotNull SearchList alreadySearched, final boolean one) {
+								   final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
 		for (final VariableStatement vs : carrier.items()) {

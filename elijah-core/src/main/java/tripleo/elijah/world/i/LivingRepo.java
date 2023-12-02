@@ -2,7 +2,8 @@ package tripleo.elijah.world.i;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.g.GLivingRepo;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.OS_Package;
@@ -20,8 +21,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.*;
 
-public interface LivingRepo {
+public interface LivingRepo extends GLivingRepo {
 	Collection<WorldModule> getMods__();
+
+	boolean isPackage(String aPkgName);
 
 	enum Add {
 		MAIN_CLASS, MAIN_FUNCTION, NONE
@@ -37,7 +40,7 @@ public interface LivingRepo {
 
 	LivingFunction addFunction(BaseFunctionDef fd);
 
-	void addModule(OS_Module mod, String aFilename, final Compilation aC);
+	void addModule(OS_Module mod, String aFilename, final Compilation0 aC);
 
 	// DefaultLivingClass addClass(EvaClass aClass, Add aMainClass);
 

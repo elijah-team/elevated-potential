@@ -23,12 +23,11 @@ import java.util.*;
  */
 public abstract class BaseFunctionDef implements FunctionDef, Documentable, ClassItem, OS_Container, OS_Element2 {
 
-	public @NotNull Attached _a = new AttachedImpl();
+	protected @NotNull Attached _a;
 	protected Species _species;
 	protected FormalArgList mFal = new FormalArgListImpl(); // remove final for FunctionDefBuilder
 	protected Scope3 scope3;
-	@Nullable
-	List<AnnotationClause> annotations = null;
+	@Nullable List<AnnotationClause> annotations = null;
 	private AccessNotation access_note;
 	private El_Category category;
 	protected IdentExpression funName;
@@ -103,6 +102,10 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 
 	@Override // OS_Element
 	public Context getContext() {
+		if (_a == null) {
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("903106 creation logic error [IllegalStateException]");
+			return null;
+		}
 		return _a.getContext();
 	}
 
@@ -143,7 +146,7 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 
 	@Override
 	public OS_FuncType getOS_Type() {
-		return new OS_FuncType(this);
+		return new OS_FuncTypeImpl(this);
 	}
 
 	@Override // OS_Element
@@ -236,8 +239,12 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 		category = aCategory;
 	}
 
-	public void setContext(final FunctionContext ctx) {
-		_a.setContext(ctx);
+	@Override
+	public void setContext(final IFunctionContext ctx) {
+		if (_a == null) {
+			_a = new AttachedImpl(ctx);
+		} else
+			_a.setContext(ctx);
 	}
 
 	@Override

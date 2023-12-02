@@ -1,18 +1,14 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.VariableStatementImpl;
+import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Stupidity;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 
-import java.util.List;
-import java.util.function.Consumer;
+import java.util.*;
+import java.util.function.*;
 
 class CRI_Ident {
 	@Contract(value = "_, _ -> new", pure = true)
@@ -152,7 +148,7 @@ class CRI_Ident {
 				switch (state) {
 				case 1:
 					if (resolved == null) {
-						Stupidity.println_err("***88*** resolved is null for " + ite);
+						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err("***88*** resolved is null for " + ite);
 					}
 					if (sSize >= i + 1) {
 						_getIdentIAPath_IdentIAHelper(null, sl, i, sSize, resolved_element, generatedFunction, resolved,
@@ -221,7 +217,7 @@ class CRI_Ident {
 				} else {
 					text[0] = Emit.emit("/*152*/") + "vm" + text1;
 				}
-				tripleo.elijah.util.Stupidity.println_err("119 " + ite.getIdent() + " " + ite.getStatus());
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err("119 " + ite.getIdent() + " " + ite.getStatus());
 				final String text2 = (Emit.emit("/*114*/") + String.format("%s is UNKNOWN", text1));
 				addRef.accept(new CReference.Reference(text2, CReference.Ref.MEMBER));
 				break;

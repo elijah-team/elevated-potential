@@ -1,29 +1,21 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.apache.commons.lang3.tuple.Pair;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.diagnostic.ExceptionDiagnostic;
+import org.apache.commons.lang3.tuple.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.diagnostic.Diagnostic.Severity;
-import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.nextgen.outputstatement.EG_SingleStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
-import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_ProcTableEntry;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.diagnostic.Diagnostic.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.stages.instructions.Instruction;
-import tripleo.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.stages.instructions.ProcIA;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 
-import java.text.MessageFormat;
-import java.util.List;
-import java.util.function.Consumer;
+import java.text.*;
+import java.util.*;
+import java.util.function.*;
 
 class GI_ProcIA implements GenerateC_Item {
 	private final GenerateC gc;
@@ -59,7 +51,7 @@ class GI_ProcIA implements GenerateC_Item {
 				final IdentTableEntry target2 = ((IdentIA) target).getEntry();
 				final String str = target2.getIdent().getText();
 
-				System.out.println("130  " + str);
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("130  " + str);
 			}
 
 			final String s = MessageFormat.format("{0}{1};", Emit.emit("/*500*/"),
@@ -109,7 +101,7 @@ class GI_ProcIA implements GenerateC_Item {
 		final FunctionInvocation fi = pte.getFunctionInvocation();
 
 		if (fi == null) {
-			tripleo.elijah.util.Stupidity.println_err_2("7777777777777777 fi getIdentIAPath_Proc " + pte);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("7777777777777777 fi getIdentIAPath_Proc " + pte);
 
 			return null;// throw new IllegalStateException();
 		}

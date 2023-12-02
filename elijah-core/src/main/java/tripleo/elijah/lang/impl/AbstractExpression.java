@@ -54,8 +54,8 @@ public abstract class AbstractExpression implements IExpression {
 	}
 
 	@Override
-	public void setKind(final ExpressionKind type1) {
-		_kind = type1;
+	public void setKind(final ExpressionKind aExpressionKind) {
+		_kind = aExpressionKind;
 	}
 
 	@Override

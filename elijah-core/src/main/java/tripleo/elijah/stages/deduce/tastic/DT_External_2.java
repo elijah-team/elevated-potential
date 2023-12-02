@@ -95,7 +95,7 @@ public class DT_External_2 implements DT_External {
 			assert fi.pte != pte;
 
 			if (fi.pte == null) {
-				System.err.println("******************************* Unexpected error");
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("******************************* Unexpected error");
 				return;
 			}
 
@@ -165,7 +165,7 @@ public class DT_External_2 implements DT_External {
 			}
 
 			pte.onFunctionInvocation((@NotNull FunctionInvocation functionInvocation) -> {
-				functionInvocation.generateDeferred().done((@NotNull BaseEvaFunction bgf) -> {
+				functionInvocation.generateDeferred().then((@NotNull BaseEvaFunction bgf) -> {
 					@NotNull
 					PromiseExpectation<GenType> pe = dc.promiseExpectation(bgf, "Function Result type");
 					bgf.typePromise().then((@NotNull GenType result) -> {
@@ -214,7 +214,7 @@ public class DT_External_2 implements DT_External {
 
 				if (target0 == null) {
 					if (false)
-						System.err.println("542542  ");
+						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("542542  ");
 					return;
 				}
 

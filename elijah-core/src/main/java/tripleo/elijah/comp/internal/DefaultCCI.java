@@ -34,11 +34,11 @@ public class DefaultCCI implements CCI {
 
 		IProgressSink t = null;
 		try {
-			t = _cis.ps;
-			_cis.ps = aPs;
+			t = _cis.getProgressSink();
+			_cis.setProgressSink(aPs);
 			_cis.onNext(ci); // CIO::l.add(aCompilerInstructions);
 		} finally {
-			_cis.ps = t;
+			_cis.setProgressSink(t);
 		}
 		// compilation.pushItem(ci);
 	}

@@ -8,17 +8,12 @@
  */
 package tripleo.elijah.stages.gen_generic;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.gen_fn.AbstractDependencyTracker;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_fn.EvaContainerNC;
-import tripleo.elijah.stages.gen_fn.GenType;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_fn.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created 9/13/21 4:00 AM
@@ -56,14 +51,14 @@ public class Dependency {
 			if (generatedFunction != null)
 				deps.add(generatedFunction.getDependency());
 			else
-				tripleo.elijah.util.Stupidity.println_err_2("52 false FunctionInvocation " + dependentFunction);
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("52 false FunctionInvocation " + dependentFunction);
 		}
 		for (GenType dependentType : aDependentTypes) {
 			final EvaContainerNC node = (EvaContainerNC) dependentType.getNode();
 			if (node != null)
 				deps.add(node.getDependency());
 			else {
-				tripleo.elijah.util.Stupidity.println_err_2(
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(
 						"46 node is null " + (dependentType.getResolved() != null ? dependentType.getResolved()
 								: dependentType.getResolvedn()));
 				final Dependency d = new Dependency(null);

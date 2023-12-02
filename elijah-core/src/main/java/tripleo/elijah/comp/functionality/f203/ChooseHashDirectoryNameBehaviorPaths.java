@@ -4,7 +4,6 @@ import org.apache.commons.codec.digest.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.nextgen.*;
-import tripleo.elijah.comp.nextgen.CP_SubFile.*;
 
 import java.io.*;
 import java.nio.file.*;
@@ -12,10 +11,10 @@ import java.time.*;
 import java.time.format.*;
 import java.util.*;
 
-import static org.apache.commons.codec.digest.MessageDigestAlgorithms.*;
+import static org.apache.commons.codec.digest.MessageDigestAlgorithms.SHA_256;
 
 public class ChooseHashDirectoryNameBehaviorPaths implements ChooseDirectoryNameBehavior {
-	private final Compilation   c;
+	private final Compilation  c;
 	private final LocalDateTime localDateTime;
 	public        CP_Path       p;
 
@@ -27,14 +26,14 @@ public class ChooseHashDirectoryNameBehaviorPaths implements ChooseDirectoryName
 
 	@NotNull
 	public File choose_dir_name() {
-		final List<IO._IO_ReadFile> recordedreads = c.getIO().recordedreads_io();
+		final List<IO_._IO_ReadFile> recordedreads = c.getIO().recordedreads_io();
 
 		final DigestUtils   digestUtils = new DigestUtils(SHA_256);
 		final StringBuilder sb1         = new StringBuilder();
 
 		// TODO similarity elsewhere
 		recordedreads.stream()
-				.map(IO._IO_ReadFile::getFileName)
+				.map(IO_._IO_ReadFile::getFileName)
 				.sorted()
 				.map(digestUtils::digestAsHex)
 				.forEach(sha256 -> {
@@ -71,11 +70,11 @@ public class ChooseHashDirectoryNameBehaviorPaths implements ChooseDirectoryName
 		final Path[] px = new Path[1];
 		p.getPathPromise().then(pp -> px[0] = pp);
 
-		CP_SubFile.CP_Path1 pp   = (CP_Path1) p;
-		File                root = null;
+		CP_SubFile__.CP_Path1 pp   = (CP_SubFile__.CP_Path1) p;
+		File                  root = null;
 
 		if (pp.op == null) {
-			CP_SubFile.CP_Path1 pp2 = (CP_Path1) pp.parent;
+			CP_SubFile__.CP_Path1 pp2 = (CP_SubFile__.CP_Path1) pp.parent;
 
 			if (pp2.op == null) {
 				assert false;

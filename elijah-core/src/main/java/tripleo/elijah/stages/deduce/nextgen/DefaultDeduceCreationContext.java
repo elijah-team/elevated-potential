@@ -5,6 +5,17 @@ import tripleo.elijah.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 
+/**
+ * Pivot off of a {@link DeduceTypes2} instance to provide "Context" useful when creating things in the Deduce realm
+ *
+ * Chatty explanation:
+ *
+ * 1. Pivot means only one variable is retained
+ *    a. the others could be stored as members for debugging (design decision)
+ *    b. there is no reason for computation, as they should all be created (so JIT can inline ;)
+ * 2. #makeGenerated_fi__Eventual is used in one place as of now
+ *
+ */
 public class DefaultDeduceCreationContext implements DeduceCreationContext {
 	private final DeduceTypes2 deduceTypes2;
 
@@ -13,8 +24,7 @@ public class DefaultDeduceCreationContext implements DeduceCreationContext {
 	}
 
 	@Override
-	@NotNull
-	public DeducePhase getDeducePhase() {
+	public @NotNull DeducePhase getDeducePhase() {
 		return deduceTypes2.phase;
 	}
 
@@ -24,18 +34,12 @@ public class DefaultDeduceCreationContext implements DeduceCreationContext {
 	}
 
 	@Override
-	@NotNull
-	public GeneratePhase getGeneratePhase() {
+	public @NotNull GeneratePhase getGeneratePhase() {
 		return getDeducePhase().generatePhase;
 	}
 
 	@Override
 	public Eventual<BaseEvaFunction> makeGenerated_fi__Eventual(final @NotNull FunctionInvocation aFunctionInvocation) {
-		final GeneratePhase generatePhase = getGeneratePhase();
-		final DeducePhase deducePhase = getDeducePhase();
-
-		final Deduce_CreationClosure cl = new Deduce_CreationClosure(deducePhase, this, deduceTypes2, generatePhase);
-
-		return aFunctionInvocation.makeGenerated__Eventual(cl, null);
+		return aFunctionInvocation.makeGenerated__Eventual(this, null);
 	}
 }

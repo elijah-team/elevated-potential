@@ -1,20 +1,13 @@
 package tripleo.elijah.world.impl;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.entrypoints.MainClassEntryPoint;
+import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.BaseFunctionDef;
-import tripleo.elijah.lang.impl.OS_PackageImpl;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah.stages.gen_fn.EvaNamespace;
-import tripleo.elijah.util.CompletableProcess;
-import tripleo.elijah.util.ObservableCompletableProcess;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
 
 import java.util.*;
@@ -22,7 +15,6 @@ import java.util.function.*;
 import java.util.stream.*;
 
 public class DefaultLivingRepo implements LivingRepo {
-
 	private final @NotNull ObservableCompletableProcess<WorldModule> wmo = new ObservableCompletableProcess<>();
 
 	private final Map<String, OS_Package> _packages = new HashMap<>();
@@ -131,10 +123,15 @@ public class DefaultLivingRepo implements LivingRepo {
 	}
 
 	@Override
+	public void addModule(final OS_Module mod, final String aFilename, final Compilation0 aC) {
+		addModule(mod, aFilename, (Compilation) aC);
+	}
+
+	//@Override
 	public void addModule(final @NotNull OS_Module mod,
 	                      final @NotNull String aFilename,
 	                      final @NotNull Compilation aC) {
-//		System.out.println("LivingRepo::addModule >> " + aFilename);
+//		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("LivingRepo::addModule >> " + aFilename);
 
 //		var t = aC.getCompilerInputListener();
 //		t.change(new EIT_ModuleInput(mod, aC), CompilerInput.CompilerInputField.DIRECTORY_RESULTS);
@@ -307,6 +304,7 @@ public class DefaultLivingRepo implements LivingRepo {
 		return _packages.containsKey(aPackageName);
 	}
 
+	@Override
 	public boolean isPackage(final String pkg) {
 		return _packages.containsKey(pkg);
 	}

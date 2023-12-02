@@ -2,9 +2,11 @@ package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.nextgen.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
@@ -14,9 +16,9 @@ import java.util.*;
 
 import static tripleo.elijah.util.Helpers.*;
 
-public class WriteOutputTreePipeline implements PipelineMember {
+public class WriteOutputTreePipeline extends PipelineMember implements GPipelineMember {
 	private static void addLogs(final @NotNull List<EOT_OutputFile> l, final @NotNull IPipelineAccess aPa) {
-		final List<ElLog> logs = aPa.getCompilationEnclosure().getPipelineLogic().getLogs();
+		final List<ElLog> logs = aPa.getCompilationEnclosure().getLogs();
 		final String s1 = logs.get(0).getFileName();
 
 		for (final ElLog log : logs) {
@@ -26,28 +28,32 @@ public class WriteOutputTreePipeline implements PipelineMember {
 				continue; // README Prelude.elijjah "fails" here
 
 			for (final LogEntry entry : log.getEntries()) {
-				final String logentry = String.format("[%s] [%tD %tT] %s %s", s1, entry.time, entry.time, entry.level,
-						entry.message);
+				final String logentry = String.format("[%s] [%tD %tT] %s %s",
+													  s1,
+													  entry.time(),
+													  entry.time(),
+													  entry.level(),
+													  entry.message());
 				stmts.add(new EG_SingleStatement(logentry + "\n"));
 			}
 
 			final EG_SequenceStatement seq = new EG_SequenceStatement(new EG_Naming("wot.log.seq"), stmts);
 			final String fileName = log.getFileName().replace("/", "~~");
-			final EOT_OutputFile off = new EOT_OutputFile(List_of(), fileName, EOT_OutputType.LOGS, seq);
+			final EOT_OutputFile off = new EOT_OutputFileImpl(List_of(), fileName, EOT_OutputType.LOGS, seq);
 			l.add(off);
 		}
 	}
 
 	private final IPipelineAccess pa;
 
-	public WriteOutputTreePipeline(final IPipelineAccess aPipelineAccess) {
-		pa = aPipelineAccess;
+	public WriteOutputTreePipeline(final @NotNull GPipelineAccess pa0) {
+		pa = (IPipelineAccess) pa0;
 	}
 
 	@Override
 	public void run(final @NotNull CR_State st, final CB_Output aOutput) throws Exception {
-		final Compilation compilation = st.ca().getCompilation();
-		final EOT_OutputTree ot = compilation.getOutputTree();
+		final Compilation   compilation = (Compilation) st.ca().getCompilation();
+		final EOT_OutputTree ot          = compilation.getOutputTree();
 		final List<EOT_OutputFile> l = ot.getList();
 
 		//
@@ -91,12 +97,17 @@ public class WriteOutputTreePipeline implements PipelineMember {
 			default -> throw new IllegalStateException("Unexpected value: " + outputFile.getType());
 			}
 
-			// System.err.println("106 " + pp);
+			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("106 " + pp);
 
 			paths.addNode(CP_RootType.OUTPUT, ER_Node.of(pp, seq));
 		}
 
 		paths.renderNodes();
+	}
+
+	@Override
+	public String finishPipeline_asString() {
+		return this.getClass().toString();
 	}
 
 }

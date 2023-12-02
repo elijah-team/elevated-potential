@@ -1,18 +1,28 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang2.SpecialVariables;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_fn.VariableTableEntry;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.stages.gen_fn.*;
 
 class ZoneVTE__1 implements ZoneVTE {
-	private final BaseEvaFunction _g_gf;
+	private final BaseEvaFunction    _g_gf;
 	private final VariableTableEntry _g_varTableEntry;
-	private String _realTargetName;
+	private final GenerateC          _g_gc;
+	private       String             _realTargetName;
 
-	public ZoneVTE__1(final VariableTableEntry aVarTableEntry, final BaseEvaFunction aGf) {
+	public ZoneVTE__1(final VariableTableEntry aVarTableEntry, final BaseEvaFunction aGf, final GenerateC aGc) {
 		_g_varTableEntry = aVarTableEntry;
-		_g_gf = aGf;
+		_g_gf            = aGf;
+		_g_gc            = aGc;
+	}
+
+	@Override
+	public @NotNull String getRealTargetName() {
+		if (_realTargetName == null) {
+			_realTargetName = calculate();
+		}
+
+		return Emit.emit("/*879*/") + _realTargetName; // TODO 10/19 EmittedString/Z whatever/EG_Stmt(ZoneVTE::getRealTargetName)
 	}
 
 	@NotNull
@@ -35,21 +45,12 @@ class ZoneVTE__1 implements ZoneVTE {
 		default -> {
 			if (SpecialVariables.contains(vte_name)) {
 				return SpecialVariables.get(vte_name);
-			} else if (GenerateC.isValue(_g_gf, vte_name)) {
+			} else if (GenerateC.isValue(this._g_gc.a_lookup(_g_gf), vte_name)) {
 				return "vsc->vsv";
 			} else {
 				return "vv" + vte_name;
 			}
 		}
 		}
-	}
-
-	@Override
-	public @NotNull String getRealTargetName() {
-		if (_realTargetName == null) {
-			_realTargetName = calculate();
-		}
-
-		return Emit.emit("/*879*/") + _realTargetName;
 	}
 }

@@ -1,25 +1,16 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.sense.*;
-import tripleo.elijah.util.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.i.CompilationClosure;
+import tripleo.elijah.comp.i.ILazyCompilerInstructions;
+import tripleo.elijah.util.Maybe;
 
-import java.util.function.*;
-
-public class CW_inputIsEzFile implements Sensable {
-	public void apply(final @NotNull CompilerInput input, final @NotNull CompilationClosure cc,
-			final @NotNull Consumer<CompilerInput> x) {
-		final ILazyCompilerInstructions ilci = ILazyCompilerInstructions.of(input, cc);
-
-		final Maybe<ILazyCompilerInstructions> m4 = Maybe.of(ilci);
+public class CW_inputIsEzFile {
+	public static void apply(final @NotNull CompilerInput input,
+							 final @NotNull CompilationClosure cc) {
+		final ILazyCompilerInstructions        ilci = ILazyCompilerInstructions_.of(input, cc);
+		final Maybe<ILazyCompilerInstructions> m4   = Maybe.of(ilci);
 		input.accept_ci(m4);
-		x.accept(input);
-	}
-
-	@Override
-	public SenseIndex index() {
-		return SenseIndex.senseIndex_CW_inputIsEzFile;
 	}
 }

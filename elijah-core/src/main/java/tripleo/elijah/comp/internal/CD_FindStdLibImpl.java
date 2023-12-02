@@ -5,7 +5,9 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.nextgen.impl.*;
+import tripleo.elijah.comp.nextgen.CP_Path;
+import tripleo.elijah.comp.nextgen.impl.CK_SourceFileFactory;
+import tripleo.elijah.g.GCR_State;
 import tripleo.elijah.util.*;
 
 import java.io.*;
@@ -16,31 +18,29 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 	private Operation2<CompilerInstructions> foundResult;
 
 	@Override
+	public void findStdLib(final GCR_State crState, final String aPreludeName, final Consumer<Operation2<CompilerInstructions>> coci) {
+		findStdLib((CR_State) crState, aPreludeName, coci);
+	}
+
+	//@Override
 	public void findStdLib(final @NotNull CR_State crState,
-	                       final @NotNull String aPreludeName,
-	                       final @NotNull Consumer<Operation2<CompilerInstructions>> coci) {
+						   final @NotNull String aPreludeName,
+						   final @NotNull Consumer<Operation2<CompilerInstructions>> coci) {
 		final CompilationRunner           compilationRunner = crState.runner();
 		final @NotNull CompilationClosure cc                = compilationRunner._accessCompilation().getCompilationClosure();
 		var                               slr               = cc.getCompilation().paths().stdlibRoot();
 		var                               pl                = slr.child("lib-" + aPreludeName);
-		var                               sle               = pl.child("stdlib.ez");
+		CP_Path                           sle               = pl.child("stdlib.ez");
 
 		@NotNull Operation2<CompilerInstructions> result = null;
 		try {
-			final File local_stdlib_1 = sle.toFile();
-
-			cc.getCompilation().getCompilationEnclosure().logProgress(CompProgress.DriverPhase, Pair.of(3939, ""+local_stdlib_1));
-
-			// TODO stdlib path here
-//			final File local_stdlib = CY_FindPrelude.__local_prelude_file(aPreludeName);
-			final File local_stdlib = new File("lib_elijjah/lib-" + aPreludeName + "/stdlib.ez");
-
+			final File local_stdlib = sle.toFile();
+			cc.getCompilation().getCompilationEnclosure().logProgress(CompProgress.DriverPhase, Pair.of(3939, "" + local_stdlib));
 
 			if (local_stdlib.exists()) {
 				try {
-//					final String name = local_stdlib.toString();
-//					final CK_SourceFile sourceFile2 = CK_SourceFileFactory.<OS_Module>get(local_stdlib, CK_SourceFileFactory.K.SpecifiedElijahFile);
-					final CK_SourceFile<CompilerInstructions> sourceFile2 = CK_SourceFileFactory.get(local_stdlib, CK_SourceFileFactory.K.SpecifiedEzFile);
+					//final CK_SourceFile<CompilerInstructions> sourceFile2 = sle.getSourceFile();
+					final CK_SourceFile<CompilerInstructions> sourceFile2 = CK_SourceFileFactory.get(sle, CK_SourceFileFactory.K.SpecifiedPathEzFile);
 					sourceFile2.associate(cc);
 
 					result = sourceFile2.process_query();
@@ -82,5 +82,6 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 	}
 
 
-	static class NeverReached extends RuntimeException {}
+	static class NeverReached extends RuntimeException {
+	}
 }

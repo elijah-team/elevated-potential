@@ -8,28 +8,18 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jdeferred2.DoneCallback;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.i.ErrSink;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.BaseFunctionDef;
-import tripleo.elijah.lang.types.OS_BuiltinType;
-import tripleo.elijah.lang.types.OS_FuncExprType;
-import tripleo.elijah.lang.types.OS_FuncType;
-import tripleo.elijah.lang.types.OS_UserClassType;
-import tripleo.elijah.util.Mode;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang.types.*;
 import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.nextgen.DR_Type;
-import tripleo.elijah.stages.deduce.post_bytecode.setup_GenType_Action;
-import tripleo.elijah.stages.deduce.post_bytecode.setup_GenType_Action_Arena;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.deduce.post_bytecode.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created 5/31/21 1:32 PM
@@ -402,7 +392,7 @@ public class GenTypeImpl implements GenType {
 		case USER_CLASS:
 			resolved = aType;
 		default:
-			tripleo.elijah.util.Stupidity.println_err_2("48 Unknown in set: " + aType);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("48 Unknown in set: " + aType);
 		}
 	}
 

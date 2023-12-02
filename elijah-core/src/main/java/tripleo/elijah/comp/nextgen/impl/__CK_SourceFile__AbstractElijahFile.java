@@ -17,8 +17,8 @@ import java.util.regex.*;
 
 abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {
 //	private final __CK_SourceFile__AbstractElijjahFile CKSourceFile__abstractElijahFile;
-	protected     Compilation                     compilation;
-	protected     CompilerInput                   input;
+	protected Compilation  compilation;
+	protected CompilerInput input;
 
 //	public __CK_SourceFile__AbstractElijjahFile(final __CK_SourceFile__AbstractElijjahFile aCKSourceFile__abstractElijahFile) {
 //		CKSourceFile__abstractElijahFile = aCKSourceFile__abstractElijahFile;
@@ -62,13 +62,13 @@ abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {
 
 	@Override
 	public void associate(final CompilationClosure aCc) {
-		compilation = aCc.getCompilation();
+		compilation = (Compilation) aCc.getCompilation();
 	}
 
 	@Override
 	public void associate(final CompilerInput aInput, final CompilationClosure aCc) {
 		input       = aInput;
-		compilation = aCc.getCompilation();
+		compilation = (Compilation) aCc.getCompilation();
 	}
 
 	@Override
@@ -86,36 +86,8 @@ abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {
 		throw new UnintendedUseException();
 	}
 
-	protected void asserverate() {
-//		if (getFileName() == null) return;
-//		if (compilation == null) return;
-//
-//		final String            file_name = getFileName();
-//		final File              file      = getFile();
-//		final Operation<String> hash      = new CA_getHashForFile().apply(file_name, file);
-//
-//		compilation.getObjectTree().asseverate(new Asseveration() {
-//			@Override
-//			public Object target() {
-//				return CKSourceFile__abstractEzFile;
-//			}
-//
-//			@Override
-//			public Asseverate code() {
-//				return Asseverate.CI_HASHED;
-//			}
-//
-//			@Override
-//			public void onLogProgress(CompilationEnclosure ce) {
-//				ce.logProgress2(CompProgress.Ez__HasHash, new AssererationLogProgress() {
-//					@Override
-//					public void call(PrintStream out, PrintStream err) {
-//						out.printf("[-- Ez has HASH ] %s %s%n", file_name, hash.success());
-//					}
-//				});
-//			}
-//		});
-	}
+	//protected void asserverate() {
+	//}
 
 	protected abstract File getFile();
 

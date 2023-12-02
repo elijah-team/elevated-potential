@@ -3,6 +3,7 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -15,7 +16,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 	private final @NotNull CompilerDriver    compilerDriver;
 	private final @NotNull Compilation       c;
 	//	private final @NotNull List<CB_Process> _processes = new ArrayList<>();
-	@SuppressWarnings("TypeMayBeWeakened")
+	//@SuppressWarnings("TypeMayBeWeakened")
 	private final          Queue<CB_Process> pq = new ConcurrentLinkedQueue<>();
 
 	private final @NotNull IProgressSink _defaultProgressSink;
@@ -28,11 +29,11 @@ public class DefaultCompilationBus implements ICompilationBus {
 //	};
 
 	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
-		c                    = ace.getCompilationAccess().getCompilation();
+		c                    = (@NotNull Compilation) ace.getCompilationAccess().getCompilation();
 		_monitor             = new CompilationRunner.__CompRunner_Monitor();
 		_defaultProgressSink = new DefaultProgressSink();
 
-		compilerDriver       = new CompilerDriver(this);
+		compilerDriver = new CompilerDriver__(this);
 		ace.setCompilerDriver(compilerDriver);
 	}
 
@@ -62,8 +63,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 				IProgressSink.Codes.LazyCompilerInstructions_inst,
 				ProgressSinkComponent.CompilationBus_,
 				-1,
-				new Object[]{aLazyCompilerInstructions.get()}
-		);
+				new Object[]{aLazyCompilerInstructions.get()});
 	}
 
 	@Override
@@ -77,20 +77,21 @@ public class DefaultCompilationBus implements ICompilationBus {
 	}
 
 	public void runProcesses() {
-		var procs = pq;
-
-		final Thread thread = new Thread(() -> __run_all_thread(procs));
-		thread.start();
+		final Queue<CB_Process> procs       = pq;
+		final Compilation       compilation = this.c;
+		final Startable         task        = compilation.con().askConcurrent(() -> __run_all_thread(procs), "[DefaultCompilationBus]");
+		task.start();
 
 		try {
+			// TODO 10/20 Remove this soon
+			final Thread thread = task.stealThread();
+
 			thread.join();//TimeUnit.MINUTES.toMillis(1));
 
-/*
 			for (final CB_Process process : pq) {
-				System.err.println("5757 " + process.name());
-				process.execute(this);
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("5757 " + process.name());
+				execute_process(this, process);
 			}
-*/
 
 			thread.stop();
 		} catch (InterruptedException aE) {
@@ -98,11 +99,20 @@ public class DefaultCompilationBus implements ICompilationBus {
 		}
 	}
 
+	private void execute_process(final DefaultCompilationBus ignoredADefaultCompilationBus, final CB_Process aProcess) {
+		//CompilationUnitTree
+		//Compilation.Cheat.executeCB_Action(aProcess);
+		if (alreadyP.contains(aProcess)) throw new Error();
+		alreadyP.add(aProcess);
+	}
+
+	List<CB_Process> alreadyP = new ArrayList<>();
+
 	private void __run_all_thread(final Queue<CB_Process> procs) {
 		// FIXME passing sh*t between threads (P.O.!)
 		_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
-		boolean x = true;
-		while (x) {
+		long x = 0;
+		while (x < 12) {
 			final CB_Process poll = procs.poll();
 
 			if (poll != null) {
@@ -110,8 +120,14 @@ public class DefaultCompilationBus implements ICompilationBus {
 				poll.execute(this);
 			} else {
 				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
-				x = false;
+				try {
+					Thread.sleep(500);
+					x = 0;
+				} catch (InterruptedException aE) {
+					//throw new RuntimeException(aE);
+				}
 			}
+			++x;
 		}
 	}
 

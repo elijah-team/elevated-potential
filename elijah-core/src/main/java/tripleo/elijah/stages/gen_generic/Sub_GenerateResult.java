@@ -1,20 +1,16 @@
 package tripleo.elijah.stages.gen_generic;
 
 import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.subjects.ReplaySubject;
-import io.reactivex.rxjava3.subjects.Subject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.stages.gen_c.OutputFileC;
+import io.reactivex.rxjava3.subjects.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.util.buffer.Buffer;
+import tripleo.elijah.util.*;
+import tripleo.util.buffer.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
+import java.util.*;
+import java.util.function.*;
 
 public class Sub_GenerateResult implements GenerateResult {
 	final List<Old_GenerateResultItem> _res = new ArrayList<Old_GenerateResultItem>();
@@ -24,7 +20,7 @@ public class Sub_GenerateResult implements GenerateResult {
 	private Map<String, OutputFileC> outputFiles;
 
 	public Sub_GenerateResult() {
-		// System.err.println("** ctor Sub_GenerateResult");
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("** ctor Sub_GenerateResult");
 	}
 
 	/*
@@ -41,7 +37,7 @@ public class Sub_GenerateResult implements GenerateResult {
 	public void add(@NotNull Buffer b, @NotNull EvaNode n, @NotNull TY ty, @Nullable LibraryStatementPart aLsp,
 			@NotNull Dependency d) {
 		if (aLsp == null) {
-			tripleo.elijah.util.Stupidity.println_err_2("*************************** buffer --> " + b.getText());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("*************************** buffer --> " + b.getText());
 			return;
 		}
 

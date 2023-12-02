@@ -7,22 +7,8 @@ import antlr.collections.impl.BitSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.lang.i.Context;
-import tripleo.elijah.lang.i.Documentable;
-import tripleo.elijah.lang.i.ExpressionKind;
-import tripleo.elijah.lang.i.ExpressionList;
-import tripleo.elijah.lang.i.FuncExpr;
-import tripleo.elijah.lang.i.GetItemExpression;
-import tripleo.elijah.lang.i.IExpression;
-import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.lang.i.IdentList;
-import tripleo.elijah.lang.i.ListExpression;
-import tripleo.elijah.lang.i.ProcedureCallExpression;
-import tripleo.elijah.lang.i.Qualident;
-import tripleo.elijah.lang.i.QualidentList;
-import tripleo.elijah.lang.i.TypeCastExpression;
-import tripleo.elijah.lang.i.TypeName;
+import tripleo.elijah.comp.PCon;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.BuiltInTypes;
 
 public class EzParser extends antlr.LLkParser implements EzTokenTypes {
@@ -109,7 +95,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return data;
 	}
 
-	public Compilation.PCon pcon;
+	public PCon pcon;
 
 	public @NotNull CompilerInstructions ci;
 
@@ -1510,8 +1496,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							}
 							e3 = shiftExpression();
 							if (inputState.guessing == 0) {
-								ee = pcon.ExpressionBuilder_build(ee, e2, e3);
-								ee.setType(pcon.newOS_BuiltinType(BuiltInTypes.Boolean));
+								final OS_Type t = pcon.newOS_BuiltinType(BuiltInTypes.Boolean);
+								ee = pcon.ExpressionBuilder_build(ee, e2, e3, t);
 							}
 						} else {
 							break _loop72;

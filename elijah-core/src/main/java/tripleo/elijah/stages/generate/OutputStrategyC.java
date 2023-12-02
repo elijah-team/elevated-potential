@@ -14,11 +14,11 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
+import tripleo.elijah.lang.impl.LangGlobals;
+import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
-import tripleo.elijah.world.*;
 
 import java.io.File;
 
@@ -26,7 +26,7 @@ import java.io.File;
  * Created 1/13/21 5:54 AM
  */
 public class OutputStrategyC {
-	public class OSC_NFC implements EOT_OutputFile.FileNameProvider {
+	public class OSC_NFC implements EOT_FileNameProvider {
 		String lsp;
 
 		String dir;
@@ -67,7 +67,7 @@ public class OutputStrategyC {
 		}
 	}
 
-	public class OSC_NFCo implements EOT_OutputFile.FileNameProvider {
+	public class OSC_NFCo implements EOT_FileNameProvider {
 		private final String s;
 
 		public OSC_NFCo(final String aS) {
@@ -80,7 +80,7 @@ public class OutputStrategyC {
 		}
 	}
 
-	public class OSC_NFF implements EOT_OutputFile.FileNameProvider {
+	public class OSC_NFF implements EOT_FileNameProvider {
 		private final String s;
 
 		public OSC_NFF(final String aS) {
@@ -94,7 +94,7 @@ public class OutputStrategyC {
 
 	}
 
-	public class OSC_NFN implements EOT_OutputFile.FileNameProvider {
+	public class OSC_NFN implements EOT_FileNameProvider {
 		private final @Nullable String s;
 		private final @Nullable String lsp0;
 		private final @Nullable String name0;
@@ -119,7 +119,7 @@ public class OutputStrategyC {
 		}
 	}
 
-	public class OSC_NFN_ implements EOT_OutputFile.FileNameProvider {
+	public class OSC_NFN_ implements EOT_FileNameProvider {
 		private final @Nullable String s;
 
 		public OSC_NFN_(final EvaNamespace aX, final GenerateResult.TY aTy) {
@@ -182,7 +182,7 @@ public class OutputStrategyC {
 		case PER_PACKAGE -> {
 			final OS_Package pkg2 = aEvaClass.getKlass().getPackageName();
 			String pkgName;
-			if (pkg2 != WorldGlobals.default_package) { // FIXME ??
+			if (pkg2 != LangGlobals.default_package) { // FIXME ??
 				pkgName = "__default_package-224";
 			} else {
 				pkgName = pkg2.getName();
@@ -205,7 +205,7 @@ public class OutputStrategyC {
 		final OS_Package pkg;
 
 		final String dir0;
-		if (pkg0 != WorldGlobals.default_package) {
+		if (pkg0 != LangGlobals.default_package) {
 			if (pkg0 == null) {
 				pkg = findPackage(aEvaClass.getKlass());
 			} else {
@@ -266,7 +266,7 @@ public class OutputStrategyC {
 
 	private String n_pkg(final @NotNull EvaNamespace generatedNamespace, @Nullable OS_Package pkg) {
 		final String name0;
-		if (pkg != WorldGlobals.default_package) {
+		if (pkg != LangGlobals.default_package) {
 			if (pkg == null)
 				pkg = findPackage(generatedNamespace.getNamespaceStatement());
 			name0 = pkg.getName();
@@ -331,8 +331,8 @@ public class OutputStrategyC {
 		return null;
 	}
 
-	public @NotNull EOT_OutputFile.FileNameProvider nameForFunction1(final @NotNull EvaFunction aGf,
-			final GenerateResult.@NotNull TY aTy) {
+	public @NotNull EOT_FileNameProvider nameForFunction1(final @NotNull EvaFunction aGf,
+														  final GenerateResult.@NotNull TY aTy) {
 		return new OSC_NFF(nameForFunction(aGf, aTy));
 	}
 
@@ -371,8 +371,8 @@ public class OutputStrategyC {
 		return new OSC_NFN(lsp0, name0, filename, extension0).getFilename();
 	}
 
-	public EOT_OutputFile.FileNameProvider nameForNamespace1(final @NotNull EvaNamespace aX,
-			final GenerateResult.@NotNull TY aTy) {
+	public EOT_FileNameProvider nameForNamespace1(final @NotNull EvaNamespace aX,
+												  final GenerateResult.@NotNull TY aTy) {
 		return new OSC_NFN_(aX, aTy);
 	}
 

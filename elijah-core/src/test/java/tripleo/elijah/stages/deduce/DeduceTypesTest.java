@@ -13,21 +13,23 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.contexts.FunctionContext;
-import tripleo.elijah.contexts.ModuleContext;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.contexts.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.OS_BuiltinType;
 import tripleo.elijah.lang.types.OS_UserType;
 import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.stages.deduce.Resolve_Ident_IA.DeduceElementIdent;
 import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.gen_fn.GenType;
 import tripleo.elijah.stages.gen_fn.IdentTableEntry;
-import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah.world.impl.DefaultWorldModule;
@@ -57,7 +59,7 @@ public class DeduceTypesTest {
 		boilerplate.getGenerateFiles(boilerplate.defaultMod());
 
 		final OS_Module mod = boilerplate.defaultMod();
-		final ModuleContext mctx = new ModuleContext(mod);
+		final ModuleContext mctx = new ModuleContext__(mod);
 		mod.setContext(mctx);
 
 		final ClassStatement cs = new ClassStatementImpl(mod, mod.getContext());
@@ -80,18 +82,22 @@ public class DeduceTypesTest {
 		fd.postConstruct();
 		cs.postConstruct();
 		mod.postConstruct();
-		final FunctionContext fc = (FunctionContext) fd.getContext(); // TODO needs to be mocked
-		final IdentExpression x1 = Helpers0.string_to_ident("x");
+		final IFunctionContext fc = (IFunctionContext) fd.getContext(); // TODO needs to be mocked
+		final IdentExpression  x1 = Helpers0.string_to_ident("x");
 		x1.setContext(fc);
 
-		mod.setPrelude(mod.getCompilation().findPrelude("c").success().module());
+		final Compilation0 compilation = mod.getCompilation();
+		final Operation2<GWorldModule> opg = compilation.findPrelude("c");
+		final WorldModule success = (WorldModule)opg.success();
+
+		mod.setPrelude(success.module());
 
 		// final PipelineLogic pl = boilerplate.pipelineLogic;
 
-		final ElLog.Verbosity verbosity = Compilation.gitlabCIVerbosity();
-		final DeducePhase dp = boilerplate.getDeducePhase();
+		final ElLog_.Verbosity verbosity = CompilationImpl.gitlabCIVerbosity();
+		final DeducePhase      dp        = boilerplate.getDeducePhase();
 
-		var wm = new DefaultWorldModule(mod, boilerplate.comp.getCompilationEnclosure());
+		var wm = new DefaultWorldModule(mod, (CompilationEnclosure) boilerplate.comp.getCompilationEnclosure());
 
 		final DeduceTypes2 d = dp.deduceModule(wm, dp.generatedClasses, verbosity);
 
@@ -104,14 +110,14 @@ public class DeduceTypesTest {
 		final DeduceElementIdent dei = new DeduceElementIdent(ite);
 		final DeduceElement3_IdentTableEntry de3_ite = ite.getDeduceElement3(d, bgf);
 
-		final Operation2<WorldModule> fpl0 = boilerplate.comp.findPrelude("c");
+		final Operation2<GWorldModule> fpl0 = boilerplate.comp.findPrelude("c");
 		assert fpl0.mode() == Mode.SUCCESS;
 		// final Operation2<OS_Module> fpl = boilerplate.comp.findPrelude("c");
-		mod.setPrelude(fpl0.success().module());
+		mod.setPrelude(((WorldModule) fpl0.success()).module());
 
 		final DeduceElement3_IdentTableEntry xxx = DeduceLookupUtils.deduceExpression2(de3_ite, fc);
 		this.x = xxx.genType();
-		tripleo.elijah.util.Stupidity.println_out_2(String.valueOf(this.x));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(String.valueOf(this.x));
 	}
 
 	/**

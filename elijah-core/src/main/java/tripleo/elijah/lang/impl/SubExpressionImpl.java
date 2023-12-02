@@ -6,12 +6,6 @@
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
  *
  */
-/*
- * Created on Sep 1, 2005 8:28:33 PM
- *
- * $Id$
- *
- */
 package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.NotNull;
@@ -19,6 +13,9 @@ import tripleo.elijah.lang.i.ExpressionKind;
 import tripleo.elijah.lang.i.IExpression;
 import tripleo.elijah.lang.i.OS_Type;
 
+/*
+ * Created on Sep 1, 2005 8:28:33 PM
+ */
 public class SubExpressionImpl extends AbstractExpression implements tripleo.elijah.lang.i.SubExpression {
 
 	private final IExpression carrier;
@@ -38,19 +35,10 @@ public class SubExpressionImpl extends AbstractExpression implements tripleo.eli
 	}
 
 	@Override
-	public OS_Type getType() {
-		return carrier.getType();
-	}
-
-	@Override
 	public boolean is_simple() {
 		return true;
 	}
 
-	@Override
-	public void setType(final OS_Type deducedExpression) {
-		throw new IllegalStateException("Cant set this type");
-	}
 }
 
 //

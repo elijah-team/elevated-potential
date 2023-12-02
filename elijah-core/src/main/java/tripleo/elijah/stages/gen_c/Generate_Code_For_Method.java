@@ -11,7 +11,8 @@ package tripleo.elijah.stages.gen_c;
 import com.google.common.base.*;
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.DebugFlags;
+import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
@@ -29,8 +30,6 @@ import tripleo.elijah.work.*;
 
 import java.util.*;
 
-import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
-
 /**
  * Created 6/21/21 5:53 AM
  */
@@ -38,8 +37,6 @@ public class Generate_Code_For_Method {
 	final         BufferTabbedOutputStream tos             = new BufferTabbedOutputStream();
 	final         BufferTabbedOutputStream tosHdr          = new BufferTabbedOutputStream();
 	final         ElLog                    LOG;
-	// TODO 10/14 Remove this when we implement Reactive functionality properly
-	private final boolean                  MANUAL_DISABLED = false;
 	private final GenerateC                gc;
 	boolean is_constructor = false, is_unit_type = false;
 
@@ -226,7 +223,7 @@ public class Generate_Code_For_Method {
 
 		assert x instanceof ProcIA;
 
-		final ProcTableEntry pte = gf.getProcTableEntry(to_int(x));
+		final ProcTableEntry pte = gf.getProcTableEntry(DeduceTypes2.to_int(x));
 
 		final GCX_FunctionCall_Special gcx_fc = new GCX_FunctionCall_Special(pte, gf, gc, aInstruction);
 
@@ -325,8 +322,8 @@ public class Generate_Code_For_Method {
 	void action_invariant(final @NotNull WhyNotGarish_BaseFunction yf, final Generate_Method_Header aGmh) {
 		tos.incr_tabs();
 		//
-		@NotNull
-		final List<Instruction> instructions = yf.instructions();
+		@NotNull final List<Instruction> instructions = yf.instructions();
+
 		for (int instruction_index = 0; instruction_index < instructions.size(); instruction_index++) {
 			final Instruction instruction = instructions.get(instruction_index);
 //			LOG.err("8999 "+instruction);
@@ -558,11 +555,11 @@ public class Generate_Code_For_Method {
 
 	void generateCodeForConstructor(final @NotNull DeducedEvaConstructor dgf,
 									final @NotNull GenerateResultEnv fileGen) {
-		final EvaConstructor gf = dgf.getCarrier();
-		final GenerateResult gr = fileGen.gr();
-		final WorkList aWorkList = fileGen.wl();
-		final WhyNotGarish_Constructor yf = gc.a_lookup(gf);
-		final C2C_CodeForConstructor cfm = new C2C_CodeForConstructor(this, fileGen, yf);
+		final EvaConstructor           gf        = dgf.getCarrier();
+		final GenerateResult           gr        = fileGen.gr();
+		final WorkList                 aWorkList = fileGen.wl();
+		final WhyNotGarish_Constructor yf        = gc.a_lookup(gf);
+		final C2C_CodeForConstructor   cfm       = new C2C_CodeForConstructor(this, fileGen, yf);
 
 		// cfm.calculate();
 		var rs = cfm.getResults();
@@ -573,7 +570,7 @@ public class Generate_Code_For_Method {
 
 		gf.reactive().add(gcfc);
 
-		if (!MANUAL_DISABLED) {
+		if (!DebugFlags.MANUAL_DISABLED) {
 			gcfc.respondTo(this.gc);
 		}
 	}
@@ -606,15 +603,14 @@ public class Generate_Code_For_Method {
 	}
 */
 
-	void generateCodeForMethod(final @NotNull DeducedBaseEvaFunction dgf, final @NotNull GenerateResultEnv aFileGen) {
-		// var xx = gc.a_lookup(gf);
+	void generateCodeForMethod(final WhyNotGarish_Function yf, final @NotNull GenerateResultEnv aFileGen) {
+		final DeducedBaseEvaFunction dgf = yf.deduced();
+		final IEvaFunctionBase       gf  = dgf.getCarrier();
+		final BaseEvaFunction        bef = (BaseEvaFunction) gf;
 
-		final IEvaFunctionBase gf = dgf.getCarrier();
-		final BaseEvaFunction bef = (BaseEvaFunction) gf;
-
-		// xx.onFileGen(aFileGen);
+		// yf.onFileGen(aFileGen);
 		// TODO separate into method and method_header??
-		final C2C_CodeForMethod cfm = new C2C_CodeForMethod(this, dgf, aFileGen);
+		final C2C_CodeForMethod cfm = new C2C_CodeForMethod(this, yf, aFileGen);
 
 		// cfm.calculate();
 		var rs = cfm.getResults();
@@ -628,7 +624,7 @@ public class Generate_Code_For_Method {
 
 		dgf.reactive().add(gcfm);
 
-		if (!MANUAL_DISABLED) {
+		if (!DebugFlags.MANUAL_DISABLED) {
 			gcfm.respondTo(this.gc);
 		}
 

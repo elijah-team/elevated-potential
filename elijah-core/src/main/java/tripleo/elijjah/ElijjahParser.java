@@ -9,10 +9,7 @@ import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.builder.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.BaseFunctionDef;
-import tripleo.elijah.lang.impl.ExpressionBuilder;
-import tripleo.elijah.lang.impl.InvariantStatement;
-import tripleo.elijah.lang.impl.MatchConditionalImpl;
+import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.imports.*;
 import tripleo.elijah.lang2.*;
 
@@ -1322,7 +1319,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 			}
 			match(LCURLY);
 			if (inputState.guessing == 0) {
-				ctx = cls.getContext();
+				ctx = (ClassContext) cls.getContext();
 				cur = ctx;
 			}
 			{
@@ -2173,9 +2170,9 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 	public final void frobeIteration(StatementClosure cr) throws RecognitionException, TokenStreamException {
 
-		Loop loop = cr.loop();
-		LoopContext ctx = null;
-		IdentExpression i1 = null, i2 = null, i3 = null;
+		Loop            loop = cr.loop();
+		LoopContextImpl ctx  = null;
+		IdentExpression i1   = null, i2 = null, i3 = null;
 
 		try { // for error handling
 			match(LITERAL_iterate);
@@ -2318,9 +2315,9 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 	public final void funcExpr(FuncExpr pc) throws RecognitionException, TokenStreamException {
 
 		Scope3 sc = null;
-		TypeName tn = null;
-		FuncExprContext ctx = null;
-		FormalArgList fal = null;
+		TypeName            tn  = null;
+		FuncExprContextImpl ctx = null;
+		FormalArgList       fal = null;
 
 		try { // for error handling
 			{
@@ -3814,7 +3811,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 		return tn;
 	}
 
-	public final void invariantStatement(InvariantStatement cr) throws RecognitionException, TokenStreamException {
+	public final void invariantStatement(IInvariantStatement cr) throws RecognitionException, TokenStreamException {
 
 		Token i1 = null;
 		InvariantStatementPart isp = null;
@@ -3927,9 +3924,9 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 	public final void matchConditional(MatchConditional mc, OS_Element aParent)
 			throws RecognitionException, TokenStreamException {
 
-		MatchConditionalImpl.MatchArm_TypeMatch mcp1 = null;
-		MatchConditionalImpl.MatchConditionalPart2 mcp2 = null;
-		MatchConditionalImpl.MatchConditionalPart3 mcp3 = null;
+		MatchArm_TypeMatch mcp1 = null;
+		IMatchConditionalPart2 mcp2 = null;
+		MatchConditionalPart3 mcp3 = null;
 		TypeName tn = null;
 		IdentExpression i1 = null;
 		MatchContext ctx = null;
@@ -4166,9 +4163,9 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 	public final void namespaceStatement(NamespaceStatement cls, List<AnnotationClause> as)
 			throws RecognitionException, TokenStreamException {
 
-		AnnotationClause a = null;
-		NamespaceContext ctx = null;
-		IdentExpression i1 = null;
+		AnnotationClause   a   = null;
+		NamespaceContext__ ctx = null;
+		IdentExpression    i1  = null;
 
 		try { // for error handling
 			if (inputState.guessing == 0) {
@@ -4601,9 +4598,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							}
 						}
 						if (inputState.guessing == 0) {
-							ProcedureCallExpression pce = pcon.new_ProcedureCallExpressionImpl();
-							pce.identifier(ee);
-							pce.setArgs(el);
+							ProcedureCallExpression pce = pcon.new_ProcedureCallExpressionImpl(ee, el);
 							ee = pce;
 						}
 						match(RPAREN);
@@ -5352,8 +5347,8 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 								}
 								e3 = shiftExpression();
 								if (inputState.guessing == 0) {
-									ee = ExpressionBuilder.build(ee, e2, e3);
-									ee.setType(pcon.new_OS_BuiltinType(BuiltInTypes.Boolean));
+									var t = pcon.new_OS_BuiltinType(BuiltInTypes.Boolean);
+									ee = ExpressionBuilder.build(ee, e2, e3, t);
 								}
 							} else {
 								break _loop205;
@@ -6235,8 +6230,8 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 	public final void whileLoop(StatementClosure cr) throws RecognitionException, TokenStreamException {
 
-		Loop loop = cr.loop();
-		LoopContext ctx;
+		Loop         loop = cr.loop();
+		ILoopContext ctx;
 
 		try { // for error handling
 			{
@@ -6252,7 +6247,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 					}
 					if (inputState.guessing == 0) {
 						ctx = pcon.new_LoopContext(cur, loop);
-						loop.setContext((LoopContext) ctx);
+						loop.setContext((LoopContextImpl) ctx);
 						cur = ctx;
 					}
 					sco = scope3(loop);
@@ -6268,7 +6263,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 					}
 					if (inputState.guessing == 0) {
 						ctx = pcon.new_LoopContext(cur, loop);
-						loop.setContext((LoopContext) ctx);
+						loop.setContext((LoopContextImpl) ctx);
 						cur = ctx;
 					}
 					sco = scope3(loop);
@@ -6299,8 +6294,8 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 	public final void withStatement(OS_Element aParent) throws RecognitionException, TokenStreamException {
 
-		WithStatement ws = pcon.new_WithStatementImpl(aParent);
-		WithContext ctx = null;
+		WithStatement ws  = pcon.new_WithStatementImpl(aParent);
+		IWithContext  ctx = null;
 
 		try { // for error handling
 			match(LITERAL_with);

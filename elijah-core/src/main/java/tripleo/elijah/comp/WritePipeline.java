@@ -12,12 +12,14 @@ import com.google.common.collect.*;
 import io.reactivex.rxjava3.annotations.*;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.AccessBus.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.generate.*;
@@ -27,13 +29,152 @@ import tripleo.elijah.util.*;
 
 import java.util.*;
 import java.util.function.*;
+import java.util.stream.*;
 
 import static tripleo.elijah.util.Helpers.*;
 
 /**
  * Created 8/21/21 10:19 PM
  */
-public class WritePipeline implements PipelineMember, Consumer<Supplier<GenerateResult>>, AB_GenerateResultListener {
+public class WritePipeline extends PipelineMember implements Consumer<Supplier<GenerateResult>>, AB_GenerateResultListener, GPipelineMember {
+	private final          DeferredObject<GenerateResult, Void, Void> generateResultPromise = new DeferredObject<>();
+	private final @NotNull WritePipelineSharedState                   st;
+	private final @NotNull CompletedItemsHandler                      cih;
+	private final @NotNull DoubleLatch<GenerateResult> latch;
+
+	private WP_Flow.OPS ops;
+
+	private final CK_Monitor monitor = new CK_Monitor() {
+		@Override
+		public void reportSuccess() {
+			int y=2;
+		}
+
+		@Override
+		public void reportFailure() {
+			int y=2;
+		}
+	};
+
+	public WritePipeline(final @NotNull GPipelineAccess pa0) {
+		final IPipelineAccess pa = (IPipelineAccess) pa0;
+
+		st = new WritePipelineSharedState(pa);
+
+		// computed
+
+		// created
+		latch = new DoubleLatch<GenerateResult>(gr -> doubleLatch_GenerateResult(gr, pa));
+
+		// state
+		st.mmb = ArrayListMultimap.create();
+		st.lsp_outputs = ArrayListMultimap.create();
+		st.grs = pa.getGenerateResultSink();
+
+		// ??
+		st.sys = new ElSystem(false, st.c, this::createOutputStratgy);
+
+		cih = new CompletedItemsHandler(st);
+
+		pa.getAccessBus().subscribe_GenerateResult(this::gr_slot);
+		pa.getAccessBus().subscribe_GenerateResult(generateResultPromise::resolve);
+
+		pa.setWritePipeline(this);
+
+		// st.outputs = pa.getOutputs();
+	}
+
+	private void doubleLatch_GenerateResult(final GenerateResult gr, final @NotNull IPipelineAccess pa) {
+		st.setGr(gr);
+
+		final WP_Individual_Step wpis_go = new WPIS_GenerateOutputs();
+		final WP_Individual_Step wpis_wi = new WPIS_WriteInputs();
+		final WP_Individual_Step wpis_wb = new WPIS_WriteBuffers(WritePipeline.this);
+
+		// TODO: Do something with op, like set in {@code pa} to proceed to next pipeline
+		// TODO 10/18 this is a CK_Steps
+		final List<WP_Individual_Step> pises = List_of(wpis_go, wpis_wi, wpis_wb);
+		final WP_Flow                  f     = new WP_Flow(WritePipeline.this, pa, pises);
+
+
+		// comment
+		//ops = f.act();
+
+		CK_Steps steps = new CK_Steps() {
+
+			// TODO 10/18 I'm sure there is a better way to do this
+			@Override
+			public List<CK_Action> steps() {
+				return pises.stream()
+						.map(p -> (CK_Action)p)
+						.collect(Collectors.toList());
+			}
+		};
+
+		// comment
+		f.sc = new WP_State_Control_1();
+
+		CK_StepsContext stepsContext = f;
+		pa.runStepsNow(steps, stepsContext);
+
+		pa.finishPipeline(WritePipeline.this, ops);
+	}
+
+	//WritePipeline_CK_StepsContext stepsContext = new WritePipeline_CK_StepsContext();
+
+	@Override
+	public void accept(final @NotNull Supplier<GenerateResult> aGenerateResultSupplier) {
+		//final GenerateResult gr = aGenerateResultSupplier.get();
+		int y = 2;
+	}
+
+	public @NotNull Consumer<Supplier<GenerateResult>> consumer() {
+		if (false) {
+			return new Consumer<Supplier<GenerateResult>>() {
+				@Override
+				public void accept(final Supplier<GenerateResult> aGenerateResultSupplier) {
+					// final GenerateResult gr = aGenerateResultSupplier.get();
+				}
+			};
+		}
+
+		return (x) -> {
+		};
+	}
+
+	@NotNull
+	OutputStrategy createOutputStratgy() {
+		final OutputStrategy os = new OutputStrategy();
+		os.per(OutputStrategy.Per.PER_CLASS); // TODO this needs to be configured per lsp
+
+		return os;
+	}
+
+	@Override
+	public void gr_slot(final @NotNull GenerateResult gr1) {
+		Objects.requireNonNull(gr1);
+		latch.notifyData(gr1);
+		gr1.subscribeCompletedItems(cih.observer());
+	}
+
+	//@Override
+	public void run(final CR_State aSt, final CB_Output aOutput) throws Exception {
+		latch.notifyLatch(true);
+	}
+
+	@Override
+	public String finishPipeline_asString() {
+		return this.getClass().toString();
+	}
+
+	public DeferredObject<GenerateResult, Void, Void> getGenerateResultPromise() {
+		return generateResultPromise;
+	}
+
+	public WritePipelineSharedState getSt() {
+		return st;
+	}
+
 	private static class CompletedItemsHandler {
 		// README debugging purposes
 		private final List<GenerateResultItem> abs = new ArrayList<>();
@@ -45,10 +186,10 @@ public class WritePipeline implements PipelineMember, Consumer<Supplier<Generate
 		public CompletedItemsHandler(final WritePipelineSharedState aSharedState) {
 			sharedState = aSharedState;
 
-			final ElLog.Verbosity verbosity = sharedState.c.cfg().silent ? ElLog.Verbosity.SILENT
-					: ElLog.Verbosity.VERBOSE;
+			final ElLog_.Verbosity verbosity = sharedState.c.cfg().silent ? ElLog_.Verbosity.SILENT
+					: ElLog_.Verbosity.VERBOSE;
 
-			LOG = new ElLog("(WRITE-PIPELINE)", verbosity, "(write-pipeline)");
+			LOG = new ElLog_("(WRITE-PIPELINE)", verbosity, "(write-pipeline)");
 
 			sharedState.pa.addLog(LOG);
 		}
@@ -89,13 +230,13 @@ public class WritePipeline implements PipelineMember, Consumer<Supplier<Generate
 
 				// for (Map.Entry<Dependency, Collection<GenerateResultItem>> entry :
 				// gris.asMap().entrySet()) {
-				// System.out.println(entry.getKey().jsonString());
-				// System.out.println(entry.getValue());
+				// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(entry.getKey().jsonString());
+				// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(entry.getValue());
 				// }
 
 				/*
-				 * if (gris.containsKey(dependency)) System.out.println("*** 235 yes"); else
-				 * System.out.println("*** 235 no");
+				 * if (gris.containsKey(dependency)) tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("*** 235 yes"); else
+				 * tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("*** 235 no");
 				 */
 
 				gris.removeAll(dependency);
@@ -108,7 +249,7 @@ public class WritePipeline implements PipelineMember, Consumer<Supplier<Generate
 			final @NotNull GenerateResult generateResult = sharedState.getGr();
 
 			generateResult.outputFiles((final @NotNull Map<String, OutputFileC> outputFiles) -> {
-				// 08/13 System.err.println("252252"); // 06/16
+				// 08/13 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("252252"); // 06/16
 			});
 		}
 
@@ -138,91 +279,6 @@ public class WritePipeline implements PipelineMember, Consumer<Supplier<Generate
 
 			return observer;
 		}
-	}
-
-	public final DeferredObject<GenerateResult, Void, Void> generateResultPromise = new DeferredObject<>();
-	public final @NotNull WritePipelineSharedState st;
-	private final @NotNull CompletedItemsHandler cih;
-	private final @NotNull DoubleLatch<GenerateResult> latch;
-
-	private HashMap<WP_Indiviual_Step, Pair<WP_Flow.FlowStatus, Operation<Boolean>>> ops;
-
-	public WritePipeline(final @NotNull IPipelineAccess pa) {
-		st = new WritePipelineSharedState(pa);
-
-		// computed
-
-		// created
-		latch = new DoubleLatch<GenerateResult>(gr -> {
-			st.setGr(gr);
-
-			final WP_Indiviual_Step wpis_go = new WPIS_GenerateOutputs();
-			final WP_Indiviual_Step wpis_wi = new WPIS_WriteInputs();
-			final WP_Indiviual_Step wpis_wb = new WPIS_WriteBuffers(this);
-
-			// TODO: Do something with op, like set in {@code pa} to proceed to next
-			// pipeline
-			final WP_Flow f = new WP_Flow(this, List_of(wpis_go, wpis_wi, wpis_wb));
-
-			ops = f.act();
-		});
-
-		// state
-		st.mmb = ArrayListMultimap.create();
-		st.lsp_outputs = ArrayListMultimap.create();
-		st.grs = pa.getGenerateResultSink();
-
-		// ??
-		st.sys = new ElSystem(false, st.c, this::createOutputStratgy);
-
-		cih = new CompletedItemsHandler(st);
-
-		pa.getAccessBus().subscribe_GenerateResult(this::gr_slot);
-		pa.getAccessBus().subscribe_GenerateResult(generateResultPromise::resolve);
-
-		pa.setWritePipeline(this);
-
-		// st.outputs = pa.getOutputs();
-	}
-
-	@Override
-	public void accept(final @NotNull Supplier<GenerateResult> aGenerateResultSupplier) {
-		final GenerateResult gr = aGenerateResultSupplier.get();
-		int y = 2;
-	}
-
-	public @NotNull Consumer<Supplier<GenerateResult>> consumer() {
-		if (false) {
-			return new Consumer<Supplier<GenerateResult>>() {
-				@Override
-				public void accept(final Supplier<GenerateResult> aGenerateResultSupplier) {
-					// final GenerateResult gr = aGenerateResultSupplier.get();
-				}
-			};
-		}
-
-		return (x) -> {
-		};
-	}
-
-	@NotNull
-	OutputStrategy createOutputStratgy() {
-		final OutputStrategy os = new OutputStrategy();
-		os.per(OutputStrategy.Per.PER_CLASS); // TODO this needs to be configured per lsp
-
-		return os;
-	}
-
-	@Override
-	public void gr_slot(final @NotNull GenerateResult gr1) {
-		Objects.requireNonNull(gr1);
-		latch.notifyData(gr1);
-		gr1.subscribeCompletedItems(cih.observer());
-	}
-
-	@Override
-	public void run(final CR_State aSt, final CB_Output aOutput) throws Exception {
-		latch.notifyLatch(true);
 	}
 }
 

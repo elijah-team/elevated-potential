@@ -44,7 +44,7 @@ public class DeduceProcCall {
 			case VAR -> {
 				DR_Variable v = _g_generatedFunction.getVar((VariableStatement) element);
 				if (v.declaredTypeIsEmpty()) {
-					System.err.println("8787 declaredTypeIsEmpty for " + ((VariableStatement) element).getName());
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("8787 declaredTypeIsEmpty for " + ((VariableStatement) element).getName());
 					throw new FCA_Stop();
 				} else {
 					final NormalTypeName normalTypeName = (NormalTypeName) ((VariableStatementImpl) element).typeName();
@@ -95,8 +95,8 @@ public class DeduceProcCall {
 	private final DT_Resolvable11<DeduceElement> _pr_target = new DT_Resolvable11<>();
 	private final DeferredObject2<DeduceElement, FCA_Stop, Void> _p_targetP2 = new DeferredObject2<>();
 	private Context _g_context;
-	private DeduceTypes2 _g_deduceTypes2;
-	private ErrSink _g_errSink;
+	private DeduceTypes2    _g_deduceTypes2;
+	private ErrSink         _g_errSink;
 	private BaseEvaFunction _g_generatedFunction;
 
 	private DeduceElement target;

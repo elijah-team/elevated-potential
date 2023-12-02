@@ -19,7 +19,7 @@ public class NG_OutputClass implements NG_OutputItem {
 
 	@Override
 	public @NotNull List<NG_OutputStatement> getOutputs() {
-		final EvaClass x = garishClass.getLiving().evaNode();
+		final EvaClass x = (EvaClass) garishClass.getLiving().evaNode();
 
 		var generateC = (GenerateC) generateFiles;
 
@@ -33,9 +33,9 @@ public class NG_OutputClass implements NG_OutputItem {
 	}
 
 	@Override
-	public EOT_OutputFile.FileNameProvider outName(final @NotNull OutputStrategyC aOutputStrategyC,
-	                                               final GenerateResult.@NotNull TY ty) {
-		final EvaClass x = garishClass.getLiving().evaNode();
+	public EOT_FileNameProvider outName(final @NotNull OutputStrategyC aOutputStrategyC,
+										final GenerateResult.@NotNull TY ty) {
+		final EvaClass x = (EvaClass) garishClass.getLiving().evaNode();
 
 		return aOutputStrategyC.nameForClass1(x, ty);
 	}

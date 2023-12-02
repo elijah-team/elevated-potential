@@ -39,7 +39,7 @@ public class NamespaceStatementImpl extends _CommonNC implements Documentable, C
 		} else {
 			throw new IllegalStateException(String.format("Cant add NamespaceStatement to %s", aElement));
 		}
-		setContext(new NamespaceContext(context, this));
+		setContext(new NamespaceContext__(context, this));
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class NamespaceStatementImpl extends _CommonNC implements Documentable, C
 			items.add((ClassItem) anElement);
 		} else {
 			final String s = String.format("[NamespaceStatement#add] not a ClassItem: %s", anElement);
-			Stupidity.println_err_2(s);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(s);
 		}
 	}
 
@@ -85,7 +85,7 @@ public class NamespaceStatementImpl extends _CommonNC implements Documentable, C
 	}
 
 	@Override
-	public InvariantStatement invariantStatement() {
+	public IInvariantStatement invariantStatement() {
 		throw new NotImplementedException();
 	}
 
@@ -113,8 +113,9 @@ public class NamespaceStatementImpl extends _CommonNC implements Documentable, C
 
 	}
 
+//	@Override
 	public void setContext(final NamespaceContext ctx) {
-		_a.setContext(ctx);
+		_a = new AttachedImpl(ctx);
 	}
 
 	@Override

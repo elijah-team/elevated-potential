@@ -3,60 +3,37 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.util.*;
 
 import java.util.*;
 
 public class DefaultCompilerController implements CompilerController {
-	public class _DefaultCon implements Con {
-		@Override
-		public CompilationRunner newCompilationRunner(final ICompilationAccess compilationAccess) {
-			final CR_State crState = new CR_State(compilationAccess);
-			final CompilationRunner cr = new CompilationRunner(compilationAccess, crState);
-
-			crState.setRunner(cr);
-
-			return cr;
-		}
-	}
-
-	public interface Con {
-		CompilationRunner newCompilationRunner(ICompilationAccess aCompilationAccess);
-	}
-
-	List<String> args;
+	List<String>        args;
+	ICompilationBus     cb;
+	List<CompilerInput> inputs;
 	private Compilation c;
 
-	ICompilationBus cb;
-
-	List<CompilerInput> inputs;
-
 	@Override
-	public void _setInputs(final Compilation aCompilation, final List<CompilerInput> aInputs) {
-		c = aCompilation;
+	public void _setInputs(final Compilation0 aCompilation, final List<CompilerInput> aInputs) {
+		c      = (Compilation) aCompilation;
 		inputs = aInputs;
-	}
-
-	public void hook(final CompilationRunner aCr) {
-
 	}
 
 	@Override
 	public void printUsage() {
-		Stupidity.println_out_2("Usage: eljc [--showtree] [-sE|O] <directory or .ez file names>");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("Usage: eljc [--showtree] [-sE|O] <directory or .ez file names>");
 	}
 
 	@Override
 	public Operation<Ok> processOptions() {
-		final OptionsProcessor op = new ApacheOptionsProcessor();
-		final CompilerInstructionsObserver cio = new CompilerInstructionsObserver(c);
-
-		final CompilationEnclosure compilationEnclosure = c.getCompilationEnclosure();
+		final OptionsProcessor             op                   = new ApacheOptionsProcessor();
+		final CompilerInstructionsObserver cio                  = new CompilerInstructionsObserver(c);
+		final CompilationEnclosure         compilationEnclosure = c.getCompilationEnclosure();
 
 		compilationEnclosure.setCompilationAccess(c.con().createCompilationAccess());
-		compilationEnclosure.setCompilationBus(c.con().createCompilationBus());
-
-		cb = c.getCompilationEnclosure().getCompilationBus();
+		compilationEnclosure.setCompilationBus(cb = c.con().createCompilationBus());
 
 		c._cis().set_cio(cio);
 
@@ -68,6 +45,10 @@ public class DefaultCompilerController implements CompilerController {
 		runner(new _DefaultCon());
 	}
 
+	public void hook(final CompilationRunner aCr) {
+
+	}
+
 	@Override
 	public void runner(final @NotNull Con con) {
 		c._cis().subscribeTo(c);
@@ -77,7 +58,8 @@ public class DefaultCompilerController implements CompilerController {
 		final ICompilationAccess compilationAccess = ce.getCompilationAccess();
 		assert compilationAccess != null;
 
-		var cr = con.newCompilationRunner(compilationAccess);
+		final ICompilationRunner icr = con.newCompilationRunner(compilationAccess);
+		final CompilationRunner  cr  = (CompilationRunner) icr;
 
 		ce.setCompilationRunner(cr);
 
@@ -98,5 +80,19 @@ public class DefaultCompilerController implements CompilerController {
 //		}
 
 		((DefaultCompilationBus) cb).runProcesses();
+
+		c.getFluffy().checkFinishEventuals();
+	}
+
+	public class _DefaultCon implements Con {
+		@Override
+		public CompilationRunner newCompilationRunner(final ICompilationAccess compilationAccess) {
+			final CR_State          crState = new CR_State(compilationAccess);
+			final CompilationRunner cr      = new CompilationRunner(compilationAccess, crState);
+
+			crState.setRunner(cr);
+
+			return cr;
+		}
 	}
 }

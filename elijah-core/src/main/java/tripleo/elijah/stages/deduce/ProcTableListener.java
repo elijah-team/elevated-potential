@@ -10,12 +10,12 @@ package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.world.*;
 
 import java.util.*;
 
@@ -135,9 +135,9 @@ public class ProcTableListener implements BaseTableEntry.StatusListener {
 
 	private static void resolved_element_pte_ClassStatement_EvaClass(final EvaClass result,
 			final @NotNull ClassStatement e, final @NotNull Constructable co, final @NotNull DG_ClassStatement dcs) {
-		// System.err.println("828282 "+((ClassStatement) e).name());
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("828282 "+((ClassStatement) e).name());
 		if ((e.name()).equals("Foo")) {
-			System.out.println("828282 Foo found");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("828282 Foo found");
 		}
 
 		co.resolveTypeToClass(result);
@@ -229,7 +229,7 @@ public class ProcTableListener implements BaseTableEntry.StatusListener {
 
 		if (depTracker != null) {
 			if (aGenType == null)
-				tripleo.elijah.util.Stupidity.println_err_2("247 genType is null");
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("247 genType is null");
 
 			if (/* aGenType == null && */ aFi.getFunction() instanceof ConstructorDef) {
 				final @NotNull ClassStatement c = aFi.getClassInvocation().getKlass();
@@ -270,7 +270,7 @@ public class ProcTableListener implements BaseTableEntry.StatusListener {
 				final DR_Ident ident = generatedFunction.getIdent(entry);
 				ident.resolve(eh, pte);
 			} else {
-				System.err.println("*************************** i still refuse");
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("*************************** i still refuse");
 			}
 		}
 	}
@@ -285,7 +285,7 @@ public class ProcTableListener implements BaseTableEntry.StatusListener {
 
 		ci = dcs.classInvocation();
 		ci = dc.registerClassInvocation(ci);
-		fi = dc.newFunctionInvocation(WorldGlobals.defaultVirtualCtor, pte, ci); // TODO might not be virtual ctor, so
+		fi = dc.newFunctionInvocation(LangGlobals.defaultVirtualCtor, pte, ci); // TODO might not be virtual ctor, so
 																					// check
 		pte.setFunctionInvocation(fi);
 
@@ -358,7 +358,7 @@ public class ProcTableListener implements BaseTableEntry.StatusListener {
 						if (parent instanceof ClassStatement) {
 							// TODO might be wrong in the case of generics. check.
 							typeName = null;// _inj().new_OS_Type((ClassStatement) parent);
-							tripleo.elijah.util.Stupidity.println_err_2("NOTE ineresting in genericA/__preinc__");
+							tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("NOTE ineresting in genericA/__preinc__");
 						}
 					}
 				}

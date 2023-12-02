@@ -11,25 +11,21 @@ package tripleo.elijah.stages.gen_fn;
 
 //import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import org.jdeferred2.DoneCallback;
-import org.jdeferred2.Promise;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.reactive.DefaultReactive;
+import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.Resolve_Ident_IA.DeduceElementIdent;
-import tripleo.elijah.stages.deduce.nextgen.DR_Ident;
-import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.stages.deduce.Resolve_Ident_IA.*;
+import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.deduce.post_bytecode.*;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 /**
  * Created 9/12/20 10:27 PM
@@ -58,8 +54,37 @@ public class IdentTableEntry extends BaseTableEntry1
 		}
 	}
 
-	public record ITE_Resolver_Result(OS_Element element) {
-	}
+	public static final class ITE_Resolver_Result {
+		private final OS_Element element;
+
+		public ITE_Resolver_Result(OS_Element element) {
+			this.element = element;
+		}
+
+		public OS_Element element() {
+			return element;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this) return true;
+			if (obj == null || obj.getClass() != this.getClass()) return false;
+			var that = (ITE_Resolver_Result) obj;
+			return Objects.equals(this.element, that.element);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(element);
+		}
+
+		@Override
+		public String toString() {
+			return "ITE_Resolver_Result[" +
+					"element=" + element + ']';
+		}
+
+		}
 
 	public final DeferredObject<OS_Element, ResolveError, Void> _p_resolvedElementPromise = new DeferredObject<>();
 	private final DeferredObject<InstructionArgument, Void, Void> _p_backlinkSet = new DeferredObject<InstructionArgument, Void, Void>();
@@ -144,7 +169,7 @@ public class IdentTableEntry extends BaseTableEntry1
 				_p_resolvedElementPromise.resolve(resolved_element);
 			}
 		} else {
-			// 08/13 System.err.println("283283 resolution failure for " +
+			// 08/13 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("283283 resolution failure for " +
 			// dei.getIdentTableEntry().getIdent().getText());
 		}
 	}
@@ -366,7 +391,7 @@ public class IdentTableEntry extends BaseTableEntry1
 		else {
 			// final Holder<ProcTableEntry> holder = new Holder<ProcTableEntry>();
 			_p_constructableDeferred.then(el -> {
-				tripleo.elijah.util.Stupidity
+				SimplePrintLoggerToRemoveSoon
 						.println_err_2(String.format("Setting constructable_pte twice 1) %s and 2) %s", el, aPte));
 				// holder.set(el);
 			});

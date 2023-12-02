@@ -35,18 +35,18 @@ public class CK_SourceFile__ElaboratedElijahFile extends __CK_SourceFile__Abstra
 			}
 		}.get();
 
-		var elijahSpec = new ElijahSpec(fileName, file, stream);
+		final ElijahSpec elijahSpec = new ElijahSpec_(fileName, file, stream);
 
 		return __CK_SourceFile__AbstractElijahFile.realParseElijahFile(elijahSpec, elijahCache, compilation);
 	}
 
 	@Override
 	public Operation2<OS_Module> process_query() {
-		final ElijahCache ezCache = null;
-		compilation.getCompilationEnclosure().getCompilationRunner().ezCache();
+		assert false;
+		final ElijahCache ezCache = null;//compilation.getCompilationEnclosure().getCompilationRunner().ezCache();
 		final Operation2<OS_Module> om = process_query(compilation.getIO(), ezCache);
 
-		super.asserverate();
+		//super.asserverate();
 
 		return om;
 	}

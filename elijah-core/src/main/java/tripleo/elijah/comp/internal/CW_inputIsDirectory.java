@@ -13,15 +13,14 @@ import java.util.function.*;
 
 public class CW_inputIsDirectory {
 	public static void apply(final @NotNull CompilerInput input,
-	                         final @NotNull CompilationClosure cc,
-	                         final @NotNull Consumer<CompilerInput> x) {
+	                         final @NotNull CompilationClosure cc) {
 		final String file_name = input.getInp();
 		final File   directory = new File(file_name);
 
 		input.setDirectory(directory);
 
 		final QuerySearchEzFiles                     q    = new QuerySearchEzFiles(cc);
-		final List<Operation2<CompilerInstructions>> loci = q.process(directory);
+		final var loci = q.process(directory);
 
 		input.setDirectoryResults(loci);
 	}

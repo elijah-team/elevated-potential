@@ -13,8 +13,13 @@ class CY_HashDeferredAction implements DeferredAction<String> {
     private final Eventual<String> e = new Eventual<>(); // FIXME SingleShotEventual
     private final IO               io;
 
+    static boolean started;
+
     public CY_HashDeferredAction(IO aIo) {
         io           = aIo;
+
+//        if (started) throw new Error();
+        started = true;
     }
 
     @Override
@@ -37,11 +42,11 @@ class CY_HashDeferredAction implements DeferredAction<String> {
         if (completed() || e._prom_isRejected()) return; // README only once, no retry
 
         final DigestUtils           digestUtils   = new DigestUtils(SHA_256);
-        final StringBuilder         sb1           = new StringBuilder();
-        final List<IO._IO_ReadFile> recordedreads = io.recordedreads_io();
+        final StringBuilder          sb1           = new StringBuilder();
+        final List<IO_._IO_ReadFile> recordedreads = io.recordedreads_io();
 
         recordedreads.stream()
-                .map(IO._IO_ReadFile::getFileName)
+                .map(IO_._IO_ReadFile::getFileName)
                 .sorted()
                 .map(digestUtils::digestAsHex)
                 .forEach(x -> CP_OutputPath.append_sha_string_then_newline(sb1, x));

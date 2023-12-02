@@ -4,23 +4,19 @@
  * The contents of this library are released under the LGPL licence v3,
  * the GNU Lesser General Public License text was downloaded from
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
-/*
- * Created on Aug 30, 2005 9:05:24 PM
- *
- * $Id$
- *
  */
 package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util.Helpers0;
 
 import java.io.*;
 
-public class RegularTypeNameImpl extends AbstractTypeName2
-		implements NormalTypeName, tripleo.elijah.lang.i.RegularTypeName {
+/*
+ * Created on Aug 30, 2005 9:05:24 PM
+ */
+public class RegularTypeNameImpl extends AbstractTypeName2 implements NormalTypeName, RegularTypeName { // TODO 10/15 both?
 
 	private @Nullable Context _ctx;
 	// private OS_Type _resolved;
@@ -36,6 +32,15 @@ public class RegularTypeNameImpl extends AbstractTypeName2
 	public RegularTypeNameImpl(final Context cur) {
 		super();
 		_ctx = cur;
+	}
+
+	/*
+	 * Null context. Possibly only for testing.
+	 */
+	public static @NotNull RegularTypeName makeWithStringTypeName(@NotNull String aTypeName) {
+		final RegularTypeName R = new RegularTypeNameImpl(null);
+		R.setName(Helpers0.string_to_qualident(aTypeName));
+		return R;
 	}
 
 	@Override

@@ -1,19 +1,18 @@
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.ModuleContext;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.lang.impl.OS_ModuleImpl;
-import tripleo.elijah.util.Mode;
-import tripleo.elijah.util.Operation2;
-import tripleo.elijah.world.i.WorldModule;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.world.i.*;
 
 public class ModuleBuilder {
 	// private final Compilation compilation;
 	private final @NotNull OS_Module mod;
-	private boolean _addToCompilation = false;
-	private @Nullable String _fn = null;
+	private                boolean   _addToCompilation = false;
+	private @Nullable      String    _fn               = null;
 
 	public ModuleBuilder(@NotNull Compilation aCompilation) {
 //			compilation = aCompilation;
@@ -28,15 +27,19 @@ public class ModuleBuilder {
 
 	public OS_Module build() {
 		if (_addToCompilation) {
-			if (_fn == null)
+			if (_fn == null) {
 				throw new IllegalStateException("Filename not set in ModuleBuilder");
-			mod.getCompilation().world().addModule(mod, _fn, mod.getCompilation());
+			}
+
+			final @Nullable Compilation compilation = (Compilation) mod.getCompilation();
+			final @NotNull LivingRepo   world       = compilation.world();
+			world.addModule(mod, _fn, compilation);
 		}
 		return mod;
 	}
 
 	public @NotNull ModuleBuilder setContext() {
-		final ModuleContext mctx = new ModuleContext(mod);
+		final ModuleContext mctx = new ModuleContext__(mod);
 		mod.setContext(mctx);
 		return this;
 	}
@@ -48,11 +51,11 @@ public class ModuleBuilder {
 	}
 
 	public @NotNull ModuleBuilder withPrelude(String aPrelude) {
-		final Operation2<WorldModule> prelude = mod.getCompilation().findPrelude(aPrelude);
+		final Operation2<GWorldModule> prelude = mod.getCompilation().findPrelude(aPrelude);
 
 		assert prelude.mode() == Mode.SUCCESS;
 
-		mod.setPrelude(prelude.success().module());
+		mod.setPrelude(((WorldModule) prelude.success()).module());
 
 		return this;
 	}

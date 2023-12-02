@@ -52,7 +52,7 @@ public enum ResolveType {
 					throw new NotImplementedException();
 			}
 			if (best == null) {
-				throw new ResolveError(IdentExpression.forString(typeName), lrl);
+				throw new ResolveError(IdentExpressionImpl.forString(typeName), lrl);
 			}
 			aR.setResolved(((ClassStatement) best).getOS_Type());
 			break;
@@ -76,7 +76,7 @@ public enum ResolveType {
 					throw new NotImplementedException();
 			}
 			if (best == null) {
-				throw new ResolveError(IdentExpression.forString(typeName), lrl);
+				throw new ResolveError(IdentExpressionImpl.forString(typeName), lrl);
 			}
 			aR.setResolved((((ClassStatement) best).getOS_Type()));
 			break;
@@ -100,7 +100,7 @@ public enum ResolveType {
 					throw new NotImplementedException();
 			}
 			if (best == null) {
-				throw new ResolveError(IdentExpression.forString(typeName), lrl);
+				throw new ResolveError(IdentExpressionImpl.forString(typeName), lrl);
 			}
 			aR.setResolved(((ClassStatement) best).getOS_Type());
 			break;
@@ -188,9 +188,9 @@ public enum ResolveType {
 					throw new ResolveError(tn1, lrl);
 				}
 
-				if (best instanceof ClassContext.OS_TypeNameElement) {
+				if (best instanceof OS_TypeNameElementImpl) {
 					/* return */
-					ggg.setResolved(new OS_GenericTypeNameType((ClassContext.OS_TypeNameElement) best)); // TODO not a
+					ggg.setResolved(new OS_GenericTypeNameType((OS_TypeNameElement) best)); // TODO not a
 																											// class
 				} else
 					ggg.setResolved(((ClassStatement) best).getOS_Type());
@@ -205,7 +205,7 @@ public enum ResolveType {
 			final Qualident q = type_of.typeOf();
 			if (q.parts().size() == 1 && q.parts().get(0).getText().equals("self")) {
 				assert type_of.getContext() instanceof ClassContext;
-				ggg.setResolved(((ClassContext) type_of.getContext()).getCarrier().getOS_Type());
+				ggg.setResolved(((IClassContext) type_of.getContext()).getCarrier().getOS_Type());
 			}
 			int y = 2;
 

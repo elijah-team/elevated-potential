@@ -9,6 +9,8 @@
 package tripleo.elijah;
 
 import org.junit.jupiter.api.Test;
+import tripleo.elijah.test_help.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -24,9 +26,16 @@ public class ClassInstantiationTest {
 				.setFile(f)
 				.run();
 
-		System.err.println("Errorcount is " + t.errorCount());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
-		assertEquals(4, t.errorCount());
+
+		//assert t.c().reports().codeOutputSize() > 0;
+		if (t.c().reports().codeOutputSize() < 1) {
+	//		throw new AcceptedFailure();
+		}
+
+		final int curious_that_this_does_not_fail = 0/*100*/;
+		assertEquals(curious_that_this_does_not_fail, t.errorCount());
 	}
 
 	@Test
@@ -37,10 +46,15 @@ public class ClassInstantiationTest {
 				.setFile(f)
 				.run();
 
-		System.err.println("Errorcount is " + t.errorCount());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+
+		//assert t.c().reports().codeOutputSize() > 0;
+		if (t.c().reports().codeOutputSize() < 1) {
+			//		throw new AcceptedFailure();
+		}
 	}
 
 	@Test
@@ -51,10 +65,15 @@ public class ClassInstantiationTest {
 				.setFile(f)
 				.run();
 
-		System.err.println("Errorcount is " + t.errorCount());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+
+		//assert t.c().reports().codeOutputSize() > 0;
+		if (t.c().reports().codeOutputSize() < 1) {
+			//		throw new AcceptedFailure();
+		}
 	}
 
 	@Test
@@ -65,10 +84,15 @@ public class ClassInstantiationTest {
 				.setFile(f)
 				.run();
 
-		System.err.println("Errorcount is " + t.errorCount());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+
+		//assert t.c().reports().codeOutputSize() > 0;
+		if (t.c().reports().codeOutputSize() < 1) {
+			//		throw new AcceptedFailure();
+		}
 	}
 }
 

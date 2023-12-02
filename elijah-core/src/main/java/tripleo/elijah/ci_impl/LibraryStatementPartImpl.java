@@ -30,8 +30,13 @@ public class LibraryStatementPartImpl implements LibraryStatementPart {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "<LSP `%s' in` %s'>".formatted(this.name, this.ci.getName());
+	}
+
 	private CompilerInstructions ci;
-	private String dirName;
+	private String               dirName;
 
 	private String name;
 

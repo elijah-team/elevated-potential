@@ -4,6 +4,7 @@ import antlr.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.CM_Ez;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.diagnostic.*;
@@ -12,13 +13,13 @@ import tripleo.elijjah.*;
 
 import java.io.*;
 
-public class CX_ParseEzFile {
+public enum CX_ParseEzFile {;
 	private static Operation2<CompilerInstructions> calculate(final String aAbsolutePath, final InputStream aInputStream) {
 		final EzLexer lexer = new EzLexer(aInputStream);
 		lexer.setFilename(aAbsolutePath);
 		final EzParser parser = new EzParser(lexer);
 		parser.setFilename(aAbsolutePath);
-		parser.pcon = new Compilation.PCon();
+		parser.pcon = new PCon();
 		parser.ci   = parser.pcon.newCompilerInstructionsImpl();
 		try {
 			parser.program();
@@ -30,13 +31,18 @@ public class CX_ParseEzFile {
 		return Operation2.success(instructions);
 	}
 
-	public static Operation2<CompilerInstructions> parseAndCache(final EzSpec aSpec,
+	public static Operation2<CompilerInstructions> parseAndCache(final EzSpec__ aSpec,
 	                                                            final EzCache aEzCache,
 	                                                            final String absolutePath) {
 		final Operation2<CompilerInstructions> cio = calculate(aSpec.file_name(), aSpec.sis().get());
 
 		if (cio.mode() == Mode.SUCCESS) {
-			aEzCache.put(aSpec, absolutePath, cio.success());
+			final CompilerInstructions R = cio.success();
+			aEzCache.put(aSpec, absolutePath, R);
+
+			final CM_Ez cm = ((Compilation) aEzCache.getCompilation()).megaGrande(aSpec);
+			cm.advise(cio);
+			cm.advise(aEzCache.getCompilation().getObjectTree());
 		}
 
 		return cio;
@@ -54,7 +60,9 @@ public class CX_ParseEzFile {
 					return cio;
 				}
 			};
-			EzSpec spec = null;
+			EzSpec__ spec = null;
+
+			assert false;
 
 			return Operation.convert(parser.parse(spec));
 		} catch (final IOException aE) {

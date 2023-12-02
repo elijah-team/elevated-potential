@@ -4,13 +4,6 @@
  * The contents of this library are released under the LGPL licence v3,
  * the GNU Lesser General Public License text was downloaded from
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
-/*
- * Created on Sep 1, 2005 8:16:32 PM
- *
- * $Id$
- *
  */
 package tripleo.elijah.lang.impl;
 
@@ -19,13 +12,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.io.File;
 import java.util.List;
 
-public class NumericExpressionImpl implements tripleo.elijah.lang.i.NumericExpression {
-
-	OS_Type _type;
+/*
+ * Created on Sep 1, 2005 8:16:32 PM
+ */
+public class NumericExpressionImpl implements NumericExpression {
+	
 	int carrier;
 	private Token n;
 
@@ -44,15 +40,17 @@ public class NumericExpressionImpl implements tripleo.elijah.lang.i.NumericExpre
 
 	@Override
 	public int getColumn() {
-		if (token() != null)
+		if (token() != null) {
 			return token().getColumn();
+		}
 		return 0;
 	}
 
 	@Override
 	public int getColumnEnd() {
-		if (token() != null)
+		if (token() != null) {
 			return token().getColumn();
+		}
 		return 0;
 	}
 
@@ -84,8 +82,9 @@ public class NumericExpressionImpl implements tripleo.elijah.lang.i.NumericExpre
 
 	@Override
 	public int getLine() {
-		if (token() != null)
+		if (token() != null) {
 			return token().getLine();
+		}
 		return 0;
 	}
 
@@ -93,17 +92,13 @@ public class NumericExpressionImpl implements tripleo.elijah.lang.i.NumericExpre
 
 	@Override
 	public int getLineEnd() {
-		if (token() != null)
+		if (token() != null) {
 			return token().getLine();
+		}
 		return 0;
 	}
 
 	// region type
-
-	@Override // IExpression
-	public OS_Type getType() {
-		return _type;
-	}
 
 	@Override
 	public int getValue() {
@@ -129,20 +124,15 @@ public class NumericExpressionImpl implements tripleo.elijah.lang.i.NumericExpre
 	}
 
 	@Override // IExpression
-	public void setKind(final @NotNull ExpressionKind aType) {
+	public void setKind(final @NotNull ExpressionKind aExpressionKind) {
 		// log and ignore
-		tripleo.elijah.util.Stupidity
-				.println_err_2("Trying to set ExpressionType of NumericExpression to " + aType.toString());
+		SimplePrintLoggerToRemoveSoon
+				.println_err_2("Trying to set ExpressionType of NumericExpression to " + aExpressionKind.toString());
 	}
 
 	@Override
 	public void setLeft(final IExpression aLeft) {
 		throw new NotImplementedException(); // TODO
-	}
-
-	@Override // IExpression
-	public void setType(final OS_Type deducedExpression) {
-		_type = deducedExpression;
 	}
 
 	private Token token() {

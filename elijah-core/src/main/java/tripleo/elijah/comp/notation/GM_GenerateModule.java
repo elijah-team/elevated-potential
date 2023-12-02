@@ -1,22 +1,15 @@
 package tripleo.elijah.comp.notation;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.stages.gen_c.GenerateC;
-import tripleo.elijah.stages.gen_fn.EvaNode;
-import tripleo.elijah.stages.gen_generic.GenerateFiles;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.stages.gen_generic.Sub_GenerateResult;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode1;
-import tripleo.elijah.util.Stupidity;
-import tripleo.elijah.work.WorkList;
-import tripleo.elijah.work.WorkManager;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.work.*;
 
-import java.util.List;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
 public class GM_GenerateModule {
 	private final GM_GenerateModuleRequest gmr;
@@ -32,7 +25,7 @@ public class GM_GenerateModule {
 
 		final GenerateResult gr1 = new Sub_GenerateResult();
 		final Supplier<GenerateResultEnv> fgs = () -> new GenerateResultEnv(aResultSink, gr1, wm,
-				new WorkList() /* tautology */, this);
+																			new WorkList__() /* tautology */, this);
 
 		final @NotNull GenerateFiles ggc = gmr.getGenerateFiles(fgs);
 		final List<ProcessedNode> lgc = generateNodesIntoSink._env().lgc();
@@ -52,7 +45,7 @@ public class GM_GenerateModule {
 				processedNode.processFunctions(ggc, fileGen);
 				processedNode.processClassMap(ggc, fileGen);
 			} else {
-				Stupidity.println_out_2("2009 " + evaNode.getClass().getName());
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("2009 " + evaNode.getClass().getName());
 			}
 		}
 

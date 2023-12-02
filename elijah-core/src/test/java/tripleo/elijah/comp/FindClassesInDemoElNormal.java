@@ -11,10 +11,9 @@ package tripleo.elijah.comp;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.*;
 
-import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
@@ -22,8 +21,6 @@ import tripleo.elijah.util.*;
 import java.util.*;
 import java.util.stream.*;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static tripleo.elijah.util.Helpers.*;
 
@@ -36,8 +33,8 @@ public class FindClassesInDemoElNormal {
 	@Disabled @Test
 	public final void testListFolders() throws Exception {
 		final List<String> args = List_of("test/demo-el-normal/listfolders/", "-sE");
-		final ErrSink eee = new StdErrSink();
-		final Compilation c = new CompilationImpl(eee, new IO());
+		final ErrSink      eee = new StdErrSink();
+		final Compilation  c   = new CompilationImpl(eee, new IO_());
 
 		c.feedCmdLine(args);
 
@@ -53,8 +50,8 @@ public class FindClassesInDemoElNormal {
 	public final void testParseFile() throws Exception {
 		final List<String> args = List_of("test/demo-el-normal",
 				"test/demo-el-normal/main2", "-sE");
-		final ErrSink eee = new StdErrSink();
-		final Compilation c = new CompilationImpl(eee, new IO());
+		final ErrSink      eee = new StdErrSink();
+		final Compilation  c   = new CompilationImpl(eee, new IO_());
 
 		c.feedCmdLine(args);
 
@@ -72,7 +69,7 @@ public class FindClassesInDemoElNormal {
 
 		final List<ClassStatement> aClassList = c.world().findClass("Main");
 		for (final ClassStatement classStatement : aClassList) {
-			Stupidity.println_out_2(classStatement.getPackageName().getName());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(classStatement.getPackageName().getName());
 		}
 
 		final List<String> classNames = aClassList.stream()

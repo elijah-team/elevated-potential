@@ -9,7 +9,6 @@
 /*
  * Created on Sep 2, 2005 2:28:42 PM
  *
- * $Id$
  *
  */
 package tripleo.elijah.lang.impl;
@@ -24,27 +23,14 @@ public class ExpressionBuilder {
 
 	public static @NotNull IExpression build(final IExpression left, final ExpressionKind aType) {
 		return new AbstractExpression(left, aType) {
-			OS_Type _type;
-
-			@Override
-			public OS_Type getType() {
-				return _type;
-			}
-
 			@Override
 			public boolean is_simple() {
 				return false; // TODO whoa
 			}
-
-			@Override
-			public void setType(final OS_Type deducedExpression) {
-				_type = deducedExpression;
-			}
 		};
 	}
 
-	public static @NotNull IBinaryExpression build(final IExpression left, final ExpressionKind aType,
-			final IExpression aExpression) {
+	public static @NotNull IBinaryExpression build(final IExpression left, final ExpressionKind aType, final IExpression aExpression) {
 		return new BasicBinaryExpressionImpl(left, aType, aExpression);
 	}
 
@@ -52,6 +38,10 @@ public class ExpressionBuilder {
 		return new BasicBinaryExpressionImpl(left, aType, null);
 	}
 
+	public static IExpression build(final IExpression aEe, final ExpressionKind aE2, final IExpression aE3, final OS_Type aT) {
+		// TODO 10/15 look at me
+		return build(aEe, aE2, aE3);
+	}
 }
 
 //

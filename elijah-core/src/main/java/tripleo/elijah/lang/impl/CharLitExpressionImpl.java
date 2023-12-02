@@ -13,15 +13,16 @@ package tripleo.elijah.lang.impl;
 
 import antlr.*;
 import org.jetbrains.annotations.*;
+
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
 /**
  * @author Tripleo(sb)
  */
-public class CharLitExpressionImpl implements tripleo.elijah.lang.i.CharLitExpression {
-
-	OS_Type _type;
+public class CharLitExpressionImpl implements CharLitExpression {
+	
 	private final Token char_lit_raw;
 	private ExpressionList args;
 
@@ -33,30 +34,14 @@ public class CharLitExpressionImpl implements tripleo.elijah.lang.i.CharLitExpre
 		return args;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see tripleo.elijah.lang.impl.IExpression#getType()
-	 */
 	@Override
 	public @NotNull ExpressionKind getKind() {
 		return ExpressionKind.CHAR_LITERAL;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see tripleo.elijah.lang.impl.IExpression#getLeft()
-	 */
 	@Override
 	public @Nullable IExpression getLeft() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public OS_Type getType() {
-		return _type;
+		return this; // TODO 10/15 find SPEC SingleExpressionGetLeftContract
 	}
 
 	@Override
@@ -64,11 +49,6 @@ public class CharLitExpressionImpl implements tripleo.elijah.lang.i.CharLitExpre
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see tripleo.elijah.lang.impl.IExpression#repr_()
-	 */
 	@Override
 	public String repr_() {
 		return String.format("<CharLitExpression %s>", char_lit_raw);
@@ -78,33 +58,14 @@ public class CharLitExpressionImpl implements tripleo.elijah.lang.i.CharLitExpre
 		args = ael;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see tripleo.elijah.lang.impl.IExpression#set(tripleo.elijah.lang.impl.
-	 * ExpressionType)
-	 */
 	@Override
-	public void setKind(final ExpressionKind aIncrement) {
-		// TODO Auto-generated method stub
-
+	public void setKind(final ExpressionKind aExpressionKind) {
+		throw new UnintendedUseException();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see tripleo.elijah.lang.impl.IExpression#setLeft(tripleo.elijah.lang.impl.
-	 * IExpression)
-	 */
 	@Override
 	public void setLeft(final IExpression iexpression) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setType(final OS_Type deducedExpression) {
-		_type = deducedExpression;
+		throw new UnintendedUseException();
 	}
 
 	@Override

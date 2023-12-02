@@ -2,8 +2,7 @@ package tripleo.elijah.factory.comp;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.IO;
-import tripleo.elijah.comp.StdErrSink;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.stages.deduce.IFunctionMapHook;
@@ -20,7 +19,7 @@ public enum CompilationFactory {
 
 	public static @NotNull CompilationImpl mkCompilation2(final List<IFunctionMapHook> aMapHooks) {
 		final StdErrSink errSink = new StdErrSink();
-		final IO io = new IO();
+		final IO io = new IO_();
 
 		final @NotNull CompilationImpl c = mkCompilation(errSink, io);
 

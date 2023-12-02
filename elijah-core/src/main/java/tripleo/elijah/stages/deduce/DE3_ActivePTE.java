@@ -5,6 +5,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
@@ -92,23 +93,26 @@ class DE3_ActivePTE implements DE3_Active {
 
 //				final EIT_ModuleList moduleList = new EIT_ModuleList(/* List_of() */);
 
-				Object moduleList = null;
+				EIT_ModuleList moduleList = null;
 
 				var env = new GN_GenerateNodesIntoSinkEnv(
 						List_of(), // !!
-						new DefaultGenerateResultSink(pa), moduleList, // !!
-						ElLog.Verbosity.VERBOSE,
+						new DefaultGenerateResultSink(pa),
+						// !!
+						ElLog_.Verbosity.VERBOSE,
 						new Old_GenerateResult(),
-						pa,
 						pa.getCompilationEnclosure()
 				);
 
-				final WorldModule mod = (WorldModule) null; // pte.__gf.getFD().getContext().module();
+				final WorldModule mod = null; // pte.__gf.getFD().getContext().module();
 
 				var tt = new GM_GenerateModuleRequest(new GN_GenerateNodesIntoSink(env), mod, env);
 				var t  = new GM_GenerateModule(tt);
-				fg0[0] = new GenerateResultEnv(resultSink, new Old_GenerateResult(), new WorkManager(), new WorkList(),
-				                               t
+				fg0[0] = new GenerateResultEnv(resultSink,
+											   new Old_GenerateResult(),
+											   new WorkManager__(),
+											   new WorkList__(),
+											   t
 				);
 
 				R.resolve(fg0[0]);
@@ -154,7 +158,7 @@ class DE3_ActivePTE implements DE3_Active {
 
 	private void logProgress(final int code, final String message) {
 		var ce = deduceTypes2._phase().pa.getCompilationEnclosure();
-//		System.err.println("" + code + " " + message);
+//		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("" + code + " " + message);
 		ce.logProgress(CompProgress.DeducePhase, Pair.of(code, message));
 	}
 }

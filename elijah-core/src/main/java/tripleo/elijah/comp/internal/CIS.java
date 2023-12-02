@@ -1,49 +1,43 @@
 package tripleo.elijah.comp.internal;
 
-import io.reactivex.rxjava3.annotations.*;
-import io.reactivex.rxjava3.core.*;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.subjects.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.util.*;
+import io.reactivex.rxjava3.subjects.ReplaySubject;
+import io.reactivex.rxjava3.subjects.Subject;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.DebugFlags;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.CompilerInstructionsObserver;
+import tripleo.elijah.comp.i.IProgressSink;
+import tripleo.elijah.util.ObservableCompletableProcess;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
 
 public class CIS implements Observer<CompilerInstructions> {
-	private final ObservableCompletableProcess<CompilerInstructions> ocp_ci = new ObservableCompletableProcess<>();
-	private final Subject<CompilerInstructions> compilerInstructionsSubject = ReplaySubject
-			.<CompilerInstructions>create();
-	public IProgressSink ps;
-	private CompilerInstructionsObserver _cio;
-	private boolean FOO = true;
+	private final ObservableCompletableProcess<CompilerInstructions> ocp_ci                      = new ObservableCompletableProcess<>();
+	private final Subject<CompilerInstructions>                      compilerInstructionsSubject = ReplaySubject.<CompilerInstructions>create();
+	private       IProgressSink                                      progressSink;
+	private       CompilerInstructionsObserver                       _cio;
 
 	public @NotNull Operation<Ok> almostComplete() {
 		return _cio.almostComplete();
 	}
 
-	public CompilerInstructionsObserver get_cio() {
-		return _cio;
-	}
-
 	@Override
-	public void onComplete() {
-		throw new UnintendedUseException();
-	}
-
-	@Override
-	public void onError(@NonNull final Throwable e) {
-		if (FOO) {
-			compilerInstructionsSubject.onError(e);
+	public void onSubscribe(@NonNull final Disposable d) {
+		if (DebugFlags.CIS_ocp_ci__FeatureGate) {
+			compilerInstructionsSubject.onSubscribe(d);
 		} else {
-			ocp_ci.onError(e);
+			ocp_ci.onSubscribe(d);
 		}
 	}
 
 	@Override
 	public void onNext(@NonNull final CompilerInstructions aCompilerInstructions) {
-		if (FOO) { // l.add
+		if (DebugFlags.CIS_ocp_ci__FeatureGate) { // l.add
 			compilerInstructionsSubject.onNext(aCompilerInstructions);
 		} else {
 			ocp_ci.onNext(aCompilerInstructions);
@@ -51,12 +45,17 @@ public class CIS implements Observer<CompilerInstructions> {
 	}
 
 	@Override
-	public void onSubscribe(@NonNull final Disposable d) {
-		if (FOO) {
-			compilerInstructionsSubject.onSubscribe(d);
+	public void onError(@NonNull final Throwable e) {
+		if (DebugFlags.CIS_ocp_ci__FeatureGate) {
+			compilerInstructionsSubject.onError(e);
 		} else {
-			ocp_ci.onSubscribe(d);
+			ocp_ci.onError(e);
 		}
+	}
+
+	@Override
+	public void onComplete() {
+		throw new UnintendedUseException();
 	}
 
 	public void set_cio(CompilerInstructionsObserver a_cio) {
@@ -64,7 +63,7 @@ public class CIS implements Observer<CompilerInstructions> {
 	}
 
 	public void subscribe(final @NotNull Observer<CompilerInstructions> aCio) {
-		if (FOO) {
+		if (DebugFlags.CIS_ocp_ci__FeatureGate) {
 			compilerInstructionsSubject.subscribe(aCio);
 		} else {
 			ocp_ci.subscribe(aCio);
@@ -72,6 +71,14 @@ public class CIS implements Observer<CompilerInstructions> {
 	}
 
 	public void subscribeTo(final Compilation aC) {
-		aC.subscribeCI(_cio);
+		aC.subscribeCI((Observer<CompilerInstructions>) _cio);
+	}
+
+	public IProgressSink getProgressSink() {
+		return progressSink;
+	}
+
+	public void setProgressSink(IProgressSink aProgressSink) {
+		progressSink = aProgressSink;
 	}
 }

@@ -4,29 +4,30 @@
  * The contents of this library are released under the LGPL licence v3,
  * the GNU Lesser General Public License text was downloaded from
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
-/*
- * Created on Aug 30, 2005 8:43:27 PM
- *
- * $Id$
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.*;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.*;
+import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.util.NotImplementedException;
 
-import java.util.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+ * Created on Aug 30, 2005 8:43:27 PM
+ */
 public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elijah.lang.i.DefFunctionDef {
 
-	private final OS_Element parent;
-	@NotNull
-	List<FunctionItem> _items = new ArrayList<FunctionItem>();
-	private IExpression _expr;
-	private @Nullable TypeName _returnType = null;
+	private final          OS_Element         parent;
+	private final @NotNull List<FunctionItem> _items      = new ArrayList<FunctionItem>();
+	private                IExpression        _expr;
+	private @Nullable      TypeName           _returnType = null;
 
 	public DefFunctionDefImpl(OS_Element aElement, Context aContext) {
 		parent = aElement;
@@ -37,7 +38,7 @@ public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elija
 		} else {
 			throw new IllegalStateException("adding DefFunctionDef to " + aElement.getClass().getName());
 		}
-		_a.setContext(new FunctionContext(aContext, this));
+		_a = new AttachedImpl(new FunctionContextImpl(aContext, this));
 		setSpecies(Species.DEF_FUN);
 	}
 
@@ -63,8 +64,9 @@ public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elija
 	@Override
 	public void postConstruct() {
 //		super.postConstruct();
-		if (getItems().size() != 1)
+		if (getItems().size() != 1) {
 			throw new IllegalStateException("Too many items"); // TODO convert to diagnostic?
+		}
 	}
 
 	/**
@@ -85,44 +87,29 @@ public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elija
 
 	@Override
 	public void serializeTo(final @NotNull SmallWriter sw) {
-		sw.fieldIdent("name", getNameNode());
-		// throw new NotImplementedException();
+		sw.fieldIdent("name", getNameNode()); // TODO 10/15 think about this later
 	}
 
 	@Override
 	public void set(FunctionModifiers mod) {
 		// TODO Auto-generated method stub
-
+		throw new NotImplementedException(); // TODO think about this later
 	}
 
 	@Override
 	public void setAbstract(boolean b) {
-		// TODO Auto-generated method stub
-
+		// README defs cant be abstract
+		throw new UnintendedUseException();
 	}
 
 	@Override
 	public void setBody(FunctionBody aFunctionBody) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setBody(IExpression aExpression) {
-		setExpr(aExpression);
+		throw new UnintendedUseException(); // README defs cant have body
 	}
 
 	@Override
 	public void setCategory(El_Category aCategory) {
-		// TODO Auto-generated method stub
-		throw new IllegalStateException("Error");
-	}
-
-	// wont use parent scope.items.add so this is ok
-	@Override
-	public void setExpr(final IExpression aExpr) {
-		_expr = aExpr;
-		_items.add(new StatementWrapperImpl(_expr, getContext(), this));
+		throw new NotImplementedException(); // TODO 10/15 implement me
 	}
 
 	@Override
@@ -141,6 +128,18 @@ public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elija
 	@Override
 	public void visitGen(@NotNull ElElementVisitor visit) {
 		visit.visitDefFunction(this);
+	}
+
+	@Override
+	public void setBody(IExpression aExpression) {
+		setExpr(aExpression);
+	}
+
+	// wont use parent scope.items.add so this is ok
+	@Override
+	public void setExpr(final IExpression aExpr) {
+		_expr = aExpr;
+		_items.add(new StatementWrapperImpl(_expr, getContext(), this));
 	}
 
 }

@@ -22,7 +22,6 @@ import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
-import tripleo.elijah.world.*;
 
 import java.text.*;
 import java.util.*;
@@ -67,7 +66,7 @@ public class Resolve_Ident_IA {
 
 		public OS_Element getResolvedElement() {
 			if (deduceTypes2 == null) { // TODO remove this ASAP. Should never happen
-				tripleo.elijah.util.Stupidity.println_err_2("5454 Should never happen. gf is not deduced.");
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("5454 Should never happen. gf is not deduced.");
 				return null;
 				// throw new IllegalStateException("5454 Should never happen. gf is not
 				// deduced.");
@@ -211,8 +210,8 @@ public class Resolve_Ident_IA {
 	}
 
 	private final @NotNull Context context;
-	private final DeduceElementIdent dei;
-	private final @NotNull ErrSink errSink;
+	private final          DeduceElementIdent         dei;
+	private final @NotNull ErrSink                    errSink;
 	private final @NotNull DeduceTypes2.DeduceClient3 dc;
 	private final @NotNull FoundElement foundElement;
 	private final BaseEvaFunction generatedFunction;
@@ -288,12 +287,13 @@ public class Resolve_Ident_IA {
 				final @NotNull WorkList wl = dt2._inj().new_WorkList();
 				final @NotNull OS_Module module = ci.getKlass().getContext().module();
 				final @NotNull GenerateFunctions generateFunctions = dc.getGenerateFunctions(module);
-				if (pte.getFunctionInvocation().getFunction() == WorldGlobals.defaultVirtualCtor)
+				if (pte.getFunctionInvocation().getFunction() == LangGlobals.defaultVirtualCtor) {
 					wl.addJob(dt2._inj().new_WlGenerateDefaultCtor(generateFunctions, fi,
 							dc.deduceTypes2.creationContext(), phase.getCodeRegistrar()));
-				else
+				} else {
 					wl.addJob(dt2._inj().new_WlGenerateCtor(generateFunctions, fi, null,
 							dc.deduceTypes2.phase.getCodeRegistrar()));
+				}
 				dc.addJobs(wl);
 //				generatedFunction.addDependentType(genType);
 //				generatedFunction.addDependentFunction(fi);
@@ -312,10 +312,10 @@ public class Resolve_Ident_IA {
 		Collection<ConstructorDef> cs = (((ClassStatement) el).getConstructors());
 		@Nullable
 		ConstructorDef selected_constructor = null;
-		if (pte.getArgs().size() == 0 && cs.size() == 0) {
+		if (pte.getArgs().isEmpty() && cs.isEmpty()) {
 			// TODO use a virtual default ctor
 			LOG.info("2262 use a virtual default ctor for " + pte.__debug_expression);
-			selected_constructor = WorldGlobals.defaultVirtualCtor;
+			selected_constructor = LangGlobals.defaultVirtualCtor;
 		} else {
 			// TODO find a ctor that matches prte.getArgs()
 			final List<TypeTableEntry> x = pte.getArgs();
@@ -330,12 +330,7 @@ public class Resolve_Ident_IA {
 			@NotNull
 			GenType genType = dt2._inj().new_GenTypeImpl(ci.getKlass());
 			genType.setCi(ci);
-			ci.resolvePromise().then(new DoneCallback<EvaClass>() {
-				@Override
-				public void onDone(EvaClass result) {
-					genType.setNode(result);
-				}
-			});
+			ci.resolvePromise().then(result -> genType.setNode(result));
 			generatedFunction.addDependentType(genType);
 			generatedFunction.addDependentFunction(fi);
 		} else
@@ -347,7 +342,7 @@ public class Resolve_Ident_IA {
 
 			// final OS_Element el2 = dei.getResolvedElement();
 
-			tripleo.elijah.util.Stupidity.println_out_2("  70 " + el2);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("  70 " + el2);
 
 			final @NotNull List<InstructionArgument> s = BaseEvaFunction._getIdentIAPathList(identIA);
 
@@ -380,9 +375,9 @@ public class Resolve_Ident_IA {
 			break;
 		}
 		case USER:
-			if (el instanceof MatchConditionalImpl.MatchArm_TypeMatch) {
+			if (el instanceof MatchConditionalImpl.MatchArm_TypeMatch__) {
 				// for example from match conditional
-				final TypeName tn = ((MatchConditionalImpl.MatchArm_TypeMatch) el).getTypeName();
+				final TypeName tn = ((MatchArm_TypeMatch) el).getTypeName();
 				try {
 					final @NotNull GenType ty = dc.resolve_type(dt2._inj().new_OS_UserType(tn), tn.getContext());
 					ectx = ty.getResolved().getElement().getContext();
@@ -397,8 +392,8 @@ public class Resolve_Ident_IA {
 			break;
 		case FUNC_EXPR: {
 			@NotNull
-			FuncExpr x = (FuncExpr) aAttached.getElement();
-			ectx = x.getContext();
+			FuncExpr funcExpr = (FuncExpr) aAttached.getElement();
+			ectx = funcExpr.getContext();
 			break;
 		}
 		default:
@@ -465,7 +460,7 @@ public class Resolve_Ident_IA {
 				if (ci != null) {
 					pte.setClassInvocation(ci);
 				} else
-					tripleo.elijah.util.Stupidity.println_err_2("542 Null ClassInvocation");
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("542 Null ClassInvocation");
 			}
 
 			pte.setFunctionInvocation(fi);
@@ -515,15 +510,12 @@ public class Resolve_Ident_IA {
 			assert resolvedElement != null;
 
 			if (resolvedElement instanceof IdentExpression) {
-				backlink.typePromise().then(new DoneCallback<GenType>() {
-					@Override
-					public void onDone(@NotNull GenType result) {
-						try {
-							final Context context1 = result.getResolved().getClassOf().getContext();
-							action_002_2(pte, ite, context1);
-						} catch (ResolveError aResolveError) {
-							errSink.reportDiagnostic(aResolveError);
-						}
+				backlink.typePromise().then(result -> {
+					try {
+						final Context context1 = result.getResolved().getClassOf().getContext();
+						action_002_2(pte, ite, context1);
+					} catch (ResolveError aResolveError) {
+						errSink.reportDiagnostic(aResolveError);
 					}
 				});
 			} else {
@@ -655,7 +647,7 @@ public class Resolve_Ident_IA {
 //				assert idte.getStatus() != BaseTableEntry.Status.UNCHECKED;
 			final String normal_path = generatedFunction.getIdentIAPathNormal(identIA);
 			if (idte.resolveExpectation == null) {
-				tripleo.elijah.util.Stupidity.println_err_2("385 idte.resolveExpectation is null for " + idte);
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("385 idte.resolveExpectation is null for " + idte);
 			} else
 				idte.resolveExpectation.satisfy(normal_path);
 		} else if (idte.getStatus() == BaseTableEntry.Status.KNOWN) {

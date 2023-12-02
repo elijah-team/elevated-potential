@@ -13,12 +13,11 @@ import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.nextgen.names.i.*;
 import tripleo.elijah.lang2.*;
-import tripleo.elijah.world.*;
 
 /**
  * @author Tripleo
- *         <p>
- *         Created Apr 16, 2020 at 7:34:07 AM
+ * <p>
+ * Created Apr 16, 2020 at 7:34:07 AM
  */
 public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elijah.lang.i.ConstructorDef {
 
@@ -28,8 +27,7 @@ public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elija
 
 //	private @Nullable TypeName rt;
 
-	public ConstructorDefImpl(final @Nullable IdentExpression aConstructorName, final _CommonNC aParent,
-			final Context context) {
+	public ConstructorDefImpl(final @Nullable IdentExpression aConstructorName, final _CommonNC aParent, final Context context) {
 		parent = (OS_Element) aParent;
 		if (parent != null) {
 			if (aParent instanceof OS_Container) {
@@ -37,13 +35,16 @@ public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elija
 			} else {
 				throw new IllegalStateException("adding FunctionDef to " + aParent.getClass().getName());
 			}
-			_a.setContext(new FunctionContext(context, this));
+			_a = new AttachedImpl(new FunctionContextImpl(context, this));
+		} else {
+			_a = new AttachedImpl(new FunctionContextImpl(context, this));
 		}
 
-		if (aConstructorName != null)
+		if (aConstructorName != null) {
 			setName(aConstructorName);
-		else
-			setName(WorldGlobals.emptyConstructorName); // hack for Context#lookup
+		} else {
+			setName(LangGlobals.emptyConstructorName); // hack for Context#lookup
+		}
 		setSpecies(Species.CTOR);
 
 		__n = EN_Name.create(funName.getText()); // !!

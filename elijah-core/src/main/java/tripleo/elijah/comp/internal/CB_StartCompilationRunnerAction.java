@@ -1,9 +1,10 @@
 package tripleo.elijah.comp.internal;
 
+import lombok.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.util.*;
 
 import java.util.*;
@@ -14,8 +15,9 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	static                 boolean              started;
 	private final          CompilationRunner    compilationRunner;
 	private final          CompilerInstructions rootCI;
-	private final @NotNull IPipelineAccess      pa;
-	private final          CB_Output            o;
+	private final @NotNull IPipelineAccess pa;
+	@Getter
+	final CB_Output o;
 
 	@Contract(pure = true)
 	public CB_StartCompilationRunnerAction(final CompilationRunner aCompilationRunner,
@@ -37,7 +39,7 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	@Override
 	public void execute(CB_Monitor monitor) {
 		final CompilerDriver            compilationDriver = pa.getCompilationEnclosure().getCompilationDriver();
-		final Operation<CompilerDriven> ocrsd             = compilationDriver.get(Compilation.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
+		final Operation<CompilerDriven> ocrsd             = compilationDriver.get(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
 
 		switch (ocrsd.mode()) {
 		case SUCCESS -> {
@@ -47,7 +49,7 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 //			assert !(started);
 			if (started) {
 				//throw new AssertionError();
-				System.err.println("twice for "+this);
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("twice for "+this);
 			} else {
 				compilationRunnerStart.start(rootCI, crState, o);
 				started = true;

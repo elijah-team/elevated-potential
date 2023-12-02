@@ -5,14 +5,14 @@ import tripleo.elijah.stages.gen_fn.*;
 
 public class DebugPrint {
 	public static void addDeferredMember(final DeferredMember aDm) {
-		System.err.println("**** addDeferredMember " + aDm);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("**** addDeferredMember " + aDm);
 	}
 
 	public static void addDependentType(final BaseEvaFunction aGeneratedFunction, final GenType aGenType) {
-		System.err.println("**** addDependentType " + aGeneratedFunction + " " + aGenType);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("**** addDependentType " + aGeneratedFunction + " " + aGenType);
 	}
 
 	public static void addPotentialType(final VariableTableEntry aVte, final ConstantTableEntry aCte) {
-		System.err.println("**** addPotentialType " + aVte + " " + aCte);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("**** addPotentialType " + aVte + " " + aCte);
 	}
 }

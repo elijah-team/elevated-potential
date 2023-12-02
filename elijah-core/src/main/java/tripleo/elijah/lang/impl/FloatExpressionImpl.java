@@ -9,22 +9,20 @@
 /*
  * Created on May 19, 2019 23:47
  *
- * $Id$
  *
  */
 package tripleo.elijah.lang.impl;
 
 import antlr.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
 import java.util.*;
 
-public class FloatExpressionImpl implements tripleo.elijah.lang.i.FloatExpression {
-
-	OS_Type _type;
-	float carrier;
+public class FloatExpressionImpl implements FloatExpression {
+	private       float carrier;
 	private final Token n;
 
 	public FloatExpressionImpl(final @NotNull Token n) {
@@ -47,11 +45,6 @@ public class FloatExpressionImpl implements tripleo.elijah.lang.i.FloatExpressio
 	}
 
 	@Override
-	public OS_Type getType() {
-		return _type;
-	}
-
-	@Override
 	public boolean is_simple() {
 		return true;
 	}
@@ -61,15 +54,14 @@ public class FloatExpressionImpl implements tripleo.elijah.lang.i.FloatExpressio
 		return toString();
 	}
 
-	public void setArgs(final ExpressionList ael) {
-
+	public void setArgs(final ExpressionList aExpressionList) {
+		throw new UnintendedUseException();
 	}
 
 	@Override
-	public void setKind(final @NotNull ExpressionKind aType) {
+	public void setKind(final @NotNull ExpressionKind aExpressionKind) {
 		// log and ignore
-		tripleo.elijah.util.Stupidity
-				.println_err_2("Trying to set ExpressionType of FloatExpression to " + aType.toString());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("Trying to set ExpressionType of FloatExpression to " + aExpressionKind.toString());
 	}
 
 	@Override
@@ -78,12 +70,12 @@ public class FloatExpressionImpl implements tripleo.elijah.lang.i.FloatExpressio
 	}
 
 	@Override
-	public void setType(final OS_Type deducedExpression) {
-		_type = deducedExpression;
+	public String toString() {
+		return asString();
 	}
 
 	@Override
-	public String toString() {
+	public String asString() {
 		return String.format("FloatExpression (%f)", carrier);
 	}
 

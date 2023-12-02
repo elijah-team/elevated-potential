@@ -24,18 +24,8 @@ public class UnaryExpressionImpl extends AbstractExpression implements tripleo.e
 	}
 
 	@Override
-	public @Nullable OS_Type getType() {
-		return null;
-	}
-
-	@Override
 	public boolean is_simple() {
 		return false;
-	}
-
-	@Override
-	public void setType(OS_Type deducedExpression) {
-
 	}
 
 }

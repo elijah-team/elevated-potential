@@ -16,7 +16,7 @@ import tripleo.elijah.lang.impl.VariableSequenceImpl;
 /**
  * Created 8/30/20 1:41 PM
  */
-public class SyntacticBlockContext extends ContextImpl {
+public class SyntacticBlockContext extends ContextImpl implements ISyntacticBlockContext {
 
 	private final Context _parent;
 	private final SyntacticBlock carrier;
@@ -33,7 +33,7 @@ public class SyntacticBlockContext extends ContextImpl {
 
 	@Override
 	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
-			final @NotNull SearchList alreadySearched, final boolean one) {
+								   final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
 		for (final FunctionItem item : carrier.getItems()) {

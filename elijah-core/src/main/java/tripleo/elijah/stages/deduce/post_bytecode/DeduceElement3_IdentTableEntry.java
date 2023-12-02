@@ -54,7 +54,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 
 							for (EvaContainer.VarTableEntry entry : ((EvaContainerNC) result.getNode()).varTable) {
 								if (!entry.isResolved()) {
-									System.err.println("629 entry not resolved " + entry.nameToken);
+									tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("629 entry not resolved " + entry.nameToken);
 								}
 							}
 						});
@@ -487,7 +487,9 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 		return el;
 	}
 
-	private void __sneak_el_null__bl1_not_null__possible_type_part(final @NotNull VariableTableEntry vte_bl1, final @Nullable DeduceTypes2 dt2, final DR_Ident b) {
+	private void __sneak_el_null__bl1_not_null__possible_type_part(final @NotNull VariableTableEntry vte_bl1,
+																   final @Nullable DeduceTypes2 dt2,
+																   final DR_Ident b) {
 		for (TypeTableEntry potentialType : vte_bl1.potentialTypes()) {
 			var y = potentialType.tableEntry;
 			if (y instanceof ProcTableEntry pte) {
@@ -498,14 +500,14 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 					var ci = pte.getClassInvocation();
 					var fi = pte.getFunctionInvocation();
 
-					// System.err.println("322 " + ci);
-					// System.err.println("323 " + fi);
+					// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("322 " + ci);
+					// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("323 " + fi);
 
 					if (dt2 != null) {
 						var pt = dt2._inj().new_DR_PossibleTypeCI(ci, fi);
 						b.addPossibleType(pt);
 					} else {
-						System.out.println("460460 Can't create PossibleType because dt2 == null");
+						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("460460 Can't create PossibleType because dt2 == null");
 					}
 
 					// deduceTypes2.deducePhase.reg
@@ -515,9 +517,9 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 
 					eef.then(new DoneCallback<>() {
 						private static void printString(final int code, final String txt) {
-							if (code == 330)
-								return;
-							System.err.printf("%d %s%n", code, txt);
+							//if (code == 330)
+							//	return;
+							System.err.printf("130522 %d %s%n", code, txt);
 							if (code == 336)
 								printString(336, "********************");
 						}
@@ -553,10 +555,10 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 											var pt2 = dt2._inj().new_DR_PossibleTypeCI(ci11, null);
 											b.addPossibleType(pt2);
 										} else {
-											System.out.println("460507 Can't create PossibleType because dt2 == null");
+											tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("460507 Can't create PossibleType because dt2 == null");
 										}
 									} else {
-										// System.err.println("364 " + principal.getIdent().getText());
+										// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("364 " + principal.getIdent().getText());
 									}
 								}
 							}
@@ -587,7 +589,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 				continue;
 			}
 
-			if (ctx2 instanceof ModuleContext) {
+			if (ctx2 instanceof ModuleContext__) {
 				ctxs.add(ctx2);
 
 				final @NotNull Collection<ModuleItem> itms = ((ModuleContext) ctx2).getCarrier().getItems();
