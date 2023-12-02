@@ -8,12 +8,15 @@ plugins {
     id "org.xtext.xtend" version "4.0.0"
 
     //    id "com.diffplug.spotless" version "6.22.0"
+
+//    id 'scala'
 }
 
 repositories {
     gradlePluginPortal()
 //    maven {url "https://plugins.gradle.org/m2"}
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
@@ -47,7 +50,7 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.10.0'
-    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation "org.assertj:assertj-core:3.24.2"
 
     // http://xtext.github.io/xtext-gradle-plugin/xtend.html
     // https://stackoverflow.com/questions/23796404/could-not-find-method-compile-for-arguments-gradle
@@ -95,6 +98,12 @@ ktor {
         archiveFileName.set("fat.jar")
     }
 }
+
+//tasks.named('compileJava') {
+////     Java also depends on the result of Groovy compilation
+////     (which automatically makes it depend of compileGroovy)
+//    classpath += files(sourceSets.main.scala.classesDirectory)
+//}
 
 description = 'elijah-core'
 version = '2023.11.elevated-potential.4'

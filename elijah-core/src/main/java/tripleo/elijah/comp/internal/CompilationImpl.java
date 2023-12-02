@@ -528,6 +528,17 @@ public class CompilationImpl implements Compilation, EventualRegister {
 			throw new UnintendedUseException();
 		}
 	}
+
+	@Override
+	public CompilationEnclosure getCompilationEnclosure() {
+		// TODO Auto-generated method stub
+		return compilationEnclosure;
+	}
+
+	public CK_Monitor getDefaultMonitor() {
+		// TODO Auto-generated method stub
+		return this.defaultMonitor;
+	}
 }
 
 //

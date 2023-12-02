@@ -152,4 +152,10 @@ public class DefaultCompilationBus implements ICompilationBus {
 		}
 
 	}
+
+	@Override
+	public CompilerDriver getCompilerDriver() {
+		// TODO Auto-generated method stub
+		return compilerDriver;
+	}
 }

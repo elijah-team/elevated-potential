@@ -116,6 +116,12 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	public String toString() {
 		return "CompilerInstructionsImpl{name='%s', filename='%s'}".formatted(name, filename);
 	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return name;
+	}
 }
 
 //

@@ -23,7 +23,7 @@ class CB_FindCIs implements CB_Action {
 
 	@Override
 	public void execute(CB_Monitor aMonitor) {
-		final CK_Monitor       monitor   = compilationRunner.getCompilationEnclosure().getDefaultMonitor();
+//		final CK_Monitor       monitor11   = /*aMonitor;//*/compilationRunner.getCompilationEnclosure().getDefaultMonitor();
 		final CR_State         st        = compilationRunner.getCrState();
 		final Compilation      c         = (Compilation) st.ca().getCompilation();
 		final @NotNull ErrSink errSink   = c.getErrSink();

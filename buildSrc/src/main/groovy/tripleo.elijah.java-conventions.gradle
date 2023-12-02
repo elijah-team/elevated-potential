@@ -51,7 +51,7 @@ dependencies {
     api 'tripleo.util.range:range-v1:0.0.3b'
 
     testImplementation 'org.mockito:mockito-core:5.2.0'
-    testImplementation 'junit:junit:4.13.2'
+//    testImplementation 'junit:junit:4.13.2'
     compileOnly 'org.projectlombok:lombok:1.18.28'
 }
 

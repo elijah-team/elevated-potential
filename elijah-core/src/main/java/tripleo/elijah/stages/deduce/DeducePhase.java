@@ -1144,6 +1144,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 
 		private @NotNull ClassInvocation getClassInvocation(final @NotNull ClassInvocation aClassInvocation,
 		                                                    OS_Module mod, final WorkList wl, final @NotNull RegisterClassInvocation_env aEnv) {
+			// rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
 			if (mod == null)
 				mod = aClassInvocation.getKlass().getContext().module();
 
@@ -1230,6 +1231,11 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 
 			return part2(aClassInvocation, true, env);
 		}
+	}
+
+	public ICodeRegistrar getCodeRegistrar() {
+		// TODO Auto-generated method stub
+		return codeRegistrar;
 	}
 }
 

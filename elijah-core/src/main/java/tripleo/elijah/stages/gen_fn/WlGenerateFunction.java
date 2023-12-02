@@ -127,6 +127,11 @@ public class WlGenerateFunction implements WorkJob {
 		}
 		_isDone = true;
 	}
+
+	public EvaFunction getResult() {
+		// TODO Auto-generated method stub
+		return result;
+	}
 }
 
 //

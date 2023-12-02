@@ -17,4 +17,9 @@ public class DeduceCentral {
 		DC_ClassNote cn = deduceTypes2._inj().new_DC_ClassNote(aE, aCtx, this);
 		return cn;
 	}
+
+	public DeduceTypes2 getDeduceTypes2() {
+		// TODO Auto-generated method stub
+		return deduceTypes2;
+	}
 }
