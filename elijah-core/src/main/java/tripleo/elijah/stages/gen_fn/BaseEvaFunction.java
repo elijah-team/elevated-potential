@@ -171,17 +171,23 @@ public abstract class BaseEvaFunction
 		elements.put(aElement, aDeduceElement);
 	}
 
-	@Override
-	public int addIdentTableEntry(final IdentExpression ident, final Context context) {
-		for (int i = 0; i < idte_list.size(); i++) {
+	public IdentIA addIdentTableEntry2(final IdentExpression ident, final Context context) {
+		final int idte_index = idte_list.size();
+		for (int i = 0; i < idte_index; i++) {
 			if (idte_list.get(i).getIdent() == ident && idte_list.get(i).getPC() == context)
-				return i;
+				return new IdentIA(i, this);
 		}
-		final IdentTableEntry idte = new IdentTableEntry(idte_list.size(), ident, context, this);
+		final IdentTableEntry idte = new IdentTableEntry(idte_index, ident, context, this);
 
 		idte.set_ident(getIdent(idte));
 
 		idte_list.add(idte);
+		return new IdentIA(idte_index, this);
+	}
+
+	@Override
+	public int addIdentTableEntry(final IdentExpression ident, final Context context) {
+		IdentIA idte = addIdentTableEntry2(ident, context);
 		return idte.getIndex();
 	}
 
@@ -209,10 +215,17 @@ public abstract class BaseEvaFunction
 
 	@Override
 	public int addVariableTableEntry(final String name, final VariableTableType vtt, final TypeTableEntry type,
-									 OS_Element el) {
-		final VariableTableEntry vte = new VariableTableEntry(vte_list.size(), vtt, name, type, el);
-		vte_list.add(vte);
+									 OS_Element x_var) {
+		IntegerIA vte = addVariableTableEntry2(name, vtt, type, x_var);
 		return vte.getIndex();
+	}
+	
+	public IntegerIA addVariableTableEntry2(String name, VariableTableType vtt, TypeTableEntry type,
+			OS_Element x_var) {
+		final int vte_index = vte_list.size();
+		final VariableTableEntry vte = new VariableTableEntry(vte_index, vtt, name, type, x_var);
+		vte_list.add(vte);
+		return new IntegerIA(vte_index, this);
 	}
 
 	@Override

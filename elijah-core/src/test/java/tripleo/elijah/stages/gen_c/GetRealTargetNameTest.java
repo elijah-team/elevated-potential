@@ -57,10 +57,8 @@ public class GetRealTargetNameTest {
 		//
 		final TypeTableEntry    tte       = XX.regularTypeName_specifyTableEntry(x_ident, gf, "X_Type");
 		final VariableStatement x_var     = XX.sequenceAndVarNamed(x_ident);
-		final int               int_index = gf.addVariableTableEntry("x", VariableTableType.VAR, tte, x_var);
-		final int               ite_index = gf.addIdentTableEntry(foo_ident, gf.getFD().getContext());
-		final IntegerIA         integerIA = new IntegerIA(int_index, gf);
-		final IdentIA           ident_ia  = new IdentIA(ite_index, gf);
+		final IntegerIA         integerIA = gf.addVariableTableEntry2("x", VariableTableType.VAR, tte, x_var);
+		final IdentIA           ident_ia  = gf.addIdentTableEntry2(foo_ident, gf.getFD().getContext());
 		ident_ia.setPrev(integerIA);
 
 		Emit.emitting = false;
