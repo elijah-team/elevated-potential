@@ -8,12 +8,20 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.gen_generic.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
-import java.util.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import tripleo.elijah.lang.i.ClassStatement;
+import tripleo.elijah.lang.i.FormalArgListItem;
+import tripleo.elijah.lang.i.FunctionDef;
+import tripleo.elijah.lang.i.OS_Element;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.stages.deduce.nextgen.DR_Item;
+import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 
 /**
  * Created 6/27/21 9:40 AM
