@@ -110,5 +110,5 @@ ktor {
 //    classpath += files(sourceSets.main.scala.classesDirectory)
 //}
 
-description = 'elijah-core'
+description = 'elijah-core-elevated-potential'
 version = '2023.11.elevated-potential.4'
