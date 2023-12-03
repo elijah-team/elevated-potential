@@ -102,19 +102,19 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 			}
 
 			@Override
-			public void onLogProgress(final Asseverable ce) {
+			public void onLogProgress(final Asseverable asseverable_ce) {
 				// !!
-				assert ce instanceof GCompilationEnclosure;
-
-				((GCompilationEnclosure) ce).logProgress2(CompProgress.Ez__HasHash, new AsseverationLogProgress() {
-					@Override
-					public void call(PrintStream out, PrintStream err) {
-						out.printf("[-- Ez has HASH ] %s %s%n", file_name, hash.success());
-					}
-				});
+				if (asseverable_ce instanceof final GCompilationEnclosure ce) {
+					ce.logProgress2(CompProgress.Ez__HasHash, new AsseverationLogProgress() {
+						@Override
+						public void call(PrintStream out, PrintStream err) {
+							out.printf("[-- Ez has HASH ] %s %s%n", file_name, hash.success());
+						}
+					});
+				} else {
+					throw new AssertionError();
+				}
 			}
-
-			//@Override
 		});
 	}
 
