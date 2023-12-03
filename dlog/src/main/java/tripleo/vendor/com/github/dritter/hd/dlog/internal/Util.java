@@ -3,10 +3,7 @@ package tripleo.vendor.com.github.dritter.hd.dlog.internal;
 import tripleo.vendor.com.github.dritter.hd.dlog.IRule;
 import tripleo.vendor.com.github.dritter.hd.dlog.Predicate;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Util {
     public static HashMap<Predicate, List<IRule>> clusterRules(final Collection<IRule> unrectRules) {

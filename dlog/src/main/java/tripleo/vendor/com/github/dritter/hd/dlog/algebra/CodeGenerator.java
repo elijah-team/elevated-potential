@@ -1,16 +1,10 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.algebra;
 
+import tripleo.vendor.com.github.dritter.hd.dlog.*;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.conditions.ComparisonFormula;
-import com.github.dritter.hd.dlog.compiler.internal.*;
-import tripleo.vendor.com.github.dritter.hd.dlog.BuiltInPredicates;
-import tripleo.vendor.com.github.dritter.hd.dlog.Literal;
-import tripleo.vendor.com.github.dritter.hd.dlog.Parameter;
-import tripleo.vendor.com.github.dritter.hd.dlog.Predicate;
 import tripleo.vendor.com.github.dritter.hd.dlog.compiler.internal.*;
 
-import java.util.ArrayList;
-import java.util.IdentityHashMap;
-import java.util.List;
+import java.util.*;
 
 public class CodeGenerator {
     private static IdentityHashMap<Class<? extends Operator>, IGenerator> MAP = new IdentityHashMap<Class<? extends Operator>, IGenerator>();

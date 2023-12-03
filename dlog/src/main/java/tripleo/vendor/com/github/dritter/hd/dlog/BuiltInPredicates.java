@@ -1,7 +1,6 @@
 package tripleo.vendor.com.github.dritter.hd.dlog;
 
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
-import com.github.dritter.hd.dlog.algebra.conditions.*;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.conditions.*;
 
 import java.util.HashSet;

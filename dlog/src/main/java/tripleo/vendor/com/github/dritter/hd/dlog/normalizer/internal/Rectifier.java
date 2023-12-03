@@ -1,8 +1,7 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.normalizer.internal;
 
-import com.github.dritter.hd.dlog.*;
-import tripleo.vendor.com.github.dritter.hd.dlog.compiler.internal.Util;
 import tripleo.vendor.com.github.dritter.hd.dlog.*;
+import tripleo.vendor.com.github.dritter.hd.dlog.compiler.internal.Util;
 
 import java.util.*;
 

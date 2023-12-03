@@ -1,26 +1,16 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.parser;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.*;
 import org.antlr.runtime.tree.CommonTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import tripleo.vendor.com.github.dritter.hd.dlog.Predicate;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
 import tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IFacts;
 import tripleo.vendor.com.github.dritter.hd.dlog.evaluator.SimpleFacts;
-import com.github.dritter.hd.dlog.parser.datalogParser.program_return;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 @SuppressWarnings("unchecked")
 public class DlogEvaluatorParser {
@@ -48,14 +38,14 @@ public class DlogEvaluatorParser {
             throw new IllegalArgumentException("Datalog program must not be null.");
         }
 
-        final CharStream cs = new ANTLRStringStream(program);
+        final CharStream   cs = new ANTLRStringStream(program);
         final datalogLexer dl = new datalogLexer(cs);
 
         final CommonTokenStream cts = new CommonTokenStream(dl);
-        final datalogParser dp = new datalogParser(cts);
+        final datalogParser     dp  = new datalogParser(cts);
         try {
-            final program_return pr = dp.program();
-            final List<CommonTree> rules = ((CommonTree) pr.getTree()).getChildren();
+            final datalogParser.program_return pr    = dp.program();
+            final List<CommonTree>             rules = (List<CommonTree>) pr.getTree().getChildren();
 
             if (rules == null) {
                 log.debug("Rule set was parsed, however, is empty.");

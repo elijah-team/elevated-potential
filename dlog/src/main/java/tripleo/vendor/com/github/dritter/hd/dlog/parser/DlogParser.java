@@ -1,30 +1,12 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.parser;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.*;
 import org.antlr.runtime.tree.CommonTree;
-
-import tripleo.vendor.com.github.dritter.hd.dlog.Facts;
-import tripleo.vendor.com.github.dritter.hd.dlog.IFacts;
-import tripleo.vendor.com.github.dritter.hd.dlog.IQuery;
-import tripleo.vendor.com.github.dritter.hd.dlog.IRule;
-import tripleo.vendor.com.github.dritter.hd.dlog.Literal;
-import tripleo.vendor.com.github.dritter.hd.dlog.Parameter;
-import tripleo.vendor.com.github.dritter.hd.dlog.Predicate;
-import tripleo.vendor.com.github.dritter.hd.dlog.Query;
-import tripleo.vendor.com.github.dritter.hd.dlog.Rule;
+import tripleo.vendor.com.github.dritter.hd.dlog.*;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.FillableTableIterator;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
-import com.github.dritter.hd.dlog.parser.datalogParser.program_return;
+
+import java.util.*;
 
 @SuppressWarnings("unchecked")
 public class DlogParser {
@@ -53,15 +35,15 @@ public class DlogParser {
     }
 
     public final void parse(final String program) {
-        final CharStream cs = new ANTLRStringStream(program);
+        final CharStream   cs = new ANTLRStringStream(program);
         final datalogLexer dl = new datalogLexer(cs);
 
         final CommonTokenStream cts = new CommonTokenStream(dl);
-        final datalogParser dp = new datalogParser(cts);
+        final datalogParser     dp  = new datalogParser(cts);
         try {
             final datalogParser.program_return pr = dp.program();
 
-            List<CommonTree> rules = ((CommonTree) pr.getTree()).getChildren();
+            List<CommonTree> rules = (List<CommonTree>) pr.getTree().getChildren();
 
             if (rules == null) {
                 rules = new ArrayList<CommonTree>();

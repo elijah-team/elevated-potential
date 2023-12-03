@@ -2,10 +2,7 @@ package tripleo.vendor.com.github.dritter.hd.dlog.evaluator;
 
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public final class SimpleFacts implements IFacts {
 	private final String predicateName;

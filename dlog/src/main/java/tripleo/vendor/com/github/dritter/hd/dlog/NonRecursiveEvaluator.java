@@ -1,14 +1,18 @@
 package tripleo.vendor.com.github.dritter.hd.dlog;
 
-import com.github.dritter.hd.dlog.algebra.*;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.CodeGenerationContext;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.CodeGenerator;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.FillableTableIterator;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
 import tripleo.vendor.com.github.dritter.hd.dlog.compiler.internal.Compiler;
 import tripleo.vendor.com.github.dritter.hd.dlog.compiler.internal.Operator;
 import tripleo.vendor.com.github.dritter.hd.dlog.compiler.internal.Util;
 import tripleo.vendor.com.github.dritter.hd.dlog.normalizer.internal.Rectifier;
 import tripleo.vendor.com.github.dritter.hd.dlog.normalizer.internal.RuleSafetyProcessor;
-import org.slf4j.Logger;
+
 import org.slf4j.LoggerFactory;
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.*;
+import org.slf4j.Logger;
 
 import java.util.*;
 
