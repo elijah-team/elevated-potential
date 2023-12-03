@@ -1,8 +1,6 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.algebra;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 
 public class CollectionIterator implements DataIterator {
     protected Collection<ParameterValue<?>[]> facts;

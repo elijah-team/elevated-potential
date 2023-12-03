@@ -1,8 +1,6 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.compiler.internal;
 
-import tripleo.vendor.com.github.dritter.hd.dlog.Literal;
-import tripleo.vendor.com.github.dritter.hd.dlog.Parameter;
-import tripleo.vendor.com.github.dritter.hd.dlog.Predicate;
+import tripleo.vendor.com.github.dritter.hd.dlog.*;
 
 import java.util.Collections;
 import java.util.List;

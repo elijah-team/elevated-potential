@@ -1,6 +1,5 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.normalizer.internal;
 
-import com.github.dritter.hd.dlog.*;
 import tripleo.vendor.com.github.dritter.hd.dlog.*;
 
 import java.util.ArrayList;

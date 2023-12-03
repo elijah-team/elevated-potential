@@ -1,7 +1,7 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.internal;
 
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
 import tripleo.vendor.com.github.dritter.hd.dlog.Parameter;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
 
 import java.util.ArrayList;
 import java.util.List;

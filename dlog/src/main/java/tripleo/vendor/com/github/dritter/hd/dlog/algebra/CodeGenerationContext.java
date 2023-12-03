@@ -1,11 +1,9 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.algebra;
 
-import tripleo.vendor.com.github.dritter.hd.dlog.compiler.internal.Util;
 import tripleo.vendor.com.github.dritter.hd.dlog.Predicate;
+import tripleo.vendor.com.github.dritter.hd.dlog.compiler.internal.Util;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CodeGenerationContext {
     private Map<Predicate, List<CodeGenerationIterator>> map;

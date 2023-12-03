@@ -1,20 +1,10 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.evaluator;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import tripleo.vendor.com.github.dritter.hd.dlog.Facts;
-import tripleo.vendor.com.github.dritter.hd.dlog.IRule;
-import tripleo.vendor.com.github.dritter.hd.dlog.NaiveRecursiveEvaluator;
-import tripleo.vendor.com.github.dritter.hd.dlog.NonRecursiveEvaluator;
-import tripleo.vendor.com.github.dritter.hd.dlog.Predicate;
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.FillableTableIterator;
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
+import tripleo.vendor.com.github.dritter.hd.dlog.*;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.*;
 import tripleo.vendor.com.github.dritter.hd.dlog.parser.DlogParser;
+
+import java.util.*;
 
 public class DlogEvaluator implements IEvaluator {
     // private static final Logger log =

@@ -2,9 +2,7 @@ package tripleo.vendor.com.github.dritter.hd.dlog.internal;
 
 import tripleo.vendor.com.github.dritter.hd.dlog.Literal;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Join extends NaryOperator {
 

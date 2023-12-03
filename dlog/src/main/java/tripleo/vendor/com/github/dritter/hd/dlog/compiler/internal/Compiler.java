@@ -1,6 +1,5 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.compiler.internal;
 
-import com.github.dritter.hd.dlog.*;
 import tripleo.vendor.com.github.dritter.hd.dlog.*;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
 
