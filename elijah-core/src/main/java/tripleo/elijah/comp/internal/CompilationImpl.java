@@ -103,7 +103,9 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		pw_controller        = _con.createPwController(this);
 		cci_listener         = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
+	}
 
+	public void ____m() {
 		try {
 			final JarWork jarwork1 = getJarwork();
 			jarwork1.work();
