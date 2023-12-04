@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
@@ -46,8 +47,12 @@ class DefaultCompFactory implements CompFactory {
 		return new DefaultCompilationBus(Objects.requireNonNull(compilation.getCompilationEnclosure()));
 	}
 
-	@Contract("_,_,_ -> new")
 	@Override
+	public InputRequest createInputRequest(final java.io.File aFile, final @Nullable LibraryStatementPart aLsp) {
+		throw new UnintendedUseException();
+	}
+
+	@Contract("_,_,_ -> new")
 	public @NotNull InputRequest createInputRequest(final File aFile,
 	                                                final @Nullable LibraryStatementPart aLsp) {
 		return new InputRequest(aFile, aLsp);
@@ -115,6 +120,11 @@ class DefaultCompFactory implements CompFactory {
 				return thread;
 			}
 		};
+	}
+
+	@Override
+	public @NotNull CompilerInputMaster createCompilerInputMaster() {
+		return CompFactory.super.createCompilerInputMaster();
 	}
 
 	@Override

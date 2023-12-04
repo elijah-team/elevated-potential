@@ -13,12 +13,12 @@ public class ChooseCompilationNameBehavior implements ChooseDirectoryNameBehavio
 	}
 
 	@Override
-	public @NotNull File chooseDirectory() {
+	public tripleo.wrap.@NotNull File chooseDirectory() {
 		final String c_name = c.getCompilationNumberString();
 
 		final File fn00 = new File("COMP", c_name);
 //		final File fn0 = new File(fn00, "date");
 
-		return fn00;
+		return tripleo.wrap.File.wrap(fn00);
 	}
 }

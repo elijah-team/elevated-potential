@@ -11,10 +11,9 @@ package tripleo.elijah.comp;
 import org.junit.jupiter.api.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
+import tripleo.wrap.File;
 
-import java.io.*;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
