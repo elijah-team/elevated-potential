@@ -9,6 +9,8 @@ import tripleo.elijah.util.*;
 
 import java.io.*;
 
+import tripleo.wrap.File;
+
 public class CK_SourceFile__SpecifiedElijahFile extends __CK_SourceFile__AbstractElijahFile {
 	private final File file;
 
@@ -18,8 +20,8 @@ public class CK_SourceFile__SpecifiedElijahFile extends __CK_SourceFile__Abstrac
 
 	@Override
 	public Operation2<OS_Module> process_query() {
-		final ElijahCache              elijahCache = compilation.use_elijahCache();
-		final Operation2<OS_Module> oci     = process_query(compilation.getIO(), elijahCache);
+		final ElijahCache           elijahCache = compilation.use_elijahCache();
+		final Operation2<OS_Module> oci         = process_query(compilation.getIO(), elijahCache);
 
 		//super.asserverate();
 

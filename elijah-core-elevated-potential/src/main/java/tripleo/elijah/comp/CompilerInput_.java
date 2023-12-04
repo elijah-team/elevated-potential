@@ -6,13 +6,25 @@ import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
-import tripleo.elijah.util.*;
+import tripleo.elijah.comp.queries.QSEZ_Reasoning;
+import tripleo.elijah.util.Maybe;
+import tripleo.elijah.util.Operation2;
+import tripleo.wrap.File;
 
-import java.io.*;
-import java.util.*;
-import java.util.regex.*;
+import java.util.regex.Pattern;
 
 public class CompilerInput_ extends __Extensionable implements CompilerInput {
+	@Override
+	public tripleo.wrap.File getFile() {
+		throw new UnintendedUseException();
+	}
+
+	public tripleo.wrap.File getFileForDirectory() {
+		final tripleo.wrap.File directory = new tripleo.wrap.File(inp);
+		this.setDirectory(directory);
+		return directory;
+	}
+
 	@Getter
 	private final String                           inp;
 	private       Maybe<ILazyCompilerInstructions> accept_ci;
@@ -107,8 +119,8 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 	public void setDirectoryResults(final CompilerInstructions_Result aLoci) {
 		this.directoryResults = aLoci;
 
-        for (var locus : aLoci.getDirectoryResult2()) {
-            var focus = locus.getKey().success();
+        for (Pair<Operation2<CompilerInstructions>,QSEZ_Reasoning> locus : aLoci.getDirectoryResult2()) {
+            CompilerInstructions focus = locus.getKey().success();
             focus.advise(this);
         }
 
@@ -143,7 +155,8 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 	public File makeFile() {
 	    return switch (ty) {
 		    case SOURCE_ROOT -> dir_carrier;
-		    case ROOT -> new File(new File(inp).getParent());
+			// TODO 12/03 see #getFileForDirectory
+		    case ROOT -> new File(new File(inp).getParentFile().wrapped()); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 		    default -> null;
 	    };
     }
@@ -158,5 +171,4 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 		// TODO Auto-generated method stub
 		return inp;
 	}
-
 }

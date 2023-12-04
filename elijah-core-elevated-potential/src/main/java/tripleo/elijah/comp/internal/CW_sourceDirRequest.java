@@ -6,7 +6,7 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
-import java.io.*;
+import tripleo.wrap.File;
 import java.util.function.*;
 
 public class CW_sourceDirRequest {

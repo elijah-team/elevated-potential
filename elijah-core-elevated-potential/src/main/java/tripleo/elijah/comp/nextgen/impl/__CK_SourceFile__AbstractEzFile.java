@@ -17,6 +17,7 @@ import tripleo.elijah.util.*;
 import java.io.*;
 import java.util.*;
 import java.util.regex.*;
+import tripleo.wrap.File;
 
 abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 	protected Compilation  compilation;
@@ -37,7 +38,7 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 	 * @param cache
 	 * @return
 	 */
-	public static Operation2<CompilerInstructions> realParseEzFile(final EzSpec__ spec, final EzCache cache) {
+	public static Operation2<CompilerInstructions> realParseEzFile(final EzSpec spec, final EzCache cache) {
 		final Operation<String> op = spec.absolute1();
 
 		if (op.mode() == Mode.FAILURE) {

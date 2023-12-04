@@ -17,7 +17,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
-import java.io.*;
+import tripleo.wrap.File;
 import java.util.*;
 
 /**

@@ -4,7 +4,7 @@ import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.i.*;
 
-import java.io.File;
+import tripleo.wrap.File;
 
 public class USE_Reasonings {
 	public static USE_Reasoning parent(CompilerInstructions aCompilerInstructions, boolean parent, File aInstructionDir, LibraryStatementPart aLsp) {

@@ -8,9 +8,9 @@ import tripleo.elijah.comp.queries.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.util.*;
 
-import java.io.*;
 import java.util.*;
 import java.util.function.*;
+import tripleo.wrap.File;
 
 public class CW_ezDirRequest {
 	public static void apply() {

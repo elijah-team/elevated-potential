@@ -13,6 +13,8 @@ import tripleo.elijjah.*;
 
 import java.io.*;
 
+import tripleo.wrap.File;
+
 public enum CX_ParseEzFile {;
 	private static Operation2<CompilerInstructions> calculate(final String aAbsolutePath, final InputStream aInputStream) {
 		final EzLexer lexer = new EzLexer(aInputStream);
@@ -49,7 +51,7 @@ public enum CX_ParseEzFile {;
 	}
 
 	public static Operation<CompilerInstructions> parseEzFile(final @NotNull File aFile,
-	                                                          final Compilation aCompilation) {
+															  final Compilation aCompilation) {
 		try (final InputStream readFile = aCompilation.getIO().readFile(aFile)) {
 
 			// FIXME double conversion

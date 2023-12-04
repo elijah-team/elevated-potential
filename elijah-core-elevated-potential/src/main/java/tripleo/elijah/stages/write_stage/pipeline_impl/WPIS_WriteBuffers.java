@@ -18,6 +18,7 @@ import java.nio.file.*;
 import java.util.*;
 
 import static tripleo.elijah.util.Helpers.List_of;
+import tripleo.wrap.File;
 
 public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
 	private final WritePipeline                           writePipeline;
