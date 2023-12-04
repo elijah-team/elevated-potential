@@ -10,8 +10,8 @@ import tripleo.elijah.comp.nextgen.impl.CK_SourceFileFactory;
 import tripleo.elijah.g.GCR_State;
 import tripleo.elijah.util.*;
 
-import java.io.*;
 import java.util.function.*;
+import tripleo.wrap.File;
 
 public class CD_FindStdLibImpl implements CD_FindStdLib {
 

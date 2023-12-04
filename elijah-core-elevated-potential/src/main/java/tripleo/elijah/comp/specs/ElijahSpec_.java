@@ -2,15 +2,15 @@ package tripleo.elijah.comp.specs;
 
 import tripleo.elijah.comp.graph.CM_Module;
 
-import java.io.File;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Objects;
+import tripleo.wrap.File;
 
 public final class ElijahSpec_ implements ElijahSpec {
 	private final String      file_name;
 	private final File        file;
 	private final InputStream s;
-	private CM_Module cmModule;
+	private CM_Module cmModule; // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
 	public ElijahSpec_(String file_name, File file, InputStream s) {
 		this.file_name = file_name;

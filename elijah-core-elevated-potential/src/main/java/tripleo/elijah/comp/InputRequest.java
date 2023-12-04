@@ -17,6 +17,11 @@ public class InputRequest { // TODO 09/08 Convert to record
 		lsp = aLsp;
 	}
 
+	public InputRequest(final tripleo.wrap.File aFile, final LibraryStatementPart aLsp) {
+		_file = aFile.wrapped();
+		lsp = aLsp;
+	}
+
 	public File file() {
 		return _file;
 	}

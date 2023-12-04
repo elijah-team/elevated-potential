@@ -11,7 +11,7 @@ import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.util.*;
 
-import java.io.*;
+import tripleo.wrap.File;
 import java.util.*;
 import java.util.regex.*;
 

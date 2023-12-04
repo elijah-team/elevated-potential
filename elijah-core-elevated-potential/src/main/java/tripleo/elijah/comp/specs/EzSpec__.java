@@ -2,21 +2,40 @@ package tripleo.elijah.comp.specs;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah.diagnostic.ExceptionDiagnostic;
 
 import java.io.*;
+
+import tripleo.elijah.util.Mode;
+import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.Operation2;
+import tripleo.wrap.File;
 import java.util.Objects;
 import java.util.function.Supplier;
 
 public final class EzSpec__ implements EzSpec {
 	private final           String                file_name;
-	private final           File                  file;
+	private final           tripleo.wrap.File     file;
 	private final @Nullable Supplier<InputStream> sis;
 
-	public EzSpec__(String file_name, File file, @Nullable Supplier<InputStream> sis) {
-		this.file_name = file_name;
-		this.file      = file;
-		this.sis       = sis;
+	public EzSpec__(final String aFileName, final tripleo.wrap.File aFile, final Supplier<InputStream> aInputStreamSupplier) {
+		this.file_name = aFileName;
+		this.file      = aFile;
+		this.sis = aInputStreamSupplier;
+	}
+
+	public static Operation2<EzSpec> of(final String aFileName, final File aFile, final Operation<InputStream> aInputStreamOperation) {
+		if (aInputStreamOperation.mode() == Mode.SUCCESS) {
+			final EzSpec__ ezSpec = new EzSpec__(aFileName, aFile, new Supplier<InputStream>() {
+				@Override
+				public InputStream get() {
+					return aInputStreamOperation.success();
+				}
+			});
+			return Operation2.success(ezSpec);
+		} else {
+			return Operation2.failure(new ExceptionDiagnostic(aInputStreamOperation.failure()));
+		}
 	}
 
 	@Override

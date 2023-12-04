@@ -21,6 +21,7 @@ import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.util.*;
 
 import java.io.*;
+import tripleo.wrap.File;
 import java.util.regex.*;
 
 @SuppressWarnings("UnnecessaryLocalVariable")
@@ -59,7 +60,7 @@ public class USE {
 		logProgress(CompProgress.USE__parseElijjahFile, f.getAbsolutePath());
 
 		if (!f.exists()) {
-			final Diagnostic e = new FileNotFoundDiagnostic(f);
+			final Diagnostic e = new FileNotFoundDiagnostic(f.wrapped()); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
 			return Operation2.failure(e);
 		}

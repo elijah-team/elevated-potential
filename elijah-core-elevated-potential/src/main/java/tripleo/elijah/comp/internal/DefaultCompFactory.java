@@ -24,7 +24,7 @@ import tripleo.elijah.util.Operation2;
 import tripleo.elijah.world.i.*;
 import tripleo.elijah.world.impl.*;
 
-import java.io.*;
+import tripleo.wrap.File;
 import java.util.*;
 
 class DefaultCompFactory implements CompFactory {

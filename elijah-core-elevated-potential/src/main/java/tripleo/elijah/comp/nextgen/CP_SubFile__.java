@@ -3,11 +3,13 @@ package tripleo.elijah.comp.nextgen;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.Eventual;
+import tripleo.elijah.UnintendedUseException;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+
+import tripleo.wrap.File;
 
 public class CP_SubFile__ implements CP_SubFile {
 
@@ -101,7 +103,7 @@ public class CP_SubFile__ implements CP_SubFile {
 
 		@Override
 		public @Nullable File getRootFile() {
-			return null;
+			throw new UnintendedUseException();
 		}
 
 		@Override
@@ -136,7 +138,7 @@ public class CP_SubFile__ implements CP_SubFile {
 
 		@Override
 		public String toString() {
-			String        result;
+//			String        result;
 			CP_Path       p  = parent;
 			List<CP_Path> ps = new ArrayList<>();
 
@@ -145,25 +147,20 @@ public class CP_SubFile__ implements CP_SubFile {
 				p = p.getParent();
 			}
 
-			// for (CP_Path path : ps) {
-			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("122 " + path.getName());
-			// }
-
-			// if (ps.size() == 0) {
-			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("122xy " + op.getPath());
-			// } else {
-			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("122x " + ps);
-			// }
-
-			if (parent == null) {
-				final String root_path = op.getPath().toFile().toString();
-				result = getString(root_path);
-			} else {
-				final String parentName = parent.getName();
-				result = getString(parentName);
-			}
-			// return result;
+//			if (parent == null) {
+//				final String root_path = op.getPath().toFile().toString();
+//				result = getString(root_path);
+//			} else {
+//				final String parentName = parent.getName();
+//				result = getString(parentName);
+//			}
+//			 return result;
 			return toFile().toString();
+		}
+
+		@Override
+		public Path toPath() {
+			return getPath();
 		}
 	}
 }

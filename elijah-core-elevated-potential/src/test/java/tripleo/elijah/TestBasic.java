@@ -34,7 +34,8 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
 
-import java.io.File;
+import tripleo.wrap.File;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -70,7 +71,7 @@ public class TestBasic {
 	@Test
 	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	public final void testBasic() throws Exception {
-		final List<String>          ez_files   = Files.readLines(new File("test/basic/ez_files.txt"), Charsets.UTF_8);
+		final List<String>          ez_files   = Files.readLines(Path.of("test/basic/ez_files.txt").toFile(), Charsets.UTF_8);
 		final Map<Integer, Integer> errorCount = new HashMap<Integer, Integer>();
 		int                         index      = 0;
 
