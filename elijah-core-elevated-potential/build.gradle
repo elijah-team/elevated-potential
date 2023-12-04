@@ -1,3 +1,6 @@
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 plugins {
   id 'tripleo.elijah.java-conventions'
 //    id 'org.openjfx.javafxplugin' version '0.0.13'
@@ -69,7 +72,10 @@ application {
 
 ktor {
   fatJar {
-    def jarname = "fat" + new Date().toString() + ".jar"
+    def localDateTime = LocalDateTime.now()
+    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss");
+    final String date = formatter.format(localDateTime); // 15-02-2022 12:43
+    def jarname = "fat" + date + ".jar"
     archiveFileName.set(jarname)
   }
 }
