@@ -1,15 +1,20 @@
 package tripleo.elijah.comp.functionality.f203;
 
-import org.apache.commons.codec.digest.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.nextgen.*;
+import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
-import java.io.*;
-import java.nio.file.*;
-import java.time.*;
-import java.time.format.*;
-import java.util.*;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.IO_;
+import tripleo.elijah.comp.nextgen.CP_OutputPath;
+import tripleo.elijah.comp.nextgen.CP_Path;
+import tripleo.elijah.comp.nextgen.CP_SubFile__;
+import tripleo.wrap.File;
 
 import static org.apache.commons.codec.digest.MessageDigestAlgorithms.SHA_256;
 
@@ -53,7 +58,7 @@ public class ChooseHashDirectoryNameBehaviorPaths implements ChooseDirectoryName
 
 		// ((DeferredObject<Path, ?, ?>) p.getPathPromise()).resolve(px);
 
-		return px.toFile();
+		return tripleo.wrap.File.wrap(px.toFile());
 	}
 
 	public CP_Path choose_dir_name2() {
@@ -88,7 +93,7 @@ public class ChooseHashDirectoryNameBehaviorPaths implements ChooseDirectoryName
 			return x;
 		}
 
-		return px[0].toFile();
+		return tripleo.wrap.File.wrap(px[0].toFile());
 	}
 
 	public CP_Path getPath() {

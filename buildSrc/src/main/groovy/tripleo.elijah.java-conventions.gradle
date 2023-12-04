@@ -36,7 +36,7 @@ dependencies {
     // README This was added as a submodule somewhere else
     // api 'com.github.dritter-hd:dlog:1.0.0'
     api 'javax.annotation:javax.annotation-api:1.3.2'
-    api 'org.eclipse.jdt:org.eclipse.jdt.annotation:2.2.600'
+    api 'org.eclipse.jdt:org.eclipse.jdt.annotation:2.2.700'
     api 'org.jetbrains:annotations:24.0.1'
 
     api 'org.apache.commons:commons-lang3:3.12.0'
@@ -45,7 +45,7 @@ dependencies {
     api 'org.jdeferred.v2:jdeferred-core:2.0.0'
 
     api 'com.github.spotbugs:spotbugs-annotations:4.7.3'
-    api 'com.google.guava:guava:31.1-jre'
+    api 'com.google.guava:guava:32.0.0-jre'
 
     api 'tripleo.buffers:buffers-v1:0.0.3'
     api 'tripleo.util.range:range-v1:0.0.3b'

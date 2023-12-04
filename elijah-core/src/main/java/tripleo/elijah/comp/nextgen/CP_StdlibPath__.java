@@ -6,7 +6,7 @@ import tripleo.elijah.Eventual;
 import tripleo.elijah.EventualRegister;
 import tripleo.elijah.comp.Compilation;
 
-import java.io.File;
+import tripleo.wrap.File;
 import java.nio.file.Path;
 
 public class CP_StdlibPath__ implements CP_StdlibPath {
@@ -67,7 +67,7 @@ public class CP_StdlibPath__ implements CP_StdlibPath {
 
 	@Override
 	public @NotNull File toFile() {
-		return getPath().toFile();
+		return tripleo.wrap.File.wrap(getPath().toFile());
 	}
 
 	@Override
@@ -84,5 +84,10 @@ public class CP_StdlibPath__ implements CP_StdlibPath {
 		}
 
 		return result;
+	}
+
+	@Override
+	public Path toPath() {
+		return getPath();
 	}
 }

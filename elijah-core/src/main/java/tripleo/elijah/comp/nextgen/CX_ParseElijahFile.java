@@ -13,6 +13,7 @@ import tripleo.elijah.util.*;
 import tripleo.elijjah.*;
 
 import java.io.*;
+import tripleo.wrap.File;
 
 import static tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.*;
 

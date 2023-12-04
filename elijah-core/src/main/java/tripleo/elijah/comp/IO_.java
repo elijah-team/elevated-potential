@@ -9,11 +9,17 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.util.io.*;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.*;
 import java.util.*;
+
+import tripleo.wrap.File;
 
 public class IO_ implements IO {
 
@@ -37,7 +43,7 @@ public class IO_ implements IO {
 	@Override
 	public @NotNull InputStream readFile(final @NotNull File f) throws FileNotFoundException {
 		record(FileOption.READ, f);
-		return new FileInputStream(f);
+		return f.getFileInputStream();
 	}
 
 	@Override
@@ -46,10 +52,24 @@ public class IO_ implements IO {
 
 		record(readFile);
 
-		FileInputStream inputStream = new FileInputStream(f);
+		FileInputStream inputStream = f.getFileInputStream();
 		readFile.setInputStream(inputStream);
 
 		return readFile;
+	}
+
+	@Override
+	public void record(@NotNull final FileOption read, @NotNull final File file) {
+ 		switch (read) {
+		case WRITE:
+			recordedwrites.add(file);
+			break;
+		case READ:
+			record(new _IO_ReadFile(file));
+			break;
+		default:
+			throw new IllegalStateException("Cant be here");
+		}
 	}
 
 	@Override
@@ -68,20 +88,6 @@ public class IO_ implements IO {
 	}
 
 	@Override
-	public void record(@NotNull FileOption read, @NotNull File file) {
-		switch (read) {
-		case WRITE:
-			recordedwrites.add(file);
-			break;
-		case READ:
-			record(new _IO_ReadFile(file));
-			break;
-		default:
-			throw new IllegalStateException("Cant be here");
-		}
-	}
-
-	@Override
 	public void record(@NotNull _IO_ReadFile aReadFile) {
 		recordedreads.add((aReadFile));
 	}
@@ -90,7 +96,6 @@ public class IO_ implements IO {
 	public List<File> recordedwrites() {
 		return this.recordedwrites;
 	}
-
 }
 
 //

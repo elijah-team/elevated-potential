@@ -19,6 +19,7 @@ import java.time.*;
 import java.time.format.*;
 import java.util.*;
 import java.util.stream.*;
+import tripleo.wrap.File;
 
 public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	private final Eventual<Path> _pathPromise = new Eventual<>();
@@ -93,7 +94,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 		// assert (root != null);
 		if (root == null)
 			return Path.of("zero");
-		return root.toPath();
+		return root.wrapped().toPath();
 	}
 
 	@Override
@@ -169,7 +170,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 				CP_Path pp = ppc.getP(this);
 				// assert pp.equals(px); // FIXME "just return COMP" instead of zero
 
-				this.root = px.toFile();
+				this.root = tripleo.wrap.File.wrap(px.toFile());
 
 				CP_Path p3 = ppc.getP(this);
 				// assert p3.equals(px); // FIXME "just return COMP" instead of zero
@@ -193,7 +194,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 
 	@Override
 	public @NotNull File toFile() {
-		return getPath().toFile();
+		return tripleo.wrap.File.wrap(getPath().toFile());
 	}
 
 	private static class __PathPromiseCalculator {
@@ -223,6 +224,10 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 
 			return outputRoot.child(c_name).child(date);
 		}
+	}
 
+	@Override
+	public Path toPath() {
+		return getPath(); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 	}
 }
