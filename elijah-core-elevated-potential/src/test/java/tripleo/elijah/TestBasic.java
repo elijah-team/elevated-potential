@@ -55,7 +55,7 @@ public class TestBasic {
 	@Disabled
 	@Test
 	public final void testBasicParse() throws Exception {
-		final List<String> ez_files = Files.readLines(new File("test/basic/ez_files.txt"), Charsets.UTF_8);
+		final List<String> ez_files = Files.readLines(new java.io.File("test/basic/ez_files.txt"), Charsets.UTF_8);
 		final List<String> args     = new ArrayList<String>();
 		args.addAll(ez_files);
 		args.add("-sE");

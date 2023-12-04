@@ -33,7 +33,7 @@ public enum CX_ParseEzFile {;
 		return Operation2.success(instructions);
 	}
 
-	public static Operation2<CompilerInstructions> parseAndCache(final EzSpec__ aSpec,
+	public static Operation2<CompilerInstructions> parseAndCache(final EzSpec aSpec,
 	                                                            final EzCache aEzCache,
 	                                                            final String absolutePath) {
 		final Operation2<CompilerInstructions> cio = calculate(aSpec.file_name(), aSpec.sis().get());

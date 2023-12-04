@@ -1,7 +1,8 @@
 package tripleo.elijah.comp.functionality.f203;
 
-import java.io.File;
+import org.jetbrains.annotations.NotNull;
+import tripleo.wrap.File;
 
 public interface ChooseDirectoryNameBehavior {
-	File chooseDirectory();
+	@NotNull File chooseDirectory();
 }

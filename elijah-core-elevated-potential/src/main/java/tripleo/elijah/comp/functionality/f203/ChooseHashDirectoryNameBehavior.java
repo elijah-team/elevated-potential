@@ -52,8 +52,8 @@ public class ChooseHashDirectoryNameBehavior implements ChooseDirectoryNameBehav
 	}
 
 	@Override
-	public @NotNull File chooseDirectory() {
-		return choose_dir_name();
+	public tripleo.wrap.@NotNull File chooseDirectory() {
+		return tripleo.wrap.File.wrap(choose_dir_name());
 	}
 
 }
