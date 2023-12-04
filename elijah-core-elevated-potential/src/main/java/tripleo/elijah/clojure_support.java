@@ -275,7 +275,7 @@ public final class clojure_support {
 
       public static Object invokeStatic(Object chans) {
          Object control = ((IFn)const__0.getRawRoot()).invoke();
-         ((IFn)const__1.getRawRoot()).invoke(const__2.get(), ((IFn)const__3.getRawRoot()).invoke(new /*el_run_loop$*/fn__1653(control)));
+         ((IFn)const__1.getRawRoot()).invoke(const__2.get(), ((IFn)const__3.getRawRoot()).invoke(new el_run_loop.fn__1653(control)));
          IFn var10000 = (IFn)const__1.getRawRoot();
          Object var10001 = const__2.get();
          IFn var10002 = (IFn)const__3.getRawRoot();
