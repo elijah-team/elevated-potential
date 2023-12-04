@@ -245,26 +245,26 @@ public final class clojure_support {
       }
    }
 
-   public static final class el_run_loop$fn__1653 extends AFunction {
-      Object control;
-      public static final Var const__0 = RT.var("promesa.exec.csp", "take!");
-      public static final Var const__1 = RT.var("promesa.exec.csp", "timeout-chan");
-      public static final Object const__2 = 5000L;
-      public static final Var const__3 = RT.var("promesa.exec.csp", ">!");
-      public static final AFn const__4 = (AFn)Tuple.create("bye", null);
-      public static final Object const__5 = 1L;
-
-      public el_run_loop$fn__1653(Object var1) {
-         this.control = var1;
-      }
-
-      @Override
-      public Object invoke() {
-         ((IFn)const__0.getRawRoot()).invoke(((IFn)const__1.getRawRoot()).invoke(const__2));
-         ((IFn)const__3.getRawRoot()).invoke(this.control, const__4);
-         return const__5;
-      }
-   }
+   //public static final class el_run_loop$fn__1653 extends AFunction {
+   //   Object control;
+   //   public static final Var const__0 = RT.var("promesa.exec.csp", "take!");
+   //   public static final Var const__1 = RT.var("promesa.exec.csp", "timeout-chan");
+   //   public static final Object const__2 = 5000L;
+   //   public static final Var const__3 = RT.var("promesa.exec.csp", ">!");
+   //   public static final AFn const__4 = (AFn)Tuple.create("bye", null);
+   //   public static final Object const__5 = 1L;
+   //
+   //   public el_run_loop$fn__1653(Object var1) {
+   //      this.control = var1;
+   //   }
+   //
+   //   @Override
+   //   public Object invoke() {
+   //      ((IFn)const__0.getRawRoot()).invoke(((IFn)const__1.getRawRoot()).invoke(const__2));
+   //      ((IFn)const__3.getRawRoot()).invoke(this.control, const__4);
+   //      return const__5;
+   //   }
+   //}
 
    public static final class el_run_loop extends AFunction {
       public static final Var const__0 = RT.var("promesa.exec.csp", "chan");
