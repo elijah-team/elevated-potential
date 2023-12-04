@@ -8,6 +8,8 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
+import java.io.InputStream;
+import tripleo.wrap.File;
 
 public class CK_SourceFile__ElaboratedElijahFile extends __CK_SourceFile__AbstractElijahFile {
 	protected final File   directory;
@@ -18,6 +20,18 @@ public class CK_SourceFile__ElaboratedElijahFile extends __CK_SourceFile__Abstra
 		directory = aDirectory;
 		file_name = aFileName;
 		file      = new File(directory, file_name);
+	}
+
+	@Override
+	public Operation2<OS_Module> process_query() {
+		assert false;
+		final ElijahCache           ezCache = null; // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+		//compilation.getCompilationEnclosure().getCompilationRunner().ezCache();
+		final Operation2<OS_Module> om      = process_query(compilation.getIO(), ezCache);
+
+		//super.asserverate(); // FIXME 12/03 what is this? eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+
+		return om;
 	}
 
 	private Operation2<OS_Module> process_query(final IO io, final @NotNull ElijahCache elijahCache) {
@@ -38,17 +52,6 @@ public class CK_SourceFile__ElaboratedElijahFile extends __CK_SourceFile__Abstra
 		final ElijahSpec elijahSpec = new ElijahSpec_(fileName, file, stream);
 
 		return __CK_SourceFile__AbstractElijahFile.realParseElijahFile(elijahSpec, elijahCache, compilation);
-	}
-
-	@Override
-	public Operation2<OS_Module> process_query() {
-		assert false;
-		final ElijahCache ezCache = null;//compilation.getCompilationEnclosure().getCompilationRunner().ezCache();
-		final Operation2<OS_Module> om = process_query(compilation.getIO(), ezCache);
-
-		//super.asserverate();
-
-		return om;
 	}
 
 	private String file_name() {

@@ -8,6 +8,7 @@ import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
+import tripleo.wrap.File;
 
 public class CK_SourceFile__SpecifiedEzFile extends __CK_SourceFile__AbstractEzFile {
 	private final File file;
@@ -29,11 +30,12 @@ public class CK_SourceFile__SpecifiedEzFile extends __CK_SourceFile__AbstractEzF
 		final String fileName = file_name();
 		Preconditions.checkArgument(isEzFile(fileName));
 
+		// FIXME 12/03 use of // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 		var ezSpec = new EzSpec__(
 				fileName,
 				file, () -> {
 					try {
-						return io.readFile(file);
+						return file.readFile(io);
 					} catch (FileNotFoundException aE) {
 						throw new RuntimeException(aE);
 					}

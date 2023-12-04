@@ -1,20 +1,23 @@
 package tripleo.elijah.comp.queries;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.nextgen.impl.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.util.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.graph.i.CK_SourceFile;
+import tripleo.elijah.comp.i.CompilationClosure;
+import tripleo.elijah.comp.nextgen.impl.CK_SourceFileFactory;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.diagnostic.Locatable;
+import tripleo.elijah.util.Operation2;
+import tripleo.wrap.File;
 
 import java.io.*;
-import java.util.*;
-import java.util.regex.*;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class QuerySearchEzFiles {
-	private final          Compilation       c;
+	private final          Compilation        c;
 	private final @NotNull CompilationClosure cc;
 	private final          FilenameFilter     ez_files_filter = new EzFilesFilter();
 
@@ -24,7 +27,7 @@ public class QuerySearchEzFiles {
 		this.cc = ccl;
 	}
 
-	public CompilerInstructions_Result process(final @NotNull File directory) {
+	public CompilerInstructions_Result process(final @NotNull tripleo.wrap.File directory) {
 		final CompilerInstructions_Result R = new CompilerInstructions_ResultImpl();
 
 		final String[] list = directory.list(ez_files_filter);
@@ -103,7 +106,7 @@ public class QuerySearchEzFiles {
 
 	public static class EzFilesFilter implements FilenameFilter {
 		@Override
-		public boolean accept(final File file, final String s) {
+		public boolean accept(final java.io.File file, final String s) {
 			final boolean matches2 = Pattern.matches(".+\\.ez$", s);
 			return matches2;
 		}

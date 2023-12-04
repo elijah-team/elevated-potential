@@ -7,20 +7,16 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.queries.*;
 import tripleo.elijah.util.*;
 
-import java.io.*;
 import java.util.*;
 import java.util.function.*;
+import tripleo.wrap.File;
 
 public class CW_inputIsDirectory {
 	public static void apply(final @NotNull CompilerInput input,
-	                         final @NotNull CompilationClosure cc) {
-		final String file_name = input.getInp();
-		final File   directory = new File(file_name);
-
-		input.setDirectory(directory);
-
-		final QuerySearchEzFiles                     q    = new QuerySearchEzFiles(cc);
-		final var loci = q.process(directory);
+							 final @NotNull CompilationClosure cc) {
+		final File                        directory = input.getFileForDirectory();
+		final QuerySearchEzFiles          q         = new QuerySearchEzFiles(cc);
+		final CompilerInstructions_Result loci      = q.process(directory);
 
 		input.setDirectoryResults(loci);
 	}
