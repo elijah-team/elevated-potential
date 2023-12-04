@@ -8,37 +8,42 @@
  */
 package tripleo.elijah.comp.internal;
 
-import com.google.common.base.*;
+import com.google.common.base.Preconditions;
 import io.reactivex.rxjava3.core.Observer;
-import lombok.*;
-import org.jetbrains.annotations.*;
+import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.*;
-import tripleo.elijah.ci.*;
+import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.*;
-import tripleo.elijah.comp.graph.i.*;
+import tripleo.elijah.comp.graph.i.CK_Monitor;
+import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.impl.*;
-import tripleo.elijah.comp.internal_move_soon.*;
-import tripleo.elijah.comp.nextgen.*;
-import tripleo.elijah.comp.nextgen.pn.*;
-import tripleo.elijah.comp.nextgen.pw.*;
+import tripleo.elijah.comp.i.extra.CompilerInputListener;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.nextgen.CP_Paths;
+import tripleo.elijah.comp.nextgen.CP_Paths__;
+import tripleo.elijah.comp.nextgen.pn.PN_Ping;
+import tripleo.elijah.comp.nextgen.pw.PW_Controller;
+import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.g.*;
+import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.inputtree.*;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.fluffy.i.*;
-import tripleo.elijah.stages.deduce.fluffy.impl.*;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
+import tripleo.elijah.stages.deduce.IFunctionMapHook;
+import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
+import tripleo.elijah.stages.deduce.fluffy.impl.FluffyCompImpl;
+import tripleo.elijah.stages.logging.ElLog_;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
-import tripleo.elijah.world.impl.*;
+import tripleo.elijah.world.i.LivingRepo;
+import tripleo.elijah.world.i.WorldModule;
 
 import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 public class CompilationImpl implements Compilation, EventualRegister {
 	private final FluffyCompImpl                      _fluffyComp;
@@ -65,8 +70,9 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private final Map<EzSpec, CM_Ez>                  specToEzMap;
 	private final List<CompilerInstructions>          xxx;
 	private final CCI_Acceptor__CompilerInputListener cci_listener;
-	private final PW_Controller                       pw_controller;
-	private       EIT_InputTree                       _input_tree;
+	private final PW_Controller pw_controller;
+	private       JarWork       jarwork;
+	private       EIT_InputTree _input_tree;
 	private       EOT_OutputTree                      _output_tree;
 	private       List<CompilerInput>                 _inputs;
 	private       IPipelineAccess                     _pa;
@@ -86,17 +92,30 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		cfg                  = new CompilationConfig();
 		use                  = new USE(this.getCompilationClosure());
 		_cis                 = new CIS();
-		_repo                = new DefaultLivingRepo();
-		compilationEnclosure = new DefaultCompilationEnclosure(this);
 		paths                = new CP_Paths__(this);
-		defaultMonitor       = new __CK_Monitor();
-		_finally             = new Finally_();
 		_con                 = new DefaultCompFactory(this);
+		_repo                = _con.getLivingRepo();
+		compilationEnclosure = new DefaultCompilationEnclosure(this);
+		defaultMonitor       = _con.createCkMonitor();
 		objectTree           = _con.createObjectTree();
 		master               = _con.createCompilerInputMaster();
-		pw_controller        = new PW_CompilerController(this);
+		_finally             = _con.createFinally();
+		pw_controller        = _con.createPwController(this);
 		cci_listener         = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
+
+		try {
+			final JarWork jarwork1 = getJarwork();
+			jarwork1.work();
+		} catch (WorkException aE) {
+			//throw new RuntimeException(aE);
+			aE.printStackTrace();
+		}
+	}
+
+	public JarWork getJarwork() throws WorkException {
+		if (jarwork==null)jarwork = new JarWorkImpl();
+		return jarwork;
 	}
 
 	public static ElLog_.@NotNull Verbosity gitlabCIVerbosity() {
@@ -123,7 +142,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	@Override
-	public void feedCmdLine(final @NotNull List<String> args) throws Exception {
+	public void feedCmdLine(final @NotNull List<String> args) {
 		final CompilerController controller = new DefaultCompilerController();
 
 		final List<CompilerInput> inputs = args.stream()
@@ -297,7 +316,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@Override
 	public void pushItem(CompilerInstructions aci) {
 		if (xxx.contains(aci)) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("****************** skip");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("** [CompilerInstructions::pushItem] duplicate instructions: "+aci.getFilename());
 			return;
 		} else {
 			xxx.add(aci);
@@ -512,12 +531,13 @@ public class CompilationImpl implements Compilation, EventualRegister {
 			;
 
 			// README 10/20 Disjointed needs annotation
+			//  12/04 ServiceLoader
 			public static final DriverToken COMPILATION_RUNNER_FIND_STDLIB2 = DriverToken.makeToken("COMPILATION_RUNNER_FIND_STDLIB2");
 			public static final DriverToken COMPILATION_RUNNER_START        = DriverToken.makeToken("COMPILATION_RUNNER_START");
 		}
 	}
 
-	class __CK_Monitor implements CK_Monitor {
+	static class __CK_Monitor implements CK_Monitor {
 		@Override
 		public void reportSuccess() {
 			throw new UnintendedUseException();
