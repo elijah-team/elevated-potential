@@ -31,32 +31,22 @@ dependencies {
 
   implementation 'tripleo.elijah:elijah-core-api:2023.elevated-potential.6'
 
-  implementation 'tripleo.elijah:elijah-util:2023.elevated-potential.2b'
-  implementation 'tripleo.elijah:elijah-ek:2023.elevated-potential.2'
-  implementation 'tripleo.elijah:tripleo.small:2023.elevated-potential.2'
-  implementation 'tripleo.elijah:tripleo.elijah.reactive:2023.elevated-potential.2'
-  implementation 'tripleo.elijah:tripleo.elijah.stateful:2023.elevated-potential.2'
-  implementation 'tripleo.elijah:elijah-nextgen-outputstatement:2023.elevated-potential.3b'
+//  implementation 'tripleo.elijah:elijah-util:2023.elevated-potential.2b'
+//  implementation 'tripleo.elijah:elijah-ek:2023.elevated-potential.2'
+//  implementation 'tripleo.elijah:tripleo.small:2023.elevated-potential.2'
+//  implementation 'tripleo.elijah:tripleo.elijah.reactive:2023.elevated-potential.2'
+//  implementation 'tripleo.elijah:tripleo.elijah.stateful:2023.elevated-potential.2'
+//  implementation 'tripleo.elijah:elijah-nextgen-outputstatement:2023.elevated-potential.3b'
 
   api 'io.reactivex.rxjava3:rxjava:3.1.6'
   api 'org.reactivestreams:reactive-streams:1.0.4'
   api 'commons-codec:commons-codec:1.15'
   api 'antlr:antlr:2.7.7'
 
-//    implementation
-  //providedCompile
-//    project(':tripleo.elijah.stateful-processor')
-  //providedCompile
-//    project(':annotation-processing')
-
-
-  // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
-//    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-  testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-  // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-  // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.10.0'
+  testRuntimeOnly    'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+//  testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+  testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.0'
   testImplementation "org.assertj:assertj-core:3.24.2"
 
   // http://xtext.github.io/xtext-gradle-plugin/xtend.html
