@@ -46,27 +46,27 @@ public class clojure_support__init {
 
 	public static void load() throws Exception {
 		((IFn) const__0.getRawRoot()).invoke(const__1);
-		((IFn) (new clojure_support$loading__6789__auto____1648())).invoke();
+		((IFn) (new clojure_support.loading__6789__auto____1648())).invoke();
 		Object var10002;
 		if (((Symbol) const__1).equals(const__2)) {
 			var10002 = null;
 		} else {
-			LockingTransaction.runInTransaction((Callable) (new clojure_support$fn__1650()));
+			LockingTransaction.runInTransaction((Callable) (new clojure_support.fn__1650()));
 			var10002 = null;
 		}
 
 		Var var10003 = const__3;
 		var10003.setMeta((IPersistentMap) const__11);
-		var10003.bindRoot(new clojure_support$el_make_chan());
+		var10003.bindRoot(new clojure_support.el_make_chan());
 		Var var10004 = const__12;
 		var10004.setMeta((IPersistentMap) const__15);
-		var10004.bindRoot(new clojure_support$el_run_loop());
+		var10004.bindRoot(new clojure_support.el_run_loop());
 		Var var10005 = const__16;
 		var10005.setMeta((IPersistentMap) const__19);
-		var10005.bindRoot(new clojure_support$el_run_mult());
+		var10005.bindRoot(new clojure_support.el_run_mult());
 		Var var10006 = const__20;
 		var10006.setMeta((IPersistentMap) const__23);
-		var10006.bindRoot(new clojure_support$el_nothing());
+		var10006.bindRoot(new clojure_support.el_nothing());
 		Object var10007 = null;
 		Object var10008 = null;
 	}
