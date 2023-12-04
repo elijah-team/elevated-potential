@@ -16,6 +16,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.entrypoints.*;
+import tripleo.elijah.g.GGenerateFunctions;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
@@ -38,7 +39,7 @@ import static tripleo.elijah.util.Helpers.*;
 /**
  * Created 9/10/20 2:28 PM
  */
-public class GenerateFunctions implements ReactiveDimension {
+public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions {
 	static class __GenerateClass {
 		private final ElLog LOG;
 		private final RegisterClassInvocation_env passthruEnv;
