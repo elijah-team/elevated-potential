@@ -7,10 +7,12 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.i.CY_ElijahSpecParser;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.ICompilationBus;
+import tripleo.elijah.comp.i.extra.CompilerInputListener;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.nextgen.pw.*;
 import tripleo.elijah.comp.specs.*;
@@ -124,7 +126,21 @@ class DefaultCompFactory implements CompFactory {
 
 	@Override
 	public @NotNull CompilerInputMaster createCompilerInputMaster() {
-		return CompFactory.super.createCompilerInputMaster();
+		return new CompilerInputMaster() {
+			private final List<CompilerInputListener> listeners = new ArrayList<>();
+
+			@Override
+			public void addListener(final CompilerInputListener compilerInputListener) {
+				listeners.add(compilerInputListener);
+			}
+
+			@Override
+			public void notifyChange(final CompilerInput compilerInput, final CompilerInput.CompilerInputField compilerInputField) {
+				for (CompilerInputListener listener : listeners) {
+					listener.baseNotify(compilerInput, compilerInputField);
+				}
+			}
+		};
 	}
 
 	@Override
@@ -140,5 +156,29 @@ class DefaultCompFactory implements CompFactory {
 	@Override
 	public CX_ParseElijahFile.ElijahSpecReader defaultElijahSpecReader(final CP_Path aLocalPrelude) {
 		return new DefaultElijahSpecReader(aLocalPrelude, compilation);
+	}
+
+	@NotNull
+	@Override
+	public CK_Monitor createCkMonitor() {
+		return new CompilationImpl.__CK_Monitor();
+	}
+
+	@NotNull
+	@Override
+	public PW_CompilerController createPwController(CompilationImpl aCompilation) {
+		return new PW_CompilerController(aCompilation);
+	}
+
+	@NotNull
+	@Override
+	public Finally_ createFinally() {
+		return new Finally_();
+	}
+
+	@NotNull
+	@Override
+	public LivingRepo getLivingRepo() {
+		return new DefaultLivingRepo();
 	}
 }
