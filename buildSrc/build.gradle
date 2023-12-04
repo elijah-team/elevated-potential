@@ -7,9 +7,9 @@ plugins {
   id 'groovy-gradle-plugin'
 
   id "io.ktor.plugin" version "2.3.4"
-}
 
-apply plugin: 'maven-publish'
+  id 'maven-publish'
+}
 
 repositories {
   // Use the plugin portal to apply community plugins in convention plugins.
@@ -23,7 +23,8 @@ application {
 
 ktor {
   fatJar {
-    archiveFileName.set("fat.jar")
+    def jarname = "fat" + new Date().toString() + ".jar"
+    archiveFileName.set(jarname)
   }
 }
 
