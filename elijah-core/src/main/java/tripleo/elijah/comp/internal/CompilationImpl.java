@@ -79,6 +79,8 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private       IO                                  io;
 	@SuppressWarnings("BooleanVariableAlwaysNegated")
 	private       boolean                             _inside;
+	private       CompilerInput                       __advisement;
+	private       ICompilationAccess3                 aICompilationAccess3;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
@@ -145,7 +147,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public void feedCmdLine(final @NotNull List<String> args) {
-		final CompilerController controller = new DefaultCompilerController();
+		final CompilerController controller = new DefaultCompilerController(this.getCompilationAccess3());
 
 		final List<CompilerInput> inputs = args.stream()
 				.map((String s) -> {
@@ -162,6 +164,44 @@ public class CompilationImpl implements Compilation, EventualRegister {
 				}).collect(Collectors.toList());
 
 		feedInputs(inputs, controller);
+	}
+
+	public ICompilationAccess3 getCompilationAccess3() {
+		if (aICompilationAccess3 == null) {
+			aICompilationAccess3 = new ICompilationAccess3() {
+				@Override
+				public Compilation getComp() {
+					return CompilationImpl.this;
+				}
+
+				@Override
+				public boolean getSilent() {
+					return getSilent();
+				}
+
+				@Override
+				public void addLog(final ElLog aLog) {
+					getComp().getCompilationEnclosure().addLog(aLog);
+				}
+
+				@Override
+				public void writeLogs(final boolean aSilent) {
+					assert !aSilent;
+					getComp().getCompilationEnclosure().writeLogs();
+				}
+
+				@Override
+				public PipelineLogic getPipelineLogic() {
+					return getComp().getCompilationEnclosure().getPipelineLogic();
+				}
+
+				@Override
+				public List<ElLog> getLogs() {
+					return getComp().getCompilationEnclosure().getLogs();
+				}
+			};
+		}
+		return aICompilationAccess3;
 	}
 
 	@Override

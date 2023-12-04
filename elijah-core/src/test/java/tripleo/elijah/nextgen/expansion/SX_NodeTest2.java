@@ -120,7 +120,7 @@ public class SX_NodeTest2 {
 
 		@NotNull
 		final List<CompilerInput> inps = List_of(new CompilerInput_(f));
-		comp.feedInputs(inps, new DefaultCompilerController());
+		comp.feedInputs(inps, new DefaultCompilerController(comp.getCompilationAccess3()));
 
 		// comp.feedCmdLine(List_of(f));
 

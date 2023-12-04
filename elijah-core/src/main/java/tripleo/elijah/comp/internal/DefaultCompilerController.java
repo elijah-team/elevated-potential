@@ -14,6 +14,11 @@ public class DefaultCompilerController implements CompilerController {
 	ICompilationBus     cb;
 	List<CompilerInput> inputs;
 	private Compilation c;
+private final ICompilationAccess3 ca3;
+
+	public DefaultCompilerController(final ICompilationAccess3 aCa3) {
+		ca3 = aCa3;
+	}
 
 	@Override
 	public void _setInputs(final Compilation0 aCompilation, final List<CompilerInput> aInputs) {
