@@ -8,7 +8,7 @@
       </pattern>
     </extension>
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-    <option name="ALTERNATIVE_JRE_PATH" value="$USER_HOME$/.jdks/temurin-17.0.8.1" />
+    <option name="ALTERNATIVE_JRE_PATH" value="liberica-17" />
     <option name="PACKAGE_NAME" value="tripleo.elijah" />
     <option name="MAIN_CLASS_NAME" value="tripleo.elijah.ClassInstantiationTest" />
     <option name="METHOD_NAME" value="classInstantiation3" />
