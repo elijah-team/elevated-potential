@@ -18,3 +18,4 @@ elijah-lang*txt
 /buildSrc/**
 /.idea/uiDesigner.xml
 /tripleo.elijah.core-2023.11.elevated-potential.4.pom
+/lib2-/**
