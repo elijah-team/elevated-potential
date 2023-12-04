@@ -66,7 +66,7 @@ public class JarWorkImpl implements JarWork {
 			callfoo(foo);
 
 			//@SuppressWarnings("unused") tripleo.elijah.clojure_support__init i;
-			//var                                                              x = clojure_support$el_make_chan.invokeStatic();
+			//var                                                              x = el_make_chan.invokeStatic();
 
 			int y = 2;
 		} catch (IOException | ClassNotFoundException aE) {

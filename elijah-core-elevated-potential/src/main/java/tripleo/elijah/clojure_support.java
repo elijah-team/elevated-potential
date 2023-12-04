@@ -1,7 +1,18 @@
 package tripleo.elijah;
 
-import clojure.lang.*;
+import clojure.lang.AFn;
+import clojure.lang.AFunction;
 import clojure.lang.Compiler;
+import clojure.lang.IFn;
+import clojure.lang.IObj;
+import clojure.lang.Keyword;
+import clojure.lang.Numbers;
+import clojure.lang.PersistentList;
+import clojure.lang.RT;
+import clojure.lang.Symbol;
+import clojure.lang.Tuple;
+import clojure.lang.Util;
+import clojure.lang.Var;
 
 import java.util.Arrays;
 
@@ -199,7 +210,7 @@ public final class clojure_support {
          long n__6088__auto__1666 = RT.count(var10000);
 
          for(long i = 0L; i < n__6088__auto__1666; ++i) {
-            ((IFn)const__5.getRawRoot()).invoke(const__6.get(), ((IFn)const__7.getRawRoot()).invoke(new clojure_support$el_run_mult$fn__1663(i, mx)));
+            ((IFn)const__5.getRawRoot()).invoke(const__6.get(), ((IFn)const__7.getRawRoot()).invoke(new el_run_mult$fn__1663(i, mx)));
          }
 
          var10000 = null;
@@ -264,7 +275,7 @@ public final class clojure_support {
 
       public static Object invokeStatic(Object chans) {
          Object control = ((IFn)const__0.getRawRoot()).invoke();
-         ((IFn)const__1.getRawRoot()).invoke(const__2.get(), ((IFn)const__3.getRawRoot()).invoke(new /*clojure_support$el_run_loop$*/fn__1653(control)));
+         ((IFn)const__1.getRawRoot()).invoke(const__2.get(), ((IFn)const__3.getRawRoot()).invoke(new /*el_run_loop$*/fn__1653(control)));
          IFn var10000 = (IFn)const__1.getRawRoot();
          Object var10001 = const__2.get();
          IFn var10002 = (IFn)const__3.getRawRoot();
@@ -272,7 +283,7 @@ public final class clojure_support {
          chans = null;
          Object var10006 = control;
          control = null;
-         var10000.invoke(var10001, var10002.invoke(new clojure_support$el_run_loop$fn__1655(var10005, var10006)));
+         var10000.invoke(var10001, var10002.invoke(new el_run_loop$fn__1655(var10005, var10006)));
          return const__4;
       }
 
