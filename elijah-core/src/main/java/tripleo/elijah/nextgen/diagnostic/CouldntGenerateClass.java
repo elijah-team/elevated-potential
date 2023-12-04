@@ -11,9 +11,13 @@ package tripleo.elijah.nextgen.diagnostic;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.nextgen.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.g.GClassInvocation;
+import tripleo.elijah.g.GGenerateFunctions;
+import tripleo.elijah.nextgen.ClassDefinition;
+import tripleo.elijah.stages.deduce.ClassInvocation;
+import tripleo.elijah.stages.deduce.DeducePhase;
+import tripleo.elijah.stages.gen_fn.GenerateFunctions;
+import tripleo.elijah.stages.gen_fn.WlGenerateClass;
 import tripleo.elijah.util.*;
 
 import java.io.*;
@@ -23,14 +27,15 @@ import java.util.*;
  * Created 3/5/22 4:55 PM
  */
 public class CouldntGenerateClass implements Diagnostic {
-	private final ClassDefinition classDefinition;
-	private final ClassInvocation classInvocation;
-	private final GenerateFunctions generateFunctions;
-	private final WlGenerateClass gen;
+	private final ClassDefinition   classDefinition;
+	private final GClassInvocation   classInvocation;
+	private final GGenerateFunctions generateFunctions;
+	private final WlGenerateClass    gen;
 	private final DeducePhase deducePhase;
 
-	public CouldntGenerateClass(final ClassDefinition aClassDefinition, final GenerateFunctions aGenerateFunctions,
-			final ClassInvocation aClassInvocation) {
+	public CouldntGenerateClass(final ClassDefinition aClassDefinition,
+								final GGenerateFunctions aGenerateFunctions,
+								final GClassInvocation aClassInvocation) {
 		classDefinition = aClassDefinition;
 		generateFunctions = aGenerateFunctions;
 		classInvocation = aClassInvocation;
@@ -65,7 +70,7 @@ public class CouldntGenerateClass implements Diagnostic {
 		if (gen != null) {
 			return gen.getClassInvocation();
 		} else {
-			return classInvocation;
+			return (ClassInvocation) classInvocation;
 		}
 	}
 
@@ -73,7 +78,7 @@ public class CouldntGenerateClass implements Diagnostic {
 		if (gen != null) {
 			return gen.getGenerateFunctions();
 		} else {
-			return generateFunctions;
+			return (GenerateFunctions) generateFunctions;
 		}
 	}
 
