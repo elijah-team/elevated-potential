@@ -22,6 +22,7 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
+import tripleo.elijah.comp.impl.LCM_Event_RootCI;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.CP_Paths;
 import tripleo.elijah.comp.nextgen.CP_Paths__;
@@ -37,6 +38,7 @@ import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.stages.deduce.IFunctionMapHook;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah.stages.deduce.fluffy.impl.FluffyCompImpl;
+import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.stages.logging.ElLog_;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.LivingRepo;
@@ -70,9 +72,10 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private final Map<EzSpec, CM_Ez>                  specToEzMap;
 	private final List<CompilerInstructions>          xxx;
 	private final CCI_Acceptor__CompilerInputListener cci_listener;
-	private final PW_Controller pw_controller;
-	private       JarWork       jarwork;
-	private       EIT_InputTree _input_tree;
+	private final PW_Controller                       pw_controller;
+	private final LCM lcm;
+	private       JarWork                             jarwork;
+	private       EIT_InputTree                       _input_tree;
 	private       EOT_OutputTree                      _output_tree;
 	private       List<CompilerInput>                 _inputs;
 	private       IPipelineAccess                     _pa;
@@ -85,6 +88,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
 		io                   = aIo;
+		lcm                  = new LCM(this);
 		specToModuleMap      = new HashMap<>();
 		moduleToCMMap        = new HashMap<>();
 		specToEzMap          = new HashMap<>();
@@ -314,35 +318,48 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public Operation<Ok> hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
-		if (cis.isEmpty()) {
-			//String absolutePath = new File(".").getAbsolutePath();
-			//
-			//getCompilationEnclosure().logProgress(CompProgress.Compilation__hasInstructions__empty, absolutePath);
+		if (DebugFlags._pancake_lcm_gate) {
+			assert cis.size() > 0;
 
-			setRootCI(cci_listener._root());
-		} else if (getRootCI() == null) {
-			setRootCI(cis.get(0));
-		}
+			// don't inline yet b/c getProjectName
+			final CompilerInstructions rootCI = cis.get(0);
+
+			setRootCI(rootCI);
+
+			lcm.asv(rootCI, LCM_Event_RootCI.instance());
+
+			return Operation.success(Ok.instance());
+		} else {
+			if (cis.isEmpty()) {
+				//String absolutePath = new File(".").getAbsolutePath();
+				//
+				//getCompilationEnclosure().logProgress(CompProgress.Compilation__hasInstructions__empty, absolutePath);
+
+				setRootCI(cci_listener._root());
+			} else if (getRootCI() == null) {
+				setRootCI(cis.get(0));
+			}
 
 		if (null == pa.getCompilation().getInputs()) {
 			pa.setCompilerInput(pa.getCompilation().getInputs());
 		}
 
-		if (!_inside) {
-			_inside = true;
+			if (!_inside) {
+				_inside = true;
 
 			final CompilerInstructions rootCI = getRootCI();
 			//final CompilerInstructions rootCI = this.cci_listener._root();
 			rootCI.advise(_inputs.get(0));
 
-			final CompilationRunner compilationRunner = getCompilationEnclosure().getCompilationRunner();
-			compilationRunner.start(rootCI, pa);
-		} else {
-			NotImplementedException.raise_stop();
-			//throw new UnintendedUseException();
-		}
+				final CompilationRunner compilationRunner = getCompilationEnclosure().getCompilationRunner();
+				compilationRunner.start(rootCI, pa);
+			} else {
+				NotImplementedException.raise_stop();
+				//throw new UnintendedUseException();
+			}
 
-		return Operation.success(Ok.instance());
+			return Operation.success(Ok.instance());
+		}
 	}
 
 	@Override
@@ -444,6 +461,37 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		//result.advise(aModuleOperation);
 
 		return result;
+	}
+
+	@Override
+	public LCM_CompilerAccess getLCMAccess() {
+		final var _c = this;
+		return new LCM_CompilerAccess() {
+			@Override
+			public Compilation c() {
+				return _c;
+			}
+
+			@Override
+			public CompilationRunner cr() {
+				return c().getRunner();
+			}
+
+			@Override
+			public CompilationConfig cfg() {
+				return c()._cfg();
+			}
+		};
+	}
+
+	@Override
+	public CompilationRunner getRunner() {
+		return getCompilationEnclosure().getCompilationRunner();
+	}
+
+	@Override
+	public CompilationConfig _cfg() {
+		return this.cfg;
 	}
 
 	/**
