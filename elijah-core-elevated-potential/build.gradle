@@ -2,7 +2,7 @@ plugins {
   id 'tripleo.elijah.java-conventions'
 //    id 'org.openjfx.javafxplugin' version '0.0.13'
 
-  id "io.freefair.lombok" version "8.3"
+//  id "io.freefair.lombok" version "8.3"
   id "io.ktor.plugin" version "2.3.4"
 
   id "org.xtext.xtend" version "4.0.0"
@@ -16,15 +16,26 @@ repositories {
   gradlePluginPortal()
 //    maven {url "https://plugins.gradle.org/m2"}
   mavenCentral()
-    mavenLocal()
+  mavenLocal()
+  flatDir {
+    dirs '../lib2/', './lib2/'
+  }
 }
 
 dependencies {
 //    implementation 'eu.mihosoft.monacofx:monacofx:0.0.8'
 
 
-  implementation 'com.google.inject:guice:4.0'
-  implementation 'org.eclipse.sisu:org.eclipse.sisu.inject:0.3.5'
+//  implementation 'com.google.inject:guice:4.0'
+//  implementation 'org.eclipse.sisu:org.eclipse.sisu.inject:0.3.5'
+
+//  implementation name: 'myapp-0.0.1-standalone.jar'
+  implementation files( '../lib2/myapp-0.0.1-standalone.jar')
+//  implementation fileTree(dir: '../lib2/', include: ['*.jar'])
+
+  implementation 'org.clojure:clojure:1.10.3'
+  implementation 'org.clojure:core.specs.alpha:0.2.56'
+  implementation 'org.clojure:spec.alpha:0.2.194'
 
 
   implementation 'tripleo.elijah:elijah-core-api:2023.elevated-potential.6'
@@ -60,6 +71,9 @@ dependencies {
   // http://xtext.github.io/xtext-gradle-plugin/xtend.html
   // https://stackoverflow.com/questions/23796404/could-not-find-method-compile-for-arguments-gradle
   implementation 'org.eclipse.xtend:org.eclipse.xtend.lib:2.30.0'
+
+  // https://mvnrepository.com/artifact/jboss/jboss-common
+  implementation 'jboss:jboss-common:4.2.2.GA'
 
 //
 //    //spotlessLibVersion = "6.22.0"
@@ -109,6 +123,10 @@ ktor {
 ////     (which automatically makes it depend of compileGroovy)
 //    classpath += files(sourceSets.main.scala.classesDirectory)
 //}
+
+tasks.named('compileJava') {
+  classpath += files('../lib2/myapp-0.0.1-standalone.jar')
+}
 
 description = 'elijah-core'
 version = 'elevated-potential.2023.5'
