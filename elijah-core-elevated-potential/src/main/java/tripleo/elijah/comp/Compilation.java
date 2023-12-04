@@ -6,9 +6,11 @@ import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.CM_Ez;
 import tripleo.elijah.comp.graph.CM_Module;
+import tripleo.elijah.comp.i.LCM_CompilerAccess;
 import tripleo.elijah.comp.i.USE_Reasoning;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.CIS;
+import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
@@ -88,6 +90,12 @@ public interface Compilation extends Compilation0 {
 	CM_Module megaGrande(ElijahSpec aSpec, Operation2<OS_Module> aModuleOperation);
 
 	CM_Ez megaGrande(EzSpec aEzSpec);
+
+	LCM_CompilerAccess getLCMAccess();
+
+	CompilationRunner getRunner();
+
+	CompilationConfig _cfg();
 
 	class CompilationConfig implements GCompilationConfig {
 		public          boolean showTree = false;
