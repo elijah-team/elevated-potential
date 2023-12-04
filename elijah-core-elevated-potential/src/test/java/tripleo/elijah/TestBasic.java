@@ -34,7 +34,6 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
 
-import tripleo.wrap.File;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Predicate;
@@ -108,7 +107,7 @@ public class TestBasic {
 					List_of(s, "-sO").stream()
 							.map(CompilerInput_::new)
 							.collect(Collectors.toList()),
-					new DefaultCompilerController());
+					new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3()));
 
 			if (c.errorCount() != 0)
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
@@ -243,7 +242,7 @@ public class TestBasic {
 					List_of(s, "-sE").stream() // -sD??
 							.map(CompilerInput_::new)
 							.collect(Collectors.toList()),
-					new DefaultCompilerController());
+					new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3()));
 
 			if (c.errorCount() != 0)
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
@@ -282,7 +281,7 @@ public class TestBasic {
 		final Compilation   c  = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
 		final CompilerInput i1 = new CompilerInput_(s);
 		final CompilerInput i2 = new CompilerInput_("-sO");
-		c.feedInputs(List_of(i1, i2), new DefaultCompilerController());
+		c.feedInputs(List_of(i1, i2), new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3()));
 
 		if (c.errorCount() != 0) {
 			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
