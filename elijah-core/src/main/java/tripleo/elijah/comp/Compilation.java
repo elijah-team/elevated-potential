@@ -15,6 +15,7 @@ import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
+import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.g.GCompilationConfig;
 import tripleo.elijah.g.GWorldModule;
@@ -43,6 +44,10 @@ public interface Compilation extends Compilation0 {
 	IPipelineAccess get_pa();
 
 	void set_pa(IPipelineAccess a_pa);
+
+	void addCompilerInputWatcher(CN_CompilerInputWatcher aCNCompilerInputWatcher);
+
+	void compilerInputWatcher_Event(CN_CompilerInputWatcher.e aEvent, CompilerInput aCompilerInput, Object aO);
 
 	@Override
 	CompilationEnclosure getCompilationEnclosure();
