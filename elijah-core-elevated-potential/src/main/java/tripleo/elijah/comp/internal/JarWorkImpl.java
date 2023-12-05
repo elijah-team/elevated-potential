@@ -34,13 +34,6 @@ public class JarWorkImpl implements JarWork {
 			logProgress("false for urls: "+url+" "+url2);
 		}
 
-		URLClassLoader child = new URLClassLoader(new URL[]{url2}, CompilationImpl.class.getClassLoader());
-
-		//final FileURLConnection fc = new FileURLConnection(new URL("file://../../lib2/myapp-0.0.1-standalone.jar"));
-		//URL                     u                 = new URL(fc);
-		//JarURLConnection        uc                = (JarURLConnection)((new URL(fc.getURL(), "").openConnection()));
-		//var                     a                 = uc.getMainAttributes();
-
 		try (URLClassLoader child2 = new URLClassLoader(
 				new URL[]{url},
 				this.getClass().getClassLoader()

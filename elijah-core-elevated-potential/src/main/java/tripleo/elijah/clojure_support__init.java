@@ -39,7 +39,7 @@ public class clojure_support__init {
 			//throw var1; // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 		}
 
-		Var.popThreadBindings();
+		//Var.popThreadBindings();
 	}
 
 	private static final String name = "tripleo.elijah.clojure-support";

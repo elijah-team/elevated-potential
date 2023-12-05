@@ -19,6 +19,7 @@ import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.g.GCompilationConfig;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.LivingRepo;
@@ -96,6 +97,10 @@ public interface Compilation extends Compilation0 {
 	CompilationRunner getRunner();
 
 	CompilationConfig _cfg();
+
+	CM_CompilerInput get(CompilerInput aInput);
+
+	void ____m();
 
 	class CompilationConfig implements GCompilationConfig {
 		public          boolean showTree = false;

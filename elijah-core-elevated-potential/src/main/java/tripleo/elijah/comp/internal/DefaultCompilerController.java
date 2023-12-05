@@ -5,6 +5,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.g.GCompilationEnclosure;
 import tripleo.elijah.util.*;
 
 import java.util.*;
@@ -14,16 +15,21 @@ public class DefaultCompilerController implements CompilerController {
 	ICompilationBus     cb;
 	List<CompilerInput> inputs;
 	private Compilation c;
-private final ICompilationAccess3 ca3;
+	private final ICompilationAccess3 ca3;
 
 	public DefaultCompilerController(final ICompilationAccess3 aCa3) {
 		ca3 = aCa3;
 	}
 
-	@Override
 	public void _setInputs(final Compilation0 aCompilation, final List<CompilerInput> aInputs) {
 		c      = (Compilation) aCompilation;
 		inputs = aInputs;
+	}
+
+	@Override
+	public void setEnclosure(final GCompilationEnclosure aCompilationEnclosure) {
+		final CompilationEnclosure ce = (CompilationEnclosure) aCompilationEnclosure;
+		_setInputs(ce.getCompilation(), ce.getCompilerInput());
 	}
 
 	@Override
@@ -56,6 +62,8 @@ private final ICompilationAccess3 ca3;
 
 	@Override
 	public void runner(final @NotNull Con con) {
+		c.____m();
+
 		c._cis().subscribeTo(c);
 
 		final CompilationEnclosure ce = c.getCompilationEnclosure();

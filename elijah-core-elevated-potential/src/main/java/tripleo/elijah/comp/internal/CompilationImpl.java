@@ -11,6 +11,7 @@ package tripleo.elijah.comp.internal;
 import com.google.common.base.Preconditions;
 import io.reactivex.rxjava3.core.Observer;
 import lombok.Getter;
+import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.CompilerInstructions;
@@ -29,10 +30,12 @@ import tripleo.elijah.comp.nextgen.CP_Paths__;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
 import tripleo.elijah.comp.nextgen.pw.PW_Controller;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
+import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.stages.deduce.IFunctionMapHook;
@@ -48,7 +51,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CompilationImpl implements Compilation, EventualRegister {
-	private final FluffyCompImpl                      _fluffyComp;
+	private final List<CN_CompilerInputWatcher> _ciws;
+	private final Map<CompilerInput, CM_CompilerInput>                           _ci_models;
+	private final List<Triple<CN_CompilerInputWatcher.e, CompilerInput, Object>> _ciw_buffer;
+
+	private final FluffyCompImpl                                                 _fluffyComp;
 	@Getter
 	private final CompilationConfig                   cfg;
 	@Getter
@@ -77,7 +84,6 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private       JarWork                             jarwork;
 	private       EIT_InputTree                       _input_tree;
 	private       EOT_OutputTree                      _output_tree;
-	private       List<CompilerInput>                 _inputs;
 	private       IPipelineAccess                     _pa;
 	private       IO                                  io;
 	@SuppressWarnings("BooleanVariableAlwaysNegated")
@@ -109,8 +115,13 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		pw_controller        = _con.createPwController(this);
 		cci_listener         = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
+
+		_ciws                   = new ArrayList<>();
+		_ci_models              = new HashMap<>();
+		_ciw_buffer             = new ArrayList<>();
 	}
 
+	@Override
 	public void ____m() {
 		try {
 			final JarWork jarwork1 = getJarwork();
@@ -208,6 +219,23 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		return aICompilationAccess3;
 	}
 
+	@NotNull
+	public List<CompilerInput> stringListToInputList(final @NotNull List<String> args) {
+		final List<CompilerInput> inputs = args.stream()
+				.map(s -> {
+					final CompilerInput    input = new CompilerInput_(s, Optional.of(this));
+					final CM_CompilerInput cm    = this.get(input);
+					if (cm.inpSameAs(s)) {
+						input.setSourceRoot();
+					} else {
+						assert false;
+					}
+					return input;
+				})
+				.collect(Collectors.toList());
+		return inputs;
+	}
+
 	@Override
 	public void feedInputs(final @NotNull List<CompilerInput> aCompilerInputs,
 						   final @NotNull CompilerController aController) {
@@ -216,14 +244,11 @@ public class CompilationImpl implements Compilation, EventualRegister {
 			return;
 		}
 
-		_inputs = aCompilerInputs; // !!
+		// FIXME 12/04 This seems like alot (esp here)
 		compilationEnclosure.setCompilerInput(aCompilerInputs);
+		((DefaultCompilerController)aController).setEnclosure(compilationEnclosure);
 
-		aController._setInputs(this, aCompilerInputs);
-
-		assert _inputs != null;
-
-		for (final CompilerInput compilerInput : _inputs) {
+		for (final CompilerInput compilerInput : aCompilerInputs) {
 			compilerInput.setMaster(master); // FIXME this is too much i think
 		}
 
@@ -340,16 +365,16 @@ public class CompilationImpl implements Compilation, EventualRegister {
 				setRootCI(cis.get(0));
 			}
 
-		if (null == pa.getCompilation().getInputs()) {
-			pa.setCompilerInput(pa.getCompilation().getInputs());
-		}
+			//if (null == pa.getCompilation().getInputs()) {
+			//	pa.setCompilerInput(pa.getCompilation().getInputs());
+			//}
 
 			if (!_inside) {
 				_inside = true;
 
-			final CompilerInstructions rootCI = getRootCI();
-			//final CompilerInstructions rootCI = this.cci_listener._root();
-			rootCI.advise(_inputs.get(0));
+				final CompilerInstructions rootCI = getRootCI();
+				//final CompilerInstructions rootCI = this.cci_listener._root();
+				rootCI.advise(__advisement/*_inputs.get(0)*/);
 
 				final CompilationRunner compilationRunner = getCompilationEnclosure().getCompilationRunner();
 				compilationRunner.start(rootCI, pa);
@@ -375,7 +400,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@Override
 	public void pushItem(CompilerInstructions aci) {
 		if (xxx.contains(aci)) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("** [CompilerInstructions::pushItem] duplicate instructions: "+aci.getFilename());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("** [CompilerInstructions::pushItem] duplicate instructions: " + aci.getFilename());
 			return;
 		} else {
 			xxx.add(aci);
@@ -400,7 +425,8 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public List<CompilerInput> getInputs() {
-		return _inputs;
+		//return _inputs;
+		throw new UnintendedUseException();
 	}
 
 	@Override
@@ -410,7 +436,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		}
 
 		use.use(compilerInstructions);
-//		cci_listener.id.add(compilerInstructions);
+		//cci_listener.id.add(compilerInstructions);
 	}
 
 	@Override
@@ -492,6 +518,16 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@Override
 	public CompilationConfig _cfg() {
 		return this.cfg;
+	}
+
+	@Override
+	public CM_CompilerInput get(final CompilerInput aCompilerInput) {
+		if (_ci_models.containsKey(aCompilerInput))
+			return _ci_models.get(aCompilerInput);
+
+		CM_CompilerInput result = new CM_CompilerInput(aCompilerInput, this);
+		_ci_models.put(aCompilerInput, result);
+		return result;
 	}
 
 	/**

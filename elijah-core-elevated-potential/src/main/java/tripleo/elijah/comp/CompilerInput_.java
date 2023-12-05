@@ -6,20 +6,30 @@ import org.apache.commons.lang3.tuple.Pair;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.queries.QSEZ_Reasoning;
 import tripleo.elijah.util.Maybe;
 import tripleo.elijah.util.Operation2;
 import tripleo.wrap.File;
 
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class CompilerInput_ extends __Extensionable implements CompilerInput {
+	private final Optional<CompilationImpl> oc;
+
+	public CompilerInput_(final String aS, final Optional<CompilationImpl> aCompilation) {
+		inp = aS;
+		oc = aCompilation;
+	}
+
 	@Override
 	public tripleo.wrap.File getFile() {
 		throw new UnintendedUseException();
 	}
 
+	@Override
 	public tripleo.wrap.File getFileForDirectory() {
 		final tripleo.wrap.File directory = new tripleo.wrap.File(inp);
 		this.setDirectory(directory);
@@ -40,6 +50,7 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 	public CompilerInput_(final String aS) {
 		inp = aS;
 		ty  = Ty.NULL;
+		oc  = null;
 	}
 
 	@Override

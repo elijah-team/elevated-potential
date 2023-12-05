@@ -12,8 +12,8 @@ import java.io.*;
 
 public abstract class ILazyCompilerInstructions_ {
 	@Contract(value = "_, _ -> new", pure = true)
-	static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInput input,
-												 final @NotNull CompilationClosure cc) {
+	public static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInput input,
+														final @NotNull CompilationClosure cc) {
 		final String file_name = input.getInp();
 		final File   f         = new File(file_name);
 
