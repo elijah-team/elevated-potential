@@ -22,18 +22,6 @@ public class JarWorkImpl implements JarWork {
 
 	@Override
 	public void work() throws WorkException {
-		final URL      url2;
-		try {
-			url2 = new URL("file://" + jarname);
-		} catch (MalformedURLException aE) {
-			throw new WorkException(aE);
-		}
-
-		if (!url.sameFile(url2)) {
-			//throw new AssertionError();
-			logProgress("false for urls: "+url+" "+url2);
-		}
-
 		try (URLClassLoader child2 = new URLClassLoader(
 				new URL[]{url},
 				this.getClass().getClassLoader()
