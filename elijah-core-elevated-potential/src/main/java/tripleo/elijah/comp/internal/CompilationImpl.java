@@ -645,6 +645,30 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		//throw new UnintendedUseException();
 	}
 
+	@Override
+	public void addCompilerInputWatcher(final CN_CompilerInputWatcher aCNCompilerInputWatcher) {
+		_ciws.add(aCNCompilerInputWatcher);
+	}
+
+	@Override
+	public void compilerInputWatcher_Event(final CN_CompilerInputWatcher.e aEvent, final CompilerInput aCompilerInput, final Object aO) {
+		if (_ciws.isEmpty()) {
+			_ciw_buffer.add(Triple.of(aEvent, aCompilerInput, aO));
+		} else {
+			if (!_ciw_buffer.isEmpty()) {
+				for (Triple<CN_CompilerInputWatcher.e, CompilerInput, Object> triple : _ciw_buffer) {
+					for (CN_CompilerInputWatcher ciw : _ciws) {
+						ciw.event(triple.getLeft(), triple.getMiddle(), triple.getRight());
+					}
+				}
+				_ciw_buffer.clear();
+			}
+			for (CN_CompilerInputWatcher ciw : _ciws) {
+				ciw.event(aEvent, aCompilerInput, aO);
+			}
+		}
+	}
+
 	public enum CompilationAlways {
 		;
 
