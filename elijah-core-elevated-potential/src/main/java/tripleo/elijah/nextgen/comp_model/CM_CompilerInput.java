@@ -8,7 +8,7 @@ import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.ILazyCompilerInstructions_;
 import tripleo.elijah.util.Maybe;
 
-import java.io.File;
+import tripleo.wrap.File;
 
 public class CM_CompilerInput {
 	private final CompilationImpl comp;
