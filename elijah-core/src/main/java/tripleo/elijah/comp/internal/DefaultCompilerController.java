@@ -62,7 +62,7 @@ public class DefaultCompilerController implements CompilerController {
 
 	@Override
 	public void runner(final @NotNull Con con) {
-		c.____m();
+		if (false) c.____m();
 
 		c._cis().subscribeTo(c);
 
