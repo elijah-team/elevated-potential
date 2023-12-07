@@ -123,7 +123,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	}
 
 	public @NotNull Operation<Boolean> renderNode(final @NotNull ER_Node node) {
-		final Path         path = node.getPath();
+		final Path         path = node.getPath().getPath(); // TODO 12/07
 		final EG_Statement seq  = node.getStatement();
 
 		c.getCompilationEnclosure().logProgress(CompProgress.__CP_OutputPath_renderNode, node);

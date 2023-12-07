@@ -6,7 +6,9 @@ import tripleo.elijah.comp.i.*;
 
 import tripleo.wrap.File;
 
-public class USE_Reasonings {
+public enum USE_Reasonings {
+	;
+
 	public static USE_Reasoning parent(CompilerInstructions aCompilerInstructions, boolean parent, File aInstructionDir, LibraryStatementPart aLsp) {
 		return new USE_Reasoning_parent(parent, aInstructionDir, aCompilerInstructions);
 	}
@@ -33,8 +35,8 @@ public class USE_Reasonings {
 
 	private static class USE_Reasoning_initial implements USE_Reasoning {
 		private final CK_ProcessInitialAction processInitialAction;
-		private       CB_Output               cbOutput;
-		private       CompilationRunner       compilationRunner;
+		private final CB_Output               cbOutput;
+		private final CompilationRunner       compilationRunner;
 
 		public USE_Reasoning_initial(final CK_ProcessInitialAction aCKProcessInitialAction, final CompilationRunner aCompilationRunner, final CB_Output aOutput) {
 			processInitialAction = aCKProcessInitialAction;

@@ -246,7 +246,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 		// FIXME 12/04 This seems like alot (esp here)
 		compilationEnclosure.setCompilerInput(aCompilerInputs);
-		((DefaultCompilerController)aController).setEnclosure(compilationEnclosure);
+		aController.setEnclosure(compilationEnclosure);
 
 		for (final CompilerInput compilerInput : aCompilerInputs) {
 			compilerInput.setMaster(master); // FIXME this is too much i think

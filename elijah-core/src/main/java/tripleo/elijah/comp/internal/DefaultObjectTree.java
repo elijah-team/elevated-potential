@@ -3,8 +3,6 @@ package tripleo.elijah.comp.internal;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import tripleo.elijah.DebugFlags;
-import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.comp.graph.CM_Module;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
@@ -16,7 +14,7 @@ import tripleo.elijah.util.Operation;
 
 public class DefaultObjectTree implements CK_ObjectTree {
 	private final CompilationImpl compilation;
-	private       EIT_ModuleList  moduleList;
+	private final EIT_ModuleList  moduleList;
 
 	public DefaultObjectTree(final CompilationImpl aCompilation) {
 		compilation = aCompilation;
