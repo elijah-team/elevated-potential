@@ -32,7 +32,7 @@ dependencies {
   implementation 'org.clojure:spec.alpha:0.2.194'
 
 
-  implementation 'tripleo.elijah:elijah-core-api:2023.elevated-potential.6'
+  implementation 'tripleo.elijah:elijah-core-api:2023.elevated-potential.7d'
 
 //  implementation 'tripleo.elijah:elijah-util:2023.elevated-potential.2b'
 //  implementation 'tripleo.elijah:elijah-ek:2023.elevated-potential.2'
