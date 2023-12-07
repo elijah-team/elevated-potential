@@ -1,9 +1,12 @@
 package tripleo.elijah.comp.internal;
 
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;
+import tripleo.elijah.comp.graph.i.CM_Module;
 import tripleo.elijah.comp.i.*;
 
+import tripleo.elijah.util.ProgramIsLikelyWrong;
 import tripleo.wrap.File;
 
 public enum USE_Reasonings {
@@ -50,6 +53,11 @@ public enum USE_Reasonings {
 		}
 
 		@Override
+		public CM_Module module() {
+			return null; // idk
+		}
+
+		@Override
 		public File instruction_dir() {
 			return null;
 		}
@@ -75,6 +83,12 @@ public enum USE_Reasonings {
 		@Override
 		public boolean parent() {
 			return false;
+		}
+
+		@Override
+		public CM_Module module() {
+			//return null;
+			throw new UnintendedUseException();
 		}
 
 		@Override
@@ -106,6 +120,13 @@ public enum USE_Reasonings {
 		}
 
 		@Override
+		public CM_Module module() {
+			//return ProgramIsLikelyWrong;
+			//throw new UnintendedUseException("");
+			return null; // ci not mod
+		}
+
+		@Override
 		public File instruction_dir() {
 			return null;
 		}
@@ -133,6 +154,11 @@ public enum USE_Reasonings {
 		@Override
 		public boolean parent() {
 			return false;
+		}
+
+		@Override
+		public CM_Module module() {
+			return null; // this one is just confusing
 		}
 
 		@Override
@@ -180,6 +206,11 @@ public enum USE_Reasonings {
 		}
 
 		@Override
+		public CM_Module module() {
+			return null; // idk
+		}
+
+		@Override
 		public File instruction_dir() {
 			return dir;
 		}
@@ -209,6 +240,11 @@ public enum USE_Reasonings {
 		@Override
 		public boolean parent() {
 			return parent;
+		}
+
+		@Override
+		public CM_Module module() {
+			return null; // idk
 		}
 
 		@Override

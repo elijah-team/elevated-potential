@@ -19,6 +19,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.*;
 import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
+import tripleo.elijah.comp.graph.i.CM_Module;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;

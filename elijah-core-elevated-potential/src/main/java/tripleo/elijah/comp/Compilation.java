@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.CM_Ez;
-import tripleo.elijah.comp.graph.CM_Module;
+import tripleo.elijah.comp.graph.i.CM_Module;
 import tripleo.elijah.comp.i.LCM_CompilerAccess;
 import tripleo.elijah.comp.i.USE_Reasoning;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;

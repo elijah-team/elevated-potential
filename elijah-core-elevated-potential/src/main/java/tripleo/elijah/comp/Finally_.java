@@ -119,12 +119,12 @@ public class Finally_ implements Finally {
 
 		@Override
 		public String name() {
-			return nameable.getName();
+			return nameable.getNameableString();
 		}
 
 		@Override
 		public String toString() {
-			return "Input{" + "name=" + nameable.getName() + ", ty=" + ty + '}';
+			return "Input{" + "name=" + nameable.getNameableString() + ", ty=" + ty + '}';
 		}
 	}
 

@@ -1,25 +1,23 @@
 package tripleo.elijah.comp.nextgen;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.nextgen.*;
-import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.util.io.*;
-import tripleo.elijah.world.i.*;
-
-import java.io.*;
-import java.nio.file.*;
-import java.time.*;
-import java.time.format.*;
-import java.util.*;
-import java.util.stream.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.IO;
+import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.nextgen.ER_Node;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	private final Eventual<Path> _pathPromise = new Eventual<>();
@@ -59,7 +57,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 			public void start() {
 
 			}
-		})*/;
+		})*/
 	}
 
 	public void _renderNodes(final @NotNull List<ER_Node> nodes) {
@@ -224,5 +222,19 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	@Override
 	public Path toPath() {
 		return getPath(); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+	}
+
+	@Override
+	public DisposableCharSink newIOWriter(final IO io) {
+		try {
+			return io.openWrite(getPath());
+		} catch (IOException aE) {
+			throw new RuntimeException(aE); // FIXME 12/07
+		}
+	}
+
+	@Override
+	public String asString() {
+		return this.toString();
 	}
 }

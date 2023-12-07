@@ -1,6 +1,6 @@
 package tripleo.elijah.nextgen.output;
 
-import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.gen_generic.GenerateResult.*;
 

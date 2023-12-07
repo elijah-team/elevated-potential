@@ -6,7 +6,11 @@ import tripleo.elijah.Eventual;
 import tripleo.elijah.EventualRegister;
 import tripleo.elijah.comp.Compilation;
 
+import tripleo.elijah.comp.IO;
+import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
+
+import java.io.IOException;
 import java.nio.file.Path;
 
 public class CP_StdlibPath__ implements CP_StdlibPath {
@@ -89,5 +93,19 @@ public class CP_StdlibPath__ implements CP_StdlibPath {
 	@Override
 	public Path toPath() {
 		return getPath();
+	}
+
+	@Override
+	public DisposableCharSink newIOWriter(final IO io) {
+		try {
+			return io.openWrite(this.getPath());
+		} catch (IOException aE) {
+			throw new RuntimeException(aE);
+		}
+	}
+
+	@Override
+	public String asString() {
+		return this.toString();
 	}
 }

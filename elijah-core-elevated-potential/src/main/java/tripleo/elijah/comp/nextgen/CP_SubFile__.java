@@ -5,10 +5,13 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.Eventual;
 import tripleo.elijah.UnintendedUseException;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import tripleo.elijah.comp.IO;
+import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
 
 public class CP_SubFile__ implements CP_SubFile {
@@ -161,6 +164,26 @@ public class CP_SubFile__ implements CP_SubFile {
 		@Override
 		public Path toPath() {
 			return getPath();
+		}
+
+		@Override
+		public DisposableCharSink newIOWriter(final IO io) {
+			try {
+				return io.openWrite(getPath());
+			} catch (IOException aE) {
+				return null; // FIXME 12/07 chaneg interface
+			}
+		}
+
+		@Override
+		public String asString() {
+			return "CP_Path1{" +
+					"parent=" + parent +
+					", op=" + op +
+					", childName='" + childName + '\'' +
+					", _pathPromise=" + _pathPromise +
+					", x='" + x + '\'' +
+					'}';
 		}
 	}
 }

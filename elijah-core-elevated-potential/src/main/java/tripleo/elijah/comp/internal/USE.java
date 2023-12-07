@@ -152,6 +152,9 @@ public class USE {
 	}
 
 	private void use_internal(final @NotNull File dir, final LibraryStatementPart lsp, USE_Reasoning aReasoning) {
+		if (dir.wrapped() == null) {
+			int y=2;
+		}
 		if (!dir.isDirectory()) {
 			errSink.reportError("9997 Not a directory " + dir);
 			return;
