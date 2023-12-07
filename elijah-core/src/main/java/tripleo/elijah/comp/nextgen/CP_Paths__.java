@@ -35,6 +35,11 @@ public class CP_Paths__ implements CP_Paths {
 	}
 
 	@Override
+	public CP_Path preludeRoot() {
+		return null; // TODO 12/07
+	}
+
+	@Override
 	public void renderNodes() {
 		outputRoot._renderNodes(outputNodes);
 	}
@@ -47,5 +52,10 @@ public class CP_Paths__ implements CP_Paths {
 	@Override
 	public @NotNull CP_StdlibPath stdlibRoot() {
 		return stdlibRoot;
+	}
+
+	@Override
+	public CP_Path sourcesRoot() {
+		return null; // TODO 12/07
 	}
 }

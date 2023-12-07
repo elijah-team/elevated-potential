@@ -7,10 +7,12 @@ import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.EvaPipeline;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.comp.notation.GM_GenerateModule;
 import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
 import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
 import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
+import tripleo.elijah.g.GModuleGenerationRequest;
 import tripleo.elijah.lang.i.ModuleItem;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.model.SM_Module;
@@ -57,7 +59,12 @@ public class EIT_ModuleInputImpl implements EIT_ModuleInput {
 	}
 
 	@Override
-	public void doGenerate(final List<EvaNode> nodes,
+	public void doGenerate(final GModuleGenerationRequest r0) {
+		final ModuleGenerationRequest r = (ModuleGenerationRequest) r0;
+		doGenerate(r.getEvaNodeList(), r.work(), r.getGenerateResultConsumer(), r.getCompilationEnclosure());
+	}
+
+	private void doGenerate(final List<EvaNode> nodes,
 						   final WorkManager wm,
 						   final @NotNull Consumer<GenerateResult> resultConsumer,
 						   final @NotNull CompilationEnclosure ce) {

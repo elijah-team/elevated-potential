@@ -368,8 +368,8 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	@Override
 	public void noteAccept(final @NotNull WorldModule aWorldModule) {
-		var mod = aWorldModule.module();
-		var aMt = aWorldModule.rq().mt();
+		//var mod = aWorldModule.module();
+		//var aMt = EventualExtract.of(aWorldModule.getErq()).mt();
 		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(mod);
 		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(aMt);
 	}
