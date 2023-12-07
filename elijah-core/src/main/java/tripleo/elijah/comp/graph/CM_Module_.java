@@ -2,6 +2,8 @@ package tripleo.elijah.comp.graph;
 
 import tripleo.elijah.ci.LibraryStatementPart;
 
+import tripleo.elijah.comp.graph.i.CM_Module;
+import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.comp.specs.ElijahSpec;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.g.GWorldModule;
@@ -23,6 +25,7 @@ public class CM_Module_ implements CM_Module {
 	private Operation2<OS_Module> moduleOperation;
 	private ElijahSpec            spec;
 	private WorldModule           worldModule;
+	private Compilation compilation;
 
 	@Override
 	public void advise(final ElijahSpec aSpec) {
@@ -41,7 +44,10 @@ public class CM_Module_ implements CM_Module {
 	@Override
 	public GWorldModule adviseCreator(final Compilation0 aCompilation0) {
 		final OS_Module   module      = moduleOperation.success();
-		final Compilation compilation = (Compilation) aCompilation0;
+
+		if (this.compilation == null) {
+			this.compilation = (Compilation) aCompilation0;
+		}
 
 		worldModule = compilation.con().createWorldModule(module);
 
@@ -79,6 +85,15 @@ public class CM_Module_ implements CM_Module {
 	@Override
 	public InputStream s() {
 		throw new UnintendedUseException();
+	}
+
+	@Override
+	public EIT_ModuleInput getEITInput() {
+		if (this.compilation != null) {
+			// FIXME 12/07 assuming these two are together
+			return this.compilation.con().createModuleInput(this.worldModule.module());
+		}
+		return null;
 	}
 
 	@Override
