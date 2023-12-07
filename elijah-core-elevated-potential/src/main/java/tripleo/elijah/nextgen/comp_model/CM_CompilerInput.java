@@ -91,11 +91,6 @@ public class CM_CompilerInput {
 	public Finally_.Input_ createInput(final Finally.Out2 aTy) {
 		var nameable = new Finally.Nameable() {
 			@Override
-			public String getName() {
-				throw new UnintendedUseException();
-			}
-
-			//@Override
 			public String getNameableString() {
 				return inp;
 			}

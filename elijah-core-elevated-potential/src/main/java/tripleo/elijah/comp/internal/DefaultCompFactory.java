@@ -49,17 +49,6 @@ class DefaultCompFactory implements CompFactory {
 		return new DefaultCompilationBus(Objects.requireNonNull(compilation.getCompilationEnclosure()));
 	}
 
-	@Override
-	public InputRequest createInputRequest(final java.io.File aFile, final @Nullable LibraryStatementPart aLsp) {
-		throw new UnintendedUseException();
-	}
-
-	@Contract("_,_,_ -> new")
-	public @NotNull InputRequest createInputRequest(final File aFile,
-	                                                final @Nullable LibraryStatementPart aLsp) {
-		return new InputRequest(aFile, aLsp);
-	}
-
 	@Contract("_ -> new")
 	@Override
 	public @NotNull EIT_ModuleInput createModuleInput(final OS_Module aModule) {

@@ -140,16 +140,11 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 		}
 	}
 
-	public void renderNodes() {
-
-	}
-
 	public void signalCalculateFinishParse() {
 		c.world()._completeModules();
 
 		if (_pathPromise.isPending()) {
 			final Eventual<String> promise = hda.promise();
-			final String[]         s       = new String[1];
 
 			promise.then(calc -> {
 				__PathPromiseCalculator ppc = new __PathPromiseCalculator();
