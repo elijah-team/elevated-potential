@@ -7,7 +7,7 @@ import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.ci_impl.LibraryStatementPartImpl;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.caches.DefaultElijahCache;
-import tripleo.elijah.comp.graph.CM_Module;
+import tripleo.elijah.comp.graph.i.CM_Module;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.i.ErrSink;
