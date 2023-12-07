@@ -58,8 +58,8 @@ public class USE_Reasonings {
 		}
 
 		@Override
-		public USE_Reasoning_ ty() {
-			return USE_Reasoning_.USE_Reasoning__initial;
+		public USE_Reasoning.Type ty() {
+			return USE_Reasoning.Type.USE_Reasoning__initial;
 		}
 	}
 
@@ -86,8 +86,8 @@ public class USE_Reasonings {
 		}
 
 		@Override
-		public USE_Reasoning_ ty() {
-			return USE_Reasoning_.USE_Reasoning__findStdLib;
+		public USE_Reasoning.Type ty() {
+			return Type.USE_Reasoning__findStdLib;
 		}
 	}
 
@@ -114,8 +114,8 @@ public class USE_Reasonings {
 		}
 
 		@Override
-		public USE_Reasoning_ ty() {
-			return USE_Reasoning_.USE_Reasoning__instruction_doer_addon;
+		public USE_Reasoning.Type ty() {
+			return Type.USE_Reasoning__instruction_doer_addon;
 		}
 	}
 
@@ -144,8 +144,8 @@ public class USE_Reasonings {
 		}
 
 		@Override
-		public USE_Reasoning_ ty() {
-			return USE_Reasoning_.USE_Reasoning___default;
+		public USE_Reasoning.Type ty() {
+			return USE_Reasoning.Type.USE_Reasoning___default;
 		}
 	}
 
@@ -188,8 +188,8 @@ public class USE_Reasonings {
 		}
 
 		@Override
-		public USE_Reasoning_ ty() {
-			return USE_Reasoning_.USE_Reasoning__child;
+		public USE_Reasoning.Type ty() {
+			return USE_Reasoning.Type.USE_Reasoning__child;
 		}
 	}
 
@@ -220,8 +220,8 @@ public class USE_Reasonings {
 		}
 
 		@Override
-		public USE_Reasoning_ ty() {
-			return USE_Reasoning_.USE_Reasoning__parent;
+		public USE_Reasoning.Type ty() {
+			return Type.USE_Reasoning__parent;
 		}
 	}
 }

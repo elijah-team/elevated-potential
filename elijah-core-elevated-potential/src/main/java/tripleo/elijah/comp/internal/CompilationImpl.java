@@ -431,7 +431,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public void use(@NotNull final CompilerInstructions compilerInstructions, final USE_Reasoning aReasoning) {
-		if (aReasoning.ty() == USE_Reasoning_.USE_Reasoning__findStdLib) {
+		if (aReasoning.ty() == USE_Reasoning.Type.USE_Reasoning__findStdLib) {
 			pushItem(compilerInstructions);
 		}
 
