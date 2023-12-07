@@ -19,7 +19,6 @@ import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
 
-import java.io.File;
 import java.util.List;
 
 public interface CompFactory {
@@ -27,8 +26,6 @@ public interface CompFactory {
 	ICompilationAccess createCompilationAccess();
 
 	ICompilationBus createCompilationBus();
-
-	InputRequest createInputRequest(File aFile, final @Nullable LibraryStatementPart aLsp);
 
 	EIT_ModuleInput createModuleInput(OS_Module aModule);
 
