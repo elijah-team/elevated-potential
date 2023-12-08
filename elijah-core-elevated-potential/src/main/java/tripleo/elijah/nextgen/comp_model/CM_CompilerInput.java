@@ -10,7 +10,7 @@ import tripleo.elijah.util.Maybe;
 
 import tripleo.wrap.File;
 
-public class CM_CompilerInput {
+public class CM_CompilerInput implements Finally.Nameable {
 	private final CompilationImpl comp;
 	private final CompilerInput carrier;
 	private String inp;
@@ -89,13 +89,11 @@ public class CM_CompilerInput {
 	}
 
 	public Finally_.Input_ createInput(final Finally.Out2 aTy) {
-		var nameable = new Finally.Nameable() {
-			@Override
-			public String getNameableString() {
-				return inp;
-			}
-		};
+		return new Finally_.Input_(this, aTy);
+	}
 
-		return new Finally_.Input_(nameable, aTy);
+	@Override
+	public String getNameableString() {
+		return inp;
 	}
 }
