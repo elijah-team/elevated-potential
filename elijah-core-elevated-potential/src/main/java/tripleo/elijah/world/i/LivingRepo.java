@@ -34,9 +34,9 @@ public interface LivingRepo extends GLivingRepo {
 
 	LivingClass addClass(ClassStatement cs);
 
-	DefaultLivingClass addClass(EvaClass aClass, Add addFlag);
+	LivingClass addClass(EvaClass aClass, Add addFlag);
 
-	DefaultLivingFunction addFunction(BaseEvaFunction aFunction, Add aMainFunction);
+	LivingFunction addFunction(BaseEvaFunction aFunction, Add aMainFunction);
 
 	LivingFunction addFunction(BaseFunctionDef fd);
 
