@@ -3,6 +3,7 @@ package tripleo.elijah.comp.internal;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import tripleo.elijah.DebugFlags;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
@@ -25,7 +26,8 @@ public class DefaultObjectTree implements CK_ObjectTree {
 	public void asseverate(Object o, Asseverate asseveration) {
 		switch (asseveration) {
 		case CI_PARSED ->  {
-			int y=2;//throw new UnintendedUseException();
+			int y=2;
+			throw new UnintendedUseException();
 		}
 		case ELIJAH_PARSED -> {
 			final CM_Module x = (CM_Module)o;
