@@ -43,6 +43,7 @@ public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEz
 		var specOp = EzSpec__.of(
 				fileName,
 				file,
+				//file.getFileInputStreamOperationSupplier() // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 				new Supplier<Operation<InputStream>>() {
 					@Override
 					public Operation<InputStream> get() {
@@ -64,7 +65,8 @@ public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEz
 	}
 
 	private String file_name() {
-		return this.file.getName();
+		//return this.file.wrappedFileName(); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+		return this.file.wrapped().toString(); // README 12/07 not just toString, but wrapped.toString
 	}
 
 	@Override
