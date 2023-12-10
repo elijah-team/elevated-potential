@@ -8,6 +8,7 @@ import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.nextgen.ER_Node;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
@@ -156,22 +157,22 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 				Path px = Path.of(root, one, _testShim ? "<date>" : two);
 				logProgress(117117, "OutputPath = " + px);
 
-				// assert p.equals(px); // FIXME "just return COMP" instead of zero
+				assert p.equals(px); // FIXME "just return COMP" instead of zero
 
 				_pathPromise.resolve(px);
 
 				CP_Path pp = ppc.getP(this);
-				// assert pp.equals(px); // FIXME "just return COMP" instead of zero
+				assert pp.equals(px); // FIXME "just return COMP" instead of zero
 
 				this.root = tripleo.wrap.File.wrap(px.toFile());
 
 				CP_Path p3 = ppc.getP(this);
-				// assert p3.equals(px); // FIXME "just return COMP" instead of zero
+				assert p3.equals(px); // FIXME "just return COMP" instead of zero
 
-//			    final List<Object> objects = List_of(px, p, pp, p3);
-//			    for (Object object : objects) {
-//				    logProgress(117133, "" + object);
-//		    	}
+			    final List<Object> objects = Helpers.List_of(px, p, pp, p3);
+			    for (Object object : objects) {
+				    logProgress(117133, "" + object);
+		    	}
 			});
 		}
 	}
