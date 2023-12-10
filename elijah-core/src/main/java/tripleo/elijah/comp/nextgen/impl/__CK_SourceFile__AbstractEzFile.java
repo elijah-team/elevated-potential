@@ -105,7 +105,7 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 			@Override
 			public void onLogProgress(final Asseverable asseverable_ce) {
 				// !!
-				if (asseverable_ce instanceof final GCompilationEnclosure ce) {
+				if (asseverable_ce instanceof final /*G*/CompilationEnclosure ce) {
 					ce.logProgress2(CompProgress.Ez__HasHash, new AsseverationLogProgress() {
 						@Override
 						public void call(PrintStream out, PrintStream err) {
