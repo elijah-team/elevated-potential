@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/elijah-core/elevated-potential.tripleo.elijah.core.iml" filepath="$PROJECT_DIR$/.idea/modules/elijah-core/elevated-potential.tripleo.elijah.core.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/elijah-core/elevated-potential.tripleo.elijah.core.test.iml" filepath="$PROJECT_DIR$/.idea/modules/elijah-core/elevated-potential.tripleo.elijah.core.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/tripleo.elijah.elevated-potential.dlog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/tripleo.elijah.elevated-potential.dlog.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/tripleo.elijah.elevated-potential.dlog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/tripleo.elijah.elevated-potential.dlog.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/elijah-core/tripleo.elijah.elevated-potential.tripleo.elijah.core.test.iml" filepath="$PROJECT_DIR$/.idea/modules/elijah-core/tripleo.elijah.elevated-potential.tripleo.elijah.core.test.iml" />
     </modules>
   </component>
 </project>

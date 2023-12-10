@@ -38,5 +38,11 @@
 			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="/elijah-core-api-elijah-core-api"/>
+	<classpathentry kind="src" path="/elijah-util"/>
+	<classpathentry kind="src" path="/elijah-nextgen-outputstatement"/>
+	<classpathentry kind="src" path="/tripleo.elijah.stateful"/>
+	<classpathentry kind="src" path="/tripleo.elijah.reactive"/>
+	<classpathentry kind="src" path="/tripleo.small"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>

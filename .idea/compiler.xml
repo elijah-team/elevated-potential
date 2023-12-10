@@ -8,8 +8,8 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar" />
         </processorPath>
-        <module name="tripleo.elijah.elevated-potential.dlog.main" />
-        <module name="tripleo.elijah.elevated-potential.dlog.test" />
+        <module name="dlog.elevated-potential.dlog.main" />
+        <module name="dlog.elevated-potential.dlog.test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />
