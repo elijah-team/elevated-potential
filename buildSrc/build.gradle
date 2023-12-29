@@ -9,6 +9,7 @@ plugins {
 //  id "io.ktor.plugin" version "2.3.4"
 
   id 'maven-publish'
+  id 'eclipse'
 }
 
 repositories {
