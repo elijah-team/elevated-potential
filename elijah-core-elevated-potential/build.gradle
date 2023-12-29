@@ -19,6 +19,9 @@ repositories {
 }
 
 dependencies {
+	// https://smallrye.io/smallrye-mutiny/latest/tutorials/getting-mutiny/#__tabbed_1_2
+	implementation 'io.smallrye.reactive:mutiny:2.5.3'
+
 //    implementation 'eu.mihosoft.monacofx:monacofx:0.0.8'
 
 

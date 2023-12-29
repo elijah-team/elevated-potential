@@ -27,6 +27,7 @@ public class DefaultObjectTree implements CK_ObjectTree {
 		switch (asseveration) {
 		case CI_PARSED ->  {
 			int y=2;
+//			throw new UnintendedUseException();
 		}
 		case ELIJAH_PARSED -> {
 			final CM_Module x = (CM_Module)o;

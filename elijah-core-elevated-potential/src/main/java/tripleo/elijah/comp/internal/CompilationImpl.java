@@ -394,6 +394,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public CP_Paths paths() {
+		assert /*m*/paths != null;
 		return paths;
 	}
 
@@ -632,6 +633,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	public CP_Paths _paths() {
+		assert paths != null;
 		return paths;
 	}
 

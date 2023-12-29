@@ -1,7 +1,6 @@
 package tripleo.elijah.comp;
 
 import org.jdeferred2.DoneCallback;
-import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.stages.gen_fn.EvaNode;
@@ -24,19 +23,22 @@ public class AccessBus {
 		void pl_slot(PipelineLogic lgc);
 	}
 
-	public final  Old_GenerateResult gr = new Old_GenerateResult();
+	public  final  Old_GenerateResult gr = new Old_GenerateResult();
 	private final Compilation       _c;
 	private final IPipelineAccess    _pa;
-	private final stepA_mal.@NotNull MalEnv2 env;
-	private final DeferredObject<GenerateResult, Void, Void> generateResultPromise = new DeferredObject<>();
+	private final @NotNull stepA_mal.MalEnv2 env;
 
-	private final DeferredObject<List<EvaNode>, Void, Void> lgcPromise = new DeferredObject<>();
+	private final Eventual<GenerateResult, Void, Void> generateResultPromise = new Eventual<>();
+	private final Eventual<List<EvaNode>, Void, Void> lgcPromise 		 = new Eventual<>();
 
 	public AccessBus(final Compilation aC, final IPipelineAccess aPa) {
 		_c = aC;
 		_pa = aPa;
 
 		env = new stepA_mal.MalEnv2(null); // TODO what does null mean?
+
+		generateResultPromise.register(_c);
+		lgcPromise           .register(_c);
 	}
 
 	public stepA_mal.@NotNull MalEnv2 env() {
@@ -59,11 +61,11 @@ public class AccessBus {
 		_pa.getPipelineLogicPromise().resolve(aPipelineLogic);
 	}
 
-	public void subscribe_GenerateResult(@NotNull final AB_GenerateResultListener aGenerateResultListener) {
+	public void subscribe_GenerateResult(final @NotNull AB_GenerateResultListener aGenerateResultListener) {
 		generateResultPromise.then(aGenerateResultListener::gr_slot);
 	}
 
-	public void subscribe_lgc(@NotNull final AB_LgcListener aLgcListener) {
+	public void subscribe_lgc(final @NotNull AB_LgcListener aLgcListener) {
 		lgcPromise.then(aLgcListener::lgc_slot);
 	}
 

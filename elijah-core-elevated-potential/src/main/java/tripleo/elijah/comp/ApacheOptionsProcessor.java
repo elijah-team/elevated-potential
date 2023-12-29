@@ -7,7 +7,7 @@ import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
-import tripleo.vendor.org.apache.commons.cli.*;
+import tripleo.vendor.org_apache_commons_cli.*;
 
 import java.util.List;
 
@@ -18,8 +18,6 @@ public class ApacheOptionsProcessor implements OptionsProcessor {
 	@Contract(pure = true)
 	public ApacheOptionsProcessor() {
 		options.addOption("s", true, "stage: E: parse; O: output");
-		options.addOption("showtree", false, "show tree");
-		options.addOption("out", false, "make debug files");
 		options.addOption("silent", false, "suppress DeduceType output to console");
 	}
 
@@ -37,7 +35,8 @@ public class ApacheOptionsProcessor implements OptionsProcessor {
 			// c.getCompilationEnclosure().getCompilationBus().option();
 
 			if (CompilationImpl.isGitlab_ci() || cmd.hasOption("silent")) {
-				new CC_SetSilent(true).apply(c);
+				aCb.addCompilerChange(CC_SetSilent.class);
+//				new CC_SetSilent(true).apply(c);
 			}
 
 			return Operation.success(Ok.instance());
