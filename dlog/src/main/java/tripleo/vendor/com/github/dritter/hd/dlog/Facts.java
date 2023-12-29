@@ -1,10 +1,10 @@
 package tripleo.vendor.com.github.dritter.hd.dlog;
 
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
-
 import java.util.Arrays;
 import java.util.Iterator;
+
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
 
 public class Facts implements IFacts {
 

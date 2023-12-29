@@ -43,5 +43,13 @@ java {
   targetCompatibility = JavaVersion.VERSION_17
 }
 
+sourceSets {
+  main {
+    java {
+	      include 'src/main/gen/**'
+    }
+  }
+}
+
 description = 'elijah-dlog'
 version = 'elevated-potential.2023.1'

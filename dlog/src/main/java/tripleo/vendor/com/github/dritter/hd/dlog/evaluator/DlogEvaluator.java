@@ -1,10 +1,20 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.evaluator;
 
-import tripleo.vendor.com.github.dritter.hd.dlog.*;
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.*;
-import tripleo.vendor.com.github.dritter.hd.dlog.parser.DlogParser;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
-import java.util.*;
+import tripleo.vendor.com.github.dritter.hd.dlog.Facts;
+import tripleo.vendor.com.github.dritter.hd.dlog.IRule;
+import tripleo.vendor.com.github.dritter.hd.dlog.NaiveRecursiveEvaluator;
+import tripleo.vendor.com.github.dritter.hd.dlog.NonRecursiveEvaluator;
+import tripleo.vendor.com.github.dritter.hd.dlog.Predicate;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.FillableTableIterator;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
+import tripleo.vendor.com.github.dritter.hd.dlog.parser.DlogParser;
 
 public class DlogEvaluator implements IEvaluator {
     // private static final Logger log =
@@ -14,9 +24,9 @@ public class DlogEvaluator implements IEvaluator {
     private String rules;
 
     // private Configuration config;
-    private Collection<IFacts>                                           facts;
+    private Collection<IFacts> facts;
     private Collection<tripleo.vendor.com.github.dritter.hd.dlog.IFacts> factsNew;
-    private NonRecursiveEvaluator                                        nonRecursiveEvaluator;
+    private NonRecursiveEvaluator nonRecursiveEvaluator;
 
     private DlogEvaluator() {
     }
@@ -37,7 +47,7 @@ public class DlogEvaluator implements IEvaluator {
     /*
      * (non-Javadoc)
      *
-     * @see com.github.dritter.hd.dlog.evaluator.IEvaluator2#query(java.lang.String,
+     * @see tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IEvaluator2#query(java.lang.String,
      * int)
      */
     @Override
@@ -48,7 +58,7 @@ public class DlogEvaluator implements IEvaluator {
     /*
      * (non-Javadoc)
      *
-     * @see com.github.dritter.hd.dlog.evaluator.IEvaluator2#_query(java.lang.String,
+     * @see tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IEvaluator2#_query(java.lang.String,
      * int)
      */
     @Deprecated
@@ -59,7 +69,7 @@ public class DlogEvaluator implements IEvaluator {
     /*
      * (non-Javadoc)
      *
-     * @see com.github.dritter.hd.dlog.evaluator.IEvaluator2#_query(java.lang.String,
+     * @see tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IEvaluator2#_query(java.lang.String,
      * int, java.lang.String[])
      */
     @Deprecated
@@ -89,7 +99,7 @@ public class DlogEvaluator implements IEvaluator {
     /*
      * (non-Javadoc)
      *
-     * @see com.github.dritter.hd.dlog.evaluator.IEvaluator2#evaluateRules()
+     * @see tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IEvaluator2#evaluateRules()
      */
     @Deprecated
     public Collection<tripleo.vendor.com.github.dritter.hd.dlog.IFacts> evaluateNonRecursiveRules() {
@@ -102,7 +112,7 @@ public class DlogEvaluator implements IEvaluator {
     /*
      * (non-Javadoc)
      *
-     * @see com.github.dritter.hd.dlog.evaluator.IEvaluator2#evaluateRules()
+     * @see tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IEvaluator2#evaluateRules()
      */
     @Deprecated
     public Collection<tripleo.vendor.com.github.dritter.hd.dlog.IFacts> evaluateRules() {
@@ -117,7 +127,7 @@ public class DlogEvaluator implements IEvaluator {
     /*
      * (non-Javadoc)
      *
-     * @see com.github.dritter.hd.dlog.evaluator.IEvaluator2#query(java.lang.String,
+     * @see tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IEvaluator2#query(java.lang.String,
      * int, java.lang.String[])
      */
     @Override
@@ -192,7 +202,7 @@ public class DlogEvaluator implements IEvaluator {
      * (non-Javadoc)
      *
      * @see
-     * com.github.dritter.hd.dlog.evaluator.IEvaluator2#transformFacts(java.util.Collection
+     * tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IEvaluator2#transformFacts(java.util.Collection
      * )
      */
     @Deprecated
@@ -235,7 +245,7 @@ public class DlogEvaluator implements IEvaluator {
      * (non-Javadoc)
      *
      * @see
-     * com.github.dritter.hd.dlog.evaluator.IEvaluator2#initalize(java.util.Collection)
+     * tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IEvaluator2#initalize(java.util.Collection)
      */
     @Override
     public void initalize(Collection<IFacts> facts) {
@@ -246,7 +256,7 @@ public class DlogEvaluator implements IEvaluator {
      * (non-Javadoc)
      *
      * @see
-     * com.github.dritter.hd.dlog.evaluator.IEvaluator2#initalize(java.util.Collection,
+     * tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IEvaluator2#initalize(java.util.Collection,
      * java.lang.String)
      */
     @Override
@@ -259,7 +269,7 @@ public class DlogEvaluator implements IEvaluator {
      * (non-Javadoc)
      *
      * @see
-     * com.github.dritter.hd.dlog.evaluator.IEvaluator2#_initalize(java.util.Collection,
+     * tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IEvaluator2#_initalize(java.util.Collection,
      * java.lang.String)
      */
     @Deprecated
@@ -272,7 +282,7 @@ public class DlogEvaluator implements IEvaluator {
      * (non-Javadoc)
      *
      * @see
-     * com.github.dritter.hd.dlog.evaluator.IEvaluator2#_initalize(java.util.Collection)
+     * tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IEvaluator2#_initalize(java.util.Collection)
      */
     @Deprecated
     public void _initalize(final Collection<tripleo.vendor.com.github.dritter.hd.dlog.IFacts> facts) {
@@ -282,7 +292,7 @@ public class DlogEvaluator implements IEvaluator {
     /*
      * (non-Javadoc)
      *
-     * @see com.github.dritter.hd.dlog.evaluator.IEvaluator2#initalize(java.lang.String,
+     * @see tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IEvaluator2#initalize(java.lang.String,
      * java.lang.String)
      */
     @Override
