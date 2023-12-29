@@ -1,6 +1,8 @@
 package tripleo.elijah.stages.deduce.post_bytecode;
 
 import org.jdeferred2.DoneCallback;
+
+import tripleo.elijah.DebugFlags;
 import tripleo.elijah.ReadySupplier_1;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.LangGlobals;
@@ -71,7 +73,7 @@ class lfoe_action__FunctionInvocationDoneCallback implements DoneCallback<Functi
 
 			Collection<ConstructorDef> cis = klass.getConstructors();
 
-			if (false) {
+			if (DebugFlags.FORCE_IGNORE) {
 				for (@NotNull ConstructorDef constructorDef : cis) {
 					final Iterable<FormalArgListItem> constructorDefArgs = constructorDef.getArgs();
 

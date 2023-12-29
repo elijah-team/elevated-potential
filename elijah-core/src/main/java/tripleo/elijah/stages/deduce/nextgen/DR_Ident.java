@@ -3,6 +3,8 @@ package tripleo.elijah.stages.deduce.nextgen;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
+import tripleo.elijah.DebugFlags;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
@@ -177,7 +179,7 @@ public abstract class DR_Ident implements DR_Item {
 				var ci = ptu.pte.getClassInvocation();
 				var fi = ptu.pte.getFunctionInvocation();
 
-				if (false) {
+				if (DebugFlags.FORCE_IGNORE) {
 					ci.resolvePromise();
 					fi.generatePromise();
 				}
