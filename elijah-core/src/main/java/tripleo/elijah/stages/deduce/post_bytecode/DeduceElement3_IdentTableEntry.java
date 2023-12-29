@@ -3,6 +3,7 @@ package tripleo.elijah.stages.deduce.post_bytecode;
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 
+import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.Finally.Outs;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
@@ -366,7 +367,8 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 			return dcs.evaClass();
 		}
 
-		if (c.reports().outputOn(Outs.OutDeduce_369)) { // damn your fine
+		Compilation cc = this.deduceTypes2._phase()._compilation();
+		if (cc.reports().outputOn(Outs.OutDeduce_369)) { // damn your fine
 			// README to "prosecute" this we need a ContextImpl. But where to get
 			// it from? And can we #resolveTypeToClass with `dcs' above?
 			// Technically, there is one (more) above, but this line does not

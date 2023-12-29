@@ -1,11 +1,11 @@
 package tripleo.elijah.stages.deduce;
 
-import lombok.*;
+//import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.Context;
 
-@Getter
+//@Getter
 public class DeduceCentral {
 	private final DeduceTypes2 deduceTypes2;
 

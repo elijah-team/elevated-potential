@@ -10,10 +10,11 @@ package tripleo.elijah.comp.internal;
 
 import com.google.common.base.Preconditions;
 import io.reactivex.rxjava3.core.Observer;
-import lombok.Getter;
+//import lombok.Getter;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.*;
+import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.*;
 import tripleo.elijah.comp.graph.i.CK_Monitor;
@@ -56,15 +57,15 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private final List<Triple<CN_CompilerInputWatcher.e, CompilerInput, Object>> _ciw_buffer;
 
 	private final FluffyCompImpl                                                 _fluffyComp;
-	@Getter
+//	@Getter
 	private final CompilationConfig                   cfg;
-	@Getter
+//	@Getter
 	private final CompilationEnclosure                compilationEnclosure;
-	@Getter
+//	@Getter
 	private final CIS                                 _cis;
-	@Getter
-	private final CK_Monitor                          defaultMonitor;
-	@Getter
+//	@Getter
+//	private final CK_Monitor                          defaultMonitor;
+//	@Getter
 	private final USE                                 use;
 	private final CompFactory                         _con;
 	private final LivingRepo                          _repo;
@@ -90,6 +91,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private       boolean                             _inside;
 	private       CompilerInput                       __advisement;
 	private       ICompilationAccess3                 aICompilationAccess3;
+	private @NotNull CK_Monitor defaultMonitor;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;

@@ -51,7 +51,7 @@ public class CK_SourceFile__ElaboratedElijahFile extends __CK_SourceFile__Abstra
 
 		final ElijahSpec elijahSpec = new ElijahSpec_(fileName, file, stream);
 
-		return __CK_SourceFile__AbstractElijahFile.realParseElijahFile(elijahSpec, elijahCache, compilation);
+		return __CK_SourceFile__AbstractElijahFile.realParseElijahFile(elijahSpec, elijahCache, compilation.asCompilation());
 	}
 
 	private String file_name() {

@@ -9,10 +9,11 @@
 package tripleo.elijah.ci_impl;
 
 import antlr.*;
-import lombok.*;
+//import lombok.*;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
+import tripleo.elijah.ci_impl.GenerateStatementImpl.Directive;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
@@ -28,7 +29,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	private         CiIndexingStatement        _idx;
 	private         String                     filename;
 	private         GenerateStatement          gen;
-	@Getter
+//	@Getter
 	private         String                     name;
 	private CompilerInput advised;
 
@@ -46,11 +47,14 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public @Nullable String genLang() {
-		@SuppressWarnings("UnnecessaryLocalVariable") final Optional<String> genLang = ((GenerateStatementImpl) gen).dirs.stream()
-				.filter(input -> input.getName().equals("gen"))
+		@SuppressWarnings("UnnecessaryLocalVariable")
+		final Optional<String> genLang = gen.dirStream()
+				.filter(input -> input.sameName("gen"))
 				.findAny() // README if you need more than one, comment this out
-				.stream().map((GenerateStatementImpl.Directive gin) -> {
+				.stream().map((gin0) -> {
+					final Directive gin = (Directive) gin0;
 					final IExpression lang_raw = gin.getExpression();
+					
 					if (lang_raw instanceof final StringExpression langRaw) {
 						final String s = Helpers.remove_single_quotes_from_string(langRaw.getText());
 						return Optional.of(s);
