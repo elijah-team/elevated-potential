@@ -59,18 +59,18 @@ abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {
 	}
 
 	public Operation2<OS_Module> realParseElijahFile(final ElijahSpec spec, final ElijahCache cache) {
-		return realParseElijahFile(spec, cache, compilation);
+		return realParseElijahFile(spec, cache, compilation.asCompilation());
 	}
 
 	@Override
 	public void associate(final CompilationClosure aCc) {
-		compilation = (Compilation) aCc.getCompilation();
+		compilation = (CK_GlobalRef) aCc.getCompilation();
 	}
 
 	@Override
 	public void associate(final CompilerInput aInput, final CompilationClosure aCc) {
 		input       = aInput;
-		compilation = (Compilation) aCc.getCompilation();
+		compilation = (CK_GlobalRef) aCc.getCompilation();
 	}
 
 	@Override

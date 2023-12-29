@@ -1,6 +1,6 @@
 package tripleo.elijah.comp.internal;
 
-import lombok.*;
+//import lombok.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
@@ -16,7 +16,7 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	private final          CompilationRunner    compilationRunner;
 	private final          CompilerInstructions rootCI;
 	private final @NotNull IPipelineAccess pa;
-	@Getter
+//	@Getter
 	final CB_Output o;
 
 	@Contract(pure = true)

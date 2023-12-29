@@ -2,7 +2,10 @@ package tripleo.elijah.comp;
 
 import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
+
+import tripleo.elijah.Eventual;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.stages.gen_fn.EvaNode;
 import tripleo.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
@@ -28,8 +31,8 @@ public class AccessBus {
 	private final IPipelineAccess    _pa;
 	private final @NotNull stepA_mal.MalEnv2 env;
 
-	private final Eventual<GenerateResult, Void, Void> generateResultPromise = new Eventual<>();
-	private final Eventual<List<EvaNode>, Void, Void> lgcPromise 		 = new Eventual<>();
+	private final Eventual<GenerateResult> generateResultPromise = new Eventual<>();
+	private final Eventual<List<EvaNode>> lgcPromise 		 = new Eventual<>();
 
 	public AccessBus(final Compilation aC, final IPipelineAccess aPa) {
 		_c = aC;
@@ -37,8 +40,8 @@ public class AccessBus {
 
 		env = new stepA_mal.MalEnv2(null); // TODO what does null mean?
 
-		generateResultPromise.register(_c);
-		lgcPromise           .register(_c);
+		generateResultPromise.register((CompilationImpl)_c);
+		lgcPromise           .register((CompilationImpl)_c);
 	}
 
 	public stepA_mal.@NotNull MalEnv2 env() {

@@ -14,4 +14,6 @@ public class DebugFlags {
 	public static final boolean FORCE = true;
 	/** for you, Luke... */
 	public static final boolean FORCE_IGNORE = false;
+	
+	public static final boolean NEVER_REACHED_BY_IDE = false;
 }

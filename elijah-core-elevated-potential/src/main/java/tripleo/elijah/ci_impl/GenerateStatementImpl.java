@@ -10,16 +10,21 @@ package tripleo.elijah.ci_impl;
 
 import antlr.*;
 import org.jetbrains.annotations.*;
+
+import com.google.common.base.Preconditions;
+
 import tripleo.elijah.ci.*;
+import tripleo.elijah.g.GDirective;
 import tripleo.elijah.lang.i.*;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Created 9/6/20 12:04 PM
  */
-public class GenerateStatementImpl implements GenerateStatement {
-	public class Directive {
+public class GenerateStatementImpl implements GenerateStatement{
+	public class Directive implements GDirective {
 
 		private final IExpression expression;
 		private final String name;
@@ -36,6 +41,13 @@ public class GenerateStatementImpl implements GenerateStatement {
 		public String getName() {
 			return name;
 		}
+
+		@Override
+		public boolean sameName(String string) {
+			Preconditions.checkNotNull(string);
+			
+			return string.equals(getName());
+		}
 	}
 
 	public final List<Directive> dirs = new ArrayList<Directive>();
@@ -43,6 +55,12 @@ public class GenerateStatementImpl implements GenerateStatement {
 	@Override
 	public void addDirective(final @NotNull Token token, final IExpression expression) {
 		dirs.add(new Directive(token, expression));
+	}
+
+	@Override
+	public Stream<GDirective> dirStream() {
+		return dirs.stream()
+				.map(d -> (GDirective)d);
 	}
 }
 

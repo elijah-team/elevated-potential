@@ -1,8 +1,8 @@
 package tripleo.elijah.comp.graph;
 
 import org.apache.commons.lang3.tuple.Triple;
+
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.graph.CM_Ez;
 import tripleo.elijah.comp.graph.i.Asseverate;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.specs.EzSpec;
