@@ -1,4 +1,4 @@
-package tripleo.vendor.com.baeldung.guava.eventbus;
+package tripleo.vendor.com_baeldung_guava_eventbus;
 
 import org.jetbrains.annotations.NotNull;
 
