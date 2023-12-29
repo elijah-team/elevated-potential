@@ -49,4 +49,5 @@ public class WorkList__ implements WorkList {
 }
 
 //
-// vim:set shiftwidth=4 softtabstop=0 noexpandtab://
+// vim:set shiftwidth=4 softtabstop=0 noexpandtab:
+//
