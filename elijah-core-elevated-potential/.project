@@ -26,4 +26,11 @@
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>elijah-base-impl</name>
+			<type>2</type>
+			<location>/home/user/PRJ/elevated-potential/elijah-base-impl/src/main/java</location>
+		</link>
+	</linkedResources>
 </projectDescription>
