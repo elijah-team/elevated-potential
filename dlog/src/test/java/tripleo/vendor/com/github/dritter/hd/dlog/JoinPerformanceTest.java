@@ -12,7 +12,7 @@ import tripleo.vendor.com.github.dritter.hd.dlog.utils.Utils;
 public class JoinPerformanceTest {
     
     private DataIterator operation;
-    private int          measurementsNumber;
+    private int measurementsNumber;
     private Formatter output;
     
     public JoinPerformanceTest(int edbRelationsSize, int measurementsNumber) throws IOException {

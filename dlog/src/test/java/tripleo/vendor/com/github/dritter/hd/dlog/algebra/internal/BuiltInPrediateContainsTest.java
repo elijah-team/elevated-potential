@@ -1,23 +1,25 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.algebra.internal;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.junit.Test;
+
+import tripleo.vendor.com.github.dritter.hd.dlog.IEvaluator;
+import tripleo.vendor.com.github.dritter.hd.dlog.NonRecursiveEvaluator;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
 import tripleo.vendor.com.github.dritter.hd.dlog.BuiltInPredicates;
 import tripleo.vendor.com.github.dritter.hd.dlog.Facts;
-import tripleo.vendor.com.github.dritter.hd.dlog.IEvaluator;
 import tripleo.vendor.com.github.dritter.hd.dlog.IFacts;
 import tripleo.vendor.com.github.dritter.hd.dlog.IRule;
 import tripleo.vendor.com.github.dritter.hd.dlog.Literal;
-import tripleo.vendor.com.github.dritter.hd.dlog.NonRecursiveEvaluator;
 import tripleo.vendor.com.github.dritter.hd.dlog.Parameter;
 import tripleo.vendor.com.github.dritter.hd.dlog.Predicate;
 import tripleo.vendor.com.github.dritter.hd.dlog.Rule;
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
 import tripleo.vendor.com.github.dritter.hd.dlog.utils.Utils;
-
-import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BuiltInPrediateContainsTest {
 

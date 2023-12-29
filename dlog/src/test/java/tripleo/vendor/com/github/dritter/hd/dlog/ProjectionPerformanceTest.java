@@ -3,9 +3,9 @@ package tripleo.vendor.com.github.dritter.hd.dlog;
 import java.io.IOException;
 import java.util.Formatter;
 
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ProjectionIterator;
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
 import tripleo.vendor.com.github.dritter.hd.dlog.utils.Utils;
 
 public class ProjectionPerformanceTest {

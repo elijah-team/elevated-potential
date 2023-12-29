@@ -3,25 +3,26 @@ package tripleo.vendor.com.github.dritter.hd.dlog.internal;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.junit.jupiter.api.*;
+import tripleo.vendor.com.github.dritter.hd.dlog.evaluator.DlogEvaluator;
 import tripleo.vendor.com.github.dritter.hd.dlog.evaluator.IFacts;
 import tripleo.vendor.com.github.dritter.hd.dlog.parser.DlogEvaluatorParser;
 import tripleo.vendor.com.github.dritter.hd.dlog.parser.DlogParser;
-import tripleo.vendor.com.github.dritter.hd.dlog.evaluator.DlogEvaluator;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 public class DlogEvaluatorParserTest {
     private DlogEvaluatorParser evalParser;
     private DlogParser parser;
 
-    @BeforeEach
+    @Before
     public void setup() throws Exception {
         this.evalParser = DlogEvaluatorParser.create();
         this.parser = new DlogParser();
     }
 
-//    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testParse_null() throws Exception {
         this.evalParser.parse(null);
     }
@@ -31,7 +32,7 @@ public class DlogEvaluatorParserTest {
         this.evalParser.parse("");
     }
 
-    //@Test(expected = UnsupportedOperationException.class)
+    @Test(expected = UnsupportedOperationException.class)
     public void testParse_rule() throws Exception {
         this.evalParser.parse("q(A, B) :- q(B, A), r(B, A).");
     }
@@ -40,37 +41,37 @@ public class DlogEvaluatorParserTest {
     public void testParse_facts() throws Exception {
         this.evalParser.parse("q(\"hasi\", 17).r(23, \"dritter\").");
         final Collection<IFacts> facts = this.evalParser.getFacts();
-        assertNotNull(facts);
-        assertEquals(2, facts.size());
+        Assert.assertNotNull(facts);
+        Assert.assertEquals(2, facts.size());
 
         final Iterator<IFacts> iterator = facts.iterator();
-        assertEquals(1, iterator.next().getValues().size());
-        assertEquals(1, iterator.next().getValues().size());
+        Assert.assertEquals(1, iterator.next().getValues().size());
+        Assert.assertEquals(1, iterator.next().getValues().size());
     }
 
     @Test
     public void testParse_factsMulti() throws Exception {
         this.evalParser.parse("q(\"hasi\", 17).q(\"dritter\", 23).r(23, \"dritter\").r(17, \"hasi\").");
         final Collection<IFacts> facts = this.evalParser.getFacts();
-        assertNotNull(facts);
-        assertEquals(2, facts.size());
+        Assert.assertNotNull(facts);
+        Assert.assertEquals(2, facts.size());
 
         final Iterator<IFacts> iterator = facts.iterator();
-        assertEquals(2, iterator.next().getValues().size());
-        assertEquals(2, iterator.next().getValues().size());
+        Assert.assertEquals(2, iterator.next().getValues().size());
+        Assert.assertEquals(2, iterator.next().getValues().size());
     }
 
     @Test
     public void testParse_factsEval() throws Exception {
         this.evalParser.parse("q(\"hasi\", 23).r(23, \"dritter\").");
         final Collection<IFacts> facts = this.evalParser.getFacts();
-        assertNotNull(facts);
-        assertEquals(2, facts.size());
+        Assert.assertNotNull(facts);
+        Assert.assertEquals(2, facts.size());
 
         final DlogEvaluator eval = DlogEvaluator.create();
         eval.initalize(facts, "qr(A,Z) :- q(A,N), r(N, Z).");
         final IFacts query = eval.query("qr", 2);
-        assertEquals(1, query.getValues().size());
+        Assert.assertEquals(1, query.getValues().size());
     }
 
     @Test
@@ -81,17 +82,17 @@ public class DlogEvaluatorParserTest {
         final Collection<IFacts> evalFacts = this.evalParser.getFacts();
         final Collection<tripleo.vendor.com.github.dritter.hd.dlog.IFacts> internalFacts = this.parser.getFacts();
 
-        // assertEquals(internalFacts.toString(), evalFacts.toString());
+        // Assert.assertEquals(internalFacts.toString(), evalFacts.toString());
 
         final DlogEvaluator eval = DlogEvaluator.create();
         eval.initalize(evalFacts, "qr(A,Z) :- q(A,N), r(Z, A).");
         final IFacts query = eval.query("qr", 2);
-        assertEquals(1, query.getValues().size());
+        Assert.assertEquals(1, query.getValues().size());
 
         final DlogEvaluator eval2 = DlogEvaluator.create();
         eval2._initalize(internalFacts, "qr(A,Z) :- q(A,N), r(Z, A).");
         final IFacts query2 = eval2.query("qr", 2);
-        assertEquals(1, query2.getValues().size());
+        Assert.assertEquals(1, query2.getValues().size());
     }
 
     @Test
@@ -102,17 +103,17 @@ public class DlogEvaluatorParserTest {
         final Collection<IFacts> evalFacts = this.evalParser.getFacts();
         final Collection<tripleo.vendor.com.github.dritter.hd.dlog.IFacts> internalFacts = this.parser.getFacts();
 
-        // assertEquals(internalFacts.toString(), evalFacts.toString());
+        // Assert.assertEquals(internalFacts.toString(), evalFacts.toString());
 
         final DlogEvaluator eval = DlogEvaluator.create();
         eval.initalize(evalFacts, "qr(A,N) :- q(A,N), =c(A, \"has\").");
         final IFacts query = eval.query("qr", 2);
-        assertEquals(1, query.getValues().size());
+        Assert.assertEquals(1, query.getValues().size());
 
         final DlogEvaluator eval2 = DlogEvaluator.create();
         eval2._initalize(internalFacts, "qr(A,N) :- q(A,N), =c(A, \"has\").");
         final IFacts query2 = eval2.query("qr", 2);
-        assertEquals(1, query2.getValues().size());
+        Assert.assertEquals(1, query2.getValues().size());
     }
 
     @Test
@@ -123,17 +124,17 @@ public class DlogEvaluatorParserTest {
         final Collection<IFacts> evalFacts = this.evalParser.getFacts();
         final Collection<tripleo.vendor.com.github.dritter.hd.dlog.IFacts> internalFacts = this.parser.getFacts();
 
-        // assertEquals(internalFacts.toString(), evalFacts.toString());
+        // Assert.assertEquals(internalFacts.toString(), evalFacts.toString());
 
         final DlogEvaluator eval = DlogEvaluator.create();
         eval.initalize(evalFacts, "qr(A,N) :- q(A,N), >(N, 17).");
         final IFacts query = eval.query("qr", 2);
-        assertEquals(1, query.getValues().size());
+        Assert.assertEquals(1, query.getValues().size());
 
         final DlogEvaluator eval2 = DlogEvaluator.create();
         eval2._initalize(internalFacts, "qr(A,N) :- q(A,N), >(N, 17).");
         final IFacts query2 = eval2.query("qr", 2);
-        assertEquals(1, query2.getValues().size());
+        Assert.assertEquals(1, query2.getValues().size());
     }
 
     @Test
@@ -144,17 +145,17 @@ public class DlogEvaluatorParserTest {
         final Collection<IFacts> evalFacts = this.evalParser.getFacts();
         final Collection<tripleo.vendor.com.github.dritter.hd.dlog.IFacts> internalFacts = this.parser.getFacts();
 
-        // assertEquals(internalFacts.toString(), evalFacts.toString());
+        // Assert.assertEquals(internalFacts.toString(), evalFacts.toString());
 
         final DlogEvaluator eval = DlogEvaluator.create();
         eval.initalize(evalFacts, "qr(A) :- q(A,N).");
         final Collection<tripleo.vendor.com.github.dritter.hd.dlog.IFacts> query = eval.evaluateRules();
-        assertEquals("('hasi')\n('hasi')\n('dritter')\n", query.iterator().next().getValues().toString());
+        Assert.assertEquals("('hasi')\n('hasi')\n('dritter')\n", query.iterator().next().getValues().toString());
 
         final DlogEvaluator eval2 = DlogEvaluator.create();
         eval2._initalize(internalFacts, "qr(A) :- q(A,N).");
         final Collection<tripleo.vendor.com.github.dritter.hd.dlog.IFacts> query2 = eval.evaluateRules();
-        // FIXME: assertEquals("('hasi')\n('hasi')\n('dritter')\n",
+        // FIXME: Assert.assertEquals("('hasi')\n('hasi')\n('dritter')\n",
         // query2.iterator().next().getValues().toString());
     }
 
@@ -166,17 +167,17 @@ public class DlogEvaluatorParserTest {
         final Collection<IFacts> evalFacts = this.evalParser.getFacts();
         final Collection<tripleo.vendor.com.github.dritter.hd.dlog.IFacts> internalFacts = this.parser.getFacts();
 
-        // assertEquals(internalFacts.toString(), evalFacts.toString());
+        // Assert.assertEquals(internalFacts.toString(), evalFacts.toString());
 
         final DlogEvaluator eval = DlogEvaluator.create();
         eval.initalize(evalFacts, "");
         final IFacts query = eval.query("q", 2);
-        assertEquals(2, query.getValues().size());
+        Assert.assertEquals(2, query.getValues().size());
 
         final DlogEvaluator eval2 = DlogEvaluator.create();
         eval2._initalize(internalFacts, "");
         final IFacts query2 = eval2.query("q", 2);
-        assertEquals(2, query2.getValues().size());
+        Assert.assertEquals(2, query2.getValues().size());
     }
 
     @Test
@@ -187,10 +188,10 @@ public class DlogEvaluatorParserTest {
         final DlogEvaluatorParser localParser = DlogEvaluatorParser.create();
         localParser.parse(original.toString());
         localParser.getFacts().iterator().next();
-        assertEquals(original.toString(), localParser.getFacts().iterator().next().toString());
+        Assert.assertEquals(original.toString(), localParser.getFacts().iterator().next().toString());
     }
 
-    @Disabled
+    @Ignore
     @Test
     public void testEval() throws Exception {
         String facts = "position(0, 0, 0)." + "position(0, 0, 1)." + "position(0, -1, 2)." + "position(0, -1, 3)." + "position(0, -2, 4)."
@@ -210,7 +211,7 @@ public class DlogEvaluatorParserTest {
         evaluator.initalize(facts2, ruleString);
         Collection<tripleo.vendor.com.github.dritter.hd.dlog.IFacts> correspondingFacts = evaluator.evaluateRules();
 
-        assertTrue(correspondingFacts.size() > 1);
+        Assert.assertTrue(correspondingFacts.size() > 1);
     }
 
     @Test

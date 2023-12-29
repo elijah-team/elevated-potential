@@ -4,9 +4,8 @@ import java.util.Collection;
 import java.util.List;
 
 import tripleo.vendor.com.github.dritter.hd.dlog.parser.DlogParser;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 public final class ParserEvalTest {
     private DlogParser hp;
@@ -14,7 +13,7 @@ public final class ParserEvalTest {
     static final String FACTS = "runs-on-disc(\"sys1\", \"host1\"). runs-on-disc(\"sys2\", \"host2\"). same-system(\"sys1\", \"sys2\").";
     static final String RULE = "same-host(pkey1, pkey2) :- runs-on-disc(lkey1, pkey1), runs-on-disc(lkey2, pkey2), same-system(lkey1, lkey2).";
 
-    @BeforeEach
+    @Before
     public void setUp() {
         this.hp = new DlogParser();
     }

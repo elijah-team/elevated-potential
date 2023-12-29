@@ -1,19 +1,17 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.internal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
+import tripleo.vendor.com.github.dritter.hd.dlog.IEvaluator;
 import tripleo.vendor.com.github.dritter.hd.dlog.IFacts;
 import tripleo.vendor.com.github.dritter.hd.dlog.IRule;
 import tripleo.vendor.com.github.dritter.hd.dlog.NaiveRecursiveEvaluator;
 import tripleo.vendor.com.github.dritter.hd.dlog.parser.DlogParser;
-
-import org.junit.jupiter.api.Test;
-
-import tripleo.vendor.com.github.dritter.hd.dlog.IEvaluator;
+import org.junit.Before;
+import org.junit.Test;
 
 public class SystematicEvalTest {
 	 private DlogParser hp;
@@ -21,7 +19,7 @@ public class SystematicEvalTest {
 	    static final String FACTS = "runs-on-discx(\"sys1\", \"host1\"). runs-on-discx(\"sys2\", \"host2\"). same-systemx(\"sys1\", \"sys2\").";
 	    static final String RULE = "same-hostx(pkey1, pkey2) :- runs-on-discx(lkey1, pkey1), runs-on-discx(lkey2, pkey2), same-systemx(lkey1, lkey2).";
 
-	    @BeforeEach
+	    @Before
 	    public void setUp() {
 	        this.hp = new DlogParser();
 	    }

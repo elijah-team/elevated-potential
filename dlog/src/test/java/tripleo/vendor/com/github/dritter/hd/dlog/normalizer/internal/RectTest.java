@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 import tripleo.vendor.com.github.dritter.hd.dlog.IRule;
 import tripleo.vendor.com.github.dritter.hd.dlog.Literal;
 import tripleo.vendor.com.github.dritter.hd.dlog.Parameter;
 import tripleo.vendor.com.github.dritter.hd.dlog.Predicate;
 import tripleo.vendor.com.github.dritter.hd.dlog.Rule;
-import tripleo.vendor.com.github.dritter.hd.dlog.normalizer.internal.Rectifier;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class RectTest {
     /**
@@ -56,7 +53,7 @@ public final class RectTest {
 
         Collection<IRule> result = new Rectifier().rectify(rules);
 
-        assertEquals(3, result.size());
+        Assert.assertEquals(3, result.size());
 
         // TODO: further checks
     }

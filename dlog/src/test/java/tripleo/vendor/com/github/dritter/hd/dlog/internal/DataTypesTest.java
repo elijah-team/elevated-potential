@@ -1,14 +1,14 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.internal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import tripleo.vendor.com.github.dritter.hd.dlog.*;
-import org.junit.jupiter.api.Test;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
+import org.junit.Test;
 
 import tripleo.vendor.com.github.dritter.hd.dlog.BuiltInPredicates;
 import tripleo.vendor.com.github.dritter.hd.dlog.Facts;
@@ -20,7 +20,6 @@ import tripleo.vendor.com.github.dritter.hd.dlog.NonRecursiveEvaluator;
 import tripleo.vendor.com.github.dritter.hd.dlog.Parameter;
 import tripleo.vendor.com.github.dritter.hd.dlog.Predicate;
 import tripleo.vendor.com.github.dritter.hd.dlog.Rule;
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
 import tripleo.vendor.com.github.dritter.hd.dlog.utils.Utils;
 
 public class DataTypesTest {

@@ -1,18 +1,19 @@
 package tripleo.vendor.com.github.dritter.hd.dlog;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.jupiter.api.Disabled;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.TableIterator;
 import tripleo.vendor.com.github.dritter.hd.dlog.parser.DlogParser;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
 import tripleo.vendor.com.github.dritter.hd.dlog.utils.Utils;
 
 public final class EvalTest {
@@ -37,7 +38,7 @@ public final class EvalTest {
 				idbRelations.toString());
 	}
 
-	@Disabled
+	@Ignore
 	@Test
 	public void testHammingCodes() {
 		final String program = "h(Y) :- h(X), Y=2*X. h(Y) :- h(X), Y=3*X. h(Y) :- h(X), Y=5*X. h(1).";
@@ -85,18 +86,18 @@ public final class EvalTest {
 		final IEvaluator eval = new NonRecursiveEvaluator(rules);
 		final Collection<IFacts> result = eval.eval(f);
 
-		assertEquals(1, result.size());
+		Assert.assertEquals(1, result.size());
 
 		final ParameterValue<?>[] expected = new ParameterValue[] { ParameterValue.create(1) };
 
 		for (IFacts fact : result) {
-			assertEquals(fact.getPredicate().getName(), "sum");
+			Assert.assertEquals(fact.getPredicate().getName(), "sum");
 
 			final DataIterator op = fact.getValues();
 			op.open();
-			assertArrayEquals(expected, op.next());
-			assertArrayEquals(expected, op.next());
-			assertNull(op.next());
+			Assert.assertArrayEquals(expected, op.next());
+			Assert.assertArrayEquals(expected, op.next());
+			Assert.assertNull(op.next());
 			op.close();
 		}
 	}
@@ -132,14 +133,14 @@ public final class EvalTest {
 		final IEvaluator eval = new NonRecursiveEvaluator(rules);
 		final Collection<IFacts> result = eval.eval(f);
 
-		assertEquals(1, result.size());
+		Assert.assertEquals(1, result.size());
 
 		for (IFacts fact : result) {
-			assertEquals(fact.getPredicate().getName(), "sum");
+			Assert.assertEquals(fact.getPredicate().getName(), "sum");
 
 			final DataIterator op = fact.getValues();
 			op.open();
-			assertNull(op.next());
+			Assert.assertNull(op.next());
 			op.close();
 		}
 	}
@@ -175,18 +176,18 @@ public final class EvalTest {
 		final IEvaluator eval = new NonRecursiveEvaluator(rules);
 		final Collection<IFacts> result = eval.eval(f);
 
-		assertEquals(1, result.size());
+		Assert.assertEquals(1, result.size());
 
 		final ParameterValue<?>[] expected = new ParameterValue[] { ParameterValue.create(1) };
 
 		for (IFacts fact : result) {
-			assertEquals(fact.getPredicate().getName(), "sum");
+			Assert.assertEquals(fact.getPredicate().getName(), "sum");
 
 			final DataIterator op = fact.getValues();
 			op.open();
-			assertArrayEquals(expected, op.next());
-			assertArrayEquals(expected, op.next());
-			assertNull(op.next());
+			Assert.assertArrayEquals(expected, op.next());
+			Assert.assertArrayEquals(expected, op.next());
+			Assert.assertNull(op.next());
 			op.close();
 		}
 	}
@@ -222,14 +223,14 @@ public final class EvalTest {
 		final IEvaluator eval = new NonRecursiveEvaluator(rules);
 		final Collection<IFacts> result = eval.eval(f);
 
-		assertEquals(1, result.size());
+		Assert.assertEquals(1, result.size());
 
 		for (IFacts fact : result) {
-			assertEquals(fact.getPredicate().getName(), "sum");
+			Assert.assertEquals(fact.getPredicate().getName(), "sum");
 
 			final DataIterator op = fact.getValues();
 			op.open();
-			assertNull(op.next());
+			Assert.assertNull(op.next());
 			op.close();
 		}
 	}
@@ -265,18 +266,18 @@ public final class EvalTest {
 		final IEvaluator eval = new NonRecursiveEvaluator(rules);
 		final Collection<IFacts> result = eval.eval(f);
 
-		assertEquals(1, result.size());
+		Assert.assertEquals(1, result.size());
 
 		final ParameterValue<?>[] expected = new ParameterValue[] { ParameterValue.create(1) };
 
 		for (IFacts fact : result) {
-			assertEquals(fact.getPredicate().getName(), "sum");
+			Assert.assertEquals(fact.getPredicate().getName(), "sum");
 
 			final DataIterator op = fact.getValues();
 			op.open();
-			assertArrayEquals(expected, op.next());
-			assertArrayEquals(expected, op.next());
-			assertNull(op.next());
+			Assert.assertArrayEquals(expected, op.next());
+			Assert.assertArrayEquals(expected, op.next());
+			Assert.assertNull(op.next());
 			op.close();
 		}
 	}
@@ -327,16 +328,16 @@ public final class EvalTest {
 		final IEvaluator eval = new NonRecursiveEvaluator(rules);
 		final Collection<IFacts> result = eval.eval(f);
 
-		assertEquals(1, result.size());
+		Assert.assertEquals(1, result.size());
 
 		final ParameterValue<?>[] expected = new ParameterValue<?>[] { ParameterValue.create("abc"), ParameterValue.create("ghi") };
 		for (IFacts fact : result) {
-			assertEquals(fact.getPredicate().getName(), "p");
+			Assert.assertEquals(fact.getPredicate().getName(), "p");
 
 			final DataIterator op = fact.getValues();
 			op.open();
-			assertArrayEquals(expected, op.next());
-			assertNull(op.next());
+			Assert.assertArrayEquals(expected, op.next());
+			Assert.assertNull(op.next());
 			op.close();
 		}
 	}
@@ -376,16 +377,16 @@ public final class EvalTest {
 		final IEvaluator eval = new NonRecursiveEvaluator(rules);
 		final Collection<IFacts> result = eval.eval(f);
 
-		assertEquals(1, result.size());
+		Assert.assertEquals(1, result.size());
 
 		final ParameterValue<?>[] expected = new ParameterValue<?>[] { ParameterValue.create("abc"), ParameterValue.create("ghi") };
 		for (IFacts fact : result) {
-			assertEquals(fact.getPredicate().getName(), "p");
+			Assert.assertEquals(fact.getPredicate().getName(), "p");
 
 			final DataIterator op = fact.getValues();
 			op.open();
-			assertArrayEquals(expected, op.next());
-			assertNull(op.next());
+			Assert.assertArrayEquals(expected, op.next());
+			Assert.assertNull(op.next());
 			op.close();
 		}
 	}
@@ -420,16 +421,16 @@ public final class EvalTest {
 		final IEvaluator eval = new NonRecursiveEvaluator(rules);
 		final Collection<IFacts> result = eval.eval(f);
 
-		assertEquals(1, result.size());
+		Assert.assertEquals(1, result.size());
 
 		final ParameterValue<?>[] expected = new ParameterValue<?>[] { ParameterValue.create("abc") };
 		for (IFacts fact : result) {
-			assertEquals(fact.getPredicate().getName(), "p");
+			Assert.assertEquals(fact.getPredicate().getName(), "p");
 
 			final DataIterator op = fact.getValues();
 			op.open();
-			assertArrayEquals(expected, op.next());
-			assertNull(op.next());
+			Assert.assertArrayEquals(expected, op.next());
+			Assert.assertNull(op.next());
 			op.close();
 		}
 	}
@@ -465,17 +466,17 @@ public final class EvalTest {
 		final IEvaluator eval = new NonRecursiveEvaluator(rules);
 		final Collection<IFacts> result = eval.eval(f);
 
-		assertEquals(1, result.size());
+		Assert.assertEquals(1, result.size());
 
 		final ParameterValue<?>[] expected = new ParameterValue<?>[] { ParameterValue.create("abc"), ParameterValue.create("abc") };
 		for (IFacts fact : result) {
-			assertEquals(fact.getPredicate().getName(), "p");
+			Assert.assertEquals(fact.getPredicate().getName(), "p");
 
 			final DataIterator op = fact.getValues();
 			op.open();
-			assertArrayEquals(expected, op.next());
-			assertArrayEquals(expected, op.next());
-			assertNull(op.next());
+			Assert.assertArrayEquals(expected, op.next());
+			Assert.assertArrayEquals(expected, op.next());
+			Assert.assertNull(op.next());
 			op.close();
 		}
 	}
@@ -510,21 +511,21 @@ public final class EvalTest {
 		final IEvaluator eval = new NonRecursiveEvaluator(rules);
 		final Collection<IFacts> result = eval.eval(f);
 
-		assertEquals(1, result.size());
+		Assert.assertEquals(1, result.size());
 
 		for (IFacts fact : result) {
-			assertEquals(fact.getPredicate().getName(), "p");
+			Assert.assertEquals(fact.getPredicate().getName(), "p");
 
 			final DataIterator op = fact.getValues();
 			op.open();
 			ParameterValue<?>[] tuple = op.next();
-			assertArrayEquals(new ParameterValue<?>[] { ParameterValue.create("abc"), ParameterValue.create("abc") }, tuple);
+			Assert.assertArrayEquals(new ParameterValue<?>[] { ParameterValue.create("abc"), ParameterValue.create("abc") }, tuple);
 
 			tuple = op.next();
-			assertArrayEquals(new ParameterValue<?>[] { ParameterValue.create("abc"), ParameterValue.create("abc") }, tuple);
+			Assert.assertArrayEquals(new ParameterValue<?>[] { ParameterValue.create("abc"), ParameterValue.create("abc") }, tuple);
 
 			tuple = op.next();
-			assertNull(tuple);
+			Assert.assertNull(tuple);
 			op.close();
 		}
 	}

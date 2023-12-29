@@ -1,17 +1,20 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.internal;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.jupiter.api.*;
 import tripleo.vendor.com.github.dritter.hd.dlog.IFacts;
 import tripleo.vendor.com.github.dritter.hd.dlog.IQuery;
 import tripleo.vendor.com.github.dritter.hd.dlog.IRule;
 import tripleo.vendor.com.github.dritter.hd.dlog.parser.DlogParser;
 import org.antlr.runtime.RecognitionException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 public final class ParserTest {
 
@@ -23,7 +26,7 @@ public final class ParserTest {
     /**
      * Set up DlogParser for test.
      */
-    @BeforeEach
+    @Before
     public void setUp() {
         hp = new DlogParser();
     }
@@ -31,7 +34,7 @@ public final class ParserTest {
     /**
      * Tear down test.
      */
-    @AfterEach
+    @After
     public void tearDown() {
     }
 
@@ -41,7 +44,7 @@ public final class ParserTest {
     @Test
     public void testRule() {
         String expected = "q(A, B) :- q(B, A), r(B, A).";
-        assertEquals(expected, parseSingleRule(expected));
+        Assert.assertEquals(expected, parseSingleRule(expected));
     }
 
     /**
@@ -50,7 +53,7 @@ public final class ParserTest {
     @Test
     public void testHelixRules() {
         String expected = ParserTest.RULES;
-        assertEquals(expected, parseMultipleRules(expected));
+        Assert.assertEquals(expected, parseMultipleRules(expected));
     }
 
     /**
@@ -59,7 +62,7 @@ public final class ParserTest {
     @Test
     public void testRuleWithConstantInHead() {
         String expected = "p(\"a\", Y) :- p(Y, X).";
-        assertEquals(expected, parseSingleRule(expected));
+        Assert.assertEquals(expected, parseSingleRule(expected));
     }
 
     /**
@@ -68,7 +71,7 @@ public final class ParserTest {
     @Test
     public void testRuleWithConstantInBody() {
         String expected = "p(X, Y) :- p(Y, \"a\").";
-        assertEquals(expected, parseSingleRule(expected));
+        Assert.assertEquals(expected, parseSingleRule(expected));
     }
 
     /**
@@ -88,7 +91,7 @@ public final class ParserTest {
         hp.parse(expected);
         final Collection<IFacts> facts = hp.getFacts();
         String actual = facts.iterator().next().toString();
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
 
     /**
@@ -100,29 +103,29 @@ public final class ParserTest {
         this.hp.parse(expected);
         final List<IQuery> queries = hp.getQueries();
         final String actual = queries.get(0).toString();
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
     
-    @Disabled
+    @Ignore
+    @Test(expected=RecognitionException.class)
     public void testParsingRuleWithUnusualVariableNames() {
-        assertThrows(RecognitionException.class, () -> {
-            /*
-             * p(X, _Y) :- r(X, _Y).
-             *
-             * r(a, b).
-             * r(c, d).
-             *
-             * Expected IDB facts:
-             *
-             * p(a, b).
-             * p(c, d).
-             */
-
-            String rule = "p(X, _Y) :- r(X, _Y).";
-
-            DlogParser parser = new DlogParser();
-            parser.parse(rule);
-        });
+        
+        /*
+         * p(X, _Y) :- r(X, _Y).
+         * 
+         * r(a, b).
+         * r(c, d).
+         * 
+         * Expected IDB facts:
+         * 
+         * p(a, b).
+         * p(c, d).
+         */
+        
+        String rule = "p(X, _Y) :- r(X, _Y).";
+        
+        DlogParser parser = new DlogParser();
+        parser.parse(rule);
     }
     
     @Test

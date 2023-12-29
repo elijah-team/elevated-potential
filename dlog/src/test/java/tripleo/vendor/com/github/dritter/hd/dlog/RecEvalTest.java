@@ -5,14 +5,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
-
-import org.junit.jupiter.api.Test;
-
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.TableIterator;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class RecEvalTest {
     @Test
@@ -53,13 +50,13 @@ public class RecEvalTest {
         final IEvaluator eval = new NaiveRecursiveEvaluator(rules);
         final Collection<IFacts> result = eval.eval(f);
 
-        assertEquals(1, result.size());
+        Assert.assertEquals(1, result.size());
 
         final HashMap<String, ParameterValue<?>[][]> expected = this.getExpected();
 
         for (IFacts fact : result) {
             final String predicateName = fact.getPredicate().getName();
-            assertTrue(expected.containsKey(predicateName));
+            Assert.assertTrue(expected.containsKey(predicateName));
 
             final DataIterator op = fact.getValues();
             op.open();
@@ -67,7 +64,7 @@ public class RecEvalTest {
             int counter = 0;
 
             while ((tuple = op.next()) != null) {
-                assertArrayEquals(expected.get(predicateName)[counter], tuple);
+                Assert.assertArrayEquals(expected.get(predicateName)[counter], tuple);
                 ++counter;
             }
             op.close();
@@ -129,13 +126,13 @@ public class RecEvalTest {
         final IEvaluator eval = new NaiveRecursiveEvaluator(rules);
         Collection<IFacts> result = eval.eval(f);
 
-        assertEquals(1, result.size());
+        Assert.assertEquals(1, result.size());
 
         final HashMap<String, ParameterValue<?>[][]> expected = this.getExpectedStrict();
 
         for (IFacts fact : result) {
             final String predicateName = fact.getPredicate().getName();
-            assertTrue(expected.containsKey(predicateName));
+            Assert.assertTrue(expected.containsKey(predicateName));
 
             final DataIterator op = fact.getValues();
             op.open();
@@ -143,7 +140,7 @@ public class RecEvalTest {
             int counter = 0;
 
             while ((tuple = op.next()) != null) {
-                assertArrayEquals(expected.get(predicateName)[counter], tuple);
+                Assert.assertArrayEquals(expected.get(predicateName)[counter], tuple);
                 ++counter;
             }
             op.close();

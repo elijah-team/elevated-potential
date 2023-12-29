@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.List;
 
-import tripleo.vendor.com.github.dritter.hd.dlog.utils.Utils;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
+import tripleo.vendor.com.github.dritter.hd.dlog.utils.Utils;
 
 public class DlogPerformanceTest {
     

@@ -1,7 +1,17 @@
 //package tripleo.vendor.com.github.dritter.hd.dlog;
 //
 //import tripleo.vendor.com.github.dritter.hd.dlog.evaluator.DlogEvaluator;
+//import org.openjdk.jmh.annotations.*;
+//import org.openjdk.jmh.profile.StackProfiler;
+//import org.openjdk.jmh.results.BenchmarkResult;
+//import org.openjdk.jmh.results.RunResult;
+//import org.openjdk.jmh.results.format.ResultFormatType;
+//import org.openjdk.jmh.runner.Runner;
+//import org.openjdk.jmh.runner.RunnerException;
+//import org.openjdk.jmh.runner.options.Options;
+//import org.openjdk.jmh.runner.options.OptionsBuilder;
 //
+//import java.util.Collection;
 //import java.util.concurrent.TimeUnit;
 //
 //@State(Scope.Benchmark)

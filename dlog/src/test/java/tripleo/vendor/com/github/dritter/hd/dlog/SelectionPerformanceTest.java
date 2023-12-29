@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.Formatter;
 
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.SelectionIterator;
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.conditions.EqualsFormula;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.SelectionIterator;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.conditions.ComparisonFormula;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.conditions.EqualsFormula;
 import tripleo.vendor.com.github.dritter.hd.dlog.utils.Utils;
 
 public class SelectionPerformanceTest {
