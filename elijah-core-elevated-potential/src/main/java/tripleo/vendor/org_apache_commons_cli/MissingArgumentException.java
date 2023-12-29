@@ -15,53 +15,54 @@
   limitations under the License.
  */
 
-package tripleo.vendor.org.apache.commons.cli;
+package tripleo.vendor.org_apache_commons_cli;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
- * Thrown during parsing signaling an unrecognized option.
+ * Thrown when an option requiring an argument is not provided with an argument.
  */
-public class UnrecognizedOptionException extends ParseException {
-
+public class MissingArgumentException extends ParseException {
 	/**
 	 * This exception {@code serialVersionUID}.
 	 */
-	private static final long serialVersionUID = -252504690284625623L;
+	private static final long serialVersionUID = -7098538588704965017L;
 
 	/**
-	 * The unrecognized option.
+	 * The option requiring additional arguments
 	 */
-	private final String option;
+	private Option option;
 
 	/**
-	 * Constructs a new {@code UnrecognizedArgumentException} with the specified
-	 * detail message.
+	 * Construct a new {@code MissingArgumentException} with the specified detail
+	 * message.
 	 *
-	 * @param message the detail message
-	 */
-	public UnrecognizedOptionException(final String message) {
-		this(message, null);
-	}
-
-	/**
-	 * Constructs a new {@code UnrecognizedArgumentException} with the specified
-	 * option and detail message.
-	 *
-	 * @param message the detail message
-	 * @param option  the unrecognized option
+	 * @param option the option requiring an argument
 	 * @since 1.2
 	 */
-	public UnrecognizedOptionException(final String message, final String option) {
-		super(message);
+	public MissingArgumentException(final @NotNull Option option) {
+		this("Missing argument for option: " + option.getKey());
 		this.option = option;
 	}
 
 	/**
-	 * Gets the unrecognized option.
+	 * Construct a new {@code MissingArgumentException} with the specified detail
+	 * message.
+	 *
+	 * @param message the detail message
+	 */
+	public MissingArgumentException(final String message) {
+		super(message);
+	}
+
+	/**
+	 * Return the option requiring an argument that wasn't provided on the command
+	 * line.
 	 *
 	 * @return the related option
 	 * @since 1.2
 	 */
-	public String getOption() {
+	public Option getOption() {
 		return option;
 	}
 }
