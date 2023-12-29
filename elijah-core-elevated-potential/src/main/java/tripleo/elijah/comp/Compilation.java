@@ -112,15 +112,6 @@ public interface Compilation extends Compilation0 {
 		public          boolean silent   = false;
 
 		@Override
-		public void setDo_out(final boolean b) {
-			throw new UnintendedUseException();
-		}
-		@Override
-		public void setShowTree(final boolean b) {
-			showTree = b;
-		}
-
-		@Override
 		public void setSilent(final boolean b) {
 			silent = b;
 		}
