@@ -16,9 +16,6 @@ repositories {
 //    maven {url "https://plugins.gradle.org/m2"}
   mavenCentral()
   mavenLocal()
-//  flatDir {
-//    dirs '../lib2/', './lib2/'
-//  }
 }
 
 dependencies {

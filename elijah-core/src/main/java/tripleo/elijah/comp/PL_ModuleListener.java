@@ -14,13 +14,13 @@ import tripleo.elijah.world.i.WorldModule;
 
 class PL_ModuleListener implements ModuleListener {
 	private final PipelineLogic   pipelineLogic;
-	@SuppressWarnings("FieldCanBeLocal")
-	private final IPipelineAccess      pa1;
+//	@SuppressWarnings("FieldCanBeLocal")
+//	private final IPipelineAccess      pa1;
 	private       PL_ForModuleListener fml;
 
 	public PL_ModuleListener(final PipelineLogic aPipelineLogic, final IPipelineAccess aPa) {
 		pipelineLogic = aPipelineLogic;
-		pa1           = aPa;
+//		pa1           = aPa;
 		fml = new PL_ForModuleListener(pipelineLogic);
 	}
 

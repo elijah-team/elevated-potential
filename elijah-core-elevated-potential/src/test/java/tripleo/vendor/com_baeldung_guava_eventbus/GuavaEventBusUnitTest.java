@@ -4,8 +4,6 @@ import com.google.common.eventbus.EventBus;
 
 import tripleo.elijah.nextgen.comp_model.CM_UleLog;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
-import tripleo.vendor.com_baeldung_guava_eventbus.CustomEvent;
-import tripleo.vendor.com_baeldung_guava_eventbus.EventListener;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
