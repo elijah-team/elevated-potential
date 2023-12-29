@@ -31,15 +31,8 @@ dependencies {
   implementation 'org.clojure:core.specs.alpha:0.2.56'
   implementation 'org.clojure:spec.alpha:0.2.194'
 
-
-  implementation 'tripleo.elijah:elijah-core-api:2023.elevated-potential.7d'
-
-//  implementation 'tripleo.elijah:elijah-util:2023.elevated-potential.2b'
-//  implementation 'tripleo.elijah:elijah-ek:2023.elevated-potential.2'
-//  implementation 'tripleo.elijah:tripleo.small:2023.elevated-potential.2'
-//  implementation 'tripleo.elijah:tripleo.elijah.reactive:2023.elevated-potential.2'
-//  implementation 'tripleo.elijah:tripleo.elijah.stateful:2023.elevated-potential.2'
-//  implementation 'tripleo.elijah:elijah-nextgen-outputstatement:2023.elevated-potential.3b'
+// README 12/28 enable this when you get sick of eclipse
+//  implementation 'tripleo.elijah:elijah-core-api:2023.elevated-potential.7f'
 
   api 'io.reactivex.rxjava3:rxjava:3.1.6'
   api 'org.reactivestreams:reactive-streams:1.0.4'
