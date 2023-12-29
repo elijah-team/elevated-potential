@@ -15,7 +15,7 @@
   limitations under the License.
  */
 
-package tripleo.vendor.org.apache.commons.cli;
+package tripleo.vendor.org_apache_commons_cli;
 
 import org.jetbrains.annotations.Nullable;
 
