@@ -10,7 +10,7 @@ import tripleo.elijah.util.Maybe;
 
 import tripleo.wrap.File;
 
-public class CM_CompilerInput implements Finally.Nameable {
+public class CM_CompilerInput implements EOT_Nameable {
 	private final CompilationImpl comp;
 	private final CompilerInput carrier;
 	private String inp;
