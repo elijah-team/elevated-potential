@@ -19,6 +19,7 @@ import java.util.*;
 import java.util.regex.*;
 import tripleo.wrap.File;
 
+@SuppressWarnings("rawtypes")
 abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 	protected Compilation  compilation;
 	protected CompilerInput input;

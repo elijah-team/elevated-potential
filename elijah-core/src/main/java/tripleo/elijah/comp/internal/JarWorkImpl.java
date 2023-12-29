@@ -20,6 +20,7 @@ public class JarWorkImpl implements JarWork {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void work() throws WorkException {
 		try (URLClassLoader child2 = new URLClassLoader(

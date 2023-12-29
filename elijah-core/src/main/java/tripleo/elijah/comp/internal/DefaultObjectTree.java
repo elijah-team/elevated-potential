@@ -27,7 +27,6 @@ public class DefaultObjectTree implements CK_ObjectTree {
 		switch (asseveration) {
 		case CI_PARSED ->  {
 			int y=2;
-			throw new UnintendedUseException();
 		}
 		case ELIJAH_PARSED -> {
 			final CM_Module x = (CM_Module)o;
@@ -38,6 +37,7 @@ public class DefaultObjectTree implements CK_ObjectTree {
 			}
 		}
 		case CI_HASHED -> {
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			Triple<EzSpec, CK_SourceFile, Operation<String>> t = (Triple<EzSpec, CK_SourceFile, Operation<String>>) o;
 
 			var spec = t.getLeft();
@@ -52,6 +52,10 @@ public class DefaultObjectTree implements CK_ObjectTree {
 				NotImplementedException.raise_stop();
 			}
 		}
+		case CI_CACHED -> throw new UnsupportedOperationException("Unimplemented case: " + asseveration);
+		case CI_SPECCED -> {}//throw new UnsupportedOperationException("Unimplemented case: " + asseveration);
+		case EZ_PARSED -> throw new UnsupportedOperationException("Unimplemented case: " + asseveration);
+		default -> throw new IllegalArgumentException("Unexpected value: " + asseveration);
 		}
 //			NotImplementedException.raise_stop();
 	}

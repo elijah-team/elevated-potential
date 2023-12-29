@@ -114,6 +114,7 @@ public class CR_State implements GCR_State {
 		private final @NotNull List<EvaNamespace>                                    activeNamespaces   = new ArrayList<>();
 		private final          DeferredObject<EvaPipeline, Void, Void>               EvaPipelinePromise = new DeferredObject<>();
 		private final          Map<OS_Module, DeferredObject<GenerateC, Void, Void>> gc2m_map           = new HashMap<>();
+		@SuppressWarnings("rawtypes")
 		private final @NotNull Map<Provenance, Pair<Class, Class>>                   installs           = new HashMap<>();
 		private final          DeferredObject<List<EvaNode>, Void, Void>             nlp                = new DeferredObject<>();
 		private final          List<NG_OutputItem>                                   outputs            = new ArrayList<NG_OutputItem>();
