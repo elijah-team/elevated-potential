@@ -1,6 +1,10 @@
 package tripleo.vendor.com.baeldung.guava.eventbus;
 
 import com.google.common.eventbus.EventBus;
+
+import tripleo.elijah.nextgen.comp_model.CM_UleLog;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +44,14 @@ public class GuavaEventBusUnitTest {
 	@BeforeEach
 	public void setUp() {
 		eventBus = new EventBus();
-		listener = new EventListener();
+		CM_UleLog log = new CM_UleLog() {
+			@Override
+			public void info(String string) {
+				SimplePrintLoggerToRemoveSoon.println2(string);
+			}
+		};
+		
+		listener = new EventListener(log);
 
 		eventBus.register(listener);
 	}

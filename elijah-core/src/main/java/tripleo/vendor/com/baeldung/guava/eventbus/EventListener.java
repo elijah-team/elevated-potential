@@ -1,15 +1,21 @@
 package tripleo.vendor.com.baeldung.guava.eventbus;
 
+import org.jetbrains.annotations.NotNull;
+
+import tripleo.elijah.nextgen.comp_model.CM_UleLog;
+
 import com.google.common.eventbus.DeadEvent;
 import com.google.common.eventbus.Subscribe;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("unused")
 public class EventListener {
-	private static final Logger LOG = LoggerFactory.getLogger(EventListener.class);
+//	private static final Logger LOG = LoggerFactory.getLogger(EventListener.class);
+	private final CM_UleLog LOG;
 	private static int eventsHandled;
+
+	public EventListener(CM_UleLog log2) {
+		this.LOG = log2;
+	}
 
 	int getEventsHandled() {
 		return eventsHandled;
