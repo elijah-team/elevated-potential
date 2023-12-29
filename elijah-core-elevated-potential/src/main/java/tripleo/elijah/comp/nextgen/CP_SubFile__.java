@@ -2,6 +2,8 @@ package tripleo.elijah.comp.nextgen;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import tripleo.elijah.DebugFlags;
 import tripleo.elijah.Eventual;
 import tripleo.elijah.UnintendedUseException;
 
@@ -117,6 +119,7 @@ public class CP_SubFile__ implements CP_SubFile {
 		private String getString(final @NotNull String parentName) {
 			String result;
 			if (true || x == null) {
+			if (DebugFlags.FORCE/* || x == null */) {
 				result = Path.of(parentName, childName).toFile().toString();
 			} else {
 				result = Path.of(parentName, childName, x).toFile().toString();

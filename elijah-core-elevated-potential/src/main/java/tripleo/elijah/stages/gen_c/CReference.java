@@ -443,7 +443,7 @@ public class CReference {
 		@NotNull
 		final List<InstructionArgument> pl = _getIdentIAPathList(identIA);
 
-		if (false) {
+		if (DebugFlags.FORCE_IGNORE) {
 			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("\\ 172-172-172-172-172 ---------------------------------------------");
 			for (InstructionArgument instructionArgument : pl) {
 				if (instructionArgument instanceof final @NotNull ProcIA procIA) {
@@ -529,7 +529,7 @@ public class CReference {
 			//
 			//
 		}
-		if (false) {// || true || sl.size() < items.size()) {
+		if (DebugFlags.FORCE_IGNORE) {// || true || sl.size() < items.size()) {
 			final List<String> itms = items.stream().map(itm -> {
 				var bs = new BuildState();
 				itm.getReference().type.buildHelper(itm.getReference(), bs);
