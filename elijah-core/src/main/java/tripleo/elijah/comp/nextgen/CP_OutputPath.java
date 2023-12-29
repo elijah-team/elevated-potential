@@ -138,12 +138,12 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 				_pathPromise.resolve(px);
 
 				CP_Path pp = ppc.getP(this);
-				assert pp.equals(px); // FIXME "just return COMP" instead of zero
+				assert pp.samePath(px); // FIXME "just return COMP" instead of zero
 
 				this.root = tripleo.wrap.File.wrap(px.toFile());
 
 				CP_Path p3 = ppc.getP(this);
-				assert p3.equals(px); // FIXME "just return COMP" instead of zero
+				assert p3.samePath(px); // FIXME "just return COMP" instead of zero
 
 			    final List<Object> objects = Helpers.List_of(px, p, pp, p3);
 			    for (Object object : objects) {

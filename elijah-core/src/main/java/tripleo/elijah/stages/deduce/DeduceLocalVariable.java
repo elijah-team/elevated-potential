@@ -134,6 +134,7 @@ public class DeduceLocalVariable {
 		//
 		//
 
+		assert e != null; // README 12/29 born to fail
 		final OS_Element e_parent = e.getParent();
 
 		short state = 0;
