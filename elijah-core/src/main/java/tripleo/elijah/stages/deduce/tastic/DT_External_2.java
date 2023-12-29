@@ -3,6 +3,9 @@ package tripleo.elijah.stages.deduce.tastic;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
+import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.comp.Finally.Outs;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.nextgen.names.i.*;
@@ -213,7 +216,8 @@ public class DT_External_2 implements DT_External {
 			target_p2.then(target0 -> {
 
 				if (target0 == null) {
-					if (false)
+					@NotNull Compilation0 c = el.getContext().module().getCompilation();
+					if (c.reports().outputOn(Outs.OutDeduce_220))
 						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("542542  ");
 					return;
 				}

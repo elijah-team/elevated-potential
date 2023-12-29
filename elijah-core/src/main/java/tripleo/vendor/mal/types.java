@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
+@SuppressWarnings("rawtypes")
 public class types {
 	public interface ILambda {
 		MalVal apply(MalList args) throws MalThrowable;

@@ -5,6 +5,7 @@ import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.i.CK_SourceFile;
 import tripleo.elijah.comp.nextgen.CP_Path;
 
+@SuppressWarnings("rawtypes")
 public class CK_SourceFileFactory {
 	public static CK_SourceFile get(final tripleo.wrap.File aFile, final K aK) {
 		switch (aK) {

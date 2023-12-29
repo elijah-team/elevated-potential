@@ -3,12 +3,14 @@ package tripleo.elijah.comp.nextgen;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.Eventual;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.nextgen.ER_Node;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
@@ -18,54 +20,28 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class CP_OutputPath implements CP_Path, _CP_RootPath {
+public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinishParse {
 	private final Eventual<Path> _pathPromise = new Eventual<>();
 
 	private final CY_HashDeferredAction hda;
-	private final Compilation          c;
+	private final Compilation           c;
 	private       File                  root; // COMP/...
-	private       boolean                          _testShim;
+	private       boolean               _testShim;
 
 	public CP_OutputPath(final Compilation cc) {
 		c   = cc;
 		hda = new CY_HashDeferredAction(c.getIO());
-
-/*		c.world().addModuleProcess(new CompletableProcess<WorldModule>() {
-			@Override
-			public void add(WorldModule item) {
-//SimplePrintLoggerToRemoveSoon.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-				System.err.println("~~ [CP_OutputPath] >> addWorldModule " + item);
-			}
-
-			@Override
-			public void complete() {
-				hda.calculate();
-			}
-
-			@Override
-			public void error(Diagnostic d) {
-
-			}
-
-			@Override
-			public void preComplete() {
-
-			}
-
-			@Override
-			public void start() {
-
-			}
-		})*/
+		
+		c.paths()
+			.subscribeCalculateFinishParse(this);
 	}
 
+	// TODO 12/28 latch or Uni? or promise/Eventual: nodes (??)
 	public void _renderNodes(final @NotNull List<ER_Node> nodes) {
 		signalCalculateFinishParse();
 		nodes.stream()
-				.map(this::renderNode)
-				.collect(Collectors.toList());
+				.map(this::renderNode);
 	}
 
 	@Override
@@ -157,7 +133,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 				Path px = Path.of(root, one, _testShim ? "<date>" : two);
 				logProgress(117117, "OutputPath = " + px);
 
-				assert p.equals(px); // FIXME "just return COMP" instead of zero
+				assert p.samePath(px); // FIXME "just return COMP" instead of zero
 
 				_pathPromise.resolve(px);
 
@@ -237,5 +213,15 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	@Override
 	public String asString() {
 		return this.toString();
+	}
+
+	@Override
+	public boolean samePath(Path px) {
+		throw new UnsupportedOperationException("TODO 12/28 implement me");
+	}
+
+	@Override
+	public void notify_CPX_CalculateFinishParse(Ok ok) {
+		throw new UnintendedUseException("TODO 12/28 dpys, implement me");
 	}
 }

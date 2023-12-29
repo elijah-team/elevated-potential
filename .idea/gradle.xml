@@ -21,6 +21,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/dlog" />
+            <option value="$PROJECT_DIR$/elijah-base-api" />
+            <option value="$PROJECT_DIR$/elijah-base-impl" />
             <option value="$PROJECT_DIR$/elijah-core-elevated-potential" />
           </set>
         </option>

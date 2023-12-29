@@ -118,7 +118,6 @@ public class CP_SubFile__ implements CP_SubFile {
 
 		private String getString(final @NotNull String parentName) {
 			String result;
-			if (true || x == null) {
 			if (DebugFlags.FORCE/* || x == null */) {
 				result = Path.of(parentName, childName).toFile().toString();
 			} else {
@@ -187,6 +186,11 @@ public class CP_SubFile__ implements CP_SubFile {
 					", _pathPromise=" + _pathPromise +
 					", x='" + x + '\'' +
 					'}';
+		}
+
+		@Override
+		public boolean samePath(Path px) {
+			throw new UnsupportedOperationException("TODO 12/28");
 		}
 	}
 }
