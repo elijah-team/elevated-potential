@@ -1,94 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.xtend.XTEND_CONTAINER"/>
-	<classpathentry kind="src" path="elijah-core-elevated-potential/src/main/java"/>
-	<classpathentry kind="src" path="elijah-core-elevated-potential/src/main/xtend-gen"/>
-	<classpathentry kind="src" path="elijah-base-impl/src/main/java"/>
-	<classpathentry kind="src" path="dlog/src/main/gen"/>
-	<classpathentry kind="src" path="dlog/src/main/java"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+	<classpathentry excluding="buildSrc/build/|gradle/wrapper/|lib_elijjah/|test/|xtend-gen/|xxx-annotations/|xxx-model-status/|buildSrc/|xxx-annotations/src/main/java/|xxx-annotations/src/main/java/" kind="src" path=""/>
+	<classpathentry kind="src" path="xtend-gen/elijah-core-elevated-potential/src/main/java"/>
+	<classpathentry kind="src" path="xxx-annotations/src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/elijah-core-api"/>
-	<classpathentry kind="src" path="/elijah-core-api-elijah-core-api"/>
-	<classpathentry kind="lib" path="/home/user/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.12.0/c6842c86792ff03b9f1d1fe2aab8dc23aa6c6f0e/commons-lang3-3.12.0.jar" sourcepath="/home/user/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.12.0/198b882fdc2c72c89c63401d946f6ba46c3acea3/commons-lang3-3.12.0-sources.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" path="/elijah-util"/>
-	<classpathentry kind="lib" path="/home/user/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/user/.m2/repository/org/jetbrains/annotations/24.0.1/annotations-24.0.1.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/user/.m2/repository/org/checkerframework/checker-qual/3.33.0/checker-qual-3.33.0.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/user/.m2/repository/org/jdeferred/v2/jdeferred-core/2.0.0/jdeferred-core-2.0.0.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/user/.m2/repository/tripleo/buffers/buffers-v1/0.0.3/buffers-v1-0.0.3.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" path="/elijah-nextgen-outputstatement"/>
-	<classpathentry kind="src" path="/tripleo.elijah.stateful"/>
-	<classpathentry kind="lib" path="/home/user/.m2/repository/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar"/>
-	<classpathentry kind="lib" path="/home/user/.m2/repository/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/user/.gradle/caches/modules-2/files-2.1/org.clojure/clojure/1.10.3/a5039880547c7f1938faf8e31edc5836dceb7a7d/clojure-1.10.3.jar" sourcepath="/home/user/.gradle/caches/modules-2/files-2.1/org.clojure/clojure/1.10.3/b67cacf6a9056c4e5cdb67c323c34f3d64bab001/clojure-1.10.3-sources.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" path="/tripleo.elijah.reactive"/>
-	<classpathentry kind="lib" path="/home/user/.m2/repository/commons-codec/commons-codec/1.15/commons-codec-1.15.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" path="/tripleo.small"/>
-	<classpathentry kind="lib" path="/home/user/.m2/repository/io/reactivex/rxjava3/rxjava/3.1.6/rxjava-3.1.6.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/user/.m2/repository/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/user/.m2/repository/com/github/spotbugs/spotbugs-annotations/4.7.3/spotbugs-annotations-4.7.3.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/user/.m2/repository/tripleo/util/range/range-v1/0.0.3b/range-v1-0.0.3b.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/user/.gradle/caches/modules-2/files-2.1/io.smallrye.reactive/mutiny/2.5.3/d753bbf15f888e7f9d0615d9cbcc5a79d01171ab/mutiny-2.5.3.jar" sourcepath="/home/user/.gradle/caches/modules-2/files-2.1/io.smallrye.reactive/mutiny/2.5.3/3d43df3a114415e60f6389ee7b72fa0fce8a00cc/mutiny-2.5.3-sources.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/elevated-potential"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
