@@ -46,9 +46,9 @@ Lineage
 Tag
 ----
 
-> https://github.com/elijah-team/elevated-potential/commit/64b9d9a10b9f50be3b8fe21a85357ada8cb4dc81
+> https://github.com/elijah-team/elevated-potential/blob/d2eee1c6a42ec9bc7a500d86b9e3c36bf861288f/README.md
 
-from https://github.com/elijah-team/elevated-potential/commit/0881903085b012c6260b4643032338e5f0f4e2cd
-to https://github.com/elijah-team/elevated-potential/commit/c416c1fb76da9a2c664a5ce986f848869cb0c691
+add https://github.com/elijah-team/elevated-potential/commits/0553b99d43afb8b0e3c8a3e4002ee68afef7093e
 
-https://github.com/elijah-team/elevated-potential/pull/10
+https://github.com/elijah-team/elevated-potential/pull/14
+(minor: cuteness/clarity)
