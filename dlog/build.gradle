@@ -1,6 +1,6 @@
 plugins {
   id 'tripleo.elijah.java-conventions'
-  id "io.freefair.lombok" version "8.3"
+  id "io.freefair.lombok" version "8.4"
   id 'antlr'
 }
 
@@ -26,12 +26,12 @@ dependencies {
 
   // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
 //    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-  testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+  testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.1'
   // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.1'
   // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.10.0'
-  testImplementation "org.assertj:assertj-core:3.24.2"
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.10.1'
+  testImplementation "org.assertj:assertj-core:3.25.1"
 }
 
 test {
