@@ -10,21 +10,21 @@ import java.util.Locale;
 import java.util.Map;
 
 public interface ProcessingEnvironment {
-    Map<String,String> getOptions();
+	Map<String, String> getOptions();
 
-    Messager getMessager();
+	Messager getMessager();
 
-    Filer getFiler();
+	Filer getFiler();
 
-    Elements getElementUtils();
+	Elements getElementUtils();
 
-    Types getTypeUtils();
+	Types getTypeUtils();
 
-    SourceVersion getSourceVersion();
+	SourceVersion getSourceVersion();
 
-    Locale getLocale();
+	Locale getLocale();
 
-    default boolean isPreviewEnabled() {
-        return false;
-    }
+	default boolean isPreviewEnabled() {
+		return false;
+	}
 }

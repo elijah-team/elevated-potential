@@ -5,39 +5,39 @@ import javax.annotation.processing.Completion;
 public enum Completions {
 	;
 
+	public static Completion of(String value, String message) {
+		return new SimpleCompletion(value, message);
+	}
+
+	public static Completion of(String value) {
+		return new SimpleCompletion(value, "");
+	}
+
 	private static class SimpleCompletion implements Completion {
-        private final String value;
-        private final String message;
+		private final String value;
+		private final String message;
 
-        SimpleCompletion(String value, String message) {
-            if (value == null || message == null)
-                throw new NullPointerException("Null completion strings not accepted.");
-            this.value = value;
-            this.message = message;
-        }
+		SimpleCompletion(String value, String message) {
+			if (value == null || message == null)
+				throw new NullPointerException("Null completion strings not accepted.");
+			this.value   = value;
+			this.message = message;
+		}
 
-        @Override
+		@Override
 		public String getValue() {
-            return value;
-        }
+			return value;
+		}
 
-        @Override
+		@Override
 		public String getMessage() {
-            return message;
-        }
+			return message;
+		}
 
-        @Override
-        public String toString() {
-            return "[\"" + value + "\", \"" + message + "\"]";
-        }
-        // Default equals and hashCode are fine.
-    }
-
-    public static Completion of(String value, String message) {
-        return new SimpleCompletion(value, message);
-    }
-
-    public static Completion of(String value) {
-        return new SimpleCompletion(value, "");
-    }
+		@Override
+		public String toString() {
+			return "[\"" + value + "\", \"" + message + "\"]";
+		}
+		// Default equals and hashCode are fine.
+	}
 }
