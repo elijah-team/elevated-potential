@@ -15,8 +15,7 @@ package tripleo.elijah.lang.impl;
 
 import antlr.*;
 import org.jetbrains.annotations.*;
-
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
@@ -62,7 +61,7 @@ public class FloatExpressionImpl implements FloatExpression {
 	@Override
 	public void setKind(final @NotNull ExpressionKind aExpressionKind) {
 		// log and ignore
-		SimplePrintLoggerToRemoveSoon.println_err_2("Trying to set ExpressionType of FloatExpression to " + aExpressionKind.toString());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("Trying to set ExpressionType of FloatExpression to " + aExpressionKind.toString());
 	}
 
 	@Override

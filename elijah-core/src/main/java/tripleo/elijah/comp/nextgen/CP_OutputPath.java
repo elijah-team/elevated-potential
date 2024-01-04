@@ -21,7 +21,7 @@ import java.util.*;
 import java.util.stream.*;
 
 public class CP_OutputPath implements CP_Path, _CP_RootPath {
-	private final DeferredObject<Path, Void, Void> _pathPromise = new DeferredObject<>();
+	private final Eventual<Path> _pathPromise = new Eventual<>();
 
 	private final CY_HashDeferredAction hda;
 	private final Compilation          c;
@@ -32,10 +32,11 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 		c   = cc;
 		hda = new CY_HashDeferredAction(c.getIO());
 
-		c.world().addModuleProcess(new CompletableProcess<WorldModule>() {
+/*		c.world().addModuleProcess(new CompletableProcess<WorldModule>() {
 			@Override
 			public void add(WorldModule item) {
-
+//SimplePrintLoggerToRemoveSoon.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+				System.err.println("~~ [CP_OutputPath] >> addWorldModule " + item);
 			}
 
 			@Override
@@ -57,7 +58,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 			public void start() {
 
 			}
-		});
+		})*/;
 	}
 
 	public void _renderNodes(final @NotNull List<ER_Node> nodes) {
@@ -96,7 +97,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	}
 
 	@Override
-	public @NotNull Promise<Path, Void, Void> getPathPromise() {
+	public @NotNull Eventual<Path> getPathPromise() {
 		return _pathPromise;
 	}
 
@@ -117,7 +118,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 	private void logProgress(final int code, final String message) {
 		if (code == 117117)
 			return;
-		System.err.println(String.format("%d %s", code, message));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(String.format("%d %s", code, message));
 	}
 
 	public @NotNull Operation<Boolean> renderNode(final @NotNull ER_Node node) {
@@ -126,7 +127,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath {
 
 		c.getCompilationEnclosure().logProgress(CompProgress.__CP_OutputPath_renderNode, node);
 
-		System.out.println("401b Writing path: " + path.toFile());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("401b Writing path: " + path.toFile());
 		path.getParent().toFile().mkdirs();
 
 		try (final DisposableCharSink xx = c.getIO().openWrite(path)) {

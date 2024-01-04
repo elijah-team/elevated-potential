@@ -1,7 +1,7 @@
 package tripleo.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.stages.gen_c.statements.ReasonedStringListStatement;
+import tripleo.elijah.nextgen.outputstatement.ReasonedStringListStatement;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.instructions.IdentIA;
 import tripleo.elijah.stages.instructions.Instruction;

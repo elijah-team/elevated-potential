@@ -5,6 +5,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.output.*;
+import tripleo.elijah.stages.garish.GarishClass;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
 
@@ -29,7 +30,7 @@ class AmazingClass implements Amazing {
 
 	void waitGenC(final GenerateC ggc) {
 		var oc = new NG_OutputClass();
-		oc.setClass(compilation.world().getClass(c).getGarish(), ggc);
+		oc.setClass((GarishClass) compilation.world().getClass(c).getGarish(), ggc);
 		itms.addItem(oc);
 	}
 }

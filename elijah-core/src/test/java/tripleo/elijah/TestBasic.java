@@ -129,7 +129,7 @@ public class TestBasic {
 				if (l == ErrSink.Errors.DIAGNOSTIC) {
 					((Diagnostic) r).report(System.out);
 				} else {
-					System.out.println(r);
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(r);
 				}
 			}
 		}
@@ -179,7 +179,7 @@ public class TestBasic {
 
 		var l = new ArrayList<>();
 		((CompilationImpl)c).world().eachModule(m -> l.add(m.module().getFileName()));
-		System.err.println("184 "+l);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("184 "+l);
 
 //    const fun = function (f) { // <--
 
@@ -293,8 +293,8 @@ public class TestBasic {
 			assertTrue(c.getIO().recordedwrites().size() > 0);
 
 			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
-			for (Triple<AssOutFile, EOT_OutputFileImpl.FileNameProvider, NG_OutputRequest> aof : aofs) {
-				System.err.println(aof);
+			for (Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest> aof : aofs) {
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(aof);
 			}
 
 			assertTrue(aofs.contains("/Prelude/Prelude.c"));
@@ -319,7 +319,7 @@ public class TestBasic {
 			if (outputFile.getType() != EOT_OutputType.SOURCES) continue;
 
 			final String filename = outputFile.getFilename();
-			System.err.println(filename);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(filename);
 
 			var ss = outputFile.getStatementSequence();
 
@@ -333,7 +333,7 @@ public class TestBasic {
 				}
 			}
 
-			System.err.println(ss);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(ss);
 */
 		}
 
@@ -343,14 +343,14 @@ public class TestBasic {
 			var fn = entry.getKey();
 			var ss = Helpers.String_join("\n", (entry.getValue()).stream().map(st -> st.getText()).collect(Collectors.toList()));
 
-			//System.out.println("216 "+fn+" "+ss);
+			//tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("216 "+fn+" "+ss);
 
 			sspl.add(Pair.of(fn, ss));
 		}
 
-		System.err.println(sspl);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(sspl);
 
-		//System.err.println("nothing");
+		//tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("nothing");
 	}
 
 	class testBasic_fact1 {

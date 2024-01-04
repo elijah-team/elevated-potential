@@ -3,7 +3,7 @@ package tripleo.elijah.stages.deduce.post_bytecode;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
@@ -175,11 +175,7 @@ public interface PostBC_Processor {
 
 		@Override
 		public @NotNull Maybe<OS_Type> doHasTypeAttached() {
-			final Maybe<OS_Type> r;
-
-			r = new Maybe<>(vte_type_attached, null);
-
-			return r;
+			return Maybe.of(vte_type_attached);
 		}
 
 		@Override
@@ -234,17 +230,17 @@ public interface PostBC_Processor {
 			case USER:
 				try {
 					final GenType aGenType = deduceTypes2.resolve_type(attached, fd_ctx);
-					SimplePrintLoggerToRemoveSoon.println2("xxxxxxxxxxxxxx " + aGenType);
-					r = new Maybe<>(aGenType.getResolved(), null); // TODO incomplete!! (send whole GenType)
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println2("xxxxxxxxxxxxxx " + aGenType);
+					r = Maybe.of(aGenType.getResolved()); // TODO incomplete!! (send whole GenType)
 					// -------------------------- vte.type.setAttached(aGenType);
 				} catch (final ResolveError aResolveError) {
-					r = new Maybe<>(null, aResolveError);
+					r = Maybe.of_exc((Diagnostic) aResolveError);
 					// -------------------------- aResolveError.printStackTrace();
 					// -------------------------- assert false;
 				}
 				break;
 			case UNIT_TYPE:
-				r = new Maybe<>(attached, null);
+				r = Maybe.of(attached);
 				break;
 			default:
 				throw new IllegalStateException("non USER type for vte.vtt.RESULT");
@@ -307,11 +303,7 @@ public interface PostBC_Processor {
 
 		@Override
 		public @NotNull Maybe<OS_Type> doHasTypeAttached() {
-			final Maybe<OS_Type> r;
-
-			r = new Maybe<>(vte_type_attached, null);
-
-			return r;
+			return Maybe.of(vte_type_attached);
 		}
 
 		@Override
@@ -360,11 +352,7 @@ public interface PostBC_Processor {
 
 		@Override
 		public @NotNull Maybe<OS_Type> doHasTypeAttached() {
-			final Maybe<OS_Type> r;
-
-			r = new Maybe<>(vte_type_attached, null);
-
-			return r;
+			return Maybe.of(vte_type_attached);
 		}
 
 		@Override

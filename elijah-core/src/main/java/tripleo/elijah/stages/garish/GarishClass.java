@@ -1,6 +1,7 @@
 package tripleo.elijah.stages.garish;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.g.GGarishClass;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
 import tripleo.elijah.stages.deduce.*;
@@ -13,7 +14,7 @@ import tripleo.elijah.world.i.*;
 
 import java.util.*;
 
-public class GarishClass {
+public class GarishClass implements GGarishClass {
 	private final LivingClass _lc;
 
 	@Contract(pure = true)
@@ -88,7 +89,7 @@ public class GarishClass {
 	}
 
 	public @NotNull BufferTabbedOutputStream getImplBuffer(final @NotNull GenerateC aGenerateC) {
-		final EvaClass evaClass = getLiving().evaNode();
+		final EvaClass evaClass = (EvaClass) getLiving().evaNode();
 
 		final CClassDecl decl = new CClassDecl(evaClass);
 		decl.evaluatePrimitive();
@@ -100,7 +101,7 @@ public class GarishClass {
 	}
 
 	public @NotNull BufferTabbedOutputStream getHeaderBuffer(final @NotNull GenerateC aGenerateC) {
-		final EvaClass evaClass = getLiving().evaNode();
+		final EvaClass evaClass = (EvaClass) getLiving().evaNode();
 
 		final CClassDecl decl = new CClassDecl(evaClass);
 		decl.evaluatePrimitive();

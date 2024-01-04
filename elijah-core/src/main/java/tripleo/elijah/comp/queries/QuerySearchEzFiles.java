@@ -24,8 +24,8 @@ public class QuerySearchEzFiles {
 		this.cc = ccl;
 	}
 
-	public @NotNull List<Operation2<CompilerInstructions>> process(final @NotNull File directory) {
-		final List<Operation2<CompilerInstructions>> R = new ArrayList<>();
+	public CompilerInstructions_Result process(final @NotNull File directory) {
+		final CompilerInstructions_Result R = new CompilerInstructions_ResultImpl();
 
 		final String[] list = directory.list(ez_files_filter);
 		if (list != null) {
@@ -35,8 +35,8 @@ public class QuerySearchEzFiles {
 				final Operation2<CompilerInstructions> cio = sf.process_query();
 
 				// reason obv is it is elaborated in the directory ...
-//				QSEZ_Reasoning reasoning = QSEZ_Reasonings.create(null);
-				R.add(cio);
+				QSEZ_Reasoning reasoning = QSEZ_Reasonings.create(null);
+				R.add(cio, reasoning);
 			}
 		}
 

@@ -8,26 +8,17 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.contexts.FunctionContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.AliasStatementImpl;
-import tripleo.elijah.lang.impl.LangGlobals;
-import tripleo.elijah.lang.impl.LookupResultListImpl;
-import tripleo.elijah.lang.impl.VariableStatementImpl;
-import tripleo.elijah.lang.types.OS_UnknownType;
-import tripleo.elijah.lang2.BuiltInTypes;
-import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
-import tripleo.elijah.stages.deduce.post_bytecode.IDeduceElement3;
-import tripleo.elijah.stages.gen_fn.GenType;
-import tripleo.elijah.stages.gen_fn.IdentTableEntry;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.stages.deduce.post_bytecode.*;
+import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.util.*;
 
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created 3/7/21 1:13 AM
@@ -102,10 +93,14 @@ public enum DeduceLookupUtils {
 
 	@Contract("_, _ -> param1")
 	public static @NotNull DeduceElement3_IdentTableEntry deduceExpression2(
-			final @NotNull DeduceElement3_IdentTableEntry de3_ite, final FunctionContext aFc) {
-		final IdentExpression identExpression = de3_ite.principal.getIdent();
-		final IdentTableEntry ite = de3_ite.principal._deduceTypes2()._inj().new_IdentTableEntry(0, identExpression,
-				identExpression.getContext(), de3_ite.generatedFunction);
+			final @NotNull DeduceElement3_IdentTableEntry de3_ite,
+			final @NotNull IFunctionContext aFunctionContext) {
+		final IdentExpression                   identExpression      = de3_ite.principal.getIdent();
+		final DeduceTypes2                      deduceTypes2         = de3_ite.principal._deduceTypes2();
+		final DeduceTypes2.DeduceTypes2Injector deduceTypes2Injector = deduceTypes2._inj();
+		//final IdentTableEntry ite = deduceTypes2Injector.new_IdentTableEntry(0, identExpression,
+		//																	 identExpression.getContext(),
+		//																	 de3_ite.generatedFunction);
 
 		try {
 			deduceIdentExpression2(de3_ite);
@@ -329,7 +324,7 @@ public enum DeduceLookupUtils {
 		@Nullable
 		GenType result = deduceTypes2._inj().new_GenTypeImpl();
 		boolean finished = false;
-		SimplePrintLoggerToRemoveSoon.println_err_2("979 During deduceProcedureCall " + pce);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("979 During deduceProcedureCall " + pce);
 		@Nullable
 		OS_Element best = null;
 		try {
@@ -357,7 +352,7 @@ public enum DeduceLookupUtils {
 																								// somewhere
 					}
 				} else {
-					SimplePrintLoggerToRemoveSoon.println_err_2("992 " + best.getClass().getName());
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("992 " + best.getClass().getName());
 					throw new NotImplementedException();
 				}
 			}

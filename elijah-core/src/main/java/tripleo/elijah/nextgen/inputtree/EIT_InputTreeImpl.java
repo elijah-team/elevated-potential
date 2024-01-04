@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class EIT_InputTreeImpl implements EIT_InputTree {
 	// TODO 09/20 where is this used?
-		public static final class _Node {
+	public static final class _Node {
 		private final Operation<?> operation;
 
 		public _Node(Operation<?> operation) {
@@ -34,8 +34,7 @@ public class EIT_InputTreeImpl implements EIT_InputTree {
 
 		@Override
 		public String toString() {
-			return "_Node[" +
-					"operation=" + operation + ']';
+			return "_Node[" + "operation=" + operation + ']';
 		}
 	}
 

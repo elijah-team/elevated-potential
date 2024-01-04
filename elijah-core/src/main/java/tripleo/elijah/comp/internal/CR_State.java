@@ -9,31 +9,30 @@
  */
 package tripleo.elijah.comp.internal;
 
-import org.apache.commons.lang3.tuple.Pair;
-import org.jdeferred2.DoneCallback;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import org.apache.commons.lang3.tuple.*;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.notation.*;
-import tripleo.elijah.g.GCR_State;
-import tripleo.elijah.g.GPipelineMember;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.output.NG_OutputItem;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.stages.gen_c.GenerateC;
+import tripleo.elijah.g.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.output.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.stages.write_stage.pipeline_impl.WP_Flow;
+import tripleo.elijah.stages.gen_generic.GenerateFiles;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.*;
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 public class CR_State implements GCR_State {
 
@@ -71,26 +70,17 @@ public class CR_State implements GCR_State {
 	private static class ProcessRecordImpl implements ProcessRecord {
 		// private final DeducePipeline dpl;
 		private final @NotNull ICompilationAccess ca;
-		private final          IPipelineAccess    pa;
-		private final @NotNull PipelineLogic      pipelineLogic;
-		//private                AccessBus          ab;
+		private                IPipelineAccess    pa;
+		private @NotNull       PipelineLogic      pipelineLogic;
 
 		public ProcessRecordImpl(final @NotNull ICompilationAccess ca0) {
 			ca = ca0;
 
-			//((Compilation) ca.getCompilation()).getCompilationEnclosure().getAccessBusPromise().then((final @NotNull AccessBus iab) -> {
-				//ab = iab;
-			//});
-
-			pa = ((Compilation) ca.getCompilation()).get_pa();
-
-			pipelineLogic = new PipelineLogic(pa, ca);
-		}
-
-		@Contract(pure = true)
-		@Override
-		public AccessBus ab() {
-			return null;//ab;
+			final CompilationEnclosure compilationEnclosure0 = (CompilationEnclosure) ca0.getCompilationEnclosure();
+			compilationEnclosure0.getPipelineAccessPromise().then(pa0 -> {
+				pa = pa0;
+				pipelineLogic = new PipelineLogic(pa, ca);
+			});
 		}
 
 		@Contract(pure = true)
@@ -114,10 +104,7 @@ public class CR_State implements GCR_State {
 		@Override
 		public void writeLogs() {
 			final CompilationEnclosure ce            = pa.getCompilationEnclosure();
-			final PipelineLogic        pipelineLogic = ce.getPipelineLogic();
-			final GN_WriteLogs         notable       = new GN_WriteLogs(ce.getCompilationAccess(), pipelineLogic.getLogs());
-
-			pa.notate(Provenance.DefaultCompilationAccess__writeLogs, notable);
+			ce.writeLogs();
 		}
 	}
 
@@ -165,7 +152,7 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public void addLog(final ElLog aLOG) {
-			getCompilationEnclosure().getPipelineLogic().addLog(aLOG);
+			getCompilationEnclosure().addLog(aLOG);
 		}
 
 		@Override
@@ -243,7 +230,7 @@ public class CR_State implements GCR_State {
 		@Override
 		public void notate(final Provenance aProvenance, final GN_Env aGNEnv) {
 			var y = installs.get(aProvenance);
-			// System.err.println("210 "+y);
+			// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("210 "+y);
 
 			Class<?> x = y.getLeft();
 			// var z = y.getRight();
@@ -258,9 +245,9 @@ public class CR_State implements GCR_State {
 
 					// cb.add(notableAction);
 
-					notableAction._actual_run();
+					notableAction._actual_run();  // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
-					// System.err.println("227 "+inst);
+					// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("227 "+inst);
 				}
 			} catch (NoSuchMethodException | SecurityException | InvocationTargetException | IllegalAccessException e) {
 				e.printStackTrace();
@@ -298,7 +285,8 @@ public class CR_State implements GCR_State {
 		}
 
 		@Override
-		public void resolveWaitGenC(final OS_Module mod, final GenerateC gc) {
+		public void resolveWaitGenC(final OS_Module mod, final GenerateFiles aGenerateFiles) {
+			final GenerateC                       gc  = (GenerateC) aGenerateFiles;
 			DeferredObject<GenerateC, Void, Void> gcp = new DeferredObject<>();
 			gcp.resolve(gc);
 			gc2m_map.put(mod, gcp);
@@ -328,7 +316,8 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public void finishPipeline(final GPipelineMember aPM, final WP_Flow.OPS aOps) {
-			System.err.println("[FinishPipeline] %s %s".formatted(aPM.finishPipeline_asString(), aOps));
+			final String formatted = "[FinishPipeline] %s %s".formatted(aPM.finishPipeline_asString(), aOps);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(formatted);
 		}
 
 		@Override
@@ -339,12 +328,24 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public void addFunctionStatement(final EG_Statement aStatement) {
-			if (aStatement instanceof EvaPipeline.FunctionStatement fs) {
+			if (aStatement instanceof FunctionStatement fs) {
 				addFunctionStatement(fs);
 			}
 		}
 
-		public void addFunctionStatement(final EvaPipeline.FunctionStatement aFunctionStatement) {
+		@Override
+		public void subscribePipelineLogic(final AccessBus.@NotNull AB_PipelineLogicListener aListener) {
+			final AccessBus ab = getAccessBus();
+			ab.subscribePipelineLogic(aListener::pl_slot);
+		}
+
+		@Override
+		public void subscribe_lgc(final AccessBus.@NotNull AB_LgcListener aListener) {
+			final AccessBus ab = getAccessBus();
+			ab.subscribe_lgc(aListener);
+		}
+
+		public void addFunctionStatement(final FunctionStatement aFunctionStatement) {
 			EvaPipelinePromise.then(gp -> {
 				gp.addFunctionStatement(aFunctionStatement);
 			});

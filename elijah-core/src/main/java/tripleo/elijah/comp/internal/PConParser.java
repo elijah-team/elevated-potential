@@ -129,8 +129,8 @@ public class PConParser {
 		return new UnaryExpressionImpl(aExpressionKind, aEe);
 	}
 
-	public LoopContext__ new_LoopContext(final Context aCur, final Loop aLoop) {
-		return new LoopContext__(aCur, aLoop);
+	public LoopContextImpl new_LoopContext(final Context aCur, final Loop aLoop) {
+		return new LoopContextImpl(aCur, aLoop);
 	}
 
 	public WithStatement new_WithStatementImpl(final OS_Element aParent) {
@@ -189,8 +189,8 @@ public class PConParser {
 		return new FormalArgListImpl();
 	}
 
-	public FuncExprContext new_FuncExprContext(final Context aCur, final FuncExpr aPc) {
-		return new FuncExprContext(aCur, aPc);
+	public FuncExprContextImpl new_FuncExprContext(final Context aCur, final FuncExpr aPc) {
+		return new FuncExprContextImpl(aCur, aPc);
 	}
 
 	public FunctionBody new_FunctionBodyEmptyImpl() {

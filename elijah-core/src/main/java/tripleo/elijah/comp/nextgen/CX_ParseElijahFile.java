@@ -1,7 +1,6 @@
 package tripleo.elijah.comp.nextgen;
 
 import antlr.*;
-import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
@@ -15,19 +14,19 @@ import tripleo.elijjah.*;
 
 import java.io.*;
 
-import static tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err2;
+import static tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.*;
 
 public class CX_ParseElijahFile {
 
 	public static Operation2<OS_Module> parseAndCache(final ElijahSpec aSpec,
-	                                                 final ElijahCache aElijahCache,
-	                                                 final String absolutePath,
-	                                                 final Compilation compilation) {
+													  final ElijahCache aElijahCache,
+													  final String absolutePath,
+													  final Compilation compilation) {
 		final @NotNull Operation2<OS_Module> calm;
 
 		try {
-			final IO              io       = compilation.getIO();
-			final String          f        = aSpec.file_name();
+			final IO               io       = compilation.getIO();
+			final String           f        = aSpec.file_name();
 			final File             file     = aSpec.file();
 			final IO_._IO_ReadFile readFile = io.readFile2(file);
 
@@ -50,8 +49,7 @@ public class CX_ParseElijahFile {
 				}
 			}
 
-
-			compilation.getObjectTree().asseverate(Pair.of(aSpec,calm), Asseverate.ELIJAH_PARSED);
+			compilation.getObjectTree().asseverate(compilation.megaGrande(aSpec, calm), Asseverate.ELIJAH_PARSED);
 
 			return calm;
 		} catch (final IOException aE) {
@@ -59,23 +57,21 @@ public class CX_ParseElijahFile {
 		}
 	}
 
-	private static Operation2<OS_Module> calculate(final ElijahSpec spec, final Compilation compilation) {
-		final var absolutePath = spec.getLongPath2(); // !!
-		return calculate(spec.file_name(), spec.s(), compilation, absolutePath);
-	}
-
 	private static Operation2<OS_Module> calculate(final String f,
-	                                               final InputStream s,
-	                                               final Compilation compilation,
-	                                               final String absolutePath) {
+												   final InputStream s,
+												   final Compilation compilation,
+												   final String absolutePath) {
 		final ElijjahLexer lexer = new ElijjahLexer(s);
 		lexer.setFilename(f);
 		final ElijjahParser parser = new ElijjahParser(lexer);
-		parser.out = new Out(f, compilation, false);
+		parser.out = new Out(f, compilation);
 		parser.setFilename(f);
 
 		parser.pcon = new PConParser();
-		//parser.ci   = parser.pcon.newCompilerInstructionsImpl(); // README just saved for reference
+
+		// README just saved for reference
+		//  this is handled by out above and `parser.out.module'
+		//parser.ci   = parser.pcon.newCompilerInstructionsImpl();
 
 		try {
 			parser.program();
@@ -86,18 +82,27 @@ public class CX_ParseElijahFile {
 		parser.out = null;
 
 		final String x = module.getFileName();
-		if (x == null)
+		if (x == null) {
+			assert false;
 			module.setFileName(absolutePath); // TODO 09/26 you mentioned that this is a bug
+		}
 		return Operation2.success(module);
 	}
 
+	private static Operation2<OS_Module> calculate(final @NotNull ElijahSpec spec, final Compilation compilation) {
+		final var absolutePath = spec.getLongPath2(); // !!
+		return calculate(spec.file_name(), spec.getModule().s(), compilation, absolutePath);
+	}
+
 	public static Operation2<OS_Module> __parseEzFile(String file_name,
-	                                                  File file,
-	                                                  IO io,
-	                                                  @NotNull CY_ElijahSpecParser parser) throws IOException {
-		try (final InputStream readFile = io.readFile(file)) {
-			final ElijahSpec spec = new ElijahSpec_(file_name, file, readFile);
-			return parser.parse(spec);
-		}
+													  File file,
+													  @NotNull ElijahSpecReader r,
+													  @NotNull CY_ElijahSpecParser parser) {
+		final ElijahSpec             spec = new ElijahSpec_(file_name, file, r.get().success());
+		return parser.parse(spec);
+	}
+
+	public interface ElijahSpecReader {
+		@NotNull Operation<InputStream> get();
 	}
 }

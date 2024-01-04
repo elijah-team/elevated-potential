@@ -1,20 +1,15 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.graph.i.CK_Monitor;
-import tripleo.elijah.comp.graph.i.CK_StepsContext;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.sense.*;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
-import java.io.File;
-import java.nio.file.NotDirectoryException;
-import java.util.List;
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
 
-class CB_FindCIs implements CB_Action, Sensable {
+class CB_FindCIs implements CB_Action {
 	private final CompilationRunner   compilationRunner;
 	private final List<CompilerInput> _inputs;
 	private final CB_Output           o;
@@ -33,40 +28,30 @@ class CB_FindCIs implements CB_Action, Sensable {
 		final Compilation      c         = (Compilation) st.ca().getCompilation();
 		final @NotNull ErrSink errSink   = c.getErrSink();
 		final CK_StepsContext  context   = new CD_CRS_StepsContext(st, o);
-		final SenseList        senseList = new SenseList();
 
 		for (final CompilerInput input : c.getCompilationEnclosure().getCompilerInput()) {
-			_processInput(c, errSink, senseList, input);
-		}
-
-		for (final SenseList.Sensible sensible : senseList) {
-			logProgress_ofSensible(sensible);
-//            sensible.checkDirectoryResults(cci, _ps);
+			_processInput(c, errSink, input);
 		}
 
 		logProgress_Stating("outputString.size", ""+o.get().size());
 
-		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
 
 		for (final CB_OutputString outputString : o.get()) {
 			// 08/13
-			SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
 		}
 
 		// TODO capture action outputs
 		//  09/27 is that not being done above??
 		aMonitor.reportSuccess(this, o);
 
-		final CK_AlmostComplete almostComplete = new CK_AlmostComplete();
-		almostComplete.execute(context, monitor);
+		//final CK_AlmostComplete almostComplete = new CK_AlmostComplete();
+		//almostComplete.execute(context, monitor);
 	}
 
 	private void logProgress_Stating(final String aSection, final String aStatement) {
-		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: %s :: %s".formatted(aSection, aStatement));
-	}
-
-	private void logProgress_ofSensible(final SenseList.Sensible sensible) {
-		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: LOG_SENSIBLE :: " + sensible.toString());
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: %s :: %s".formatted(aSection, aStatement));
 	}
 
 	@Contract(pure = true)
@@ -77,7 +62,6 @@ class CB_FindCIs implements CB_Action, Sensable {
 
 	private void _processInput(final @NotNull Compilation aCompilation,
 							   final @NotNull ErrSink aErrSink,
-							   final @NotNull SenseList aSenseList,
 							   final @NotNull CompilerInput aCompilerInput) {
 		switch (aCompilerInput.ty()) {
 		case NULL -> {
@@ -85,7 +69,6 @@ class CB_FindCIs implements CB_Action, Sensable {
 		case SOURCE_ROOT -> {
 		}
 		default -> {
-			aSenseList.skip(aCompilerInput, SenseList.U.SKIP, this);
 			return;
 		}
 		}
@@ -99,20 +82,15 @@ class CB_FindCIs implements CB_Action, Sensable {
 				aCompilerInput.certifyRoot();
 			}
 
-			CW_inputIsEzFile.apply(aCompilerInput, compilationClosure, inp -> aSenseList.add(inp, SenseList.U.ADD, () -> SenseIndex.senseIndex_CW_inputIsEzFile));
+			CW_inputIsEzFile.apply(aCompilerInput, compilationClosure);
 		} else {
 			// aErrSink.reportError("9996 Not an .ez file "+file_name);
 			if (f.isDirectory()) {
-				CW_inputIsDirectory.apply(aCompilerInput, compilationClosure, aSenseList::add);
+				CW_inputIsDirectory.apply(aCompilerInput, compilationClosure);
 			} else {
 				final NotDirectoryException d = new NotDirectoryException(f.toString());
 				aErrSink.reportError("9995 Not a directory " + f.getAbsolutePath());
 			}
 		}
-	}
-
-	@Override
-	public SenseIndex getSenseIndex() {
-		return SenseIndex.senseIndex_CB_FindCIs;
 	}
 }

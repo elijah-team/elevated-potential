@@ -12,7 +12,7 @@ package tripleo.elijah.stages.deduce;
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
@@ -44,7 +44,7 @@ public class DeduceProcCall {
 			case VAR -> {
 				DR_Variable v = _g_generatedFunction.getVar((VariableStatement) element);
 				if (v.declaredTypeIsEmpty()) {
-					System.err.println("8787 declaredTypeIsEmpty for " + ((VariableStatement) element).getName());
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("8787 declaredTypeIsEmpty for " + ((VariableStatement) element).getName());
 					throw new FCA_Stop();
 				} else {
 					final NormalTypeName normalTypeName = (NormalTypeName) ((VariableStatementImpl) element).typeName();

@@ -43,7 +43,7 @@ public class WP_State_Control_1 implements WP_State_Control {
 		}
 
 		// FIXME 10/19 just mark for now
-		System.err.println("[%s] markSuccess (%s) (%s)".formatted("Default", this.getClass().getName(), aSuc.asString()));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[%s] markSuccess (%s) (%s)".formatted("Default", this.getClass().getName(), aSuc.asString()));
 		//NotImplementedException.raise_stop();
 	}
 
@@ -56,7 +56,7 @@ public class WP_State_Control_1 implements WP_State_Control {
 		}
 
 		// FIXME 10/19 just mark for now
-		System.err.println("[%s] markSuccess (%s) (%s)".formatted("Default", this.getClass().getName(), aFai.sc_fai_asString()));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[%s] markSuccess (%s) (%s)".formatted("Default", this.getClass().getName(), aFai.sc_fai_asString()));
 		//NotImplementedException.raise_stop();
 	}
 

@@ -31,9 +31,9 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 		stepContext = new CD_CRS_StepsContext(crState, out);
 
 		// TODO 10/20 remove k2 ??
-		final CK_ProcessInitialAction               k2      = new CK_ProcessInitialAction(aRootCI);
-		final CK_AlmostComplete  k3 = new CK_AlmostComplete();
-		final CK_RunBetterAction k4 = new CK_RunBetterAction();
+		final CK_ProcessInitialAction k2 = new CK_ProcessInitialAction(aRootCI);
+		final CK_AlmostComplete       k3 = new CK_AlmostComplete();
+		final CK_RunBetterAction      k4 = new CK_RunBetterAction();
 
 		stepActions.addAll(List_of(k2, k3, k4));
 

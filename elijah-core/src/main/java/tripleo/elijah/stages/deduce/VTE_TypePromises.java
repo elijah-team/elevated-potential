@@ -9,19 +9,14 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import org.jdeferred2.DoneCallback;
-import org.jdeferred2.Promise;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.Context;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.lang.i.VariableStatement;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created 11/27/21 12:51 PM
@@ -65,11 +60,11 @@ public enum VTE_TypePromises {
 								aDeduceTypes2.phase);
 						pte.setFunctionInvocation(fi);
 					} else
-						SimplePrintLoggerToRemoveSoon.println_out_2("175 pte.fi is not null");
+						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("175 pte.fi is not null");
 					aIntegerIA.gf.addDependentFunction(pte.getFunctionInvocation()); // TODO is this needed (here)?
 				} else {
 					int y = 3;
-					SimplePrintLoggerToRemoveSoon.println_out_2("3074");
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("3074");
 				}
 			}
 		});
@@ -180,7 +175,7 @@ public enum VTE_TypePromises {
 			public void onDone(@NotNull GenType result) {
 				// assert result.resolved.getClassOf() == fd.getParent();
 				if (result.getResolved().getClassOf() != fd.getParent()) {
-					System.err.println("EVTE-159 violation (likely String vs ConstString)");
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("EVTE-159 violation (likely String vs ConstString)");
 				}
 
 				final GenType genType1 = aVariableTableEntry.getTypeTableEntry().genType;
@@ -236,7 +231,7 @@ public enum VTE_TypePromises {
 			@Override
 			public void onDone(@NotNull GenType result) {
 				if (result.getResolved().getClassOf() != fd.getParent()) {
-					SimplePrintLoggerToRemoveSoon.println_err_2("** Failed assertion");
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("** Failed assertion");
 				}
 
 				@NotNull

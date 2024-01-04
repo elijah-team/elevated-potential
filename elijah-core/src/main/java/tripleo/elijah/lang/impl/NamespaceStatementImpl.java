@@ -57,7 +57,7 @@ public class NamespaceStatementImpl extends _CommonNC implements Documentable, C
 			items.add((ClassItem) anElement);
 		} else {
 			final String s = String.format("[NamespaceStatement#add] not a ClassItem: %s", anElement);
-			SimplePrintLoggerToRemoveSoon.println_err_2(s);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(s);
 		}
 	}
 

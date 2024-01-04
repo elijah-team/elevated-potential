@@ -1,25 +1,32 @@
 package tripleo.elijah.comp;
 
 import io.reactivex.rxjava3.core.Observer;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.internal_move_soon.*;
-import tripleo.elijah.comp.nextgen.*;
-import tripleo.elijah.comp.nextgen.pn.*;
-import tripleo.elijah.comp.nextgen.pw.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.graph.CM_Ez;
+import tripleo.elijah.comp.graph.CM_Module;
+import tripleo.elijah.comp.i.USE_Reasoning;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.internal.CIS;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.nextgen.CP_Paths;
+import tripleo.elijah.comp.nextgen.pn.PN_Ping;
+import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.g.*;
-import tripleo.elijah.stages.deduce.fluffy.i.*;
+import tripleo.elijah.g.GCompilationConfig;
+import tripleo.elijah.g.GWorldModule;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.world.i.LivingRepo;
 
-import java.util.*;
+import java.util.List;
 
 // TODO 01/19 might be fluffy
 public interface Compilation extends Compilation0 {
+	CM_Module megaGrande(OS_Module aModule);
+
 	LivingRepo world2();
 
 	Operation<Ok> hasInstructions2(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
@@ -78,14 +85,17 @@ public interface Compilation extends Compilation0 {
 	@Override
 	void pushWork(PW_PushWork aInstance, PN_Ping aPing);
 
+	CM_Module megaGrande(ElijahSpec aSpec, Operation2<OS_Module> aModuleOperation);
+
+	CM_Ez megaGrande(EzSpec aEzSpec);
+
 	class CompilationConfig implements GCompilationConfig {
-		public          boolean do_out;
 		public          boolean showTree = false;
 		public          boolean silent   = false;
 
 		@Override
 		public void setDo_out(final boolean b) {
-			do_out = b;
+			throw new UnintendedUseException();
 		}
 		@Override
 		public void setShowTree(final boolean b) {

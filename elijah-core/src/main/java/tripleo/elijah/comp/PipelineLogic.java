@@ -38,14 +38,13 @@ import java.util.function.*;
 public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic {
 	public final @NotNull  DeducePhase              dp;
 	public final @NotNull  GeneratePhase            generatePhase;
-	private final @NonNull List<ElLog>              elLogs = new LinkedList<>();
 //	private final @NonNull EIT_ModuleList           mods   = new EIT_ModuleList();
 	private final @NonNull ModuleCompletableProcess mcp    = new ModuleCompletableProcess();
-	private final @NonNull ModMap          modMap = new ModMap();
-	private final @NonNull IPipelineAccess  pa;
+	final @NonNull         ModMap                   modMap = new ModMap();
+	private final @NonNull IPipelineAccess          pa;
 	@Getter
-	private final @NonNull ElLog_.Verbosity verbosity;
-	private List<Eventual<?>>               _eventuals = new ArrayList<>();
+	private final @NonNull ElLog_.Verbosity  verbosity;
+	private final          List<Eventual<?>> _eventuals = new ArrayList<>();
 
 	public PipelineLogic(final IPipelineAccess aPa, final @NotNull ICompilationAccess ca) {
 		pa = aPa;
@@ -58,30 +57,7 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 		generatePhase = new GeneratePhase(verbosity, pa, this);
 		dp            = new DeducePhase(ca, pa, this);
 
-		pa.getCompilationEnclosure().addModuleListener(new ModuleListener() {
-			@Override
-			public void close() {
-				//NotImplementedException.raise_stop();
-			}
-
-			@Override
-			public void listen(final GWorldModule module1) {
-				final WorldModule module = (WorldModule) module1;
-				module.getErq().then(rq -> {
-					final OS_Module         mod = module.module();
-					final GenerateFunctions gfm = getGenerateFunctions(mod);
-
-					gfm.generateFromEntryPoints(rq);
-
-					// ---
-
-					modMap.then(mod, (final Eventual<DeducePhase.GeneratedClasses> eventual) -> {
-						final DeducePhase.@NotNull GeneratedClasses lgc = dp.generatedClasses;
-						eventual.resolve(lgc);
-					});
-				});
-			}
-		});
+		pa.getCompilationEnclosure().addModuleListener(new PL_ModuleListener(this, pa));
 	}
 
 	public ModuleCompletableProcess _mcp() {
@@ -93,7 +69,7 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 	}
 
 	public void addLog(ElLog aLog) {
-		elLogs.add(aLog);
+		_pa().addLog(aLog);
 	}
 
 	@Override
@@ -102,7 +78,7 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 		for (Eventual<?> eventual : _eventuals) {
 			if (eventual.isResolved()) {
 			} else {
-				System.err.println("[PipelineLogic::checkEventual] failed for " + eventual.description());
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[PipelineLogic::checkEventual] failed for " + eventual.description());
 			}
 		}
 	}
@@ -110,10 +86,6 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 	@NotNull
 	public GenerateFunctions getGenerateFunctions(@NotNull OS_Module mod) {
 		return generatePhase.getGenerateFunctions(mod);
-	}
-
-	public List<ElLog> getLogs() {
-		return elLogs;
 	}
 
 	public Eventual<DeducePhase.GeneratedClasses> handle(final GN_PL_Run2.@NotNull GenerateFunctionsRequest rq) {

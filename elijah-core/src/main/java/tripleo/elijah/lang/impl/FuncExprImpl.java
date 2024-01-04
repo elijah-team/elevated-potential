@@ -10,7 +10,6 @@ package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
@@ -25,7 +24,7 @@ import java.util.*;
  */
 public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 
-	public FuncExprImpl(FuncExprContext _ctx, TypeName _returnType) {
+	public FuncExprImpl(FuncExprContextImpl _ctx, TypeName _returnType) {
 		super();
 		setReturnType(_returnType);
 		setContext(_ctx);
@@ -33,10 +32,10 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 		_a = new AttachedImpl(_ctx);
 	}
 
-	private FuncExprContext _ctx;
+	private FuncExprContextImpl _ctx;
 	// private Scope3 scope3;
 	// private FormalArgList argList = new FormalArgListImpl();
-	private TypeName _returnType;
+	private TypeName            _returnType;
 
 	@Deprecated
 	public FuncExprImpl() {
@@ -117,7 +116,7 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 
 	@Override
 	public void setContext(final IFuncExprContext ctx) {
-		setContext((FuncExprContext) ctx);
+		setContext((FuncExprContextImpl) ctx);
 	}
 
 	public void setArgs(final ExpressionList ael) {
@@ -127,7 +126,7 @@ public class FuncExprImpl extends BaseFunctionDef implements FuncExpr {
 		// }
 	}
 
-	public void setContext(final FuncExprContext ctx) {
+	public void setContext(final FuncExprContextImpl ctx) {
 		_ctx = ctx;
 	}
 

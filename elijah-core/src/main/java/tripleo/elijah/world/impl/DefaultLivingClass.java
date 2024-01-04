@@ -1,6 +1,7 @@
 package tripleo.elijah.world.impl;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.garish.*;
 import tripleo.elijah.stages.gen_c.*;
@@ -45,7 +46,7 @@ public class DefaultLivingClass implements LivingClass {
 
 	@Override
 	@Contract(mutates = "this")
-	public @NotNull GarishClass getGarish() {
+	public GGarishClass getGarish() {
 		if (_garish == null) {
 			_garish = new GarishClass(this);
 		}
@@ -55,9 +56,9 @@ public class DefaultLivingClass implements LivingClass {
 
 	@Override
 	@Contract(mutates = "this")
-	public void generateWith(final GenerateResultSink   aResultSink,
-							 final @NotNull GarishClass aGarishClass,
-							 final GenerateResult       aGenerateResult,
+	public void generateWith(final GGenerateResultSink   aResultSink,
+							 final @NotNull GGarishClass aGarishClass,
+							 final GGenerateResult       aGenerateResult,
 							 final GenerateFiles        aGenerateFiles) {
 		if (_generatedFlag) { return; }
 
@@ -65,7 +66,10 @@ public class DefaultLivingClass implements LivingClass {
 		final EvaClass              evaClass  = evaNode();
 		final GarishClass_Generator garishClassGenerator = evaClass.generator();//new GarishClass_Generator(evaClass);
 
-		garishClassGenerator.provide(aResultSink, aGarishClass, aGenerateResult, generateC);
+		garishClassGenerator.provide((GenerateResultSink) aResultSink,
+									 (GarishClass) aGarishClass,
+									 (GenerateResult) aGenerateResult,
+									 generateC);
 
 		_generatedFlag = true;
 	}

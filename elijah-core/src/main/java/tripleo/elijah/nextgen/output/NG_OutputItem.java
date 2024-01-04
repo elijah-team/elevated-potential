@@ -11,5 +11,5 @@ public interface NG_OutputItem {
 	@NotNull
 	List<NG_OutputStatement> getOutputs();
 
-	EOT_OutputFileImpl.FileNameProvider outName(OutputStrategyC aOutputStrategyC, final GenerateResult.TY ty);
+	EOT_FileNameProvider outName(OutputStrategyC aOutputStrategyC, final GenerateResult.TY ty);
 }

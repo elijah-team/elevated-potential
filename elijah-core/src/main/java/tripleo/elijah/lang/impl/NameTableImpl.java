@@ -3,13 +3,10 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Tripleo
@@ -40,7 +37,7 @@ public class NameTableImpl implements tripleo.elijah.lang.i.NameTable {
 	public void add(final OS_Element element, final String name, final OS_Type dtype) {
 //		element.setType(dtype);
 		members.put(name, new TypedElement(element, dtype));
-		SimplePrintLoggerToRemoveSoon.println_err_2("[NameTable#add] " + members);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("[NameTable#add] " + members);
 	}
 }
 

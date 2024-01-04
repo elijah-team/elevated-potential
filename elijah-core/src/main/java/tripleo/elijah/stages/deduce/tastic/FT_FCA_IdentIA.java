@@ -12,7 +12,7 @@ package tripleo.elijah.stages.deduce.tastic;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang2.*;
@@ -699,7 +699,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 			case MODULO:
 			case SUBTRACTION:
 				int y = 2;
-				SimplePrintLoggerToRemoveSoon.println_err_2("2363");
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("2363");
 				break;
 			case GET_ITEM:
 				final @NotNull GetItemExpression gie = (GetItemExpression) e;

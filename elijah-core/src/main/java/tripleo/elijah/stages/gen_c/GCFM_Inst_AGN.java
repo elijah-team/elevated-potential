@@ -1,7 +1,8 @@
 package tripleo.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.stages.gen_c.statements.ReasonedStringListStatement;
+import tripleo.elijah.nextgen.outputstatement.IReasonedString;
+import tripleo.elijah.nextgen.outputstatement.ReasonedStringListStatement;
 import tripleo.elijah.stages.instructions.IdentIA;
 import tripleo.elijah.stages.instructions.Instruction;
 import tripleo.elijah.stages.instructions.InstructionArgument;
@@ -50,9 +51,10 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 			} else {
 				final String assignmentValue = yf.getAssignmentValue(gc, value);
 
-				var zz = new ReasonedStringListStatement();
+				ReasonedStringListStatement zz = new ReasonedStringListStatement();
 				zz.append(Emit.emit("/*501*/"), "emit-code");
-				zz.append(() -> yf.getRealTargetName(gc, (IdentIA) target, Generate_Code_For_Method.AOG.ASSIGN, assignmentValue), "real-target");
+				final IReasonedString reasonedString = yf.getRealTargetNameReasonedString(gc, (IdentIA) target, assignmentValue, "real-target", Generate_Code_For_Method.AOG.ASSIGN);
+				zz.append(reasonedString);
 
 				var z = new ReasonedStringListStatement();
 				z.append(Emit.emit("/*249*/"), "emit-code");
@@ -88,7 +90,7 @@ class GCFM_Inst_AGN implements GenerateC_Statement {
 						assignmentValueSupplier.get());
 			} else {
 				final Supplier<String> assignmentValueSupplier = () -> yf.getAssignmentValue(gc, value);
-				final Supplier<String> s = () -> yf.getRealTargetName(gc, (IdentIA) target, Generate_Code_For_Method.AOG.ASSIGN, assignmentValueSupplier.get());
+				final Supplier<String> s = () -> yf.getRealTargetName(gc, (IdentIA) target, assignmentValueSupplier.get()).forAOG(Generate_Code_For_Method.AOG.ASSIGN);
 
 				final String realTargetName = s.get();
 

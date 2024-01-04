@@ -39,7 +39,7 @@
 //		//customerMap.put("contacts", contactMaps);
 //
 //		Customer customer1 = jsonb.type(Customer.class).fromObject(customerMap);
-//		System.err.println(customer1);
+//		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(customer1);
 //
 //	}
 //

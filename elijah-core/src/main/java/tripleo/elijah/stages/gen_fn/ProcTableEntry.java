@@ -8,29 +8,17 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jdeferred2.DoneCallback;
-import org.jdeferred2.Promise;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.lang.i.Context;
-import tripleo.elijah.lang.i.IExpression;
-import tripleo.elijah.lang.i.OS_Type;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_ProcTableEntry;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah.stages.instructions.ProcIA;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah.stages.deduce.post_bytecode.*;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 9/12/20 10:07 PM
@@ -237,10 +225,10 @@ public class ProcTableEntry extends BaseTableEntry implements TableEntryIV {
 		case 0:
 			throw new IllegalStateException();
 		case 1:
-			SimplePrintLoggerToRemoveSoon.println_err_2("136 pte not finished resolving " + this);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("136 pte not finished resolving " + this);
 			break;
 		case 2:
-			SimplePrintLoggerToRemoveSoon.println_err_2("138 Internal compiler error");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("138 Internal compiler error");
 			break;
 		case 3:
 			if (_p_completeDeferred.isPending())

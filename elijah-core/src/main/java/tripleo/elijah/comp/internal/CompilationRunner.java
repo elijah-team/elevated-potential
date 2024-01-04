@@ -1,24 +1,23 @@
 package tripleo.elijah.comp.internal;
 
-import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.caches.DefaultEzCache;
+import lombok.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.caches.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.specs.EzCache;
-import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.stateful._RegistrationTarget;
-import tripleo.elijah.util.Operation;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah.comp.impl.*;
+import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.stateful.*;
+import tripleo.elijah.util.*;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class CompilationRunner extends _RegistrationTarget implements ICompilationRunner {
-	public final @NotNull  EzCache                         ezCache = new DefaultEzCache();
+	public final @NotNull  EzCache                         ezCache;
 	private final @NotNull Compilation                     _compilation;
 	private final @NotNull ICompilationBus                 cb;
 	@Getter
@@ -56,6 +55,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 
 		progressSink = cb.defaultProgressSink();
 		crState = aCrState;
+		ezCache      = new DefaultEzCache((Compilation) aca.getCompilation());
 	}
 
 	public Compilation _accessCompilation() {
@@ -82,7 +82,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		if (number == 130)
 			return;
 
-		SimplePrintLoggerToRemoveSoon.println_err_3("%d %s".formatted(number, text));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_3("%d %s".formatted(number, text));
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 				// assert !(started);
 				if (CB_StartCompilationRunnerAction.started) {
 					//throw new AssertionError();
-					System.err.println("twice for " + startAction);
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + startAction);
 				} else {
 					compilationRunnerStart.start(aRootCI, crState1, cbOutput);
 					CB_StartCompilationRunnerAction.started = true;
@@ -129,13 +129,14 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	public static class __CompRunner_Monitor implements CB_Monitor {
 		@Override
 		public void reportFailure(final CB_Action action, final CB_Output output) {
-			System.err.println(output.get());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(""+output.get());
 		}
 
 		@Override
 		public void reportSuccess(final CB_Action action, final CB_Output output) {
+			int y=2;
 			for (final CB_OutputString outputString : output.get()) {
-//				Stupidity.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
 			}
 		}
 	}

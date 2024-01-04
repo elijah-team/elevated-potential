@@ -10,7 +10,7 @@ package tripleo.elijah.stages.deduce;
 
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
@@ -74,14 +74,14 @@ class Resolve_Variable_Table_Entry {
 					if (attached.getTypeName() instanceof RegularTypeName rtn) {
 						if (rtn.getGenericPart() != null) {
 							// README Can't resolve generic typenames, need a classInvocation ...
-							// 08/13 System.err.println("===== future 8181");
+							// 08/13 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("===== future 8181");
 							return;
 						}
 					}
 					if (attached.getTypeName() instanceof FuncTypeName ftn) {
 						if (ftn.argListIsGeneric() || ((FuncTypeNameImpl) ftn)._arglist.p() != null) {
 							// README Can't resolve generic typenames, need a classInvocation ...
-							// 08/13 System.err.println("===== future 8181");
+							// 08/13 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("===== future 8181");
 							return;
 						}
 					}
@@ -147,7 +147,7 @@ class Resolve_Variable_Table_Entry {
 			@NotNull
 			FunctionDef fd1 = deduceTypes2._inj().new_FunctionDefImpl(mod_ns, mod_ns.getContext());
 			fd1.setFal(fe.fal());
-			fd1.setContext((FunctionContext) fe.getContext());
+			fd1.setContext((IFunctionContext) fe.getContext());
 			fd1.scope(fe.getScope());
 			fd1.setSpecies(BaseFunctionDef.Species.FUNC_EXPR);
 //			tripleo.elijah.util.Stupidity.println_out_2("1630 "+mod_ns.getItems()); // element 0 is ctor$0
@@ -262,7 +262,7 @@ class Resolve_Variable_Table_Entry {
 						});
 					}
 
-					System.err.println("118118 Making external for " + debugExpression);
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("118118 Making external for " + debugExpression);
 				}
 			} else if (aPot.tableEntry == null) {
 				final OS_Element el = vte.getResolvedElement();

@@ -30,8 +30,10 @@ public class OS_FuncTypeImpl extends __Abstract_OS_Type implements OS_FuncType {
 		private final DeducePhase phase;
 		private boolean result;
 
-		public GClosure_OS_FuncType_resolvedFunction(@NotNull GenType genType, TypeName aGenericTypeName,
-													 DeduceTypes2 deduceTypes2, @NotNull DeducePhase phase) {
+		public GClosure_OS_FuncType_resolvedFunction(@NotNull GenType genType,
+													 TypeName aGenericTypeName,
+													 DeduceTypes2 deduceTypes2,
+													 @NotNull DeducePhase phase) {
 			this.genType = genType;
 			genericTypeName = aGenericTypeName;
 			this.deduceTypes2 = deduceTypes2;

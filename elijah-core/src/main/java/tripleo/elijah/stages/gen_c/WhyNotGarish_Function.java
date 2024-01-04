@@ -3,8 +3,7 @@ package tripleo.elijah.stages.gen_c;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.notation.*;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.ConstructorDef;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
@@ -96,7 +95,7 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 		if (!fileGenPromise.isResolved()) {
 			fileGenPromise.resolve(aFileGen);
 		} else {
-			System.out.println("twice for " + generateC);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("twice for " + generateC);
 		}
 	}
 }

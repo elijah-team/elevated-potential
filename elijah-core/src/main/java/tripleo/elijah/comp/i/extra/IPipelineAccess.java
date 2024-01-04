@@ -14,10 +14,13 @@ import tripleo.elijah.g.GPipelineMember;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.output.*;
 import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.stages.gen_c.*;
-import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_c.GenerateC;
+import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
+import tripleo.elijah.stages.gen_fn.EvaClass;
+import tripleo.elijah.stages.gen_fn.EvaNamespace;
+import tripleo.elijah.stages.gen_fn.EvaNode;
+import tripleo.elijah.stages.gen_generic.GenerateFiles;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 
 import java.util.*;
@@ -33,8 +36,6 @@ public interface IPipelineAccess extends GPipelineAccess {
 	void activeFunction(BaseEvaFunction aEvaFunction);
 
 	void activeNamespace(EvaNamespace aEvaNamespace);
-
-	void addLog(ElLog aLOG);
 
 	void addOutput(NG_OutputItem aO);
 
@@ -75,7 +76,7 @@ public interface IPipelineAccess extends GPipelineAccess {
 
 	void resolvePipelinePromise(PipelineLogic aPipelineLogic);
 
-	void resolveWaitGenC(OS_Module mod, GenerateC gc);
+	void resolveWaitGenC(OS_Module mod, GenerateFiles gc);
 
 	void setCompilerInput(List<CompilerInput> aInputs);
 
@@ -94,4 +95,8 @@ public interface IPipelineAccess extends GPipelineAccess {
 	void runStepsNow(CK_Steps aSteps, CK_StepsContext aStepsContext);
 
 	void addFunctionStatement(EG_Statement aStatement);
+
+	void subscribePipelineLogic(AccessBus.AB_PipelineLogicListener aO);
+
+	void subscribe_lgc(AccessBus.@NotNull AB_LgcListener aO);
 }

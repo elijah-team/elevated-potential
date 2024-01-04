@@ -11,6 +11,7 @@ package tripleo.elijah.stages.gen_fn;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.g.GEvaNamespace;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;
@@ -26,7 +27,7 @@ import java.util.function.Consumer;
 /**
  * Created 12/22/20 5:39 PM
  */
-public class EvaNamespace extends EvaContainerNC implements GNCoded {
+public class EvaNamespace extends EvaContainerNC implements GNCoded, GEvaNamespace {
 	class _Reactive_EvaNamespace extends DefaultReactive {
 		@Override
 		public <T> void addListener(final Consumer<T> t) {

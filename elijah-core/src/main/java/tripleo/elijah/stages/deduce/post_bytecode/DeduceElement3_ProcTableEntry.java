@@ -1,28 +1,21 @@
 package tripleo.elijah.stages.deduce.post_bytecode;
 
-import tripleo.elijah.Eventual;
-import tripleo.elijah.ReadySupplier_1;
-import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.diagnostic.Diagnostic;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.lang.types.OS_FuncType;
+import tripleo.elijah.lang.types.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.stages.instructions.Instruction;
-import tripleo.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 
@@ -103,7 +96,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 				if (ci != null) {
 					pte.setClassInvocation(ci);
 				} else
-					SimplePrintLoggerToRemoveSoon.println_err2("542 Null ClassInvocation");
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err2("542 Null ClassInvocation");
 			}
 
 			pte.setFunctionInvocation(fi);
@@ -320,7 +313,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 							final @NotNull Consumer<LFOE_Action_Results> resultconsumer) {
 		//assert aDeduceTypes2 == deduceTypes2;
 		if (aDeduceTypes2 != deduceTypes2) {
-			System.err.println("503262 deduceTypes divergence");
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("503262 deduceTypes divergence");
 			//throw new AssertionError();
 		}
 

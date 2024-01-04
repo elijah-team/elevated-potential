@@ -33,7 +33,7 @@ public class OStageProcess implements RuntimeProcess {
 					return types.False;
 
 				// 2. produce effect
-				ce.addPipelinePlugin(pipelinePlugin::instance);
+				ce.addPipelinePlugin(pipelinePlugin);
 				return types.True;
 			} else {
 				// TODO exception? errSink??
@@ -48,17 +48,17 @@ public class OStageProcess implements RuntimeProcess {
 
 	private stepA_mal.MalEnv2 env;
 
-	public OStageProcess(final ICompilationAccess aCa, final @NotNull ProcessRecord aPr) {
+	public OStageProcess(final ICompilationAccess aCa) {
 		ca = aCa;
 
 		final Compilation         compilation          = (Compilation) ca.getCompilation();
 		final CompilationEnclosure compilationEnclosure = compilation.getCompilationEnclosure();
 		compilationEnclosure.getAccessBusPromise().then(iab -> {
-			ab = aPr.ab();
+			Preconditions.checkNotNull(iab);
 
+			ab = iab; // NOTE Apparently not watching that hard
 			env = ab.env();
 
-			Preconditions.checkNotNull(ab);
 			env.set(new types.MalSymbol("add-pipeline"), new _AddPipeline__MAL(compilationEnclosure));
 		});
 

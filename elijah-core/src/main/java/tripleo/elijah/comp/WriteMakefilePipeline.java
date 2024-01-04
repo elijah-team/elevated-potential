@@ -1,23 +1,20 @@
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal.CR_State;
-import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 public class WriteMakefilePipeline extends PipelineMember implements Consumer<Supplier<Old_GenerateResult>> {
 	private final IPipelineAccess pa;
@@ -110,17 +107,17 @@ public class WriteMakefilePipeline extends PipelineMember implements Consumer<Su
 			var fn = off.getFilename();
 
 			if (fn.endsWith(".c")) {
-				var fn2a = fn.split("/");
-				var fn2  = List.of(fn2a);
+				final String[]     fn2a = fn.split("/");
+				final List<String> fn2  = List.of(fn2a);
 
-				// 08/13 System.out.println("115 "+fn2);
+				SimplePrintLoggerToRemoveSoon.println_out_4(115, ""+fn2);
 
-				var fn3 = fn2.subList(1, fn2.size() - 1);
-				var fn4 = Helpers.String_join("/", fn3);
+				final List<String> fn3 = fn2.subList(1, fn2.size() - 1);
+				final String       fn4 = Helpers.String_join("/", fn3);
 
 				sb.append("\t-mkdir -p \"B/%s\"\n".formatted(fn4));
 
-				var fn_dot_o = fn.substring(0, fn.length() - 2) + ".o";
+				final String fn_dot_o = fn.substring(0, fn.length() - 2) + ".o";
 				aG.add_object(fn_dot_o);
 				sb.append("\t$(CC) -c $(CODE)/%s -o B/%s -I$(CODE)\n".formatted(fn, fn_dot_o));
 			}

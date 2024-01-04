@@ -26,31 +26,31 @@ public class InstructionDoer implements CompletableProcess<CompilerInstructions>
 				throw new RuntimeException(aE);
 			}
 		} else {
-			System.err.println("second: " + item.getFilename());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("second: " + item.getFilename());
 
 			var compilation = __cr.c();
 
-			compilation.use(item, USE.USE_Reasonings.instruction_doer_addon(item));
+			compilation.use(item, USE_Reasonings.instruction_doer_addon(item));
 		}
 	}
 
 	@Override
 	public void complete() {
-		System.err.println("InstructionDoer::complete");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("InstructionDoer::complete");
 	}
 
 	@Override
 	public void error(final Diagnostic d) {
-		System.err.println("InstructionDoer::error");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("InstructionDoer::error");
 	}
 
 	@Override
 	public void preComplete() {
-		System.err.println("InstructionDoer::preComplete");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("InstructionDoer::preComplete");
 	}
 
 	@Override
 	public void start() {
-		System.err.println("InstructionDoer::start");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("InstructionDoer::start");
 	}
 }

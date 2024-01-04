@@ -35,9 +35,9 @@ public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elija
 			} else {
 				throw new IllegalStateException("adding FunctionDef to " + aParent.getClass().getName());
 			}
-			_a = new AttachedImpl(new FunctionContext_(context, this));
+			_a = new AttachedImpl(new FunctionContextImpl(context, this));
 		} else {
-			_a = new AttachedImpl(new FunctionContext_(context, this));
+			_a = new AttachedImpl(new FunctionContextImpl(context, this));
 		}
 
 		if (aConstructorName != null) {

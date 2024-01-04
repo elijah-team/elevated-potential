@@ -4,6 +4,7 @@ import com.google.common.base.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.outputstatement.IReasonedString;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
@@ -128,5 +129,29 @@ public class ZoneITE__1 implements ZoneITE {
 		} else {
 			return s;
 		}
+	}
+
+	@Override
+	public Garish_TargetName getRealTargetName3(final String aAssignmentValue) {
+		return new Garish_TargetName() {
+			@Override public String forAOG(final Generate_Code_For_Method.AOG aAOG) {
+				return getRealTargetName2(aAOG, aAssignmentValue);
+			}
+
+			@Override
+			public IReasonedString reasonedForAOG(final Generate_Code_For_Method.AOG aAOG) {
+				return new IReasonedString() {
+					@Override
+					public String text() {
+						return forAOG(aAOG);
+					}
+
+					@Override
+					public String reason() {
+						return "<<151: ??>>";
+					}
+				};
+			}
+		};
 	}
 }

@@ -1,12 +1,16 @@
 package tripleo.elijah.comp.specs;
 
-import java.io.*;
+import tripleo.elijah.comp.graph.CM_Module;
+
+import java.io.File;
+import java.io.InputStream;
 import java.util.Objects;
 
 public final class ElijahSpec_ implements ElijahSpec {
 	private final String      file_name;
 	private final File        file;
 	private final InputStream s;
+	private CM_Module cmModule;
 
 	public ElijahSpec_(String file_name, File file, InputStream s) {
 		this.file_name = file_name;
@@ -36,6 +40,11 @@ public final class ElijahSpec_ implements ElijahSpec {
 	@Override
 	public InputStream s() {
 		return s;
+	}
+
+	@Override
+	public CM_Module getModule() {
+		return cmModule;
 	}
 
 	@Override

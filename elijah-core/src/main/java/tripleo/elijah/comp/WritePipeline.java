@@ -19,8 +19,7 @@ import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.g.GPipelineMember;
+import tripleo.elijah.g.*;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.generate.*;
@@ -32,7 +31,7 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 /**
  * Created 8/21/21 10:19 PM
@@ -231,13 +230,13 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 
 				// for (Map.Entry<Dependency, Collection<GenerateResultItem>> entry :
 				// gris.asMap().entrySet()) {
-				// System.out.println(entry.getKey().jsonString());
-				// System.out.println(entry.getValue());
+				// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(entry.getKey().jsonString());
+				// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(entry.getValue());
 				// }
 
 				/*
-				 * if (gris.containsKey(dependency)) System.out.println("*** 235 yes"); else
-				 * System.out.println("*** 235 no");
+				 * if (gris.containsKey(dependency)) tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("*** 235 yes"); else
+				 * tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("*** 235 no");
 				 */
 
 				gris.removeAll(dependency);
@@ -250,7 +249,7 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 			final @NotNull GenerateResult generateResult = sharedState.getGr();
 
 			generateResult.outputFiles((final @NotNull Map<String, OutputFileC> outputFiles) -> {
-				// 08/13 System.err.println("252252"); // 06/16
+				// 08/13 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("252252"); // 06/16
 			});
 		}
 

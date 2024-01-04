@@ -1,12 +1,18 @@
 package tripleo.elijah.comp.internal;
 
-import org.apache.commons.lang3.tuple.*;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+import tripleo.elijah.DebugFlags;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.comp.graph.CM_Module;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.nextgen.i.*;
-import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.nextgen.i.Asseveration;
+import tripleo.elijah.comp.specs.EzSpec;
 import tripleo.elijah.nextgen.inputtree.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.Operation;
 
 public class DefaultObjectTree implements CK_ObjectTree {
 	private final CompilationImpl compilation;
@@ -14,24 +20,22 @@ public class DefaultObjectTree implements CK_ObjectTree {
 
 	public DefaultObjectTree(final CompilationImpl aCompilation) {
 		compilation = aCompilation;
+		moduleList  = new EIT_ModuleList_();
 	}
 
 	@Override
 	public void asseverate(Object o, Asseverate asseveration) {
 		switch (asseveration) {
+		case CI_PARSED ->  {
+			int y=2;//throw new UnintendedUseException();
+		}
 		case ELIJAH_PARSED -> {
-/*
-			var x = (Pair<ElijahSpec, Operation<OS_Module>>)o;
+			final CM_Module x = (CM_Module)o;
 
-			var spec = x.getLeft();
-			var calm = x.getRight();
-
-			var pl = getCompilationEnclosure().getPipelineLogic();
-
-			var wm = new DefaultWorldModule(calm.success(), getCompilationEnclosure());
-			System.err.println("**************************************************Comp ELIJAH_PARSED  "+wm.module().getFileName());
-//				pl.addModule(wm);
-*/
+			if (DebugFlags.MakeSense) {
+				x.adviseCreator(compilation);
+				x.adviseWorld(compilation.world());
+			}
 		}
 		case CI_HASHED -> {
 			Triple<EzSpec, CK_SourceFile, Operation<String>> t = (Triple<EzSpec, CK_SourceFile, Operation<String>>) o;
@@ -52,6 +56,10 @@ public class DefaultObjectTree implements CK_ObjectTree {
 //			NotImplementedException.raise_stop();
 	}
 
+	private CompilationEnclosure getCompilationEnclosure() {
+		return this.compilation.getCompilationEnclosure();
+	}
+
 	@Override
 	public void asseverate(final Asseveration aAsseveration) {
 		aAsseveration.onLogProgress(compilation.getCompilationEnclosure());
@@ -59,7 +67,7 @@ public class DefaultObjectTree implements CK_ObjectTree {
 
 	@Override
 	public EIT_InputTree getInputTree() {
-		return compilation._input_tree;
+		return compilation.getInputTree();
 	}
 
 	@Override

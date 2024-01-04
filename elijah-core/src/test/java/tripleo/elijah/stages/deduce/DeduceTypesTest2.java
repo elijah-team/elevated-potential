@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.contexts.FunctionContext;
+import tripleo.elijah.contexts.IFunctionContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.OS_UserType;
@@ -87,7 +87,7 @@ public class DeduceTypesTest2 {
 		final Qualident qu = new QualidentImpl();
 		qu.append(Helpers0.string_to_ident("SystemInteger"));
 		((NormalTypeName) vs.typeName()).setName(qu);
-		final FunctionContext fc = (FunctionContext) fd.getContext();
+		final IFunctionContext fc = (IFunctionContext) fd.getContext();
 		vs.typeName().setContext(fc);
 		final IdentExpression x1 = Helpers0.string_to_ident("x");
 		x1.setContext(fc);
@@ -116,7 +116,7 @@ public class DeduceTypesTest2 {
 		final DeduceTypes2 d = dp.deduceModule(wm);
 
 		final GenType x = DeduceLookupUtils.deduceExpression(d, x1, fc);
-		SimplePrintLoggerToRemoveSoon.println_out_2("-- deduceExpression >>" + x);
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("-- deduceExpression >>" + x);
 //		assertEquals(new OS_BuiltInType(BuiltInTypes..SystemInteger).getBType(), x.getBType());
 //		final RegularTypeName tn = new RegularTypeNameImpl();
 		final VariableTypeName tn = new VariableTypeNameImpl();

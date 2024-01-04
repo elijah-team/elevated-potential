@@ -1,32 +1,21 @@
 package tripleo.elijah.stages.write_stage.pipeline_impl;
 
+import com.google.common.base.Preconditions;
+import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.notation.GM_GenerateModule;
-import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
 import tripleo.elijah.nextgen.output.NG_OutputFunction;
-import tripleo.elijah.stages.garish.GarishClass;
-import tripleo.elijah.stages.garish.GarishNamespace;
 import tripleo.elijah.stages.gen_c.C2C_Result;
 import tripleo.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.GenerateFiles;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
+import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.work.*;
-import tripleo.elijah.world.i.LivingClass;
-import tripleo.elijah.world.i.LivingNamespace;
-import tripleo.util.buffer.Buffer;
+import tripleo.elijah.stages.logging.ElLog_;
+import tripleo.elijah.work.WorkList__;
+import tripleo.elijah.work.WorkManager__;
 
 import java.util.List;
 
@@ -41,7 +30,8 @@ class AmazingFunction implements Amazing {
 	private final IPipelineAccess                  pa;
 
 	public AmazingFunction(final @NotNull BaseEvaFunction aBaseEvaFunction,
-						   final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems, final @NotNull GenerateResult aGenerateResult,
+						   final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems,
+						   final @NotNull GenerateResult aGenerateResult,
 						   final @NotNull IPipelineAccess aPa) {
 		// given
 		f      = aBaseEvaFunction;
@@ -64,17 +54,14 @@ class AmazingFunction implements Amazing {
 			// FIXME check arguments --> this doesn't seem like it will give the desired
 			// results
 			DefaultGenerateResultSink generateResultSink = new DefaultGenerateResultSink(pa);
-			//EIT_ModuleList eitModuleList = aPipelineLogic.mods();
-			EIT_ModuleList       eitModuleList = pa.getCompilation().getObjectTree().getModuleList();
+
 			GenerateResult       gr            = result; // new Old_GenerateResult();
 			CompilationEnclosure ce            = pa.getCompilationEnclosure();
 
 			var env = new GN_GenerateNodesIntoSinkEnv(List_of(),
 													  generateResultSink,
-													  eitModuleList,
 													  ElLog_.Verbosity.VERBOSE,
 													  gr,
-													  pa,
 													  ce);
 
 			var world = ce.getCompilation().world();
@@ -91,17 +78,56 @@ class AmazingFunction implements Amazing {
 
 //			var generateModuleResult = generateModule.getModuleResult(fileGen.wm(), fileGen.resultSink());
 
-			if (f instanceof EvaFunction ff) {
-				ggc.generateCodeForMethod(fileGen, ff);
-			} else if (f instanceof EvaConstructor fc) {
-				ggc.generateCodeForConstructor_1(fc, fileGen);
-			}
+			ProgressiveGenerateFiles
+					.of(this)
+					.then(ggc1 -> {
+						if (f instanceof EvaFunction ff) {
+							ggc1.generateCodeForMethod(fileGen, ff);
+						} else if (f instanceof EvaConstructor fc) {
+							ggc1.generateCodeForConstructor_1(fc, fileGen);
+						}
+					})
+					.with(ggc); // NOTE 11/26 too involved to back out. this is cheating, tho.
+
 
 			itms.addItem(of);
 		});
 	}
 
-	private static class MyGenerateResultSink implements GenerateResultSink {
+	interface ProgressiveGenerateFiles_Amazing_ {
+		void with(GenerateC aGgc);
+	}
+
+	static class ProgressiveGenerateFiles_AmazingFunction implements ProgressiveGenerateFiles, ProgressiveGenerateFiles_Amazing_ {
+		private final AmazingFunction   amazingFunction;
+		private DoneCallback<GenerateC> cb;
+
+		public ProgressiveGenerateFiles_AmazingFunction(final AmazingFunction aAmazingFunction) {
+			amazingFunction = aAmazingFunction;
+		}
+
+		@Override
+		public ProgressiveGenerateFiles_Amazing_ then(final DoneCallback<GenerateC> aGenerateC) {
+			this.cb = aGenerateC;
+			return this;
+		}
+
+		@Override
+		public void with(final GenerateC aGenerateC) {
+			Preconditions.checkNotNull(cb);
+			cb.onDone(aGenerateC);
+		}
+	}
+
+	static interface ProgressiveGenerateFiles {
+		public static ProgressiveGenerateFiles of(final AmazingFunction amazingFunction) {
+			return new ProgressiveGenerateFiles_AmazingFunction(amazingFunction);
+		}
+
+		ProgressiveGenerateFiles_Amazing_ then(DoneCallback<GenerateC> aGenerateC);
+	}
+
+	private static class MyGenerateResultSink extends DeadGenerateResultSink {
 		private final NG_OutputFunction of;
 
 		public MyGenerateResultSink(final NG_OutputFunction aOf) {
@@ -109,54 +135,10 @@ class AmazingFunction implements Amazing {
 		}
 
 		@Override
-		public void add(final EvaNode node) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void addClass_0(final GarishClass aGarishClass, final Buffer aImplBuffer, final Buffer aHeaderBuffer) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void addClass_1(final @NotNull GarishClass aGarishClass,
-							   final @NotNull GenerateResult aGenerateResult,
-							   final @NotNull GenerateFiles aGenerateFiles) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
 		public void addFunction(final BaseEvaFunction aGf,
 								final List<C2C_Result> aRs,
 								final GenerateFiles aGenerateFiles) {
 			of.setFunction(aGf, aGenerateFiles, aRs);
-		}
-
-		@Override
-		public void additional(final GenerateResult aGenerateResult) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void addNamespace_0(final GarishNamespace aLivingNamespace, final Buffer aImplBuffer,
-								   final Buffer aHeaderBuffer) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void addNamespace_1(final GarishNamespace aGarishNamespace, final GenerateResult aGenerateResult,
-								   final GenerateC aGenerateC) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public @Nullable LivingClass getLivingClassForEva(final EvaClass aEvaClass) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public @Nullable LivingNamespace getLivingNamespaceForEva(final EvaNamespace aEvaClass) {
-			throw new UnintendedUseException();
 		}
 	}
 }

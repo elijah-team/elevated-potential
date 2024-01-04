@@ -33,14 +33,14 @@ public class Feb2021Test {
 				.setFile("test/feb2021/hier/")
 				.run();
 
+		final int curious_that_this_does_not_fail = 0/*100*/;
+		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+
 		// TODO 10/15 cucumber??
 
 		/* TODO investigate: */assertTrue(t.assertLiveClass("Bar"));  // .inFile("test/feb2021/hier/hier.elijah")
 		/* TODO investigate: */assertTrue(t.assertLiveClass("Foo"));  // ...
 		/* TODO investigate: */assertTrue(t.assertLiveClass("Main")); // ...
-
-		final int curious_that_this_does_not_fail = 0/*100*/;
-		assertEquals(curious_that_this_does_not_fail, t.errorCount());
 
 		//assert t.c().reports().codeOutputSize() > 0;
 		if (t.c().reports().codeOutputSize() < 1) {

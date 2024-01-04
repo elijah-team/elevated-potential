@@ -47,7 +47,7 @@ public class Finally_ implements Finally {
 //	}
 
 	@Override
-	public void addCodeOutput(final EOT_OutputFileImpl.FileNameProvider aFileNameProvider, final EOT_OutputFile aOff) {
+	public void addCodeOutput(final EOT_FileNameProvider aFileNameProvider, final EOT_OutputFile aOff) {
 		outputs.add(new Output_(aFileNameProvider, aOff));
 	}
 
@@ -82,11 +82,11 @@ public class Finally_ implements Finally {
 	}
 
 	public static class Output_ implements Output {
-		private final EOT_OutputFile.FileNameProvider fileNameProvider;
+		private final EOT_FileNameProvider fileNameProvider;
 		@SuppressWarnings("FieldCanBeLocal")
-		private final EOT_OutputFile                  off;
+		private final EOT_OutputFile       off;
 
-		public Output_(final EOT_OutputFile.FileNameProvider aFileNameProvider, final EOT_OutputFile aOff) {
+		public Output_(final EOT_FileNameProvider aFileNameProvider, final EOT_OutputFile aOff) {
 			fileNameProvider = aFileNameProvider;
 			off              = aOff;
 		}
@@ -102,7 +102,7 @@ public class Finally_ implements Finally {
 		private final Out2     ty;
 
 		public Input_(final Nameable aNameable, final Out2 aTy) {
-//			System.err.println("66 Add Input >> " + aNameable.getName());
+//			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("66 Add Input >> " + aNameable.getName());
 			nameable = aNameable;
 			ty       = aTy;
 		}

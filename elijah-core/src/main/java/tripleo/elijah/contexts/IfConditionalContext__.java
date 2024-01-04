@@ -8,13 +8,9 @@
  */
 package tripleo.elijah.contexts;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.AliasStatementImpl;
-import tripleo.elijah.lang.impl.ContextImpl;
-import tripleo.elijah.lang.impl.VariableSequenceImpl;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah.lang.impl.*;
 
 /**
  * Created 8/21/20 3:16 AM
@@ -56,7 +52,7 @@ public class IfConditionalContext__ extends ContextImpl implements IfConditional
 				}
 			}
 			if (item instanceof VariableSequenceImpl) {
-				SimplePrintLoggerToRemoveSoon.println_out_2("1102 " + item);
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("1102 " + item);
 				for (final VariableStatement vs : ((VariableSequenceImpl) item).items()) {
 					if (vs.getName().equals(name))
 						Result.add(name, level, vs, this);

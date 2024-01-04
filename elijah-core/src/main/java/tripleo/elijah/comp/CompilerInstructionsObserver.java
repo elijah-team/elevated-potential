@@ -6,6 +6,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.util.*;
 
 import java.util.*;
@@ -20,7 +21,15 @@ public class CompilerInstructionsObserver implements Observer<CompilerInstructio
 
 	@Override
 	public @NotNull Operation<Ok> almostComplete() {
-		return compilation.hasInstructions(l, compilation.pa());
+		final Eventual<IPipelineAccess> pipelineAccessPromise = compilation.getCompilationEnclosure().getPipelineAccessPromise();
+		pipelineAccessPromise.register(compilation.getFluffy());
+
+		pipelineAccessPromise.then(pa0 -> {
+			compilation.hasInstructions(l, pa0);
+		});
+
+		// NOTE 11/26 this ok is "void" b/c we are using promise
+		return Operation.success(Ok.instance());
 	}
 
 	@Override

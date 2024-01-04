@@ -11,26 +11,21 @@ package tripleo.elijah.stages.gen_fn;
 
 //import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import org.jdeferred2.DoneCallback;
-import org.jdeferred2.Promise;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.reactive.DefaultReactive;
+import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.Resolve_Ident_IA.DeduceElementIdent;
-import tripleo.elijah.stages.deduce.nextgen.DR_Ident;
-import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah.stages.deduce.Resolve_Ident_IA.*;
+import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.deduce.post_bytecode.*;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 /**
  * Created 9/12/20 10:27 PM
@@ -174,7 +169,7 @@ public class IdentTableEntry extends BaseTableEntry1
 				_p_resolvedElementPromise.resolve(resolved_element);
 			}
 		} else {
-			// 08/13 System.err.println("283283 resolution failure for " +
+			// 08/13 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("283283 resolution failure for " +
 			// dei.getIdentTableEntry().getIdent().getText());
 		}
 	}

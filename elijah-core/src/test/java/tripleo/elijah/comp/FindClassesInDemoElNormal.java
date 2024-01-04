@@ -69,7 +69,7 @@ public class FindClassesInDemoElNormal {
 
 		final List<ClassStatement> aClassList = c.world().findClass("Main");
 		for (final ClassStatement classStatement : aClassList) {
-			SimplePrintLoggerToRemoveSoon.println_out_2(classStatement.getPackageName().getName());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(classStatement.getPackageName().getName());
 		}
 
 		final List<String> classNames = aClassList.stream()

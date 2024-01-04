@@ -1,25 +1,20 @@
 package tripleo.elijah.comp.notation;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
-import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.world.i.*;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
 public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 	private final List<ProcessedNode>  lgc;
@@ -33,18 +28,16 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 	public GN_GenerateNodesIntoSinkEnv(
 			List<ProcessedNode> lgc,
 			GenerateResultSink resultSink1,
-			Object/*EIT_ModuleList*/ moduleList,
 			ElLog_.Verbosity verbosity,
 			GenerateResult gr,
-			IPipelineAccess pa,
 			CompilationEnclosure ce
 									  ) {
 		this.lgc         = lgc;
 		this.resultSink1 = resultSink1;
-		this.moduleList  = moduleList;
+		this.moduleList  = ce.getCompilation().getObjectTree().getModuleList();
 		this.verbosity   = verbosity;
 		this.gr          = gr;
-		this.pa          = pa;
+		this.pa          = ce.getPipelineAccess();
 		this.ce          = ce;
 	}
 
@@ -53,7 +46,7 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 		final LibraryStatementPart lsp = mod.getLsp();
 
 		if (lsp == null) {
-			SimplePrintLoggerToRemoveSoon.println_err_2("7777777777777777777 mod.getFilename " + mod.getFileName());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("7777777777777777777 mod.getFilename " + mod.getFileName());
 			return null;
 		}
 
@@ -75,7 +68,7 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 
 		final String lang = getLang(mod);
 		if (lang == null) {
-			// 09/26 System.err.println("lang==null for " + mod.getFileName());
+			// 09/26 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("lang==null for " + mod.getFileName());
 			// throw new NotImplementedException();
 		}
 

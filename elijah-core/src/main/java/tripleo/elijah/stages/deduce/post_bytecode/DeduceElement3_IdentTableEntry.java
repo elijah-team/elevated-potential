@@ -54,7 +54,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 
 							for (EvaContainer.VarTableEntry entry : ((EvaContainerNC) result.getNode()).varTable) {
 								if (!entry.isResolved()) {
-									System.err.println("629 entry not resolved " + entry.nameToken);
+									tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("629 entry not resolved " + entry.nameToken);
 								}
 							}
 						});
@@ -500,14 +500,14 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 					var ci = pte.getClassInvocation();
 					var fi = pte.getFunctionInvocation();
 
-					// System.err.println("322 " + ci);
-					// System.err.println("323 " + fi);
+					// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("322 " + ci);
+					// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("323 " + fi);
 
 					if (dt2 != null) {
 						var pt = dt2._inj().new_DR_PossibleTypeCI(ci, fi);
 						b.addPossibleType(pt);
 					} else {
-						System.out.println("460460 Can't create PossibleType because dt2 == null");
+						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("460460 Can't create PossibleType because dt2 == null");
 					}
 
 					// deduceTypes2.deducePhase.reg
@@ -555,10 +555,10 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 											var pt2 = dt2._inj().new_DR_PossibleTypeCI(ci11, null);
 											b.addPossibleType(pt2);
 										} else {
-											System.out.println("460507 Can't create PossibleType because dt2 == null");
+											tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("460507 Can't create PossibleType because dt2 == null");
 										}
 									} else {
-										// System.err.println("364 " + principal.getIdent().getText());
+										// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("364 " + principal.getIdent().getText());
 									}
 								}
 							}

@@ -8,35 +8,26 @@
  */
 package tripleo.elijah.comp;
 
-import com.google.common.collect.Multimap;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal.CR_State;
-import tripleo.elijah.comp.nextgen.CP_Path;
-import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.g.GPipelineMember;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import com.google.common.collect.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
-import tripleo.elijah.util.io.CharSink;
-import tripleo.elijah.util.io.FileCharSink;
+import tripleo.elijah.util.io.*;
 
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+import java.io.*;
+import java.util.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
-import static tripleo.elijah.util.Helpers.String_join;
+import static tripleo.elijah.util.Helpers.*;
 
 /**
  * Created 9/13/21 11:58 PM
@@ -66,7 +57,7 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 	@Override
 	public void accept(final @NotNull Supplier<Old_GenerateResult> aGenerateResultSupplier) {
 		final GenerateResult gr = aGenerateResultSupplier.get();
-		// 08/13 System.err.println("WMP66 "+gr);
+		// 08/13 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("WMP66 "+gr);
 		grs = aGenerateResultSupplier;
 		int y = 2;
 	}
@@ -76,7 +67,7 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 			@Override
 			public void accept(final Supplier<Old_GenerateResult> aGenerateResultSupplier) {
 				if (grs != null) {
-					SimplePrintLoggerToRemoveSoon.println_err_2("234 grs not null " + grs.getClass().getName());
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("234 grs not null " + grs.getClass().getName());
 					return;
 				}
 
@@ -238,8 +229,8 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 
 			if (false) {
 				ppath1.getPathPromise().then(pp -> {
-					System.err.println("mkdirs 215 " + ppath1.toFile());
-					System.err.println("mkdirs 215b " + pp.toFile());
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 215 " + ppath1.toFile());
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 215b " + pp.toFile());
 					pp.toFile().mkdirs(); // README just in case -- but should be unnecessary at this point
 				});
 			}

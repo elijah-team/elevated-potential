@@ -123,14 +123,14 @@ public class core {
 
 	static @NotNull MalFunction prn = new MalFunction() {
 		public MalVal apply(final @NotNull MalList args) throws MalThrowable {
-			System.out.println(printer._pr_str_args(args, " ", true));
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(printer._pr_str_args(args, " ", true));
 			return Nil;
 		}
 	};
 
 	static @NotNull MalFunction println = new MalFunction() {
 		public MalVal apply(final @NotNull MalList args) throws MalThrowable {
-			System.out.println(printer._pr_str_args(args, " ", false));
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(printer._pr_str_args(args, " ", false));
 			return Nil;
 		}
 	};

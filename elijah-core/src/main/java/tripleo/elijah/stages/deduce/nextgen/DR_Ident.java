@@ -141,7 +141,7 @@ public abstract class DR_Ident implements DR_Item {
 	private void addElementUnderstanding(OS_Element x) {
 		addUnderstanding(new DR_IdentUnderstandings.ElementUnderstanding(x));
 //		addUnderstanding(__inj().new_DR_Ident_ElementUnderstanding(x));
-		// System.err.println("104 addElementUnderstanding %s %s".formatted(name(), x));
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("104 addElementUnderstanding %s %s".formatted(name(), x));
 	}
 
 	public void addPossibleType(final DR_PossibleType aPt) {
@@ -155,7 +155,7 @@ public abstract class DR_Ident implements DR_Item {
 	}
 
 	public void addUnderstanding(final @NotNull Understanding aUnderstanding) {
-		// System.err.println("*** 162 Understanding DR_Ident >> " + this.simplified() +
+		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("*** 162 Understanding DR_Ident >> " + this.simplified() +
 		// " " + aUnderstanding.asString());
 		u.add(aUnderstanding);
 	}
@@ -215,7 +215,7 @@ public abstract class DR_Ident implements DR_Item {
 
 			vteBl1.elementPromise((OS_Element x) -> {
 				addUnderstanding(new DR_IdentUnderstandings.ElementUnderstanding(x));
-//				System.err.println("-- [DR_Ident:104] addElementUnderstanding for vte " + x);
+//				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("-- [DR_Ident:104] addElementUnderstanding for vte " + x);
 			}, null);
 			return;
 		}

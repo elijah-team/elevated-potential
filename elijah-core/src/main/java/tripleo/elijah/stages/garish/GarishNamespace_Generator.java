@@ -28,9 +28,7 @@ public class GarishNamespace_Generator {
 		// TODO do we need `self' parameters for namespace?
 
 		if (!carrier.varTable.isEmpty()) { // TODO should we let this through?
-			// aResultSink.addNamespace_0(this, result.tos().getBuffer(),
-			// result.tosHdr().getBuffer());
-			aResultSink.addNamespace_1(aGarishNamespace, aGr, aGenerateC);
+			aResultSink.add(new GarishNamespace__addClass_1(aGarishNamespace, aGr, aGenerateC));
 		}
 
 		generatedAlready = true;

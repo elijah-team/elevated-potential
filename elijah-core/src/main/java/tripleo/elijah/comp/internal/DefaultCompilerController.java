@@ -1,13 +1,13 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.ICompilationRunner;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.util.*;
 
-import java.util.List;
+import java.util.*;
 
 public class DefaultCompilerController implements CompilerController {
 	List<String>        args;
@@ -23,7 +23,7 @@ public class DefaultCompilerController implements CompilerController {
 
 	@Override
 	public void printUsage() {
-		SimplePrintLoggerToRemoveSoon.println_out_2("Usage: eljc [--showtree] [-sE|O] <directory or .ez file names>");
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("Usage: eljc [--showtree] [-sE|O] <directory or .ez file names>");
 	}
 
 	@Override
@@ -80,6 +80,8 @@ public class DefaultCompilerController implements CompilerController {
 //		}
 
 		((DefaultCompilationBus) cb).runProcesses();
+
+		c.getFluffy().checkFinishEventuals();
 	}
 
 	public class _DefaultCon implements Con {
