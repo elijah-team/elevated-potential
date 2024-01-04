@@ -3,7 +3,8 @@ package tripleo.elijah.comp.nextgen;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.IO_;
+import tripleo.elijah.comp.StdErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.factory.comp.CompilationFactory;
 
@@ -18,7 +19,7 @@ public class CP_SubFileTest {
 		op.testShim();
 		op.signalCalculateFinishParse();
 
-		var sf = op.child("foo");
+		CP_Path sf = op.child("foo");
 		assertEquals("COMP/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855/<date>/foo",
 				"" + sf.getPath());
 
