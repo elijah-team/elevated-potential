@@ -1,22 +1,23 @@
 package tripleo.elijah.comp.internal;
 
-//import lombok.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
+import lombok.Getter;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.util.Operation;
 
-import java.util.*;
+import java.util.List;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	static                 boolean              started;
 	private final          CompilationRunner    compilationRunner;
 	private final          CompilerInstructions rootCI;
 	private final @NotNull IPipelineAccess pa;
-//	@Getter
+	@Getter
 	final CB_Output o;
 
 	@Contract(pure = true)

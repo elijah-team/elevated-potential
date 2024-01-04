@@ -6,6 +6,7 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.impl.CC_SetSilent;
 import tripleo.elijah.comp.internal_move_soon.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -161,19 +162,13 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 	}
 
-	@Override
-	public CompilerDriver getCompilerDriver() {
-		// TODO Auto-generated method stub
-		return compilerDriver;
-	}
-
-	//@Override // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+	@Override // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 	public void addCompilerChange(Class<?> class1) {
 		if (class1.isInstance(CompilationChange.class)) {
 			try {
-				final CompilationChange compilationChange = (CompilationChange) class1.newInstance();
+				final CompilationChange compilationChange = (CompilationChange) class1.getDeclaredConstructor(new Class[]{}).newInstance();
 				c.getCompilationEnclosure().getCompilationBus().option(compilationChange);
-			} catch (InstantiationException | IllegalAccessException e) {
+			} catch (InstantiationException | IllegalAccessException |InvocationTargetException | NoSuchMethodException e) {
 				throw new Error();
 			}
 		}

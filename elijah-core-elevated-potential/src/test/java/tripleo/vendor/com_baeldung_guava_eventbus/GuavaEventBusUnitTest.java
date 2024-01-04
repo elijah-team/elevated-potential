@@ -3,11 +3,12 @@ package tripleo.vendor.com_baeldung_guava_eventbus;
 import com.google.common.eventbus.EventBus;
 
 import tripleo.elijah.nextgen.comp_model.CM_UleLog;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+//import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

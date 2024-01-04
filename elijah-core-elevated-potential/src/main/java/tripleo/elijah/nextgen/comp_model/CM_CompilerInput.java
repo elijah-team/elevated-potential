@@ -1,22 +1,22 @@
 package tripleo.elijah.nextgen.comp_model;
 
+//import tripleo.elijah.UnintendedUseException;
+
 import com.google.common.base.MoreObjects;
-import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.ILazyCompilerInstructions_;
 import tripleo.elijah.util.Maybe;
-
 import tripleo.wrap.File;
 
 public class CM_CompilerInput implements EOT_Nameable {
 	private final CompilationImpl comp;
-	private final CompilerInput carrier;
-	private String inp;
+	private final CompilerInput   carrier;
+	private       String          inp;
 	private CompilerInput.Ty ty;
 	private File dir_carrier;
-	private String hash;
+	private String                           hash;
 	private Maybe<ILazyCompilerInstructions> accept_ci;
 
 	public CM_CompilerInput(final CompilerInput aCompilerInput, final CompilationImpl aCompilation) {

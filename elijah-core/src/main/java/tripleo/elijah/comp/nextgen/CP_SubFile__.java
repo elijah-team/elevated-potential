@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tripleo.elijah.comp.IO;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
 

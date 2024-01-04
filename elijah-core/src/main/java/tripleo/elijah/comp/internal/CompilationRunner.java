@@ -1,6 +1,6 @@
 package tripleo.elijah.comp.internal;
 
-//import lombok.*;
+import lombok.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
@@ -20,9 +20,9 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	public final @NotNull  EzCache                         ezCache;
 	private final @NotNull Compilation                     _compilation;
 	private final @NotNull ICompilationBus                 cb;
-//	@Getter
+	@Getter
 	private final @NotNull CR_State                        crState;
-//	@Getter
+	@Getter
 	private final @NotNull IProgressSink                   progressSink;
 	private /*@NotNull*/   CB_StartCompilationRunnerAction startAction;
 

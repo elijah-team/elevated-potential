@@ -65,7 +65,7 @@ public class GM_GenerateModule {
 //		return new GenerateResultEnv(aResultSink, gr1, wm, new WorkList__() /* tautology */, this);
 //	}
 	
-	public void logProgress(int code, String messgae) {
+	public void logProgress(int code, String message) {
 		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(""+code+" " + message);
 	}
 }

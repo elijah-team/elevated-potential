@@ -26,10 +26,9 @@ import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
 import tripleo.elijah.comp.impl.LCM_Event_RootCI;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.nextgen.CPX_CalculateFinishParse;
-import tripleo.elijah.comp.nextgen.CP_OutputPath;
-import tripleo.elijah.comp.nextgen.CP_Paths;
 import tripleo.elijah.comp.nextgen.CP_Paths__;
+import tripleo.elijah.comp.nextgen.i.CPX_CalculateFinishParse;
+import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
 import tripleo.elijah.comp.nextgen.pw.PW_Controller;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
@@ -315,11 +314,6 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@Override
 	public void setRootCI(CompilerInstructions rootCI) {
 		//cci_listener.id.root = rootCI;
-	}
-
-	@Override
-	public int instructionCount() {
-		throw new UnintendedUseException();
 	}
 
 	@Override

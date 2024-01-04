@@ -1,7 +1,6 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.graph;
 
 import org.apache.commons.lang3.tuple.Triple;
-
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.i.Asseverate;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;

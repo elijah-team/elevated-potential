@@ -12,8 +12,9 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.IO_;
 import tripleo.elijah.comp.nextgen.CP_OutputPath;
-import tripleo.elijah.comp.nextgen.CP_Path;
+
 import tripleo.elijah.comp.nextgen.CP_SubFile__;
+import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.wrap.File;
 
 import static org.apache.commons.codec.digest.MessageDigestAlgorithms.SHA_256;

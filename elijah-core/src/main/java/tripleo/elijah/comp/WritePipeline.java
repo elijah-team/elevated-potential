@@ -13,13 +13,12 @@ import com.google.common.collect.Multimap;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
+import lombok.Getter;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.AccessBus.AB_GenerateResultListener;
-import tripleo.elijah.comp.graph.i.CK_Action;
-import tripleo.elijah.comp.graph.i.CK_Monitor;
-import tripleo.elijah.comp.graph.i.CK_Steps;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.CR_State;
@@ -46,7 +45,9 @@ import static tripleo.elijah.util.Helpers.*;
  * Created 8/21/21 10:19 PM
  */
 public class WritePipeline extends PipelineMember implements Consumer<Supplier<GenerateResult>>, AB_GenerateResultListener, GPipelineMember {
+	@Getter
 	private final          DeferredObject<GenerateResult, Void, Void> generateResultPromise = new DeferredObject<>();
+	@Getter
 	private final @NotNull WritePipelineSharedState                   st;
 	private final @NotNull CompletedItemsHandler                      cih;
 	private final @NotNull DoubleLatch<GenerateResult> latch;
@@ -166,22 +167,14 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 		gr1.subscribeCompletedItems(cih.observer());
 	}
 
-	//@Override
-	public void run(final CR_State aSt, final CB_Output aOutput) throws Exception {
+	@Override
+	public void run(final CR_State aSt, final CB_Output aOutput) {
 		latch.notifyLatch(true);
 	}
 
 	@Override
 	public String finishPipeline_asString() {
 		return this.getClass().toString();
-	}
-
-	public DeferredObject<GenerateResult, Void, Void> getGenerateResultPromise() {
-		return generateResultPromise;
-	}
-
-	public WritePipelineSharedState getSt() {
-		return st;
 	}
 
 	private static class CompletedItemsHandler {

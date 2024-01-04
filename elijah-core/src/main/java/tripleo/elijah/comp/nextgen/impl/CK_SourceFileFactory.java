@@ -3,10 +3,11 @@ package tripleo.elijah.comp.nextgen.impl;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.i.CK_SourceFile;
-import tripleo.elijah.comp.nextgen.CP_Path;
+import tripleo.elijah.comp.nextgen.i.CP_Path;
 
+// TODO 24/01/04 CM_Factory??
 @SuppressWarnings("rawtypes")
-public class CK_SourceFileFactory {
+public enum CK_SourceFileFactory { ;
 	public static CK_SourceFile get(final tripleo.wrap.File aFile, final K aK) {
 		switch (aK) {
 		case SpecifiedEzFile -> {return new CK_SourceFile__SpecifiedEzFile(aFile);}

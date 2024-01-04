@@ -63,6 +63,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 				})
 				.findFirst() // README here too
 //				.orElse(null);
+				.flatMap(x->x)
 				;
 //		if (genLang == null) return null;
 		if (genLang.isPresent())

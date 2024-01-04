@@ -4,6 +4,7 @@ import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.nextgen.outputstatement.*;
 
 import java.util.*;
@@ -17,7 +18,7 @@ class MesonFile implements EG_Statement {
 	private final String aSub_dir;
 	private final Multimap<CompilerInstructions, String> lsp_outputs;
 	private final CompilerInstructions compilerInstructions;
-	private final CP_Path path;
+	private final CP_Path              path;
 
 	MesonFile(final WriteMesonPipeline aWriteMesonPipeline, final String aASubDir,
 			final Multimap<CompilerInstructions, String> aLspOutputs, final CompilerInstructions aCompilerInstructions,

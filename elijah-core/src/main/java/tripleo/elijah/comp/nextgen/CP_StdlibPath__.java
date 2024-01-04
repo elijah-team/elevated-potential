@@ -7,6 +7,7 @@ import tripleo.elijah.EventualRegister;
 import tripleo.elijah.comp.Compilation;
 
 import tripleo.elijah.comp.IO;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
 

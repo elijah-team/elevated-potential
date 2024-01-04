@@ -1,8 +1,7 @@
 package tripleo.elijah.compiler_model;
 
-import triepl.wrap.File;
-import java.io.IOException;
 import java.util.Objects;
+import tripleo.wrap.File;
 
 public interface CM_Filename {
 	String getString();

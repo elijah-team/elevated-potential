@@ -7,7 +7,7 @@ import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.comp.nextgen.i.CPX_CalculateFinishParse;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.nextgen.ER_Node;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.util.Helpers;
