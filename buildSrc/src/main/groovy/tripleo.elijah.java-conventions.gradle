@@ -41,7 +41,7 @@ dependencies {
 
     api 'org.apache.commons:commons-lang3:3.12.0'
     api 'org.slf4j:slf4j-simple:2.0.7'
-    api 'org.slf4j:slf4j-api:2.0.7'
+    api 'org.slf4j:slf4j-api:2.0.10'
     api 'org.jdeferred.v2:jdeferred-core:2.0.0'
 
     api 'com.github.spotbugs:spotbugs-annotations:4.7.3'
