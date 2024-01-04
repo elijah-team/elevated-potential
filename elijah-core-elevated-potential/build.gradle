@@ -1,0 +1,84 @@
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+plugins {
+  id 'tripleo.elijah.java-conventions'
+//    id 'org.openjfx.javafxplugin' version '0.0.13'
+
+//  id "io.freefair.lombok" version "8.3"
+  id "io.ktor.plugin" version "2.3.4"
+
+  id "org.xtext.xtend" version "4.0.0"
+}
+
+repositories {
+  gradlePluginPortal()
+//    maven {url "https://plugins.gradle.org/m2"}
+  mavenCentral()
+  mavenLocal()
+//  flatDir {
+//    dirs '../lib2/', './lib2/'
+//  }
+}
+
+dependencies {
+//    implementation 'eu.mihosoft.monacofx:monacofx:0.0.8'
+
+
+//  implementation files( '../lib2/myapp-0.0.1-standalone.jar')
+
+  implementation 'org.clojure:clojure:1.10.3'
+  implementation 'org.clojure:core.specs.alpha:0.2.56'
+  implementation 'org.clojure:spec.alpha:0.2.194'
+
+
+  implementation 'tripleo.elijah:elijah-core-api:2023.elevated-potential.7d'
+
+//  implementation 'tripleo.elijah:elijah-util:2023.elevated-potential.2b'
+//  implementation 'tripleo.elijah:elijah-ek:2023.elevated-potential.2'
+//  implementation 'tripleo.elijah:tripleo.small:2023.elevated-potential.2'
+//  implementation 'tripleo.elijah:tripleo.elijah.reactive:2023.elevated-potential.2'
+//  implementation 'tripleo.elijah:tripleo.elijah.stateful:2023.elevated-potential.2'
+//  implementation 'tripleo.elijah:elijah-nextgen-outputstatement:2023.elevated-potential.3b'
+
+  api 'io.reactivex.rxjava3:rxjava:3.1.8'
+  api 'org.reactivestreams:reactive-streams:1.0.4'
+  api 'commons-codec:commons-codec:1.15'
+  api 'antlr:antlr:2.7.7'
+
+  testRuntimeOnly    'org.junit.jupiter:junit-jupiter-engine:5.10.1'
+//  testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.1'
+  testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.1'
+  testImplementation "org.assertj:assertj-core:3.24.2"
+
+  // http://xtext.github.io/xtext-gradle-plugin/xtend.html
+  // https://stackoverflow.com/questions/23796404/could-not-find-method-compile-for-arguments-gradle
+  implementation 'org.eclipse.xtend:org.eclipse.xtend.lib:2.30.0'
+}
+
+test {
+  useJUnitPlatform()
+}
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
+}
+
+application {
+  mainClass.set("tripleo.elijah.Main")
+}
+
+ktor {
+  fatJar {
+    def localDateTime = LocalDateTime.now()
+    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss");
+    final String date = formatter.format(localDateTime); // 15-02-2022 12:43
+    def jarname = "fat" + date + ".jar"
+    archiveFileName.set(jarname)
+  }
+}
+
+description = 'elijah-core'
+version = 'elevated-potential.2023.5'
