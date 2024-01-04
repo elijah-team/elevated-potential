@@ -7,107 +7,107 @@ import java.util.*;
 
 public interface StandardJavaFileManager extends JavaFileManager {
 
-    @Override
-    boolean isSameFile(FileObject a, FileObject b);
+	@Override
+	boolean isSameFile(FileObject a, FileObject b);
 
-    Iterable<? extends JavaFileObject> getJavaFileObjectsFromFiles(
-        Iterable<? extends File> files);
+	@Deprecated(since = "13")
+	default Iterable<? extends JavaFileObject> getJavaFileObjectsFromPaths(
+			Iterable<? extends Path> paths) {
+		return getJavaFileObjectsFromPaths(asCollection(paths));
+	}
 
-    default Iterable<? extends JavaFileObject> getJavaFileObjectsFromPaths(
-            Collection<? extends Path> paths) {
-        return getJavaFileObjectsFromFiles(asFiles(paths));
-    }
+	default Iterable<? extends JavaFileObject> getJavaFileObjectsFromPaths(
+			Collection<? extends Path> paths) {
+		return getJavaFileObjectsFromFiles(asFiles(paths));
+	}
 
-    @Deprecated(since = "13")
-    default Iterable<? extends JavaFileObject> getJavaFileObjectsFromPaths(
-            Iterable<? extends Path> paths) {
-        return getJavaFileObjectsFromPaths(asCollection(paths));
-    }
+	private static <T> Collection<T> asCollection(Iterable<T> iterable) {
+		if (iterable instanceof Collection) {
+			return (Collection<T>) iterable;
+		}
+		List<T> result = new ArrayList<>();
+		for (T item : iterable) result.add(item);
+		return result;
+	}
 
-    Iterable<? extends JavaFileObject> getJavaFileObjects(File... files);
+	Iterable<? extends JavaFileObject> getJavaFileObjectsFromFiles(
+			Iterable<? extends File> files);
 
-    default Iterable<? extends JavaFileObject> getJavaFileObjects(Path... paths) {
-        return getJavaFileObjectsFromPaths(Arrays.asList(paths));
-    }
+	private static Iterable<File> asFiles(final Iterable<? extends Path> paths) {
+		return () -> new Iterator<>() {
+			final Iterator<? extends Path> iter = paths.iterator();
 
-    Iterable<? extends JavaFileObject> getJavaFileObjectsFromStrings(
-        Iterable<String> names);
+			@Override
+			public boolean hasNext() {
+				return iter.hasNext();
+			}
 
-    Iterable<? extends JavaFileObject> getJavaFileObjects(String... names);
+			@Override
+			public File next() {
+				Path p = iter.next();
+				try {
+					return p.toFile();
+				} catch (UnsupportedOperationException e) {
+					throw new IllegalArgumentException(p.toString(), e);
+				}
+			}
+		};
+	}
 
-    void setLocation(Location location, Iterable<? extends File> files)
-        throws IOException;
+	Iterable<? extends JavaFileObject> getJavaFileObjects(File... files);
 
-    default void setLocationFromPaths(Location location, Collection<? extends Path> paths)
-            throws IOException {
-        setLocation(location, asFiles(paths));
-    }
+	default Iterable<? extends JavaFileObject> getJavaFileObjects(Path... paths) {
+		return getJavaFileObjectsFromPaths(Arrays.asList(paths));
+	}
 
-    default void setLocationForModule(Location location, String moduleName,
-            Collection<? extends Path> paths) throws IOException {
-        throw new UnsupportedOperationException();
-    }
+	Iterable<? extends JavaFileObject> getJavaFileObjectsFromStrings(
+			Iterable<String> names);
 
-    Iterable<? extends File> getLocation(Location location);
+	Iterable<? extends JavaFileObject> getJavaFileObjects(String... names);
 
-    default Iterable<? extends Path> getLocationAsPaths(Location location) {
-        return asPaths(getLocation(location));
-    }
+	default void setLocationFromPaths(Location location, Collection<? extends Path> paths)
+	throws IOException {
+		setLocation(location, asFiles(paths));
+	}
 
-    default Path asPath(FileObject file) {
-        throw new UnsupportedOperationException();
-    }
+	void setLocation(Location location, Iterable<? extends File> files)
+	throws IOException;
 
-    interface PathFactory {
-        Path getPath(String first, String... more);
-    }
+	default void setLocationForModule(Location location, String moduleName,
+									  Collection<? extends Path> paths) throws IOException {
+		throw new UnsupportedOperationException();
+	}
 
-     default void setPathFactory(PathFactory f) { }
+	default Iterable<? extends Path> getLocationAsPaths(Location location) {
+		return asPaths(getLocation(location));
+	}
 
+	private static Iterable<Path> asPaths(final Iterable<? extends File> files) {
+		return () -> new Iterator<>() {
+			final Iterator<? extends File> iter = files.iterator();
 
-    private static Iterable<Path> asPaths(final Iterable<? extends File> files) {
-        return () -> new Iterator<>() {
-            final Iterator<? extends File> iter = files.iterator();
+			@Override
+			public boolean hasNext() {
+				return iter.hasNext();
+			}
 
-            @Override
-            public boolean hasNext() {
-                return iter.hasNext();
-            }
+			@Override
+			public Path next() {
+				return iter.next().toPath();
+			}
+		};
+	}
 
-            @Override
-            public Path next() {
-                return iter.next().toPath();
-            }
-        };
-    }
+	Iterable<? extends File> getLocation(Location location);
 
-    private static Iterable<File> asFiles(final Iterable<? extends Path> paths) {
-        return () -> new Iterator<>() {
-            final Iterator<? extends Path> iter = paths.iterator();
+	default Path asPath(FileObject file) {
+		throw new UnsupportedOperationException();
+	}
 
-            @Override
-            public boolean hasNext() {
-                return iter.hasNext();
-            }
+	default void setPathFactory(PathFactory f) {
+	}
 
-            @Override
-            public File next() {
-                Path p = iter.next();
-                try {
-                    return p.toFile();
-                } catch (UnsupportedOperationException e) {
-                    throw new IllegalArgumentException(p.toString(), e);
-                }
-            }
-        };
-    }
-
-    private static <T> Collection<T> asCollection(Iterable<T> iterable) {
-        if (iterable instanceof Collection) {
-            return (Collection<T>) iterable;
-        }
-        List<T> result = new ArrayList<>();
-        for (T item : iterable) result.add(item);
-        return result;
-    }
+	interface PathFactory {
+		Path getPath(String first, String... more);
+	}
 }

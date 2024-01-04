@@ -6,48 +6,50 @@ import java.util.Locale;
 import java.util.concurrent.Callable;
 
 public interface DocumentationTool extends Tool, OptionChecker {
-    DocumentationTask getTask(Writer out,
-                            JavaFileManager fileManager,
-                            DiagnosticListener<? super JavaFileObject> diagnosticListener,
-                            Class<?> docletClass,
-                            Iterable<String> options,
-                            Iterable<? extends JavaFileObject> compilationUnits);
+	DocumentationTask getTask(Writer out,
+							  JavaFileManager fileManager,
+							  DiagnosticListener<? super JavaFileObject> diagnosticListener,
+							  Class<?> docletClass,
+							  Iterable<String> options,
+							  Iterable<? extends JavaFileObject> compilationUnits);
 
-    StandardJavaFileManager getStandardFileManager(
-        DiagnosticListener<? super JavaFileObject> diagnosticListener,
-        Locale locale,
-        Charset charset);
+	StandardJavaFileManager getStandardFileManager(
+			DiagnosticListener<? super JavaFileObject> diagnosticListener,
+			Locale locale,
+			Charset charset);
 
-    interface DocumentationTask extends Callable<Boolean> {
-        void addModules(Iterable<String> moduleNames);
+	enum Location implements JavaFileManager.Location {
+		DOCUMENTATION_OUTPUT,
 
-        void setLocale(Locale locale);
+		DOCLET_PATH,
 
-        @Override
-        Boolean call();
-    }
+		TAGLET_PATH,
 
-    enum Location implements JavaFileManager.Location {
-        DOCUMENTATION_OUTPUT,
+		SNIPPET_PATH;
 
-        DOCLET_PATH,
-
-        TAGLET_PATH,
-
-        SNIPPET_PATH;
-
-        @Override
-		public String getName() { return name(); }
-
-        @Override
+		@Override
 		public boolean isOutputLocation() {
-            switch (this) {
-                case DOCUMENTATION_OUTPUT:
-                    return true;
-                default:
-                    return false;
-            }
-        }
-    }
+			switch (this) {
+			case DOCUMENTATION_OUTPUT:
+				return true;
+			default:
+				return false;
+			}
+		}
+
+		@Override
+		public String getName() {
+			return name();
+		}
+	}
+
+	interface DocumentationTask extends Callable<Boolean> {
+		void addModules(Iterable<String> moduleNames);
+
+		void setLocale(Locale locale);
+
+		@Override
+		Boolean call();
+	}
 
 }

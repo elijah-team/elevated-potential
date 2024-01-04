@@ -7,12 +7,12 @@ import java.io.OutputStream;
 import java.util.Set;
 
 public interface Tool {
-    default String name() {
-        return "";
-    }
+	default String name() {
+		return "";
+	}
 
-    int run(InputStream in, OutputStream out, OutputStream err, String... arguments);
+	int run(InputStream in, OutputStream out, OutputStream err, String... arguments);
 
-    Set<SourceVersion> getSourceVersions();
+	Set<SourceVersion> getSourceVersions();
 
 }

@@ -7,106 +7,106 @@ import static javax.tools.JavaFileObject.Kind;
 
 public interface JavaFileManager extends Closeable, Flushable, OptionChecker {
 
-    interface Location {
-        String getName();
+	ClassLoader getClassLoader(Location location);
 
-        boolean isOutputLocation();
+	Iterable<JavaFileObject> list(Location location,
+								  String packageName,
+								  Set<Kind> kinds,
+								  boolean recurse)
+	throws IOException;
 
-        default boolean isModuleOrientedLocation() {
-            return getName().matches("\\bMODULE\\b");
-        }
-    }
+	String inferBinaryName(Location location, JavaFileObject file);
 
-    ClassLoader getClassLoader(Location location);
+	boolean isSameFile(FileObject a, FileObject b);
 
-    Iterable<JavaFileObject> list(Location location,
-                                  String packageName,
-                                  Set<Kind> kinds,
-                                  boolean recurse)
-        throws IOException;
+	boolean handleOption(String current, Iterator<String> remaining);
 
-    String inferBinaryName(Location location, JavaFileObject file);
+	boolean hasLocation(Location location);
 
-    boolean isSameFile(FileObject a, FileObject b);
+	JavaFileObject getJavaFileForInput(Location location,
+									   String className,
+									   Kind kind)
+	throws IOException;
 
-    boolean handleOption(String current, Iterator<String> remaining);
+	default JavaFileObject getJavaFileForOutputForOriginatingFiles(Location location,
+																   String className,
+																   Kind kind,
+																   FileObject... originatingFiles)
+	throws IOException {
+		return getJavaFileForOutput(location, className, kind, siblingFrom(originatingFiles));
+	}
 
-    boolean hasLocation(Location location);
+	JavaFileObject getJavaFileForOutput(Location location,
+										String className,
+										Kind kind,
+										FileObject sibling)
+	throws IOException;
 
-    JavaFileObject getJavaFileForInput(Location location,
-                                       String className,
-                                       Kind kind)
-        throws IOException;
+	private static FileObject siblingFrom(FileObject[] originatingFiles) {
+		return originatingFiles != null && originatingFiles.length > 0 ? originatingFiles[0] : null;
+	}
 
-    JavaFileObject getJavaFileForOutput(Location location,
-                                        String className,
-                                        Kind kind,
-                                        FileObject sibling)
-        throws IOException;
+	FileObject getFileForInput(Location location,
+							   String packageName,
+							   String relativeName)
+	throws IOException;
 
-    default JavaFileObject getJavaFileForOutputForOriginatingFiles(Location location,
-                                        String className,
-                                        Kind kind,
-                                        FileObject... originatingFiles)
-        throws IOException {
-        return getJavaFileForOutput(location, className, kind, siblingFrom(originatingFiles));
-    }
+	default FileObject getFileForOutputForOriginatingFiles(Location location,
+														   String packageName,
+														   String relativeName,
+														   FileObject... originatingFiles)
+	throws IOException {
+		return getFileForOutput(location, packageName, relativeName, siblingFrom(originatingFiles));
+	}
 
-    FileObject getFileForInput(Location location,
-                               String packageName,
-                               String relativeName)
-        throws IOException;
+	FileObject getFileForOutput(Location location,
+								String packageName,
+								String relativeName,
+								FileObject sibling)
+	throws IOException;
 
-    FileObject getFileForOutput(Location location,
-                                String packageName,
-                                String relativeName,
-                                FileObject sibling)
-        throws IOException;
+	@Override
+	void flush() throws IOException;
 
-    default FileObject getFileForOutputForOriginatingFiles(Location location,
-                                String packageName,
-                                String relativeName,
-                                FileObject... originatingFiles)
-        throws IOException {
-        return getFileForOutput(location, packageName, relativeName, siblingFrom(originatingFiles));
-    }
+	@Override
+	void close() throws IOException;
 
-    @Override
-    void flush() throws IOException;
+	// TODO: describe failure modes
+	default Location getLocationForModule(Location location, String moduleName) throws IOException {
+		throw new UnsupportedOperationException();
+	}
 
-    @Override
-    void close() throws IOException;
+	default Location getLocationForModule(Location location, JavaFileObject fo) throws IOException {
+		throw new UnsupportedOperationException();
+	}
 
-    // TODO: describe failure modes
-    default Location getLocationForModule(Location location, String moduleName) throws IOException {
-        throw new UnsupportedOperationException();
-    }
+	// TODO: describe failure modes
+	default <S> ServiceLoader<S> getServiceLoader(Location location, Class<S> service) throws IOException {
+		throw new UnsupportedOperationException();
+	}
 
-    default Location getLocationForModule(Location location, JavaFileObject fo) throws IOException {
-        throw new UnsupportedOperationException();
-    }
+	// TODO: describe failure modes
+	default String inferModuleName(Location location) throws IOException {
+		throw new UnsupportedOperationException();
+	}
 
-    // TODO: describe failure modes
-    default <S> ServiceLoader<S> getServiceLoader(Location location, Class<S> service) throws  IOException {
-        throw new UnsupportedOperationException();
-    }
+	// TODO: describe failure modes
+	default Iterable<Set<Location>> listLocationsForModules(Location location) throws IOException {
+		throw new UnsupportedOperationException();
+	}
 
-    // TODO: describe failure modes
-    default String inferModuleName(Location location) throws IOException {
-        throw new UnsupportedOperationException();
-    }
+	default boolean contains(Location location, FileObject fo) throws IOException {
+		throw new UnsupportedOperationException();
+	}
 
-    // TODO: describe failure modes
-    default Iterable<Set<Location>> listLocationsForModules(Location location) throws IOException {
-        throw new UnsupportedOperationException();
-    }
+	interface Location {
+		boolean isOutputLocation();
 
-    default boolean contains(Location location, FileObject fo) throws IOException {
-        throw new UnsupportedOperationException();
-    }
+		default boolean isModuleOrientedLocation() {
+			return getName().matches("\\bMODULE\\b");
+		}
 
-    private static FileObject siblingFrom(FileObject[] originatingFiles) {
-        return originatingFiles != null && originatingFiles.length > 0 ? originatingFiles[0] : null;
-    }
+		String getName();
+	}
 
 }

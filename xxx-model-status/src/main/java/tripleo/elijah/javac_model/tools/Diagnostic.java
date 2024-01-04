@@ -4,31 +4,31 @@ import java.util.Locale;
 
 public interface Diagnostic<S> {
 
-    enum Kind {
-        ERROR,
-        WARNING,
-        MANDATORY_WARNING,
-        NOTE,
-        OTHER,
-    }
+	long NOPOS = -1;
 
-    long NOPOS = -1;
+	Kind getKind();
 
-    Kind getKind();
+	S getSource();
 
-    S getSource();
+	long getPosition();
 
-    long getPosition();
+	long getStartPosition();
 
-    long getStartPosition();
+	long getEndPosition();
 
-    long getEndPosition();
+	long getLineNumber();
 
-    long getLineNumber();
+	long getColumnNumber();
 
-    long getColumnNumber();
+	String getCode();
 
-    String getCode();
+	String getMessage(Locale locale);
 
-    String getMessage(Locale locale);
+	enum Kind {
+		ERROR,
+		WARNING,
+		MANDATORY_WARNING,
+		NOTE,
+		OTHER,
+	}
 }

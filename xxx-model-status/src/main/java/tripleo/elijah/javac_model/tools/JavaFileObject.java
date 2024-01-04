@@ -7,26 +7,27 @@ import java.util.Objects;
 
 public interface JavaFileObject extends FileObject {
 
-    enum Kind {
-        SOURCE(".java"),
+	Kind getKind();
 
-        CLASS(".class"),
+	boolean isNameCompatible(String simpleName, Kind kind);
 
-        HTML(".html"),
+	NestingKind getNestingKind();
 
-        OTHER("");
-        public final String extension;
-        Kind(String extension) {
-            this.extension = Objects.requireNonNull(extension);
-        }
-    }
+	Modifier getAccessLevel();
 
-    Kind getKind();
+	enum Kind {
+		SOURCE(".java"),
 
-    boolean isNameCompatible(String simpleName, Kind kind);
+		CLASS(".class"),
 
-    NestingKind getNestingKind();
+		HTML(".html"),
 
-    Modifier getAccessLevel();
+		OTHER("");
+		public final String extension;
+
+		Kind(String extension) {
+			this.extension = Objects.requireNonNull(extension);
+		}
+	}
 
 }

@@ -5,22 +5,22 @@ import java.net.URI;
 
 public interface FileObject {
 
-    URI toUri();
+	URI toUri();
 
-    String getName();
+	String getName();
 
-    InputStream openInputStream() throws IOException;
+	InputStream openInputStream() throws IOException;
 
-    OutputStream openOutputStream() throws IOException;
+	OutputStream openOutputStream() throws IOException;
 
-    Reader openReader(boolean ignoreEncodingErrors) throws IOException;
+	Reader openReader(boolean ignoreEncodingErrors) throws IOException;
 
-    CharSequence getCharContent(boolean ignoreEncodingErrors) throws IOException;
+	CharSequence getCharContent(boolean ignoreEncodingErrors) throws IOException;
 
-    Writer openWriter() throws IOException;
+	Writer openWriter() throws IOException;
 
-    long getLastModified();
+	long getLastModified();
 
-    boolean delete();
+	boolean delete();
 
 }
