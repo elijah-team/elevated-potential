@@ -345,14 +345,14 @@
 
 
 
-<!--								<source>../elijah-core-api/dlog/src/main/java</source>-->
-<!--								<source>../elijah-core-api/elijah-core-api/src/main/java</source>-->
-<!--								<source>../elijah-core-api/elijah-ek/src/main/java</source>-->
-<!--								<source>../elijah-core-api/elijah-nextgen-outputstatement/src/main/java</source>-->
-<!--								<source>../elijah-core-api/elijah-stateful/src/main/java</source>-->
-<!--								<source>../elijah-core-api/elijah-util/src/main/java</source>-->
-<!--								<source>../elijah-core-api/tripleo-reactive/src/main/java</source>-->
-<!--								<source>../elijah-core-api/tripleo-small/src/main/java</source>-->
+								<source>../elijah-core-api/dlog/src/main/java</source>
+								<source>../elijah-core-api/elijah-core-api/src/main/java</source>
+								<source>../elijah-core-api/elijah-ek/src/main/java</source>
+								<source>../elijah-core-api/elijah-nextgen-outputstatement/src/main/java</source>
+								<source>../elijah-core-api/elijah-stateful/src/main/java</source>
+								<source>../elijah-core-api/elijah-util/src/main/java</source>
+								<source>../elijah-core-api/tripleo-reactive/src/main/java</source>
+								<source>../elijah-core-api/tripleo-small/src/main/java</source>
 
 
 								<!--
