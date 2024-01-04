@@ -44,7 +44,7 @@ dependencies {
     api 'org.slf4j:slf4j-api:2.0.7'
     api 'org.jdeferred.v2:jdeferred-core:2.0.0'
 
-    api 'com.github.spotbugs:spotbugs-annotations:4.7.3'
+    api 'com.github.spotbugs:spotbugs-annotations:4.8.3'
     api 'com.google.guava:guava:32.0.0-jre'
 
     api 'tripleo.buffers:buffers-v1:0.0.3'
