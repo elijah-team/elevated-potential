@@ -4,12 +4,11 @@
  * The contents of this library are released under the LGPL licence v3,
  * the GNU Lesser General Public License text was downloaded from
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
  */
 package tripleo.elijah.ci_impl;
 
 import antlr.*;
-//import lombok.*;
+import lombok.*;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
@@ -19,6 +18,7 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
 import tripleo.wrap.File;
+
 import java.util.*;
 
 /**
@@ -29,9 +29,9 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	private         CiIndexingStatement        _idx;
 	private         String                     filename;
 	private         GenerateStatement          gen;
-//	@Getter
+	@Getter @Setter
 	private         String                     name;
-	private CompilerInput advised;
+	private         CompilerInput              advised;
 
 	@Override
 	public void add(final GenerateStatement generateStatement) {
@@ -47,14 +47,13 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public @Nullable String genLang() {
-		@SuppressWarnings("UnnecessaryLocalVariable")
-		final Optional<String> genLang = gen.dirStream()
+		@SuppressWarnings("UnnecessaryLocalVariable") final Optional<String> genLang = gen.dirStream()
 				.filter(input -> input.sameName("gen"))
 				.findAny() // README if you need more than one, comment this out
 				.stream().map((gin0) -> {
-					final Directive gin = (Directive) gin0;
+					final Directive   gin      = (Directive) gin0;
 					final IExpression lang_raw = gin.getExpression();
-					
+
 					if (lang_raw instanceof final StringExpression langRaw) {
 						final String s = Helpers.remove_single_quotes_from_string(langRaw.getText());
 						return Optional.of(s);
@@ -63,10 +62,13 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 					}
 				})
 				.findFirst() // README here too
-				.orElse(null);
-
-		if (genLang == null) return null;
-		return genLang.get();
+//				.orElse(null);
+				;
+//		if (genLang == null) return null;
+		if (genLang.isPresent())
+			return genLang.get();
+		else return null;
+// README 12/30 ewhynot just return the Optional??
 	}
 
 	@Override
@@ -80,19 +82,36 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	}
 
 	@Override
+	public void setName(final String name) {
+
+	}
+
+	@Override
+	public void setName(final Token name) {
+
+	}
+
+	@Override
 	public Iterable<? extends LibraryStatementPart> getLibraryStatementParts() {
 		return lsps;
 	}
 
-	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
+	//@Override
+	//public void setName(String name) {
+	//	throw new UnintendedUseException(/*"24/01/03 what is this??"*/);
+	//	this.name = name;
+	//}
 
-	@Override
-	public void setName(@NotNull Token name) {
-		this.name = name.getText();
-	}
+	//@Override
+	//public void setName(@NotNull Token name) {
+	//	this.name = name.getText();
+	//}
+
+	//@Override
+	//public String getName() {
+	//	// README "12/30" eclipse specific
+	//	return name;
+	//}
 
 	@Override
 	public void advise(final CompilerInput aCompilerInput) {
@@ -104,6 +123,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 		if (advised != null) {
 			return new File(advised.makeFile(), getFilename());
 		} else {
+			// TODO 12/30 Shouldn't we always have something advised?
 			return new File(getFilename());
 		}
 	}
@@ -119,12 +139,6 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	@Override
 	public String toString() {
 		return "CompilerInstructionsImpl{name='%s', filename='%s'}".formatted(name, filename);
-	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return name;
 	}
 }
 
