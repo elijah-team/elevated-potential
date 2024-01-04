@@ -7,18 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/elevated-potential.iml" filepath="$PROJECT_DIR$/.idea/modules/elevated-potential.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/elevated-potential.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/elevated-potential.buildSrc.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/elevated-potential.buildSrc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/elevated-potential.buildSrc.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/elevated-potential.buildSrc.test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/elevated-potential.buildSrc.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/elijah-base-api/elevated-potential.elijah-base-api.iml" filepath="$PROJECT_DIR$/.idea/modules/elijah-base-api/elevated-potential.elijah-base-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/elijah-base-impl/elevated-potential.elijah-base-impl.main.iml" filepath="$PROJECT_DIR$/.idea/modules/elijah-base-impl/elevated-potential.elijah-base-impl.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/elijah-base-impl/elevated-potential.elijah-base-impl.test.iml" filepath="$PROJECT_DIR$/.idea/modules/elijah-base-impl/elevated-potential.elijah-base-impl.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/elijah-core-elevated-potential/elevated-potential.elijah-core-elevated-potential.iml" filepath="$PROJECT_DIR$/.idea/modules/elijah-core-elevated-potential/elevated-potential.elijah-core-elevated-potential.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/elijah-core-elevated-potential/elevated-potential.elijah-core-elevated-potential.main.iml" filepath="$PROJECT_DIR$/.idea/modules/elijah-core-elevated-potential/elevated-potential.elijah-core-elevated-potential.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/elijah-core-elevated-potential/elevated-potential.elijah-core-elevated-potential.test.iml" filepath="$PROJECT_DIR$/.idea/modules/elijah-core-elevated-potential/elevated-potential.elijah-core-elevated-potential.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/elijah-core/elevated-potential.tripleo.elijah.core.test.iml" filepath="$PROJECT_DIR$/.idea/modules/elijah-core/elevated-potential.tripleo.elijah.core.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/tripleo.elijah.elevated-potential.dlog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/tripleo.elijah.elevated-potential.dlog.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/tripleo.elijah.elevated-potential.dlog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/tripleo.elijah.elevated-potential.dlog.test.iml" />
