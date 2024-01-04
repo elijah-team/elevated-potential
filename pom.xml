@@ -42,13 +42,18 @@
 	<dependencies>
 
 		<!-- https://smallrye.io/smallrye-mutiny/2.5.1/tutorials/getting-mutiny/ -->
-		<!--
-				<dependency>
-					<groupId>io.smallrye.reactive</groupId>
-					<artifactId>mutiny</artifactId>
-					<version>2.5.1</version>
-				</dependency>
-		-->
+		<dependency>
+			<groupId>io.smallrye.reactive</groupId>
+			<artifactId>mutiny</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.clojure</groupId>
+			<artifactId>clojure</artifactId>
+			<version>1.10.3</version>
+		</dependency>
 
 
 		<dependency>
@@ -128,7 +133,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>31.1-jre</version>
+			<version>${guava.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -340,15 +345,14 @@
 
 
 
-
-								<source>../elijah-core-api/dlog/src/main/java</source>
-								<source>../elijah-core-api/elijah-core-api/src/main/java</source>
-								<source>../elijah-core-api/elijah-ek/src/main/java</source>
-								<source>../elijah-core-api/elijah-nextgen-outputstatement/src/main/java</source>
-								<source>../elijah-core-api/elijah-stateful/src/main/java</source>
-								<source>../elijah-core-api/elijah-util/src/main/java</source>
-								<source>../elijah-core-api/tripleo-reactive/src/main/java</source>
-								<source>../elijah-core-api/tripleo-small/src/main/java</source>
+<!--								<source>../elijah-core-api/dlog/src/main/java</source>-->
+<!--								<source>../elijah-core-api/elijah-core-api/src/main/java</source>-->
+<!--								<source>../elijah-core-api/elijah-ek/src/main/java</source>-->
+<!--								<source>../elijah-core-api/elijah-nextgen-outputstatement/src/main/java</source>-->
+<!--								<source>../elijah-core-api/elijah-stateful/src/main/java</source>-->
+<!--								<source>../elijah-core-api/elijah-util/src/main/java</source>-->
+<!--								<source>../elijah-core-api/tripleo-reactive/src/main/java</source>-->
+<!--								<source>../elijah-core-api/tripleo-small/src/main/java</source>-->
 
 
 								<!--
@@ -357,75 +361,75 @@
 																<source>target/generated-sources/delombok</source>
 								-->
 
-<!--
-								<source>./src-damar/elijah-sourcemodel-api/src/main/java</source>
-								<source>./src-damar/elijah-sourcemodel-impl/src/main/java</source>
-								<source>./src-damar/elijah-good-api/src/main/java</source>
-								<source>./src-bnxn/elijah-nextgen-outputstatement/src/main/java</source>
-								<source>./src-bnxn/elijah-stateful/src/main/java</source>
-								<source>./src-bnxn/tripleo-small/src/main/java</source>
-								<source>./src-bnxn/tripleo-reactive/src/main/java</source>
--->
+								<!--
+																<source>./src-damar/elijah-sourcemodel-api/src/main/java</source>
+																<source>./src-damar/elijah-sourcemodel-impl/src/main/java</source>
+																<source>./src-damar/elijah-good-api/src/main/java</source>
+																<source>./src-bnxn/elijah-nextgen-outputstatement/src/main/java</source>
+																<source>./src-bnxn/elijah-stateful/src/main/java</source>
+																<source>./src-bnxn/tripleo-small/src/main/java</source>
+																<source>./src-bnxn/tripleo-reactive/src/main/java</source>
+								-->
 							</sources>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-<!--
-			<plugin>
-				<groupId>org.jetbrains.kotlin</groupId>
-				<artifactId>kotlin-maven-plugin</artifactId>
-				<version>${kotlin.version}</version>
-				<executions>
-					<execution>
-						<id>compile</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-						<configuration>
-							<sourceDirs>
+			<!--
+						<plugin>
+							<groupId>org.jetbrains.kotlin</groupId>
+							<artifactId>kotlin-maven-plugin</artifactId>
+							<version>${kotlin.version}</version>
+							<executions>
+								<execution>
+									<id>compile</id>
+									<phase>compile</phase>
+									<goals>
+										<goal>compile</goal>
+									</goals>
+									<configuration>
+										<sourceDirs>
 
-								<sourceDir>src/main/java</sourceDir>
-								<sourceDir>src-damar/elijah-good-api/src/main/java</sourceDir>
-								<sourceDir>src-damar/elijah-sourcemodel-api/src/main/java</sourceDir>
-								<sourceDir>src-damar/elijah-sourcemodel-impl/src/main/java</sourceDir>
-								<sourceDir>src-bnxn/elijah-nextgen-outputstatement/src/main/java</sourceDir>
-								<sourceDir>src-bnxn/elijah-stateful/src/main/java</sourceDir>
-								<sourceDir>src-bnxn/tripleo-reactive/src/main/java</sourceDir>
-								<sourceDir>src-bnxn/tripleo-small/src/main/java</sourceDir>
+											<sourceDir>src/main/java</sourceDir>
+											<sourceDir>src-damar/elijah-good-api/src/main/java</sourceDir>
+											<sourceDir>src-damar/elijah-sourcemodel-api/src/main/java</sourceDir>
+											<sourceDir>src-damar/elijah-sourcemodel-impl/src/main/java</sourceDir>
+											<sourceDir>src-bnxn/elijah-nextgen-outputstatement/src/main/java</sourceDir>
+											<sourceDir>src-bnxn/elijah-stateful/src/main/java</sourceDir>
+											<sourceDir>src-bnxn/tripleo-reactive/src/main/java</sourceDir>
+											<sourceDir>src-bnxn/tripleo-small/src/main/java</sourceDir>
 
 
-								<sourceDir>src/main/lombok</sourceDir>
-								<sourceDir>target/generated-sources/delombok</sourceDir>
+											<sourceDir>src/main/lombok</sourceDir>
+											<sourceDir>target/generated-sources/delombok</sourceDir>
 
-								<sourceDir>xtend-gen/src/main/java</sourceDir>
-								<sourceDir>target/generated-sources/annotations</sourceDir>
-								<sourceDir>target/generated-sources/kapt</sourceDir>
-								<sourceDir>target/generated-sources/kaptKotlin</sourceDir>
+											<sourceDir>xtend-gen/src/main/java</sourceDir>
+											<sourceDir>target/generated-sources/annotations</sourceDir>
+											<sourceDir>target/generated-sources/kapt</sourceDir>
+											<sourceDir>target/generated-sources/kaptKotlin</sourceDir>
 
-							</sourceDirs>
-						</configuration>
-					</execution>
-					<execution>
-						<id>test-compile</id>
-						<phase>test-compile</phase>
-						<goals>
-							<goal>test-compile</goal>
-						</goals>
-						<configuration>
-							<sourceDirs>
-								<source>src/test/java</source>
-								<source>target/generated-test-sources/test-annotations</source>
-							</sourceDirs>
-						</configuration>
-					</execution>
-				</executions>
-				<configuration>
-					<jvmTarget>1.8</jvmTarget>
-				</configuration>
-			</plugin>
--->
+										</sourceDirs>
+									</configuration>
+								</execution>
+								<execution>
+									<id>test-compile</id>
+									<phase>test-compile</phase>
+									<goals>
+										<goal>test-compile</goal>
+									</goals>
+									<configuration>
+										<sourceDirs>
+											<source>src/test/java</source>
+											<source>target/generated-test-sources/test-annotations</source>
+										</sourceDirs>
+									</configuration>
+								</execution>
+							</executions>
+							<configuration>
+								<jvmTarget>1.8</jvmTarget>
+							</configuration>
+						</plugin>
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
