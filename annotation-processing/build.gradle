@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies {
-    compileOnly 'com.google.auto.service:auto-service:1.0-rc2'
+    compileOnly 'com.google.auto.service:auto-service:1.1.1'
 }
 
 description = 'annotation-processing'
