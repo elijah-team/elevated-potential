@@ -19,9 +19,9 @@ import tripleo.elijah.ci.*;
  */
 public class CiIndexingStatementImpl implements CiIndexingStatement {
 	private final @NotNull CompilerInstructions parent;
-	@lombok.Setter
+//	@lombok.Setter
 	private CiExpressionList exprs;
-	@lombok.Setter
+//	@lombok.Setter
 	private Token            name;
 
 	public CiIndexingStatementImpl(final @NotNull CompilerInstructions module) {

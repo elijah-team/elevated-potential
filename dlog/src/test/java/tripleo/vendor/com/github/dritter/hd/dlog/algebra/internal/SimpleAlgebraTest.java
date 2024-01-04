@@ -1,11 +1,17 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.algebra.internal;
 
-import org.junit.jupiter.api.Test;
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.*;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.conditions.ComparisonFormula;
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.conditions.EqualsFormula;
+import junit.framework.Assert;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.Test;
+
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.NLJoinIterator;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ProjectionIterator;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.SelectionIterator;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.TableIterator;
 
 public final class SimpleAlgebraTest {
 
@@ -16,10 +22,10 @@ public final class SimpleAlgebraTest {
     public void testSelect() {
         TableIterator t = getTable();
         
-        DataIterator o        = new SelectionIterator(t, new ComparisonFormula[] { new EqualsFormula(0, ParameterValue.create("abc")) });
-        String       expected = "abc|def\nabc|ghi\n";
+        DataIterator o = new SelectionIterator(t, new ComparisonFormula[] { new EqualsFormula(0, ParameterValue.create("abc")) });
+        String expected = "abc|def\nabc|ghi\n";
         String actual = serialize(o);
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
     
     /**
@@ -32,7 +38,7 @@ public final class SimpleAlgebraTest {
         DataIterator o = new SelectionIterator(t, new ComparisonFormula[] { new EqualsFormula(0, ParameterValue.create(123)) });
         String expected = "123|456\n123|8910\n";
         String actual = serialize(o);
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
 
     /**
@@ -44,7 +50,7 @@ public final class SimpleAlgebraTest {
         DataIterator o = new ProjectionIterator(t, new int[] { 0 }, null);
         String expected = "abc\nabc\ndef\n";
         String actual = serialize(o);
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
 
     /**
@@ -57,7 +63,7 @@ public final class SimpleAlgebraTest {
         DataIterator o = new NLJoinIterator(l, r, new ComparisonFormula[] { new EqualsFormula(1, 0) });
         String expected = "abc|def|def|ghi\n";
         String actual = serialize(o);
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
 
     /**

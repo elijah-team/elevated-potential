@@ -108,4 +108,9 @@ public class CP_StdlibPath__ implements CP_StdlibPath {
 	public String asString() {
 		return this.toString();
 	}
+
+	@Override
+	public boolean samePath(Path px) {
+		throw new UnsupportedOperationException("TODO 12/28");
+	}
 }

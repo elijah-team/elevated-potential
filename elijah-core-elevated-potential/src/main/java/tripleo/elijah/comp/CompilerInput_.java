@@ -1,7 +1,7 @@
 package tripleo.elijah.comp;
 
 import com.google.common.base.*;
-import lombok.*;
+//import lombok.*;
 import org.apache.commons.lang3.tuple.Pair;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
@@ -36,7 +36,7 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 		return directory;
 	}
 
-	@Getter
+//	@Getter
 	private final String                           inp;
 	private       Maybe<ILazyCompilerInstructions> accept_ci;
 	private       File                             dir_carrier;

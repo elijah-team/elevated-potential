@@ -2,10 +2,9 @@ package tripleo.vendor.com.github.dritter.hd.dlog.internal;
 
 import java.util.List;
 
-import tripleo.vendor.com.github.dritter.hd.dlog.*;
-import static org.junit.jupiter.api.Assertions.*;
+import junit.framework.Assert;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import tripleo.vendor.com.github.dritter.hd.dlog.BuiltInPredicates;
 import tripleo.vendor.com.github.dritter.hd.dlog.Literal;
@@ -31,7 +30,7 @@ public final class RuleSaftyValidatorTest {
 
         IRuleSafetyValidator rsp = new RuleSafetyValidator(Rule.create(head, body1, body2));
         List<Parameter<?>> unlimitedParameters = rsp.getUnlimitedParameters();
-        assertEquals(0, unlimitedParameters.size());
+        Assert.assertEquals(0, unlimitedParameters.size());
 
         // p(X, Y) :- q(X).
         head = Literal.create(p, paramX, paramY);
@@ -39,8 +38,8 @@ public final class RuleSaftyValidatorTest {
 
         rsp = new RuleSafetyValidator(Rule.create(head, body1));
         unlimitedParameters = rsp.getUnlimitedParameters();
-        assertEquals(1, unlimitedParameters.size());
-        assertEquals(paramY.getValue(), unlimitedParameters.get(0).getValue());
+        Assert.assertEquals(1, unlimitedParameters.size());
+        Assert.assertEquals(paramY.getValue(), unlimitedParameters.get(0).getValue());
         printUnlimited(unlimitedParameters);
     }
 
@@ -62,7 +61,7 @@ public final class RuleSaftyValidatorTest {
 
         IRuleSafetyValidator rsp = new RuleSafetyValidator(Rule.create(head, body1, body2));
         List<Parameter<?>> unlimitedParameters = rsp.getUnlimitedParameters();
-        assertEquals(0, unlimitedParameters.size());
+        Assert.assertEquals(0, unlimitedParameters.size());
 
         // p(X, Y) :- q(X), Z=a.
         head = Literal.create(p, paramX, paramY);
@@ -71,8 +70,8 @@ public final class RuleSaftyValidatorTest {
 
         rsp = new RuleSafetyValidator(Rule.create(head, body1, body2));
         unlimitedParameters = rsp.getUnlimitedParameters();
-        assertEquals(1, unlimitedParameters.size());
-        assertEquals(paramY.getValue(), unlimitedParameters.get(0).getValue());
+        Assert.assertEquals(1, unlimitedParameters.size());
+        Assert.assertEquals(paramY.getValue(), unlimitedParameters.get(0).getValue());
         printUnlimited(unlimitedParameters);
     }
 
@@ -95,7 +94,7 @@ public final class RuleSaftyValidatorTest {
 
         IRuleSafetyValidator rsp = new RuleSafetyValidator(Rule.create(head, body1, body2, body3));
         List<Parameter<?>> unlimitedParameters = rsp.getUnlimitedParameters();
-        assertEquals(0, unlimitedParameters.size());
+        Assert.assertEquals(0, unlimitedParameters.size());
 
         // p(X, Y) :- q(X), Z=a.
         head = Literal.create(p, paramX, paramY);
@@ -103,8 +102,8 @@ public final class RuleSaftyValidatorTest {
 
         rsp = new RuleSafetyValidator(Rule.create(head, body1, body3));
         unlimitedParameters = rsp.getUnlimitedParameters();
-        assertEquals(1, unlimitedParameters.size());
-        assertEquals(paramY.getValue(), unlimitedParameters.get(0).getValue());
+        Assert.assertEquals(1, unlimitedParameters.size());
+        Assert.assertEquals(paramY.getValue(), unlimitedParameters.get(0).getValue());
         printUnlimited(unlimitedParameters);
     }
 

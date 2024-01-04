@@ -4,12 +4,11 @@ import java.util.Collection;
 import java.util.List;
 
 import tripleo.vendor.com.github.dritter.hd.dlog.IEvaluator;
-import tripleo.vendor.com.github.dritter.hd.dlog.NaiveRecursiveEvaluator;
-import tripleo.vendor.com.github.dritter.hd.dlog.parser.DlogParser;
-import org.junit.jupiter.api.Test;
-
 import tripleo.vendor.com.github.dritter.hd.dlog.IFacts;
 import tripleo.vendor.com.github.dritter.hd.dlog.IRule;
+import tripleo.vendor.com.github.dritter.hd.dlog.NaiveRecursiveEvaluator;
+import tripleo.vendor.com.github.dritter.hd.dlog.parser.DlogParser;
+import org.junit.Test;
 
 public class ParserCommandTest {
     @Test

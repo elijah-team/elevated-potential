@@ -1,11 +1,13 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.normalizer.internal;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.*;
+import junit.framework.Assert;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import tripleo.vendor.com.github.dritter.hd.dlog.BuiltInPredicates;
 import tripleo.vendor.com.github.dritter.hd.dlog.IRule;
@@ -39,7 +41,7 @@ public class RuleSaftyProcessorTest {
         try {
             new RuleSafetyProcessor().process(Rule.create(head, body1));
         } catch (IllegalArgumentException ia) {
-            assertEquals(ia.getMessage(), "p(X, Y) :- q(X). contains unlimited variable(s): Y");
+            Assert.assertEquals(ia.getMessage(), "p(X, Y) :- q(X). contains unlimited variable(s): Y");
         }
     }
 
@@ -69,7 +71,7 @@ public class RuleSaftyProcessorTest {
         try {
             new RuleSafetyProcessor().process(Rule.create(head, body1, body2));
         } catch (IllegalArgumentException ia) {
-            assertEquals(ia.getMessage(), "p(X, Y) :- q(X), Z = \"a\". contains unlimited variable(s): Y");
+            Assert.assertEquals(ia.getMessage(), "p(X, Y) :- q(X), Z = \"a\". contains unlimited variable(s): Y");
         }
     }
 
@@ -99,7 +101,7 @@ public class RuleSaftyProcessorTest {
         try {
             new RuleSafetyProcessor().process(Rule.create(head, body1, body3));
         } catch (IllegalArgumentException ia) {
-            assertEquals(ia.getMessage(), "p(X, Y) :- q(X), Z = Y. contains unlimited variable(s): Y");
+            Assert.assertEquals(ia.getMessage(), "p(X, Y) :- q(X), Z = Y. contains unlimited variable(s): Y");
         }
     }
 
@@ -135,7 +137,7 @@ public class RuleSaftyProcessorTest {
                 limitedRules.add((new RuleSafetyProcessor()).process(iRule));
             }
         } catch (IllegalArgumentException ia) {
-            assertEquals(ia.getMessage(), "p(X, Y) :- q(X), Z = \"a\". contains unlimited variable(s): Y");
+            Assert.assertEquals(ia.getMessage(), "p(X, Y) :- q(X), Z = \"a\". contains unlimited variable(s): Y");
         }
     }
 
@@ -163,7 +165,7 @@ public class RuleSaftyProcessorTest {
         try {
             new RuleSafetyEnsuringProcessor().process(Rule.create(head, body1));
         } catch (IllegalArgumentException ia) {
-            assertEquals(ia.getMessage(), "p(X, Y) :- q(X). contains unlimited variable(s): Y");
+            Assert.assertEquals(ia.getMessage(), "p(X, Y) :- q(X). contains unlimited variable(s): Y");
         }
     }
 
@@ -193,7 +195,7 @@ public class RuleSaftyProcessorTest {
         try {
             new RuleSafetyEnsuringProcessor().process(Rule.create(head, body1, body2));
         } catch (IllegalArgumentException ia) {
-            assertEquals(ia.getMessage(), "p(X, Y) :- q(X), Z = \"a\". contains unlimited variable(s): Y");
+            Assert.assertEquals(ia.getMessage(), "p(X, Y) :- q(X), Z = \"a\". contains unlimited variable(s): Y");
         }
     }
 
@@ -223,7 +225,7 @@ public class RuleSaftyProcessorTest {
         try {
             new RuleSafetyEnsuringProcessor().process(Rule.create(head, body1, body3));
         } catch (IllegalArgumentException ia) {
-            assertEquals(ia.getMessage(), "p(X, Y) :- q(X), Z = Y. contains unlimited variable(s): Y");
+            Assert.assertEquals(ia.getMessage(), "p(X, Y) :- q(X), Z = Y. contains unlimited variable(s): Y");
         }
     }
 
@@ -259,7 +261,7 @@ public class RuleSaftyProcessorTest {
                 limitedRules.add((new RuleSafetyEnsuringProcessor()).process(iRule));
             }
         } catch (IllegalArgumentException ia) {
-            assertEquals(ia.getMessage(), "p(X, Y) :- q(X), Z = \"a\". contains unlimited variable(s): Y");
+            Assert.assertEquals(ia.getMessage(), "p(X, Y) :- q(X), Z = \"a\". contains unlimited variable(s): Y");
         }
     }
     
@@ -300,7 +302,7 @@ public class RuleSaftyProcessorTest {
         assertEquals(rule, actualRule);
     }
     
-//    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=IllegalArgumentException.class)
     public void testProcessingRuleWithGreaterThanPredicate() {
         
         /*
@@ -448,7 +450,7 @@ public class RuleSaftyProcessorTest {
         assertEquals(rule, actualRule);
     }
     
-//    @Test(expected=IllegalArgumentException.class)
+    @Test(expected=IllegalArgumentException.class)
     public void testProcessingRuleWithTwoVariablesInGreaterThanPredicate() {
         
         /*

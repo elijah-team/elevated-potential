@@ -1,6 +1,8 @@
 package tripleo.vendor.com.github.dritter.hd.dlog.utils;
 
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.*;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.TableIterator;
 
 public class Utils {
 

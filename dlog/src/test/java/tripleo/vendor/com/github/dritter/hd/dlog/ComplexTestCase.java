@@ -1,14 +1,16 @@
 package tripleo.vendor.com.github.dritter.hd.dlog;
 
-import org.junit.jupiter.api.Test;
-import tripleo.vendor.com.github.dritter.hd.dlog.utils.Utils;
-import tripleo.vendor.com.github.dritter.hd.dlog.*;
+import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import tripleo.vendor.com.github.dritter.hd.dlog.algebra.DataIterator;
 import tripleo.vendor.com.github.dritter.hd.dlog.parser.DlogParser;
+import org.junit.Test;
 
-import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import tripleo.vendor.com.github.dritter.hd.dlog.utils.Utils;
 
 public class ComplexTestCase {
     
@@ -121,8 +123,8 @@ public class ComplexTestCase {
             {"Lysander Scamander", "Luna Lovegood"},
             {"Lysander Scamander", "Rolf Scamander"}
         };
-
-        final DataIterator relationPIterator = Utils.createRelationIterator(relationP);
+        
+        DataIterator relationPIterator = Utils.createRelationIterator(relationP);
         
         IFacts relationPFacts = Facts.create(parent, relationPIterator);
         

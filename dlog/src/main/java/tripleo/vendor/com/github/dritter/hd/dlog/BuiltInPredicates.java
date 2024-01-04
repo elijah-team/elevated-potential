@@ -1,10 +1,10 @@
 package tripleo.vendor.com.github.dritter.hd.dlog;
 
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
-import tripleo.vendor.com.github.dritter.hd.dlog.algebra.conditions.*;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.ParameterValue;
+import tripleo.vendor.com.github.dritter.hd.dlog.algebra.conditions.*;
 
 public final class BuiltInPredicates {
     

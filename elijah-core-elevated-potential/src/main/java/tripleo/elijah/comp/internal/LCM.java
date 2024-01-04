@@ -6,13 +6,11 @@ import com.google.common.eventbus.Subscribe;
 
 import org.jetbrains.annotations.NotNull;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import tripleo.elijah.comp.Compilation;
 
 import tripleo.elijah.comp.i.LCM_Event;
 import tripleo.elijah.comp.i.LCM_HandleEvent;
+import tripleo.elijah.nextgen.comp_model.CM_UleLog;
 
 public class LCM {
 	private final EventBus          eventBus;
@@ -38,7 +36,8 @@ public class LCM {
 	}
 
 	public class LCM_EventListener {
-		private static final Logger LOG = LoggerFactory.getLogger(LCM_EventListener.class);
+		private final CM_UleLog LOG = _compilation.con().getULog();
+//		private static final Logger LOG = LoggerFactory.getLogger(LCM_EventListener.class);
 		private static       int    eventsHandled;
 
 		@Subscribe

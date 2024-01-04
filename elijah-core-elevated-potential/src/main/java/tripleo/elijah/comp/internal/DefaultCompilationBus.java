@@ -3,6 +3,7 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.impl.CC_SetSilent;
 import tripleo.elijah.comp.internal_move_soon.*;
 
 import java.util.*;
@@ -157,5 +158,17 @@ public class DefaultCompilationBus implements ICompilationBus {
 	public CompilerDriver getCompilerDriver() {
 		// TODO Auto-generated method stub
 		return compilerDriver;
+	}
+
+	@Override
+	public void addCompilerChange(Class<?> class1) {
+		if (class1.isInstance(CC_SetSilent.class ) ) {
+			try {
+				((CC_SetSilent) class1.newInstance()).apply(c);
+			} catch (InstantiationException | IllegalAccessException e) {
+//				e.printStackTrace();
+				throw new Error();
+			}
+		}
 	}
 }
