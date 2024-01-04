@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eclipse-userlibraries version="2">
+    <library name="elevated-potential" systemlibrary="false">
+        <archive path="/elevated-potential/yyy-lib/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+        <archive path="/elevated-potential/yyy-lib/com.github.spotbugs/spotbugs-annotations/4.7.3/spotbugs-annotations-4.7.3.jar"/>
+        <archive path="/elevated-potential/yyy-lib/commons-codec/commons-codec/1.15/commons-codec-1.15.jar"/>
+        <archive path="/elevated-potential/yyy-lib/io.reactivex.rxjava3/rxjava/3.1.6/rxjava-3.1.6.jar"/>
+        <archive path="/elevated-potential/yyy-lib/io.smallrye.reactive/mutiny/2.5.3/mutiny-2.5.3.jar"/>
+        <archive path="/elevated-potential/yyy-lib/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar"/>
+        <archive path="/elevated-potential/yyy-lib/org/checkerframework/checker-qual/3.33.0/checker-qual-3.33.0.jar"/>
+        <archive path="/elevated-potential/yyy-lib/org/jctools/jctools-core/4.0.2/jctools-core-4.0.2.jar"/>
+        <archive path="/elevated-potential/yyy-lib/org/jdeferred/v2/jdeferred-core/2.0.0/jdeferred-core-2.0.0.jar"/>
+        <archive path="/elevated-potential/yyy-lib/org/jetbrains/annotations/24.0.1/annotations-24.0.1.jar"/>
+        <archive path="/elevated-potential/yyy-lib/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar"/>
+        <archive path="/elevated-potential/yyy-lib/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar"/>
+        <archive path="/elevated-potential/yyy-lib/org.apache.commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar"/>
+        <archive path="/elevated-potential/yyy-lib/org.clojure/clojure/1.10.3/clojure-1.10.3.jar"/>
+        <archive path="/elevated-potential/yyy-lib/tripleo.buffers/buffers-v1/0.0.3/buffers-v1-0.0.3.jar"/>
+        <archive path="/elevated-potential/yyy-lib/tripleo.elijah/elijah-core-api/2024.elevated-potential.1/elijah-core-api-2024.elevated-potential.1.jar"/>
+        <archive path="/elevated-potential/yyy-lib/tripleo.elijah/elijah-ek/2024.elevated-potential.1elijah-ek-2024.elevated-potential.1jar"/>
+        <archive path="/elevated-potential/yyy-lib/tripleo.elijah/elijah-nextgen-outputstatement/2024.elevated-potential.1/elijah-nextgen-outputstatement-2024.elevated-potential.1.jar"/>
+        <archive path="/elevated-potential/yyy-lib/tripleo.elijah/elijah-util/2024.elevated-potential.1/elijah-util-2024.elevated-potential.1.jar"/>
+        <archive path="/elevated-potential/yyy-lib/tripleo.elijah/tripleo.elijah.reactive/2024.elevated-potential.1tripleo.elijah.reactive-2024.elevated-potential.1jar"/>
+        <archive path="/elevated-potential/yyy-lib/tripleo.elijah/tripleo.elijah.stateful/2024.elevated-potential.1tripleo.elijah.stateful-2024.elevated-potential.1jar"/>
+        <archive path="/elevated-potential/yyy-lib/tripleo.elijah/tripleo.small/2024.elevated-potential.1tripleo.small-2024.elevated-potential.1jar"/>
+        <archive path="/elevated-potential/yyy-lib/tripleo.util.range/range-v1/0.0.3b/range-v1-0.0.3b.jar"/>
+    </library>
+</eclipse-userlibraries>
