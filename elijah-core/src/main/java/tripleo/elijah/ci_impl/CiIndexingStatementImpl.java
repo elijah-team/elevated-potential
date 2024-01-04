@@ -8,8 +8,8 @@
  */
 package tripleo.elijah.ci_impl;
 
-import antlr.*;
-import org.jetbrains.annotations.*;
+import antlr.Token;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.*;
 
 /**
@@ -19,10 +19,10 @@ import tripleo.elijah.ci.*;
  */
 public class CiIndexingStatementImpl implements CiIndexingStatement {
 	private final @NotNull CompilerInstructions parent;
-//	@lombok.Setter
-	private CiExpressionList exprs;
-//	@lombok.Setter
-	private Token            name;
+	@lombok.Setter
+	private                CiExpressionList     exprs;
+	@lombok.Setter
+	private                Token                name;
 
 	public CiIndexingStatementImpl(final @NotNull CompilerInstructions module) {
 		this.parent = module;
