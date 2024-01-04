@@ -70,7 +70,9 @@ public class CP_Paths__ implements CP_Paths {
 	public void subscribeCalculateFinishParse(CPX_CalculateFinishParse cp_OutputPath) {
 		__CPX_CalculateFinishParse
 			.onItem()
-			.invoke((x)->cp_OutputPath.notify_CPX_CalculateFinishParse(x));
+			.invoke((x)->{
+				cp_OutputPath.notify_CPX_CalculateFinishParse(x);
+			});
 	}
 	
 	Uni<Ok> __CPX_CalculateFinishParse = Uni.createFrom().publisher(__CPX_CalculateFinishParse__publisher());//.item(Ok.instance());

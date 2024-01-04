@@ -7,6 +7,7 @@ import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.comp.nextgen.i.CPX_CalculateFinishParse;
 import tripleo.elijah.nextgen.ER_Node;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.util.Helpers;
@@ -33,7 +34,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 		c   = cc;
 		hda = new CY_HashDeferredAction(c.getIO());
 		
-		c.paths()
+		c.signals()
 			.subscribeCalculateFinishParse(this);
 	}
 
