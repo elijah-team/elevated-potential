@@ -25,7 +25,8 @@ public class CM_Ez_ implements CM_Ez {
 	@Override
 	public void advise(final CK_ObjectTree aObjectTree) {
 		Object R = null;
-		aObjectTree.asseverate(Triple.of(spec, cio, R), Asseverate.CI_SPECCED);
+		final Triple<EzSpec, Operation2<CompilerInstructions>, Object> T = Triple.of(spec, cio, R);
+		aObjectTree.asseverate(T, Asseverate.CI_SPECCED);
 		aObjectTree.asseverate(R, Asseverate.CI_PARSED);
 	}
 }
