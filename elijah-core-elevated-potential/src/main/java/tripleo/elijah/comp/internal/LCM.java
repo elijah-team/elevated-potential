@@ -23,6 +23,7 @@ public class LCM {
 
 		eventBus     = new EventBus();
 		listener     = new LCM_EventListener();
+		listener._setLog(_compilation);
 
 		eventBus.register(listener);
 	}
@@ -36,7 +37,7 @@ public class LCM {
 	}
 
 	public class LCM_EventListener {
-		private final CM_UleLog LOG = _compilation.con().getULog();
+		private CM_UleLog LOG;
 //		private static final Logger LOG = LoggerFactory.getLogger(LCM_EventListener.class);
 		private static       int    eventsHandled;
 
@@ -44,6 +45,10 @@ public class LCM {
 		public void handleDeadEvent(@NotNull final DeadEvent deadEvent) {
 			LOG.info("unhandled event [" + deadEvent.getEvent() + "]");
 			eventsHandled++;
+		}
+
+		public void _setLog(Compilation _compilation) {
+			LOG = _compilation.con().getULog();
 		}
 
 		@Subscribe

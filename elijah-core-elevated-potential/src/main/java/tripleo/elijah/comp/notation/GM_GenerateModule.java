@@ -18,14 +18,18 @@ public class GM_GenerateModule {
 		gmr = aGmr;
 	}
 
-	public GM_GenerateModuleResult getModuleResult(final @NotNull WorkManager wm,
-			final @NotNull GenerateResultSink aResultSink) {
+	public GM_GenerateModuleResult getModuleResult(
+			final @NotNull WorkManager wm,
+			final @NotNull GenerateResultSink aResultSink
+	) {
 		final OS_Module mod = gmr.params().getMod();
 		final @NotNull GN_GenerateNodesIntoSink generateNodesIntoSink = gmr.generateNodesIntoSink();
 
 		final GenerateResult gr1 = new Sub_GenerateResult();
-		final Supplier<GenerateResultEnv> fgs = () -> new GenerateResultEnv(aResultSink, gr1, wm,
-																			new WorkList__() /* tautology */, this);
+		final Supplier<GenerateResultEnv> fgs = 
+		//this::createGenerateResultEnv;
+		()->
+		new GenerateResultEnv(aResultSink, gr1, wm, new WorkList__() /* tautology */, this);
 
 		final @NotNull GenerateFiles ggc = gmr.getGenerateFiles(fgs);
 		final List<ProcessedNode> lgc = generateNodesIntoSink._env().lgc();
@@ -45,7 +49,7 @@ public class GM_GenerateModule {
 				processedNode.processFunctions(ggc, fileGen);
 				processedNode.processClassMap(ggc, fileGen);
 			} else {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("2009 " + evaNode.getClass().getName());
+				logProgress(2009, evaNode.getClass().getName());
 			}
 		}
 
@@ -54,5 +58,14 @@ public class GM_GenerateModule {
 
 	public GM_GenerateModuleRequest gmr() {
 		return gmr;
+	}
+
+// README 12/30 too slick	
+//	public void createGenerateResultEnv() {
+//		return new GenerateResultEnv(aResultSink, gr1, wm, new WorkList__() /* tautology */, this);
+//	}
+	
+	public void logProgress(int code, String messgae) {
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(""+code+" " + message);
 	}
 }

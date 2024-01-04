@@ -12,6 +12,7 @@ import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue_Blocking;
+import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue__JC;
 import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.comp.specs.ElijahSpec;
 import tripleo.elijah.lang.i.OS_Module;
@@ -94,7 +95,8 @@ class DefaultCompFactory implements CompFactory {
 
 	@Override
 	public PW_PushWorkQueue createWorkQueue() {
-		return new PW_PushWorkQueue_Blocking();
+		return new PW_PushWorkQueue__JC();
+//		return new PW_PushWorkQueue_Blocking();
 		//return new PW_PushWorkQueue_Concurrent();
 	}
 
