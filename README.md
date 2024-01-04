@@ -46,9 +46,11 @@ Lineage
 Tag
 ----
 
-> https://github.com/elijah-team/elevated-potential/blob/d2eee1c6a42ec9bc7a500d86b9e3c36bf861288f/README.md
+> https://github.com/elijah-team/elevated-potential/blob/d87a4daa266b1448ee75a1cb12bf6ae416f2f9c3/README.md
 
-add https://github.com/elijah-team/elevated-potential/commits/0553b99d43afb8b0e3c8a3e4002ee68afef7093e
+add https://github.com/elijah-team/elevated-potential/pull/15/commits/59f40b424d739243aa21d37c238e2358e740c86c
 
-https://github.com/elijah-team/elevated-potential/pull/14
-(minor: cuteness/clarity)
+https://github.com/elijah-team/elevated-potential/commits/33439e54de0d18c908692fefcdecc2b24361a774
+
+https://github.com/elijah-team/elevated-potential/pull/15
+({+C} tripleo.wrap.File (#15))
