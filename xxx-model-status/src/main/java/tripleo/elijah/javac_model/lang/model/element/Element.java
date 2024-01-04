@@ -9,32 +9,32 @@ import java.util.List;
 import java.util.Set;
 
 public interface Element extends AnnotatedConstruct {
-    TypeMirror asType();
+	TypeMirror asType();
 
-    ElementKind getKind();
+	ElementKind getKind();
 
-    Set<Modifier> getModifiers();
+	Set<Modifier> getModifiers();
 
-    Name getSimpleName();
+	Name getSimpleName();
 
-    Element getEnclosingElement();
+	Element getEnclosingElement();
 
-    List<? extends Element> getEnclosedElements();
+	List<? extends Element> getEnclosedElements();
 
-    @Override
-    boolean equals(Object obj);
+	@Override
+	int hashCode();
 
-    @Override
-    int hashCode();
+	@Override
+	boolean equals(Object obj);
 
-    @Override
-    List<? extends AnnotationMirror> getAnnotationMirrors();
+	@Override
+	List<? extends AnnotationMirror> getAnnotationMirrors();
 
-    @Override
-    <A extends Annotation> A getAnnotation(Class<A> annotationType);
+	@Override
+	<A extends Annotation> A getAnnotation(Class<A> annotationType);
 
-    @Override
-    <A extends Annotation> A[] getAnnotationsByType(Class<A> annotationType);
+	@Override
+	<A extends Annotation> A[] getAnnotationsByType(Class<A> annotationType);
 
-    <R, P> R accept(ElementVisitor<R, P> v, P p);
+	<R, P> R accept(ElementVisitor<R, P> v, P p);
 }

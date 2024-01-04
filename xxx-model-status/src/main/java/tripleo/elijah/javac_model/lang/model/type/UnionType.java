@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface UnionType extends TypeMirror {
 
-    List<? extends TypeMirror> getAlternatives();
+	List<? extends TypeMirror> getAlternatives();
 }

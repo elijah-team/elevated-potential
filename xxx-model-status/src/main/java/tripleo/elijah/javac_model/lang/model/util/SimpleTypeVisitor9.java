@@ -6,11 +6,11 @@ import static javax.lang.model.SourceVersion.RELEASE_14;
 
 @SupportedSourceVersion(RELEASE_14)
 public class SimpleTypeVisitor9<R, P> extends SimpleTypeVisitor8<R, P> {
-    protected SimpleTypeVisitor9(){
-        super(null);
-    }
+	protected SimpleTypeVisitor9() {
+		super(null);
+	}
 
-    protected SimpleTypeVisitor9(R defaultValue){
-        super(defaultValue);
-    }
+	protected SimpleTypeVisitor9(R defaultValue) {
+		super(defaultValue);
+	}
 }

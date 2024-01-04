@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface AnnotationMirror {
 
-    DeclaredType getAnnotationType();
+	DeclaredType getAnnotationType();
 
-    Map<? extends ExecutableElement, ? extends AnnotationValue> getElementValues();
+	Map<? extends ExecutableElement, ? extends AnnotationValue> getElementValues();
 }

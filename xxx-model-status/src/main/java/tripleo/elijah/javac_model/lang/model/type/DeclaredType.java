@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface DeclaredType extends ReferenceType {
 
-    Element asElement();
+	Element asElement();
 
-    TypeMirror getEnclosingType();
+	TypeMirror getEnclosingType();
 
-    List<? extends TypeMirror> getTypeArguments();
+	List<? extends TypeMirror> getTypeArguments();
 }

@@ -5,29 +5,29 @@ import tripleo.elijah.javac_model.lang.model.type.TypeMirror;
 import java.util.List;
 
 public interface ExecutableElement extends Element, Parameterizable {
-    @Override
-    TypeMirror asType();
+	@Override
+	TypeMirror asType();
 
-    @Override
+	@Override
+	Name getSimpleName();
+
+	@Override
+	Element getEnclosingElement();
+
+	@Override
 	List<? extends TypeParameterElement> getTypeParameters();
 
-    TypeMirror getReturnType();
+	TypeMirror getReturnType();
 
-    List<? extends VariableElement> getParameters();
+	List<? extends VariableElement> getParameters();
 
-    TypeMirror getReceiverType();
+	TypeMirror getReceiverType();
 
-    boolean isVarArgs();
+	boolean isVarArgs();
 
-    boolean isDefault();
+	boolean isDefault();
 
-    List<? extends TypeMirror> getThrownTypes();
+	List<? extends TypeMirror> getThrownTypes();
 
-    AnnotationValue getDefaultValue();
-
-    @Override
-    Element getEnclosingElement();
-
-    @Override
-    Name getSimpleName();
+	AnnotationValue getDefaultValue();
 }

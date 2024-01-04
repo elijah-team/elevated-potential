@@ -9,10 +9,10 @@ import static javax.lang.model.SourceVersion.RELEASE_14;
 
 @SupportedSourceVersion(RELEASE_14)
 public abstract class AbstractElementVisitor9<R, P> extends AbstractElementVisitor8<R, P> {
-    protected AbstractElementVisitor9(){
-        super();
-    }
+	protected AbstractElementVisitor9() {
+		super();
+	}
 
-    @Override
-    public abstract R visitModule(ModuleElement e, P p);
+	@Override
+	public abstract R visitModule(ModuleElement e, P p);
 }

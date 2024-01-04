@@ -5,13 +5,13 @@ import tripleo.elijah.javac_model.lang.model.type.TypeMirror;
 import java.util.List;
 
 public interface TypeParameterElement extends Element {
-    @Override
+	@Override
 	TypeMirror asType();
 
-    Element getGenericElement();
+	@Override
+	Element getEnclosingElement();
 
-    List<? extends TypeMirror> getBounds();
+	Element getGenericElement();
 
-    @Override
-    Element getEnclosingElement();
+	List<? extends TypeMirror> getBounds();
 }

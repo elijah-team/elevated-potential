@@ -1,11 +1,11 @@
 package tripleo.elijah.javac_model.lang.model.element;
 
 public interface Name extends CharSequence {
-    @Override
-	boolean equals(Object obj);
-
-    @Override
+	@Override
 	int hashCode();
 
-    boolean contentEquals(CharSequence cs);
+	@Override
+	boolean equals(Object obj);
+
+	boolean contentEquals(CharSequence cs);
 }

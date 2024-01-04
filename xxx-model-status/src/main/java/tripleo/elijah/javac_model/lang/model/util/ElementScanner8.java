@@ -7,13 +7,13 @@ import static javax.lang.model.SourceVersion.RELEASE_8;
 
 @SupportedSourceVersion(RELEASE_8)
 public class ElementScanner8<R, P> extends ElementScanner7<R, P> {
-    @SuppressWarnings("deprecation") // Superclass constructor deprecated
-    protected ElementScanner8(){
-        super(null);
-    }
+	@SuppressWarnings("deprecation") // Superclass constructor deprecated
+	protected ElementScanner8() {
+		super(null);
+	}
 
-    @SuppressWarnings("deprecation") // Superclass constructor deprecated
-    protected ElementScanner8(R defaultValue){
-        super(defaultValue);
-    }
+	@SuppressWarnings("deprecation") // Superclass constructor deprecated
+	protected ElementScanner8(R defaultValue) {
+		super(defaultValue);
+	}
 }

@@ -3,30 +3,30 @@ package tripleo.elijah.javac_model.lang.model.element;
 public enum Modifier {
 
 
-    PUBLIC,
-    PROTECTED,
-    PRIVATE,
-    ABSTRACT,
-    DEFAULT,
-    STATIC,
+	PUBLIC,
+	PROTECTED,
+	PRIVATE,
+	ABSTRACT,
+	DEFAULT,
+	STATIC,
 
-    SEALED,
+	SEALED,
 
-    NON_SEALED {
-        @Override
+	NON_SEALED {
+		@Override
 		public String toString() {
-            return "non-sealed";
-        }
-    },
-    FINAL,
-    TRANSIENT,
-    VOLATILE,
-    SYNCHRONIZED,
-    NATIVE,
-    STRICTFP;
+			return "non-sealed";
+		}
+	},
+	FINAL,
+	TRANSIENT,
+	VOLATILE,
+	SYNCHRONIZED,
+	NATIVE,
+	STRICTFP;
 
-    @Override
-    public String toString() {
-        return name().toLowerCase(java.util.Locale.US);
-    }
+	@Override
+	public String toString() {
+		return name().toLowerCase(java.util.Locale.US);
+	}
 }

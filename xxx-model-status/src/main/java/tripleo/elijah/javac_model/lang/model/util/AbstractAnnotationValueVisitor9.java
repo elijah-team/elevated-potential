@@ -7,7 +7,7 @@ import static javax.lang.model.SourceVersion.RELEASE_14;
 @SupportedSourceVersion(RELEASE_14)
 public abstract class AbstractAnnotationValueVisitor9<R, P> extends AbstractAnnotationValueVisitor8<R, P> {
 
-    protected AbstractAnnotationValueVisitor9() {
-        super();
-    }
+	protected AbstractAnnotationValueVisitor9() {
+		super();
+	}
 }

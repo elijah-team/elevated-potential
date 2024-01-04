@@ -1,7 +1,6 @@
 package tripleo.elijah.javac_model.lang.model.util;
 
 
-import tripleo.elijah.javac_model.element.*;
 import tripleo.elijah.javac_model.lang.model.element.*;
 import tripleo.elijah.javac_model.lang.model.type.TypeMirror;
 
@@ -12,88 +11,88 @@ import static javax.lang.model.SourceVersion.RELEASE_6;
 
 @SupportedSourceVersion(RELEASE_6)
 public class SimpleAnnotationValueVisitor6<R, P>
-    extends AbstractAnnotationValueVisitor6<R, P> {
+		extends AbstractAnnotationValueVisitor6<R, P> {
 
-    protected final R DEFAULT_VALUE;
+	protected final R DEFAULT_VALUE;
 
-    @Deprecated(since="9")
-    protected SimpleAnnotationValueVisitor6() {
-        super();
-        DEFAULT_VALUE = null;
-    }
+	@Deprecated(since = "9")
+	protected SimpleAnnotationValueVisitor6() {
+		super();
+		DEFAULT_VALUE = null;
+	}
 
-    @Deprecated(since="9")
-    protected SimpleAnnotationValueVisitor6(R defaultValue) {
-        super();
-        DEFAULT_VALUE = defaultValue;
-    }
+	@Deprecated(since = "9")
+	protected SimpleAnnotationValueVisitor6(R defaultValue) {
+		super();
+		DEFAULT_VALUE = defaultValue;
+	}
 
-    protected R defaultAction(Object o, P p) {
-        return DEFAULT_VALUE;
-    }
-
-    @Override
+	@Override
 	public R visitBoolean(boolean b, P p) {
-        return defaultAction(b, p);
-    }
+		return defaultAction(b, p);
+	}
 
-    @Override
+	protected R defaultAction(Object o, P p) {
+		return DEFAULT_VALUE;
+	}
+
+	@Override
 	public R visitByte(byte b, P p) {
-        return defaultAction(b, p);
-    }
+		return defaultAction(b, p);
+	}
 
-    @Override
+	@Override
 	public R visitChar(char c, P p) {
-        return defaultAction(c, p);
-    }
+		return defaultAction(c, p);
+	}
 
-    @Override
+	@Override
 	public R visitDouble(double d, P p) {
-        return defaultAction(d, p);
-    }
+		return defaultAction(d, p);
+	}
 
-    @Override
+	@Override
 	public R visitFloat(float f, P p) {
-        return defaultAction(f, p);
-    }
+		return defaultAction(f, p);
+	}
 
-    @Override
+	@Override
 	public R visitInt(int i, P p) {
-        return defaultAction(i, p);
-    }
+		return defaultAction(i, p);
+	}
 
-    @Override
+	@Override
 	public R visitLong(long i, P p) {
-        return defaultAction(i, p);
-    }
+		return defaultAction(i, p);
+	}
 
-    @Override
+	@Override
 	public R visitShort(short s, P p) {
-        return defaultAction(s, p);
-    }
+		return defaultAction(s, p);
+	}
 
-    @Override
+	@Override
 	public R visitString(String s, P p) {
-        return defaultAction(s, p);
-    }
+		return defaultAction(s, p);
+	}
 
-    @Override
+	@Override
 	public R visitType(TypeMirror t, P p) {
-        return defaultAction(t, p);
-    }
+		return defaultAction(t, p);
+	}
 
-    @Override
+	@Override
 	public R visitEnumConstant(VariableElement c, P p) {
-        return defaultAction(c, p);
-    }
+		return defaultAction(c, p);
+	}
 
-    @Override
+	@Override
 	public R visitAnnotation(AnnotationMirror a, P p) {
-        return defaultAction(a, p);
-    }
+		return defaultAction(a, p);
+	}
 
-    @Override
+	@Override
 	public R visitArray(List<? extends AnnotationValue> vals, P p) {
-        return defaultAction(vals, p);
-    }
+		return defaultAction(vals, p);
+	}
 }

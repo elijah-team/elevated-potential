@@ -1,11 +1,11 @@
 package tripleo.elijah.javac_model.lang.model.element;
 
 public interface RecordComponentElement extends Element {
-    @Override
-    Element getEnclosingElement();
+	@Override
+	Name getSimpleName();
 
-    @Override
-    Name getSimpleName();
+	@Override
+	Element getEnclosingElement();
 
-    ExecutableElement getAccessor();
+	ExecutableElement getAccessor();
 }

@@ -2,7 +2,7 @@ package tripleo.elijah.javac_model.lang.model.util;
 
 //import tripleo.elijah.javac_model.lang.model.AnnotatedConstruct;
 
-import tripleo.elijah.javac_model.element.*;
+
 import tripleo.elijah.javac_model.lang.model.AnnotatedConstruct;
 import tripleo.elijah.javac_model.lang.model.element.*;
 
@@ -10,12 +10,6 @@ import java.util.*;
 
 
 public interface Elements {
-
-	PackageElement getPackageElement(CharSequence name);
-
-	default PackageElement getPackageElement(ModuleElement module, CharSequence name) {
-		return null;
-	}
 
 	default Set<? extends PackageElement> getAllPackageElements(CharSequence name) {
 		Set<? extends ModuleElement> modules = getAllModuleElements();
@@ -32,9 +26,13 @@ public interface Elements {
 		}
 	}
 
-	TypeElement getTypeElement(CharSequence name);
+	default Set<? extends ModuleElement> getAllModuleElements() {
+		return Collections.emptySet();
+	}
 
-	default TypeElement getTypeElement(ModuleElement module, CharSequence name) {
+	PackageElement getPackageElement(CharSequence name);
+
+	default PackageElement getPackageElement(ModuleElement module, CharSequence name) {
 		return null;
 	}
 
@@ -53,12 +51,14 @@ public interface Elements {
 		}
 	}
 
-	default ModuleElement getModuleElement(CharSequence name) {
+	TypeElement getTypeElement(CharSequence name);
+
+	default TypeElement getTypeElement(ModuleElement module, CharSequence name) {
 		return null;
 	}
 
-	default Set<? extends ModuleElement> getAllModuleElements() {
-		return Collections.emptySet();
+	default ModuleElement getModuleElement(CharSequence name) {
+		return null;
 	}
 
 	Map<? extends ExecutableElement, ? extends AnnotationValue> getElementValuesWithDefaults(AnnotationMirror a);
@@ -79,24 +79,11 @@ public interface Elements {
 		return Origin.EXPLICIT;
 	}
 
-	enum Origin {
-		EXPLICIT,
-
-		MANDATED,
-
-		SYNTHETIC;
-
-		public boolean isDeclared() {
-			return this != SYNTHETIC;
-		}
-	}
-
 	default boolean isBridge(ExecutableElement e) {
 		return false;
 	}
 
 	Name getBinaryName(TypeElement type);
-
 
 	PackageElement getPackageOf(Element e);
 
@@ -178,5 +165,17 @@ public interface Elements {
 
 	default javax.tools.JavaFileObject getFileObjectOf(Element e) {
 		throw new UnsupportedOperationException();
+	}
+
+	enum Origin {
+		EXPLICIT,
+
+		MANDATED,
+
+		SYNTHETIC;
+
+		public boolean isDeclared() {
+			return this != SYNTHETIC;
+		}
 	}
 }

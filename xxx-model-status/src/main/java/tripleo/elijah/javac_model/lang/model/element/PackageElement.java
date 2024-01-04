@@ -5,20 +5,20 @@ import tripleo.elijah.javac_model.lang.model.type.TypeMirror;
 import java.util.List;
 
 public interface PackageElement extends Element, QualifiedNameable {
-    @Override
-    TypeMirror asType();
+	@Override
+	TypeMirror asType();
 
-    @Override
+	@Override
+	Name getSimpleName();
+
+	@Override
+	Element getEnclosingElement();
+
+	@Override
+	List<? extends Element> getEnclosedElements();
+
+	@Override
 	Name getQualifiedName();
 
-    @Override
-    Name getSimpleName();
-
-    @Override
-    List<? extends Element> getEnclosedElements();
-
-    boolean isUnnamed();
-
-    @Override
-    Element getEnclosingElement();
+	boolean isUnnamed();
 }

@@ -8,11 +8,11 @@ import static javax.lang.model.SourceVersion.RELEASE_8;
 
 @SupportedSourceVersion(RELEASE_8)
 public abstract class AbstractTypeVisitor8<R, P> extends AbstractTypeVisitor7<R, P> {
-    @SuppressWarnings("deprecation") // Superclass constructor deprecated
-    protected AbstractTypeVisitor8() {
-        super();
-    }
+	@SuppressWarnings("deprecation") // Superclass constructor deprecated
+	protected AbstractTypeVisitor8() {
+		super();
+	}
 
-    @Override
-    public abstract R visitIntersection(IntersectionType t, P p);
+	@Override
+	public abstract R visitIntersection(IntersectionType t, P p);
 }

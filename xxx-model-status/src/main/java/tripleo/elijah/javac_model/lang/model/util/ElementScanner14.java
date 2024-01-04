@@ -1,6 +1,6 @@
 //package tripleo.elijah.javac_model.util;
 //
-//import tripleo.elijah.javac_model.element.*;
+//
 //
 //import javax.annotation.processing.SupportedSourceVersion;
 //import java.util.ArrayList;

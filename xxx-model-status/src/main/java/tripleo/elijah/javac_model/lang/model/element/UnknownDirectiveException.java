@@ -4,22 +4,22 @@ import tripleo.elijah.javac_model.lang.model.UnknownEntityException;
 
 public class UnknownDirectiveException extends UnknownEntityException {
 
-    //private static final long serialVersionUID = 269L;
+	//private static final long serialVersionUID = 269L;
 
-    private final transient ModuleElement.Directive directive;
-    private final transient Object parameter;
+	private final transient ModuleElement.Directive directive;
+	private final transient Object                  parameter;
 
-    public UnknownDirectiveException(ModuleElement.Directive d, Object p) {
-        super("Unknown directive: " + d);
-        directive = d;
-        parameter = p;
-    }
+	public UnknownDirectiveException(ModuleElement.Directive d, Object p) {
+		super("Unknown directive: " + d);
+		directive = d;
+		parameter = p;
+	}
 
-    public ModuleElement.Directive getUnknownDirective() {
-        return directive;
-    }
+	public ModuleElement.Directive getUnknownDirective() {
+		return directive;
+	}
 
-    public Object getArgument() {
-        return parameter;
-    }
+	public Object getArgument() {
+		return parameter;
+	}
 }

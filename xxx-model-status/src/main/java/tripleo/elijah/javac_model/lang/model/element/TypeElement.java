@@ -5,35 +5,35 @@ import tripleo.elijah.javac_model.lang.model.type.TypeMirror;
 import java.util.List;
 
 public interface TypeElement extends Element, Parameterizable, QualifiedNameable {
-    @Override
+	@Override
 	TypeMirror asType();
 
-    @Override
-    List<? extends Element> getEnclosedElements();
+	@Override
+	Name getSimpleName();
 
-    NestingKind getNestingKind();
+	@Override
+	Element getEnclosingElement();
 
-    @Override
+	@Override
+	List<? extends Element> getEnclosedElements();
+
+	NestingKind getNestingKind();
+
+	@Override
 	Name getQualifiedName();
 
-    @Override
-    Name getSimpleName();
+	TypeMirror getSuperclass();
 
-    TypeMirror getSuperclass();
+	List<? extends TypeMirror> getInterfaces();
 
-    List<? extends TypeMirror> getInterfaces();
-
-    @Override
+	@Override
 	List<? extends TypeParameterElement> getTypeParameters();
 
-    default List<? extends RecordComponentElement> getRecordComponents() {
-        return List.of();
-    }
+	default List<? extends RecordComponentElement> getRecordComponents() {
+		return List.of();
+	}
 
-    default List<? extends TypeMirror> getPermittedSubclasses() {
-        return List.of();
-    }
-
-    @Override
-    Element getEnclosingElement();
+	default List<? extends TypeMirror> getPermittedSubclasses() {
+		return List.of();
+	}
 }

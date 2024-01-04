@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface IntersectionType extends TypeMirror {
 
-    List<? extends TypeMirror> getBounds();
+	List<? extends TypeMirror> getBounds();
 }

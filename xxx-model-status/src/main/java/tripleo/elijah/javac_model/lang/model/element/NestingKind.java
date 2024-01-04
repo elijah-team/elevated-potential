@@ -1,15 +1,15 @@
 package tripleo.elijah.javac_model.lang.model.element;
 
 public enum NestingKind {
-    TOP_LEVEL,
+	TOP_LEVEL,
 
-    MEMBER,
+	MEMBER,
 
-    LOCAL,
+	LOCAL,
 
-    ANONYMOUS;
+	ANONYMOUS;
 
-    public boolean isNested() {
-        return this != TOP_LEVEL;
-    }
+	public boolean isNested() {
+		return this != TOP_LEVEL;
+	}
 }

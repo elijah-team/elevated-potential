@@ -6,9 +6,9 @@ import tripleo.elijah.javac_model.lang.model.element.Element;
 
 public interface TypeVariable extends ReferenceType {
 
-    Element asElement();
+	Element asElement();
 
-    TypeMirror getUpperBound();
+	TypeMirror getUpperBound();
 
-    TypeMirror getLowerBound();
+	TypeMirror getLowerBound();
 }

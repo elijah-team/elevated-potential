@@ -2,64 +2,64 @@ package tripleo.elijah.javac_model.lang.model.type;
 
 
 public enum TypeKind {
-    BOOLEAN,
+	BOOLEAN,
 
-    BYTE,
+	BYTE,
 
-    SHORT,
+	SHORT,
 
-    INT,
+	INT,
 
-    LONG,
+	LONG,
 
-    CHAR,
+	CHAR,
 
-    FLOAT,
+	FLOAT,
 
-    DOUBLE,
+	DOUBLE,
 
-    VOID,
+	VOID,
 
-    NONE,
+	NONE,
 
-    NULL,
+	NULL,
 
-    ARRAY,
+	ARRAY,
 
-    DECLARED,
+	DECLARED,
 
-    ERROR,
+	ERROR,
 
-    TYPEVAR,
+	TYPEVAR,
 
-    WILDCARD,
+	WILDCARD,
 
-    PACKAGE,
+	PACKAGE,
 
-    EXECUTABLE,
+	EXECUTABLE,
 
-    OTHER,
+	OTHER,
 
-    UNION,
+	UNION,
 
-    INTERSECTION,
+	INTERSECTION,
 
-    MODULE;
+	MODULE;
 
-    public boolean isPrimitive() {
-        switch(this) {
-        case BOOLEAN:
-        case BYTE:
-        case SHORT:
-        case INT:
-        case LONG:
-        case CHAR:
-        case FLOAT:
-        case DOUBLE:
-            return true;
+	public boolean isPrimitive() {
+		switch (this) {
+		case BOOLEAN:
+		case BYTE:
+		case SHORT:
+		case INT:
+		case LONG:
+		case CHAR:
+		case FLOAT:
+		case DOUBLE:
+			return true;
 
-        default:
-            return false;
-        }
-    }
+		default:
+			return false;
+		}
+	}
 }
