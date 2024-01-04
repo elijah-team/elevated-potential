@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.xtend.XTEND_CONTAINER"/>
-	<classpathentry excluding="buildSrc/build/|gradle/wrapper/|lib_elijjah/|test/|xtend-gen/|xxx-annotations/|xxx-model-status/|buildSrc/|xxx-annotations/src/main/java/|xxx-annotations/src/main/java/" kind="src" path=""/>
+	<classpathentry excluding="buildSrc/build/|gradle/wrapper/|lib_elijjah/|test/|xtend-gen/|xxx-annotations/|xxx-model-status/|buildSrc/|xxx-annotations/src/main/java/|xxx-annotations/src/main/java/|target/classes/" kind="src" path=""/>
 	<classpathentry kind="src" path="xtend-gen/elijah-core-elevated-potential/src/main/java"/>
 	<classpathentry kind="src" path="xxx-annotations/src/main/java"/>
+	<classpathentry kind="src" path="target/classes"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17">
 		<attributes>
 			<attribute name="module" value="true"/>
