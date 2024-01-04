@@ -28,7 +28,7 @@ dependencies {
     implementation 'tripleo.elijah:tripleo.elijah.stateful:2023.elevated-potential.2'
     implementation 'tripleo.elijah:elijah-nextgen-outputstatement:2023.elevated-potential.3b'
 
-    api 'io.reactivex.rxjava3:rxjava:3.1.6'
+    api 'io.reactivex.rxjava3:rxjava:3.1.8'
     api 'org.reactivestreams:reactive-streams:1.0.4'
     api 'commons-codec:commons-codec:1.15'
     api 'antlr:antlr:2.7.7'
