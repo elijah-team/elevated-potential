@@ -282,6 +282,16 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 			return observer;
 		}
 	}
+
+	public Eventual<GenerateResult> getGenerateResultPromise() {
+		// 24/01/04 back and forth
+		return this.generateResultPromise;
+	}
+
+	public WritePipelineSharedState getSt() {
+		// 24/01/04 back and forth
+		return this.st;
+	}
 }
 
 //
