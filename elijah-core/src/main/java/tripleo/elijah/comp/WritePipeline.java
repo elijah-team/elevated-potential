@@ -17,6 +17,8 @@ import lombok.Getter;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import tripleo.elijah.Eventual;
 import tripleo.elijah.comp.AccessBus.AB_GenerateResultListener;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CB_Output;
@@ -32,6 +34,7 @@ import tripleo.elijah.stages.generate.OutputStrategy;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.stages.logging.ElLog_;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
+import tripleo.elijah.stages.write_stage.pipeline_impl.LSPrintStream.LSResult;
 import tripleo.elijah.util.NotImplementedException;
 
 import java.util.*;
@@ -46,7 +49,7 @@ import static tripleo.elijah.util.Helpers.*;
  */
 public class WritePipeline extends PipelineMember implements Consumer<Supplier<GenerateResult>>, AB_GenerateResultListener, GPipelineMember {
 	@Getter
-	private final          DeferredObject<GenerateResult, Void, Void> generateResultPromise = new DeferredObject<>();
+	private final          Eventual<GenerateResult> generateResultPromise = new Eventual<>();
 	@Getter
 	private final @NotNull WritePipelineSharedState                   st;
 	private final @NotNull CompletedItemsHandler                      cih;

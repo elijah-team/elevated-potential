@@ -7,6 +7,12 @@ import org.apache.commons.lang3.tuple.Triple;
 //import tripleo.elijah.comp.specs.EzSpec;
 //import tripleo.elijah.util.Operation2;
 
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.graph.i.Asseverate;
+import tripleo.elijah.comp.graph.i.CK_ObjectTree;
+import tripleo.elijah.comp.specs.EzSpec;
+import tripleo.elijah.util.Operation2;
+
 public class CM_Ez_ implements CM_Ez {
 	private EzSpec                           spec;
 	private Operation2<CompilerInstructions> cio;

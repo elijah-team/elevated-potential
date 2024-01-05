@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.IO_;
 import tripleo.elijah.comp.StdErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.factory.comp.CompilationFactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
