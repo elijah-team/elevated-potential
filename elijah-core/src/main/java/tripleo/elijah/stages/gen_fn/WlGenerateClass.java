@@ -107,6 +107,16 @@ public class WlGenerateClass implements WorkJob {
 	public void setConsumer(Consumer<EvaClass> consumer) {
 		this.consumer = consumer;
 	}
+
+	public ClassInvocation getClassInvocation() {
+		// 24/01/04 back and forth
+		return this.classInvocation;
+	}
+
+	public GenerateFunctions getGenerateFunctions() {
+		// 24/01/04 back and forth
+		return this.generateFunctions;
+	}
 }
 
 //

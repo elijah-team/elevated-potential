@@ -27,6 +27,18 @@ public class CiIndexingStatementImpl implements CiIndexingStatement {
 	public CiIndexingStatementImpl(final @NotNull CompilerInstructions module) {
 		this.parent = module;
 	}
+
+	@Override
+	public void setExprs(CiExpressionList arg0) {
+		// 24/01/04 back and forth
+		this.exprs = arg0;
+	}
+
+	@Override
+	public void setName(Token arg0) {
+		// 24/01/04 back and forth
+		this.name = arg0;
+	}
 }
 
 //

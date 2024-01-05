@@ -1231,6 +1231,11 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 			return part2(aClassInvocation, true, env);
 		}
 	}
+
+	public @NotNull ICodeRegistrar getCodeRegistrar() {
+		// 24/01/04 back and forth
+		return this.codeRegistrar;
+	}
 }
 
 //

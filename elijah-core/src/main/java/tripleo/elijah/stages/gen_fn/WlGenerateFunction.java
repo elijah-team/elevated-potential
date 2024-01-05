@@ -127,6 +127,12 @@ public class WlGenerateFunction implements WorkJob {
 		}
 		_isDone = true;
 	}
+
+	// FIXME 24/01/04 use eventual
+	public EvaFunction getResult() {
+		// 24/01/04 back and forth
+		return this.result;
+	}
 }
 
 //

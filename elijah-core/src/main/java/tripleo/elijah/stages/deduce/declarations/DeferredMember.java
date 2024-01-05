@@ -8,14 +8,18 @@
  */
 package tripleo.elijah.stages.deduce.declarations;
 
-import lombok.*;
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
+import org.jdeferred2.Promise;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
+
+import lombok.Getter;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.lang.i.VariableStatement;
+import tripleo.elijah.lang.impl.VariableStatementImpl;
+import tripleo.elijah.stages.deduce.DeduceElementWrapper;
+import tripleo.elijah.stages.deduce.IInvocation;
+import tripleo.elijah.stages.gen_fn.EvaNode;
+import tripleo.elijah.stages.gen_fn.GenType;
 
 /**
  * Created 6/27/21 1:41 AM
@@ -76,6 +80,21 @@ public class DeferredMember {
 	// for DeducePhase
 	public @NotNull DeferredObject<GenType, Diagnostic, Void> typeResolved() {
 		return typePromise;
+	}
+
+	public DeduceElementWrapper getParent() {
+		// 24/01/04 back and forth
+		return this.parent;
+	}
+
+	public VariableStatement getVariableStatement() {
+		// 24/01/04 back and forth
+		return this.variableStatement;
+	}
+
+	public IInvocation getInvocation() {
+		// 24/01/04 back and forth
+		return this.invocation;
 	}
 }
 

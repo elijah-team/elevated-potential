@@ -173,4 +173,10 @@ public class DefaultCompilationBus implements ICompilationBus {
 			}
 		}
 	}
+
+	@Override
+	public CompilerDriver getCompilerDriver() {
+		// 24/01/04 back and forth
+		return this.compilerDriver;
+	}
 }

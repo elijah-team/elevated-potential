@@ -141,6 +141,12 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	public String toString() {
 		return "CompilerInstructionsImpl{name='%s', filename='%s'}".formatted(name, filename);
 	}
+
+	@Override
+	public String getName() {
+		// 24/01/04 back and forth
+		return this.name;
+	}
 }
 
 //

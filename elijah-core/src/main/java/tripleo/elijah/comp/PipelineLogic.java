@@ -25,6 +25,7 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.logging.ElLog.Verbosity;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
 import tripleo.elijah.world.impl.*;
@@ -164,6 +165,11 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 		public void start() {
 
 		}
+	}
+
+	public Verbosity getVerbosity() {
+		// 24/01/04 back and forth
+		return this.verbosity;
 	}
 }
 

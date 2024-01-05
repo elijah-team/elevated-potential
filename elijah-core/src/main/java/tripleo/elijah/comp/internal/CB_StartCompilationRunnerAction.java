@@ -76,4 +76,9 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	public List<CB_Action> steps() {
 		return List_of(CB_StartCompilationRunnerAction.this);
 	}
+
+	public @NotNull CB_Output getO() {
+		// 24/01/04 back and forth
+		return this.o;
+	}
 }
