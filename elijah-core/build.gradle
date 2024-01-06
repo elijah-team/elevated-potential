@@ -3,7 +3,7 @@ plugins {
 //    id 'org.openjfx.javafxplugin' version '0.0.13'
 
     id "io.freefair.lombok" version "8.3"
-    id "io.ktor.plugin" version "2.3.4"
+    id "io.ktor.plugin" version "2.3.7"
 
     id "org.xtext.xtend" version "4.0.0"
 
@@ -28,7 +28,7 @@ dependencies {
     implementation 'tripleo.elijah:tripleo.elijah.stateful:2023.elevated-potential.2'
     implementation 'tripleo.elijah:elijah-nextgen-outputstatement:2023.elevated-potential.3b'
 
-    api 'io.reactivex.rxjava3:rxjava:3.1.6'
+    api 'io.reactivex.rxjava3:rxjava:3.1.8'
     api 'org.reactivestreams:reactive-streams:1.0.4'
     api 'commons-codec:commons-codec:1.15'
     api 'antlr:antlr:2.7.7'
@@ -42,11 +42,11 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
 //    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.1'
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.1'
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.10.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.10.1'
     testImplementation("org.assertj:assertj-core:3.24.2")
 
     // http://xtext.github.io/xtext-gradle-plugin/xtend.html
