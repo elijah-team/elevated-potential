@@ -39,7 +39,7 @@ dependencies {
     api 'org.eclipse.jdt:org.eclipse.jdt.annotation:2.2.800'
     api 'org.jetbrains:annotations:24.0.1'
 
-    api 'org.apache.commons:commons-lang3:3.12.0'
+    api 'org.apache.commons:commons-lang3:3.14.0'
     api 'org.slf4j:slf4j-simple:2.0.10'
     api 'org.slf4j:slf4j-api:2.0.7'
     api 'org.jdeferred.v2:jdeferred-core:2.0.0'
