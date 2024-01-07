@@ -30,7 +30,7 @@ dependencies {
 
     api 'io.reactivex.rxjava3:rxjava:3.1.8'
     api 'org.reactivestreams:reactive-streams:1.0.4'
-    api 'commons-codec:commons-codec:1.15'
+    api 'commons-codec:commons-codec:1.16.0'
     api 'antlr:antlr:2.7.7'
 
 //    implementation
