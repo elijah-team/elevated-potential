@@ -29,7 +29,7 @@ dependencies {
 
   implementation 'org.clojure:clojure:1.10.3'
   implementation 'org.clojure:core.specs.alpha:0.2.62'
-  implementation 'org.clojure:spec.alpha:0.2.194'
+  implementation 'org.clojure:spec.alpha:0.3.218'
 
 
   implementation 'tripleo.elijah:elijah-core-api:2023.elevated-potential.7d'
