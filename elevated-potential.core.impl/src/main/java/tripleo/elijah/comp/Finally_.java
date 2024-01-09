@@ -22,7 +22,7 @@ public class Finally_ implements Finally {
 
 	@Override
 	public int inputCount() {
-		return inputs.size();
+		return finallyInputs.size();
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class Finally_ implements Finally {
 
 	private final Set<Outs> outputOffs = new HashSet<>();
 
-	private final List<Input> inputs = new ArrayList<>();
+	private final List<Finally_Input> finallyInputs = new ArrayList<>();
 
 //	public void addInput(final CompilerInput aInp, final Out2 ty) {
 //		inputs.add(new Input(aInp, ty));
@@ -53,7 +53,7 @@ public class Finally_ implements Finally {
 
 	@Override
 	public void addInput(final EOT_Nameable aNameable, final Out2 ty) {
-		inputs.add(new Input_(aNameable, ty));
+		finallyInputs.add(new FinallyInput_(aNameable, ty));
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class Finally_ implements Finally {
 
 	@Override
 	public boolean containsInput(final String aS) {
-		return inputs.stream().anyMatch(i -> i.name().equals(aS));
+		return finallyInputs.stream().anyMatch(i -> i.name().equals(aS));
 	}
 
 	@Override
@@ -97,11 +97,11 @@ public class Finally_ implements Finally {
 		}
 	}
 
-	public static class Input_ implements Input {
+	public static class FinallyInput_ implements Finally_Input {
 		private final EOT_Nameable nameable;
 		private final Out2     ty;
 
-		public Input_(final EOT_Nameable aNameable, final Out2 aTy) {
+		public FinallyInput_(final EOT_Nameable aNameable, final Out2 aTy) {
 //			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("66 Add Input >> " + aNameable.getName());
 			nameable = aNameable;
 			ty       = aTy;

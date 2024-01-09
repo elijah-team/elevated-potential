@@ -11,9 +11,7 @@ package tripleo.elijah.slir;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Element;
+import tripleo.elijah.lang.i.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +20,8 @@ import java.util.List;
  * Created 11/6/21 8:57 AM
  */
 public class SlirClass implements SlirElement {
-	private final String className;
-	private final ClassStatement classStatement;
+	private final String            className;
+	private final ClassStatement    classStatement;
 	private final List<SlirElement> nodes = new ArrayList<SlirElement>();
 	private final @Nullable SlirElement parent;
 	private final @Nullable SlirSourceFile sourceFile;

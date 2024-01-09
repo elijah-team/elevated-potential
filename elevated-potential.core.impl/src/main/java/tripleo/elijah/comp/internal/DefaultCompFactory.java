@@ -186,4 +186,9 @@ class DefaultCompFactory implements CompFactory {
 		}
 		return _log;
 	}
+
+	@Override
+	public ILazyCompilerInstructions createLazyCompilerInstructions(final CompilerInput aCompilerInput) {
+		return ILazyCompilerInstructions_.of(aCompilerInput, compilation.getCompilationClosure());
+	}
 }

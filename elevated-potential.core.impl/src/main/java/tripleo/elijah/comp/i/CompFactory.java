@@ -1,8 +1,7 @@
 package tripleo.elijah.comp.i;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.CompilerInputMaster;
-import tripleo.elijah.comp.Finally_;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -62,4 +61,6 @@ public interface CompFactory {
 	CompilerInputMaster createCompilerInputMaster();
 
 	CM_UleLog getULog();
+
+	ILazyCompilerInstructions createLazyCompilerInstructions(CompilerInput aCarrier);
 }

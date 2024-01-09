@@ -74,6 +74,9 @@ public class WriteOutputTreePipeline extends PipelineMember implements GPipeline
 
 		final CP_Paths paths = compilation.paths();
 		paths.signalCalculateFinishParse(); // TODO maybe move this 06/22
+
+
+
 		CP_Path r = paths.outputRoot();
 
 		for (final EOT_OutputFile outputFile : l) {
