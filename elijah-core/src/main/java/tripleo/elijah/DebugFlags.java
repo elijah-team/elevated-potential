@@ -9,4 +9,11 @@ public class DebugFlags {
 	public static       boolean CCI_gate = false;
 	public static       boolean MakeSense = true;
 	public static       boolean _pancake_lcm_gate = true;
+
+	/** DONT change this */
+	public static final boolean FORCE = true;
+	/** for you, Luke... */
+	public static final boolean FORCE_IGNORE = false;
+	
+	public static final boolean NEVER_REACHED_BY_IDE = false;
 }

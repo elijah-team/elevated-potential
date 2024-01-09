@@ -1,12 +1,12 @@
 package tripleo.elijah.comp.nextgen.pw;
 
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.internal.PW_CompilerController;
+import tripleo.elijah.comp.nextgen.i.CP_Paths;
 
 public final class PW_signalCalculateFinishParse implements PW_PushWork {
 	private final static PW_signalCalculateFinishParse _instance = new PW_signalCalculateFinishParse();
 
-	public static PW_signalCalculateFinishParse instance() {
+public static PW_signalCalculateFinishParse instance() {
 		return _instance;
 	}
 

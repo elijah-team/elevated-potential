@@ -7,6 +7,7 @@ import tripleo.elijah.EventualRegister;
 import tripleo.elijah.comp.Compilation;
 
 import tripleo.elijah.comp.IO;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
 
@@ -107,5 +108,10 @@ public class CP_StdlibPath__ implements CP_StdlibPath {
 	@Override
 	public String asString() {
 		return this.toString();
+	}
+
+	@Override
+	public boolean samePath(Path px) {
+		throw new UnsupportedOperationException("TODO 12/28");
 	}
 }

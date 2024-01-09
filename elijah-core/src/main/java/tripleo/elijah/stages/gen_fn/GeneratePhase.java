@@ -19,6 +19,7 @@ import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.logging.ElLog.Verbosity;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.work.*;
 
@@ -73,6 +74,21 @@ public class GeneratePhase implements ReactiveDimension, ModuleListener {
 
 	public void setCodeRegistrar(ICodeRegistrar aCodeRegistrar) {
 		codeRegistrar = aCodeRegistrar;
+	}
+
+	public WorkManager getWm() {
+		// 24/01/04 back and forth
+		return this.wm;
+	}
+
+	public Verbosity getVerbosity() {
+		// 24/01/04 back and forth
+		return this.verbosity;
+	}
+
+	public ICodeRegistrar getCodeRegistrar() {
+		// 24/01/04 back and forth
+		return this.codeRegistrar;
 	}
 }
 

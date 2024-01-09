@@ -8,28 +8,39 @@
  */
 package tripleo.elijah.comp;
 
-import com.google.common.collect.*;
-import io.reactivex.rxjava3.annotations.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.AccessBus.*;
+import lombok.Getter;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
+import tripleo.elijah.Eventual;
+import tripleo.elijah.comp.AccessBus.AB_GenerateResultListener;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.g.*;
-import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.comp.i.CB_Output;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.internal.CR_State;
+import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.g.GPipelineMember;
+import tripleo.elijah.stages.gen_c.CDependencyRef;
+import tripleo.elijah.stages.gen_c.OutputFileC;
 import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.generate.*;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.generate.ElSystem;
+import tripleo.elijah.stages.generate.OutputStrategy;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.ElLog_;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.stages.write_stage.pipeline_impl.LSPrintStream.LSResult;
+import tripleo.elijah.util.NotImplementedException;
 
 import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static tripleo.elijah.util.Helpers.*;
 
@@ -37,7 +48,9 @@ import static tripleo.elijah.util.Helpers.*;
  * Created 8/21/21 10:19 PM
  */
 public class WritePipeline extends PipelineMember implements Consumer<Supplier<GenerateResult>>, AB_GenerateResultListener, GPipelineMember {
-	private final          DeferredObject<GenerateResult, Void, Void> generateResultPromise = new DeferredObject<>();
+	@Getter
+	private final          Eventual<GenerateResult> generateResultPromise = new Eventual<>();
+	@Getter
 	private final @NotNull WritePipelineSharedState                   st;
 	private final @NotNull CompletedItemsHandler                      cih;
 	private final @NotNull DoubleLatch<GenerateResult> latch;
@@ -157,22 +170,14 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 		gr1.subscribeCompletedItems(cih.observer());
 	}
 
-	//@Override
-	public void run(final CR_State aSt, final CB_Output aOutput) throws Exception {
+	@Override
+	public void run(final CR_State aSt, final CB_Output aOutput) {
 		latch.notifyLatch(true);
 	}
 
 	@Override
 	public String finishPipeline_asString() {
 		return this.getClass().toString();
-	}
-
-	public DeferredObject<GenerateResult, Void, Void> getGenerateResultPromise() {
-		return generateResultPromise;
-	}
-
-	public WritePipelineSharedState getSt() {
-		return st;
 	}
 
 	private static class CompletedItemsHandler {
@@ -279,6 +284,16 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 
 			return observer;
 		}
+	}
+
+	public Eventual<GenerateResult> getGenerateResultPromise() {
+		// 24/01/04 back and forth
+		return this.generateResultPromise;
+	}
+
+	public WritePipelineSharedState getSt() {
+		// 24/01/04 back and forth
+		return this.st;
 	}
 }
 

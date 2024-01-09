@@ -9,6 +9,8 @@
 package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.*;
+
+import tripleo.elijah.DebugFlags;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.util.*;
@@ -38,7 +40,7 @@ public class CaseContext extends ContextImpl implements ICaseContext {
 								   final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
-		if (false) {
+		if (DebugFlags.FORCE_IGNORE) {
 			final String iterName = carrier.getIterName();
 			if (iterName != null) {
 				if (name.equals(iterName)) { // reversed to prevent NPEs IdentExpression ie =
@@ -47,7 +49,7 @@ public class CaseContext extends ContextImpl implements ICaseContext {
 				}
 			}
 		}
-		if (false) {
+		if (DebugFlags.FORCE_IGNORE) {
 			if (carrier.getParent() != null) {
 				final Context context = getParent();
 				if (!alreadySearched.contains(context) || !one) context.lookup(name, level + 1, Result, alreadySearched, false); // TODO test this } return Result;

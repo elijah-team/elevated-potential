@@ -8,19 +8,39 @@
  */
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.*;
+//import org.jetbrains.annotations.*;
+//import tripleo.elijah.DebugFlags;
+//import tripleo.elijah.comp.i.CB_Output;
+//import tripleo.elijah.comp.i.extra.*;
+//import tripleo.elijah.comp.internal.*;
+//import tripleo.elijah.comp.internal_move_soon.*;
+//import tripleo.elijah.comp.notation.*;
+//import tripleo.elijah.g.GPipelineAccess;
+//import tripleo.elijah.lang.i.*;
+//import tripleo.elijah.nextgen.outputstatement.*;
+//import tripleo.elijah.nextgen.outputtree.*;
+//import tripleo.elijah.stages.gen_fn.*;
+//import tripleo.elijah.stages.gen_generic.*;
+//import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.DebugFlags;
 import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.internal_move_soon.*;
-import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.internal.CR_State;
+import tripleo.elijah.comp.internal.Provenance;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
+import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
 import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.lang.i.FunctionDef;
+import tripleo.elijah.lang.i.OS_Element2;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.gen_generic.DoubleLatch;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 
 import java.util.*;
@@ -31,15 +51,15 @@ import static tripleo.elijah.util.Helpers.List_of;
  * Created 8/21/21 10:16 PM
  */
 public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListener {
-	private final          CompilationEnclosure       ce;
+	private final          CompilationEnclosure      ce;
 	private final @NotNull IPipelineAccess            pa;
 	private final @NotNull DefaultGenerateResultSink  grs;
 	private final @NotNull DoubleLatch<List<EvaNode>> latch2;
-	private final @NotNull List<FunctionStatement>    functionStatements = new ArrayList<>();
-	private                CB_Output                  _processOutput;
-	private                CR_State                   _processState;
+	private final @NotNull List<FunctionStatement> functionStatements = new ArrayList<>();
+	private CB_Output     _processOutput;
+	private CR_State      _processState;
 	@SuppressWarnings("unused")
-	private                List<EvaNode>              _lgc;
+	private List<EvaNode> _lgc;
 	@SuppressWarnings("unused")
 	private                PipelineLogic              pipelineLogic;
 
@@ -77,7 +97,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 		var nodesThatWereProcesed = new ArrayList<>(aLgc1);
 
 		final List<ProcessedNode> nodes = processLgc(nodesThatWereProcesed);
-		int y=2;
+		int                       y     =2;
 
 		for (EvaNode evaNode : nodesThatWereProcesed) {
 			_processOutput.logProgress(160, "EvaPipeline.recieve >> " + evaNode);
@@ -104,10 +124,10 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 	}
 
 	private void functionStatementToOutputFileDump(final FunctionStatement functionStatement) {
-		final String         filename = functionStatement.getFilename(pa);
-		final EG_Statement   seq      = EG_Statement.of(functionStatement.getText(), EX_Explanation.withMessage("dump2"));
+		final String       filename = functionStatement.getFilename(pa);
+		final EG_Statement seq      = EG_Statement.of(functionStatement.getText(), EX_Explanation.withMessage("dump2"));
 		if (DebugFlags.writeDumps) {
-			final var cot = ce.getCompilation().getOutputTree();
+			final var            cot = ce.getCompilation().getOutputTree();
 			final EOT_OutputFile off = new EOT_OutputFileImpl(List_of(), filename, EOT_OutputType.DUMP, seq);
 			cot.add(off);
 		}
@@ -230,16 +250,6 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 	public String finishPipeline_asString() {
 		return this.getClass().toString();
 	}
-
-//	public void simpleUsageExample() {
-//		Parseable pbr = Parsers.newParseable("{:x 1, :y 2}");
-//		Parser    p = Parsers.newParser(defaultConfiguration());
-//		Map<?, ?> m = (Map<?, ?>) p.nextValue(pbr);
-////		assertEquals(m.get(newKeyword("x")), 1L);
-////		assertEquals(m.get(newKeyword("y")), 2L);
-////		assertEquals(Parser.END_OF_INPUT, p.nextValue(pbr));
-//	}
-
 }
 
 //

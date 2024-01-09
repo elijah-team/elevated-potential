@@ -193,6 +193,26 @@ public class FunctionInvocation implements IInvocation {
 	public void setForFunctionInvocation(final FunctionInvocation aFunctionInvocation) {
 		throw new IllegalStateException("maybe this shouldn't be done?");
 	}
+
+	public NamespaceInvocation getNamespaceInvocation() {
+		// 24/01/04 back and forth
+		return this.namespaceInvocation;
+	}
+
+	public ClassInvocation getClassInvocation() {
+		// 24/01/04 back and forth
+		return this.classInvocation;
+	}
+
+	public void setClassInvocation(ClassInvocation classInvocation2) {
+		// 24/01/04 back and forth
+		this.classInvocation = classInvocation2;
+	}
+
+	public void setNamespaceInvocation(NamespaceInvocation namespaceInvocation2) {
+		// 24/01/04 back and forth
+		this.namespaceInvocation = namespaceInvocation2;
+	}
 }
 
 //

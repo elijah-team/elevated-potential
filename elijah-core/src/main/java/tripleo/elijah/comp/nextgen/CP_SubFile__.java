@@ -2,6 +2,8 @@ package tripleo.elijah.comp.nextgen;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import tripleo.elijah.DebugFlags;
 import tripleo.elijah.Eventual;
 import tripleo.elijah.UnintendedUseException;
 
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tripleo.elijah.comp.IO;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
 
@@ -116,7 +119,7 @@ public class CP_SubFile__ implements CP_SubFile {
 
 		private String getString(final @NotNull String parentName) {
 			String result;
-			if (true || x == null) {
+			if (DebugFlags.FORCE/* || x == null */) {
 				result = Path.of(parentName, childName).toFile().toString();
 			} else {
 				result = Path.of(parentName, childName, x).toFile().toString();
@@ -184,6 +187,11 @@ public class CP_SubFile__ implements CP_SubFile {
 					", _pathPromise=" + _pathPromise +
 					", x='" + x + '\'' +
 					'}';
+		}
+
+		@Override
+		public boolean samePath(Path px) {
+			throw new UnsupportedOperationException("TODO 12/28");
 		}
 	}
 }

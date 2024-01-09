@@ -52,7 +52,7 @@ public class Finally_ implements Finally {
 	}
 
 	@Override
-	public void addInput(final Nameable aNameable, final Out2 ty) {
+	public void addInput(final EOT_Nameable aNameable, final Out2 ty) {
 		inputs.add(new Input_(aNameable, ty));
 	}
 
@@ -98,10 +98,10 @@ public class Finally_ implements Finally {
 	}
 
 	public static class Input_ implements Input {
-		private final Nameable nameable;
+		private final EOT_Nameable nameable;
 		private final Out2     ty;
 
-		public Input_(final Nameable aNameable, final Out2 aTy) {
+		public Input_(final EOT_Nameable aNameable, final Out2 aTy) {
 //			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("66 Add Input >> " + aNameable.getName());
 			nameable = aNameable;
 			ty       = aTy;

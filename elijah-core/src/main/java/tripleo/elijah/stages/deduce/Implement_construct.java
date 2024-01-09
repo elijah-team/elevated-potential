@@ -221,6 +221,8 @@ public class Implement_construct {
 				if (lrl == null && ectx instanceof DeducePath.MemberContext) {
 					p = (action_IdentIA___0001_5(deducePath, (DeducePath.MemberContext) ectx, i, idte2, s));
 				} else {
+					assert lrl != null; // README 12/29 born to fail
+
 					@Nullable
 					OS_Element el2 = lrl.chooseBest(null);
 					if (el2 == null) {
@@ -452,6 +454,9 @@ public class Implement_construct {
 						}
 					}
 				}
+				
+				assert cc != null; // README 12/29 born to fail
+
 				WlGenerateCtor gen = _inj().new_WlGenerateCtor(generateFunctions, pte.getFunctionInvocation(),
 						cc.getNameNode(), deduceTypes2._phase().getCodeRegistrar());
 				gen.run(null);

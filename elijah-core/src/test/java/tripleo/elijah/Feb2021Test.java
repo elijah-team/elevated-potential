@@ -23,7 +23,7 @@ public class Feb2021Test {
 				.setFile("test/feb2021/function/")
 				.run();
 
-		final int curious_that_this_does_not_fail = 0/*100*/;
+		final int curious_that_this_does_not_fail = 1_000_100;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
 	}
 
@@ -33,7 +33,7 @@ public class Feb2021Test {
 				.setFile("test/feb2021/hier/")
 				.run();
 
-		final int curious_that_this_does_not_fail = 0/*100*/;
+		final int curious_that_this_does_not_fail = 1_000_100;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
 
 		// TODO 10/15 cucumber??
@@ -54,7 +54,7 @@ public class Feb2021Test {
 				.setFile("test/feb2021/property/")
 				.run();
 
-		final int curious_that_this_does_not_fail = 0/*100*/;
+		final int curious_that_this_does_not_fail = 1_000_100;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
 
 		//assert t.c().reports().codeOutputSize() > 0;
@@ -69,7 +69,7 @@ public class Feb2021Test {
 				.setFile("test/feb2021/property2/")
 				.run();
 
-		final int curious_that_this_does_not_fail = 0/*100*/;
+		final int curious_that_this_does_not_fail = 1_000_100;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
 
 		//assert t.c().reports().codeOutputSize() > 0;
@@ -84,7 +84,7 @@ public class Feb2021Test {
 				.setFile("test/feb2021/property3/")
 				.run();
 
-		final int curious_that_this_does_not_fail = 0/*100*/;
+		final int curious_that_this_does_not_fail = 1_000_100;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
 
 		//assert t.c().reports().codeOutputSize() > 0;

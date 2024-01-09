@@ -137,6 +137,11 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded, GEvaNamespa
 	public void setCode(final int aCode) {
 		_living.setCode(aCode);
 	}
+
+	public NamespaceStatement getNamespaceStatement() {
+		// 24/01/04 back and forth
+		return this.namespaceStatement;
+	}
 }
 
 //

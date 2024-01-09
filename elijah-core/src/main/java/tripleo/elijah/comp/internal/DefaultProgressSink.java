@@ -12,7 +12,7 @@ public class DefaultProgressSink implements IProgressSink {
 		// component.note(code, type, params);
 		if (component.isPrintErr(code, type)) {
 			final String s = component.printErr(code, type, params);
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_3(s);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(s);
 		}
 	}
 }
