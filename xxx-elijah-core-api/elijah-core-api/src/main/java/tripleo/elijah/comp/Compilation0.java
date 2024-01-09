@@ -17,7 +17,7 @@ import tripleo.elijah.util.*;
 
 import java.util.*;
 
-public interface Compilation0 {
+public interface Compilation0 /*extends GCompilation*/ {
 
     //	CompilerBeginning beginning(final CompilationRunner compilationRunner);
 

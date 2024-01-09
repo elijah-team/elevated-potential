@@ -1,7 +1,5 @@
 package tripleo.elijah.comp.i;
 
-import tripleo.elijah.comp.impl.CC_SetSilent;
-
 import java.util.*;
 
 public interface ICompilationBus {

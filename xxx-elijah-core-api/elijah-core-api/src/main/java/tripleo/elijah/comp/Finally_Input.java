@@ -1,6 +1,6 @@
 package tripleo.elijah.comp;
 
-public interface Input {
+public interface Finally_Input {
 	String name();
 
 	@Override
