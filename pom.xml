@@ -129,12 +129,14 @@
 			<version>2.2.600</version>
 			<scope>compile</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.12.0</version>
 			<scope>compile</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
@@ -147,6 +149,7 @@
 			<version>2.0.7</version>
 			<scope>compile</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>com.github.spotbugs</groupId>
 			<artifactId>spotbugs-annotations</artifactId>
@@ -159,46 +162,6 @@
 			<version>${guava.version}</version>
 			<scope>compile</scope>
 		</dependency>
-
-		<!--
-				<dependency>
-					<groupId>tripleo.elijah</groupId>
-					<artifactId>elijah-util</artifactId>
-					<version>2023.elevated-potential.2b</version>
-					<scope>compile</scope>
-				</dependency>
-				<dependency>
-					<groupId>tripleo.elijah</groupId>
-					<artifactId>elijah-ek</artifactId>
-					<version>2023.elevated-potential.2</version>
-					<scope>compile</scope>
-				</dependency>
-				<dependency>
-					<groupId>tripleo.elijah</groupId>
-					<artifactId>tripleo.small</artifactId>
-					<version>2023.elevated-potential.2</version>
-					<scope>compile</scope>
-				</dependency>
-				<dependency>
-					<groupId>tripleo.elijah</groupId>
-					<artifactId>tripleo.elijah.reactive</artifactId>
-					<version>2023.elevated-potential.2</version>
-					<scope>compile</scope>
-				</dependency>
-				<dependency>
-					<groupId>tripleo.elijah</groupId>
-					<artifactId>tripleo.elijah.stateful</artifactId>
-					<version>2023.elevated-potential.2</version>
-					<scope>compile</scope>
-				</dependency>
-				<dependency>
-					<groupId>tripleo.elijah</groupId>
-					<artifactId>elijah-nextgen-outputstatement</artifactId>
-					<version>2023.elevated-potential.3b</version>
-					<scope>compile</scope>
-				</dependency>
-		-->
-
 
 		<dependency>
 			<groupId>org.eclipse.xtend</groupId>
@@ -288,19 +251,11 @@
 			<artifactId>jctools-core</artifactId>
 			<version>2.1.2</version>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>5.2.0</version>
-			<scope>compile</scope>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
 			<version>5.10.1</version>
-			<scope>compile</scope>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -353,6 +308,7 @@
 			-->
 
 
+<!--
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
@@ -371,6 +327,7 @@
 					</execution>
 				</executions>
 			</plugin>
+-->
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -384,28 +341,21 @@
 						</goals>
 						<configuration>
 							<sources>
+<!--
 								<source>./xxx-model-status/src/main/java</source>
 								<source>./xxx-annotations/src/main/java</source>
+-->
 
 								<!--
 									<source>./xtend-gen/elijah-core-elevated-potential/src/main/java
 									<source>target/generated-sources/delombok</source>
-								-->
-
-								<!--
-									<source>./src-damar/elijah-sourcemodel-api/src/main/java</source>
-									<source>./src-damar/elijah-sourcemodel-impl/src/main/java</source>
-									<source>./src-damar/elijah-good-api/src/main/java</source>
-									<source>./src-bnxn/elijah-nextgen-outputstatement/src/main/java</source>
-									<source>./src-bnxn/elijah-stateful/src/main/java</source>
-									<source>./src-bnxn/tripleo-small/src/main/java</source>
-									<source>./src-bnxn/tripleo-reactive/src/main/java</source>
 								-->
 							</sources>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

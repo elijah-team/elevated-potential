@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http:/maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http:/www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http:/maven.apache.org/POM/4.0.0 http:/maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -9,7 +9,7 @@
 		<artifactId>elevated-potential</artifactId>
 		<version>elevated.2024-01</version>
 	</parent>
-	
+
 	<artifactId>elevated-potential-core-api0</artifactId>
 	<version>2024.elevated-potential.1</version>
 
@@ -34,7 +34,8 @@
 		</dependency>
 	</dependencies>
 
-<build><plugins>
+	<build>
+		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
@@ -63,11 +64,6 @@
 
 
 								<!--
-									<source>./xtend-gen/elijah-core-elevated-potential/src/main/java
-									<source>target/generated-sources/delombok</source>
-								-->
-
-								<!--
 									<source>./src-damar/elijah-sourcemodel-api/src/main/java</source>
 									<source>./src-damar/elijah-sourcemodel-impl/src/main/java</source>
 									<source>./src-damar/elijah-good-api/src/main/java</source>
@@ -81,5 +77,6 @@
 					</execution>
 				</executions>
 			</plugin>
-</plugins></build>
+		</plugins>
+	</build>
 </project>
