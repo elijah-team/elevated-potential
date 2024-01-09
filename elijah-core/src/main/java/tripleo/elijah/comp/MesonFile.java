@@ -3,7 +3,6 @@ package tripleo.elijah.comp;
 import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.nextgen.outputstatement.*;
 

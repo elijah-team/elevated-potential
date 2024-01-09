@@ -1,9 +1,5 @@
 package tripleo.elijah.compiler_model;
 
-//import tripleo.elijah.comp.CompFactory;
-//import tripleo.elijah.util.Mode;
-//import tripleo.elijah.util.Operation;
-
 import java.io.File;
 
 public class CM_Factory {

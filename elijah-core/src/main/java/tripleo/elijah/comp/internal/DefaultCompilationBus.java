@@ -1,10 +1,12 @@
 package tripleo.elijah.comp.internal;
 
+import lombok.Getter;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.impl.CC_SetSilent;
 import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -15,7 +17,7 @@ import static tripleo.elijah.util.Helpers.*;
 public class DefaultCompilationBus implements ICompilationBus {
 	public static final int DEFUALT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG = 5757;
 	private final CB_Monitor _monitor;
-	@lombok.Getter
+	@Getter
 	private final @NotNull CompilerDriver    compilerDriver;
 	private final @NotNull Compilation       c;
 	//	private final @NotNull List<CB_Process> _processes = new ArrayList<>();
@@ -49,6 +51,17 @@ public class DefaultCompilationBus implements ICompilationBus {
 	public CB_Monitor getMonitor() {
 		return _monitor;
 	}
+
+//	@Override public void addCompilerChange(Class<?> compilationChangeClass) {
+//		if (compilationChangeClass.isInstance(CC_SetSilent.class)) {
+//			try {
+//				CompilationChange ccc = (CompilationChange) compilationChangeClass.getDeclaredConstructor(null).newInstance(null);
+//				ccc.apply(this.c);
+//			} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+//				throw new RuntimeException(e);
+//			}
+//		}
+//	}
 
 	@Override
 	public void add(final @NotNull CB_Action action) {
@@ -104,7 +117,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 	}
 
 	private void logProgess(final int code, final String message) {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(""+code+" "+message);
+		SimplePrintLoggerToRemoveSoon.println_out_4(""+code+" "+message);
 	}
 
 	private void execute_process(final DefaultCompilationBus ignoredADefaultCompilationBus, final CB_Process aProcess) {
