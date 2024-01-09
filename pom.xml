@@ -4,11 +4,10 @@
 
 	<groupId>tripleo.elijah</groupId>
 	<artifactId>elevated-potential</artifactId>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<version>elevated.2024-01</version>
 
-	<!-- TODO 12/31 naming here -->
-	<name>eljc-almost-elevated-potential</name>
+	<name>elevated-potential</name>
 	<url>http://github.com/elijah-lang/elevated-potential</url>
 
 	<properties>
@@ -38,6 +37,30 @@
 		<org.eclipse.xtend.lib.version>2.31.0.M3</org.eclipse.xtend.lib.version>
 		<xtend-maven-plugin.version>2.31.0.M3</xtend-maven-plugin.version>
 	</properties>
+	
+	<modules>
+	  <module>./elevated-potential.base.impl</module> <!-- change to /source for eclipse import project -->
+	  <module>./elevated-potential.core.api</module>
+	  <module>./elevated-potential.core.impl</module>
+<module>./xxx-elijah-core-api</module>
+	  
+	  <!--
+	  <module>./xxx-model-status</module>
+	  <module>./xxx-annotations</module>
+	  -->
+
+	  <!--
+	  <source>./xxx-elijah-core-api/dlog/src/main/java</source>
+	  <source>./xxx-elijah-core-api/elijah-core-api/src/main/java</source>
+	  <source>./xxx-elijah-core-api/src/main/java</source>
+	  <source>./xxx-elijah-core-api/elijah-ek/src/main/java</source>
+	  <source>./xxx-elijah-core-api/elijah-nextgen-outputstatement/src/main/java</source>
+	  <source>./xxx-elijah-core-api/elijah-stateful/src/main/java</source>
+	  <source>./xxx-elijah-core-api/elijah-util/src/main/java</source>
+	  <source>./xxx-elijah-core-api/tripleo-reactive/src/main/java</source>
+	  <source>./xxx-elijah-core-api/tripleo-small/src/main/java</source>
+	  -->
+	</modules>
 
 	<dependencies>
 
@@ -265,6 +288,20 @@
 			<artifactId>jctools-core</artifactId>
 			<version>2.1.2</version>
 		</dependency>
+		<!--
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>5.2.0</version>
+			<scope>compile</scope>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.10.1</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<repositories>
@@ -347,31 +384,11 @@
 						</goals>
 						<configuration>
 							<sources>
-
-								<source>./elijah-base-impl/src/main/java/</source>
-								<source>./elijah-core-elevated-potential/src/main/java</source>
-								<source>./elijah-core-elevated-potential/xtend-gen/src/main/java</source>
 								<source>./xxx-model-status/src/main/java</source>
 								<source>./xxx-annotations/src/main/java</source>
 
-
-								<source>./elijah-core/src/main/java</source>
-
-
-								<source>./elijah-core-api/dlog/src/main/java</source>
-								<source>./elijah-core-api/elijah-core-api/src/main/java</source>
-								<source>./elijah-core-api/src/main/java</source>
-								<source>./elijah-core-api/elijah-ek/src/main/java</source>
-								<source>./elijah-core-api/elijah-nextgen-outputstatement/src/main/java</source>
-								<source>./elijah-core-api/elijah-stateful/src/main/java</source>
-								<source>./elijah-core-api/elijah-util/src/main/java</source>
-								<source>./elijah-core-api/tripleo-reactive/src/main/java</source>
-								<source>./elijah-core-api/tripleo-small/src/main/java</source>
-
-
 								<!--
 									<source>./xtend-gen/elijah-core-elevated-potential/src/main/java
-									<source>src/main/lombok</source>
 									<source>target/generated-sources/delombok</source>
 								-->
 
