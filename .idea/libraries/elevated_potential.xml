@@ -2,12 +2,14 @@
   <library name="elevated-potential">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/antlr/antlr/2.7.7/antlr-2.7.7.jar" />
+      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar" />
+
       <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/com.github.spotbugs/spotbugs-annotations/4.7.3/spotbugs-annotations-4.7.3.jar" />
+      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/org/checkerframework/checker-qual/3.33.0/checker-qual-3.33.0.jar" />
+
       <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/commons-codec/commons-codec/1.15/commons-codec-1.15.jar" />
       <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/io.reactivex.rxjava3/rxjava/3.1.6/rxjava-3.1.6.jar" />
       <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/io.smallrye.reactive/mutiny/2.5.3/mutiny-2.5.3.jar" />
-      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar" />
-      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/org/checkerframework/checker-qual/3.33.0/checker-qual-3.33.0.jar" />
       <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/org/jctools/jctools-core/4.0.2/jctools-core-4.0.2.jar" />
       <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/org/jdeferred/v2/jdeferred-core/2.0.0/jdeferred-core-2.0.0.jar" />
       <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/org/jetbrains/annotations/24.0.1/annotations-24.0.1.jar" />
@@ -16,14 +18,15 @@
       <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/org.apache.commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar" />
       <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/org.clojure/clojure/1.10.3/clojure-1.10.3.jar" />
       <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.buffers/buffers-v1/0.0.3/buffers-v1-0.0.3.jar" />
-      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/elijah-core-api/2023.elevated-potential.7g/elijah-core-api-2023.elevated-potential.7g.jar" />
-      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/elijah-ek/2023.elevated-potential.2/elijah-ek-2023.elevated-potential.2.jar" />
-      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/elijah-nextgen-outputstatement/2023.elevated-potential.3b/elijah-nextgen-outputstatement-2023.elevated-potential.3b.jar" />
-      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/elijah-util/2023.elevated-potential.2b/elijah-util-2023.elevated-potential.2b.jar" />
-      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/tripleo.elijah.reactive/2023.elevated-potential.2/tripleo.elijah.reactive-2023.elevated-potential.2.jar" />
-      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/tripleo.elijah.stateful/2023.elevated-potential.2/tripleo.elijah.stateful-2023.elevated-potential.2.jar" />
-      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/tripleo.small/2023.elevated-potential.2/tripleo.small-2023.elevated-potential.2.jar" />
       <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.util.range/range-v1/0.0.3b/range-v1-0.0.3b.jar" />
+      
+      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/elijah-core-api/2024.elevated-potential.1/elijah-core-api-2024.elevated-potential.1.jar" />
+      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/elijah-ek/2024.elevated-potential.1/elijah-ek-2024.elevated-potential.1.jar" />
+      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/elijah-nextgen-outputstatement/2024.elevated-potential.1/elijah-nextgen-outputstatement-2024.elevated-potential.1.jar" />
+      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/elijah-util/2024.elevated-potential.1/elijah-util-2024.elevated-potential.1.jar" />
+      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/tripleo.elijah.reactive/2024.elevated-potential.1/tripleo.elijah.reactive-2024.elevated-potential.1.jar" />
+      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/tripleo.elijah.stateful/2024.elevated-potential.1/tripleo.elijah.stateful-2024.elevated-potential.1.jar" />
+      <root url="file://$PROJECT_DIR$/elevated-potential/yyy-lib/tripleo.elijah/tripleo.small/2024.elevated-potential.1/tripleo.small-2024.elevated-potential.1.jar" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
