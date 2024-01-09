@@ -5,8 +5,9 @@ import tripleo.elijah.comp.CompilerInputMaster;
 import tripleo.elijah.comp.Finally_;
 import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
-import tripleo.elijah.comp.internal.*;
-
+import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.comp.internal.PW_CompilerController;
+import tripleo.elijah.comp.internal.Startable;
 import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;

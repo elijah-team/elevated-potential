@@ -19,8 +19,8 @@ import tripleo.elijah.world.i.WorldModule;
 
 public class CM_Module_ implements CM_Module {
 	private Operation2<OS_Module> moduleOperation;
-	private ElijahSpec            spec;
-	private WorldModule           worldModule;
+	private ElijahSpec spec;
+	private WorldModule worldModule;
 	private Compilation compilation;
 
 	@Override
