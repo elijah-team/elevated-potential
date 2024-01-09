@@ -16,7 +16,6 @@ import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
 
 import java.util.*;
 import java.util.stream.*;
@@ -27,8 +26,8 @@ import static tripleo.elijah.util.Helpers.*;
 /**
  * @author Tripleo
  */
-//@Disabled
-public class FindClassesInDemoElNormal {
+@Disabled
+public class FindClassesInDemoElNormalTest {
 
 	@Disabled @Test
 	public final void testListFolders() throws Exception {
