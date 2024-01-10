@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.process;
 
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
@@ -6,6 +6,8 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 
+import tripleo.elijah.comp.internal.CR_State;
+import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.impl.CK_SourceFileFactory;
 import tripleo.elijah.g.GCR_State;
@@ -27,7 +29,7 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 	public void findStdLib(final @NotNull CR_State crState,
 						   final @NotNull String aPreludeName,
 						   final @NotNull Consumer<Operation2<CompilerInstructions>> coci) {
-		final CompilationRunner           compilationRunner = crState.runner();
+		final CompilationRunner compilationRunner = crState.runner();
 		final @NotNull CompilationClosure cc                = compilationRunner._accessCompilation().getCompilationClosure();
 		var                               slr               = cc.getCompilation().paths().stdlibRoot();
 		var     pl  = slr.child("lib-" + aPreludeName);

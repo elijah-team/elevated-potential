@@ -1,10 +1,13 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.process;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal.CR_State;
+import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.comp.local.CW_inputIsDirectory;
 import tripleo.elijah.comp.local.CW_inputIsEzFile;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
@@ -15,8 +18,8 @@ import tripleo.wrap.File;
 import java.nio.file.NotDirectoryException;
 import java.util.List;
 
-class CB_FindCIs implements CB_Action {
-	private final CompilationRunner   compilationRunner;
+public class CB_FindCIs implements CB_Action {
+	private final CompilationRunner compilationRunner;
 	private final List<CompilerInput> _inputs;
 	private final CB_Output           o;
 
@@ -30,7 +33,7 @@ class CB_FindCIs implements CB_Action {
 	@Override
 	public void execute(CB_Monitor aMonitor) {
 //		final CK_Monitor       monitor11   = /*aMonitor;//*/compilationRunner.getCompilationEnclosure().getDefaultMonitor();
-		final CR_State         st      = compilationRunner.getCrState();
+		final CR_State st      = compilationRunner.getCrState();
 		final Compilation      c       = (Compilation) st.ca().getCompilation();
 		final @NotNull ErrSink errSink = c.getErrSink();
 //		final CK_StepsContext  context   = new CD_CRS_StepsContext(st, o);

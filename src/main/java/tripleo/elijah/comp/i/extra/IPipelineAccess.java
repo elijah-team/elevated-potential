@@ -26,6 +26,7 @@ import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 import java.util.*;
 import java.util.function.*;
 
+// pp around this pole
 public interface IPipelineAccess extends GPipelineAccess {
 	void _send_GeneratedClass(EvaNode aClass);
 

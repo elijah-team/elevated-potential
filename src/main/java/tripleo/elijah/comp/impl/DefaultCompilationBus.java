@@ -6,7 +6,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.chewtoy.Startable;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CompilationRunner;
-import tripleo.elijah.comp.internal.CompilerDriver__;
+import tripleo.elijah.comp.process.DefaultCompilerDriver;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
@@ -40,7 +40,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 		_monitor             = new CompilationRunner.__CompRunner_Monitor();
 		_defaultProgressSink = new DefaultProgressSink();
 
-		compilerDriver = new CompilerDriver__(this);
+		compilerDriver = new DefaultCompilerDriver(this);
 		ace.setCompilerDriver(compilerDriver);
 	}
 

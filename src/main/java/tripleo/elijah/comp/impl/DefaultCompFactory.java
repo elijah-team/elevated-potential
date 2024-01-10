@@ -35,7 +35,7 @@ import tripleo.elijah.world.impl.DefaultWorldModule;
 
 import java.util.*;
 
-class DefaultCompFactory implements CompFactory {
+public class DefaultCompFactory implements CompFactory {
 	private final CompilationImpl compilation;
 	private CM_UleLog _log;
 
@@ -157,7 +157,7 @@ class DefaultCompFactory implements CompFactory {
 	@NotNull
 	@Override
 	public CK_Monitor createCkMonitor() {
-		return new CompilationImpl.__CK_Monitor();
+		return new DefaultCK_Monitor();
 	}
 
 	@NotNull

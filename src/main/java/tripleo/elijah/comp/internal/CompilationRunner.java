@@ -9,6 +9,7 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.comp.process.CB_StartCompilationRunnerAction;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.g.*;
 import tripleo.elijah.stateful.*;
@@ -24,7 +25,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	private final @NotNull CR_State                        crState;
 	@Getter
 	private final @NotNull IProgressSink                   progressSink;
-	private /*@NotNull*/   CB_StartCompilationRunnerAction startAction;
+	private /*@NotNull*/ CB_StartCompilationRunnerAction startAction;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
 		this(
@@ -106,12 +107,11 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 				final CR_State                  crState1               = this.getCrState();
 
 				// assert !(started);
-				if (CB_StartCompilationRunnerAction.started) {
+				if (CB_StartCompilationRunnerAction.isStarted()) {
 					//throw new AssertionError();
 					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + startAction);
 				} else {
-					compilationRunnerStart.start(aRootCI, crState1, cbOutput);
-					CB_StartCompilationRunnerAction.started = true;
+					CB_StartCompilationRunnerAction.enjoin(compilationRunnerStart,aRootCI, crState1, cbOutput);
 				}
 
 				monitor.reportSuccess(startAction, cbOutput);

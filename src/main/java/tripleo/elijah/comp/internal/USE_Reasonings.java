@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import tripleo.elijah.comp.process.CK_ProcessInitialAction;
 import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;

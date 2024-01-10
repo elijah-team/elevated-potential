@@ -1,10 +1,14 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.process;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.impl.DefaultCompilationBus;
+import tripleo.elijah.comp.internal.CR_State;
+import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.comp.internal.CompilationRunner;
+import tripleo.elijah.comp.internal.USE_Reasonings;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.util.*;
 
@@ -31,7 +35,7 @@ public class CB_FindStdLibProcess implements CB_Process {
 
 	class CB_FindStdLibAction implements CB_Action {
 		private final     CompilationEnclosure  ce;
-		private final     CR_State              crState;
+		private final CR_State crState;
 		private final     List<CB_OutputString> o = new ArrayList<>(); // FIXME 07/01 how is this modified?
 		private @Nullable CD_FindStdLib         findStdLib;
 

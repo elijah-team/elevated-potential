@@ -1,11 +1,12 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.process;
 
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.Pipeline;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal.CR_State;
+import tripleo.elijah.comp.internal.OStageProcess;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.util.*;
 
@@ -13,7 +14,7 @@ public class CK_RunBetterAction implements CK_Action {
 	@Override
 	public Operation<Ok> execute(final CK_StepsContext context1, final CK_Monitor aMonitor) {
 		final CD_CRS_StepsContext context = (CD_CRS_StepsContext) context1;
-		final CR_State            crState = context.getState();
+		final CR_State crState = context.getState();
 		final CB_Output           output  = context.getOutput();
 
 		try {

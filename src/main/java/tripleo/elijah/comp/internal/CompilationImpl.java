@@ -694,18 +694,6 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		}
 	}
 
-	static class __CK_Monitor implements CK_Monitor {
-		@Override
-		public void reportSuccess() {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void reportFailure() {
-			throw new UnintendedUseException();
-		}
-	}
-
 	@Override
 	public CompilationEnclosure getCompilationEnclosure() {
 		// TODO Auto-generated method stub

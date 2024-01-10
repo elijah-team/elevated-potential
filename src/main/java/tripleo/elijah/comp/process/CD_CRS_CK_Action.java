@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.process;
 
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CR_Action;
