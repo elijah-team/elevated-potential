@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.local;
 
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
@@ -11,11 +11,11 @@ import tripleo.elijah.util.*;
 
 import java.util.function.*;
 
-class CY_FindPrelude {
+public class CY_FindPrelude {
 	private final Supplier<ElijahCache> _elijahCacheSupplier;
 	private final Supplier<Compilation> _compilationSupplier;
 
-	CY_FindPrelude(final Supplier<Compilation> _c, final Supplier<ElijahCache> _elijahCache) {
+	public CY_FindPrelude(final Supplier<Compilation> _c, final Supplier<ElijahCache> _elijahCache) {
 		_compilationSupplier = _c;
 		_elijahCacheSupplier = _elijahCache;
 	}

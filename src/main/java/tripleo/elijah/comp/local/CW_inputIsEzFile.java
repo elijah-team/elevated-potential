@@ -1,9 +1,10 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.local;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
+import tripleo.elijah.comp.internal.ILazyCompilerInstructions_;
 import tripleo.elijah.util.Maybe;
 
 public class CW_inputIsEzFile {
