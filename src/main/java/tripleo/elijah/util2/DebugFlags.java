@@ -1,4 +1,4 @@
-package tripleo.elijah;
+package tripleo.elijah.util2;
 
 public class DebugFlags {
 	public static final boolean MANUAL_DISABLED = false;
