@@ -2,9 +2,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "rolling*", "rolling", "rolling-2024-0109bb", "rolling-2024-0109c" ]
+    branches: [ "rolling" ]
   pull_request:
-    branches: [ "rolling*", "rolling", "rolling-2024-0109bb", "rolling-2024-0109c" ]
+    branches: [ "rolling-*", "rolling-2024-0109bb", "rolling-2024-0109c" ]
 
 jobs:
   build:
