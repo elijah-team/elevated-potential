@@ -1,6 +1,6 @@
 package tripleo.elijah.compiler_model;
 
-import java.io.File;
+import tripleo.wrap.File;
 
 public class CM_Factory {
 	private CM_Factory() {}
@@ -9,7 +9,7 @@ public class CM_Factory {
 		return new CM_Filename() {
 			@Override
 			public String getString() {
-				return file.toString();
+				return file.wrapped().toString();
 			}
 		};
 	}
