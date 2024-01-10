@@ -8,6 +8,7 @@ import tripleo.elijah.comp.graph.i.CM_Module;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.local.CPX_Signals;

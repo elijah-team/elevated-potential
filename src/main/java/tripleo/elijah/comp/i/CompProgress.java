@@ -2,7 +2,7 @@ package tripleo.elijah.comp.i;
 
 import org.apache.commons.lang3.tuple.*;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.util.*;

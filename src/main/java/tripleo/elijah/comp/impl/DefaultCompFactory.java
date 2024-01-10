@@ -9,9 +9,11 @@ import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
+import tripleo.elijah.comp.inputs.CompilerInput;
+import tripleo.elijah.comp.inputs.CompilerInputMaster;
 import tripleo.elijah.comp.inputs.ILazyCompilerInstructions_;
 import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.comp.local.CX_ParseElijahFile;
+import tripleo.elijah.comp.local.CW;
 import tripleo.elijah.comp.local.CX_realParseElijjahFile2;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
@@ -151,7 +153,7 @@ public class DefaultCompFactory implements CompFactory {
 	}
 
 	@Override
-	public CX_ParseElijahFile.ElijahSpecReader defaultElijahSpecReader(final CP_Path aLocalPrelude) {
+	public CW.CX_ParseElijahFile.ElijahSpecReader defaultElijahSpecReader(final CP_Path aLocalPrelude) {
 		return new DefaultElijahSpecReader(aLocalPrelude, compilation);
 	}
 
@@ -197,3 +199,4 @@ public class DefaultCompFactory implements CompFactory {
 		return ILazyCompilerInstructions_.of(aCompilerInput, compilation.getCompilationClosure());
 	}
 }
+

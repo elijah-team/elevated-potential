@@ -2,7 +2,6 @@ package tripleo.elijah.comp.local;
 
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.local.CX_ParseElijahFile;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.i.CP_StdlibPath;
 import tripleo.elijah.comp.specs.*;
@@ -22,14 +21,14 @@ public class CY_FindPrelude {
 
 	public Operation2<OS_Module> findPrelude(final String prelude_name) {
 		final CP_Path             local_prelude = local_prelude(prelude_name);
-		final CY_ElijahSpecParser esp           = c().con().defaultElijahSpecParser(elijahCache());
-		final CX_ParseElijahFile.ElijahSpecReader rdr           = c().con().defaultElijahSpecReader(local_prelude);
+		final CY_ElijahSpecParser                    esp = c().con().defaultElijahSpecParser(elijahCache());
+		final CW.CX_ParseElijahFile.ElijahSpecReader rdr = c().con().defaultElijahSpecReader(local_prelude);
 
-		return CX_ParseElijahFile.__parseEzFile(local_prelude.getName(),
-												local_prelude.toFile(),
-												rdr,
-												esp
-											   );
+		return CW.CX_ParseElijahFile.__parseEzFile(local_prelude.getName(),
+		                                           local_prelude.toFile(),
+		                                           rdr,
+		                                           esp
+		                                          );
 	}
 
 	public CP_Path local_prelude(final String prelude_name) {

@@ -1,7 +1,7 @@
 package tripleo.elijah.nextgen.inputtree;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.util.*;
 
 import java.util.Objects;

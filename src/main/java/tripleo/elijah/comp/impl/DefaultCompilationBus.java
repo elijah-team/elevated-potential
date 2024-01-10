@@ -1,45 +1,32 @@
 package tripleo.elijah.comp.impl;
 
 import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.helpers.queues.MpscLinkedQueue;
 import io.smallrye.mutiny.subscription.BackPressureStrategy;
-import io.smallrye.mutiny.subscription.MultiEmitter;
 import lombok.Getter;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.hairball.__MultiEmitterConsumer;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CompilationRunner;
-import tripleo.elijah.comp.nextgen.pw.PW_Controller;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 import tripleo.elijah.comp.process.DefaultCompilerDriver;
-import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.stream.Collectors;
-
-import static tripleo.elijah.util.Helpers.*;
+import java.util.List;
+import java.util.Queue;
 
 public class DefaultCompilationBus implements ICompilationBus {
-	public static final int  DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG = 5757;
+	public static final int DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG = 5757;
 
-	private final CB_Monitor _monitor;
+	private final          CB_Monitor        _monitor;
 	@Getter
 	private final @NotNull CompilerDriver    compilerDriver;
 	private final @NotNull Compilation       c;
-	//	private final @NotNull List<CB_Process> _processes = new ArrayList<>();
-	//@SuppressWarnings("TypeMayBeWeakened")
-	private final          Queue<CB_Process> pq = new ConcurrentLinkedQueue<>();
-
-	private final @NotNull IProgressSink _defaultProgressSink;
-//	new IProgressSink() {
-//		@Override
-//		public void note(final Codes aCode, final @NotNull ProgressSinkComponent aProgressSinkComponent,
-//		                 final int aType, final Object[] aParams) {
-//			Stupidity.println_err_2(aProgressSinkComponent.printErr(aCode, aType, aParams));
-//		}
-//	};
+	private final          Queue<CB_Process> pq = new MpscLinkedQueue<>();
+	private final @NotNull IProgressSink     _defaultProgressSink;
 
 	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
 		c                    = (@NotNull Compilation) ace.getCompilationAccess().getCompilation();
@@ -101,71 +88,18 @@ public class DefaultCompilationBus implements ICompilationBus {
 	}
 
 	public void runProcesses() {
-		var m = Multi.createFrom().emitter((MultiEmitter<? super PW_PushWork> emitter) -> {
-			final List<CB_Process> pql = pq.stream().collect(Collectors.toList());
-			for (CB_Process process : pql) {
-
-				emitter.emit(new PW_PushWork() {
-					@Override
-					public void handle(final PW_Controller pwc, final PW_PushWork otherInstance) {
-						System.err.println("777111 "+process.name()); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-						logProgess(DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
-						execute_process(DefaultCompilationBus.this, process);
-					}
-
-					@Override
-					public void execute(final PW_Controller aController) {
-						handle(aController, null);
-					}
-				});
-			}
-
-			// Once all items are emitted, complete the emitter
-			emitter.complete();
-		}, BackPressureStrategy.BUFFER);
+		final __MultiEmitterConsumer multiEmitterConsumer = new __MultiEmitterConsumer(this, pq, null);
+		final Multi<PW_PushWork>     m                    = Multi.createFrom().emitter(multiEmitterConsumer, BackPressureStrategy.BUFFER);
 
 		m.subscribe().with((PW_PushWork item) -> {
+			//System.out.println("Received item: " + item);
 
 			item.handle(c.__pw_controller(), null);
-
-			//System.out.println("Received item: " + item);
 		});
 	}
 
-	private void logProgess(final int code, final String message) {
-		SimplePrintLoggerToRemoveSoon.println_out_4(""+code+" "+message);
-	}
-
-	private void execute_process(final DefaultCompilationBus aDefaultCompilationBus,
-	                             final CB_Process aProcess) {
-		assert aDefaultCompilationBus == this;
-
-		//CompilationUnitTree
-		//Compilation.Cheat.executeCB_Action(aProcess);
-
-		aProcess.execute(this);
-	}
-
-	public static class SingleActionProcess implements CB_Process {
-		// README tape
-		private final CB_Action a;
-		private final String    name;
-
-		public SingleActionProcess(final CB_Action aAction, final String aCBFindStdLibProcess) {
-			a    = aAction;
-			name = aCBFindStdLibProcess;
-		}
-
-		@Override
-		public @NotNull List<CB_Action> steps() {
-			return List_of(a);
-		}
-
-		@Override
-		public String name() {
-			return name;//"SingleActionProcess";
-		}
-
+	public void logProgress(final int code, final String message) {
+		SimplePrintLoggerToRemoveSoon.println_out_4("" + code + " " + message);
 	}
 
 	@Override // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
@@ -174,7 +108,8 @@ public class DefaultCompilationBus implements ICompilationBus {
 			try {
 				final CompilationChange compilationChange = (CompilationChange) class1.getDeclaredConstructor(new Class[]{}).newInstance();
 				c.getCompilationEnclosure().getCompilationBus().option(compilationChange);
-			} catch (InstantiationException | IllegalAccessException |InvocationTargetException | NoSuchMethodException e) {
+			} catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+			         NoSuchMethodException e) {
 				throw new Error();
 			}
 		}

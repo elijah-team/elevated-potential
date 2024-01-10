@@ -42,7 +42,7 @@ public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	}
 
 	public static void enjoin(final CD_CompilationRunnerStart aCompilationRunnerStart, final CompilerInstructions aRootCI, final CR_State aCRState, final CB_Output aCbOutput) {
-		_startManager.enjoin(aCompilationRunnerStart, aRootCI, aCRState, aCbOutput);
+		startManager().enjoin(aCompilationRunnerStart, aRootCI, aCRState, aCbOutput);
 	}
 
 	@Contract(value = " -> new", pure = true)
@@ -78,7 +78,7 @@ public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 		}
 	}
 
-	private _StartManager startManager() {
+	private static _StartManager startManager() {
 		if (_startManager == null) {
 			_startManager = new _StartManager();
 		}

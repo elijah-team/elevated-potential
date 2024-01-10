@@ -1,7 +1,7 @@
 package tripleo.elijah.comp.i;
 
 import tripleo.elijah.comp.Compilation0;
-import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 

@@ -5,6 +5,7 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.*;
 import tripleo.elijah.comp.nextgen.pw.*;

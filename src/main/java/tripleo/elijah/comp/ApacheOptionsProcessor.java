@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.impl.CC_SetSilent;
+import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;

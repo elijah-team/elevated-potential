@@ -2,7 +2,7 @@ package tripleo.elijah.comp.specs;
 
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.graph.i.CM_Module;
-import tripleo.elijah.comp.local.CX_ParseElijahFile;
+import tripleo.elijah.comp.local.CW;
 import tripleo.wrap.File;
 
 import java.io.InputStream;
@@ -10,9 +10,9 @@ import java.util.Objects;
 
 public final class ElijahSpec_ implements ElijahSpec {
 	private final           String                              file_name;
-	private final           File                                file;
-	private final @Nullable CX_ParseElijahFile.ElijahSpecReader r;
-	private final @Nullable InputStream                         s;
+	private final           File                                   file;
+	private final @Nullable CW.CX_ParseElijahFile.ElijahSpecReader r;
+	private final @Nullable InputStream                            s;
 	private                 CM_Module                           cmModule;
 
 	public ElijahSpec_(String file_name, File file, @Nullable InputStream s) {
@@ -22,7 +22,7 @@ public final class ElijahSpec_ implements ElijahSpec {
 		this.r         = null;
 	}
 
-	public ElijahSpec_(final String aFileName, final File aFile, final CX_ParseElijahFile.@Nullable ElijahSpecReader aR) {
+	public ElijahSpec_(final String aFileName, final File aFile, final CW.CX_ParseElijahFile.@Nullable ElijahSpecReader aR) {
 		file_name = aFileName;
 		file      = aFile;
 		r         = aR;

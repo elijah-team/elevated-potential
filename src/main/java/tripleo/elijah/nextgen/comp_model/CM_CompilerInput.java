@@ -3,13 +3,14 @@ package tripleo.elijah.nextgen.comp_model;
 import com.google.common.base.MoreObjects;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
+import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.util.Maybe;
 import tripleo.wrap.File;
 
 public class CM_CompilerInput implements EOT_Nameable {
-	private final Compilation comp;
-	private final CompilerInput   carrier;
-	private       String          inp;
+	private final Compilation   comp;
+	private final CompilerInput carrier;
+	private       String        inp;
 	private CompilerInput.Ty ty;
 	private File dir_carrier;
 	private String                           hash;

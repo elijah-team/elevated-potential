@@ -8,7 +8,6 @@ import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.world.i.WorldModule;
 
-import tripleo.elijah.comp.local.CX_ParseElijahFile;
 import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.comp.specs.ElijahSpec;
 
@@ -45,7 +44,7 @@ public enum CX_realParseElijjahFile2 {
 			return Operation2.success(early.get());
 		}
 
-		final Operation2<OS_Module> calm = CX_ParseElijahFile.parseAndCache(spec, aElijahCache, absolutePath, aC);
+		final Operation2<OS_Module> calm = CW.CX_ParseElijahFile.parseAndCache(spec, aElijahCache, absolutePath, aC);
 
 		if (!DebugFlags.MakeSense) {
 			final WorldModule worldModule = aC.con().createWorldModule(calm.success());

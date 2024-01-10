@@ -46,30 +46,6 @@ public class QuerySearchEzFiles {
 		return R;
 	}
 
-/*
-	public @NotNull List<Operation2<CompilerInstructions>> process2(final @NotNull File directory) {
-		final List<Operation2<CompilerInstructions>> R       = new ArrayList<>();
-		final ErrSink                                errSink = cc.errSink();
-
-		final String[] list = directory.list(ez_files_filter);
-		if (list != null) {
-			QSEZ_Reasoning reasoning = QSEZ_Reasonings.create(null);
-			List<Operation2<CompilerInstructions>> operation2s = CW_ezDirRequest.apply(
-					list,
-					directory,
-					null,
-					(File file1) -> parseEzFile(file1, file1.toString(), cc),
-					cc,
-					reasoning
-			);
-
-			R.addAll(operation2s);
-		}
-
-		return R;
-	}
-*/
-
 	public static class Diagnostic_9995 implements Diagnostic {
 		private final File file;
 		private final int  code = 9995;

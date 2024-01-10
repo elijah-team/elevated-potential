@@ -4,6 +4,7 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.local.CX_ParseEzFile;
 import tripleo.elijah.comp.nextgen.i.*;
@@ -22,7 +23,7 @@ import tripleo.wrap.File;
 
 @SuppressWarnings("rawtypes")
 abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
-	protected Compilation  compilation;
+	protected Compilation   compilation;
 	protected CompilerInput input;
 
 	/**

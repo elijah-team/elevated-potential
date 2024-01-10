@@ -3,14 +3,14 @@ package tripleo.elijah.comp.impl;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 
-import tripleo.elijah.comp.local.CX_ParseElijahFile;
+import tripleo.elijah.comp.local.CW;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.util.Operation;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-class DefaultElijahSpecReader implements CX_ParseElijahFile.ElijahSpecReader {
+class DefaultElijahSpecReader implements CW.CX_ParseElijahFile.ElijahSpecReader {
 	private final CP_Path     local_prelude;
 	private final Compilation c;
 

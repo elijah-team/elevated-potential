@@ -1,4 +1,4 @@
-package tripleo.elijah.comp;
+package tripleo.elijah.comp.inputs;
 
 import tripleo.elijah.comp.i.extra.*;
 

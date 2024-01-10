@@ -19,7 +19,7 @@ package tripleo.vendor.org_apache_commons_cli;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.util.NotImplementedException;
 
 import static tripleo.vendor.org_apache_commons_cli.Util.EMPTY_STRING_ARRAY;

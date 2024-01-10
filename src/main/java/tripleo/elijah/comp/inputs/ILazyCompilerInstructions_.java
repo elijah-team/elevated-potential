@@ -4,7 +4,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.graph.i.CK_SourceFile;
 import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;

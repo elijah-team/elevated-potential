@@ -1,7 +1,7 @@
 package tripleo.elijah.comp.graph.i;
 
 import org.apache.commons.lang3.tuple.Pair;
-import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.inputs.CompilerInput;
 
 import java.util.List;
 

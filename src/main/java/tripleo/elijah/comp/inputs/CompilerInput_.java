@@ -1,4 +1,4 @@
-package tripleo.elijah.comp;
+package tripleo.elijah.comp.inputs;
 
 import com.google.common.base.Preconditions;
 import lombok.Getter;
@@ -20,16 +20,16 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class CompilerInput_ extends __Extensionable implements CompilerInput {
-	private final @Nullable Optional<CompilationImpl> oc;
+	private final @Nullable Optional<CompilationImpl>        oc;
 	//	@Getter
-	private final String                           inp;
-	private       Maybe<ILazyCompilerInstructions> accept_ci;
-	private       File                             dir_carrier;
+	private final           String                           inp;
+	private                 Maybe<ILazyCompilerInstructions> accept_ci;
+	private                 File                             dir_carrier;
 	@Getter @Accessors(fluent = true)
-	private       Ty                               ty;
-	private       String                           hash;
-	private       CompilerInputMaster              master;
-	private CompilerInstructions_Result directoryResults;
+	private                 Ty                               ty;
+	private                 String                           hash;
+	private                 CompilerInputMaster              master;
+	private                 CompilerInstructions_Result      directoryResults;
 	public CompilerInput_(final String aS, final Optional<CompilationImpl> aCompilation) {
 		inp = aS;
 		oc  = aCompilation;

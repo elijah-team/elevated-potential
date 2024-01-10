@@ -17,6 +17,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.g.*;

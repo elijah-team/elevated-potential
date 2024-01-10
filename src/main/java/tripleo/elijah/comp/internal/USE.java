@@ -12,8 +12,8 @@ import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.i.USE_Reasoning;
+import tripleo.elijah.comp.local.CW;
 import tripleo.elijah.comp.local.CW_sourceDirRequest;
-import tripleo.elijah.comp.local.CX_ParseElijahFile;
 import tripleo.elijah.comp.local.CY_FindPrelude;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.diagnostic.Diagnostic;
@@ -70,7 +70,7 @@ public class USE {
 		Operation2<OS_Module> om;
 
 		try {
-			var rdr = new CX_ParseElijahFile.ElijahSpecReader() {
+			var rdr = new CW.CX_ParseElijahFile.ElijahSpecReader() {
 				@Override
 				public @NotNull Operation<InputStream> get()  {
 					try {
@@ -81,13 +81,13 @@ public class USE {
 					}
 				}
 			};
-			om = CX_ParseElijahFile.__parseEzFile(
+			om = CW.CX_ParseElijahFile.__parseEzFile(
 					file_name,
 					f,
 					rdr,
 					//c.getIO(),
 					c.con().defaultElijahSpecParser(elijahCache)
-			);
+			                                        );
 
 			switch (om.mode()) {
 			case SUCCESS -> {

@@ -1,11 +1,14 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.diagnostic;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.util.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.diagnostic.Locatable;
+import tripleo.elijah.util.Operation;
+import tripleo.elijah.util2.UnintendedUseException;
 
-import java.io.*;
-import java.util.*;
+import java.io.PrintStream;
+import java.util.List;
 
 /**
  * No Location info !!!
@@ -13,7 +16,7 @@ import java.util.*;
  * @param <T>
  */
 public class CodedOperationDiagnostic<T> implements Diagnostic {
-	private final int       code;
+	private final int          code;
 	private final String       message;
 	private final Operation<T> operation;
 
@@ -30,7 +33,7 @@ public class CodedOperationDiagnostic<T> implements Diagnostic {
 
 	@Override
 	public @NotNull Locatable primary() {
-		return null;
+		throw new UnintendedUseException("impl me ltr");
 	}
 
 	@Override
@@ -38,7 +41,7 @@ public class CodedOperationDiagnostic<T> implements Diagnostic {
 		stream.println("%s %s".formatted(code(), this.message()));
 	}
 
-	String message() {
+	public String message() {
 		switch (operation.mode()) {
 		case SUCCESS -> {
 			return "SUCCESS: " + this.message;

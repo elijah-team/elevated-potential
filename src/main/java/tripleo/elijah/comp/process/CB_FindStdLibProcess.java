@@ -5,10 +5,9 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.ICompilationRunner;
-import tripleo.elijah.comp.impl.DefaultCompilationBus;
+import tripleo.elijah.comp.impl.SingleActionProcess;
 import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.comp.internal.USE_Reasonings;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.util.*;
@@ -87,7 +86,7 @@ public class CB_FindStdLibProcess implements CB_Process {
 
 		@Contract(value = " -> new", pure = true)
 		public @NotNull CB_Process process() {
-			return new DefaultCompilationBus.SingleActionProcess(this, CB_FindStdLibProcess.this.name());
+			return new SingleActionProcess(this, CB_FindStdLibProcess.this.name());
 		}
 	}
 }

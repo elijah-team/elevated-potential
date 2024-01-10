@@ -4,10 +4,12 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
+import tripleo.elijah.comp.inputs.CompilerInput;
+import tripleo.elijah.comp.inputs.CompilerInputMaster;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.chewtoy.PW_CompilerController;
 import tripleo.elijah.comp.chewtoy.Startable;
-import tripleo.elijah.comp.local.CX_ParseElijahFile;
+import tripleo.elijah.comp.local.CW;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue;
@@ -48,7 +50,7 @@ public interface CompFactory {
 
 	EIT_InputTree createInputTree();
 
-	CX_ParseElijahFile.ElijahSpecReader defaultElijahSpecReader(CP_Path aLocalPrelude);
+	CW.CX_ParseElijahFile.ElijahSpecReader defaultElijahSpecReader(CP_Path aLocalPrelude);
 
 	@NotNull CK_Monitor createCkMonitor();
 

@@ -3,14 +3,13 @@ package tripleo.elijah.comp.process;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.CompilationRunner;
-import tripleo.elijah.comp.local.CW_inputIsDirectory;
-import tripleo.elijah.comp.local.CW_inputIsEzFile;
+import tripleo.elijah.comp.local.CW;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.util.Maybe;
@@ -84,7 +83,7 @@ public class CB_FindCIs implements CB_Action {
 				input.certifyRoot();
 			}
 
-			CW_inputIsEzFile.apply(input, compilationClosure);
+			CW.CW_inputIsEzFile_(input, compilationClosure);
 		} else {
 			// aErrSink.reportError("9996 Not an .ez file "+file_name);
 			if (f.isDirectory()) {
@@ -92,7 +91,7 @@ public class CB_FindCIs implements CB_Action {
 
 				// FIXME 24/01/09 Duplication alert??
 				compilation.addCompilerInputWatcher(CB_FindCIs::__CN_CompilerInputWatcher__event);
-				CW_inputIsDirectory.apply(input, compilationClosure, f);
+				CW.CW_inputIsDirectory_(input, compilationClosure, f);
 			} else {
 				final NotDirectoryException d = new NotDirectoryException(f.toString());
 				aErrSink.reportError("9995 Not a directory " + f.getAbsolutePath());

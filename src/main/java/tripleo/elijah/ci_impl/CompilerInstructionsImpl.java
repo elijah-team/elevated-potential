@@ -10,7 +10,7 @@ package tripleo.elijah.ci_impl;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.ci_impl.GenerateStatementImpl.Directive;
-import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
@@ -30,7 +30,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 //	private         GenerateStatement          gen;
 //	@Getter @Setter
 //	private         String        name;
-	private         CompilerInput advisedCompilerInput;
+	private CompilerInput advisedCompilerInput;
 //
 //	@Override
 //	public void add(final GenerateStatement generateStatement) {

@@ -26,6 +26,9 @@ import tripleo.elijah.comp.i.extra.CompilerInputListener;
 import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.impl.*;
+import tripleo.elijah.comp.inputs.CompilerInput;
+import tripleo.elijah.comp.inputs.CompilerInputMaster;
+import tripleo.elijah.comp.inputs.CompilerInput_;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.local.CPX_Signals;
 import tripleo.elijah.comp.nextgen.CP_Paths__;
@@ -60,7 +63,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class CompilationImpl implements Compilation, EventualRegister {
-	private final List<CN_CompilerInputWatcher> _ciws;
+	private final List<CN_CompilerInputWatcher>                                  _ciws;
 	private final Map<CompilerInput, CM_CompilerInput>                           _ci_models;
 	private final List<Triple<CN_CompilerInputWatcher.e, CompilerInput, Object>> _ciw_buffer;
 
@@ -79,9 +82,9 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private final LivingRepo                          _repo;
 	private final CP_Paths                            paths;
 	private final ErrSink                             errSink;
-	private final int                                 _compilationNumber;
-	private final CompilerInputMaster                 master;
-	private final Finally                             _finally;
+	private final int                 _compilationNumber;
+	private final CompilerInputMaster master;
+	private final Finally             _finally;
 	private final CK_ObjectTree                       objectTree;
 	private final Map<ElijahSpec, CM_Module>          specToModuleMap;
 	private final Map<OS_Module, CM_Module>           moduleToCMMap;

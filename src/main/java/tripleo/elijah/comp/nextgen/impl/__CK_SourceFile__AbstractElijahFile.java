@@ -3,7 +3,8 @@ package tripleo.elijah.comp.nextgen.impl;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.local.CX_ParseElijahFile;
+import tripleo.elijah.comp.inputs.CompilerInput;
+import tripleo.elijah.comp.local.CW;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
@@ -20,7 +21,7 @@ import tripleo.wrap.File;
 @SuppressWarnings("rawtypes")
 abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {
 //	private final __CK_SourceFile__AbstractElijjahFile CKSourceFile__abstractElijahFile;
-	protected CK_GlobalRef compilation;
+	protected CK_GlobalRef  compilation;
 	protected CompilerInput input;
 
 //	public __CK_SourceFile__AbstractElijjahFile(final __CK_SourceFile__AbstractElijjahFile aCKSourceFile__abstractElijahFile) {
@@ -51,7 +52,7 @@ abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {
 			return Operation2.success(early.get());
 		}
 
-		final Operation2<OS_Module> om = CX_ParseElijahFile.parseAndCache(spec, cache, absolutePath, compilation);
+		final Operation2<OS_Module> om = CW.CX_ParseElijahFile.parseAndCache(spec, cache, absolutePath, compilation);
 		return om;
 	}
 

@@ -9,6 +9,7 @@ import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.ICompilationBus;
 import tripleo.elijah.comp.i.OptionsProcessor;
 import tripleo.elijah.comp.i.extra.ICompilationRunner;
+import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;

@@ -4,6 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.inputs.CompilerInput;
+import tripleo.elijah.comp.inputs.CompilerInput_;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.impl.DefaultCompilerController;
 import tripleo.elijah.nextgen.outputstatement.*;
