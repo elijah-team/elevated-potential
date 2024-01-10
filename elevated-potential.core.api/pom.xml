@@ -32,5 +32,10 @@
 			<version>elevated.2024-01</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>tripleo.elijah</groupId>
+			<artifactId>elevated-potential-core-api0</artifactId>
+			<version>2024.elevated-potential.1</version>
+		</dependency>
 	</dependencies>
 </project>
