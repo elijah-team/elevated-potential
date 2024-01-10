@@ -13,7 +13,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="elevated-potential" />
+        <module name="elevated-potential-base-impl" />
+        <module name="elevated-potential-core-impl" />
+        <module name="elijah-core" />
+        <module name="elevated-potential-core-api0" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />
