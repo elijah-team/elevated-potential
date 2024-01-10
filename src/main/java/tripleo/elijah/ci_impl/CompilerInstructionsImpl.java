@@ -240,7 +240,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	public String toString() {
 		return "CompilerInstructionsImpl{" +
 				"name='" + name + '\'' +
-				", filename='" + filename + '\'' +
+				", filename='" + filename.getString() + '\'' +
 				'}';
 	}
 

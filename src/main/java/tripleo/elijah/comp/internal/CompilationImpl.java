@@ -144,6 +144,11 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		}
 	}
 
+	@Override
+	public PW_Controller __pw_controller() {
+		return pw_controller;
+	}
+
 	public JarWork getJarwork() throws WorkException {
 		if (jarwork==null)jarwork = new JarWorkImpl();
 		return jarwork;
@@ -330,7 +335,8 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@Override
 	public void setRootCI(CompilerInstructions rootCI) {
 		//cci_listener.id.root = rootCI;
-		throw new UnintendedUseException();
+//		throw new UnintendedUseException("maybe we can just remove this??");
+		int y=2;
 	}
 
 	@Override
@@ -582,14 +588,17 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public Operation<Ok> hasInstructions2(@NotNull final List<CompilerInstructions> cis, @NotNull final IPipelineAccess pa) {
-		return hasInstructions(cis, get_pa());
+		return hasInstructions(cis, pa());
 	}
 
 	@Override
 	public IPipelineAccess pa() {
-		Preconditions.checkNotNull(_pa);
+		final IPipelineAccess[] pa = new IPipelineAccess[1];
 
-		return _pa;
+		compilationEnclosure.getPipelineAccessPromise().then(apa -> pa[0] = apa);
+
+		Preconditions.checkNotNull(pa[0]);
+		return pa[0];
 	}
 
 	@Override
@@ -607,23 +616,14 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	@Override
-	public IPipelineAccess get_pa() {
-		return _pa;
-	}
-
-	@Override
 	public void set_pa(final GPipelineAccess aPipelineAccess) {
-		set_pa((IPipelineAccess) aPipelineAccess);
-	}
-
-	@Override
-	public void set_pa(IPipelineAccess a_pa) {
-		_pa = a_pa;
+		//set_pa((IPipelineAccess) aPipelineAccess);
+		throw new UnintendedUseException("not in ep");
 	}
 
 	@Override
 	public CIS _cis() {
-		return _cis; //get_cis();
+		return _cis;
 	}
 
 	@Override

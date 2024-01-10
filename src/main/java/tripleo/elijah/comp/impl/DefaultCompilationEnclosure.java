@@ -461,8 +461,8 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	@Override
 	public boolean provideCompilationRunner(final Supplier<@NotNull ICompilationRunner> aScr) {
-		if (compilationRunner == null) return false;
-		setCompilationRunner((CompilationRunner) aScr.get());
+		if (compilationRunner != null) return false;
+		setCompilationRunner(aScr.get());
 		return true;
 	}
 

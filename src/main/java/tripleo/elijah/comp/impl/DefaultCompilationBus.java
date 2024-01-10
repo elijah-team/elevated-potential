@@ -1,11 +1,15 @@
 package tripleo.elijah.comp.impl;
 
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.subscription.BackPressureStrategy;
+import io.smallrye.mutiny.subscription.MultiEmitter;
 import lombok.Getter;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.chewtoy.Startable;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CompilationRunner;
+import tripleo.elijah.comp.nextgen.pw.PW_Controller;
+import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 import tripleo.elijah.comp.process.DefaultCompilerDriver;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
@@ -13,11 +17,13 @@ import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 import static tripleo.elijah.util.Helpers.*;
 
 public class DefaultCompilationBus implements ICompilationBus {
-	public static final int DEFUALT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG = 5757;
+	public static final int  DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG = 5757;
+
 	private final CB_Monitor _monitor;
 	@Getter
 	private final @NotNull CompilerDriver    compilerDriver;
@@ -95,64 +101,49 @@ public class DefaultCompilationBus implements ICompilationBus {
 	}
 
 	public void runProcesses() {
-		final Queue<CB_Process> procs       = pq;
-		final Startable task        = this.c.con().askConcurrent(() -> __run_all_thread(procs), "[DefaultCompilationBus]");
-		task.start();
+		var m = Multi.createFrom().emitter((MultiEmitter<? super PW_PushWork> emitter) -> {
+			final List<CB_Process> pql = pq.stream().collect(Collectors.toList());
+			for (CB_Process process : pql) {
 
-		try {
-			// TODO 10/20 Remove this soon
-			final Thread thread = task.stealThread();
+				emitter.emit(new PW_PushWork() {
+					@Override
+					public void handle(final PW_Controller pwc, final PW_PushWork otherInstance) {
+						System.err.println("777111 "+process.name()); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+						logProgess(DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
+						execute_process(DefaultCompilationBus.this, process);
+					}
 
-			// FIXME 23/01/04 awaitlity
-			//await()
-			thread.join();//TimeUnit.MINUTES.toMillis(1));
-
-			for (final CB_Process process : pq) {
-				logProgess(DEFUALT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
-				execute_process(this, process);
+					@Override
+					public void execute(final PW_Controller aController) {
+						handle(aController, null);
+					}
+				});
 			}
 
-			thread.stop();
-		} catch (InterruptedException aE) {
-			throw new RuntimeException(aE);
-		}
+			// Once all items are emitted, complete the emitter
+			emitter.complete();
+		}, BackPressureStrategy.BUFFER);
+
+		m.subscribe().with((PW_PushWork item) -> {
+
+			item.handle(c.__pw_controller(), null);
+
+			//System.out.println("Received item: " + item);
+		});
 	}
 
 	private void logProgess(final int code, final String message) {
 		SimplePrintLoggerToRemoveSoon.println_out_4(""+code+" "+message);
 	}
 
-	private void execute_process(final DefaultCompilationBus ignoredADefaultCompilationBus, final CB_Process aProcess) {
+	private void execute_process(final DefaultCompilationBus aDefaultCompilationBus,
+	                             final CB_Process aProcess) {
+		assert aDefaultCompilationBus == this;
+
 		//CompilationUnitTree
 		//Compilation.Cheat.executeCB_Action(aProcess);
-		if (alreadyP.contains(aProcess)) throw new Error();
-		alreadyP.add(aProcess);
-	}
 
-	List<CB_Process> alreadyP = new ArrayList<>();
-
-	private void __run_all_thread(final Queue<CB_Process> procs) {
-		// FIXME passing sh*t between threads (P.O.!)
-		_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
-		long x = 0;
-		while (x < 12) {
-			final CB_Process poll = procs.poll();
-
-			if (poll != null) {
-				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, DEFUALT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, new Object[]{poll.name()});
-				poll.execute(this);
-			} else {
-				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
-				try {
-					Thread.sleep(500);
-//					x = 0; // who put this here?
-				} catch (InterruptedException aE) {
-					//throw new RuntimeException(aE);
-				}
-			}
-			++x;
-		}
-		_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5789, new Object[]{});
+		aProcess.execute(this);
 	}
 
 	public static class SingleActionProcess implements CB_Process {

@@ -48,7 +48,7 @@ public enum SimplePrintLoggerToRemoveSoon {
 	}
 
 	public static void println_out_4(final Object aS) {
-		//System.out.println(aS);
+		System.out.println("SimplePrintLoggerToRemoveSoon::println_out_4 >> " + aS);
 	}
 
 	public static void println_out_4(final int code, final String message) {

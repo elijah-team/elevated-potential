@@ -92,10 +92,7 @@ public class DefaultCompilerController implements CompilerController {
 		final ICompilationAccess compilationAccess = ce.getCompilationAccess();
 		assert compilationAccess != null;
 
-		ce.provideCompilationRunner(() -> {
-			final ICompilationRunner icr = con.createCompilationRunner(compilationAccess);
-			return (CompilationRunner) icr;
-		});
+		ce.provideCompilationRunner(() -> con.createCompilationRunner(compilationAccess));
 		final ICompilationRunner cr = ce.getCompilationRunner();
 
 		hook(cr);

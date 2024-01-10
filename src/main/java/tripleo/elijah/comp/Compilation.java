@@ -13,6 +13,7 @@ import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.local.CPX_Signals;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
+import tripleo.elijah.comp.nextgen.pw.PW_Controller;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.comp.specs.*;
@@ -39,10 +40,6 @@ public interface Compilation extends Compilation0 {
 
 	@Override
 	Operation2<GWorldModule> findPrelude(String prelude_name);
-
-	IPipelineAccess get_pa();
-
-	void set_pa(IPipelineAccess a_pa);
 
 	void addCompilerInputWatcher(CN_CompilerInputWatcher aCNCompilerInputWatcher);
 
@@ -105,6 +102,8 @@ public interface Compilation extends Compilation0 {
 	CM_CompilerInput get(CompilerInput aInput);
 
 	void ____m();
+
+	PW_Controller __pw_controller();
 
 	class CompilationConfig implements GCompilationConfig {
 		public          boolean showTree = false;
