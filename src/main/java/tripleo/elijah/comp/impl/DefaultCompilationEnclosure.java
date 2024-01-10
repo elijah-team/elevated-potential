@@ -383,7 +383,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	@Override
 	public void waitCompilationRunner(Consumer<CompilationRunner> ccr) {
-		ecr.then(ccr::accept);
+		ecr.then((@NotNull ICompilationRunner t) -> ccr.accept((CompilationRunner) t));
 	}
 
 	@Override

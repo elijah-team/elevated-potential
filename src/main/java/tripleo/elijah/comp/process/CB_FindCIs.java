@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.CompilationRunner;
@@ -19,15 +20,15 @@ import java.nio.file.NotDirectoryException;
 import java.util.List;
 
 public class CB_FindCIs implements CB_Action {
-	private final CompilationRunner compilationRunner;
+	private final ICompilationRunner  compilationRunner;
 	private final List<CompilerInput> _inputs;
 	private final CB_Output           o;
 
 	@Contract(pure = true)
-	public CB_FindCIs(final CompilationRunner aCompilationRunner, final List<CompilerInput> aInputs) {
+	public CB_FindCIs(final ICompilationRunner aCompilationRunner, final List<CompilerInput> aInputs) {
 		compilationRunner = aCompilationRunner;
 		_inputs           = aInputs;
-		o                 = compilationRunner.getCompilationEnclosure().getCB_Output();
+		o                 = ((CompilationRunner)compilationRunner).getCompilationEnclosure().getCB_Output();
 	}
 
 	@Override

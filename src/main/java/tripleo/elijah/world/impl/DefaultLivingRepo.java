@@ -3,6 +3,7 @@ package tripleo.elijah.world.impl;
 import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -307,6 +308,11 @@ public class DefaultLivingRepo implements LivingRepo {
 	@Override
 	public boolean isPackage(final String pkg) {
 		return _packages.containsKey(pkg);
+	}
+
+	@Override
+	public void addModule(final OS_Module aMod, final CM_Filename aFn, final Compilation aCompilation) {
+		addModule(aMod, aFn.getString(), aCompilation);
 	}
 
 	@Override

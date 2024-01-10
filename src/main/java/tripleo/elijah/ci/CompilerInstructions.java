@@ -8,15 +8,12 @@
  */
 package tripleo.elijah.ci;
 
-import antlr.Token;
-import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.xlang.LocatableString;
 import tripleo.wrap.File;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CompilerInstructions {
 //	void add(GenerateStatement generateStatement);
@@ -43,11 +40,13 @@ public interface CompilerInstructions {
 //	void advise(CompilerInput aCompilerInput);
 //
 //	File makeFile();
-//
-//	/**
-//	 * @throws IllegalStateException if not advised
-//	 */
-//	CompilerInput profferCompilerInput() throws IllegalStateException;
+
+	File makeFile();
+
+	/**
+	 * @throws IllegalStateException if not advised
+	 */
+	CompilerInput profferCompilerInput() throws IllegalStateException;
 
 	void add(GenerateStatement generateStatement);
 
@@ -55,7 +54,7 @@ public interface CompilerInstructions {
 
 	List<LibraryStatementPart> getLibraryStatementParts();
 
-	Optional<String> genLang();  // not a promise? Calculated? C<O<S>>>??
+	String genLang();  // not a promise? Calculated? C<O<S>>>??
 
 	CM_Filename getFilename();
 
@@ -68,6 +67,8 @@ public interface CompilerInstructions {
 	CiIndexingStatement indexingStatement();
 
 	void setName(LocatableString name);
+
+	void advise(CompilerInput aAdvisement);
 
 	public interface CompilerInstructionsBuilder {
 		CompilerInstructions build();

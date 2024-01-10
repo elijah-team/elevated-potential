@@ -1,21 +1,32 @@
 package tripleo.elijah.comp.specs;
 
-import java.io.*;
-import java.util.Objects;
-
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.graph.i.CM_Module;
+import tripleo.elijah.comp.local.CX_ParseElijahFile;
 import tripleo.wrap.File;
 
-public final class ElijahSpec_ implements ElijahSpec {
-	private final String      file_name;
-	private final File        file;
-	private final InputStream s;
-	private       CM_Module   cmModule; // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+import java.io.InputStream;
+import java.util.Objects;
 
-	public ElijahSpec_(String file_name, File file, InputStream s) {
+public final class ElijahSpec_ implements ElijahSpec {
+	private final           String                              file_name;
+	private final           File                                file;
+	private final @Nullable CX_ParseElijahFile.ElijahSpecReader r;
+	private final @Nullable InputStream                         s;
+	private                 CM_Module                           cmModule;
+
+	public ElijahSpec_(String file_name, File file, @Nullable InputStream s) {
 		this.file_name = file_name;
 		this.file      = file;
 		this.s         = s;
+		this.r         = null;
+	}
+
+	public ElijahSpec_(final String aFileName, final File aFile, final CX_ParseElijahFile.@Nullable ElijahSpecReader aR) {
+		file_name = aFileName;
+		file      = aFile;
+		r         = aR;
+		s         = null;
 	}
 
 	@Override
@@ -70,4 +81,7 @@ public final class ElijahSpec_ implements ElijahSpec {
 				"s=" + s + ']';
 	}
 
+	public void advise(final CM_Module aCmModule) {
+		cmModule = aCmModule;
+	}
 }

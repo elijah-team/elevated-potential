@@ -2,7 +2,9 @@ package tripleo.elijah.world.i;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.g.GLivingRepo;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.OS_Module;
@@ -25,6 +27,9 @@ public interface LivingRepo extends GLivingRepo {
 	Collection<WorldModule> getMods__();
 
 	boolean isPackage(String aPkgName);
+
+	void addModule(OS_Module
+			               aMod, CM_Filename aFn, Compilation aCompilation);
 
 	enum Add {
 		MAIN_CLASS, MAIN_FUNCTION, NONE

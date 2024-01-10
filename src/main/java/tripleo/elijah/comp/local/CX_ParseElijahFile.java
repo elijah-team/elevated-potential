@@ -8,6 +8,8 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.rubicon.PConParser;
 import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.compiler_model.CM_Factory;
+import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
@@ -33,7 +35,9 @@ public class CX_ParseElijahFile {
 			final IO_._IO_ReadFile readFile = io.readFile2(file);
 
 			try (final InputStream s = readFile.getInputStream()) {
-				calm = calculate(f, s, compilation, readFile.getLongPath1());
+				final CM_Filename cmf = CM_Factory.Filename__of(f);
+
+				calm = calculate(cmf, s, compilation, readFile.getLongPath1());
 
 				if (calm.mode() == Mode.FAILURE) {
 					final Diagnostic failure = calm.failure();
@@ -59,10 +63,12 @@ public class CX_ParseElijahFile {
 		}
 	}
 
-	private static Operation2<OS_Module> calculate(final String f,
+	private static Operation2<OS_Module> calculate(final CM_Filename cmf,
 												   final InputStream s,
 												   final Compilation compilation,
 												   final String absolutePath) {
+		final String f = cmf.getString(); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+
 		final ElijjahLexer lexer = new ElijjahLexer(s);
 		lexer.setFilename(f);
 		final ElijjahParser parser = new ElijjahParser(lexer);
@@ -93,14 +99,15 @@ public class CX_ParseElijahFile {
 
 	private static Operation2<OS_Module> calculate(final @NotNull ElijahSpec spec, final Compilation compilation) {
 		final var absolutePath = spec.getLongPath2(); // !!
-		return calculate(spec.file_name(), spec.getModule().s(), compilation, absolutePath);
+		var f = CM_Factory.Filename__of(spec.file_name()); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+		return calculate(f, spec.getModule().s(), compilation, absolutePath);
 	}
 
 	public static Operation2<OS_Module> __parseEzFile(String file_name,
 													  File file,
 													  @NotNull ElijahSpecReader r,
 													  @NotNull CY_ElijahSpecParser parser) {
-		final ElijahSpec             spec = new ElijahSpec_(file_name, file, r.get().success());
+		final ElijahSpec             spec = new ElijahSpec_(file_name, file, r);
 		return parser.parse(spec);
 	}
 

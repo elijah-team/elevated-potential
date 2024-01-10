@@ -382,8 +382,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 				_inside = true;
 
 				final CompilerInstructions rootCI = getRootCI();
-				//final CompilerInstructions rootCI = this.cci_listener._root();
-				rootCI.advise(__advisement/*_inputs.get(0)*/);
+				rootCI.advise(__advisement);
 
 				final LCM_HandleEvent  lcmHandleEvent = new LCM_HandleEvent(this.getLCMAccess(),
 				                                                            this.lcm,

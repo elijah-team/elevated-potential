@@ -7,10 +7,6 @@
  */
 package tripleo.elijah.ci_impl;
 
-import antlr.*;
-import com.google.common.collect.Collections2;
-import lombok.*;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.ci_impl.GenerateStatementImpl.Directive;
@@ -20,9 +16,9 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
 import tripleo.elijah.xlang.LocatableString;
-import tripleo.wrap.File;
 
 import java.util.*;
+import tripleo.wrap.File;
 
 /**
  * Created 9/6/20 11:20 AM
@@ -34,7 +30,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 //	private         GenerateStatement          gen;
 //	@Getter @Setter
 //	private         String        name;
-//	private         CompilerInput advisedCompilerInput;
+	private         CompilerInput advisedCompilerInput;
 //
 //	@Override
 //	public void add(final GenerateStatement generateStatement) {
@@ -49,7 +45,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 //	}
 
 	@Override
-	public @Nullable String genLang() {
+	public String genLang() {
 		final Optional<String> genLang = gen.dirStream()
 				.filter(input -> input.sameName("gen"))
 				.findAny() // README if you need more than one, comment this out
@@ -114,29 +110,29 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 //	//	// README "12/30" eclipse specific
 //	//	return name;
 //	//}
-//
-//	@Override
-//	public void advise(final CompilerInput aCompilerInput) {
-//		advisedCompilerInput = aCompilerInput;
-//	}
-//
-//	@Override
-//	public File makeFile() {
-//		if (advisedCompilerInput != null) {
-//			return new File(advisedCompilerInput.makeFile(), getFilename());
-//		} else {
-//			// TODO 12/30 Shouldn't we always have something advised?
-//			return new File(getFilename());
-//		}
-//	}
-//
-//	@Override
-//	public CompilerInput profferCompilerInput() throws IllegalStateException {
-//		if (this.advisedCompilerInput == null)
-//			throw new IllegalStateException("CompilerInstructions >> called before join");
-//		return this.advisedCompilerInput;
-//	}
-//
+
+	@Override
+	public void advise(final CompilerInput aCompilerInput) {
+		advisedCompilerInput = aCompilerInput;
+	}
+
+	@Override
+	public File makeFile() {
+		if (advisedCompilerInput != null) {
+			return File.wrap(new java.io.File(advisedCompilerInput.makeFile().wrapped(), getFilename().getString()));
+		} else {
+			// TODO 12/30 Shouldn't we always have something advised?
+			return new File(getFilename().getString());
+		}
+	}
+
+	@Override
+	public CompilerInput profferCompilerInput() throws IllegalStateException {
+		if (this.advisedCompilerInput == null)
+			throw new IllegalStateException("CompilerInstructions >> called before join");
+		return this.advisedCompilerInput;
+	}
+
 //	@Override
 //	public @NotNull CiIndexingStatement indexingStatement() {
 //		if (_idx == null)
@@ -161,6 +157,11 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	private CM_Filename         filename;
 	private GenerateStatement   gen;
 	private         String                     name;
+
+//	@Override
+//	public CompilerInput profferCompilerInput() throws IllegalStateException {
+//		return null;
+//	}
 
 	@Override
 	public void add(final GenerateStatement generateStatement) {

@@ -28,7 +28,6 @@ import java.util.stream.*;
  * Created on Sep 1, 2005 8:16:32 PM
  */
 public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.lang.i.OS_Module {
-
 	private final Stack<Qualident> packageNames_q = new Stack<>();
 	public @NotNull Attached _a;
 	public @NotNull List<EntryPoint> entryPoints = new ArrayList<>();
