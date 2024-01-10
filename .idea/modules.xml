@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/PRJ.elevated-potential.dlog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/PRJ.elevated-potential.dlog.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/PRJ.elevated-potential.dlog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/PRJ.elevated-potential.dlog.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/xxx-elijah-core-api/elevated-potential-core-api0.iml" filepath="$PROJECT_DIR$/xxx-elijah-core-api/elevated-potential-core-api0.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.test.iml" />
