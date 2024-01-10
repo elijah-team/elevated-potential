@@ -4,7 +4,7 @@ import org.jctools.queues.MpscArrayQueue;
 
 public class PW_PushWorkQueue__JC implements PW_PushWorkQueue {
 	
-	org.jctools.queues.MpscArrayQueue<PW_PushWork> q = new MpscArrayQueue<>(20);
+	MpscArrayQueue<PW_PushWork> q = new MpscArrayQueue<>(20);
 
 	@Override
 	public PW_PushWork poll() {

@@ -245,7 +245,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	@Override
 	public void setCompilationBus(final ICompilationBus aCompilationBus) {
 		compilationBus = aCompilationBus;
-		_p_CompilationBus.resolve(aCompilationBus);
+//		_p_CompilationBus.resolve(aCompilationBus);
 	}
 
 	@Override
