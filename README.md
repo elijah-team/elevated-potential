@@ -42,4 +42,5 @@ Goals
 - Fiddle with Github `.workflows`
 - Make progress towards results (cf `meson-demo`)
 - Make it "fun" to look at (`datalog-ts`, Glamorous Toolkit)
-- Make it fun! to not use semicolons
+- Stop concentrating on "architecture"...
+- ... while simultaneously improving architecture
