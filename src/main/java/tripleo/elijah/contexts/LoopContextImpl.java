@@ -75,7 +75,7 @@ public class LoopContextImpl extends ContextImpl implements ILoopContext {
 				if (context != null) {
 					context.lookup(name, level + 1, Result, alreadySearched, false); // TODO test this
 				} else {
-					throw new ProgramIsLikelyWrong();
+					throw new Quibibble();
 				}
 			}
 		}
