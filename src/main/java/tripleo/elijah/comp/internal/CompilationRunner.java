@@ -36,26 +36,20 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	}
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca,
-							 final @NotNull CR_State aCrState,
-							 final Supplier<ICompilationBus> scb) {
+	                         final @NotNull CR_State aCrState,
+	                         final Supplier<ICompilationBus> scb) {
 		_compilation = (Compilation) aca.getCompilation();
 
 		final CompilationEnclosure compilationEnclosure = _compilation.getCompilationEnclosure();
-
 		compilationEnclosure.setCompilationAccess(aca);
 
-		//final @NotNull CIS    cis = _compilation._cis();
-		final ICompilationBus compilationBus = compilationEnclosure.getCompilationBus();
-
-		if (compilationBus == null) {
-			cb = scb.get();
-			compilationEnclosure.setCompilationBus(cb);
-		} else {
-			cb = compilationEnclosure.getCompilationBus();
+		if (compilationEnclosure.getCompilationBus() == null) {
+			compilationEnclosure.setCompilationBus(scb.get());
 		}
 
+		cb           = compilationEnclosure.getCompilationBus();
 		progressSink = cb.defaultProgressSink();
-		crState = aCrState;
+		crState      = aCrState;
 		ezCache      = new DefaultEzCache((Compilation) aca.getCompilation());
 	}
 
