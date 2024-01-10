@@ -38,4 +38,6 @@ public interface CompilerInstructions {
 	void advise(CompilerInput aCompilerInput);
 
 	File makeFile();
+
+	CompilerInput profferCompilerInput() throws IllegalStateException;
 }

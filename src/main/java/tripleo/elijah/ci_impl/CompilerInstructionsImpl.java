@@ -30,8 +30,8 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	private         String                     filename;
 	private         GenerateStatement          gen;
 	@Getter @Setter
-	private         String                     name;
-	private         CompilerInput              advised;
+	private         String        name;
+	private         CompilerInput advisedCompilerInput;
 
 	@Override
 	public void add(final GenerateStatement generateStatement) {
@@ -116,17 +116,24 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public void advise(final CompilerInput aCompilerInput) {
-		advised = aCompilerInput;
+		advisedCompilerInput = aCompilerInput;
 	}
 
 	@Override
 	public File makeFile() {
-		if (advised != null) {
-			return new File(advised.makeFile(), getFilename());
+		if (advisedCompilerInput != null) {
+			return new File(advisedCompilerInput.makeFile(), getFilename());
 		} else {
 			// TODO 12/30 Shouldn't we always have something advised?
 			return new File(getFilename());
 		}
+	}
+
+	@Override
+	public CompilerInput profferCompilerInput() throws IllegalStateException {
+		if (this.advisedCompilerInput == null)
+			throw new IllegalStateException("CompilerInstructions >> called before join");
+		return this.advisedCompilerInput;
 	}
 
 	@Override

@@ -313,12 +313,17 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public CompilerInstructions getRootCI() {
-		return cci_listener._root();
+		final CompilerInstructions compilerInstructions = cci_listener._root();
+		if (compilerInstructions != null && __advisement == null) {
+			__advisement = compilerInstructions.profferCompilerInput();
+		}
+		return compilerInstructions;
 	}
 
 	@Override
 	public void setRootCI(CompilerInstructions rootCI) {
 		//cci_listener.id.root = rootCI;
+		throw new UnintendedUseException();
 	}
 
 	@Override
@@ -361,18 +366,10 @@ public class CompilationImpl implements Compilation, EventualRegister {
 			return Operation.success(Ok.instance());
 		} else {
 			if (cis.isEmpty()) {
-				//String absolutePath = new File(".").getAbsolutePath();
-				//
-				//getCompilationEnclosure().logProgress(CompProgress.Compilation__hasInstructions__empty, absolutePath);
-
 				setRootCI(cci_listener._root());
 			} else if (getRootCI() == null) {
 				setRootCI(cis.get(0));
 			}
-
-			//if (null == pa.getCompilation().getInputs()) {
-			//	pa.setCompilerInput(pa.getCompilation().getInputs());
-			//}
 
 			if (!_inside) {
 				_inside = true;
@@ -381,8 +378,11 @@ public class CompilationImpl implements Compilation, EventualRegister {
 				//final CompilerInstructions rootCI = this.cci_listener._root();
 				rootCI.advise(__advisement/*_inputs.get(0)*/);
 
-				final CompilationRunner compilationRunner = getCompilationEnclosure().getCompilationRunner();
-				compilationRunner.start(rootCI, pa);
+				final LCM_HandleEvent  lcmHandleEvent = new LCM_HandleEvent(this.getLCMAccess(),
+				                                                            this.lcm,
+				                                                            null,
+				                                                            LCM_Event_RootCI.INSTANCE);
+				LCM_Event_RootCI.INSTANCE.handle(lcmHandleEvent);
 			} else {
 				NotImplementedException.raise_stop();
 				//throw new UnintendedUseException();
