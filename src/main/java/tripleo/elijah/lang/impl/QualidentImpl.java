@@ -9,14 +9,13 @@
 package tripleo.elijah.lang.impl;
 
 import antlr.Token;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.lang.i.DotExpression;
 import tripleo.elijah.lang.i.ExpressionKind;
 import tripleo.elijah.lang.i.ExpressionList;
 import tripleo.elijah.lang.i.FormalArgListItem;
 import tripleo.elijah.lang.i.IExpression;
 import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.lang.i.OS_Type;
 import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.util.Helpers;
 

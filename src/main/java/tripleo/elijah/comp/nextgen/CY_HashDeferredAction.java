@@ -1,9 +1,9 @@
 package tripleo.elijah.comp.nextgen;
 
 import org.apache.commons.codec.digest.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.Eventual;
 
 import java.util.*;
 

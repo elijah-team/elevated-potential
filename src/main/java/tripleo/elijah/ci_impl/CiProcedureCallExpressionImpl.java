@@ -1,9 +1,9 @@
 package tripleo.elijah.ci_impl;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util2.UnintendedUseException;
 
 public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression {
 	private IExpression      _left;

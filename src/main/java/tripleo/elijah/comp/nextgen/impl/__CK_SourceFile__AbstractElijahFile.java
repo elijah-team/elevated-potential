@@ -1,6 +1,5 @@
 package tripleo.elijah.comp.nextgen.impl;
 
-import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
@@ -14,6 +13,7 @@ import tripleo.elijah.util.*;
 import java.util.*;
 import java.util.regex.*;
 
+import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.wrap.File;
 
 @SuppressWarnings("rawtypes")

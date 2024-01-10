@@ -2,8 +2,8 @@ package tripleo.elijah.stages.gen_generic.pipeline_impl;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ElijahInternal;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util2.ElijahInternal;
+import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.g.GEvaClass;
 import tripleo.elijah.g.GEvaNamespace;

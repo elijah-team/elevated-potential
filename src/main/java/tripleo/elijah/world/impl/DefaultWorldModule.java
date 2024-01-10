@@ -1,13 +1,13 @@
 package tripleo.elijah.world.impl;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.comp.notation.GN_PL_Run2;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.stages.inter.ModuleThing;
+import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.world.i.WorldModule;
 
 public class DefaultWorldModule implements WorldModule {

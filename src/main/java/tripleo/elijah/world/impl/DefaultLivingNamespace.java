@@ -5,7 +5,7 @@ import java.util.function.Function;
 
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.__Extensionable;
+import tripleo.elijah.util2.__Extensionable;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.d.Stages;
 import tripleo.elijah.stages.garish.*;

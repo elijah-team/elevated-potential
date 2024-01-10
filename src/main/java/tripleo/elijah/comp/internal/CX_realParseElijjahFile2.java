@@ -2,7 +2,7 @@ package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.NotNull;
 
-import tripleo.elijah.DebugFlags;
+import tripleo.elijah.util2.DebugFlags;
 import tripleo.elijah.comp.Compilation;
 
 import tripleo.elijah.lang.i.OS_Module;

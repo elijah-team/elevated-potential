@@ -13,7 +13,7 @@ import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
 
-import static tripleo.elijah.DebugFlags.*;
+import static tripleo.elijah.util2.DebugFlags.*;
 
 public class WhyNotGarish_Class implements WhyNotGarish_Item {
 	private static final boolean                                       __Oct_13       = false;

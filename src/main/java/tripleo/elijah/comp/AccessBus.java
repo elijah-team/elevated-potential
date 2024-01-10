@@ -3,7 +3,7 @@ package tripleo.elijah.comp;
 import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.stages.gen_fn.EvaNode;

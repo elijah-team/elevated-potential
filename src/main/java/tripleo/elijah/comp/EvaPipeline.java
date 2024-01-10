@@ -25,7 +25,7 @@ package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.DebugFlags;
+import tripleo.elijah.util2.DebugFlags;
 import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.CR_State;

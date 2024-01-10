@@ -3,7 +3,6 @@ package tripleo.elijah.comp;
 import com.google.common.base.*;
 //import lombok.*;
 import org.apache.commons.lang3.tuple.Pair;
-import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -11,6 +10,8 @@ import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.queries.QSEZ_Reasoning;
 import tripleo.elijah.util.Maybe;
 import tripleo.elijah.util.Operation2;
+import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util2.__Extensionable;
 import tripleo.wrap.File;
 
 import java.util.Optional;

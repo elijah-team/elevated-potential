@@ -11,7 +11,7 @@ package tripleo.elijah.stages.gen_c;
 import com.google.common.base.*;
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.DebugFlags;
+import tripleo.elijah.util2.DebugFlags;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;

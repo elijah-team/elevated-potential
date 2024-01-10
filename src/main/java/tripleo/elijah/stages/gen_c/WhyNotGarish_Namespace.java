@@ -17,7 +17,7 @@ import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 
 import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.DebugFlags;
+import tripleo.elijah.util2.DebugFlags;
 
 import tripleo.elijah.world.i.LivingNamespace;
 import tripleo.elijah.world.i.LivingRepo;

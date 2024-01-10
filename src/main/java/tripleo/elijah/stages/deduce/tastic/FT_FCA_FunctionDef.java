@@ -2,11 +2,11 @@ package tripleo.elijah.stages.deduce.tastic;
 
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.ReadySupplier_1;
 
 import java.util.*;
 

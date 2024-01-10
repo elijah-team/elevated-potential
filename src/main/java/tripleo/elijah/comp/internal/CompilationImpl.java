@@ -12,7 +12,6 @@ import com.google.common.base.Preconditions;
 import io.reactivex.rxjava3.core.Observer;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.*;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.*;
@@ -45,6 +44,10 @@ import tripleo.elijah.stages.deduce.fluffy.impl.FluffyCompImpl;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.stages.logging.ElLog_;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.DebugFlags;
+import tripleo.elijah.util2.Eventual;
+import tripleo.elijah.util2.EventualRegister;
+import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
 

@@ -17,7 +17,6 @@ import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal_move_soon.*;
@@ -43,6 +42,8 @@ import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.inter.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.Eventual;
+import tripleo.elijah.util2.ReadySupplier_1;
 import tripleo.elijah.work.*;
 
 import java.util.*;

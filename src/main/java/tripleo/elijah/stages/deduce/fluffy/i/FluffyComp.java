@@ -1,8 +1,8 @@
 package tripleo.elijah.stages.deduce.fluffy.i;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
+import tripleo.elijah.util2.Eventual;
+import tripleo.elijah.util2.EventualRegister;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.impl.OS_ModuleImpl;
 

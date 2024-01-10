@@ -10,7 +10,6 @@ package tripleo.elijah.stages.gen_fn;
 
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.nextgen.reactive.*;
@@ -20,6 +19,8 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.inter.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.Eventual;
+import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.world.impl.*;
 import tripleo.util.range.Range;
 
@@ -34,7 +35,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 public abstract class BaseEvaFunction
 		extends AbstractDependencyTracker
 		implements EvaNode, DeduceTypes2.ExpectationBase, IDependencyReferent, IEvaFunctionBase {
-	private final    Eventual<EvaClass>             _p_assignEvaClass = new Eventual<>();
+	private final Eventual<EvaClass> _p_assignEvaClass = new Eventual<>();
 	private final    Eventual<GenType>              _p_assignGenType  = new Eventual<>();
 	private final    Dependency                     dependency        = new Dependency(this);
 	private final    List<Label>                    labelList         = new ArrayList<Label>();

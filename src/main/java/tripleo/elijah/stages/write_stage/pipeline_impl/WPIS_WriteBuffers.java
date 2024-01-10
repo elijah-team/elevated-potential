@@ -2,7 +2,6 @@ package tripleo.elijah.stages.write_stage.pipeline_impl;
 
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
@@ -19,11 +18,13 @@ import java.nio.file.*;
 import java.util.*;
 
 import static tripleo.elijah.util.Helpers.List_of;
+
+import tripleo.elijah.util2.Eventual;
 import tripleo.wrap.File;
 
 public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
 	private final WritePipeline                           writePipeline;
-	private final Eventual<LSPrintStream.LSResult>         _p_spsp            = new Eventual<>();
+	private final Eventual<LSPrintStream.LSResult> _p_spsp            = new Eventual<>();
 	private final DeferredObject<Compilation, Void, Void> compilationPromise = new DeferredObject<>();
 	private final Bus                                      _m_bus             = new Bus();
 

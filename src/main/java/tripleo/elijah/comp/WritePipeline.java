@@ -14,11 +14,10 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import lombok.Getter;
-import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.comp.AccessBus.AB_GenerateResultListener;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CB_Output;
@@ -34,7 +33,6 @@ import tripleo.elijah.stages.generate.OutputStrategy;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.stages.logging.ElLog_;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
-import tripleo.elijah.stages.write_stage.pipeline_impl.LSPrintStream.LSResult;
 import tripleo.elijah.util.NotImplementedException;
 
 import java.util.*;

@@ -11,7 +11,6 @@ package tripleo.elijah.stages.deduce;
 
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -19,6 +18,7 @@ import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.deduce.tastic.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.ReadySupplier_1;
 
 /**
  * Created 11/30/21 11:56 PM

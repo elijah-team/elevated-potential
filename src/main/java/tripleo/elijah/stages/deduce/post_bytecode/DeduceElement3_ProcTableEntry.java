@@ -1,7 +1,6 @@
 package tripleo.elijah.stages.deduce.post_bytecode;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
@@ -12,6 +11,8 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.Eventual;
+import tripleo.elijah.util2.ReadySupplier_1;
 import tripleo.elijah.work.*;
 
 import java.util.*;

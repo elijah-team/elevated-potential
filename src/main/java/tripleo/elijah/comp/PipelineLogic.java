@@ -13,7 +13,6 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import lombok.*;
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
@@ -27,6 +26,8 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stages.logging.ElLog.Verbosity;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.Eventual;
+import tripleo.elijah.util2.EventualRegister;
 import tripleo.elijah.world.i.*;
 import tripleo.elijah.world.impl.*;
 

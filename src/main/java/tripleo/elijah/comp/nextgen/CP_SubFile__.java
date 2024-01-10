@@ -3,9 +3,9 @@ package tripleo.elijah.comp.nextgen;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import tripleo.elijah.DebugFlags;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util2.DebugFlags;
+import tripleo.elijah.util2.Eventual;
+import tripleo.elijah.util2.UnintendedUseException;
 
 import java.io.IOException;
 import java.nio.file.Path;

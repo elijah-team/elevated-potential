@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util2.Eventual;
 import tripleo.wrap.File;
 
 public interface CP_StdlibPath extends CP_Path, _CP_RootPath {

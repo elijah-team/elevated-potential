@@ -1,7 +1,6 @@
 package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -9,6 +8,8 @@ import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.inter.*;
+import tripleo.elijah.util2.ReadySupplier_1;
+import tripleo.elijah.util2.UnintendedUseException;
 
 public class DeduceElement3_Constructor implements IDeduceElement3 {
 	private final EvaConstructor evaConstructor;

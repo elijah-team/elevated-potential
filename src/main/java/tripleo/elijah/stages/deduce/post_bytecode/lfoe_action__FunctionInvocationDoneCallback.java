@@ -2,8 +2,8 @@ package tripleo.elijah.stages.deduce.post_bytecode;
 
 import org.jdeferred2.DoneCallback;
 
-import tripleo.elijah.DebugFlags;
-import tripleo.elijah.ReadySupplier_1;
+import tripleo.elijah.util2.DebugFlags;
+import tripleo.elijah.util2.ReadySupplier_1;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.stages.deduce.ClassInvocation;

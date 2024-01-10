@@ -1,6 +1,6 @@
 package tripleo.elijah.stages.deduce.post_bytecode;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.lang.i.IdentExpression;
 import tripleo.elijah.stages.deduce.DeducePhase;
 import tripleo.elijah.stages.deduce.FunctionInvocation;

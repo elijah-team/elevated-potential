@@ -10,7 +10,6 @@
 package tripleo.elijah.stages.deduce.tastic;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
@@ -19,6 +18,8 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.ReadySupplier_1;
+import tripleo.elijah.util2.UnintendedUseException;
 
 import java.util.*;
 

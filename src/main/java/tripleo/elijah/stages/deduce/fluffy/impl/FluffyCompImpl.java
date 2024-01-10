@@ -2,12 +2,12 @@ package tripleo.elijah.stages.deduce.fluffy.impl;
 
 import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.fluffy.i.*;
+import tripleo.elijah.util2.Eventual;
 
 import java.util.*;
 import java.util.stream.*;

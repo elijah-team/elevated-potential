@@ -15,7 +15,6 @@ import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
@@ -37,6 +36,7 @@ import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stages.post_deduce.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.work.*;
 import tripleo.elijah.world.i.*;
 
@@ -342,8 +342,8 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 	}
 
 	public @NotNull Eventual<ClassDefinition> generateClass2(final GenerateFunctions gf,
-	                                                         final @NotNull ClassInvocation ci,
-	                                                         final WorkManager wm) {
+                                                             final @NotNull ClassInvocation ci,
+                                                             final WorkManager wm) {
 		final Eventual<ClassDefinition> ret = new Eventual<>();
 
 		classGenerator.submit(() -> {

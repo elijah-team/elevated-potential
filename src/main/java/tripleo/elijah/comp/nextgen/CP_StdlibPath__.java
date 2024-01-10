@@ -2,8 +2,8 @@ package tripleo.elijah.comp.nextgen;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
+import tripleo.elijah.util2.Eventual;
+import tripleo.elijah.util2.EventualRegister;
 import tripleo.elijah.comp.Compilation;
 
 import tripleo.elijah.comp.IO;

@@ -1,11 +1,11 @@
 package tripleo.elijah.stages.deduce.pipeline_impl;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.world.i.*;
 
 class PL_AddModules implements PipelineLogicRunnable {

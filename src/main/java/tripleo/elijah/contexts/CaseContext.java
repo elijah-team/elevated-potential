@@ -10,7 +10,7 @@ package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.DebugFlags;
+import tripleo.elijah.util2.DebugFlags;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.util.*;

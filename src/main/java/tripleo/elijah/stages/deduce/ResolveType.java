@@ -11,7 +11,7 @@ package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.DebugFlags;
+import tripleo.elijah.util2.DebugFlags;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;

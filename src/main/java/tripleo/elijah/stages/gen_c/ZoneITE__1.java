@@ -2,12 +2,12 @@ package tripleo.elijah.stages.gen_c;
 
 import com.google.common.base.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.IReasonedString;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.UnintendedUseException;
 
 import java.util.*;
 

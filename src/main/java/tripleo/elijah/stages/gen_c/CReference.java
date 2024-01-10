@@ -11,13 +11,14 @@ package tripleo.elijah.stages.gen_c;
 
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.DebugFlags;
+import tripleo.elijah.util2.Eventual;
 
 import java.util.*;
 import java.util.function.*;

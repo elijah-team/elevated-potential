@@ -1,7 +1,6 @@
 package tripleo.elijah.comp.notation;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.lang.i.*;
@@ -9,6 +8,8 @@ import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.inter.*;
+import tripleo.elijah.util2.Eventual;
+import tripleo.elijah.util2.EventualRegister;
 import tripleo.elijah.world.i.*;
 import tripleo.elijah.world.impl.*;
 

@@ -11,7 +11,6 @@ package tripleo.elijah.stages.deduce;
 
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -19,6 +18,8 @@ import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.PromiseReadySupplier;
+import tripleo.elijah.util2.UnintendedUseException;
 
 import java.util.function.*;
 

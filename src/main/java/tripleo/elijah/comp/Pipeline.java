@@ -8,7 +8,7 @@
  */
 package tripleo.elijah.comp;
 
-import tripleo.elijah.__Extensionable;
+import tripleo.elijah.util2.__Extensionable;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.g.GPipeline;

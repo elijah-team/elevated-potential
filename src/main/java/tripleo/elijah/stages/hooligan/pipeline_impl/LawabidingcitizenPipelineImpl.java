@@ -2,7 +2,7 @@ package tripleo.elijah.stages.hooligan.pipeline_impl;
 
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.DebugFlags;
+import tripleo.elijah.util2.DebugFlags;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.nextgen.inputtree.*;

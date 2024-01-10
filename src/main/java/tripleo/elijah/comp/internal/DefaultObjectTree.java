@@ -2,8 +2,7 @@ package tripleo.elijah.comp.internal;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
-import tripleo.elijah.DebugFlags;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util2.DebugFlags;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;

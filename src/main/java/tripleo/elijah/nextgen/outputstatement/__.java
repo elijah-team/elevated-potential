@@ -2,7 +2,7 @@ package tripleo.elijah.nextgen.outputstatement;
 
 import java.util.stream.*;
 
-import tripleo.elijah.ngosDebugFlags;
+import tripleo.elijah.util2.ngosDebugFlags;
 
 class __ {
 	public static String String_join(String separator, Iterable<String> stringIterable) {
