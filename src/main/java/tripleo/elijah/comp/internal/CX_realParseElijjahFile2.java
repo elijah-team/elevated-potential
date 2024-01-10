@@ -8,7 +8,7 @@ import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.world.i.WorldModule;
 
-import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
+import tripleo.elijah.comp.local.CX_ParseElijahFile;
 import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.comp.specs.ElijahSpec;
 

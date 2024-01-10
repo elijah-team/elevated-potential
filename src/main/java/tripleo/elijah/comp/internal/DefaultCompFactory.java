@@ -7,7 +7,7 @@ import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
-import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
+import tripleo.elijah.comp.local.CX_ParseElijahFile;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue;

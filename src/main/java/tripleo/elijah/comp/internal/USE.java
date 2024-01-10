@@ -12,7 +12,7 @@ import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.i.USE_Reasoning;
-import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
+import tripleo.elijah.comp.local.CX_ParseElijahFile;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.diagnostic.ExceptionDiagnostic;

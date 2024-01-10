@@ -1,7 +1,8 @@
-package tripleo.elijah.comp.nextgen;
+package tripleo.elijah.comp.local;
 
 import org.apache.commons.codec.digest.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.nextgen.CP_OutputPath;
 import tripleo.elijah.util.*;
 import tripleo.elijah.util2.Eventual;
 
@@ -9,7 +10,7 @@ import java.util.*;
 
 import static org.apache.commons.codec.digest.MessageDigestAlgorithms.*;
 
-class CY_HashDeferredAction implements DeferredAction<String> {
+public class CY_HashDeferredAction implements DeferredAction<String> {
     private final Eventual<String> e = new Eventual<>(); // FIXME SingleShotEventual
     private final IO               io;
 

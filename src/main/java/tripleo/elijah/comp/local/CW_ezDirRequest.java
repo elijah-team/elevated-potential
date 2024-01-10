@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.impl;
+package tripleo.elijah.comp.local;
 
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;

@@ -3,6 +3,7 @@ package tripleo.elijah.comp.nextgen.impl;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.local.CX_ParseElijahFile;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;

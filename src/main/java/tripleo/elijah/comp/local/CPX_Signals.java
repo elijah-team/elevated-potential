@@ -1,4 +1,4 @@
-package tripleo.elijah.comp;
+package tripleo.elijah.comp.local;
 
 import tripleo.elijah.comp.nextgen.i.CPX_CalculateFinishParse;
 

@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.nextgen;
+package tripleo.elijah.comp.local;
 
 public class CX_realParseEzFile2 {
 

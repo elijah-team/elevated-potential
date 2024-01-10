@@ -2,7 +2,7 @@ package tripleo.elijah.comp.internal;
 
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.local.CX_ParseElijahFile;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.i.CP_StdlibPath;
 import tripleo.elijah.comp.specs.*;

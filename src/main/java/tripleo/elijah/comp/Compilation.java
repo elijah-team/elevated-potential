@@ -9,6 +9,7 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.local.CPX_Signals;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;

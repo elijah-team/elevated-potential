@@ -5,7 +5,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.local.CX_ParseEzFile;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.diagnostic.*;
