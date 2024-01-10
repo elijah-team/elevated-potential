@@ -28,8 +28,7 @@ public interface LivingRepo extends GLivingRepo {
 
 	boolean isPackage(String aPkgName);
 
-	void addModule(OS_Module
-			               aMod, CM_Filename aFn, Compilation aCompilation);
+	void addModule(OS_Module aMod, CM_Filename aFn, Compilation aCompilation);
 
 	enum Add {
 		MAIN_CLASS, MAIN_FUNCTION, NONE
