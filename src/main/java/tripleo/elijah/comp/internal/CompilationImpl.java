@@ -201,7 +201,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 				@Override
 				public boolean getSilent() {
-					return getSilent();
+					return getComp().cfg().silent;
 				}
 
 				@Override
