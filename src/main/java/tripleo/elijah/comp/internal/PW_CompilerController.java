@@ -46,6 +46,10 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 		task.start();
 	}
 
+	public void awaf() {
+		this.abusingIt.resolve(Ok.instance());
+	}
+
 	@Override
 	public void run() {
 		boolean[] xy = {true};

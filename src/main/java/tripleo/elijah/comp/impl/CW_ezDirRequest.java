@@ -13,9 +13,6 @@ import java.util.function.*;
 import tripleo.wrap.File;
 
 public class CW_ezDirRequest {
-//	public static void apply() {
-//	}
-
 	public static List<Operation2<CompilerInstructions>> apply(String[] files,
 	                                                           File directory,
 	                                                           LibraryStatementPart ignoredALsp,
