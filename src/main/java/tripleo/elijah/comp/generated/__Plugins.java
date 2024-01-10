@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.generated;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.DeducePipeline;
@@ -9,6 +9,7 @@ import tripleo.elijah.comp.WriteMakefilePipeline;
 import tripleo.elijah.comp.WriteMesonPipeline;
 import tripleo.elijah.comp.WriteOutputTreePipeline;
 import tripleo.elijah.comp.WritePipeline;
+import tripleo.elijah.comp.internal.PipelinePlugin;
 import tripleo.elijah.g.GPipelineAccess;
 
 public abstract class __Plugins {

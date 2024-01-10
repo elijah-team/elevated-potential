@@ -8,6 +8,7 @@ import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.generated.__Plugins;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
