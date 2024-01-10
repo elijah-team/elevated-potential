@@ -5,8 +5,8 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.subjects.*;
 import org.apache.commons.lang3.tuple.*;
+import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
@@ -29,70 +29,29 @@ import tripleo.elijah.stages.inter.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.Eventual;
+import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.world.i.*;
 
 import java.util.*;
 import java.util.function.*;
 
 public class DefaultCompilationEnclosure implements CompilationEnclosure {
-	public final           Eventual<IPipelineAccess>                                                       pipelineAccessPromise = new Eventual<>();
+	public final Eventual<IPipelineAccess> pipelineAccessPromise = new Eventual<>();
 	private final          Eventual<CompilationRunner>                                                     ecr                   = new Eventual<>();
 	private final          Eventual<AccessBus>                                                             accessBusPromise      = new Eventual<>();
 	private final          Compilation                                                                     compilation;
 	private final          CB_Output                                                                       _cbOutput             = new CB_ListBackedOutput();
 	private final          Map<String, PipelinePlugin>                                                     pipelinePlugins       = new HashMap<>();
 	private final          Map<OS_Module, ModuleThing>                                                     moduleThings          = new HashMap<>();
-	private final          Subject<ReactiveDimension>                                                      dimensionSubject      = ReplaySubject.<ReactiveDimension>create();
-	private final          Subject<Reactivable>                                                            reactivableSubject    = ReplaySubject.<Reactivable>create();
+	private final          Subject<ReactiveDimension>                                                      dimensionSubject      = ReplaySubject.create();
+	private final          Subject<Reactivable>                                                            reactivableSubject    = ReplaySubject.create();
 	private final @NonNull List<ElLog>                                                                     elLogs                = new LinkedList<>();
 	private final          List<ModuleListener>                                             _moduleListeners  = new ArrayList<>();
 	private final          List<Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest>> outFileAssertions = new ArrayList<>();
 	private final @NonNull OFA                                                              ofa               = new OFA(/* outFileAssertions */);
-	Observer<ReactiveDimension> dimensionObserver   = new Observer<ReactiveDimension>() {
-		@Override
-		public void onSubscribe(@NonNull final Disposable d) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void onNext(@NonNull final ReactiveDimension aReactiveDimension) {
-			// aReactiveDimension.observe();
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void onError(@NonNull final Throwable e) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void onComplete() {
-			throw new UnintendedUseException();
-		}
-	};
-	Observer<Reactivable>       reactivableObserver = new Observer<Reactivable>() {
-
-		@Override
-		public void onSubscribe(@NonNull final Disposable d) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void onNext(@NonNull final Reactivable aReactivable) {
-//			ReplaySubject
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void onError(@NonNull final Throwable e) {
-			throw new UnintendedUseException();
-		}
-
-		@Override
-		public void onComplete() {
-			throw new UnintendedUseException();
-		}
-	};
+	private final Observer<ReactiveDimension> dimensionObserver   = new _ReactiveDimensionObserver();
+	private final Observer<Reactivable>       reactivableObserver = new _ReactivableObserver();
 	private AccessBus           ab;
 	private ICompilationAccess  ca;
 	private ICompilationBus     compilationBus;
@@ -101,6 +60,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	private List<CompilerInput> inp;
 	private IPipelineAccess     pa;
 	private PipelineLogic       pipelineLogic;
+	private Eventual<ICompilationBus> _p_CompilationBus = new Eventual<>();
 
 	public DefaultCompilationEnclosure(final Compilation aCompilation) {
 		compilation = aCompilation;
@@ -285,6 +245,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	@Override
 	public void setCompilationBus(final ICompilationBus aCompilationBus) {
 		compilationBus = aCompilationBus;
+		_p_CompilationBus.resolve(aCompilationBus);
 	}
 
 	@Override
@@ -481,6 +442,11 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	@Override
+	public void onCompilationBus(DoneCallback<ICompilationBus> cb) {
+		_p_CompilationBus.then(cb);
+	}
+
+	@Override
 	public GModuleThing addModuleThing(final GOS_Module aModule) {
 		return addModuleThing((OS_Module) aModule);
 	}
@@ -493,6 +459,53 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	@Override
 	public GModuleThing getModuleThing(final GOS_Module aModule) {
 		return getModuleThing((OS_Module) aModule);
+	}
+
+	private static class _ReactiveDimensionObserver implements Observer<ReactiveDimension> {
+		@Override
+		public void onSubscribe(@NonNull final Disposable d) {
+			throw new UnintendedUseException();
+		}
+
+		@Override
+		public void onNext(@NonNull final ReactiveDimension aReactiveDimension) {
+			// aReactiveDimension.observe();
+			throw new UnintendedUseException();
+		}
+
+		@Override
+		public void onError(@NonNull final Throwable e) {
+			throw new UnintendedUseException();
+		}
+
+		@Override
+		public void onComplete() {
+			throw new UnintendedUseException();
+		}
+	}
+
+	private static class _ReactivableObserver implements Observer<Reactivable> {
+
+		@Override
+		public void onSubscribe(@NonNull final Disposable d) {
+			throw new UnintendedUseException();
+		}
+
+		@Override
+		public void onNext(@NonNull final Reactivable aReactivable) {
+//			ReplaySubject
+			throw new UnintendedUseException();
+		}
+
+		@Override
+		public void onError(@NonNull final Throwable e) {
+			throw new UnintendedUseException();
+		}
+
+		@Override
+		public void onComplete() {
+			throw new UnintendedUseException();
+		}
 	}
 
 	private class ModuleListener_ModuleCompletableProcess implements CompletableProcess<WorldModule> {

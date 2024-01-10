@@ -1,12 +1,6 @@
 package tripleo.elijah.comp.internal;
 
-import java.time.Duration;
-import java.util.concurrent.Flow.Publisher;
-import java.util.concurrent.Flow.Subscriber;
-
 import io.smallrye.mutiny.Multi;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.comp.i.ICompilationBus;
 import tripleo.elijah.comp.i.IProgressSink;
 import tripleo.elijah.comp.i.ProgressSinkComponent;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
@@ -15,15 +9,23 @@ import tripleo.elijah.comp.nextgen.pw.PW_Controller;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue;
 import tripleo.elijah.util.Ok;
+import tripleo.elijah.util2.Eventual;
+
+import java.time.Duration;
+import java.util.concurrent.Flow.Publisher;
+import java.util.concurrent.Flow.Subscriber;
 
 public class PW_CompilerController implements PW_Controller, Runnable {
 	private final CompilationImpl compilation;
 	private final PW_PushWorkQueue wq;
-	private Multi<PW_PushWork> mm;
-	private Publisher<PW_PushWork> pp;
 	private final Eventual<Ok> abusingIt = new Eventual<>();
+	private final Multi<PW_PushWork> m;
+	@SuppressWarnings("FieldCanBeLocal")
+	private Multi<PW_PushWork> mm;
+	@SuppressWarnings("FieldCanBeLocal")
+	private Publisher<PW_PushWork> pp;
 
-	PW_CompilerController(final CompilationImpl aC) {
+	public PW_CompilerController(final CompilationImpl aC) {
 		compilation = aC;
 
 		// TODO 10/20 Make a start latch, then overcomplicate (Lifetime erl etc)
@@ -32,54 +34,47 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 
 		wq = compilation.con().createWorkQueue();
 
+		m = Multi
+				.createFrom()
+				.publisher(publisher)
+				.onItem()
+				.invoke(i -> System.out.println(i))
+				.ifNoItem()
+				.after(Duration.ofMillis(10000))
+				.recoverWithCompletion();
+
 		task.start();
 	}
 
 	@Override
 	public void run() {
 		boolean[] xy = {true};
-		this.abusingIt .then(ok -> xy[0] = false);
+		this.abusingIt.then(ok -> xy[0] = false);
 
-		
-		// FIXME 10/18 this is also a steps: A+O
-////             FIXME passing sh*t between threads (P.O.!)
-		//_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
-		boolean x = true;
-		while (xy[0] && x) {
-			final PW_PushWork poll = wq.poll();
+		final CompilationEnclosure compilationEnclosure = compilation.getCompilationEnclosure();
+		compilationEnclosure.onCompilationBus(compilationBus -> {
+			// FIXME 10/18 this is also a steps: A+O
+			// FIXME passing sh*t between threads (P.O.!)
+			// _defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
+			boolean x = true;
+			final IProgressSink sink = compilationBus.defaultProgressSink();
 
-			if (poll != null) {
+			while (xy[0] && x) {
+				final PW_PushWork poll = wq.poll();
+
+				if (poll != null) {
 //                _defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5757, new Object[]{poll.name()});
-				poll.execute(this);
-			} else {
-				final CompilationEnclosure compilationEnclosure = compilation.getCompilationEnclosure();
-				final ICompilationBus compilationBus = compilationEnclosure.getCompilationBus();
-				final IProgressSink sink = compilationBus.defaultProgressSink();
-			    sink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
+					poll.execute(this);
+				} else {
+					sink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
 
-				// README 10/20 fails everything after one failed poll
-			    // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-//				x = false;
+					// README 10/20 fails everything after one failed poll
+					// eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+//					x = false;
+				}
 			}
-		}
-		final Publisher<PW_PushWork> publisher = new Publisher<>() {
+		});
 
-			private Subscriber<? super PW_PushWork> s;
-
-			@Override
-			public void subscribe(Subscriber<? super PW_PushWork> subscriber) {
-				this.s = subscriber;
-			}
-		};
-		Multi<PW_PushWork> m = Multi
-				.createFrom()
-					.publisher(publisher)
-				.onItem()
-					.invoke(i -> System.out.println(i))
-				.ifNoItem()
-					.after(Duration.ofMillis(10000))
-					.recoverWithCompletion();
-		
 		this.mm = m;
 		this.pp = publisher;
 	}
@@ -91,6 +86,15 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 	public CP_Paths paths() {
 		return compilation._paths();
 	}
+
+	final Publisher<PW_PushWork> publisher = new Publisher<>() {
+		private Subscriber<? super PW_PushWork> s;
+
+		@Override
+		public void subscribe(Subscriber<? super PW_PushWork> subscriber) {
+			this.s = subscriber;
+		}
+	};
 }
 
 //

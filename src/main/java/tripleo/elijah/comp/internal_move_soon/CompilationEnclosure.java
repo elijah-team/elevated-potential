@@ -1,8 +1,9 @@
 package tripleo.elijah.comp.internal_move_soon;
 
 import io.reactivex.rxjava3.annotations.*;
+import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
@@ -128,4 +129,6 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	List<ElLog> getLogs();
 
 	EIT_ModuleList getModuleList();
+
+	void onCompilationBus(DoneCallback<ICompilationBus> cb);
 }
