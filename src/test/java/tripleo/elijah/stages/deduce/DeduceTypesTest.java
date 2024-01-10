@@ -97,7 +97,7 @@ public class DeduceTypesTest {
 		final ElLog_.Verbosity verbosity = CompilationImpl.gitlabCIVerbosity();
 		final DeducePhase      dp        = boilerplate.getDeducePhase();
 
-		var wm = new DefaultWorldModule(mod, (CompilationEnclosure) boilerplate.comp.getCompilationEnclosure());
+		var wm = new DefaultWorldModule(mod, (CompilationEnclosure) boilerplate.compilation0.getCompilationEnclosure());
 
 		final DeduceTypes2 d = dp.deduceModule(wm, dp.generatedClasses, verbosity);
 
@@ -110,7 +110,7 @@ public class DeduceTypesTest {
 		final DeduceElementIdent dei = new DeduceElementIdent(ite);
 		final DeduceElement3_IdentTableEntry de3_ite = ite.getDeduceElement3(d, bgf);
 
-		final Operation2<GWorldModule> fpl0 = boilerplate.comp.findPrelude("c");
+		final Operation2<GWorldModule> fpl0 = boilerplate.compilation0.findPrelude("c");
 		assert fpl0.mode() == Mode.SUCCESS;
 		// final Operation2<OS_Module> fpl = boilerplate.comp.findPrelude("c");
 		mod.setPrelude(((WorldModule) fpl0.success()).module());

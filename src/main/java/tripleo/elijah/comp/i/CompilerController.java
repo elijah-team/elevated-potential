@@ -16,6 +16,6 @@ public interface CompilerController {
 	void runner(Con con);
 
 	interface Con {
-		ICompilationRunner newCompilationRunner(ICompilationAccess aCompilationAccess);
+		ICompilationRunner createCompilationRunner(ICompilationAccess aCompilationAccess);
 	}
 }

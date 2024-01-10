@@ -19,7 +19,9 @@ public class CK_SourceFile__SpecifiedEzFile extends __CK_SourceFile__AbstractEzF
 
 	@Override
 	public Operation2<CompilerInstructions> process_query() {
-		final Operation2<CompilerInstructions> oci = process_query(compilation.getIO(), compilation.getCompilationEnclosure().getCompilationRunner().ezCache());
+		final IO                               io      = compilation.getIO();
+		final EzCache                          ezCache = compilation.getCompilationEnclosure().getCompilationRunner().ezCache();
+		final Operation2<CompilerInstructions> oci     = process_query(io, ezCache);
 
 		super.asserverate();
 

@@ -39,7 +39,7 @@ import java.util.function.*;
 
 public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	public final Eventual<IPipelineAccess> pipelineAccessPromise = new Eventual<>();
-	private final          Eventual<CompilationRunner>                                                     ecr                   = new Eventual<>();
+	private final          Eventual<@NotNull ICompilationRunner>                                                     ecr                   = new Eventual<>();
 	private final          Eventual<AccessBus>                                                             accessBusPromise      = new Eventual<>();
 	private final          Compilation                                                                     compilation;
 	private final          CB_Output                                                                       _cbOutput             = new CB_ListBackedOutput();
@@ -56,7 +56,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	private AccessBus           ab;
 	private ICompilationAccess  ca;
 	private ICompilationBus     compilationBus;
-	private CompilationRunner   compilationRunner;
+	private @NotNull ICompilationRunner compilationRunner;
 	private CompilerDriver      compilerDriver;
 	private List<CompilerInput> inp;
 	private IPipelineAccess     pa;
@@ -231,11 +231,16 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	@Override
-	public void setCompilationAccess(@NotNull ICompilationAccess aca) {
-		ca = aca;
+	public boolean provideCompilationAccess(@NotNull ICompilationAccess aca) {
+		return provideCompilationAccess(()->aca);
 	}
 
-	// @Contract(pure = true) //??
+	@Override
+	public boolean provideCompilationAccess(final Supplier<@NotNull ICompilationAccess> aSca) {
+		if (ca != null) return false;
+		ca = aSca.get();
+		return true;
+	}
 
 	@Override
 	@Contract(pure = true)
@@ -262,12 +267,12 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	@Contract(pure = true)
 	@Override
-	public CompilationRunner getCompilationRunner() {
+	public ICompilationRunner getCompilationRunner() {
 		return compilationRunner;
 	}
 
 	@Override
-	public void setCompilationRunner(final CompilationRunner aCompilationRunner) {
+	public void setCompilationRunner(final @NotNull ICompilationRunner aCompilationRunner) {
 		compilationRunner = aCompilationRunner;
 
 		if (ecr.isPending()) {
@@ -399,11 +404,11 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	@Override
 	public PipelinePlugin getPipelinePlugin(final String aPipelineName) {
-		if (!(pipelinePlugins.containsKey(aPipelineName))) {
-			return null;
+		if (pipelinePlugins.containsKey(aPipelineName)) {
+			return pipelinePlugins.get(aPipelineName);
 		}
 
-		return pipelinePlugins.get(aPipelineName);
+		return null;
 	}
 
 	@Override
@@ -445,6 +450,20 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	@Override
 	public void onCompilationBus(DoneCallback<ICompilationBus> cb) {
 		_p_CompilationBus.then(cb);
+	}
+
+	@Override
+	public boolean provideCompilationBus(final Supplier<@NotNull ICompilationBus> aScb) {
+		if (compilationBus != null) return false;
+		compilationBus = aScb.get();
+		return true;
+	}
+
+	@Override
+	public boolean provideCompilationRunner(final Supplier<@NotNull ICompilationRunner> aScr) {
+		if (compilationRunner == null) return false;
+		setCompilationRunner((CompilationRunner) aScr.get());
+		return true;
 	}
 
 	@Override

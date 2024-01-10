@@ -41,11 +41,8 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		_compilation = (Compilation) aca.getCompilation();
 
 		final CompilationEnclosure compilationEnclosure = _compilation.getCompilationEnclosure();
-		compilationEnclosure.setCompilationAccess(aca);
-
-		if (compilationEnclosure.getCompilationBus() == null) {
-			compilationEnclosure.setCompilationBus(scb.get());
-		}
+		compilationEnclosure.provideCompilationAccess(aca);
+		compilationEnclosure.provideCompilationBus(scb);
 
 		cb           = compilationEnclosure.getCompilationBus();
 		progressSink = cb.defaultProgressSink();
@@ -67,6 +64,11 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 
 	public EzCache ezCache() {
 		return ezCache;
+	}
+
+	@Override
+	public void pushNextCompilerInsructions(final CompilerInstructions aCi) {
+		_cis().onNext(aCi);
 	}
 
 	public CompilationEnclosure getCompilationEnclosure() {
@@ -128,15 +130,10 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 
 		@Override
 		public void reportSuccess(final CB_Action action, final CB_Output output) {
-			int y=2;
+			NotImplementedException.raise_stop();
 			for (final CB_OutputString outputString : output.get()) {
 				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
 			}
 		}
-	}
-
-	public CR_State getCrState() {
-		// 24/01/04 back and forth
-		return this.crState;
 	}
 }

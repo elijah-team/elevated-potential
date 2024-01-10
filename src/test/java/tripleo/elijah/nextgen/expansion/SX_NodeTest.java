@@ -14,7 +14,7 @@ public class SX_NodeTest {
 	public void testFullText() {
 		final Boilerplate b = new Boilerplate();
 		b.get();
-		final Compilation comp = (Compilation) b.comp;
+		final Compilation comp = (Compilation) b.compilation0;
 
 		final OS_Module mod = comp.moduleBuilder().withFileName("filename.elijah").addToCompilation().build();
 

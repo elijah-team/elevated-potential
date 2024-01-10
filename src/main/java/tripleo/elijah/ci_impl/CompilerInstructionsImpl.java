@@ -47,7 +47,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public @Nullable String genLang() {
-		@SuppressWarnings("UnnecessaryLocalVariable") final Optional<String> genLang = gen.dirStream()
+		final Optional<String> genLang = gen.dirStream()
 				.filter(input -> input.sameName("gen"))
 				.findAny() // README if you need more than one, comment this out
 				.stream().map((gin0) -> {
@@ -65,11 +65,9 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 //				.orElse(null);
 				.flatMap(x->x)
 				;
-//		if (genLang == null) return null;
-		if (genLang.isPresent())
-			return genLang.get();
-		else return null;
-// README 12/30 ewhynot just return the Optional??
+
+		// TODO 12/30 why not just return the Optional??
+		return genLang.orElse(null);
 	}
 
 	@Override

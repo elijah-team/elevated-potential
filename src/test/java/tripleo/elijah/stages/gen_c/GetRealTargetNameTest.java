@@ -68,7 +68,7 @@ public class GetRealTargetNameTest {
 		//
 
 		final OS_Module mod = boilerplate.defaultMod();
-		mod.setParent(boilerplate.comp);
+		mod.setParent(boilerplate.compilation0);
 
 		final DeducePhase  phase        = boilerplate.getDeducePhase();
 		final DeduceTypes2 deduceTypes2 = new DeduceTypes2(mod, phase);

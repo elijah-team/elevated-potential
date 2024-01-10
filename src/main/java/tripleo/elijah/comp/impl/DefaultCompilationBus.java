@@ -155,7 +155,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 		_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5789, new Object[]{});
 	}
 
-	static class SingleActionProcess implements CB_Process {
+	public static class SingleActionProcess implements CB_Process {
 		// README tape
 		private final CB_Action a;
 		private final String    name;

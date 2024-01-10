@@ -23,6 +23,7 @@ import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.graph.i.CM_Module;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
@@ -55,6 +56,7 @@ import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
 
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class CompilationImpl implements Compilation, EventualRegister {
@@ -96,9 +98,9 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@SuppressWarnings("BooleanVariableAlwaysNegated")
 	private       boolean                             _inside;
 	private       CompilerInput                       __advisement;
-	private       ICompilationAccess3                 aICompilationAccess3;
-	private @NotNull CK_Monitor defaultMonitor;
-	private CPX_Signals cpxSignals;
+	private                ICompilationAccess3 aICompilationAccess3;
+	private final @NotNull CK_Monitor          defaultMonitor;
+	private                CPX_Signals         cpxSignals;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
@@ -188,6 +190,8 @@ public class CompilationImpl implements Compilation, EventualRegister {
 					return input;
 				}).collect(Collectors.toList());
 
+		assert Objects.equals(inputs, stringListToInputList(args));
+
 		feedInputs(inputs, controller);
 	}
 
@@ -232,18 +236,21 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@NotNull
 	public List<CompilerInput> stringListToInputList(final @NotNull List<String> args) {
 		final List<CompilerInput> inputs = args.stream()
-				.map(s -> {
-					final CompilerInput    input = new CompilerInput_(s, Optional.of(this));
-					final CM_CompilerInput cm    = this.get(input);
-					if (cm.inpSameAs(s)) {
-						input.setSourceRoot();
-					} else {
-						assert false;
-					}
-					return input;
-				})
+				.map(this::_convertCompilerInput)
 				.collect(Collectors.toList());
 		return inputs;
+	}
+
+	@NotNull
+	private CompilerInput _convertCompilerInput(final String s) {
+		final CompilerInput    input = new CompilerInput_(s, Optional.of(this));
+		final CM_CompilerInput cm    = this.get(input);
+		if (cm.inpSameAs(s)) {
+			input.setSourceRoot();
+		} else {
+			assert false;
+		}
+		return input;
 	}
 
 	@Override
@@ -361,7 +368,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 			setRootCI(rootCI);
 
-			lcm.asv(rootCI, LCM_Event_RootCI.instance());
+			lcm.asv(rootCI, LCM_Event_RootCI.INSTANCE);
 
 			return Operation.success(Ok.instance());
 		} else {
@@ -401,6 +408,16 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	public CP_Paths paths() {
 //		assert /*m*/paths != null;
 		return paths;
+	}
+
+	@Override
+	public void provideCio(final Supplier<CompilerInstructionsObserver> aSupplier) {
+		if (aSupplier == null) {
+			final CompilerInstructionsObserver cio                  = new CompilerInstructionsObserver(this);
+			_cis().set_cio(cio);
+		} else {
+			throw new UnintendedUseException("case not implemented");
+		}
 	}
 
 	@Override
@@ -505,7 +522,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 			}
 
 			@Override
-			public CompilationRunner cr() {
+			public ICompilationRunner cr() {
 				return c().getRunner();
 			}
 
@@ -513,11 +530,16 @@ public class CompilationImpl implements Compilation, EventualRegister {
 			public CompilationConfig cfg() {
 				return c()._cfg();
 			}
+
+			@Override
+			public LCM getModel() {
+				return ((CompilationImpl)c()).lcm;
+			}
 		};
 	}
 
 	@Override
-	public CompilationRunner getRunner() {
+	public ICompilationRunner getRunner() {
 		return getCompilationEnclosure().getCompilationRunner();
 	}
 

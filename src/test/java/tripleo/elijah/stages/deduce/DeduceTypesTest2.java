@@ -69,7 +69,7 @@ public class DeduceTypesTest2 {
 	public void testDeduceIdentExpression() throws ResolveError {
 		final Boilerplate b = new Boilerplate();
 		b.get();
-		final Compilation0 c = b.comp;
+		final Compilation0 c = b.compilation0;
 
 		// b.defaultMod();
 		final OS_Module mod = ((Compilation)c).moduleBuilder().withPrelude("c").setContext().build();

@@ -65,7 +65,7 @@ public class GetIdentIAPathTest_ForC {
 		compilation = new CompilationImpl(errSink, new IO_());
 
 		final CompilationEnclosure ce = compilation.getCompilationEnclosure();
-		ce.setCompilationAccess(new DefaultCompilationAccess(compilation));
+		ce.provideCompilationAccess(new DefaultCompilationAccess(compilation));
 
 		GenerateResultEnv fileGen = null;
 		generateC = new GenerateC(new OutputFileFactoryParams(new DefaultWorldModule(mod, ce), ce), fileGen);

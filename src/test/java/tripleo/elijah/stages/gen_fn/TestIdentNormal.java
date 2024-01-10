@@ -20,7 +20,6 @@ import tripleo.elijah.stages.instructions.IdentIA;
 import tripleo.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class TestIdentNormal {
 		boilerplate.getGenerateFiles(boilerplate.defaultMod());
 
 		final GenerateFunctions generateFunctions = new GenerateFunctions(boilerplate.defaultMod(),
-				boilerplate.pipelineLogic, (IPipelineAccess) boilerplate.comp.pa());
+				boilerplate.pipelineLogic, (IPipelineAccess) boilerplate.compilation0.pa());
 
 		final EvaFunction generatedFunction = new EvaFunction(fd);
 		final VariableSequence seq = new VariableSequenceImpl(ctx1);

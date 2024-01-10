@@ -6,6 +6,7 @@ import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.CM_Ez;
 import tripleo.elijah.comp.graph.i.CM_Module;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
@@ -97,7 +98,7 @@ public interface Compilation extends Compilation0 {
 
 	LCM_CompilerAccess getLCMAccess();
 
-	CompilationRunner getRunner();
+	ICompilationRunner getRunner();
 
 	CompilationConfig _cfg();
 

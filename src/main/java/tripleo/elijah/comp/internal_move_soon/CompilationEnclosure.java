@@ -53,7 +53,8 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	@Contract(pure = true)
 	@NotNull ICompilationAccess getCompilationAccess();
 
-	void setCompilationAccess(@NotNull ICompilationAccess aca);
+	boolean provideCompilationAccess(@NotNull ICompilationAccess aca);
+	boolean provideCompilationAccess(Supplier<@NotNull ICompilationAccess> aSca);
 
 	@Contract(pure = true)
 	ICompilationBus getCompilationBus();
@@ -67,9 +68,9 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	CompilerDriver getCompilationDriver();
 
 	@Contract(pure = true)
-	CompilationRunner getCompilationRunner();
+	ICompilationRunner getCompilationRunner();
 
-	void setCompilationRunner(CompilationRunner aCompilationRunner);
+	void setCompilationRunner(@NotNull ICompilationRunner aCompilationRunner);
 
 	@Contract(pure = true)
 	List<CompilerInput> getCompilerInput();
@@ -131,4 +132,8 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	EIT_ModuleList getModuleList();
 
 	void onCompilationBus(DoneCallback<ICompilationBus> cb);
+
+	boolean provideCompilationBus(Supplier<@NotNull ICompilationBus> aScb);
+
+	boolean provideCompilationRunner(Supplier<@NotNull ICompilationRunner> aScr);
 }
