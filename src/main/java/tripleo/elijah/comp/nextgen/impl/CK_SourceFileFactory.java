@@ -2,6 +2,7 @@ package tripleo.elijah.comp.nextgen.impl;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.i.CK_SourceFile;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 

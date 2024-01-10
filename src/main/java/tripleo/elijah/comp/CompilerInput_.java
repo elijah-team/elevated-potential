@@ -1,10 +1,12 @@
 package tripleo.elijah.comp;
 
-import com.google.common.base.*;
-//import lombok.*;
+import com.google.common.base.Preconditions;
+import lombok.Getter;
+import lombok.experimental.Accessors;
 import org.apache.commons.lang3.tuple.Pair;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.i.*;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.i.ILazyCompilerInstructions;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.queries.QSEZ_Reasoning;
@@ -18,11 +20,24 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class CompilerInput_ extends __Extensionable implements CompilerInput {
-	private final Optional<CompilationImpl> oc;
-
+	private final @Nullable Optional<CompilationImpl> oc;
+	//	@Getter
+	private final String                           inp;
+	private       Maybe<ILazyCompilerInstructions> accept_ci;
+	private       File                             dir_carrier;
+	@Getter @Accessors(fluent = true)
+	private       Ty                               ty;
+	private       String                           hash;
+	private       CompilerInputMaster              master;
+	private CompilerInstructions_Result directoryResults;
 	public CompilerInput_(final String aS, final Optional<CompilationImpl> aCompilation) {
 		inp = aS;
-		oc = aCompilation;
+		oc  = aCompilation;
+	}
+	public CompilerInput_(final String aS) {
+		inp = aS;
+		ty  = Ty.NULL;
+		oc  = null;
 	}
 
 	@Override
@@ -35,23 +50,6 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 		final tripleo.wrap.File directory = new tripleo.wrap.File(inp);
 		this.setDirectory(directory);
 		return directory;
-	}
-
-//	@Getter
-	private final String                           inp;
-	private       Maybe<ILazyCompilerInstructions> accept_ci;
-	private       File                             dir_carrier;
-	// @Getter(fluent)
-	private       Ty                               ty;
-	private       String                           hash;
-	private       CompilerInputMaster              master;
-
-	private CompilerInstructions_Result directoryResults;
-
-	public CompilerInput_(final String aS) {
-		inp = aS;
-		ty  = Ty.NULL;
-		oc  = null;
 	}
 
 	@Override
@@ -129,19 +127,6 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 	}
 
 	@Override
-	public void setDirectoryResults(final CompilerInstructions_Result aLoci) {
-		this.directoryResults = aLoci;
-
-        for (Pair<Operation2<CompilerInstructions>,QSEZ_Reasoning> locus : aLoci.getDirectoryResult2()) {
-            CompilerInstructions focus = locus.getKey().success();
-            focus.advise(this);
-        }
-
-		if (master != null)
-			master.notifyChange(this, CompilerInputField.DIRECTORY_RESULTS);
-	}
-
-	@Override
 	public void setMaster(CompilerInputMaster master) {
 		this.master = master;
 	}
@@ -164,15 +149,15 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 		return ty;
 	}
 
-    @Override
+	@Override
 	public File makeFile() {
-	    return switch (ty) {
-		    case SOURCE_ROOT -> dir_carrier;
+		return switch (ty) {
+			case SOURCE_ROOT -> dir_carrier;
 			// TODO 12/03 see #getFileForDirectory
-		    case ROOT -> new File(new File(inp).getParentFile().wrapped()); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-		    default -> null;
-	    };
-    }
+			case ROOT -> new File(new File(inp).getParentFile().wrapped()); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+			default -> null;
+		};
+	}
 
 	@Override
 	public CompilerInstructions_Result getDirectoryResults() {
@@ -180,8 +165,21 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 	}
 
 	@Override
+	public void setDirectoryResults(final CompilerInstructions_Result aLoci) {
+		this.directoryResults = aLoci;
+
+		for (Pair<Operation2<CompilerInstructions>, QSEZ_Reasoning> locus : aLoci.getDirectoryResult2()) {
+			final CompilerInstructions focus = locus.getKey().success();
+			focus.advise(this);
+		}
+
+		if (master != null)
+			master.notifyChange(this, CompilerInputField.DIRECTORY_RESULTS);
+	}
+
+	@Override
 	public String getInp() {
-		// TODO Auto-generated method stub
+		// aback and forth
 		return inp;
 	}
 }

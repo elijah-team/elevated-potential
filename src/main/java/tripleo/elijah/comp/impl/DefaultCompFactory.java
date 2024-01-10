@@ -9,6 +9,7 @@ import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
+import tripleo.elijah.comp.inputs.ILazyCompilerInstructions_;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.local.CX_ParseElijahFile;
 import tripleo.elijah.comp.local.CX_realParseElijjahFile2;

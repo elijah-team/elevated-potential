@@ -3,6 +3,8 @@ package tripleo.elijah.lang.i;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.compiler_model.CM_Factory;
+import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.g.*;
@@ -54,7 +56,11 @@ public interface OS_Module extends OS_Element, GOS_Module {
 
 	void setContext(ModuleContext mctx);
 
-	void setFileName(String fileName);
+	void setFileName(CM_Filename fileName);
+
+	default void setFileName(String fileName){
+		setFileName(CM_Factory.Filename__of(fileName));
+	}
 
 	void setIndexingStatement(IndexingStatement idx);
 

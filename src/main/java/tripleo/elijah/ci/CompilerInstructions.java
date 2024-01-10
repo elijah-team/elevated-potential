@@ -8,36 +8,80 @@
  */
 package tripleo.elijah.ci;
 
-import antlr.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
-import tripleo.wrap.*;
+import antlr.Token;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.compiler_model.CM_Filename;
+import tripleo.elijah.xlang.LocatableString;
+import tripleo.wrap.File;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface CompilerInstructions {
+//	void add(GenerateStatement generateStatement);
+//
+//	void add(LibraryStatementPart libraryStatementPart);
+//
+//	@Nullable
+//	String genLang();
+//
+//	String getFilename();
+//
+//	Iterable<? extends LibraryStatementPart> getLibraryStatementParts();
+//
+//	String getName();
+//
+//	CiIndexingStatement indexingStatement();
+//
+//	void setFilename(String filename);
+//
+//	void setName(String name);
+//
+//	void setName(Token name);
+//
+//	void advise(CompilerInput aCompilerInput);
+//
+//	File makeFile();
+//
+//	/**
+//	 * @throws IllegalStateException if not advised
+//	 */
+//	CompilerInput profferCompilerInput() throws IllegalStateException;
+
 	void add(GenerateStatement generateStatement);
 
 	void add(LibraryStatementPart libraryStatementPart);
 
-	@Nullable
-	String genLang();
+	List<LibraryStatementPart> getLibraryStatementParts();
 
-	String getFilename();
+	Optional<String> genLang();  // not a promise? Calculated? C<O<S>>>??
 
-	Iterable<? extends LibraryStatementPart> getLibraryStatementParts();
+	CM_Filename getFilename();
+
+	void setFilename(CM_Filename filename);
 
 	String getName();
 
+	LocatableString getLocatableName();
+
 	CiIndexingStatement indexingStatement();
 
-	void setFilename(String filename);
+	void setName(LocatableString name);
 
-	void setName(String name);
+	public interface CompilerInstructionsBuilder {
+		CompilerInstructions build();
 
-	void setName(Token name);
+		void add(GenerateStatement generateStatement);
 
-	void advise(CompilerInput aCompilerInput);
+		void add(LibraryStatementPart libraryStatementPart);
 
-	File makeFile();
+		void setGenLang(String aGenLangString);  // ??
 
-	CompilerInput profferCompilerInput() throws IllegalStateException;
+		void setFilename(CM_Filename filename);
+
+		CiIndexingStatement createIndexingStatement();
+
+		void setName(LocatableString name);
+	}
 }

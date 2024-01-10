@@ -1,19 +1,22 @@
-package tripleo.elijah.comp.impl;
+package tripleo.elijah.comp.inputs;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.nextgen.impl.*;
-import tripleo.elijah.util.*;
-
-import java.io.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.graph.i.CK_SourceFile;
+import tripleo.elijah.comp.i.CompilationClosure;
+import tripleo.elijah.comp.i.ILazyCompilerInstructions;
+import tripleo.elijah.comp.nextgen.impl.CK_SourceFileFactory;
+import tripleo.elijah.util.Mode;
+import tripleo.elijah.util.Operation2;
+import tripleo.wrap.File;
 
 public abstract class ILazyCompilerInstructions_ {
 	@Contract(value = "_, _ -> new", pure = true)
 	public static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInput input,
-														final @NotNull CompilationClosure cc) {
+	                                                    final @NotNull CompilationClosure cc) {
 		final String file_name = input.getInp();
 		final File   f         = new File(file_name);
 

@@ -1,6 +1,8 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.compiler_model.CM_Factory;
+import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
@@ -11,8 +13,8 @@ import tripleo.elijah.world.i.*;
 public class ModuleBuilder {
 	// private final Compilation compilation;
 	private final @NotNull OS_Module mod;
-	private                boolean   _addToCompilation = false;
-	private @Nullable      String    _fn               = null;
+	private boolean     _addToCompilation = false;
+	private CM_Filename _fn               = null;
 
 	public ModuleBuilder(@NotNull Compilation aCompilation) {
 //			compilation = aCompilation;
@@ -44,7 +46,11 @@ public class ModuleBuilder {
 		return this;
 	}
 
-	public @NotNull ModuleBuilder withFileName(String aFn) {
+	public ModuleBuilder withFileName(final String aS) {
+		return withFileName(CM_Factory.Filename__of(aS));
+	}
+
+	public @NotNull ModuleBuilder withFileName(CM_Filename aFn) {
 		_fn = aFn;
 		mod.setFileName(aFn);
 		return this;

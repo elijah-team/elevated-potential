@@ -8,6 +8,7 @@ import tripleo.elijah.comp.graph.CM_Ez;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.rubicon.PCon;
 import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.util.*;
 import tripleo.elijjah.*;
@@ -30,7 +31,7 @@ public enum CX_ParseEzFile {;
 			return Operation2.failure(new ExceptionDiagnostic(aE));
 		}
 		final CompilerInstructions instructions = parser.ci;
-		instructions.setFilename(aAbsolutePath);
+		instructions.setFilename(()-> aAbsolutePath);
 		return Operation2.success(instructions);
 	}
 

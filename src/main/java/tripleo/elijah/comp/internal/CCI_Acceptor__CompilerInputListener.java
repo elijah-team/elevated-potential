@@ -4,7 +4,7 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.impl.ILazyCompilerInstructions_;
+import tripleo.elijah.comp.inputs.ILazyCompilerInstructions_;
 import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
 import tripleo.elijah.util.*;
 import tripleo.elijah.util2.DebugFlags;

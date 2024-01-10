@@ -12,6 +12,7 @@ import antlr.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.xlang.LocatableString;
 
 import java.util.*;
 
@@ -20,12 +21,11 @@ import java.util.*;
  */
 public class LibraryStatementPartImpl implements LibraryStatementPart {
 	public class Directive {
-
-		private final IExpression expression;
-		private final String name;
+		private final          IExpression     expression;
+		private final @NotNull LocatableString name;
 
 		public Directive(final @NotNull Token token_, final IExpression expression_) {
-			name = token_.getText();
+			name = LocatableString.of(token_);
 			expression = expression_;
 		}
 	}
@@ -45,7 +45,7 @@ public class LibraryStatementPartImpl implements LibraryStatementPart {
 	@Override
 	public void addDirective(final @NotNull Token token, final IExpression iExpression) {
 		if (dirs == null)
-			dirs = new ArrayList<Directive>();
+			dirs = new ArrayList<>();
 		dirs.add(new Directive(token, iExpression));
 	}
 

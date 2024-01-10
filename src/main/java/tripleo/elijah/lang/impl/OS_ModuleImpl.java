@@ -12,6 +12,7 @@ import antlr.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.g.*;
@@ -28,13 +29,13 @@ import java.util.stream.*;
  */
 public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.lang.i.OS_Module {
 
-	private final Stack<Qualident> packageNames_q = new Stack<Qualident>();
+	private final Stack<Qualident> packageNames_q = new Stack<>();
 	public @NotNull Attached _a;
-	public @NotNull List<EntryPoint> entryPoints = new ArrayList<EntryPoint>();
-	public @NotNull List<ModuleItem> items = new ArrayList<ModuleItem>();
+	public @NotNull List<EntryPoint> entryPoints = new ArrayList<>();
+	public @NotNull List<ModuleItem> items = new ArrayList<>();
 	public OS_Module prelude;
-	private IndexingStatement indexingStatement;
-	private String _fileName;
+	private IndexingStatement    indexingStatement;
+	private CM_Filename          _fileName;
 	private LibraryStatementPart lsp;
 	private Compilation         parent;
 	private FluffyModuleImpl     _fluffy;
@@ -96,7 +97,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	private void find_multiple_items(Complaint c) {
 		// FIXME 10/19
 		final Compilation cc = getCompilation();
-		((Compilation)cc).getFluffy().find_multiple_items(this, c);
+		cc.getFluffy().find_multiple_items(this, c);
 	}
 
 	@Override
@@ -150,7 +151,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 
 	@Override
 	public String getFileName() {
-		return _fileName;
+		return _fileName.getString();
 	}
 
 	private FluffyModuleImpl getFluffy() {
@@ -298,7 +299,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 		// private IndexingStatement indexingStatement;
 		// private LibraryStatementPart lsp;
 
-		sw.fieldString("filename", _fileName);
+		sw.fieldString("filename", _fileName.getString());
 		sw.fieldString("prelude", prelude != null ? prelude.getFileName() : "<unknown>");
 		sw.fieldString("parent", getCompilation().getCompilationNumberString());
 
@@ -317,7 +318,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	}
 
 	@Override
-	public void setFileName(final String fileName) {
+	public void setFileName(final CM_Filename fileName) {
 		this._fileName = fileName;
 	}
 
