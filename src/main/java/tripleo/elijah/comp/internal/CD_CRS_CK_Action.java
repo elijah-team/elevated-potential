@@ -1,12 +1,13 @@
 package tripleo.elijah.comp.internal;
 
 import tripleo.elijah.comp.graph.i.*;
+import tripleo.elijah.comp.i.CR_Action;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 
 class CD_CRS_CK_Action implements CK_Action {
 	private final CD_CompilationRunnerStart_1 CDCompilationRunnerStart1;
-	private final CR_Action                   action;
+	private final CR_Action action;
 
 	public CD_CRS_CK_Action(final CD_CompilationRunnerStart_1 aCDCompilationRunnerStart1, final CR_Action aAction) {
 		CDCompilationRunnerStart1 = aCDCompilationRunnerStart1;

@@ -1,7 +1,9 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.i;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.CB_Output;
+import tripleo.elijah.comp.internal.CR_State;
+import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.util.*;
 
 public interface CR_Action {
