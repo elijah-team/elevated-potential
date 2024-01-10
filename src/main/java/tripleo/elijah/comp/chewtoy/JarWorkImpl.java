@@ -1,6 +1,7 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.chewtoy;
 
 import clojure.lang.*;
+import tripleo.elijah.comp.internal.WorkException;
 
 import java.io.File;
 import java.io.IOException;

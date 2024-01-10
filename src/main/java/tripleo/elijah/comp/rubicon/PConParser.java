@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.rubicon;
 
 import antlr.*;
 import tripleo.elijah.contexts.*;

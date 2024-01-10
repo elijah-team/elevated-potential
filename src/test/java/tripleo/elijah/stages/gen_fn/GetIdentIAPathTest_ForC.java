@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.comp.internal.DefaultCompilationAccess;
+import tripleo.elijah.comp.impl.DefaultCompilationAccess;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.gen_c.CReference;

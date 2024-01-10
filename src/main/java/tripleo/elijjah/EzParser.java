@@ -7,7 +7,7 @@ import antlr.collections.impl.BitSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.PCon;
+import tripleo.elijah.comp.rubicon.PCon;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.BuiltInTypes;
 

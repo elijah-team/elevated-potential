@@ -22,8 +22,8 @@
 //import tripleo.elijah.comp.impl.DefaultCompilationFlow;
 //import tripleo.elijah.comp.internal.CompilationImpl;
 //import tripleo.elijah.comp.internal.CompilationRunner;
-//import tripleo.elijah.comp.internal.DefaultCompilationAccess;
-//import tripleo.elijah.comp.internal.DefaultCompilerController;
+//import tripleo.elijah.comp.impl.DefaultCompilationAccess;
+//import tripleo.elijah.comp.impl.DefaultCompilerController;
 //import tripleo.elijah.factory.comp.CompilationFactory;
 //import tripleo.elijah.lang.i.ClassStatement;
 //import tripleo.elijah.lang.i.FunctionDef;

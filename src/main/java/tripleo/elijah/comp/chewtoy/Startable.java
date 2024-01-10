@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.chewtoy;
 
 public interface Startable {
 	void start();

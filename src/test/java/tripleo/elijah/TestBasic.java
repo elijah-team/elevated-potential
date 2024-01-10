@@ -14,7 +14,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.AssOutFile;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.comp.internal.DefaultCompilerController;
+import tripleo.elijah.comp.impl.DefaultCompilerController;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.factory.comp.CompilationFactory;
 import tripleo.elijah.lang.i.ClassStatement;

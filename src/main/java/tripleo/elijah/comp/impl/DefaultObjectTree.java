@@ -1,7 +1,8 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.impl;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
+import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.util2.DebugFlags;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CompProgress;

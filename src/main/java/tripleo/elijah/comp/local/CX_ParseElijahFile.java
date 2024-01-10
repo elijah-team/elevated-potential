@@ -6,6 +6,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.rubicon.PConParser;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;

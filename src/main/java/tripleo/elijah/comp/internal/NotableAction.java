@@ -5,6 +5,7 @@ import tripleo.elijah.comp.i.CB_Action;
 import tripleo.elijah.comp.i.CB_Monitor;
 import tripleo.elijah.comp.i.CB_OutputString;
 import tripleo.elijah.comp.notation.GN_Notable;
+import tripleo.elijah.util2.UnintendedUseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ class NotableAction implements CB_Action {
 	public void execute(CB_Monitor aMonitor) {
 		if (false)
 			notable.run();
+		throw new UnintendedUseException("breakpoint");
 	}
 
 	@Override

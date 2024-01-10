@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.comp.internal.DefaultCompilerController;
+import tripleo.elijah.comp.impl.DefaultCompilerController;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;

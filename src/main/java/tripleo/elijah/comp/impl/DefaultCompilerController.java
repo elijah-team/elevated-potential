@@ -1,9 +1,13 @@
-package tripleo.elijah.comp.internal;
+package tripleo.elijah.comp.impl;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal.CB_FindCIs;
+import tripleo.elijah.comp.internal.CB_FindStdLibProcess;
+import tripleo.elijah.comp.internal.CR_State;
+import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.g.GCompilationEnclosure;
 import tripleo.elijah.util.*;
@@ -99,7 +103,7 @@ public class DefaultCompilerController implements CompilerController {
 	public static class _DefaultCon implements Con {
 		@Override
 		public CompilationRunner newCompilationRunner(final ICompilationAccess compilationAccess) {
-			final CR_State          crState = new CR_State(compilationAccess);
+			final CR_State crState = new CR_State(compilationAccess);
 			final CompilationRunner cr      = new CompilationRunner(compilationAccess, crState);
 
 			crState.setRunner(cr);

@@ -4,6 +4,7 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.impl.ILazyCompilerInstructions_;
 import tripleo.elijah.util.*;
 import tripleo.elijah.util2.DebugFlags;
 import tripleo.elijah.util2.UnintendedUseException;

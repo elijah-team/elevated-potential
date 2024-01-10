@@ -6,6 +6,7 @@ import antlr.*;
 import antlr.collections.impl.BitSet;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.rubicon.PConParser;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.builder.*;
 import tripleo.elijah.lang.i.*;
@@ -106,7 +107,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 	public static final BitSet _tokenSet_72 = new BitSet(mk_tokenSet_72());
 	public static final BitSet _tokenSet_8 = new BitSet(mk_tokenSet_8());
 	public static final BitSet     _tokenSet_9 = new BitSet(mk_tokenSet_9());
-	public              PConParser pcon;
+	public PConParser pcon;
 
 	private static final long[] mk_tokenSet_0() {
 		long[] data = { 2L, 0L, 0L };
