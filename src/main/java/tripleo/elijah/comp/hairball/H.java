@@ -16,7 +16,7 @@ import java.util.Queue;
 
 public final class H {
 	public static void runProcesses_(final DefaultCompilationBus cb, final Queue<CB_Process> pq, final @NotNull Compilation c) {
-		final __MultiEmitterConsumer multiEmitterConsumer = new __MultiEmitterConsumer(cb, pq, null);
+		final __MultiEmitterConsumer multiEmitterConsumer = new __MultiEmitterConsumer(cb, pq);
 		final Multi<PW_PushWork>     m                    = Multi.createFrom().emitter(multiEmitterConsumer, BackPressureStrategy.BUFFER);
 
 		m.subscribe().with((PW_PushWork item) -> {

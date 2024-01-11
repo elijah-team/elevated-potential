@@ -14,23 +14,18 @@ import java.util.function.Consumer;
 public class __MultiEmitterConsumer implements Consumer<MultiEmitter<? super PW_PushWork>> {
 	private final DefaultCompilationBus defaultCompilationBus;
 //	private final PW_PushWorkQueue pq;
-	private final CB_Process            process1;
 	private final Queue<CB_Process> pq;
 
 	public __MultiEmitterConsumer(final DefaultCompilationBus aDefaultCompilationBus,
-	                              final Queue<CB_Process> aPushWorkQueue,
-	                              final CB_Process aProcess) {
-		Preconditions.checkNotNull(aProcess);
-
+	                              final Queue<CB_Process> aPushWorkQueue) {
 		defaultCompilationBus = aDefaultCompilationBus;
 		pq                    = aPushWorkQueue;
-		process1              = aProcess;
 	}
 
 	@Override
 	public void accept(final MultiEmitter<? super PW_PushWork> emitter) {
 		pq.stream()
-		  .forEach(process -> emitter.emit(___MultiEmitterPushWork(process1)));
+		  .forEach(process -> emitter.emit(___MultiEmitterPushWork(process)));
 
 		emitter.complete();
 	}
