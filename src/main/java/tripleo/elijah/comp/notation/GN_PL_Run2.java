@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.notation;
 
+//import org.eclipse.xtext.xbase.interpreter.impl.DefaultEvaluationResult;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal_move_soon.*;
@@ -10,60 +11,33 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.inter.*;
 import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.util2.EventualRegister;
+import tripleo.elijah.util3._AbstractEventualRegister;
 import tripleo.elijah.world.i.*;
 import tripleo.elijah.world.impl.*;
 
 import java.util.*;
 import java.util.function.*;
 
-public class GN_PL_Run2 implements GN_Notable, EventualRegister {
-	public static final class GenerateFunctionsRequest {
-		private final IClassGenerator classGenerator;
-		private final DefaultWorldModule worldModule;
-
-		public GenerateFunctionsRequest(IClassGenerator classGenerator, DefaultWorldModule worldModule) {
-			this.classGenerator = classGenerator;
-			this.worldModule    = worldModule;
-		}
+public class GN_PL_Run2 extends _AbstractEventualRegister implements GN_Notable, EventualRegister {
+	public record GenerateFunctionsRequest(IClassGenerator classGenerator, DefaultWorldModule worldModule) {
 
 		public ModuleThing mt() {
-				return Objects.requireNonNull(worldModule.thing());
+			return Objects.requireNonNull(worldModule.thing());
+		}
+
+		public OS_Module mod() {
+			return worldModule.module();
+		}
+
+
+		@Override
+			public String toString() {
+				return "GenerateFunctionsRequest[" +
+						"classGenerator=" + classGenerator + ", " +
+						"worldModule=" + worldModule + ']';
 			}
 
-			public OS_Module mod() {
-				return worldModule.module();
-			}
-
-		public IClassGenerator classGenerator() {
-			return classGenerator;
-		}
-
-		public DefaultWorldModule worldModule() {
-			return worldModule;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (obj == this) return true;
-			if (obj == null || obj.getClass() != this.getClass()) return false;
-			var that = (GenerateFunctionsRequest) obj;
-			return Objects.equals(this.classGenerator, that.classGenerator) &&
-					Objects.equals(this.worldModule, that.worldModule);
-		}
-
-		@Override
-		public int hashCode() {
-			return Objects.hash(classGenerator, worldModule);
-		}
-
-		@Override
-		public String toString() {
-			return "GenerateFunctionsRequest[" +
-					"classGenerator=" + classGenerator + ", " +
-					"worldModule=" + worldModule + ']';
-		}
-
-		}
+	}
 
 	@Contract("_ -> new")
 	@SuppressWarnings("unused")
@@ -93,16 +67,6 @@ public class GN_PL_Run2 implements GN_Notable, EventualRegister {
 
 	private void _finish() {
 		pipelineLogic.checkFinishEventuals();
-	}
-
-	@Override
-	public void checkFinishEventuals() {
-
-	}
-
-	@Override
-	public <P> void register(final Eventual<P> e) {
-
 	}
 
 	@Override

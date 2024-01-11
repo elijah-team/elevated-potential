@@ -88,6 +88,12 @@ public class FluffyCompImpl implements FluffyComp {
 		return __inj;
 	}
 
+	static class FluffyCompImplInjector {
+
+		public FluffyModuleImpl new_FluffyModuleImpl(final OS_Module aModule, final CompilationImpl aComp) {
+			return new FluffyModuleImpl(aModule, aComp);
+		}
+	}
 	@Override
 	public void checkFinishEventuals() {
 		int y = 0;
@@ -103,11 +109,5 @@ public class FluffyCompImpl implements FluffyComp {
 	@Override
 	public <P> void register(final Eventual<P> e) {
 		_eventuals.add(e);
-	}
-
-	static class FluffyCompImplInjector {
-		public FluffyModuleImpl new_FluffyModuleImpl(final OS_Module aModule, final CompilationImpl aComp) {
-			return new FluffyModuleImpl(aModule, aComp);
-		}
 	}
 }

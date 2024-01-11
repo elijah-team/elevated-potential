@@ -13,6 +13,7 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import lombok.*;
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.chewtoy.P;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
@@ -28,6 +29,7 @@ import tripleo.elijah.stages.logging.ElLog.Verbosity;
 import tripleo.elijah.util.*;
 import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.util2.EventualRegister;
+import tripleo.elijah.util3._AbstractEventualRegister;
 import tripleo.elijah.world.i.*;
 import tripleo.elijah.world.impl.*;
 
@@ -37,7 +39,7 @@ import java.util.function.*;
 /**
  * Created 12/30/20 2:14 AM
  */
-public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic {
+public class PipelineLogic extends _AbstractEventualRegister implements GPipelineLogic {
 	public final @NotNull  DeducePhase              dp;
 	public final @NotNull  GeneratePhase            generatePhase;
 //	private final @NonNull EIT_ModuleList           mods   = new EIT_ModuleList();
@@ -46,7 +48,6 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 	private final @NonNull IPipelineAccess          pa;
 	@Getter
 	private final @NonNull ElLog_.Verbosity  verbosity;
-	private final          List<Eventual<?>> _eventuals = new ArrayList<>();
 
 	public PipelineLogic(final IPipelineAccess aPa, final @NotNull ICompilationAccess ca) {
 		pa = aPa;
@@ -74,17 +75,6 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 		_pa().addLog(aLog);
 	}
 
-	@Override
-	public void checkFinishEventuals() {
-		int y = 0;
-		for (Eventual<?> eventual : _eventuals) {
-			if (eventual.isResolved()) {
-			} else {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[PipelineLogic::checkEventual] failed for " + eventual.description());
-			}
-		}
-	}
-
 	@NotNull
 	public GenerateFunctions getGenerateFunctions(@NotNull OS_Module mod) {
 		return generatePhase.getGenerateFunctions(mod);
@@ -101,11 +91,6 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 		modMap.put(mod, p);
 
 		return p;
-	}
-
-	@Override
-	public <P> void register(final Eventual<P> e) {
-		_eventuals.add(e);
 	}
 
 	class ModMap {

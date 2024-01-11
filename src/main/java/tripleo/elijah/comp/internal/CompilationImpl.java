@@ -55,6 +55,7 @@ import tripleo.elijah.util2.DebugFlags;
 import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.util2.EventualRegister;
 import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util3._AbstractEventualRegister;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
 
@@ -62,7 +63,7 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class CompilationImpl implements Compilation, EventualRegister {
+public class CompilationImpl extends _AbstractEventualRegister implements Compilation, EventualRegister {
 	private final List<CN_CompilerInputWatcher>                                  _ciws;
 	private final Map<CompilerInput, CM_CompilerInput>                           _ci_models;
 	private final List<Triple<CN_CompilerInputWatcher.e, CompilerInput, Object>> _ciw_buffer;
@@ -664,16 +665,6 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	public CP_Paths _paths() {
 		assert paths != null;
 		return paths;
-	}
-
-	@Override
-	public void checkFinishEventuals() {
-		throw new UnintendedUseException();
-	}
-
-	@Override
-	public <P> void register(final Eventual<P> aEventual) {
-		//throw new UnintendedUseException();
 	}
 
 	@Override
