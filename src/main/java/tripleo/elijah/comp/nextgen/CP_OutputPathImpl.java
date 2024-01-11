@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinishParse {
+public class CP_OutputPathImpl implements CP_Path, _CP_RootPath, CPX_CalculateFinishParse {
 	private final Eventual<Path> _pathPromise = new Eventual<>();
 
 	private final CY_HashDeferredAction hda;
@@ -31,7 +31,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 	private       File                  root; // COMP/...
 	private       boolean               _testShim;
 
-	public CP_OutputPath(final Compilation cc) {
+	public CP_OutputPathImpl(final Compilation cc) {
 		c   = cc;
 		hda = new CY_HashDeferredAction(c.getIO());
 		
@@ -191,7 +191,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 			return date;
 		}
 
-		public CP_Path getP(final @NotNull CP_OutputPath aCPOutputPath) {
+		public CP_Path getP(final @NotNull CP_OutputPathImpl aCPOutputPath) {
 			final CP_Path outputRoot = aCPOutputPath.c.paths().outputRoot();
 
 			return outputRoot.child(c_name).child(date);

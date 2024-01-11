@@ -1,16 +1,13 @@
 package tripleo.elijah.comp.impl;
 
-import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.helpers.queues.MpscLinkedQueue;
-import io.smallrye.mutiny.subscription.BackPressureStrategy;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
+
 import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.hairball.__MultiEmitterConsumer;
+import tripleo.elijah.comp.hairball.H;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 import tripleo.elijah.comp.process.DefaultCompilerDriver;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
@@ -25,7 +22,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 	@Getter
 	private final @NotNull CompilerDriver    compilerDriver;
 	private final @NotNull Compilation       c;
-	private final          Queue<CB_Process> pq = new MpscLinkedQueue<>();
+	private final          Queue<CB_Process> pq = H.createQueue();
 	private final @NotNull IProgressSink     _defaultProgressSink;
 
 	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
@@ -46,17 +43,6 @@ public class DefaultCompilationBus implements ICompilationBus {
 	public CB_Monitor getMonitor() {
 		return _monitor;
 	}
-
-//	@Override public void addCompilerChange(Class<?> compilationChangeClass) {
-//		if (compilationChangeClass.isInstance(CC_SetSilent.class)) {
-//			try {
-//				CompilationChange ccc = (CompilationChange) compilationChangeClass.getDeclaredConstructor(null).newInstance(null);
-//				ccc.apply(this.c);
-//			} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-//				throw new RuntimeException(e);
-//			}
-//		}
-//	}
 
 	@Override
 	public void add(final @NotNull CB_Action action) {
@@ -88,14 +74,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 	}
 
 	public void runProcesses() {
-		final __MultiEmitterConsumer multiEmitterConsumer = new __MultiEmitterConsumer(this, pq, null);
-		final Multi<PW_PushWork>     m                    = Multi.createFrom().emitter(multiEmitterConsumer, BackPressureStrategy.BUFFER);
-
-		m.subscribe().with((PW_PushWork item) -> {
-			//System.out.println("Received item: " + item);
-
-			item.handle(c.__pw_controller(), null);
-		});
+		H.runProcesses_(this, pq, c);
 	}
 
 	public void logProgress(final int code, final String message) {
@@ -114,6 +93,17 @@ public class DefaultCompilationBus implements ICompilationBus {
 			}
 		}
 	}
+
+//	@Override public void addCompilerChange(Class<?> compilationChangeClass) {
+//		if (compilationChangeClass.isInstance(CC_SetSilent.class)) {
+//			try {
+//				CompilationChange ccc = (CompilationChange) compilationChangeClass.getDeclaredConstructor(null).newInstance(null);
+//				ccc.apply(this.c);
+//			} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+//				throw new RuntimeException(e);
+//			}
+//		}
+//	}
 
 	@Override
 	public CompilerDriver getCompilerDriver() {

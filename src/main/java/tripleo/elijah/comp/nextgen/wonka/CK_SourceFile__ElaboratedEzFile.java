@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.nextgen.impl;
+package tripleo.elijah.comp.nextgen.wonka;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Supplier;

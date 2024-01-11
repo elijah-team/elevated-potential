@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.nextgen.impl;
+package tripleo.elijah.comp.nextgen.wonka;
 
 import com.google.common.base.*;
 import org.jetbrains.annotations.*;

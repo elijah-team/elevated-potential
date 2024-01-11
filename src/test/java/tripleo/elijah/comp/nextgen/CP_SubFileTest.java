@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CP_SubFileTest {
 
-	private CP_OutputPath op;
+	private CP_OutputPathImpl op;
 
 	@Test
 	public void one() {
@@ -36,6 +36,6 @@ public class CP_SubFileTest {
 	@BeforeEach
 	public void setUp() throws Exception {
 		final @NotNull CompilationImpl cc = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
-		op = new CP_OutputPath(cc);
+		op = new CP_OutputPathImpl(cc);
 	}
 }

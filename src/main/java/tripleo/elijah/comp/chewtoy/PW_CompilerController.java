@@ -1,8 +1,5 @@
 package tripleo.elijah.comp.chewtoy;
 
-import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.subscription.BackPressureStrategy;
-import io.smallrye.mutiny.subscription.MultiEmitter;
 import tripleo.elijah.comp.i.IProgressSink;
 import tripleo.elijah.comp.i.ProgressSinkComponent;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -14,26 +11,10 @@ import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util2.Eventual;
 
-import java.util.concurrent.Flow.Publisher;
-import java.util.concurrent.Flow.Subscriber;
-
 public class PW_CompilerController implements PW_Controller, Runnable {
-	final         Publisher<PW_PushWork> publisher = new Publisher<>() {
-		private Subscriber<? super PW_PushWork> s;
-
-		@Override
-		public void subscribe(Subscriber<? super PW_PushWork> subscriber) {
-			this.s = subscriber;
-		}
-	};
-	private final CompilationImpl        compilation;
-	private final PW_PushWorkQueue       wq;
-	private final Eventual<Ok>           abusingIt = new Eventual<>();
-	private final Multi<PW_PushWork>     m;
-	@SuppressWarnings("FieldCanBeLocal")
-	private       Multi<PW_PushWork>     mm;
-	@SuppressWarnings("FieldCanBeLocal")
-	private       Publisher<PW_PushWork> pp;
+	private final CompilationImpl  compilation;
+	private final PW_PushWorkQueue wq;
+	private final Eventual<Ok>     abusingIt = new Eventual<>();
 
 	public PW_CompilerController(final CompilationImpl aC) {
 		compilation = aC;
@@ -44,46 +25,9 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 
 		wq = compilation.con().createWorkQueue();
 
-		m = Multi.createFrom().emitter((MultiEmitter<? super PW_PushWork> emitter) -> {
-			for (int i = 0; i < 10; i++) {
-				String item0 = generateItem(i); // Replace with your item generation logic
-				emitter.emit(new PW_PushWork() {
-					private final String item;
-
-					{
-						this.item = item0;
-					}
-
-					@Override
-					public void handle(final PW_Controller pwc, final PW_PushWork otherInstance) {
-						System.err.println("777100 "+item);
-					}
-
-					@Override
-					public void execute(final PW_Controller aController) {
-						System.err.println("777101 "+item);
-					}
-				});
-			}
-
-			// Once all items are emitted, complete the emitter
-			emitter.complete();
-		}, BackPressureStrategy.BUFFER);
-
-		// Subscribe to the dynamicMulti and process the emitted items
-		m.subscribe().with((PW_PushWork item) -> {
-
-			item.handle(this, null);
-
-			//System.out.println("Received item: " + item);
-		});
-
+		P.starting(this);
 
 		task.start();
-	}
-
-	private String generateItem(final int aI) {
-		return "" + aI;
 	}
 
 	public void awaf() {
@@ -118,9 +62,6 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 				}
 			}
 		});
-
-		this.mm = m;
-		this.pp = publisher;
 	}
 
 	public void submitWork(final PW_PushWork aInstance) {
@@ -131,7 +72,3 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 		return compilation._paths();
 	}
 }
-
-//
-//
-//

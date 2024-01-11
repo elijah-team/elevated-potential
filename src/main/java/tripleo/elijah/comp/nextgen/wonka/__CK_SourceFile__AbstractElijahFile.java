@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.nextgen.impl;
+package tripleo.elijah.comp.nextgen.wonka;
 
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;

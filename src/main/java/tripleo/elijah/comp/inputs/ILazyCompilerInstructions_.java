@@ -7,7 +7,7 @@ import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.i.CK_SourceFile;
 import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
-import tripleo.elijah.comp.nextgen.impl.CK_SourceFileFactory;
+import tripleo.elijah.comp.nextgen.wonka.CK_SourceFileFactory;
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Operation2;
 import tripleo.wrap.File;

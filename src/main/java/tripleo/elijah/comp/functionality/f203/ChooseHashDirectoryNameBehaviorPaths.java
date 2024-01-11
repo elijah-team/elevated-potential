@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.IO_;
-import tripleo.elijah.comp.nextgen.CP_OutputPath;
+import tripleo.elijah.comp.nextgen.CP_OutputPathImpl;
 
 import tripleo.elijah.comp.nextgen.CP_SubFile__;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
@@ -85,7 +85,7 @@ public class ChooseHashDirectoryNameBehaviorPaths implements ChooseDirectoryName
 			if (pp2.op == null) {
 				assert false;
 			} else {
-				root = ((CP_OutputPath) pp2.op).getRootFile();
+				root = ((CP_OutputPathImpl) pp2.op).getRootFile();
 			}
 
 			var y = new File(root, pp2.childName);

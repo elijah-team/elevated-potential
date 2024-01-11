@@ -9,7 +9,7 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
-import tripleo.elijah.comp.nextgen.impl.CK_SourceFileFactory;
+import tripleo.elijah.comp.nextgen.wonka.CK_SourceFileFactory;
 import tripleo.elijah.g.GCR_State;
 import tripleo.elijah.util.*;
 

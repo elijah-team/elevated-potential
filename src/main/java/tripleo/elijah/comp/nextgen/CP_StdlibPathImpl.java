@@ -14,12 +14,12 @@ import tripleo.wrap.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class CP_StdlibPath__ implements CP_StdlibPath {
+public class CP_StdlibPathImpl implements CP_StdlibPath {
 	//private final Compilation                     c;
 	private final Eventual<Path> _pathPromise = new Eventual<>();
 	private final String                     compilationNumberString;
 
-	public CP_StdlibPath__(final Compilation aC) {
+	public CP_StdlibPathImpl(final Compilation aC) {
 		//c                       = aC;
 		compilationNumberString = aC.getCompilationNumberString();
 

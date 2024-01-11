@@ -2,7 +2,7 @@ package tripleo.elijah.comp.local;
 
 import org.apache.commons.codec.digest.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.nextgen.CP_OutputPath;
+import tripleo.elijah.comp.nextgen.CP_OutputPathImpl;
 import tripleo.elijah.util.*;
 import tripleo.elijah.util2.Eventual;
 
@@ -50,7 +50,7 @@ public class CY_HashDeferredAction implements DeferredAction<String> {
                 .map(IO_._IO_ReadFile::getFileName)
                 .sorted()
                 .map(digestUtils::digestAsHex)
-                .forEach(x -> CP_OutputPath.append_sha_string_then_newline(sb1, x));
+                .forEach(x -> CP_OutputPathImpl.append_sha_string_then_newline(sb1, x));
 
         final String c_name = digestUtils.digestAsHex(sb1.toString());
         e.resolve(c_name);

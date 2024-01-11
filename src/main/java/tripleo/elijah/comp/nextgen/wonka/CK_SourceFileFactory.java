@@ -1,7 +1,6 @@
-package tripleo.elijah.comp.nextgen.impl;
+package tripleo.elijah.comp.nextgen.wonka;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.i.CK_SourceFile;
 import tripleo.elijah.comp.nextgen.i.CP_Path;

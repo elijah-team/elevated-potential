@@ -16,14 +16,14 @@ import java.util.concurrent.Flow.Subscriber;
 
 public class CP_Paths__ implements CP_Paths {
 	private final          Compilation  _c;
-	private final @NotNull CP_StdlibPath stdlibRoot;
-	private CP_OutputPath outputRoot;
-	private @NotNull List<ER_Node> outputNodes = new ArrayList<>();
+	private final @NotNull CP_StdlibPath     stdlibRoot;
+	private                CP_OutputPathImpl outputRoot;
+	private @NotNull       List<ER_Node>     outputNodes = new ArrayList<>();
 
 	public CP_Paths__(final Compilation aC) {
 		_c = aC;
-		outputRoot = new CP_OutputPath(_c);
-		stdlibRoot = new CP_StdlibPath__(_c);
+		outputRoot = new CP_OutputPathImpl(_c);
+		stdlibRoot = new CP_StdlibPathImpl(_c);
 	}
 
 	@Override
