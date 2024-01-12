@@ -1,21 +1,28 @@
 package tripleo.elijah;
 
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.factory.comp.CompilationFactory;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.lang.i.ClassStatement;
+import tripleo.elijah.world.i.LivingRepo;
+
+import java.util.List;
 
 import static tripleo.elijah.util.Helpers.List_of;
 
-public class TestCompilation {
-	private static final TestCompilation_SimpleTest testCompilationSimpleTest = new TestCompilation_SimpleTest();
+public final class TestCompilation {
+	private static final TestCompilation_SimpleTest INSTANCE = new TestCompilation_SimpleTest();
+
+	// HEY INTELLIJ: idea doesnt suggest this
+	private TestCompilation() {
+	}
 
 	public static SimpleTest simpleTest() {
-		return testCompilationSimpleTest;
+		return INSTANCE;
 	}
 
 	private static class TestCompilation_SimpleTest implements SimpleTest {
-		private Compilation0 c;
-		private String       _f;
+		private ElijahCli c;
+		private String    _f;
 
 		@Override
 		public SimpleTest setFile(final String aS) {
@@ -24,10 +31,11 @@ public class TestCompilation {
 		}
 
 		@Override
-		public SimpleTest run() throws Exception {
+		public SimpleTest run() {
 			assert _f != null;
 
-			c = build();
+			c = ElijahCli.createDefault();
+
 			c.feedCmdLine(List_of(_f));
 
 			return this;
@@ -41,48 +49,35 @@ public class TestCompilation {
 
 		@Override
 		public boolean assertLiveClass(final String aClassName) {
-			var cc = (CompilationImpl) c;
-//			var ce = cc.getCompilationEnclosure();
-			var world = cc.world();
-			var classes = world.findClass(aClassName);
+			final Compilation          cc      = c.comp;
+			final LivingRepo           world   = cc.world();
+			final List<ClassStatement> classes = world.findClass(aClassName);
 
 			boolean result = classes.stream()
-					.findAny()
-					.isPresent();
-
+			                        .findAny()
+			                        .isPresent();
 			return result;
 		}
 
 		@Override
 		public AssertingLiveClass assertingLiveClass(final String aClassName) {
-			CompilationImpl cc = (CompilationImpl) c;
-//			var ce = cc.getCompilationEnclosure();
-			var world = cc.world();
-			var classes = world.findClass(aClassName);
-
-			var result = new AssertingLiveClass();
-			result.setName(aClassName);
+			final Compilation          cc      = c.comp;
+			final LivingRepo           world   = cc.world();
+			final List<ClassStatement> classes = world.findClass(aClassName);
 
 			boolean present = classes.stream()
-					.findAny()
-					.isPresent();
+			                         .findAny()
+			                         .isPresent();
 
+			final AssertingLiveClass result = new AssertingLiveClass();
+			result.setName(aClassName);
 			result.setPresent(present);
-
 			return result;
 		}
 
 		@Override
 		public Compilation0 c() {
-			return c;
-		}
-
-		private Compilation0 build() {
-			if (c != null) return c;
-
-			c = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
-
-			return c;
+			return c.comp;
 		}
 	}
 }

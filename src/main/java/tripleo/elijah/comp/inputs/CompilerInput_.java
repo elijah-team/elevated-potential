@@ -6,6 +6,7 @@ import lombok.experimental.Accessors;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
@@ -20,9 +21,9 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class CompilerInput_ extends __Extensionable implements CompilerInput {
-	private final @Nullable Optional<CompilationImpl>        oc;
+	private final Optional<Compilation> oc;
 	//	@Getter
-	private final           String                           inp;
+	private final String                inp;
 	private                 Maybe<ILazyCompilerInstructions> accept_ci;
 	private                 File                             dir_carrier;
 	@Getter @Accessors(fluent = true)
@@ -30,7 +31,8 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 	private                 String                           hash;
 	private                 CompilerInputMaster              master;
 	private                 CompilerInstructions_Result      directoryResults;
-	public CompilerInput_(final String aS, final Optional<CompilationImpl> aCompilation) {
+
+	public CompilerInput_(final String aS, final Optional<Compilation> aCompilation) {
 		inp = aS;
 		oc  = aCompilation;
 	}

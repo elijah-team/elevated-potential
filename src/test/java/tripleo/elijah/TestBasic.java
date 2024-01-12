@@ -57,15 +57,12 @@ public class TestBasic {
 	@Test
 	public final void testBasicParse() throws Exception {
 		final List<String> ez_files = Files.readLines(new java.io.File("test/basic/ez_files.txt"), Charsets.UTF_8);
-		final List<String> args     = new ArrayList<String>();
-		args.addAll(ez_files);
-		args.add("-sE");
-		final ErrSink      eee = new StdErrSink();
-		final Compilation0 c   = new CompilationImpl(eee, new IO_());
 
-		c.feedCmdLine(args);
+		final ElijahCli c = ElijahCli.createDefaultWithArgs(ez_files, "-sE"); // CompilerInput(Change.of(STAGE_E))
 
-		assertEquals(0, c.errorCount());
+		int errorCount = c.obtainErrorCount();
+
+		assertEquals(0, errorCount);
 	}
 
 	@Disabled
@@ -78,8 +75,7 @@ public class TestBasic {
 
 		for (String s : ez_files) {
 //			List<String> args = List_of("test/basic", "-sO"/*, "-out"*/);
-			final ErrSink      eee = new StdErrSink();
-			final Compilation0 c   = new CompilationImpl(eee, new IO_());
+			final ElijahCli c   = ElijahCli.createDefault();
 
 			c.feedCmdLine(List_of(s, "-sO"));
 
@@ -266,8 +262,7 @@ public class TestBasic {
 	public final void testBasic_listfolders4() throws Exception {
 		String s = "test/basic/listfolders4/listfolders4.ez";
 
-		final ErrSink      eee = new StdErrSink();
-		final Compilation0 c   = new CompilationImpl(eee, new IO_());
+		final ElijahCli c   = ElijahCli.createDefault();
 
 		c.feedCmdLine(List_of(s, "-sO"));
 
@@ -283,7 +278,7 @@ public class TestBasic {
 		final Compilation   c  = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
 		final CompilerInput i1 = new CompilerInput_(s);
 		final CompilerInput i2 = new CompilerInput_("-sO");
-		c.feedInputs(List_of(i1, i2), new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3()));
+		c.feedInputs(List_of(i1, i2), new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3())); // !!
 
 		if (c.errorCount() != 0) {
 			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
@@ -304,8 +299,7 @@ public class TestBasic {
 	}
 
 	@Disabled @Test
-	public final void testBasic_fact1_002() throws Exception {
-
+	public final void testBasic_fact1_002() {
 		testBasic_fact1 f = new testBasic_fact1();
 		f.start();
 
@@ -356,13 +350,12 @@ public class TestBasic {
 	}
 
 	class testBasic_fact1 {
-
 		Compilation0 c;
 
-		public void start() throws Exception {
+		public void start() {
 			String s = "test/basic/fact1/main2";
 
-			c = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
+			final ElijahCli c   = ElijahCli.createDefault();
 
 			c.feedCmdLine(List_of(s, "-sO"));
 

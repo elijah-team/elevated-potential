@@ -27,8 +27,6 @@ public interface Compilation0 /*extends GCompilation*/ {
 
     int errorCount();
 
-    void feedCmdLine(@NotNull List<String> args) throws Exception;
-
     void feedInputs(@NotNull List<CompilerInput> inputs, CompilerController controller);
 
     CompilationClosure getCompilationClosure();

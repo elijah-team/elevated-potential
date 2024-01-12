@@ -181,29 +181,6 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 		return errSink.errorCount();
 	}
 
-	@Override
-	public void feedCmdLine(final @NotNull List<String> args) {
-		final CompilerController controller = new DefaultCompilerController(this.getCompilationAccess3());
-
-		final List<CompilerInput> inputs = args.stream()
-				.map((String s) -> {
-					final CompilerInput input = new CompilerInput_(s);
-
-					if (s.startsWith("-")) {
-						input.setArg();
-					} else {
-						// TODO 09/24 check this
-						input.setSourceRoot();
-					}
-
-					return input;
-				}).collect(Collectors.toList());
-
-		assert Objects.equals(inputs, stringListToInputList(args));
-
-		feedInputs(inputs, controller);
-	}
-
 	public ICompilationAccess3 getCompilationAccess3() {
 		if (aICompilationAccess3 == null) {
 			aICompilationAccess3 = new ICompilationAccess3() {
@@ -240,26 +217,6 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 			};
 		}
 		return aICompilationAccess3;
-	}
-
-	@NotNull
-	public List<CompilerInput> stringListToInputList(final @NotNull List<String> args) {
-		final List<CompilerInput> inputs = args.stream()
-				.map(this::_convertCompilerInput)
-				.collect(Collectors.toList());
-		return inputs;
-	}
-
-	@NotNull
-	private CompilerInput _convertCompilerInput(final String s) {
-		final CompilerInput    input = new CompilerInput_(s, Optional.of(this));
-		final CM_CompilerInput cm    = this.get(input);
-		if (cm.inpSameAs(s)) {
-			input.setSourceRoot();
-		} else {
-			assert false;
-		}
-		return input;
 	}
 
 	@Override

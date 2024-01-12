@@ -9,6 +9,7 @@
 package tripleo.elijah.comp;
 
 import org.junit.jupiter.api.*;
+import tripleo.elijah.ElijahCli;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.world.i.*;
@@ -26,10 +27,9 @@ import static tripleo.elijah.util.Helpers.*;
 public class CompilationTest {
 
 	@Disabled @Test
-	public final void testEz() throws Exception {
-		final List<String> args = List_of("test/comp_test/main3", "-sE"/* , "-out" */);
-		final ErrSink      eee = new StdErrSink();
-		final Compilation  c   = new CompilationImpl(eee, new IO_());
+	public final void testEz() {
+		final List<String>  args = List_of("test/comp_test/main3", "-sE"/* , "-out" */);
+		final ElijahTestCli c    = ElijahTestCli.createDefault();
 
 		c.feedCmdLine(args);
 

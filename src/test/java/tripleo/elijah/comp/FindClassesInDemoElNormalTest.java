@@ -12,8 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.*;
 
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.lang.i.*;
 
@@ -32,9 +30,8 @@ public class FindClassesInDemoElNormalTest {
 	@Disabled @Test
 	public final void testListFolders() throws Exception {
 		final List<String> args = List_of("test/demo-el-normal/listfolders/", "-sE");
-		final ErrSink      eee = new StdErrSink();
-		final Compilation  c   = new CompilationImpl(eee, new IO_());
 
+		final ElijahTestCli c = ElijahTestCli.createDefault();
 		c.feedCmdLine(args);
 
 		// searches all modules for top-level Main's that are classes
@@ -49,8 +46,7 @@ public class FindClassesInDemoElNormalTest {
 	public final void testParseFile() throws Exception {
 		final List<String> args = List_of("test/demo-el-normal",
 				"test/demo-el-normal/main2", "-sE");
-		final ErrSink      eee = new StdErrSink();
-		final Compilation  c   = new CompilationImpl(eee, new IO_());
+		final ElijahTestCli c = ElijahTestCli.createDefault();
 
 		c.feedCmdLine(args);
 
