@@ -17,16 +17,18 @@ import java.util.*;
 public class CCI_Acceptor__CompilerInputListener implements CompilerInputListener {
 	private final Compilation    compilation;
 	public final  InstructionDoer id;
-	private final ICompilationRunner cr;
-	private       CCI           cci;
-	private       IProgressSink _progressSink;
+//	private final ICompilationRunner cr;
+//	private       CCI           cci;
+//	private       IProgressSink _progressSink;
 
 	public CCI_Acceptor__CompilerInputListener(CompilationImpl aCompilation) {
 		this.compilation = aCompilation;
 
 		this.id = new InstructionDoer(aCompilation);
 
+/*
 		cr = compilation.getCompilationEnclosure().getCompilationRunner();
+*/
 	}
 
 	public CompilerInstructions _root() {
@@ -37,6 +39,7 @@ public class CCI_Acceptor__CompilerInputListener implements CompilerInputListene
 	public void change(CompilerInput i, CompilerInput_.CompilerInputField field) {
 		if (compilation.getCompilerInputListener() instanceof CCI_Acceptor__CompilerInputListener cci_listener) {
 			if (DebugFlags.CCI_gate) {
+/*
 				if (cci == null) {
 					cci = new DefaultCCI(compilation, compilation._cis(), _progressSink);
 				}
@@ -44,6 +47,7 @@ public class CCI_Acceptor__CompilerInputListener implements CompilerInputListene
 					_progressSink = compilation.getCompilationEnclosure().getCompilationBus().defaultProgressSink();
 				}
 				cci_listener.set(cci, _progressSink);
+*/
 			}
 		}
 
@@ -74,7 +78,9 @@ public class CCI_Acceptor__CompilerInputListener implements CompilerInputListene
 
 							assert ci != null;
 
+/*
 							cr.pushNextCompilerInsructions(ci);
+*/
 							id.add(ci);
 						}
 					}
@@ -92,8 +98,8 @@ public class CCI_Acceptor__CompilerInputListener implements CompilerInputListene
 				}
 			}
 			case ACCEPT_CI -> {
-				if (i.ty() == CompilerInput_.Ty.ROOT) {
-					final ICompilationRunner                cr                = compilation.getCompilationEnclosure().getCompilationRunner();
+				if (i.ty() == CompilerInput.Ty.ROOT) {
+//					final ICompilationRunner                cr                = compilation.getCompilationEnclosure().getCompilationRunner();
 					final Maybe<ILazyCompilerInstructions> instructionsMaybe = i.acceptance_ci();
 					if (instructionsMaybe != null) {
 						var ci = instructionsMaybe.o.get();
@@ -127,7 +133,10 @@ public class CCI_Acceptor__CompilerInputListener implements CompilerInputListene
 							id.add(iLazyCompilerInstructions.get());
 
 							if (DebugFlags.CCI_gate) {
+/*
 								cci.accept(Maybe.of(iLazyCompilerInstructions), _progressSink);
+*/
+								throw new UnintendedUseException("failpoint");
 							}
 						}
 					}
@@ -137,7 +146,10 @@ public class CCI_Acceptor__CompilerInputListener implements CompilerInputListene
 	}
 
 	public void set(CCI aCci, IProgressSink aPs) {
+/*
 		cci           = aCci;
 		_progressSink = aPs;
+*/
+		throw new UnintendedUseException("failpoint");
 	}
 }

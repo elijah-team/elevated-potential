@@ -18,8 +18,6 @@ import java.util.List;
 import static tripleo.elijah.util.Helpers.List_of;
 
 public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
-	private       CK_Steps        steps;
-	private final List<CK_Action> stepActions = new ArrayList<>();
 
 	@Getter
 	private List<Operation<Ok>>     crActionResultList;
@@ -34,22 +32,17 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 
 		stepContext = new CD_CRS_StepsContext(crState, out);
 
-		// TODO 10/20 remove k2 ??
-		final CK_ProcessInitialAction k2 = new CK_ProcessInitialAction(aRootCI);
-		final CK_AlmostComplete       k3 = new CK_AlmostComplete();
-		final CK_RunBetterAction      k4 = new CK_RunBetterAction();
-
-		stepActions.addAll(List_of(k2, k3, k4));
+		final List<CK_Action> stepActions = new ArrayList<>();
+		stepActions.addAll(getCrActions(aRootCI));
 
 		final List<CR_Action> crActionList = new ArrayList<>();
-
 		for (final CR_Action action : crActionList) {
 			stepActions.add(new CD_CRS_CK_Action(this, action));
 		}
 
-		steps = () -> stepActions;
+		CK_Steps steps = () -> stepActions;
 
-		crActionResultList = new ArrayList<>(crActionList.size());
+		crActionResultList = new ArrayList<>(crActionResultList.size());
 
 		final @NotNull CompilationEnclosure compilationEnclosure = crState.getCompilationEnclosure();
 
@@ -62,6 +55,17 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 						throw new UnintendedUseException("breakpoint");
 					}
 				});
+	}
+
+	private List<CK_Action> getCrActions(final @NotNull CompilerInstructions aRootCI) {
+		// TODO 10/20 remove k2 ??
+		final CK_ProcessInitialAction k2 = new CK_ProcessInitialAction(aRootCI);
+		final CK_AlmostComplete       k3 = new CK_AlmostComplete();
+		final CK_RunBetterAction      k4 = new CK_RunBetterAction();
+
+		final List<CK_Action> al = List_of(k2, k3, k4);
+
+		return al;
 	}
 
 	public List<Operation<Ok>> getCrActionResultList() {

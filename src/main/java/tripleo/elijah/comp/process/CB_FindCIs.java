@@ -34,6 +34,7 @@ public class CB_FindCIs implements CB_Action {
 	@Override
 	public void execute(CB_Monitor aMonitor) {
 		final CR_State st      = compilationRunner.getCrState();
+		assert st != null;
 		final Compilation      c       = (Compilation) st.ca().getCompilation();
 		final @NotNull ErrSink errSink = c.getErrSink();
 //		final CK_StepsContext  context   = new CD_CRS_StepsContext(st, o);
@@ -70,9 +71,12 @@ public class CB_FindCIs implements CB_Action {
 							   final @NotNull ErrSink aErrSink,
 							   final @NotNull CompilerInput input) {
 		// FIXME 24/01/09 oop
-		switch (input.ty()) {
-		case NULL, SOURCE_ROOT -> {}
-		default -> {return;}
+		final CompilerInput.Ty ty = input.ty();
+		if (ty != null) {
+			switch (ty) {
+			case NULL, SOURCE_ROOT -> {}
+			default -> {return;}
+			}
 		}
 
 		final CM_CompilerInput   cm                 = ((CompilationImpl) c.getCompilation()).get(input); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee

@@ -20,12 +20,10 @@ import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.AssOutFile;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.comp.impl.DefaultCompilerController;
 import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.inputs.CompilerInput_;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.factory.comp.CompilationFactory;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
@@ -105,24 +103,20 @@ public class TestBasic {
 	public final void testBasic_listfolders3() throws Exception {
 		String s = "test/basic/listfolders3/listfolders3.ez";
 
-		final Compilation0 c = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
+		final var c = ElijahTestCli.createDefault();
 
 		if (!DISABLED) {
 			Emit.emitting = false;
 
-			c.feedInputs(
-					List_of(s, "-sO").stream()
-					                 .map(s1 -> new CompilerInput_(s1, Optional.of((Compilation) c)))
-					                 .collect(Collectors.toList()),
-					new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3()));
-
+			@NotNull final List<String> x = List_of(s, "-sO");
+			c.feedCmdLine(x);
 			if (c.errorCount() != 0)
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
 
 			//assertEquals(2, c.errorCount()); // TODO Error count obviously should be 0
 
 
-			final List<Pair<ErrSink.Errors, Object>> list = c.getErrSink().list();
+			final List<Pair<ErrSink.Errors, Object>> list = c.errSinkList();
 
 			int i = 0;
 
@@ -209,8 +203,9 @@ public class TestBasic {
 		return false;
 	}
 
-	public boolean assertLiveClass(final String aClassName, final String aPackageName, final @NotNull Compilation0 c0) {
-		CompilationImpl c     = (CompilationImpl) c0;
+	public boolean assertLiveClass(final String aClassName, final String aPackageName, final ElijahTestCli c0) {
+		CompilationImpl c     = (CompilationImpl) c0.cli.getComp();
+
 		var             ce    = c.getCompilationEnclosure();
 		var             world = c.world();
 

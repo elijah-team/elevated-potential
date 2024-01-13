@@ -564,6 +564,12 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 	}
 
 	@Override
+	public CM_CompilerInput get(final Object aO) {
+		System.err.println(aO.getClass().getName());
+		return null;
+	}
+
+	@Override
 	public LivingRepo world2() {
 		return _repo;
 	}

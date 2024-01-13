@@ -112,6 +112,8 @@ public interface Compilation extends Compilation0 {
 
 	void contribute(Object o);
 
+	CM_CompilerInput get(Object aO);
+
 	class CompilationConfig implements GCompilationConfig {
 		public          boolean showTree = false;
 		public          boolean silent   = false;

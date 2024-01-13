@@ -1,7 +1,9 @@
 package tripleo.elijah.comp;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ElijahCli;
+import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.world.i.LivingRepo;
@@ -69,5 +71,9 @@ public class ElijahTestCli {
 
 	public CompilationEnclosure getCompilationEnclosure() {
 		return cli.getComp().getCompilationEnclosure();
+	}
+
+	public List<Pair<ErrSink.Errors, Object>> errSinkList() {
+		return cli.getComp().getErrSink().list();
 	}
 }
