@@ -566,6 +566,9 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 	@Override
 	public CM_CompilerInput get(final Object aO) {
 		System.err.println(aO.getClass().getName());
+		if (aO.getClass().getName().equals("tripleo.elijah.nextgen.comp_model.CM_CompilerInput")) {
+			return (CM_CompilerInput) aO;
+		}
 		return null;
 	}
 
@@ -719,6 +722,12 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 					var steps = _stepsContribution.steps();
 					var stepContext = _stepsContribution.stepsContext();
 					compilationEnclosure.runStepsNow(steps, stepContext);
+				}
+
+				@Override
+				public void signalRunStepLoop(final CompilerInstructions aRoot) {
+					getRunner().start(aRoot, pa()); // still eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+
 				}
 			};
 		}
