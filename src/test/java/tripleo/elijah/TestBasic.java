@@ -183,7 +183,7 @@ public class TestBasic {
 		// TODO investigate; assertTrue(assertLiveNsMemberVariable("Prelude", "ExitSuccess", c));
 
 		var l = new ArrayList<>();
-		((CompilationImpl) c).world().eachModule(m -> l.add(m.module().getFileName()));
+		c.getCompilationEnclosure().getCompilation().world().eachModule(m -> l.add(m.module().getFileName()));
 		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("184 " + l);
 
 //    const fun = function (f) { // <--
