@@ -1,10 +1,8 @@
 package tripleo.elijah.comp.process;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.generated.CompilationAlways;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.comp.process.CD_CompilationRunnerStart_1;
-import tripleo.elijah.comp.process.CD_FindStdLibImpl;
 import tripleo.elijah.util.Operation;
 
 import java.util.HashMap;
@@ -24,8 +22,8 @@ public class DefaultCompilerDriver implements CompilerDriver {
 		cb = aCompilationBus;
 
 		if (!initialized) {
-			defaults.put(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_START, new CD_CompilationRunnerStart_1());
-			defaults.put(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_FIND_STDLIB2, new CD_FindStdLibImpl());
+			defaults.put(CompilationAlways.Tokens.COMPILATION_RUNNER_START, new CD_CompilationRunnerStart_1());
+			defaults.put(CompilationAlways.Tokens.COMPILATION_RUNNER_FIND_STDLIB2, new CD_FindStdLibImpl());
 			initialized = true;
 		} else assert false;
 	}

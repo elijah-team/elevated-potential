@@ -7,6 +7,7 @@ import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.ci_impl.LibraryStatementPartImpl;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.caches.DefaultElijahCache;
+import tripleo.elijah.comp.generated.CompilationAlways;
 import tripleo.elijah.comp.graph.i.CM_Module;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.comp.i.CompilationClosure;
@@ -98,7 +99,7 @@ public class USE {
 				//assert mm.prelude() == null;
 
 				cm.advise(lsp);
-				cm.advise(() -> findPrelude(CompilationImpl.CompilationAlways.defaultPrelude()));
+				cm.advise(() -> findPrelude(CompilationAlways.defaultPrelude()));
 
 				return om;
 			}

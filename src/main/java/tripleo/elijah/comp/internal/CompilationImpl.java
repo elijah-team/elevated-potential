@@ -678,28 +678,10 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 		}
 	}
 
-	public enum CompilationAlways {
-		;
-
-		@NotNull
-		public static String defaultPrelude() {
-			return "c";
-		}
-
-		public enum Tokens {
-			;
-
-			// README 10/20 Disjointed needs annotation
-			//  12/04 ServiceLoader
-			public static final DriverToken COMPILATION_RUNNER_FIND_STDLIB2 = DriverToken.makeToken("COMPILATION_RUNNER_FIND_STDLIB2");
-			public static final DriverToken COMPILATION_RUNNER_START        = DriverToken.makeToken("COMPILATION_RUNNER_START");
-		}
-	}
-
 	@Override
 	public CompilationEnclosure getCompilationEnclosure() {
-		// TODO Auto-generated method stub
-		return compilationEnclosure;
+		// back and forth
+		return this.compilationEnclosure;
 	}
 
 	public CK_Monitor getDefaultMonitor() {

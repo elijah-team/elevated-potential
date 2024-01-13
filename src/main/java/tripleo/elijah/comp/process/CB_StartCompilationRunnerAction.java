@@ -4,11 +4,11 @@ import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.generated.CompilationAlways;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.CD_CompilationRunnerStart;
 import tripleo.elijah.comp.internal.CR_State;
-import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.util.Operation;
 
@@ -41,7 +41,10 @@ public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 		started = true;
 	}
 
-	public static void enjoin(final CD_CompilationRunnerStart aCompilationRunnerStart, final CompilerInstructions aRootCI, final CR_State aCRState, final CB_Output aCbOutput) {
+	public static void enjoin(final CD_CompilationRunnerStart aCompilationRunnerStart,
+	                          final CompilerInstructions aRootCI,
+	                          final CR_State aCRState,
+	                          final CB_Output aCbOutput) {
 		startManager().enjoin(aCompilationRunnerStart, aRootCI, aCRState, aCbOutput);
 	}
 
@@ -54,7 +57,7 @@ public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	@Override
 	public void execute(CB_Monitor monitor) {
 		final CompilerDriver            compilationDriver = pa.getCompilationEnclosure().getCompilationDriver();
-		final Operation<CompilerDriven> ocrsd             = compilationDriver.get(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
+		final Operation<CompilerDriven> ocrsd             = compilationDriver.get(CompilationAlways.Tokens.COMPILATION_RUNNER_START);
 
 		switch (ocrsd.mode()) {
 			case SUCCESS -> {
@@ -103,5 +106,4 @@ public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	public List<CB_Action> steps() {
 		return List_of(CB_StartCompilationRunnerAction.this);
 	}
-
 }

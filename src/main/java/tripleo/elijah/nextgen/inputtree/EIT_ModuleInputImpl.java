@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.EvaPipeline;
-import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.generated.CompilationAlways;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.comp.notation.GM_GenerateModule;
@@ -104,7 +104,7 @@ public class EIT_ModuleInputImpl implements EIT_ModuleInput {
 	private String langOfModule() {
 		final LibraryStatementPart lsp  = module.getLsp();
 		final CompilerInstructions ci   = lsp.getInstructions();
-		final String               lang = ci.genLang() == null ? CompilationImpl.CompilationAlways.defaultPrelude() : ci.genLang();
+		final String               lang = ci.genLang() == null ? CompilationAlways.defaultPrelude() : ci.genLang();
 		// DEFAULT(compiler-default), SPECIFIED(gen-clause: codePoint), INHERITED(cp) // CodePoint??
 		return lang;
 	}

@@ -3,11 +3,10 @@ package tripleo.elijah.comp.notation;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.generated.CompilationAlways;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.logging.*;
@@ -79,7 +78,7 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 			fileGen = fgs.get();
 		}
 
-		String lang1 = Optional.ofNullable(lang).orElse(CompilationImpl.CompilationAlways.defaultPrelude());
+		String lang1 = Optional.ofNullable(lang).orElse(CompilationAlways.defaultPrelude());
 		return OutputFileFactory.create(lang1, params, fileGen);
 	}
 

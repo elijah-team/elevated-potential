@@ -5,6 +5,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.caches.*;
+import tripleo.elijah.comp.generated.CompilationAlways;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.impl.*;
@@ -79,7 +80,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		if (number == 130)
 			return;
 
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_3("%d %s".formatted(number, text));
+		SimplePrintLoggerToRemoveSoon.println_err_3("%d %s".formatted(number, text));
 	}
 
 	@Override
@@ -93,7 +94,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 			// FIXME calling automatically for some reason?
 			final CB_Monitor                monitor           = cb.getMonitor();
 			final CompilerDriver            compilationDriver = ((IPipelineAccess) pa).getCompilationEnclosure().getCompilationDriver();
-			final Operation<CompilerDriven> ocrsd             = compilationDriver.get(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
+			final Operation<CompilerDriven> ocrsd             = compilationDriver.get(CompilationAlways.Tokens.COMPILATION_RUNNER_START);
 
 			final @NotNull CB_Output cbOutput = startAction.getO();
 
@@ -105,7 +106,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 				// assert !(started);
 				if (CB_StartCompilationRunnerAction.isStarted()) {
 					//throw new AssertionError();
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + startAction);
+					SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + startAction);
 				} else {
 					CB_StartCompilationRunnerAction.enjoin(compilationRunnerStart,aRootCI, crState1, cbOutput);
 				}

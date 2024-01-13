@@ -3,8 +3,7 @@ package tripleo.elijah.test_help;
 import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.impl.DefaultCompilationAccess;
-import tripleo.elijah.comp.impl.DefaultCompilationBus;
+import tripleo.elijah.comp.generated.CompilationAlways;
 import tripleo.elijah.comp.impl.DefaultCompilerController;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.i.ICompilationAccess;
@@ -124,7 +123,7 @@ public class Boilerplate {
 
 			var wm = new DefaultWorldModule(mod, ce);
 
-			final @NotNull String lang = CompilationImpl.CompilationAlways.defaultPrelude();
+			final @NotNull String lang = CompilationAlways.defaultPrelude();
 			final OutputFileFactoryParams params = new OutputFileFactoryParams(wm, ce);
 
 			generateFiles = OutputFileFactory.create(lang, params, fileGen);

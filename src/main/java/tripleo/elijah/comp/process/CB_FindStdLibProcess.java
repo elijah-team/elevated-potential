@@ -3,11 +3,11 @@ package tripleo.elijah.comp.process;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.generated.CompilationAlways;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.impl.SingleActionProcess;
 import tripleo.elijah.comp.internal.CR_State;
-import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.USE_Reasonings;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.util.*;
@@ -49,7 +49,7 @@ public class CB_FindStdLibProcess implements CB_Process {
 		@Override
 		public void execute(CB_Monitor aMonitor) {
 			if (findStdLib != null) {
-				final String preludeName = CompilationImpl.CompilationAlways.defaultPrelude();
+				final String preludeName = CompilationAlways.defaultPrelude();
 				findStdLib.findStdLib(crState, preludeName, this::getPushItem);
 
 				final CB_Output o = ce.getCB_Output();
@@ -77,7 +77,7 @@ public class CB_FindStdLibProcess implements CB_Process {
 
 		private void obtain() {
 			final Operation<CompilerDriven> x = ce.getCompilationDriver()
-					.get(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_FIND_STDLIB2);
+					.get(CompilationAlways.Tokens.COMPILATION_RUNNER_FIND_STDLIB2);
 
 			if (x.mode() == Mode.SUCCESS) {
 				findStdLib = (CD_FindStdLib) x.success();
