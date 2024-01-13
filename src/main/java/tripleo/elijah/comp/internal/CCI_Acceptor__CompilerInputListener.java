@@ -150,12 +150,4 @@ public class CCI_Acceptor__CompilerInputListener implements CompilerInputListene
 			}
 		}
 	}
-
-	public void set(CCI aCci, IProgressSink aPs) {
-/*
-		cci           = aCci;
-		_progressSink = aPs;
-*/
-		throw new UnintendedUseException("failpoint");
-	}
 }

@@ -21,13 +21,11 @@ import java.util.List;
 
 public class CB_FindCIs implements CB_Action {
 	private final ICompilationRunner  compilationRunner;
-//	private final List<CompilerInput> _inputs;
 	private final CB_Output           o;
 
 	@Contract(pure = true)
-	public CB_FindCIs(final ICompilationRunner aCompilationRunner, final List<CompilerInput> aInputs) {
+	public CB_FindCIs(final ICompilationRunner aCompilationRunner, final List<CompilerInput> ignoredAInputs) {
 		compilationRunner = aCompilationRunner;
-//		_inputs           = aInputs;
 		o                 = ((CompilationRunner)compilationRunner).getCompilationEnclosure().getCB_Output();
 	}
 
@@ -37,8 +35,6 @@ public class CB_FindCIs implements CB_Action {
 		assert st != null;
 		final Compilation      c       = (Compilation) st.ca().getCompilation();
 		final @NotNull ErrSink errSink = c.getErrSink();
-//		final CK_StepsContext  context   = new CD_CRS_StepsContext(st, o);
-
 
 		for (final CompilerInput input : c.getCompilationEnclosure().getCompilerInput()) {
 			_processInput(c.getCompilationClosure(), errSink, input);

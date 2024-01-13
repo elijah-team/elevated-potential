@@ -58,18 +58,18 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		return _compilation._cis();
 	}
 
-	public Compilation c() {
-		return _compilation;
-	}
+//	public Compilation c() {
+//		return _compilation;
+//	}
 
-	public EzCache ezCache() {
-		return ezCache;
-	}
+//	public EzCache ezCache() {
+//		return ezCache;
+//	}
 
-	@Override
-	public void pushNextCompilerInsructions(final CompilerInstructions aCi) {
-		_cis().onNext(aCi);
-	}
+//	@Override
+//	public void pushNextCompilerInstructions(final CompilerInstructions aCi) {
+//		_cis().onNext(aCi);
+//	}
 
 	public CompilationEnclosure getCompilationEnclosure() {
 		return _accessCompilation().getCompilationEnclosure();
