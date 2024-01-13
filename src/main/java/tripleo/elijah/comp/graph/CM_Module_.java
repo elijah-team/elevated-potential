@@ -2,6 +2,8 @@ package tripleo.elijah.comp.graph;
 
 import java.io.InputStream;
 
+import com.google.common.base.Preconditions;
+import tripleo.elijah.lang.i.Precondition;
 import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.Compilation;
@@ -84,8 +86,15 @@ public class CM_Module_ implements CM_Module {
 	}
 
 	@Override
+	public OS_Module _getModule() {
+		Preconditions.checkNotNull(this.worldModule);
+
+		return this.worldModule.module();
+	}
+
+	@Override
 	public EIT_ModuleInput getEITInput() {
-		if (this.compilation != null) {
+		if (this.compilation != null) {  // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 			// FIXME 12/07 assuming these two are together
 			return this.compilation.con().createModuleInput(this.worldModule.module());
 		}

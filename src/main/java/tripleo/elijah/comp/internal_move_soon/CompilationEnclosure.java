@@ -116,7 +116,7 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 
 	CK_Monitor getDefaultMonitor();
 
-	void runStepsNow(CK_Steps aSteps, CK_AbstractStepsContext aStepContext);
+	void runStepsNow(CK_Steps aSteps, CK_StepsContext aStepContext);
 
 	PipelinePlugin getPipelinePlugin(String aPipelineName);
 

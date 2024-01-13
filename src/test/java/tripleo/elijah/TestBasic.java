@@ -8,41 +8,40 @@
  */
 package tripleo.elijah;
 
+import com.google.common.base.Charsets;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.io.Files;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.AssOutFile;
 import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.impl.DefaultCompilerController;
 import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.inputs.CompilerInput_;
 import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.comp.impl.DefaultCompilerController;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.factory.comp.CompilationFactory;
 import tripleo.elijah.lang.i.ClassStatement;
+import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.nextgen.outputtree.EOT_FileNameProvider;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
 import tripleo.elijah.stages.gen_c.Emit;
 import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
 import tripleo.elijah.util.Helpers;
-
-import org.jetbrains.annotations.NotNull;
-
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
-
-import com.google.common.base.Charsets;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.io.Files;
 
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static tripleo.elijah.util.Helpers.List_of;
 
 /**
@@ -52,6 +51,16 @@ import static tripleo.elijah.util.Helpers.List_of;
 public class TestBasic {
 
 	private final boolean DISABLED = false;
+
+	@NotNull
+	private static List<CompilerInput> _convertStringListToInputs(final List<String> ls, final Compilation c) {
+		final List<CompilerInput> inputs = new ArrayList<>();
+		for (String s : ls) {
+			final CompilerInput i1 = new CompilerInput_(s, Optional.of(c));
+			inputs.add(i1);
+		}
+		return inputs;
+	}
 
 	@Disabled
 	@Test
@@ -75,7 +84,7 @@ public class TestBasic {
 
 		for (String s : ez_files) {
 //			List<String> args = List_of("test/basic", "-sO"/*, "-out"*/);
-			final ElijahCli c   = ElijahCli.createDefault();
+			final ElijahCli c = ElijahCli.createDefault();
 
 			c.feedCmdLine(List_of(s, "-sO"));
 
@@ -103,8 +112,8 @@ public class TestBasic {
 
 			c.feedInputs(
 					List_of(s, "-sO").stream()
-							.map(CompilerInput_::new)
-							.collect(Collectors.toList()),
+					                 .map(s1 -> new CompilerInput_(s1, Optional.of((Compilation) c)))
+					                 .collect(Collectors.toList()),
 					new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3()));
 
 			if (c.errorCount() != 0)
@@ -146,13 +155,17 @@ public class TestBasic {
 		//var aaa = "test/basic/import_demo.elijjah";
 		//var aab = "test/basic/listfolders3/listfolders3.elijah";
 
-		var baa = "/Prelude/Arguments.h"; assertTrue(c.reports().containsCodeOutput(baa));
-		var bae = "/Prelude/Arguments.c"; assertTrue(c.reports().containsCodeOutput(bae));
+		var baa = "/Prelude/Arguments.h";
+		assertTrue(c.reports().containsCodeOutput(baa));
+		var bae = "/Prelude/Arguments.c";
+		assertTrue(c.reports().containsCodeOutput(bae));
 
 		assertEquals(6, c.reports().codeOutputSize());
 
-		var bab = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.c"; assertTrue(c.reports().containsCodeOutput(bab));
-		var bac = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.h"; assertTrue(c.reports().containsCodeOutput(bac));
+		var bab = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.c";
+		assertTrue(c.reports().containsCodeOutput(bab));
+		var bac = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.h";
+		assertTrue(c.reports().containsCodeOutput(bac));
 
 		assertEquals(6, c.reports().outputCount()); // TODO is this correct?
 
@@ -176,8 +189,8 @@ public class TestBasic {
 		// TODO investigate; assertTrue(assertLiveNsMemberVariable("Prelude", "ExitSuccess", c));
 
 		var l = new ArrayList<>();
-		((CompilationImpl)c).world().eachModule(m -> l.add(m.module().getFileName()));
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("184 "+l);
+		((CompilationImpl) c).world().eachModule(m -> l.add(m.module().getFileName()));
+		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("184 " + l);
 
 //    const fun = function (f) { // <--
 
@@ -197,9 +210,9 @@ public class TestBasic {
 	}
 
 	public boolean assertLiveClass(final String aClassName, final String aPackageName, final @NotNull Compilation0 c0) {
-		CompilationImpl c = (CompilationImpl) c0;
-		var ce = c.getCompilationEnclosure();
-		var world = c.world();
+		CompilationImpl c     = (CompilationImpl) c0;
+		var             ce    = c.getCompilationEnclosure();
+		var             world = c.world();
 
 		var classes = world.findClass(aClassName);
 
@@ -221,48 +234,45 @@ public class TestBasic {
 
 		//noinspection UnnecessaryLocalVariable,SimplifyStreamApiCallChains
 		boolean result = classes.stream()
-				.filter(predicate)
-				.findAny()
-				.isPresent();
+		                        .filter(predicate)
+		                        .findAny()
+		                        .isPresent();
 
 		return result;
 	}
 
-
-	@Disabled @Test
+	@Disabled
+	@Test
 	public final void testBasic_listfolders3__() {
 		String s = "test/basic/listfolders3/listfolders3.ez";
 
-		final Compilation0 c = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
+		final ElijahTestCli cli = ElijahTestCli.createDefault();
 
 		if (!DISABLED) {
-			c.feedInputs(
-					List_of(s, "-sE").stream() // -sD??
-							.map(CompilerInput_::new)
-							.collect(Collectors.toList()),
-					new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3()));
+			final List<String>                 args   = List_of(s, "-sE");
+			cli.feedCmdLine(args);
 
-			if (c.errorCount() != 0)
-				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
+			if (cli.errorCount() != 0)
+				System.err.printf("Error count should be 0 but is %d for %s%n", cli.errorCount(), s);
 
 //			var qq = c.con().createQualident(List_of("std", "io"));
 //
 //			assertTrue(c.isPackage(qq.toString()));
 
-			var qq2 = ((Compilation)c).con().createQualident(List_of("wpkotlin_c", "demo", "list_folders"));
+			final Qualident qq2 = cli.cli.getComp().con().createQualident(List_of("wpkotlin_c", "demo", "list_folders"));
 
-			assertTrue(c.isPackage(qq2.toString()));
+			assertTrue(cli.isPackage(qq2.toString()));
 
-			assertEquals(2, c.errorCount());
+			assertEquals(2, cli.errorCount());
 		}
 	}
 
 	@Disabled
 	@Test
-	public final void testBasic_listfolders4() throws Exception {
+	public final void testBasic_listfolders4() {
 		String s = "test/basic/listfolders4/listfolders4.ez";
 
-		final ElijahCli c   = ElijahCli.createDefault();
+		final ElijahCli c = ElijahCli.createDefault();
 
 		c.feedCmdLine(List_of(s, "-sO"));
 
@@ -272,24 +282,24 @@ public class TestBasic {
 		assertEquals(4, c.errorCount()); // TODO Error count obviously should be 0
 	}
 
-	@Disabled @Test
-	public final void testBasic_fact1() throws Exception {
-		final String        s  = "test/basic/fact1/main2";
-		final Compilation   c  = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
-		final CompilerInput i1 = new CompilerInput_(s);
-		final CompilerInput i2 = new CompilerInput_("-sO");
-		c.feedInputs(List_of(i1, i2), new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3())); // !!
+	@Disabled
+	@Test
+	public final void testBasic_fact1() {
+		final String              s      = "test/basic/fact1/main2";
 
-		if (c.errorCount() != 0) {
-			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
+		final ElijahTestCli cli = new ElijahTestCli();
+		cli.feedCmdLine(List_of(s));
+
+		if (cli.errorCount() != 0) {
+			System.err.printf("Error count should be 0 but is %d for %s%n", cli.errorCount(), s);
 		}
 
 		if (!DISABLED) {
-			assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
-			assertTrue(c.getOutputTree().getList().size() > 0);
-			assertTrue(c.getIO().recordedwrites().size() > 0);
+			assertEquals(25, cli.errorCount()); // TODO Error count obviously should be 0
+			assertFalse(cli.outputTree_isEmpty());
+			assertFalse(cli.getIO().recordedwrites().isEmpty());
 
-			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
+			var aofs = cli.getCompilationEnclosure().OutputFileAsserts();
 			for (Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest> aof : aofs) {
 				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(aof);
 			}
@@ -298,7 +308,8 @@ public class TestBasic {
 		}
 	}
 
-	@Disabled @Test
+	@Disabled
+	@Test
 	public final void testBasic_fact1_002() {
 		testBasic_fact1 f = new testBasic_fact1();
 		f.start();
@@ -355,7 +366,7 @@ public class TestBasic {
 		public void start() {
 			String s = "test/basic/fact1/main2";
 
-			final ElijahCli c   = ElijahCli.createDefault();
+			final ElijahCli c = ElijahCli.createDefault();
 
 			c.feedCmdLine(List_of(s, "-sO"));
 

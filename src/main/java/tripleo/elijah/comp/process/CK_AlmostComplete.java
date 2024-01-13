@@ -14,7 +14,8 @@ public class CK_AlmostComplete implements CK_Action {
 		final CR_State crState           = context.getState();
 		final CompilationRunner compilationRunner = crState.runner();
 
-		return compilationRunner._cis().almostComplete();
+		compilationRunner._cis().almostComplete();
+		return Operation.success(Ok.instance());
 	}
 
 }

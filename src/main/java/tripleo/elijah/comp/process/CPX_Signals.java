@@ -1,7 +1,6 @@
-package tripleo.elijah.comp.local;
-
-import tripleo.elijah.comp.nextgen.i.CPX_CalculateFinishParse;
+package tripleo.elijah.comp.process;
 
 public interface CPX_Signals {
 	void subscribeCalculateFinishParse(final CPX_CalculateFinishParse cp_OutputPath);
+	void subscribeRunStepLoop(final CPX_RunStepLoop cp_RunStepLoop);
 }

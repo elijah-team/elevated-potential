@@ -1,6 +1,7 @@
 package tripleo.elijah.comp.impl;
 
 import lombok.Getter;
+import org.jctools.queues.MessagePassingQueue;
 import org.jetbrains.annotations.NotNull;
 
 import tripleo.elijah.comp.Compilation;
@@ -10,6 +11,7 @@ import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.process.DefaultCompilerDriver;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah.util2.UnintendedUseException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -21,9 +23,9 @@ public class DefaultCompilationBus implements ICompilationBus {
 	private final          CB_Monitor        _monitor;
 	@Getter
 	private final @NotNull CompilerDriver    compilerDriver;
-	private final @NotNull Compilation       c;
-	private final          Queue<CB_Process> pq = H.createQueue();
-	private final @NotNull IProgressSink     _defaultProgressSink;
+	private final @NotNull Compilation                     c;
+	private final          MessagePassingQueue<CB_Process> pq = H.createQueue();
+	private final @NotNull IProgressSink                   _defaultProgressSink;
 
 	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
 		c                    = (@NotNull Compilation) ace.getCompilationAccess().getCompilation();
@@ -46,12 +48,12 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 	@Override
 	public void add(final @NotNull CB_Action action) {
-		pq.add(new SingleActionProcess(action, "CB_FindStdLibProcess"));
+		pq.offer(new SingleActionProcess(action, "CB_FindStdLibProcess"));
 	}
 
 	@Override
 	public void add(final @NotNull CB_Process aProcess) {
-		pq.add(aProcess);
+		pq.offer(aProcess);
 	}
 
 	@Override
@@ -70,7 +72,8 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 	@Override
 	public List<CB_Process> processes() {
-		return pq.stream().toList();//_processes;
+		throw new UnintendedUseException("not with jctools");
+		//return pq.stream().toList();//_processes;
 	}
 
 	public void runProcesses() {

@@ -10,6 +10,7 @@ import tripleo.elijah.comp.internal.CD_CompilationRunnerStart;
 import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.util.*;
+import tripleo.elijah.util2.UnintendedUseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,16 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 		crActionResultList = new ArrayList<>(crActionList.size());
 
 		final @NotNull CompilationEnclosure compilationEnclosure = crState.getCompilationEnclosure();
-		compilationEnclosure.runStepsNow(steps, stepContext);
+
+		compilationEnclosure.getCompilation().contribute(new CPX_RunStepsContribution(steps, stepContext));
+
+		compilationEnclosure.getCompilation().signals()
+				.subscribeRunStepLoop(new CPX_RunStepLoop() {
+					@Override
+					public void notify_CPX_RunStepLoop(final Ok ok) {
+						throw new UnintendedUseException("breakpoint");
+					}
+				});
 	}
 
 	public List<Operation<Ok>> getCrActionResultList() {

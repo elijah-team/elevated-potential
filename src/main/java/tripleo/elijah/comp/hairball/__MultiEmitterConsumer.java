@@ -1,32 +1,34 @@
 package tripleo.elijah.comp.hairball;
 
-import com.google.common.base.Preconditions;
 import io.smallrye.mutiny.subscription.MultiEmitter;
+import org.jctools.queues.MessagePassingQueue;
+
+import com.google.common.base.Preconditions;
 import tripleo.elijah.comp.i.CB_Process;
 import tripleo.elijah.comp.impl.DefaultCompilationBus;
 import tripleo.elijah.comp.nextgen.pw.PW_Controller;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
-import tripleo.elijah.comp.scaffold.__AbstractPushWork;
 
-import java.util.Queue;
+import tripleo.elijah_elevated.scaffold.__AbstractPushWork;
+
 import java.util.function.Consumer;
 
 public class __MultiEmitterConsumer implements Consumer<MultiEmitter<? super PW_PushWork>> {
 	private final DefaultCompilationBus defaultCompilationBus;
 //	private final PW_PushWorkQueue pq;
-	private final Queue<CB_Process> pq;
+	private final MessagePassingQueue<CB_Process> pq;
 
 	public __MultiEmitterConsumer(final DefaultCompilationBus aDefaultCompilationBus,
-	                              final Queue<CB_Process> aPushWorkQueue) {
+	                              final MessagePassingQueue<CB_Process> aPushWorkQueue) {
 		defaultCompilationBus = aDefaultCompilationBus;
 		pq                    = aPushWorkQueue;
 	}
 
 	@Override
 	public void accept(final MultiEmitter<? super PW_PushWork> emitter) {
-		pq.stream()
-		  .forEach(process -> emitter.emit(___MultiEmitterPushWork(process)));
+		pq.drain(process -> emitter.emit(___MultiEmitterPushWork(process)));
 
+//		pq.
 		emitter.complete();
 	}
 

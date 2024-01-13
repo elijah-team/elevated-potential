@@ -46,6 +46,10 @@ public final class P {
 			//System.out.println("Received item: " + item);
 		});
 
+		m.onFailure().invoke(failureThrowable -> {
+			System.err.println("5050 "+failureThrowable);
+		});
+
 		mm = m;
 		pp = publisher;
 

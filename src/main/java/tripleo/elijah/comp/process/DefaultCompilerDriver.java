@@ -27,7 +27,7 @@ public class DefaultCompilerDriver implements CompilerDriver {
 			defaults.put(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_START, new CD_CompilationRunnerStart_1());
 			defaults.put(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_FIND_STDLIB2, new CD_FindStdLibImpl());
 			initialized = true;
-		}
+		} else assert false;
 	}
 
 	@Override

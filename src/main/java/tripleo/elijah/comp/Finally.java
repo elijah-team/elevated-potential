@@ -1,6 +1,7 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.nextgen.outputtree.EOT_Nameable;
 import tripleo.elijah.nextgen.outputtree.*;
 
 import java.util.*;

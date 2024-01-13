@@ -49,8 +49,6 @@ public interface Compilation0 /*extends GCompilation*/ {
 
     void setRootCI(CompilerInstructions aRoot);
 
-    boolean isPackage(@NotNull String pkg);
-
     OS_Package makePackage(Qualident pkg_name);
 
     void pushItem(CompilerInstructions aci);

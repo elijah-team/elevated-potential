@@ -22,8 +22,8 @@ public class CIS implements Observer<CompilerInstructions> {
 	private       IProgressSink                                      progressSink;
 	private       CompilerInstructionsObserver                       _cio;
 
-	public @NotNull Operation<Ok> almostComplete() {
-		return _cio.almostComplete();
+	public void almostComplete() {
+		_cio.almostComplete();
 	}
 
 	@Override

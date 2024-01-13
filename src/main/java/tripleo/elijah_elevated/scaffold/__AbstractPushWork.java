@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.scaffold;
+package tripleo.elijah_elevated.scaffold;
 
 import tripleo.elijah.comp.nextgen.pw.PW_Controller;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;

@@ -3,10 +3,8 @@ package tripleo.elijah.comp;
 import io.reactivex.rxjava3.annotations.*;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.util.*;
 import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.util2.UnintendedUseException;
 
@@ -21,16 +19,13 @@ public class CompilerInstructionsObserver implements Observer<CompilerInstructio
 	}
 
 	@Override
-	public @NotNull Operation<Ok> almostComplete() {
+	public void almostComplete() {
 		final Eventual<IPipelineAccess> pipelineAccessPromise = compilation.getCompilationEnclosure().getPipelineAccessPromise();
 		pipelineAccessPromise.register(compilation.getFluffy());
 
 		pipelineAccessPromise.then(pa0 -> {
 			compilation.hasInstructions(l, pa0);
 		});
-
-		// NOTE 11/26 this ok is "void" b/c we are using promise
-		return Operation.success(Ok.instance());
 	}
 
 	@Override

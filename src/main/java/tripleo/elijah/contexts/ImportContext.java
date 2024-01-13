@@ -46,7 +46,7 @@ public class ImportContext extends ContextImpl implements Context, IImportContex
 					cl.append(x.get(i));
 				}
 				// SAME AS ABOVE, WITH ADDITIONS
-				if (compilation.isPackage(cl.toString())) {
+				if (compilation.world().isPackage(cl.toString())) {
 
 					// TODO iterate here
 					// README assert checks, then adds with proveneance
@@ -136,7 +136,7 @@ public class ImportContext extends ContextImpl implements Context, IImportContex
 		Compilation compilation = compilation();
 		for (final Qualident importStatementItem : carrier.parts()) {
 //			tripleo.elijah.util.Stupidity.println_err_2("2005 "+importStatementItem);
-			if (compilation.isPackage(importStatementItem.toString())) {
+			if (compilation.world().isPackage(importStatementItem.toString())) {
 				final OS_Package aPackage = compilation.getPackage(importStatementItem);
 //				LogEvent.logEvent(4003 , ""+aPackage.getElements());
 				for (final OS_Element element : aPackage.getElements()) {

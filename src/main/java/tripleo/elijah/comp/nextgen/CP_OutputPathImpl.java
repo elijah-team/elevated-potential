@@ -3,6 +3,7 @@ package tripleo.elijah.comp.nextgen;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.local.CY_HashDeferredAction;
+import tripleo.elijah.comp.process.CPX_CalculateFinishParse;
 import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.comp.Compilation;

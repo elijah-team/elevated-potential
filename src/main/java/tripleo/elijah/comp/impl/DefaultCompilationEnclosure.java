@@ -399,7 +399,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	@Override
-	public void runStepsNow(final CK_Steps aSteps, final CK_AbstractStepsContext aStepContext) {
+	public void runStepsNow(final CK_Steps aSteps, final CK_StepsContext aStepContext) {
 		final CK_Monitor monitor = getDefaultMonitor();
 		CK_DefaultStepRunner.runStepsNow(aSteps, aStepContext, monitor);
 	}

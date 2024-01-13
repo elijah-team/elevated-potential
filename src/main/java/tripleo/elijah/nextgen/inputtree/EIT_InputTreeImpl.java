@@ -3,6 +3,8 @@ package tripleo.elijah.nextgen.inputtree;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.util.*;
+import tripleo.elijah_elevated.comp.model.CM_Resource;
+import tripleo.elijah_elevated.comp.model.CM_ResourceCompute2;
 
 import java.util.Objects;
 
@@ -51,5 +53,9 @@ public class EIT_InputTreeImpl implements EIT_InputTree {
 		} else {
 			input.putExt(EIT_InputTreeImpl.class, new _Node(operation));
 		}
+	}
+
+	@Override public void addResourceNode(final CM_Resource aResource, final CM_ResourceCompute2 aResourceCompute) {
+		System.err.println("IMPL-ME 24/01/06");
 	}
 }

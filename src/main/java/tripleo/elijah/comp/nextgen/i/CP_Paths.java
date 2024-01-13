@@ -1,6 +1,7 @@
 package tripleo.elijah.comp.nextgen.i;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.process.CPX_CalculateFinishParse;
 import tripleo.elijah.nextgen.*;
 
 public interface CP_Paths {

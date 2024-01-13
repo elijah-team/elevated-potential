@@ -8,6 +8,7 @@ import tripleo.elijah.g.GLivingRepo;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.util.Operation2;
+import tripleo.elijah_elevated.comp.model.Elevated_CM_Module;
 
 import java.io.InputStream;
 
@@ -25,6 +26,8 @@ public interface CM_Module {
 	void advise(PreludeProvider preludeProvider);
 
 	InputStream s();
+
+	OS_Module _getModule();
 
 	interface PreludeProvider {
 		Operation2<OS_Module> getOperation();

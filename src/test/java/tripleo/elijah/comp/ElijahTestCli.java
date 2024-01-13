@@ -3,6 +3,7 @@ package tripleo.elijah.comp;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ElijahCli;
 import tripleo.elijah.comp.inputs.CompilerInput;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.world.i.LivingRepo;
 
 import java.util.List;
@@ -56,5 +57,17 @@ public class ElijahTestCli {
 
 	public Finally reports() {
 		return cli.getComp().reports();
+	}
+
+	public boolean isPackage(final String aPackageName) {
+		return cli.getComp().world().isPackage(aPackageName);
+	}
+
+	public boolean outputTree_isEmpty() {
+		return cli.getComp().getOutputTree().getList().isEmpty();
+	}
+
+	public CompilationEnclosure getCompilationEnclosure() {
+		return cli.getComp().getCompilationEnclosure();
 	}
 }

@@ -75,8 +75,7 @@ public class ElijahCli {
 		return inputs;
 	}
 
-	@NotNull
-	private CompilerInput _convertCompilerInput(final String s) {
+	private @NotNull CompilerInput _convertCompilerInput(final String s) {
 		final CompilerInput    input = new CompilerInput_(s, Optional.of(comp));
 		final CM_CompilerInput cm    = comp.get(input);
 

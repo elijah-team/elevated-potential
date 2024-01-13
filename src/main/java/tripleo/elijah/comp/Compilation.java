@@ -11,7 +11,8 @@ import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.local.CPX_Signals;
+import tripleo.elijah.comp.process.CPX_RunStepsContribution;
+import tripleo.elijah.comp.process.CPX_Signals;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
 import tripleo.elijah.comp.nextgen.pw.PW_Controller;
@@ -25,6 +26,7 @@ import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.LivingRepo;
+import tripleo.elijah_elevated.comp.model.Elevated_CM_Factory;
 
 import java.util.List;
 
@@ -105,6 +107,10 @@ public interface Compilation extends Compilation0 {
 	void ____m();
 
 	PW_Controller __pw_controller();
+
+	Elevated_CM_Factory modelFactory();
+
+	void contribute(Object o);
 
 	class CompilationConfig implements GCompilationConfig {
 		public          boolean showTree = false;

@@ -28,11 +28,12 @@ import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.inputs.CompilerInputMaster;
-import tripleo.elijah.comp.inputs.CompilerInput_;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.local.CPX_Signals;
+import tripleo.elijah.comp.process.CPX_RunStepsContribution;
+import tripleo.elijah.comp.process.CPX_Signals;
 import tripleo.elijah.comp.nextgen.CP_Paths__;
-import tripleo.elijah.comp.nextgen.i.CPX_CalculateFinishParse;
+import tripleo.elijah.comp.process.CPX_CalculateFinishParse;
+import tripleo.elijah.comp.process.CPX_RunStepLoop;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
 import tripleo.elijah.comp.nextgen.pw.PW_Controller;
@@ -58,10 +59,12 @@ import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.util3._AbstractEventualRegister;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah_elevated.comp.model.Default__Elevated_CM_Factory;
+import tripleo.elijah_elevated.comp.model.Elevated_CM_Factory;
+import tripleo.elijah_elevated.comp.model.Elevated_CM_Module;
 
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class CompilationImpl extends _AbstractEventualRegister implements Compilation, EventualRegister {
 	private final List<CN_CompilerInputWatcher>                                  _ciws;
@@ -104,7 +107,8 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 	private       CompilerInput                       __advisement;
 	private                ICompilationAccess3 aICompilationAccess3;
 	private final @NotNull CK_Monitor          defaultMonitor;
-	private                CPX_Signals         cpxSignals;
+	private CPX_Signals              cpxSignals;
+	private CPX_RunStepsContribution _stepsContribution;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
@@ -298,11 +302,6 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 		//cci_listener.id.root = rootCI;
 //		throw new UnintendedUseException("maybe we can just remove this??");
 		int y=2;
-	}
-
-	@Override
-	public boolean isPackage(@NotNull final String pkg_name) {
-		return world().isPackage(pkg_name);
 	}
 
 	@Override
@@ -529,6 +528,8 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 	 */
 	@Override
 	public CM_Module megaGrande(final OS_Module aModule) {
+		final Elevated_CM_Module singleModule = modelFactory().singleModule(aModule);
+
 		CM_Module result;
 		if (moduleToCMMap.containsKey(aModule)) {
 			result = moduleToCMMap.get(aModule);
@@ -539,7 +540,27 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 
 		result.advise(Operation2.success(aModule));
 
+		assert singleModule.getModule() == result._getModule(); // what are we checking??
+
 		return result;
+	}
+
+	Elevated_CM_Factory _modelFactory;
+
+	public Elevated_CM_Factory modelFactory() {
+		if (this._modelFactory == null) {
+			_modelFactory = new Default__Elevated_CM_Factory(this);
+		}
+		return _modelFactory;
+	}
+
+	@Override
+	public void contribute(final Object o) {
+		if (o instanceof CPX_RunStepsContribution) {
+			_stepsContribution = (CPX_RunStepsContribution) o;
+		} else {
+			assert false;
+		}
 	}
 
 	@Override
@@ -681,12 +702,17 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 	public CPX_Signals signals() {
 		if(cpxSignals == null) {
 			cpxSignals = new CPX_Signals() {
-				
+				@Override public void subscribeCalculateFinishParse(CPX_CalculateFinishParse cp_OutputPath) {
+					pathsEventual.then(paths1 -> paths1.subscribeCalculateFinishParse(cp_OutputPath));
+				}
+
 				@Override
-				public void subscribeCalculateFinishParse(CPX_CalculateFinishParse cp_OutputPath) {
-					pathsEventual.then(paths1 -> {
-						paths1.subscribeCalculateFinishParse(cp_OutputPath);
-					});
+				public void subscribeRunStepLoop(final CPX_RunStepLoop cp_RunStepLoop) {
+					// TODO 24/01/13 create process and rpc to it
+					Preconditions.checkNotNull(_stepsContribution);
+					var steps = _stepsContribution.steps();
+					var stepContext = _stepsContribution.stepsContext();
+					compilationEnclosure.runStepsNow(steps, stepContext);
 				}
 			};
 		}

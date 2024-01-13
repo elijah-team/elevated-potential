@@ -13,6 +13,7 @@ import tripleo.elijah.comp.local.CW;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.util.Maybe;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.wrap.File;
 
 import java.nio.file.NotDirectoryException;
@@ -20,13 +21,13 @@ import java.util.List;
 
 public class CB_FindCIs implements CB_Action {
 	private final ICompilationRunner  compilationRunner;
-	private final List<CompilerInput> _inputs;
+//	private final List<CompilerInput> _inputs;
 	private final CB_Output           o;
 
 	@Contract(pure = true)
 	public CB_FindCIs(final ICompilationRunner aCompilationRunner, final List<CompilerInput> aInputs) {
 		compilationRunner = aCompilationRunner;
-		_inputs           = aInputs;
+//		_inputs           = aInputs;
 		o                 = ((CompilationRunner)compilationRunner).getCompilationEnclosure().getCB_Output();
 	}
 
@@ -44,11 +45,11 @@ public class CB_FindCIs implements CB_Action {
 
 		logProgress_Stating("outputString.size", "" + o.get().size());
 
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
+		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
 
 		for (final CB_OutputString outputString : o.get()) {
 			// 08/13
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
+			SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
 		}
 
 		// TODO capture action outputs
