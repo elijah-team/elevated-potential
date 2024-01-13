@@ -80,10 +80,12 @@ public class ElijahCli {
 		final CM_CompilerInput    input2 = new CM_CompilerInput(input, getComp());
 		final CM_CompilerInput cm    = comp.get(input2);
 
-		if (cm.inpSameAs(s)) {
-			input.setSourceRoot();
-		} else {
-			assert false;
+		if (!s.startsWith("-")) {
+			if (cm.inpSameAs(s)) {
+				input.setSourceRoot();
+			} else {
+				assert false;
+			}
 		}
 
 		return input;
