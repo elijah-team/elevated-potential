@@ -112,6 +112,12 @@ public class CCI_Acceptor__CompilerInputListener implements CompilerInputListene
 //								hasInstructions(List_of(i.acceptance_ci().o.get()));
 						}
 					}
+				} else if (i.ty() == CompilerInput.Ty.SOURCE_ROOT) {
+					final Maybe<ILazyCompilerInstructions> instructionsMaybe = i.acceptance_ci();
+					if (instructionsMaybe != null) {
+						CompilerInstructions ci = instructionsMaybe.o.get();
+						id.add(ci);
+					}
 				} else {
 					throw new UnintendedUseException();
 				}
