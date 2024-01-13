@@ -1,8 +1,6 @@
 package tripleo.elijah.comp;
 
 import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.i.LCM_CompilerAccess;
-import tripleo.elijah.comp.i.LCM_Event;
 import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.impl.LCM_Event_RootCI;
 import tripleo.elijah.comp.internal.*;
@@ -34,8 +32,8 @@ public class InstructionDoer implements CompletableProcess<CompilerInstructions>
 					}
 				} else {
 					compilation1.setRootCI(root);
-//					compilation1.getRunner()
-					__cr.start(root, compilation1.pa()); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+					compilation1.signals()
+							            .signalRunStepLoop(root);
 				}
 			} catch (Exception aE) {
 				throw new RuntimeException(aE);
