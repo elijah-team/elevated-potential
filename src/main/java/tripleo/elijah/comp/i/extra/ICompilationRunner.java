@@ -14,5 +14,5 @@ public interface ICompilationRunner {
 
 	EzCache ezCache();
 
-	void pushNextCompilerInsructions(CompilerInstructions aCi);
+//	void pushNextCompilerInstructions(CompilerInstructions aCi);
 }
