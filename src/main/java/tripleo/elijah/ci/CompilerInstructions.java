@@ -48,20 +48,20 @@ public interface CompilerInstructions {
 	void advise(CompilerInput aAdvisement);
 
 /*
-	public interface CompilerInstructionsBuilder {
-		CompilerInstructions build();
+		public interface CompilerInstructionsBuilder {
+			CompilerInstructions build();
 
-		void add(GenerateStatement generateStatement);
+			void add(GenerateStatement generateStatement);
 
-		void add(LibraryStatementPart libraryStatementPart);
+			void add(LibraryStatementPart libraryStatementPart);
 
-		void setGenLang(String aGenLangString);  // ??
+			void setGenLang(String aGenLangString);  // ??
 
-		void setFilename(CM_Filename filename);
+			void setFilename(CM_Filename filename);
 
-		CiIndexingStatement createIndexingStatement();
+			CiIndexingStatement createIndexingStatement();
 
-		void setName(LocatableString name);
-	}
+			void setName(LocatableString name);
+		}
 */
 }
