@@ -77,22 +77,21 @@ public class CB_FindCIs implements CB_Action {
 
 		final CM_CompilerInput   cm                 = ((CompilationImpl) c.getCompilation()).get(input); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 		final File               f                  = cm.fileOf();
-		final CompilationClosure compilationClosure = c.getCompilation().getCompilationClosure();
 
 		if (input.isEzFile()) {
 			if (input.isNull()) {
 				input.certifyRoot();
 			}
 
-			CW.CW_inputIsEzFile_(input, compilationClosure);
+			CW.CW_inputIsEzFile_(input, c);
 		} else {
 			// aErrSink.reportError("9996 Not an .ez file "+file_name);
 			if (f.isDirectory()) {
-				final CompilationImpl compilation = (CompilationImpl) compilationClosure.getCompilation();
+				final CompilationImpl compilation = (CompilationImpl) c.getCompilation();
 
 				// FIXME 24/01/09 Duplication alert??
 				compilation.addCompilerInputWatcher(CB_FindCIs::__CN_CompilerInputWatcher__event);
-				CW.CW_inputIsDirectory_(input, compilationClosure, f);
+				CW.CW_inputIsDirectory_(input, c, f);
 			} else {
 				final NotDirectoryException d = new NotDirectoryException(f.toString());
 				errSink.reportError("9995 Not a directory " + f.getAbsolutePath());
