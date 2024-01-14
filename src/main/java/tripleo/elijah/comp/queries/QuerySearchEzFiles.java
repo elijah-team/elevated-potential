@@ -38,7 +38,7 @@ public class QuerySearchEzFiles {
 				final Operation2<CompilerInstructions> cio = sf.process_query();
 
 				// reason obv is it is elaborated in the directory ...
-				QSEZ_Reasoning reasoning = QSEZ_Reasonings.create(null);
+				QSEZ_Reasoning reasoning = new QSEZ_Reasonings.QSEZ_Reasoning__ElaboratedInDirectory(directory, list, sf, cc, cio);
 				R.add(cio, reasoning);
 			}
 		}

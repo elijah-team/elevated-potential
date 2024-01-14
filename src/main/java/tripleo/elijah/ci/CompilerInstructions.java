@@ -8,6 +8,7 @@
  */
 package tripleo.elijah.ci;
 
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.xlang.LocatableString;
@@ -16,31 +17,6 @@ import tripleo.wrap.File;
 import java.util.List;
 
 public interface CompilerInstructions {
-//	void add(GenerateStatement generateStatement);
-//
-//	void add(LibraryStatementPart libraryStatementPart);
-//
-//	@Nullable
-//	String genLang();
-//
-//	String getFilename();
-//
-//	Iterable<? extends LibraryStatementPart> getLibraryStatementParts();
-//
-//	String getName();
-//
-//	CiIndexingStatement indexingStatement();
-//
-//	void setFilename(String filename);
-//
-//	void setName(String name);
-//
-//	void setName(Token name);
-//
-//	void advise(CompilerInput aCompilerInput);
-//
-//	File makeFile();
-
 	File makeFile();
 
 	/**
@@ -54,6 +30,7 @@ public interface CompilerInstructions {
 
 	List<LibraryStatementPart> getLibraryStatementParts();
 
+	@Nullable
 	String genLang();  // not a promise? Calculated? C<O<S>>>??
 
 	CM_Filename getFilename();
@@ -70,6 +47,7 @@ public interface CompilerInstructions {
 
 	void advise(CompilerInput aAdvisement);
 
+/*
 	public interface CompilerInstructionsBuilder {
 		CompilerInstructions build();
 
@@ -85,4 +63,5 @@ public interface CompilerInstructions {
 
 		void setName(LocatableString name);
 	}
+*/
 }
