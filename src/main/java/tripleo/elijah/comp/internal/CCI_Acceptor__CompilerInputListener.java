@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import com.google.common.base.Preconditions;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
@@ -20,7 +21,6 @@ public class CCI_Acceptor__CompilerInputListener implements CompilerInputListene
 
 	public CCI_Acceptor__CompilerInputListener(CompilationImpl aCompilation) {
 		this.compilation = aCompilation;
-
 		this.id = new InstructionDoer(aCompilation);
 	}
 
@@ -78,15 +78,9 @@ public class CCI_Acceptor__CompilerInputListener implements CompilerInputListene
 				if (i.ty() == CompilerInput.Ty.ROOT) {
 					final Maybe<ILazyCompilerInstructions> instructionsMaybe = i.acceptance_ci();
 					if (instructionsMaybe != null) {
-						var ci = instructionsMaybe.o.get();
-
-						assert ci != null;
-
-						if (DebugFlags.FORCE/* || false */) {
-							//cr._cis().onNext(ci);
-							id.add(ci);
-//								hasInstructions(List_of(i.acceptance_ci().o.get()));
-						}
+						final CompilerInstructions ci = instructionsMaybe.o.get();
+						Preconditions.checkNotNull(ci);
+						id.add(ci);
 					}
 				} else if (i.ty() == CompilerInput.Ty.SOURCE_ROOT) {
 					final Maybe<ILazyCompilerInstructions> instructionsMaybe = i.acceptance_ci();
@@ -101,16 +95,17 @@ public class CCI_Acceptor__CompilerInputListener implements CompilerInputListene
 			case HASH -> {
 				int yy = 2;
 				// FIXME latch all create/commit inputs.txt -> should be Buffer!!
+				NotImplementedException.raise_stop();
 			}
 			case DIRECTORY_RESULTS -> {
-				int y = 2;
+				NotImplementedException.raise_stop();
 
 				if (i.getDirectoryResults() != null) {
 					List<Operation2<CompilerInstructions>> directoryResults = i.getDirectoryResults().getDirectoryResult();
 
 					for (Operation2<CompilerInstructions> directoryResult : directoryResults) {
 						if (directoryResult.mode() == Mode.SUCCESS) {
-						ILazyCompilerInstructions iLazyCompilerInstructions = ILazyCompilerInstructions_.of(directoryResult.success());
+							final ILazyCompilerInstructions iLazyCompilerInstructions = ILazyCompilerInstructions_.of(directoryResult.success());
 
 							id.add(iLazyCompilerInstructions.get());
 						}

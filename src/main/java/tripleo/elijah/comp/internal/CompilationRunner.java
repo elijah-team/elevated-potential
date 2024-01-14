@@ -123,6 +123,11 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		}
 	}
 
+	@Override
+	public EzCache ezCache() {
+		return this.ezCache;
+	}
+
 	public static class __CompRunner_Monitor implements CB_Monitor {
 		@Override
 		public void reportFailure(final CB_Action action, final CB_Output output) {
