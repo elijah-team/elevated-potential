@@ -6,7 +6,11 @@
 			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="yyy-lib/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/com.github.spotbugs/spotbugs-annotations/4.7.3/spotbugs-annotations-4.7.3.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/commons-codec/commons-codec/1.15/commons-codec-1.15.jar"/>
@@ -14,7 +18,7 @@
 	<classpathentry kind="lib" path="yyy-lib/io.smallrye.reactive/mutiny/2.5.3/mutiny-2.5.3.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/org/checkerframework/checker-qual/3.33.0/checker-qual-3.33.0.jar"/>
-	<classpathentry kind="lib" path="yyy-lib/org/jctools/jctools-core/4.0.2/jctools-core-4.0.2.jar"/>
+	<classpathentry kind="lib" path="yyy-lib/org/jctools/jctools-core/4.0.2/jctools-core-4.0.2.jar" sourcepath="yyy-lib/org/jctools/jctools-core/4.0.2/jctools-core-4.0.2-sources.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/org/jdeferred/v2/jdeferred-core/2.0.0/jdeferred-core-2.0.0.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/org/jetbrains/annotations/24.0.1/annotations-24.0.1.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar"/>
@@ -22,12 +26,6 @@
 	<classpathentry kind="lib" path="yyy-lib/org.apache.commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/org.assertj/assertj-core/3.24.2/assertj-core-3.24.2.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/org.clojure/clojure/1.10.3/clojure-1.10.3.jar"/>
-	<classpathentry kind="lib" path="yyy-lib/org.junit.jupiter/jupiter/junit-jupiter/5.8.1/junit-jupiter-5.8.1.jar"/>
-	<classpathentry kind="lib" path="yyy-lib/org.junit.jupiter/jupiter/junit-jupiter-api/5.8.1/junit-jupiter-api-5.8.1.jar"/>
-	<classpathentry kind="lib" path="yyy-lib/org.junit.jupiter/jupiter/junit-jupiter-engine/5.8.1/junit-jupiter-engine-5.8.1.jar"/>
-	<classpathentry kind="lib" path="yyy-lib/org.junit.jupiter/jupiter/junit-jupiter-params/5.8.1/junit-jupiter-params-5.8.1.jar"/>
-	<classpathentry kind="lib" path="yyy-lib/org.junit.jupiter/platform/junit-platform-commons/1.8.1/junit-platform-commons-1.8.1.jar"/>
-	<classpathentry kind="lib" path="yyy-lib/org.junit.jupiter/platform/junit-platform-engine/1.8.1/junit-platform-engine-1.8.1.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/org.mockito/mockito-core/5.2.0/mockito-core-5.2.0.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/tripleo.buffers/buffers-v1/0.0.3/buffers-v1-0.0.3.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/tripleo.util.range/range-v1/0.0.3b/range-v1-0.0.3b.jar"/>
@@ -35,5 +33,6 @@
 	<classpathentry kind="lib" path="yyy-lib/com.google/guava/32.0.1-jre/guava-32.0.1-jre.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/org/reactivestreams/reactive-streams/1.0.4/reactive-streams-1.0.4.jar"/>
 	<classpathentry kind="lib" path="yyy-lib/org/reactivestreams/reactive-streams/1.0.4/reactive-streams-1.0.4-sources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
