@@ -20,24 +20,23 @@ import java.nio.file.NotDirectoryException;
 import java.util.List;
 
 public class CB_FindCIs implements CB_Action {
-	private final ICompilationRunner  compilationRunner;
+	private final CompilationRunner  compilationRunner;
 	private final CB_Output           o;
 
 	@Contract(pure = true)
 	public CB_FindCIs(final ICompilationRunner aCompilationRunner, final List<CompilerInput> ignoredAInputs) {
-		compilationRunner = aCompilationRunner;
-		o                 = ((CompilationRunner)compilationRunner).getCompilationEnclosure().getCB_Output();
+		compilationRunner = (CompilationRunner)aCompilationRunner;
+		o                 = compilationRunner.getCompilationEnclosure().getCB_Output();
 	}
 
 	@Override
 	public void execute(CB_Monitor aMonitor) {
 		final CR_State st      = compilationRunner.getCrState();
 		assert st != null;
-		final Compilation      c       = (Compilation) st.ca().getCompilation();
-		final @NotNull ErrSink errSink = c.getErrSink();
+		final CompilationClosure      cc       = st.ca().getCompilation().getCompilationClosure();
 
-		for (final CompilerInput input : c.getCompilationEnclosure().getCompilerInput()) {
-			_processInput(c.getCompilationClosure(), errSink, input);
+		for (final CompilerInput input : cc.getCompilation().getInputs()) {
+			_processInput(cc, input);
 		}
 
 		logProgress_Stating("outputString.size", "" + o.get().size());
@@ -64,7 +63,6 @@ public class CB_FindCIs implements CB_Action {
 	}
 
 	private void _processInput(final @NotNull CompilationClosure c,
-							   final @NotNull ErrSink aErrSink,
 							   final @NotNull CompilerInput input) {
 		// FIXME 24/01/09 oop
 		final CompilerInput.Ty ty = input.ty();
@@ -74,6 +72,8 @@ public class CB_FindCIs implements CB_Action {
 			default -> {return;}
 			}
 		}
+
+		final @NotNull ErrSink errSink = c.errSink();
 
 		final CM_CompilerInput   cm                 = ((CompilationImpl) c.getCompilation()).get(input); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 		final File               f                  = cm.fileOf();
@@ -95,7 +95,7 @@ public class CB_FindCIs implements CB_Action {
 				CW.CW_inputIsDirectory_(input, compilationClosure, f);
 			} else {
 				final NotDirectoryException d = new NotDirectoryException(f.toString());
-				aErrSink.reportError("9995 Not a directory " + f.getAbsolutePath());
+				errSink.reportError("9995 Not a directory " + f.getAbsolutePath());
 			}
 		}
 	}
