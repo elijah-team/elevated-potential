@@ -2,31 +2,35 @@ package tripleo.elijah.comp.process;
 
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.Pipeline;
-import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.graph.i.CK_Action;
+import tripleo.elijah.comp.graph.i.CK_Monitor;
+import tripleo.elijah.comp.graph.i.CK_StepsContext;
+import tripleo.elijah.comp.i.CB_Output;
+import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.comp.i.ProcessRecord;
+import tripleo.elijah.comp.i.RuntimeProcess;
 import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.comp.internal.OStageProcess;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.Mode;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
 
 public class CK_RunBetterAction implements CK_Action {
 	@Override
 	public Operation<Ok> execute(final CK_StepsContext context1, final CK_Monitor aMonitor) {
 		final CD_CRS_StepsContext context = (CD_CRS_StepsContext) context1;
-		final CR_State crState = context.getState();
+		final CR_State            crState = context.getState();
 		final CB_Output           output  = context.getOutput();
 
 		try {
-			final ICompilationAccess   ca             = crState.ca();
-			final Compilation0         compilation    = ca.getCompilation();
-			final CompilationEnclosure ce             = (CompilationEnclosure) ca.getCompilationEnclosure();
+			final ICompilationAccess   ca          = crState.ca();
+			final Compilation0         compilation = ca.getCompilation();
+			final CompilationEnclosure ce          = (CompilationEnclosure) ca.getCompilationEnclosure();
 
 			ce.getPipelineAccessPromise().then(pa -> {
-				//final GPipelineAccess      pa             = compilation.pa();
-				final IPipelineAccess      pipelineAccess = (IPipelineAccess) pa;
-				final ProcessRecord        processRecord  = pipelineAccess.getProcessRecord();
-				final RuntimeProcess       process        = new OStageProcess(processRecord.ca());
+				final ProcessRecord  processRecord = pa.getProcessRecord();
+				final RuntimeProcess process       = new OStageProcess(processRecord.ca());
 
 				try {
 					process.prepare();

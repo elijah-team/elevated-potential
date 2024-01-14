@@ -40,7 +40,7 @@ public class DefaultParser implements CommandLineParser {
 	 * descriptive methods.
 	 * <p>
 	 * Example usage:
-	 * 
+	 *
 	 * <pre>
 	 * DefaultParser parser = Option.builder().setAllowPartialMatching(false).setStripLeadingAndTrailingQuotes(false)
 	 * 		.build();
