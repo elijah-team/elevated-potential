@@ -18,6 +18,7 @@ import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.comp.process.CPX_Signals;
 import tripleo.elijah.comp.scaffold.CB_ListBackedOutput;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.g.*;
@@ -466,6 +467,16 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		if (compilationRunner != null) return false;
 		setCompilationRunner(aScr.get());
 		return true;
+	}
+
+	@Override
+	public void contribute(final Object contribution) {
+		getCompilation().contribute(contribution);
+	}
+
+	@Override
+	public CPX_Signals signals() {
+		return getCompilation().signals();
 	}
 
 	@Override
