@@ -12,6 +12,7 @@ import com.google.common.base.Charsets;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
+import io.reactivex.rxjava3.annotations.NonNull;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
@@ -24,9 +25,9 @@ import tripleo.elijah.comp.Finally;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.i.AssOutFile;
 import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
 import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.inputs.CompilerInput_;
-import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.process.CPX_RunStepLoop;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.ClassStatement;
@@ -39,6 +40,7 @@ import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
 import tripleo.elijah.stages.gen_c.Emit;
 import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
 import tripleo.elijah.util.Helpers;
+import tripleo.elijah.world.i.LivingRepo;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -216,14 +218,9 @@ public class TestBasic {
 	}
 
 	public boolean assertLiveClass(final String aClassName, final String aPackageName, final ElijahTestCli c0) {
-		CompilationImpl c = (CompilationImpl) c0.cli.getComp();
-
-		var ce    = c.getCompilationEnclosure();
-		var world = c.world();
-
-		var classes = world.findClass(aClassName);
-
-		var xy = ce.getCompilation();
+		final Compilation          c       = c0.cli.getComp();
+		final LivingRepo           world   = c.world();
+		final List<ClassStatement> classes = world.findClass(aClassName);
 
 		final Predicate<ClassStatement> predicate = new Predicate<>() {
 			@Override
@@ -277,23 +274,22 @@ public class TestBasic {
 	@Disabled
 	@Test
 	public final void testBasic_listfolders4() {
-		String s = "test/basic/listfolders4/listfolders4.ez";
+		final String s = "test/basic/listfolders4/listfolders4.ez";
+		final ElijahCli cli = ElijahCli.createDefault();
+		cli.feedCmdLine(List_of(s, "-sO"));
 
-		final ElijahCli c = ElijahCli.createDefault();
+		if (cli.errorCount() != 0) {
+			System.err.printf("Error count should be 0 but is %d for %s%n", cli.errorCount(), s);
+		}
 
-		c.feedCmdLine(List_of(s, "-sO"));
-
-		if (c.errorCount() != 0)
-			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
-
-		assertEquals(4, c.errorCount()); // TODO Error count obviously should be 0
+		assertThat(cli.errorCount())
+				.isEqualTo(4);  // TODO Error count obviously should be 0
 	}
 
 	@Disabled
 	@Test
 	public final void testBasic_fact1() {
-		final String s = "test/basic/fact1/main2";
-
+		final String        s   = "test/basic/fact1/main2";
 		final ElijahTestCli cli = new ElijahTestCli();
 		cli.feedCmdLine(List_of(s));
 
@@ -302,42 +298,63 @@ public class TestBasic {
 		}
 
 		if (!DISABLED) {
-			assertEquals(25, cli.errorCount()); // TODO Error count obviously should be 0
-			assertFalse(cli.outputTree_isEmpty());
-			assertFalse(cli.getIO().recordedwrites().isEmpty());
+			assertThat(cli.errorCount())
+					.isEqualTo(25); // TODO Error count obviously should be 0
 
-			var aofs = cli.getCompilationEnclosure().OutputFileAsserts();
+//			assertThat(cli.cli.getComp().getOutputTree().getList())
+//					.hasSize(0);
+			assertFalse(cli.outputTree_isEmpty());
+
+			assertThat(cli.cli.getComp().getIO().recordedwrites())
+					.hasSize(0);
+
+			final DefaultCompilationEnclosure.@NonNull OFA aofs = cli.getCompilationEnclosure().OutputFileAsserts();
 			for (Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest> aof : aofs) {
 				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(aof);
 			}
 
-			assertTrue(aofs.contains("/Prelude/Prelude.c"));
+			assertThat(aofs)
+					.contains("/Prelude/Prelude.c");
 		}
 	}
 
-	@Disabled
+//	@Disabled
 	@Test
 	public final void testBasic_fact1_002() {
-		testBasic_fact1 f = new testBasic_fact1();
-		f.start();
+		final String s = "test/basic/fact1/main2";
+		final ElijahCli c = ElijahCli.createDefault();
+		c.feedCmdLine(List_of(s, "-sO"));
 
-		//assertEquals(25, f.c.errorCount()); // TODO Error count obviously should be 0
+		c.getComp().signals()
+				 .subscribeRunStepLoop(new CPX_RunStepLoop() {
+					 @Override
+					 public void notify_CPX_RunStepLoop(final ErrSink aErrSink, final EOT_OutputTree aOutputTree, final CK_ObjectTree aObjectTree) {
+						 for (Pair<ErrSink.Errors, Object> errorsObjectPair : aErrSink.list()) {
+							 final ErrSink.Errors left = errorsObjectPair.getLeft();
+							 System.err.println("998-336 " + left);
+							 System.err.println("998-336 " + left);
+						 }
 
-		var cot = f.c.getOutputTree();
+						 assertThat(aErrSink.errorCount())
+								 .isEqualTo(25); // TODO Error count obviously should be 0
+					 }
+				 });
 
+		assertThat(c.errorCount())
+				.isEqualTo(25); // TODO Error count obviously should be 0
 
-		Multimap<String, EG_Statement> mms = ArrayListMultimap.create();
+		final EOT_OutputTree                 cot = c.getComp().getOutputTree();
+		final Multimap<String, EG_Statement> mms = ArrayListMultimap.create();
 
+		cot.getList().stream()
+				.filter(outputFile -> outputFile.getType() != EOT_OutputType.SOURCES)
+				.forEach(outputFile -> {
+					final String filename = outputFile.getFilename();
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(filename);
 
-		for (EOT_OutputFile outputFile : cot.getList()) {
-			if (outputFile.getType() != EOT_OutputType.SOURCES) continue;
+					var ss = outputFile.getStatementSequence();
 
-			final String filename = outputFile.getFilename();
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(filename);
-
-			var ss = outputFile.getStatementSequence();
-
-			mms.put(filename, ss);
+					mms.put(filename, ss);
 /*
 			if (ss instanceof EG_SequenceStatement seq) {
 				for (EG_Statement statement : seq._list()) {
@@ -346,12 +363,12 @@ public class TestBasic {
 					String txt = statement.getText();
 				}
 			}
-
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(ss);
 */
-		}
 
-		List<Pair<String, String>> sspl = new ArrayList<>();
+					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(ss);
+				});
+
+		final List<Pair<String, String>> sspl = new ArrayList<>();
 
 		for (Map.Entry<String, Collection<EG_Statement>> entry : mms.asMap().entrySet()) {
 			var fn = entry.getKey();
@@ -365,21 +382,6 @@ public class TestBasic {
 		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(sspl);
 
 		//tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("nothing");
-	}
-
-	class testBasic_fact1 {
-		Compilation0 c;
-
-		public void start() {
-			String s = "test/basic/fact1/main2";
-
-			final ElijahCli c = ElijahCli.createDefault();
-
-			c.feedCmdLine(List_of(s, "-sO"));
-
-			if (c.errorCount() != 0)
-				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
-		}
 	}
 }
 
