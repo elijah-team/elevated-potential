@@ -28,33 +28,22 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 	public void start(final @NotNull CompilerInstructions aRootCI,
 					  final @NotNull CR_State crState,
 					  final @NotNull CB_Output out) {
-		//final @NotNull CK_Monitor monitor = compilationEnclosure.getDefaultMonitor();
-
 		stepContext = new CD_CRS_StepsContext(crState, out);
 
-		final List<CK_Action> stepActions = new ArrayList<>();
-		stepActions.addAll(getCrActions(aRootCI));
+		final List<CK_Action> actionList  = getCrActions(aRootCI);
 
-		final List<CR_Action> crActionList = new ArrayList<>();
-		for (final CR_Action action : crActionList) {
-			stepActions.add(new CD_CRS_CK_Action(this, action));
-		}
-
-		CK_Steps steps = () -> stepActions;
-
-		crActionResultList = new ArrayList<>(crActionResultList.size());
+		crActionResultList = new ArrayList<>(actionList.size());
 
 		final @NotNull CompilationEnclosure compilationEnclosure = crState.getCompilationEnclosure();
-
-		compilationEnclosure.getCompilation().contribute(new CPX_RunStepsContribution(steps, stepContext));
-
-		compilationEnclosure.getCompilation().signals()
-				.subscribeRunStepLoop(new CPX_RunStepLoop() {
-					@Override
-					public void notify_CPX_RunStepLoop(final Ok ok) {
-						throw new UnintendedUseException("breakpoint");
-					}
-				});
+		compilationEnclosure.contribute(new CPX_RunStepsContribution(()->actionList, stepContext));
+		compilationEnclosure.signals()
+				.signalRunStepLoop(compilationEnclosure.getCompilation().getRootCI());
+//		;ubscribeRunStepLoop(new CPX_RunStepLoop() {
+//					@Override
+//					public void notify_CPX_RunStepLoop(final Ok ok) {
+//						throw new UnintendedUseException("breakpoint");
+//					}
+//				});
 	}
 
 	private List<CK_Action> getCrActions(final @NotNull CompilerInstructions aRootCI) {
@@ -68,11 +57,9 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 		return al;
 	}
 
-	public List<Operation<Ok>> getCrActionResultList() {
-		// 24/01/04 back and forth
-		return this.crActionResultList;
+	public void addCrActionResult(final Operation<Ok> aResult, final CR_Action aAction, final CD_CRS_StepsContext aContext) {
+		crActionResultList.add(aResult);
 	}
-
 }
 
 //
