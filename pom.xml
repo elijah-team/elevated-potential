@@ -10,6 +10,14 @@
 	<name>elevated-potential</name>
 	<url>http://github.com/elijah-lang/elevated-potential</url>
 
+<!--
+	<modules>
+		<module>core</module>
+		<module>annotations</module>
+		<module></module>
+	</modules>
+-->
+
 	<properties>
 		<project.build.outputTimestamp>1</project.build.outputTimestamp>
 
@@ -39,6 +47,25 @@
 	</properties>
 
 	<dependencies>
+
+<!--
+		<dependency>
+			<groupId>com.github.spullara.mustache.java</groupId>
+			<artifactId>compiler</artifactId>
+			<version>0.9.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.spullara.mustache.java</groupId>
+			<artifactId>compiler</artifactId>
+			<version>0.9.11</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.spullara.mustache.java</groupId>
+			<artifactId>mustache.java-jdk5</artifactId>
+			<version>0.8.10</version>
+		</dependency>
+-->
 
 		<!-- https://smallrye.io/smallrye-mutiny/2.5.1/tutorials/getting-mutiny/ -->
 		<dependency>
