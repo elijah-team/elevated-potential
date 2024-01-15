@@ -37,7 +37,9 @@ public final class H {
 	}
 
 	public static MessagePassingQueue<CB_Process> createQueue() {
-//		return new MpscLinkedQueue();
+		// eclipse needs this:
+//		return new MpscLinkedQueue<CB_Process>();
+		// idea needs this
 		return MpscLinkedQueue.newMpscLinkedQueue();
 	}
 }
