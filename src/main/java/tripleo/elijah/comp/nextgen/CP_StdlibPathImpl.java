@@ -76,7 +76,26 @@ public class CP_StdlibPathImpl implements CP_StdlibPath {
 	}
 
 	@Override
-	public String toString() {
+	public Path toPath() {
+		return getPath();
+	}
+
+	@Override
+	public DisposableCharSink newIOWriter(final IO io) {
+		try {
+			return io.openWrite(this.getPath());
+		} catch (IOException aE) {
+			throw new RuntimeException(aE);
+		}
+	}
+
+	@Override
+	public boolean samePath(Path px) {
+		throw new UnsupportedOperationException("TODO 12/28");
+	}
+
+	@Override
+	public String asString() {
 		String result;
 
 		if (_pathPromise.isPending()) {
@@ -92,26 +111,7 @@ public class CP_StdlibPathImpl implements CP_StdlibPath {
 	}
 
 	@Override
-	public Path toPath() {
-		return getPath();
-	}
-
-	@Override
-	public DisposableCharSink newIOWriter(final IO io) {
-		try {
-			return io.openWrite(this.getPath());
-		} catch (IOException aE) {
-			throw new RuntimeException(aE);
-		}
-	}
-
-	@Override
-	public String asString() {
-		return this.toString();
-	}
-
-	@Override
-	public boolean samePath(Path px) {
-		throw new UnsupportedOperationException("TODO 12/28");
+	public String toString() {
+		return asString();
 	}
 }

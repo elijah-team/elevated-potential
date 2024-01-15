@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.nextgen.pw;
 
+import tripleo.elijah.comp.WriteOutputTreePipeline;
 import tripleo.elijah.comp.chewtoy.PW_CompilerController;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 
@@ -15,6 +16,9 @@ public final class PW_signalCalculateFinishParse implements PW_PushWork {
 	@Override
 	public void handle(final PW_Controller pwc, final PW_PushWork otherInstance) {
 		if (pwc instanceof PW_CompilerController pwcc) {
+			final CP_Paths paths = pwcc.paths();
+			paths.signalCalculateFinishParse();  // TODO maybe move this 06/22
+		} else if (pwc instanceof WriteOutputTreePipeline.__PW_Controller__FAKE pwcc) {
 			final CP_Paths paths = pwcc.paths();
 			paths.signalCalculateFinishParse();  // TODO maybe move this 06/22
 		}

@@ -65,7 +65,7 @@ public class ObservableCompletableProcess<T> implements Observer<T> {
 		});
 	}
 
-	public void subscribe(final @NotNull Observer<T> aCio) {
-		subject.subscribe(aCio);
+	public void subscribe(final @NotNull Observer<T> aObserver) {
+		subject.subscribe(aObserver);
 	}
 }

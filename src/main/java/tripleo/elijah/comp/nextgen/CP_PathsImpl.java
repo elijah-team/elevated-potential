@@ -1,28 +1,29 @@
 package tripleo.elijah.comp.nextgen;
 
 import io.smallrye.mutiny.Uni;
-
-import org.jetbrains.annotations.*;
-
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.nextgen.i.CP_Path;
+import tripleo.elijah.comp.nextgen.i.CP_Paths;
+import tripleo.elijah.comp.nextgen.i.CP_RootType;
+import tripleo.elijah.comp.nextgen.i.CP_StdlibPath;
 import tripleo.elijah.comp.process.CPX_CalculateFinishParse;
-import tripleo.elijah.util2.UnintendedUseException;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.nextgen.i.*;
-import tripleo.elijah.nextgen.*;
+import tripleo.elijah.nextgen.ER_Node;
 import tripleo.elijah.util.Ok;
+import tripleo.elijah.util2.UnintendedUseException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Flow.Publisher;
 import java.util.concurrent.Flow.Subscriber;
 
-public class CP_Paths__ implements CP_Paths {
-	private final          Compilation  _c;
-	private final @NotNull CP_StdlibPath     stdlibRoot;
-	private                CP_OutputPathImpl outputRoot;
-	private @NotNull       List<ER_Node>     outputNodes = new ArrayList<>();
+public class CP_PathsImpl implements CP_Paths {
+	private final Compilation _c;
+	private final @NotNull List<ER_Node> outputNodes = new ArrayList<>();
+	Uni<Ok> __CPX_CalculateFinishParse = Uni.createFrom().publisher(__CPX_CalculateFinishParse__publisher());//.item(Ok.instance());
 
-	public CP_Paths__(final Compilation aC) {
-		_c = aC;
+	public CP_PathsImpl(final Compilation aC) {
+		_c         = aC;
 		outputRoot = new CP_OutputPathImpl(_c);
 		stdlibRoot = new CP_StdlibPathImpl(_c);
 	}
@@ -38,7 +39,28 @@ public class CP_Paths__ implements CP_Paths {
 	}
 
 	@Override
-	public CP_Path outputRoot() {
+	public void renderNodes() {
+		outputRoot._renderNodes(outputNodes);
+	}
+
+	@Override
+	public void signalCalculateFinishParse() {
+		outputRoot.signalCalculateFinishParse();
+		outputRoot.calculate_hda();
+	}
+
+	// region paths
+
+	private final @NotNull CP_StdlibPath stdlibRoot;
+	private final @NotNull CP_OutputPath outputRoot;
+
+	@Override
+	public @NotNull CP_StdlibPath stdlibRoot() {
+		return stdlibRoot;
+	}
+
+	@Override
+	public CP_OutputPath outputRoot() {
 		return outputRoot;
 	}
 
@@ -48,35 +70,20 @@ public class CP_Paths__ implements CP_Paths {
 	}
 
 	@Override
-	public void renderNodes() {
-		outputRoot._renderNodes(outputNodes);
-	}
-
-	@Override
-	public void signalCalculateFinishParse() {
-		outputRoot.signalCalculateFinishParse();
-	}
-
-	@Override
-	public @NotNull CP_StdlibPath stdlibRoot() {
-		return stdlibRoot;
-	}
-
-	@Override
 	public CP_Path sourcesRoot() {
 		throw new UnintendedUseException("TODO 12/07 implement me");
 	}
 
+	// endregion paths
+
 	@Override
 	public void subscribeCalculateFinishParse(CPX_CalculateFinishParse cp_OutputPath) {
 		__CPX_CalculateFinishParse
-			.onItem()
-			.invoke((x)->{
-				cp_OutputPath.notify_CPX_CalculateFinishParse(x);
-			});
+				.onItem()
+				.invoke((x) -> {
+					cp_OutputPath.notify_CPX_CalculateFinishParse(x);
+				});
 	}
-	
-	Uni<Ok> __CPX_CalculateFinishParse = Uni.createFrom().publisher(__CPX_CalculateFinishParse__publisher());//.item(Ok.instance());
 
 	private Publisher<Ok> __CPX_CalculateFinishParse__publisher() {
 		return new Publisher<Ok>() {

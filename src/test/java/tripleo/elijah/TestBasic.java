@@ -15,36 +15,25 @@ import com.google.common.io.Files;
 import io.reactivex.rxjava3.annotations.NonNull;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.ElijahTestCli;
-import tripleo.elijah.comp.Finally;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.i.AssOutFile;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
-import tripleo.elijah.comp.inputs.CompilerInput;
-import tripleo.elijah.comp.inputs.CompilerInput_;
 import tripleo.elijah.comp.process.CPX_RunStepLoop;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputtree.EOT_FileNameProvider;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
-import tripleo.elijah.stages.gen_c.Emit;
 import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
 import tripleo.elijah.util.Helpers;
-import tripleo.elijah.world.i.LivingRepo;
 
 import java.nio.file.Path;
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -58,16 +47,6 @@ import static tripleo.elijah.util.Helpers.List_of;
 public class TestBasic {
 
 	private final boolean DISABLED = false;
-
-	@NotNull
-	private static List<CompilerInput> _convertStringListToInputs(final List<String> ls, final Compilation c) {
-		final List<CompilerInput> inputs = new ArrayList<>();
-		for (String s : ls) {
-			final CompilerInput i1 = new CompilerInput_(s, Optional.of(c));
-			inputs.add(i1);
-		}
-		return inputs;
-	}
 
 	@Disabled
 	@Test
@@ -107,145 +86,19 @@ public class TestBasic {
 		assertEquals(9, (int) errorCount.get(2)); // TODO Error count obviously should be 0
 	}
 
-	//@Ignore
-	@Test
-	public final void testBasic_listfolders3() throws Exception {
-		String s = "test/basic/listfolders3/listfolders3.ez";
-
-		final var c = ElijahTestCli.createDefault();
-
-		if (!DISABLED) {
-			Emit.emitting = false;
-
-			@NotNull final List<String> x = List_of(s, "-sO");
-			c.feedCmdLine(x);
-			if (c.errorCount() != 0)
-				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
-
-			//assertEquals(2, c.errorCount()); // TODO Error count obviously should be 0
-
-
-			final List<Pair<ErrSink.Errors, Object>> list = c.errSinkList();
-
-			int i = 0;
-
-			for (Pair<ErrSink.Errors, Object> pair : list) {
-				var l = pair.getLeft();
-				var r = pair.getRight();
-
-				System.out.print(Integer.valueOf(i) + " ");
-				i++;
-
-				if (l == ErrSink.Errors.DIAGNOSTIC) {
-					((Diagnostic) r).report(System.out);
-				} else {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(r);
-				}
-			}
-		}
-
-		c.cli.getComp()
-		     .signals()
-		     .subscribeRunStepLoop(new CPX_RunStepLoop() {
-			     @Override
-			     public void notify_CPX_RunStepLoop(final ErrSink aErrSink, final EOT_OutputTree aOutputTree, final CK_ObjectTree aObjectTree) {
-				     tb_lf3(aErrSink, aOutputTree, aObjectTree, c);
-			     }
-		     });
-	}
-
-	private void tb_lf3(final ErrSink aErrSink, final EOT_OutputTree aOutputTree, final CK_ObjectTree aObjectTree, ElijahTestCli c) {
-		final Finally REPORTS = c.reports();
-
-		assertThat(c.errorCount()).isEqualTo(2);
-
-		assertThat(REPORTS.inputCount()).isEqualTo(2);  // TODO is this correct?
-
-		//[-- Ez CIL change ] CompilerInput{ty=ROOT, inp='test/basic/listfolders3/listfolders3.ez'} ROOT
-		final String aaa = "test/basic/import_demo.elijjah";
-		final String aab = "test/basic/listfolders3/listfolders3.elijah";
-		assertThat(REPORTS.inputFilenames()).containsExactly(aaa, aab);
-
-		final String baa = "/Prelude/Arguments.h";
-		final String bae = "/Prelude/Arguments.c";
-		final String bab = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.c";
-		final String bac = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.h";
-		final String baf = "/listfolders3/Main.c";
-		final String bah = "/listfolders3/Main.h";
-		assertThat(REPORTS.outputFilenames()).containsExactly(baf, bah, baa, bae, bab, bac);
-		assertThat(REPORTS.outputCount()).isEqualTo(6);
-
-		assertTrue(assertLiveClass("MainLogic", "wpkotlin_c.demo.list_folders", c));
-		// TODO fails; assertTrue(assertLiveClass("Main", null, c));
-		// TODO fails; assertTrue(assertLiveClass("Arguments", null, c)); // TODO specify lsp/ez Prelude
-
-		// TODO investigate; assertTrue(assertLiveClass("Directory", "std.io", c));
-		// TODO investigate; assertTrue(assertLiveClass("List", "std.collections", c)); // TODO specify generic `String +/- FilesystemObject'
-
-		// TODO investigate; assertTrue(assertLiveFunction("Main",  "main", c)); // TODO specify arguments for functions
-		// TODO investigate; assertTrue(assertLiveFunction("Arguments",  "argument", c)); // TODO specify live-as-superclass
-		// TODO investigate; assertTrue(assertLiveFunction("MainLogic",  "main", c));
-		// TODO investigate; assertTrue(assertLiveFunction("FileSystemObject",  "isDirectory", c)); // TODO live in subclasses: File, Directory
-		// TODO investigate; assertTrue(assertLiveFunction("Directory",  "listFiles", c)); //
-		// TODO investigate; assertTrue(assertLiveFunction("List",  "forEach", c)); //
-
-		// TODO investigate; assertTrue(assertLiveConstructor("Directory",  c)); // FIXME package name
-
-		// TODO investigate; assertTrue(assertLiveNsMemberVariable("Prelude", "ExitCode", c));
-		// TODO investigate; assertTrue(assertLiveNsMemberVariable("Prelude", "ExitSuccess", c));
-
-		var l = new ArrayList<>();
-		c.getCompilationEnclosure().getCompilation().world().eachModule(m -> l.add(m.module().getFileName()));
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("184 " + l);
-
-		assertThat(l).containsExactly("1");
-//    const fun = function (f) { // <--
-
-//		/sww/modules-sw-writer
-		int y = 2;
-	}
-
-	private boolean assertLiveNsMemberVariable(final String aClassName, final String aNsMemberVariablName, final Compilation0 c) {
+	boolean assertLiveNsMemberVariable(final String aClassName, final String aNsMemberVariablName, final Compilation0 c) {
 		return false;
 	}
 
-	private boolean assertLiveConstructor(final String aClassName, final Compilation0 c) {
+	boolean assertLiveConstructor(final String aClassName, final Compilation0 c) {
 		return false;
 	}
 
-	private boolean assertLiveFunction(final String aClassName, final String aFunctionName, final Compilation0 c) {
+	boolean assertLiveFunction(final String aClassName, final String aFunctionName, final Compilation0 c) {
 		return false;
 	}
 
-	public boolean assertLiveClass(final String aClassName, final String aPackageName, final ElijahTestCli c0) {
-		final Compilation          c       = c0.cli.getComp();
-		final LivingRepo           world   = c.world();
-		final List<ClassStatement> classes = world.findClass(aClassName);
-
-		final Predicate<ClassStatement> predicate = new Predicate<>() {
-			@Override
-			public boolean test(final ClassStatement classStatement) {
-				boolean result;
-				if (aPackageName == null) {
-					//result = Objects.equals(classStatement.getPackageName(), WorldGlobals.defaultPackage());
-					result = classStatement.getPackageName().getName() == null;
-				} else {
-					result = Helpers.String_equals(classStatement.getPackageName().getName(), aPackageName);
-				}
-				return result;
-			}
-		};
-
-		//noinspection UnnecessaryLocalVariable,SimplifyStreamApiCallChains
-		boolean result = classes.stream()
-		                        .filter(predicate)
-		                        .findAny()
-		                        .isPresent();
-
-		return result;
-	}
-
-	@Disabled
+//	@Disabled
 	@Test
 	public final void testBasic_listfolders3__() {
 		String s = "test/basic/listfolders3/listfolders3.ez";

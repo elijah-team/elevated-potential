@@ -33,7 +33,7 @@ import tripleo.elijah.comp.inputs.CompilerInputMaster;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.process.CPX_RunStepsContribution;
 import tripleo.elijah.comp.process.CPX_Signals;
-import tripleo.elijah.comp.nextgen.CP_Paths__;
+import tripleo.elijah.comp.nextgen.CP_PathsImpl;
 import tripleo.elijah.comp.process.CPX_CalculateFinishParse;
 import tripleo.elijah.comp.process.CPX_RunStepLoop;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
@@ -127,7 +127,7 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 		cfg                  = new CompilationConfig();
 		use                  = new USE(this.getCompilationClosure());
 		_cis                 = new CIS();
-		paths                = new CP_Paths__(this);
+		paths                = new CP_PathsImpl(this);
 		pathsEventual.resolve(paths);
 		_repo                = _con.getLivingRepo();
 		compilationEnclosure = new DefaultCompilationEnclosure(this);

@@ -2,29 +2,30 @@ package tripleo.elijah.comp.nextgen;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.local.CY_HashDeferredAction;
-import tripleo.elijah.comp.process.CPX_CalculateFinishParse;
-import tripleo.elijah.util2.Eventual;
-import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.comp.local.CY_HashDeferredAction;
+import tripleo.elijah.comp.nextgen.i.CP_Path;
+import tripleo.elijah.comp.nextgen.i.CP_SubFile;
+import tripleo.elijah.comp.nextgen.i._CP_RootPath;
 import tripleo.elijah.nextgen.ER_Node;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah.util.io.DisposableCharSink;
+import tripleo.elijah.util2.Eventual;
+import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah_elevated.gu.R;
 import tripleo.wrap.File;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class CP_OutputPathImpl implements CP_Path, _CP_RootPath, CPX_CalculateFinishParse {
+public class CP_OutputPathImpl implements CP_OutputPath {
 	private final Eventual<Path> _pathPromise = new Eventual<>();
 
 	private final CY_HashDeferredAction hda;
@@ -40,21 +41,22 @@ public class CP_OutputPathImpl implements CP_Path, _CP_RootPath, CPX_CalculateFi
 			.subscribeCalculateFinishParse(this);
 	}
 
+	@Override
+	public void calculate_hda() {
+		hda.calculate();
+	}
+
 	// TODO 12/28 latch or Uni? or promise/Eventual: nodes (??)
+	@Override
 	public void _renderNodes(final @NotNull List<ER_Node> nodes) {
 		signalCalculateFinishParse();
 		nodes.stream()
-				.map(this::renderNode);
+				.forEach(this::renderNode);
 	}
 
 	@Override
 	public CP_Path child(final String aSubPath) {
 		return new CP_SubFile__(this, aSubPath).getPath();
-	}
-
-	public static void append_sha_string_then_newline(StringBuilder sb1, String sha256) {
-		sb1.append(sha256);
-		sb1.append('\n');
 	}
 
 	@Override
@@ -94,30 +96,36 @@ public class CP_OutputPathImpl implements CP_Path, _CP_RootPath, CPX_CalculateFi
 		return this;
 	}
 
-	private void logProgress(final int code, final String message) {
-		if (code == 117117)
-			return;
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(String.format("%d %s", code, message));
+	@Override
+	public void logProgress(final int code, final String message) {
+//		if (code == 117117)
+//			return;
+		SimplePrintLoggerToRemoveSoon.println_err_4(String.format("%d %s", code, message));
 	}
 
-	public @NotNull Operation<Boolean> renderNode(final @NotNull ER_Node node) {
+	@Override
+	public @NotNull Operation<Ok> renderNode(final @NotNull ER_Node node) {
 		final Path         path = node.getPath().getPath(); // TODO 12/07
 		final EG_Statement seq  = node.getStatement();
 
 		c.getCompilationEnclosure().logProgress(CompProgress.__CP_OutputPath_renderNode, node);
+		return renderNode(path, seq);
+	}
 
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("401b Writing path: " + path.toFile());
+	public @NotNull Operation<Ok> renderNode(final Path path, final EG_Statement seq) {
+		SimplePrintLoggerToRemoveSoon.println_out_4("401b Writing path: " + path.toFile());
 		path.getParent().toFile().mkdirs();
 
 		try (final DisposableCharSink xx = c.getIO().openWrite(path)) {
 			xx.accept(seq.getText());
 
-			return Operation.success(true);
+			return Operation.success(Ok.instance());
 		} catch (Exception aE) {
 			return Operation.failure(aE);
 		}
 	}
 
+	@Override
 	public void signalCalculateFinishParse() {
 		c.world()._completeModules();
 
@@ -125,31 +133,31 @@ public class CP_OutputPathImpl implements CP_Path, _CP_RootPath, CPX_CalculateFi
 			final Eventual<String> promise = hda.promise();
 
 			promise.then(calc -> {
-				__PathPromiseCalculator ppc = new __PathPromiseCalculator();
+				final __PathPromiseCalculator ppc = new __PathPromiseCalculator();
 				ppc.calc(calc);
-				CP_Path p = ppc.getP(this);
+				final CP_Path p = ppc.getP(this);
 
-				final String root = c.paths().outputRoot().getRootFile().toString();
+				final String root = c.paths().outputRoot().getRootFile().wrapped().toString();
 				final String one  = ppc.c_name();
 				final String two  = ppc.date();
 
-				Path px = Path.of(root, one, _testShim ? "<date>" : two);
-				logProgress(117117, "OutputPath = " + px);
+				final Path px = Path.of(root, one, _testShim ? "<date>" : two);
+				R.asv(117117, "OutputPath = " + px, this);
 
 				assert p.samePath(px); // FIXME "just return COMP" instead of zero
 
 				_pathPromise.resolve(px);
 
-				CP_Path pp = ppc.getP(this);
+				final CP_Path pp = ppc.getP(this);
 				assert pp.samePath(px); // FIXME "just return COMP" instead of zero
 
 				this.root = tripleo.wrap.File.wrap(px.toFile());
 
-				CP_Path p3 = ppc.getP(this);
+				final CP_Path p3 = ppc.getP(this);
 				assert p3.samePath(px); // FIXME "just return COMP" instead of zero
 
 			    final List<Object> objects = Helpers.List_of(px, p, pp, p3);
-			    for (Object object : objects) {
+			    for (final Object object : objects) {
 				    logProgress(117133, "" + object);
 		    	}
 			});
@@ -161,42 +169,19 @@ public class CP_OutputPathImpl implements CP_Path, _CP_RootPath, CPX_CalculateFi
 		return new CP_SubFile__(this, aFile);
 	}
 
+	@Override
 	public void testShim() {
 		_testShim = true;
 	}
 
 	@Override
-	public @NotNull File toFile() {
+	public @NotNull tripleo.wrap.File toFile() {
 		return tripleo.wrap.File.wrap(getPath().toFile());
 	}
 
-	private static class __PathPromiseCalculator {
-		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss");
-
-		private String date;
-		private String c_name;
-
-		public String c_name() {
-			return c_name;
-		}
-
-		public void calc(String c_name) {
-			final LocalDateTime localDateTime = LocalDateTime.now();
-			final String        date          = formatter.format(localDateTime); // 15-02-2022 12:43
-
-			this.c_name = c_name;
-			this.date   = date;
-		}
-
-		public String date() {
-			return date;
-		}
-
-		public CP_Path getP(final @NotNull CP_OutputPathImpl aCPOutputPath) {
-			final CP_Path outputRoot = aCPOutputPath.c.paths().outputRoot();
-
-			return outputRoot.child(c_name).child(date);
-		}
+	@Override
+	public void hook(final int code, final String message) {
+		logProgress(code, message);
 	}
 
 	@Override

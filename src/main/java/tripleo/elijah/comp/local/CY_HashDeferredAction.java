@@ -47,12 +47,17 @@ public class CY_HashDeferredAction implements DeferredAction<String> {
         final List<IO_._IO_ReadFile> recordedreads = io.recordedreads_io();
 
         recordedreads.stream()
-                .map(IO_._IO_ReadFile::getFileName)
-                .sorted()
-                .map(digestUtils::digestAsHex)
-                .forEach(x -> CP_OutputPathImpl.append_sha_string_then_newline(sb1, x));
+                     .map(IO_._IO_ReadFile::getFileName)
+                     .sorted()
+                     .map(digestUtils::digestAsHex)
+                     .forEach(x -> append_sha_string_then_newline(sb1, x));
 
         final String c_name = digestUtils.digestAsHex(sb1.toString());
         e.resolve(c_name);
+    }
+
+    static void append_sha_string_then_newline(StringBuilder sb1, String sha256) {
+        sb1.append(sha256);
+        sb1.append('\n');
     }
 }
