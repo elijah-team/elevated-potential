@@ -1,38 +1,87 @@
 package tripleo.elijah.comp.local;
 
-import antlr.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.*;
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.graph.CM_Ez;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.CY_EzSpecParser;
 import tripleo.elijah.comp.rubicon.PCon;
-import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.compiler_model.CM_Filename;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.util.*;
-import tripleo.elijjah.*;
-
-import java.io.*;
-
+import tripleo.elijah.comp.specs.EzCache;
+import tripleo.elijah.comp.specs.EzSpec;
+import tripleo.elijah.comp.specs.EzSpec__;
+import tripleo.elijah.diagnostic.ExceptionDiagnostic;
+import tripleo.elijah.util.Mode;
+import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.Operation2;
+import tripleo.elijah.util2.Eventual;
+import tripleo.elijjah.EzLexer;
+import tripleo.elijjah.EzParser;
 import tripleo.wrap.File;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.function.Supplier;
+
 public enum CX_ParseEzFile {;
-	private static Operation2<CompilerInstructions> calculate(final String aAbsolutePath, final InputStream aInputStream) {
-		final EzLexer lexer = new EzLexer(aInputStream);
-		lexer.setFilename(aAbsolutePath);
-		final EzParser parser = new EzParser(lexer);
-		parser.setFilename(aAbsolutePath);
-		parser.pcon = new PCon();
-		parser.ci   = parser.pcon.newCompilerInstructionsImpl();
-		try {
-			parser.program();
-		} catch (final RecognitionException | TokenStreamException aE) {
-			return Operation2.failure(new ExceptionDiagnostic(aE));
+	public static class PEventual<T> extends Eventual<T> {
+
+		@SuppressWarnings("unchecked")
+		public T waitForIt() {
+			Object xx[] = {null};
+			this.then(x -> {
+				xx[0]=x;
+			});
+			while (xx[0] == null) {
+				try {
+					System.err.println("33 33 33 33 33");
+					Thread.sleep(5000L);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			return (T) xx[0];
 		}
-		final CompilerInstructions instructions = parser.ci;
-		instructions.setFilename(()-> aAbsolutePath);
-		return Operation2.success(instructions);
+	}
+	
+	public class CXX_Parser {
+		private static PEventual<CompilerInstructions> _parseEz = new PEventual<>();
+
+		public static PEventual<CompilerInstructions> parseEz(String aAbsolutePath, InputStream aInputStream) {
+			return _parseEz;
+		}
+	}
+	
+	private static Operation2<CompilerInstructions> calculate(final String aAbsolutePath, final InputStream aInputStream) {
+		final PEventual<CompilerInstructions> pez = CXX_Parser.parseEz(aAbsolutePath, aInputStream);
+		
+		Supplier<Operation2<CompilerInstructions>> x = new Supplier<Operation2<CompilerInstructions>>() {
+			@Override
+			public @NotNull Operation2<CompilerInstructions> get() {
+				final EzLexer lexer = new EzLexer(aInputStream);
+				lexer.setFilename(aAbsolutePath);
+				final EzParser parser = new EzParser(lexer);
+				parser.setFilename(aAbsolutePath);
+				PCon.connectDefault(parser);
+				try {
+					parser.program();
+
+					final CompilerInstructions instructions = parser.ci;
+					instructions.setFilename(()-> aAbsolutePath);
+					return Operation2.success(instructions);
+				} catch (final RecognitionException | TokenStreamException aE) {
+					return Operation2.failure(new ExceptionDiagnostic(aE));
+				}
+			}};
+		
+		final Operation2<CompilerInstructions> operation2 = x.get();
+		pez.resolve(operation2.success());
+		final CompilerInstructions result = pez
+				.waitForIt();
+		
+		return operation2;
 	}
 
 	public static Operation2<CompilerInstructions> parseAndCache(final EzSpec aSpec,

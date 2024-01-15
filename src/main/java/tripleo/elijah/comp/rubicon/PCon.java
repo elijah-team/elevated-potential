@@ -7,6 +7,7 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.OS_BuiltinType;
 import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijjah.EzParser;
 
 public class PCon {
 	public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aEk,
@@ -97,5 +98,13 @@ public class PCon {
 	public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aE2, final IExpression aE3, final OS_Type aT) {
 		// TODO 10/15 look at me
 		return ExpressionBuilder_build(aEe, aE2, aE3);
+	}
+
+	public static void connectDefault(EzParser parser) {
+		final PCon pCon = new PCon();
+		final CompilerInstructions ci = pCon.newCompilerInstructionsImpl();
+
+		parser.pcon = pCon;
+		parser.ci   = ci;
 	}
 }
