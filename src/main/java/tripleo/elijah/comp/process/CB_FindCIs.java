@@ -40,17 +40,10 @@ public class CB_FindCIs implements CB_Action {
 			_processInput(cc, input);
 		}
 
+		// FIXME 24/01/14 Use Ule/Markers
 		logProgress_Stating("outputString.size", "" + o.get().size());
-
 		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
-
-		for (final CB_OutputString outputString : o.get()) {
-			// 08/13
-			SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
-		}
-
 		// TODO capture action outputs
-		//  09/27 is that not being done above??
 		aMonitor.reportSuccess(this, o);
 
 		//final CK_AlmostComplete almostComplete = new CK_AlmostComplete();
@@ -118,7 +111,7 @@ public class CB_FindCIs implements CB_Action {
 			cm.onIsEz();
 		}
 		default -> {
-			System.err.println("~~ [11/24 111] " + aEvent + " " + aCompilerInput);
+			SimplePrintLoggerToRemoveSoon.println_err_5("~~ [11/24 111] " + aEvent + " " + aCompilerInput);
 		}
 		}
 	}

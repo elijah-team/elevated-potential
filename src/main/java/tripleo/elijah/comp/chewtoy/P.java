@@ -5,6 +5,7 @@ import io.smallrye.mutiny.subscription.BackPressureStrategy;
 import io.smallrye.mutiny.subscription.MultiEmitter;
 import tripleo.elijah.comp.nextgen.pw.PW_Controller;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.concurrent.Flow;
 import java.util.function.Consumer;
@@ -43,11 +44,11 @@ public final class P {
 
 			item.handle(aPWController, null);
 
-			//System.out.println("Received item: " + item);
+			//SimplePrintLoggerToRemoveSoon.println_out_5("Received item: " + item);
 		});
 
 		m.onFailure().invoke(failureThrowable -> {
-			System.err.println("5050 "+failureThrowable);
+			SimplePrintLoggerToRemoveSoon.println_err_5("5050 "+failureThrowable);
 		});
 
 		mm = m;
@@ -67,12 +68,12 @@ public final class P {
 
 				@Override
 				public void handle(final PW_Controller pwc, final PW_PushWork otherInstance) {
-//					System.err.println("777100 " + item);
+//					SimplePrintLoggerToRemoveSoon.println_err_5("777100 " + item);
 				}
 
 				@Override
 				public void execute(final PW_Controller aController) {
-					System.err.println("777101 " + item);
+					SimplePrintLoggerToRemoveSoon.println_err_5("777101 " + item);
 				}
 			});
 		}

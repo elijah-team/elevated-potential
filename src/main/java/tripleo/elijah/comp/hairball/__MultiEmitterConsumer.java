@@ -9,6 +9,7 @@ import tripleo.elijah.comp.impl.DefaultCompilationBus;
 import tripleo.elijah.comp.nextgen.pw.PW_Controller;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah_elevated.scaffold.__AbstractPushWork;
 
 import java.util.function.Consumer;
@@ -38,7 +39,7 @@ public class __MultiEmitterConsumer implements Consumer<MultiEmitter<? super PW_
 		return new __AbstractPushWork() {
 			@Override
 			public void handle(final PW_Controller pwc, final PW_PushWork otherInstance) {
-				System.err.println("777111 " + process.name()); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+				SimplePrintLoggerToRemoveSoon.println_err_5("777111 " + process.name()); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 				defaultCompilationBus.logProgress(DefaultCompilationBus.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
 
 				//CompilationUnitTree

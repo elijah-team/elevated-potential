@@ -15,6 +15,7 @@ import tripleo.elijah.diagnostic.ExceptionDiagnostic;
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.Operation2;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah.util2.Eventual;
 import tripleo.elijjah.EzLexer;
 import tripleo.elijjah.EzParser;
@@ -35,7 +36,7 @@ public enum CX_ParseEzFile {;
 			});
 			while (xx[0] == null) {
 				try {
-					System.err.println("33 33 33 33 33");
+					SimplePrintLoggerToRemoveSoon.println_err_5("33 33 33 33 33");
 					Thread.sleep(5000L);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block

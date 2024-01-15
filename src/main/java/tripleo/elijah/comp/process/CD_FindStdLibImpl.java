@@ -43,9 +43,10 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 			if (local_stdlib.exists()) {
 				try {
 					final CK_SourceFile<CompilerInstructions> sourceFile2 = CK_SourceFileFactory.get(sle, CK_SourceFileFactory.K.SpecifiedPathEzFile);
+					assert sourceFile2 != null;
 					sourceFile2.associate(cc);
 					sourceFile2.process_query2(cc, (ezSpec) -> {
-						System.err.println("998-051"+ezSpec);
+						SimplePrintLoggerToRemoveSoon.println_err_5("998-051"+ezSpec);
 					});
 				} catch (final Exception e) {
 					result = Operation2.failure_exc(e);

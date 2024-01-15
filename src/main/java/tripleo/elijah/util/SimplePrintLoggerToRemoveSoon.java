@@ -56,4 +56,12 @@ public enum SimplePrintLoggerToRemoveSoon {
 			SimplePrintLoggerToRemoveSoon.println_out_4(code + " " + message);
 		}
 	}
+
+	public static void println_err_5(final String aString) {
+		System.err.println("println_err_5 " + aString);
+	}
+
+	public static void println_out_5(final String aString) {
+		System.out.println("println_out_5 " + aString);
+	}
 }

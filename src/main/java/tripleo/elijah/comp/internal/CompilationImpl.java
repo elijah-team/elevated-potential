@@ -333,12 +333,16 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 	@Override
 	public Operation<Ok> hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
 		if (DebugFlags._pancake_lcm_gate) {
-			assert cis.size() > 0;
+			final CompilerInstructions rootCI;
+			if (cis.isEmpty()) {
+				//assert false;
+				rootCI = ___rootCI;
 
-			// don't inline yet b/c getProjectName
-			final CompilerInstructions rootCI = cis.get(0);
-
-			setRootCI(rootCI);
+			} else {
+				// don't inline yet b/c getProjectName
+				rootCI = cis.get(0);
+				setRootCI(rootCI);
+			}
 
 			lcm.asv(rootCI, LCM_Event_RootCI.INSTANCE);
 
@@ -570,7 +574,7 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 
 	@Override
 	public CM_CompilerInput get(final Object aO) {
-		System.err.println(aO.getClass().getName());
+		SimplePrintLoggerToRemoveSoon.println_err_5(aO.getClass().getName());
 		if (aO.getClass().getName().equals("tripleo.elijah.nextgen.comp_model.CM_CompilerInput")) {
 			return (CM_CompilerInput) aO;
 		}

@@ -13,6 +13,7 @@ import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.CB_Process;
 import tripleo.elijah.comp.impl.DefaultCompilationBus;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 public final class H {
 	public static void runProcesses_(final DefaultCompilationBus cb,
@@ -23,12 +24,12 @@ public final class H {
 		                                  .emitter(multiEmitterConsumer, BackPressureStrategy.BUFFER)
 		                                  .onFailure().invoke((Throwable failureThrowable) ->
 		                                                      {
-			                                                      System.err.println("3030 " + failureThrowable);
+			                                                      SimplePrintLoggerToRemoveSoon.println_err_5("3030 " + failureThrowable);
 		                                                      });
 
 		m.subscribe()
 		 .with((PW_PushWork item) -> {
-			 System.out.println("Received item: " + item);
+			 SimplePrintLoggerToRemoveSoon.println_out_5("Received item: " + item);
 			 item.handle(c.__pw_controller(), null);
 		 });
 

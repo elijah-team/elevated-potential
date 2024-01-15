@@ -17,7 +17,11 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.comp.ElijahTestCli;
+import tripleo.elijah.comp.Finally;
+import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.i.AssOutFile;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.inputs.CompilerInput;
@@ -139,56 +143,35 @@ public class TestBasic {
 		}
 
 		c.cli.getComp()
-				     .signals()
-						     .subscribeRunStepLoop(new CPX_RunStepLoop() {
-							     @Override
-							     public void notify_CPX_RunStepLoop(final ErrSink aErrSink, final EOT_OutputTree aOutputTree, final CK_ObjectTree aObjectTree) {
-								     tb_lf3(aErrSink, aOutputTree, aObjectTree, c);
-							     }
-						     });
+		     .signals()
+		     .subscribeRunStepLoop(new CPX_RunStepLoop() {
+			     @Override
+			     public void notify_CPX_RunStepLoop(final ErrSink aErrSink, final EOT_OutputTree aOutputTree, final CK_ObjectTree aObjectTree) {
+				     tb_lf3(aErrSink, aOutputTree, aObjectTree, c);
+			     }
+		     });
 	}
 
 	private void tb_lf3(final ErrSink aErrSink, final EOT_OutputTree aOutputTree, final CK_ObjectTree aObjectTree, ElijahTestCli c) {
-		assertThat(c.errorCount()).isEqualTo(2);
-
 		final Finally REPORTS = c.reports();
 
-		assertTrue(REPORTS.containsInput("test/basic/import_demo.elijjah"));
-		assertTrue(REPORTS.containsInput("test/basic/listfolders3/listfolders3.elijah"));
+		assertThat(c.errorCount()).isEqualTo(2);
 
 		assertThat(REPORTS.inputCount()).isEqualTo(2);  // TODO is this correct?
-		assertThat(REPORTS.inputFilenames())
-				.containsExactly(
-						"/listfolders3/Main.c",
-									"/listfolders3/Main.h"
-				                );
-
-//		assertTrue(REPORTS.containsCodeOutput("/listfolders3/Main.c"));
-//		assertTrue(REPORTS.containsCodeOutput("/listfolders3/Main.h"));
 
 		//[-- Ez CIL change ] CompilerInput{ty=ROOT, inp='test/basic/listfolders3/listfolders3.ez'} ROOT
-		//var aaa = "test/basic/import_demo.elijjah";
-		//var aab = "test/basic/listfolders3/listfolders3.elijah";
+		final String aaa = "test/basic/import_demo.elijjah";
+		final String aab = "test/basic/listfolders3/listfolders3.elijah";
+		assertThat(REPORTS.inputFilenames()).containsExactly(aaa, aab);
 
-		var baa = "/Prelude/Arguments.h";
-		assertTrue(REPORTS.containsCodeOutput(baa));
-		var bae = "/Prelude/Arguments.c";
-		assertTrue(REPORTS.containsCodeOutput(bae));
-
-		assertEquals(6, REPORTS.codeOutputSize());
-
-		var bab = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.c";
-		assertTrue(REPORTS.containsCodeOutput(bab));
-		var bac = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.h";
-		assertTrue(REPORTS.containsCodeOutput(bac));
-
-
-		assertThat(REPORTS.outputFilenames())
-				.containsExactly(
-						baa, bae, bab, bac
-				                );
-
-		assertEquals(6, REPORTS.outputCount()); // TODO is this correct?
+		final String baa = "/Prelude/Arguments.h";
+		final String bae = "/Prelude/Arguments.c";
+		final String bab = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.c";
+		final String bac = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.h";
+		final String baf = "/listfolders3/Main.c";
+		final String bah = "/listfolders3/Main.h";
+		assertThat(REPORTS.outputFilenames()).containsExactly(baf, bah, baa, bae, bab, bac);
+		assertThat(REPORTS.outputCount()).isEqualTo(6);
 
 		assertTrue(assertLiveClass("MainLogic", "wpkotlin_c.demo.list_folders", c));
 		// TODO fails; assertTrue(assertLiveClass("Main", null, c));
@@ -217,7 +200,7 @@ public class TestBasic {
 //    const fun = function (f) { // <--
 
 //		/sww/modules-sw-writer
-		int y=2;
+		int y = 2;
 	}
 
 	private boolean assertLiveNsMemberVariable(final String aClassName, final String aNsMemberVariablName, final Compilation0 c) {
@@ -233,10 +216,10 @@ public class TestBasic {
 	}
 
 	public boolean assertLiveClass(final String aClassName, final String aPackageName, final ElijahTestCli c0) {
-		CompilationImpl c     = (CompilationImpl) c0.cli.getComp();
+		CompilationImpl c = (CompilationImpl) c0.cli.getComp();
 
-		var             ce    = c.getCompilationEnclosure();
-		var             world = c.world();
+		var ce    = c.getCompilationEnclosure();
+		var world = c.world();
 
 		var classes = world.findClass(aClassName);
 
@@ -273,7 +256,7 @@ public class TestBasic {
 		final ElijahTestCli cli = ElijahTestCli.createDefault();
 
 		if (!DISABLED) {
-			final List<String>                 args   = List_of(s, "-sE");
+			final List<String> args = List_of(s, "-sE");
 			cli.feedCmdLine(args);
 
 			if (cli.errorCount() != 0)
@@ -309,7 +292,7 @@ public class TestBasic {
 	@Disabled
 	@Test
 	public final void testBasic_fact1() {
-		final String              s      = "test/basic/fact1/main2";
+		final String s = "test/basic/fact1/main2";
 
 		final ElijahTestCli cli = new ElijahTestCli();
 		cli.feedCmdLine(List_of(s));
