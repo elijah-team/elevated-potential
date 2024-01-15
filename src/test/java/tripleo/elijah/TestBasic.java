@@ -23,12 +23,14 @@ import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.inputs.CompilerInput_;
 import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.comp.process.CPX_RunStepLoop;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputtree.EOT_FileNameProvider;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
 import tripleo.elijah.stages.gen_c.Emit;
 import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
@@ -39,6 +41,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static tripleo.elijah.util.Helpers.List_of;
 
@@ -135,33 +138,57 @@ public class TestBasic {
 			}
 		}
 
-		assertEquals(2, c.errorCount());
+		c.cli.getComp()
+				     .signals()
+						     .subscribeRunStepLoop(new CPX_RunStepLoop() {
+							     @Override
+							     public void notify_CPX_RunStepLoop(final ErrSink aErrSink, final EOT_OutputTree aOutputTree, final CK_ObjectTree aObjectTree) {
+								     tb_lf3(aErrSink, aOutputTree, aObjectTree, c);
+							     }
+						     });
+	}
 
-		assertTrue(c.reports().containsInput("test/basic/import_demo.elijjah"));
-		assertTrue(c.reports().containsInput("test/basic/listfolders3/listfolders3.elijah"));
+	private void tb_lf3(final ErrSink aErrSink, final EOT_OutputTree aOutputTree, final CK_ObjectTree aObjectTree, ElijahTestCli c) {
+		assertThat(c.errorCount()).isEqualTo(2);
 
-		assertEquals(2, c.reports().inputCount()); // TODO is this correct?
+		final Finally REPORTS = c.reports();
 
-		assertTrue(c.reports().containsCodeOutput("/listfolders3/Main.c"));
-		assertTrue(c.reports().containsCodeOutput("/listfolders3/Main.h"));
+		assertTrue(REPORTS.containsInput("test/basic/import_demo.elijjah"));
+		assertTrue(REPORTS.containsInput("test/basic/listfolders3/listfolders3.elijah"));
+
+		assertThat(REPORTS.inputCount()).isEqualTo(2);  // TODO is this correct?
+		assertThat(REPORTS.inputFilenames())
+				.containsExactly(
+						"/listfolders3/Main.c",
+									"/listfolders3/Main.h"
+				                );
+
+//		assertTrue(REPORTS.containsCodeOutput("/listfolders3/Main.c"));
+//		assertTrue(REPORTS.containsCodeOutput("/listfolders3/Main.h"));
 
 		//[-- Ez CIL change ] CompilerInput{ty=ROOT, inp='test/basic/listfolders3/listfolders3.ez'} ROOT
 		//var aaa = "test/basic/import_demo.elijjah";
 		//var aab = "test/basic/listfolders3/listfolders3.elijah";
 
 		var baa = "/Prelude/Arguments.h";
-		assertTrue(c.reports().containsCodeOutput(baa));
+		assertTrue(REPORTS.containsCodeOutput(baa));
 		var bae = "/Prelude/Arguments.c";
-		assertTrue(c.reports().containsCodeOutput(bae));
+		assertTrue(REPORTS.containsCodeOutput(bae));
 
-		assertEquals(6, c.reports().codeOutputSize());
+		assertEquals(6, REPORTS.codeOutputSize());
 
 		var bab = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.c";
-		assertTrue(c.reports().containsCodeOutput(bab));
+		assertTrue(REPORTS.containsCodeOutput(bab));
 		var bac = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.h";
-		assertTrue(c.reports().containsCodeOutput(bac));
+		assertTrue(REPORTS.containsCodeOutput(bac));
 
-		assertEquals(6, c.reports().outputCount()); // TODO is this correct?
+
+		assertThat(REPORTS.outputFilenames())
+				.containsExactly(
+						baa, bae, bab, bac
+				                );
+
+		assertEquals(6, REPORTS.outputCount()); // TODO is this correct?
 
 		assertTrue(assertLiveClass("MainLogic", "wpkotlin_c.demo.list_folders", c));
 		// TODO fails; assertTrue(assertLiveClass("Main", null, c));
@@ -186,9 +213,11 @@ public class TestBasic {
 		c.getCompilationEnclosure().getCompilation().world().eachModule(m -> l.add(m.module().getFileName()));
 		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("184 " + l);
 
+		assertThat(l).containsExactly("1");
 //    const fun = function (f) { // <--
 
 //		/sww/modules-sw-writer
+		int y=2;
 	}
 
 	private boolean assertLiveNsMemberVariable(final String aClassName, final String aNsMemberVariablName, final Compilation0 c) {
