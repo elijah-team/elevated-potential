@@ -80,8 +80,7 @@ public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	}
 
 	public boolean isStarted() {
-		// back and forth
-		return _startManager.started();
+		return startManager().started();
 	}
 
 	private static _StartManager startManager() {
