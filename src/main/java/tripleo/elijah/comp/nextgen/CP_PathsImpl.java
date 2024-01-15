@@ -46,7 +46,6 @@ public class CP_PathsImpl implements CP_Paths {
 	@Override
 	public void signalCalculateFinishParse() {
 		outputRoot.signalCalculateFinishParse();
-		outputRoot.calculate_hda();
 	}
 
 	// region paths

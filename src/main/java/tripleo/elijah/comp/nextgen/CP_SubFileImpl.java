@@ -17,7 +17,7 @@ import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
 
-public class CP_SubFile__ implements CP_SubFile {
+public class CP_SubFileImpl implements CP_SubFile {
 
 	private final           _CP_RootPath rootPath;
 	private final @Nullable CP_Path      parentPath;
@@ -25,14 +25,14 @@ public class CP_SubFile__ implements CP_SubFile {
 
 	private final @NotNull CP_Path _path;
 
-	public CP_SubFile__(final _CP_RootPath aCPOutputPath, final String aFile) {
+	public CP_SubFileImpl(final _CP_RootPath aCPOutputPath, final String aFile) {
 		rootPath   = aCPOutputPath;
 		parentPath = null;
 		file       = aFile;
 		_path      = new CP_Path1(rootPath, file);
 	}
 
-	public CP_SubFile__(final CP_Path aParentPath, final String aFile) {
+	public CP_SubFileImpl(final CP_Path aParentPath, final String aFile) {
 		if (aParentPath instanceof _CP_RootPath)
 			rootPath = (_CP_RootPath) aParentPath;
 		else
@@ -130,7 +130,7 @@ public class CP_SubFile__ implements CP_SubFile {
 		@Override
 		public @NotNull CP_SubFile subFile(final String aFile) {
 			x = aFile;
-			return new CP_SubFile__((_CP_RootPath) null /* this */, aFile);
+			return new CP_SubFileImpl((_CP_RootPath) null /* this */, aFile);
 		}
 
 		@Override
@@ -191,7 +191,17 @@ public class CP_SubFile__ implements CP_SubFile {
 
 		@Override
 		public boolean samePath(Path px) {
-			throw new UnsupportedOperationException("TODO 12/28");
+			final Eventual<Path> pathPromise = this._pathPromise;
+			if (pathPromise.isResolved()) {
+				Path[] path1 = {null};
+				pathPromise.then(path0 -> {
+					path1[0] = path0;
+				});
+				final boolean x = path1[0].getFileName().equals(px);
+				return x;
+			}
+//			throw new UnsupportedOperationException("TODO 12/28");
+			return false;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package tripleo.wrap;
 
 import com.google.common.io.Files;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.i.USE_Reasoning;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
@@ -60,10 +61,6 @@ public class File {
 		return wrap.getCanonicalFile();
 	}
 
-	public String[] list(final FilenameFilter aFilter) {
-		return wrap.list(aFilter);
-	}
-
 	public String getAbsolutePath() {
 		return wrap.getAbsolutePath();
 	}
@@ -99,25 +96,32 @@ public class File {
 		return wrap.length();
 	}
 
-	public boolean mkdirs() {
-		return wrap.mkdirs();
+	public void mkdirs() {
+		wrap.mkdirs();
 	}
 
-	public File getParentFile() {
-		var pf = wrap.getParentFile();
-		if (pf == null) return null; // README 12/28 interesting 
-		return new File(pf);
+	public tripleo.wrap.File getParentFile() {
+		final java.io.File pf = wrap.getParentFile();
+		if (pf == null) return null; // README 12/28 interesting
+		return tripleo.wrap.File.wrap(pf);
 	}
 
-	public File[] listFiles(final FilenameFilter aFilter) {
+	public String[] list(final FilenameFilter aFilter) {
+		return wrap.list(aFilter);
+	}
+
+	public @NotNull tripleo.wrap.File[] listFiles(final FilenameFilter aFilter) {
 		// FIXME 11/27 Get some help with this one
-		java.io.File[] r = wrap.listFiles(aFilter);
-		File[]         R = new File[r.length];
-		for (int i = 0; i < r.length; i++) {
-			final java.io.File file = r[i];
-			R[i] = new File(file);
+		final java.io.File[] r = wrap.listFiles(aFilter);
+		if (r != null) {
+			final tripleo.wrap.File[] R = new File[r.length];
+			for (int i = 0; i < r.length; i++) {
+				R[i] = new tripleo.wrap.File(r[i]);
+			}
+			return R;
+		} else {
+			return new File[0];
 		}
-		return R;
 	}
 
 	public String getCanonicalPath() throws IOException {

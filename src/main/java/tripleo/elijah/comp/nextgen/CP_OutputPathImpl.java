@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.nextgen;
 
+import com.google.common.base.MoreObjects;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.Compilation;
@@ -24,6 +25,7 @@ import tripleo.wrap.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 public class CP_OutputPathImpl implements CP_OutputPath {
 	private final Eventual<Path> _pathPromise = new Eventual<>();
@@ -36,9 +38,38 @@ public class CP_OutputPathImpl implements CP_OutputPath {
 	public CP_OutputPathImpl(final Compilation cc) {
 		c   = cc;
 		hda = new CY_HashDeferredAction(c.getIO());
-		
+
 		c.signals()
-			.subscribeCalculateFinishParse(this);
+		 .subscribeCalculateFinishParse(this);
+	}
+
+	@Override
+	public String toString() {
+		final String pathPromiseS;
+		if (_pathPromise.isResolved()) {
+			final Path[] x = new Path[1];
+			_pathPromise.then(xx -> {
+				x[0] = xx;
+			});
+			pathPromiseS = x[0].toString();
+		} else {
+			pathPromiseS = "<<UNRESOLVED>>";
+		}
+
+		final String           hdaS;
+		final Optional<String> os = hda.getCompleted();
+		if (os.isPresent()) {
+			hdaS = os.get();
+		} else {
+			hdaS = "<<NO-HDA>>";
+		}
+
+		return MoreObjects.toStringHelper(this)
+		                  .add("_pathPromise", pathPromiseS)
+		                  .add("hda", hdaS)
+		                  .add("root", root)
+		                  .add("testing", _testShim)
+		                  .toString();
 	}
 
 	@Override
@@ -51,12 +82,12 @@ public class CP_OutputPathImpl implements CP_OutputPath {
 	public void _renderNodes(final @NotNull List<ER_Node> nodes) {
 		signalCalculateFinishParse();
 		nodes.stream()
-				.forEach(this::renderNode);
+		     .forEach(this::renderNode);
 	}
 
 	@Override
 	public CP_Path child(final String aSubPath) {
-		return new CP_SubFile__(this, aSubPath).getPath();
+		return new CP_SubFileImpl(this, aSubPath).getPath();
 	}
 
 	@Override
@@ -132,41 +163,38 @@ public class CP_OutputPathImpl implements CP_OutputPath {
 		if (_pathPromise.isPending()) {
 			final Eventual<String> promise = hda.promise();
 
+			final CP_OutputPath outputPath = c.paths().outputRoot();
+
 			promise.then(calc -> {
 				final __PathPromiseCalculator ppc = new __PathPromiseCalculator();
 				ppc.calc(calc);
-				final CP_Path p = ppc.getP(this);
 
-				final String root = c.paths().outputRoot().getRootFile().wrapped().toString();
-				final String one  = ppc.c_name();
-				final String two  = ppc.date();
-
-				final Path px = Path.of(root, one, _testShim ? "<date>" : two);
+				final String root   = outputPath.getRootFile().wrapped().toString();
+				final String _hash  = ppc.c_name();
+				final String _date0 = ppc.date();
+				final String _date  = _testShim ? "<date>" : _date0;
+				final Path   px     = Path.of(root, _hash, _date);
 				R.asv(117117, "OutputPath = " + px, this);
 
-				assert p.samePath(px); // FIXME "just return COMP" instead of zero
-
-				_pathPromise.resolve(px);
-
-				final CP_Path pp = ppc.getP(this);
-				assert pp.samePath(px); // FIXME "just return COMP" instead of zero
-
+				this._pathPromise.resolve(px);
 				this.root = tripleo.wrap.File.wrap(px.toFile());
 
-				final CP_Path p3 = ppc.getP(this);
-				assert p3.samePath(px); // FIXME "just return COMP" instead of zero
-
-			    final List<Object> objects = Helpers.List_of(px, p, pp, p3);
-			    for (final Object object : objects) {
-				    logProgress(117133, "" + object);
-		    	}
+				final CP_Path      p       = ppc.getP(this);
+				final List<Object> objects = Helpers.List_of(px, p);
+				R.asv(117133, "" + objects, this);
+//				for (final Object object : objects) {
+//					R.asv(117133, "" + object, this);
+//				}
+				int y = 2;
 			});
 		}
+
+		calculate_hda();
 	}
 
 	@Override
 	public @NotNull CP_SubFile subFile(final String aFile) { // s ;)
-		return new CP_SubFile__(this, aFile);
+		return new CP_SubFileImpl(this, aFile);
 	}
 
 	@Override
@@ -211,5 +239,9 @@ public class CP_OutputPathImpl implements CP_OutputPath {
 	@Override
 	public void notify_CPX_CalculateFinishParse(Ok ok) {
 		throw new UnintendedUseException("TODO 12/28 dpys, implement me");
+	}
+
+	public CP_Path paths_outputRoot() {
+		return c.paths().outputRoot();
 	}
 }

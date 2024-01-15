@@ -17,9 +17,7 @@ public class CY_HashDeferredAction implements DeferredAction<String> {
     static boolean started;
 
     public CY_HashDeferredAction(IO aIo) {
-        io           = aIo;
-
-//        if (started) throw new Error();
+        io      = aIo;
         started = true;
     }
 
@@ -31,6 +29,17 @@ public class CY_HashDeferredAction implements DeferredAction<String> {
     @Override
     public boolean completed() {
         return this.e.isResolved();
+    }
+
+    public Optional<String> getCompleted() {
+        final boolean resolved = this.e.isResolved();
+        //Eventual
+        if (resolved) {
+            final String[] x = new String[1];
+            e.then(xx -> x[0] = xx);
+            return Optional.of(x[0]);
+        }
+        return Optional.empty();
     }
 
     @Override

@@ -32,7 +32,7 @@ public class CP_StdlibPathImpl implements CP_StdlibPath {
 
 	@Override
 	public CP_Path child(final String aSubPath) {
-		return new CP_SubFile__(this, aSubPath).getPath();
+		return new CP_SubFileImpl(this, aSubPath).getPath();
 	}
 
 	@Override

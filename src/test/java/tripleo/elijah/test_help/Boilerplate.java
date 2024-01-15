@@ -25,6 +25,7 @@ import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.work.*;
+import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
 import java.util.List;
@@ -52,17 +53,14 @@ public class Boilerplate {
 	}
 
 	public void get() {
-		CompilationImpl compilation = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
+		final CompilationImpl compilation = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
 		compilation0 = compilation;
 
-		DefaultCompilerController ctl = new DefaultCompilerController(compilation.getCompilationAccess3());
-//		compilation.getCompilationEnclosure().s
+		final DefaultCompilerController ctl = new DefaultCompilerController(compilation.getCompilationAccess3());
+		final CompilationEnclosure      ce  = compilation.getCompilationEnclosure();
 
-		final CompilationEnclosure ce = compilation.getCompilationEnclosure();
-
-		ce.provideCompilationAccess( compilation.con().createCompilationAccess());
-		ce.provideCompilationRunner(()->ctl.getCon().createCompilationRunner(ce.getCompilationAccess()));
-
+		ce.provideCompilationAccess(compilation.con().createCompilationAccess());
+		ce.provideCompilationRunner(() -> ctl.getCon().createCompilationRunner(ce.getCompilationAccess()));
 
 		aca = ce.getCompilationAccess();
 //		ElIntrinsics.
@@ -73,7 +71,7 @@ public class Boilerplate {
 		crState.ca();
 		assert ce.getCompilationRunner().getCrState() != null; // always true
 
-		pr = cr.getCrState().pr;
+		pr            = cr.getCrState().pr;
 		pipelineLogic = pr.pipelineLogic();
 
 		if (module != null) {
@@ -92,16 +90,13 @@ public class Boilerplate {
 
 	public void getGenerateFiles(final @NotNull OS_Module mod) {
 		if (generateFiles == null) {
-			List<ProcessedNode> lgc = List_of();
-			IPipelineAccess pa = pipelineLogic().dp.pa;
-			GenerateResultSink    resultSink1 = new DefaultGenerateResultSink(pa);
-			final CompilationEnclosure ce = (CompilationEnclosure) compilation0.getCompilationEnclosure();
-			EIT_ModuleList        moduleList  = ce.getModuleList();
-			//Object             moduleList = null;
-			ElLog_.Verbosity   verbosity  = ElLog_.Verbosity.SILENT;
-			Old_GenerateResult gr         = new Old_GenerateResult();
-//			CompilationEnclosure ce          = pa.getCompilationEnclosure();
-
+			final List<ProcessedNode>  lgc         = List_of();
+			final IPipelineAccess      pa          = pipelineLogic().dp.pa;
+			final GenerateResultSink   resultSink1 = new DefaultGenerateResultSink(pa);
+			final CompilationEnclosure ce          = (CompilationEnclosure) compilation0.getCompilationEnclosure();
+			final EIT_ModuleList       moduleList  = ce.getModuleList();
+			final ElLog_.Verbosity     verbosity   = ElLog_.Verbosity.SILENT;
+			final Old_GenerateResult   gr          = new Old_GenerateResult();
 			final GN_GenerateNodesIntoSinkEnv generateNodesIntoSinkEnv = new GN_GenerateNodesIntoSinkEnv(
 					lgc,
 					resultSink1,
@@ -110,21 +105,15 @@ public class Boilerplate {
 					ce
 			);
 
-			var generateNodesIntoSink = new GN_GenerateNodesIntoSink(generateNodesIntoSinkEnv);
-
-			var worldModule = new DefaultWorldModule(mod, ce);
-			var workManager = new WorkManager__();
-			var workList = new WorkList__();
-
-			final GM_GenerateModuleRequest gmr = new GM_GenerateModuleRequest(generateNodesIntoSink, worldModule,
-					generateNodesIntoSinkEnv);
-			GenerateResultEnv fileGen = new GenerateResultEnv(resultSink1, gr, workManager, workList,
-					new GM_GenerateModule(gmr));
-
-			var wm = new DefaultWorldModule(mod, ce);
-
-			final @NotNull String lang = CompilationAlways.defaultPrelude();
-			final OutputFileFactoryParams params = new OutputFileFactoryParams(wm, ce);
+			final GN_GenerateNodesIntoSink generateNodesIntoSink = new GN_GenerateNodesIntoSink(generateNodesIntoSinkEnv);
+			final DefaultWorldModule       worldModule           = new DefaultWorldModule(mod, ce);
+			final WorkManager              workManager           = new WorkManager__();
+			final WorkList                 workList              = new WorkList__();
+			final GM_GenerateModuleRequest gmr                   = new GM_GenerateModuleRequest(generateNodesIntoSink, worldModule, generateNodesIntoSinkEnv);
+			final GenerateResultEnv        fileGen               = new GenerateResultEnv(resultSink1, gr, workManager, workList, new GM_GenerateModule(gmr));
+			final WorldModule              wm                    = new DefaultWorldModule(mod, ce);
+			final @NotNull String          lang                  = CompilationAlways.defaultPrelude();
+			final OutputFileFactoryParams  params                = new OutputFileFactoryParams(wm, ce);
 
 			generateFiles = OutputFileFactory.create(lang, params, fileGen);
 		}

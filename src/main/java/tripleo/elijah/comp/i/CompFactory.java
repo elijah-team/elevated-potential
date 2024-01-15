@@ -19,9 +19,12 @@ import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.nextgen.comp_model.CM_UleLog;
 import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
+import tripleo.elijah.util.Operation;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
+import tripleo.wrap.File;
 
+import java.io.InputStream;
 import java.util.List;
 
 public interface CompFactory {
@@ -65,4 +68,6 @@ public interface CompFactory {
 	CM_UleLog getULog();
 
 	ILazyCompilerInstructions createLazyCompilerInstructions(CompilerInput aCarrier);
+
+	Operation<InputStream> defaultElijahSpecParser2(File aF);
 }

@@ -3,6 +3,7 @@ package tripleo.elijah.comp.local;
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.IO_;
@@ -13,6 +14,7 @@ import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
 import tripleo.elijah.comp.inputs.ILazyCompilerInstructions_;
 import tripleo.elijah.comp.internal.Out;
+import tripleo.elijah.comp.internal.USE;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.queries.QuerySearchEzFiles;
 import tripleo.elijah.comp.rubicon.PConParser;
@@ -49,6 +51,11 @@ public class CW {
 		final ILazyCompilerInstructions        ilci = ILazyCompilerInstructions_.of(aInput, aCompilationClosure);
 		final Maybe<ILazyCompilerInstructions> m4   = Maybe.of(ilci);
 		aInput.accept_ci(m4);
+	}
+
+	public static Operation2<OS_Module> _use(final File file, final USE _u, final LibraryStatementPart lsp) {
+		final String file_name = file.toString();
+		return _u.__parseElijahFile(file, file_name, lsp);
 	}
 
 	public static class CX_ParseElijahFile {

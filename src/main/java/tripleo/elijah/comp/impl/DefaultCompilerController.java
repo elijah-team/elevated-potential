@@ -1,13 +1,12 @@
 package tripleo.elijah.comp.impl;
 
 //import org.eclipse.emf.ecore.xml.type.util.XMLTypeResourceImpl;
+import clojure.java.api.Clojure;
+import clojure.lang.IFn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.CompilerController;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.ICompilationBus;
-import tripleo.elijah.comp.i.OptionsProcessor;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.internal.CR_State;
@@ -81,10 +80,32 @@ public class DefaultCompilerController implements CompilerController {
 
 	}
 
+	Object serverInstance;
+
 	@Override
 	public void runner(final @NotNull Con con) {
 //		XMLTypeResourceImpl.DataFrame eclipse;
 		if (DebugFlags.CLOJURE_FLAG) c.____m();
+
+		{
+			final ErrSink logger = c.getErrSink();
+			final int port = 7778;
+
+			if (null != serverInstance) {
+				logger.warn("nrepl server already running, refusing to start another.");
+				return;
+			}
+			try {
+				IFn require = Clojure.var("clojure.core", "require");
+				require.invoke(Clojure.read("clojure.tools.nrepl.server"));
+				IFn server = Clojure.var("clojure.tools.nrepl.server", "start-server");
+				serverInstance = server.invoke(Clojure.read(":port"), port);
+				logger.info("Started clojure nREPL on port " + port);
+			}
+			catch (Throwable e) {
+				logger.error("Error starting nrepl", e);
+			}
+		}
 
 		c._cis().subscribeTo(c);
 

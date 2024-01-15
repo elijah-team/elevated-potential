@@ -64,7 +64,10 @@ import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah_elevated.comp.model.Default__Elevated_CM_Factory;
 import tripleo.elijah_elevated.comp.model.Elevated_CM_Factory;
 import tripleo.elijah_elevated.comp.model.Elevated_CM_Module;
+import tripleo.wrap.File;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -142,6 +145,11 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 		_ciws                   = new ArrayList<>();
 		_ci_models              = new HashMap<>();
 		_ciw_buffer             = new ArrayList<>();
+	}
+
+	@NotNull
+	public Operation<InputStream> defaultElijahSpecParser(final File f) {
+		return this.con().defaultElijahSpecParser2(f);
 	}
 
 	@Override

@@ -13,7 +13,7 @@ import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.IO_;
 import tripleo.elijah.comp.nextgen.CP_OutputPathImpl;
 
-import tripleo.elijah.comp.nextgen.CP_SubFile__;
+import tripleo.elijah.comp.nextgen.CP_SubFileImpl;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.wrap.File;
 
@@ -76,11 +76,11 @@ public class ChooseHashDirectoryNameBehaviorPaths implements ChooseDirectoryName
 		final Path[] px = new Path[1];
 		p.getPathPromise().then(pp -> px[0] = pp);
 
-		CP_SubFile__.CP_Path1 pp   = (CP_SubFile__.CP_Path1) p;
-		File                  root = null;
+		CP_SubFileImpl.CP_Path1 pp   = (CP_SubFileImpl.CP_Path1) p;
+		File                    root = null;
 
 		if (pp.op == null) {
-			CP_SubFile__.CP_Path1 pp2 = (CP_SubFile__.CP_Path1) pp.parent;
+			CP_SubFileImpl.CP_Path1 pp2 = (CP_SubFileImpl.CP_Path1) pp.parent;
 
 			if (pp2.op == null) {
 				assert false;

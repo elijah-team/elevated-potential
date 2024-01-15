@@ -9,9 +9,7 @@ import tripleo.elijah.stages.deduce.IFunctionMapHook;
 
 import java.util.List;
 
-public enum CompilationFactory {
-	;
-
+public enum CompilationFactory { ;
 	@Contract("_, _ -> new")
 	public static @NotNull CompilationImpl mkCompilation(final ErrSink eee, final IO io) {
 		return new CompilationImpl(eee, io);

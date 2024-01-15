@@ -3,6 +3,7 @@ package tripleo.elijah.comp.nextgen;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import tripleo.elijah.comp.ElijahTestCli;
 import tripleo.elijah.comp.IO_;
 import tripleo.elijah.comp.StdErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -20,6 +21,8 @@ public class CP_SubFileTest {
 		op.testShim();
 		op.signalCalculateFinishParse();
 
+		op.calculate_hda();
+
 		CP_Path sf = op.child("foo");
 		assertEquals("COMP/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855/<date>/foo",
 				"" + sf.getPath());
@@ -34,8 +37,9 @@ public class CP_SubFileTest {
 	}
 
 	@BeforeEach
-	public void setUp() throws Exception {
-		final @NotNull CompilationImpl cc = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
+	public void setUp() {
+		final ElijahTestCli            cli = ElijahTestCli.createDefault();
+		final @NotNull CompilationImpl cc  = (CompilationImpl) cli.cli.getComp();
 		op = new CP_OutputPathImpl(cc);
 	}
 }

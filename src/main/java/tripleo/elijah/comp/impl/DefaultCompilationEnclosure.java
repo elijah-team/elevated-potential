@@ -1,69 +1,100 @@
 package tripleo.elijah.comp.impl;
 
-import io.reactivex.rxjava3.annotations.*;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.subjects.*;
-import org.apache.commons.lang3.tuple.*;
+import io.reactivex.rxjava3.subjects.ReplaySubject;
+import io.reactivex.rxjava3.subjects.Subject;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 import org.jdeferred2.DoneCallback;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.AccessBus;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.PipelineLogic;
+import tripleo.elijah.comp.PipelineMember;
 import tripleo.elijah.comp.generated.__Plugins;
-import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.graph.i.CK_Monitor;
+import tripleo.elijah.comp.graph.i.CK_Steps;
+import tripleo.elijah.comp.graph.i.CK_StepsContext;
+import tripleo.elijah.comp.i.AssOutFile;
+import tripleo.elijah.comp.i.CB_Output;
+import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.comp.i.CompilationClosure;
+import tripleo.elijah.comp.i.CompilerDriver;
+import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.comp.i.ICompilationBus;
+import tripleo.elijah.comp.i.ModuleListener;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.inputs.CompilerInput;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.internal_move_soon.*;
-import tripleo.elijah.comp.nextgen.*;
-import tripleo.elijah.comp.nextgen.i.*;
-import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.comp.internal.CompilationRunner;
+import tripleo.elijah.comp.internal.PipelinePlugin;
+import tripleo.elijah.comp.internal.Provenance;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.nextgen.CK_DefaultStepRunner;
+import tripleo.elijah.comp.nextgen.i.AsseverationLogProgress;
+import tripleo.elijah.comp.notation.GN_WriteLogs;
 import tripleo.elijah.comp.process.CPX_Signals;
 import tripleo.elijah.comp.scaffold.CB_ListBackedOutput;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.g.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.inputtree.*;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.pre_world.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.generate.*;
-import tripleo.elijah.stages.inter.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.stages.write_stage.pipeline_impl.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.g.GModuleThing;
+import tripleo.elijah.g.GOS_Module;
+import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
+import tripleo.elijah.nextgen.outputtree.EOT_FileNameProvider;
+import tripleo.elijah.nextgen.reactive.Reactivable;
+import tripleo.elijah.nextgen.reactive.Reactive;
+import tripleo.elijah.nextgen.reactive.ReactiveDimension;
+import tripleo.elijah.pre_world.Mirror_EntryPoint;
+import tripleo.elijah.stages.gen_fn.IClassGenerator;
+import tripleo.elijah.stages.generate.OutputStrategyC;
+import tripleo.elijah.stages.inter.ModuleThing;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
+import tripleo.elijah.util.CompletableProcess;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.util2.UnintendedUseException;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.world.i.WorldModule;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class DefaultCompilationEnclosure implements CompilationEnclosure {
-	public final Eventual<IPipelineAccess> pipelineAccessPromise = new Eventual<>();
-	private final          Eventual<@NotNull ICompilationRunner>                                                     ecr                   = new Eventual<>();
-	private final          Eventual<AccessBus>                                                             accessBusPromise      = new Eventual<>();
-	private final          Compilation                                                                     compilation;
-	private final          CB_Output                                                                       _cbOutput             = new CB_ListBackedOutput();
-	private final          Map<String, PipelinePlugin>                                                     pipelinePlugins       = new HashMap<>();
-	private final          Map<OS_Module, ModuleThing>                                                     moduleThings          = new HashMap<>();
-	private final          Subject<ReactiveDimension>                                                      dimensionSubject      = ReplaySubject.create();
-	private final          Subject<Reactivable>                                                            reactivableSubject    = ReplaySubject.create();
-	private final @NonNull List<ElLog>                                                                     elLogs                = new LinkedList<>();
-	private final          List<ModuleListener>                                             _moduleListeners  = new ArrayList<>();
+	public final Eventual<IPipelineAccess>                       pipelineAccessPromise = new Eventual<>();
+	private final          Eventual<@NotNull ICompilationRunner> ecr              = new Eventual<>();
+	private final Eventual<AccessBus> accessBusPromise = new Eventual<>();
+	private final Compilation                 compilation;
+	private final CB_Output                   _cbOutput       = new CB_ListBackedOutput();
+	private final Map<String, PipelinePlugin> pipelinePlugins = new HashMap<>();
+	private final Map<OS_Module, ModuleThing> moduleThings       = new HashMap<>();
+	private final Subject<ReactiveDimension>  dimensionSubject   = ReplaySubject.create();
+	private final          Subject<Reactivable> reactivableSubject = ReplaySubject.create();
+	private final @NotNull List<ElLog>          elLogs             = new LinkedList<>();
+	private final          List<ModuleListener> _moduleListeners   = new ArrayList<>();
 	private final          List<Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest>> outFileAssertions = new ArrayList<>();
-	private final @NonNull OFA                                                              ofa               = new OFA(/* outFileAssertions */);
+	private final @NotNull OFA                                                              ofa               = new OFA(/* outFileAssertions */);
 	private final Observer<ReactiveDimension> dimensionObserver   = new _ReactiveDimensionObserver();
 	private final Observer<Reactivable>       reactivableObserver = new _ReactivableObserver();
-	private AccessBus           ab;
-	private ICompilationAccess  ca;
-	private ICompilationBus     compilationBus;
+	private       AccessBus                   ab;
+	private          ICompilationAccess ca;
+	private          ICompilationBus    compilationBus;
 	private @NotNull ICompilationRunner compilationRunner;
 	private CompilerDriver      compilerDriver;
 	private List<CompilerInput> inp;
-	private IPipelineAccess     pa;
-	private PipelineLogic       pipelineLogic;
+	private IPipelineAccess           pa;
+	private PipelineLogic             pipelineLogic;
 	private Eventual<ICompilationBus> _p_CompilationBus = new Eventual<>();
 
 	public DefaultCompilationEnclosure(final Compilation aCompilation) {
@@ -118,11 +149,9 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		reactivableSubject.onNext(r);
 
 		// reactivableObserver.
-		dimensionSubject.subscribe(new Observer<ReactiveDimension>() {
+		dimensionSubject.subscribe(new Observer<>() {
 			@Override
-			public void onSubscribe(@NonNull final Disposable d) {
-
-			}
+			public void onSubscribe(@NonNull final Disposable d) {}
 
 			@Override
 			public void onNext(final ReactiveDimension aReactiveDimension) {
@@ -136,9 +165,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 			}
 
 			@Override
-			public void onComplete() {
-
-			}
+			public void onComplete() {}
 		});
 	}
 
@@ -146,9 +173,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	public void addReactive(@NotNull Reactive r) {
 		dimensionSubject.subscribe(new Observer<ReactiveDimension>() {
 			@Override
-			public void onSubscribe(@NonNull final Disposable d) {
-
-			}
+			public void onSubscribe(@NonNull final Disposable d) {}
 
 			@Override
 			public void onNext(@NonNull ReactiveDimension dim) {
@@ -161,9 +186,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 			}
 
 			@Override
-			public void onComplete() {
-
-			}
+			public void onComplete() {}
 		});
 	}
 
@@ -565,7 +588,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 		@Override
 		public void error(final Diagnostic d) {
-
+			getCompilation().getErrSink().reportDiagnostic(d);
 		}
 
 		@Override
@@ -577,16 +600,9 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		public void start() {
 //			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[ModuleListener_ModuleCompletableProcess] start");
 		}
-
 	}
 
 	public class OFA implements Iterable<Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest>> {
-
-		// public OFA(final List<Triple<AssOutFile, EOT_OutputFile.FileNameProvider,
-		// NG_OutputRequest>> aOutFileAssertions) {
-		// _l = aOutFileAssertions;
-		// }
-
 		public boolean contains(String aFileName) {
 			for (Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest> outFileAssertion : outFileAssertions) {
 				final String containedFilename = outFileAssertion.getMiddle().getFilename();
@@ -605,7 +621,3 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		}
 	}
 }
-
-//
-// vim:set shiftwidth=4 softtabstop=0 noexpandtab:
-//

@@ -101,7 +101,7 @@ public interface CP_OutputPath extends /*CP_Path,*/ _CP_RootPath, CPX_CalculateF
 		}
 
 		public CP_Path getP(final @NotNull CP_OutputPathImpl aCPOutputPath) {
-			final CP_Path outputRoot = aCPOutputPath.c.paths().outputRoot();
+			final CP_Path outputRoot = aCPOutputPath.paths_outputRoot();
 
 			return outputRoot.child(c_name).child(date);
 		}

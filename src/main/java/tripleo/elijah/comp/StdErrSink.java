@@ -57,6 +57,16 @@ public class StdErrSink implements ErrSink {
 	}
 
 	@Override
+	public void error(final String message, final Throwable exc) {
+		reportError(message); // !!
+	}
+
+	@Override
+	public void warn(final String message) {
+		reportWarning(message);
+	}
+
+	@Override
 	public List<Pair<Errors, Object>> list() {
 		return _list;
 	}

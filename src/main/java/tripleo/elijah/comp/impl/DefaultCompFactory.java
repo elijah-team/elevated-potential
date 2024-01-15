@@ -29,13 +29,17 @@ import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTreeImpl;
 import tripleo.elijah.util.Helpers0;
+import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.Operation2;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah.world.impl.DefaultLivingRepo;
 import tripleo.elijah.world.impl.DefaultWorldModule;
+import tripleo.wrap.File;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.*;
 
 public class DefaultCompFactory implements CompFactory {
@@ -197,6 +201,16 @@ public class DefaultCompFactory implements CompFactory {
 	@Override
 	public ILazyCompilerInstructions createLazyCompilerInstructions(final CompilerInput aCompilerInput) {
 		return ILazyCompilerInstructions_.of(aCompilerInput, compilation.getCompilationClosure());
+	}
+
+	@Override
+	public Operation<InputStream> defaultElijahSpecParser2(final tripleo.wrap.File f) {
+		try {
+			final InputStream readFile = this.compilation.getIO().readFile(f);
+			return Operation.success(readFile);
+		} catch (FileNotFoundException aE) {
+			return Operation.failure(aE);
+		}
 	}
 }
 
