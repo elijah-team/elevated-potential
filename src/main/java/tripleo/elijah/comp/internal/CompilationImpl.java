@@ -413,8 +413,7 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 
 	@Override
 	public List<CompilerInput> getInputs() {
-		//return _inputs;
-		throw new UnintendedUseException();
+		return this.getCompilationEnclosure().getCompilerInput();
 	}
 
 	@Override

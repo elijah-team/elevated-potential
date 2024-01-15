@@ -18,8 +18,6 @@ import static tripleo.elijah.util.Helpers.List_of;
 
 public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	@Getter
-	private static boolean   started;
-	@Getter
 	private final  CB_Output o;
 	private final          CompilationRunner    compilationRunner;
 	private final          CompilerInstructions rootCI;
@@ -38,7 +36,7 @@ public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	}
 
 	public static void setStarted() {
-		started = true;
+		_startManager.setStarted();
 	}
 
 	public static void enjoin(final CD_CompilationRunnerStart aCompilationRunnerStart,
@@ -64,7 +62,7 @@ public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 				final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
 				final CR_State                  crState                = compilationRunner.getCrState();
 
-			assert !isStarted();
+				assert !isStarted();
 				if (isStarted()) {
 					//throw new AssertionError();
 					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + this);
@@ -81,6 +79,11 @@ public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 		}
 	}
 
+	public boolean isStarted() {
+		// back and forth
+		return _startManager.started();
+	}
+
 	private static _StartManager startManager() {
 		if (_startManager == null) {
 			_startManager = new _StartManager();
@@ -89,9 +92,20 @@ public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	}
 
 	static class _StartManager {
+		@Getter
+		private static boolean   started;
+
 		public void enjoin(final CD_CompilationRunnerStart aCompilationRunnerStart, final CompilerInstructions aRootCI, final CR_State aCrState, final CB_Output aCBOutput) {
 			aCompilationRunnerStart.start(aRootCI, aCrState, aCBOutput);
 			setStarted();
+		}
+
+		public void setStarted() {
+			started = true;
+		}
+
+		public boolean started() {
+			return started;
 		}
 	}
 
@@ -105,5 +119,10 @@ public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	@NotNull
 	public List<CB_Action> steps() {
 		return List_of(CB_StartCompilationRunnerAction.this);
+	}
+
+	public @NotNull CB_Output getO() {
+		// back and forth
+		return this.o;
 	}
 }

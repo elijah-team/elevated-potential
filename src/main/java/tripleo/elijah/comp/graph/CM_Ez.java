@@ -11,4 +11,6 @@ public interface CM_Ez {
 	void advise(Operation2<CompilerInstructions> aCio);
 
 	void advise(CK_ObjectTree aObjectTree);
+
+	EzSpec getSpec();
 }

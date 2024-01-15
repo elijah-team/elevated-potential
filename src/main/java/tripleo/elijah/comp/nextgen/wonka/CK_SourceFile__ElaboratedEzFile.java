@@ -1,19 +1,19 @@
 package tripleo.elijah.comp.nextgen.wonka;
 
 import com.google.common.base.Preconditions;
-import com.google.common.base.Supplier;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.IO;
+import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.specs.EzCache;
 import tripleo.elijah.comp.specs.EzSpec;
 import tripleo.elijah.comp.specs.EzSpec__;
 import tripleo.elijah.util.*;
 
+import tripleo.elijah_elevated.comp.W;
 import tripleo.wrap.File;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.util.function.Consumer;
 
 public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEzFile {
 	protected final File   directory;
@@ -40,21 +40,7 @@ public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEz
 		final String fileName = file_name();
 		Preconditions.checkArgument(isEzFile(fileName));
 
-		var specOp = EzSpec__.of(
-				fileName,
-				file,
-				//file.getFileInputStreamOperationSupplier() // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-				new Supplier<Operation<InputStream>>() {
-					@Override
-					public Operation<InputStream> get() {
-						try {
-							return Operation.success(file.readFile(io));
-						} catch (FileNotFoundException aE) {
-							return Operation.failure(aE);
-						}
-					}
-				}.get()
-								);
+		var specOp = EzSpec__.of(fileName, file, W.ezSpec_SIS(file, io));
 
 		if (specOp.mode() == Mode.SUCCESS) {
 			final EzSpec ezSpec = specOp.success();
@@ -78,4 +64,23 @@ public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEz
 	public String getFileName() {
 		return file_name();
 	}
+
+//	@Override
+//	public void process_query2(CompilationClosure cc, Consumer<Operation<EzSpec>> cb) {
+//		process_query2__(cc.io(), null, cb);
+//	}
+
+	@Override
+	public void process_query2(final CompilationClosure cc, final Consumer cb) {
+		final Operation2<CompilerInstructions> x = process_query(cc.io(), null);
+		cb.accept(x);
+	}
+
+	public void process_query2__(final IO io, final @NotNull EzCache ezCache, Consumer<Operation<EzSpec>> cb) {
+		final String fileName = file_name();
+		Preconditions.checkArgument(isEzFile(fileName));
+
+		compilation.modelFactory().mkEzSpec(fileName, file, cb);
+	}
+
 }

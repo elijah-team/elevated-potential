@@ -19,7 +19,7 @@ import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.wrap.File;
 
 @SuppressWarnings("rawtypes")
-abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {
+abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile<OS_Module> {
 //	private final __CK_SourceFile__AbstractElijjahFile CKSourceFile__abstractElijahFile;
 	protected CK_GlobalRef  compilation;
 	protected CompilerInput input;

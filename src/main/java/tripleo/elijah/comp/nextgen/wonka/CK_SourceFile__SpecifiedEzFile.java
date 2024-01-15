@@ -4,10 +4,13 @@ import com.google.common.base.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
+import java.util.function.Consumer;
+
 import tripleo.wrap.File;
 
 public class CK_SourceFile__SpecifiedEzFile extends __CK_SourceFile__AbstractEzFile {
@@ -26,6 +29,11 @@ public class CK_SourceFile__SpecifiedEzFile extends __CK_SourceFile__AbstractEzF
 		super.asserverate();
 
 		return oci;
+	}
+
+	@Override
+	public void process_query2(final CompilationClosure cc, final Consumer cb) {
+		process_query(cc.io(), null);
 	}
 
 	private Operation2<CompilerInstructions> process_query(final IO io, final @NotNull EzCache ezCache) {

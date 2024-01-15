@@ -24,12 +24,13 @@ public enum CK_SourceFileFactory { ;
 		};
 	}
 
-	public static CK_SourceFile<CompilerInstructions> get(final CP_Path aPath, final K aK) {
+	public static <T> CK_SourceFile<T> get(final CP_Path aPath, final K aK) {
 		switch (aK) {
 		case SpecifiedPathEzFile -> {return new CK_SourceFile__SpecifiedEzFile(aPath.toFile());}
-		case SpecifiedPathElijahFile -> {return new CK_SourceFile__SpecifiedElijahFile(aPath.toFile());}
+		case SpecifiedPathElijahFile -> {assert false;}//return new CK_SourceFile__SpecifiedElijahFile(aPath.toFile());}
 		default -> throw new IllegalStateException("Unexpected value: " + aK);
 		}
+		return null;
 	}
 
 	public enum K {

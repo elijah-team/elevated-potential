@@ -63,5 +63,10 @@ public class GenerateStatementImpl implements GenerateStatement {
 			Preconditions.checkNotNull(aName);
 			return Objects.equals(aName, this.name);
 		}
+
+		public IExpression getExpression() {
+			// back and forth
+			return this.expression;
+		}
 	}
 }

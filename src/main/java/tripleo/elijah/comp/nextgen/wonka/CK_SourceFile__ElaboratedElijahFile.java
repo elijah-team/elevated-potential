@@ -3,12 +3,15 @@ package tripleo.elijah.comp.nextgen.wonka;
 import com.google.common.base.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
 import java.io.InputStream;
+import java.util.function.Consumer;
+
 import tripleo.wrap.File;
 
 public class CK_SourceFile__ElaboratedElijahFile extends __CK_SourceFile__AbstractElijahFile {
@@ -66,5 +69,16 @@ public class CK_SourceFile__ElaboratedElijahFile extends __CK_SourceFile__Abstra
 	@Override
 	public String getFileName() {
 		return file_name();
+	}
+
+	@Override
+	public void process_query2(CompilationClosure cc, Consumer<Operation<OS_Module>> cb) {
+		final Operation2<OS_Module> x = process_query(cc.io(), _getCache(cc));
+		cb.accept(Operation.convert(x));
+	}
+
+	private ElijahCache _getCache(CompilationClosure cc) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

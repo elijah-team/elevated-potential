@@ -26,8 +26,8 @@ public class DefaultObjectTree implements CK_ObjectTree {
 	public void asseverate(Object o, Asseverate asseveration) {
 		switch (asseveration) {
 		case CI_PARSED ->  {
-			int y=2;
-//			throw new UnintendedUseException();
+			// TODO directoryList (or equiv) I guess
+			NotImplementedException.raise_stop();
 		}
 		case ELIJAH_PARSED -> {
 			final CM_Module x = (CM_Module)o;

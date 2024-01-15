@@ -8,6 +8,7 @@
  */
 package tripleo.elijah.util;
 
+@lombok.Data
 @SuppressWarnings("unused")
 public class NotImplementedException extends RuntimeException {
 	public static void raise() {

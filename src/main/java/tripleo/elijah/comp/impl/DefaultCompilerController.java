@@ -1,6 +1,6 @@
 package tripleo.elijah.comp.impl;
 
-import org.eclipse.emf.ecore.xml.type.util.XMLTypeResourceImpl;
+//import org.eclipse.emf.ecore.xml.type.util.XMLTypeResourceImpl;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.*;
@@ -83,7 +83,7 @@ public class DefaultCompilerController implements CompilerController {
 
 	@Override
 	public void runner(final @NotNull Con con) {
-		XMLTypeResourceImpl.DataFrame eclipse;
+//		XMLTypeResourceImpl.DataFrame eclipse;
 		if (DebugFlags.CLOJURE_FLAG) c.____m();
 
 		c._cis().subscribeTo(c);

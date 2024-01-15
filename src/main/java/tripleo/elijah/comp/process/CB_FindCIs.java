@@ -14,6 +14,7 @@ import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.util.Maybe;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah_elevated.comp.model.Elevated_CM_Factory;
 import tripleo.wrap.File;
 
 import java.nio.file.NotDirectoryException;
@@ -68,15 +69,22 @@ public class CB_FindCIs implements CB_Action {
 		final CompilerInput.Ty ty = input.ty();
 		if (ty != null) {
 			switch (ty) {
-			case NULL, SOURCE_ROOT -> {}
-			default -> {return;}
+				case SOURCE_ROOT -> {}
+				case NULL -> {assert false;}
+				default -> {return;}
+			}
+		} else {
+			if (input.getInp().startsWith("-")) {
+				input.setArg();
+				return;
 			}
 		}
 
 		final @NotNull ErrSink errSink = c.errSink();
-
-		final CM_CompilerInput   cm                 = ((CompilationImpl) c.getCompilation()).get(input); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-		final File               f                  = cm.fileOf();
+		final CM_CompilerInput cm      = ((Compilation) c.getCompilation()).get(input); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+//		final Elevated_CM_Factory mf = ((Compilation) c).modelFactory();
+//		mf.resourceDir()
+		final File             f       = cm.fileOf();
 
 		if (input.isEzFile()) {
 			if (input.isNull()) {

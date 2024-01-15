@@ -16,6 +16,7 @@ import tripleo.elijah.util.*;
 
 import java.io.*;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.regex.*;
 
 import tripleo.elijah.util2.UnintendedUseException;
@@ -129,4 +130,6 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 	public static boolean isEzFile(String aFileName) {
 		return Pattern.matches(".+\\.ez$", aFileName);
 	}
+
+//	public abstract void process_query2(CompilationClosure cc, Consumer<Operation<EzSpec>> cb);
 }

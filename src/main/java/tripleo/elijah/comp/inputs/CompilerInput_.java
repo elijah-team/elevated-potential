@@ -184,4 +184,8 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 		// aback and forth
 		return inp;
 	}
+
+	public Optional<Compilation> getOc() {
+		return oc;
+	}
 }

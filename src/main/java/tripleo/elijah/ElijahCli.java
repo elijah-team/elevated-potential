@@ -44,26 +44,8 @@ public class ElijahCli {
 		this.__calledFeedCmdLine = true;
 
 		final CompilerController controller = new DefaultCompilerController(((CompilationImpl)comp).getCompilationAccess3());
-
-/*
-		final List<CompilerInput> inputs = args.stream()
-		                                       .map((String s) -> {
-			                                       final CompilerInput input = new CompilerInput_(s);
-
-			                                       if (s.startsWith("-")) {
-				                                       input.setArg();
-			                                       } else {
-				                                       // TODO 09/24 check this
-				                                       input.setSourceRoot();
-			                                       }
-
-			                                       return input;
-		                                       }).collect(Collectors.toList());
-
-		assert Objects.equals(inputs, stringListToInputList(args));
-*/
-
-		@NotNull final List<CompilerInput> inputs = stringListToInputList(args);
+		final @NotNull List<CompilerInput> inputs = stringListToInputList(args);
+		
 		comp.feedInputs(inputs, controller);
 	}
 

@@ -7,6 +7,7 @@ import tripleo.elijah.comp.Finally_;
 import tripleo.elijah.comp.Finally_Input;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
 import tripleo.elijah.comp.inputs.CompilerInput;
+import tripleo.elijah.comp.specs.EzSpec;
 import tripleo.elijah.nextgen.outputtree.EOT_Nameable;
 import tripleo.elijah.util.Maybe;
 import tripleo.wrap.File;
@@ -18,28 +19,29 @@ public class CM_CompilerInput implements EOT_Nameable {
 	private       File                             dir_carrier;
 	private       String                           hash;
 	private       Maybe<ILazyCompilerInstructions> accept_ci;
+	private       EzSpec                           spec;
 
 	public CM_CompilerInput(final CompilerInput aCompilerInput, final Compilation aCompilation) {
 		carrier = aCompilerInput;
 		comp    = aCompilation;
 	}
 
+	//public void setSourceRoot() {
+	//	ty = CompilerInput.Ty.SOURCE_ROOT;
+	//}
+
 	public boolean inpSameAs(final String aS) {
 		return aS.equals(this.carrier.getInp());
 	}
 
-	//public void setSourceRoot() {
-	//	ty = CompilerInput.Ty.SOURCE_ROOT;
+	//public void setArg() {
+	//	ty = CompilerInput.Ty.ARG;
 	//}
 
 	public void setDirectory(final File aF) {
 		ty          = CompilerInput.Ty.SOURCE_ROOT;
 		dir_carrier = aF;
 	}
-
-	//public void setArg() {
-	//	ty = CompilerInput.Ty.ARG;
-	//}
 
 	public void accept_hash(final String aHash) {
 		this.hash = aHash;
@@ -69,8 +71,8 @@ public class CM_CompilerInput implements EOT_Nameable {
 	}
 
 	public File fileOf() {
-		final String inp1 = this.getNameableString();
-		return new File(inp1);
+		final String specifiedFilePath = this.getNameableString();
+		return new File(specifiedFilePath);
 	}
 
 	public void onIsEz() {
@@ -91,5 +93,13 @@ public class CM_CompilerInput implements EOT_Nameable {
 
 	public CompilerInput.Ty getTy() {
 		return ty;
+	}
+
+	public void advise(final EzSpec aSpec) {
+		this.spec = aSpec;
+		ty = null;//aSpec.
+		dir_carrier = null;
+		hash = null;
+		accept_ci = null;
 	}
 }

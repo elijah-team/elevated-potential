@@ -3,11 +3,13 @@ package tripleo.elijah.comp.nextgen.wonka;
 import com.google.common.base.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
+import java.util.function.Consumer;
 
 import tripleo.wrap.File;
 
@@ -26,6 +28,11 @@ public class CK_SourceFile__SpecifiedElijahFile extends __CK_SourceFile__Abstrac
 		//super.asserverate();
 
 		return oci;
+	}
+
+	@Override
+	public void process_query2(final CompilationClosure cc, final Consumer<Operation<OS_Module>> cb) {
+		process_query(cc.io(), null);
 	}
 
 	private Operation2<OS_Module> process_query(final IO io, final @NotNull ElijahCache aElijahCache) {

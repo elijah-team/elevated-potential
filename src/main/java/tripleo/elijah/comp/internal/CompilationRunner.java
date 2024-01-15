@@ -104,7 +104,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 				final CR_State                  crState1               = this.getCrState();
 
 				// assert !(started);
-				if (CB_StartCompilationRunnerAction.isStarted()) {
+				if (startAction.isStarted()) {
 					//throw new AssertionError();
 					SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + startAction);
 				} else {
@@ -141,5 +141,11 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
 			}
 		}
+	}
+
+	@Override
+	public @Nullable CR_State getCrState() {
+		// back and forth
+		return this.crState;
 	}
 }

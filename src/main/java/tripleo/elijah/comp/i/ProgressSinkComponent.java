@@ -15,7 +15,7 @@ public enum ProgressSinkComponent {
 	}, DefaultCompilationBus {
 		@Override
 		public boolean isPrintErr(final IProgressSink.Codes aCode, final int aType) {
-			return false;
+			return true;
 		}
 
 		@Override

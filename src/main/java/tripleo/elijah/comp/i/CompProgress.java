@@ -3,8 +3,10 @@ package tripleo.elijah.comp.i;
 import org.apache.commons.lang3.tuple.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.inputs.CompilerInput;
+import tripleo.elijah.comp.inputs.CompilerInput_;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.util.*;
 
 import java.io.*;
@@ -49,6 +51,10 @@ public enum CompProgress {
 			out.printf("[-- Ez CIL change ] %s %s%n", i, i.ty());
 
 			final CompilerInstructions_Result            directoryResult1 = i.getDirectoryResults();
+
+			final CM_CompilerInput cmi = ((CompilerInput_) i).getOc().get().get(i);
+			final String           str = cmi.getNameableString();
+
 			if (directoryResult1 != null) {
 				final List<Operation2<CompilerInstructions>> directoryResult2 = directoryResult1.getDirectoryResult();
 
