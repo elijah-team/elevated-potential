@@ -25,7 +25,7 @@
 //
 //package com.cloudogu.blog;
 //
-//import com.github.mustachejava.DefaultMustacheFactory;
+////import com.github.mustachejava.DefaultMustacheFactory;
 //import com.github.mustachejava.Mustache;
 //import com.github.mustachejava.MustacheFactory;
 //import org.jetbrains.annotations.NotNull;
@@ -50,16 +50,16 @@
 //
 //	private static final String TEMPLATE = "com/cloudogu/blog/jsonwriter.mustache";
 //
-//	private final Mustache template;
+////	private final Mustache template;
 //
 //	public ToJsonProcessor() {
-//		this.template = createTemplate();
+////		this.template = createTemplate();
 //	}
 //
-//	private Mustache createTemplate() {
-//		MustacheFactory factory = new DefaultMustacheFactory();
-//		return factory.compile(TEMPLATE);
-//	}
+////	private Mustache createTemplate() {
+////		MustacheFactory factory = new DefaultMustacheFactory();
+////		return factory.compile(TEMPLATE);
+////	}
 //
 //	@Override
 //	public boolean process(@NotNull Set<? extends TypeElement> annotations, @NotNull RoundEnvironment roundEnv) {
@@ -78,8 +78,8 @@
 //	private void processJsonObject(Element element) throws IOException {
 //		if (isTypeElement(element)) {
 //			TypeElement typeElement = (TypeElement) element;
-//			Scope       scope       = createModel(typeElement);
-//			writeJsonWriterClass(element, scope);
+////			Scope       scope       = createModel(typeElement);
+////			writeJsonWriterClass(element, scope);
 //		}
 //	}
 //
@@ -87,22 +87,22 @@
 //		processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "failed to write extension file: " + e.getMessage());
 //	}
 //
-//	private void writeJsonWriterClass(Element element, @NotNull Scope scope) throws IOException {
-//		Filer          filer      = processingEnv.getFiler();
-//		JavaFileObject fileObject = filer.createSourceFile(scope.getTargetClassNameWithPackage(), element);
-//		try (Writer writer = fileObject.openWriter()) {
-//			template.execute(writer, scope);
-//		}
-//	}
-//
-//	private @NotNull Scope createModel(@NotNull TypeElement element) {
-//		String packageName     = getPackageName(element);
-//		String sourceClassName = getSimpleNameAsString(element);
-//
-//		Scope scope = new Scope(packageName, sourceClassName);
-//		appendFields(element, scope);
-//		return scope;
-//	}
+////	private void writeJsonWriterClass(Element element, @NotNull Scope scope) throws IOException {
+////		Filer          filer      = processingEnv.getFiler();
+////		JavaFileObject fileObject = filer.createSourceFile(scope.getTargetClassNameWithPackage(), element);
+////		try (Writer writer = fileObject.openWriter()) {
+////			template.execute(writer, scope);
+////		}
+////	}
+////
+////	private @NotNull Scope createModel(@NotNull TypeElement element) {
+////		String packageName     = getPackageName(element);
+////		String sourceClassName = getSimpleNameAsString(element);
+////
+////		Scope scope = new Scope(packageName, sourceClassName);
+////		appendFields(element, scope);
+////		return scope;
+////	}
 //
 //	private String getPackageName(@NotNull TypeElement classElement) {
 //		return ((PackageElement) classElement.getEnclosingElement()).getQualifiedName().toString();
@@ -116,13 +116,13 @@
 //		return element instanceof TypeElement;
 //	}
 //
-//	private void appendFields(TypeElement element, @NotNull Scope scope) {
-//		if (isTypeElement(element)) {
-//			for (String getterMethod : getAllGetterMethodNames(element)) {
-//				scope.addGetter(getterMethod);
-//			}
-//		}
-//	}
+////	private void appendFields(TypeElement element, @NotNull Scope scope) {
+////		if (isTypeElement(element)) {
+////			for (String getterMethod : getAllGetterMethodNames(element)) {
+////				scope.addGetter(getterMethod);
+////			}
+////		}
+////	}
 //
 //	private @NotNull List<String> getAllGetterMethodNames(TypeElement typeElement) {
 //		return processingEnv.getElementUtils().getAllMembers(typeElement)
