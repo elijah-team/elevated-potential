@@ -28,8 +28,7 @@ public final class H {
 
 		m.subscribe()
 		 .with((PW_PushWork item) -> {
-			 //System.out.println("Received item: " + item);
-
+			 System.out.println("Received item: " + item);
 			 item.handle(c.__pw_controller(), null);
 		 });
 

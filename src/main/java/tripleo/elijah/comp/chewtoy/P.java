@@ -67,7 +67,7 @@ public final class P {
 
 				@Override
 				public void handle(final PW_Controller pwc, final PW_PushWork otherInstance) {
-					System.err.println("777100 " + item);
+//					System.err.println("777100 " + item);
 				}
 
 				@Override

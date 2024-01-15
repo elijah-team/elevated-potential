@@ -86,41 +86,16 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	@Override
 	public void start(final CompilerInstructions aRootCI, @NotNull final GPipelineAccess pa) {
 		// FIXME only run once 06/16
-		if (startAction == null) {
-			startAction = new CB_StartCompilationRunnerAction(this, (IPipelineAccess) pa, aRootCI);
-			// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
-			cb.add(startAction.cb_Process());
-
-			// FIXME calling automatically for some reason?
-			final CB_Monitor                monitor           = cb.getMonitor();
-			final CompilerDriver            compilationDriver = ((IPipelineAccess) pa).getCompilationEnclosure().getCompilationDriver();
-			final Operation<CompilerDriven> ocrsd             = compilationDriver.get(CompilationAlways.Tokens.COMPILATION_RUNNER_START);
-
-			final @NotNull CB_Output cbOutput = startAction.getO();
-
-			switch (ocrsd.mode()) {
-			case SUCCESS -> {
-				final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
-				final CR_State                  crState1               = this.getCrState();
-
-				// assert !(started);
-				if (startAction.isStarted()) {
-					//throw new AssertionError();
-					SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + startAction);
-				} else {
-					CB_StartCompilationRunnerAction.enjoin(compilationRunnerStart,aRootCI, crState1, cbOutput);
-				}
-
-				monitor.reportSuccess(startAction, cbOutput);
-			}
-			case FAILURE, NOTHING -> {
-				monitor.reportFailure(startAction, cbOutput);
-				throw new IllegalStateException("Error");
-			}
-			}
-		} else {
-			assert false;
+		if (startAction != null) {
+//			assert false;
+			return;
 		}
+
+		startAction = new CB_StartCompilationRunnerAction(this, (IPipelineAccess) pa, aRootCI);
+		// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
+		//  24/01/14 aka notate is a injector, donchaknow
+		cb.add(startAction.cb_Process());
+		int y=2;
 	}
 
 	@Override
@@ -136,7 +111,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 
 		@Override
 		public void reportSuccess(final CB_Action action, final CB_Output output) {
-			NotImplementedException.raise_stop();
+//			NotImplementedException.raise_stop();
 			for (final CB_OutputString outputString : output.get()) {
 				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
 			}

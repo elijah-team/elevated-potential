@@ -98,9 +98,6 @@ public class OStageProcess implements RuntimeProcess {
 			ps.run(st, output);
 			return Operation.success(Ok.instance());
 		} catch (Exception ex) {
-			//Logger.getLogger(OStageProcess.class.getName()).log(Level.SEVERE, null, ex);
-			//ex.printStackTrace();
-			//throw new RuntimeException(ex);
 			return Operation.failure(ex);
 		}
 	}

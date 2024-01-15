@@ -111,6 +111,7 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 	private final @NotNull CK_Monitor          defaultMonitor;
 	private CPX_Signals              cpxSignals;
 	private CPX_RunStepsContribution _stepsContribution;
+	private CompilerInstructions ___rootCI;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
@@ -293,17 +294,20 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 	@Override
 	public CompilerInstructions getRootCI() {
 		final CompilerInstructions compilerInstructions = cci_listener._root();
-		if (compilerInstructions != null && __advisement == null) {
-			__advisement = compilerInstructions.profferCompilerInput();
+//		if (compilerInstructions != null && __advisement == null) {
+//			__advisement = compilerInstructions.profferCompilerInput();
+//		}
+
+		if (___rootCI != null) {
+			return ___rootCI;
+		} else {
+			return compilerInstructions;
 		}
-		return compilerInstructions;
 	}
 
 	@Override
 	public void setRootCI(CompilerInstructions rootCI) {
-		//cci_listener.id.root = rootCI;
-//		throw new UnintendedUseException("maybe we can just remove this??");
-		int y=2;
+		___rootCI = rootCI;
 	}
 
 	@Override
