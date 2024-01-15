@@ -29,6 +29,10 @@ public interface Finally {
 
 	void turnOutputOff(Outs aOut);
 
+	List<String> inputFilenames();
+
+	List<String> outputFilenames();
+
 	enum Out2 {
 		EZ, ELIJAH
 	}

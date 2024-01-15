@@ -5,6 +5,7 @@ import tripleo.elijah.nextgen.outputtree.EOT_Nameable;
 import tripleo.elijah.nextgen.outputtree.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Finally_ implements Finally {
 	@Override
@@ -80,6 +81,20 @@ public class Finally_ implements Finally {
 	@Override
 	public void turnOutputOff(final Outs aOut) {
 		outputOffs.add(aOut);
+	}
+
+	@Override
+	public List<String> inputFilenames() {
+		return finallyInputs.stream()
+				.map(i -> i.name())
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<String> outputFilenames() {
+		return outputs.stream()
+				.map(o -> o.name())
+				.collect(Collectors.toList());
 	}
 
 	public static class Output_ implements Output {
