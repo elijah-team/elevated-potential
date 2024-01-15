@@ -20,6 +20,8 @@ import tripleo.elijah.comp.chewtoy.PW_CompilerController;
 import tripleo.elijah.comp.graph.*;
 import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
+import tripleo.elijah.comp.graph.i.CK_Steps;
+import tripleo.elijah.comp.graph.i.CK_StepsContext;
 import tripleo.elijah.comp.graph.i.CM_Module;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
@@ -700,15 +702,16 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 				public void subscribeRunStepLoop(final CPX_RunStepLoop cp_RunStepLoop) {
 					// TODO 24/01/13 create process and rpc to it
 					Preconditions.checkNotNull(_stepsContribution);
-					var steps = _stepsContribution.steps();
-					var stepContext = _stepsContribution.stepsContext();
+					final CK_Steps        steps       = _stepsContribution.steps();
+					final CK_StepsContext stepContext = _stepsContribution.stepsContext();
+
 					compilationEnclosure.runStepsNow(steps, stepContext);
+					cp_RunStepLoop.notify_CPX_RunStepLoop(getErrSink(), getOutputTree(), getObjectTree());
 				}
 
 				@Override
 				public void signalRunStepLoop(final CompilerInstructions aRoot) {
-					getRunner().start(aRoot, pa()); // still eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-
+					getRunner().start(aRoot, pa()); // still eeeeeeeeeeeeeeeeee
 				}
 			};
 		}
