@@ -84,18 +84,17 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	}
 
 	@Override
-	public void start(final CompilerInstructions aRootCI, @NotNull final GPipelineAccess pa) {
+	public void start(final CompilerInstructions aRootCI, @NotNull final IPipelineAccess pa) {
 		// FIXME only run once 06/16
 		if (startAction != null) {
 //			assert false;
 			return;
 		}
 
-		startAction = new CB_StartCompilationRunnerAction(this, (IPipelineAccess) pa, aRootCI);
+		startAction = new CB_StartCompilationRunnerAction(this, pa, aRootCI);
 		// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
 		//  24/01/14 aka notate is a injector, donchaknow
 		cb.add(startAction.cb_Process());
-		int y=2;
 	}
 
 	@Override
