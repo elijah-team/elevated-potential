@@ -5,10 +5,15 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.comp.specs.EzCache;
+import tripleo.elijah.g.GCompilationRunner;
 import tripleo.elijah.g.GPipelineAccess;
 
-public interface ICompilationRunner {
-	void start(CompilerInstructions aRootCI, @NotNull GPipelineAccess pa);
+public interface ICompilationRunner extends GCompilationRunner {
+	default void start(CompilerInstructions aRootCI, @NotNull GPipelineAccess pa) {
+		start(aRootCI, (IPipelineAccess) pa);
+	}
+
+	void start(CompilerInstructions aRootCI, @NotNull IPipelineAccess pa);
 
 	@Nullable CR_State getCrState();
 
