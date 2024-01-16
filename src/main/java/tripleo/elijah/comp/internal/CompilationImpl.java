@@ -66,7 +66,6 @@ import tripleo.elijah_elevated.comp.model.Elevated_CM_Factory;
 import tripleo.elijah_elevated.comp.model.Elevated_CM_Module;
 import tripleo.wrap.File;
 
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.function.Supplier;
@@ -339,7 +338,7 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 	}
 
 	@Override
-	public Operation<Ok> hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
+	public void hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
 		if (DebugFlags._pancake_lcm_gate) {
 			final CompilerInstructions rootCI;
 			if (cis.isEmpty()) {
@@ -353,8 +352,6 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 			}
 
 			lcm.asv(rootCI, LCM_Event_RootCI.INSTANCE);
-
-			return Operation.success(Ok.instance());
 		} else {
 			if (cis.isEmpty()) {
 				setRootCI(cci_listener._root());
@@ -377,8 +374,6 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 				NotImplementedException.raise_stop();
 				//throw new UnintendedUseException();
 			}
-
-			return Operation.success(Ok.instance());
 		}
 	}
 
@@ -595,8 +590,8 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 	}
 
 	@Override
-	public Operation<Ok> hasInstructions2(@NotNull final List<CompilerInstructions> cis, @NotNull final IPipelineAccess pa) {
-		return hasInstructions(cis, pa());
+	public void hasInstructions2(@NotNull final List<CompilerInstructions> cis, @NotNull final IPipelineAccess pa) {
+		hasInstructions(cis, pa());
 	}
 
 	@Override
@@ -727,8 +722,13 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 
 				@Override
 				public void signalRunStepLoop(final CompilerInstructions aRoot) {
-					getRunner().start(aRoot, pa()); // still eeeeeeeeeeeeeeeeee
+					if (!started) {
+						getRunner().start(aRoot, pa()); // still eeeeeeeeeeeeeeeeee
+						started = true;
+					}
 				}
+
+				boolean started;
 			};
 		}
 		return cpxSignals;
