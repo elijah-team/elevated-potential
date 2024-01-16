@@ -37,7 +37,7 @@ public class CB_FindCIs implements CB_Action {
 		final CompilationClosure      cc       = st.ca().getCompilation().getCompilationClosure();
 
 		for (final CompilerInput input : cc.getCompilation().getInputs()) {
-			_processInput(cc, input);
+			_processInput(cc, input); // do st here?? eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 		}
 
 		// FIXME 24/01/14 Use Ule/Markers

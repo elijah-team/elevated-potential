@@ -27,7 +27,7 @@ public class DefaultObjectTree implements CK_ObjectTree {
 		switch (asseveration) {
 		case CI_PARSED ->  {
 			// TODO directoryList (or equiv) I guess
-			NotImplementedException.raise_stop();
+//			NotImplementedException.raise_stop(); // do st here ?? eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 		}
 		case ELIJAH_PARSED -> {
 			final CM_Module x = (CM_Module)o;
