@@ -31,6 +31,15 @@ public class ElijahTestCli {
 
 	public void feedCmdLine(final List<String> args) {
 		cli.feedCmdLine(args);
+/*
+		cli.getComp()
+		   .signals()
+		   .signalRunStepLoop(
+				   cli.getComp().getRootCI()
+		                     );
+
+		cp_RunStepLoop.notify_CPX_RunStepLoop(getErrSink(), getOutputTree(), getObjectTree());
+*/
 	}
 
 	public @NotNull List<CompilerInput> stringListToInputList(final @NotNull List<String> args) {

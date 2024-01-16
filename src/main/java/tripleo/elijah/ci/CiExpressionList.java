@@ -1,7 +1,7 @@
 package tripleo.elijah.ci;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.i.IExpression;
 
 import java.util.*;
 

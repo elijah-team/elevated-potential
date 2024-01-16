@@ -11,7 +11,6 @@ import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.process.CPX_RunStepsContribution;
 import tripleo.elijah.comp.process.CPX_Signals;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
@@ -36,7 +35,7 @@ public interface Compilation extends Compilation0 {
 
 	LivingRepo world2();
 
-	Operation<Ok> hasInstructions2(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
+	void hasInstructions2(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
 
 	@Override
 	IPipelineAccess pa();
@@ -60,7 +59,7 @@ public interface Compilation extends Compilation0 {
 	@NotNull
 	FluffyComp getFluffy();
 
-	Operation<Ok> hasInstructions(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
+	void hasInstructions(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
 
 	ModuleBuilder moduleBuilder();
 
