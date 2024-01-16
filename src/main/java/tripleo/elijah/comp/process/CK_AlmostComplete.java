@@ -9,7 +9,6 @@ import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 
 public class CK_AlmostComplete implements CK_Action {
-
 	@Override
 	public Operation<Ok> execute(final CK_StepsContext context1, final CK_Monitor aMonitor) {
 		final CD_CRS_StepsContext context           = (CD_CRS_StepsContext) context1;
@@ -19,5 +18,4 @@ public class CK_AlmostComplete implements CK_Action {
 		compilationRunner._cis().almostComplete();
 		return Operation.success(Ok.instance());
 	}
-
 }

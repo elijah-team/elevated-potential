@@ -59,24 +59,24 @@ public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 		final Operation<CompilerDriven> ocrsd             = compilationDriver.get(CompilationAlways.Tokens.COMPILATION_RUNNER_START);
 
 		switch (ocrsd.mode()) {
-			case SUCCESS -> {
-				final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
-				final CR_State                  crState                = compilationRunner.getCrState();
+		case SUCCESS -> {
+			final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
+			final CR_State                  crState                = compilationRunner.getCrState();
 
-				assert !isStarted();
-				if (isStarted()) {
-					//throw new AssertionError();
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + this);
-				} else {
-					startManager().enjoin(compilationRunnerStart, rootCI, crState, o);
-				}
+			assert !isStarted();
+			if (isStarted()) {
+				//throw new AssertionError();
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + this);
+			} else {
+				startManager().enjoin(compilationRunnerStart, rootCI, crState, o);
+			}
 
-				monitor.reportSuccess(this, o);
-			}
-			case FAILURE, NOTHING -> {
-				monitor.reportFailure(this, o);
-				throw new IllegalStateException("Error");
-			}
+			monitor.reportSuccess(this, o);
+		}
+		case FAILURE, NOTHING -> {
+			monitor.reportFailure(this, o);
+			throw new IllegalStateException("Error");
+		}
 		}
 	}
 

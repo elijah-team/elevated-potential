@@ -19,7 +19,6 @@ public class LCM_Event_RootCI implements LCM_Event {
 		final CompilerInstructions rootCI = (CompilerInstructions) aHandleEvent.obj();
 
 		try {
-//			c.c().setRootCI(rootCI);
 			c.cr().start(rootCI, c.c().pa());
 		} catch (Exception aE) {
 			aHandleEvent.lcm().exception(aHandleEvent, aE);
