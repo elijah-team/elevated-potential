@@ -6,11 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/PRJ.elevated-potential.dlog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/PRJ.elevated-potential.dlog.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/dlog.elevated-potential.dlog.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/elevated-potential.iml" filepath="$PROJECT_DIR$/.idea/modules/elevated-potential.iml" />
-      <module fileurl="file://$PROJECT_DIR$/elevated-potential.base.impl/elevated-potential-base-impl.iml" filepath="$PROJECT_DIR$/elevated-potential.base.impl/elevated-potential-base-impl.iml" />
-      <module fileurl="file://$PROJECT_DIR$/elevated-potential.core.api/elevated-potential-core-api.iml" filepath="$PROJECT_DIR$/elevated-potential.core.api/elevated-potential-core-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/xxx-elijah-core-api/elevated-potential-core-api-xxx.iml" filepath="$PROJECT_DIR$/xxx-elijah-core-api/elevated-potential-core-api-xxx.iml" />
-      <module fileurl="file://$PROJECT_DIR$/elevated-potential.core.impl/elevated-potential-core-impl.iml" filepath="$PROJECT_DIR$/elevated-potential.core.impl/elevated-potential-core-impl.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dlog/elevated-potential.dlog.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/elijah-core/elevated-potential.tripleo.elijah.core.test.iml" filepath="$PROJECT_DIR$/.idea/modules/elijah-core/elevated-potential.tripleo.elijah.core.test.iml" />
