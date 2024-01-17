@@ -6,9 +6,7 @@ import java.util.concurrent.Flow.Subscriber;
 
 import io.smallrye.mutiny.Multi;
 import tripleo.elijah.Eventual;
-import tripleo.elijah.comp.i.ICompilationBus;
-import tripleo.elijah.comp.i.IProgressSink;
-import tripleo.elijah.comp.i.ProgressSinkComponent;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pw.PW_Controller;
@@ -21,14 +19,31 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 	private final PW_PushWorkQueue wq;
 	private Multi<PW_PushWork> mm;
 	private Publisher<PW_PushWork> pp;
-	private final Eventual<Ok> abusingIt = new Eventual<>();
+	final Eventual<Ok> abusingIt = new Eventual<>();
 
 	PW_CompilerController(final CompilationImpl aC) {
 		compilation = aC;
 
 		// TODO 10/20 Make a start latch, then overcomplicate (Lifetime erl etc)
 		//  for now just return a "startable"
-		Startable task = compilation.con().askConcurrent(this, "[PW_CompilerController]");
+		var x = this;
+		var s = new CompFactory.StartableI() {
+			@Override
+			public void run() {
+				x.run();
+			}
+
+			@Override
+			public boolean isSignalled() {
+				return x.abusingIt.isResolved();
+			}
+
+			@Override
+			public String getThreadName() {
+				return "[PW_CompilerController]";
+			}
+		};
+		Startable task = compilation.con().askConcurrent(s);
 
 		wq = compilation.con().createWorkQueue();
 
@@ -53,13 +68,18 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 				poll.execute(this);
 			} else {
 				final CompilationEnclosure compilationEnclosure = compilation.getCompilationEnclosure();
-				final ICompilationBus compilationBus = compilationEnclosure.getCompilationBus();
-				final IProgressSink sink = compilationBus.defaultProgressSink();
-			    sink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
+				compilationEnclosure.waitCompilationRunner(cr -> {
+					final ICompilationBus compilationBus = cr.getCompilationEnclosure().getCompilationBus();
 
-				// README 10/20 fails everything after one failed poll
-			    // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-//				x = false;
+					assert compilationBus != null;
+
+					final IProgressSink sink = compilationBus.defaultProgressSink();
+					sink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
+
+					// README 10/20 fails everything after one failed poll
+					// eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+					//x = false;
+				});
 			}
 		}
 		final Publisher<PW_PushWork> publisher = new Publisher<>() {
