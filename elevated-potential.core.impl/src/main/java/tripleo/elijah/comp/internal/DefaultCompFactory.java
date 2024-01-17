@@ -100,9 +100,9 @@ class DefaultCompFactory implements CompFactory {
 	}
 
 	@Override
-	public Startable askConcurrent(final Runnable aRunnable, final String aThreadName) {
-		final Thread thread = new Thread(aRunnable);
-		thread.setName(aThreadName);
+	public Startable askConcurrent(final StartableI aRunnable) {
+		final Thread thread = new Thread(aRunnable::run);
+		thread.setName(aRunnable.getThreadName());
 		return new Startable() {
 			@Override
 			public void start() {
@@ -112,6 +112,11 @@ class DefaultCompFactory implements CompFactory {
 			@Deprecated @Override
 			public Thread stealThread() {
 				return thread;
+			}
+
+			@Override
+			public boolean isSignalled() {
+				return false;
 			}
 		};
 	}

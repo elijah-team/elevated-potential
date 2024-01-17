@@ -42,7 +42,15 @@ public interface CompFactory {
 
 	PW_PushWorkQueue createWorkQueue();
 
-	Startable askConcurrent(Runnable aRunnable, final String aThreadName);
+	Startable askConcurrent(StartableI aRunnable);
+
+	interface StartableI {
+		void run();
+
+		boolean isSignalled();
+
+		String getThreadName();
+	}
 
 	EOT_OutputTree createOutputTree();
 
