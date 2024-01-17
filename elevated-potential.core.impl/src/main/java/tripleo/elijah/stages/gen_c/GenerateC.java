@@ -1056,7 +1056,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 
 		if (fg.resultSink() != grs) {
 			// LOOK 09/28 dsfjklafhdjsklfhjdlfdhjlf
-			_ce().logProgress(CompProgress.GenerateC, Pair.of(9997, "fg.resultSink() != grs"));
+			_ce().logProgress(CompProgress.GenerateC, Pair.of(INTEGER_MARKER_CODES.RESULT_SINK_MISMATCH, "fg.resultSink() != grs"));
 		}
 
 		for (final EvaNode generatedNode : aNodes) {

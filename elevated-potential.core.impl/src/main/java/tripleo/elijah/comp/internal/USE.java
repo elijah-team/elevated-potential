@@ -156,7 +156,7 @@ public class USE {
 			int y=2;
 		}
 		if (!dir.isDirectory()) {
-			errSink.reportError("9997 Not a directory " + dir);
+			errSink.reportError(INTEGER_MARKER_CODES.USE_NOT_A_DIRECTORY, "Not a directory " + dir);
 			return;
 		}
 		//
