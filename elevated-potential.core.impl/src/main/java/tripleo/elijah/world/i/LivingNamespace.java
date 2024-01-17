@@ -4,10 +4,10 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.d.Stages;
 import tripleo.elijah.stages.garish.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.d.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 
 public interface LivingNamespace extends LivingNode {
