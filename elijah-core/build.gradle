@@ -51,7 +51,7 @@ dependencies {
 
     // http://xtext.github.io/xtext-gradle-plugin/xtend.html
     // https://stackoverflow.com/questions/23796404/could-not-find-method-compile-for-arguments-gradle
-    implementation 'org.eclipse.xtend:org.eclipse.xtend.lib:2.30.0'
+    implementation 'org.eclipse.xtend:org.eclipse.xtend.lib:2.33.0'
 
 //
 //    //spotlessLibVersion = "6.22.0"
