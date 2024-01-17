@@ -7,13 +7,13 @@ import tripleo.elijah.util.Maybe;
 import tripleo.wrap.File;
 
 public class CM_CompilerInput implements EOT_Nameable {
-	private final Compilation comp;
-	private final CompilerInput   carrier;
-	private       String          inp;
-	private CompilerInput.Ty ty;
-	private File dir_carrier;
-	private String                           hash;
-	private Maybe<ILazyCompilerInstructions> accept_ci;
+	private final Compilation                      comp;
+	private final CompilerInput                    carrier;
+	private       String                           inp;
+	private       CompilerInput.Ty                 ty;
+	private       File                             dir_carrier;
+	private       String                           hash;
+	private       Maybe<ILazyCompilerInstructions> accept_ci;
 
 	public CM_CompilerInput(final CompilerInput aCompilerInput, final Compilation aCompilation) {
 		carrier = aCompilerInput;
