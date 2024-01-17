@@ -1,55 +1,41 @@
 package tripleo.elijah.comp.internal;
 
 import lombok.Getter;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.impl.CC_SetSilent;
-import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static org.awaitility.Awaitility.await;
+import static tripleo.elijah.util.Helpers.List_of;
 
 public class DefaultCompilationBus implements ICompilationBus {
-	public static final int DEFUALT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG = 5757;
-	private final CB_Monitor _monitor;
+	private final @NotNull CB_Monitor        _monitor;
 	@Getter
-	private final @NotNull CompilerDriver    compilerDriver;
+	private final @NotNull CompilerDriver    _compilerDriver;
+	private final @NotNull IProgressSink     _defaultProgressSink;
 	private final @NotNull Compilation       c;
-	//	private final @NotNull List<CB_Process> _processes = new ArrayList<>();
-	//@SuppressWarnings("TypeMayBeWeakened")
-	private final          Queue<CB_Process> pq = new ConcurrentLinkedQueue<>();
-
-	private final @NotNull IProgressSink _defaultProgressSink;
-//	new IProgressSink() {
-//		@Override
-//		public void note(final Codes aCode, final @NotNull ProgressSinkComponent aProgressSinkComponent,
-//		                 final int aType, final Object[] aParams) {
-//			Stupidity.println_err_2(aProgressSinkComponent.printErr(aCode, aType, aParams));
-//		}
-//	};
+	private final @NotNull Queue<CB_Process> pq;
+	private final @NotNull List<CB_Process>  alreadyP;
 
 	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
 		c                    = (@NotNull Compilation) ace.getCompilationAccess().getCompilation();
+		pq                   = new ConcurrentLinkedQueue<>();
+		alreadyP             = new ArrayList<>();
 		_monitor             = new CompilationRunner.__CompRunner_Monitor();
 		_defaultProgressSink = new DefaultProgressSink();
-
-		compilerDriver = new CompilerDriver__(this);
-		ace.setCompilerDriver(compilerDriver);
+		_compilerDriver      = new CompilerDriver__(this);
+		ace.setCompilerDriver(_compilerDriver);
 	}
 
 	@Override
-	public IProgressSink defaultProgressSink() {
-		return _defaultProgressSink;
-	}
-
-	@Override
-	public CB_Monitor getMonitor() {
-		return _monitor;
+	public void add(final @NotNull CB_Action action) {
+		pq.add(new SingleActionProcess(action, "CB_FindStdLibProcess"));
 	}
 
 //	@Override public void addCompilerChange(Class<?> compilationChangeClass) {
@@ -64,22 +50,24 @@ public class DefaultCompilationBus implements ICompilationBus {
 //	}
 
 	@Override
-	public void add(final @NotNull CB_Action action) {
-		pq.add(new SingleActionProcess(action, "CB_FindStdLibProcess"));
-	}
-
-	@Override
 	public void add(final @NotNull CB_Process aProcess) {
 		pq.add(aProcess);
 	}
 
 	@Override
+	public IProgressSink defaultProgressSink() {
+		return _defaultProgressSink;
+	}
+
+	@Override
+	public CompilerDriver getCompilerDriver() {
+		// 24/01/04 back and forth
+		return this._compilerDriver;
+	}
+
+	@Override
 	public void inst(final @NotNull ILazyCompilerInstructions aLazyCompilerInstructions) {
-		_defaultProgressSink.note(
-				IProgressSink.Codes.LazyCompilerInstructions_inst,
-				ProgressSinkComponent.CompilationBus_,
-				-1,
-				new Object[]{aLazyCompilerInstructions.get()});
+		_defaultProgressSink.note(IProgressSink.Codes.LazyCompilerInstructions_inst, ProgressSinkComponent.CompilationBus_, -1, new Object[]{aLazyCompilerInstructions.get()});
 	}
 
 	@Override
@@ -92,21 +80,82 @@ public class DefaultCompilationBus implements ICompilationBus {
 		return pq.stream().toList();//_processes;
 	}
 
+	@Override
+	public CB_Monitor getMonitor() {
+		return _monitor;
+	}
+
+	@Override // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+	public void addCompilerChange(Class<?> class1) {
+		if (class1.isInstance(CompilationChange.class)) {
+			try {
+				final CompilationChange compilationChange = (CompilationChange) class1.getDeclaredConstructor(new Class[]{}).newInstance();
+				c.getCompilationEnclosure().getCompilationBus().option(compilationChange);
+			} catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+					 NoSuchMethodException e) {
+				throw new Error();
+			}
+		}
+	}
+
 	public void runProcesses() {
-		final Queue<CB_Process> procs       = pq;
-		final Startable         task        = this.c.con().askConcurrent(() -> __run_all_thread(procs), "[DefaultCompilationBus]");
+		final Queue<CB_Process> procs = pq;
+
+		final var xxx = this;
+		var s = new CompFactory.StartableI() {
+			@Override
+			public void run() {
+				// FIXME passing sh*t between threads (P.O.!)
+				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
+				long x = 0;
+				while (x < 12) {
+					final CB_Process poll = procs.poll();
+
+					if (poll != null) {
+						_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, new Object[]{poll.name()});
+						poll.execute(xxx);
+					} else {
+						_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
+						try {
+							Thread.sleep(500);
+//					x = 0; // who put this here?
+						} catch (InterruptedException aE) {
+							//throw new RuntimeException(aE);
+						}
+					}
+					++x;
+				}
+				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5789, new Object[]{});
+			}
+
+			@Override
+			public boolean isSignalled() {
+				return false;
+			}
+
+			@Override
+			public String getThreadName() {
+				return "[DefaultCompilationBus]";
+			}
+		};
+
+		final Startable         task  = this.c.con().askConcurrent(s);
 		task.start();
 
 		try {
 			// TODO 10/20 Remove this soon
 			final Thread thread = task.stealThread();
 
-			// FIXME 23/01/04 awaitlity
-			//await()
 			thread.join();//TimeUnit.MINUTES.toMillis(1));
 
+			await().atMost(5, TimeUnit.SECONDS).until(() -> {
+				return task.isSignalled();
+				//final Eventual<Ok> abusingIt = c.get_pw().abusingIt;
+				//return abusingIt.isResolved();
+			});
+
 			for (final CB_Process process : pq) {
-				logProgess(DEFUALT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
+				logProgess(INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
 				execute_process(this, process);
 			}
 
@@ -117,7 +166,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 	}
 
 	private void logProgess(final int code, final String message) {
-		SimplePrintLoggerToRemoveSoon.println_out_4(""+code+" "+message);
+		SimplePrintLoggerToRemoveSoon.println_out_4("" + code + " " + message);
 	}
 
 	private void execute_process(final DefaultCompilationBus ignoredADefaultCompilationBus, final CB_Process aProcess) {
@@ -125,32 +174,6 @@ public class DefaultCompilationBus implements ICompilationBus {
 		//Compilation.Cheat.executeCB_Action(aProcess);
 		if (alreadyP.contains(aProcess)) throw new Error();
 		alreadyP.add(aProcess);
-	}
-
-	List<CB_Process> alreadyP = new ArrayList<>();
-
-	private void __run_all_thread(final Queue<CB_Process> procs) {
-		// FIXME passing sh*t between threads (P.O.!)
-		_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
-		long x = 0;
-		while (x < 12) {
-			final CB_Process poll = procs.poll();
-
-			if (poll != null) {
-				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, DEFUALT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, new Object[]{poll.name()});
-				poll.execute(this);
-			} else {
-				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
-				try {
-					Thread.sleep(500);
-//					x = 0; // who put this here?
-				} catch (InterruptedException aE) {
-					//throw new RuntimeException(aE);
-				}
-			}
-			++x;
-		}
-		_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5789, new Object[]{});
 	}
 
 	static class SingleActionProcess implements CB_Process {
@@ -173,23 +196,5 @@ public class DefaultCompilationBus implements ICompilationBus {
 			return name;//"SingleActionProcess";
 		}
 
-	}
-
-	@Override // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-	public void addCompilerChange(Class<?> class1) {
-		if (class1.isInstance(CompilationChange.class)) {
-			try {
-				final CompilationChange compilationChange = (CompilationChange) class1.getDeclaredConstructor(new Class[]{}).newInstance();
-				c.getCompilationEnclosure().getCompilationBus().option(compilationChange);
-			} catch (InstantiationException | IllegalAccessException |InvocationTargetException | NoSuchMethodException e) {
-				throw new Error();
-			}
-		}
-	}
-
-	@Override
-	public CompilerDriver getCompilerDriver() {
-		// 24/01/04 back and forth
-		return this.compilerDriver;
 	}
 }

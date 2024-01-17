@@ -4,4 +4,6 @@ public interface Startable {
 	void start();
 
 	Thread stealThread();
+
+	boolean isSignalled();
 }
