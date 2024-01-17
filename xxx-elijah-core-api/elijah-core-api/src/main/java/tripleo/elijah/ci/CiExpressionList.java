@@ -1,18 +1,19 @@
 package tripleo.elijah.ci;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
 
 import java.util.*;
 
 public interface CiExpressionList {
-	void add(IExpression aExpr);
+	void add(CiExpression aExpr);
 
-	@NotNull Collection<IExpression> expressions();
+	@NotNull Collection<CiExpression> expressions();
 
-	@NotNull Iterator<IExpression> iterator();
+	@NotNull Iterator<CiExpression> iterator();
 
-	@NotNull IExpression next(/*@NotNull*/ IExpression aExpr);
+	@NotNull CiExpression next(/*@NotNull*/ CiExpression aExpr);
+
+	int size();
 
 	@Override
 	String toString();

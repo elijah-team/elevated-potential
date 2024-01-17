@@ -8,61 +8,44 @@
  */
 package tripleo.elijah.ci_impl;
 
-import antlr.*;
-import org.jetbrains.annotations.*;
+import antlr.Token;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ci.CiExpression;
+import tripleo.elijah.ci.GenerateStatement;
+import tripleo.elijah.xlang.LocatableString;
 
-import com.google.common.base.Preconditions;
-
-import tripleo.elijah.ci.*;
-//import tripleo.elijah.g.GDirective;
-import tripleo.elijah.g.GDirective;
-import tripleo.elijah.lang.i.*;
-
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created 9/6/20 12:04 PM
  */
-public class GenerateStatementImpl implements GenerateStatement{
-	public class Directive implements GDirective {
-
-		private final IExpression expression;
-		private final String name;
-
-		public Directive(final @NotNull Token token_, final IExpression expression_) {
-			name = token_.getText();
-			expression = expression_;
-		}
-
-		public IExpression getExpression() {
-			return expression;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		@Override
-		public boolean sameName(String string) {
-			Preconditions.checkNotNull(string);
-			
-			return string.equals(getName());
-		}
+public class GenerateStatementImpl implements GenerateStatement {
+	@Override
+	public void addDirective(final @NotNull Token token, final CiExpression expression) {
+		dirs.add(new Directive(LocatableString.of(token), expression));
 	}
 
 	public final List<Directive> dirs = new ArrayList<Directive>();
 
-	@Override
-	public void addDirective(final @NotNull Token token, final IExpression expression) {
-		dirs.add(new Directive(token, expression));
-	}
+	//@Getter
+	public static class Directive {
+		private final          CiExpression    expression;
+		private final @NotNull LocatableString name;
 
-	@Override
-	public Stream<GDirective> dirStream() {
-		return dirs.stream()
-				.map(d -> (GDirective)d);
-	}
+		public Directive(final @NotNull LocatableString token_, final CiExpression expression_) {
+			name       = token_;
+			expression = expression_;
+		}
+
+		public boolean sameName(String aName) {
+			return this.name.sameString(aName);
+        }
+
+		public CiExpression getExpression() {
+			return this.expression;
+		}
+    }
 }
 
 //

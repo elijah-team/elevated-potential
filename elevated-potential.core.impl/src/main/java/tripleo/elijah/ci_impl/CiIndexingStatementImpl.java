@@ -1,46 +1,39 @@
-/*
- * Elijjah compiler, copyright Tripleo <oluoluolu+elijah@gmail.com>
- *
- * The contents of this library are released under the LGPL licence v3,
- * the GNU Lesser General Public License text was downloaded from
- * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
 package tripleo.elijah.ci_impl;
 
 import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.*;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.ci.CiExpressionList;
+import tripleo.elijah.ci.CiIndexingStatement;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.lang.i.OS_Module;
 
 /**
  * @author Tripleo
  * <p>
- * Created Apr 15, 2020 at 4:59:21 AM Created 1/8/21 7:19 AM
+ * Created 	Apr 15, 2020 at 4:59:21 AM
+ * Created 1/8/21 7:19 AM
  */
 public class CiIndexingStatementImpl implements CiIndexingStatement {
-	private final @NotNull CompilerInstructions parent;
-	@lombok.Setter
-	private                CiExpressionList     exprs;
-	@lombok.Setter
-	private                Token                name;
+	private CiExpressionList exprs;
+	private Token            name;
+	private final @Nullable CompilerInstructions parent;
 
-	public CiIndexingStatementImpl(final @NotNull CompilerInstructions module) {
+	public CiIndexingStatementImpl(final CompilerInstructions module) {
 		this.parent = module;
 	}
 
-	@Override
-	public void setExprs(CiExpressionList arg0) {
-		// 24/01/04 back and forth
-		this.exprs = arg0;
+	public CiIndexingStatementImpl(final OS_Module module) {
+		//this.parent = module;
+		this.parent = null;
 	}
 
 	@Override
-	public void setName(Token arg0) {
-		// 24/01/04 back and forth
-		this.name = arg0;
+	public void setExprs(final CiExpressionList el) {
+		this.exprs = el;
+	}
+
+	@Override
+	public void setName(final Token i1) {
+		this.name = i1;
 	}
 }
-
-//
-//
-//
