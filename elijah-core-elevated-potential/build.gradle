@@ -27,7 +27,7 @@ dependencies {
 
 //  implementation files( '../lib2/myapp-0.0.1-standalone.jar')
 
-  implementation 'org.clojure:clojure:1.10.3'
+  implementation 'org.clojure:clojure:1.11.1'
   implementation 'org.clojure:core.specs.alpha:0.2.62'
   implementation 'org.clojure:spec.alpha:0.2.194'
 
