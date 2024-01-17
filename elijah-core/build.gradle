@@ -19,7 +19,7 @@ repositories {
 dependencies {
 //    implementation 'eu.mihosoft.monacofx:monacofx:0.0.8'
 
-    implementation 'tripleo.elijah:elijah-core-api:2023.elevated-potential.4'
+    implementation 'tripleo.elijah:elijah-core-api:2023.11.elevated-potential.3'
 
     implementation 'tripleo.elijah:elijah-util:2023.elevated-potential.2b'
     implementation 'tripleo.elijah:elijah-ek:2023.elevated-potential.2'
