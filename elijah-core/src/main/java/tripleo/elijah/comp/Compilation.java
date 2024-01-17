@@ -2,17 +2,14 @@ package tripleo.elijah.comp;
 
 import io.reactivex.rxjava3.core.Observer;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.CM_Ez;
 import tripleo.elijah.comp.graph.i.CM_Module;
-import tripleo.elijah.comp.i.LCM_CompilerAccess;
-import tripleo.elijah.comp.i.USE_Reasoning;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal.CIS;
-import tripleo.elijah.comp.internal.CompilationRunner;
+import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.nextgen.CP_Paths;
+import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
@@ -112,18 +109,11 @@ public interface Compilation extends Compilation0 {
 		public          boolean silent   = false;
 
 		@Override
-		public void setDo_out(final boolean b) {
-			throw new UnintendedUseException();
-		}
-		@Override
-		public void setShowTree(final boolean b) {
-			showTree = b;
-		}
-
-		@Override
 		public void setSilent(final boolean b) {
 			silent = b;
 		}
 
 	}
+
+	CPX_Signals signals();
 }

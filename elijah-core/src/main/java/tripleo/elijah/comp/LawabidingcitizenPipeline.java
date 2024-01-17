@@ -18,7 +18,7 @@ public class LawabidingcitizenPipeline extends PipelineMember implements GPipeli
 	}
 
 	@Override
-	public void run(final CR_State aSt, final CB_Output aOutput) throws Exception {
+	public void run(final CR_State aSt, final CB_Output aOutput) {
 		try {
 			final Compilation compilation = pa.getCompilation();
 			i.run(compilation);

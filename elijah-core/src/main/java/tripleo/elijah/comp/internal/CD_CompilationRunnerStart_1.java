@@ -51,6 +51,11 @@ public class CD_CompilationRunnerStart_1 implements CD_CompilationRunnerStart {
 		compilationEnclosure.runStepsNow(steps, stepContext);
 	}
 
+	public List<Operation<Ok>> getCrActionResultList() {
+		// 24/01/04 back and forth
+		return this.crActionResultList;
+	}
+
 }
 
 //

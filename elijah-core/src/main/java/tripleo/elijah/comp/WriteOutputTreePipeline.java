@@ -4,7 +4,6 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.g.*;
 import tripleo.elijah.nextgen.*;

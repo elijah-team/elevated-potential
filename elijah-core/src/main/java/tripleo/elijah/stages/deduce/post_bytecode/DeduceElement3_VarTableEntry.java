@@ -139,7 +139,8 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 		}
 	}
 
-	private void __zero_potential__1(final @NotNull EvaContainer.VarTableEntry varTableEntry,
+	private void __zero_potential__1(
+			final @NotNull EvaContainer.VarTableEntry varTableEntry,
 			final @NotNull NormalTypeName aNormalTypeName) {
 		// 0. preflight
 		if (aNormalTypeName.isNull())

@@ -140,4 +140,9 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 			}
 		}
 	}
+
+	public CR_State getCrState() {
+		// 24/01/04 back and forth
+		return this.crState;
+	}
 }

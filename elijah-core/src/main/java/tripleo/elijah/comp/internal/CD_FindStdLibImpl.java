@@ -5,7 +5,8 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.nextgen.CP_Path;
+
+import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.impl.CK_SourceFileFactory;
 import tripleo.elijah.g.GCR_State;
 import tripleo.elijah.util.*;
@@ -29,8 +30,8 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 		final CompilationRunner           compilationRunner = crState.runner();
 		final @NotNull CompilationClosure cc                = compilationRunner._accessCompilation().getCompilationClosure();
 		var                               slr               = cc.getCompilation().paths().stdlibRoot();
-		var                               pl                = slr.child("lib-" + aPreludeName);
-		CP_Path                           sle               = pl.child("stdlib.ez");
+		var     pl  = slr.child("lib-" + aPreludeName);
+		CP_Path sle = pl.child("stdlib.ez");
 
 		@NotNull Operation2<CompilerInstructions> result = null;
 		try {

@@ -11,7 +11,6 @@ import tripleo.elijah.util.*;
 import java.util.*;
 
 public class DefaultCompilerController implements CompilerController {
-	List<String>        args;
 	ICompilationBus     cb;
 	List<CompilerInput> inputs;
 	private Compilation c;
@@ -97,7 +96,7 @@ public class DefaultCompilerController implements CompilerController {
 		c.getFluffy().checkFinishEventuals();
 	}
 
-	public class _DefaultCon implements Con {
+	public static class _DefaultCon implements Con {
 		@Override
 		public CompilationRunner newCompilationRunner(final ICompilationAccess compilationAccess) {
 			final CR_State          crState = new CR_State(compilationAccess);

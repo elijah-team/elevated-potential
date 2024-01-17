@@ -10,7 +10,7 @@ package tripleo.elijah.comp.internal;
 
 import com.google.common.base.Preconditions;
 import io.reactivex.rxjava3.core.Observer;
-import lombok.Getter;
+//import lombok.Getter;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.*;
@@ -26,8 +26,9 @@ import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
 import tripleo.elijah.comp.impl.LCM_Event_RootCI;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.nextgen.CP_Paths;
 import tripleo.elijah.comp.nextgen.CP_Paths__;
+import tripleo.elijah.comp.nextgen.i.CPX_CalculateFinishParse;
+import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
 import tripleo.elijah.comp.nextgen.pw.PW_Controller;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
@@ -57,15 +58,15 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private final List<Triple<CN_CompilerInputWatcher.e, CompilerInput, Object>> _ciw_buffer;
 
 	private final FluffyCompImpl                                                 _fluffyComp;
-	@Getter
+//	@Getter
 	private final CompilationConfig                   cfg;
-	@Getter
+//	@Getter
 	private final CompilationEnclosure                compilationEnclosure;
-	@Getter
+//	@Getter
 	private final CIS                                 _cis;
-	@Getter
-	private final CK_Monitor                          defaultMonitor;
-	@Getter
+//	@Getter
+//	private final CK_Monitor                          defaultMonitor;
+//	@Getter
 	private final USE                                 use;
 	private final CompFactory                         _con;
 	private final LivingRepo                          _repo;
@@ -91,10 +92,13 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private       boolean                             _inside;
 	private       CompilerInput                       __advisement;
 	private       ICompilationAccess3                 aICompilationAccess3;
+	private @NotNull CK_Monitor defaultMonitor;
+	private CPX_Signals cpxSignals;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
 		io                   = aIo;
+		_con                 = new DefaultCompFactory(this);
 		lcm                  = new LCM(this);
 		specToModuleMap      = new HashMap<>();
 		moduleToCMMap        = new HashMap<>();
@@ -106,7 +110,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		use                  = new USE(this.getCompilationClosure());
 		_cis                 = new CIS();
 		paths                = new CP_Paths__(this);
-		_con                 = new DefaultCompFactory(this);
+		pathsEventual.resolve(paths);
 		_repo                = _con.getLivingRepo();
 		compilationEnclosure = new DefaultCompilationEnclosure(this);
 		defaultMonitor       = _con.createCkMonitor();
@@ -313,11 +317,6 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	@Override
-	public int instructionCount() {
-		throw new UnintendedUseException();
-	}
-
-	@Override
 	public boolean isPackage(@NotNull final String pkg_name) {
 		return world().isPackage(pkg_name);
 	}
@@ -395,6 +394,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public CP_Paths paths() {
+//		assert /*m*/paths != null;
 		return paths;
 	}
 
@@ -633,6 +633,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	public CP_Paths _paths() {
+		assert paths != null;
 		return paths;
 	}
 
@@ -699,6 +700,36 @@ public class CompilationImpl implements Compilation, EventualRegister {
 			throw new UnintendedUseException();
 		}
 	}
+
+	@Override
+	public CompilationEnclosure getCompilationEnclosure() {
+		// TODO Auto-generated method stub
+		return compilationEnclosure;
+	}
+
+	public CK_Monitor getDefaultMonitor() {
+		// TODO Auto-generated method stub
+		return this.defaultMonitor;
+	}
+
+	@Override
+	public CPX_Signals signals() {
+		if(cpxSignals == null) {
+			cpxSignals = new CPX_Signals() {
+				
+				@Override
+				public void subscribeCalculateFinishParse(CPX_CalculateFinishParse cp_OutputPath) {
+					pathsEventual.then(paths1 -> {
+						paths1.subscribeCalculateFinishParse(cp_OutputPath);
+					});
+				}
+			};
+		}
+		return cpxSignals;
+	}
+	
+	private Eventual<CP_Paths> pathsEventual = new Eventual<>();
+	
 }
 
 //

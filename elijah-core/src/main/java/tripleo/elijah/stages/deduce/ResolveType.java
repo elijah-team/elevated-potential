@@ -10,6 +10,8 @@
 package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.*;
+
+import tripleo.elijah.DebugFlags;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -52,6 +54,7 @@ public enum ResolveType {
 					throw new NotImplementedException();
 			}
 			if (best == null) {
+				assert DebugFlags.NEVER_REACHED_BY_IDE;
 				throw new ResolveError(IdentExpressionImpl.forString(typeName), lrl);
 			}
 			aR.setResolved(((ClassStatement) best).getOS_Type());

@@ -95,8 +95,10 @@ public class DTR_VariableStatement {
 			}
 		} else if (eh instanceof DeduceElement3Holder) {
 			NotImplementedException.raise();
-		} else
+		} else {
+			assert dt2 != null; // README 12/29 born to fail
 			genType.setTypeName(dt2._inj().new_OS_UserType(normalTypeName));
+		}
 	}
 
 	private /* static */ void normalTypeName_generic_butNotNull_resolveToGeneric(final @NotNull GenType genType,

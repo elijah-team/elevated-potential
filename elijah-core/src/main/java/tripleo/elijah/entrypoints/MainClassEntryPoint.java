@@ -66,6 +66,11 @@ public class MainClassEntryPoint implements EntryPoint {
 	public FunctionDef getMainFunction() {
 		return main_function;
 	}
+
+	public @NotNull ClassStatement getKlass() {
+		// 24/01/04 back and forth
+		return this.klass;
+	}
 }
 
 //

@@ -2,6 +2,10 @@ package tripleo.elijah.stages.gen_c.c_ast1;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import tripleo.elijah.comp.Finally_;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.stages.gen_fn.EvaClass;
 import tripleo.elijah.stages.gen_fn.EvaContainerNC;
 import tripleo.elijah.stages.gen_fn.EvaNamespace;
@@ -15,7 +19,8 @@ public class C_HeaderString {
 			final @NotNull String args_string, final @NotNull ElLog LOG) {
 		final String class_name0 = classNameSupplier.get();
 
-		if (false) {
+		@NotNull Compilation c = (@NotNull Compilation) aEvaClass.getElement().getContext().module().getCompilation();
+		if (c.reports().outputOn(Finally_.Outs.Out_999022)) {
 			LOG.info("234 class_name >> " + class_name0);
 		}
 

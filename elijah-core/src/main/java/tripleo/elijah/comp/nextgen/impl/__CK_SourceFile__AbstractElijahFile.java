@@ -11,13 +11,15 @@ import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.util.*;
 
-import tripleo.wrap.File;
 import java.util.*;
 import java.util.regex.*;
 
+import tripleo.wrap.File;
+
+@SuppressWarnings("rawtypes")
 abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {
 //	private final __CK_SourceFile__AbstractElijjahFile CKSourceFile__abstractElijahFile;
-	protected Compilation  compilation;
+	protected CK_GlobalRef compilation;
 	protected CompilerInput input;
 
 //	public __CK_SourceFile__AbstractElijjahFile(final __CK_SourceFile__AbstractElijjahFile aCKSourceFile__abstractElijahFile) {
@@ -57,18 +59,18 @@ abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {
 	}
 
 	public Operation2<OS_Module> realParseElijahFile(final ElijahSpec spec, final ElijahCache cache) {
-		return realParseElijahFile(spec, cache, compilation);
+		return realParseElijahFile(spec, cache, compilation.asCompilation());
 	}
 
 	@Override
 	public void associate(final CompilationClosure aCc) {
-		compilation = (Compilation) aCc.getCompilation();
+		compilation = (CK_GlobalRef) aCc.getCompilation();
 	}
 
 	@Override
 	public void associate(final CompilerInput aInput, final CompilationClosure aCc) {
 		input       = aInput;
-		compilation = (Compilation) aCc.getCompilation();
+		compilation = (CK_GlobalRef) aCc.getCompilation();
 	}
 
 	@Override
@@ -78,12 +80,12 @@ abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {
 
 	@Override
 	public EIT_Input input() {
-		throw new UnintendedUseException();
+		throw new UnintendedUseException("TODO 12/?? implement me");
 	}
 
 	@Override
 	public EOT_OutputFile output() {
-		throw new UnintendedUseException();
+		throw new UnintendedUseException("TODO 12/?? implement me");
 	}
 
 	//protected void asserverate() {

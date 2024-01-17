@@ -2,8 +2,9 @@ package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.nextgen.CP_Path;
+
 import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
+import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.util.Operation;
 
 import java.io.FileNotFoundException;
