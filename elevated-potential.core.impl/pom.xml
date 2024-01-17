@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-<parent>
-        <groupId>tripleo.elijah</groupId>
-        <artifactId>elevated-potential</artifactId>
-        <version>elevated.2024-01</version>
-</parent>
+	<parent>
+		<groupId>tripleo.elijah</groupId>
+		<artifactId>elevated-potential</artifactId>
+		<version>elevated.2024-01</version>
+	</parent>
 	<artifactId>elevated-potential-core-impl</artifactId>
-	<version>2024.elevated-potential.1</version>
+	<version>elevated.2024-01</version>
 
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
@@ -36,18 +36,16 @@
 			<version>elevated.2024-01</version>
 			<scope>compile</scope>
 		</dependency>
-<!--
 		<dependency>
 			<groupId>tripleo.elijah</groupId>
 			<artifactId>elevated-potential-core-api-xxx</artifactId>
-			<version>2024.elevated-potential.1</version>
+			<version>elevated.2024-01</version>
 			<scope>compile</scope>
 		</dependency>
--->
 		<dependency>
 			<groupId>tripleo.elijah</groupId>
 			<artifactId>elevated-potential-core-api</artifactId>
-			<version>2024.elevated-potential.1</version>
+			<version>elevated.2024-01</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
