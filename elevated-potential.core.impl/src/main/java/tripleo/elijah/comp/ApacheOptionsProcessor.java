@@ -12,8 +12,8 @@ import tripleo.vendor.org_apache_commons_cli.*;
 import java.util.List;
 
 public class ApacheOptionsProcessor implements OptionsProcessor {
-	private final CommandLineParser clp = new DefaultParser();
-	private final Options options = new Options();
+	private final CommandLineParser clp     = new DefaultParser();
+	private final Options           options = new Options();
 
 	@Contract(pure = true)
 	public ApacheOptionsProcessor() {

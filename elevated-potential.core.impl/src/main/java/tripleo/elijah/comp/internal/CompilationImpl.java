@@ -52,8 +52,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CompilationImpl implements Compilation, EventualRegister {
-	private final List<CN_CompilerInputWatcher> _ciws;
-	private final Map<CompilerInput, CM_CompilerInput>                           _ci_models;
+	private final List<CN_CompilerInputWatcher>        _ciws;
+	private final Map<CompilerInput, CM_CompilerInput> _ci_models;
 	private final List<Triple<CN_CompilerInputWatcher.e, CompilerInput, Object>> _ciw_buffer;
 
 	private final FluffyCompImpl                                                 _fluffyComp;
