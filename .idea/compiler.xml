@@ -13,7 +13,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="elevated-potential-core-api-xxx" />
         <module name="elevated-potential-base-impl" />
+        <module name="elevated-potential-core-api" />
         <module name="elevated-potential-core-impl" />
         <module name="elevated-potential-core-api0" />
       </profile>
