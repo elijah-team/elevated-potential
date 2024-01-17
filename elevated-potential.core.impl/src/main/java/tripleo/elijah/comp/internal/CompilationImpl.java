@@ -136,6 +136,11 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		}
 	}
 
+	@Override
+	public PW_CompilerController get_pw() {
+		return (PW_CompilerController) this.pw_controller;
+	}
+
 	public JarWork getJarwork() throws WorkException {
 		if (jarwork==null)jarwork = new JarWorkImpl();
 		return jarwork;

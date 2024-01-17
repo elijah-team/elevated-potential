@@ -11,22 +11,25 @@
  */
 package tripleo.elijah.comp;
 
-import org.apache.commons.lang3.tuple.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.diagnostic.*;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.diagnostic.Diagnostic;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author tripleo(sb)
  */
 public class StdErrSink implements ErrSink {
-
+	private final @NotNull List<Pair<Errors, Object>> _list = new ArrayList<>();
 	private int _errorCount;
 
-	@NotNull
-	List<Pair<Errors, Object>> _list = new java.util.ArrayList<>();
+	@Override
+	public void reportError(final int code, final String message) {
+		reportError("{{ErrSink::ERROR}} " + code + " " + message);
+	}
 
 	@Override
 	public int errorCount() {
@@ -61,16 +64,16 @@ public class StdErrSink implements ErrSink {
 	}
 
 	@Override
-	public void reportError(final String s) {
+	public void reportError(final String message) {
 		_errorCount++;
-		_list.add(Pair.of(Errors.ERROR, s));
-		System.err.printf("ERROR: %s%n", s);
+		_list.add(Pair.of(Errors.ERROR, message));
+		System.err.printf("ERROR: %s%n", message);
 	}
 
 	@Override
-	public void reportWarning(final String s) {
-		_list.add(Pair.of(Errors.WARNING, s));
-		System.err.printf("WARNING: %s%n", s);
+	public void reportWarning(final String message) {
+		_list.add(Pair.of(Errors.WARNING, message));
+		System.err.printf("WARNING: %s%n", message);
 	}
 }
 
