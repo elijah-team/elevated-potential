@@ -1,12 +1,12 @@
 package tripleo.elijah.ci_impl;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.ci.ExpressionKind;
+import tripleo.elijah.util2.UnintendedUseException;
 
 public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression {
-	private IExpression      _left;
+	private CiExpression      _left;
 	private CiExpressionList expressionList = new CiExpressionListImpl();
 
 	/**
@@ -45,7 +45,7 @@ public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression 
 	}
 
 	@Override
-	public IExpression getLeft() {
+	public CiExpression getLeft() {
 		return _left;
 	}
 
@@ -53,8 +53,8 @@ public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression 
 	 * @see #identifier()
 	 */
 	@Override
-	public void setLeft(final IExpression iexpression) {
-		_left = iexpression;
+	public void setLeft(final CiExpression CiExpression) {
+		_left = CiExpression;
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression 
 	 * @param xyz a method name might come as DotExpression or IdentExpression
 	 */
 	@Override
-	public void identifier(final IExpression xyz) {
+	public void identifier(final CiExpression xyz) {
 		setLeft(xyz);
 	}
 

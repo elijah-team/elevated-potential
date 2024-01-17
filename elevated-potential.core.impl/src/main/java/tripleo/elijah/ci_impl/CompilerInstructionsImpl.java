@@ -1,23 +1,14 @@
-/*
- * Elijjah compiler, copyright Tripleo <oluoluolu+elijah@gmail.com>
- *
- * The contents of this library are released under the LGPL licence v3,
- * the GNU Lesser General Public License text was downloaded from
- * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- */
 package tripleo.elijah.ci_impl;
 
-import antlr.*;
-import lombok.*;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jetbrains.annotations.*;
+import com.google.common.collect.Collections2;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.ci_impl.GenerateStatementImpl.Directive;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
-
-import tripleo.wrap.File;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.ci.cii.StringExpression;
+import tripleo.elijah.compiler_model.CM_Filename;
+import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.xlang.LocatableString;
 
 import java.util.*;
 
@@ -27,11 +18,9 @@ import java.util.*;
 public class CompilerInstructionsImpl implements CompilerInstructions {
 	public @NotNull List<LibraryStatementPart> lsps = new ArrayList<>();
 	private         CiIndexingStatement        _idx;
-	private         String                     filename;
+	private CM_Filename filename;
 	private         GenerateStatement          gen;
-	@Getter @Setter
 	private         String                     name;
-	private         CompilerInput              advised;
 
 	@Override
 	public void add(final GenerateStatement generateStatement) {
@@ -46,87 +35,41 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	}
 
 	@Override
-	public @Nullable String genLang() {
-		@SuppressWarnings("UnnecessaryLocalVariable") final Optional<String> genLang = gen.dirStream()
-				.filter(input -> input.sameName("gen"))
-				.findAny() // README if you need more than one, comment this out
-				.stream().map((gin0) -> {
-					final Directive   gin      = (Directive) gin0;
-					final IExpression lang_raw = gin.getExpression();
-
-					if (lang_raw instanceof final StringExpression langRaw) {
-						final String s = Helpers.remove_single_quotes_from_string(langRaw.getText());
-						return Optional.of(s);
-					} else {
-						return Optional.<String>empty();
-					}
-				})
-				.findFirst() // README here too
-//				.orElse(null);
-				.flatMap(x->x)
-				;
-//		if (genLang == null) return null;
-		if (genLang.isPresent())
-			return genLang.get();
-		else return null;
-// README 12/30 ewhynot just return the Optional??
+	public List<LibraryStatementPart> getLibraryStatementParts() {
+		return lsps;
 	}
 
 	@Override
-	public String getFilename() {
+	public Optional<String> genLang() {
+		Collection<GenerateStatementImpl.Directive> gens = Collections2.filter(((GenerateStatementImpl) gen).dirs, (GenerateStatementImpl.Directive directive) -> {
+            return directive.sameName("gen");
+        });
+		Iterator<GenerateStatementImpl.Directive> gi = gens.iterator();
+		if (!gi.hasNext()) return null;
+		CiExpression lang_raw = gi.next().getExpression();
+		assert lang_raw instanceof StringExpression;
+		String s = Helpers.remove_single_quotes_from_string(((StringExpression) lang_raw).getText());
+		return Optional.of(s);
+	}
+
+	@Override
+	public CM_Filename getFilename() {
 		return filename;
 	}
 
 	@Override
-	public void setFilename(final String filename) {
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public LocatableString getLocatableName() {
+		throw new UnintendedUseException("unsure");
+	}
+
+	@Override
+	public void setFilename(final CM_Filename filename) {
 		this.filename = filename;
-	}
-
-	@Override
-	public void setName(final String name) {
-
-	}
-
-	@Override
-	public void setName(final Token name) {
-
-	}
-
-	@Override
-	public Iterable<? extends LibraryStatementPart> getLibraryStatementParts() {
-		return lsps;
-	}
-
-	//@Override
-	//public void setName(String name) {
-	//	throw new UnintendedUseException(/*"24/01/03 what is this??"*/);
-	//	this.name = name;
-	//}
-
-	//@Override
-	//public void setName(@NotNull Token name) {
-	//	this.name = name.getText();
-	//}
-
-	//@Override
-	//public String getName() {
-	//	// README "12/30" eclipse specific
-	//	return name;
-	//}
-
-	@Override
-	public void advise(final CompilerInput aCompilerInput) {
-		advised = aCompilerInput;
-	}
-
-	@Override
-	public File makeFile() {
-		if (advised != null) {
-			return new File(advised.makeFile(), getFilename());
-		} else {
-			// TODO 12/30 Shouldn't we always have something advised?
-			return new File(getFilename());
-		}
 	}
 
 	@Override
@@ -138,17 +81,30 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	}
 
 	@Override
-	public String toString() {
-		return "CompilerInstructionsImpl{name='%s', filename='%s'}".formatted(name, filename);
+	public void setName(LocatableString name) {
+
 	}
 
 	@Override
-	public String getName() {
-		// 24/01/04 back and forth
-		return this.name;
+	public List<LibraryStatementPart> _lsps() {
+		return lsps;
+	}
+
+//	@Override
+//	public void setName(String name) {
+//		this.name = name;
+//	}
+//
+//	@Override
+//	public void setName(@NotNull Token name) {
+//		this.name = name.getText();
+//	}
+
+	@Override
+	public String toString() {
+		return "CompilerInstructionsImpl{" +
+				"name='" + name + '\'' +
+				", filename='" + filename + '\'' +
+				'}';
 	}
 }
-
-//
-//
-//
