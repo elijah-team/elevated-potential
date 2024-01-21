@@ -1,16 +1,5 @@
 package tripleo.elijah.comp.graph.i;
 
-//import tripleo.elijah.ci.LibraryStatementPart;
-//import tripleo.elijah.comp.Compilation0;
-//import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
-//import tripleo.elijah.comp.specs.ElijahSpec;
-//import tripleo.elijah.g.GLivingRepo;
-//import tripleo.elijah.g.GWorldModule;
-//import tripleo.elijah.lang.i.OS_Module;
-//import tripleo.elijah.util.Operation2;
-//
-//import java.io.InputStream;
-
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;

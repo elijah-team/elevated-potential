@@ -33,23 +33,25 @@ public enum CX_ParseEzFile {;
 			return Operation2.failure(new ExceptionDiagnostic(aE));
 		}
 		final CompilerInstructions instructions = parser.ci;
-		instructions.setFilename(CM_Factory.Filename__of(aAbsolutePath));
+		instructions.setFilename(aAbsolutePath);
 		return Operation2.success(instructions);
 	}
 
 	public static Operation2<CompilerInstructions> parseAndCache(final EzSpec aSpec,
 	                                                            final EzCache aEzCache,
 	                                                            final String absolutePath) {
-		final Operation2<CompilerInstructions> cio = calculate(aSpec.file_name(), aSpec.sis().get());
+		final Operation<InputStream> cis = aSpec.sis().get();
 
-		if (cio.mode() == Mode.SUCCESS) {
+		Operation2<CompilerInstructions> cio = null;
+		if (cis.mode() == Mode.SUCCESS) {
+			cio = calculate(aSpec.file_name(), cis.success());
 			final CompilerInstructions R = cio.success();
 			aEzCache.put(aSpec, absolutePath, R);
 
 			final CM_Ez cm = ((Compilation) aEzCache.getCompilation()).megaGrande(aSpec);
 			cm.advise(cio);
 			cm.advise(aEzCache.getCompilation().getObjectTree());
-		}
+		} else { cio = Operation2.failure(null);
 
 		return cio;
 	}
