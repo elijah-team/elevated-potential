@@ -1,0 +1,48 @@
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Gradle.gitlab-ci.yml
+
+image: maven:alpine
+
+#before_script:
+#  - GRADLE_USER_HOME="$(pwd)/.gradle"
+#  - export GRADLE_USER_HOME
+
+build:
+  stage: build
+  script: mvn package
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: push
+    paths:
+      - target
+      - .m2
+
+publish_job:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - mvn deploy
+
+release_job:
+  stage: deploy
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  needs:
+    - job: publish_job
+      artifacts: true
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: never ## removeme
+  script:
+    - echo "Releasing $TAG"
+  release:
+    name: 'Release v$TAG'
+    description: $CI_COMMIT_MESSAGE
+    tag_name: v$TAG
+    ref: $CI_COMMIT_SHA
+
+after_script:
+  - echo "End CI"
