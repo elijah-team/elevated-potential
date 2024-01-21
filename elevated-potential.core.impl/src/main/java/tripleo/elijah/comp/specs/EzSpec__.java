@@ -4,25 +4,19 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.diagnostic.ExceptionDiagnostic;
 
-import java.io.*;
-
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.Operation2;
-import tripleo.wrap.File;
-import java.util.Objects;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.function.Supplier;
 
-public final class EzSpec__ implements EzSpec {
-	private final           String                file_name;
-	private final           tripleo.wrap.File     file;
-	private final Supplier<Operation<InputStream>> sis;
+import tripleo.wrap.File;
 
-	public EzSpec__(final String aFileName, final tripleo.wrap.File aFile, final Supplier<Operation<InputStream>> aInputStreamSupplier) {
-		this.file_name = aFileName;
-		this.file      = aFile;
-		this.sis = aInputStreamSupplier;
-	}
+public record EzSpec__(
+		String file_name,
+		tripleo.wrap.File file,
+		Supplier<Operation<InputStream>> sois) implements EzSpec {
 
 	public static Operation2<EzSpec> of(final String aFileName, final File aFile, final Operation<InputStream> aInputStreamOperation) {
 		if (aInputStreamOperation.mode() == Mode.SUCCESS) {
@@ -51,44 +45,7 @@ public final class EzSpec__ implements EzSpec {
 	}
 
 	@Override
-	public String file_name() {
-		return file_name;
-	}
-
-	@Override
-	public File file() {
-		return file;
-	}
-
-	@Override
-	public Supplier<Operation<InputStream>> sis() {
-		return sis;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == this) return true;
-		if (obj == null || obj.getClass() != this.getClass()) return false;
-		var that = (EzSpec) obj;
-		return Objects.equals(this.file_name, that.file_name()) &&
-				Objects.equals(this.file, that.file()) &&
-				Objects.equals(this.sis, that.sis());
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(file_name, file, sis);
-	}
-
-	@Override
-	public String toString() {
-		return "EzSpec[" +
-				"file_name=" + file_name + ", " +
-				"file=" + file + ", " +
-				"sis=" + sis + ']';
+	public @Nullable Operation<InputStream> sis() {
+		return sois.get();
 	}
 }
-
-//
-//
-//

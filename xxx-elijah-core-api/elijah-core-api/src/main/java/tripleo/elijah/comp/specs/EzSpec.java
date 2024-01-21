@@ -4,7 +4,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
-import java.util.function.*;
+
 import tripleo.wrap.File;
 
 public interface EzSpec {
@@ -14,7 +14,7 @@ public interface EzSpec {
 
 	File file();
 
-	@Nullable Supplier<InputStream> sis();
+	@Nullable Operation<InputStream> sis();
 
 	@Override
 	boolean equals(Object obj);
