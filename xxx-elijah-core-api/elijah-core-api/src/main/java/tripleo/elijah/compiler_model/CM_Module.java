@@ -1,4 +1,4 @@
-package tripleo.elijah.comp.graph.i;
+package tripleo.elijah.compiler_model;
 
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.Compilation0;

@@ -3,6 +3,7 @@ package tripleo.elijah.nextgen.comp_model;
 import com.google.common.base.MoreObjects;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
+import tripleo.elijah.nextgen.outputtree.EOT_Nameable;
 import tripleo.elijah.util.Maybe;
 import tripleo.wrap.File;
 

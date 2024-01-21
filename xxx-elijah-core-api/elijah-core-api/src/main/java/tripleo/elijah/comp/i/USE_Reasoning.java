@@ -2,7 +2,7 @@ package tripleo.elijah.comp.i;
 
 import tripleo.elijah.ci.*;
 
-import tripleo.elijah.comp.graph.i.CM_Module;
+import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.wrap.File;
 
 public interface USE_Reasoning {
