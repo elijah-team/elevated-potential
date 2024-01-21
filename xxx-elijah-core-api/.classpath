@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-  <classpathentry kind="src" path="/home/fola/PRJ/elevated-potential#rolling+2024-0109c/xxx-model-status/src/main/java" including="**/*.java"/>
-  <classpathentry kind="src" path="/home/fola/PRJ/elevated-potential#rolling+2024-0109c/xxx-annotations/src/main/java" including="**/*.java"/>
+  <classpathentry kind="src" path="./xxx-model-status/src/main/java" including="**/*.java"/>
+  <classpathentry kind="src" path="./xxx-annotations/src/main/java" including="**/*.java"/>
   <classpathentry kind="src" path="elijah-core-api/src/main/java" including="**/*.java"/>
   <classpathentry kind="src" path="elijah-ek/src/main/java" including="**/*.java"/>
   <classpathentry kind="src" path="elijah-nextgen-outputstatement/src/main/java" including="**/*.java"/>

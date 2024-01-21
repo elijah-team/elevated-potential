@@ -13,7 +13,7 @@ import java.io.File;
  * @author Tripleo(sb)
  */
 public class IdentExpressionImpl implements IdentExpression {
-	private Token      text;
+	private final Token text;
 
 	public IdentExpressionImpl(final Token r1) {
 		this.text = r1;

@@ -1,13 +1,16 @@
 package tripleo.elijah.ci_impl;
 
-import tripleo.elijah.ci.*;
-import tripleo.elijah.compiler_model.*;
+import tripleo.elijah.ci.CiIndexingStatement;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.ci.GenerateStatement;
+import tripleo.elijah.ci.LibraryStatementPart;
+import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.xlang.LocatableString;
 import tripleo.elijah.util.ProgramMightBeWrongIfYouAreHere;
 
 public class CompilerInstructionsBuilderImpl implements CompilerInstructions.CompilerInstructionsBuilder {
 
-	private CompilerInstructionsImpl carrier = new CompilerInstructionsImpl();
+	private final CompilerInstructionsImpl carrier = new CompilerInstructionsImpl();
 
 	@Override
 	public CompilerInstructions build() {

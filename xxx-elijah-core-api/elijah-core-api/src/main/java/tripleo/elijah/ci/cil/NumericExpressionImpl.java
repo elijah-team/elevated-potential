@@ -15,7 +15,7 @@ import java.io.File;
 public class NumericExpressionImpl implements NumericExpression {
 
 	int     carrier;
-	private Token n;
+	private final Token n;
 
 	//public NumericExpressionImpl(final int aCarrier) {
 	//	carrier = aCarrier;

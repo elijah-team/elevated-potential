@@ -29,9 +29,6 @@ public abstract class ILazyCompilerInstructions_ {
 				// 4. Just return on success
 				// 5. Return null for failure
 
-				final CP_Path sr = cc.getCompilation().paths().sourcesRoot();
-				final CP_Path child1 = sr.child("00");
-
 				final CK_SourceFile<CompilerInstructions> sf = CK_SourceFileFactory.get(f, CK_SourceFileFactory.K.SpecifiedEzFile);
 				sf.associate(input, cc);
 				operation = sf.process_query();

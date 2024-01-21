@@ -5,8 +5,7 @@
 	<groupId>tripleo.elijah</groupId>
 	<artifactId>elevated-potential</artifactId>
 	<packaging>pom</packaging>
-	<version>elevated.2024-01</version>
-
+	<version>2024.elevated-potential.2</version>
 	<name>elevated-potential</name>
 	<url>http://github.com/elijah-lang/elevated-potential</url>
 
