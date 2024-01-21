@@ -24,8 +24,7 @@ import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink
 import tripleo.elijah.work.*;
 import tripleo.elijah.world.i.WorldModule;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class EIT_ModuleInputImpl implements EIT_ModuleInput {
@@ -104,9 +103,11 @@ public class EIT_ModuleInputImpl implements EIT_ModuleInput {
 	private String langOfModule() {
 		final LibraryStatementPart lsp  = module.getLsp();
 		final CompilerInstructions ci   = lsp.getInstructions();
-		final String               lang = ci.genLang() == null ? CompilationImpl.CompilationAlways.defaultPrelude() : ci.genLang();
-		// DEFAULT(compiler-default), SPECIFIED(gen-clause: codePoint), INHERITED(cp) // CodePoint??
-		return lang;
+		final Optional<String>     s    = ci.genLang();
+		if (s.isPresent()) {
+			return s.get();
+		} else
+			return null;
 	}
 
 	@Override

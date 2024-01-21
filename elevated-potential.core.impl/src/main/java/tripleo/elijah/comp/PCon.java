@@ -1,20 +1,44 @@
 package tripleo.elijah.comp;
 
 import antlr.Token;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.ci_impl.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.ci.CiExpression;
+import tripleo.elijah.ci.CiExpressionList;
+import tripleo.elijah.ci.CiProcedureCallExpression;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.ci.ExpressionKind;
+import tripleo.elijah.ci.GenerateStatement;
+import tripleo.elijah.ci.LibraryStatementPart;
+import tripleo.elijah.ci.cii.GetItemExpression;
+import tripleo.elijah.ci.cii.IdentExpression;
+import tripleo.elijah.ci.cii.Qualident;
+import tripleo.elijah.ci.cil.CharLitExpressionImpl;
+import tripleo.elijah.ci.cil.CiListExpressionImpl;
+import tripleo.elijah.ci.cil.DotExpressionImpl;
+import tripleo.elijah.ci.cil.ExpressionBuilder;
+import tripleo.elijah.ci.cil.FloatExpressionImpl;
+import tripleo.elijah.ci.cil.GetItemExpressionImpl;
+import tripleo.elijah.ci.cil.IdentExpressionImpl;
+import tripleo.elijah.ci.cil.NumericExpressionImpl;
+import tripleo.elijah.ci.cil.QualidentImpl;
+import tripleo.elijah.ci.cil.SetItemExpressionImpl;
+import tripleo.elijah.ci.cil.StringExpressionImpl;
+import tripleo.elijah.ci.cil.SubExpressionImpl;
+import tripleo.elijah.ci_impl.CiExpressionListImpl;
+import tripleo.elijah.ci_impl.CiProcedureCallExpressionImpl;
+import tripleo.elijah.ci_impl.CompilerInstructionsImpl;
+import tripleo.elijah.ci_impl.GenerateStatementImpl;
+import tripleo.elijah.ci_impl.LibraryStatementPartImpl;
+import tripleo.elijah.lang.i.OS_Type;
 import tripleo.elijah.lang.types.OS_BuiltinType;
 import tripleo.elijah.lang2.BuiltInTypes;
 
 public class PCon {
-	public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aEk,
-											   final IExpression aE2) {
+	public CiExpression ExpressionBuilder_build(final CiExpression aEe, final ExpressionKind aEk,
+											   final CiExpression aE2) {
 		return ExpressionBuilder.build(aEe, aEk, aE2);
 	}
 
-	public IExpression newCharLitExpressionImpl(final Token aC) {
+	public CiExpression newCharLitExpressionImpl(final Token aC) {
 		return new CharLitExpressionImpl(aC);
 	}
 
@@ -22,15 +46,15 @@ public class PCon {
 		return new CompilerInstructionsImpl();
 	}
 
-	public IExpression newDotExpressionImpl(final IExpression aDotExpressionLeft, final IdentExpression aDotExpressionRightIdent) {
+	public CiExpression newDotExpressionImpl(final CiExpression aDotExpressionLeft, final IdentExpression aDotExpressionRightIdent) {
 		return new DotExpressionImpl(aDotExpressionLeft, aDotExpressionRightIdent);
 	}
 
-	public ExpressionList newExpressionListImpl() {
-		return new ExpressionListImpl();
+	public CiExpressionList newExpressionListImpl() {
+		return new CiExpressionListImpl();
 	}
 
-	public IExpression newFloatExpressionImpl(final Token aF) {
+	public CiExpression newFloatExpressionImpl(final Token aF) {
 		return new FloatExpressionImpl(aF);
 	}
 
@@ -38,51 +62,51 @@ public class PCon {
 		return new GenerateStatementImpl();
 	}
 
-	public IExpression newGetItemExpressionImpl(final IExpression aEe, final IExpression aExpr) {
+	public CiExpression newGetItemExpressionImpl(final CiExpression aEe, final CiExpression aExpr) {
 		return new GetItemExpressionImpl(aEe, aExpr);
 	}
 
-	public IdentExpression newIdentExpressionImpl(final Token aR1, final String aFilename, final Context aCur) {
-		return new IdentExpressionImpl(aR1, aFilename, aCur);
+	public IdentExpression newIdentExpressionImpl(final Token aToken, final String aFilename, final Object aCur) {
+		return new IdentExpressionImpl(aToken);//, aFilename, aCur);
 	}
 
-	public IdentExpression newIdentExpressionImpl(final Token aR1, final Context aCur) {
-		return new IdentExpressionImpl(aR1, aCur);
+	public IdentExpression newIdentExpressionImpl(final Token aToken, final Object aCur) {
+		return new IdentExpressionImpl(aToken, aCur);
 	}
 
 	public LibraryStatementPart newLibraryStatementPartImpl() {
 		return new LibraryStatementPartImpl();
 	}
 
-	public IExpression newListExpressionImpl() {
-		return new ListExpressionImpl();
+	public CiExpression newListExpressionImpl() {
+		return new CiListExpressionImpl();
 	}
 
-	public IExpression newNumericExpressionImpl(final Token aN) {
+	public CiExpression newNumericExpressionImpl(final Token aN) {
 		return new NumericExpressionImpl(aN);
 	}
 
-	public OS_Type newOS_BuiltinType(final BuiltInTypes aBuiltInTypes) {
-		return new OS_BuiltinType(aBuiltInTypes);
-	}
+	//public OS_Type newOS_BuiltinType(final BuiltInTypes aBuiltInTypes) {
+	//	return new OS_BuiltinType(aBuiltInTypes);
+	//}
 
-	public ProcedureCallExpression newProcedureCallExpressionImpl() {
-		return new ProcedureCallExpressionImpl();
+	public CiProcedureCallExpression newProcedureCallExpressionImpl() {
+		return new CiProcedureCallExpressionImpl();
 	}
 
 	public Qualident newQualidentImpl() {
 		return new QualidentImpl();
 	}
 
-	public IExpression newSetItemExpressionImpl(final GetItemExpression aEe, final IExpression aExpr) {
+	public CiExpression newSetItemExpressionImpl(final GetItemExpression aEe, final CiExpression aExpr) {
 		return new SetItemExpressionImpl(aEe, aExpr);
 	}
 
-	public IExpression newStringExpressionImpl(final Token aS) {
+	public CiExpression newStringExpressionImpl(final Token aS) {
 		return new StringExpressionImpl(aS);
 	}
 
-	public IExpression newSubExpressionImpl(final IExpression aEe) {
+	public CiExpression newSubExpressionImpl(final CiExpression aEe) {
 		return new SubExpressionImpl(aEe);
 	}
 
@@ -94,7 +118,7 @@ public class PCon {
 		return new CiProcedureCallExpressionImpl();
 	}
 
-	public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aE2, final IExpression aE3, final OS_Type aT) {
+	public CiExpression ExpressionBuilder_build(final CiExpression aEe, final ExpressionKind aE2, final CiExpression aE3, final OS_Type aT) {
 		// TODO 10/15 look at me
 		return ExpressionBuilder_build(aEe, aE2, aE3);
 	}

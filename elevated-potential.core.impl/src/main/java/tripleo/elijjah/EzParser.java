@@ -6,10 +6,24 @@ import antlr.*;
 import antlr.collections.impl.BitSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.*;
+import tripleo.elijah.ci.CiExpression;
+import tripleo.elijah.ci.CiExpressionList;
+import tripleo.elijah.ci.CiIndexingStatement;
+import tripleo.elijah.ci.CiListExpression;
+import tripleo.elijah.ci.CiProcedureCallExpression;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.ci.ExpressionKind;
+import tripleo.elijah.ci.GenerateStatement;
+import tripleo.elijah.ci.LibraryStatementPart;
+import tripleo.elijah.ci.cii.GetItemExpression;
+import tripleo.elijah.ci.cii.IdentExpression;
+import tripleo.elijah.ci.cii.ProcedureCallExpression;
+import tripleo.elijah.ci.cii.Qualident;
+import tripleo.elijah.ci.cii.QualidentList;
+import tripleo.elijah.ci.cii.TypeCastExpression;
+import tripleo.elijah.ci.cii.TypeName;
 import tripleo.elijah.comp.PCon;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.xlang.LocatableString;
 
 public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 
@@ -99,11 +113,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 
 	public @NotNull CompilerInstructions ci;
 
-	@Nullable
-	Context cur = null;
+	//@Nullable
+	//Context cur = null;
 
 	@Nullable
-	IExpression expr;
+	CiExpression expr;
 
 	public EzParser(ParserSharedInputState state) {
 		super(state, 2);
@@ -128,12 +142,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		tokenNames = _tokenNames;
 	}
 
-	public final @Nullable IExpression additiveExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression additiveExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
 		ExpressionKind e2 = null;
-		IExpression e3 = null;
+		CiExpression    e3 = null;
 
 		try { // for error handling
 			ee = multiplicativeExpression();
@@ -182,11 +196,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression andExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression andExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = equalityExpression();
@@ -215,12 +229,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression assignmentExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression assignmentExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e = null;
-		IExpression e2;
+		CiExpression e = null;
+		CiExpression e2;
 		ExpressionKind ek = null;
 
 		try { // for error handling
@@ -339,8 +353,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression conditionalExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression conditionalExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
 
@@ -357,8 +371,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression constantValue() throws RecognitionException, TokenStreamException {
-		IExpression e;
+	public final @Nullable CiExpression constantValue() throws RecognitionException, TokenStreamException {
+		CiExpression e;
 
 		Token s = null;
 		Token c = null;
@@ -415,58 +429,9 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return e;
 	}
 
-	public final void docstrings(@Nullable Documentable sc) throws RecognitionException, TokenStreamException {
-
-		Token s1 = null;
-
-		try { // for error handling
-			{
-				switch (LA(1)) {
-				case STRING_LITERAL: {
-					{
-						int _cnt28 = 0;
-						_loop28: do {
-							if ((LA(1) == STRING_LITERAL)) {
-								s1 = LT(1);
-								match(STRING_LITERAL);
-								if (inputState.guessing == 0) {
-									if (sc != null)
-										sc.addDocString(s1);
-								}
-							} else {
-								if (_cnt28 >= 1) {
-									break _loop28;
-								} else {
-									throw new NoViableAltException(LT(1), getFilename());
-								}
-							}
-
-							_cnt28++;
-						} while (true);
-					}
-					break;
-				}
-				case EOF: {
-					break;
-				}
-				default: {
-					throw new NoViableAltException(LT(1), getFilename());
-				}
-				}
-			}
-		} catch (RecognitionException ex) {
-			if (inputState.guessing == 0) {
-				reportError(ex);
-				recover(ex, _tokenSet_0);
-			} else {
-				throw ex;
-			}
-		}
-	}
-
-	public final @Nullable IExpression dot_expression_or_procedure_call(IExpression e1)
+	public final @Nullable CiExpression dot_expression_or_procedure_call(CiExpression e1)
 			throws RecognitionException, TokenStreamException {
-		IExpression ee;
+		CiExpression ee;
 
 		Token lp2 = null;
 		ee = null;
@@ -536,12 +501,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression equalityExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression equalityExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
 		ExpressionKind e2 = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = relationalExpression();
@@ -590,11 +555,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression exclusiveOrExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression exclusiveOrExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = andExpression();
@@ -623,8 +588,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression expression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression expression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
 
@@ -721,7 +686,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 			r1 = LT(1);
 			match(IDENT);
 			if (inputState.guessing == 0) {
-				id = pcon.newIdentExpressionImpl(r1, cur);
+				id = pcon.newIdentExpressionImpl(r1, null);
 			}
 		} catch (RecognitionException ex) {
 			if (inputState.guessing == 0) {
@@ -734,44 +699,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return id;
 	}
 
-	public final void identList(@NotNull IdentList ail) throws RecognitionException, TokenStreamException {
-
-		IdentExpression s = null;
-
-		try { // for error handling
-			s = ident();
-			if (inputState.guessing == 0) {
-				ail.push(s);
-			}
-			{
-				_loop33: do {
-					if ((LA(1) == COMMA)) {
-						match(COMMA);
-						s = ident();
-						if (inputState.guessing == 0) {
-							ail.push(s);
-						}
-					} else {
-						break _loop33;
-					}
-
-				} while (true);
-			}
-		} catch (RecognitionException ex) {
-			if (inputState.guessing == 0) {
-				reportError(ex);
-				recover(ex, _tokenSet_0);
-			} else {
-				throw ex;
-			}
-		}
-	}
-
-	public final @Nullable IExpression inclusiveOrExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression inclusiveOrExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = exclusiveOrExpression();
@@ -958,11 +890,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return lsp;
 	}
 
-	public final @Nullable IExpression logicalAndExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression logicalAndExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = inclusiveOrExpression();
@@ -991,11 +923,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression logicalOrExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression logicalOrExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = logicalAndExpression();
@@ -1024,11 +956,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression multiplicativeExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression multiplicativeExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 		ExpressionKind e2 = null;
 
 		try { // for error handling
@@ -1112,8 +1044,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		}
 	}
 
-	public final @Nullable IExpression postfixExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression postfixExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		Token lb = null;
 		Token rb = null;
@@ -1123,7 +1055,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		ee = null;
 		TypeCastExpression tc = null;
 		TypeName tn = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 		CiExpressionList el = null;
 
 		try { // for error handling
@@ -1234,12 +1166,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression primaryExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression primaryExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		FuncExpr ppc = null;
-		IdentExpression e = null;
+		//FuncExpr        ppc = null;
+		CiExpression     e  = null;
 		CiExpressionList el = null;
 
 		try { // for error handling
@@ -1354,7 +1286,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 			i1 = LT(1);
 			match(IDENT);
 			if (inputState.guessing == 0) {
-				ci.setName(i1);
+				ci.setName(LocatableString.of(i1));
 			}
 			library_statement();
 			gen = generate_statement();
@@ -1374,7 +1306,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 	}
 
 	public final @NotNull Qualident qualident() throws RecognitionException, TokenStreamException {
-		Qualident q;
+		tripleo.elijah.ci.cii.Qualident q;
 
 		Token d1 = null;
 		q = pcon.newQualidentImpl();
@@ -1445,12 +1377,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		}
 	}
 
-	public final @Nullable IExpression relationalExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression relationalExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
 		ExpressionKind e2 = null; // should never be null (below)
-		IExpression e3 = null;
+		CiExpression e3 = null;
 		TypeName tn = null;
 
 		try { // for error handling
@@ -1496,8 +1428,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							}
 							e3 = shiftExpression();
 							if (inputState.guessing == 0) {
-								final OS_Type t = pcon.newOS_BuiltinType(BuiltInTypes.Boolean);
-								ee = pcon.ExpressionBuilder_build(ee, e2, e3, t);
+								//final OS_Type t = pcon.newOS_BuiltinType(BuiltInTypes.Boolean);
+								ee = pcon.ExpressionBuilder_build(ee, e2, e3, null);
 							}
 						} else {
 							break _loop72;
@@ -1517,12 +1449,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression shiftExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression shiftExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
 		ExpressionKind e2 = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = additiveExpression();
@@ -1578,11 +1510,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression unaryExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression unaryExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			switch (LA(1)) {
@@ -1649,11 +1581,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression unaryExpressionNotPlusMinus() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression unaryExpressionNotPlusMinus() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			switch (LA(1)) {
@@ -1702,8 +1634,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression variableReference() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression variableReference() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		Token lp = null;
 		ProcedureCallExpression pcx;

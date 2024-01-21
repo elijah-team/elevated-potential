@@ -14,10 +14,11 @@
  */
 package tripleo.elijah.ci.cil;
 
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.CiExpression;
 import tripleo.elijah.ci.ExpressionKind;
 import tripleo.elijah.ci.cii.IBinaryExpression;
-import tripleo.elijah.util2.UnintendedUseException;
+
 
 public class ExpressionBuilder {
 	public static CiExpression build(final CiExpression left, final ExpressionKind aType) {

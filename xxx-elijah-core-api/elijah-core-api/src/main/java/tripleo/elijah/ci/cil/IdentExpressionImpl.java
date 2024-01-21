@@ -5,6 +5,7 @@ import tripleo.elijah.ci.CiExpression;
 import tripleo.elijah.ci.CiExpressionList;
 import tripleo.elijah.ci.ExpressionKind;
 import tripleo.elijah.ci.cii.IdentExpression;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.io.File;
 
@@ -135,7 +136,7 @@ public class IdentExpressionImpl implements IdentExpression {
 	@Override
 	public void setKind(final ExpressionKind aIncrement) {
 		// log and ignore
-		tripleo.elijah.util.Stupidity
+		SimplePrintLoggerToRemoveSoon
 				.println_err_2("Trying to set ExpressionType of IdentExpression to " + aIncrement.toString());
 	}
 
