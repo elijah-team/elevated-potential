@@ -6,7 +6,7 @@ import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.Compilation0;
-import tripleo.elijah.comp.graph.i.CM_Module;
+import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.comp.specs.ElijahSpec;
 import tripleo.elijah.g.GLivingRepo;

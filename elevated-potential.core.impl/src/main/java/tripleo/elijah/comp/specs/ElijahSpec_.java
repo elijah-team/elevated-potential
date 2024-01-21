@@ -3,7 +3,7 @@ package tripleo.elijah.comp.specs;
 import java.io.*;
 import java.util.Objects;
 
-import tripleo.elijah.comp.graph.i.CM_Module;
+import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.wrap.File;
 
 public final class ElijahSpec_ implements ElijahSpec {

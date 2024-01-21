@@ -3,10 +3,9 @@ package tripleo.elijah.comp.internal;
 import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.comp.graph.i.CM_Module;
+import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.elijah.comp.i.*;
 
-import tripleo.elijah.util.ProgramIsLikelyWrong;
 import tripleo.wrap.File;
 
 public enum USE_Reasonings {
