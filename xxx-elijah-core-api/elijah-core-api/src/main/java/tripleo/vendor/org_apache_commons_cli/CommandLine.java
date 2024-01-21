@@ -22,8 +22,6 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.util.NotImplementedException;
 
-import static tripleo.vendor.org_apache_commons_cli.Util.EMPTY_STRING_ARRAY;
-
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -81,16 +79,16 @@ public class CommandLine implements Serializable {
 	/**
 	 * The serial version UID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long         serialVersionUID = 1L;
 	/**
 	 * The unrecognized options/arguments
 	 */
 //    private final List<String> args = new LinkedList<>();
-	private final List<CompilerInput> ci_args = new LinkedList<>();
+	private final List<CompilerInput> ci_args          = new LinkedList<>();
 	/**
 	 * The processed options
 	 */
-	private final List<Option> options = new ArrayList<>();
+	private final List<Option>        options          = new ArrayList<>();
 
 	private final List<CompilerInput> ci_options = new ArrayList<>();
 
@@ -366,7 +364,7 @@ public class CommandLine implements Serializable {
 			}
 		}
 
-		return values.isEmpty() ? null : values.toArray(EMPTY_STRING_ARRAY);
+		return values.isEmpty() ? null : values.toArray(Util.EMPTY_STRING_ARRAY);
 	}
 
 	/**
