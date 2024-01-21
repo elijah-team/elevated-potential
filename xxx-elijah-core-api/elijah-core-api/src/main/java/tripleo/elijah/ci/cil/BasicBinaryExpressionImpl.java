@@ -1,12 +1,13 @@
 package tripleo.elijah.ci.cil;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.CiExpression;
 import tripleo.elijah.ci.CiExpressionList;
 import tripleo.elijah.ci.ExpressionKind;
 import tripleo.elijah.ci.cii.BasicBinaryExpression;
 import tripleo.elijah.ci.cii.IBinaryExpression;
-import tripleo.elijah.util2.UnintendedUseException;
+
 
 public class BasicBinaryExpressionImpl implements BasicBinaryExpression {
 	public ExpressionKind _kind;

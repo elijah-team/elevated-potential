@@ -2,8 +2,8 @@ package tripleo.elijah.ci_impl;
 
 import tripleo.elijah.ci.*;
 import tripleo.elijah.compiler_model.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.xlang.*;
+import tripleo.elijah.xlang.LocatableString;
+import tripleo.elijah.util.ProgramMightBeWrongIfYouAreHere;
 
 public class CompilerInstructionsBuilderImpl implements CompilerInstructions.CompilerInstructionsBuilder {
 

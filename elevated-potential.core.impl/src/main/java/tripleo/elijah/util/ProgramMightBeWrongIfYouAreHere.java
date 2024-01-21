@@ -1,4 +1,4 @@
-package tripleo.xxx;
+package tripleo.elijah.util;
 
 public class ProgramMightBeWrongIfYouAreHere extends RuntimeException {
 }

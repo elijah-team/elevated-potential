@@ -1,19 +1,23 @@
 package tripleo.elijah.comp.nextgen;
 
-import antlr.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.*;
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.PCon;
 import tripleo.elijah.comp.graph.CM_Ez;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.CY_EzSpecParser;
 import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.compiler_model.CM_Factory;
+import tripleo.elijah.diagnostic.ExceptionDiagnostic;
 import tripleo.elijah.util.*;
-import tripleo.elijjah.*;
-
-import java.io.*;
-
+import tripleo.elijjah.EzLexer;
+import tripleo.elijjah.EzParser;
 import tripleo.wrap.File;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public enum CX_ParseEzFile {;
 	private static Operation2<CompilerInstructions> calculate(final String aAbsolutePath, final InputStream aInputStream) {
@@ -29,7 +33,7 @@ public enum CX_ParseEzFile {;
 			return Operation2.failure(new ExceptionDiagnostic(aE));
 		}
 		final CompilerInstructions instructions = parser.ci;
-		instructions.setFilename(aAbsolutePath);
+		instructions.setFilename(CM_Factory.Filename__of(aAbsolutePath));
 		return Operation2.success(instructions);
 	}
 

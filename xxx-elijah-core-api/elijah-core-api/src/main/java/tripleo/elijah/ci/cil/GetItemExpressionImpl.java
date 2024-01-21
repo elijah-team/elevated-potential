@@ -9,10 +9,11 @@
 package tripleo.elijah.ci.cil;
 
 import antlr.Token;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.CiExpression;
 import tripleo.elijah.ci.ExpressionKind;
 import tripleo.elijah.ci.cii.GetItemExpression;
-import tripleo.elijah.util2.UnintendedUseException;
+
 
 /**
  * @author Tripleo

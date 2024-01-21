@@ -2,13 +2,14 @@ package tripleo.elijah.ci_impl;
 
 import com.google.common.collect.Collections2;
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.cii.StringExpression;
+import tripleo.elijah.ci.cil.Helpers;
+import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.compiler_model.CM_Filename;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.xlang.LocatableString;
+import tripleo.wrap.File;
 
 import java.util.*;
 
@@ -18,7 +19,7 @@ import java.util.*;
 public class CompilerInstructionsImpl implements CompilerInstructions {
 	public @NotNull List<LibraryStatementPart> lsps = new ArrayList<>();
 	private         CiIndexingStatement        _idx;
-	private CM_Filename filename;
+	private         CM_Filename                filename;
 	private         GenerateStatement          gen;
 	private         String                     name;
 
@@ -82,12 +83,26 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public void setName(LocatableString name) {
-
+		throw new UnintendedUseException("copy paste");
 	}
 
 	@Override
 	public List<LibraryStatementPart> _lsps() {
 		return lsps;
+	}
+
+	@Override
+	public void advise(final CompilerInput aAdvisement) {
+		throw new UnintendedUseException("copy paste");
+	}
+
+	@Override
+	public File makeFile() {
+		return new tripleo.wrap.File(getInp());
+	}
+
+	public String getInp() {
+		return null;
 	}
 
 //	@Override

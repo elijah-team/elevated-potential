@@ -51,10 +51,12 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 		}
 
 		final CompilerInstructions ci    = lsp.getInstructions();
-		final @Nullable String     lang2 = ci.genLang();
-
-		final @Nullable String lang = lang2 == null ? "c" : lang2;
-		return lang;
+		final Optional<String>     s     = ci.genLang();
+		if (s.isPresent()) {
+			final @Nullable String lang2 = s.get();
+			final @Nullable String lang  = lang2 == null ? "c" : lang2;
+			return lang;
+		} else return null;
 	}
 
 	@NotNull

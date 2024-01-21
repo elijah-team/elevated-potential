@@ -5,7 +5,7 @@ import java.io.File;
 public class CM_Factory {
 	private CM_Factory() {}
 
-	static CM_Filename Filename__fromFileToString(File file) {
+	 public static CM_Filename Filename__fromFileToString(File file) {
 		return new CM_Filename() {
 			@Override
 			public String getString() {
@@ -14,7 +14,7 @@ public class CM_Factory {
 		};
 	}
 
-	static CM_Filename Filename__fromParams(String aF) {
+	 public static CM_Filename Filename__fromParams(String aF) {
 		return new CM_Filename() {
 			@Override
 			public String getString() {
@@ -23,7 +23,7 @@ public class CM_Factory {
 		};
 	}
 
-	static CM_Filename Filename__of(String aFn) {
+	 public static CM_Filename Filename__of(String aFn) {
 		return new CM_Filename() {
 			@Override
 			public String getString() {
