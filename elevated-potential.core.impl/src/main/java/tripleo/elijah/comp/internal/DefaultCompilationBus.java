@@ -15,7 +15,7 @@ import static org.awaitility.Awaitility.await;
 import static tripleo.elijah.util.Helpers.List_of;
 
 public class DefaultCompilationBus implements ICompilationBus {
-	private final @NotNull CB_Monitor        _monitor;
+	private final CB_Monitor _monitor;
 	@Getter
 	private final @NotNull CompilerDriver    _compilerDriver;
 	private final @NotNull IProgressSink     _defaultProgressSink;

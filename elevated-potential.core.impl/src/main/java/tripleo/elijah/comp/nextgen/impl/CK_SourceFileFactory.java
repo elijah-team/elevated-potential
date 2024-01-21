@@ -43,9 +43,9 @@ public enum CK_SourceFileFactory { ;
 	}
 
 	@SuppressWarnings("unchecked")
-	public static CK_SourceFile<CompilerInstructions> get(java.io.File f, K kSpec) {
-		assert kSpec == K.SpecifiedEzFile;
+	public static CK_SourceFile<CompilerInstructions> get(java.io.File f, K specifiedezfile) {
+		assert specifiedezfile == K.SpecifiedEzFile;
 		// TODO Auto-generated method stub
-		return get(tripleo.wrap.File.wrap(f), f.toString(), kSpec);
+		return get(tripleo.wrap.File.wrap(f), f.toString(), specifiedezfile);
 	}
 }
