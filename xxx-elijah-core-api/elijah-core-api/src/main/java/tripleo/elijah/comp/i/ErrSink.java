@@ -15,6 +15,8 @@ import java.util.*;
 
 public interface ErrSink {
 
+	void reportError(int code, String message);
+
 	enum Errors {
 		ERROR, INFO, WARNING, EXCEPTION, DIAGNOSTIC
 	}
