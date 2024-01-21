@@ -148,7 +148,9 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 			thread.join();//TimeUnit.MINUTES.toMillis(1));
 
-			await().atMost(5, TimeUnit.SECONDS).until(() -> {
+			await()
+					.atMost(5, TimeUnit.SECONDS)
+					.until(() -> {
 				return task.isSignalled();
 				//final Eventual<Ok> abusingIt = c.get_pw().abusingIt;
 				//return abusingIt.isResolved();

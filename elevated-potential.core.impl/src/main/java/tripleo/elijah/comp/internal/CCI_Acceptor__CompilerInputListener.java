@@ -90,18 +90,13 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 			}
 			case ACCEPT_CI -> {
 				if (i.ty() == CompilerInput_.Ty.ROOT) {
-					final CompilationRunner                cr                = compilation.getCompilationEnclosure().getCompilationRunner();
 					final Maybe<ILazyCompilerInstructions> instructionsMaybe = i.acceptance_ci();
 					if (instructionsMaybe != null) {
-						var ci = instructionsMaybe.o.get();
-
-						assert ci != null;
-
-						if (DebugFlags.FORCE/* || false */) {
-							//cr._cis().onNext(ci);
-							id.add(ci);
-//								hasInstructions(List_of(i.acceptance_ci().o.get()));
-						}
+						final Eventual<CompilerInstructions> e = new Eventual<>();
+						ILazyCompilerInstructions_.ofEventual(i,
+																	 compilation.getCompilationClosure(),
+																	 e);
+						e.then(id::add);
 					}
 				} else {
 					throw new UnintendedUseException();

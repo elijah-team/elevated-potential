@@ -19,7 +19,7 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 	private final PW_PushWorkQueue wq;
 	private Multi<PW_PushWork> mm;
 	private Publisher<PW_PushWork> pp;
-	final Eventual<Ok> abusingIt = new Eventual<>();
+	private final Eventual<Ok> abusingIt = new Eventual<>();
 
 	PW_CompilerController(final CompilationImpl aC) {
 		compilation = aC;

@@ -16,9 +16,9 @@ import java.util.function.Supplier;
 public final class EzSpec__ implements EzSpec {
 	private final           String                file_name;
 	private final           tripleo.wrap.File     file;
-	private final @Nullable Supplier<InputStream> sis;
+	private final Supplier<Operation<InputStream>> sis;
 
-	public EzSpec__(final String aFileName, final tripleo.wrap.File aFile, final Supplier<InputStream> aInputStreamSupplier) {
+	public EzSpec__(final String aFileName, final tripleo.wrap.File aFile, final Supplier<Operation<InputStream>> aInputStreamSupplier) {
 		this.file_name = aFileName;
 		this.file      = aFile;
 		this.sis = aInputStreamSupplier;
@@ -26,10 +26,10 @@ public final class EzSpec__ implements EzSpec {
 
 	public static Operation2<EzSpec> of(final String aFileName, final File aFile, final Operation<InputStream> aInputStreamOperation) {
 		if (aInputStreamOperation.mode() == Mode.SUCCESS) {
-			final EzSpec__ ezSpec = new EzSpec__(aFileName, aFile, new Supplier<InputStream>() {
+			final EzSpec__ ezSpec = new EzSpec__(aFileName, aFile, new Supplier<Operation<InputStream>>() {
 				@Override
-				public InputStream get() {
-					return aInputStreamOperation.success();
+				public Operation<InputStream> get() {
+					return aInputStreamOperation;
 				}
 			});
 			return Operation2.success(ezSpec);
@@ -61,7 +61,7 @@ public final class EzSpec__ implements EzSpec {
 	}
 
 	@Override
-	public @Nullable Supplier<InputStream> sis() {
+	public Supplier<Operation<InputStream>> sis() {
 		return sis;
 	}
 

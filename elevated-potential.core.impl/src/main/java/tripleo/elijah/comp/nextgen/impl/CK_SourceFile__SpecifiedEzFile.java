@@ -19,14 +19,8 @@ public class CK_SourceFile__SpecifiedEzFile extends __CK_SourceFile__AbstractEzF
 
 	@Override
 	public Operation2<CompilerInstructions> process_query() {
-		final Operation2<CompilerInstructions> oci = process_query(compilation.getIO(), compilation.getCompilationEnclosure().getCompilationRunner().ezCache());
-
-		super.asserverate();
-
-		return oci;
-	}
-
-	private Operation2<CompilerInstructions> process_query(final IO io, final @NotNull EzCache ezCache) {
+		final IO               io       = compilation.getIO();
+		final @NotNull EzCache ezCache  = compilation.getCompilationEnclosure().getCompilationRunner().ezCache();
 		final String fileName = file_name();
 		Preconditions.checkArgument(isEzFile(fileName));
 
@@ -35,14 +29,18 @@ public class CK_SourceFile__SpecifiedEzFile extends __CK_SourceFile__AbstractEzF
 				fileName,
 				file, () -> {
 					try {
-						return file.readFile(io);
+						return Operation.success(file.readFile(io));
 					} catch (FileNotFoundException aE) {
-						throw new RuntimeException(aE);
+						return Operation.failure(aE);
 					}
 				}
 		);
 
-		return super.realParseEzFile(ezSpec, ezCache);
+		final Operation2<CompilerInstructions> oci = super.realParseEzFile(ezSpec, ezCache);
+
+		super.asserverate();
+
+		return oci;
 	}
 
 	private String file_name() {
