@@ -8,10 +8,14 @@ import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.PCon;
 import tripleo.elijah.comp.graph.CM_Ez;
 import tripleo.elijah.comp.i.CY_EzSpecParser;
-import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.comp.specs.EzCache;
+import tripleo.elijah.comp.specs.EzSpec;
+import tripleo.elijah.comp.specs.EzSpec__;
 import tripleo.elijah.compiler_model.CM_Factory;
 import tripleo.elijah.diagnostic.ExceptionDiagnostic;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.Mode;
+import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.Operation2;
 import tripleo.elijjah.EzLexer;
 import tripleo.elijjah.EzParser;
 import tripleo.wrap.File;
@@ -33,16 +37,16 @@ public enum CX_ParseEzFile {;
 			return Operation2.failure(new ExceptionDiagnostic(aE));
 		}
 		final CompilerInstructions instructions = parser.ci;
-		instructions.setFilename(aAbsolutePath);
+		instructions.setFilename(CM_Factory.Filename__of(aAbsolutePath));
 		return Operation2.success(instructions);
 	}
 
 	public static Operation2<CompilerInstructions> parseAndCache(final EzSpec aSpec,
 	                                                            final EzCache aEzCache,
 	                                                            final String absolutePath) {
-		final Operation<InputStream> cis = aSpec.sis().get();
+		final @NotNull Operation<InputStream> cis = aSpec.sis();
+		final Operation2<CompilerInstructions> cio;
 
-		Operation2<CompilerInstructions> cio = null;
 		if (cis.mode() == Mode.SUCCESS) {
 			cio = calculate(aSpec.file_name(), cis.success());
 			final CompilerInstructions R = cio.success();
@@ -51,13 +55,15 @@ public enum CX_ParseEzFile {;
 			final CM_Ez cm = ((Compilation) aEzCache.getCompilation()).megaGrande(aSpec);
 			cm.advise(cio);
 			cm.advise(aEzCache.getCompilation().getObjectTree());
-		} else { cio = Operation2.failure(null);
-
+		} else {
+			cio = Operation2.failure(null);
+		}
 		return cio;
 	}
 
 	public static Operation<CompilerInstructions> parseEzFile(final @NotNull File aFile,
 															  final Compilation aCompilation) {
+		assert false;
 		try (final InputStream readFile = aCompilation.getIO().readFile(aFile)) {
 
 			// FIXME double conversion
@@ -76,5 +82,9 @@ public enum CX_ParseEzFile {;
 		} catch (final IOException aE) {
 			return Operation.failure(aE);
 		}
+	}
+
+	public interface EzSpecReader {
+		@NotNull Operation<InputStream> get();
 	}
 }
