@@ -34,10 +34,12 @@
 			<scope>compile</scope>
 		</dependency>
 -->
+<!--
 		<dependency>
 			<groupId>tripleo.elijah</groupId>
 			<artifactId>elevated-potential-core-api-xxx</artifactId>
 			<version>elevated.2024-01</version>
 		</dependency>
+-->
 	</dependencies>
 </project>

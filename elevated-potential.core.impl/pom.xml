@@ -53,11 +53,13 @@
 			<version>elevated.2024-01</version>
 			<scope>compile</scope>
 		</dependency>
+<!--
 		<dependency>
 			<groupId>tripleo.elijah</groupId>
 			<artifactId>elevated-potential-base-impl</artifactId>
 			<version>2024.elevated-potential.1</version>
 			<scope>compile</scope>
 		</dependency>
+-->
 	</dependencies>
 </project>
