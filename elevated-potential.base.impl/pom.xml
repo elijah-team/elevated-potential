@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-<parent>
-        <groupId>tripleo.elijah</groupId>
-        <artifactId>elevated-potential</artifactId>
-	<version>2024.elevated-potential.2</version>
-</parent>
+	<parent>
+		<groupId>tripleo.elijah</groupId>
+		<artifactId>elevated-potential</artifactId>
+		<version>2024.elevated-potential.2</version>
+	</parent>
 
 	<artifactId>elevated-potential-base-impl</artifactId>
 	<version>2024.elevated-potential.2</version>
@@ -29,8 +29,8 @@
 		<dependency>
 			<groupId>tripleo.elijah</groupId>
 			<artifactId>elevated-potential-core-api-xxx</artifactId>
-		<version>2024.elevated-potential.2</version>		<scope>compile</scope>
+			<version>2024.elevated-potential.2</version>
+			<scope>compile</scope>
 		</dependency>
-
 	</dependencies>
 </project>
