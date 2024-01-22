@@ -5,26 +5,21 @@ import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.i.USE_Reasoning;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.util.List;
 
 public class File {
-	java.io.File wrap;
-	private CP_Path connect;
+	private final java.io.File  wrap;
+	private       CP_Path       connect;
+	private       USE_Reasoning useReasoning;
 
-	private USE_Reasoning useReasoning;
-
-	public File(final String aBase, final String aName) {
-		wrap = new java.io.File(aBase, aName);
+	public File(final String aDirName, final String aFileName) {
+		wrap = new java.io.File(aDirName, aFileName);
 	}
 
-	public File(final String aBase) {
-		wrap = new java.io.File(aBase);
+	public File(final String aEntireNam) {
+		wrap = new java.io.File(aEntireNam);
 	}
 
 	public File(final java.io.File aDirectory, final String aFileName) {

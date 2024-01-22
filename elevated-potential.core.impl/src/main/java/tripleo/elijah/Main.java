@@ -1,34 +1,26 @@
-/*
- * Elijjah compiler, copyright Tripleo <oluoluolu+elijah@gmail.com>
- *
- * The contents of this library are released under the LGPL licence v3,
- * the GNU Lesser General Public License text was downloaded from
- * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
 package tripleo.elijah;
 
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.IO_;
+import tripleo.elijah.comp.StdErrSink;
+import tripleo.elijah.comp.i.CompilerController;
+import tripleo.elijah.factory.NonOpinionatedBuilder;
+import tripleo.elijah.factory.comp.CompilationFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public enum Main {
 	;
 
 	public static void main(final String[] args) throws Exception {
-		final Compilation comp = new CompilationImpl(new StdErrSink(), new IO_());
-		final List<String> ls1  = new ArrayList<String>();
+		final List<String>          stringList = new ArrayList<>(Arrays.asList(args));
 
-		ls1.addAll(Arrays.asList(args));
+		final Compilation           comp       = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
+		final NonOpinionatedBuilder nob        = new NonOpinionatedBuilder();
 
-		comp.feedCmdLine(ls1);
+		final CompilerController    controller = nob.createCompilerController(comp); // contrast with defaultCompilerController
+
+		//comp.feedCmdLine(stringList); // TODO 24/01/21 ElijahCli
+		comp.feedInputs(nob.inputs(stringList), controller);
 	}
-
 }
-
-//
-//
-//
