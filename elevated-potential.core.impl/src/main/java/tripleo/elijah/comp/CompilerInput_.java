@@ -3,6 +3,8 @@ package tripleo.elijah.comp;
 import com.google.common.base.*;
 //import lombok.*;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
@@ -17,11 +19,18 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class CompilerInput_ extends __Extensionable implements CompilerInput {
-	private final Optional<CompilationImpl> oc;
+	private final @NotNull Optional<Compilation> oc;
 
-	public CompilerInput_(final String aS, final Optional<CompilationImpl> aCompilation) {
+	public CompilerInput_(final String aS,
+						  @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+						  	final @Nullable Optional<Compilation> aCompilation) {
 		inp = aS;
-		oc = aCompilation;
+		//noinspection OptionalAssignedToNull
+		if (aCompilation == null || aCompilation.isEmpty()) {
+			oc = Optional.empty();
+		} else {
+			oc = aCompilation;
+		}
 	}
 
 	@Override
@@ -33,6 +42,7 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 	public tripleo.wrap.File getFileForDirectory() {
 		final tripleo.wrap.File directory = new tripleo.wrap.File(inp);
 		this.setDirectory(directory);
+		//directory.advise(...); // gradual, not progressive??
 		return directory;
 	}
 
