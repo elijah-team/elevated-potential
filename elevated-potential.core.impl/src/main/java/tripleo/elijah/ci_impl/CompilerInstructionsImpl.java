@@ -83,7 +83,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public void setName(LocatableString name) {
-		throw new UnintendedUseException("copy paste");
+		this.name = name.asLocatableString();
 	}
 
 	@Override
@@ -93,7 +93,8 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public void advise(final CompilerInput aAdvisement) {
-		throw new UnintendedUseException("copy paste");
+		// FIXME 24/01/23 ignoring this as it does not seem to be used in this "branch"
+		//throw new UnintendedUseException("copy paste");
 	}
 
 	@Override
