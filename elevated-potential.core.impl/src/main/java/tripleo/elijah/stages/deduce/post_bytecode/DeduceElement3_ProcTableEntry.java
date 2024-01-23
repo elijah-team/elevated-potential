@@ -175,7 +175,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 								// DeduceClass here.
 								// EvaClass may suffice
 
-								final ClassInvocation ci = deduceTypes2._phase().registerClassInvocation(cs);
+								final ClassInvocation ci = deduceTypes2._phase().registerClassInvocation(cs, deduceTypes2);
 								ci.resolvePromise().then(gc2 -> {
 									gc[0] = gc2;
 								});
@@ -584,8 +584,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 	// TODO class Action<FunctionInvocation>
 	private static @NotNull Eventual<FunctionInvocation> __lfoe_action__getFunctionInvocation(final @NotNull ProcTableEntry pte,
 																							  final @NotNull DeduceTypes2 aDeduceTypes2) {
-
-		Eventual<FunctionInvocation> efi = new Eventual<>();
+		final Eventual<FunctionInvocation> efi = new Eventual<>();
 
 		// Action<FunctionInvocation> action = new ...
 		// action.provide(ClassStatement.class, (left-is-class ...|left-is-function), ...
@@ -600,13 +599,13 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 					final @Nullable OS_Element      e    = lrl.chooseBest(null);
 					if (e != null) {
 						if (e instanceof ClassStatement classStatement) {
-							final ClassInvocation ci = aDeduceTypes2.phase.registerClassInvocation(classStatement);
+							final ClassInvocation ci = aDeduceTypes2.phase.registerClassInvocation(classStatement, aDeduceTypes2);
 							pte.setClassInvocation(ci);
 						} else if (e instanceof final @NotNull FunctionDef functionDef) {
 							final OS_Element parent = functionDef.getParent();
 
 							if (parent instanceof ClassStatement classStatement) {
-								final ClassInvocation ci = aDeduceTypes2.phase.registerClassInvocation(classStatement);
+								final ClassInvocation ci = aDeduceTypes2.phase.registerClassInvocation(classStatement, aDeduceTypes2);
 								pte.setClassInvocation(ci);
 							}
 						} else {

@@ -31,7 +31,7 @@ public class ForwardingGenType implements GenType {
 
 		if (aB) {
 			mode = Mode.GENERATIONAL;
-			g = new setup_GenType_Action_Arena();
+			g = new setup_GenType_Action_Arena(null); // NULL_DeduceTypes2
 		} else {
 			mode = Mode.NORMAL;
 			g = null;

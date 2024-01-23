@@ -2,6 +2,7 @@ package tripleo.elijah.stages.gen_generic;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.util.Ok;
 
 import java.util.function.Consumer;
 
@@ -24,8 +25,8 @@ public class DoubleLatch<T> {
 		}
 	}
 
-	public void notifyLatch(boolean ass) {
-		simple = ass;
+	public void notifyLatch(final Ok ignored) {
+		simple = true;
 		if (simple && tt != null) {
 			action.accept(tt);
 		}

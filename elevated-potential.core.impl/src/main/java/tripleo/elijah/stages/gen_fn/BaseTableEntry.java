@@ -116,6 +116,7 @@ public abstract class BaseTableEntry {
 	}
 
 	protected void setupResolve() {
+		assert __dt2 == null;
 		typeResolve = new DeduceTypeResolve(this, new NULL_DeduceTypes2());
 	}
 

@@ -3,7 +3,6 @@ package tripleo.elijah.comp;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.g.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
@@ -30,8 +29,8 @@ public class WriteMakefilePipeline extends PipelineMember implements Consumer<Su
 	}
 
 	@Override
-	public void run(@NotNull CR_State st, CB_Output aOutput) throws Exception {
-		final Compilation    c   = (Compilation) st.ca().getCompilation();
+	public void run(Ok st, CB_Output aOutput) throws Exception {
+		final Compilation    c   = pa.getCompilation();
 		final EOT_OutputTree cot = c.getOutputTree();
 
 		cot.recompute();

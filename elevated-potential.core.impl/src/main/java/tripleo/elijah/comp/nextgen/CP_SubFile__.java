@@ -191,7 +191,8 @@ public class CP_SubFile__ implements CP_SubFile {
 
 		@Override
 		public boolean samePath(Path px) {
-			throw new UnsupportedOperationException("TODO 12/28");
+			if (px==null) return false;
+			return px.equals(this.getPath());
 		}
 	}
 }

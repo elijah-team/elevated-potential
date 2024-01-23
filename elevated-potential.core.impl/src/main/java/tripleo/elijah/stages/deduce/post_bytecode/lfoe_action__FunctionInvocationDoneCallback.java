@@ -64,7 +64,7 @@ class lfoe_action__FunctionInvocationDoneCallback implements DoneCallback<Functi
 			if (ci == null) {
 				if (/* fi.getClassInvocation() == null && */ fi.getNamespaceInvocation() == null) {
 					// Assume default constructor
-					ci = deduceTypes2.phase.registerClassInvocation((ClassStatement) principal.getResolvedElement());
+					ci = deduceTypes2.phase.registerClassInvocation((ClassStatement) principal.getResolvedElement(), deduceTypes2);
 					fi.setClassInvocation(ci);
 				} else
 					throw new NotImplementedException();

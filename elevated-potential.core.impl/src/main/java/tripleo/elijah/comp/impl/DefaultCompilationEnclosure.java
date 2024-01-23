@@ -509,6 +509,8 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 		@Override
 		public void complete() {
+			//assert !_moduleListeners.isEmpty();
+
 			// 09/26 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[ModuleListener_ModuleCompletableProcess] complete");
 
 			// TODO Reactive pattern (aka something ala ReplaySubject)

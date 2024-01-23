@@ -318,14 +318,14 @@ class Resolve_Variable_Table_Entry {
 	 */
 	private void genCIForGenType2(final @NotNull GenType aGenType) {
 		final List<setup_GenType_Action> list = new ArrayList<>();
-		final setup_GenType_Action_Arena arena = new setup_GenType_Action_Arena();
+		final setup_GenType_Action_Arena arena = new setup_GenType_Action_Arena(deduceTypes2);
 
 		aGenType.genCI(aGenType.getNonGenericTypeName(), deduceTypes2, deduceTypes2._errSink(), deduceTypes2.phase);
 		final IInvocation invocation = aGenType.getCi();
 		if (invocation instanceof final @NotNull NamespaceInvocation namespaceInvocation) {
-			namespaceInvocation.resolveDeferred().then(result -> aGenType.setNode(result));
+			namespaceInvocation.resolveDeferred().then(aGenType::setNode);
 		} else if (invocation instanceof final @NotNull ClassInvocation classInvocation) {
-			classInvocation.resolvePromise().then(result -> aGenType.setNode(result));
+			classInvocation.resolvePromise().then(aGenType::setNode);
 		} else
 			throw new IllegalStateException("invalid invocation");
 

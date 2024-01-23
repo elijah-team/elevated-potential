@@ -610,10 +610,15 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		return rci.registerClassInvocation(aClassInvocation);
 	}
 
-	public @NotNull ClassInvocation registerClassInvocation(final @NotNull ClassStatement aParent) {
-		// return registerClassInvocation(_inj().new_ClassInvocation(aParent, null,
-		// aDeduceTypes2));
-		return registerClassInvocation(_inj().new_ClassInvocation(aParent, null, new NULL_DeduceTypes2())); // !! 08/28
+	public @NotNull ClassInvocation registerClassInvocation(final @NotNull ClassStatement aParent, final DeduceTypes2 dtt) {
+		Supplier<DeduceTypes2> dt2s;
+		if (dtt == null) {
+			dt2s= new NULL_DeduceTypes2();
+		} else {
+			dt2s=()->dtt;
+		}
+
+		return registerClassInvocation(_inj().new_ClassInvocation(aParent, null, dt2s));
 	}
 
 	// helper function. no generics!

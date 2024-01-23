@@ -1,75 +1,26 @@
 package tripleo.elijah.comp.notation;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.internal_move_soon.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.inter.*;
-import tripleo.elijah.world.i.*;
-import tripleo.elijah.world.impl.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.EventualRegister;
+import tripleo.elijah.comp.PipelineLogic;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.factory.NonOpinionatedBuilder;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.stages.deduce.DeducePhase;
+import tripleo.elijah.stages.gen_fn.DefaultClassGenerator;
+import tripleo.elijah.stages.gen_fn.IClassGenerator;
+import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
+import tripleo.elijah.stages.inter.ModuleThing;
+import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.world.impl.DefaultWorldModule;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.Objects;
+import java.util.function.Consumer;
 
 public class GN_PL_Run2 implements GN_Notable, EventualRegister {
-	public static final class GenerateFunctionsRequest {
-		private final IClassGenerator classGenerator;
-		private final DefaultWorldModule worldModule;
-
-		public GenerateFunctionsRequest(IClassGenerator classGenerator, DefaultWorldModule worldModule) {
-			this.classGenerator = classGenerator;
-			this.worldModule    = worldModule;
-		}
-
-		public ModuleThing mt() {
-				return Objects.requireNonNull(worldModule.thing());
-			}
-
-			public OS_Module mod() {
-				return worldModule.module();
-			}
-
-		public IClassGenerator classGenerator() {
-			return classGenerator;
-		}
-
-		public DefaultWorldModule worldModule() {
-			return worldModule;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (obj == this) return true;
-			if (obj == null || obj.getClass() != this.getClass()) return false;
-			var that = (GenerateFunctionsRequest) obj;
-			return Objects.equals(this.classGenerator, that.classGenerator) &&
-					Objects.equals(this.worldModule, that.worldModule);
-		}
-
-		@Override
-		public int hashCode() {
-			return Objects.hash(classGenerator, worldModule);
-		}
-
-		@Override
-		public String toString() {
-			return "GenerateFunctionsRequest[" +
-					"classGenerator=" + classGenerator + ", " +
-					"worldModule=" + worldModule + ']';
-		}
-
-		}
-
-	@Contract("_ -> new")
-	@SuppressWarnings("unused")
-	public static @NotNull GN_PL_Run2 getFactoryEnv(GN_Env env1) {
-		var env = (GN_PL_Run2_Env) env1;
-		return new GN_PL_Run2(env.pipelineLogic(), env.mod(), env.ce(), env.worldConsumer());
-	}
+	private final NonOpinionatedBuilder __nob;
 
 	private final @NotNull WorldModule mod;
 	private final PipelineLogic        pipelineLogic;
@@ -81,13 +32,21 @@ public class GN_PL_Run2 implements GN_Notable, EventualRegister {
 
 	@Contract(pure = true)
 	public GN_PL_Run2(final PipelineLogic aPipelineLogic, final @NotNull WorldModule aMod,
-			final CompilationEnclosure aCe, final Consumer<WorldModule> aWorldConsumer) {
+					  final CompilationEnclosure aCe, final Consumer<WorldModule> aWorldConsumer) {
+		this(aPipelineLogic, aMod, aCe, aWorldConsumer, new NonOpinionatedBuilder());
+	}
+
+	@Contract(pure = true)
+	public GN_PL_Run2(final PipelineLogic aPipelineLogic, final @NotNull WorldModule aMod,
+			final CompilationEnclosure aCe, final Consumer<WorldModule> aWorldConsumer,
+					  final @NotNull NonOpinionatedBuilder aNob) {
 		pipelineLogic = aPipelineLogic;
 		mod = aMod;
 		ce = aCe;
 		worldConsumer = aWorldConsumer;
+		__nob = aNob;
 
-		dcg = new DefaultClassGenerator(pipelineLogic.dp);
+		dcg = new DefaultClassGenerator(pipelineLogic.dp, __nob);
 	}
 
 	private void _finish() {
@@ -126,5 +85,31 @@ public class GN_PL_Run2 implements GN_Notable, EventualRegister {
 		});
 
 		_finish();
+	}
+
+	@SuppressWarnings("unused")
+	public static @NotNull GN_PL_Run2 getFactoryEnv(GN_Env givenEnv) {
+		if (givenEnv instanceof GN_PL_Run2_Env actualEnv) {
+			return new GN_PL_Run2(actualEnv.pipelineLogic(), actualEnv.mod(), actualEnv.ce(), actualEnv.worldConsumer());
+		}
+		throw new IllegalStateException("Need better env");
+	}
+
+
+	public record GenerateFunctionsRequest(IClassGenerator classGenerator, DefaultWorldModule worldModule) {
+		public ModuleThing mt() {
+			return Objects.requireNonNull(worldModule.thing());
+		}
+
+		public OS_Module mod() {
+			return worldModule.module();
+		}
+
+		//@Override
+		//public String toString() {
+		//	return "GenerateFunctionsRequest[" +
+		//			"classGenerator=" + classGenerator + ", " +
+		//			"worldModule=" + worldModule + ']';
+		//}
 	}
 }

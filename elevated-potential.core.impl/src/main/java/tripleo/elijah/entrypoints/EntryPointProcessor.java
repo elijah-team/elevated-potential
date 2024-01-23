@@ -33,7 +33,7 @@ public interface EntryPointProcessor {
 		public void process() {
 			final @NotNull FunctionDef f = afep.getFunction();
 			@NotNull
-			final ClassInvocation ci = deducePhase.registerClassInvocation((ClassStatement) afep.getParent());
+			final ClassInvocation ci = deducePhase.registerClassInvocation((ClassStatement) afep.getParent(), null);
 
 			final WlGenerateClass job = new WlGenerateClass(generateFunctions, ci, deducePhase.generatedClasses,
 					/* , deducePhase.codeRegistrar */codeRegistrar);

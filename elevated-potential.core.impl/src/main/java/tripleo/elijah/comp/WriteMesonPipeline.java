@@ -13,12 +13,12 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.g.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.io.*;
 
 import java.io.*;
@@ -91,7 +91,7 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 	}
 
 	@Override
-	public void run(final CR_State aSt, final CB_Output aOutput) throws Exception {
+	public void run(final Ok aSt, final CB_Output aOutput) throws Exception {
 		write_makefiles();
 	}
 
@@ -105,7 +105,7 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 		write_makefiles_consumer().accept(lsp_outputs);
 
 		// write_makefiles_latch.notify(lsp_outputs);
-		write_makefiles_latch.notifyLatch(true);
+		write_makefiles_latch.notifyLatch(Ok.instance());
 	}
 
 	public @NotNull Consumer<Multimap<CompilerInstructions, String>> write_makefiles_consumer() {

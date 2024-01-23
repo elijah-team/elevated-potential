@@ -246,7 +246,7 @@ public class GenTypeImpl implements GenType {
 	@Override
 	public void genCIForGenType2(final @NotNull DeduceTypes2 deduceTypes2) {
 		final List<setup_GenType_Action> list = new ArrayList<>();
-		final setup_GenType_Action_Arena arena = new setup_GenType_Action_Arena();
+		final setup_GenType_Action_Arena arena = new setup_GenType_Action_Arena(deduceTypes2);
 
 		genCI(nonGenericTypeName, deduceTypes2, deduceTypes2._errSink(), deduceTypes2.phase);
 		final IInvocation invocation = ci;

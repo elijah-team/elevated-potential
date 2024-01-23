@@ -20,10 +20,7 @@ public class SGTA_RegisterClassInvocation implements setup_GenType_Action {
 
 	@Override
 	public void run(final @NotNull GenType gt, final @NotNull setup_GenType_Action_Arena arena) {
-		// @Nullable ClassInvocation ci = _inj().new_ClassInvocation(classStatement,
-		// null);
-		@Nullable
-		ClassInvocation ci = new ClassInvocation(classStatement, null, new NULL_DeduceTypes2()); // !! 08/28
+		@Nullable ClassInvocation ci = new ClassInvocation(classStatement, null, arena::getDeduceTypes2);
 		ci = phase.registerClassInvocation(ci);
 
 		arena.put("ci", ci);

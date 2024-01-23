@@ -11,9 +11,9 @@ package tripleo.elijah.comp;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.g.*;
 import tripleo.elijah.stages.deduce.pipeline_impl.*;
+import tripleo.elijah.util.Ok;
 
 /**
  * Created 8/21/21 10:10 PM
@@ -33,7 +33,7 @@ public class DeducePipeline extends PipelineMember {
 	}
 
 	@Override
-	public void run(final CR_State aSt, final CB_Output aOutput) {
+	public void run(final Ok aSt, final CB_Output aOutput) {
 		// logProgress("***** Hit DeducePipeline #run");
 		impl.run();
 	}
