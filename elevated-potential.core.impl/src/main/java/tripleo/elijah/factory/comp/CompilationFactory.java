@@ -13,6 +13,11 @@ public enum CompilationFactory {
 	;
 
 	@Contract("_, _ -> new")
+	public static @NotNull CompilationImpl mkCompilation0() {
+		return mkCompilation(new StdErrSink(), new IO_());
+	}
+
+	@Contract("_, _ -> new")
 	public static @NotNull CompilationImpl mkCompilation(final ErrSink eee, final IO io) {
 		return new CompilationImpl(eee, io);
 	}
