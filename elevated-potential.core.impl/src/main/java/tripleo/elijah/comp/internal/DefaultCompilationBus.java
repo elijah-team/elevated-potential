@@ -38,17 +38,6 @@ public class DefaultCompilationBus implements ICompilationBus {
 		pq.add(new SingleActionProcess(action, "CB_FindStdLibProcess"));
 	}
 
-//	@Override public void addCompilerChange(Class<?> compilationChangeClass) {
-//		if (compilationChangeClass.isInstance(CC_SetSilent.class)) {
-//			try {
-//				CompilationChange ccc = (CompilationChange) compilationChangeClass.getDeclaredConstructor(null).newInstance(null);
-//				ccc.apply(this.c);
-//			} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-//				throw new RuntimeException(e);
-//			}
-//		}
-//	}
-
 	@Override
 	public void add(final @NotNull CB_Process aProcess) {
 		pq.add(aProcess);
@@ -97,6 +86,17 @@ public class DefaultCompilationBus implements ICompilationBus {
 			}
 		}
 	}
+
+//	@Override public void addCompilerChange(Class<?> compilationChangeClass) {
+//		if (compilationChangeClass.isInstance(CC_SetSilent.class)) {
+//			try {
+//				CompilationChange ccc = (CompilationChange) compilationChangeClass.getDeclaredConstructor(null).newInstance(null);
+//				ccc.apply(this.c);
+//			} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+//				throw new RuntimeException(e);
+//			}
+//		}
+//	}
 
 	public void runProcesses() {
 		final Queue<CB_Process> procs = pq;
