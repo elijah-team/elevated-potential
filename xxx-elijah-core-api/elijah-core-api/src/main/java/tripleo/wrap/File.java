@@ -65,12 +65,19 @@ public class File {
 
 	@Override
 	public String toString() {
+		if (wrap == null) return "null";
+		return wrap.toString();
+	}
+
+	// NOTE java.io.File#toString !?
+	//@Override
+	public String repr_() {
 		final String wrapExistsS = wrap != null ? "" + wrap.exists() : "<null>";
-		final String s = "File{" +
-				"wrap=" + wrap +
-				"exists=" + wrapExistsS +
-				"connect=" + connect +
-				'}';
+		final String s = "File{"
+				+ ", wrap=" + wrap
+				+ ", exists=" + wrapExistsS
+				+ ", connect=" + connect
+				+ '}';
 		return s;
 	}
 
