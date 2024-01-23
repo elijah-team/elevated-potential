@@ -743,6 +743,10 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		waits.add(aDeduceTypes2);
 	}
 
+	public ClassInvocation registerClassInvocation(final ClassStatement aCs) {
+		return registerClassInvocation(aCs, null);
+	}
+
 	public interface Country {
 		void sendClasses(Consumer<List<EvaNode>> ces);
 	}
