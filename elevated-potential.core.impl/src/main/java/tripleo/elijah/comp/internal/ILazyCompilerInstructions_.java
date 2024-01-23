@@ -28,6 +28,7 @@ public abstract class ILazyCompilerInstructions_ {
 		// 5. Return null for failure
 
 		CK_SourceFile<CompilerInstructions> sf = CK_SourceFileFactory.get(f, CK_SourceFileFactory.K.SpecifiedEzFile);
+		assert sf != null;
 		sf.associate(input, cc);
 		final Operation2<CompilerInstructions> operation = sf.process_query();
 

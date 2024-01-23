@@ -1,8 +1,7 @@
 package tripleo.elijah.comp.internal;
 
 import lombok.Getter;
-import org.awaitility.core.ConditionEvaluationListener;
-import org.awaitility.core.EvaluatedCondition;
+import org.awaitility.core.*;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.*;
@@ -108,9 +107,13 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 		//final Eventual<Ok> abusingIt = c.get_pw().abusingIt; // remove duffs
 		//return abusingIt.isResolved();
-		await()
-				.atMost(2, TimeUnit.SECONDS)
-				.until(task::isSignalled);
+		try {
+			await()
+					.atMost(2, TimeUnit.SECONDS)
+					.until(task::isSignalled);
+		} catch (ConditionTimeoutException aE) { // use mutiny, studip
+			//throw new RuntimeException(aE);
+		}
 
 		for (final CB_Process process : pq) {
 			logProgess(INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
@@ -193,7 +196,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 
 			if (poll != null) {
-				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, new Object[]{poll.name()});
+				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, new Object[]{poll[0].name()});
 				poll[0].execute(xxx);
 				//recur //also djv
 			} else {
