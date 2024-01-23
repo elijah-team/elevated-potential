@@ -109,11 +109,6 @@ class DefaultCompFactory implements CompFactory {
 				thread.start();
 			}
 
-			@Deprecated @Override
-			public Thread stealThread() {
-				return thread;
-			}
-
 			@Override
 			public boolean isSignalled() {
 				return false;
