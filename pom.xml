@@ -26,6 +26,7 @@
 		<range.version>0.0.3b</range.version>
 
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<maven-surefire-report-plugin.version>3.2.5</maven-surefire-report-plugin.version>
 
 		<jdeferred.version>2.0.0</jdeferred.version>
 
@@ -420,6 +421,11 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>
 				<version>2.0</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>${maven-surefire-report-plugin.version}</version>
 			</plugin>
 		</plugins>
 	</reporting>
