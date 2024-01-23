@@ -187,6 +187,11 @@ class DefaultCompFactory implements CompFactory {
 				public void info(String string) {
 					SimplePrintLoggerToRemoveSoon.println2(string);
 				}
+
+				@Override
+				public void asv(final int code, final Object... aObjects) {
+					SimplePrintLoggerToRemoveSoon.println2("{{ULE}} "+code+" "+Arrays.asList(aObjects));
+				}
 			};
 		}
 		return _log;

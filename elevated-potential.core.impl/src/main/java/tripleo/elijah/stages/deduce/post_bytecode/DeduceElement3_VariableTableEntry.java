@@ -820,7 +820,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 
 	private void setup_GenType(@NotNull OS_Element element, @NotNull GenType aGt) {
 		final List<setup_GenType_Action> list = new ArrayList<>();
-		final setup_GenType_Action_Arena arena = new setup_GenType_Action_Arena();
+		final setup_GenType_Action_Arena arena = new setup_GenType_Action_Arena(deduceTypes2);
 
 		final DeducePhase phase = deduceTypes2._phase();
 

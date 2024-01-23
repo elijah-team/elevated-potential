@@ -8,31 +8,17 @@
  */
 package tripleo.elijah.comp;
 
-//import org.jetbrains.annotations.*;
-//import tripleo.elijah.DebugFlags;
-//import tripleo.elijah.comp.i.CB_Output;
-//import tripleo.elijah.comp.i.extra.*;
-//import tripleo.elijah.comp.internal.*;
-//import tripleo.elijah.comp.internal_move_soon.*;
-//import tripleo.elijah.comp.notation.*;
-//import tripleo.elijah.g.GPipelineAccess;
-//import tripleo.elijah.lang.i.*;
-//import tripleo.elijah.nextgen.outputstatement.*;
-//import tripleo.elijah.nextgen.outputtree.*;
-//import tripleo.elijah.stages.gen_fn.*;
-//import tripleo.elijah.stages.gen_generic.*;
-//import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.DebugFlags;
 import tripleo.elijah.comp.i.CB_Output;
+import tripleo.elijah.comp.i.CB_OutputString;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.comp.internal.Provenance;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
 import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
+import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.lang.i.OS_Element2;
@@ -42,6 +28,7 @@ import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.DoubleLatch;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.util.Ok;
 
 import java.util.*;
 
@@ -56,8 +43,8 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 	private final @NotNull DefaultGenerateResultSink  grs;
 	private final @NotNull DoubleLatch<List<EvaNode>> latch2;
 	private final @NotNull List<FunctionStatement> functionStatements = new ArrayList<>();
-	private CB_Output     _processOutput;
-	private CR_State      _processState;
+	private CB_Output               _processOutput;
+	private Object/*CR_State*/      _processState;
 	@SuppressWarnings("unused")
 	private List<EvaNode> _lgc;
 	@SuppressWarnings("unused")
@@ -75,7 +62,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 		//
 
 		pa.subscribePipelineLogic(aPl -> pipelineLogic = aPl);
-		pa.subscribe_lgc(aLgc -> _lgc = aLgc);
+		//pa.subscribe_lgc(aLgc -> _lgc = aLgc);
 
 		//
 
@@ -100,7 +87,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 		int                       y     =2;
 
 		for (EvaNode evaNode : nodesThatWereProcesed) {
-			_processOutput.logProgress(160, "EvaPipeline.recieve >> " + evaNode);
+			logProgress(160, "EvaPipeline.recieve >> " + evaNode);
 		}
 
 		nodesThatWereProcesed.forEach(this::nodeToOutputFileDump);
@@ -118,9 +105,13 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 					compilationEnclosure
 			);
 
-			_processOutput.logProgress(117, "EvaPipeline >> GN_GenerateNodesIntoSink");
+			logProgress(117, "EvaPipeline >> GN_GenerateNodesIntoSink");
 			pa.notate(Provenance.EvaPipeline__lgc_slot, env);
 		});
+	}
+
+	private void logProgress(final int code, final String message) {
+		_processOutput.logProgress(code, message);
 	}
 
 	private void functionStatementToOutputFileDump(final FunctionStatement functionStatement) {
@@ -239,11 +230,34 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 	}
 
 	@Override
-	public void run(final CR_State aSt, final CB_Output aOutput) {
-		_processState  = aSt;
-		_processOutput = aOutput;
+	public void run(final Ok aSt, final CB_Output aOutput) {
+		_processState  = null;
+		_processOutput = new CB_Output() {
+			private final List<CB_OutputString> _o = new ArrayList<>();
 
-		latch2.notifyLatch(true);
+			@Override
+			public @NotNull List<CB_OutputString> get() {
+				return //_o;
+						aOutput.get();
+			}
+
+			@Override
+			public void logProgress(final int number, final String text) {
+				aOutput.logProgress(number, text);
+			}
+
+			@Override
+			public void print(final String s) {
+				aOutput.print(s);
+			}
+
+			@Override
+			public void logProgress(final Diagnostic aDiagnostic) {
+				aOutput.logProgress(aDiagnostic);
+			}
+		};
+
+		latch2.notifyLatch(Ok.instance());
 	}
 
 	@Override

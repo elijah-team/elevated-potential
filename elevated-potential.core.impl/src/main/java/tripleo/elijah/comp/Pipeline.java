@@ -28,7 +28,7 @@ public class Pipeline implements GPipeline {
 
 	public void run(final CR_State aSt, final CB_Output aOutput) throws Exception {
 		for (final PipelineMember pl : pls) {
-			pl.run(aSt, aOutput);
+			pl.run(null, aOutput);
 		}
 	}
 

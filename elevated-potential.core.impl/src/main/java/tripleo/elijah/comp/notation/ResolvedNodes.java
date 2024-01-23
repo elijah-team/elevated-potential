@@ -93,6 +93,7 @@ class ResolvedNodes {
 	public void part3(final @NotNull PipelineLogic pipelineLogic,
 					  final WorldModule mod,
 					  final DeducePhase.GeneratedClasses lgc) {
+		pipelineLogic.pl.submit(mod);
 		pipelineLogic.dp.deduceModule(mod, lgc, pipelineLogic.getVerbosity());
 	}
 }

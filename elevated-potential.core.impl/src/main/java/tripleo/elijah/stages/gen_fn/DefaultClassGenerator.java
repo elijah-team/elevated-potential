@@ -2,6 +2,7 @@ package tripleo.elijah.stages.gen_fn;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.factory.NonOpinionatedBuilder;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.stages.deduce.ClassInvocation;
@@ -12,20 +13,19 @@ import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.work.*;
 
 public class DefaultClassGenerator implements IClassGenerator {
-
-	private final ICodeRegistrar cr;
-	private final DeducePhase deducePhase;
+	private final ICodeRegistrar    cr;
+	private final DeducePhase       _g_deducePhase;
 	private final @NotNull WorkList wl;
 
-	public DefaultClassGenerator(DeducePhase aDeducePhase) {
+	public DefaultClassGenerator(DeducePhase aDeducePhase, NonOpinionatedBuilder nob) {
 		// given
-		deducePhase = aDeducePhase;
+		_g_deducePhase = aDeducePhase;
 
 		// transitive
-		cr = deducePhase.getCodeRegistrar();
+		cr = _g_deducePhase.getCodeRegistrar();
 
 		// creating
-		wl = new WorkList__();
+		wl = nob.createWorkList(this);
 	}
 
 	@Override
@@ -35,25 +35,25 @@ public class DefaultClassGenerator implements IClassGenerator {
 
 	@Override
 	public DeducePhase.@NotNull GeneratedClasses getGeneratedClasses() {
-		return deducePhase.generatedClasses;
+		return _g_deducePhase.generatedClasses;
 	}
 
 	@Override
 	public FunctionInvocation newFunctionInvocation(final FunctionDef fd, final ProcTableEntry pte,
 			final @NotNull ClassInvocation ci) {
-		final @NotNull FunctionInvocation fi = deducePhase.newFunctionInvocation(fd, pte, ci);
+		final @NotNull FunctionInvocation fi = _g_deducePhase.newFunctionInvocation(fd, pte, ci);
 		return fi;
 	}
 
 	@Override
 	public @Nullable ClassInvocation registerClassInvocation(final @NotNull ClassStatement cs, final String className) {
-		final ClassInvocation ci = deducePhase.registerClassInvocation(cs, className, new NULL_DeduceTypes2());
+		final ClassInvocation ci = _g_deducePhase.registerClassInvocation(cs, className, new NULL_DeduceTypes2());
 		return ci;
 	}
 
 	@Override
 	public void submitGenerateClass(final @NotNull ClassInvocation ci, final GenerateFunctions gf) {
-		wl.addJob(new WlGenerateClass(gf, ci, deducePhase.generatedClasses, cr));
+		wl.addJob(new WlGenerateClass(gf, ci, _g_deducePhase.generatedClasses, cr));
 	}
 
 	@Override

@@ -89,7 +89,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 		}
 
 		public void commitGenTypeActions() {
-			final setup_GenType_Action_Arena arena = new setup_GenType_Action_Arena();
+			final setup_GenType_Action_Arena arena = new setup_GenType_Action_Arena(deduceTypes2);
 
 			if (principal.type == null) {
 				principal.type = generatedFunction.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null);
@@ -126,7 +126,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 		}
 
 		public void commitGenTypeActions() {
-			final setup_GenType_Action_Arena arena = new setup_GenType_Action_Arena();
+			final setup_GenType_Action_Arena arena = new setup_GenType_Action_Arena(deduceTypes2);
 
 			if (principal.type == null) {
 				principal.type = generatedFunction.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null);
@@ -552,7 +552,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 
 									if (resl != null) {
 										var ci11 = deduceTypes2.phase
-												.registerClassInvocation(resl.getClassOf());
+												.registerClassInvocation(resl.getClassOf(), deduceTypes2);
 
 										printString(350, "" + resl);
 										if (dt2 != null) {

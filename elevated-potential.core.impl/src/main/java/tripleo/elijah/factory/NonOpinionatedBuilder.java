@@ -4,6 +4,9 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.DefaultCompilerController;
+import tripleo.elijah.stages.gen_fn.DefaultClassGenerator;
+import tripleo.elijah.work.WorkList;
+import tripleo.elijah.work.WorkList__;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,5 +34,9 @@ public class NonOpinionatedBuilder {
 	public DefaultCompilerController createCompilerController(final Compilation aC) {
 		final CompilationImpl c = (CompilationImpl) aC;
 		return new DefaultCompilerController(c.getCompilationAccess3());
+	}
+
+	public WorkList createWorkList(final Object contextAkaOpinion) {
+		return new WorkList__();
 	}
 }

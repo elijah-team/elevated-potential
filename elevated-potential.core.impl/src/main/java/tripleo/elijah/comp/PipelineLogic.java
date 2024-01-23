@@ -8,57 +8,109 @@
  */
 package tripleo.elijah.comp;
 
-import com.google.common.collect.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import io.reactivex.rxjava3.annotations.NonNull;
-import lombok.*;
-import org.jdeferred2.*;
-import org.jetbrains.annotations.*;
+import org.jdeferred2.DoneCallback;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.internal_move_soon.*;
-import tripleo.elijah.comp.notation.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.g.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.internal.Provenance;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.notation.GN_PL_Run2;
+import tripleo.elijah.comp.notation.GN_PL_Run2_Env;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.g.GPipelineLogic;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.stages.deduce.DeducePhase;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.stages.logging.ElLog.Verbosity;
-import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
-import tripleo.elijah.world.impl.*;
+import tripleo.elijah.util.CompletableProcess;
+import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah.world.impl.DefaultWorldModule;
 
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Consumer;
+
+import static tripleo.elijah.util.Helpers0.List_of;
 
 /**
  * Created 12/30/20 2:14 AM
  */
-public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic {
-	public final @NotNull  DeducePhase              dp;
+public class PipelineLogic implements EventualRegister, GPipelineLogic {
 	public final @NotNull  GeneratePhase            generatePhase;
-//	private final @NonNull EIT_ModuleList           mods   = new EIT_ModuleList();
-	private final @NonNull ModuleCompletableProcess mcp    = new ModuleCompletableProcess();
-	final @NonNull         ModMap                   modMap = new ModMap();
+	public final @NotNull  DeducePhase              dp;
+	final @NonNull         ModMap                   modMap     = new ModMap();
+	private final          ICompilationAccess       ca;
+	private final @NonNull ModuleCompletableProcess mcp        = new ModuleCompletableProcess();
 	private final @NonNull IPipelineAccess          pa;
-	@Getter
-	private final @NonNull ElLog_.Verbosity  verbosity;
-	private final          List<Eventual<?>> _eventuals = new ArrayList<>();
+	private final          List<Eventual<?>>        _eventuals = new ArrayList<>();
+	//	private final @NonNull EIT_ModuleList           mods   = new EIT_ModuleList();
+	public                 GDM_Pipeline             pl         = new GDM_Pipeline() {
+		@Override
+		public GDM_Product submit(final Object aMod) {
+			final PipelineLogic pipelineLogic = PipelineLogic.this;
 
-	public PipelineLogic(final IPipelineAccess aPa, final @NotNull ICompilationAccess ca) {
+			CompletableProcess<GDP_Module> result = null;
+			if (aMod instanceof WorldModule wm) {
+				final WorldModule   mod = wm;
+				final List<EvaNode> lgc = new ArrayList<>();
+				pipelineLogic.dp.deduceModule(mod,
+											  Collections.unmodifiableList(lgc),
+											  pipelineLogic.getVerbosity());
+				result = new GDP_ModuleCompletableProcess(lgc);
+				return GDM_Product.of(result);
+			}
+			return null; // maybe null/void cp??
+		}
+	};
+
+	public PipelineLogic(final IPipelineAccess aPa, final @NotNull ICompilationAccess ca0) {
 		pa = aPa;
 
 		// TODO annotation time, or use clj
 		pa.install_notate(Provenance.PipelineLogic__nextModule, GN_PL_Run2.class, GN_PL_Run2_Env.class);
 
+		this.ca = ca0;
 		ca.setPipelineLogic(this);
-		verbosity     = ca.testSilence();
-		generatePhase = new GeneratePhase(verbosity, pa, this);
+		generatePhase = new GeneratePhase(ca.testSilence(), pa, this);
 		dp            = new DeducePhase(ca, pa, this);
 
 		pa.getCompilationEnclosure().addModuleListener(new PL_ModuleListener(this, pa));
+	}
+
+	public Verbosity getVerbosity() {
+		// 24/01/04 back and forth
+		return ca.testSilence();
+	}
+
+	public interface GDM_Pipeline {
+		GDM_Product submit(final Object aMod);
+	}
+
+	public interface GDM_Product {
+		static GDM_Product of(Object aGDPModuleCompletableProcess) {
+			return new GDM_Product() {
+				@Override
+				public List<EvaNode> getNodes() {
+					if (aGDPModuleCompletableProcess instanceof GDP_ModuleCompletableProcess gdp)
+						return gdp.getNodes();
+					else return List_of();
+				}
+
+				@Override
+				public CompletableProcess<GDP_Module> getProcess() {
+					if (aGDPModuleCompletableProcess instanceof GDP_ModuleCompletableProcess gdp)
+						return gdp;
+					else return null;
+				}
+			};
+		}
+
+		List<EvaNode> getNodes();
+		CompletableProcess<GDP_Module> getProcess();
 	}
 
 	public ModuleCompletableProcess _mcp() {
@@ -105,6 +157,17 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 	@Override
 	public <P> void register(final Eventual<P> e) {
 		_eventuals.add(e);
+	}
+
+	interface GDP_Module {
+		OS_Module getSource();
+
+		// TODO 24/01/22  need EvaModule?
+
+		//promise??
+		List<EvaNode> getGeneratedProducts();
+
+		List<EvaNode> getDeducedProducts();
 	}
 
 	class ModMap {
@@ -167,9 +230,41 @@ public class PipelineLogic implements @NotNull EventualRegister, GPipelineLogic 
 		}
 	}
 
-	public Verbosity getVerbosity() {
-		// 24/01/04 back and forth
-		return this.verbosity;
+	private static class GDP_ModuleCompletableProcess implements CompletableProcess<GDP_Module> {
+		private final List<EvaNode> nodes; // you won!!
+
+		private GDP_ModuleCompletableProcess(List<EvaNode> aNodes) {
+			nodes = aNodes;
+		}
+
+		@Override
+		public void add(final GDP_Module item) {
+			throw new UnintendedUseException("not expected, remove after tests");
+		}
+
+		@Override
+		public void complete() {
+			throw new UnintendedUseException("not expected, remove after tests");
+		}
+
+		@Override
+		public void error(final Diagnostic d) {
+			throw new UnintendedUseException("not expected, remove after tests");
+		}
+
+		@Override
+		public void preComplete() {
+			throw new UnintendedUseException("not expected, remove after tests");
+		}
+
+		@Override
+		public void start() {
+			throw new UnintendedUseException("not expected, remove after tests");
+		}
+
+		public List<EvaNode> getNodes() {
+			return this.nodes;
+		}
 	}
 }
 

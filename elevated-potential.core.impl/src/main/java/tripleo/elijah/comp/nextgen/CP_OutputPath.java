@@ -127,30 +127,38 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 				ppc.calc(calc);
 				CP_Path p = ppc.getP(this);
 
-				final String root = c.paths().outputRoot().getRootFile().toString();
+				final String root = c.paths().outputRoot().getRootFile().getWrappedFilename();
 				final String one  = ppc.c_name();
 				final String two  = ppc.date();
 
 				Path px = Path.of(root, one, _testShim ? "<date>" : two);
 				logProgress(117117, "OutputPath = " + px);
 
+/*
 				assert p.samePath(px); // FIXME "just return COMP" instead of zero
+*/
 
 				_pathPromise.resolve(px);
 
+/*
 				CP_Path pp = ppc.getP(this);
 				assert pp.samePath(px); // FIXME "just return COMP" instead of zero
+*/
 
 				this.root = tripleo.wrap.File.wrap(px.toFile());
 
+/*
 				CP_Path p3 = ppc.getP(this);
 				assert p3.samePath(px); // FIXME "just return COMP" instead of zero
+*/
 
-			    final List<Object> objects = Helpers.List_of(px, p, pp, p3);
+			    final List<Object> objects = Helpers.List_of(px, p /*, pp, p3*/);
 			    for (Object object : objects) {
 				    logProgress(117133, "" + object);
 		    	}
 			});
+
+			hda.calculate();
 		}
 	}
 

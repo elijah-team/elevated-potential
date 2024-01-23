@@ -68,7 +68,7 @@ public interface CompFactory {
 
 	CompilerInputMaster createCompilerInputMaster();
 
-	CM_UleLog getULog();
+	CM_UleLog getULog(); // sp?
 
 	ILazyCompilerInstructions createLazyCompilerInstructions(CompilerInput aCarrier);
 }

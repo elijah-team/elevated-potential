@@ -3,10 +3,10 @@ package tripleo.elijah.comp;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.g.GPipelineMember;
 import tripleo.elijah.stages.hooligan.pipeline_impl.*;
+import tripleo.elijah.util.Ok;
 
 public class LawabidingcitizenPipeline extends PipelineMember implements GPipelineMember {
 	private final @NotNull IPipelineAccess pa;
@@ -18,7 +18,7 @@ public class LawabidingcitizenPipeline extends PipelineMember implements GPipeli
 	}
 
 	@Override
-	public void run(final CR_State aSt, final CB_Output aOutput) {
+	public void run(final Ok aSt, final CB_Output aOutput) {
 		try {
 			final Compilation compilation = pa.getCompilation();
 			i.run(compilation);

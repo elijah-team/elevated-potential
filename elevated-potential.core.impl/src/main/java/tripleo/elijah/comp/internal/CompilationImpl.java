@@ -191,21 +191,27 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	public ICompilationAccess3 getCompilationAccess3() {
+		var _c = this;
 		if (aICompilationAccess3 == null) {
 			aICompilationAccess3 = new ICompilationAccess3() {
 				@Override
 				public Compilation getComp() {
-					return CompilationImpl.this;
+					return _c;
 				}
 
 				@Override
 				public boolean getSilent() {
-					return getSilent();
+					return getComp().cfg().silent;
 				}
 
 				@Override
 				public void addLog(final ElLog aLog) {
 					getComp().getCompilationEnclosure().addLog(aLog);
+				}
+
+				@Override
+				public List<ElLog> getLogs() {
+					return getComp().getCompilationEnclosure().getLogs();
 				}
 
 				@Override
@@ -217,11 +223,6 @@ public class CompilationImpl implements Compilation, EventualRegister {
 				@Override
 				public PipelineLogic getPipelineLogic() {
 					return getComp().getCompilationEnclosure().getPipelineLogic();
-				}
-
-				@Override
-				public List<ElLog> getLogs() {
-					return getComp().getCompilationEnclosure().getLogs();
 				}
 			};
 		}
