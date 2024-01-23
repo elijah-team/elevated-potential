@@ -1,6 +1,8 @@
 package tripleo.elijah.comp.internal;
 
 import lombok.Getter;
+import org.awaitility.core.ConditionEvaluationListener;
+import org.awaitility.core.EvaluatedCondition;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.*;
@@ -9,7 +11,8 @@ import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 
 import static org.awaitility.Awaitility.await;
 import static tripleo.elijah.util.Helpers.List_of;
@@ -74,6 +77,17 @@ public class DefaultCompilationBus implements ICompilationBus {
 		return _monitor;
 	}
 
+//	@Override public void addCompilerChange(Class<?> compilationChangeClass) {
+//		if (compilationChangeClass.isInstance(CC_SetSilent.class)) {
+//			try {
+//				CompilationChange ccc = (CompilationChange) compilationChangeClass.getDeclaredConstructor(null).newInstance(null);
+//				ccc.apply(this.c);
+//			} catch (NoSuchMethodException | InvocationTargetException | SimonyiException | IllegalAccessException e) {
+//				throw new RuntimeException(e);
+//			}
+//		}
+//	}
+
 	@Override // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 	public void addCompilerChange(Class<?> class1) {
 		if (class1.isInstance(CompilationChange.class)) {
@@ -87,62 +101,12 @@ public class DefaultCompilationBus implements ICompilationBus {
 		}
 	}
 
-//	@Override public void addCompilerChange(Class<?> compilationChangeClass) {
-//		if (compilationChangeClass.isInstance(CC_SetSilent.class)) {
-//			try {
-//				CompilationChange ccc = (CompilationChange) compilationChangeClass.getDeclaredConstructor(null).newInstance(null);
-//				ccc.apply(this.c);
-//			} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-//				throw new RuntimeException(e);
-//			}
-//		}
-//	}
-
 	public void runProcesses() {
-		final Queue<CB_Process> procs = pq;
-
-		final var xxx = this;
-		var s = new CompFactory.StartableI() {
-			@Override
-			public void run() {
-				// FIXME passing sh*t between threads (P.O.!)
-				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__THREAD_ENTER, new Object[]{});
-				long x = 0;
-				while (x < 12) {
-					final CB_Process poll = procs.poll();
-
-					if (poll != null) {
-						_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, new Object[]{poll.name()});
-						poll.execute(xxx);
-					} else {
-						_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__MAKE_POLLING_EXPENSIVE_AGAIN, new Object[]{poll[0]});
-						try {
-							Thread.sleep(500);
-//					x = 0; // who put this here?
-						} catch (InterruptedException aE) {
-							//throw new RuntimeException(aE);
-						}
-					}
-					++x;
-				}
-				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__THREAD_EXIT, new Object[]{});
-			}
-
-			@Override
-			public boolean isSignalled() {
-				return false;
-			}
-
-			@Override
-			public String getThreadName() {
-				return "[DefaultCompilationBus]";
-			}
-		};
-
+		final __ProcessRunnerStartable s   = new __ProcessRunnerStartable(pq, this);
 		final Startable         task  = this.c.con().askConcurrent(s);
 		task.start();
 
-		//final Eventual<Ok> abusingIt = c.get_pw().abusingIt;
+		//final Eventual<Ok> abusingIt = c.get_pw().abusingIt; // remove duffs
 		//return abusingIt.isResolved();
 		await()
 				.atMost(2, TimeUnit.SECONDS)
@@ -152,7 +116,6 @@ public class DefaultCompilationBus implements ICompilationBus {
 			logProgess(INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
 			execute_process(this, process);
 		}
-
 	}
 
 	private void logProgess(final int code, final String message) {
@@ -186,5 +149,71 @@ public class DefaultCompilationBus implements ICompilationBus {
 			return name;//"SingleActionProcess";
 		}
 
+	}
+
+	private class __ProcessRunnerStartable implements CompFactory.StartableI {
+		private final Queue<CB_Process>     procs;
+		private final DefaultCompilationBus xxx;
+
+		public __ProcessRunnerStartable(final Queue<CB_Process> aProcs, final DefaultCompilationBus aXxx) {
+			procs = aProcs;
+			xxx   = aXxx;
+		}
+
+		@Override
+		public void run() {
+			// FIXME passing sh*t between threads (P.O.!)
+			_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__THREAD_ENTER, new Object[]{});
+			final CB_Process[] poll = new CB_Process[1];
+
+
+			//given().ignoreException(IllegalStateException.class).
+			await("named await statement") // chasing concurrentcy out of the park
+
+					// eugenp:
+					// The status is obtained by a Callable that polls our service at defined intervals
+					// (100ms default) after a specified initial delay (default 100ms).
+					// Here we are using the default settings for the timeout, interval, and delay:
+
+					//.atMost(1, TimeUnit.SECONDS) // don't overheat fishes
+					.atMost(5, TimeUnit.SECONDS) // heat death of universe
+					//.catchUncaughtExceptions()
+					.conditionEvaluationListener(new ConditionEvaluationListener() {
+						@Override
+						public void conditionEvaluated(final EvaluatedCondition condition) {
+							int y = 2;
+						}
+					})
+
+					//.ignoreExceptionsInstanceOf()
+					.until(() -> {
+						poll[0] = procs.poll();
+						return poll[0] != null;
+					});
+
+
+			if (poll != null) {
+				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, new Object[]{poll.name()});
+				poll[0].execute(xxx);
+				//recur //also djv
+			} else {
+				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__MAKE_POLLING_EXPENSIVE_AGAIN, new Object[]{poll[0]});
+				//try {
+				//	Thread.sleep(500);
+				//} catch (InterruptedException aE) {
+				//}
+			}
+			_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__THREAD_EXIT, new Object[]{});
+		}
+
+		@Override
+		public boolean isSignalled() {
+			return false;
+		}
+
+		@Override
+		public String getThreadName() {
+			return "[DefaultCompilationBus]";
+		}
 	}
 }
