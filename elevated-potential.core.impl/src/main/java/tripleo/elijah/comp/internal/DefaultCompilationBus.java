@@ -142,29 +142,17 @@ public class DefaultCompilationBus implements ICompilationBus {
 		final Startable         task  = this.c.con().askConcurrent(s);
 		task.start();
 
-		try {
-			// TODO 10/20 Remove this soon
-			final Thread thread = task.stealThread();
+		//final Eventual<Ok> abusingIt = c.get_pw().abusingIt;
+		//return abusingIt.isResolved();
+		await()
+				.atMost(2, TimeUnit.SECONDS)
+				.until(task::isSignalled);
 
-			thread.join();//TimeUnit.MINUTES.toMillis(1));
-
-			await()
-					.atMost(5, TimeUnit.SECONDS)
-					.until(() -> {
-				return task.isSignalled();
-				//final Eventual<Ok> abusingIt = c.get_pw().abusingIt;
-				//return abusingIt.isResolved();
-			});
-
-			for (final CB_Process process : pq) {
-				logProgess(INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
-				execute_process(this, process);
-			}
-
-			thread.stop();
-		} catch (InterruptedException aE) {
-			throw new RuntimeException(aE);
+		for (final CB_Process process : pq) {
+			logProgess(INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
+			execute_process(this, process);
 		}
+
 	}
 
 	private void logProgess(final int code, final String message) {
