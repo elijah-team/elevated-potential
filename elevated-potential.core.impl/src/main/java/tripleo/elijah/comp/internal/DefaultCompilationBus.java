@@ -106,7 +106,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 			@Override
 			public void run() {
 				// FIXME passing sh*t between threads (P.O.!)
-				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
+				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__THREAD_ENTER, new Object[]{});
 				long x = 0;
 				while (x < 12) {
 					final CB_Process poll = procs.poll();
@@ -115,7 +115,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 						_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, new Object[]{poll.name()});
 						poll.execute(xxx);
 					} else {
-						_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
+						_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__MAKE_POLLING_EXPENSIVE_AGAIN, new Object[]{poll[0]});
 						try {
 							Thread.sleep(500);
 //					x = 0; // who put this here?
@@ -125,7 +125,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 					}
 					++x;
 				}
-				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5789, new Object[]{});
+				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__THREAD_EXIT, new Object[]{});
 			}
 
 			@Override
