@@ -135,4 +135,9 @@ public class File {
 	public void setUseReasoning(final USE_Reasoning aUseReasoning) {
 		useReasoning = aUseReasoning;
 	}
+
+	public String getWrappedFilename() {
+		// TODO 24/01/22 decide if it's worth it to change toString to whatever you changed it to
+		return wrapped().toString();
+	}
 }
