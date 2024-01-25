@@ -121,14 +121,15 @@ public class USE {
 
 		//assert compilerInstructions.
 		final File file            = compilerInstructions.makeFile();
-		final File instruction_dir = file.getParentFile();
+		if (file != null) {
+			final File instruction_dir = file.getParentFile();
 
-		if (instruction_dir == null) {
-			 SimplePrintLoggerToRemoveSoon.println_err_4("106106 ************************************** "+file);
-			// Prelude.elijjah is a special case
-			// instruction_dir = file;
-			return;
-		}
+			if (instruction_dir == null) {
+				 SimplePrintLoggerToRemoveSoon.println_err_4("106106 ************************************** "+file);
+				// Prelude.elijjah is a special case
+				// instruction_dir = file;
+				return;
+			}
 
 		for (final LibraryStatementPart lsp : compilerInstructions.getLibraryStatementParts()) {
 			final String dir_name = Helpers.remove_single_quotes_from_string(lsp.getDirName());
@@ -144,12 +145,16 @@ public class USE {
 			use_internal(dir, lsp, reasoning);
 		}
 
-		final LibraryStatementPart lsp = new LibraryStatementPartImpl();
-		lsp.setName(Helpers0.makeToken("default")); // TODO: make sure this doesn't conflict
-		lsp.setDirName(Helpers0.makeToken(String.format("\"%s\"", instruction_dir)));
-		lsp.setInstructions(compilerInstructions);
-		USE_Reasoning reasoning = USE_Reasonings.default_(compilerInstructions, false, instruction_dir, lsp);
-		use_internal(instruction_dir, lsp, reasoning);
+			final LibraryStatementPart lsp = new LibraryStatementPartImpl();
+			lsp.setName(Helpers0.makeToken("default")); // TODO: make sure this doesn't conflict
+			lsp.setDirName(Helpers0.makeToken(String.format("\"%s\"", instruction_dir)));
+			lsp.setInstructions(compilerInstructions);
+
+			final USE_Reasoning reasoning = USE_Reasonings.default_(compilerInstructions, false, instruction_dir, lsp);
+			use_internal(instruction_dir, lsp, reasoning);
+		} else {
+			SimplePrintLoggerToRemoveSoon.println_err_4("-- 2401-155: ");
+		}
 	}
 
 	private void use_internal(final @NotNull File dir, final LibraryStatementPart lsp, USE_Reasoning aReasoning) {
