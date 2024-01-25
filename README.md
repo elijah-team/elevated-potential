@@ -14,7 +14,7 @@ Elijah is:
 - ... implemented in Java (17, for now; 8 is great and Graal is you paal)
 - ... of the impression that build systems don't matter (tldr maven for now)
 - ... mortal enemies of Scala and Kotlin
-- ... philosophically excited about Clojure (and Xtend nad EMF/MBSE)
+- ... parenthetically excited about Clojure (and Xtend nad EMF/MBSE)
 - ... also secretly jealous of Lombok and AOP
 
 
@@ -24,7 +24,7 @@ Instructions
 [https://github.com/elijah-team/elevated-potential](https://github.com/elijah-team/elevated-potential)
 
 ```shell
-git clone https://github.com/elijah-team/elevated-potential -b rolling+2024-0123
+git clone https://github.com/elijah-team/elevated-potential -b rolling+240116
 cd elevated-potential
 sdk install mvnd
 mvnd clean test
