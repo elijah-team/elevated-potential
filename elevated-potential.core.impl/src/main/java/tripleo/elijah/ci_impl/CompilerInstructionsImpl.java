@@ -103,14 +103,20 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	public File makeFile() {
 		final String  inp = getInp();
 
-		Preconditions.checkNotNull(inp);
-
-		return new tripleo.wrap.File(inp);
+		//Preconditions.checkNotNull(inp);
+		if (inp!=null) {
+			return new File(inp);
+		} else {
+			return null;
+		}
 	}
 
 	public String getInp() {
-		assert this._inp != null;
-		return this._inp.getInp();
+		//assert this._inp != null;
+		if (this._inp != null) {
+			return this._inp.getInp();
+		}
+		return null;
 	}
 
 //	@Override
