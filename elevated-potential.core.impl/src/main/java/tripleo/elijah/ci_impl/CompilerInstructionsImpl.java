@@ -23,7 +23,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	private         CM_Filename                filename;
 	private         GenerateStatement          gen;
 	private         String                     name;
-	private USE_Reasoning _reasoning;
+	private         USE_Reasoning              _reasoning;
 
 	@Override
 	public void add(final GenerateStatement generateStatement) {
@@ -45,8 +45,8 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	@Override
 	public Optional<String> genLang() {
 		Collection<GenerateStatementImpl.Directive> gens = Collections2.filter(((GenerateStatementImpl) gen).dirs, (GenerateStatementImpl.Directive directive) -> {
-            return directive.sameName("gen");
-        });
+			return directive.sameName("gen");
+		});
 		Iterator<GenerateStatementImpl.Directive> gi = gens.iterator();
 		if (!gi.hasNext()) return null;
 		CiExpression lang_raw = gi.next().getExpression();
@@ -61,8 +61,18 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	}
 
 	@Override
+	public void setFilename(final CM_Filename filename) {
+		this.filename = filename;
+	}
+
+	@Override
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public void setName(LocatableString name) {
+		this.name = name.asLocatableString();
 	}
 
 	@Override
@@ -71,21 +81,11 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	}
 
 	@Override
-	public void setFilename(final CM_Filename filename) {
-		this.filename = filename;
-	}
-
-	@Override
 	public @NotNull CiIndexingStatement indexingStatement() {
 		if (_idx == null)
 			_idx = new CiIndexingStatementImpl(this);
 
 		return _idx;
-	}
-
-	@Override
-	public void setName(LocatableString name) {
-		this.name = name.asLocatableString();
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	public File makeFile() {
 		final String entireName = getInp();
 		if (entireName == null) {
-			int y=2;
+			int y = 2;
 			assert false;
 		}
 		return new tripleo.wrap.File(entireName);
@@ -132,7 +132,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	public String toString() {
 		return "CompilerInstructionsImpl{" +
 				"name='" + name + '\'' +
-				", filename='" + filename + '\'' +
+				", filename='" + filename.getFilenameString() + '\'' +
 				'}';
 	}
 }
