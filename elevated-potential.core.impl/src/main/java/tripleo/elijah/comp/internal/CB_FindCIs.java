@@ -10,6 +10,7 @@ import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.util.Maybe;
@@ -24,10 +25,10 @@ class CB_FindCIs implements CB_Action {
 	private final CompilationClosure cc;
 
 	@Contract(pure = true)
-	public CB_FindCIs(final CompilationRunner aCompilationRunner, final List<CompilerInput> aInputs) {
-		_inputs           = aInputs;
-		o                 = aCompilationRunner.getCompilationEnclosure().getCB_Output();
-		cc = aCompilationRunner.c().getCompilationClosure();
+	public CB_FindCIs(final ICompilationRunner aCompilationRunner, final List<CompilerInput> aInputs) {
+		_inputs = aInputs;
+		o       = aCompilationRunner.getCompilationEnclosure().getCB_Output();
+		cc      = aCompilationRunner.c().getCompilationClosure();
 	}
 
 	@Override

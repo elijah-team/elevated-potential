@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
@@ -32,6 +33,7 @@ public class LCM_Event_StartCompilationRunnerAction implements LCM_Event {
 		final ICompilationBus      cb                   = compilationEnclosure.getCompilationBus();
 		final CompilationRunner    runner               = compilationEnclosure.getCompilationRunner();
 		final CR_State             crState              = runner.getCrState(); // effectively a global, so what's the point? to localize the data calls.
+		final ICompilationRunner    runner               = compilationEnclosure.getCompilationRunner();
 
 		if (startAction == null) {
 			startAction = new CB_StartCompilationRunnerAction(runner, pa, aRootCI);
@@ -73,15 +75,15 @@ public class LCM_Event_StartCompilationRunnerAction implements LCM_Event {
 	}
 
 	static class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
-		static boolean           started;
-		private final CompilationRunner compilationRunner;
-		private final          CompilerInstructions rootCI;
+		static        boolean              started;
+		private final ICompilationRunner   compilationRunner;
+		private final CompilerInstructions rootCI;
 		private final @NotNull IPipelineAccess pa;
 		@Getter
 		final CB_Output o;
 
 		@Contract(pure = true)
-		public CB_StartCompilationRunnerAction(final CompilationRunner aCompilationRunner,
+		public CB_StartCompilationRunnerAction(final ICompilationRunner aCompilationRunner,
 											   final @NotNull IPipelineAccess aPa,
 											   final CompilerInstructions aRootCI) {
 			compilationRunner = aCompilationRunner;

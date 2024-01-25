@@ -65,10 +65,11 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	@Contract(pure = true)
 	CompilerDriver getCompilationDriver();
 
-	@Contract(pure = true)
-	CompilationRunner getCompilationRunner();
+	//@Contract(pure = true) ICompilationRunner getCompilationRunner();
 
-	void setCompilationRunner(CompilationRunner aCompilationRunner);
+	void setCompilationRunner(ICompilationRunner aCompilationRunner);
+
+	void waitCompilationRunner(Consumer<ICompilationRunner> ccr);
 
 	@Contract(pure = true)
 	List<CompilerInput> getCompilerInput();

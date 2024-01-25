@@ -12,7 +12,7 @@ import java.util.*;
 public /* static */ class CCI_Acceptor__CompilerInputListener implements CompilerInputListener {
 	private final Compilation    compilation;
 	public final  InstructionDoer id;
-	private final CompilationRunner cr;
+	private final ICompilationRunner cr;
 	private       CCI           cci;
 	private       IProgressSink _progressSink;
 

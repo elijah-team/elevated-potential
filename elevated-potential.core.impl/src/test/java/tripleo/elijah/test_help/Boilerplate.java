@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.i.ProcessRecord;
 import tripleo.elijah.comp.internal.*;
@@ -51,11 +52,12 @@ public class Boilerplate {
 		comp = new CompilationImpl(new StdErrSink(), new IO_());
 		final ICompilationAccess aca1 = ((CompilationImpl) comp)._access();
 		aca = aca1 != null ? aca1 : new DefaultCompilationAccess((Compilation) comp);
+		final ICompilationAccess aca1 = comp._access();
 
 		CR_State crState;
 		crState = new CR_State(aca);
-		cr = new CompilationRunner(aca, crState,
-				() -> new DefaultCompilationBus((@NotNull CompilationEnclosure) aca.getCompilation().getCompilationEnclosure()));
+		ICompilationRunner cr = new DefaultCompilerController.CompilationRunner(aca, crState,
+																				() -> new DefaultCompilationBus((@NotNull CompilationEnclosure) aca.getCompilation().getCompilationEnclosure()));
 		crState.setRunner(cr);
 
 		final CompilationEnclosure compilationEnclosure = (CompilationEnclosure) comp.getCompilationEnclosure();

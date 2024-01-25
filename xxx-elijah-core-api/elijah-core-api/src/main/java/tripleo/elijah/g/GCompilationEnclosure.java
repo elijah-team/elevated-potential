@@ -2,6 +2,7 @@ package tripleo.elijah.g;
 
 import org.apache.commons.lang3.tuple.Pair;
 import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.nextgen.i.AsseverationLogProgress;
 
 public interface GCompilationEnclosure {
@@ -12,4 +13,5 @@ public interface GCompilationEnclosure {
 	GModuleThing getModuleThing(GOS_Module aModule);
 
 	void logProgress2(CompProgress aCompProgress, AsseverationLogProgress aAsseverationLogProgress);
+	ICompilationRunner getCompilationRunner();
 }

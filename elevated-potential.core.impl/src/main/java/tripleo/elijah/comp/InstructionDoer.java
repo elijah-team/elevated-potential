@@ -1,6 +1,7 @@
 package tripleo.elijah.comp;
 
 import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.util.*;
@@ -15,7 +16,7 @@ public class InstructionDoer implements CompletableProcess<CompilerInstructions>
 
 	@Override
 	public void add(final CompilerInstructions item) {
-		CompilationRunner __cr = _g_compilation.getCompilationEnclosure().getCompilationRunner();
+		ICompilationRunner __cr = _g_compilation.getCompilationEnclosure().getCompilationRunner();
 		if (root == null) {
 			root = item;
 			try {

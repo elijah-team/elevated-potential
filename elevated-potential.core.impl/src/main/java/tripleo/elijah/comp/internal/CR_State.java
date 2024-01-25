@@ -40,7 +40,7 @@ public class CR_State implements GCR_State {
 	public        CB_Action            cur;
 	public  ProcessRecord      pr;
 	private ICompilationAccess ca;
-	private CompilationRunner  compilationRunner;
+	private ICompilationRunner  compilationRunner;
 
 	@Contract(pure = true)
 	public CR_State(ICompilationAccess aCa) {
@@ -61,9 +61,10 @@ public class CR_State implements GCR_State {
 
 	public CompilationRunner runner() {
 		return compilationRunner;
+	public ICompilationRunner runner() {
 	}
 
-	public void setRunner(CompilationRunner aCompilationRunner) {
+	public void setRunner(ICompilationRunner aCompilationRunner) {
 		compilationRunner = aCompilationRunner;
 	}
 
