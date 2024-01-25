@@ -119,6 +119,7 @@ public class USE {
 		if (compilerInstructions.getFilename() == null)
 			return;
 
+		//assert compilerInstructions.
 		final File file            = compilerInstructions.makeFile();
 		final File instruction_dir = file.getParentFile();
 

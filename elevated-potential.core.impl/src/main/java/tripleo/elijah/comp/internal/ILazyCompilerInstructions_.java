@@ -28,14 +28,18 @@ public abstract class ILazyCompilerInstructions_ {
 		// 5. Return null for failure
 
 		CK_SourceFile<CompilerInstructions> sf = CK_SourceFileFactory.get(f, CK_SourceFileFactory.K.SpecifiedEzFile);
-		sf.associate(input, cc);
-		final Operation2<CompilerInstructions> operation = sf.process_query();
+		if (sf != null) {
+			sf.associate(input, cc);
+			final Operation2<CompilerInstructions> operation = sf.process_query();
 
-		if (operation.mode() == Mode.SUCCESS) {
-			final CompilerInstructions parsed = operation.success();
-			eilci.resolve(parsed);
-		} else
-			eilci.reject(operation.failure());
+			if (operation.mode() == Mode.SUCCESS) {
+				final CompilerInstructions parsed = operation.success();
+				eilci.resolve(parsed);
+			} else
+				eilci.reject(operation.failure());
+		} else {
+			System.err.println("999-041 sourcefile null");
+		}
 	}
 	@Contract(value = "_, _ -> new", pure = true)
 	public static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInput input,

@@ -1,7 +1,9 @@
 package tripleo.elijah.ci_impl;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Collections2;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.ci.cii.StringExpression;
@@ -21,7 +23,8 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	private         CiIndexingStatement        _idx;
 	private         CM_Filename                filename;
 	private         GenerateStatement          gen;
-	private         String                     name;
+	private           String        name;
+	private @Nullable CompilerInput _inp;
 
 	@Override
 	public void add(final GenerateStatement generateStatement) {
@@ -83,7 +86,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public void setName(LocatableString name) {
-		throw new UnintendedUseException("copy paste");
+		this.name = name.asLocatableString();
 	}
 
 	@Override
@@ -93,16 +96,21 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public void advise(final CompilerInput aAdvisement) {
-		throw new UnintendedUseException("copy paste");
+		this._inp = aAdvisement;
 	}
 
 	@Override
 	public File makeFile() {
-		return new tripleo.wrap.File(getInp());
+		final String  inp = getInp();
+
+		Preconditions.checkNotNull(inp);
+
+		return new tripleo.wrap.File(inp);
 	}
 
 	public String getInp() {
-		return null;
+		assert this._inp != null;
+		return this._inp.getInp();
 	}
 
 //	@Override
@@ -117,9 +125,12 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public String toString() {
+		final String nameS = name;
+		final String filenameS = filename.getFilenameString();
+
 		return "CompilerInstructionsImpl{" +
-				"name='" + name + '\'' +
-				", filename='" + filename + '\'' +
+				"name='" + nameS + '\'' +
+				", filename='" + filenameS + '\'' +
 				'}';
 	}
 }

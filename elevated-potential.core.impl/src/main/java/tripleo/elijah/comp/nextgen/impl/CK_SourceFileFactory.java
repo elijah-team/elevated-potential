@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.i.CK_SourceFile;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
+import tripleo.wrap.File;
 
 // TODO 24/01/04 CM_Factory??
 @SuppressWarnings("rawtypes")
@@ -45,6 +46,9 @@ public enum CK_SourceFileFactory { ;
 	@SuppressWarnings("unchecked")
 	public static CK_SourceFile<CompilerInstructions> get(java.io.File f, K specifiedezfile) {
 		assert specifiedezfile == K.SpecifiedEzFile;
+		if (specifiedezfile==K.SpecifiedEzFile) {
+			return new CK_SourceFile__SpecifiedEzFile(File.wrap(f));
+		}
 		// TODO Auto-generated method stub
 		return get(tripleo.wrap.File.wrap(f), f.toString(), specifiedezfile);
 	}
