@@ -23,7 +23,6 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
-import tripleo.elijah.comp.impl.LCM_Event_RootCI;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.CP_Paths__;
 import tripleo.elijah.comp.nextgen.i.CPX_CalculateFinishParse;
@@ -48,6 +47,8 @@ import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah_elevated.comp.model.CM_ModelFactory;
+import tripleo.elijah_elevated.lcm.LCM_Event_RootCI;
+import tripleo.elijah_elevated.util.DebugProbe;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -90,26 +91,25 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private       IO                                  io;
 	@SuppressWarnings("BooleanVariableAlwaysNegated")
 	private       boolean                             _inside;
-	private       CompilerInput                       __advisement;
-	private       ICompilationAccess3                 aICompilationAccess3;
-	private @NotNull CK_Monitor defaultMonitor;
+	private       ICompilationAccess3 _access3;
+	private @NotNull CK_Monitor       defaultMonitor;
 	private CPX_Signals cpxSignals;
 	private CM_ModelFactory _modelFactory;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
-		errSink              = aErrSink;
-		io                   = aIo;
-		_con                 = new DefaultCompFactory(this);
-		lcm                  = new LCM(this);
-		specToModuleMap      = new HashMap<>();
-		moduleToCMMap        = new HashMap<>();
-		specToEzMap          = new HashMap<>();
-		xxx                  = new ArrayList<>();
-		_compilationNumber   = new Random().nextInt(Integer.MAX_VALUE);
-		_fluffyComp          = new FluffyCompImpl(this);
-		cfg                  = new CompilationConfig();
-		use                  = new USE(this.getCompilationClosure());
-		_cis                 = new CIS();
+		errSink            = aErrSink;
+		io                 = aIo;
+		_con               = new DefaultCompFactory(this);
+		lcm                = new LCM(this);
+		specToModuleMap    = new HashMap<>();
+		moduleToCMMap      = new HashMap<>();
+		specToEzMap        = new HashMap<>();
+		xxx                = new ArrayList<>();
+		_compilationNumber = new Random().nextInt(Integer.MAX_VALUE);
+		_fluffyComp        = new FluffyCompImpl(this);
+		cfg                = new CompilationConfig();
+		use                = new USE(this.getCompilationClosure());
+		_cis               = new CIS();
 		paths                = new CP_Paths__(this);
 		pathsEventual.resolve(paths);
 		_repo                = _con.getLivingRepo();
@@ -208,8 +208,8 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	public ICompilationAccess3 getCompilationAccess3() {
 		var _c = this;
-		if (aICompilationAccess3 == null) {
-			aICompilationAccess3 = new ICompilationAccess3() {
+		if (_access3 == null) {
+			_access3 = new ICompilationAccess3() {
 				@Override
 				public Compilation getComp() {
 					return _c;
@@ -242,7 +242,12 @@ public class CompilationImpl implements Compilation, EventualRegister {
 				}
 			};
 		}
-		return aICompilationAccess3;
+		return _access3;
+	}
+
+	@Override
+	public LCM lcm() {
+		return this.lcm;
 	}
 
 	@NotNull
@@ -377,28 +382,21 @@ public class CompilationImpl implements Compilation, EventualRegister {
 			return Operation.success(Ok.instance());
 		} else {
 			if (cis.isEmpty()) {
-				//String absolutePath = new File(".").getAbsolutePath();
-				//
-				//getCompilationEnclosure().logProgress(CompProgress.Compilation__hasInstructions__empty, absolutePath);
-
 				setRootCI(cci_listener._root());
 			} else if (getRootCI() == null) {
 				setRootCI(cis.get(0));
 			}
 
-			//if (null == pa.getCompilation().getInputs()) {
-			//	pa.setCompilerInput(pa.getCompilation().getInputs());
-			//}
-
 			if (!_inside) {
 				_inside = true;
 
 				final CompilerInstructions rootCI = getRootCI();
-				//final CompilerInstructions rootCI = this.cci_listener._root();
-				rootCI.advise(__advisement/*_inputs.get(0)*/);
+				//rootCI.advise(__advisement); //why here??
 
 				final CompilationRunner compilationRunner = getCompilationEnclosure().getCompilationRunner();
 				compilationRunner.start(rootCI, pa);
+
+				compilationRunner._accessCompilation().lcm().asv(rootCI, LCM_Event_RootCI.instance());
 			} else {
 				NotImplementedException.raise_stop();
 				//throw new UnintendedUseException();
@@ -453,6 +451,11 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public void use(@NotNull final CompilerInstructions compilerInstructions, final USE_Reasoning aReasoning) {
+		DebugProbe.hit(DebugProbe.e.COMPILATION_IMPL__use,
+					   DebugProbe.dictOf(
+							   "compilerInstructions",compilerInstructions,
+							   "aReasoning",aReasoning));
+
 		if (aReasoning.ty() == USE_Reasoning.Type.USE_Reasoning__findStdLib) {
 			pushItem(compilerInstructions);
 		}

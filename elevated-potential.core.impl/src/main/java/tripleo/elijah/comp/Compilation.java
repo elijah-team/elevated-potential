@@ -111,6 +111,8 @@ public interface Compilation extends Compilation0 {
 
 	ICompilationAccess3 getCompilationAccess3();
 
+	LCM lcm();
+
 	class CompilationConfig implements GCompilationConfig {
 		public          boolean showTree = false;
 		public          boolean silent   = false;

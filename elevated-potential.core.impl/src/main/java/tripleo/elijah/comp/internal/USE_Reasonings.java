@@ -8,8 +8,7 @@ import tripleo.elijah.comp.i.*;
 
 import tripleo.wrap.File;
 
-public enum USE_Reasonings {
-	;
+public enum USE_Reasonings {;
 
 	public static USE_Reasoning parent(CompilerInstructions aCompilerInstructions, boolean parent, File aInstructionDir, LibraryStatementPart aLsp) {
 		return new USE_Reasoning_parent(parent, aInstructionDir, aCompilerInstructions);
@@ -31,34 +30,31 @@ public enum USE_Reasonings {
 		return new USE_Reasoning_findStdLib(aFindStdLib);
 	}
 
-	public static USE_Reasoning initial(final CK_ProcessInitialAction aCKProcessInitialAction, final CompilationRunner aCompilationRunner, final CB_Output aOutput) {
-		return new USE_Reasoning_initial(aCKProcessInitialAction, aCompilationRunner, aOutput);
+	public static USE_Reasoning initial(final CK_ProcessInitialAction aCKProcessInitialAction) {
+		return new USE_Reasoning_initial(aCKProcessInitialAction);
 	}
 
 	private static class USE_Reasoning_initial implements USE_Reasoning {
 		private final CK_ProcessInitialAction processInitialAction;
-		private final CB_Output               cbOutput;
-		private final CompilationRunner       compilationRunner;
 
-		public USE_Reasoning_initial(final CK_ProcessInitialAction aCKProcessInitialAction, final CompilationRunner aCompilationRunner, final CB_Output aOutput) {
+		public USE_Reasoning_initial(final CK_ProcessInitialAction aCKProcessInitialAction) {
 			processInitialAction = aCKProcessInitialAction;
-			compilationRunner    = aCompilationRunner;
-			cbOutput             = aOutput;
 		}
 
 		@Override
 		public boolean parent() {
-			return false;
+			throw new UnintendedUseException("whaddya mean");
 		}
 
 		@Override
 		public CM_Module module() {
-			return null; // idk
+			// idk
+			throw new UnintendedUseException("whaddya mean");
 		}
 
 		@Override
 		public File instruction_dir() {
-			return null;
+			throw new UnintendedUseException("whaddya mean");
 		}
 
 		@Override
@@ -86,13 +82,12 @@ public enum USE_Reasonings {
 
 		@Override
 		public CM_Module module() {
-			//return null;
-			throw new UnintendedUseException();
+			throw new UnintendedUseException("whaddya mean");
 		}
 
 		@Override
 		public File instruction_dir() {
-			return null;
+			throw new UnintendedUseException("whaddya mean");
 		}
 
 		@Override
@@ -115,19 +110,19 @@ public enum USE_Reasonings {
 
 		@Override
 		public boolean parent() {
-			return false;
+			throw new UnintendedUseException("whaddya mean");
 		}
 
 		@Override
 		public CM_Module module() {
-			//return ProgramIsLikelyWrong;
-			//throw new UnintendedUseException("");
-			return null; // ci not mod
+			throw new UnintendedUseException("whaddya mean");
+			//return null; // ci not mod
 		}
 
 		@Override
 		public File instruction_dir() {
-			return null;
+			throw new UnintendedUseException("whaddya mean");
+
 		}
 
 		@Override
@@ -152,12 +147,13 @@ public enum USE_Reasonings {
 
 		@Override
 		public boolean parent() {
-			return false;
+			throw new UnintendedUseException("whaddya mean");
 		}
 
 		@Override
 		public CM_Module module() {
-			return null; // this one is just confusing
+			// this one is just confusing
+			throw new UnintendedUseException("whaddya mean");
 		}
 
 		@Override
@@ -206,7 +202,8 @@ public enum USE_Reasonings {
 
 		@Override
 		public CM_Module module() {
-			return null; // idk
+			// idk
+			throw new UnintendedUseException("whaddya mean");
 		}
 
 		@Override
@@ -243,7 +240,8 @@ public enum USE_Reasonings {
 
 		@Override
 		public CM_Module module() {
-			return null; // idk
+			// idk
+			throw new UnintendedUseException("whaddya mean");
 		}
 
 		@Override

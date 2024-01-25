@@ -7,6 +7,7 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.ci.cii.StringExpression;
 import tripleo.elijah.ci.cil.Helpers;
 import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.i.USE_Reasoning;
 import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.xlang.LocatableString;
 import tripleo.wrap.File;
@@ -22,6 +23,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	private         CM_Filename                filename;
 	private         GenerateStatement          gen;
 	private         String                     name;
+	private USE_Reasoning _reasoning;
 
 	@Override
 	public void add(final GenerateStatement generateStatement) {
@@ -105,6 +107,11 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 			assert false;
 		}
 		return new tripleo.wrap.File(entireName);
+	}
+
+	@Override
+	public void advise(final USE_Reasoning aReasoning) {
+		_reasoning = aReasoning;
 	}
 
 	public String getInp() {
