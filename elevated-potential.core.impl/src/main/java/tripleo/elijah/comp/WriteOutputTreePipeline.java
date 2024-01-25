@@ -93,7 +93,11 @@ public class WriteOutputTreePipeline extends PipelineMember implements GPipeline
 		//
 		//
 		//
-		addLogs((x,y,z)->{ot.add(new EOT_OutputFileImpl(x,y,EOT_OutputType.LOGS,z));}, compilation.getCompilationEnclosure().getLogs());
+		addLogs((x,y,z) -> {
+						final EOT_OutputFileImpl off = new EOT_OutputFileImpl(x, y, EOT_OutputType.LOGS, z);
+						ot.add(off);
+					},
+				compilation.getCompilationEnclosure().getLogs());
 
 		final CP_Paths paths = compilation.paths();
 
@@ -112,8 +116,9 @@ public class WriteOutputTreePipeline extends PipelineMember implements GPipeline
 			final String oldPath = outputFile.getFilename();
 			final EG_Statement seq = outputFile.getStatementSequence();
 
-			if (outputFile.getType() == EOT_OutputType.SOURCES)
+			if (outputFile.getType() == EOT_OutputType.SOURCES) {
 				compilation.reports().addCodeOutput(()-> oldPath, outputFile);
+			}
 
 			final CP_Path pp = getNewPathForOutput(outputFile, outputRoot, oldPath);
 

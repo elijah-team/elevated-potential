@@ -105,7 +105,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 		//Preconditions.checkNotNull(inp);
 		if (inp!=null) {
-			return new File(inp);
+			return tripleo.wrap.File.wrap(new java.io.File(inp));
 		} else {
 			return null;
 		}

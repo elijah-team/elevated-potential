@@ -65,10 +65,11 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	@Contract(pure = true)
 	CompilerDriver getCompilationDriver();
 
-	@Contract(pure = true)
-	CompilationRunner getCompilationRunner();
+	//@Contract(pure = true) ICompilationRunner getCompilationRunner();
 
-	void setCompilationRunner(CompilationRunner aCompilationRunner);
+	void setCompilationRunner(ICompilationRunner aCompilationRunner);
+
+	void waitCompilationRunner(Consumer<ICompilationRunner> ccr);
 
 	@Contract(pure = true)
 	List<CompilerInput> getCompilerInput();
@@ -106,10 +107,8 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 
 	void _resolvePipelineAccessPromise(IPipelineAccess aPa);
 
-	void waitCompilationRunner(Consumer<CompilationRunner> ccr);
-
-	@Override
-	void logProgress2(CompProgress aCompProgress, AsseverationLogProgress aAsseverationLogProgress);
+	//@Override
+	//void logProgress2(CompProgress aCompProgress, AsseverationLogProgress aAsseverationLogProgress);
 
 	CK_Monitor getDefaultMonitor();
 
@@ -128,4 +127,8 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	List<ElLog> getLogs();
 
 	EIT_ModuleList getModuleList();
+
+	CompilerController getCompilerController();
+
+	void setCompilerController(CompilerController aController);
 }

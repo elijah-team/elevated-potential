@@ -109,7 +109,7 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 	}
 
 	public CompilationEnclosure _ce() {
-		return _phase()._compilation().getCompilationEnclosure();
+		return (CompilationEnclosure) _phase()._compilation().getCompilationEnclosure();
 	}
 
 	public @NotNull DeducePhase _phase() {

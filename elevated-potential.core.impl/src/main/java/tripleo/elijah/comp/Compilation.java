@@ -96,7 +96,7 @@ public interface Compilation extends Compilation0 {
 
 	LCM_CompilerAccess getLCMAccess();
 
-	CompilationRunner getRunner();
+	ICompilationRunner getRunner();
 
 	CompilationConfig _cfg();
 
@@ -107,14 +107,17 @@ public interface Compilation extends Compilation0 {
 	PW_CompilerController get_pw();
 
 	class CompilationConfig implements GCompilationConfig {
-		public          boolean showTree = false;
-		public          boolean silent   = false;
+		private boolean silent   = false;
 
 		@Override
 		public void setSilent(final boolean b) {
 			silent = b;
 		}
 
+		@Override
+		public boolean getSilent() {
+			return silent;
+		}
 	}
 
 	CPX_Signals signals();

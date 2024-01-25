@@ -21,6 +21,7 @@ public enum CK_SourceFileFactory { ;
 		return switch (aK) {
 		case ElaboratedEzFile -> new CK_SourceFile__ElaboratedEzFile(directory, file_name);
 		case ElaboratedElijahFile ->  new CK_SourceFile__ElaboratedElijahFile(directory, file_name);
+		case SpecifiedEzFile -> new CK_SourceFile__SpecifiedEzFile(directory);
 		default -> null;
 		};
 	}

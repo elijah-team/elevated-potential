@@ -40,7 +40,7 @@ public class CR_State implements GCR_State {
 	public        CB_Action            cur;
 	public  ProcessRecord      pr;
 	private ICompilationAccess ca;
-	private CompilationRunner  compilationRunner;
+	private ICompilationRunner  compilationRunner;
 
 	@Contract(pure = true)
 	public CR_State(ICompilationAccess aCa) {
@@ -59,12 +59,17 @@ public class CR_State implements GCR_State {
 		return ca;
 	}
 
-	public CompilationRunner runner() {
+	public ICompilationRunner runner() {
 		return compilationRunner;
 	}
 
-	public void setRunner(CompilationRunner aCompilationRunner) {
+	public void setRunner(ICompilationRunner aCompilationRunner) {
 		compilationRunner = aCompilationRunner;
+	}
+
+	@Override
+	public GProcessRecord _pr() {
+		return this.pr;
 	}
 
 	private static class ProcessRecordImpl implements ProcessRecord {
@@ -188,7 +193,7 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public CompilationEnclosure getCompilationEnclosure() {
-			return getCompilation().getCompilationEnclosure();
+			return (CompilationEnclosure) getCompilation().getCompilationEnclosure();
 		}
 
 		@Override

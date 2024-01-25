@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.nextgen;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.Eventual;
@@ -13,6 +14,7 @@ import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
 
@@ -95,16 +97,16 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 	private void logProgress(final int code, final String message) {
 		if (code == 117117)
 			return;
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(String.format("%d %s", code, message));
+		SimplePrintLoggerToRemoveSoon.println_err_4(String.format("%d %s", code, message));
 	}
 
 	public @NotNull Operation<Boolean> renderNode(final @NotNull ER_Node node) {
 		final Path         path = node.getPath().getPath(); // TODO 12/07
 		final EG_Statement seq  = node.getStatement();
 
-		c.getCompilationEnclosure().logProgress(CompProgress.__CP_OutputPath_renderNode, node);
+		c.getCompilationEnclosure().logProgress(CompProgress.__CP_OutputPath_renderNode, Pair.of(-1, "" + node));
 
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("401b Writing path: " + path.toFile());
+		SimplePrintLoggerToRemoveSoon.println_out_4("401b Writing path: " + path.toFile());
 		path.getParent().toFile().mkdirs();
 
 		try (final DisposableCharSink xx = c.getIO().openWrite(path)) {
@@ -177,7 +179,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 	}
 
 	private static class __PathPromiseCalculator {
-		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss");
+		private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss");
 
 		private String date;
 		private String c_name;

@@ -1,13 +1,17 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.g.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.deduce.DeducePhase;
+import tripleo.elijah.stages.deduce.IFunctionMapHook;
+import tripleo.elijah.stages.logging.ElLog_;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 public class DefaultCompilationAccess implements ICompilationAccess {
 	protected final Compilation compilation;
@@ -21,17 +25,19 @@ public class DefaultCompilationAccess implements ICompilationAccess {
 	@Override
 	public void addFunctionMapHook(final GFunctionMapHook aFunctionMapHook1) {
 		IFunctionMapHook aFunctionMapHook = (IFunctionMapHook) aFunctionMapHook1;
-		compilation.getCompilationEnclosure().getPipelineLogic().dp.addFunctionMapHook(aFunctionMapHook);
+		final DeducePhase o                = (DeducePhase) compilation.getCompilationEnclosure().getPipelineLogic()._dp();
+		o.addFunctionMapHook(aFunctionMapHook);
+	}
+
+	@Override
+	public @NotNull List<GFunctionMapHook> functionMapHooks() {
+		final DeducePhase o                = (DeducePhase) compilation.getCompilationEnclosure().getPipelineLogic()._dp();
+		return Collections.unmodifiableList(o.functionMapHooks);
 	}
 
 	@Override
 	public void addPipeline(final GPipelineMember pl) {
 		pipelines.add((PipelineMember)pl);
-	}
-
-	@Override
-	public @NotNull List<GFunctionMapHook> functionMapHooks() {
-		return Collections.unmodifiableList(compilation.getCompilationEnclosure().getPipelineLogic().dp.functionMapHooks);
 	}
 
 	@Override
@@ -56,14 +62,14 @@ public class DefaultCompilationAccess implements ICompilationAccess {
 			//throw new AssertionError();
 			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("903056 pipelineLogic already set");
 		} else {
-			compilation.getCompilationEnclosure().setPipelineLogic(pl);
+			((CompilationEnclosure) compilation.getCompilationEnclosure()).setPipelineLogic(pl);
 		}
 	}
 
 	@Override
 	@NotNull
 	public ElLog_.Verbosity testSilence() {
-		return compilation.cfg().silent ? ElLog_.Verbosity.SILENT : ElLog_.Verbosity.VERBOSE;
+		return compilation.cfg().getSilent() ? ElLog_.Verbosity.SILENT : ElLog_.Verbosity.VERBOSE;
 	}
 
 	@Override

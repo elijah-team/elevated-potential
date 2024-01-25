@@ -1,8 +1,9 @@
-package tripleo.elijah.comp.impl;
+package tripleo.elijah_elevated.lcm;
 
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 
 public class LCM_Event_RootCI implements LCM_Event {
 	private static final LCM_Event_RootCI INSTANCE = new LCM_Event_RootCI();
@@ -20,8 +21,11 @@ public class LCM_Event_RootCI implements LCM_Event {
 		final CompilationImpl.CompilationConfig cfg    = c.cfg();
 
 		try {
-//			c.c().setRootCI(rootCI);
-			c.cr().start(rootCI, c.c().pa());
+			final CompilationEnclosure ce = (CompilationEnclosure) c.c().getCompilationEnclosure();
+
+			ce.getPipelineAccessPromise().then(pa -> {
+				c.cr().start(rootCI, pa);
+			});
 		} catch (Exception aE) {
 			aHandleEvent.lcm().exception(aHandleEvent, aE);
 		}

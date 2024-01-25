@@ -8,6 +8,7 @@ import tripleo.elijah.comp.graph.i.CK_SourceFile;
 import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
 import tripleo.elijah.comp.nextgen.impl.CK_SourceFileFactory;
+import tripleo.elijah.diagnostic.ExceptionDiagnostic;
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Operation2;
 
@@ -38,7 +39,8 @@ public abstract class ILazyCompilerInstructions_ {
 			} else
 				eilci.reject(operation.failure());
 		} else {
-			System.err.println("999-041 sourcefile null");
+			//System.err.println("999-041 sourcefile null");
+			eilci.reject(new ExceptionDiagnostic(new Exception("cannot associate null "+file_name)));
 		}
 	}
 	@Contract(value = "_, _ -> new", pure = true)

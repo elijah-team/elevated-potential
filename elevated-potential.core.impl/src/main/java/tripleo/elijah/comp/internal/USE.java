@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
@@ -110,7 +111,7 @@ public class USE {
 	}
 
 	private void logProgress(final CompProgress aCompProgress, final String aAbsolutePath) {
-		this.c.getCompilationEnclosure().logProgress(aCompProgress,aAbsolutePath);
+		this.c.getCompilationEnclosure().logProgress(aCompProgress, Pair.of(-1, aAbsolutePath));
 	}
 
 	public void use(final @NotNull CompilerInstructions compilerInstructions) {
@@ -121,7 +122,6 @@ public class USE {
 
 		//assert compilerInstructions.
 		final File file            = compilerInstructions.makeFile();
-		if (file != null) {
 			final File instruction_dir = file.getParentFile();
 
 			if (instruction_dir == null) {
@@ -149,12 +149,8 @@ public class USE {
 			lsp.setName(Helpers0.makeToken("default")); // TODO: make sure this doesn't conflict
 			lsp.setDirName(Helpers0.makeToken(String.format("\"%s\"", instruction_dir)));
 			lsp.setInstructions(compilerInstructions);
-
-			final USE_Reasoning reasoning = USE_Reasonings.default_(compilerInstructions, false, instruction_dir, lsp);
+		USE_Reasoning reasoning = USE_Reasonings.default_(compilerInstructions, false, instruction_dir, lsp);
 			use_internal(instruction_dir, lsp, reasoning);
-		} else {
-			SimplePrintLoggerToRemoveSoon.println_err_4("-- 2401-155: ");
-		}
 	}
 
 	private void use_internal(final @NotNull File dir, final LibraryStatementPart lsp, USE_Reasoning aReasoning) {

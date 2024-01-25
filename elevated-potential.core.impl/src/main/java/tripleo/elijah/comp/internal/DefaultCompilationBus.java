@@ -10,7 +10,8 @@ import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 
 import static org.awaitility.Awaitility.await;
 import static tripleo.elijah.util.Helpers.List_of;
@@ -28,7 +29,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 		c                    = (@NotNull Compilation) ace.getCompilationAccess().getCompilation();
 		pq                   = new ConcurrentLinkedQueue<>();
 		alreadyP             = new ArrayList<>();
-		_monitor             = new CompilationRunner.__CompRunner_Monitor();
+		_monitor             = ace.getCompilerController().defaultMonitor();
 		_defaultProgressSink = new DefaultProgressSink();
 		_compilerDriver      = new CompilerDriver__(this);
 		ace.setCompilerDriver(_compilerDriver);
@@ -100,46 +101,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 	}
 
 	public void runProcesses() {
-		final Queue<CB_Process> procs = pq;
-
-		final var xxx = this;
-		var s = new CompFactory.StartableI() {
-			@Override
-			public void run() {
-				// FIXME passing sh*t between threads (P.O.!)
-				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
-				long x = 0;
-				while (x < 12) {
-					final CB_Process poll = procs.poll();
-
-					if (poll != null) {
-						_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, new Object[]{poll.name()});
-						poll.execute(xxx);
-					} else {
-						_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
-						try {
-							Thread.sleep(500);
-//					x = 0; // who put this here?
-						} catch (InterruptedException aE) {
-							//throw new RuntimeException(aE);
-						}
-					}
-					++x;
-				}
-				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5789, new Object[]{});
-			}
-
-			@Override
-			public boolean isSignalled() {
-				return false;
-			}
-
-			@Override
-			public String getThreadName() {
-				return "[DefaultCompilationBus]";
-			}
-		};
-
+		final __ProcessRunnerStartable s   = new __ProcessRunnerStartable(pq, this);
 		final Startable         task  = this.c.con().askConcurrent(s);
 		task.start();
 
@@ -188,5 +150,71 @@ public class DefaultCompilationBus implements ICompilationBus {
 			return name;//"SingleActionProcess";
 		}
 
+	}
+
+	private class __ProcessRunnerStartable implements CompFactory.StartableI {
+		private final Queue<CB_Process>     procs;
+		private final DefaultCompilationBus xxx;
+
+		public __ProcessRunnerStartable(final Queue<CB_Process> aProcs, final DefaultCompilationBus aXxx) {
+			procs = aProcs;
+			xxx   = aXxx;
+		}
+
+		@Override
+		public void run() {
+			// FIXME passing sh*t between threads (P.O.!)
+			_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__THREAD_ENTER, new Object[]{});
+			final CB_Process[] poll = new CB_Process[1];
+
+
+			//given().ignoreException(IllegalStateException.class).
+			await("named await statement") // chasing concurrentcy out of the park
+
+					// eugenp:
+					// The status is obtained by a Callable that polls our service at defined intervals
+					// (100ms default) after a specified initial delay (default 100ms).
+					// Here we are using the default settings for the timeout, interval, and delay:
+
+					//.atMost(1, TimeUnit.SECONDS) // don't overheat fishes
+					.atMost(5, TimeUnit.SECONDS) // heat death of universe
+					//.catchUncaughtExceptions()
+					.conditionEvaluationListener(new ConditionEvaluationListener() {
+						@Override
+						public void conditionEvaluated(final EvaluatedCondition condition) {
+							int y = 2;
+						}
+					})
+
+					//.ignoreExceptionsInstanceOf()
+					.until(() -> {
+						poll[0] = procs.poll();
+						return poll[0] != null;
+					});
+
+
+			if (poll != null) {
+				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, new Object[]{poll[0].name()});
+				poll[0].execute(xxx);
+				//recur //also djv
+			} else {
+				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__MAKE_POLLING_EXPENSIVE_AGAIN, new Object[]{poll[0]});
+				//try {
+				//	Thread.sleep(500);
+				//} catch (InterruptedException aE) {
+				//}
+			}
+			_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__THREAD_EXIT, new Object[]{});
+		}
+
+		@Override
+		public boolean isSignalled() {
+			return false;
+		}
+
+		@Override
+		public String getThreadName() {
+			return "[DefaultCompilationBus]";
+		}
 	}
 }

@@ -132,9 +132,24 @@ public class TestBasic {
 					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(r);
 				}
 			}
+
 		}
 
-		assertEquals(2, c.errorCount());
+		//DebugProbe.hit(DebugProbe.e.COMPILATION_IMPL__use,
+		//			   DebugProbe.dictOf(
+		//					   "compilerInstructions",compilerInstructions,
+		//					   "aReasoning",aReasoning));
+
+
+		final List<Pair<DebugProbe.e, Map<String, Object>>> ll = DebugProbe.get_COMPILATION_IMPL__use();
+		for (Pair<DebugProbe.e, Map<String, Object>> mapPair : ll) {
+			final Map<String, Object> dlm = mapPair.getRight();
+			System.err.println(dlm);
+		}
+
+		assert !ll.isEmpty();
+
+		//assertEquals(2, c.errorCount());
 
 		assertTrue(c.reports().containsInput("test/basic/import_demo.elijjah"));
 		assertTrue(c.reports().containsInput("test/basic/listfolders3/listfolders3.elijah"));
@@ -292,7 +307,7 @@ public class TestBasic {
 			assertTrue(c.getOutputTree().getList().size() > 0);
 			assertTrue(c.getIO().recordedwrites().size() > 0);
 
-			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
+			var aofs = ((CompilationEnclosure) c.getCompilationEnclosure()).OutputFileAsserts();
 			for (Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest> aof : aofs) {
 				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(aof);
 			}

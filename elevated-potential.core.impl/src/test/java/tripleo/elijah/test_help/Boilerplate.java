@@ -2,6 +2,7 @@ package tripleo.elijah.test_help;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
@@ -29,13 +30,12 @@ import static tripleo.elijah.util.Helpers.List_of;
 
 // TODO replace with CompilationFlow
 public class Boilerplate {
-	public Compilation0       comp;
+	public  CompilationImpl    comp;
 	public ICompilationAccess aca;
 	public ProcessRecord pr;
 	public PipelineLogic pipelineLogic;
 	public GenerateFiles generateFiles;
-	tripleo.elijah.lang.i.OS_Module module;
-	private CompilationRunner cr;
+	private OS_Module          module;
 
 	public OS_Module defaultMod() {
 		if (module == null) {
@@ -49,16 +49,16 @@ public class Boilerplate {
 
 	public void get() {
 		comp = new CompilationImpl(new StdErrSink(), new IO_());
-		final ICompilationAccess aca1 = ((CompilationImpl) comp)._access();
-		aca = aca1 != null ? aca1 : new DefaultCompilationAccess((Compilation) comp);
+		final ICompilationAccess aca1 = comp._access();
+		aca = aca1 != null ? aca1 : new DefaultCompilationAccess(comp);
 
 		CR_State crState;
 		crState = new CR_State(aca);
-		cr = new CompilationRunner(aca, crState,
-				() -> new DefaultCompilationBus((@NotNull CompilationEnclosure) aca.getCompilation().getCompilationEnclosure()));
+		ICompilationRunner cr = new DefaultCompilerController.CompilationRunner(aca, crState,
+																				() -> new DefaultCompilationBus((@NotNull CompilationEnclosure) aca.getCompilation().getCompilationEnclosure()));
 		crState.setRunner(cr);
 
-		final CompilationEnclosure compilationEnclosure = (CompilationEnclosure) comp.getCompilationEnclosure();
+		final CompilationEnclosure compilationEnclosure = comp.getCompilationEnclosure();
 
 		compilationEnclosure.setCompilationRunner(cr);
 
@@ -66,7 +66,7 @@ public class Boilerplate {
 		crState.ca();
 		assert compilationEnclosure.getCompilationRunner().getCrState() != null; // always true
 
-		pr = cr.getCrState().pr;
+		pr            = (ProcessRecord) cr.getCrState()._pr();
 		pipelineLogic = pr.pipelineLogic();
 
 		if (module != null) {
@@ -88,7 +88,7 @@ public class Boilerplate {
 			List<ProcessedNode> lgc = List_of();
 			IPipelineAccess pa = pipelineLogic().dp.pa;
 			GenerateResultSink    resultSink1 = new DefaultGenerateResultSink(pa);
-			final CompilationEnclosure ce = (CompilationEnclosure) comp.getCompilationEnclosure();
+			final CompilationEnclosure ce = comp.getCompilationEnclosure();
 			EIT_ModuleList        moduleList  = ce.getModuleList();
 			//Object             moduleList = null;
 			ElLog_.Verbosity   verbosity  = ElLog_.Verbosity.SILENT;

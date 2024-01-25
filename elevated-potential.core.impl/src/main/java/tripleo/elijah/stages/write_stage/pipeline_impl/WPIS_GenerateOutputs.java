@@ -263,7 +263,7 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 
 			final Multimap<NG_OutputRequest, EG_Statement> mfss = ArrayListMultimap.create();
 			final EOT_OutputTree       cot = c.getOutputTree();
-			final CompilationEnclosure ce  = c.getCompilationEnclosure();
+			final CompilationEnclosure ce  = (CompilationEnclosure) c.getCompilationEnclosure();
 
 			for (final NG_OutputRequest or : outputItems.ors1) {
 				ce.AssertOutFile(or);

@@ -2,6 +2,7 @@ package tripleo.elijah.nextgen.expansion;
 
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.gen_generic.OutputFileFactoryParams;
 import tripleo.elijah.test_help.Boilerplate;
@@ -18,9 +19,9 @@ public class SX_NodeTest {
 
 		final OS_Module mod = comp.moduleBuilder().withFileName("filename.elijah").addToCompilation().build();
 
-		var wm = new DefaultWorldModule(mod, comp.getCompilationEnclosure());
+		var wm = new DefaultWorldModule(mod, (CompilationEnclosure) comp.getCompilationEnclosure());
 
-		final OutputFileFactoryParams p = new OutputFileFactoryParams(wm, comp.getCompilationEnclosure());
+		final OutputFileFactoryParams p = new OutputFileFactoryParams(wm, (CompilationEnclosure) comp.getCompilationEnclosure());
 		// final GenerateFiles fgen =
 		// OutputFileFactory.create(CompilationAlways.defaultPrelude(), p, fileGen);
 

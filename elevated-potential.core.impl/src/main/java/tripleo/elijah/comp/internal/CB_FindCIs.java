@@ -8,6 +8,7 @@ import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.util.Maybe;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.wrap.File;
 
 import java.nio.file.NotDirectoryException;
@@ -27,9 +28,10 @@ class CB_FindCIs implements CB_Action {
 	public void execute(CB_Monitor aMonitor) {
 		final CompilationClosure cc = ce.getCompilationClosure();
 
-		for (final CompilerInput input : ce.getCompilerInput()) {
-			_processInput(cc, input);
-		}
+		// cilly is this, aka use CIL ??
+		ce.getCompilerInput()
+				.stream().filter(input -> input.ty() != CompilerInput.Ty.ARG) // skip if in #_processInput
+				.forEach(input -> _processInput(cc, input));
 
 		logProgress_Stating("outputString.size", "" + o.get().size());
 		aMonitor.reportSuccess(this, o);
@@ -43,7 +45,7 @@ class CB_FindCIs implements CB_Action {
 
 	private void _processInput(final @NotNull CompilationClosure c,
 							   final @NotNull CompilerInput input) {
-		final ErrSink aErrSink = c.errSink();
+		final ErrSink errSink = c.errSink();
 
 		// FIXME 24/01/09  oop ;)
 		switch (input.ty()) {
@@ -51,7 +53,7 @@ class CB_FindCIs implements CB_Action {
 		default -> {return;}
 		}
 
-		final CM_CompilerInput   cm                 = ((CompilationImpl) c.getCompilation()).get(input); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+		final CM_CompilerInput   cm                 = ((CompilationImpl) c.getCompilation()).modelFactory().getCompilerInput(input);
 		final File               f                  = cm.fileOf();
 		final CompilationClosure compilationClosure = c.getCompilation().getCompilationClosure();
 
@@ -61,9 +63,8 @@ class CB_FindCIs implements CB_Action {
 			}
 
 			CW_inputIsEzFile.apply(input, compilationClosure);
-		} else {
-			// aErrSink.reportError("9996 Not an .ez file "+file_name);
-			if (f.isDirectory()) {
+		} else if (f.isDirectory()) {
+			// errSink.reportError("9996 Not an .ez file "+file_name);
 				final CompilationImpl compilation = (CompilationImpl) compilationClosure.getCompilation();
 
 				// FIXME 24/01/09 Duplication alert??
@@ -71,13 +72,12 @@ class CB_FindCIs implements CB_Action {
 				CW_inputIsDirectory.apply(input, compilationClosure, f);
 			} else {
 				final NotDirectoryException d = new NotDirectoryException(f.toString());
-				aErrSink.reportError("9995 Not a directory " + f.getAbsolutePath());
-			}
+			errSink.reportError("9995 Not a directory " + f.getAbsolutePath());
 		}
 	}
 
 	private void logProgress_Stating(final String aSection, final String aStatement) {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: %s :: %s".formatted(aSection, aStatement));
+		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: %s :: %s".formatted(aSection, aStatement));
 	}
 
 	private static void __CN_CompilerInputWatcher__event(final CN_CompilerInputWatcher.e aEvent, final CompilerInput aCompilerInput, final Object aObject) {
