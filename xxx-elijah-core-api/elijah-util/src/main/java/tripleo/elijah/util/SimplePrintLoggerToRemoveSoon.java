@@ -44,7 +44,7 @@ public enum SimplePrintLoggerToRemoveSoon {
 	}
 
 	public static void println_err_4(final Object aS) {
-		//System.err.println(""+aS);
+		System.err.println("** "+aS);
 	}
 
 	public static void println_out_4(final Object aS) {

@@ -147,4 +147,8 @@ public class File {
 		// TODO 24/01/22 decide if it's worth it to change toString to whatever you changed it to
 		return wrapped().toString();
 	}
+
+	public File child(final File aFile) {
+		return new File(this, aFile.getName());
+	}
 }
