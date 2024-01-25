@@ -189,19 +189,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	public void feedCmdLine(final @NotNull List<String> args) {
 		final CompilerController controller = new DefaultCompilerController(this.getCompilationAccess3());
 
-		final List<CompilerInput> inputs = args.stream()
-				.map((String s) -> {
-					final CompilerInput input = new CompilerInput_(s);
-
-					if (s.startsWith("-")) {
-						input.setArg();
-					} else {
-						// TODO 09/24 check this
-						input.setSourceRoot();
-					}
-
-					return input;
-				}).collect(Collectors.toList());
+		final List<CompilerInput> inputs = stringListToInputList(args);
 
 		feedInputs(inputs, controller);
 	}
@@ -256,10 +244,11 @@ public class CompilationImpl implements Compilation, EventualRegister {
 				.map(s -> {
 					final CompilerInput    input = new CompilerInput_(s, Optional.of(this));
 					final CM_CompilerInput cm    = this.get(input);
-					if (cm.inpSameAs(s)) {
-						input.setSourceRoot();
+					if (s.startsWith("-")) {
+						input.setArg();
 					} else {
-						assert false;
+						// TODO 09/24 check this
+						input.setSourceRoot();
 					}
 					return input;
 				})
