@@ -13,6 +13,7 @@ import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.g.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah_elevated.lcm.LCM_Event_StartCompilationRunnerAction;
 
 import java.util.function.*;
 
@@ -20,11 +21,9 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	public final @NotNull  EzCache                         ezCache;
 	private final @NotNull Compilation                     _compilation;
 	private final @NotNull ICompilationBus                 cb;
-	@Getter
 	private final @NotNull CR_State                        crState;
 	@Getter
 	private final @NotNull IProgressSink                   progressSink;
-	private /*@NotNull*/   CB_StartCompilationRunnerAction startAction;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
 		this(
@@ -44,14 +43,17 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		compilationEnclosure.setCompilationAccess(aca);
 
 		//final @NotNull CIS    cis = _compilation._cis();
-		final ICompilationBus compilationBus = compilationEnclosure.getCompilationBus();
+		ICompilationBus compilationBus;
 
+		compilationBus = compilationEnclosure.getCompilationBus();
 		if (compilationBus == null) {
-			cb = scb.get();
-			compilationEnclosure.setCompilationBus(cb);
-		} else {
-			cb = compilationEnclosure.getCompilationBus();
+			compilationBus = scb.get();
+			compilationEnclosure.setCompilationBus(compilationBus);
 		}
+
+		compilationBus = compilationEnclosure.getCompilationBus();
+		assert compilationBus != null;
+		cb = compilationBus;
 
 		progressSink = cb.defaultProgressSink();
 		crState = aCrState;
@@ -87,45 +89,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 
 	@Override
 	public void start(final CompilerInstructions aRootCI, @NotNull final GPipelineAccess pa) {
-		// FIXME only run once 06/16
-		if (startAction == null) {
-			startAction = new CB_StartCompilationRunnerAction(this, (IPipelineAccess) pa, aRootCI);
-			// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
-			cb.add(startAction.cb_Process());
-
-			if (false) {
-				// FIXME calling automatically for some reason?
-				final CB_Monitor                monitor           = cb.getMonitor();
-				final CompilerDriver            compilationDriver = ((IPipelineAccess) pa).getCompilationEnclosure().getCompilationDriver();
-				final Operation<CompilerDriven> ocrsd             = compilationDriver.get(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
-
-				final @NotNull CB_Output cbOutput = startAction.getO();
-
-				switch (ocrsd.mode()) {
-				case SUCCESS -> {
-					final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
-					final CR_State                  crState1               = this.getCrState();
-
-					// assert !(started);
-					if (CB_StartCompilationRunnerAction.started) {
-						//throw new AssertionError();
-						SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + startAction);
-					} else {
-						compilationRunnerStart.start(aRootCI, crState1, cbOutput);
-						CB_StartCompilationRunnerAction.started = true;
-					}
-
-					monitor.reportSuccess(startAction, cbOutput);
-				}
-				case FAILURE, NOTHING -> {
-					monitor.reportFailure(startAction, cbOutput);
-					throw new IllegalStateException("Error");
-				}
-				}
-			}
-		} else {
-			assert false;
-		}
+		((IPipelineAccess) pa).getCompilation().lcm().asv(this, LCM_Event_StartCompilationRunnerAction.instance());
 	}
 
 	public static class __CompRunner_Monitor implements CB_Monitor {
