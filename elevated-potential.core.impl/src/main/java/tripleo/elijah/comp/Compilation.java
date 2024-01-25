@@ -90,7 +90,7 @@ public interface Compilation extends Compilation0 {
 	ElijahCache use_elijahCache();
 
 	@Override
-	void pushWork(PW_PushWork aInstance, PN_Ping aPing);
+	<Yi> void pushWork(PW_PushWork aInstance, PN_Ping<Yi> aPing);
 
 	CM_Module megaGrande(ElijahSpec aSpec, Operation2<OS_Module> aModuleOperation);
 

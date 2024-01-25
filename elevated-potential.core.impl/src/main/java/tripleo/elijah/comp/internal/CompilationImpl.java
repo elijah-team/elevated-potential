@@ -87,7 +87,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private       EIT_InputTree                       _input_tree;
 	private       EOT_OutputTree                      _output_tree;
 	private       IPipelineAccess                     _pa;
-	private       CompilerInput                       __advisement;
+//	private       CompilerInput                       __advisement;
 	private       IO                                  io;
 	private       ICompilationAccess3 _access3;
 	private @NotNull CK_Monitor defaultMonitor;
@@ -241,7 +241,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		final List<CompilerInput> inputs = args.stream()
 				.map(s -> {
 					final CompilerInput    input = new CompilerInput_(s, Optional.of(this));
-					final CM_CompilerInput cm    = this.get(input);
+//					final CM_CompilerInput cm    = this.get(input);
 					if (s.startsWith("-")) {
 						input.setArg();
 					} else {
@@ -437,7 +437,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	@Override
-	public void pushWork(final PW_PushWork aInstance, final PN_Ping aPing) {
+	public <Yi> void pushWork(final PW_PushWork aInstance, final PN_Ping<Yi> aPing) {
 		((PW_CompilerController) pw_controller).submitWork(aInstance);
 	}
 

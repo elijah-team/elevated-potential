@@ -8,12 +8,12 @@
  */
 package tripleo.elijah;
 
-import org.junit.jupiter.api.Test;
-import tripleo.elijah.test_help.*;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
-
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 /**
  * Created 3/5/21 4:32 AM
