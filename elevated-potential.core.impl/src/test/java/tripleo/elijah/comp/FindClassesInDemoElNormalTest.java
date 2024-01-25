@@ -8,8 +8,6 @@
  */
 package tripleo.elijah.comp;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.*;
 
 import tripleo.elijah.comp.internal.*;
@@ -20,6 +18,7 @@ import tripleo.elijah.lang.i.*;
 import java.util.*;
 import java.util.stream.*;
 
+import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static tripleo.elijah.util.Helpers.*;
 
@@ -60,7 +59,7 @@ public class FindClassesInDemoElNormalTest {
 
 			assertThat(l.size()).isEqualTo(2); // TODO is this correct?
 //		assertThat(l).containsExactlyInAnyOrder("test/demo-el-normal/main2.elijah", "test/demo-el-normal/fact2.elijah");
-			assertThat(l).containsExactlyInAnyOrder(
+			assertThat(l).containsExactly(
 					"Prelude.elijjah", // FIXME this looks bad. (Prelude should have a path)
 					"test/demo-el-normal/fact2.elijah"
 			);
@@ -75,7 +74,7 @@ public class FindClassesInDemoElNormalTest {
 				.map(ClassStatement::getName)
 				.collect(Collectors.toList());
 
-		assertThat(classNames).containsExactlyInAnyOrder("Main");
+		assertThat(classNames).containsExactly("Main");
 
 //		assertEquals(1, aClassList.size()); // NOTE this may change. be aware
 

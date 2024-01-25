@@ -15,6 +15,7 @@ import tripleo.elijah.comp.i.AssOutFile;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.DefaultCompilerController;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.factory.comp.CompilationFactory;
 import tripleo.elijah.lang.i.ClassStatement;
@@ -308,7 +309,7 @@ public class TestBasic {
 			assertTrue(c.getOutputTree().getList().size() > 0);
 			assertTrue(c.getIO().recordedwrites().size() > 0);
 
-			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
+			var aofs = ((CompilationEnclosure) c.getCompilationEnclosure()).OutputFileAsserts();
 			for (Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest> aof : aofs) {
 				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(aof);
 			}
