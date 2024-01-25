@@ -1,46 +1,39 @@
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.nextgen.inputtree.EIT_InputType;
 import tripleo.elijah.nextgen.outputtree.*;
 
 import java.util.*;
 
 public class Finally_ implements Finally {
+	private final Set<Outs> outputOffs = new HashSet<>();
+	private final List<Finally_Input> finallyInputs = new ArrayList<>();
+	private final List<Output> outputs = new ArrayList<>();
+	private boolean turnAllOutputOff;
+
 	@Override
 	public int codeOutputSize() {
 		return outputs.size();
 	}
 
+//	public void addInput(final CompilerInput aInp, final Out2 ty) {
+//		inputs.add(new Input(aInp, ty));
+//	}
+
 	@Override
 	public List<String> getCodeOutputs() {
 		List<String> l = new ArrayList<>();
 		for (Output output : outputs) {
-			l.add(((Output_)output).fileNameProvider.getFilename());
+			l.add(((Output_) output).fileNameProvider.getFilename());
 		}
 		return l;
 	}
 
 	@Override
-	public int inputCount() {
+	public int codeInputSize() {
 		return finallyInputs.size();
 	}
-
-	@Override
-	public int outputCount() {
-		return outputs.size();
-	}
-
-	private final Set<Outs> outputOffs = new HashSet<>();
-
-	private final List<Finally_Input> finallyInputs = new ArrayList<>();
-
-//	public void addInput(final CompilerInput aInp, final Out2 ty) {
-//		inputs.add(new Input(aInp, ty));
-//	}
-
-	private final List<Output> outputs = new ArrayList<>();
-
-	private boolean turnAllOutputOff;
 
 //	public void addInput(final CompFactory.InputRequest aInp, final Out2 ty) {
 //		inputs.add(new Input(aInp, ty));
@@ -52,7 +45,7 @@ public class Finally_ implements Finally {
 	}
 
 	@Override
-	public void addInput(final EOT_Nameable aNameable, final Out2 ty) {
+	public void addCodeInput(final EOT_Nameable aNameable, final EIT_InputType ty) {
 		finallyInputs.add(new FinallyInput_(aNameable, ty));
 	}
 
@@ -81,6 +74,13 @@ public class Finally_ implements Finally {
 		outputOffs.add(aOut);
 	}
 
+	@Override
+	public List<String> getCodeInputs() {
+		return this.finallyInputs.stream()
+				.map(Finally_Input::name)
+				.toList();
+	}
+
 	public static class Output_ implements Output {
 		private final EOT_FileNameProvider fileNameProvider;
 		@SuppressWarnings("FieldCanBeLocal")
@@ -99,7 +99,7 @@ public class Finally_ implements Finally {
 
 	public static class FinallyInput_ implements Finally_Input {
 		private final EOT_Nameable nameable;
-		private final Out2     ty;
+		private final Out2         ty;
 
 		public FinallyInput_(final EOT_Nameable aNameable, final Out2 aTy) {
 //			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("66 Add Input >> " + aNameable.getName());

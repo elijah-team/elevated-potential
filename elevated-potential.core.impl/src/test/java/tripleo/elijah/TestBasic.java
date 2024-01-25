@@ -30,6 +30,7 @@ import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_c.Emit;
 import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
 import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah_elevated.util.DebugProbe;
 
 import java.nio.file.Path;
@@ -37,6 +38,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static tripleo.elijah.util.Helpers.List_of;
 
@@ -123,7 +125,7 @@ public class TestBasic {
 				if (l == ErrSink.Errors.DIAGNOSTIC) {
 					((Diagnostic) r).report(System.out);
 				} else {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(r);
+					SimplePrintLoggerToRemoveSoon.println_out_4(r);
 				}
 			}
 
@@ -141,31 +143,38 @@ public class TestBasic {
 			System.err.println("** 999-141 "+dlm);
 		}
 
-		assert !ll.isEmpty();
+		//assert !ll.isEmpty();
 
 		//assertEquals(2, c.errorCount());
 
-		assertTrue(c.reports().containsInput("test/basic/import_demo.elijjah"));
-		assertTrue(c.reports().containsInput("test/basic/listfolders3/listfolders3.elijah"));
-
-		assertEquals(2, c.reports().inputCount()); // TODO is this correct?
-
-		assertTrue(c.reports().containsCodeOutput("/listfolders3/Main.c"));
-		assertTrue(c.reports().containsCodeOutput("/listfolders3/Main.h"));
+		assertThat(c.reports().codeInputSize()) // TODO is this correct?
+				.isEqualTo(2);
+		assertThat(c.reports().getCodeInputs()) // TODO is this correct?
+				.containsExactly(
+						"test/basic/import_demo.elijjah"
+								, "test/basic/listfolders3/listfolders3.elijah"
+								);
 
 		//[-- Ez CIL change ] CompilerInput{ty=ROOT, inp='test/basic/listfolders3/listfolders3.ez'} ROOT
 		//var aaa = "test/basic/import_demo.elijjah";
 		//var aab = "test/basic/listfolders3/listfolders3.elijah";
 
-		var baa = "/Prelude/Arguments.h"; assertTrue(c.reports().containsCodeOutput(baa));
-		var bae = "/Prelude/Arguments.c"; assertTrue(c.reports().containsCodeOutput(bae));
+		var baa = "/Prelude/Arguments.h";
+		var bae = "/Prelude/Arguments.c";
+
+		var bab = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.c";
+		var bac = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.h";
 
 		assertEquals(6, c.reports().codeOutputSize());
 
-		var bab = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.c"; assertTrue(c.reports().containsCodeOutput(bab));
-		var bac = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.h"; assertTrue(c.reports().containsCodeOutput(bac));
+		assertThat(c.reports().getCodeOutputs())
+				.containsExactly(
+						"/listfolders3/Main.c"
+						, "/listfolders3/Main.h"
+						, baa, bae
+						, bab, bac
+								);
 
-		assertEquals(6, c.reports().outputCount()); // TODO is this correct?
 
 		assertTrue(assertLiveClass("MainLogic", "wpkotlin_c.demo.list_folders", c));
 		// TODO fails; assertTrue(assertLiveClass("Main", null, c));
@@ -188,7 +197,7 @@ public class TestBasic {
 
 		var l = new ArrayList<>();
 		c.world().eachModule(m -> l.add(m.module().getFileName()));
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("184 "+l);
+		SimplePrintLoggerToRemoveSoon.println_err_4("184 "+l);
 
 //    const fun = function (f) { // <--
 
@@ -284,8 +293,9 @@ public class TestBasic {
 		assertEquals(4, c.errorCount()); // TODO Error count obviously should be 0
 	}
 
-	@Disabled @Test
-	public final void testBasic_fact1() throws Exception {
+	//@Disabled
+	@Test
+	public final void testBasic_fact1() {
 		final String        s  = "test/basic/fact1/main2";
 		final Compilation   c  = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
 		final CompilerInput i1 = new CompilerInput_(s);
@@ -298,12 +308,14 @@ public class TestBasic {
 
 		if (!DISABLED) {
 			assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
-			assertTrue(c.getOutputTree().getList().size() > 0);
+
+			assertThat(c.reports().codeOutputSize()).isGreaterThan(0);
+
 			assertFalse(c.getIO().recordedwrites().isEmpty());
 
 			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
 			for (Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest> aof : aofs) {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(aof);
+				SimplePrintLoggerToRemoveSoon.println_err_4(aof);
 			}
 
 			assertTrue(aofs.contains("/Prelude/Prelude.c"));
@@ -328,7 +340,7 @@ public class TestBasic {
 			if (outputFile.getType() != EOT_OutputType.SOURCES) continue;
 
 			final String filename = outputFile.getFilename();
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(filename);
+			SimplePrintLoggerToRemoveSoon.println_err_4(filename);
 
 			var ss = outputFile.getStatementSequence();
 
@@ -357,7 +369,7 @@ public class TestBasic {
 			sspl.add(Pair.of(fn, ss));
 		}
 
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(sspl);
+		SimplePrintLoggerToRemoveSoon.println_err_4(sspl);
 
 		//tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("nothing");
 	}

@@ -1,6 +1,7 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.nextgen.inputtree.EIT_InputType;
 import tripleo.elijah.nextgen.outputtree.*;
 
 import java.util.*;
@@ -10,13 +11,11 @@ public interface Finally {
 
 	List<String> getCodeOutputs();
 
-	int inputCount();
-
-	int outputCount();
+	int codeInputSize();
 
 	void addCodeOutput(EOT_FileNameProvider aFileNameProvider, EOT_OutputFile aOff);
 
-	void addInput(EOT_Nameable aNameable, Out2 ty);
+	void addCodeInput(EOT_Nameable aNameable, EIT_InputType ty);
 
 	boolean containsCodeOutput(@NotNull String s);
 
@@ -27,6 +26,8 @@ public interface Finally {
 	void turnAllOutputOff();
 
 	void turnOutputOff(Outs aOut);
+
+	List<String> getCodeInputs();
 
 	enum Out2 {
 		EZ, ELIJAH

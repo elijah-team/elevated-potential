@@ -107,6 +107,9 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 																	 e);
 						e.then(id::add);
 					}
+				} else if (i.ty() == CompilerInput.Ty.SOURCE_ROOT) {
+					int y=2;
+					id.add(i.acceptance_ci().o.get());
 				} else {
 					throw new UnintendedUseException();
 				}
