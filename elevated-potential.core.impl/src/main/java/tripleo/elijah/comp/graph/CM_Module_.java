@@ -60,7 +60,7 @@ public class CM_Module_ implements CM_Module {
 		final OS_Module mm = worldModule.module();
 
 		if (mm.getLsp() != null) {
-			assert false;
+			//assert false;
 		} else {
 			mm.setLsp(aLsp);
 		}
