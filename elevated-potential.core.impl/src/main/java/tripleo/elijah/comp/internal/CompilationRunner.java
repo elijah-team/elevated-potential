@@ -1,20 +1,22 @@
 package tripleo.elijah.comp.internal;
 
-import lombok.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.caches.*;
+import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.caches.DefaultEzCache;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.impl.*;
-import tripleo.elijah.comp.internal_move_soon.*;
-import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.g.*;
-import tripleo.elijah.stateful.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.specs.EzCache;
+import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.stateful._RegistrationTarget;
+import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class CompilationRunner extends _RegistrationTarget implements ICompilationRunner {
 	public final @NotNull  EzCache                         ezCache;
@@ -25,6 +27,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	private final @NotNull CR_State                        crState;
 	@Getter
 	private final @NotNull IProgressSink                   progressSink;
+	private final          CompilationEnclosure            ce;
 	private /*@NotNull*/   CB_StartCompilationRunnerAction startAction;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
@@ -55,12 +58,9 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		}
 
 		progressSink = cb.defaultProgressSink();
-		crState = aCrState;
+		crState      = aCrState;
 		ezCache      = new DefaultEzCache((Compilation) aca.getCompilation());
-	}
-
-	public Compilation _accessCompilation() {
-		return _compilation;
+		ce           = compilationEnclosure;
 	}
 
 	public CIS _cis() {
@@ -77,6 +77,10 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 
 	public CompilationEnclosure getCompilationEnclosure() {
 		return _accessCompilation().getCompilationEnclosure();
+	}
+
+	public Compilation _accessCompilation() {
+		return _compilation;
 	}
 
 	public void logProgress(final int number, final String text) {
@@ -130,12 +134,12 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	public static class __CompRunner_Monitor implements CB_Monitor {
 		@Override
 		public void reportFailure(final CB_Action action, final CB_Output output) {
-			SimplePrintLoggerToRemoveSoon.println_err_4(""+output.get());
+			SimplePrintLoggerToRemoveSoon.println_err_4("" + output.get());
 		}
 
 		@Override
 		public void reportSuccess(final CB_Action action, final CB_Output output) {
-			int y=2;
+			int y = 2;
 			for (final CB_OutputString outputString : output.get()) {
 				SimplePrintLoggerToRemoveSoon.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
 			}
