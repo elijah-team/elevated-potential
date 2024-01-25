@@ -27,6 +27,10 @@ import java.util.List;
 public interface Compilation extends Compilation0 {
 	CM_Module megaGrande(OS_Module aModule);
 
+	LivingRepo world2();
+
+	Operation<Ok> hasInstructions2(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
+
 	IPipelineAccess get_pa();
 
 	void set_pa(IPipelineAccess a_pa);
@@ -69,24 +73,25 @@ public interface Compilation extends Compilation0 {
 
 	LCM lcm();
 
+	void compilerInputWatcher_Event(CN_CompilerInputWatcher.e aEvent, CompilerInput aCompilerInput, Object aO);
+
 	CPX_Signals signals();
 
 	FluffyComp getFluffy();
 
 	class CompilationConfig implements GCompilationConfig {
-		public boolean showTree = false;
-		public boolean silent   = false;
+		private boolean silent   = false;
 
 		@Override
 		public void setSilent(final boolean b) {
 			silent = b;
 		}
 
+		@Override
+		public boolean getSilent() {
+			return silent;
+		}
 	}
-
-	//void compilerInputWatcher_Event(CN_CompilerInputWatcher.e aEvent, CompilerInput aCompilerInput, Object aO);
-
-	//LivingRepo world2();
 
 	//@Override CP_Paths paths();
 
@@ -106,11 +111,7 @@ public interface Compilation extends Compilation0 {
 
 	//@Override CompilationEnclosure getCompilationEnclosure();
 
-	//Operation<Ok> hasInstructions2(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
-
 	//@Override IPipelineAccess pa();
 
 	//@Override Operation2<GWorldModule> findPrelude(String prelude_name);
-
-	//@NotNull FluffyComp getFluffy();
 }
