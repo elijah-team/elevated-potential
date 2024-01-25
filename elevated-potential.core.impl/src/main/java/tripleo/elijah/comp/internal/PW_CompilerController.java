@@ -19,7 +19,7 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 	private final PW_PushWorkQueue wq;
 	private Multi<PW_PushWork> mm;
 	private Publisher<PW_PushWork> pp;
-	private final Eventual<Ok> abusingIt = new Eventual<>();
+	final Eventual<Ok>             closePromiseLatch = new Eventual<>();
 
 	PW_CompilerController(final CompilationImpl aC) {
 		compilation = aC;
@@ -35,7 +35,7 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 
 			@Override
 			public boolean isSignalled() {
-				return x.abusingIt.isResolved();
+				return x.closePromiseLatch.isResolved();
 			}
 
 			@Override
@@ -53,7 +53,7 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 	@Override
 	public void run() {
 		boolean[] xy = {true};
-		this.abusingIt .then(ok -> xy[0] = false);
+		this.closePromiseLatch.then(ok -> xy[0] = false);
 
 		
 		// FIXME 10/18 this is also a steps: A+O
@@ -111,8 +111,9 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 	public CP_Paths paths() {
 		return compilation._paths();
 	}
-}
 
-//
-//
-//
+	@Override
+	public boolean isSignalled() {
+		return this.closePromiseLatch.isResolved(); // FIXME 24/01/25 isRejected??
+	}
+}

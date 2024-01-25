@@ -146,11 +146,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 		try {
 			await()
 					.atMost(2, TimeUnit.SECONDS)
-					.until(() -> {
-				return task.isSignalled();
-				//final Eventual<Ok> abusingIt = c.get_pw().abusingIt;
-				//return abusingIt.isResolved();
-			});
+					.until(() -> task.isSignalled()||c.get_pw().isSignalled());
 
 			for (final CB_Process process : pq) {
 				logProgess(INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
