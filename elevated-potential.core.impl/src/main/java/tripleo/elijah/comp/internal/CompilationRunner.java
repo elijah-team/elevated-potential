@@ -20,6 +20,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	public final @NotNull  EzCache                         ezCache;
 	private final @NotNull Compilation                     _compilation;
 	private final @NotNull ICompilationBus                 cb;
+	// 24/01/04 back and forth
 	@Getter
 	private final @NotNull CR_State                        crState;
 	@Getter
@@ -82,7 +83,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		if (number == 130)
 			return;
 
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_3("%d %s".formatted(number, text));
+		SimplePrintLoggerToRemoveSoon.println_err_3("%d %s".formatted(number, text));
 	}
 
 	@Override
@@ -108,7 +109,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 				// assert !(started);
 				if (CB_StartCompilationRunnerAction.started) {
 					//throw new AssertionError();
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + startAction);
+					SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + startAction);
 				} else {
 					compilationRunnerStart.start(aRootCI, crState1, cbOutput);
 					CB_StartCompilationRunnerAction.started = true;
@@ -129,20 +130,15 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	public static class __CompRunner_Monitor implements CB_Monitor {
 		@Override
 		public void reportFailure(final CB_Action action, final CB_Output output) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(""+output.get());
+			SimplePrintLoggerToRemoveSoon.println_err_4(""+output.get());
 		}
 
 		@Override
 		public void reportSuccess(final CB_Action action, final CB_Output output) {
 			int y=2;
 			for (final CB_OutputString outputString : output.get()) {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
+				SimplePrintLoggerToRemoveSoon.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
 			}
 		}
-	}
-
-	public CR_State getCrState() {
-		// 24/01/04 back and forth
-		return this.crState;
 	}
 }
