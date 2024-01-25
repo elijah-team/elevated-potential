@@ -1,6 +1,7 @@
 package tripleo.elijah.comp.internal;
 
 import lombok.Getter;
+import org.awaitility.core.ConditionTimeoutException;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.*;
@@ -143,11 +144,6 @@ public class DefaultCompilationBus implements ICompilationBus {
 		task.start();
 
 		try {
-			// TODO 10/20 Remove this soon
-			final Thread thread = task.stealThread();
-
-			thread.join();//TimeUnit.MINUTES.toMillis(1));
-
 			await()
 					.atMost(5, TimeUnit.SECONDS)
 					.until(() -> {
@@ -160,10 +156,8 @@ public class DefaultCompilationBus implements ICompilationBus {
 				logProgess(INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
 				execute_process(this, process);
 			}
-
-			thread.stop();
-		} catch (InterruptedException aE) {
-			throw new RuntimeException(aE);
+		} catch (ConditionTimeoutException timeout) {
+			//throw new RuntimeException(aE);
 		}
 	}
 
