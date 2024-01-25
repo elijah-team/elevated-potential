@@ -8,6 +8,13 @@
  */
 package tripleo.elijah;
 
+import com.google.common.base.Charsets;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.io.Files;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
@@ -23,24 +30,14 @@ import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_c.Emit;
 import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
 import tripleo.elijah.util.Helpers;
-
-import org.jetbrains.annotations.NotNull;
-
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
-
-import com.google.common.base.Charsets;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.io.Files;
+import tripleo.elijah_elevated.util.DebugProbe;
 
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static tripleo.elijah.util.Helpers.List_of;
 
 /**
@@ -55,8 +52,7 @@ public class TestBasic {
 	@Test
 	public final void testBasicParse() throws Exception {
 		final List<String> ez_files = Files.readLines(new java.io.File("test/basic/ez_files.txt"), Charsets.UTF_8);
-		final List<String> args     = new ArrayList<String>();
-		args.addAll(ez_files);
+		final List<String> args     = new ArrayList<>(ez_files);
 		args.add("-sE");
 		final ErrSink      eee = new StdErrSink();
 		final Compilation0 c   = new CompilationImpl(eee, new IO_());
@@ -68,10 +64,9 @@ public class TestBasic {
 
 	@Disabled
 	@Test
-	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
 	public final void testBasic() throws Exception {
 		final List<String>          ez_files   = Files.readLines(Path.of("test/basic/ez_files.txt").toFile(), Charsets.UTF_8);
-		final Map<Integer, Integer> errorCount = new HashMap<Integer, Integer>();
+		final Map<Integer, Integer> errorCount = new HashMap<>();
 		int                         index      = 0;
 
 		for (String s : ez_files) {
@@ -95,22 +90,21 @@ public class TestBasic {
 
 	//@Ignore
 	@Test
-	public final void testBasic_listfolders3() throws Exception {
+	public final void testBasic_listfolders3() {
 		String s = "test/basic/listfolders3/listfolders3.ez";
 
-		final Compilation0 c = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
+		final CompilationImpl c = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
 
 		if (!DISABLED) {
 			Emit.emitting = false;
 
 			c.feedInputs(
-					List_of(s, "-sO").stream()
-							.map(CompilerInput_::new)
-							.collect(Collectors.toList()),
-					new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3()));
+					c.stringListToInputList(List_of(s, "-sO")),
+					new DefaultCompilerController(c.getCompilationAccess3()));
 
-			if (c.errorCount() != 0)
+			if (c.errorCount() != 0) {
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
+			}
 
 			//assertEquals(2, c.errorCount()); // TODO Error count obviously should be 0
 
@@ -144,7 +138,7 @@ public class TestBasic {
 		final List<Pair<DebugProbe.e, Map<String, Object>>> ll = DebugProbe.get_COMPILATION_IMPL__use();
 		for (Pair<DebugProbe.e, Map<String, Object>> mapPair : ll) {
 			final Map<String, Object> dlm = mapPair.getRight();
-			System.err.println(dlm);
+			System.err.println("** 999-141 "+dlm);
 		}
 
 		assert !ll.isEmpty();
@@ -193,7 +187,7 @@ public class TestBasic {
 		// TODO investigate; assertTrue(assertLiveNsMemberVariable("Prelude", "ExitSuccess", c));
 
 		var l = new ArrayList<>();
-		((CompilationImpl)c).world().eachModule(m -> l.add(m.module().getFileName()));
+		c.world().eachModule(m -> l.add(m.module().getFileName()));
 		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("184 "+l);
 
 //    const fun = function (f) { // <--
@@ -305,9 +299,9 @@ public class TestBasic {
 		if (!DISABLED) {
 			assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
 			assertTrue(c.getOutputTree().getList().size() > 0);
-			assertTrue(c.getIO().recordedwrites().size() > 0);
+			assertFalse(c.getIO().recordedwrites().isEmpty());
 
-			var aofs = ((CompilationEnclosure) c.getCompilationEnclosure()).OutputFileAsserts();
+			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
 			for (Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest> aof : aofs) {
 				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(aof);
 			}
@@ -356,7 +350,7 @@ public class TestBasic {
 
 		for (Map.Entry<String, Collection<EG_Statement>> entry : mms.asMap().entrySet()) {
 			var fn = entry.getKey();
-			var ss = Helpers.String_join("\n", (entry.getValue()).stream().map(st -> st.getText()).collect(Collectors.toList()));
+			var ss = Helpers.String_join("\n", (entry.getValue()).stream().map(EG_Statement::getText).collect(Collectors.toList()));
 
 			//tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("216 "+fn+" "+ss);
 
@@ -368,7 +362,7 @@ public class TestBasic {
 		//tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("nothing");
 	}
 
-	class testBasic_fact1 {
+	static class testBasic_fact1 {
 
 		Compilation0 c;
 

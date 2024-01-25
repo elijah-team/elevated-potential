@@ -1,7 +1,7 @@
 package tripleo.elijah.comp.internal;
 
 import lombok.Getter;
-import org.awaitility.core.ConditionTimeoutException;
+import org.awaitility.core.*;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.*;
@@ -21,23 +21,26 @@ public class DefaultCompilationBus implements ICompilationBus {
 	@Getter
 	private final @NotNull CompilerDriver    _compilerDriver;
 	private final @NotNull IProgressSink     _defaultProgressSink;
-	private final @NotNull Compilation       c;
-	private final @NotNull Queue<CB_Process> pq;
-	private final @NotNull List<CB_Process>  alreadyP;
+	private final @NotNull Compilation       _c;
+	private final @NotNull Queue<CB_Process> _pq;
+	@Deprecated private final @NotNull List<CB_Process>  _alreadyP;
 
 	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
-		c                    = (@NotNull Compilation) ace.getCompilationAccess().getCompilation();
-		pq                   = new ConcurrentLinkedQueue<>();
-		alreadyP             = new ArrayList<>();
-		_monitor             = ace.getCompilerController().defaultMonitor();
+		_alreadyP = new ArrayList<>();
+		_pq       = new ConcurrentLinkedQueue<>();
+
+		_c                   = (@NotNull Compilation) ace.getCompilationAccess().getCompilation();
 		_defaultProgressSink = new DefaultProgressSink();
+
 		_compilerDriver      = new CompilerDriver__(this);
 		ace.setCompilerDriver(_compilerDriver);
+
+		_monitor             = ace.getCompilerController()._instance().newMonitor();
 	}
 
 	@Override
 	public void add(final @NotNull CB_Action action) {
-		pq.add(new SingleActionProcess(action, "CB_FindStdLibProcess"));
+		_pq.add(new SingleActionProcess(action, "CB_FindStdLibProcess"));
 	}
 
 //	@Override public void addCompilerChange(Class<?> compilationChangeClass) {
@@ -53,7 +56,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 	@Override
 	public void add(final @NotNull CB_Process aProcess) {
-		pq.add(aProcess);
+		_pq.add(aProcess);
 	}
 
 	@Override
@@ -74,12 +77,12 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 	@Override
 	public void option(final @NotNull CompilationChange aChange) {
-		aChange.apply(c);
+		aChange.apply(_c);
 	}
 
 	@Override
 	public List<CB_Process> processes() {
-		return pq.stream().toList();//_processes;
+		return _pq.stream().toList();//_processes;
 	}
 
 	@Override
@@ -92,7 +95,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 		if (class1.isInstance(CompilationChange.class)) {
 			try {
 				final CompilationChange compilationChange = (CompilationChange) class1.getDeclaredConstructor(new Class[]{}).newInstance();
-				c.getCompilationEnclosure().getCompilationBus().option(compilationChange);
+				_c.getCompilationEnclosure().getCompilationBus().option(compilationChange);
 			} catch (InstantiationException | IllegalAccessException | InvocationTargetException |
 					 NoSuchMethodException e) {
 				throw new Error();
@@ -101,16 +104,16 @@ public class DefaultCompilationBus implements ICompilationBus {
 	}
 
 	public void runProcesses() {
-		final __ProcessRunnerStartable s   = new __ProcessRunnerStartable(pq, this);
-		final Startable         task  = this.c.con().askConcurrent(s);
+		final __ProcessRunnerStartable s   = new __ProcessRunnerStartable(_pq, this);
+		final Startable         task  = this._c.con().askConcurrent(s);
 		task.start();
 
 		try {
 			await()
 					.atMost(2, TimeUnit.SECONDS)
-					.until(() -> task.isSignalled()||c.get_pw().isSignalled());
+					.until(() -> task.isSignalled()|| _c.get_pw().isSignalled());
 
-			for (final CB_Process process : pq) {
+			for (final CB_Process process : _pq) {
 				logProgess(INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
 				execute_process(this, process);
 			}
@@ -126,8 +129,8 @@ public class DefaultCompilationBus implements ICompilationBus {
 	private void execute_process(final DefaultCompilationBus ignoredADefaultCompilationBus, final CB_Process aProcess) {
 		//CompilationUnitTree
 		//Compilation.Cheat.executeCB_Action(aProcess);
-		if (alreadyP.contains(aProcess)) throw new Error();
-		alreadyP.add(aProcess);
+		if (_alreadyP.contains(aProcess)) throw new Error();
+		_alreadyP.add(aProcess);
 	}
 
 	static class SingleActionProcess implements CB_Process {

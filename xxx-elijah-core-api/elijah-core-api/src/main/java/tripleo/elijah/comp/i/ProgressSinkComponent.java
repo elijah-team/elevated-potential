@@ -1,6 +1,7 @@
 package tripleo.elijah.comp.i;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 
 // FIXME this is ugly
 public enum ProgressSinkComponent {
@@ -39,6 +40,17 @@ public enum ProgressSinkComponent {
 			case 5758 -> "*** DefaultCompilationBus ->> poll returns null";
 			default -> throw new IllegalStateException("Unexpected value: " + aType);
 			};
+		}
+	}, PW_CompilerController {
+		@Override
+		public boolean isPrintErr(final IProgressSink.Codes aCode, final int aType) {
+			return true;
+		}
+
+		@Override
+		public String printErr(final IProgressSink.Codes aCode, final int aType, final Object[] aParams) {
+			PW_PushWork pw = (PW_PushWork) aParams[0];
+			return ""+pw;
 		}
 	};
 

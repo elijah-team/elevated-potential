@@ -4,6 +4,7 @@ import io.reactivex.rxjava3.core.Observer;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.CM_Ez;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
@@ -21,6 +22,7 @@ import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.LivingRepo;
+import tripleo.elijah_elevated.comp.model.CM_ModelFactory;
 
 import java.util.List;
 
@@ -105,6 +107,10 @@ public interface Compilation extends Compilation0 {
 	void ____m();
 
 	PW_CompilerController get_pw();
+
+	CM_ModelFactory modelFactory();
+
+	LCM lcm();
 
 	class CompilationConfig implements GCompilationConfig {
 		private boolean silent   = false;

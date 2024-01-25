@@ -2,19 +2,18 @@ package tripleo.elijah.comp.internal;
 
 import lombok.Getter;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.caches.DefaultEzCache;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.specs.EzCache;
 import tripleo.elijah.g.GCompilationEnclosure;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.stateful._RegistrationTarget;
 import tripleo.elijah.util.*;
+import tripleo.elijah_elevated.lcm.LCM_Event_StartCompilationRunnerAction;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -23,6 +22,7 @@ public class DefaultCompilerController implements CompilerController {
 	private ICompilationBus     cb;
 	private List<CompilerInput> inputs;
 	private Compilation c;
+	private _DefaultCon _copy_con;
 
 	public DefaultCompilerController(final ICompilationAccess3 aCa3) {
 		//ca3 = aCa3;
@@ -80,8 +80,8 @@ public class DefaultCompilerController implements CompilerController {
 		final ICompilationAccess compilationAccess = ce.getCompilationAccess();
 		assert compilationAccess != null;
 
-		final CR_State           crState = new CR_State(compilationAccess);
-		final ICompilationRunner cr000   = new CompilationRunner(compilationAccess, crState);
+		final CR_State          crState = new CR_State(compilationAccess);
+		final CompilationRunner cr000   = new CompilationRunner(compilationAccess, crState);
 
 		crState.setRunner(cr000);
 
@@ -98,6 +98,14 @@ public class DefaultCompilerController implements CompilerController {
 		c.getFluffy().checkFinishEventuals();
 	}
 
+	@Override
+	public Con _instance() {
+		if (_copy_con == null) {
+			_copy_con=new _DefaultCon();
+		}
+		return _copy_con;
+	}
+
 	public static class _DefaultCon implements Con {
 		@Override
 		public CompilationRunner newCompilationRunner(final ICompilationAccess compilationAccess) {
@@ -112,11 +120,6 @@ public class DefaultCompilerController implements CompilerController {
 		@Override
 		public CB_Monitor newMonitor() {
 			return new DefaultCompRunner_Monitor();
-		}
-
-		@Override
-		public Con _instance() {
-			return null; // lying to ourselves??
 		}
 	}
 
@@ -141,11 +144,17 @@ public class DefaultCompilerController implements CompilerController {
 								 final Supplier<ICompilationBus> scb) {
 			_compilation = (Compilation) aca.getCompilation();
 
-			final CompilationEnclosure compilationEnclosure = (CompilationEnclosure) _compilation.getCompilationEnclosure();
-
+			final CompilationEnclosure compilationEnclosure = _compilation.getCompilationEnclosure();
 			compilationEnclosure.setCompilationAccess(aca);
 
-			//final @NotNull CIS    cis = _compilation._cis();
+			cb           = _obtainCompilationBus(scb, compilationEnclosure);
+			progressSink = cb.defaultProgressSink();
+			crState      = aCrState;
+			ezCache      = new DefaultEzCache(_compilation);
+		}
+
+		@NotNull
+		private static ICompilationBus _obtainCompilationBus(final Supplier<ICompilationBus> scb, final CompilationEnclosure compilationEnclosure) {
 			ICompilationBus compilationBus;
 
 			compilationBus = compilationEnclosure.getCompilationBus();
@@ -156,11 +165,7 @@ public class DefaultCompilerController implements CompilerController {
 
 			compilationBus = compilationEnclosure.getCompilationBus();
 			assert compilationBus != null;
-			cb = compilationBus;
-
-			progressSink = cb.defaultProgressSink();
-			crState      = aCrState;
-			ezCache      = new DefaultEzCache((Compilation) aca.getCompilation());
+			return compilationBus;
 		}
 
 		public void logProgress(final int number, final String text) {
@@ -199,6 +204,11 @@ public class DefaultCompilerController implements CompilerController {
 		public CR_State getCrState() {
 			// 24/01/04 back and forth
 			return this.crState;
+		}
+
+		@Override
+		public Object _cis() {
+			return this.c()._cis();
 		}
 	}
 

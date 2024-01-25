@@ -3,7 +3,13 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.CB_Action;
+import tripleo.elijah.comp.i.CB_Monitor;
+import tripleo.elijah.comp.i.CB_Output;
+import tripleo.elijah.comp.i.CompilationClosure;
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.ILazyCompilerInstructions;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
@@ -19,8 +25,8 @@ class CB_FindCIs implements CB_Action {
 	private final CompilationEnclosure ce;
 
 	@Contract(pure = true)
-	public CB_FindCIs(final CompilationRunner aCompilationRunner, final List<CompilerInput> aInputs) {
-		ce = aCompilationRunner.getCompilationEnclosure();
+	public CB_FindCIs(final ICompilationRunner aCompilationRunner, final List<CompilerInput> aInputs) {
+		ce = (CompilationEnclosure) aCompilationRunner.getCompilationEnclosure();
 		o  = ce.getCB_Output();
 	}
 

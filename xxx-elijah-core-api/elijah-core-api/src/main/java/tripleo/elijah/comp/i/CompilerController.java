@@ -15,9 +15,10 @@ public interface CompilerController {
 
 	void runner(Con con);
 
+	Con _instance();
+
 	interface Con {
 		ICompilationRunner newCompilationRunner(ICompilationAccess aCompilationAccess);
 		CB_Monitor newMonitor();
-		Con _instance();
 	}
 }

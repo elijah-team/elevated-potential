@@ -20,4 +20,6 @@ public interface ICompilationRunner {
 	void nextCi(CompilerInstructions aCi);
 
 	GCR_State getCrState();
+
+	Object _cis();
 }

@@ -9,6 +9,7 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.ci.cii.StringExpression;
 import tripleo.elijah.ci.cil.Helpers;
 import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.i.USE_Reasoning;
 import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.xlang.LocatableString;
 import tripleo.wrap.File;
@@ -109,6 +110,11 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public void advise(final USE_Reasoning aReasoning) {
+		throw new UnintendedUseException("con con");
 	}
 
 	public String getInp() {
