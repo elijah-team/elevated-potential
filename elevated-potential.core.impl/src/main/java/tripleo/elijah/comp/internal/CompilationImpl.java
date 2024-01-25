@@ -48,6 +48,7 @@ import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah_elevated.comp.model.CM_ModelFactory;
 import tripleo.elijah_elevated.lcm.LCM_Event_RootCI;
 import tripleo.elijah_elevated.util.DebugProbe;
+import tripleo.small.ES_Symbol;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -93,6 +94,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private @NotNull CK_Monitor defaultMonitor;
 	private CPX_Signals cpxSignals;
 	private CM_ModelFactory _modelFactory;
+	private Modelo _modelo;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
@@ -234,6 +236,35 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@Override
 	public LCM lcm() {
 		return this.lcm;
+	}
+
+	public static class MRef implements Modelo.Ref {
+		private final Map<ES_Symbol, Object> m = new HashMap<>();
+
+		public void put(final String aS, final String aS1) {
+			m.put(new ES_Symbol(aS), aS1);
+		}
+	}
+
+	@Override
+	public Modelo modelo() {
+		if (_modelo == null) {
+			_modelo = new Modelo(){
+				private final Map<String, MRef> m = new HashMap<>();
+
+				@Override
+				public Ref jalisco(final String aS) {
+					if (m.containsKey(aS)) {
+						return m.get(aS);
+					}
+					MRef ref = new MRef();
+					ref.put(":base", aS);
+					m.put(aS, ref);
+					return ref;
+				}
+			};
+		}
+		return _modelo;
 	}
 
 	@NotNull

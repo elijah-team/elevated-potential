@@ -1,72 +1,49 @@
 package tripleo.elijah.comp;
 
-import com.google.common.base.*;
-//import lombok.*;
+import com.google.common.base.Preconditions;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.apache.commons.lang3.tuple.Pair;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.__Extensionable;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.i.ILazyCompilerInstructions;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.queries.QSEZ_Reasoning;
 import tripleo.elijah.util.Maybe;
 import tripleo.elijah.util.Operation2;
 import tripleo.wrap.File;
 
-import java.util.Optional;
 import java.util.regex.Pattern;
 
-public class CompilerInput_ extends __Extensionable implements CompilerInput {
-	private final @NotNull Optional<Compilation> oc;
+public class CompilerInput2_ extends __Extensionable implements CompilerInput {
+	private final Compilation.Modelo.Ref modelo;
 
-	public CompilerInput_(final String aS,
-						  @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-						  	final @Nullable Optional<Compilation> aCompilation) {
-		inp = aS;
-		//noinspection OptionalAssignedToNull
-		if (aCompilation == null || aCompilation.isEmpty()) {
-			oc = Optional.empty();
-		} else {
-			oc = aCompilation;
-		}
-	}
-
-	@Override
-	public tripleo.wrap.File getFile() {
+	private Maybe<ILazyCompilerInstructions> accept_ci;
+	private File dir_carrier;	@Override
+	public File getFile() {
 		throw new UnintendedUseException();
 	}
-
-	@Override
-	public tripleo.wrap.File getFileForDirectory() {
-		final tripleo.wrap.File directory = new tripleo.wrap.File(inp);
+	@Getter
+	@Accessors(fluent = true)
+	private Ty                          ty;
+	private String                      hash;	@Override
+	public File getFileForDirectory() {
+		final File directory = new File(inp);
 		this.setDirectory(directory);
 		//directory.advise(...); // gradual, not progressive??
 		return directory;
 	}
-
-//	@Getter
-	private final String                           inp;
-	private       Maybe<ILazyCompilerInstructions> accept_ci;
-	private       File                             dir_carrier;
-	 @Getter @Accessors(fluent = true)
-	private       Ty                               ty;
-	private       String                           hash;
-	private       CompilerInputMaster              master;
-
+	private CompilerInputMaster         master;
 	private CompilerInstructions_Result directoryResults;
-
-	public CompilerInput_(final String aS) {
-		inp = aS;
-		ty  = Ty.NULL;
-		oc  = null;
+	public CompilerInput2_(final String inp, final @Nullable Compilation aCompilation) {
+		this.modelo = aCompilation.modelo().jalisco(inp);
 	}
 
 	@Override
 	public void accept_ci(final Maybe<ILazyCompilerInstructions> compilerInstructionsMaybe) {
+
 		accept_ci = compilerInstructionsMaybe;
 
 		if (master != null)
@@ -120,6 +97,7 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 		// new QuerySearchEzFiles.EzFilesFilter().accept()
 		return Pattern.matches(".+\\.ez$", inp);
 	}
+	String inp;
 
 	@Override
 	public boolean isNull() {
@@ -140,13 +118,23 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 	}
 
 	@Override
+	public String toString() {
+		return "CompilerInput{ty=%s, inp='%s'}".formatted(ty, inp);
+	}
+
+
+
+
+
+
+	@Override
 	public void setDirectoryResults(final CompilerInstructions_Result aLoci) {
 		this.directoryResults = aLoci;
 
-        for (Pair<Operation2<CompilerInstructions>,QSEZ_Reasoning> locus : aLoci.getDirectoryResult2()) {
-            CompilerInstructions focus = locus.getKey().success();
-            focus.advise(this);
-        }
+		for (Pair<Operation2<CompilerInstructions>, QSEZ_Reasoning> locus : aLoci.getDirectoryResult2()) {
+			CompilerInstructions focus = locus.getKey().success();
+			focus.advise(this);
+		}
 
 		if (master != null)
 			master.notifyChange(this, CompilerInputField.DIRECTORY_RESULTS);
@@ -165,25 +153,21 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 			master.notifyChange(this, CompilerInputField.TY);
 	}
 
-	@Override
-	public String toString() {
-		return "CompilerInput{ty=%s, inp='%s'}".formatted(ty, inp);
-	}
 
 	@Override
 	public Ty ty() {
 		return ty;
 	}
 
-    @Override
+	@Override
 	public File makeFile() {
-	    return switch (ty) {
-		    case SOURCE_ROOT -> dir_carrier;
+		return switch (ty) {
+			case SOURCE_ROOT -> dir_carrier;
 			// TODO 12/03 see #getFileForDirectory
-		    case ROOT -> new File(new File(inp).getParentFile().wrapped()); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-		    default -> null;
-	    };
-    }
+			case ROOT -> new File(new File(inp).getParentFile().wrapped()); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+			default -> null;
+		};
+	}
 
 	@Override
 	public CompilerInstructions_Result getDirectoryResults() {

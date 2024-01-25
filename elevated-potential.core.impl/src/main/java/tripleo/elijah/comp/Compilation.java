@@ -112,6 +112,13 @@ public interface Compilation extends Compilation0 {
 
 	LCM lcm();
 
+	Modelo modelo();
+
+	interface Modelo {
+		interface Ref{}
+		Ref jalisco(String aS);
+	}
+
 	class CompilationConfig implements GCompilationConfig {
 		private boolean silent   = false;
 
