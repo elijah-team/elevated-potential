@@ -8,6 +8,7 @@ import tripleo.elijah.comp.graph.i.CK_SourceFile;
 import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
 import tripleo.elijah.comp.nextgen.impl.CK_SourceFileFactory;
+import tripleo.elijah.diagnostic.ExceptionDiagnostic;
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Operation2;
 
@@ -28,15 +29,18 @@ public abstract class ILazyCompilerInstructions_ {
 		// 5. Return null for failure
 
 		CK_SourceFile<CompilerInstructions> sf = CK_SourceFileFactory.get(f, CK_SourceFileFactory.K.SpecifiedEzFile);
-		assert sf != null;
-		sf.associate(input, cc);
-		final Operation2<CompilerInstructions> operation = sf.process_query();
+		if (sf != null) {
+			sf.associate(input, cc);
+			final Operation2<CompilerInstructions> operation = sf.process_query();
 
-		if (operation.mode() == Mode.SUCCESS) {
-			final CompilerInstructions parsed = operation.success();
-			eilci.resolve(parsed);
-		} else
-			eilci.reject(operation.failure());
+			if (operation.mode() == Mode.SUCCESS) {
+				final CompilerInstructions parsed = operation.success();
+				eilci.resolve(parsed);
+			} else
+				eilci.reject(operation.failure());
+		} else {
+			eilci.reject(new ExceptionDiagnostic(new Exception("cannot associate null "+file_name)));
+		}
 	}
 	@Contract(value = "_, _ -> new", pure = true)
 	public static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInput input,

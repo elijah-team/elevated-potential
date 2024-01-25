@@ -99,7 +99,12 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public File makeFile() {
-		return new tripleo.wrap.File(getInp());
+		final String entireName = getInp();
+		if (entireName == null) {
+			int y=2;
+			assert false;
+		}
+		return new tripleo.wrap.File(entireName);
 	}
 
 	public String getInp() {

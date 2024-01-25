@@ -47,6 +47,7 @@ import tripleo.elijah.stages.logging.ElLog_;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah_elevated.comp.model.CM_ModelFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -93,6 +94,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private       ICompilationAccess3                 aICompilationAccess3;
 	private @NotNull CK_Monitor defaultMonitor;
 	private CPX_Signals cpxSignals;
+	private CM_ModelFactory _modelFactory;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
@@ -139,6 +141,20 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@Override
 	public PW_CompilerController get_pw() {
 		return (PW_CompilerController) this.pw_controller;
+	}
+
+	@Override
+	public CM_ModelFactory modelFactory() {
+		var _c =this;
+		if (_modelFactory == null) {
+			_modelFactory =new CM_ModelFactory(){
+				@Override
+				public CM_CompilerInput getCompilerInput(final CompilerInput aInput) {
+					return  _c.get(aInput);
+				}
+			};
+		}
+		return _modelFactory;
 	}
 
 	public JarWork getJarwork() throws WorkException {

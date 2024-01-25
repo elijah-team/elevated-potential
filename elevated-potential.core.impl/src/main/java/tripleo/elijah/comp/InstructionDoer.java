@@ -6,20 +6,20 @@ import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.util.*;
 
 public class InstructionDoer implements CompletableProcess<CompilerInstructions> {
-	private final Compilation         compilation1;
+	private final Compilation          _g_compilation;
 	public        CompilerInstructions root;
 
 	public InstructionDoer(Compilation compilation1) {
-		this.compilation1 = compilation1;
+		this._g_compilation = compilation1;
 	}
 
 	@Override
 	public void add(final CompilerInstructions item) {
-		CompilationRunner __cr = compilation1.getCompilationEnclosure().getCompilationRunner();
+		CompilationRunner __cr = _g_compilation.getCompilationEnclosure().getCompilationRunner();
 		if (root == null) {
 			root = item;
 			try {
-				compilation1.setRootCI(root);
+				_g_compilation.setRootCI(root);
 
 //				__cr.start(compilation1.getRootCI(), compilation1.pa());
 			} catch (Exception aE) {
