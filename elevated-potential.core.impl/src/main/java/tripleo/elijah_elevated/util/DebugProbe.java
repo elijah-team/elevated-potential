@@ -32,7 +32,7 @@ public enum DebugProbe {;
 		return result;
 	}
 
-	public List<Pair<e,Map<String,Object>>> get_COMPILATION_IMPL__use() {
+	public static List<Pair<e,Map<String,Object>>> get_COMPILATION_IMPL__use() {
 		return l.stream().filter((x) -> x.getLeft()==e.COMPILATION_IMPL__use).toList();
 	}
 
