@@ -33,6 +33,7 @@ import com.google.common.base.Charsets;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
+import tripleo.elijah_elevated.util.DebugProbe;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -132,7 +133,22 @@ public class TestBasic {
 					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(r);
 				}
 			}
+
 		}
+
+		//DebugProbe.hit(DebugProbe.e.COMPILATION_IMPL__use,
+		//			   DebugProbe.dictOf(
+		//					   "compilerInstructions",compilerInstructions,
+		//					   "aReasoning",aReasoning));
+
+
+		final List<Pair<DebugProbe.e, Map<String, Object>>> ll = DebugProbe.get_COMPILATION_IMPL__use();
+		for (Pair<DebugProbe.e, Map<String, Object>> mapPair : ll) {
+			final Map<String, Object> dlm = mapPair.getRight();
+			System.err.println(dlm);
+		}
+
+		assert !ll.isEmpty();
 
 		//assertEquals(2, c.errorCount());
 
