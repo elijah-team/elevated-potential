@@ -18,10 +18,9 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.*;
 import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.CompilerInputListener;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.CP_Paths__;
@@ -89,8 +88,6 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private       EOT_OutputTree                      _output_tree;
 	private       IPipelineAccess                     _pa;
 	private       IO                                  io;
-	@SuppressWarnings("BooleanVariableAlwaysNegated")
-	private       boolean                             _inside;
 	private       ICompilationAccess3 _access3;
 	private @NotNull CK_Monitor       defaultMonitor;
 	private CPX_Signals cpxSignals;
@@ -268,6 +265,8 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		compilationEnclosure.setCompilerInput(aCompilerInputs);
 		aController.setEnclosure(compilationEnclosure);
 
+		compilationEnclosure.setCompilerController(aController);
+
 		for (final CompilerInput compilerInput : aCompilerInputs) {
 			compilerInput.setMaster(master); // FIXME this is too much i think
 		}
@@ -323,12 +322,13 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public CompilerInstructions getRootCI() {
-		return cci_listener._root();
+		//return cci_listener._root();
+		throw new UnintendedUseException("stop doing this"); // but put it back
 	}
 
 	@Override
 	public void setRootCI(CompilerInstructions rootCI) {
-		//cci_listener.id.root = rootCI;
+		lcm().asv(rootCI, LCM_Event_RootCI.instance()); // takes 3 sec, btw
 	}
 
 	@Override
@@ -358,41 +358,13 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public Operation<Ok> hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
-		if (DebugFlags._pancake_lcm_gate) {
-			assert cis.size() > 0;
+		Preconditions.checkArgument( !cis.isEmpty());
+		// don't inline yet b/c getProjectName
+		final CompilerInstructions rootCI = cis.get(0);
 
-			// don't inline yet b/c getProjectName
-			final CompilerInstructions rootCI = cis.get(0);
+		lcm.asv(rootCI, LCM_Event_RootCI.instance());
 
-			setRootCI(rootCI);
-
-			lcm.asv(rootCI, LCM_Event_RootCI.instance());
-
-			return Operation.success(Ok.instance());
-		} else {
-			if (cis.isEmpty()) {
-				setRootCI(cci_listener._root());
-			} else if (getRootCI() == null) {
-				setRootCI(cis.get(0));
-			}
-
-			if (!_inside) {
-				_inside = true;
-
-				final CompilerInstructions rootCI = getRootCI();
-				//rootCI.advise(__advisement); //why here??
-
-				final CompilationRunner compilationRunner = getCompilationEnclosure().getCompilationRunner();
-				compilationRunner.start(rootCI, pa);
-
-				compilationRunner._accessCompilation().lcm().asv(rootCI, LCM_Event_RootCI.instance());
-			} else {
-				NotImplementedException.raise_stop();
-				//throw new UnintendedUseException();
-			}
-
-			return Operation.success(Ok.instance());
-		}
+		return Operation.success(Ok.instance());
 	}
 
 	@Override
@@ -402,7 +374,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public CP_Paths paths() {
-//		assert /*m*/paths != null;
+		Preconditions.checkNotNull(paths);
 		return paths;
 	}
 
@@ -513,7 +485,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 			}
 
 			@Override
-			public CompilationRunner cr() {
+			public ICompilationRunner cr() {
 				return c().getRunner();
 			}
 
@@ -525,7 +497,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	@Override
-	public CompilationRunner getRunner() {
+	public ICompilationRunner getRunner() {
 		return getCompilationEnclosure().getCompilationRunner();
 	}
 

@@ -18,8 +18,8 @@ import java.util.List;
 import static tripleo.elijah.util.Helpers.List_of;
 
 public class LCM_Event_StartCompilationRunnerAction implements LCM_Event {
-	private static LCM_Event_StartCompilationRunnerAction INSTANCE = new LCM_Event_StartCompilationRunnerAction();
-	private CB_StartCompilationRunnerAction startAction;
+	private static final LCM_Event_StartCompilationRunnerAction INSTANCE = new LCM_Event_StartCompilationRunnerAction();
+	private              CB_StartCompilationRunnerAction        startAction;
 
 	public static LCM_Event instance() {
 		return INSTANCE;
@@ -27,13 +27,12 @@ public class LCM_Event_StartCompilationRunnerAction implements LCM_Event {
 
 	@Override
 	public void handle(final LCM_HandleEvent aHandleEvent) {
-		final CompilationEnclosure compilationEnclosure = aHandleEvent.compilation().c().getCompilationEnclosure();
+		final CompilationEnclosure compilationEnclosure = (CompilationEnclosure) aHandleEvent.compilation().c().getCompilationEnclosure();
 		final CompilerInstructions aRootCI              = compilationEnclosure.getCompilation().getRootCI();
 		final IPipelineAccess      pa                   = compilationEnclosure.getPipelineAccess();
 		final ICompilationBus      cb                   = compilationEnclosure.getCompilationBus();
-		final CompilationRunner    runner               = compilationEnclosure.getCompilationRunner();
-		final CR_State             crState              = runner.getCrState(); // effectively a global, so what's the point? to localize the data calls.
 		final ICompilationRunner    runner               = compilationEnclosure.getCompilationRunner();
+		final CR_State             crState              = (CR_State) runner.getCrState(); // effectively a global, so what's the point? to localize the data calls.
 
 		if (startAction == null) {
 			startAction = new CB_StartCompilationRunnerAction(runner, pa, aRootCI);
@@ -90,7 +89,7 @@ public class LCM_Event_StartCompilationRunnerAction implements LCM_Event {
 			pa                = aPa;
 			rootCI            = aRootCI;
 
-			o = pa.getCompilationEnclosure().getCB_Output(); // new CB_Output();
+			o = pa.getCompilationEnclosure().getCB_Output();
 		}
 
 		@Contract(value = " -> new", pure = true)
@@ -107,7 +106,7 @@ public class LCM_Event_StartCompilationRunnerAction implements LCM_Event {
 			switch (ocrsd.mode()) {
 			case SUCCESS -> {
 				final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
-				final CR_State                  crState                = compilationRunner.getCrState();
+				final CR_State                  crState                = (CR_State) compilationRunner.getCrState();
 
 	//			assert !(started);
 				if (started) {

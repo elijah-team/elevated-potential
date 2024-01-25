@@ -13,6 +13,7 @@ import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
@@ -59,9 +60,9 @@ public class CR_State implements GCR_State {
 		return ca;
 	}
 
-	public CompilationRunner runner() {
-		return compilationRunner;
 	public ICompilationRunner runner() {
+		throw new UnintendedUseException("can we delete this");
+		//return compilationRunner;
 	}
 
 	public void setRunner(ICompilationRunner aCompilationRunner) {
@@ -189,7 +190,7 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public CompilationEnclosure getCompilationEnclosure() {
-			return getCompilation().getCompilationEnclosure();
+			return (CompilationEnclosure) getCompilation().getCompilationEnclosure();
 		}
 
 		@Override

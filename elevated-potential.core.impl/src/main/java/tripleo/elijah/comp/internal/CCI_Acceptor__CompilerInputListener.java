@@ -71,7 +71,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 
 							assert ci != null;
 
-							cr._cis().onNext(ci);
+							cr.nextCi(ci);
 							id.add(ci);
 						}
 					}

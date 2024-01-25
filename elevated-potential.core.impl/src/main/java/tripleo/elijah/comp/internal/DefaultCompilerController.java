@@ -1,34 +1,46 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.*;
+import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.caches.DefaultEzCache;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal_move_soon.*;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.specs.EzCache;
 import tripleo.elijah.g.GCompilationEnclosure;
+import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.stateful._RegistrationTarget;
 import tripleo.elijah.util.*;
+import tripleo.elijah_elevated.lcm.LCM_Event_StartCompilationRunnerAction;
 
-import java.util.*;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class DefaultCompilerController implements CompilerController {
-	ICompilationBus     cb;
-	List<CompilerInput> inputs;
-	private Compilation c;
-	private final ICompilationAccess3 ca3;
+	private ICompilationBus     cb;
+	private List<CompilerInput> inputs;
+	private Compilation         c;
+	//private final ICompilationAccess3 ca3;
 
 	public DefaultCompilerController(final ICompilationAccess3 aCa3) {
-		ca3 = aCa3;
-	}
-
-	public void _setInputs(final Compilation0 aCompilation, final List<CompilerInput> aInputs) {
-		c      = (Compilation) aCompilation;
-		inputs = aInputs;
+		//ca3 = aCa3;
+		c = aCa3.getComp();
 	}
 
 	@Override
 	public void setEnclosure(final GCompilationEnclosure aCompilationEnclosure) {
 		final CompilationEnclosure ce = (CompilationEnclosure) aCompilationEnclosure;
 		_setInputs(ce.getCompilation(), ce.getCompilerInput());
+	}
+
+	public void _setInputs(final Compilation0 aCompilation, final List<CompilerInput> aInputs) {
+		assert c == aCompilation;
+		c      = (Compilation) aCompilation;
+		inputs = aInputs;
 	}
 
 	@Override
@@ -40,7 +52,7 @@ public class DefaultCompilerController implements CompilerController {
 	public Operation<Ok> processOptions() {
 		final OptionsProcessor             op                   = new ApacheOptionsProcessor();
 		final CompilerInstructionsObserver cio                  = new CompilerInstructionsObserver(c);
-		final CompilationEnclosure         compilationEnclosure = c.getCompilationEnclosure();
+		final CompilationEnclosure         compilationEnclosure = (CompilationEnclosure) c.getCompilationEnclosure();
 
 		compilationEnclosure.setCompilationAccess(c.con().createCompilationAccess());
 		compilationEnclosure.setCompilationBus(cb = c.con().createCompilationBus());
@@ -65,31 +77,23 @@ public class DefaultCompilerController implements CompilerController {
 
 		c._cis().subscribeTo(c);
 
-		final CompilationEnclosure ce = c.getCompilationEnclosure();
+		final CompilationEnclosure ce = (CompilationEnclosure) c.getCompilationEnclosure();
 
 		final ICompilationAccess compilationAccess = ce.getCompilationAccess();
 		assert compilationAccess != null;
 
-		final ICompilationRunner icr = con.newCompilationRunner(compilationAccess);
-		final CompilationRunner  cr  = (CompilationRunner) icr;
+		final CR_State           crState = new CR_State(compilationAccess);
+		final ICompilationRunner cr000   = new CompilationRunner(compilationAccess, crState);
 
-		ce.setCompilationRunner(cr);
+		crState.setRunner(cr000);
 
-		hook(cr);
+		ce.setCompilationRunner(cr000);
 
-//		var inputTree = c.getInputTree();
-//
-//		for (CompilerInput input : inputs) {
-//			if (input.isNull()) // README filter out args
-//				inputTree.addNode(input);
-//		}
+		hook(cr000);
 
-		cb.add(new CB_FindCIs(cr, inputs));
-		cb.add(new CB_FindStdLibProcess(ce, cr));
+		cb.add(new CB_FindCIs(cr000, inputs));
+		cb.add(new CB_FindStdLibProcess(ce, cr000));
 
-//		for (CompilerInput input : inputs) {
-//			input.
-//		}
 
 		((DefaultCompilationBus) cb).runProcesses();
 

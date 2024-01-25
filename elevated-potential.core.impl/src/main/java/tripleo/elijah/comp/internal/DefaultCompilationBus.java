@@ -29,7 +29,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 		c                    = (@NotNull Compilation) ace.getCompilationAccess().getCompilation();
 		pq                   = new ConcurrentLinkedQueue<>();
 		alreadyP             = new ArrayList<>();
-		_monitor             = new CompilationRunner.__CompRunner_Monitor();
+		_monitor             = ace.getCompilerController().defaultMonitor();
 		_defaultProgressSink = new DefaultProgressSink();
 		_compilerDriver      = new CompilerDriver__(this);
 		ace.setCompilerDriver(_compilerDriver);

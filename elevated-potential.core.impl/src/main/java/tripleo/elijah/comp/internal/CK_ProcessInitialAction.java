@@ -2,7 +2,6 @@ package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.USE_Reasoning;
 import tripleo.elijah.util.Ok;
@@ -20,11 +19,8 @@ public class CK_ProcessInitialAction implements CK_Action {
 	public Operation<Ok> execute(final CK_StepsContext aStepsContext, final CK_Monitor aMonitor) {
 		final CD_CRS_StepsContext context = (CD_CRS_StepsContext) aStepsContext;
 		final CR_State            crState = context.getState();
+		final LCM                 lcm     = crState.getCompilationEnclosure().getCompilation().lcm();
 
-		final CompilationRunner compilationRunner = crState.runner();
-		final Compilation       compilation       = compilationRunner._accessCompilation();
-
-		final LCM lcm = compilation.lcm();
 		try {
 			_action(lcm);
 

@@ -107,10 +107,8 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 
 	void _resolvePipelineAccessPromise(IPipelineAccess aPa);
 
-	void waitCompilationRunner(Consumer<CompilationRunner> ccr);
-
-	@Override
-	void logProgress2(CompProgress aCompProgress, AsseverationLogProgress aAsseverationLogProgress);
+	//@Override
+	//void logProgress2(CompProgress aCompProgress, AsseverationLogProgress aAsseverationLogProgress);
 
 	CK_Monitor getDefaultMonitor();
 
@@ -129,4 +127,8 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	List<ElLog> getLogs();
 
 	EIT_ModuleList getModuleList();
+
+	CompilerController getCompilerController();
+
+	void setCompilerController(CompilerController aController);
 }
