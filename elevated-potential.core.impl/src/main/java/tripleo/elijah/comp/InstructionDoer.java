@@ -29,7 +29,7 @@ public class InstructionDoer implements CompletableProcess<CompilerInstructions>
 		} else {
 			SimplePrintLoggerToRemoveSoon.println_err_4("second: " + item.getFilename());
 
-			final Compilation compilation = __cr.c();
+			final var compilation = __cr.c();
 
 			compilation.use(item, USE_Reasonings.instruction_doer_addon(item));
 		}
