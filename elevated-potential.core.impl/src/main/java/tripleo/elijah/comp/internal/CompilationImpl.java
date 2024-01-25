@@ -202,7 +202,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 				@Override
 				public boolean getSilent() {
-					return getComp().cfg().silent;
+					return getComp().cfg().getSilent();
 				}
 
 				@Override
@@ -223,7 +223,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 				@Override
 				public PipelineLogic getPipelineLogic() {
-					return getComp().getCompilationEnclosure().getPipelineLogic();
+					return (PipelineLogic) getComp().getCompilationEnclosure().getPipelineLogic();
 				}
 			};
 		}

@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import org.apache.commons.lang3.tuple.Pair;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
@@ -46,7 +47,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 
 		var inputTree = compilation.getInputTree();
 
-		compilation.getCompilationEnclosure().logProgress(CompProgress.__CCI_Acceptor__CompilerInputListener__change__logInput, i);
+		compilation.getCompilationEnclosure().logProgress(CompProgress.__CCI_Acceptor__CompilerInputListener__change__logInput, Pair.of(-1, ""+i));
 
 		switch (field) {
 			case TY -> {

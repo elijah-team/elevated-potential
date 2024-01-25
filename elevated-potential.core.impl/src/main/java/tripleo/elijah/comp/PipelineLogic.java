@@ -86,6 +86,11 @@ public class PipelineLogic implements EventualRegister, GPipelineLogic {
 		return ca.testSilence();
 	}
 
+	@Override
+	public Object _dp() {
+		return this.dp;
+	}
+
 	public interface GDM_Pipeline {
 		GDM_Product submit(final Object aMod);
 	}

@@ -77,7 +77,7 @@ public enum USE_Reasonings {;
 
 		@Override
 		public boolean parent() {
-			return false;
+			throw new UnintendedUseException("whaddya mean");
 		}
 
 		@Override

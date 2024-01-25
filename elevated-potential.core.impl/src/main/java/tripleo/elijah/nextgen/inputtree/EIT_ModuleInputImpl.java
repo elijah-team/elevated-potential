@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.EvaPipeline;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
@@ -74,7 +75,7 @@ public class EIT_ModuleInputImpl implements EIT_ModuleInput {
 		final WorldModule             mod           = ce.getCompilation().world().findModule(module);
 		final OutputFileFactoryParams p             = new OutputFileFactoryParams(mod, ce);
 
-		var resultSink = new DefaultGenerateResultSink(c.pa());
+		var resultSink = new DefaultGenerateResultSink((IPipelineAccess) c.pa());
 		var gr         = new Old_GenerateResult();
 		var wl         = new WorkList__();
 		var nodes1     = EvaPipeline.processLgc(nodes);

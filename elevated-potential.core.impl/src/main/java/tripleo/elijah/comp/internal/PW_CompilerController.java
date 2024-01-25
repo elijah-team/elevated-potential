@@ -58,7 +58,7 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 		
 		// FIXME 10/18 this is also a steps: A+O
 		//   FIXME passing sh*t between threads (P.O.!)
-		//      ARRGH lost the link
+		//      ARRRGH lost the link
 		//_defaultProgressSink.note(IProgressSink.Codes.PW_CompilerController__pollProcess, ProgressSinkComponent.PW_CompilerController, 5784, new Object[]{});
 		boolean x = true;
 		while (xy[0] && x) {

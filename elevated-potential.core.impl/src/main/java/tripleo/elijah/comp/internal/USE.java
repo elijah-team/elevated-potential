@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
@@ -110,7 +111,7 @@ public class USE {
 	}
 
 	private void logProgress(final CompProgress aCompProgress, final String aAbsolutePath) {
-		this.c.getCompilationEnclosure().logProgress(aCompProgress,aAbsolutePath);
+		this.c.getCompilationEnclosure().logProgress(aCompProgress, Pair.of(-1, aAbsolutePath));
 	}
 
 	public void use(final @NotNull CompilerInstructions compilerInstructions) {

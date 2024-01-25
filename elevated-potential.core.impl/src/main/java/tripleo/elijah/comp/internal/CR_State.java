@@ -69,6 +69,11 @@ public class CR_State implements GCR_State {
 		compilationRunner = aCompilationRunner;
 	}
 
+	@Override
+	public GProcessRecord _pr() {
+		return this.pr;
+	}
+
 	private static class ProcessRecordImpl implements ProcessRecord {
 		// private final DeducePipeline dpl;
 		private final @NotNull ICompilationAccess ca;
