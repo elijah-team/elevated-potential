@@ -4,17 +4,17 @@ import java.util.Objects;
 import tripleo.wrap.File;
 
 public interface CM_Filename {
-	String getString();
+	String getFilenameString();
 
 	default File fileOf() {
-		return new File(getString());
+		return new File(getFilenameString());
 	}
 
 	default String printableString() {
-		return getString();
+		return getFilenameString();
 	}
 
 	default boolean sameString(String string) {
-		return Objects.equals(string, getString());
+		return Objects.equals(string, getFilenameString());
 	}
 }
