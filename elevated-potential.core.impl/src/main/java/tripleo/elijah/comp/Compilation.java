@@ -109,6 +109,8 @@ public interface Compilation extends Compilation0 {
 
 	CM_ModelFactory modelFactory();
 
+	ICompilationAccess3 getCompilationAccess3();
+
 	class CompilationConfig implements GCompilationConfig {
 		public          boolean showTree = false;
 		public          boolean silent   = false;
