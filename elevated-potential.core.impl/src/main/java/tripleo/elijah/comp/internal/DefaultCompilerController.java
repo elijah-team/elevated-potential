@@ -100,6 +100,11 @@ public class DefaultCompilerController implements CompilerController {
 		c.getFluffy().checkFinishEventuals();
 	}
 
+	@Override
+	public CB_Monitor defaultMonitor() {
+		return new DefaultCompRunner_Monitor();
+	}
+
 	public static class _DefaultCon implements Con {
 		@Override
 		public ICompilationRunner newCompilationRunner(final ICompilationAccess compilationAccess) {
