@@ -47,7 +47,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 
 		var inputTree = compilation.getInputTree();
 
-		compilation.getCompilationEnclosure().logProgress(CompProgress.__CCI_Acceptor__CompilerInputListener__change__logInput, Pair.of(-1, ""+i));
+		compilation.getCompilationEnclosure().logProgress(CompProgress.__CCI_Acceptor__CompilerInputListener__change__logInput, Pair.of(-1, i));
 
 		switch (field) {
 			case TY -> {
@@ -61,7 +61,15 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 						int y3 = 2;
 						inputTree.addNode(i);
 
+						final Maybe<ILazyCompilerInstructions> instructionsMaybe = i.acceptance_ci();
+						if (instructionsMaybe != null) {
+							var ci = instructionsMaybe.o.get();
 
+							assert ci != null;
+
+							cr.nextCi(ci);
+							id.add(ci);
+						}
 					}
 					case ROOT -> {
 						inputTree.addNode(i);

@@ -3,6 +3,7 @@ package tripleo.elijah.nextgen.comp_model;
 import com.google.common.base.MoreObjects;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
+import tripleo.elijah.comp.internal.CW_inputIsEzFile;
 import tripleo.elijah.nextgen.outputtree.EOT_Nameable;
 import tripleo.elijah.util.Maybe;
 import tripleo.wrap.File;
@@ -18,8 +19,8 @@ public class CM_CompilerInput implements EOT_Nameable {
 
 	public CM_CompilerInput(final CompilerInput aCompilerInput, final Compilation aCompilation) {
 		carrier = aCompilerInput;
-		comp = aCompilation;
-		inp = carrier.getInp();
+		comp    = aCompilation;
+		inp     = carrier.getInp();
 	}
 
 	public boolean inpSameAs(final String aS) {
@@ -70,15 +71,15 @@ public class CM_CompilerInput implements EOT_Nameable {
 	}
 
 	public File fileOf() {
-		final File    f         = new File(inp);
+		final File f = new File(inp);
 		return f;
 	}
 
 	public void onIsEz() {
-		final ILazyCompilerInstructions ilci = comp.con().createLazyCompilerInstructions(carrier);
+		final ILazyCompilerInstructions        ilci = comp.con().createLazyCompilerInstructions(carrier);
+		final Maybe<ILazyCompilerInstructions> m4   = new Maybe<>(ilci, null);
 
-		final Maybe<ILazyCompilerInstructions> m4 = new Maybe<>(ilci, null);
-		carrier.accept_ci(m4);
+		CW_inputIsEzFile.apply(m4, this.carrier, comp.getCompilationClosure());
 	}
 
 	public Finally_Input createInput(final Finally.Out2 aTy) {

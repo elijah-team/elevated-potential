@@ -5,6 +5,7 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.util.*;
 
 import java.io.*;
@@ -44,7 +45,8 @@ public enum CompProgress {
 	__CCI_Acceptor__CompilerInputListener__change__logInput {
 		@Override
 		public void deprecated_print(Object x, PrintStream out, PrintStream err) {
-			CompilerInput i = (CompilerInput) x;
+			final Object  y = ((Pair) x).getRight();
+			final CompilerInput i     = (CompilerInput) y;
 
 			out.printf("[-- Ez CIL change ] %s %s%n", i, i.ty());
 
@@ -56,7 +58,11 @@ public enum CompProgress {
 					if (directoryResult.mode() == Mode.SUCCESS) {
 						final CompilerInstructions compilerInstructions = directoryResult.success();
 
-						out.println("[--- Ez directoryResult ] " + compilerInstructions.getFilename());
+						final CM_Filename filename  = compilerInstructions.getFilename();
+						final String      filenameS = filename.getFilenameString();
+						out.println("[--- Ez directoryResult ] " + filenameS);
+
+
 					}
 				}
 			} else {

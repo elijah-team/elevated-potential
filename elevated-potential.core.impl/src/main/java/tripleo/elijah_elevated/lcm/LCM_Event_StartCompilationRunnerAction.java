@@ -10,8 +10,7 @@ import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.util.Operation;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah.util.*;
 
 import java.util.List;
 
@@ -70,7 +69,8 @@ public class LCM_Event_StartCompilationRunnerAction implements LCM_Event {
 			}
 		}
 
-		throw new UnintendedUseException("impl me");
+		NotImplementedException.raise_stop();
+		//throw new UnintendedUseException("impl me");
 	}
 
 	static class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
