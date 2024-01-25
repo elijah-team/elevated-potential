@@ -26,10 +26,49 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.google.auto.service</groupId>
+			<artifactId>auto-service</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
 			<groupId>tripleo.elijah</groupId>
 			<artifactId>elevated-potential-core-api</artifactId>
 			<version>2024.elevated-potential.2</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>../xxx-model-status/src/main/java</source>
+								<source>../xxx-annotations/src/main/java</source>
+
+								<source>./dlog/src/main/java</source>
+								<source>./elijah-core-api/src/main/java</source>
+								<source>./src/main/java</source>
+								<source>./elijah-ek/src/main/java</source>
+								<source>./elijah-nextgen-outputstatement/src/main/java</source>
+								<source>./elijah-stateful/src/main/java</source>
+								<source>./elijah-util/src/main/java</source>
+								<source>./tripleo-reactive/src/main/java</source>
+								<source>./tripleo-small/src/main/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
