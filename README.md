@@ -1,61 +1,45 @@
-Elijah almost-septagon
-=======================
+Elijah elevated-potential
+==========================
 
-The elijah-lang compiler.
+tldr: I wrote a compiler, didn't finish it, it almost worked, then i broke it, and now im sad 
 
-https://git.sr.ht/~tripleo/el-almost
 
-This project is licensed under LGPL, read [LICENSE.LGPL](LICENSE.LGPL)
+[https://github.com/elijah-team/elevated-potential](https://github.com/elijah-team/elevated-potential)
 
-For instructions on how to build and run the compiler, read the HACKING
-document. Please don't use this project in production, it's still under
-development.
+Instructions
+-------------
 
-ABOUT
+```shell
+git clone https://github.com/elijah-team/elevated-potential -b spittest/13f62fd7b6dc3280a89471540d6939abc0c1b09a
+cd elevated-potential
+sdk install mvnd
+mvnd clean test
+# or 
+nix-shell -p maven gradle jdk17 --pure --command "mvn clean test"
+```
+
+See: https://gitlab.com/elijah-team/crft-elevated-potential.git
+
+Goals
 ------
 
-Elijjah is a high-level language suitable for piecemeal replacement in Java
-and C/C++ programs, as well as new projects. It is meant to integrate into
-your project without much hassle.
+- Fiddle with Github `.workflows`
+- Work on `almost`
 
-It is free software intended for use on all systems, including GNU/Linux.
+Goals (2024)
+-------------
 
-`almost-septagon` is a silly name for the current incarnation, implemented in
-Java.
+1. Delete architecture with LCM
 
-You will need JVM 17 and Maven or Gradle.
+2. Clojure (Promesa, Missionary, M*)
 
-Much work is needed.
+3. Make progress towards results (cf `meson-demo`)
 
-See [Language Overview](docs/language-overview.md) for more details on the language.
+4. Make it "fun" to look at (`datalog-ts`, Glamorous Toolkit)
 
-All of this is a work in progress and your support would be appreciated.
+Lineage
+--------
 
+- `almost`
 
-DOCUMENTATION
---------------
-
-[wiki -- https://man.sr.ht/~tripleo/el-technical/Home.md](https://man.sr.ht/~tripleo/el-technical/Home.md)
-
-INTERACT
----------
-
-### DISCUSSIONS
-
-If you want to contribute to the source code, send plain text patch to:
-
-    ~tripleo/el-fluffy-umbrella-devel@lists.sr.ht
-
-Please use git-sendmail to send the patches. You might want to configure your
-git to prevent silly mistakes:
-
-    $ git config sendmail.to "~tripleo/el-fluffy-umbrella-devel@lists.sr.ht"
-    $ git config format.subjectPrefix "PATCH el-fluffy-umbrella"
-
-----
-
-## TODO
-
-- (libera) chat channel. (meh)
-- nix/guix
-- learn sr.ht flow
+- ??
