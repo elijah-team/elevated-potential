@@ -98,10 +98,10 @@ public class Finally_ implements Finally {
 	}
 
 	public static class FinallyInput_ implements Finally_Input {
-		private final EOT_Nameable nameable;
-		private final Out2         ty;
+		private final EOT_Nameable  nameable;
+		private final EIT_InputType ty;
 
-		public FinallyInput_(final EOT_Nameable aNameable, final Out2 aTy) {
+		public FinallyInput_(final EOT_Nameable aNameable, final EIT_InputType aTy) {
 //			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("66 Add Input >> " + aNameable.getName());
 			nameable = aNameable;
 			ty       = aTy;

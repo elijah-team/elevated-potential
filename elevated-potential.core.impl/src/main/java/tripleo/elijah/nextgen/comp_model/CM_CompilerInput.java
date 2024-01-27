@@ -4,6 +4,7 @@ import com.google.common.base.MoreObjects;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
 import tripleo.elijah.comp.internal.CW_inputIsEzFile;
+import tripleo.elijah.nextgen.inputtree.EIT_InputType;
 import tripleo.elijah.nextgen.outputtree.EOT_Nameable;
 import tripleo.elijah.util.Maybe;
 import tripleo.wrap.File;
@@ -82,7 +83,7 @@ public class CM_CompilerInput implements EOT_Nameable {
 		CW_inputIsEzFile.apply(m4, this.carrier, comp.getCompilationClosure());
 	}
 
-	public Finally_Input createInput(final Finally.Out2 aTy) {
+	public Finally_Input createInput(final EIT_InputType aTy) {
 		return new Finally_.FinallyInput_(this, aTy);
 	}
 
