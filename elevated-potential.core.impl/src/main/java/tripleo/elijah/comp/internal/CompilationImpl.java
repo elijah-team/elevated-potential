@@ -89,7 +89,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private       IO                                  io;
 	@SuppressWarnings("BooleanVariableAlwaysNegated")
 	private       boolean                             _inside;
-	private       CompilerInput                       __advisement;
+	//private       CompilerInput                       __advisement;
 	private       ICompilationAccess3                 aICompilationAccess3;
 	private @NotNull CK_Monitor defaultMonitor;
 	private CPX_Signals cpxSignals;
@@ -379,7 +379,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 				final CompilerInstructions rootCI = getRootCI();
 				//final CompilerInstructions rootCI = this.cci_listener._root();
-				rootCI.advise(__advisement/*_inputs.get(0)*/);
+				//rootCI.advise(__advisement/*_inputs.get(0)*/);
 
 				final CompilationRunner compilationRunner = getCompilationEnclosure().getCompilationRunner();
 				compilationRunner.start(rootCI, pa);
