@@ -28,9 +28,17 @@
 
 		<dependency>
 			<groupId>tripleo.elijah</groupId>
+			<artifactId>elijah-core-api</artifactId>
+			<version>2024.elevated-potential.4</version>
+			<scope>compile</scope>
+		</dependency>
+<!--
+		<dependency>
+			<groupId>tripleo.elijah</groupId>
 			<artifactId>elevated-potential-core-api-xxx</artifactId>
 			<version>2024.elevated-potential.2</version>
 			<scope>compile</scope>
 		</dependency>
+-->
 	</dependencies>
 </project>
