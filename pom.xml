@@ -5,9 +5,10 @@
 	<groupId>tripleo.elijah</groupId>
 	<artifactId>elevated-potential</artifactId>
 	<packaging>pom</packaging>
-	<version>2024.elevated-potential.2</version>
+
 	<name>elevated-potential</name>
 	<url>http://github.com/elijah-lang/elevated-potential</url>
+	<version>2024.elevated-potential.3</version>
 
 	<properties>
 		<project.build.outputTimestamp>1</project.build.outputTimestamp>
@@ -38,30 +39,32 @@
 		<xtend-maven-plugin.version>2.31.0.M3</xtend-maven-plugin.version>
 -->
 	</properties>
-	
+
 	<modules>
-	  <module>./elevated-potential.base.impl</module>
-	  <module>./elevated-potential.core.api</module>
-	  <module>./elevated-potential.core.impl</module>
-		<module>./xxx-elijah-core-api</module>
+		<module>./elevated-potential.base.impl</module>
+		<module>./elevated-potential.core.api</module>
+		<module>./elevated-potential.core.impl</module>
+		<!--
+				<module>./xxx-elijah-core-api</module>
+		-->
 	</modules>
 
 	<dependencies>
 
-<!--
-		<dependency>
-			<groupId>com.google.dagger</groupId>
-			<artifactId>dagger</artifactId>
-			<version>2.38.1</version>
-		</dependency>
+		<!--
+				<dependency>
+					<groupId>com.google.dagger</groupId>
+					<artifactId>dagger</artifactId>
+					<version>2.38.1</version>
+				</dependency>
 
-		<dependency>
-			<groupId>com.google.dagger</groupId>
-			<artifactId>dagger-compiler</artifactId>
-			<version>2.38.1</version>
-			<scope>provided</scope>
-		</dependency>
--->
+				<dependency>
+					<groupId>com.google.dagger</groupId>
+					<artifactId>dagger-compiler</artifactId>
+					<version>2.38.1</version>
+					<scope>provided</scope>
+				</dependency>
+		-->
 
 		<dependency>
 			<groupId>org.antlr</groupId>
@@ -100,22 +103,28 @@
 		-->
 
 		<dependency>
+			<groupId>tripleo.elijah</groupId>
+			<artifactId>elijah-util</artifactId>
+			<version>2024.elevated-potential.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.gitlab.tripleo1</groupId>
 			<artifactId>buffers</artifactId>
 			<version>3038ff102c</version>
 			<!--
-						<groupId>tripleo.buffers</groupId>
-						<artifactId>buffers-v1</artifactId>
-						<version>0.0.3</version>
+									<groupId>tripleo.buffers</groupId>
+									<artifactId>buffers-v1</artifactId>
+									<version>0.0.3</version>
 			-->
 		</dependency>
 
 		<dependency>
-			<!--
-						<groupId>tripleo.util.range</groupId>
-						<artifactId>range-v1</artifactId>
-						<version>${range.version}</version>
-			-->
+<!--
+									<groupId>tripleo.util.range</groupId>
+									<artifactId>range-v1</artifactId>
+									<version>${range.version}</version>
+-->
 			<groupId>com.gitlab.Tripleo</groupId>
 			<artifactId>range</artifactId>
 			<version>v0.0.3b</version>
@@ -168,18 +177,18 @@
 			<scope>compile</scope>
 		</dependency>
 
-<!--
-		<dependency>
-			<groupId>org.eclipse.xtend</groupId>
-			<artifactId>org.eclipse.xtend.lib</artifactId>
-			<version>${org.eclipse.xtend.lib.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.xtend</groupId>
-			<artifactId>org.eclipse.xtend.core</artifactId>
-			<version>${org.eclipse.xtend.lib.version}</version>
-		</dependency>
--->
+		<!--
+				<dependency>
+					<groupId>org.eclipse.xtend</groupId>
+					<artifactId>org.eclipse.xtend.lib</artifactId>
+					<version>${org.eclipse.xtend.lib.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.eclipse.xtend</groupId>
+					<artifactId>org.eclipse.xtend.core</artifactId>
+					<version>${org.eclipse.xtend.lib.version}</version>
+				</dependency>
+		-->
 
 		<!-- https://mvnrepository.com/artifact/com.tngtech.archunit/archunit-junit4 -->
 		<dependency>
@@ -234,19 +243,19 @@
 			<version>24.1.0</version>
 			<scope>compile</scope>
 		</dependency>
-<!--
-		<dependency>
-			<groupId>org.jetbrains.kotlin</groupId>
-			<artifactId>kotlin-stdlib-jdk8</artifactId>
-			<version>${kotlin.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jetbrains.kotlin</groupId>
-			<artifactId>kotlin-test-junit</artifactId>
-			<version>${kotlin.version}</version>
-			<scope>test</scope>
-		</dependency>
--->
+		<!--
+				<dependency>
+					<groupId>org.jetbrains.kotlin</groupId>
+					<artifactId>kotlin-stdlib-jdk8</artifactId>
+					<version>${kotlin.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.jetbrains.kotlin</groupId>
+					<artifactId>kotlin-test-junit</artifactId>
+					<version>${kotlin.version}</version>
+					<scope>test</scope>
+				</dependency>
+		-->
 
 		<dependency>
 			<groupId>com.google.auto.service</groupId>
@@ -275,34 +284,53 @@
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
+
+		<repository>
+			<id>https://gitlab.com/tripleo1/buffers</id>
+			<url>https://gitlab.com/api/v4/projects/20346374/packages/maven</url>
+		</repository>
+		<repository>
+			<id>https://gitlab.com/Tripleo/range</id>
+			<url>https://gitlab.com/api/v4/projects/21223510/packages/maven</url>
+		</repository>
+<!--
+		<repository>
+			<id>gitlab-maven</id>
+			<url>https://gitlab.com/api/v4/projects/52599914/packages/maven</url>
+		</repository>
+-->
+		<repository>
+			<id>https://gitlab.com/elijah-team/api-components/model-status</id>
+			<url>https://gitlab.com/api/v4/projects/53143825/packages/maven</url>
+		</repository>
 	</repositories>
 
 	<build>
-<!--
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.owasp</groupId>
-					<artifactId>dependency-check-maven</artifactId>
-					<version>8.2.1</version>
-					<configuration>
-						<skipProvidedScope>true</skipProvidedScope>
-						<cveValidForHours>8</cveValidForHours>
-						&lt;!&ndash; Increasing from default 4000 because MacOS GitHub Action builds are failing to successfully download &ndash;&gt;
-						&lt;!&ndash; Also note that NIST has a limit of 5 requests per 30 second window &ndash;&gt;
-						&lt;!&ndash; gah! macos!
-											<cveWaitTime>12000</cveWaitTime>
-						&ndash;&gt;
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>versions-maven-plugin</artifactId>
-					<version>2.15.0</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
--->
+		<!--
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.owasp</groupId>
+							<artifactId>dependency-check-maven</artifactId>
+							<version>8.2.1</version>
+							<configuration>
+								<skipProvidedScope>true</skipProvidedScope>
+								<cveValidForHours>8</cveValidForHours>
+								&lt;!&ndash; Increasing from default 4000 because MacOS GitHub Action builds are failing to successfully download &ndash;&gt;
+								&lt;!&ndash; Also note that NIST has a limit of 5 requests per 30 second window &ndash;&gt;
+								&lt;!&ndash; gah! macos!
+													<cveWaitTime>12000</cveWaitTime>
+								&ndash;&gt;
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>versions-maven-plugin</artifactId>
+							<version>2.15.0</version>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+		-->
 		<plugins>
 			<!--
 						<plugin>
@@ -321,26 +349,26 @@
 			-->
 
 
-<!--
-			<plugin>
-				<groupId>org.eclipse.xtend</groupId>
-				<artifactId>xtend-maven-plugin</artifactId>
-				<version>${xtend-maven-plugin.version}</version>
+			<!--
+						<plugin>
+							<groupId>org.eclipse.xtend</groupId>
+							<artifactId>xtend-maven-plugin</artifactId>
+							<version>${xtend-maven-plugin.version}</version>
 
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>
-							<goal>testCompile</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/xtend-gen/main</outputDirectory>
-							<testOutputDirectory>${project.build.directory}/xtend-gen/test</testOutputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
--->
+							<executions>
+								<execution>
+									<goals>
+										<goal>compile</goal>
+										<goal>testCompile</goal>
+									</goals>
+									<configuration>
+										<outputDirectory>${project.build.directory}/xtend-gen/main</outputDirectory>
+										<testOutputDirectory>${project.build.directory}/xtend-gen/test</testOutputDirectory>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+			-->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -378,27 +406,27 @@
 		</plugins>
 	</build>
 
-<!--
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>3.3.0</version>
-				<configuration>
-					<configLocation>checkstyle.xml</configLocation>
-				</configuration>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>checkstyle</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-		</plugins>
-	</reporting>
--->
+	<!--
+		<reporting>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>3.3.0</version>
+					<configuration>
+						<configLocation>checkstyle.xml</configLocation>
+					</configuration>
+					<reportSets>
+						<reportSet>
+							<reports>
+								<report>checkstyle</report>
+							</reports>
+						</reportSet>
+					</reportSets>
+				</plugin>
+			</plugins>
+		</reporting>
+	-->
 
 
 	<reporting>
