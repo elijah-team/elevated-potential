@@ -14,7 +14,7 @@ import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue;
 import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.Qualident;
-import tripleo.elijah.nextgen.comp_model.CM_UleLog;
+import tripleo.elijah.compiler_model.CM_UleLog;
 import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.world.i.LivingRepo;

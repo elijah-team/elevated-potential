@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.LCM_Event;
 import tripleo.elijah.comp.i.LCM_HandleEvent;
-import tripleo.elijah.nextgen.comp_model.CM_UleLog;
+import tripleo.elijah.compiler_model.CM_UleLog;
 
 public class LCM {
 	private final EventBus          eventBus;

@@ -17,7 +17,7 @@ import tripleo.elijah.comp.specs.ElijahSpec;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.lang.impl.QualidentImpl;
-import tripleo.elijah.nextgen.comp_model.CM_UleLog;
+import tripleo.elijah.compiler_model.CM_UleLog;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTreeImpl;
@@ -33,7 +33,7 @@ import java.util.*;
 
 class DefaultCompFactory implements CompFactory {
 	private final CompilationImpl compilation;
-	private CM_UleLog _log;
+	private       CM_UleLog       _log;
 
 	public DefaultCompFactory(CompilationImpl aCompilation) {
 		compilation = aCompilation;

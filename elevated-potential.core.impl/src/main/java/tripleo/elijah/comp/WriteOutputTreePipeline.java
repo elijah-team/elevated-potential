@@ -19,7 +19,7 @@ import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.nextgen.ER_Node;
 
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.nextgen.comp_model.CM_UleLog;
+import tripleo.elijah.compiler_model.CM_UleLog;
 
 import io.smallrye.mutiny.tuples.Functions;
 import org.jetbrains.annotations.NotNull;
