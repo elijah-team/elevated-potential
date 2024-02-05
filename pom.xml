@@ -20,46 +20,31 @@
 		<downloadSources>true</downloadSources>
 
 		<jacoco.version>0.8.9</jacoco.version>
-		<guava.version>32.0.0-jre</guava.version>
+		<guava.version>33.0.0-jre</guava.version>
 
+<!--
 		<buffers.version>0.0.3</buffers.version>
 		<range.version>0.0.3b</range.version>
+-->
 
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 		<maven-surefire-report-plugin.version>3.2.5</maven-surefire-report-plugin.version>
 
 		<jdeferred.version>2.0.0</jdeferred.version>
 
-		<!-- for edu 2022.2 -->
-		<!--		<kotlin.version>1.7.10</kotlin.version>-->
+<!--
 		<kotlin.version>1.9.22</kotlin.version>
 
 		<org.eclipse.xtend.lib.version>2.31.0.M3</org.eclipse.xtend.lib.version>
 		<xtend-maven-plugin.version>2.31.0.M3</xtend-maven-plugin.version>
+-->
 	</properties>
 	
 	<modules>
-	  <module>./elevated-potential.base.impl</module> <!-- change to /source for eclipse import project -->
+	  <module>./elevated-potential.base.impl</module>
 	  <module>./elevated-potential.core.api</module>
 	  <module>./elevated-potential.core.impl</module>
-<module>./xxx-elijah-core-api</module>
-	  
-	  <!--
-	  <module>./xxx-model-status</module>
-	  <module>./xxx-annotations</module>
-	  -->
-
-	  <!--
-	  <source>./xxx-elijah-core-api/dlog/src/main/java</source>
-	  <source>./xxx-elijah-core-api/elijah-core-api/src/main/java</source>
-	  <source>./xxx-elijah-core-api/src/main/java</source>
-	  <source>./xxx-elijah-core-api/elijah-ek/src/main/java</source>
-	  <source>./xxx-elijah-core-api/elijah-nextgen-outputstatement/src/main/java</source>
-	  <source>./xxx-elijah-core-api/elijah-stateful/src/main/java</source>
-	  <source>./xxx-elijah-core-api/elijah-util/src/main/java</source>
-	  <source>./xxx-elijah-core-api/tripleo-reactive/src/main/java</source>
-	  <source>./xxx-elijah-core-api/tripleo-small/src/main/java</source>
-	  -->
+		<module>./xxx-elijah-core-api</module>
 	</modules>
 
 	<dependencies>
@@ -82,14 +67,14 @@
 		<dependency>
 			<groupId>org.antlr</groupId>
 			<artifactId>antlr-runtime</artifactId>
-			<version>3.5.2</version>
+			<version>3.5.3</version>
 		</dependency>
 
 		<!-- https://smallrye.io/smallrye-mutiny/2.5.1/tutorials/getting-mutiny/ -->
 		<dependency>
 			<groupId>io.smallrye.reactive</groupId>
 			<artifactId>mutiny</artifactId>
-			<version>2.5.1</version>
+			<version>2.5.5</version>
 		</dependency>
 
 
@@ -147,14 +132,14 @@
 		<dependency>
 			<groupId>org.eclipse.jdt</groupId>
 			<artifactId>org.eclipse.jdt.annotation</artifactId>
-			<version>2.2.600</version>
+			<version>2.2.800</version>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.12.0</version>
+			<version>3.14.0</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -174,7 +159,7 @@
 		<dependency>
 			<groupId>com.github.spotbugs</groupId>
 			<artifactId>spotbugs-annotations</artifactId>
-			<version>4.7.3</version>
+			<version>4.8.3</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -201,7 +186,7 @@
 		<dependency>
 			<groupId>com.tngtech.archunit</groupId>
 			<artifactId>archunit-junit4</artifactId>
-			<version>1.2.0</version>
+			<version>1.2.1</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -209,7 +194,7 @@
 		<dependency>
 			<groupId>io.reactivex.rxjava3</groupId>
 			<artifactId>rxjava</artifactId>
-			<version>3.1.6</version>
+			<version>3.1.8</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.reactivestreams/reactive-streams -->
@@ -223,7 +208,7 @@
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.15</version> <!-- Use 1.6 for java 1.5 -->
+			<version>1.16.0</version> <!-- Use 1.6 for java 1.5 -->
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/antlr/antlr -->
@@ -247,9 +232,10 @@
 		<dependency>
 			<groupId>org.jetbrains</groupId>
 			<artifactId>annotations</artifactId>
-			<version>24.0.1</version>
+			<version>24.1.0</version>
 			<scope>compile</scope>
 		</dependency>
+<!--
 		<dependency>
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-stdlib-jdk8</artifactId>
@@ -261,18 +247,19 @@
 			<version>${kotlin.version}</version>
 			<scope>test</scope>
 		</dependency>
+-->
 
 		<dependency>
 			<groupId>com.google.auto.service</groupId>
 			<artifactId>auto-service</artifactId>
-			<version>1.0-rc5</version>
+			<version>1.1.1</version>
 			<optional>true</optional>
 		</dependency>
 
 		<dependency>
 			<groupId>org.jctools</groupId>
 			<artifactId>jctools-core</artifactId>
-			<version>2.1.2</version>
+			<version>4.0.2</version>
 		</dependency>
 
 
@@ -359,7 +346,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version>
+				<version>3.12.1</version>
 				<executions>
 					<execution>
 						<id>default-compile</id>
