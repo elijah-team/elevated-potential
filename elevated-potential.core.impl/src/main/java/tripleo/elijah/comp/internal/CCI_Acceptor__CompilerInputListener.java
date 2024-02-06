@@ -93,11 +93,9 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 				if (i.ty() == CompilerInput_.Ty.ROOT) {
 					final Maybe<ILazyCompilerInstructions> instructionsMaybe = i.acceptance_ci();
 					if (instructionsMaybe != null) {
-						final Eventual<CompilerInstructions> e = new Eventual<>();
-						ILazyCompilerInstructions_.ofEventual(i,
-																	 compilation.getCompilationClosure(),
-																	 e);
-						e.then(id::add);
+						final CompilationClosure cc = compilation.getCompilationClosure();
+						//compilation.modelBuilder().get(i).signal(FakeAcceptCI);
+						ILazyCompilerInstructions_.ofInstructionDoer(i, cc, id);
 					}
 				} else {
 					throw new UnintendedUseException();

@@ -2,6 +2,7 @@ package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.InstructionDoer;
 import tripleo.elijah.comp.graph.i.CK_SourceFile;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.nextgen.impl.CK_SourceFileFactory;
@@ -33,6 +34,20 @@ public abstract class ILazyCompilerInstructions_ {
 		} else
 			eilci.reject(operation.failure());
 	}
+
+	@Contract(value = "_, _, _ -> new", pure = true)
+	public static void ofInstructionDoer(final @NotNull CompilerInput input,
+										 final @NotNull CompilationClosure cc,
+										 final @NotNull InstructionDoer id) {
+		final Eventual<CompilerInstructions> e = new Eventual<>();
+
+		ofEventual(input
+				, cc
+				, e);
+
+		e.then(id::add);
+	}
+
 	@Contract(value = "_, _ -> new", pure = true)
 	public static @NotNull ILazyCompilerInstructions of(final @NotNull CompilerInput input,
 														final @NotNull CompilationClosure cc) {
