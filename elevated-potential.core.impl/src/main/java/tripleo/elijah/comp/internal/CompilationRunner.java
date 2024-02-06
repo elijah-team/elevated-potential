@@ -1,29 +1,30 @@
 package tripleo.elijah.comp.internal;
 
-import lombok.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.caches.*;
+import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.caches.DefaultEzCache;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.impl.*;
-import tripleo.elijah.comp.internal_move_soon.*;
-import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.g.*;
-import tripleo.elijah.stateful.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.specs.EzCache;
+import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.stateful._RegistrationTarget;
+import tripleo.elijah.util.Operation;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public class CompilationRunner extends _RegistrationTarget implements ICompilationRunner {
 	public final @NotNull  EzCache                         ezCache;
-	private final @NotNull Compilation                     _compilation;
-	private final @NotNull ICompilationBus                 cb;
+	private final @NotNull Compilation     _compilation;
+	private @NotNull       ICompilationBus cb;
 	@Getter
-	private final @NotNull CR_State                        crState;
+	private final @NotNull CR_State        crState;
 	@Getter
-	private final @NotNull IProgressSink                   progressSink;
+	private @NotNull       IProgressSink                   progressSink;
 	private /*@NotNull*/   CB_StartCompilationRunnerAction startAction;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
@@ -44,18 +45,22 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		compilationEnclosure.setCompilationAccess(aca);
 
 		//final @NotNull CIS    cis = _compilation._cis();
-		final ICompilationBus compilationBus = compilationEnclosure.getCompilationBus();
+		compilationEnclosure.waitCompilationBus((final ICompilationBus compilationBus) -> {
+			assert cb == compilationBus;
 
-		if (compilationBus == null) {
-			cb = scb.get();
-			compilationEnclosure.setCompilationBus(cb);
-		} else {
-			cb = compilationEnclosure.getCompilationBus();
-		}
+			if (cb == null) {
+				cb = compilationEnclosure.getCompilationBus();
+			} else {
+				assert false;
+			}
 
-		progressSink = cb.defaultProgressSink();
+			progressSink = cb.defaultProgressSink();
+		});
+
 		crState = aCrState;
-		ezCache      = new DefaultEzCache((Compilation) aca.getCompilation());
+		ezCache = new DefaultEzCache((Compilation) aca.getCompilation());
+
+		compilationEnclosure.setCompilationBus(scb.get());
 	}
 
 	public Compilation _accessCompilation() {
@@ -134,7 +139,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 
 		@Override
 		public void reportSuccess(final CB_Action action, final CB_Output output) {
-			int y=2;
+			int y = 2;
 			for (final CB_OutputString outputString : output.get()) {
 				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
 			}

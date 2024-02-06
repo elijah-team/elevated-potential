@@ -6,7 +6,6 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.util.*;
 
 import java.util.*;
 
@@ -33,6 +32,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 	public void change(CompilerInput i, CompilerInput_.CompilerInputField field) {
 		if (compilation.getCompilerInputListener() instanceof CCI_Acceptor__CompilerInputListener cci_listener) {
 			if (DebugFlags.CCI_gate) {
+				assert false;
 				if (cci == null) {
 					cci = new DefaultCCI(compilation, compilation._cis(), _progressSink);
 				}
