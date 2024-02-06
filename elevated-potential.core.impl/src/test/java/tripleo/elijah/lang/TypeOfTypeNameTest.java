@@ -10,9 +10,11 @@ package tripleo.elijah.lang;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.Compilation0;
+
 import tripleo.elijah.comp.PipelineLogic;
 import tripleo.elijah.comp.StdErrSink;
+
+import tripleo.elijah.comp.i.Compilation0;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;

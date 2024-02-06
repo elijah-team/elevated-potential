@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.OS_Package;
 import tripleo.elijah.lang.impl.OS_ModuleImpl;

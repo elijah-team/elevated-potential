@@ -12,7 +12,7 @@ package tripleo.elijah.stages.generate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.comp.i.*;
 
 public class ElSystemTest {
 
