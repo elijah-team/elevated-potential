@@ -1,30 +1,28 @@
 package tripleo.elijah.comp.internal;
 
+import io.smallrye.mutiny.Multi;
+import org.awaitility.core.ConditionTimeoutException;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah.comp.nextgen.i.CP_Paths;
+import tripleo.elijah.comp.nextgen.pw.*;
+import tripleo.elijah.util.Eventual;
+import tripleo.elijah.util.Ok;
+
 import java.time.Duration;
 import java.util.concurrent.Flow.Publisher;
 import java.util.concurrent.Flow.Subscriber;
 import java.util.concurrent.TimeUnit;
 
-import org.awaitility.core.ConditionTimeoutException;
 import static org.awaitility.Awaitility.await;
 
-import io.smallrye.mutiny.Multi;
-
-import tripleo.elijah.util.Eventual;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.nextgen.i.CP_Paths;
-import tripleo.elijah.comp.nextgen.pw.PW_Controller;
-import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
-import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue;
-import tripleo.elijah.util.Ok;
-
 public class PW_CompilerController implements PW_Controller, Runnable {
-	private final CompilationImpl compilation;
-	private final PW_PushWorkQueue wq;
-	private Multi<PW_PushWork> mm;
-	private Publisher<PW_PushWork> pp;
-	private final Eventual<Ok> abusingIt = new Eventual<>();
+	private final CompilationImpl        compilation;
+	private final PW_PushWorkQueue       wq;
+	private final Eventual<Ok>          abusingIt = new Eventual<>();
+	private       Eventual<PW_PushWork> epw       = new Eventual<>();
+	private       Multi<PW_PushWork>    mm;
+	private       Publisher<PW_PushWork> pp;
 
 	PW_CompilerController(final CompilationImpl aC) {
 		compilation = aC;
@@ -55,12 +53,10 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 		task.start();
 	}
 
-	Eventual<PW_PushWork> epw = new Eventual<>();
-
 	@Override
 	public void run() {
 		boolean[] xy = {true};
-		this.abusingIt .then(ok -> xy[0] = false);
+		this.abusingIt.then(ok -> xy[0] = false);
 
 		epw.then(this::aka_handle);
 
@@ -71,7 +67,7 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 		} catch (ConditionTimeoutException cte) {
 			System.err.println("9998-171 cte timeout in PWCC");
 		}
-		
+
 		// FIXME 10/18 this is also a steps: A+O
 ////             FIXME passing sh*t between threads (P.O.!)
 /*
@@ -112,13 +108,13 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 		};
 		Multi<PW_PushWork> m = Multi
 				.createFrom()
-					.publisher(publisher)
+				.publisher(publisher)
 				.onItem()
-					.invoke(i -> System.out.println(i))
+				.invoke(i -> System.out.println(i))
 				.ifNoItem()
-					.after(Duration.ofMillis(10000))
-					.recoverWithCompletion();
-		
+				.after(Duration.ofMillis(10000))
+				.recoverWithCompletion();
+
 		this.mm = m;
 		this.pp = publisher;
 	}
@@ -147,11 +143,17 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 		epw.then(this::aka_handle);
 	}
 
-	public void signalEnd() {
-		this.abusingIt.resolve(Ok.instance());
+	public Eventual<Ok> signalEnd() {
+		Eventual<Ok> result = new Eventual<>();
+
+		if (this.abusingIt.isPending()) {
+			this.abusingIt.resolve(Ok.instance());
+		} else {
+			//System.err.println("9998-151 double resolve");
+			this.abusingIt.then(result::resolve);
+			//this.abusingIt.onFail(result::fail); // wtf, man??
+		}
+
+		return result;
 	}
 }
-
-//
-//
-//

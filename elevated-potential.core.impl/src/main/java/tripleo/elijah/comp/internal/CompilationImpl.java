@@ -86,7 +86,8 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private          ICompilationAccess3                 compilationAccess3;
 	private @NotNull CK_Monitor                          defaultMonitor;
 	private          CPX_Signals                         cpxSignals;
-	private          Eventual<CP_Paths>                  _p_pathsEventual = new Eventual<>();
+	private          Eventual<CP_Paths> _p_pathsEventual = new Eventual<>();
+	/*private*/ public Eventual<Ok>                endSignal;
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink            = aErrSink;
@@ -221,7 +222,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		aController.processOptions();
 		aController.runner();
 
-		get_pw().signalEnd();
+		this.endSignal = get_pw().signalEnd();
 	}
 
 	@Override
