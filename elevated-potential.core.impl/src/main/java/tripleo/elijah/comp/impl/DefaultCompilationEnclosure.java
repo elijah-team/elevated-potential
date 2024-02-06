@@ -298,7 +298,11 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	public void setCompilationBus(final ICompilationBus aCompilationBus) {
 		compilationBus = aCompilationBus;
 
-		_p_compilationBus.resolve(aCompilationBus);
+		if (!_p_compilationBus.isResolved()) {
+			_p_compilationBus.resolve(aCompilationBus);
+		} else {
+			System.err.println("9998-303 double resolve compilationBus");
+		}
 	}
 
 	@Override
