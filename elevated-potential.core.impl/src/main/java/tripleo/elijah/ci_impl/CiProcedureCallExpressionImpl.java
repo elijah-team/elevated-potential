@@ -2,8 +2,7 @@ package tripleo.elijah.ci_impl;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.ci.ExpressionKind;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 
 public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression {
 	private CiExpression      _left;
@@ -35,12 +34,12 @@ public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression 
 	}
 
 	@Override
-	public @NotNull ExpressionKind getKind() {
-		return ExpressionKind.PROCEDURE_CALL;
+	public @NotNull CiExpressionKind getKind() {
+		return CiExpressionKind.PROCEDURE_CALL;
 	}
 
 	@Override
-	public void setKind(final ExpressionKind aExpressionKind) {
+	public void setKind(final CiExpressionKind aExpressionKind) {
 		throw new UnintendedUseException();
 	}
 
