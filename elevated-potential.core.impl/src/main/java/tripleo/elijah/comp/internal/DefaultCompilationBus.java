@@ -97,10 +97,11 @@ public class DefaultCompilationBus implements ICompilationBus {
 	public void addCompilerChange(Class<?> class1) {
 		if (class1.isInstance(CompilationChange.class)) {
 			try {
-				final CompilationChange compilationChange = (CompilationChange) class1.getDeclaredConstructor(new Class[]{}).newInstance();
+				final CompilationChange compilationChange = (CompilationChange) class1.getDeclaredConstructor(new Class[]{}).newInstance(); // ??
 				//c.getCompilationEnclosure().getCompilationBus()
 				this
 						.option(compilationChange);
+				assert false;
 			} catch (InstantiationException | IllegalAccessException | InvocationTargetException |
 					 NoSuchMethodException e) {
 				throw new Error();
@@ -113,14 +114,14 @@ public class DefaultCompilationBus implements ICompilationBus {
 		var s = new CompFactory.StartableI() {
 			@Override
 			public void run() {
-				if (false) {
+				if (true) {
 					// FIXME passing sh*t between threads (P.O.!)
 					_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
 
 					final Eventual<CB_Process>[] ecp = new Eventual[]{new Eventual<>()};
 					ecp[0].then(cbp-> {
 						cbp.execute(xxx);
-						ecp[0] = new Eventual<>();
+						ecp[0] = new Eventual<>(); // this is the ComodificationError pattern
 					});
 
 					await()
