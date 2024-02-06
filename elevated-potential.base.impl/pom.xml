@@ -33,12 +33,14 @@
 			<version>2024.elevated-potential.5</version>
 			<scope>compile</scope>
 		</dependency>
+<!--
 		<dependency>
 			<groupId>tripleo.elijah</groupId>
 			<artifactId>elevated-potential-core-impl</artifactId>
 			<version>2024.elevated-potential.3</version>
 			<scope>compile</scope>
 		</dependency>
+-->
 		<!--
 				<dependency>
 					<groupId>tripleo.elijah</groupId>

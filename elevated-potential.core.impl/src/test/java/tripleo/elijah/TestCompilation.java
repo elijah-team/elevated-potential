@@ -1,6 +1,7 @@
 package tripleo.elijah;
 
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.Compilation0;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.factory.comp.CompilationFactory;
 

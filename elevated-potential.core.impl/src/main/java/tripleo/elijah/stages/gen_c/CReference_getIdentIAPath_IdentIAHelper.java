@@ -2,6 +2,7 @@ package tripleo.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.Compilation0;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.gen_fn.*;
@@ -215,7 +216,7 @@ class CReference_getIdentIAPath_IdentIAHelper {
 							assert living != null;
 
 							final Compilation0 compilation0 = gc.getElement().getContext().module().getCompilation();
-							final Compilation compilation = (Compilation) compilation0;
+							final Compilation  compilation  = (Compilation) compilation0;
 							living.setCode(((DefaultLivingRepo) compilation.world()).nextClassCode());
 //							gc.setCode();
 							this.code = gc.getCode();

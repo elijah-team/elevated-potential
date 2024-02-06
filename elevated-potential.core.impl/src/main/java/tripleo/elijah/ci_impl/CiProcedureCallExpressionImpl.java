@@ -19,6 +19,11 @@ public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression 
 	}
 
 	@Override
+	public CiExpressionList getArgs() {
+		return this.getExpressionList();
+	}
+
+	@Override
 	public CiExpressionList getExpressionList() {
 		return expressionList;
 	}
@@ -90,8 +95,8 @@ public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression 
 		return repr_();
 	}
 
-	@Override
-	public void setArgs(CiExpressionList aEl) {
-		throw new UnintendedUseException();
-	}
+	//@Override
+	//public void setArgs(CiExpressionList aEl) {
+	//	throw new UnintendedUseException();
+	//}
 }

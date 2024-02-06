@@ -1,7 +1,12 @@
 package tripleo.elijah.ci_impl;
 
+import tripleo.elijah.ci.CiExpression;
+import tripleo.elijah.ci.CiExpressionKind;
+import tripleo.elijah.ci.CiExpressionList;
+import tripleo.elijah.ci.CiProcedureCallExpression;
+import tripleo.elijah.ci.CiQualident;
+
 import tripleo.elijah.util.UnintendedUseException;
-import tripleo.elijah.ci.*;
 
 // TODO is ExpressionList an CiExpression?
 public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression {

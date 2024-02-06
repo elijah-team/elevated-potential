@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.Compilation0;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.contexts.IFunctionContext;
 import tripleo.elijah.lang.i.*;

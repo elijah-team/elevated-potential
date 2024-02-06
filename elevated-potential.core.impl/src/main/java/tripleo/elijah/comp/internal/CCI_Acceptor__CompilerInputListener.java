@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import tripleo.elijah.DebugFlags;
 import tripleo.elijah.util.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;

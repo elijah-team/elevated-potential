@@ -2,10 +2,9 @@ package tripleo.elijah.test_help;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.i.ProcessRecord;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.notation.GM_GenerateModule;
 import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
