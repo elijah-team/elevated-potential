@@ -105,7 +105,7 @@
 		<dependency>
 			<groupId>tripleo.elijah</groupId>
 			<artifactId>elijah-util</artifactId>
-			<version>2024.elevated-potential.1</version>
+			<version>2024.elevated-potential.2</version>
 		</dependency>
 
 		<dependency>

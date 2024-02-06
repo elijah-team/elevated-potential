@@ -47,7 +47,7 @@
 		<dependency>
 			<groupId>tripleo.elijah</groupId>
 			<artifactId>elijah-core-api</artifactId>
-			<version>2024.elevated-potential.4</version>
+			<version>2024.elevated-potential.5</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
