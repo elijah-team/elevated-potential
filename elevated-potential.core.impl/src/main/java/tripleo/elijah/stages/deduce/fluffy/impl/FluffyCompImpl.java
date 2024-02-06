@@ -1,24 +1,25 @@
 package tripleo.elijah.stages.deduce.fluffy.impl;
 
-import com.google.common.collect.*;
-import org.jetbrains.annotations.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.entrypoints.*;
+import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.entrypoints.MainClassEntryPoint;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.fluffy.i.*;
+import tripleo.elijah.lang.impl.OS_ModuleImpl;
+import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
+import tripleo.elijah.stages.deduce.fluffy.i.FluffyModule;
 import tripleo.elijah.util.Eventual;
 
 import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 public class FluffyCompImpl implements FluffyComp {
-
-	private final CompilationImpl _comp;
+	private final Compilation                  _comp;
 	private final Map<OS_Module, FluffyModule> fluffyModuleMap = new HashMap<>();
-	FluffyCompImplInjector __inj = new FluffyCompImplInjector();
-	private List<Eventual<?>> _eventuals = new ArrayList<>();
+	private final FluffyCompImplInjector       __inj           = new FluffyCompImplInjector();
+	private final List<Eventual<?>>            _eventuals      = new ArrayList<>();
 
 	public FluffyCompImpl(final CompilationImpl aComp) {
 		_comp = aComp;
@@ -107,7 +108,7 @@ public class FluffyCompImpl implements FluffyComp {
 	}
 
 	static class FluffyCompImplInjector {
-		public FluffyModuleImpl new_FluffyModuleImpl(final OS_Module aModule, final CompilationImpl aComp) {
+		public FluffyModuleImpl new_FluffyModuleImpl(final OS_Module aModule, final Compilation aComp) {
 			return new FluffyModuleImpl(aModule, aComp);
 		}
 	}
