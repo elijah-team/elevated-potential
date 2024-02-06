@@ -14,6 +14,7 @@ import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.g.GGenerateFunctions;
@@ -1628,7 +1629,17 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 			return;
 		}
 
-		epl.forEach(entryPoint -> pa.getCompilationEnclosure().addEntryPoint(getMirrorEntryPoint(entryPoint, rq.mt()), dcg));
+		final CompilationEnclosure compilationEnclosure = pa.getCompilationEnclosure();
+
+		epl.forEach(entryPoint -> {
+			final Optional<Mirror_EntryPoint> mirrorEntryPoint = getMirrorEntryPoint(entryPoint, rq.mt());
+			if (mirrorEntryPoint.isPresent()) {
+				compilationEnclosure.addEntryPoint(mirrorEntryPoint.get(), dcg);
+			} else {
+				//throw new IllegalStateException("Can't find mirror");
+				System.err.println("9998-1637 Can't find mirror");
+			}
+		});
 
 		// FIXME looking too hard into phase...
 		final WorkManager wm = phase.getWm();
@@ -1641,7 +1652,6 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 			wm.addJobs(wl);
 			wm.drain();
 		}
-
 	}
 
 	private static void logProgress(int code, String message) {
@@ -1841,17 +1851,16 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		return R;
 	}
 
-	@NotNull
-	private Mirror_EntryPoint getMirrorEntryPoint(final EntryPoint entryPoint, final ModuleThing mt) {
+	private @NotNull Optional<Mirror_EntryPoint> getMirrorEntryPoint(final EntryPoint entryPoint, final ModuleThing mt) {
 		final Mirror_EntryPoint m;
 		if (entryPoint instanceof final @NotNull MainClassEntryPoint mcep) {
 			m = new Mirror_MainClassEntryPoint(mcep, mt, this);
 		} else if (entryPoint instanceof final @NotNull ArbitraryFunctionEntryPoint afep) {
 			m = new Mirror_ArbitraryFunctionEntryPoint(afep, mt, this);
 		} else {
-			throw new IllegalStateException("unhandled");
+			return Optional.empty();
 		}
-		return m;
+		return Optional.of(m);
 	}
 
 	private @NotNull TypeTableEntry getType(@NotNull final IExpression arg, final @NotNull BaseEvaFunction gf) {
