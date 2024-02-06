@@ -32,8 +32,6 @@ public interface Compilation extends Compilation0 {
 
 	LivingRepo world2();
 
-	Operation<Ok> hasInstructions2(@NotNull List<CompilerInstructions> cis, @NotNull IPipelineAccess pa);
-
 	@Override
 	IPipelineAccess pa();
 

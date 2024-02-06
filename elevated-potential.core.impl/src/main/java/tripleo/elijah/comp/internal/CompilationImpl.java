@@ -139,6 +139,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@Override
 	public PW_CompilerController get_pw() {
 		return (PW_CompilerController) this.pw_controller;
+		//return null;
 	}
 
 	public JarWork getJarwork() throws WorkException {
@@ -264,6 +265,8 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 		aController.processOptions();
 		aController.runner();
+
+		get_pw().signalEnd();
 	}
 
 	@Override
@@ -557,11 +560,6 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@Override
 	public LivingRepo world2() {
 		return _repo;
-	}
-
-	@Override
-	public Operation<Ok> hasInstructions2(@NotNull final List<CompilerInstructions> cis, @NotNull final IPipelineAccess pa) {
-		return hasInstructions(cis, get_pa());
 	}
 
 	@Override
