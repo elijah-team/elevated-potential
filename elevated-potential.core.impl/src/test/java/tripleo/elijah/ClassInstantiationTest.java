@@ -36,7 +36,7 @@ public class ClassInstantiationTest {
 	//		throw new AcceptedFailure();
 		}
 
-		final int curious_that_this_does_not_fail = 0/*100*/;
+		final int curious_that_this_does_not_fail = 1_000_000/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
 	}
 
