@@ -12,7 +12,7 @@ package tripleo.elijah.lang.i;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.contexts.ModuleContext;
 import tripleo.elijah.entrypoints.EntryPoint;
 import tripleo.elijah.g.GOS_Module;

@@ -1,7 +1,7 @@
 package tripleo.elijah.comp.specs;
 
 import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.comp.i.*;
 
 import java.util.*;
 

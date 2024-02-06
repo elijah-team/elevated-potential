@@ -1,7 +1,7 @@
 package tripleo.elijah.compiler_model;
 
 import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.comp.specs.ElijahSpec;
 import tripleo.elijah.g.GLivingRepo;

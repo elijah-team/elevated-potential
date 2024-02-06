@@ -1,6 +1,6 @@
 package tripleo.elijah.util;
 
-import tripleo.elijah.*;
+import tripleo.elijah.util.*;
 
 public interface DeferredAction<T> {
 	String description();

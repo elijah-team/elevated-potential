@@ -1,6 +1,6 @@
 package tripleo.elijah.comp.i;
 
-import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.IO;
 
 public interface CompilationClosure {

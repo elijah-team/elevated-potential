@@ -1,6 +1,6 @@
 package tripleo.elijah.contexts;
 
-import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.Context;
 import tripleo.elijah.lang.i.ISearchList;
 import tripleo.elijah.lang.i.LookupResultList;
