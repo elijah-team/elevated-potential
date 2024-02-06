@@ -1,10 +1,16 @@
 package tripleo.elijah.factory;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.*;
+
+import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.internal.CompilationImpl;
+
+import tripleo.elijah.comp.CompilerInput_;
+import tripleo.elijah.comp.i.CompilerInput;
+
+import tripleo.elijah.comp.i.CompilerController;
 import tripleo.elijah.comp.internal.DefaultCompilerController;
-import tripleo.elijah.stages.gen_fn.DefaultClassGenerator;
+
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkList__;
 

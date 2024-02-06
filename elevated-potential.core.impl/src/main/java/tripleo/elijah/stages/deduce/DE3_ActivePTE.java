@@ -2,7 +2,7 @@ package tripleo.elijah.stages.deduce;
 
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.nextgen.inputtree.*;

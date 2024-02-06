@@ -1,6 +1,5 @@
 package tripleo.elijah.comp.internal;
 
-import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.Pipeline;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;

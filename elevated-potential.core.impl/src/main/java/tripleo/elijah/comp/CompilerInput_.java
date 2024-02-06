@@ -1,18 +1,14 @@
 package tripleo.elijah.comp;
 
-import com.google.common.base.*;
-//import lombok.*;
+import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.*;
-import tripleo.elijah.ci.*;
+import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.queries.QSEZ_Reasoning;
-import tripleo.elijah.util.Maybe;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah.util.*;
 import tripleo.wrap.File;
 
 import java.util.Optional;

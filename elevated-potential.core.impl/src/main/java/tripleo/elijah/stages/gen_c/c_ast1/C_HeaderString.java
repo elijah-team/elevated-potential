@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 
 import tripleo.elijah.comp.Finally_;
 import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.stages.gen_fn.EvaClass;
 import tripleo.elijah.stages.gen_fn.EvaContainerNC;
 import tripleo.elijah.stages.gen_fn.EvaNamespace;

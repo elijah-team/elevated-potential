@@ -9,9 +9,8 @@
 package tripleo.elijah.stages.deduce;
 
 import lombok.Getter;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
-import tripleo.elijah.UnintendedUseException;
+import lombok.Setter;
+import tripleo.elijah.util.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.stages.deduce.nextgen.DeduceCreationContext;
@@ -35,11 +34,9 @@ public class FunctionInvocation implements IInvocation {
 	private final     Eventual<BaseEvaFunction> generateDeferred = new Eventual<>();
 	public            CI_Hint                   hint;
 	private @Nullable BaseEvaFunction     _generated       = null;
-	@lombok.Setter
-	@Getter
+	@Setter @Getter
 	private           NamespaceInvocation namespaceInvocation;
-	@lombok.Setter
-	@Getter
+	@Setter @Getter
 	private           ClassInvocation     classInvocation;
 
 	public FunctionInvocation(FunctionDef aFunctionDef, ProcTableEntry aProcTableEntry, @NotNull IInvocation invocation,

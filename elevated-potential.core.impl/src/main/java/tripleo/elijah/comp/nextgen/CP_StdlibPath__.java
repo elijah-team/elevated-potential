@@ -2,12 +2,15 @@ package tripleo.elijah.comp.nextgen;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
 import tripleo.elijah.comp.Compilation;
 
-import tripleo.elijah.comp.IO;
-import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.comp.i.IO;
+import tripleo.elijah.comp.nextgen.i.CP_Path;
+import tripleo.elijah.comp.nextgen.i.CP_StdlibPath;
+import tripleo.elijah.comp.nextgen.i.CP_SubFile;
+import tripleo.elijah.comp.nextgen.i._CP_RootPath;
+import tripleo.elijah.util.Eventual;
+import tripleo.elijah.util.EventualRegister;
 import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
 
@@ -17,7 +20,7 @@ import java.nio.file.Path;
 public class CP_StdlibPath__ implements CP_StdlibPath {
 	//private final Compilation                     c;
 	private final Eventual<Path> _pathPromise = new Eventual<>();
-	private final String                     compilationNumberString;
+	private final String         compilationNumberString;
 
 	public CP_StdlibPath__(final Compilation aC) {
 		//c                       = aC;

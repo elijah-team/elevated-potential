@@ -7,7 +7,7 @@ import static tripleo.elijah.util.Helpers.List_of;
 import static org.awaitility.Awaitility.await;
 import org.awaitility.core.ConditionTimeoutException;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.Compilation;

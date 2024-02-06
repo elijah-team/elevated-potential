@@ -3,7 +3,7 @@ package tripleo.elijah.stages.gen_c;
 import io.reactivex.rxjava3.subjects.*;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.nextgen.*;

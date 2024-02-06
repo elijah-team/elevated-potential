@@ -1,13 +1,14 @@
 package tripleo.elijah.comp.nextgen;
 
-import org.apache.commons.codec.digest.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.util.*;
+import org.apache.commons.codec.digest.DigestUtils;
+import tripleo.elijah.comp.IO_;
+import tripleo.elijah.comp.i.IO;
+import tripleo.elijah.util.DeferredAction;
+import tripleo.elijah.util.Eventual;
 
-import java.util.*;
+import java.util.List;
 
-import static org.apache.commons.codec.digest.MessageDigestAlgorithms.*;
+import static org.apache.commons.codec.digest.MessageDigestAlgorithms.SHA_256;
 
 class CY_HashDeferredAction implements DeferredAction<String> {
     private final Eventual<String> e = new Eventual<>(); // FIXME SingleShotEventual
@@ -41,7 +42,7 @@ class CY_HashDeferredAction implements DeferredAction<String> {
     public void calculate() {
         if (completed() || e._prom_isRejected()) return; // README only once, no retry
 
-        final DigestUtils           digestUtils   = new DigestUtils(SHA_256);
+        final DigestUtils   digestUtils = new DigestUtils(SHA_256);
         final StringBuilder          sb1           = new StringBuilder();
         final List<IO_._IO_ReadFile> recordedreads = io.recordedreads_io();
 

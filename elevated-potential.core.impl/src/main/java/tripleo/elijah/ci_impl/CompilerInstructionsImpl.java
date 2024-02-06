@@ -2,11 +2,10 @@ package tripleo.elijah.ci_impl;
 
 import com.google.common.collect.Collections2;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.comp.i.CompilerInput;
+import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.ci.cii.StringExpression;
-import tripleo.elijah.ci.cil.Helpers;
-import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.xlang.LocatableString;
 import tripleo.wrap.File;
@@ -48,8 +47,8 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 		Iterator<GenerateStatementImpl.Directive> gi = gens.iterator();
 		if (!gi.hasNext()) return null;
 		CiExpression lang_raw = gi.next().getExpression();
-		assert lang_raw instanceof StringExpression;
-		String s = Helpers.remove_single_quotes_from_string(((StringExpression) lang_raw).getText());
+		assert lang_raw instanceof CiStringExpression;
+		String s = Helpers.remove_single_quotes_from_string(((CiStringExpression) lang_raw).getText());
 		return Optional.of(s);
 	}
 

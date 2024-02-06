@@ -8,7 +8,7 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.ClassInvocation;

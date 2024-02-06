@@ -4,7 +4,7 @@ import io.smallrye.mutiny.Uni;
 
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.nextgen.*;

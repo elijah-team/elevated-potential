@@ -4,7 +4,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Supplier;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.IO;
+import tripleo.elijah.comp.i.IO;
 import tripleo.elijah.comp.specs.EzCache;
 import tripleo.elijah.comp.specs.EzSpec;
 import tripleo.elijah.comp.specs.EzSpec__;

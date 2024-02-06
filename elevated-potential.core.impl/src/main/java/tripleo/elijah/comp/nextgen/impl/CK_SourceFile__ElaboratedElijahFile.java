@@ -1,14 +1,18 @@
 package tripleo.elijah.comp.nextgen.impl;
 
-import com.google.common.base.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Supplier;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.IO;
+import tripleo.elijah.comp.specs.ElijahCache;
+import tripleo.elijah.comp.specs.ElijahSpec;
+import tripleo.elijah.comp.specs.ElijahSpec_;
+import tripleo.elijah.lang.i.OS_Module;
 
 import java.io.*;
 import java.io.InputStream;
+
+import tripleo.elijah.util.Operation2;
 import tripleo.wrap.File;
 
 public class CK_SourceFile__ElaboratedElijahFile extends __CK_SourceFile__AbstractElijahFile {
@@ -25,7 +29,7 @@ public class CK_SourceFile__ElaboratedElijahFile extends __CK_SourceFile__Abstra
 	@Override
 	public Operation2<OS_Module> process_query() {
 		assert false;
-		final ElijahCache           ezCache = null; // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+		final ElijahCache ezCache = null; // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 		//compilation.getCompilationEnclosure().getCompilationRunner().ezCache();
 		final Operation2<OS_Module> om      = process_query(compilation.getIO(), ezCache);
 

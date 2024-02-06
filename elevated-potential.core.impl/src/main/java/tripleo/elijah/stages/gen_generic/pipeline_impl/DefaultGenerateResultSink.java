@@ -2,20 +2,29 @@ package tripleo.elijah.stages.gen_generic.pipeline_impl;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
 import tripleo.elijah.ElijahInternal;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
+
+import tripleo.elijah.stages.gen_generic.GRS_Addable;
+import tripleo.elijah.stages.gen_generic.GenerateFiles;
+import tripleo.elijah.stages.gen_generic.GenerateResult;
+
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.g.GEvaClass;
-import tripleo.elijah.g.GEvaNamespace;
+
 import tripleo.elijah.nextgen.output.NG_OutputFunction;
 import tripleo.elijah.stages.gen_c.C2C_Result;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
+
+import tripleo.elijah.g.GEvaClass;
 import tripleo.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah.stages.gen_fn.EvaNamespace;
-import tripleo.elijah.stages.gen_fn.EvaNode;
-import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.world.i.LivingClass;
+
+import tripleo.elijah.g.GEvaNamespace;
+import tripleo.elijah.stages.gen_fn.EvaNamespace;
 import tripleo.elijah.world.i.LivingNamespace;
+
+import tripleo.elijah.stages.gen_fn.EvaNode;
+import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 
 import java.util.List;
 

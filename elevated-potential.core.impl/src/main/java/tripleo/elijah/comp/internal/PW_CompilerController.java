@@ -10,7 +10,7 @@ import static org.awaitility.Awaitility.await;
 
 import io.smallrye.mutiny.Multi;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;

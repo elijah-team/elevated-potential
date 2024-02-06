@@ -2,7 +2,7 @@ package tripleo.elijah.world.i;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.comp.i.Compilation0;
 import tripleo.elijah.g.GLivingRepo;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.OS_Module;

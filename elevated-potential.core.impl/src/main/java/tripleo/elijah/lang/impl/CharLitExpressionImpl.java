@@ -14,7 +14,7 @@ package tripleo.elijah.lang.impl;
 import antlr.*;
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 

@@ -10,6 +10,8 @@ package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
 
+import tripleo.elijah.comp.i.FileOption;
+import tripleo.elijah.comp.i.IO;
 import tripleo.elijah.util.io.*;
 
 import java.io.FileInputStream;

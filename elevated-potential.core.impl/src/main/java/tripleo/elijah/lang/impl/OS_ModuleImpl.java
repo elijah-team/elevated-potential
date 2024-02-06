@@ -12,6 +12,7 @@ import antlr.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.Compilation0;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.g.*;
