@@ -49,7 +49,7 @@ public class DefaultWorldModule implements WorldModule {
 		rq = aRq;
 		// throw new NotImplementedException("Unexpected");
 
-		erq.resolve(rq);
+		erq.resolve(aRq);
 	}
 
 	public void setThing(final ModuleThing aThing) {
