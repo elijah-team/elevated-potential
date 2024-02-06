@@ -15,5 +15,5 @@ public interface WorldModule extends GWorldModule {
 
 	OS_Module module();
 
-	GN_PL_Run2.GenerateFunctionsRequest rq();
+	//GN_PL_Run2.GenerateFunctionsRequest rq();
 }
