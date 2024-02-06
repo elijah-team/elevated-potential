@@ -8,7 +8,14 @@
  */
 package tripleo.elijah;
 
+import jdk.jshell.execution.StreamingExecutionControl;
 import org.junit.jupiter.api.Test;
+import tripleo.elijah.comp.internal.CompilationImpl;
+
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -25,6 +32,16 @@ public class Feb2021Test {
 
 		final int curious_that_this_does_not_fail = 1_000_100;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+
+		var c1 = t.c();
+		var c2 = (CompilationImpl)c1;
+		final boolean[] xx = new boolean[1];
+		c2.endSignal.then(x->{
+			xx[0] =true;});
+		await()
+				.atMost(5, TimeUnit.SECONDS)
+				.ignoreExceptions();
+		assert xx[0] ==true;
 	}
 
 	@Test
