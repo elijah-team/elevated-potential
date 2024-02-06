@@ -98,7 +98,9 @@ public class DefaultCompilationBus implements ICompilationBus {
 		if (class1.isInstance(CompilationChange.class)) {
 			try {
 				final CompilationChange compilationChange = (CompilationChange) class1.getDeclaredConstructor(new Class[]{}).newInstance();
-				c.getCompilationEnclosure().getCompilationBus().option(compilationChange);
+				//c.getCompilationEnclosure().getCompilationBus()
+				this
+						.option(compilationChange);
 			} catch (InstantiationException | IllegalAccessException | InvocationTargetException |
 					 NoSuchMethodException e) {
 				throw new Error();
