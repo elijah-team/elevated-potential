@@ -6,22 +6,7 @@ import antlr.*;
 import antlr.collections.impl.BitSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.CiExpression;
-import tripleo.elijah.ci.CiExpressionList;
-import tripleo.elijah.ci.CiIndexingStatement;
-import tripleo.elijah.ci.CiListExpression;
-import tripleo.elijah.ci.CiProcedureCallExpression;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.ci.ExpressionKind;
-import tripleo.elijah.ci.GenerateStatement;
-import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.ci.cii.GetItemExpression;
-import tripleo.elijah.ci.cii.IdentExpression;
-import tripleo.elijah.ci.cii.ProcedureCallExpression;
-import tripleo.elijah.ci.cii.Qualident;
-import tripleo.elijah.ci.cii.QualidentList;
-import tripleo.elijah.ci.cii.TypeCastExpression;
-import tripleo.elijah.ci.cii.TypeName;
+import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.PCon;
 import tripleo.elijah.xlang.LocatableString;
 
@@ -143,8 +128,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		CiExpression ee;
 
 		ee = null;
-		ExpressionKind e2 = null;
-		CiExpression    e3 = null;
+		CiExpressionKind e2 = null;
+		CiExpression     e3 = null;
 
 		try { // for error handling
 			ee = multiplicativeExpression();
@@ -156,14 +141,14 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							case PLUS: {
 								match(PLUS);
 								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.ADDITION;
+									e2 = CiExpressionKind.ADDITION;
 								}
 								break;
 							}
 							case MINUS: {
 								match(MINUS);
 								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.SUBTRACTION;
+									e2 = CiExpressionKind.SUBTRACTION;
 								}
 								break;
 							}
@@ -207,7 +192,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						match(BAND);
 						e3 = equalityExpression();
 						if (inputState.guessing == 0) {
-							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.BAND, e3);
+							ee = pcon.ExpressionBuilder_build(ee, CiExpressionKind.BAND, e3);
 						}
 					} else {
 						break _loop63;
@@ -232,7 +217,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		ee = null;
 		CiExpression e = null;
 		CiExpression e2;
-		ExpressionKind ek = null;
+		CiExpressionKind ek = null;
 
 		try { // for error handling
 			ee = conditionalExpression();
@@ -243,84 +228,84 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						case BECOMES: {
 							match(BECOMES);
 							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.ASSIGNMENT);
+								ek = (CiExpressionKind.ASSIGNMENT);
 							}
 							break;
 						}
 						case PLUS_ASSIGN: {
 							match(PLUS_ASSIGN);
 							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_PLUS);
+								ek = (CiExpressionKind.AUG_PLUS);
 							}
 							break;
 						}
 						case MINUS_ASSIGN: {
 							match(MINUS_ASSIGN);
 							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_MINUS);
+								ek = (CiExpressionKind.AUG_MINUS);
 							}
 							break;
 						}
 						case STAR_ASSIGN: {
 							match(STAR_ASSIGN);
 							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_MULT);
+								ek = (CiExpressionKind.AUG_MULT);
 							}
 							break;
 						}
 						case DIV_ASSIGN: {
 							match(DIV_ASSIGN);
 							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_DIV);
+								ek = (CiExpressionKind.AUG_DIV);
 							}
 							break;
 						}
 						case MOD_ASSIGN: {
 							match(MOD_ASSIGN);
 							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_MOD);
+								ek = (CiExpressionKind.AUG_MOD);
 							}
 							break;
 						}
 						case SR_ASSIGN: {
 							match(SR_ASSIGN);
 							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_SR);
+								ek = (CiExpressionKind.AUG_SR);
 							}
 							break;
 						}
 						case BSR_ASSIGN: {
 							match(BSR_ASSIGN);
 							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_BSR);
+								ek = (CiExpressionKind.AUG_BSR);
 							}
 							break;
 						}
 						case SL_ASSIGN: {
 							match(SL_ASSIGN);
 							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_SL);
+								ek = (CiExpressionKind.AUG_SL);
 							}
 							break;
 						}
 						case BAND_ASSIGN: {
 							match(BAND_ASSIGN);
 							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_BAND);
+								ek = (CiExpressionKind.AUG_BAND);
 							}
 							break;
 						}
 						case BXOR_ASSIGN: {
 							match(BXOR_ASSIGN);
 							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_BXOR);
+								ek = (CiExpressionKind.AUG_BXOR);
 							}
 							break;
 						}
 						case BOR_ASSIGN: {
 							match(BOR_ASSIGN);
 							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_BOR);
+								ek = (CiExpressionKind.AUG_BOR);
 							}
 							break;
 						}
@@ -433,7 +418,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		Token lp2 = null;
 		ee = null;
 		CiExpressionList el = null;
-		IdentExpression e = null;
+		CiIdentExpression  e  = null;
 
 		try { // for error handling
 			e = ident();
@@ -477,7 +462,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 					if (inputState.guessing == 0) {
 						CiProcedureCallExpression pce = pcon.newCiProcedureCallExpressionImpl();
 						pce.identifier(ee);
-						pce.setArgs(el);
+						pce.setExpressionList(el);
 						ee = pce;
 					}
 					match(RPAREN);
@@ -502,7 +487,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		CiExpression ee;
 
 		ee = null;
-		ExpressionKind e2 = null;
+		CiExpressionKind e2 = null;
 		CiExpression e3 = null;
 
 		try { // for error handling
@@ -515,14 +500,14 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							case NOT_EQUAL: {
 								match(NOT_EQUAL);
 								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.NOT_EQUAL;
+									e2 = CiExpressionKind.NOT_EQUAL;
 								}
 								break;
 							}
 							case EQUAL: {
 								match(EQUAL);
 								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.EQUAL;
+									e2 = CiExpressionKind.EQUAL;
 								}
 								break;
 							}
@@ -566,7 +551,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						match(BXOR);
 						e3 = andExpression();
 						if (inputState.guessing == 0) {
-							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.BXOR, e3);
+							ee = pcon.ExpressionBuilder_build(ee, CiExpressionKind.BXOR, e3);
 						}
 					} else {
 						break _loop60;
@@ -673,8 +658,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return gen;
 	}
 
-	public final @Nullable IdentExpression ident() throws RecognitionException, TokenStreamException {
-		IdentExpression id;
+	public final @Nullable CiIdentExpression ident() throws RecognitionException, TokenStreamException {
+		CiIdentExpression id;
 
 		Token r1 = null;
 		id = null;
@@ -710,7 +695,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						match(BOR);
 						e3 = exclusiveOrExpression();
 						if (inputState.guessing == 0) {
-							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.BOR, e3);
+							ee = pcon.ExpressionBuilder_build(ee, CiExpressionKind.BOR, e3);
 						}
 					} else {
 						break _loop57;
@@ -901,7 +886,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						match(LAND);
 						e3 = inclusiveOrExpression();
 						if (inputState.guessing == 0) {
-							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.LAND, e3);
+							ee = pcon.ExpressionBuilder_build(ee, CiExpressionKind.LAND, e3);
 						}
 					} else {
 						break _loop54;
@@ -934,7 +919,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						match(LOR);
 						e3 = logicalAndExpression();
 						if (inputState.guessing == 0) {
-							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.LOR, e3);
+							ee = pcon.ExpressionBuilder_build(ee, CiExpressionKind.LOR, e3);
 						}
 					} else {
 						break _loop51;
@@ -958,7 +943,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 
 		ee = null;
 		CiExpression e3 = null;
-		ExpressionKind e2 = null;
+		CiExpressionKind e2 = null;
 
 		try { // for error handling
 			ee = unaryExpression();
@@ -970,21 +955,21 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							case STAR: {
 								match(STAR);
 								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.MULTIPLY;
+									e2 = CiExpressionKind.MULTIPLY;
 								}
 								break;
 							}
 							case DIV: {
 								match(DIV);
 								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.DIVIDE;
+									e2 = CiExpressionKind.DIVIDE;
 								}
 								break;
 							}
 							case MOD: {
 								match(MOD);
 								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.MODULO;
+									e2 = CiExpressionKind.MODULO;
 								}
 								break;
 							}
@@ -1050,8 +1035,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		Token in = null;
 		Token de = null;
 		ee = null;
-		TypeCastExpression tc = null;
-		TypeName tn = null;
+		CiTypeCastExpression tc = null;
+		CiTypeName           tn = null;
 		CiExpression e3 = null;
 		CiExpressionList el = null;
 
@@ -1072,14 +1057,14 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						match(RBRACK);
 						if (inputState.guessing == 0) {
 							ee = pcon.newGetItemExpressionImpl(ee, expr);
-							((GetItemExpression) ee).parens(lb, rb);
+							((CiGetItemExpression) ee).parens(lb, rb);
 						}
 						{
 							if ((LA(1) == BECOMES) && (_tokenSet_9.member(LA(2)))) {
 								match(BECOMES);
 								expr = expression();
 								if (inputState.guessing == 0) {
-									ee = pcon.newSetItemExpressionImpl((GetItemExpression) ee, expr);
+									ee = pcon.newSetItemExpressionImpl((CiGetItemExpression) ee, expr);
 								}
 							} else if ((_tokenSet_5.member(LA(1))) && (_tokenSet_10.member(LA(2)))) {
 							} else {
@@ -1138,13 +1123,13 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 					in = LT(1);
 					match(INC);
 					if (inputState.guessing == 0) {
-						ee.setKind(ExpressionKind.POST_INCREMENT);
+						ee.setKind(CiExpressionKind.POST_INCREMENT);
 					}
 				} else if ((LA(1) == DEC) && (_tokenSet_5.member(LA(2)))) {
 					de = LT(1);
 					match(DEC);
 					if (inputState.guessing == 0) {
-						ee.setKind(ExpressionKind.POST_DECREMENT);
+						ee.setKind(CiExpressionKind.POST_DECREMENT);
 					}
 				} else if ((_tokenSet_5.member(LA(1))) && (_tokenSet_10.member(LA(2)))) {
 				} else {
@@ -1302,12 +1287,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		}
 	}
 
-	public final @NotNull Qualident qualident() throws RecognitionException, TokenStreamException {
-		tripleo.elijah.ci.cii.Qualident q;
+	public final @NotNull CiQualident CiQualident() throws RecognitionException, TokenStreamException {
+		CiQualident q;
 
 		Token d1 = null;
 		q = pcon.newQualidentImpl();
-		IdentExpression r1 = null, r2 = null;
+		CiIdentExpression r1 = null, r2 = null;
 
 		try { // for error handling
 			r1 = ident();
@@ -1341,12 +1326,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return q;
 	}
 
-	public final void qualidentList(@NotNull QualidentList qal) throws RecognitionException, TokenStreamException {
+	public final void CiQualidentList(@NotNull CiQualidentList qal) throws RecognitionException, TokenStreamException {
 
-		Qualident qid;
+		CiQualident qid;
 
 		try { // for error handling
-			qid = qualident();
+			qid = CiQualident();
 			if (inputState.guessing == 0) {
 				qal.add(qid);
 			}
@@ -1354,7 +1339,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 				_loop37: do {
 					if ((LA(1) == COMMA)) {
 						match(COMMA);
-						qid = qualident();
+						qid = CiQualident();
 						if (inputState.guessing == 0) {
 							qal.add(qid);
 						}
@@ -1378,9 +1363,9 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		CiExpression ee;
 
 		ee = null;
-		ExpressionKind e2 = null; // should never be null (below)
+		CiExpressionKind e2 = null; // should never be null (below)
 		CiExpression e3 = null;
-		TypeName tn = null;
+		CiTypeName tn = null;
 
 		try { // for error handling
 			ee = shiftExpression();
@@ -1393,28 +1378,28 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 								case LT_: {
 									match(LT_);
 									if (inputState.guessing == 0) {
-										e2 = ExpressionKind.LT_;
+										e2 = CiExpressionKind.LT_;
 									}
 									break;
 								}
 								case GT: {
 									match(GT);
 									if (inputState.guessing == 0) {
-										e2 = ExpressionKind.GT;
+										e2 = CiExpressionKind.GT;
 									}
 									break;
 								}
 								case LE: {
 									match(LE);
 									if (inputState.guessing == 0) {
-										e2 = ExpressionKind.LE;
+										e2 = CiExpressionKind.LE;
 									}
 									break;
 								}
 								case GE: {
 									match(GE);
 									if (inputState.guessing == 0) {
-										e2 = ExpressionKind.GE;
+										e2 = CiExpressionKind.GE;
 									}
 									break;
 								}
@@ -1450,7 +1435,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		CiExpression ee;
 
 		ee = null;
-		ExpressionKind e2 = null;
+		CiExpressionKind e2 = null;
 		CiExpression e3 = null;
 
 		try { // for error handling
@@ -1463,21 +1448,21 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							case SL: {
 								match(SL);
 								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.LSHIFT;
+									e2 = CiExpressionKind.LSHIFT;
 								}
 								break;
 							}
 							case SR: {
 								match(SR);
 								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.RSHIFT;
+									e2 = CiExpressionKind.RSHIFT;
 								}
 								break;
 							}
 							case BSR: {
 								match(BSR);
 								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.BSHIFTR;
+									e2 = CiExpressionKind.BSHIFTR;
 								}
 								break;
 							}
@@ -1519,7 +1504,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 				match(INC);
 				ee = unaryExpression();
 				if (inputState.guessing == 0) {
-					ee.setKind(ExpressionKind.INCREMENT);
+					ee.setKind(CiExpressionKind.INCREMENT);
 				}
 				break;
 			}
@@ -1527,7 +1512,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 				match(DEC);
 				ee = unaryExpression();
 				if (inputState.guessing == 0) {
-					ee.setKind(ExpressionKind.DECREMENT);
+					ee.setKind(CiExpressionKind.DECREMENT);
 				}
 				break;
 			}
@@ -1535,7 +1520,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 				match(MINUS);
 				ee = unaryExpression();
 				if (inputState.guessing == 0) {
-					ee.setKind(ExpressionKind.NEG);
+					ee.setKind(CiExpressionKind.NEG);
 				}
 				break;
 			}
@@ -1543,7 +1528,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 				match(PLUS);
 				ee = unaryExpression();
 				if (inputState.guessing == 0) {
-					ee.setKind(ExpressionKind.POS);
+					ee.setKind(CiExpressionKind.POS);
 				}
 				break;
 			}
@@ -1590,7 +1575,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 				match(BNOT);
 				ee = unaryExpression();
 				if (inputState.guessing == 0) {
-					ee.setKind(ExpressionKind.BNOT);
+					ee.setKind(CiExpressionKind.BNOT);
 				}
 				break;
 			}
@@ -1598,7 +1583,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 				match(LNOT);
 				ee = unaryExpression();
 				if (inputState.guessing == 0) {
-					ee.setKind(ExpressionKind.LNOT);
+					ee.setKind(CiExpressionKind.LNOT);
 				}
 				break;
 			}
@@ -1635,10 +1620,10 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		CiExpression ee;
 
 		Token lp = null;
-		ProcedureCallExpression pcx;
+		CiProcedureCallExpression pcx;
 		CiExpressionList el = null;
 		ee = null;
-		IdentExpression r1 = null, r2 = null;
+		CiIdentExpression r1 = null, r2 = null;
 
 		try { // for error handling
 			r1 = ident();
@@ -1700,7 +1685,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 					if (inputState.guessing == 0) {
 						CiProcedureCallExpression pce = pcon.newCiProcedureCallExpressionImpl();
 						pce.identifier(ee);
-						pce.setArgs(el);
+						pce.setExpressionList(el);
 						ee = pce;
 					}
 					match(RPAREN);
