@@ -293,12 +293,10 @@
 			<id>https://gitlab.com/Tripleo/range</id>
 			<url>https://gitlab.com/api/v4/projects/21223510/packages/maven</url>
 		</repository>
-<!--
 		<repository>
 			<id>gitlab-maven</id>
 			<url>https://gitlab.com/api/v4/projects/52599914/packages/maven</url>
 		</repository>
--->
 		<repository>
 			<id>https://gitlab.com/elijah-team/api-components/model-status</id>
 			<url>https://gitlab.com/api/v4/projects/53143825/packages/maven</url>
