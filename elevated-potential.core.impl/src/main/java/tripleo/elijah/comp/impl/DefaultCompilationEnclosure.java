@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.subjects.*;
 import org.apache.commons.lang3.tuple.*;
+import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
@@ -100,7 +101,8 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	private CompilerDriver      compilerDriver;
 	private List<CompilerInput> inp;
 	private IPipelineAccess     pa;
-	private PipelineLogic       pipelineLogic;
+	private PipelineLogic             pipelineLogic;
+	private final Eventual<ICompilationBus> _p_compilationBus = new Eventual<>();
 
 	public DefaultCompilationEnclosure(final Compilation aCompilation) {
 		compilation = aCompilation;
@@ -125,6 +127,16 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 			this.pa = pa;
 		});
+
+/*
+		this.waitCompilationRunner(cr -> {
+			final ICompilationBus compilationBus = cr.getCompilationEnclosure().getCompilationBus();
+
+			assert compilationBus != null;
+
+			_p_compilationBus.resolve(compilationBus);
+		});
+*/
 
 		compilation.world().addModuleProcess(new ModuleListener_ModuleCompletableProcess());
 	}
@@ -285,6 +297,8 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	@Override
 	public void setCompilationBus(final ICompilationBus aCompilationBus) {
 		compilationBus = aCompilationBus;
+
+		_p_compilationBus.resolve(aCompilationBus);
 	}
 
 	@Override
@@ -478,6 +492,11 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	@Override
 	public EIT_ModuleList getModuleList() {
 		return compilation.getObjectTree().getModuleList();
+	}
+
+	@Override
+	public void waitCompilationBus(final DoneCallback<ICompilationBus> cb) {
+		_p_compilationBus.then(cb);
 	}
 
 	@Override
