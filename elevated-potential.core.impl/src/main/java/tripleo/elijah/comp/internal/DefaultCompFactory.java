@@ -7,7 +7,7 @@ import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
-import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
+import tripleo.elijah.comp.nextgen.CX_ElijahSpecReader;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue;
@@ -151,7 +151,7 @@ class DefaultCompFactory implements CompFactory {
 	}
 
 	@Override
-	public CX_ParseElijahFile.ElijahSpecReader defaultElijahSpecReader(final CP_Path aLocalPrelude) {
+	public CX_ElijahSpecReader defaultElijahSpecReader(final CP_Path aLocalPrelude) {
 		return new DefaultElijahSpecReader(aLocalPrelude, compilation);
 	}
 
@@ -167,9 +167,8 @@ class DefaultCompFactory implements CompFactory {
 		return new PW_CompilerController(aCompilation);
 	}
 
-	@NotNull
 	@Override
-	public Finally_ createFinally() {
+	public @NotNull Finally createFinally() {
 		return new Finally_();
 	}
 
