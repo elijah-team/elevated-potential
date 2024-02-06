@@ -29,11 +29,10 @@ class CB_FindCIs implements CB_Action {
 //		final CK_Monitor       monitor11   = /*aMonitor;//*/compilationRunner.getCompilationEnclosure().getDefaultMonitor();
 		final CR_State         st      = compilationRunner.getCrState();
 		final Compilation      c       = (Compilation) st.ca().getCompilation();
-		final @NotNull ErrSink errSink = c.getErrSink();
 //		final CK_StepsContext  context   = new CD_CRS_StepsContext(st, o);
 
 		for (final CompilerInput input : c.getCompilationEnclosure().getCompilerInput()) {
-			_processInput(c.getCompilationClosure(), errSink, input);
+			_processInput(c.getCompilationClosure(), input);
 		}
 
 		logProgress_Stating("outputString.size", "" + o.get().size());
@@ -60,7 +59,6 @@ class CB_FindCIs implements CB_Action {
 	}
 
 	private void _processInput(final @NotNull CompilationClosure c,
-							   final @NotNull ErrSink aErrSink,
 							   final @NotNull CompilerInput input) {
 		// FIXME 24/01/09 oop
 		switch (input.ty()) {
@@ -88,7 +86,7 @@ class CB_FindCIs implements CB_Action {
 				CW_inputIsDirectory.apply(input, compilationClosure, f);
 			} else {
 				final NotDirectoryException d = new NotDirectoryException(f.toString());
-				aErrSink.reportError("9995 Not a directory " + f.getAbsolutePath());
+				c.errSink().reportError("9995 Not a directory " + f.getAbsolutePath());
 			}
 		}
 	}
