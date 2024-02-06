@@ -2,17 +2,25 @@ package tripleo.elijah.comp.internal;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
+import static tripleo.elijah.util.Helpers.List_of;
+
+import static org.awaitility.Awaitility.await;
+import org.awaitility.core.ConditionTimeoutException;
+
+import tripleo.elijah.Eventual;
+
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
-import java.util.concurrent.*;
-
-import static org.awaitility.Awaitility.await;
-import static tripleo.elijah.util.Helpers.List_of;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
 
 public class DefaultCompilationBus implements ICompilationBus {
 	private final CB_Monitor _monitor;
@@ -99,33 +107,28 @@ public class DefaultCompilationBus implements ICompilationBus {
 	}
 
 	public void runProcesses() {
-		final Queue<CB_Process> procs = pq;
-
 		final var xxx = this;
 		var s = new CompFactory.StartableI() {
 			@Override
 			public void run() {
-				// FIXME passing sh*t between threads (P.O.!)
-				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
-				long x = 0;
-				while (x < 12) {
-					final CB_Process poll = procs.poll();
+				if (false) {
+					// FIXME passing sh*t between threads (P.O.!)
+					_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
 
-					if (poll != null) {
-						_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, new Object[]{poll.name()});
-						poll.execute(xxx);
-					} else {
-						_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
-						try {
-							Thread.sleep(500);
-//					x = 0; // who put this here?
-						} catch (InterruptedException aE) {
-							//throw new RuntimeException(aE);
-						}
-					}
-					++x;
+					final Eventual<CB_Process>[] ecp = new Eventual[]{new Eventual<>()};
+					ecp[0].then(cbp-> {
+						cbp.execute(xxx);
+						ecp[0] = new Eventual<>();
+					});
+
+					await()
+							.atMost(3, TimeUnit.SECONDS)
+							.until(()->ecp[0].isResolved());
+
+					_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5789, new Object[]{});
+				} else {
+					System.err.println("9998-124 skip runProcesses");
 				}
-				_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5789, new Object[]{});
 			}
 
 			@Override
@@ -148,19 +151,24 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 			thread.join();//TimeUnit.MINUTES.toMillis(1));
 
-			await()
-					.atMost(5, TimeUnit.SECONDS)
-					.until(() -> {
-				return task.isSignalled();
-				//final Eventual<Ok> abusingIt = c.get_pw().abusingIt;
-				//return abusingIt.isResolved();
-			});
+			try {
+				await()
+						.atMost(5, TimeUnit.SECONDS)
+						.until(() -> {
+							return task.isSignalled();
+							//final Eventual<Ok> abusingIt = c.get_pw().abusingIt;
+							//return abusingIt.isResolved();
+						});
 
-			for (final CB_Process process : pq) {
-				logProgess(INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
-				execute_process(this, process);
+				System.err.println("174 ");
+
+				for (final CB_Process process : pq) {
+					logProgess(INTEGER_MARKER_CODES.DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG, process.name());
+					execute_process(this, process);
+				}
+			} catch (ConditionTimeoutException cte) {
+				System.err.println("9998-158 cte timeout in DefaultCompilationBus");
 			}
-
 			thread.stop();
 		} catch (InterruptedException aE) {
 			throw new RuntimeException(aE);

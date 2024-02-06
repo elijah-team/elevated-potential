@@ -3,8 +3,13 @@ package tripleo.elijah.comp.internal;
 import java.time.Duration;
 import java.util.concurrent.Flow.Publisher;
 import java.util.concurrent.Flow.Subscriber;
+import java.util.concurrent.TimeUnit;
+
+import org.awaitility.core.ConditionTimeoutException;
+import static org.awaitility.Awaitility.await;
 
 import io.smallrye.mutiny.Multi;
+
 import tripleo.elijah.Eventual;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
@@ -50,14 +55,26 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 		task.start();
 	}
 
+	Eventual<PW_PushWork> epw = new Eventual<>();
+
 	@Override
 	public void run() {
 		boolean[] xy = {true};
 		this.abusingIt .then(ok -> xy[0] = false);
 
+		epw.then(this::aka_handle);
+
+		try {
+			await()
+					.atMost(5, TimeUnit.SECONDS)
+					.until(() -> !xy[0]);
+		} catch (ConditionTimeoutException cte) {
+			System.err.println("9998-171 cte timeout in PWCC");
+		}
 		
 		// FIXME 10/18 this is also a steps: A+O
 ////             FIXME passing sh*t between threads (P.O.!)
+/*
 		//_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
 		boolean x = true;
 		while (xy[0] && x) {
@@ -82,6 +99,8 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 				});
 			}
 		}
+*/
+
 		final Publisher<PW_PushWork> publisher = new Publisher<>() {
 
 			private Subscriber<? super PW_PushWork> s;
@@ -110,6 +129,26 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 
 	public CP_Paths paths() {
 		return compilation._paths();
+	}
+
+	private void aka_handle(PW_PushWork pw) {
+		final CompilationEnclosure compilationEnclosure = compilation.getCompilationEnclosure();
+		compilationEnclosure.waitCompilationBus(cb -> {
+			final ICompilationBus compilationBus = cb;//r.getCompilationEnclosure().getCompilationBus();
+
+			assert compilationBus != null;
+
+			final IProgressSink sink = compilationBus.defaultProgressSink();
+			sink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{pw});
+		});
+
+		pw.execute(this);
+		epw = new Eventual<>();
+		epw.then(this::aka_handle);
+	}
+
+	public void signalEnd() {
+		this.abusingIt.resolve(Ok.instance());
 	}
 }
 
