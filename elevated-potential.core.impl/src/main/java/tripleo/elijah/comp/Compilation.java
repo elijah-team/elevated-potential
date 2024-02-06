@@ -53,6 +53,8 @@ public interface Compilation extends Compilation0 {
 
 	CompFactory con();
 
+	CompilationImpl.ElijahSpecSink getElijahSpecSink();
+
 	void setIO(IO io);
 
 	@NotNull
