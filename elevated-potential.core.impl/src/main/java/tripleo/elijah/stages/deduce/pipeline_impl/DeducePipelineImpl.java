@@ -31,7 +31,7 @@ public class DeducePipelineImpl {
 
 	public void run() {
 		final Compilation         c                    = pa.getCompilation();
-		final CompilationEnclosure compilationEnclosure = c.getCompilationEnclosure();
+		final CompilationEnclosure compilationEnclosure = (CompilationEnclosure) c.getCompilationEnclosure();
 		final PipelineLogic        pipelineLogic        = compilationEnclosure.getPipelineLogic();
 
 		assert pipelineLogic != null;

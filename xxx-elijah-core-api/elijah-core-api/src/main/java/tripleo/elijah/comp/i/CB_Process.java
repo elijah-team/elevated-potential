@@ -11,8 +11,9 @@ public interface CB_Process {
 
 	default void execute(@NotNull ICompilationBus aCompilationBus) {
 		final CB_Monitor monitor = aCompilationBus.getMonitor();
+		final List<CB_Action> steps = steps();
 
-		for (final CB_Action action : steps()) {
+		for (final CB_Action action : steps) {
 			// TODO something about outputStrings
 			//  don't have any mercy here
 			action.execute(monitor);

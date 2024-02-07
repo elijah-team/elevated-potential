@@ -59,7 +59,7 @@ public interface Compilation0 /*extends GCompilation*/ {
 
     ElijahCache use_elijahCache();
 
-    void pushWork(PW_PushWork aInstance, final PN_Ping aPing);
+	<Yi> void pushWork(PW_PushWork aInstance, final PN_Ping<Yi> aPing);
 
     IO getIO();
 

@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.util.Operation;
 
@@ -13,15 +14,15 @@ import java.util.List;
 import static tripleo.elijah.util.Helpers.List_of;
 
 class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
-	static                 boolean              started;
-	private final          CompilationRunner    compilationRunner;
-	private final          CompilerInstructions rootCI;
+	static        boolean              started;
+	private final ICompilationRunner   compilationRunner;
+	private final CompilerInstructions rootCI;
 	private final @NotNull IPipelineAccess pa;
 	@Getter
 	final CB_Output o;
 
 	@Contract(pure = true)
-	public CB_StartCompilationRunnerAction(final CompilationRunner aCompilationRunner,
+	public CB_StartCompilationRunnerAction(final ICompilationRunner aCompilationRunner,
 	                                       final @NotNull IPipelineAccess aPa,
 	                                       final CompilerInstructions aRootCI) {
 		compilationRunner = aCompilationRunner;
@@ -45,7 +46,7 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 		switch (ocrsd.mode()) {
 		case SUCCESS -> {
 			final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
-			final CR_State                  crState                = compilationRunner.getCrState();
+			final CR_State                  crState                = (CR_State) compilationRunner.getCrState();
 
 //			assert !(started);
 			if (started) {

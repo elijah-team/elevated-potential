@@ -1,6 +1,7 @@
 package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
@@ -11,6 +12,12 @@ public class CW_inputIsEzFile {
 							 final @NotNull CompilationClosure cc) {
 		final ILazyCompilerInstructions        ilci = ILazyCompilerInstructions_.of(input, cc);
 		final Maybe<ILazyCompilerInstructions> m4   = Maybe.of(ilci);
+		input.accept_ci(m4);
+	}
+
+	public static void apply(final Maybe<ILazyCompilerInstructions> m4,
+							 final CompilerInput input,
+							 final CompilationClosure cc) {
 		input.accept_ci(m4);
 	}
 }

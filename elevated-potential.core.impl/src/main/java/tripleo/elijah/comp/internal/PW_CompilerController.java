@@ -19,7 +19,7 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 	private final PW_PushWorkQueue wq;
 	private Multi<PW_PushWork> mm;
 	private Publisher<PW_PushWork> pp;
-	private final Eventual<Ok> abusingIt = new Eventual<>();
+	final Eventual<Ok>             closePromiseLatch = new Eventual<>();
 
 	PW_CompilerController(final CompilationImpl aC) {
 		compilation = aC;
@@ -35,7 +35,7 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 
 			@Override
 			public boolean isSignalled() {
-				return x.abusingIt.isResolved();
+				return x.closePromiseLatch.isResolved();
 			}
 
 			@Override
@@ -53,18 +53,19 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 	@Override
 	public void run() {
 		boolean[] xy = {true};
-		this.abusingIt .then(ok -> xy[0] = false);
+		this.closePromiseLatch.then(ok -> xy[0] = false);
 
 		
 		// FIXME 10/18 this is also a steps: A+O
-////             FIXME passing sh*t between threads (P.O.!)
-		//_defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5784, new Object[]{});
+		//   FIXME passing sh*t between threads (P.O.!)
+		//      ARRRGH lost the link
+		//_defaultProgressSink.note(IProgressSink.Codes.PW_CompilerController__pollProcess, ProgressSinkComponent.PW_CompilerController, 5784, new Object[]{});
 		boolean x = true;
 		while (xy[0] && x) {
 			final PW_PushWork poll = wq.poll();
 
 			if (poll != null) {
-//                _defaultProgressSink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5757, new Object[]{poll.name()});
+//                _defaultProgressSink.note(IProgressSink.Codes.PW_CompilerController__pollProcess, ProgressSinkComponent.PW_CompilerController, 5757, new Object[]{poll.name()});
 				poll.execute(this);
 			} else {
 				final CompilationEnclosure compilationEnclosure = compilation.getCompilationEnclosure();
@@ -74,11 +75,7 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 					assert compilationBus != null;
 
 					final IProgressSink sink = compilationBus.defaultProgressSink();
-					sink.note(IProgressSink.Codes.DefaultCompilationBus__pollProcess, ProgressSinkComponent.DefaultCompilationBus, 5758, new Object[]{poll});
-
-					// README 10/20 fails everything after one failed poll
-					// eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-					//x = false;
+					sink.note(IProgressSink.Codes.PW_CompilerController__pollProcess, ProgressSinkComponent.PW_CompilerController, 5758, new Object[]{poll});
 				});
 			}
 		}
@@ -95,11 +92,18 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 				.createFrom()
 					.publisher(publisher)
 				.onItem()
-					.invoke(i -> System.out.println(i))
+					.invoke(i -> System.out.println("107098 "+i))
 				.ifNoItem()
-					.after(Duration.ofMillis(10000))
+					.after(Duration.ofSeconds(10))
 					.recoverWithCompletion();
 		
+		var tallguy = m.ifNoItem()
+				.after(Duration.ofSeconds(5))
+				.failWith(new Exception("nelson"));
+		var hiscar = tallguy.collect().first().onItem().invoke((hisactualcar->{
+			System.err.println("107107 "+hisactualcar);
+		}));
+
 		this.mm = m;
 		this.pp = publisher;
 	}
@@ -111,8 +115,9 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 	public CP_Paths paths() {
 		return compilation._paths();
 	}
-}
 
-//
-//
-//
+	@Override
+	public boolean isSignalled() {
+		return this.closePromiseLatch.isResolved(); // FIXME 24/01/25 isRejected??
+	}
+}

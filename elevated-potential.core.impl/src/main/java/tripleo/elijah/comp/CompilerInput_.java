@@ -2,6 +2,8 @@ package tripleo.elijah.comp;
 
 import com.google.common.base.*;
 //import lombok.*;
+import lombok.Getter;
+import lombok.experimental.Accessors;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -50,7 +52,7 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 	private final String                           inp;
 	private       Maybe<ILazyCompilerInstructions> accept_ci;
 	private       File                             dir_carrier;
-	// @Getter(fluent)
+	 @Getter @Accessors(fluent = true)
 	private       Ty                               ty;
 	private       String                           hash;
 	private       CompilerInputMaster              master;

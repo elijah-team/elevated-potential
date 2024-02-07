@@ -8,7 +8,6 @@ public class DebugFlags {
 	public static       boolean     writeDumps = false;
 	public static       boolean CCI_gate = false;
 	public static       boolean MakeSense = true;
-	public static       boolean _pancake_lcm_gate = true;
 
 	/** DONT change this */
 	public static final boolean FORCE = true;

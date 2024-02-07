@@ -29,7 +29,7 @@ public class LCM {
 		eventBus.register(listener);
 	}
 
-	public void asv(final Object obj, final LCM_Event event) {
+	public <T> void asv(final T obj, final LCM_Event event) {
 		eventBus.post(new LCM_HandleEvent(_compilation.getLCMAccess(), this, obj, event));
 	}
 

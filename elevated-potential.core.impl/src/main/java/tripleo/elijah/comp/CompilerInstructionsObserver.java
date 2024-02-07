@@ -7,6 +7,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.util.*;
 
 import java.util.*;
@@ -21,7 +22,7 @@ public class CompilerInstructionsObserver implements Observer<CompilerInstructio
 
 	@Override
 	public @NotNull Operation<Ok> almostComplete() {
-		final Eventual<IPipelineAccess> pipelineAccessPromise = compilation.getCompilationEnclosure().getPipelineAccessPromise();
+		final Eventual<IPipelineAccess> pipelineAccessPromise = ((CompilationEnclosure)compilation.getCompilationEnclosure()).getPipelineAccessPromise();
 		pipelineAccessPromise.register(compilation.getFluffy());
 
 		pipelineAccessPromise.then(pa0 -> {

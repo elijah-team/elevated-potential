@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import org.apache.commons.lang3.tuple.Pair;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
@@ -12,7 +13,7 @@ import java.util.*;
 public /* static */ class CCI_Acceptor__CompilerInputListener implements CompilerInputListener {
 	private final Compilation    compilation;
 	public final  InstructionDoer id;
-	private final CompilationRunner cr;
+	private final ICompilationRunner cr;
 	private       CCI           cci;
 	private       IProgressSink _progressSink;
 
@@ -46,7 +47,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 
 		var inputTree = compilation.getInputTree();
 
-		compilation.getCompilationEnclosure().logProgress(CompProgress.__CCI_Acceptor__CompilerInputListener__change__logInput, i);
+		compilation.getCompilationEnclosure().logProgress(CompProgress.__CCI_Acceptor__CompilerInputListener__change__logInput, Pair.of(-1, i));
 
 		switch (field) {
 			case TY -> {
@@ -60,7 +61,15 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 						int y3 = 2;
 						inputTree.addNode(i);
 
+						final Maybe<ILazyCompilerInstructions> instructionsMaybe = i.acceptance_ci();
+						if (instructionsMaybe != null) {
+							var ci = instructionsMaybe.o.get();
 
+							assert ci != null;
+
+							cr.nextCi(ci);
+							id.add(ci);
+						}
 					}
 					case ROOT -> {
 						inputTree.addNode(i);
@@ -71,7 +80,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 
 							assert ci != null;
 
-							cr._cis().onNext(ci);
+							cr.nextCi(ci);
 							id.add(ci);
 						}
 					}
@@ -98,6 +107,9 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 																	 e);
 						e.then(id::add);
 					}
+				} else if (i.ty() == CompilerInput.Ty.SOURCE_ROOT) {
+					int y=2;
+					id.add(i.acceptance_ci().o.get());
 				} else {
 					throw new UnintendedUseException();
 				}

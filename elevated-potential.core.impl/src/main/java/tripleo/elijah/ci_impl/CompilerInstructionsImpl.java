@@ -1,12 +1,15 @@
 package tripleo.elijah.ci_impl;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Collections2;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.ci.cii.StringExpression;
 import tripleo.elijah.ci.cil.Helpers;
 import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.i.USE_Reasoning;
 import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.xlang.LocatableString;
 import tripleo.wrap.File;
@@ -21,7 +24,8 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	private         CiIndexingStatement        _idx;
 	private         CM_Filename                filename;
 	private         GenerateStatement          gen;
-	private         String                     name;
+	private           String        name;
+	private @Nullable CompilerInput _inp;
 
 	@Override
 	public void add(final GenerateStatement generateStatement) {
@@ -83,7 +87,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public void setName(LocatableString name) {
-		throw new UnintendedUseException("copy paste");
+		this.name = name.asLocatableString();
 	}
 
 	@Override
@@ -93,15 +97,31 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public void advise(final CompilerInput aAdvisement) {
-		throw new UnintendedUseException("copy paste");
+		this._inp = aAdvisement;
 	}
 
 	@Override
 	public File makeFile() {
-		return new tripleo.wrap.File(getInp());
+		final String  inp = getInp();
+
+		//Preconditions.checkNotNull(inp);
+		if (inp!=null) {
+			return tripleo.wrap.File.wrap(new java.io.File(inp));
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public void advise(final USE_Reasoning aReasoning) {
+		throw new UnintendedUseException("con con");
 	}
 
 	public String getInp() {
+		//assert this._inp != null;
+		if (this._inp != null) {
+			return this._inp.getInp();
+		}
 		return null;
 	}
 
@@ -117,9 +137,12 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public String toString() {
+		final String nameS = name;
+		final String filenameS = filename.getFilenameString();
+
 		return "CompilerInstructionsImpl{" +
-				"name='" + name + '\'' +
-				", filename='" + filename + '\'' +
+				"name='" + nameS + '\'' +
+				", filename='" + filenameS + '\'' +
 				'}';
 	}
 }

@@ -2,56 +2,45 @@ package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.CB_Action;
+import tripleo.elijah.comp.i.CB_Monitor;
+import tripleo.elijah.comp.i.CB_Output;
+import tripleo.elijah.comp.i.CompilationClosure;
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.ILazyCompilerInstructions;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
+import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.util.Maybe;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.wrap.File;
 
 import java.nio.file.NotDirectoryException;
 import java.util.List;
 
 class CB_FindCIs implements CB_Action {
-	private final CompilationRunner   compilationRunner;
-	private final List<CompilerInput> _inputs;
-	private final CB_Output           o;
+	private final CB_Output            o;
+	private final CompilationEnclosure ce;
 
 	@Contract(pure = true)
-	public CB_FindCIs(final CompilationRunner aCompilationRunner, final List<CompilerInput> aInputs) {
-		compilationRunner = aCompilationRunner;
-		_inputs           = aInputs;
-		o                 = compilationRunner.getCompilationEnclosure().getCB_Output();
+	public CB_FindCIs(final ICompilationRunner aCompilationRunner, final List<CompilerInput> aInputs) {
+		ce = (CompilationEnclosure) aCompilationRunner.getCompilationEnclosure();
+		o  = ce.getCB_Output();
 	}
 
 	@Override
 	public void execute(CB_Monitor aMonitor) {
-//		final CK_Monitor       monitor11   = /*aMonitor;//*/compilationRunner.getCompilationEnclosure().getDefaultMonitor();
-		final CR_State         st      = compilationRunner.getCrState();
-		final Compilation      c       = (Compilation) st.ca().getCompilation();
-		final @NotNull ErrSink errSink = c.getErrSink();
-//		final CK_StepsContext  context   = new CD_CRS_StepsContext(st, o);
+		final CompilationClosure cc = ce.getCompilationClosure();
 
-		for (final CompilerInput input : c.getCompilationEnclosure().getCompilerInput()) {
-			_processInput(c.getCompilationClosure(), errSink, input);
-		}
+		// cilly is this, aka use CIL ??
+		ce.getCompilerInput()
+				.stream().filter(input -> input.ty() != CompilerInput.Ty.ARG) // skip if in #_processInput
+				.forEach(input -> _processInput(cc, input));
 
 		logProgress_Stating("outputString.size", "" + o.get().size());
-
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
-
-		for (final CB_OutputString outputString : o.get()) {
-			// 08/13
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
-		}
-
-		// TODO capture action outputs
-		//  09/27 is that not being done above??
 		aMonitor.reportSuccess(this, o);
-
-		//final CK_AlmostComplete almostComplete = new CK_AlmostComplete();
-		//almostComplete.execute(context, monitor);
 	}
 
 	@Contract(pure = true)
@@ -61,15 +50,16 @@ class CB_FindCIs implements CB_Action {
 	}
 
 	private void _processInput(final @NotNull CompilationClosure c,
-							   final @NotNull ErrSink aErrSink,
 							   final @NotNull CompilerInput input) {
-		// FIXME 24/01/09 oop
+		final ErrSink errSink = c.errSink();
+
+		// FIXME 24/01/09  oop ;)
 		switch (input.ty()) {
 		case NULL, SOURCE_ROOT -> {}
 		default -> {return;}
 		}
 
-		final CM_CompilerInput   cm                 = ((CompilationImpl) c.getCompilation()).get(input); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+		final CM_CompilerInput   cm                 = ((CompilationImpl) c.getCompilation()).modelFactory().getCompilerInput(input);
 		final File               f                  = cm.fileOf();
 		final CompilationClosure compilationClosure = c.getCompilation().getCompilationClosure();
 
@@ -79,19 +69,21 @@ class CB_FindCIs implements CB_Action {
 			}
 
 			CW_inputIsEzFile.apply(input, compilationClosure);
-		} else {
-			// aErrSink.reportError("9996 Not an .ez file "+file_name);
-			if (f.isDirectory()) {
-				final CompilationImpl compilation = (CompilationImpl) compilationClosure.getCompilation();
+		} else if (f.isDirectory()) {
+			// errSink.reportError("9996 Not an .ez file "+file_name);
+			final CompilationImpl compilation = (CompilationImpl) compilationClosure.getCompilation();
 
-				// FIXME 24/01/09 Duplication alert??
-				compilation.addCompilerInputWatcher(CB_FindCIs::__CN_CompilerInputWatcher__event);
-				CW_inputIsDirectory.apply(input, compilationClosure, f);
-			} else {
-				final NotDirectoryException d = new NotDirectoryException(f.toString());
-				aErrSink.reportError("9995 Not a directory " + f.getAbsolutePath());
-			}
+			// FIXME 24/01/09 Duplication alert??
+			compilation.addCompilerInputWatcher(CB_FindCIs::__CN_CompilerInputWatcher__event);
+			CW_inputIsDirectory.apply(input, compilationClosure, f);
+		} else {
+			final NotDirectoryException d = new NotDirectoryException(f.toString());
+			errSink.reportError("9995 Not a directory " + f.getAbsolutePath());
 		}
+	}
+
+	private void logProgress_Stating(final String aSection, final String aStatement) {
+		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: %s :: %s".formatted(aSection, aStatement));
 	}
 
 	private static void __CN_CompilerInputWatcher__event(final CN_CompilerInputWatcher.e aEvent, final CompilerInput aCompilerInput, final Object aObject) {
@@ -108,9 +100,5 @@ class CB_FindCIs implements CB_Action {
 			System.err.println("~~ [11/24 111] " + aEvent + " " + aCompilerInput);
 		}
 		}
-	}
-
-	private void logProgress_Stating(final String aSection, final String aStatement) {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: %s :: %s".formatted(aSection, aStatement));
 	}
 }

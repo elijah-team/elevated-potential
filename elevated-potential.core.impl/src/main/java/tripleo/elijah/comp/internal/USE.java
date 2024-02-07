@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
@@ -110,7 +111,7 @@ public class USE {
 	}
 
 	private void logProgress(final CompProgress aCompProgress, final String aAbsolutePath) {
-		this.c.getCompilationEnclosure().logProgress(aCompProgress,aAbsolutePath);
+		this.c.getCompilationEnclosure().logProgress(aCompProgress, Pair.of(-1, aAbsolutePath));
 	}
 
 	public void use(final @NotNull CompilerInstructions compilerInstructions) {
@@ -119,36 +120,37 @@ public class USE {
 		if (compilerInstructions.getFilename() == null)
 			return;
 
+		//assert compilerInstructions.
 		final File file            = compilerInstructions.makeFile();
-		final File instruction_dir = file.getParentFile();
+			final File instruction_dir = file.getParentFile();
 
-		if (instruction_dir == null) {
-			 SimplePrintLoggerToRemoveSoon.println_err_4("106106 ************************************** "+file);
-			// Prelude.elijjah is a special case
-			// instruction_dir = file;
-			return;
-		}
-
-		for (final LibraryStatementPart lsp : compilerInstructions.getLibraryStatementParts()) {
-			final String dir_name = Helpers.remove_single_quotes_from_string(lsp.getDirName());
-			final File    dir;// = new File(dir_name);
-			USE_Reasoning reasoning = null;
-			if (dir_name.equals("..")) {
-				dir = instruction_dir/* .getAbsoluteFile() */.getParentFile(); // FIXME 09/26 this has always been questionable
-				reasoning = USE_Reasonings.parent(compilerInstructions, true, instruction_dir, lsp);
-			} else {
-				dir = new File(instruction_dir, dir_name);
-				reasoning = USE_Reasonings.child(compilerInstructions, false, instruction_dir, dir_name, dir, lsp);
+			if (instruction_dir == null) {
+				 SimplePrintLoggerToRemoveSoon.println_err_4("106106 ************************************** "+file);
+				// Prelude.elijjah is a special case
+				// instruction_dir = file;
+				return;
 			}
-			use_internal(dir, lsp, reasoning);
-		}
 
-		final LibraryStatementPart lsp = new LibraryStatementPartImpl();
-		lsp.setName(Helpers0.makeToken("default")); // TODO: make sure this doesn't conflict
-		lsp.setDirName(Helpers0.makeToken(String.format("\"%s\"", instruction_dir)));
-		lsp.setInstructions(compilerInstructions);
+			for (final LibraryStatementPart lsp : compilerInstructions.getLibraryStatementParts()) {
+				final String dir_name = Helpers.remove_single_quotes_from_string(lsp.getDirName());
+				final File    dir;// = new File(dir_name);
+				USE_Reasoning reasoning = null;
+				if (dir_name.equals("..")) {
+					dir = instruction_dir/* .getAbsoluteFile() */.getParentFile(); // FIXME 09/26 this has always been questionable
+					reasoning = USE_Reasonings.parent(compilerInstructions, true, instruction_dir, lsp);
+				} else {
+					dir = new File(instruction_dir, dir_name);
+					reasoning = USE_Reasonings.child(compilerInstructions, false, instruction_dir, dir_name, dir, lsp);
+				}
+				use_internal(dir, lsp, reasoning);
+			}
+
+			final LibraryStatementPart lsp = new LibraryStatementPartImpl();
+			lsp.setName(Helpers0.makeToken("default")); // TODO: make sure this doesn't conflict
+			lsp.setDirName(Helpers0.makeToken(String.format("\"%s\"", instruction_dir)));
+			lsp.setInstructions(compilerInstructions);
 		USE_Reasoning reasoning = USE_Reasonings.default_(compilerInstructions, false, instruction_dir, lsp);
-		use_internal(instruction_dir, lsp, reasoning);
+			use_internal(instruction_dir, lsp, reasoning);
 	}
 
 	private void use_internal(final @NotNull File dir, final LibraryStatementPart lsp, USE_Reasoning aReasoning) {
@@ -163,7 +165,7 @@ public class USE {
 		final File[] files = dir.listFiles(accept_source_files);
 		if (files != null) {
 			CW_sourceDirRequest.apply(files, dir, lsp, (File file) -> {
-				final String file_name = file.toString();
+				final String file_name = dir.child(file).toString();
 				return parseElijjahFile(file, file_name, lsp);
 			}, c, aReasoning);
 		}

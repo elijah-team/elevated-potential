@@ -1,6 +1,7 @@
 package tripleo.elijah.ci;
 
 import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.i.USE_Reasoning;
 import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.xlang.LocatableString;
 import tripleo.wrap.File;
@@ -34,6 +35,8 @@ public interface CompilerInstructions {
 	void advise(CompilerInput aAdvisement);
 
 	File makeFile();
+
+	void advise(USE_Reasoning aReasoning);
 
 	interface CompilerInstructionsBuilder {
 		CompilerInstructions build();

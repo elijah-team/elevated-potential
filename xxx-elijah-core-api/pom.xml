@@ -26,6 +26,11 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.google.auto.service</groupId>
+			<artifactId>auto-service</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
 			<groupId>tripleo.elijah</groupId>
 			<artifactId>elevated-potential-core-api</artifactId>
 			<version>2024.elevated-potential.2</version>
