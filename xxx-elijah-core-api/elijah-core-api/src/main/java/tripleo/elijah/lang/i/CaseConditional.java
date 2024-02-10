@@ -68,7 +68,7 @@ public interface CaseConditional extends OS_Element, StatementItem, FunctionItem
 		 *
 		 * @see tripleo.elijah.lang.impl.CaseConditional#items()
 		 */
-		List<OS_Element2> items();
+		List<OS_NamedElement> items();
 
 		void scope(Scope3 aSco, IExpression aExpr1);
 

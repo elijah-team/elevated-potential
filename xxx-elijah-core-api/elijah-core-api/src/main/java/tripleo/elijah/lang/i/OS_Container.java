@@ -14,7 +14,7 @@ public interface OS_Container extends Documentable {
 
 	void add(OS_Element anElement);
 
-	List<OS_Element2> items();
+	List<OS_NamedElement> items();
 }
 
 //
