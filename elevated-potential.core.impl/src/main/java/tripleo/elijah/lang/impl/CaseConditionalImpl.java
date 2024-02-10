@@ -94,7 +94,7 @@ public class CaseConditionalImpl implements CaseConditional {
 		 * @see tripleo.elijah.lang.impl.CaseConditional#items()
 		 */
 		@Override
-		public List<OS_Element2> items() {
+		public List<OS_NamedElement> items() {
 			throw new NotImplementedException();
 		}
 

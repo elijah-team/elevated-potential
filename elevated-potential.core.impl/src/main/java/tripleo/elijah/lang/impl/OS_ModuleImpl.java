@@ -203,8 +203,8 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 	}
 
 	@Override // OS_Container
-	public @NotNull List<OS_Element2> items() {
-		final var c = getItems().stream().filter(input -> input instanceof OS_Element2);
+	public @NotNull List<OS_NamedElement> items() {
+		final var c = getItems().stream().filter(input -> input instanceof OS_NamedElement);
 
 		return c.collect(Collectors.toList());
 	}
@@ -229,7 +229,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 		for (final ModuleItem item : items) {
 			if (item instanceof final ClassStatement classStatement) {
 				if (MainClassEntryPoint.isMainClass(classStatement)) {
-					List<OS_Element2> x = classStatement.findFunction("main");
+					List<OS_NamedElement> x = classStatement.findFunction("main");
 
 					List<ClassStatement> found = x.stream().filter(ci -> ci instanceof FunctionDef)
 							.filter(fd -> MainClassEntryPoint.is_main_function_with_no_args((FunctionDef) fd))

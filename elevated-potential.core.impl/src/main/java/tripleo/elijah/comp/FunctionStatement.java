@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.lang.i.FormalArgListItem;
-import tripleo.elijah.lang.i.OS_Element2;
+import tripleo.elijah.lang.i.OS_NamedElement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 import tripleo.elijah.stages.gen_fn.*;
@@ -47,7 +47,7 @@ public class FunctionStatement implements EG_Statement {
 		final StringBuilder sb = new StringBuilder();
 
 		final String str = "FUNCTION %d %s %s\n".formatted(evaFunction.getCode(), evaFunction.getFunctionName(),
-														   ((OS_Element2) evaFunction.getFD().getParent()).name());
+														   ((OS_NamedElement) evaFunction.getFD().getParent()).name());
 		sb.append(str);
 
 		final EvaFunction gf = (EvaFunction) evaFunction;

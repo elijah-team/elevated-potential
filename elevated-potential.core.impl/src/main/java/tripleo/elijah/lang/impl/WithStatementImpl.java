@@ -66,7 +66,7 @@ public class WithStatementImpl implements OS_Element, OS_Container, StatementIte
 	}
 
 	@Override
-	public @Nullable List<OS_Element2> items() {
+	public @Nullable List<OS_NamedElement> items() {
 		return null;
 	}
 

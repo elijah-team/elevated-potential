@@ -52,7 +52,7 @@ public class ConstructorDefImpl extends BaseFunctionDef implements tripleo.elija
 
 	@Override
 	public void add(final FunctionItem seq) {
-		items().add((OS_Element2) seq);
+		items().add((OS_NamedElement) seq);
 	}
 
 	@Override // OS_Element

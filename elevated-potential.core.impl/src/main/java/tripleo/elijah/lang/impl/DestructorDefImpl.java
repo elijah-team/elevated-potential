@@ -35,7 +35,7 @@ public class DestructorDefImpl extends BaseFunctionDef implements tripleo.elijah
 
 	@Override
 	public void add(final FunctionItem seq) {
-		items().add((OS_Element2) seq);
+		items().add((OS_NamedElement) seq);
 	}
 
 	@Override
