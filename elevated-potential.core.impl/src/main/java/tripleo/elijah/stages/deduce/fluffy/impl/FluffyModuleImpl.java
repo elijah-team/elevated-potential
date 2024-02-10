@@ -26,7 +26,7 @@ public class FluffyModuleImpl implements FluffyModule {
 	 * @param ccs
 	 */
 	private static void faep_002(final @NotNull ClassStatement classStatement, final Consumer<ClassStatement> ccs) {
-		final List<OS_Element2> x = classStatement.findFunction("main");
+		final List<OS_NamedElement> x = classStatement.findFunction("main");
 		final Stream<FunctionDef> found = x.stream().filter(FluffyCompImpl::isMainClassEntryPoint)
 				.map(x7 -> (FunctionDef) x7);
 
