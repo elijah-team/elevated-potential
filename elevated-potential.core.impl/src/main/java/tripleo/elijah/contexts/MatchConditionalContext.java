@@ -11,7 +11,6 @@ package tripleo.elijah.contexts;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.ContextImpl;
-import tripleo.elijah.lang.impl.MatchConditionalImpl;
 import tripleo.elijah.lang.impl.VariableSequenceImpl;
 
 /**
@@ -45,8 +44,8 @@ public class MatchConditionalContext extends ContextImpl {
 			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
 					&& !(item instanceof FunctionDef) && !(item instanceof VariableSequenceImpl))
 				continue;
-			if (item instanceof OS_Element2) {
-				if (((OS_Element2) item).name().equals(name)) {
+			if (item instanceof OS_NamedElement) {
+				if (((OS_NamedElement) item).name().equals(name)) {
 					Result.add(name, level, item, this);
 				}
 			} else if (item instanceof VariableSequenceImpl) {

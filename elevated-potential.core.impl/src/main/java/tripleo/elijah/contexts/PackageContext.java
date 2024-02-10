@@ -34,7 +34,7 @@ public class PackageContext extends ContextImpl implements IPackageContext {
 								   final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(this);
 		for (OS_Element element : carrier.getElements()) {
-			if (element instanceof final @NotNull OS_Element2 element2) {
+			if (element instanceof final @NotNull OS_NamedElement element2) {
 				if (element2.name().equals(name)) {
 					Result.add(name, level, element, this);
 				}

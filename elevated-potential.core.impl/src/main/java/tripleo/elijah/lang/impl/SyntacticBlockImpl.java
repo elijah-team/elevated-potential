@@ -68,21 +68,11 @@ public class SyntacticBlockImpl
 	}
 
 	@Override
-	public @NotNull List<OS_Element2> items() {
-		final Collection<OS_Element> items = Collections2.filter(scope3.items(), new Predicate<OS_Element>() {
-			@Override
-			public boolean apply(@Nullable OS_Element input) {
-				return input instanceof OS_Element2;
-			}
-		});
-		Collection<OS_Element2> c = Collections2.transform(items, new Function<OS_Element, OS_Element2>() {
-			@Nullable
-			@Override
-			public @org.jetbrains.annotations.Nullable OS_Element2 apply(@Nullable OS_Element input) {
-				return (OS_Element2) input;
-			}
-		});
-		return new ArrayList<OS_Element2>(c);
+	public @NotNull List<OS_NamedElement> items() {
+		return scope3.items().stream()
+				.filter(input -> input instanceof OS_NamedElement)
+				.map(input -> (OS_NamedElement) input)
+				.toList();
 	}
 
 	@Override

@@ -10,11 +10,9 @@ package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.ContextImpl;
 import tripleo.elijah.lang.impl.VariableSequenceImpl;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
 
 /**
  * Created 8/21/20 11:53 PM
@@ -41,8 +39,8 @@ public class FuncExprContextImpl extends ContextImpl implements IFuncExprContext
 			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
 					&& !(item instanceof FunctionDef) && !(item instanceof VariableSequenceImpl))
 				continue;
-			if (item instanceof OS_Element2) {
-				if (((OS_Element2) item).name().equals(name)) {
+			if (item instanceof OS_NamedElement) {
+				if (((OS_NamedElement) item).name().equals(name)) {
 					Result.add(name, level, item, this);
 				}
 			} else if (item instanceof VariableSequenceImpl) {

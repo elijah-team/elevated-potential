@@ -21,7 +21,7 @@ import java.util.*;
 /**
  * Created 6/27/21 6:42 AM
  */
-public abstract class BaseFunctionDef implements FunctionDef, Documentable, ClassItem, OS_Container, OS_Element2 {
+public abstract class BaseFunctionDef implements FunctionDef, Documentable, ClassItem, OS_Container, OS_NamedElement {
 
 	protected @NotNull Attached _a;
 	protected Species _species;
@@ -166,11 +166,11 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 	}
 
 	@Override // OS_Container
-	public @NotNull List<OS_Element2> items() {
-		final ArrayList<OS_Element2> a = new ArrayList<OS_Element2>();
+	public @NotNull List<OS_NamedElement> items() {
+		final ArrayList<OS_NamedElement> a = new ArrayList<OS_NamedElement>();
 		for (final OS_Element functionItem : scope3.items()) {
-			if (functionItem instanceof OS_Element2)
-				a.add((OS_Element2) functionItem);
+			if (functionItem instanceof OS_NamedElement)
+				a.add((OS_NamedElement) functionItem);
 		}
 		return a;
 	}

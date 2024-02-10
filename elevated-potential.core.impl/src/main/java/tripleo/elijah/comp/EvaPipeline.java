@@ -21,7 +21,8 @@ import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Element2;
+import tripleo.elijah.lang.i.FormalArgListItem;
+import tripleo.elijah.lang.i.OS_NamedElement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 import tripleo.elijah.nextgen.outputtree.*;
@@ -196,7 +197,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 			};
 
 			final String str = "FUNCTION %d %s %s\n".formatted(code, functionName,
-															   ((OS_Element2) evaFunction.getFD().getParent()).name());
+															   ((OS_NamedElement) evaFunction.getFD().getParent()).name());
 			sb.append(str);
 			pa.activeFunction(evaFunction);
 		} else {

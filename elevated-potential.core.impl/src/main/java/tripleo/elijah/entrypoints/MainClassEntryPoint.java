@@ -44,8 +44,8 @@ public class MainClassEntryPoint implements EntryPoint {
 	private final @NotNull ClassStatement klass;
 
 	public MainClassEntryPoint(@NotNull ClassStatement aKlass) {
-		final List<OS_Element2> main = aKlass.findFunction("main");
-		for (OS_Element2 classItem : main) {
+		final List<OS_NamedElement> main = aKlass.findFunction("main");
+		for (OS_NamedElement classItem : main) {
 			FunctionDef fd = (FunctionDef) classItem;
 			boolean return_type_is_null;
 			final TypeName typeName = fd.returnType();
