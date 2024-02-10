@@ -17,6 +17,7 @@ import tripleo.elijah.comp.i.ModuleListener;
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
+import tripleo.elijah.stages.gen_fn_c.GenFnC;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stages.logging.ElLog.Verbosity;
@@ -61,12 +62,14 @@ public class GeneratePhase implements ReactiveDimension, ModuleListener {
 		if (generateFunctions.containsKey(mod)) {
 			Result = generateFunctions.get(mod);
 		} else {
-			Result = new GenerateFunctions(mod, pipelineLogic, pa);
+			final GenFnC bc = new GenFnC();
+			bc.set(pa);
+			bc.set(pipelineLogic);
+			Result = new GenerateFunctions(mod, bc);
 			generateFunctions.put(mod, Result);
 		}
 		return Result;
 	}
-
 	@Override
 	public void listen(final @NotNull GWorldModule module) {
 		//final GenerateFunctions x = getGenerateFunctions(module.module());
