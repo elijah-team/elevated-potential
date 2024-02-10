@@ -8,7 +8,6 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.queries.QSEZ_Reasoning;
 import tripleo.elijah.util.Maybe;
@@ -18,7 +17,7 @@ import tripleo.wrap.File;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-public class CompilerInput_ extends __Extensionable implements CompilerInput {
+public class CompilerInput_ extends _ElTaggableMixin implements CompilerInput {
 	private final @NotNull Optional<Compilation> oc;
 
 	public CompilerInput_(final String aS,

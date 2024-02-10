@@ -5,7 +5,7 @@ import java.util.function.Function;
 
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.__Extensionable;
+import tripleo.elijah._ElTaggableMixin;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.d.Stages;
 import tripleo.elijah.stages.garish.*;
@@ -15,7 +15,7 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.world.i.*;
 
-public class DefaultLivingNamespace extends __Extensionable implements LivingNamespace {
+public class DefaultLivingNamespace extends _ElTaggableMixin implements LivingNamespace {
 	private final EvaNamespace    node;
 	private       GarishNamespace _garish;
 	private       int             _code;
