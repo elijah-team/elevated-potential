@@ -7,7 +7,7 @@ import tripleo.elijah.lang2.*;
 import java.util.*;
 import java.util.stream.*;
 
-public interface ClassStatement extends ModuleItem, StatementItem, FunctionItem, OS_Element, OS_Element2, Documentable, OS_Container {
+public interface ClassStatement extends ModuleItem, StatementItem, FunctionItem, OS_Element, OS_NamedElement, Documentable, OS_Container {
 
 	void addAccess(AccessNotation aAcs);
 
@@ -21,7 +21,7 @@ public interface ClassStatement extends ModuleItem, StatementItem, FunctionItem,
 
 	DefFunctionDef defFuncDef();
 
-	List<OS_Element2> findFunction(String string);
+	List<OS_NamedElement> findFunction(String string);
 
 	FunctionDef funcDef();
 

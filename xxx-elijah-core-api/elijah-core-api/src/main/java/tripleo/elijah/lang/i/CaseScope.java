@@ -66,7 +66,7 @@ public interface CaseScope extends OS_Container, OS_Element, CaseConditional {
 	 * @see tripleo.elijah.lang.impl.CaseConditional#items()
 	 */
 	@Override
-	List<OS_Element2> items();
+	List<OS_NamedElement> items();
 
 	@Override
 	void postConstruct();

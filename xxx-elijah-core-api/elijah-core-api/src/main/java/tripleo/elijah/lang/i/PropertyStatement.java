@@ -2,7 +2,7 @@ package tripleo.elijah.lang.i;
 
 import tripleo.elijah.lang2.*;
 
-public interface PropertyStatement extends OS_Element, OS_Element2, ClassItem {
+public interface PropertyStatement extends OS_Element, OS_NamedElement, ClassItem {
 	void addGet();
 
 	void addSet();

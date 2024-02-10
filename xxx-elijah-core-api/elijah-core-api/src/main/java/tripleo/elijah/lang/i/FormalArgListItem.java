@@ -2,7 +2,7 @@ package tripleo.elijah.lang.i;
 
 import tripleo.elijah.lang2.*;
 
-public interface FormalArgListItem extends OS_Element, OS_Element2, ClassItem {
+public interface FormalArgListItem extends OS_Element, OS_NamedElement, ClassItem {
 	@Override
 	// OS_Element
 	Context getContext();
