@@ -157,7 +157,7 @@ public class DT_External_2 implements DT_External {
 			assert e == resolved_element1 || /* HACK */ resolved_element1 instanceof AliasStatementImpl
 					|| resolved_element1 == null;
 
-			if (e instanceof OS_Element2 el2) {
+			if (e instanceof OS_NamedElement el2) {
 				var name = el2.getEnName();
 				if (set_alias)
 					name.addUnderstanding(_inj().new_ENU_AliasedFrom((AliasStatement) orig_e));

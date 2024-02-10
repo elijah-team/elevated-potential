@@ -23,7 +23,7 @@ public class FluffyCompImpl implements FluffyComp {
 		_comp = aComp;
 	}
 
-	public static boolean isMainClassEntryPoint(@NotNull final OS_Element2 input) {
+	public static boolean isMainClassEntryPoint(@NotNull final OS_NamedElement input) {
 		// TODO 08/27 Use understanding/~ processor for this
 		final FunctionDef fd = (FunctionDef) input;
 		return MainClassEntryPoint.is_main_function_with_no_args(fd);
