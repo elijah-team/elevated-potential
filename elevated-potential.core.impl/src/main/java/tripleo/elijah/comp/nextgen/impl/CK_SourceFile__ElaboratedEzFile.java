@@ -8,8 +8,8 @@ import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.specs.EzCache;
 import tripleo.elijah.comp.specs.EzSpec;
 import tripleo.elijah.comp.specs.EzSpec__;
+import tripleo.elijah.g.GCompilationEnclosure;
 import tripleo.elijah.util.*;
-
 import tripleo.wrap.File;
 
 import java.io.FileNotFoundException;
@@ -28,8 +28,9 @@ public class CK_SourceFile__ElaboratedEzFile extends __CK_SourceFile__AbstractEz
 
 	@Override
 	public Operation2<CompilerInstructions> process_query() {
-		final EzCache                          ezCache = compilation.getCompilationEnclosure().getCompilationRunner().ezCache();
-		final Operation2<CompilerInstructions> oci     = process_query(compilation.getIO(), ezCache);
+		final GCompilationEnclosure            compilationEnclosure = compilation.getCompilationEnclosure();
+		final EzCache                          ezCache              = compilationEnclosure.getCompilationRunner().ezCache();
+		final Operation2<CompilerInstructions> oci                  = process_query(compilation.getIO(), ezCache);
 
 		super.asserverate();
 

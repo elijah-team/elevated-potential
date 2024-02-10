@@ -1,6 +1,7 @@
 package tripleo.wrap;
 
 import com.google.common.io.Files;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.i.USE_Reasoning;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
@@ -18,7 +19,9 @@ public class File {
 		wrap = new java.io.File(aDirName, aFileName);
 	}
 
-	public File(final String aEntireNam) {
+	public File(final @NotNull String aEntireNam) {
+		if (aEntireNam == null)
+			throw new IllegalStateException("wrap.File: name == null");
 		wrap = new java.io.File(aEntireNam);
 	}
 

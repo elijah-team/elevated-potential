@@ -7,6 +7,7 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.ci.cii.StringExpression;
 import tripleo.elijah.ci.cil.Helpers;
 import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.i.USE_Reasoning;
 import tripleo.elijah.compiler_model.CM_Filename;
 import tripleo.elijah.xlang.LocatableString;
 import tripleo.wrap.File;
@@ -22,6 +23,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	private         CM_Filename                filename;
 	private         GenerateStatement          gen;
 	private         String                     name;
+	private         USE_Reasoning              _reasoning;
 
 	@Override
 	public void add(final GenerateStatement generateStatement) {
@@ -43,8 +45,8 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	@Override
 	public Optional<String> genLang() {
 		Collection<GenerateStatementImpl.Directive> gens = Collections2.filter(((GenerateStatementImpl) gen).dirs, (GenerateStatementImpl.Directive directive) -> {
-            return directive.sameName("gen");
-        });
+			return directive.sameName("gen");
+		});
 		Iterator<GenerateStatementImpl.Directive> gi = gens.iterator();
 		if (!gi.hasNext()) return null;
 		CiExpression lang_raw = gi.next().getExpression();
@@ -59,18 +61,23 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	}
 
 	@Override
+	public void setFilename(final CM_Filename filename) {
+		this.filename = filename;
+	}
+
+	@Override
 	public String getName() {
 		return name;
 	}
 
 	@Override
-	public LocatableString getLocatableName() {
-		throw new UnintendedUseException("unsure");
+	public void setName(LocatableString name) {
+		this.name = name.asLocatableString();
 	}
 
 	@Override
-	public void setFilename(final CM_Filename filename) {
-		this.filename = filename;
+	public LocatableString getLocatableName() {
+		throw new UnintendedUseException("unsure");
 	}
 
 	@Override
@@ -82,23 +89,29 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	}
 
 	@Override
-	public void setName(LocatableString name) {
-		throw new UnintendedUseException("copy paste");
-	}
-
-	@Override
 	public List<LibraryStatementPart> _lsps() {
 		return lsps;
 	}
 
 	@Override
 	public void advise(final CompilerInput aAdvisement) {
-		throw new UnintendedUseException("copy paste");
+		// FIXME 24/01/23 ignoring this as it does not seem to be used in this "branch"
+		//throw new UnintendedUseException("copy paste");
 	}
 
 	@Override
 	public File makeFile() {
-		return new tripleo.wrap.File(getInp());
+		final String entireName = getInp();
+		if (entireName == null) {
+			int y = 2;
+			assert false;
+		}
+		return new tripleo.wrap.File(entireName);
+	}
+
+	@Override
+	public void advise(final USE_Reasoning aReasoning) {
+		_reasoning = aReasoning;
 	}
 
 	public String getInp() {
@@ -119,7 +132,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	public String toString() {
 		return "CompilerInstructionsImpl{" +
 				"name='" + name + '\'' +
-				", filename='" + filename + '\'' +
+				", filename='" + filename.getFilenameString() + '\'' +
 				'}';
 	}
 }

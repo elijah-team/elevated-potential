@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.internal;
 
+import org.apache.commons.lang3.tuple.Pair;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
@@ -12,7 +13,7 @@ import java.util.*;
 public /* static */ class CCI_Acceptor__CompilerInputListener implements CompilerInputListener {
 	private final Compilation    compilation;
 	public final  InstructionDoer id;
-	private final CompilationRunner cr;
+	private final ICompilationRunner cr;
 	private       CCI           cci;
 	private       IProgressSink _progressSink;
 
@@ -46,7 +47,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 
 		var inputTree = compilation.getInputTree();
 
-		compilation.getCompilationEnclosure().logProgress(CompProgress.__CCI_Acceptor__CompilerInputListener__change__logInput, i);
+		compilation.getCompilationEnclosure().logProgress(CompProgress.__CCI_Acceptor__CompilerInputListener__change__logInput, Pair.of(-1, ""+i));
 
 		switch (field) {
 			case TY -> {
@@ -71,7 +72,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 
 							assert ci != null;
 
-							cr._cis().onNext(ci);
+							cr.nextCi(ci);
 							id.add(ci);
 						}
 					}

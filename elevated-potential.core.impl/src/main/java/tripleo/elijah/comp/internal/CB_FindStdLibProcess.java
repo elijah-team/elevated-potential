@@ -4,6 +4,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.util.*;
 
@@ -14,7 +15,7 @@ import static tripleo.elijah.util.Helpers.*;
 public class CB_FindStdLibProcess implements CB_Process {
 	private final CB_FindStdLibAction action;
 
-	public CB_FindStdLibProcess(CompilationEnclosure ce, CompilationRunner cr) {
+	public CB_FindStdLibProcess(CompilationEnclosure ce, ICompilationRunner cr) {
 		action = new CB_FindStdLibAction(ce, cr);
 	}
 
@@ -34,9 +35,9 @@ public class CB_FindStdLibProcess implements CB_Process {
 		private final     List<CB_OutputString> o = new ArrayList<>(); // FIXME 07/01 how is this modified?
 		private @Nullable CD_FindStdLib         findStdLib;
 
-		public CB_FindStdLibAction(final CompilationEnclosure aCe, final @NotNull CompilationRunner aCr) {
+		public CB_FindStdLibAction(final CompilationEnclosure aCe, final @NotNull ICompilationRunner aCr) {
 			ce      = aCe;
-			crState = aCr.getCrState();
+			crState = (CR_State) aCr.getCrState();
 
 			obtain(); // TODO 09/08 Make this more complicated
 		}

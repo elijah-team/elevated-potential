@@ -106,7 +106,7 @@ public class DeduceTypesTest2 {
 		 * CompilationRunner(aca);
 		 */
 
-		final CompilationEnclosure ce = ((Compilation) c).getCompilationEnclosure();
+		final CompilationEnclosure ce = (CompilationEnclosure) ((Compilation) c).getCompilationEnclosure();
 		assert ce.getCompilationRunner().getCrState() != null; // always true
 
 		final DeducePhase dp = b.getDeducePhase();

@@ -27,8 +27,7 @@ public class CD_FindStdLibImpl implements CD_FindStdLib {
 	public void findStdLib(final @NotNull CR_State crState,
 						   final @NotNull String aPreludeName,
 						   final @NotNull Consumer<Operation2<CompilerInstructions>> coci) {
-		final CompilationRunner           compilationRunner = crState.runner();
-		final @NotNull CompilationClosure cc                = compilationRunner._accessCompilation().getCompilationClosure();
+		final @NotNull CompilationClosure cc                = crState.ca().getCompilation().getCompilationClosure();
 		var                               slr               = cc.getCompilation().paths().stdlibRoot();
 		var     pl  = slr.child("lib-" + aPreludeName);
 		CP_Path sle = pl.child("stdlib.ez");

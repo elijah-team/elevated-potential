@@ -189,7 +189,7 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 		public CompletedItemsHandler(final WritePipelineSharedState aSharedState) {
 			sharedState = aSharedState;
 
-			final ElLog_.Verbosity verbosity = sharedState.c.cfg().silent ? ElLog_.Verbosity.SILENT
+			final ElLog_.Verbosity verbosity = sharedState.c.cfg().getSilent() ? ElLog_.Verbosity.SILENT
 					: ElLog_.Verbosity.VERBOSE;
 
 			LOG = new ElLog_("(WRITE-PIPELINE)", verbosity, "(write-pipeline)");

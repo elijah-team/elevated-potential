@@ -36,7 +36,7 @@ import java.util.function.*;
 
 public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	public final           Eventual<IPipelineAccess>                                                       pipelineAccessPromise = new Eventual<>();
-	private final          Eventual<CompilationRunner>                                                     ecr                   = new Eventual<>();
+	private final          Eventual<ICompilationRunner>                                                     ecr                   = new Eventual<>();
 	private final          Eventual<AccessBus>                                                             accessBusPromise      = new Eventual<>();
 	private final          Compilation                                                                     compilation;
 	private final          CB_Output                                                                       _cbOutput             = new CB_ListBackedOutput();
@@ -96,17 +96,18 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	private AccessBus           ab;
 	private ICompilationAccess  ca;
 	private ICompilationBus     compilationBus;
-	private CompilationRunner   compilationRunner;
+	private ICompilationRunner   compilationRunner;
 	private CompilerDriver      compilerDriver;
 	private List<CompilerInput> inp;
 	private IPipelineAccess     pa;
 	private PipelineLogic       pipelineLogic;
+	private CompilerController compilerController;
 
 	public DefaultCompilationEnclosure(final Compilation aCompilation) {
 		compilation = aCompilation;
 
 		getPipelineAccessPromise().then(pa -> {
-			final CompilationEnclosure ce = compilation.getCompilationEnclosure();
+			final CompilationEnclosure ce = (CompilationEnclosure) compilation.getCompilationEnclosure();
 
 			ab = new AccessBus(getCompilation(), pa);
 
@@ -300,12 +301,12 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	@Contract(pure = true)
 	@Override
-	public CompilationRunner getCompilationRunner() {
+	public ICompilationRunner getCompilationRunner() {
 		return compilationRunner;
 	}
 
 	@Override
-	public void setCompilationRunner(final CompilationRunner aCompilationRunner) {
+	public void setCompilationRunner(final ICompilationRunner aCompilationRunner) {
 		compilationRunner = aCompilationRunner;
 
 		if (ecr.isPending()) {
@@ -415,7 +416,7 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	@Override
-	public void waitCompilationRunner(Consumer<CompilationRunner> ccr) {
+	public void waitCompilationRunner(Consumer<ICompilationRunner> ccr) {
 		ecr.then(ccr::accept);
 	}
 
@@ -481,6 +482,11 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	}
 
 	@Override
+	public CompilerController getCompilerController() {
+		return this.compilerController;
+	}
+
+	@Override
 	public GModuleThing addModuleThing(final GOS_Module aModule) {
 		return addModuleThing((OS_Module) aModule);
 	}
@@ -493,6 +499,10 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	@Override
 	public GModuleThing getModuleThing(final GOS_Module aModule) {
 		return getModuleThing((OS_Module) aModule);
+	}
+
+	public void setCompilerController(final CompilerController aCompilerController) {
+		compilerController = aCompilerController;
 	}
 
 	private class ModuleListener_ModuleCompletableProcess implements CompletableProcess<WorldModule> {

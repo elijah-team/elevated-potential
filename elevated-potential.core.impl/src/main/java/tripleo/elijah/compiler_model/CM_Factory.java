@@ -8,7 +8,7 @@ public class CM_Factory {
 	 public static CM_Filename Filename__fromFileToString(File file) {
 		return new CM_Filename() {
 			@Override
-			public String getString() {
+			public String getFilenameString() {
 				return file.toString();
 			}
 		};
@@ -17,7 +17,7 @@ public class CM_Factory {
 	 public static CM_Filename Filename__fromParams(String aF) {
 		return new CM_Filename() {
 			@Override
-			public String getString() {
+			public String getFilenameString() {
 				return aF;
 			}
 		};
@@ -26,7 +26,7 @@ public class CM_Factory {
 	 public static CM_Filename Filename__of(String aFn) {
 		return new CM_Filename() {
 			@Override
-			public String getString() {
+			public String getFilenameString() {
 				return aFn;
 			}
 		};

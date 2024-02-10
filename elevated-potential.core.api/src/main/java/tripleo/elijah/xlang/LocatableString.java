@@ -8,7 +8,7 @@ public interface LocatableString {
 	static LocatableString of(Token aToken) {
 		 return new LocatableString() {
 			 @Override public String asLocatableString() {
-				return aToken.toString();
+				return aToken.getText();
 			}
 		};
 	}

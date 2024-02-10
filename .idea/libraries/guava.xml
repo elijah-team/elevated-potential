@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="guava">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/yyy-lib/com.google/guava/32.0.1-jre/failureaccess-1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/yyy-lib/com.google/guava/32.0.1-jre/guava-32.0.1-jre.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/yyy-lib/com.google/guava/32.0.1-jre/failureaccess-1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

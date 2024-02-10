@@ -15,6 +15,8 @@ public interface CompilerController {
 
 	void runner(Con con);
 
+	CB_Monitor defaultMonitor();
+
 	interface Con {
 		ICompilationRunner newCompilationRunner(ICompilationAccess aCompilationAccess);
 	}
