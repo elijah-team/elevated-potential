@@ -1,15 +1,15 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.Eventual;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.lang.i.FormalArgListItem;
 import tripleo.elijah.lang.i.OS_NamedElement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.stages.instructions.Instruction;
+import tripleo.elijah.world.i.LivingFunction;
+import tripleo.elijah.world.i.LivingRepo;
 
 public class FunctionStatement implements EG_Statement {
 	private final IEvaFunctionBase evaFunction;
@@ -24,67 +24,86 @@ public class FunctionStatement implements EG_Statement {
 		return EX_Explanation.withMessage("FunctionStatement");
 	}
 
-	public @NotNull String getFilename(@NotNull IPipelineAccess pa) {
-		// HACK 07/07 register if not registered
-		final EvaFunction          v    = (EvaFunction) evaFunction;
-		int                        code = v.getCode();
-		final CompilationEnclosure ce   = pa.getCompilationEnclosure();
-
-		if (code == 0) {
-			final ICodeRegistrar cr = ce.getPipelineLogic().dp.getCodeRegistrar();
-			cr.registerFunction1(v);
-
-			code = v.getCode();
-			assert code != 0;
-		}
-
-		filename = "F_" + evaFunction.getCode() + evaFunction.getFunctionName();
-		return filename;
-	}
-
 	@Override
 	public @NotNull String getText() {
 		final StringBuilder sb = new StringBuilder();
+		final var           z  = new ReasonedStringListStatement();
 
-		final String str = "FUNCTION %d %s %s\n".formatted(evaFunction.getCode(), evaFunction.getFunctionName(),
+		final String str = "FUNCTION %d %s %s\n".formatted(evaFunction.getCode(),
+														   evaFunction.getFunctionName(),
 														   ((OS_NamedElement) evaFunction.getFD().getParent()).name());
-		sb.append(str);
+		z.append(str, "function-statement-header");
 
+		z.append("Instructions \n", "function-statement-header2");
 		final EvaFunction gf = (EvaFunction) evaFunction;
-
-		sb.append("Instructions \n");
-		for (Instruction instruction : (gf).instructionsList) {
-			sb.append("\t" + instruction + "\n");
+		for (Instruction instruction : gf.instructionsList) {
+			z.append("\t", "function-statement-instruction-spacer-left");
+			z.append("" + instruction, "function-statement-instruction-text");
+			z.append("\n", "function-statement-instruction-spacer-right");
 		}
+
 		{
-			// EvaFunction.printTables(gf);
+			//	EvaFunction.printTables(gf);
 			{
 				for (FormalArgListItem formalArgListItem : gf.getFD().getArgs()) {
-					sb.append("ARGUMENT " + formalArgListItem.name() + " " + formalArgListItem.typeName() + "\n");
+					z.append("ARGUMENT " + formalArgListItem.name() + " " + formalArgListItem.typeName() + "\n", "...fali");
 				}
 				sb.append("VariableTable \n");
 				for (VariableTableEntry variableTableEntry : gf.vte_list) {
-					sb.append("\t" + variableTableEntry + "\n");
+					z.append("\t" + variableTableEntry + "\n", "...vte-list-item");
 				}
 				sb.append("ConstantTable \n");
 				for (ConstantTableEntry constantTableEntry : gf.cte_list) {
-					sb.append("\t" + constantTableEntry + "\n");
+					z.append("\t" + constantTableEntry + "\n", "...cte-list-item");
 				}
-				sb.append("ProcTable     \n");
+				z.append("ProcTable     \n", "...pte-header");
 				for (ProcTableEntry procTableEntry : gf.prte_list) {
-					sb.append("\t" + procTableEntry + "\n");
+					z.append("\t" + procTableEntry + "\n", "...prte-list-item");
 				}
-				sb.append("TypeTable     \n");
+				z.append("TypeTable     \n", "...tte-header");
 				for (TypeTableEntry typeTableEntry : gf.tte_list) {
-					sb.append("\t" + typeTableEntry + "\n");
+					z.append("\t" + typeTableEntry + "\n", "...tte-list-item");
 				}
-				sb.append("IdentTable    \n");
+				z.append("IdentTable    \n", "...idte-list-header");
 				for (IdentTableEntry identTableEntry : gf.idte_list) {
-					sb.append("\t" + identTableEntry + "\n");
+					z.append("\t" + identTableEntry + "\n", "...idte-list-item");
 				}
 			}
 		}
 
 		return sb.toString();
+	}
+
+	public @NotNull String getFilename(@NotNull IPipelineAccess pa) {
+		// HACK 07/07 register if not registered
+		if (filename == null) {
+			final EvaFunction v    = (EvaFunction) evaFunction;
+			final int         code = v.getCode();
+
+			final var            ce    = pa.getCompilationEnclosure();
+			final var            world = ce.getCompilation().world();
+			final LivingFunction funct = world.addFunction(v, LivingRepo.Add.NONE);
+
+			funct.codeRegistration((final EvaFunction ef, final Eventual<Integer> ccb) -> {
+				int code1 = ef.getCode();
+				assert code1 == 0;
+				var cr = ce.getPipelineLogic().dp.getCodeRegistrar();
+				cr.registerFunction1(ef);
+
+				code1 = ef.getCode();
+				assert code1 != 0;
+
+				ccb.resolve(code1);
+			});
+
+			assert funct.isRegistered();
+
+			funct.listenRegister((Integer code2) -> {
+				assert code2.intValue() != 0;
+
+				filename = String.format("F_%d%s", code2, evaFunction.getFunctionName());
+			});
+		}
+		return filename;
 	}
 }
