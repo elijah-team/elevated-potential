@@ -66,9 +66,9 @@ Revised Goals
 - ...
 
 
-[1]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/ginitiatives/G1.md
-[2]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/ginitiatives/G2.md
-[3]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/ginitiatives/G3.md
-[4]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/ginitiatives/G4.md
-[6]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/ginitiatives/G6.md
-[7]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/ginitiatives/G7.md
+[1]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G1.md
+[2]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G2.md
+[3]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G3.md
+[4]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G4.md
+[6]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G6.md
+[7]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G7.md
