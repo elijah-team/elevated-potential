@@ -7,6 +7,7 @@ import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.ci_impl.LibraryStatementPartImpl;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.caches.DefaultElijahCache;
+import tripleo.elijah.comp.nextgen.CX_ElijahSpecReader;
 import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.comp.i.CompilationClosure;
@@ -68,7 +69,7 @@ public class USE {
 		Operation2<OS_Module> om;
 
 		try {
-			var rdr = new CX_ParseElijahFile.ElijahSpecReader() {
+			var rdr = new CX_ElijahSpecReader() {
 				@Override
 				public @NotNull Operation<InputStream> get()  {
 					try {

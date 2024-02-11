@@ -2,7 +2,7 @@ package tripleo.elijah.stages.write_stage.pipeline_impl;
 
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.nextgen.i.CP_Path;

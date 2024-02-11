@@ -97,13 +97,10 @@ public class CX_ParseElijahFile {
 
 	public static Operation2<OS_Module> __parseEzFile(String file_name,
 													  File file,
-													  @NotNull ElijahSpecReader r,
+													  @NotNull CX_ElijahSpecReader r,
 													  @NotNull CY_ElijahSpecParser parser) {
 		final ElijahSpec             spec = new ElijahSpec_(file_name, file, r.get().success());
 		return parser.parse(spec);
 	}
 
-	public interface ElijahSpecReader {
-		@NotNull Operation<InputStream> get();
-	}
 }

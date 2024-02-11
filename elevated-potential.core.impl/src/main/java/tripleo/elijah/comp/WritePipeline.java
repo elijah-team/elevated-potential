@@ -17,7 +17,7 @@ import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.comp.AccessBus.AB_GenerateResultListener;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CB_Output;

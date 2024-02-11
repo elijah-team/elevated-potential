@@ -17,7 +17,7 @@ import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal_move_soon.*;

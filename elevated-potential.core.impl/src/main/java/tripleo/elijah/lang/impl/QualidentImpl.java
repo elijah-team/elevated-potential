@@ -9,7 +9,7 @@
 package tripleo.elijah.lang.impl;
 
 import antlr.Token;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.lang.i.DotExpression;
 import tripleo.elijah.lang.i.ExpressionKind;
 import tripleo.elijah.lang.i.ExpressionList;

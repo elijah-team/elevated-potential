@@ -22,8 +22,8 @@ class CY_FindPrelude {
 
 	public Operation2<OS_Module> findPrelude(final String prelude_name) {
 		final CP_Path             local_prelude = local_prelude(prelude_name);
-		final CY_ElijahSpecParser esp           = c().con().defaultElijahSpecParser(elijahCache());
-		final CX_ParseElijahFile.ElijahSpecReader rdr           = c().con().defaultElijahSpecReader(local_prelude);
+		final CY_ElijahSpecParser esp = c().con().defaultElijahSpecParser(elijahCache());
+		final CX_ElijahSpecReader rdr = c().con().defaultElijahSpecReader(local_prelude);
 
 		return CX_ParseElijahFile.__parseEzFile(local_prelude.getName(),
 												local_prelude.toFile(),

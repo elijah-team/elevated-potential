@@ -1,6 +1,6 @@
 package tripleo.elijah.comp.nextgen.impl;
 
-import tripleo.elijah.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;

@@ -7,7 +7,7 @@ import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
-import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
+import tripleo.elijah.comp.nextgen.CX_ElijahSpecReader;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue;
@@ -17,7 +17,7 @@ import tripleo.elijah.comp.specs.ElijahSpec;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.lang.impl.QualidentImpl;
-import tripleo.elijah.nextgen.comp_model.CM_UleLog;
+import tripleo.elijah.compiler_model.CM_UleLog;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTreeImpl;
@@ -33,7 +33,7 @@ import java.util.*;
 
 class DefaultCompFactory implements CompFactory {
 	private final CompilationImpl compilation;
-	private CM_UleLog _log;
+	private       CM_UleLog       _log;
 
 	public DefaultCompFactory(CompilationImpl aCompilation) {
 		compilation = aCompilation;
@@ -151,7 +151,7 @@ class DefaultCompFactory implements CompFactory {
 	}
 
 	@Override
-	public CX_ParseElijahFile.ElijahSpecReader defaultElijahSpecReader(final CP_Path aLocalPrelude) {
+	public CX_ElijahSpecReader defaultElijahSpecReader(final CP_Path aLocalPrelude) {
 		return new DefaultElijahSpecReader(aLocalPrelude, compilation);
 	}
 
@@ -167,9 +167,8 @@ class DefaultCompFactory implements CompFactory {
 		return new PW_CompilerController(aCompilation);
 	}
 
-	@NotNull
 	@Override
-	public Finally_ createFinally() {
+	public @NotNull Finally createFinally() {
 		return new Finally_();
 	}
 

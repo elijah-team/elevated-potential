@@ -4,8 +4,8 @@ import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.comp.Compilation0;
-import tripleo.elijah.comp.Finally.Outs;
+import tripleo.elijah.comp.i.Compilation0;
+import tripleo.elijah.comp.i.Finally.Outs;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.nextgen.names.i.*;

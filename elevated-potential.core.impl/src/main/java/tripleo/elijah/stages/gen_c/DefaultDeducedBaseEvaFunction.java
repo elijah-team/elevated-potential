@@ -4,7 +4,7 @@ import io.reactivex.rxjava3.subjects.*;
 
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.nextgen.*;

@@ -1,24 +1,16 @@
-/*
- * Elijjah compiler, copyright Tripleo <oluoluolu+elijah@gmail.com>
- *
- * The contents of this library are released under the LGPL licence v3,
- * the GNU Lesser General Public License text was downloaded from
- * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
 package tripleo.elijah.comp.internal;
 
 import com.google.common.base.Preconditions;
 import io.reactivex.rxjava3.core.Observer;
 import org.apache.commons.lang3.tuple.Triple;
+import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.*;
+import tripleo.elijah.DebugFlags;
+import tripleo.elijah.util.*;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.*;
-import tripleo.elijah.comp.graph.i.CK_Monitor;
-import tripleo.elijah.comp.graph.i.CK_ObjectTree;
-import tripleo.elijah.compiler_model.CM_Module;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
@@ -33,6 +25,7 @@ import tripleo.elijah.comp.nextgen.pw.PW_Controller;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.*;
@@ -52,64 +45,65 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CompilationImpl implements Compilation, EventualRegister {
-	private final List<CN_CompilerInputWatcher>        _ciws;
-	private final Map<CompilerInput, CM_CompilerInput> _ci_models;
+	private final List<CN_CompilerInputWatcher>                                  _ciws;
+	private final Map<CompilerInput, CM_CompilerInput>                           _ci_models;
 	private final List<Triple<CN_CompilerInputWatcher.e, CompilerInput, Object>> _ciw_buffer;
 
-	private final FluffyCompImpl                                                 _fluffyComp;
-//	@Getter
-	private final CompilationConfig                   cfg;
-//	@Getter
-	private final CompilationEnclosure                compilationEnclosure;
-//	@Getter
-	private final CIS                                 _cis;
-//	@Getter
+	private final    FluffyCompImpl                      _fluffyComp;
+	//	@Getter
+	private final    CompilationConfig                   cfg;
+	//	@Getter
+	private final    CompilationEnclosure                compilationEnclosure;
+	//	@Getter
+	private final    CIS                                 _cis;
+	//	@Getter
 //	private final CK_Monitor                          defaultMonitor;
 //	@Getter
-	private final USE                                 use;
-	private final CompFactory                         _con;
-	private final LivingRepo                          _repo;
-	private final CP_Paths                            paths;
-	private final ErrSink                             errSink;
-	private final int                                 _compilationNumber;
-	private final CompilerInputMaster                 master;
-	private final Finally                             _finally;
-	private final CK_ObjectTree                       objectTree;
-	private final Map<ElijahSpec, CM_Module>          specToModuleMap;
-	private final Map<OS_Module, CM_Module>           moduleToCMMap;
-	private final Map<EzSpec, CM_Ez>                  specToEzMap;
-	private final List<CompilerInstructions>          xxx;
-	private final CCI_Acceptor__CompilerInputListener cci_listener;
-	private final PW_Controller                       pw_controller;
-	private final LCM lcm;
-	private       JarWork                             jarwork;
-	private       EIT_InputTree                       _input_tree;
-	private       EOT_OutputTree                      _output_tree;
-	private       IPipelineAccess                     _pa;
-	private       IO                                  io;
+	private final    USE                                 use;
+	private final    CompFactory                         _con;
+	private final    LivingRepo                          _repo;
+	private final    CP_Paths                            paths;
+	private final    ErrSink                             errSink;
+	private final    int                                 _compilationNumber;
+	private final    CompilerInputMaster                 master;
+	private final    Finally                             _finally;
+	private final    CK_ObjectTree                       objectTree;
+	private final    Map<ElijahSpec, CM_Module>          specToModuleMap;
+	private final    Map<OS_Module, CM_Module>           moduleToCMMap;
+	private final    Map<EzSpec, CM_Ez>                  specToEzMap;
+	private final    List<CompilerInstructions>          xxx;
+	private final    CCI_Acceptor__CompilerInputListener cci_listener;
+	private final    PW_Controller                       pw_controller;
+	private final    LCM                                 lcm;
+	private          JarWork                             jarwork;
+	private          EIT_InputTree                       _input_tree;
+	private          EOT_OutputTree                      _output_tree;
+	private          IPipelineAccess                     _pa;
+	private          IO                                  io;
 	@SuppressWarnings("BooleanVariableAlwaysNegated")
-	private       boolean                             _inside;
-	private       CompilerInput                       __advisement;
-	private       ICompilationAccess3                 aICompilationAccess3;
-	private @NotNull CK_Monitor defaultMonitor;
-	private CPX_Signals cpxSignals;
+	private          boolean                             _inside;
+	//private       CompilerInput                       __advisement;
+	private          ICompilationAccess3                 compilationAccess3;
+	private @NotNull CK_Monitor                          defaultMonitor;
+	private          CPX_Signals                         cpxSignals;
+	private          Eventual<CP_Paths>                  _p_pathsEventual = new Eventual<>();
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
-		errSink              = aErrSink;
-		io                   = aIo;
-		_con                 = new DefaultCompFactory(this);
-		lcm                  = new LCM(this);
-		specToModuleMap      = new HashMap<>();
-		moduleToCMMap        = new HashMap<>();
-		specToEzMap          = new HashMap<>();
-		xxx                  = new ArrayList<>();
-		_compilationNumber   = new Random().nextInt(Integer.MAX_VALUE);
-		_fluffyComp          = new FluffyCompImpl(this);
-		cfg                  = new CompilationConfig();
-		use                  = new USE(this.getCompilationClosure());
-		_cis                 = new CIS();
-		paths                = new CP_Paths__(this);
-		pathsEventual.resolve(paths);
+		errSink            = aErrSink;
+		io                 = aIo;
+		_con               = new DefaultCompFactory(this);
+		lcm                = new LCM(this);
+		specToModuleMap    = new HashMap<>();
+		moduleToCMMap      = new HashMap<>();
+		specToEzMap        = new HashMap<>();
+		xxx                = new ArrayList<>();
+		_compilationNumber = new Random().nextInt(Integer.MAX_VALUE);
+		_fluffyComp        = new FluffyCompImpl(this);
+		cfg                = new CompilationConfig();
+		use                = new USE(this.getCompilationClosure());
+		_cis               = new CIS();
+		paths              = new CP_Paths__(this);
+		_p_pathsEventual.resolve(paths);
 		_repo                = _con.getLivingRepo();
 		compilationEnclosure = new DefaultCompilationEnclosure(this);
 		defaultMonitor       = _con.createCkMonitor();
@@ -120,30 +114,9 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		cci_listener         = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
 
-		_ciws                   = new ArrayList<>();
-		_ci_models              = new HashMap<>();
-		_ciw_buffer             = new ArrayList<>();
-	}
-
-	@Override
-	public void ____m() {
-		try {
-			final JarWork jarwork1 = getJarwork();
-			jarwork1.work();
-		} catch (WorkException aE) {
-			//throw new RuntimeException(aE);
-			aE.printStackTrace();
-		}
-	}
-
-	@Override
-	public PW_CompilerController get_pw() {
-		return (PW_CompilerController) this.pw_controller;
-	}
-
-	public JarWork getJarwork() throws WorkException {
-		if (jarwork==null)jarwork = new JarWorkImpl();
-		return jarwork;
+		_ciws       = new ArrayList<>();
+		_ci_models  = new HashMap<>();
+		_ciw_buffer = new ArrayList<>();
 	}
 
 	public static ElLog_.@NotNull Verbosity gitlabCIVerbosity() {
@@ -192,8 +165,8 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	public ICompilationAccess3 getCompilationAccess3() {
 		var _c = this;
-		if (aICompilationAccess3 == null) {
-			aICompilationAccess3 = new ICompilationAccess3() {
+		if (compilationAccess3 == null) {
+			compilationAccess3 = new ICompilationAccess3() {
 				@Override
 				public Compilation getComp() {
 					return _c;
@@ -226,24 +199,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 				}
 			};
 		}
-		return aICompilationAccess3;
-	}
-
-	@NotNull
-	public List<CompilerInput> stringListToInputList(final @NotNull List<String> args) {
-		final List<CompilerInput> inputs = args.stream()
-				.map(s -> {
-					final CompilerInput    input = new CompilerInput_(s, Optional.of(this));
-					final CM_CompilerInput cm    = this.get(input);
-					if (cm.inpSameAs(s)) {
-						input.setSourceRoot();
-					} else {
-						assert false;
-					}
-					return input;
-				})
-				.collect(Collectors.toList());
-		return inputs;
+		return compilationAccess3;
 	}
 
 	@Override
@@ -264,6 +220,8 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 		aController.processOptions();
 		aController.runner();
+
+		get_pw().signalEnd();
 	}
 
 	@Override
@@ -379,7 +337,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 				final CompilerInstructions rootCI = getRootCI();
 				//final CompilerInstructions rootCI = this.cci_listener._root();
-				rootCI.advise(__advisement/*_inputs.get(0)*/);
+				//rootCI.advise(__advisement/*_inputs.get(0)*/);
 
 				final CompilationRunner compilationRunner = getCompilationEnclosure().getCompilationRunner();
 				compilationRunner.start(rootCI, pa);
@@ -536,6 +494,44 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		return result;
 	}
 
+	@Override
+	public void ____m() {
+		try {
+			final JarWork jarwork1 = getJarwork();
+			jarwork1.work();
+		} catch (WorkException aE) {
+			//throw new RuntimeException(aE);
+			aE.printStackTrace();
+		}
+	}
+
+	@Override
+	public PW_CompilerController get_pw() {
+		return (PW_CompilerController) this.pw_controller;
+		//return null;
+	}
+
+	@Override
+	public CPX_Signals signals() {
+		if (cpxSignals == null) {
+			cpxSignals = new CPX_Signals() {
+
+				@Override
+				public void subscribeCalculateFinishParse(CPX_CalculateFinishParse cp_OutputPath) {
+					_p_pathsEventual.then(paths1 -> {
+						paths1.subscribeCalculateFinishParse(cp_OutputPath);
+					});
+				}
+			};
+		}
+		return cpxSignals;
+	}
+
+	public JarWork getJarwork() throws WorkException {
+		if (jarwork == null) jarwork = new JarWorkImpl();
+		return jarwork;
+	}
+
 	/**
 	 * This one is interesting as it doesnt quite fit
 	 */
@@ -557,11 +553,6 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@Override
 	public LivingRepo world2() {
 		return _repo;
-	}
-
-	@Override
-	public Operation<Ok> hasInstructions2(@NotNull final List<CompilerInstructions> cis, @NotNull final IPipelineAccess pa) {
-		return hasInstructions(cis, get_pa());
 	}
 
 	@Override
@@ -601,6 +592,36 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	@Override
+	public void addCompilerInputWatcher(final CN_CompilerInputWatcher aCNCompilerInputWatcher) {
+		_ciws.add(aCNCompilerInputWatcher);
+	}
+
+	@Override
+	public void compilerInputWatcher_Event(final CN_CompilerInputWatcher.e aEvent, final CompilerInput aCompilerInput, final Object aO) {
+		if (_ciws.isEmpty()) {
+			_ciw_buffer.add(Triple.of(aEvent, aCompilerInput, aO));
+		} else {
+			if (!_ciw_buffer.isEmpty()) {
+				for (Triple<CN_CompilerInputWatcher.e, CompilerInput, Object> triple : _ciw_buffer) {
+					for (CN_CompilerInputWatcher ciw : _ciws) {
+						ciw.event(triple.getLeft(), triple.getMiddle(), triple.getRight());
+					}
+				}
+				_ciw_buffer.clear();
+			}
+			for (CN_CompilerInputWatcher ciw : _ciws) {
+				ciw.event(aEvent, aCompilerInput, aO);
+			}
+		}
+	}
+
+	@Override
+	public CompilationEnclosure getCompilationEnclosure() {
+		// TODO Auto-generated method stub
+		return compilationEnclosure;
+	}
+
+	@Override
 	public CIS _cis() {
 		return _cis; //get_cis();
 	}
@@ -608,6 +629,28 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@Override
 	public @NotNull CompFactory con() {
 		return _con;
+	}
+
+	@Override
+	public ElijahSpecSink getElijahSpecSink() {
+		return new ElijahSpecSink() {
+			private final AddElijahSpecSinkResult addElijahSpecSinkResult = new AddElijahSpecSinkResult() {
+				@Override
+				public void onParseTrigger(final DoneCallback<ElijahSpecSinkParseTrigger> cb) {
+					throw new UnintendedUseException("when you get a chance");
+				}
+
+				@Override
+				public List<CK_Marker> getMarkerList() {
+					throw new UnintendedUseException("when you get a chance");
+				}
+			};
+
+			@Override
+			public AddElijahSpecSinkResult addElijahSpec(final ElijahSpec aElijahSpec) {
+				return addElijahSpecSinkResult;
+			}
+		};
 	}
 
 	@Override
@@ -633,6 +676,23 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		throw new UnintendedUseException(); // If this doesn't trigger on Core tests, remove
 	}
 
+	@NotNull
+	public List<CompilerInput> stringListToInputList(final @NotNull List<String> args) {
+		final List<CompilerInput> inputs = args.stream()
+				.map(s -> {
+					final CompilerInput    input = new CompilerInput_(s, Optional.of(this));
+					final CM_CompilerInput cm    = this.get(input);
+					if (cm.inpSameAs(s)) {
+						input.setSourceRoot();
+					} else {
+						assert false;
+					}
+					return input;
+				})
+				.collect(Collectors.toList());
+		return inputs;
+	}
+
 	public void testMapHooks(final List<IFunctionMapHook> ignoredAMapHooks) {
 		// pipelineLogic.dp.
 	}
@@ -652,28 +712,9 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		//throw new UnintendedUseException();
 	}
 
-	@Override
-	public void addCompilerInputWatcher(final CN_CompilerInputWatcher aCNCompilerInputWatcher) {
-		_ciws.add(aCNCompilerInputWatcher);
-	}
-
-	@Override
-	public void compilerInputWatcher_Event(final CN_CompilerInputWatcher.e aEvent, final CompilerInput aCompilerInput, final Object aO) {
-		if (_ciws.isEmpty()) {
-			_ciw_buffer.add(Triple.of(aEvent, aCompilerInput, aO));
-		} else {
-			if (!_ciw_buffer.isEmpty()) {
-				for (Triple<CN_CompilerInputWatcher.e, CompilerInput, Object> triple : _ciw_buffer) {
-					for (CN_CompilerInputWatcher ciw : _ciws) {
-						ciw.event(triple.getLeft(), triple.getMiddle(), triple.getRight());
-					}
-				}
-				_ciw_buffer.clear();
-			}
-			for (CN_CompilerInputWatcher ciw : _ciws) {
-				ciw.event(aEvent, aCompilerInput, aO);
-			}
-		}
+	public CK_Monitor getDefaultMonitor() {
+		// back and forth
+		return this.defaultMonitor;
 	}
 
 	public enum CompilationAlways {
@@ -694,6 +735,22 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		}
 	}
 
+	public interface ElijahSpecSink {
+		AddElijahSpecSinkResult addElijahSpec(ElijahSpec aElijahSpec);
+	}
+
+	public interface AddElijahSpecSinkResult {
+		void onParseTrigger(DoneCallback<ElijahSpecSinkParseTrigger> cb);
+
+		/**
+		 * {@link Flux}
+		 */
+		List<CK_Marker> getMarkerList();
+	}
+
+	public interface ElijahSpecSinkParseTrigger {
+	}
+
 	static class __CK_Monitor implements CK_Monitor {
 		@Override
 		public void reportSuccess() {
@@ -706,37 +763,4 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		}
 	}
 
-	@Override
-	public CompilationEnclosure getCompilationEnclosure() {
-		// TODO Auto-generated method stub
-		return compilationEnclosure;
-	}
-
-	public CK_Monitor getDefaultMonitor() {
-		// back and forth
-		return this.defaultMonitor;
-	}
-
-	@Override
-	public CPX_Signals signals() {
-		if(cpxSignals == null) {
-			cpxSignals = new CPX_Signals() {
-				
-				@Override
-				public void subscribeCalculateFinishParse(CPX_CalculateFinishParse cp_OutputPath) {
-					pathsEventual.then(paths1 -> {
-						paths1.subscribeCalculateFinishParse(cp_OutputPath);
-					});
-				}
-			};
-		}
-		return cpxSignals;
-	}
-	
-	private Eventual<CP_Paths> pathsEventual = new Eventual<>();
-	
 }
-
-//
-//
-//

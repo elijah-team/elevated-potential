@@ -4,15 +4,15 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import tripleo.elijah.DebugFlags;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.Eventual;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import tripleo.elijah.comp.IO;
+import tripleo.elijah.comp.i.IO;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
@@ -56,8 +56,8 @@ public class CP_SubFile__ implements CP_SubFile {
 	public static class CP_Path1 implements CP_Path {
 		public final @Nullable CP_Path        parent;
 		public final @Nullable _CP_RootPath   op;
-		public final           String         childName;
-		private final          Eventual<Path> _pathPromise = new Eventual<>();
+		public final  String         childName;
+		private final Eventual<Path> _pathPromise = new Eventual<>();
 		String x;
 
 		public CP_Path1(final _CP_RootPath aParent, final String aFile) {

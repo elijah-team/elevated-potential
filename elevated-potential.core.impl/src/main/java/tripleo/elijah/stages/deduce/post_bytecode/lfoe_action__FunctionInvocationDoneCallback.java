@@ -3,7 +3,6 @@ package tripleo.elijah.stages.deduce.post_bytecode;
 import org.jdeferred2.DoneCallback;
 
 import tripleo.elijah.DebugFlags;
-import tripleo.elijah.ReadySupplier_1;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.stages.deduce.ClassInvocation;
@@ -11,6 +10,7 @@ import tripleo.elijah.stages.deduce.DeduceTypes2;
 import tripleo.elijah.stages.deduce.FunctionInvocation;
 import tripleo.elijah.stages.gen_fn.ProcTableEntry;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.ReadySupplier_1;
 import tripleo.elijah.work.WorkList;
 
 import org.jetbrains.annotations.NotNull;

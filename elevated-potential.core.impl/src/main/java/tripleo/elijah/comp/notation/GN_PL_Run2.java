@@ -2,8 +2,6 @@ package tripleo.elijah.comp.notation;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
 import tripleo.elijah.comp.PipelineLogic;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.factory.NonOpinionatedBuilder;
@@ -13,13 +11,17 @@ import tripleo.elijah.stages.gen_fn.DefaultClassGenerator;
 import tripleo.elijah.stages.gen_fn.IClassGenerator;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.stages.inter.ModuleThing;
+import tripleo.elijah.util.Eventual;
+import tripleo.elijah.util.EventualRegister;
 import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class GN_PL_Run2 implements GN_Notable, EventualRegister {
+public class GN_PL_Run2 /*extends DefaultEventualRegister*/ implements GN_Notable, EventualRegister {
 	private final NonOpinionatedBuilder __nob;
 
 	private final @NotNull WorldModule mod;
@@ -31,20 +33,24 @@ public class GN_PL_Run2 implements GN_Notable, EventualRegister {
 	private final Consumer<WorldModule> worldConsumer;
 
 	@Contract(pure = true)
-	public GN_PL_Run2(final PipelineLogic aPipelineLogic, final @NotNull WorldModule aMod,
-					  final CompilationEnclosure aCe, final Consumer<WorldModule> aWorldConsumer) {
+	public GN_PL_Run2(final PipelineLogic aPipelineLogic,
+					  final @NotNull WorldModule aMod,
+					  final CompilationEnclosure aCe,
+					  final Consumer<WorldModule> aWorldConsumer) {
 		this(aPipelineLogic, aMod, aCe, aWorldConsumer, new NonOpinionatedBuilder());
 	}
 
 	@Contract(pure = true)
-	public GN_PL_Run2(final PipelineLogic aPipelineLogic, final @NotNull WorldModule aMod,
-			final CompilationEnclosure aCe, final Consumer<WorldModule> aWorldConsumer,
+	public GN_PL_Run2(final PipelineLogic aPipelineLogic,
+					  final @NotNull WorldModule aMod,
+					  final CompilationEnclosure aCe,
+					  final Consumer<WorldModule> aWorldConsumer,
 					  final @NotNull NonOpinionatedBuilder aNob) {
 		pipelineLogic = aPipelineLogic;
-		mod = aMod;
-		ce = aCe;
+		mod           = aMod;
+		ce            = aCe;
 		worldConsumer = aWorldConsumer;
-		__nob = aNob;
+		__nob         = aNob;
 
 		dcg = new DefaultClassGenerator(pipelineLogic.dp, __nob);
 	}
@@ -55,12 +61,18 @@ public class GN_PL_Run2 implements GN_Notable, EventualRegister {
 
 	@Override
 	public void checkFinishEventuals() {
-
+		for (Eventual<?> ev : evs) {
+			if (!ev.isResolved()) {
+				assert false;
+			}
+		}
 	}
+
+	private final List<Eventual<?>> evs = new ArrayList<>();
 
 	@Override
 	public <P> void register(final Eventual<P> e) {
-
+		evs.add(e);
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package tripleo.elijah.comp;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.comp.i.ModuleListener;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.notation.GN_PL_Run2;

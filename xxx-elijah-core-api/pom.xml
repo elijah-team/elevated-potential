@@ -7,11 +7,11 @@
 	<parent>
 		<groupId>tripleo.elijah</groupId>
 		<artifactId>elevated-potential</artifactId>
-		<version>2024.elevated-potential.2</version>
+		<version>2024.elevated-potential.3</version>
 	</parent>
 
 	<artifactId>elevated-potential-core-api-xxx</artifactId>
-	<version>2024.elevated-potential.2</version>
+	<version>2024.elevated-potential.4</version>
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
@@ -25,12 +25,14 @@
 			<version>4.13.2</version>
 			<scope>compile</scope>
 		</dependency>
+<!--
 		<dependency>
 			<groupId>tripleo.elijah</groupId>
 			<artifactId>elevated-potential-core-api</artifactId>
 			<version>2024.elevated-potential.2</version>
 			<scope>compile</scope>
 		</dependency>
+-->
 	</dependencies>
 
 	<build>

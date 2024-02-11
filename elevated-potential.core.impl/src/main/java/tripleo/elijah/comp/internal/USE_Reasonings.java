@@ -1,6 +1,6 @@
 package tripleo.elijah.comp.internal;
 
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.compiler_model.CM_Module;

@@ -2,7 +2,7 @@ package tripleo.elijah.comp.caches;
 
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.comp.i.Compilation0;
 import tripleo.elijah.comp.specs.*;
 
 import java.util.*;

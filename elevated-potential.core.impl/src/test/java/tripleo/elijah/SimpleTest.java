@@ -1,6 +1,6 @@
 package tripleo.elijah;
 
-import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.comp.i.*;
 
 public interface SimpleTest {
 	SimpleTest setFile(String aS);

@@ -1,7 +1,7 @@
 package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;

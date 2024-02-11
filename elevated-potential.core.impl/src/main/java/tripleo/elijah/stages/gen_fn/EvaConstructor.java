@@ -10,10 +10,12 @@ package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.deduce.*;
+
+import tripleo.elijah.util.Eventual;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.util.function.*;
 

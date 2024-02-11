@@ -3,6 +3,7 @@ package tripleo.elijah.world.impl;
 import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.Compilation0;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -18,7 +19,7 @@ public class DefaultLivingRepo implements LivingRepo {
 	private final @NotNull ObservableCompletableProcess<WorldModule> wmo = new ObservableCompletableProcess<>();
 
 	private final Map<String, OS_Package> _packages = new HashMap<>();
-	private final Set<WorldModule> _modules = new HashSet<>();
+	private final Set<WorldModule>        _modules  = new HashSet<>();
 	private final @NotNull List<LivingNode> repo = new ArrayList<>();
 	private final @NotNull Multimap<BaseEvaFunction, DefaultLivingFunction> functionMap = ArrayListMultimap.create();
 

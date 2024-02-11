@@ -3,7 +3,6 @@ package tripleo.elijah.comp.internal;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;

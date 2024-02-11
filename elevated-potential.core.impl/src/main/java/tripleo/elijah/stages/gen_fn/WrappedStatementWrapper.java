@@ -12,7 +12,7 @@ package tripleo.elijah.stages.gen_fn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.AbstractExpression;
 import tripleo.elijah.lang.impl.StatementWrapperImpl;

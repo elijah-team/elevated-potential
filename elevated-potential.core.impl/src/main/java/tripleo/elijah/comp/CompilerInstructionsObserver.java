@@ -4,8 +4,9 @@ import io.reactivex.rxjava3.annotations.*;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.i.ICompilerInstructionsObserver;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.util.*;
 

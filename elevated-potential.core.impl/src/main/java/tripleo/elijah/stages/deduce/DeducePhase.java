@@ -15,7 +15,7 @@ import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;

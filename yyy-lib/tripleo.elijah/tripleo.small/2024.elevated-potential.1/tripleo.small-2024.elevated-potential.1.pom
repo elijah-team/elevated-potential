@@ -65,6 +65,7 @@
       <version>31.1-jre</version>
       <scope>compile</scope>
     </dependency>
+<!--
     <dependency>
       <groupId>tripleo.buffers</groupId>
       <artifactId>buffers-v1</artifactId>
@@ -77,5 +78,6 @@
       <version>0.0.3b</version>
       <scope>compile</scope>
     </dependency>
+-->
   </dependencies>
 </project>

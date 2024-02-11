@@ -8,7 +8,7 @@ import tripleo.elijah.contexts.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.ci.IndexingStatement;
 import tripleo.elijah.lang2.*;
-import tripleo.elijah.*;
+import tripleo.elijah.util.*;
 }
 
 //----------------------------------------------------------------------------

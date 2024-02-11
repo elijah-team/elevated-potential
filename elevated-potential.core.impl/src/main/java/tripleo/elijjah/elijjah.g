@@ -10,7 +10,7 @@ import tripleo.elijah.lang.builder.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.imports.*;
 import tripleo.elijah.lang2.*;
-import tripleo.elijah.*;
+import tripleo.elijah.util.*;
 }
 
 class ElijjahParser extends Parser;

@@ -10,11 +10,9 @@ package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.ContextImpl;
 import tripleo.elijah.lang.impl.VariableSequenceImpl;
-import tripleo.elijah.lang.nextgen.names.i.EN_Name;
 
 /**
  * Created 8/21/20 11:53 PM

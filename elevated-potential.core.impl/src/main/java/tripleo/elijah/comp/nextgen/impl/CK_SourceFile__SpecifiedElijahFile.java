@@ -1,14 +1,15 @@
 package tripleo.elijah.comp.nextgen.impl;
 
-import com.google.common.base.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.function.Supplier;
+
+import com.google.common.base.Preconditions;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.IO;
 import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
-
-import java.io.*;
-
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.util.Operation2;
 import tripleo.wrap.File;
 
 public class CK_SourceFile__SpecifiedElijahFile extends __CK_SourceFile__AbstractElijahFile {

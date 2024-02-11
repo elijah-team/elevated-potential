@@ -1,8 +1,9 @@
 package tripleo.elijah.nextgen.comp_model;
 
 import com.google.common.base.MoreObjects;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.ILazyCompilerInstructions;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.Finally_;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.nextgen.outputtree.EOT_Nameable;
 import tripleo.elijah.util.Maybe;
 import tripleo.wrap.File;
@@ -18,8 +19,8 @@ public class CM_CompilerInput implements EOT_Nameable {
 
 	public CM_CompilerInput(final CompilerInput aCompilerInput, final Compilation aCompilation) {
 		carrier = aCompilerInput;
-		comp = aCompilation;
-		inp = carrier.getInp();
+		comp    = aCompilation;
+		inp     = carrier.getInp();
 	}
 
 	public boolean inpSameAs(final String aS) {
@@ -70,7 +71,7 @@ public class CM_CompilerInput implements EOT_Nameable {
 	}
 
 	public File fileOf() {
-		final File    f         = new File(inp);
+		final File f = new File(inp);
 		return f;
 	}
 
