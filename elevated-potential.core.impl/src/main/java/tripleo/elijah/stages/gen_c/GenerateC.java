@@ -345,72 +345,98 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 	//	return _fileGen;
 	//}
 
-	@NotNull
-	String getRealTargetName(final @NotNull BaseEvaFunction gf,
-	                         final @NotNull IdentIA target,
-	                         final Generate_Code_For_Method.AOG aog,
-	                         final String value) {
-		int                state           = 0, code = -1;
-		IdentTableEntry    identTableEntry = gf.getIdentTableEntry(target.getIndex());
-		LinkedList<String> ls              = new LinkedList<String>();
-		// TODO in Deduce set property lookupType to denote what type of lookup it is: MEMBER, LOCAL, or CLOSURE
-		InstructionArgument backlink = identTableEntry.getBacklink();
-		final String        text     = identTableEntry.getIdent().getText();
-		if (backlink == null) {
-			if (identTableEntry.getResolvedElement() instanceof final @NotNull VariableStatement vs) {
-				OS_Element parent = vs.getParent().getParent();
-				if (parent != gf.getFD()) {
-					// we want identTableEntry.resolved which will be a EvaMember
-					// which will have a container which will be either be a function,
-					// statement (semantic block, loop, match, etc) or a EvaContainerNC
-					int     y  = 2;
-					EvaNode er = identTableEntry.externalRef(); // FIXME move to onExternalRef
-					if (er instanceof final @NotNull EvaContainerNC nc) {
-						if (!(nc instanceof EvaNamespace ns)) { throw new AssertionError(); } else {
-							//if (ns.isInstance()) {}
-							state = 1;
-							code  = nc.getCode();
-						}
-					}
-				}
-			}
-			switch (state) {
-			case 0:
-				ls.add(Emit.emit("/*912*/") + "vsc->vm" + text); // TODO blindly adding "vm" might not always work, also put in loop
-				break;
-			case 1:
-				ls.add(Emit.emit("/*845*/") + String.format("zNZ%d_instance->vm%s", code, text));
-				break;
-			default:
-				throw new IllegalStateException("Can't be here");
-			}
-		} else
-			ls.add(Emit.emit("/*872*/") + "vm" + text); // TODO blindly adding "vm" might not always work, also put in loop
-		while (backlink != null) {
-			if (backlink instanceof final @NotNull IntegerIA integerIA) {
-				String realTargetName = getRealTargetName(gf, integerIA, Generate_Code_For_Method.AOG.ASSIGN);
-				ls.addFirst(Emit.emit("/*892*/") + realTargetName);
-				backlink = null;
-			} else if (backlink instanceof final @NotNull IdentIA identIA) {
-				int             identIAIndex        = identIA.getIndex();
-				IdentTableEntry identTableEntry1    = gf.getIdentTableEntry(identIAIndex);
-				String          identTableEntryName = identTableEntry1.getIdent().getText();
-				ls.addFirst(Emit.emit("/*885*/") + "vm" + identTableEntryName); // TODO blindly adding "vm" might not always be right
-				backlink = identTableEntry1.getBacklink();
-			} else
-				throw new IllegalStateException("Invalid InstructionArgument for backlink");
-		}
-		final CReference reference = new CReference(_repo, ce);
-		reference.getIdentIAPath(target, aog, value);
-		String path = reference.build();
-		LOG.info("932 " + path);
-		String s = Helpers.String_join("->", ls);
-		LOG.info("933 " + s);
-		if (identTableEntry.getResolvedElement() instanceof ConstructorDef || identTableEntry.getResolvedElement() instanceof PropertyStatement/* || value != null*/)
-			return path;
-		else
-			return s;
-	}
+	//interface MOD {
+	//	void setState(int aState);
+	//
+	//	void setCode(int aCode);
+	//}
+
+	//@NotNull
+	//String getRealTargetName(final @NotNull BaseEvaFunction gf,
+	//                         final @NotNull IdentIA target,
+	//                         final Generate_Code_For_Method.AOG aog,
+	//                         final String value) {
+	//	final int[]     state           = {0};
+	//	final int[]     code            = {-1};
+	//	IdentTableEntry identTableEntry = gf.getIdentTableEntry(target.getIndex());
+	//	LinkedList<String> ls              = new LinkedList<String>();
+	//	// TODO in Deduce set property lookupType to denote what type of lookup it is: MEMBER, LOCAL, or CLOSURE
+	//	InstructionArgument backlink = identTableEntry.getBacklink();
+	//	final String        text     = identTableEntry.getIdent().getText();
+	//	if (backlink == null) {
+	//		if (identTableEntry.getResolvedElement() instanceof final @NotNull VariableStatement vs) {
+	//			GI_VariableStatement vs2;
+	//			extracted(gf, vs, state, code, identTableEntry);
+	//		}
+	//		switch (state[0]) {
+	//		case 0:
+	//			ls.add(Emit.emit("/*912*/") + "vsc->vm" + text); // TODO blindly adding "vm" might not always work, also put in loop
+	//			break;
+	//		case 1:
+	//			ls.add(Emit.emit("/*845*/") + String.format("zNZ%d_instance->vm%s", code[0], text));
+	//			break;
+	//		default:
+	//			throw new IllegalStateException("Can't be here");
+	//		}
+	//	} else
+	//		ls.add(Emit.emit("/*872*/") + "vm" + text); // TODO blindly adding "vm" might not always work, also put in loop
+	//	while (backlink != null) {
+	//		if (backlink instanceof final @NotNull IntegerIA integerIA) {
+	//			String realTargetName = getRealTargetName(gf, integerIA, Generate_Code_For_Method.AOG.ASSIGN);
+	//			ls.addFirst(Emit.emit("/*892*/") + realTargetName);
+	//			backlink = null;
+	//		} else if (backlink instanceof final @NotNull IdentIA identIA) {
+	//			int             identIAIndex        = identIA.getIndex();
+	//			IdentTableEntry identTableEntry1    = gf.getIdentTableEntry(identIAIndex);
+	//			String          identTableEntryName = identTableEntry1.getIdent().getText();
+	//			ls.addFirst(Emit.emit("/*885*/") + "vm" + identTableEntryName); // TODO blindly adding "vm" might not always be right
+	//			backlink = identTableEntry1.getBacklink();
+	//		} else
+	//			throw new IllegalStateException("Invalid InstructionArgument for backlink");
+	//	}
+	//	final CReference reference = new CReference(_repo, ce);
+	//	reference.getIdentIAPath(target, aog, value);
+	//	String path = reference.build();
+	//	LOG.info("932 " + path);
+	//	String s = Helpers.String_join("->", ls);
+	//	LOG.info("933 " + s);
+	//	if (identTableEntry.getResolvedElement() instanceof ConstructorDef || identTableEntry.getResolvedElement() instanceof PropertyStatement/* || value != null*/)
+	//		return path;
+	//	else
+	//		return s;
+	//}
+
+	//private static void extracted(final @NotNull BaseEvaFunction gf, final @NotNull VariableStatement vs, final int[] state, final int[] code, final IdentTableEntry identTableEntry) {
+	//	OS_Element parent = vs.getParent().getParent();
+	//	if (parent != gf.getFD()) {
+	//		// we want identTableEntry.resolved which will be a EvaMember
+	//		// which will have a container which will be either be a function,
+	//		// statement (semantic block, loop, match, etc) or a EvaContainerNC
+	//		int     y  = 2;
+	//
+	//		MOD mod = new MOD() {
+	//			@Override public void setState(final int aState) {
+	//				state[0] = aState;
+	//			}
+	//
+	//			@Override
+	//			public void setCode(final int aCode) {
+	//				code[0] = aCode;
+	//			}
+	//
+	//		};
+	//
+	//		identTableEntry.onExternalRef((EvaNode er2) -> {
+	//			if (er2 instanceof final @NotNull EvaContainerNC nc) {
+	//				if (!(nc instanceof EvaNamespace ns)) { throw new AssertionError(); } else {
+	//					//if (ns.isInstance()) {}
+	//					mod.setState(1);
+	//					mod.setCode  (nc.getCode());
+	//				}
+	//			}
+	//		});
+	//	}
+	//}
 
 	String getRealTargetName(final @NotNull BaseEvaFunction gf, final @NotNull IntegerIA target, final Generate_Code_For_Method.AOG aog) {
 		final VariableTableEntry varTableEntry = gf.getVarTableEntry(target.getIndex());
