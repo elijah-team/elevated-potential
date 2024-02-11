@@ -10,6 +10,8 @@ package tripleo.elijah.comp;
 
 import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.RP_Context;
+import tripleo.elijah._ElTaggableMixin;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.g.GPipeline;
 import tripleo.elijah.util.__Extensionable;
@@ -37,7 +39,7 @@ public class Pipeline implements GPipeline {
 		return pls.size();
 	}
 	
-	public static class RP_Context_1 extends __Extensionable implements RP_Context {
+	public static class RP_Context_1 extends _ElTaggableMixin implements RP_Context {
 		public RP_Context_1(CR_State aSt, CB_Output aOutput) {
 			putExt(CR_State.class, aSt);
 			putExt(CB_Output.class, aOutput);

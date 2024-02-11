@@ -14,7 +14,7 @@ import tripleo.wrap.File;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-public class CompilerInput_ extends __Extensionable implements CompilerInput {
+public class CompilerInput_ extends _ElTaggableMixin implements CompilerInput {
 	private final @NotNull Optional<Compilation> oc;
 
 	public CompilerInput_(final String aS,
