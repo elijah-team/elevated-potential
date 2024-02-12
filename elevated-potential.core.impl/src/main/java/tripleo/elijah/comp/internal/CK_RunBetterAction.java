@@ -4,8 +4,7 @@ import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.Pipeline;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
-import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.util.*;
 

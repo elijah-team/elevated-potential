@@ -2,7 +2,7 @@ package tripleo.elijah.stages.gen_generic;
 
 import org.jetbrains.annotations.Contract;
 import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.logging.*;
