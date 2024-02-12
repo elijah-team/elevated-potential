@@ -4,6 +4,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
+import java.util.Objects;
 
 import tripleo.wrap.File;
 
@@ -24,4 +25,12 @@ public interface EzSpec {
 
 	@Override
 	String toString();
+
+	default String file_name_string() {
+		final String result = file().toString();
+
+		assert Objects.equals(result, file().getWrappedFilename());
+
+		return result; //getWrappedFilename(); // File.toString!!
+	}
 }
