@@ -98,7 +98,8 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public File makeFile() {
-		return new tripleo.wrap.File(getInp());
+		final String inp = getInp();
+		return new tripleo.wrap.File(inp);
 	}
 
 	public String getInp() {
