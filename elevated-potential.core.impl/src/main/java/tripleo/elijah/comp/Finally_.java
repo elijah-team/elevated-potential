@@ -47,8 +47,10 @@ public class Finally_ implements Finally {
 //	}
 
 	@Override
-	public void addCodeOutput(final EOT_FileNameProvider aFileNameProvider, final EOT_OutputFile aOff) {
-		outputs.add(new Output_(aFileNameProvider, aOff));
+	public Output addCodeOutput(final EOT_FileNameProvider aFileNameProvider, final EOT_OutputFile aOff) {
+		final Output_ e = new Output_(aFileNameProvider, aOff);
+		outputs.add(e);
+		return e;
 	}
 
 	@Override

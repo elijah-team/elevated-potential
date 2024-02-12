@@ -16,6 +16,7 @@ import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.util.*;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 public interface Compilation0 /*extends GCompilation*/ {
 
@@ -82,4 +83,8 @@ public interface Compilation0 /*extends GCompilation*/ {
     GPipelineAccess pa();
 
     CP_Paths paths();
+
+    void addCodeOutput(EOT_FileNameProvider aFileNameProvider,
+                       Supplier<EOT_OutputFile> aOutputFileSupplier,
+                       boolean addFlag);
 }
