@@ -4,16 +4,15 @@ import io.reactivex.rxjava3.core.Observer;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.CM_Ez;
-import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.elijah.g.GCompilationConfig;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.OS_Module;
@@ -21,6 +20,7 @@ import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.LivingRepo;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 import java.util.List;
 
