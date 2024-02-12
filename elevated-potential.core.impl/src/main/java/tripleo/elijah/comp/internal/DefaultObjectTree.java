@@ -5,7 +5,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import tripleo.elijah.DebugFlags;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.i.Asseveration;
 import tripleo.elijah.comp.specs.EzSpec;
 import tripleo.elijah.compiler_model.CM_Module;

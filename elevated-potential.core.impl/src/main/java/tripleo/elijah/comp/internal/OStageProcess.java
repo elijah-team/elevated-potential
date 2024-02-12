@@ -5,9 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.Pipeline.RP_Context_1;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.g.GPipeline;
 import tripleo.elijah.util.*;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.vendor.mal.stepA_mal;
 import tripleo.vendor.mal.types;
 

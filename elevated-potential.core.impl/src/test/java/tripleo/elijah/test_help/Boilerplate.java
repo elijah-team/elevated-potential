@@ -2,7 +2,7 @@ package tripleo.elijah.test_help;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.i.ProcessRecord;
