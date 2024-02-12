@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.Eventual;
 import tripleo.elijah.EventualRegister;
 import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.factory.NonOpinionatedBuilder;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.deduce.DeducePhase;

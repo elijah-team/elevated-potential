@@ -14,7 +14,7 @@ import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.CB_OutputString;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.Provenance;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
 import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
 import tripleo.elijah.diagnostic.Diagnostic;

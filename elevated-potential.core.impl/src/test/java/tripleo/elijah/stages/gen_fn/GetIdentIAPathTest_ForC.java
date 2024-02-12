@@ -15,7 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.DefaultCompilationAccess;
 import tripleo.elijah.lang.i.*;

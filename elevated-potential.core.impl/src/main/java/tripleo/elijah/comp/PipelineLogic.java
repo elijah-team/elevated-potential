@@ -17,7 +17,7 @@ import tripleo.elijah.*;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.Provenance;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.notation.GN_PL_Run2;
 import tripleo.elijah.comp.notation.GN_PL_Run2_Env;
 import tripleo.elijah.diagnostic.Diagnostic;

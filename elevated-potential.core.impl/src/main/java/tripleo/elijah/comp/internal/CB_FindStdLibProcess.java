@@ -4,8 +4,8 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 import java.util.*;
 

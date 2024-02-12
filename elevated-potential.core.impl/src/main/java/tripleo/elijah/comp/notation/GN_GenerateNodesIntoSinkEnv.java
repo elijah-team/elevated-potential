@@ -5,13 +5,12 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.world.i.*;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 import java.util.*;
 import java.util.function.*;
