@@ -98,6 +98,8 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 																	 e);
 						e.then(id::add);
 					}
+				} else if (i.ty() == CompilerInput.Ty.SOURCE_ROOT) {
+					System.err.println("9997-102 hit SOURCE_ROOT");
 				} else {
 					throw new UnintendedUseException();
 				}
