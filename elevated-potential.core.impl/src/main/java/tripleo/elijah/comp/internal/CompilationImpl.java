@@ -23,6 +23,7 @@ import tripleo.elijah.comp.i.extra.CompilerInputListener;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
 import tripleo.elijah.comp.impl.LCM_Event_RootCI;
+import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.CP_Paths__;
 import tripleo.elijah.comp.nextgen.i.CPX_CalculateFinishParse;
@@ -39,7 +40,6 @@ import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
-import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.stages.deduce.IFunctionMapHook;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah.stages.deduce.fluffy.impl.FluffyCompImpl;
@@ -51,6 +51,7 @@ import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah_elevated.comp.input.CompilerInput_;
 
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class CompilationImpl implements Compilation, EventualRegister {
@@ -393,6 +394,15 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	public CP_Paths paths() {
 //		assert /*m*/paths != null;
 		return paths;
+	}
+
+	@Override
+	public void addCodeOutput(final EOT_FileNameProvider aFileNameProvider, final Supplier<EOT_OutputFile> aOutputFileSupplier, final boolean addFlag) {
+		final EOT_OutputFile eof = aOutputFileSupplier.get();
+		final Finally.Output e   = reports().addCodeOutput(aFileNameProvider, eof);
+		if (addFlag) {
+			getOutputTree().add(eof);
+		}
 	}
 
 	@Override
