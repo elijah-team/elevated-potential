@@ -1,12 +1,16 @@
-package tripleo.elijah.comp;
+package tripleo.elijah_elevated.comp.input;
 
 import com.google.common.base.*;
-//import lombok.*;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
+
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.CompilerInputMaster;
+
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.queries.QSEZ_Reasoning;
@@ -51,8 +55,8 @@ public class CompilerInput_ extends _ElTaggableMixin implements CompilerInput {
 	private       File                             dir_carrier;
 	// @Getter(fluent)
 	private       Ty                               ty;
-	private       String                           hash;
-	private       CompilerInputMaster              master;
+	private String              hash;
+	private CompilerInputMaster master;
 
 	private CompilerInstructions_Result directoryResults;
 
