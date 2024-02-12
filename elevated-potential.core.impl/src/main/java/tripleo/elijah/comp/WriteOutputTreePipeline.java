@@ -1,5 +1,6 @@
 package tripleo.elijah.comp;
 
+import tripleo.elijah.comp.functionality.f291.U;
 import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -115,29 +116,13 @@ public class WriteOutputTreePipeline extends PipelineMember implements GPipeline
 			if (outputFile.getType() == EOT_OutputType.SOURCES)
 				compilation.reports().addCodeOutput(()-> oldPath, outputFile);
 
-			final CP_Path pp = getNewPathForOutput(outputFile, outputRoot, oldPath);
+			final CP_Path pp = U.getPathForOutputFile(outputFile, outputRoot, oldPath);
 
 			L.asv(WRITE_OUTPUT_TREE__ADD_NODE_OUTPUT, pp);
 			paths.addNode(CP_RootType.OUTPUT, ER_Node.of(pp, seq));
 		}
 
 		paths.renderNodes();
-	}
-
-	private static CP_Path getNewPathForOutput(final EOT_OutputFile outputFile,
-											   final CP_Path rootPath,
-											   final String oldPath) {
-		final CP_Path pp;
-		switch (outputFile.getType()) {
-		case SOURCES -> pp = rootPath.child("code2").child(oldPath);
-		case LOGS -> pp = rootPath.child("logs").child(oldPath);
-		case INPUTS, BUFFERS -> pp = rootPath.child(oldPath);
-		case DUMP -> pp = rootPath.child("dump").child(oldPath);
-		case BUILD -> pp = rootPath.child(oldPath);
-		case SWW -> pp = rootPath.child("sww").child(oldPath);
-		default -> throw new IllegalStateException("Unexpected value: " + outputFile.getType());
-		}
-		return pp;
 	}
 
 	@Override
