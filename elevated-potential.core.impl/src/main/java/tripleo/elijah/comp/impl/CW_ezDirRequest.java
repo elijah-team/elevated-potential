@@ -12,6 +12,8 @@ import java.util.*;
 import java.util.function.*;
 import tripleo.wrap.File;
 
+import static tripleo.elijah.nextgen.inputtree.EIT_InputType.EZ_FILE;
+
 public class CW_ezDirRequest {
 //	public static void apply() {
 //	}
@@ -34,7 +36,7 @@ public class CW_ezDirRequest {
 					R.add(Operation2.success(ezFile));
 
 					c.getObjectTree().asseverate(ezFile, Asseverate.EZ_PARSED);
-					c.reports().addInput(() -> file_name, Finally_.Out2.EZ);
+					c.reports().addInput(() -> file_name, EZ_FILE);
 				} else {
 					R.add(Operation2.failure(new QuerySearchEzFiles.Diagnostic_9995(file)));
 					errSink.reportError("9995 ezFile is null " + file); // TODO Diagnostic
