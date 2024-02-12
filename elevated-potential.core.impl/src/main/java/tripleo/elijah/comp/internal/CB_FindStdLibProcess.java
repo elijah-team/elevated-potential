@@ -6,6 +6,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.compilation_bus.SingleActionProcess;
 
 import java.util.*;
 
@@ -81,7 +82,7 @@ public class CB_FindStdLibProcess implements CB_Process {
 
 		@Contract(value = " -> new", pure = true)
 		public @NotNull CB_Process process() {
-			return new DefaultCompilationBus.SingleActionProcess(this, CB_FindStdLibProcess.this.name());
+			return new SingleActionProcess(this, CB_FindStdLibProcess.this.name());
 		}
 	}
 }
