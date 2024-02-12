@@ -4,6 +4,7 @@ import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.inputtree.EIT_InputType;
 import tripleo.elijah.util.*;
 
 import tripleo.wrap.File;
@@ -35,8 +36,7 @@ public class CW_sourceDirRequest {
 				logProgress(2033, d.getClass().getName());
 			}
 
-//			c.reports().addInput(inp, Finally.Out2.ELIJAH);
-			c.reports().addInput(() -> file_name, Finally_.Out2.ELIJAH);
+			c.reports().addInput(() -> file_name, EIT_InputType.ELIJAH_SOURCE);
 		}
 	}
 
