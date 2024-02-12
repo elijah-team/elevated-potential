@@ -83,7 +83,7 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public void setName(LocatableString name) {
-		throw new UnintendedUseException("copy paste");
+		this.name = name.asLocatableString();
 	}
 
 	@Override
@@ -104,16 +104,6 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 	public String getInp() {
 		return null;
 	}
-
-//	@Override
-//	public void setName(String name) {
-//		this.name = name;
-//	}
-//
-//	@Override
-//	public void setName(@NotNull Token name) {
-//		this.name = name.getText();
-//	}
 
 	@Override
 	public String toString() {
