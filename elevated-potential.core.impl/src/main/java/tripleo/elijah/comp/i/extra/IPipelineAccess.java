@@ -7,7 +7,6 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.g.GPipelineMember;
@@ -22,6 +21,7 @@ import tripleo.elijah.stages.gen_fn.EvaNode;
 import tripleo.elijah.stages.gen_generic.GenerateFiles;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 import java.util.*;
 import java.util.function.*;

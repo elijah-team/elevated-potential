@@ -8,11 +8,11 @@ import tripleo.elijah.comp.caches.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.impl.*;
-import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.g.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 import java.util.function.*;
 

@@ -5,7 +5,6 @@ import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.comp.nextgen.pn.*;
 import tripleo.elijah.comp.nextgen.pw.*;
@@ -19,6 +18,7 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.generate.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 import java.util.*;
 import java.util.function.*;

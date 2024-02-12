@@ -2,7 +2,7 @@ package tripleo.elijah.comp.notation;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.world.i.WorldModule;
 
 import java.util.Objects;

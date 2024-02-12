@@ -1,6 +1,6 @@
 package tripleo.elijah.nextgen.inputtree;
 
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.g.*;
 import tripleo.elijah.stages.gen_fn.EvaNode;
 import tripleo.elijah.stages.gen_generic.GenerateResult;

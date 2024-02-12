@@ -12,7 +12,6 @@ import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.nextgen.*;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.notation.*;
@@ -30,6 +29,7 @@ import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 import java.util.*;
 import java.util.function.*;

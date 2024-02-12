@@ -20,7 +20,6 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
@@ -39,6 +38,7 @@ import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah.world.i.*;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 import java.util.*;
 import java.util.concurrent.*;
