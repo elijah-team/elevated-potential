@@ -48,7 +48,7 @@ public enum CX_ParseEzFile {;
 		final Operation2<CompilerInstructions> cio;
 
 		if (cis.mode() == Mode.SUCCESS) {
-			cio = calculate(aSpec.file_name(), cis.success());
+			cio = calculate(aSpec.file_name_string(), cis.success());
 			final CompilerInstructions R = cio.success();
 			aEzCache.put(aSpec, absolutePath, R);
 
