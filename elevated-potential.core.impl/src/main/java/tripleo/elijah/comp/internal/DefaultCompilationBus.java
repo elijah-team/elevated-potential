@@ -6,7 +6,7 @@ import org.awaitility.core.ConditionTimeoutException;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
 import java.lang.reflect.InvocationTargetException;
