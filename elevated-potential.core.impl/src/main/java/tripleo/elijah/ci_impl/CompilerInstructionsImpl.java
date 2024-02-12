@@ -105,16 +105,6 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 		return this.name;
 	}
 
-//	@Override
-//	public void setName(String name) {
-//		this.name = name;
-//	}
-//
-//	@Override
-//	public void setName(@NotNull Token name) {
-//		this.name = name.getText();
-//	}
-
 	@Override
 	public String toString() {
 		return "CompilerInstructionsImpl{" +
