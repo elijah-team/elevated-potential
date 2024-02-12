@@ -177,26 +177,4 @@ public class DefaultCompilationBus implements ICompilationBus {
 		if (alreadyP.contains(aProcess)) throw new Error();
 		alreadyP.add(aProcess);
 	}
-
-	static class SingleActionProcess implements CB_Process {
-		// README tape
-		private final CB_Action a;
-		private final String    name;
-
-		public SingleActionProcess(final CB_Action aAction, final String aCBFindStdLibProcess) {
-			a    = aAction;
-			name = aCBFindStdLibProcess;
-		}
-
-		@Override
-		public @NotNull List<CB_Action> steps() {
-			return List_of(a);
-		}
-
-		@Override
-		public String name() {
-			return name;//"SingleActionProcess";
-		}
-
-	}
 }
