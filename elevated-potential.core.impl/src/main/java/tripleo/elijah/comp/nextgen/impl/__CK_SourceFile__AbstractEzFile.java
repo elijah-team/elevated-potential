@@ -90,7 +90,9 @@ abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {
 
 		final String            file_name = getFileName();
 		final File              file      = getFile();
-		final Operation<String> hash      = new CA_getHashForFile().apply(file_name, file);
+		final Operation<String> hash      = CA_getHashForFile.apply(file_name, file);
+
+		System.err.println("959595");
 
 		compilation.getObjectTree().asseverate(new Asseveration() {
 			@Override

@@ -39,6 +39,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 	private final @NotNull Compilation       c;
 	private final @NotNull Queue<CB_Process> pq;
 	private final @NotNull List<CB_Process>  alreadyP;
+	public  DCB_Startable __cheat;
 
 	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
 		c                    = (@NotNull Compilation) ace.getCompilationAccess().getCompilation();
@@ -52,11 +53,13 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 	@Override
 	public void add(final @NotNull CB_Action action) {
-		pq.add(new SingleActionProcess(action, "CB_FindStdLibProcess"));
+		System.err.println("DefaultCompilationBus::add (Action) "+action.name());
+		pq.add(new SingleActionProcess(action, "default processName CB_FindStdLibProcess"));
 	}
 
 	@Override
 	public void add(final @NotNull CB_Process aProcess) {
+		System.err.println("DefaultCompilationBus::add (Process) "+aProcess.name());
 		pq.add(aProcess);
 	}
 
@@ -106,6 +109,8 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 	public void runProcesses() {
 		final DCB_Startable s   = new DCB_Startable(this, pq, _defaultProgressSink);
+
+		this.__cheat = s ;
 
 		final Startable task = this.c.con().askConcurrent(s);
 		task.start();
