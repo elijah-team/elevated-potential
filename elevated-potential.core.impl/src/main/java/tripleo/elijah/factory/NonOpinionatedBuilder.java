@@ -7,6 +7,7 @@ import tripleo.elijah.comp.internal.DefaultCompilerController;
 import tripleo.elijah.stages.gen_fn.DefaultClassGenerator;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkList__;
+import tripleo.elijah_elevated.comp.input.CompilerInput_;
 
 import java.util.List;
 import java.util.stream.Collectors;

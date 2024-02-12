@@ -29,7 +29,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 	}
 
 	@Override
-	public void change(CompilerInput i, CompilerInput_.CompilerInputField field) {
+	public void change(CompilerInput i, CompilerInput.CompilerInputField field) {
 		if (compilation.getCompilerInputListener() instanceof CCI_Acceptor__CompilerInputListener cci_listener) {
 			if (DebugFlags.CCI_gate) {
 				if (cci == null) {
@@ -89,7 +89,7 @@ public /* static */ class CCI_Acceptor__CompilerInputListener implements Compile
 				}
 			}
 			case ACCEPT_CI -> {
-				if (i.ty() == CompilerInput_.Ty.ROOT) {
+				if (i.ty() == CompilerInput.Ty.ROOT) {
 					final Maybe<ILazyCompilerInstructions> instructionsMaybe = i.acceptance_ci();
 					if (instructionsMaybe != null) {
 						final Eventual<CompilerInstructions> e = new Eventual<>();
