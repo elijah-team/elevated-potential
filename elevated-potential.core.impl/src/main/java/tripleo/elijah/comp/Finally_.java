@@ -115,16 +115,6 @@ public class Finally_ implements Finally {
 			ty       = aTy;
 		}
 
-//		public Input(final CompilerInput aInp, final Out2 aTy) {
-//			nameable = new Finally._CompilerInputNameable(aInp);
-//			ty  = aTy;
-//		}
-
-//		public Input(final CompFactory.InputRequest aInp, final Out2 aTy) {
-//			nameable = new Finally.InputRequestNameable(aInp);
-//			ty = aTy;
-//		}
-
 		@Override
 		public String name() {
 			return nameable.getNameableString();
@@ -135,30 +125,4 @@ public class Finally_ implements Finally {
 			return "Input{" + "name=" + nameable.getNameableString() + ", ty=" + ty + '}';
 		}
 	}
-
-//	private class _CompilerInputNameable implements Nameable {
-//		private final CompilerInput aInp;
-//
-//		public _CompilerInputNameable(CompilerInput aInp) {
-//			this.aInp = aInp;
-//		}
-//
-//		@Override
-//		public String getName() {
-//			return aInp.getInp();
-//		}
-//	}
-
-//	private class InputRequestNameable implements Nameable {
-//		private final CompFactory.InputRequest aInp;
-//
-//		public InputRequestNameable(CompFactory.InputRequest aInp) {
-//			this.aInp = aInp;
-//		}
-//
-//		@Override
-//		public String getName() {
-//			return aInp.file().toString();
-//		}
-//	}
 }
