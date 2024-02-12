@@ -19,11 +19,11 @@ import static tripleo.elijah.util.Helpers.List_of;
 public class DefaultCompilationBus implements ICompilationBus {
 	private final CB_Monitor _monitor;
 	@Getter
-	private final @NotNull CompilerDriver _compilerDriver;
-	private final @NotNull IProgressSink _defaultProgressSink;
-	private final @NotNull Compilation c;
+	private final @NotNull CompilerDriver    _compilerDriver;
+	private final @NotNull IProgressSink     _defaultProgressSink;
+	private final @NotNull Compilation       c;
 	private final @NotNull Queue<CB_Process> pq;
-	private final @NotNull List<CB_Process> alreadyP;
+	private final @NotNull List<CB_Process>  alreadyP;
 
 	public DefaultCompilationBus(final @NotNull CompilationEnclosure ace) {
 		c = (@NotNull Compilation) ace.getCompilationAccess().getCompilation();
@@ -40,18 +40,16 @@ public class DefaultCompilationBus implements ICompilationBus {
 		pq.add(new SingleActionProcess(action, "CB_FindStdLibProcess"));
 	}
 
-	// @Override public void addCompilerChange(Class<?> compilationChangeClass) {
-	// if (compilationChangeClass.isInstance(CC_SetSilent.class)) {
-	// try {
-	// CompilationChange ccc = (CompilationChange)
-	// compilationChangeClass.getDeclaredConstructor(null).newInstance(null);
-	// ccc.apply(this.c);
-	// } catch (NoSuchMethodException | InvocationTargetException |
-	// InstantiationException | IllegalAccessException e) {
-	// throw new RuntimeException(e);
-	// }
-	// }
-	// }
+//	@Override public void addCompilerChange(Class<?> compilationChangeClass) {
+//		if (compilationChangeClass.isInstance(CC_SetSilent.class)) {
+//			try {
+//				CompilationChange ccc = (CompilationChange) compilationChangeClass.getDeclaredConstructor(null).newInstance(null);
+//				ccc.apply(this.c);
+//			} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+//				throw new RuntimeException(e);
+//			}
+//		}
+//	}
 
 	@Override
 	public void add(final @NotNull CB_Process aProcess) {
@@ -195,27 +193,5 @@ public class DefaultCompilationBus implements ICompilationBus {
 		if (alreadyP.contains(aProcess))
 			throw new Error();
 		alreadyP.add(aProcess);
-	}
-
-	static class SingleActionProcess implements CB_Process {
-		// README tape
-		private final CB_Action a;
-		private final String name;
-
-		public SingleActionProcess(final CB_Action aAction, final String aCBFindStdLibProcess) {
-			a = aAction;
-			name = aCBFindStdLibProcess;
-		}
-
-		@Override
-		public @NotNull List<CB_Action> steps() {
-			return List_of(a);
-		}
-
-		@Override
-		public String name() {
-			return name;// "SingleActionProcess";
-		}
-
 	}
 }
