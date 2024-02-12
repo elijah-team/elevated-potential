@@ -98,22 +98,13 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public File makeFile() {
-		return new tripleo.wrap.File(getInp());
+		final String inp = getInp();
+		return new tripleo.wrap.File(inp);
 	}
 
 	public String getInp() {
 		return this.name;
 	}
-
-//	@Override
-//	public void setName(String name) {
-//		this.name = name;
-//	}
-//
-//	@Override
-//	public void setName(@NotNull Token name) {
-//		this.name = name.getText();
-//	}
 
 	@Override
 	public String toString() {
