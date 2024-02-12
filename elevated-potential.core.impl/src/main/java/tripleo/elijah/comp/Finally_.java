@@ -98,6 +98,11 @@ public class Finally_ implements Finally {
 		public String name() {
 			return fileNameProvider.getFilename();
 		}
+
+		@Override
+		public String getFilename() {
+			return fileNameProvider.getFilename();
+		}
 	}
 
 	public static class FinallyInput_ implements Finally_Input {
