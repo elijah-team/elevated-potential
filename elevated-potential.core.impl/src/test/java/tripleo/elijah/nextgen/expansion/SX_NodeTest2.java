@@ -6,11 +6,13 @@ import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.DefaultCompilerController;
+import tripleo.elijah.factory.NonOpinionatedBuilder;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
 import tripleo.elijah.util.Helpers;
+import tripleo.elijah_elevated.comp.input.CompilerInput_;
 import tripleo.small.ES_Symbol;
 
 import java.util.List;
@@ -118,9 +120,8 @@ public class SX_NodeTest2 {
 
 		final String f = "test/basic2/while100/";
 
-		@NotNull
-		final List<CompilerInput> inps = List_of(new CompilerInput_(f));
-		comp.feedInputs(inps, new DefaultCompilerController(comp.getCompilationAccess3()));
+		final var nob = new NonOpinionatedBuilder();
+		comp.feedInputs(nob.inputs(List_of(f)), new DefaultCompilerController(comp.getCompilationAccess3()));
 
 		// comp.feedCmdLine(List_of(f));
 

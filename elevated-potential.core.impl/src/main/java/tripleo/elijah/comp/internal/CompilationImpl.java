@@ -18,7 +18,6 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.*;
 import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
-import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.CompilerInputListener;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
@@ -33,6 +32,8 @@ import tripleo.elijah.comp.nextgen.pw.PW_Controller;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.compiler_model.CM_Module;
+import tripleo.elijah.factory.NonOpinionatedBuilder;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.*;
@@ -47,69 +48,71 @@ import tripleo.elijah.stages.logging.ElLog_;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah_elevated.comp.input.CompilerInput_;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CompilationImpl implements Compilation, EventualRegister {
-	private final List<CN_CompilerInputWatcher>        _ciws;
-	private final Map<CompilerInput, CM_CompilerInput> _ci_models;
+	private final List<CN_CompilerInputWatcher>                                  _ciws;
+	private final Map<CompilerInput, CM_CompilerInput>                           _ci_models;
 	private final List<Triple<CN_CompilerInputWatcher.e, CompilerInput, Object>> _ciw_buffer;
 
-	private final FluffyCompImpl                                                 _fluffyComp;
-//	@Getter
-	private final CompilationConfig                   cfg;
-//	@Getter
-	private final CompilationEnclosure                compilationEnclosure;
-//	@Getter
-	private final CIS                                 _cis;
-//	@Getter
+	private final    FluffyCompImpl                      _fluffyComp;
+	//	@Getter
+	private final    CompilationConfig                   cfg;
+	//	@Getter
+	private final    CompilationEnclosure                compilationEnclosure;
+	//	@Getter
+	private final    CIS                                 _cis;
+	//	@Getter
 //	private final CK_Monitor                          defaultMonitor;
 //	@Getter
-	private final USE                                 use;
-	private final CompFactory                         _con;
-	private final LivingRepo                          _repo;
-	private final CP_Paths                            paths;
-	private final ErrSink                             errSink;
-	private final int                                 _compilationNumber;
-	private final CompilerInputMaster                 master;
-	private final Finally                             _finally;
-	private final CK_ObjectTree                       objectTree;
-	private final Map<ElijahSpec, CM_Module>          specToModuleMap;
-	private final Map<OS_Module, CM_Module>           moduleToCMMap;
-	private final Map<EzSpec, CM_Ez>                  specToEzMap;
-	private final List<CompilerInstructions>          xxx;
-	private final CCI_Acceptor__CompilerInputListener cci_listener;
-	private final PW_Controller                       pw_controller;
-	private final LCM lcm;
-	private       JarWork                             jarwork;
-	private       EIT_InputTree                       _input_tree;
-	private       EOT_OutputTree                      _output_tree;
-	private       IPipelineAccess                     _pa;
-	private       IO                                  io;
+	private final    USE                                 use;
+	private final    CompFactory                         _con;
+	private final    LivingRepo                          _repo;
+	private final    CP_Paths                            paths;
+	private final    ErrSink                             errSink;
+	private final    int                                 _compilationNumber;
+	private final    CompilerInputMaster                 master;
+	private final    Finally                             _finally;
+	private final    CK_ObjectTree                       objectTree;
+	private final    Map<ElijahSpec, CM_Module>          specToModuleMap;
+	private final    Map<OS_Module, CM_Module>           moduleToCMMap;
+	private final    Map<EzSpec, CM_Ez>                  specToEzMap;
+	private final    List<CompilerInstructions>          xxx;
+	private final    CCI_Acceptor__CompilerInputListener cci_listener;
+	private final    PW_Controller                       pw_controller;
+	private final    LCM                                 lcm;
+	private          JarWork                             jarwork;
+	private          EIT_InputTree                       _input_tree;
+	private          EOT_OutputTree                      _output_tree;
+	private          IPipelineAccess                     _pa;
+	private          IO                                  io;
 	@SuppressWarnings("BooleanVariableAlwaysNegated")
-	private       boolean                             _inside;
-	private       CompilerInput                       __advisement;
-	private       ICompilationAccess3                 aICompilationAccess3;
-	private @NotNull CK_Monitor defaultMonitor;
-	private CPX_Signals cpxSignals;
+	private          boolean                             _inside;
+	private          CompilerInput                       __advisement;
+	private          ICompilationAccess3                 compilationAccess3;
+	private @NotNull CK_Monitor                          defaultMonitor;
+	private          CPX_Signals                         cpxSignals;
+	private          Eventual<CP_Paths>                  _p_pathsEventual = new Eventual<>();
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
-		errSink              = aErrSink;
-		io                   = aIo;
-		_con                 = new DefaultCompFactory(this);
-		lcm                  = new LCM(this);
-		specToModuleMap      = new HashMap<>();
-		moduleToCMMap        = new HashMap<>();
-		specToEzMap          = new HashMap<>();
-		xxx                  = new ArrayList<>();
-		_compilationNumber   = new Random().nextInt(Integer.MAX_VALUE);
-		_fluffyComp          = new FluffyCompImpl(this);
-		cfg                  = new CompilationConfig();
-		use                  = new USE(this.getCompilationClosure());
-		_cis                 = new CIS();
-		paths                = new CP_Paths__(this);
-		pathsEventual.resolve(paths);
+		errSink            = aErrSink;
+		io                 = aIo;
+		_con               = new DefaultCompFactory(this);
+		lcm                = new LCM(this);
+		specToModuleMap    = new HashMap<>();
+		moduleToCMMap      = new HashMap<>();
+		specToEzMap        = new HashMap<>();
+		xxx                = new ArrayList<>();
+		_compilationNumber = new Random().nextInt(Integer.MAX_VALUE);
+		_fluffyComp        = new FluffyCompImpl(this);
+		cfg                = new CompilationConfig();
+		use                = new USE(this.getCompilationClosure());
+		_cis               = new CIS();
+		paths              = new CP_Paths__(this);
+		_p_pathsEventual.resolve(paths);
 		_repo                = _con.getLivingRepo();
 		compilationEnclosure = new DefaultCompilationEnclosure(this);
 		defaultMonitor       = _con.createCkMonitor();
@@ -120,9 +123,9 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		cci_listener         = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
 
-		_ciws                   = new ArrayList<>();
-		_ci_models              = new HashMap<>();
-		_ciw_buffer             = new ArrayList<>();
+		_ciws       = new ArrayList<>();
+		_ci_models  = new HashMap<>();
+		_ciw_buffer = new ArrayList<>();
 	}
 
 	@Override
@@ -142,7 +145,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	public JarWork getJarwork() throws WorkException {
-		if (jarwork==null)jarwork = new JarWorkImpl();
+		if (jarwork == null) jarwork = new JarWorkImpl();
 		return jarwork;
 	}
 
@@ -172,28 +175,15 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@Override
 	public void feedCmdLine(final @NotNull List<String> args) {
 		final CompilerController controller = new DefaultCompilerController(this.getCompilationAccess3());
-
-		final List<CompilerInput> inputs = args.stream()
-				.map((String s) -> {
-					final CompilerInput input = new CompilerInput_(s);
-
-					if (s.startsWith("-")) {
-						input.setArg();
-					} else {
-						// TODO 09/24 check this
-						input.setSourceRoot();
-					}
-
-					return input;
-				}).collect(Collectors.toList());
-
+		final NonOpinionatedBuilder nob = new NonOpinionatedBuilder();
+		final List<CompilerInput> inputs = nob.inputs(args);
 		feedInputs(inputs, controller);
 	}
 
 	public ICompilationAccess3 getCompilationAccess3() {
 		var _c = this;
-		if (aICompilationAccess3 == null) {
-			aICompilationAccess3 = new ICompilationAccess3() {
+		if (compilationAccess3 == null) {
+			compilationAccess3 = new ICompilationAccess3() {
 				@Override
 				public Compilation getComp() {
 					return _c;
@@ -226,7 +216,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 				}
 			};
 		}
-		return aICompilationAccess3;
+		return compilationAccess3;
 	}
 
 	@NotNull
@@ -264,6 +254,8 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 		aController.processOptions();
 		aController.runner();
+
+		// getFluffy().checkFinishEventuals(); // [T096-258] // commented here (from congenial)
 	}
 
 	@Override
@@ -719,9 +711,9 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public CPX_Signals signals() {
-		if(cpxSignals == null) {
+		if (cpxSignals == null) {
 			cpxSignals = new CPX_Signals() {
-				
+
 				@Override
 				public void subscribeCalculateFinishParse(CPX_CalculateFinishParse cp_OutputPath) {
 					pathsEventual.then(paths1 -> {
@@ -732,11 +724,6 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		}
 		return cpxSignals;
 	}
-	
-	private Eventual<CP_Paths> pathsEventual = new Eventual<>();
-	
-}
 
-//
-//
-//
+	private Eventual<CP_Paths> pathsEventual = new Eventual<>();
+}

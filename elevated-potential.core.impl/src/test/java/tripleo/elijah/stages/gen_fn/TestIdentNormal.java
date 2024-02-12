@@ -12,10 +12,10 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_fn_c.GenFnC;
 import tripleo.elijah.stages.instructions.IdentIA;
 import tripleo.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah.test_help.Boilerplate;
@@ -45,7 +45,8 @@ public class TestIdentNormal {
 		boilerplate.getGenerateFiles(boilerplate.defaultMod());
 
 		final GenerateFunctions generateFunctions = new GenerateFunctions(boilerplate.defaultMod(),
-				boilerplate.pipelineLogic, (IPipelineAccess) boilerplate.comp.pa());
+				new GenFnC());
+				//boilerplate.pipelineLogic, (IPipelineAccess) boilerplate.comp.pa());
 
 		final EvaFunction generatedFunction = new EvaFunction(fd);
 		final VariableSequence seq = new VariableSequenceImpl(ctx1);
@@ -187,16 +188,12 @@ public class TestIdentNormal {
 		//
 		//
 
-		final DeduceTypes2 aDeduceTypes2 = null; // !! 08/28
+		//final DeduceTypes2 aDeduceTypes2 = null; // !! 08/28
 		ClassInvocation invocation2 = new ClassInvocation(cs, null, new NULL_DeduceTypes2());
 		invocation2 = phase.registerClassInvocation(invocation2);
 		ProcTableEntry pte3 = null;
 		FunctionInvocation fi2 = new FunctionInvocation(fd2, pte3, invocation2, generatePhase);
-		EvaFunction generatedFunction2 = generateFunctions.generateFunction(fd2, fd2.getParent(), fi2);// new
-																										// EvaFunction(fd2);
-//		generatedFunction2.addVariableTableEntry("self", VariableTableType.SELF, null, null);
-//		final TypeTableEntry type = null;
-//		int res = generatedFunction2.addVariableTableEntry("Result", VariableTableType.RESULT, type, null);
+		//EvaFunction generatedFunction2 = generateFunctions.generateFunction(fd2, fd2.getParent(), fi2);
 
 		//
 		//

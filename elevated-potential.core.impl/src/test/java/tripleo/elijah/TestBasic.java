@@ -16,6 +16,7 @@ import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.DefaultCompilerController;
 import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.factory.NonOpinionatedBuilder;
 import tripleo.elijah.factory.comp.CompilationFactory;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
@@ -33,6 +34,7 @@ import com.google.common.base.Charsets;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
+import tripleo.elijah_elevated.comp.input.CompilerInput_;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -103,10 +105,10 @@ public class TestBasic {
 		if (!DISABLED) {
 			Emit.emitting = false;
 
+			final NonOpinionatedBuilder nob = new NonOpinionatedBuilder();
+
 			c.feedInputs(
-					List_of(s, "-sO").stream()
-							.map(CompilerInput_::new)
-							.collect(Collectors.toList()),
+					nob.inputs(List_of(s, "-sO")),
 					new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3()));
 
 			if (c.errorCount() != 0)
@@ -238,10 +240,10 @@ public class TestBasic {
 		final Compilation0 c = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
 
 		if (!DISABLED) {
+			final NonOpinionatedBuilder nob = new NonOpinionatedBuilder();
+
 			c.feedInputs(
-					List_of(s, "-sE").stream() // -sD??
-							.map(CompilerInput_::new)
-							.collect(Collectors.toList()),
+					nob.inputs(List_of(s, "-sE")),  // -sD??
 					new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3()));
 
 			if (c.errorCount() != 0)
@@ -279,6 +281,7 @@ public class TestBasic {
 	public final void testBasic_fact1() throws Exception {
 		final String        s  = "test/basic/fact1/main2";
 		final Compilation   c  = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
+
 		final CompilerInput i1 = new CompilerInput_(s);
 		final CompilerInput i2 = new CompilerInput_("-sO");
 		c.feedInputs(List_of(i1, i2), new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3()));
