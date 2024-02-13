@@ -17,6 +17,7 @@ import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.g.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.stages.functionality.f292.F292_WriteRoot;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.io.*;
@@ -25,7 +26,6 @@ import java.io.*;
 import java.util.*;
 import java.util.function.*;
 import java.util.regex.*;
-import java.util.stream.*;
 
 import static tripleo.elijah.util.Helpers.*;
 
@@ -157,36 +157,8 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 			}
 			try {
 				String project_name = c.getProjectName();
-				String project_string = String
-						.format("project('%s', 'c', version: '1.0.0', meson_version: '>= 0.48.0',)", project_name);
-				root_file.accept(project_string);
-				root_file.accept("\n");
-
-				for (CompilerInstructions compilerInstructions : lsp_outputs.keySet()) {
-					String name = compilerInstructions.getName();
-					// final Path dpath = getPath2(name);
-
-					final CharSink finalRoot_file = root_file;
-					path2_.child(name).getPathPromise().then(dpath -> {
-						if (dpath.toFile().exists()) {
-							String name_subdir_string = String.format("subdir('%s')\n", name);
-							finalRoot_file.accept(name_subdir_string);
-							aDep_dirs.add(name);
-						}
-					});
-				}
-				aDep_dirs.add("Prelude");
-//			String prelude_string = String.format("subdir(\"Prelude_%s\")\n", /*c.defaultGenLang()*/"c");
-				String prelude_string = "subdir('Prelude')\n";
-				root_file.accept(prelude_string);
-
-//			root_file.accept("\n");
-
-				String deps_names = String_join(", ", aDep_dirs.stream().map(x -> String.format("%s", x)) // TODO _lib
-						// ??
-						.collect(Collectors.toList()));
-				root_file.accept(String.format("%s_bin = executable('%s', link_with: [ %s ], install: true)",
-											   project_name, project_name, deps_names)); // dependencies, include_directories
+				F292_WriteRoot f292 = new F292_WriteRoot(project_name);
+				f292.write_root(lsp_outputs, aDep_dirs, path2, root_file, path2_);
 			} finally {
 				((FileCharSink) root_file).close();
 			}
