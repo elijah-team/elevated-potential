@@ -9,14 +9,13 @@ import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static tripleo.elijah.util.Helpers.List_of;
 
 public class LSPrintStream implements XPrintStream {
 	private final StringBuilder sb = new StringBuilder();
-	private final List<String> ff = new ArrayList<>();
+	private final List<String>  ff = new ArrayList<>();
 
 	public void addFile(final String aS) {
 		ff.add(aS);
@@ -36,15 +35,7 @@ public class LSPrintStream implements XPrintStream {
 		sb.append('\n');
 	}
 
-	public static final class LSResult {
-		private final List<String> buffer;
-		private final List<String> fs;
-
-		public LSResult(List<String> buffer, List<String> fs) {
-			this.buffer = buffer;
-			this.fs     = fs;
-		}
-
+	public record LSResult(List<String> buffer, List<String> fs) {
 		public List<EIT_Input> fs2(final Compilation c) {
 			return fs.stream().map(s -> new MyEIT_Input(c, s)).collect(Collectors.toList());
 		}
@@ -54,35 +45,12 @@ public class LSPrintStream implements XPrintStream {
 					.collect(Collectors.toList());
 		}
 
-		public List<String> buffer() {
-			return buffer;
-		}
-
-		public List<String> fs() {
-			return fs;
-		}
-
-		@Override
-		public int hashCode() {
-			return Objects.hash(buffer, fs);
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (obj == this) return true;
-			if (obj == null || obj.getClass() != this.getClass()) return false;
-			var that = (LSResult) obj;
-			return Objects.equals(this.buffer, that.buffer) &&
-					Objects.equals(this.fs, that.fs);
-		}
-
-		@Override
-		public String toString() {
-			return "LSResult[" +
-					"buffer=" + buffer + ", " +
-					"fs=" + fs + ']';
-		}
-
+		//@Override
+		//public String toString() {
+		//	return "LSResult[" +
+		//			"buffer=" + buffer + ", " +
+		//			"fs=" + fs + ']';
+		//}
 	}
 
 	public static class MyEIT_Input implements EIT_Input {
