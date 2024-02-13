@@ -323,7 +323,7 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public void runStepsNow(final CK_Steps aSteps, final CK_StepsContext aStepsContext) {
-			CK_Monitor monitor = null;
+			final CK_Monitor monitor = ((CompilationEnclosure) ca.getCompilationEnclosure()).getDefaultMonitor();
 			tripleo.elijah.comp.nextgen.CK_DefaultStepRunner.runStepsNow(aSteps, aStepsContext, monitor);
 		}
 
