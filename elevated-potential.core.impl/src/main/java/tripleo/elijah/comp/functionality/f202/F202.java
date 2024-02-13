@@ -50,7 +50,6 @@ public class F202 {
 		final String s1 = firstLog.getFileName();
 		final String a = psf.toString();
 		pre.reportProgress(a);
-		V.asv(V.e.f202_writing_logs, a);
 
 		ple.initialize(psf, s1, errSink);
 		ple.start();
