@@ -176,7 +176,9 @@ public class FT_FnCallArgs implements ITastic {
 	public void do_assign_call(final @NotNull BaseEvaFunction generatedFunction,
 	                           final @NotNull Context ctx,
 	                           final @NotNull IdentTableEntry idte,
-	                           final int instructionIndex) {
+							   final @NotNull FnCallArgs fca,
+							   final @NotNull Instruction instruction) {
+		final int                     instructionIndex = instruction.getIndex();
 		final @NotNull ProcTableEntry pte = generatedFunction.getProcTableEntry(to_int(fca.getArg(0)));
 		for (final @NotNull TypeTableEntry tte : pte.getArgs()) {
 			LOG.info("771 " + tte);
