@@ -23,8 +23,6 @@ import tripleo.elijah.comp.i.extra.CompilerInputListener;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
 import tripleo.elijah.comp.impl.LCM_Event_RootCI;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.CP_Paths__;
 import tripleo.elijah.comp.nextgen.i.CPX_CalculateFinishParse;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
@@ -40,6 +38,7 @@ import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
+import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.deduce.IFunctionMapHook;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah.stages.deduce.fluffy.impl.FluffyCompImpl;
@@ -48,6 +47,7 @@ import tripleo.elijah.stages.logging.ElLog_;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated.comp.input.CompilerInput_;
 
 import java.util.*;
@@ -442,7 +442,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		}
 
 		use.use(compilerInstructions);
-		//cci_listener.id.add(compilerInstructions);
+		//cci_listener.id.add(rootCI);
 	}
 
 	@Override
