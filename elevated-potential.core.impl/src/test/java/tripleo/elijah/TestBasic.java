@@ -269,7 +269,7 @@ public class TestBasic {
 		assertEquals(4, c.errorCount()); // TODO Error count obviously should be 0
 	}
 
-	@Disabled @Test
+	@Test
 	public final void testBasic_fact1() throws Exception {
 		final String        s  = "test/basic/fact1/main2";
 		final Compilation   c  = CompilationFactory.mkCompilation(new StdErrSink(), new IO_());
@@ -281,6 +281,12 @@ public class TestBasic {
 		if (c.errorCount() != 0) {
 			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
 		}
+
+		final @NotNull EOT_OutputTree cot = c.getOutputTree();
+		// pancake 28
+		assertEquals(28, cot.getList().size()); // TODO why not 6?
+		assertEquals(29, cot.getList().size()); // TODO why not 6?
+
 
 		if (!DISABLED) {
 			assertEquals(25, c.errorCount()); // TODO Error count obviously should be 0
