@@ -44,6 +44,7 @@ import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
+import tripleo.elijah_prolific.v.V;
 
 import java.util.*;
 import java.util.function.*;
@@ -465,7 +466,7 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 				vte.addPotentialType(instruction.getIndex(), vte2.getTypeTableEntry());
 			} else if (i2 instanceof final @NotNull FnCallArgs fca) {
 				final @Nullable ITastic fcat = tasticFor(fca);
-
+				assert fcat != null;
 				fcat.do_assign_call(generatedFunction, aContext, vte, instruction, name);
 			} else if (i2 instanceof ConstTableIA) {
 				if (vte.getTypeTableEntry().getAttached() != null) {
@@ -929,11 +930,22 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 	@Deprecated
 	public void resolveIdentIA_(@NotNull Context context, @NotNull IdentIA identIA,
 								@NotNull BaseEvaFunction generatedFunction, @NotNull FoundElement foundElement) {
-		@NotNull
-		Resolve_Ident_IA ria = _inj().new_Resolve_Ident_IA(_inj().new_DeduceClient3(this), context, identIA,
-														   generatedFunction, foundElement, errSink
-														  );
-		ria.action();
+		final @NotNull Resolve_Ident_IA ria = _inj().new_Resolve_Ident_IA(
+				_inj().new_DeduceClient3(this),
+				context,
+				identIA,
+				generatedFunction,
+				foundElement,
+				errSink
+																		 );
+		//try {
+			ria.action();
+//		} catch (final ResolveError aE) {
+//			//throw new RuntimeException(aE);
+//			final String text = aE._ident().getText();
+//			V.asv(V.e.DT2_2304, text);
+////			System.err.printf("** ResolveError: %s not found!%n", text);
+//		}
 	}
 
 	public void found_element_for_ite(BaseEvaFunction generatedFunction, @NotNull IdentTableEntry ite,

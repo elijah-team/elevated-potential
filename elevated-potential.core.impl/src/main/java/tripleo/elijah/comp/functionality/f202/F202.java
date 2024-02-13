@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.stages.logging.*;
+import tripleo.elijah_prolific.v.V;
 
 import java.io.File;
 import java.util.Collection;
@@ -47,7 +48,9 @@ public class F202 {
 
 		final File psf = new File(file2, s2);
 		final String s1 = firstLog.getFileName();
-		pre.reportProgress(psf.toString());
+		final String a = psf.toString();
+		pre.reportProgress(a);
+		V.asv(V.e.f202_writing_logs, a);
 
 		ple.initialize(psf, s1, errSink);
 		ple.start();
