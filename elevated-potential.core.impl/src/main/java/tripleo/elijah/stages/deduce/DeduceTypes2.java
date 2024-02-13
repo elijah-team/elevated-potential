@@ -497,7 +497,7 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 				final @NotNull VariableTableEntry vte2 = generatedFunction.getVarTableEntry(to_int(agn_rhs_ia));
 				agn_lhs_ite.addPotentialType(instruction.getIndex(), vte2.getTypeTableEntry());
 			} else if (agn_rhs_ia instanceof final @NotNull FnCallArgs fca) {
-				tasticFor(agn_rhs_ia).do_assign_call(generatedFunction, aFd_ctx, agn_lhs_ite, instruction.getIndex());
+				tasticFor(agn_rhs_ia).do_assign_call(generatedFunction, aFd_ctx, agn_lhs_ite, null, instruction);
 			} else if (agn_rhs_ia instanceof IdentIA identIA) {
 				if (agn_lhs_ite.getResolvedElement() instanceof VariableStatementImpl) {
 					do_assign_normal_ident_deferred(generatedFunction, aFd_ctx, agn_lhs_ite);
