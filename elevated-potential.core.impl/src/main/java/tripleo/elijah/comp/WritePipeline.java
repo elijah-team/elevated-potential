@@ -8,6 +8,7 @@
  */
 package tripleo.elijah.comp;
 
+//import com.google.common.base.Preconditions;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import tripleo.elijah.Eventual;
-import tripleo.elijah.comp.AccessBus.AB_GenerateResultListener;
+//import tripleo.elijah.comp.AccessBus.AB_GenerateResultListener;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
@@ -45,7 +46,7 @@ import static tripleo.elijah.util.Helpers.*;
 /**
  * Created 8/21/21 10:19 PM
  */
-public class WritePipeline extends PipelineMember implements Consumer<Supplier<GenerateResult>>, AB_GenerateResultListener, GPipelineMember {
+public class WritePipeline extends PipelineMember implements Consumer<Supplier<GenerateResult>>, /*AB_GenerateResultListener,*/ GPipelineMember {
 	@Getter
 	private final          Eventual<GenerateResult> generateResultPromise = new Eventual<>();
 	@Getter
@@ -87,7 +88,10 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 
 		cih = new CompletedItemsHandler(st);
 
-		pa.getAccessBus().subscribe_GenerateResult(this::gr_slot);
+		pa.getAccessBus().subscribe_GenerateResult(gr1 -> {
+			latch.notifyData(gr1); //gr_slot(gr1);
+			gr1.subscribeCompletedItems(cih.observer());
+		});
 		pa.getAccessBus().subscribe_GenerateResult(generateResultPromise::resolve);
 
 		pa.setWritePipeline(this);
@@ -161,12 +165,14 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 		return os;
 	}
 
+/*
 	@Override
-	public void gr_slot(final @NotNull GenerateResult gr1) {
-		Objects.requireNonNull(gr1);
+	public void gr_slot(final GenerateResult gr1) {
+		Preconditions.checkNotNull(gr1);
 		latch.notifyData(gr1);
 		gr1.subscribeCompletedItems(cih.observer());
 	}
+*/
 
 	@Override
 	public void run(final Ok aSt, final CB_Output aOutput) {
