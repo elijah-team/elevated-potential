@@ -93,7 +93,7 @@ public class DefaultCompilerController implements CompilerController {
 
 		((DefaultCompilationBus) cb).runProcesses();
 
-		c.getFluffy().checkFinishEventuals(); // [T096-258] // This is elevated
+		c.getFluffy().checkFinishEventuals();
 	}
 
 	public static class _DefaultCon implements Con {

@@ -255,8 +255,6 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 		aController.processOptions();
 		aController.runner();
-
-		// getFluffy().checkFinishEventuals(); // [T096-258] // commented here (from congenial)
 	}
 
 	@Override
