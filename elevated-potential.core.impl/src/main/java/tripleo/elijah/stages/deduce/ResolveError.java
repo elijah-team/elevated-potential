@@ -81,6 +81,10 @@ public class ResolveError extends GResolveError implements Diagnostic {
 	public @NotNull Severity severity() {
 		return Severity.ERROR;
 	}
+
+	public @Nullable IdentExpression _ident() {
+		return ident;
+	}
 }
 
 //

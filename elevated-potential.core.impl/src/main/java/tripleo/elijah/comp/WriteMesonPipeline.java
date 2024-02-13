@@ -21,6 +21,7 @@ import tripleo.elijah.stages.functionality.f292.F292_WriteRoot;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.io.*;
+import tripleo.elijah_prolific.v.V;
 
 import java.io.*;
 import java.util.*;
@@ -222,6 +223,9 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 
 			@NotNull final EG_Statement stmt = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("WriteMesonPipeline"));
 			final String         s   = ppath.toString();
+
+			V.asv(V.e.WMP_write_prelude, ""+ppath);
+
 			final EOT_OutputFile off = new EOT_OutputFileImpl(List_of(), s, EOT_OutputType.BUILD, stmt);
 			c.getOutputTree().add(off);
 		}

@@ -14,6 +14,7 @@ import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.io.DisposableCharSink;
+import tripleo.elijah_prolific.v.V;
 import tripleo.wrap.File;
 
 import java.io.IOException;
@@ -109,6 +110,8 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 
 		try (final DisposableCharSink xx = c.getIO().openWrite(path)) {
 			xx.accept(seq.getText());
+
+			V.asv(V.e.WP_write_files, ""+path);
 
 			return Operation.success(true);
 		} catch (Exception aE) {
