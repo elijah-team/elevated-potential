@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.nio.file.*;
 import java.util.*;
 
+import tripleo.elijah_prolific.v.V;
 import tripleo.wrap.File;
 
 public class IO_ implements IO {
@@ -37,6 +38,7 @@ public class IO_ implements IO {
 	@Override
 	public @NotNull DisposableCharSink openWrite(final @NotNull Path p) throws IOException {
 		record(FileOption.WRITE, p);
+		V.asv(V.e.IO_openWrite, ""+p);
 		return new FileCharSink(Files.newOutputStream(p));
 	}
 

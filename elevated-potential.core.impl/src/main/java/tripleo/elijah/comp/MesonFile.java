@@ -5,6 +5,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah_prolific.v.V;
 
 import java.util.*;
 import java.util.stream.*;
@@ -19,14 +20,16 @@ class MesonFile implements EG_Statement {
 	private final CompilerInstructions compilerInstructions;
 	private final CP_Path              path;
 
-	MesonFile(final WriteMesonPipeline aWriteMesonPipeline, final String aASubDir,
-			final Multimap<CompilerInstructions, String> aLspOutputs, final CompilerInstructions aCompilerInstructions,
-			final CP_Path aPath) {
-		writeMesonPipeline = aWriteMesonPipeline;
-		aSub_dir = aASubDir;
-		lsp_outputs = aLspOutputs;
+	MesonFile(final WriteMesonPipeline aWriteMesonPipeline,
+			  final String aSubDir,
+			  final Multimap<CompilerInstructions, String> aLspOutputs,
+			  final CompilerInstructions aCompilerInstructions,
+			  final CP_Path aPath) {
+		writeMesonPipeline   = aWriteMesonPipeline;
+		aSub_dir             = aSubDir;
+		lsp_outputs          = aLspOutputs;
 		compilerInstructions = aCompilerInstructions;
-		path = aPath;
+		path                 = aPath;
 	}
 
 	@Override
@@ -60,6 +63,8 @@ class MesonFile implements EG_Statement {
 		sb.append("\n");
 		sb.append(String.format("%s_dep = declare_dependency( link_with: %s )", aSub_dir, aSub_dir)); // include_directories
 		sb.append("\n");
+
+		V.asv(V.e.WMP_write_lsp, ""+path);
 
 		final String s = sb.toString();
 		return s;

@@ -174,8 +174,8 @@ public class FT_FnCallArgs implements ITastic {
 
 	@Override
 	public void do_assign_call(final @NotNull BaseEvaFunction generatedFunction,
-	                           final @NotNull Context ctx,
-	                           final @NotNull IdentTableEntry idte,
+							   final @NotNull Context ctx,
+							   final @NotNull IdentTableEntry idte,
 							   final @NotNull FnCallArgs fca,
 							   final @NotNull Instruction instruction) {
 		final int                     instructionIndex = instruction.getIndex();
@@ -272,10 +272,10 @@ public class FT_FnCallArgs implements ITastic {
 	                           final @NotNull VariableTableEntry vte,
 	                           final @NotNull Instruction instruction,
 	                           final OS_Element aName) {
-		final DeduceTypes2.DeduceClient4 client4 = deduceTypes2._inj().new_DeduceClient4(deduceTypes2);
-		final DoAssignCall dac = deduceTypes2._inj().new_DoAssignCall(client4, generatedFunction, this);
-		final int instructionIndex = instruction.getIndex();
-		final @NotNull ProcTableEntry pte = ((ProcIA) fca.getArg(0)).getEntry();
+		final DeduceTypes2.DeduceClient4 client4          = deduceTypes2._inj().new_DeduceClient4(deduceTypes2);
+		final DoAssignCall               dac              = deduceTypes2._inj().new_DoAssignCall(client4, generatedFunction, this);
+		final int                        instructionIndex = instruction.getIndex();
+		final @NotNull ProcTableEntry    pte              = ((ProcIA) fca.getArg(0)).getEntry();
 
 		if (aName instanceof IdentExpression ie) {
 			ie.getName().addUnderstanding(deduceTypes2._inj().new_ENU_FunctionCallTarget(pte));

@@ -22,6 +22,7 @@ import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah_prolific.v.V;
 
 import java.util.*;
 import java.util.stream.*;
@@ -396,13 +397,14 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 		}
 	}
 
-	private void __loop1__PROCEDURE_CALL(final ProcTableEntry pte, final @NotNull ProcedureCallExpression pce,
-			final @NotNull FT_FCA_Ctx fdctx) {
-		final DeduceTypes2.DeduceClient4 dc = fdctx.dc();
-		final ErrSink errSink = fdctx.errSink();
-		final TypeTableEntry tte = fdctx.tte();
-		final BaseEvaFunction generatedFunction = fdctx.generatedFunction();
-		final Context ctx = fdctx.ctx();
+	private void __loop1__PROCEDURE_CALL(final ProcTableEntry pte,
+										 final @NotNull ProcedureCallExpression pce,
+										 final @NotNull FT_FCA_Ctx fdctx) {
+		final DeduceTypes2.DeduceClient4 dc                = fdctx.dc();
+		final ErrSink                    errSink           = fdctx.errSink();
+		final TypeTableEntry             tte               = fdctx.tte();
+		final BaseEvaFunction            generatedFunction = fdctx.generatedFunction();
+		final Context                    ctx               = fdctx.ctx();
 
 		var dt2 = dc.get();
 
@@ -452,6 +454,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 			dc.reportDiagnostic(aResolveError);
 			tte.setAttached(
 					dt2._inj().new_OS_UnknownType(dt2._inj().new_StatementWrapperImpl(pce.getLeft(), null, null)));
+			V.asv(V.e.DT2_1785, ""+aResolveError);
 		}
 	}
 

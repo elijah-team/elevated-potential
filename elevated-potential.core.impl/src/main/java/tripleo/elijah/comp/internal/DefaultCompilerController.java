@@ -7,6 +7,7 @@ import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.g.GCompilationEnclosure;
 import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
+import tripleo.elijah_prolific.v.V;
 
 import java.util.*;
 
@@ -94,6 +95,7 @@ public class DefaultCompilerController implements CompilerController {
 		((DefaultCompilationBus) cb).runProcesses();
 
 		c.getFluffy().checkFinishEventuals();
+		V.exit();
 	}
 
 	public static class _DefaultCon implements Con {

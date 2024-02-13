@@ -13,6 +13,7 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
+import tripleo.elijah_prolific.v.V;
 
 import java.util.*;
 import java.util.function.*;
@@ -216,6 +217,9 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 								}
 							});
 							final int y = 2;
+						} else {
+//							System.err.println("=== 399-147 ================================");
+							V.asv(V.e.d399_147, rl.getText());
 						}
 					}
 				}

@@ -19,6 +19,8 @@ import java.nio.file.*;
 import java.util.*;
 
 import static tripleo.elijah.util.Helpers.List_of;
+
+import tripleo.elijah_prolific.v.V;
 import tripleo.wrap.File;
 
 public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
@@ -102,11 +104,15 @@ public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
 			// Stupidity.println_err_3("8383 " + s1);
 
 			// TODO nested promises is a latch
-			writePipeline.getGenerateResultPromise().then((final @NotNull GenerateResult result) -> {
+			writePipeline.getGenerateResultPromise().then((final @NotNull GenerateResult aGenerateResult) -> {
 				final GenerateResult result1 = st.getGr();
+
+				assert result1 == aGenerateResult;
+
 				final LSPrintStream  sps     = new LSPrintStream();
 
 				DebugBuffersLogic.debug_buffers_logic(result1, sps);
+				V.gri(aGenerateResult);
 
 				final LSPrintStream.LSResult _s = sps.getResult();
 
