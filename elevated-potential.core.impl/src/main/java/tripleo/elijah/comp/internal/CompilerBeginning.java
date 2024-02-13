@@ -5,11 +5,10 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.IProgressSink;
 
 import java.util.List;
-import java.util.Objects;
 
 public record CompilerBeginning(
 		Compilation compilation,
-		CompilerInstructions compilerInstructions,
+		CompilerInstructions rootCI,
 		List<CompilerInput> compilerInput,
 		IProgressSink progressSink,
 		Compilation.CompilationConfig cfg
@@ -20,7 +19,7 @@ public record CompilerBeginning(
 	public String toString() {
 		return "CompilerBeginning[" +
 				"compilation=" + compilation + ", " +
-				"compilerInstructions=" + compilerInstructions + ", " +
+				"rootCI=" + rootCI + ", " +
 				"compilerInput=" + compilerInput + ", " +
 				"progressSink=" + progressSink + ", " +
 				"cfg=" + cfg + ']';

@@ -24,14 +24,14 @@ public class CX_realParseEzFile2 {
 	//
 	//	var opt_ci = ezCache.get(absolutePath);
 	//	if (opt_ci.isPresent()) {
-	//		CompilerInstructions compilerInstructions = opt_ci.get();
+	//		CompilerInstructions rootCI = opt_ci.get();
 	//
 	//		// TODO 04/10
 	//		// /*EzFileIdentity??*/(MAP/*??*/, resolver is try stmt)
 	//		// ...queryDB.attach(compilerInput, new EzFileIdentity_Sha256($hash)); // ??
-	//		c.getObjectTree().asseverate(compilerInstructions, Asseverate.CI_CACHED);
+	//		c.getObjectTree().asseverate(rootCI, Asseverate.CI_CACHED);
 	//
-	//		return Operation.success(compilerInstructions);
+	//		return Operation.success(rootCI);
 	//	}
 	//
 	//	try {
