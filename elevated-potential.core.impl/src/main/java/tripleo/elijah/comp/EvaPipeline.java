@@ -10,6 +10,7 @@ package tripleo.elijah.comp;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.DebugFlags;
+import tripleo.elijah.Eventual;
 import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.CB_OutputString;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
@@ -20,14 +21,19 @@ import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.lang.i.FunctionDef;
+import tripleo.elijah.lang.i.FormalArgListItem;
 import tripleo.elijah.lang.i.OS_NamedElement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import tripleo.elijah.nextgen.outputstatement.ReasonedStringListStatement;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.DoubleLatch;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.stages.instructions.Instruction;
 import tripleo.elijah.util.Ok;
+import tripleo.elijah.world.i.LivingFunction;
+import tripleo.elijah.world.i.LivingRepo;
 
 import java.util.*;
 

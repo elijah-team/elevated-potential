@@ -16,8 +16,9 @@ public enum CK_SourceFileFactory { ;
 		}
 	}
 
-	public static CK_SourceFile get(final tripleo.wrap.@NotNull File directory, final String file_name, final K aK) {
+	public static CK_SourceFile get(final @NotNull tripleo.wrap.File directory, final String file_name, final K aK) {
 		return switch (aK) {
+		case SpecifiedEzFile -> new CK_SourceFile__SpecifiedEzFile(new tripleo.wrap.File(directory, file_name));
 		case ElaboratedEzFile -> new CK_SourceFile__ElaboratedEzFile(directory, file_name);
 		case ElaboratedElijahFile ->  new CK_SourceFile__ElaboratedElijahFile(directory, file_name);
 		default -> null;

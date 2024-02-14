@@ -93,7 +93,6 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 
 	@Override
 	public void advise(final CompilerInput aAdvisement) {
-		//throw new UnintendedUseException("copy paste");
 		System.err.println("Ignoring CompilerInstructions::advise for " + aAdvisement.getInp());
 	}
 
