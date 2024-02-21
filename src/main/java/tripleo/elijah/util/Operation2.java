@@ -1,7 +1,6 @@
 package tripleo.elijah.util;
 
 import org.jetbrains.annotations.*;
-//import tripleo.elijah.comp.diagnostic.*;
 import tripleo.elijah.diagnostic.*;
 
 /**
@@ -58,7 +57,11 @@ public class Operation2<T> {
 		return Operation2.failure(new ExceptionDiagnostic(aE));
 	}
 
-	public Diagnostic failure() {
+	public static <T> Operation2<T> failure(String s) {
+		return Operation2.failure(new ExceptionDiagnostic(new Exception(s)));
+	}
+
+    public Diagnostic failure() {
 		return exc;
 	}
 
