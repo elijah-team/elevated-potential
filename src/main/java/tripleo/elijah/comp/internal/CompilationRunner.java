@@ -5,14 +5,12 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.caches.*;
-import tripleo.elijah.comp.generated.CompilationAlways;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.comp.process.CB_StartCompilationRunnerAction;
 import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.g.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
 
@@ -21,12 +19,12 @@ import java.util.function.*;
 public class CompilationRunner extends _RegistrationTarget implements ICompilationRunner {
 	public final @NotNull  EzCache                         ezCache;
 	private final @NotNull Compilation                     _compilation;
-	private final @NotNull ICompilationBus                 cb;
 	@Getter
 	private final @NotNull CR_State                        crState;
 	@Getter
 	private final @NotNull IProgressSink                   progressSink;
 	private /*@NotNull*/ CB_StartCompilationRunnerAction startAction;
+	private final Consumer<CB_Process> adder;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
 		this(
@@ -45,11 +43,13 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		compilationEnclosure.provideCompilationAccess(aca);
 		compilationEnclosure.provideCompilationBus(scb);
 
-		cb           = compilationEnclosure.getCompilationBus();
-		progressSink = cb.defaultProgressSink();
+		final ICompilationBus cb = compilationEnclosure.getCompilationBus();
+        progressSink = cb.defaultProgressSink();
 		crState      = aCrState;
-		ezCache      = new DefaultEzCache((Compilation) aca.getCompilation());
-	}
+		ezCache      = new DefaultEzCache(_compilation);
+
+        adder = (CB_Process aProcess) -> cb.add(aProcess);
+    }
 
 	public Compilation _accessCompilation() {
 		return _compilation;
@@ -94,7 +94,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		startAction = new CB_StartCompilationRunnerAction(this, pa, aRootCI);
 		// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
 		//  24/01/14 aka notate is a injector, donchaknow
-		cb.add(startAction.cb_Process());
+		adder.accept(startAction.cb_Process());
 	}
 
 	@Override
@@ -105,14 +105,14 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	public static class __CompRunner_Monitor implements CB_Monitor {
 		@Override
 		public void reportFailure(final CB_Action action, final CB_Output output) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(""+output.get());
+			SimplePrintLoggerToRemoveSoon.println_err_4(""+output.get());
 		}
 
 		@Override
 		public void reportSuccess(final CB_Action action, final CB_Output output) {
 //			NotImplementedException.raise_stop();
 			for (final CB_OutputString outputString : output.get()) {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
+				SimplePrintLoggerToRemoveSoon.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
 			}
 		}
 	}
