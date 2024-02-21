@@ -24,6 +24,8 @@ import tripleo.wrap.File;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -243,5 +245,33 @@ public class CP_OutputPathImpl implements CP_OutputPath {
 
 	public CP_Path paths_outputRoot() {
 		return c.paths().outputRoot();
+	}
+
+	public static class __PathPromiseCalculator {
+		private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss");
+		private       String            date;
+		private       String            c_name;
+
+		public String c_name() {
+			return c_name;
+		}
+
+		public void calc(String c_name) {
+			final LocalDateTime localDateTime = LocalDateTime.now();
+			final String        date          = formatter.format(localDateTime); // 15-02-2022 12:43
+
+			this.c_name = c_name;
+			this.date   = date;
+		}
+
+		public String date() {
+			return date;
+		}
+
+		public CP_Path getP(final @NotNull CP_OutputPathImpl aCPOutputPath) {
+			final CP_Path outputRoot = aCPOutputPath.paths_outputRoot();
+
+			return outputRoot.child(c_name).child(date);
+		}
 	}
 }
