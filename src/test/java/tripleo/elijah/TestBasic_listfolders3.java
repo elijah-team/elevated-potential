@@ -35,12 +35,12 @@ public class TestBasic_listfolders3 {
 		assertThat(REPORTS.inputFilenames()).containsExactly(aaa, aab);
 
 		final String baa = "/Prelude/Arguments.h";
-		final String bae = "/Prelude/Arguments.c";
-		final String bab = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.c";
-		final String bac = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.h";
-		final String baf = "/listfolders3/Main.c";
-		final String bah = "/listfolders3/Main.h";
-		assertThat(REPORTS.outputFilenames()).containsExactly(baf, bah, baa, bae, bab, bac);
+		final String bab = "/Prelude/Arguments.c";
+		final String bac = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.c";
+		final String bad = "/listfolders3/wpkotlin_c.demo.list_folders/MainLogic.h";
+		final String bae = "/listfolders3/Main.c";
+		final String baf = "/listfolders3/Main.h";
+		assertThat(REPORTS.outputFilenames()).containsExactly(baf, bad , baa, bae, bab, bac);
 		assertThat(REPORTS.outputCount()).isEqualTo(6);
 
 		assertTrue(_TB.assertLiveClass("MainLogic", "wpkotlin_c.demo.list_folders", c));
