@@ -58,10 +58,6 @@ public class CIS implements Observer<CompilerInstructions> {
 		throw new UnintendedUseException();
 	}
 
-	public void set_cio(CompilerInstructionsObserver a_cio) {
-		_cio = a_cio;
-	}
-
 	public void subscribe(final @NotNull Observer<CompilerInstructions> aCio) {
 		if (DebugFlags.CIS_ocp_ci__FeatureGate) {
 			compilerInstructionsSubject.subscribe(aCio);
@@ -80,5 +76,9 @@ public class CIS implements Observer<CompilerInstructions> {
 
 	public void setProgressSink(IProgressSink aProgressSink) {
 		progressSink = aProgressSink;
+	}
+
+	public void set_cio(CompilerInstructionsObserver a_cio) {
+		_cio = a_cio;
 	}
 }
