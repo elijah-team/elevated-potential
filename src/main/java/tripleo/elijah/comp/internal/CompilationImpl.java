@@ -118,17 +118,17 @@ public class CompilationImpl extends _AbstractEventualRegister implements Compil
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink              = aErrSink;
 		io                   = aIo;
-		_con                 = new DefaultCompFactory(this);
-		lcm                  = new LCM(this);
+		_compilationNumber   = new Random().nextInt(Integer.MAX_VALUE);
 		specToModuleMap      = new HashMap<>();
 		moduleToCMMap        = new HashMap<>();
 		specToEzMap          = new HashMap<>();
 		xxx                  = new ArrayList<>();
-		_compilationNumber   = new Random().nextInt(Integer.MAX_VALUE);
-		_fluffyComp          = new FluffyCompImpl(this);
-		cfg                  = new CompilationConfig();
-		use                  = new USE(this.getCompilationClosure());
 		_cis                 = new CIS();
+		cfg                  = new CompilationConfig();
+		_con                 = new DefaultCompFactory(this);
+		lcm                  = new LCM(this);
+		_fluffyComp          = new FluffyCompImpl(this);
+		use                  = new USE(this.getCompilationClosure());
 		paths                = new CP_PathsImpl(this);
 		pathsEventual.resolve(paths);
 		_repo                = _con.getLivingRepo();
