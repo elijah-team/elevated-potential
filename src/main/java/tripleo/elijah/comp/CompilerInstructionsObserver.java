@@ -48,4 +48,8 @@ public class CompilerInstructionsObserver implements Observer<CompilerInstructio
 		// Disposable x = d;
 		// NotImplementedException.raise();
 	}
+
+	public Observer<CompilerInstructions> getObserver() {
+		return this;
+	}
 }
