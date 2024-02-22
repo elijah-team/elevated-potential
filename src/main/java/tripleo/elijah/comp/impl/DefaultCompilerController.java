@@ -2,11 +2,7 @@ package tripleo.elijah.comp.impl;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.ApacheOptionsProcessor;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.Compilation0;
-import tripleo.elijah.comp.CompilerInstructionsObserver;
-import tripleo.elijah.comp.ICompilationAccess3;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.CompilerController;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.ICompilationBus;
@@ -22,105 +18,106 @@ import tripleo.elijah.g.GCompilationEnclosure;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
 import tripleo.elijah.util2.DebugFlags;
+import tripleo.elijah_elevated.comp.W;
 
 import java.util.List;
 
 public class DefaultCompilerController implements CompilerController {
-	private static    Con                 con;
-	private final     ICompilationAccess3 ca3;
-	private           ICompilationBus     cb;
-	private @Nullable List<CompilerInput> inputs; // NullMarked explicitly can be
-	private           Compilation         c;
+    private static    Con                 con;
+    private final     ICompilationAccess3 ca3;
+    private           ICompilationBus     cb;
+    private @Nullable List<CompilerInput> inputs; // NullMarked explicitly can be
+    private           Compilation         c;
 
-	public DefaultCompilerController(final ICompilationAccess3 aCa3) {
-		ca3 = aCa3;
-	}
+    public DefaultCompilerController(final ICompilationAccess3 aCa3) {
+        ca3 = aCa3;
+    }
 
-	public Con getCon() {
-		if (con == null) {
-			con = new _DefaultCon();
-		}
-		return con;
-	}
+    public Con getCon() {
+        if (con == null) {
+            con = new _DefaultCon();
+        }
+        return con;
+    }
 
-	public void _setInputs(final Compilation0 aCompilation, final List<CompilerInput> aInputs) {
-		c = (Compilation) aCompilation;
-		assert c == ca3.getComp();
-		inputs = aInputs;
-	}
+    public void _setInputs(final Compilation0 aCompilation, final List<CompilerInput> aInputs) {
+        c = (Compilation) aCompilation;
+        assert c == ca3.getComp();
+        inputs = aInputs;
+    }
 
-	@Override
-	public void setEnclosure(final GCompilationEnclosure aCompilationEnclosure) {
-		final CompilationEnclosure ce = (CompilationEnclosure) aCompilationEnclosure;
-		_setInputs(ce.getCompilation(), ce.getCompilerInput());
-	}
+    @Override
+    public void setEnclosure(final GCompilationEnclosure aCompilationEnclosure) {
+        final CompilationEnclosure ce = (CompilationEnclosure) aCompilationEnclosure;
+        _setInputs(ce.getCompilation(), ce.getCompilerInput());
+    }
 
-	@Override
-	public void printUsage() {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("Usage: eljc [--showtree] [-sE|O] <directory or .ez file names>");
-	}
+    @Override
+    public void printUsage() {
+        tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("Usage: eljc [--showtree] [-sE|O] <directory or .ez file names>");
+    }
 
-	@Override
-	public Operation<Ok> processOptions() {
-		final OptionsProcessor             op                   = new ApacheOptionsProcessor();
-		final CompilerInstructionsObserver cio                  = new CompilerInstructionsObserver(c);
-		final CompilationEnclosure         compilationEnclosure = c.getCompilationEnclosure();
+    @Override
+    public Operation<Ok> processOptions() {
+        final OptionsProcessor             op                   = new ApacheOptionsProcessor();
+        final CompilerInstructionsObserver cio                  = new CompilerInstructionsObserver(c);
+        final CompilationEnclosure         compilationEnclosure = c.getCompilationEnclosure();
 
-		compilationEnclosure.provideCompilationAccess(c.con().createCompilationAccess());
-		cb = c.con().createCompilationBus();
-		compilationEnclosure.setCompilationBus(cb);
+        compilationEnclosure.provideCompilationAccess(c.con().createCompilationAccess());
+        cb = c.con().createCompilationBus();
+        compilationEnclosure.setCompilationBus(cb);
 
-		c.provideCio(null);
+        c.provideCio(null);
 
-		return op.process(c, inputs, cb); // TODO 09/08 Make this more complicated
-	}
+        return op.process(c, inputs, cb); // TODO 09/08 Make this more complicated
+    }
 
-	@Override
-	public void runner() {
-		runner(getCon());
-	}
+    @Override
+    public void runner() {
+        runner(getCon());
+    }
 
-	public void hook(final ICompilationRunner aCr) {
+    public void hook(final ICompilationRunner aCr) {
 
-	}
+    }
 
-	@Override
-	public void runner(final @NotNull Con con) {
-		if (DebugFlags.CLOJURE_FLAG) c.____m();
+    @Override
+    public void runner(final @NotNull Con con) {
+        if (DebugFlags.CLOJURE_FLAG) c.____m();
 
-		if (new _CLJ().clj(c)) return;
+        if (new _CLJ().clj(c)) return;
 
-		c._cis().subscribeTo(c);
+        c._cis().subscribeTo(c);
 
-		final CompilationEnclosure ce = c.getCompilationEnclosure();
+        final CompilationEnclosure ce = c.getCompilationEnclosure();
 
-		final ICompilationAccess compilationAccess = ce.getCompilationAccess();
-		assert compilationAccess != null;
+        final ICompilationAccess compilationAccess = ce.getCompilationAccess();
+        assert compilationAccess != null;
 
-		ce.provideCompilationRunner(() -> con.createCompilationRunner(compilationAccess));
-		final ICompilationRunner cr = ce.getCompilationRunner();
+        ce.provideCompilationRunner(() -> con.createCompilationRunner(compilationAccess));
+        final ICompilationRunner cr = ce.getCompilationRunner();
 
-		hook(cr);
+        hook(cr);
 
-		// eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
-		cb.add(new CB_FindCIs(cr, inputs));
-		cb.add(new CB_FindStdLibProcess(ce, cr));
+        cb.add(new CB_FindCIs(cr, inputs));
+        cb.add(new CB_FindStdLibProcess(ce, cr));
 
-		((DefaultCompilationBus) cb).runProcesses();
+        ((DefaultCompilationBus) cb).runProcesses();
 
-		c.getFluffy().checkFinishEventuals();
-	}
+        c.getFluffy().checkFinishEventuals();
+    }
 
-	public static class _DefaultCon implements Con {
-		@Override
-		public CompilationRunner createCompilationRunner(final ICompilationAccess compilationAccess) {
-			final CR_State          crState = new CR_State(compilationAccess);
-			final CompilationRunner cr      = new CompilationRunner(compilationAccess, crState);
+    public static class _DefaultCon implements Con {
+        @Override
+        public CompilationRunner createCompilationRunner(final ICompilationAccess aca) {
+            final CR_State          crState = new CR_State(aca);
+            final CompilationRunner cr      = new CompilationRunner(aca, crState, W.extractCompilationBus(aca));
 
-			crState.setRunner(cr);
+            crState.setRunner(cr);
 
-			return cr;
-		}
-	}
+            return cr;
+        }
+    }
 }
