@@ -71,7 +71,7 @@ public class CIS implements Observer<CompilerInstructions> {
 	}
 
 	public void subscribeTo(final Compilation aC) {
-		aC.subscribeCI((Observer<CompilerInstructions>) _cio);
+		aC.subscribeCI(_cio.getObserver());
 	}
 
 	public IProgressSink getProgressSink() {
