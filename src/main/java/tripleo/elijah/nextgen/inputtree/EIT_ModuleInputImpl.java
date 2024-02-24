@@ -104,7 +104,7 @@ public class EIT_ModuleInputImpl implements EIT_ModuleInput {
 	private String langOfModule() {
 		final LibraryStatementPart lsp  = module.getLsp();
 		final CompilerInstructions ci   = lsp.getInstructions();
-		final String               lang = ci.genLang() == null ? CompilationAlways.defaultPrelude() : ci.genLang();
+		final String               lang = ci.genLang().isEmpty() ? CompilationAlways.defaultPrelude() : ci.genLang().get();
 		// DEFAULT(compiler-default), SPECIFIED(gen-clause: codePoint), INHERITED(cp) // CodePoint??
 		return lang;
 	}
