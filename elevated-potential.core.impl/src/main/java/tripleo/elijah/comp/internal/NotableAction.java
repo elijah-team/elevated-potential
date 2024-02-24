@@ -25,7 +25,7 @@ class NotableAction implements CB_Action {
 
 	@Override
 	public void execute(CB_Monitor aMonitor) {
-		if (false)
+	//	if (false)
 			notable.run();
 	}
 
