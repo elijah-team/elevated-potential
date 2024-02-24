@@ -8,7 +8,20 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.rubicon.PCon;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.i.Context;
+import tripleo.elijah.lang.i.Documentable;
+import tripleo.elijah.lang.i.ExpressionKind;
+import tripleo.elijah.lang.i.FuncExpr;
+import tripleo.elijah.lang.i.GetItemExpression;
+import tripleo.elijah.lang.i.IExpression;
+import tripleo.elijah.lang.i.IdentExpression;
+import tripleo.elijah.lang.i.IdentList;
+import tripleo.elijah.lang.i.OS_Type;
+import tripleo.elijah.lang.i.ProcedureCallExpression;
+import tripleo.elijah.lang.i.Qualident;
+import tripleo.elijah.lang.i.QualidentList;
+import tripleo.elijah.lang.i.TypeCastExpression;
+import tripleo.elijah.lang.i.TypeName;
 import tripleo.elijah.lang2.BuiltInTypes;
 import tripleo.elijah.xlang.LocatableString;
 
@@ -467,7 +480,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 
 	public final @Nullable IExpression dot_expression_or_procedure_call(IExpression e1)
 			throws RecognitionException, TokenStreamException {
-		IExpression ee;
+		CiExpression ee;
 
 		Token lp2 = null;
 		ee = null;
@@ -514,9 +527,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						}
 					}
 					if (inputState.guessing == 0) {
-						CiProcedureCallExpression pce = pcon.newCiProcedureCallExpressionImpl();
-						pce.identifier(ee);
-						pce.setArgs(el);
+						CiProcedureCallExpression pce = pcon.newCiProcedureCallExpressionImpl(ee, el);
 						ee = pce;
 					}
 					match(RPAREN);
