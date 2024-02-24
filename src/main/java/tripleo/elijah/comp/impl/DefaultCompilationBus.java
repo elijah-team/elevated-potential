@@ -11,7 +11,7 @@ import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.process.DefaultCompilerDriver;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;

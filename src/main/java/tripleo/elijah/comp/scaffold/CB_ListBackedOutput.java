@@ -5,7 +5,7 @@ import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.CB_OutputString;
 import tripleo.elijah.diagnostic.CodedOperationDiagnostic;
 import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.util.*;
 

@@ -10,7 +10,6 @@ import tripleo.elijah.comp.internal.CD_CompilationRunnerStart;
 import tripleo.elijah.comp.internal.CR_State;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.util.*;
-import tripleo.elijah.util2.UnintendedUseException;
 
 import java.util.ArrayList;
 import java.util.List;

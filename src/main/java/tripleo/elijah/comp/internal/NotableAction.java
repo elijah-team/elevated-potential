@@ -5,7 +5,7 @@ import tripleo.elijah.comp.i.CB_Action;
 import tripleo.elijah.comp.i.CB_Monitor;
 import tripleo.elijah.comp.i.CB_OutputString;
 import tripleo.elijah.comp.notation.GN_Notable;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.util.ArrayList;
 import java.util.List;
