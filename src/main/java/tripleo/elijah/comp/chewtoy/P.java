@@ -68,7 +68,7 @@ public final class P {
 
 				@Override
 				public void handle(final PW_Controller pwc, final PW_PushWork otherInstance) {
-//					SimplePrintLoggerToRemoveSoon.println_err_5("777100 " + item);
+					SimplePrintLoggerToRemoveSoon.println_err_5("777100 " + item);
 				}
 
 				@Override
