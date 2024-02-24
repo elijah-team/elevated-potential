@@ -20,7 +20,6 @@ import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.inter.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.util2.Eventual;
-import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.world.impl.*;
 import tripleo.util.range.Range;
 

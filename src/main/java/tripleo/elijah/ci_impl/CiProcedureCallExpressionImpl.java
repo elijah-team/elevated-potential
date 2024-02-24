@@ -2,97 +2,108 @@ package tripleo.elijah.ci_impl;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.lang.i.ExpressionKind;
+import tripleo.elijah.util.ProgramMightBeWrongIfYouAreHere;
+import tripleo.elijah.util.UnintendedUseException;
 
 public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression {
-	private IExpression      _left;
-	private CiExpressionList expressionList = new CiExpressionListImpl();
+    private CiExpression      _left;
+    private CiExpressionList expressionList = new CiExpressionListImpl();
 
-	/**
-	 * Get the argument list
-	 *
-	 * @return the argument list
-	 */
-	@Override
-	public CiExpressionList exprList() {
-		return expressionList;
-	}
+    /**
+     * Get the argument list
+     *
+     * @return the argument list
+     */
+    @Override
+    public CiExpressionList exprList() {
+        return expressionList;
+    }
 
-	@Override
-	public CiExpressionList getExpressionList() {
-		return expressionList;
-	}
+    @Override
+    public CiExpressionList getArgs() {
+        return null;
+    }
 
-	/**
-	 * change then argument list all at once
-	 *
-	 * @param ael the new value
-	 */
-	@Override
-	public void setExpressionList(final CiExpressionList ael) {
-		expressionList = ael;
-	}
+    @Override
+    public CiExpressionList getExpressionList() {
+        return expressionList;
+    }
 
-	@Override
-	public @NotNull ExpressionKind getKind() {
-		return ExpressionKind.PROCEDURE_CALL;
-	}
+    /**
+     * change then argument list all at once
+     *
+     * @param ael the new value
+     */
+    @Override
+    public void setExpressionList(final CiExpressionList ael) {
+        expressionList = ael;
+    }
 
-	@Override
-	public void setKind(final ExpressionKind aExpressionKind) {
-		throw new UnintendedUseException();
-	}
+    @Override
+    public @NotNull CiExpressionKind getKind() {
+        return CiExpressionKind.PROCEDURE_CALL;
+    }
 
-	@Override
-	public IExpression getLeft() {
-		return _left;
-	}
+//    @Override
+//    public void setKind(final ExpressionKind aExpressionKind) {
+//        throw new UnintendedUseException();
+//    }
 
-	/**
-	 * @see #identifier()
-	 */
-	@Override
-	public void setLeft(final IExpression iexpression) {
-		_left = iexpression;
-	}
+    @Override
+    public CiExpression getLeft() {
+        return _left;
+    }
 
-	@Override
-	public boolean is_simple() {
-		throw new UnintendedUseException();
-	}
+    /**
+     * @see #identifier()
+     */
+    @Override
+    public void setLeft(final CiExpression CiExpression) {
+        _left = CiExpression;
+    }
 
-	/**
-	 * Set the left hand side of the procedure call expression, ie the method name
-	 *
-	 * @param xyz a method name might come as DotExpression or IdentExpression
-	 */
-	@Override
-	public void identifier(final IExpression xyz) {
-		setLeft(xyz);
-	}
+    @Override
+    public boolean is_simple() {
+        throw new UnintendedUseException();
+    }
 
-	@Override
-	public String printableString() {
-		return String.format("%s%s", getLeft(), expressionListPrintableString());
-	}
+    /**
+     * Set the left hand side of the procedure call expression, ie the method name
+     *
+     * @param xyz a method name might come as DotExpression or IdentExpression
+     */
+    @Override
+    public void identifier(final CiExpression xyz) {
+        setLeft(xyz);
+    }
 
-	private String expressionListPrintableString() {
-		return expressionList != null ? expressionList.toString() : "()";
-	}
+    @Override
+    public String printableString() {
+        return String.format("%s%s", getLeft(), expressionListPrintableString());
+    }
 
-	@Override
-	public String repr_() {
-		return "ProcedureCallExpression{%s %s}".formatted(getLeft(), expressionListPrintableString());
-	}
+    private String expressionListPrintableString() {
+        return expressionList != null ? expressionList.toString() : "()";
+    }
 
-	@Override
-	public String toString() {
-		return repr_();
-	}
+    @Override
+    public String repr_() {
+        return "ProcedureCallExpression{%s %s}".formatted(getLeft(), expressionListPrintableString());
+    }
 
-	@Override
-	public void setArgs(CiExpressionList aEl) {
-		throw new UnintendedUseException();
-	}
+    @Override
+    public void setKind(CiExpressionKind aCiExpressionKind) {
+        throw new ProgramMightBeWrongIfYouAreHere();
+    }
+
+    @Override
+    public String toString() {
+        return repr_();
+    }
+
+//    @Override
+    public void setArgs(CiExpressionList aEl) {
+        throw new UnintendedUseException();
+    }
 }

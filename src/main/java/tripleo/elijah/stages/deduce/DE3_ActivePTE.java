@@ -12,7 +12,7 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util2.Eventual;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.work.*;
 import tripleo.elijah.world.i.*;
 

@@ -39,12 +39,12 @@ public class DeferredMember {
 	private final DeferredObject<GenType, Diagnostic, Void> typePromise = new DeferredObject<>();
 
 	private final DeferredObject<EvaNode, Void, Void> externalRef = new DeferredObject<>();
-	@Getter
+//	@Getter
 	private final IInvocation invocation;
-	@Getter
+//	@Getter
 	private final DeduceElementWrapper parent;
 
-	@Getter
+//	@Getter
 	private final VariableStatementImpl variableStatement;
 
 	private final DeferredMemberInjector __inj = new DeferredMemberInjector();

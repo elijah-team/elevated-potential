@@ -10,7 +10,7 @@ import tripleo.elijah.comp.nextgen.i.CP_StdlibPath;
 import tripleo.elijah.comp.process.CPX_CalculateFinishParse;
 import tripleo.elijah.nextgen.ER_Node;
 import tripleo.elijah.util.Ok;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -14,7 +14,7 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.util2.Eventual;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.util.function.*;
 

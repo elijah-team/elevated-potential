@@ -8,7 +8,7 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import lombok.*;
+//import lombok.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
@@ -23,11 +23,11 @@ import java.util.function.*;
  * Created 5/16/21 12:41 AM
  */
 public class WlGenerateClass implements WorkJob {
-	@Getter
+//	@Getter
 	private final @NotNull ClassStatement classStatement;
-	@Getter
+//	@Getter
 	private final @NotNull ClassInvocation classInvocation;
-	@Getter
+//	@Getter
 	private final GenerateFunctions generateFunctions;
 	private final DeducePhase.GeneratedClasses coll;
 	private final @NotNull RegisterClassInvocation_env __passthru_env;

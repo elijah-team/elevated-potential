@@ -19,7 +19,7 @@ import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.util2.ReadySupplier_1;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.util.*;
 

@@ -10,7 +10,7 @@
  */
 package tripleo.elijah.ci;
 
-import antlr.*;
+import antlr.Token;
 
 public interface CiIndexingStatement {
 	void setExprs(CiExpressionList el);

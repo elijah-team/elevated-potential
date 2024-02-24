@@ -1,8 +1,8 @@
 package tripleo.elijah.comp.inputs;
 
 import com.google.common.base.Preconditions;
-import lombok.Getter;
-import lombok.experimental.Accessors;
+//import lombok.Getter;
+//import lombok.experimental.Accessors;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.CompilerInstructions;
@@ -13,7 +13,7 @@ import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.queries.QSEZ_Reasoning;
 import tripleo.elijah.util.Maybe;
 import tripleo.elijah.util.Operation2;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.util2.__Extensionable;
 import tripleo.wrap.File;
 
@@ -26,7 +26,7 @@ public class CompilerInput_ extends __Extensionable implements CompilerInput {
 	private final String                inp;
 	private                 Maybe<ILazyCompilerInstructions> accept_ci;
 	private                 File                             dir_carrier;
-	@Getter @Accessors(fluent = true)
+//	@Getter @Accessors(fluent = true)
 	private                 Ty                               ty;
 	private                 String                           hash;
 	private                 CompilerInputMaster              master;

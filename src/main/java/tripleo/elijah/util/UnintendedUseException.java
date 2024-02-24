@@ -1,4 +1,4 @@
-package tripleo.elijah.util2;
+package tripleo.elijah.util;
 
 /**
  * <p>Prompt:

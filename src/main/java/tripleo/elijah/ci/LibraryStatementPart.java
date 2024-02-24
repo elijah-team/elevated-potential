@@ -9,20 +9,19 @@
  */
 package tripleo.elijah.ci;
 
-import antlr.*;
-import tripleo.elijah.lang.i.*;
+import antlr.Token;
 
 public interface LibraryStatementPart {
-	void addDirective(Token token, IExpression iExpression);
+	void addDirective(Token token, CiExpression iExpression);
 
 	// TODO PossiblyQuotedString + getFileName + filenamepolicy.apply...
 	String getDirName();
 
 	CompilerInstructions getInstructions();
 
-	String getName();
-
 	void setDirName(Token dirName);
+
+	String getName();
 
 	void setInstructions(CompilerInstructions instructions);
 

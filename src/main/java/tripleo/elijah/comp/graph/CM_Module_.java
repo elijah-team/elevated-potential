@@ -1,10 +1,6 @@
 package tripleo.elijah.comp.graph;
 
-import java.io.InputStream;
-
 import com.google.common.base.Preconditions;
-import tripleo.elijah.lang.i.Precondition;
-import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.Compilation0;
@@ -16,8 +12,11 @@ import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Operation2;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
+
+import java.io.InputStream;
 
 public class CM_Module_ implements CM_Module {
 	private Operation2<OS_Module> moduleOperation;

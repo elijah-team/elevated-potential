@@ -18,7 +18,7 @@ import static tripleo.elijah.util.Helpers.List_of;
 
 // FIXME 24/01/14 are we checking twice???
 public class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
-	@Getter
+//	@Getter
 	private final  CB_Output o;
 	private final          CompilationRunner    compilationRunner;
 	private final          CompilerInstructions rootCI;

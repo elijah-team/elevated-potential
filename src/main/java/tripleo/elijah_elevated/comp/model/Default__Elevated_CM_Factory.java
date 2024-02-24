@@ -6,6 +6,7 @@ import tripleo.elijah.comp.graph.CM_Ez_;
 import tripleo.elijah.comp.specs.EzSpec;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.wrap.File;
 
 import java.io.FileNotFoundException;
@@ -121,5 +122,11 @@ public class Default__Elevated_CM_Factory implements Elevated_CM_Factory {
 		                                           s);
 		fn2cmm.put(aFileName, result);
 		return spec;
+	}
+
+	@Override
+	public CM_Lang getLang(String c) {
+//		return null;
+		throw new UnintendedUseException("implement me");
 	}
 }

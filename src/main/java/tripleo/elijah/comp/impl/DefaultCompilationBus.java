@@ -11,7 +11,7 @@ import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.comp.internal_move_soon.CompilationEnclosure;
 import tripleo.elijah.comp.process.DefaultCompilerDriver;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -21,7 +21,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 	public static final int DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG = 5757;
 
 	private final          CB_Monitor        _monitor;
-	@Getter
+//	@Getter
 	private final @NotNull CompilerDriver    compilerDriver;
 	private final @NotNull Compilation                     c;
 	private final          MessagePassingQueue<CB_Process> pq = H.createQueue();

@@ -17,4 +17,6 @@ public interface Elevated_CM_Factory {
 	CM_Resource resourceFor(String aFilename);
 
 	EzSpec mkEzSpec(String aFileName, File aFile, Consumer<Operation<EzSpec>> cb);
+
+    CM_Lang getLang(String c);
 }

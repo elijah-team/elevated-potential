@@ -9,7 +9,7 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.inter.*;
 import tripleo.elijah.util2.ReadySupplier_1;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 
 public class DeduceElement3_Constructor implements IDeduceElement3 {
 	private final EvaConstructor evaConstructor;

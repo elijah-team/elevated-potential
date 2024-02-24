@@ -8,50 +8,40 @@
  */
 package tripleo.elijah.ci_impl;
 
-import antlr.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.xlang.LocatableString;
+import antlr.Token;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.ci.CiExpression;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.ci.LibraryStatementPart;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created 9/6/20 12:06 PM
  */
 public class LibraryStatementPartImpl implements LibraryStatementPart {
-	public class Directive {
-		private final          IExpression     expression;
-		private final @NotNull LocatableString name;
-
-		public Directive(final @NotNull Token token_, final IExpression expression_) {
-			name = LocatableString.of(token_);
-			expression = expression_;
-		}
-	}
-
-	@Override
-	public String toString() {
-		return "<LSP `%s` in `%s`>".formatted(this.name, this.ci.getName());
-	}
-
 	private CompilerInstructions ci;
 	private String               dirName;
-
-	private String name;
-
+	private String               name;
 	private @Nullable List<Directive> dirs = null;
 
 	@Override
-	public void addDirective(final @NotNull Token token, final IExpression iExpression) {
+	public void addDirective(final Token token, final CiExpression iExpression) {
 		if (dirs == null)
-			dirs = new ArrayList<>();
+			dirs = new ArrayList<Directive>();
 		dirs.add(new Directive(token, iExpression));
 	}
 
 	@Override
 	public String getDirName() {
 		return dirName;
+	}
+
+	@Override
+	public void setDirName(final @NotNull Token dirName) {
+		this.dirName = dirName.getText();
 	}
 
 	@Override
@@ -65,8 +55,8 @@ public class LibraryStatementPartImpl implements LibraryStatementPart {
 	}
 
 	@Override
-	public void setDirName(final @NotNull Token dirName) {
-		this.dirName = dirName.getText();
+	public void setName(final @NotNull Token i1) {
+		name = i1.getText();
 	}
 
 	@Override
@@ -74,9 +64,15 @@ public class LibraryStatementPartImpl implements LibraryStatementPart {
 		ci = instructions;
 	}
 
-	@Override
-	public void setName(final @NotNull Token i1) {
-		name = i1.getText();
+	public class Directive {
+
+		private final CiExpression expression;
+		private final String       name;
+
+		public Directive(final @NotNull Token token_, final CiExpression expression_) {
+			name       = token_.getText();
+			expression = expression_;
+		}
 	}
 
 }

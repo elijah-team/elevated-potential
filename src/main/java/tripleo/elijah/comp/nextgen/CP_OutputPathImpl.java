@@ -18,7 +18,7 @@ import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.elijah.util2.Eventual;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah_elevated.gu.R;
 import tripleo.wrap.File;
 
