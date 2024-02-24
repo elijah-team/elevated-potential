@@ -9,7 +9,20 @@
 package tripleo.elijah.ci;
 
 import antlr.Token;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.xlang.LocatableString;
 
 public interface GenerateStatement {
-	void addDirective(Token token, CiExpression expression);
+	default void addDirective(Token token, CiExpression expression) { addDirective(LocatableString.of(token), expression); }
+	void addDirective(LocatableString token, CiExpression expression);
+
+	public record Directive(CiExpression    expression, @NotNull LocatableString name) {
+		public boolean sameName(String aName) {
+			return this.name.sameString(aName);
+		}
+
+//		public CiExpression getExpression() {
+//			return this.expression;
+//		}
+	}
 }

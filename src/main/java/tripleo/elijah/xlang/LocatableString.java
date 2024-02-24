@@ -1,25 +1,34 @@
 package tripleo.elijah.xlang;
 
 import antlr.Token;
-import tripleo.elijah.ci_impl.GenerateStatementImpl;
 import tripleo.elijah.diagnostic.Locatable;
+import tripleo.elijah.util.UnintendedUseException;
+
+import java.util.Objects;
 
 public interface LocatableString {
-	public static LocatableString of(Token aToken) {
+	static LocatableString of(Token aToken) {
 		return new LocatableString() {
-			@Override
-			public Locatable getLocatable() {
-				return null;
-			}
-
-			@Override
-			public String getString() {
+			@Override public String asLocatableString() {
 				return aToken.getText();
 			}
 		};
 	}
 
-	Locatable getLocatable();
+	static LocatableString of(String aAbsolutePath) {
+		return new LocatableString() {
+			@Override
+			public String asLocatableString() {
+				return aAbsolutePath;
+			}
+		};
+	}
 
-	String getString();
+	default Locatable getLocatable() { throw new UnintendedUseException("implement or delete");	}
+
+	String asLocatableString();
+
+	default boolean sameString(String aName) {
+		return Objects.equals(aName, asLocatableString());
+	}
 }
