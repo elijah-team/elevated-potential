@@ -1,90 +1,96 @@
 package tripleo.elijah.comp.rubicon;
 
 import antlr.Token;
-import tripleo.elijah.ci.*;
+import tripleo.elijah.ci.CiExpression;
+import tripleo.elijah.ci.CiExpressionKind;
+import tripleo.elijah.ci.CiExpressionList;
+import tripleo.elijah.ci.CiGetItemExpression;
+import tripleo.elijah.ci.CiIdentExpression;
+import tripleo.elijah.ci.CiProcedureCallExpression;
+import tripleo.elijah.ci.CiQualident;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.ci.GenerateStatement;
+import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.ci_impl.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.lang.types.OS_BuiltinType;
-import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.lang.impl.ExpressionBuilder;
 import tripleo.elijjah.EzParser;
 
 public class PCon {
-	public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aEk,
-											   final IExpression aE2) {
-		return ExpressionBuilder.build(aEe, aEk, aE2);
+	public CiExpression ExpressionBuilder_build(final CiExpression aEe, final CiExpressionKind aEk,
+											   final CiExpression aE2) {
+		return CiExpressionBuilder.build(aEe, aEk, aE2);
 	}
 
-	public IExpression newCharLitExpressionImpl(final Token aC) {
-		return new CharLitExpressionImpl(aC);
+	public CiExpression newCharLitExpressionImpl(final Token aC) {
+		return new CiCharLitExpressionImpl(aC);
 	}
 
 	public CompilerInstructions newCompilerInstructionsImpl() {
-		return new CompilerInstructionsImpl();
+		return null;//new CompilerInstructions(){};
 	}
 
-	public IExpression newDotExpressionImpl(final IExpression aDotExpressionLeft, final IdentExpression aDotExpressionRightIdent) {
-		return new DotExpressionImpl(aDotExpressionLeft, aDotExpressionRightIdent);
+	public CiExpression newDotExpressionImpl(final CiExpression aDotExpressionLeft, final CiIdentExpression aDotExpressionRightIdent) {
+		return new CiDotExpressionImpl(aDotExpressionLeft, aDotExpressionRightIdent);
 	}
 
-	public ExpressionList newExpressionListImpl() {
-		return new ExpressionListImpl();
+	public CiExpressionList newExpressionListImpl() {
+		return new CiExpressionListImpl();
 	}
 
-	public IExpression newFloatExpressionImpl(final Token aF) {
-		return new FloatExpressionImpl(aF);
+	public CiExpression newFloatExpressionImpl(final Token aF) {
+		return new CiFloatExpressionImpl(aF);
 	}
 
 	public GenerateStatement newGenerateStatementImpl() {
 		return new GenerateStatementImpl();
 	}
 
-	public IExpression newGetItemExpressionImpl(final IExpression aEe, final IExpression aExpr) {
-		return new GetItemExpressionImpl(aEe, aExpr);
+	public CiExpression newGetItemExpressionImpl(final CiExpression aEe, final CiExpression aExpr) {
+		return new CiGetItemExpressionImpl(aEe, aExpr);
 	}
 
-	public IdentExpression newIdentExpressionImpl(final Token aR1, final String aFilename, final Context aCur) {
-		return new IdentExpressionImpl(aR1, aFilename, aCur);
+	public CiIdentExpression newIdentExpressionImpl(final Token aR1, final String aFilename, final Context aCur) {
+		return new CiIdentExpressionImpl(aR1, aFilename, aCur);
 	}
 
-	public IdentExpression newIdentExpressionImpl(final Token aR1, final Context aCur) {
-		return new IdentExpressionImpl(aR1, aCur);
+	public CiIdentExpression newIdentExpressionImpl(final Token aR1, final Object aCur) {
+		return new CiIdentExpressionImpl(aR1, aCur);
 	}
 
 	public LibraryStatementPart newLibraryStatementPartImpl() {
 		return new LibraryStatementPartImpl();
 	}
 
-	public IExpression newListExpressionImpl() {
-		return new ListExpressionImpl();
+	public CiExpression newListExpressionImpl() {
+		return new CiListExpressionImpl();
 	}
 
-	public IExpression newNumericExpressionImpl(final Token aN) {
-		return new NumericExpressionImpl(aN);
+	public CiExpression newNumericExpressionImpl(final Token aN) {
+		return new CiNumericExpressionImpl(aN);
 	}
 
-	public OS_Type newOS_BuiltinType(final BuiltInTypes aBuiltInTypes) {
-		return new OS_BuiltinType(aBuiltInTypes);
+//	public OS_Type newOS_BuiltinType(final BuiltInTypes aBuiltInTypes) {
+//		return new OS_BuiltinType(aBuiltInTypes);
+//	}
+
+	public CiProcedureCallExpression newProcedureCallExpressionImpl() {
+		return new CiProcedureCallExpressionImpl();
 	}
 
-	public ProcedureCallExpression newProcedureCallExpressionImpl() {
-		return new ProcedureCallExpressionImpl();
+	public CiQualident newQualidentImpl() {
+		return new CiQualidentImpl();
 	}
 
-	public Qualident newQualidentImpl() {
-		return new QualidentImpl();
+	public CiExpression newSetItemExpressionImpl(final CiGetItemExpression aEe, final CiExpression aExpr) {
+		return new CiSetItemExpressionImpl(aEe, aExpr);
 	}
 
-	public IExpression newSetItemExpressionImpl(final GetItemExpression aEe, final IExpression aExpr) {
-		return new SetItemExpressionImpl(aEe, aExpr);
+	public CiExpression newStringExpressionImpl(final Token aS) {
+		return new CiStringExpressionImpl(aS);
 	}
 
-	public IExpression newStringExpressionImpl(final Token aS) {
-		return new StringExpressionImpl(aS);
-	}
-
-	public IExpression newSubExpressionImpl(final IExpression aEe) {
-		return new SubExpressionImpl(aEe);
+	public CiExpression newSubExpressionImpl(final CiExpression aEe) {
+		return new CiSubExpressionImpl(aEe);
 	}
 
 	public CiExpressionList newCiExpressionListImpl() {
@@ -95,7 +101,7 @@ public class PCon {
 		return new CiProcedureCallExpressionImpl();
 	}
 
-	public IExpression ExpressionBuilder_build(final IExpression aEe, final ExpressionKind aE2, final IExpression aE3, final OS_Type aT) {
+	public CiExpression ExpressionBuilder_build(final CiExpression aEe, final CiExpressionKind aE2, final CiExpression aE3, final Object aT) {
 		// TODO 10/15 look at me
 		return ExpressionBuilder_build(aEe, aE2, aE3);
 	}
@@ -106,5 +112,12 @@ public class PCon {
 
 		parser.pcon = pCon;
 		parser.ci   = ci;
+	}
+
+	public CiProcedureCallExpression newCiProcedureCallExpressionImpl(CiExpression ee, CiExpressionList el) {
+		var result = newCiProcedureCallExpressionImpl();
+		result.setExpressionList(el);
+		result.setLeft(ee);
+		return null;
 	}
 }
