@@ -40,7 +40,7 @@ public class MainClassEntryPoint implements EntryPoint {
 
 	private FunctionDef main_function;
 
-	@Getter
+//	@Getter
 	private final @NotNull ClassStatement klass;
 
 	public MainClassEntryPoint(@NotNull ClassStatement aKlass) {
