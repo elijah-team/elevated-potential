@@ -1,5 +1,6 @@
 package tripleo.elijah.comp.chewtoy;
 
+import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.IProgressSink;
 import tripleo.elijah.comp.i.ProgressSinkComponent;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -12,11 +13,11 @@ import tripleo.elijah.util.Ok;
 import tripleo.elijah.util2.Eventual;
 
 public class PW_CompilerController implements PW_Controller, Runnable {
-	private final CompilationImpl  compilation;
+	private final Compilation      compilation;
 	private final PW_PushWorkQueue wq;
 	private final Eventual<Ok>     abusingIt = new Eventual<>();
 
-	public PW_CompilerController(final CompilationImpl aC) {
+	public PW_CompilerController(final Compilation aC) {
 		compilation = aC;
 
 		// TODO 10/20 Make a start latch, then overcomplicate (Lifetime erl etc)
@@ -69,6 +70,6 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 	}
 
 	public CP_Paths paths() {
-		return compilation._paths();
+		return ((CompilationImpl) compilation)._paths();
 	}
 }

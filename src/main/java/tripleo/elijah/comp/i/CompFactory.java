@@ -6,7 +6,6 @@ import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.graph.i.CK_ObjectTree;
 import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.inputs.CompilerInputMaster;
-import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.chewtoy.PW_CompilerController;
 import tripleo.elijah.comp.chewtoy.Startable;
 import tripleo.elijah.comp.local.CW;
@@ -57,7 +56,7 @@ public interface CompFactory {
 
 	@NotNull CK_Monitor createCkMonitor();
 
-	@NotNull PW_CompilerController createPwController(CompilationImpl aCompilation);
+	@NotNull PW_CompilerController createPwController(Compilation aCompilation);
 
 	@NotNull Finally_ createFinally();
 
