@@ -12,6 +12,21 @@
       <option name="url" value="https://jitpack.io" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="https://gitlab.com/tripleo1/buffers" />
+      <option name="name" value="https://gitlab.com/tripleo1/buffers" />
+      <option name="url" value="https://gitlab.com/api/v4/projects/20346374/packages/maven" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="https://gitlab.com/elijah-team/api-components/model-status" />
+      <option name="name" value="https://gitlab.com/elijah-team/api-components/model-status" />
+      <option name="url" value="https://gitlab.com/api/v4/projects/53143825/packages/maven" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="https://gitlab.com/Tripleo/range" />
+      <option name="name" value="https://gitlab.com/Tripleo/range" />
+      <option name="url" value="https://gitlab.com/api/v4/projects/21223510/packages/maven" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Maven Central repository" />
       <option name="url" value="https://repo1.maven.org/maven2" />

@@ -15,7 +15,7 @@ public class DefaultWorldModule implements WorldModule {
 	private final CompilationEnclosure                          ce;
 	private final Eventual<GN_PL_Run2.GenerateFunctionsRequest> erq = new Eventual<>();
 	private       ModuleThing                                   thing;
-	private       GN_PL_Run2.GenerateFunctionsRequest           rq;
+	//private       GN_PL_Run2.GenerateFunctionsRequest           rq;
 
 	public DefaultWorldModule(final OS_Module aMod, final @NotNull CompilationEnclosure ace) {
 		mod = aMod;
@@ -39,14 +39,14 @@ public class DefaultWorldModule implements WorldModule {
 		return mod;
 	}
 
-	@Override
-	public GN_PL_Run2.GenerateFunctionsRequest rq() {
-		return rq;
-		// throw new NotImplementedException("Unexpected");
-	}
+	//@Override
+	//public GN_PL_Run2.GenerateFunctionsRequest rq() {
+	//	return rq;
+	//	// throw new NotImplementedException("Unexpected");
+	//}
 
 	public void setRq(final GN_PL_Run2.GenerateFunctionsRequest aRq) {
-		rq = aRq;
+		//rq = aRq;
 		// throw new NotImplementedException("Unexpected");
 
 		erq.resolve(aRq);

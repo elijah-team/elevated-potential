@@ -105,7 +105,7 @@ public class ClassStatementImpl extends _CommonNC implements ClassItem, ClassSta
 	}
 
 	@Override
-	public List<OS_Element2> findFunction(final String name) {
+	public List<OS_NamedElement> findFunction(final String name) {
 		return items().stream().filter(item -> item instanceof FunctionDef && !(item instanceof ConstructorDef))
 				.filter(item -> item.name().equals(name)).collect(Collectors.toList());
 	}

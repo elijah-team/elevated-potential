@@ -4,6 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.CompilerInput;
+import tripleo.elijah.comp.i.IO;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.DefaultCompilerController;
 import tripleo.elijah.nextgen.outputstatement.*;
@@ -112,13 +114,12 @@ public class SX_NodeTest2 {
 	@Disabled
 	@Test
 	public void testFullText() {
-		final StdErrSink errSink = new StdErrSink();
-		final IO io = new IO_();
-		final CompilationImpl comp = new CompilationImpl(errSink, io);
+		final StdErrSink      errSink = new StdErrSink();
+		final IO              io      = new IO_();
+		final CompilationImpl comp    = new CompilationImpl(errSink, io);
 
 		final String f = "test/basic2/while100/";
 
-		@NotNull
 		final List<CompilerInput> inps = List_of(new CompilerInput_(f));
 		comp.feedInputs(inps, new DefaultCompilerController(comp.getCompilationAccess3()));
 

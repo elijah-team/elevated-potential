@@ -3,7 +3,7 @@ package tripleo.elijah;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class _ElTaggableMixin implements _ElTaggable {
+public abstract class __Extensionable implements _Extensionable {
 	private final Map<Object, Object> exts = new HashMap<>();
 
 	@Override

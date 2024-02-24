@@ -4,7 +4,6 @@
  * The contents of this library are released under the LGPL licence v3,
  * the GNU Lesser General Public License text was downloaded from
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
  */
 package tripleo.elijah.comp;
 
@@ -21,7 +20,7 @@ import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Element2;
+import tripleo.elijah.lang.i.OS_NamedElement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 import tripleo.elijah.nextgen.outputtree.*;
@@ -196,7 +195,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 			};
 
 			final String str = "FUNCTION %d %s %s\n".formatted(code, functionName,
-															   ((OS_Element2) evaFunction.getFD().getParent()).name());
+															   ((OS_NamedElement) evaFunction.getFD().getParent()).name());
 			sb.append(str);
 			pa.activeFunction(evaFunction);
 		} else {
@@ -265,7 +264,3 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 		return this.getClass().toString();
 	}
 }
-
-//
-//
-//

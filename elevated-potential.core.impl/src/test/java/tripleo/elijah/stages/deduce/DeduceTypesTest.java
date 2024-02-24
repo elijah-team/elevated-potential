@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.Compilation0;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.internal_move_soon.*;
 import tripleo.elijah.contexts.*;
@@ -86,8 +87,8 @@ public class DeduceTypesTest {
 		final IdentExpression  x1 = Helpers0.string_to_ident("x");
 		x1.setContext(fc);
 
-		final Compilation0 compilation = mod.getCompilation();
-		final Operation2<GWorldModule> opg = compilation.findPrelude("c");
+		final Compilation0             compilation = mod.getCompilation();
+		final Operation2<GWorldModule> opg         = compilation.findPrelude("c");
 		final WorldModule success = (WorldModule)opg.success();
 
 		mod.setPrelude(success.module());

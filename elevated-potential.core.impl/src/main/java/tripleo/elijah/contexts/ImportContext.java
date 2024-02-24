@@ -68,7 +68,7 @@ public class ImportContext extends ContextImpl implements Context, IImportContex
 			for (final OS_Element element : aPackage.getElements()) {
 				// tripleo.elijah.util.Stupidity.println_err_2("4002 "+element);
 
-				if (!(element instanceof OS_Element2))
+				if (!(element instanceof OS_NamedElement))
 					continue;
 
 				if (isModuleNamespace(element)) {
@@ -80,7 +80,7 @@ public class ImportContext extends ContextImpl implements Context, IImportContex
 						Result.add(result.getName(), result.getLevel(), result.getElement(), result.getContext());
 					}
 				} else {
-					final OS_Element2 classOrNamespace_Element = (OS_Element2) element;
+					final OS_NamedElement classOrNamespace_Element = (OS_NamedElement) element;
 
 					var enl2n = classOrNamespace_Element.getEnName();
 
@@ -147,7 +147,7 @@ public class ImportContext extends ContextImpl implements Context, IImportContex
 						final NamespaceContext namespaceContext = (NamespaceContext) element.getContext();
 						alreadySearched.add(namespaceContext);
 						namespaceContext.lookup(name, level, Result, alreadySearched, true);
-					} else if (element instanceof final @NotNull OS_Element2 element2) {
+					} else if (element instanceof final @NotNull OS_NamedElement element2) {
 						if (element2.name().equals(name)) {
 							Result.add(name, level, element, this);
 							break; // shortcut: should only have one in scope

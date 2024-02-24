@@ -1,6 +1,6 @@
 package tripleo.elijah;
 
-public interface _ElTaggable {
+public interface _Extensionable {
 
 	Object getExt(Class<?> aClass);
 

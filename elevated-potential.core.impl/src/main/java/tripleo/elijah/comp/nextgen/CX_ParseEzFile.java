@@ -56,7 +56,7 @@ public enum CX_ParseEzFile {;
 			cm.advise(cio);
 			cm.advise(aEzCache.getCompilation().getObjectTree());
 		} else {
-			cio = Operation2.failure(null);
+			cio = Operation2.failure(new ExceptionDiagnostic(cis.failure()));
 		}
 		return cio;
 	}

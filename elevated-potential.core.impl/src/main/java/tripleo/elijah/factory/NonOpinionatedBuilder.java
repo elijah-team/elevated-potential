@@ -37,7 +37,7 @@ public class NonOpinionatedBuilder {
 		return input;
 	}
 
-	public DefaultCompilerController createCompilerController(final Compilation aC) {
+	public CompilerController createCompilerController(final Compilation aC) {
 		final CompilationImpl c = (CompilationImpl) aC;
 		return new DefaultCompilerController(c.getCompilationAccess3());
 	}
