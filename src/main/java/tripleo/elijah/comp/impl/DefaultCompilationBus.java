@@ -21,7 +21,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 	public static final int DEFAULT_COMPILATION_BUS__RUN_PROCESS__EXECUTE_LOG = 5757;
 
 	private final          CB_Monitor        _monitor;
-	@Getter
+//	@Getter
 	private final @NotNull CompilerDriver    compilerDriver;
 	private final @NotNull Compilation                     c;
 	private final          MessagePassingQueue<CB_Process> pq = H.createQueue();
