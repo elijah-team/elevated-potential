@@ -49,9 +49,9 @@ public class PCon {
 		return new CiGetItemExpressionImpl(aEe, aExpr);
 	}
 
-	public CiIdentExpression newIdentExpressionImpl(final Token aR1, final String aFilename, final Context aCur) {
-		return new CiIdentExpressionImpl(aR1, aFilename, aCur);
-	}
+//	public CiIdentExpression newIdentExpressionImpl(final Token aR1, final String aFilename, final Object aCur) {
+//		return new CiIdentExpressionImpl(aR1);//, aFilename, aCur);
+//	}
 
 	public CiIdentExpression newIdentExpressionImpl(final Token aR1, final Object aCur) {
 		return new CiIdentExpressionImpl(aR1, aCur);
