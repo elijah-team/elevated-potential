@@ -68,13 +68,12 @@ public class CompilerInstructionsImpl implements CompilerInstructions {
 //	@Override
 	public String genLang22() {
 		final var genLang0 = gen.dirStream()
-				.filter(input -> input.sameName("gen"))
+				.filter((GenerateStatement.Directive input) -> input.sameName("gen"))
 				.findAny() // README if you need more than one, comment this out
-				.stream().map((gin0) -> {
-					final GenerateStatementImpl.Directive gin      = (GenerateStatementImpl.Directive) gin0;
-					final IExpression                     lang_raw = gin.expression();
+				.stream().map((GenerateStatement.Directive gin0) -> {
+                    final CiExpression                     lang_raw = gin0.expression();
 
-					if (lang_raw instanceof final StringExpression langRaw) {
+					if (lang_raw instanceof final CiStringExpression langRaw) {
 						final String s = Helpers.remove_single_quotes_from_string(langRaw.getText());
 						return Optional.of(s);
 					} else {
