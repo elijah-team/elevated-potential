@@ -41,7 +41,7 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 	}
 
 	@org.jetbrains.annotations.Nullable
-	public static String getLang(final @NotNull OS_Module mod) {
+	public static String getLang(final @NotNull OS_Module mod) {  // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee: CM_Lang
 		final LibraryStatementPart lsp = mod.getLsp();
 
 		if (lsp == null) {
@@ -50,10 +50,13 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 		}
 
 		final CompilerInstructions ci    = lsp.getInstructions();
-		final @Nullable String     lang2 = ci.genLang();
-
-		final @Nullable String lang = lang2 == null ? "c" : lang2;
-		return lang;
+		Optional<String>           ol     = ci.genLang();
+		if (ol.isPresent()) {
+			final @Nullable String lang2 = ol.get();
+			return lang2;
+		} else {
+			return "c"; // fixme
+		}
 	}
 
 	@NotNull
