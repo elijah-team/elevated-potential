@@ -19,7 +19,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.regex.*;
 
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.wrap.File;
 
 @SuppressWarnings("rawtypes")

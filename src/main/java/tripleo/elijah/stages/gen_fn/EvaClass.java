@@ -9,7 +9,6 @@
 package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.g.GEvaClass;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;

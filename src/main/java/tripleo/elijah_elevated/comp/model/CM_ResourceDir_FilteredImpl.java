@@ -1,7 +1,7 @@
 package tripleo.elijah_elevated.comp.model;
 
 import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.io.File;
 import java.io.FilenameFilter;

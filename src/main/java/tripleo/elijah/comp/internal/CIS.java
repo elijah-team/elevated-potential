@@ -6,15 +6,13 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 import io.reactivex.rxjava3.subjects.Subject;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util2.DebugFlags;
-import tripleo.elijah.util2.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.CompilerInstructionsObserver;
 import tripleo.elijah.comp.i.IProgressSink;
 import tripleo.elijah.util.ObservableCompletableProcess;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah.util2.DebugFlags;
 
 public class CIS implements Observer<CompilerInstructions> {
 	private final ObservableCompletableProcess<CompilerInstructions> ocp_ci                      = new ObservableCompletableProcess<>();

@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Nullable;
 
 import tripleo.elijah.util2.DebugFlags;
 import tripleo.elijah.util2.Eventual;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.io.IOException;
 import java.nio.file.Path;

@@ -1,7 +1,7 @@
 package tripleo.elijah.comp.impl;
 
 import tripleo.elijah.comp.graph.i.CK_Monitor;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 
 public class DefaultCK_Monitor implements CK_Monitor {
 	@Override

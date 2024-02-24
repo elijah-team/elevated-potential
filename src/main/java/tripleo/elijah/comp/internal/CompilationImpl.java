@@ -57,7 +57,7 @@ import tripleo.elijah.util.*;
 import tripleo.elijah.util2.DebugFlags;
 import tripleo.elijah.util2.Eventual;
 import tripleo.elijah.util2.EventualRegister;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.util3._AbstractEventualRegister;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;

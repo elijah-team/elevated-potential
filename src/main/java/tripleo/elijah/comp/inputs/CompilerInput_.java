@@ -13,7 +13,7 @@ import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.queries.QSEZ_Reasoning;
 import tripleo.elijah.util.Maybe;
 import tripleo.elijah.util.Operation2;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.util2.__Extensionable;
 import tripleo.wrap.File;
 

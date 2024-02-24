@@ -9,9 +9,11 @@ import tripleo.elijah.comp.inputs.CompilerInput;
 import tripleo.elijah.comp.inputs.CompilerInput_;
 import tripleo.elijah.comp.inputs.ILazyCompilerInstructions_;
 import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
-import tripleo.elijah.util.*;
-import tripleo.elijah.util2.DebugFlags;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.Maybe;
+import tripleo.elijah.util.Mode;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.Operation2;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.util.*;
 

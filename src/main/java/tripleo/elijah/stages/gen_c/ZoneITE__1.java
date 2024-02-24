@@ -7,7 +7,7 @@ import tripleo.elijah.nextgen.outputstatement.IReasonedString;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah.util2.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.util.*;
 

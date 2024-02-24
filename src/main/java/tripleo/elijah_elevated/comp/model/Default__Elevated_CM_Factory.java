@@ -6,6 +6,7 @@ import tripleo.elijah.comp.graph.CM_Ez_;
 import tripleo.elijah.comp.specs.EzSpec;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.util.Operation;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.wrap.File;
 
 import java.io.FileNotFoundException;
