@@ -12,11 +12,15 @@ import antlr.Token;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.xlang.LocatableString;
 
+import java.util.stream.Stream;
+
 public interface GenerateStatement {
 	default void addDirective(Token token, CiExpression expression) { addDirective(LocatableString.of(token), expression); }
 	void addDirective(LocatableString token, CiExpression expression);
 
-	public record Directive(CiExpression    expression, @NotNull LocatableString name) {
+	Stream<Directive> dirStream();
+
+	public record Directive(@NotNull LocatableString name, CiExpression expression) {
 		public boolean sameName(String aName) {
 			return this.name.sameString(aName);
 		}
