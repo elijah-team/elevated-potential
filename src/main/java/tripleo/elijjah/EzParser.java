@@ -8,21 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.rubicon.PCon;
-import tripleo.elijah.lang.i.Context;
-import tripleo.elijah.lang.i.Documentable;
-import tripleo.elijah.lang.i.ExpressionKind;
-import tripleo.elijah.lang.i.FuncExpr;
-import tripleo.elijah.lang.i.GetItemExpression;
-import tripleo.elijah.lang.i.IExpression;
-import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.lang.i.IdentList;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.lang.i.ProcedureCallExpression;
-import tripleo.elijah.lang.i.Qualident;
-import tripleo.elijah.lang.i.QualidentList;
-import tripleo.elijah.lang.i.TypeCastExpression;
-import tripleo.elijah.lang.i.TypeName;
-import tripleo.elijah.lang2.BuiltInTypes;
 import tripleo.elijah.xlang.LocatableString;
 
 public class EzParser extends antlr.LLkParser implements EzTokenTypes {
@@ -114,10 +99,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 	public @NotNull CompilerInstructions ci;
 
 	@Nullable
-	Context cur = null;
-
-	@Nullable
-	IExpression expr;
+	CiExpression expr;
 
 	public EzParser(ParserSharedInputState state) {
 		super(state, 2);
@@ -142,12 +124,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		tokenNames = _tokenNames;
 	}
 
-	public final @Nullable IExpression additiveExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression additiveExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		ExpressionKind e2 = null;
-		IExpression e3 = null;
+		CiExpressionKind e2 = null;
+		CiExpression    e3 = null;
 
 		try { // for error handling
 			ee = multiplicativeExpression();
@@ -156,23 +138,23 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 					if ((LA(1) == PLUS || LA(1) == MINUS) && (_tokenSet_9.member(LA(2)))) {
 						{
 							switch (LA(1)) {
-							case PLUS: {
-								match(PLUS);
-								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.ADDITION;
+								case PLUS: {
+									match(PLUS);
+									if (inputState.guessing == 0) {
+										e2 = CiExpressionKind.ADDITION;
+									}
+									break;
 								}
-								break;
-							}
-							case MINUS: {
-								match(MINUS);
-								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.SUBTRACTION;
+								case MINUS: {
+									match(MINUS);
+									if (inputState.guessing == 0) {
+										e2 = CiExpressionKind.SUBTRACTION;
+									}
+									break;
 								}
-								break;
-							}
-							default: {
-								throw new NoViableAltException(LT(1), getFilename());
-							}
+								default: {
+									throw new NoViableAltException(LT(1), getFilename());
+								}
 							}
 						}
 						e3 = multiplicativeExpression();
@@ -196,11 +178,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression andExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression andExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = equalityExpression();
@@ -210,7 +192,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						match(BAND);
 						e3 = equalityExpression();
 						if (inputState.guessing == 0) {
-							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.BAND, e3);
+							ee = pcon.ExpressionBuilder_build(ee, CiExpressionKind.BAND, e3);
 						}
 					} else {
 						break _loop63;
@@ -229,13 +211,13 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression assignmentExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression assignmentExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e = null;
-		IExpression e2;
-		ExpressionKind ek = null;
+		CiExpression e = null;
+		CiExpression e2;
+		CiExpressionKind ek = null;
 
 		try { // for error handling
 			ee = conditionalExpression();
@@ -243,93 +225,93 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 				if (((LA(1) >= BECOMES && LA(1) <= BOR_ASSIGN)) && (_tokenSet_9.member(LA(2)))) {
 					{
 						switch (LA(1)) {
-						case BECOMES: {
-							match(BECOMES);
-							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.ASSIGNMENT);
+							case BECOMES: {
+								match(BECOMES);
+								if (inputState.guessing == 0) {
+									ek = (CiExpressionKind.ASSIGNMENT);
+								}
+								break;
 							}
-							break;
-						}
-						case PLUS_ASSIGN: {
-							match(PLUS_ASSIGN);
-							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_PLUS);
+							case PLUS_ASSIGN: {
+								match(PLUS_ASSIGN);
+								if (inputState.guessing == 0) {
+									ek = (CiExpressionKind.AUG_PLUS);
+								}
+								break;
 							}
-							break;
-						}
-						case MINUS_ASSIGN: {
-							match(MINUS_ASSIGN);
-							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_MINUS);
+							case MINUS_ASSIGN: {
+								match(MINUS_ASSIGN);
+								if (inputState.guessing == 0) {
+									ek = (CiExpressionKind.AUG_MINUS);
+								}
+								break;
 							}
-							break;
-						}
-						case STAR_ASSIGN: {
-							match(STAR_ASSIGN);
-							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_MULT);
+							case STAR_ASSIGN: {
+								match(STAR_ASSIGN);
+								if (inputState.guessing == 0) {
+									ek = (CiExpressionKind.AUG_MULT);
+								}
+								break;
 							}
-							break;
-						}
-						case DIV_ASSIGN: {
-							match(DIV_ASSIGN);
-							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_DIV);
+							case DIV_ASSIGN: {
+								match(DIV_ASSIGN);
+								if (inputState.guessing == 0) {
+									ek = (CiExpressionKind.AUG_DIV);
+								}
+								break;
 							}
-							break;
-						}
-						case MOD_ASSIGN: {
-							match(MOD_ASSIGN);
-							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_MOD);
+							case MOD_ASSIGN: {
+								match(MOD_ASSIGN);
+								if (inputState.guessing == 0) {
+									ek = (CiExpressionKind.AUG_MOD);
+								}
+								break;
 							}
-							break;
-						}
-						case SR_ASSIGN: {
-							match(SR_ASSIGN);
-							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_SR);
+							case SR_ASSIGN: {
+								match(SR_ASSIGN);
+								if (inputState.guessing == 0) {
+									ek = (CiExpressionKind.AUG_SR);
+								}
+								break;
 							}
-							break;
-						}
-						case BSR_ASSIGN: {
-							match(BSR_ASSIGN);
-							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_BSR);
+							case BSR_ASSIGN: {
+								match(BSR_ASSIGN);
+								if (inputState.guessing == 0) {
+									ek = (CiExpressionKind.AUG_BSR);
+								}
+								break;
 							}
-							break;
-						}
-						case SL_ASSIGN: {
-							match(SL_ASSIGN);
-							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_SL);
+							case SL_ASSIGN: {
+								match(SL_ASSIGN);
+								if (inputState.guessing == 0) {
+									ek = (CiExpressionKind.AUG_SL);
+								}
+								break;
 							}
-							break;
-						}
-						case BAND_ASSIGN: {
-							match(BAND_ASSIGN);
-							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_BAND);
+							case BAND_ASSIGN: {
+								match(BAND_ASSIGN);
+								if (inputState.guessing == 0) {
+									ek = (CiExpressionKind.AUG_BAND);
+								}
+								break;
 							}
-							break;
-						}
-						case BXOR_ASSIGN: {
-							match(BXOR_ASSIGN);
-							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_BXOR);
+							case BXOR_ASSIGN: {
+								match(BXOR_ASSIGN);
+								if (inputState.guessing == 0) {
+									ek = (CiExpressionKind.AUG_BXOR);
+								}
+								break;
 							}
-							break;
-						}
-						case BOR_ASSIGN: {
-							match(BOR_ASSIGN);
-							if (inputState.guessing == 0) {
-								ek = (ExpressionKind.AUG_BOR);
+							case BOR_ASSIGN: {
+								match(BOR_ASSIGN);
+								if (inputState.guessing == 0) {
+									ek = (CiExpressionKind.AUG_BOR);
+								}
+								break;
 							}
-							break;
-						}
-						default: {
-							throw new NoViableAltException(LT(1), getFilename());
-						}
+							default: {
+								throw new NoViableAltException(LT(1), getFilename());
+							}
 						}
 					}
 					e2 = assignmentExpression();
@@ -353,8 +335,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression conditionalExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression conditionalExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
 
@@ -371,8 +353,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression constantValue() throws RecognitionException, TokenStreamException {
-		IExpression e;
+	public final @Nullable CiExpression constantValue() throws RecognitionException, TokenStreamException {
+		CiExpression e;
 
 		Token s = null;
 		Token c = null;
@@ -382,41 +364,41 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 
 		try { // for error handling
 			switch (LA(1)) {
-			case STRING_LITERAL: {
-				s = LT(1);
-				match(STRING_LITERAL);
-				if (inputState.guessing == 0) {
-					e = pcon.newStringExpressionImpl(s);
+				case STRING_LITERAL: {
+					s = LT(1);
+					match(STRING_LITERAL);
+					if (inputState.guessing == 0) {
+						e = pcon.newStringExpressionImpl(s);
+					}
+					break;
 				}
-				break;
-			}
-			case CHAR_LITERAL: {
-				c = LT(1);
-				match(CHAR_LITERAL);
-				if (inputState.guessing == 0) {
-					e = pcon.newCharLitExpressionImpl(c);
+				case CHAR_LITERAL: {
+					c = LT(1);
+					match(CHAR_LITERAL);
+					if (inputState.guessing == 0) {
+						e = pcon.newCharLitExpressionImpl(c);
+					}
+					break;
 				}
-				break;
-			}
-			case NUM_INT: {
-				n = LT(1);
-				match(NUM_INT);
-				if (inputState.guessing == 0) {
-					e = pcon.newNumericExpressionImpl(n);
+				case NUM_INT: {
+					n = LT(1);
+					match(NUM_INT);
+					if (inputState.guessing == 0) {
+						e = pcon.newNumericExpressionImpl(n);
+					}
+					break;
 				}
-				break;
-			}
-			case NUM_FLOAT: {
-				f = LT(1);
-				match(NUM_FLOAT);
-				if (inputState.guessing == 0) {
-					e = pcon.newFloatExpressionImpl(f);
+				case NUM_FLOAT: {
+					f = LT(1);
+					match(NUM_FLOAT);
+					if (inputState.guessing == 0) {
+						e = pcon.newFloatExpressionImpl(f);
+					}
+					break;
 				}
-				break;
-			}
-			default: {
-				throw new NoViableAltException(LT(1), getFilename());
-			}
+				default: {
+					throw new NoViableAltException(LT(1), getFilename());
+				}
 			}
 		} catch (RecognitionException ex) {
 			if (inputState.guessing == 0) {
@@ -429,63 +411,14 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return e;
 	}
 
-	public final void docstrings(@Nullable Documentable sc) throws RecognitionException, TokenStreamException {
-
-		Token s1 = null;
-
-		try { // for error handling
-			{
-				switch (LA(1)) {
-				case STRING_LITERAL: {
-					{
-						int _cnt28 = 0;
-						_loop28: do {
-							if ((LA(1) == STRING_LITERAL)) {
-								s1 = LT(1);
-								match(STRING_LITERAL);
-								if (inputState.guessing == 0) {
-									if (sc != null)
-										sc.addDocString(s1);
-								}
-							} else {
-								if (_cnt28 >= 1) {
-									break _loop28;
-								} else {
-									throw new NoViableAltException(LT(1), getFilename());
-								}
-							}
-
-							_cnt28++;
-						} while (true);
-					}
-					break;
-				}
-				case EOF: {
-					break;
-				}
-				default: {
-					throw new NoViableAltException(LT(1), getFilename());
-				}
-				}
-			}
-		} catch (RecognitionException ex) {
-			if (inputState.guessing == 0) {
-				reportError(ex);
-				recover(ex, _tokenSet_0);
-			} else {
-				throw ex;
-			}
-		}
-	}
-
-	public final @Nullable IExpression dot_expression_or_procedure_call(IExpression e1)
+	public final @Nullable CiExpression dot_expression_or_procedure_call(CiExpression e1)
 			throws RecognitionException, TokenStreamException {
 		CiExpression ee;
 
 		Token lp2 = null;
 		ee = null;
-		CiExpressionList el = null;
-		IdentExpression e = null;
+		CiExpressionList  el = null;
+		CiIdentExpression e  = null;
 
 		try { // for error handling
 			e = ident();
@@ -498,32 +431,32 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 					match(LPAREN);
 					{
 						switch (LA(1)) {
-						case IDENT:
-						case STRING_LITERAL:
-						case LBRACK:
-						case CHAR_LITERAL:
-						case NUM_INT:
-						case NUM_FLOAT:
-						case LPAREN:
-						case PLUS:
-						case MINUS:
-						case INC:
-						case DEC:
-						case BNOT:
-						case LNOT:
-						case LITERAL_true:
-						case LITERAL_false:
-						case LITERAL_this:
-						case LITERAL_null: {
-							el = expressionList2();
-							break;
-						}
-						case RPAREN: {
-							break;
-						}
-						default: {
-							throw new NoViableAltException(LT(1), getFilename());
-						}
+							case IDENT:
+							case STRING_LITERAL:
+							case LBRACK:
+							case CHAR_LITERAL:
+							case NUM_INT:
+							case NUM_FLOAT:
+							case LPAREN:
+							case PLUS:
+							case MINUS:
+							case INC:
+							case DEC:
+							case BNOT:
+							case LNOT:
+							case LITERAL_true:
+							case LITERAL_false:
+							case LITERAL_this:
+							case LITERAL_null: {
+								el = expressionList2();
+								break;
+							}
+							case RPAREN: {
+								break;
+							}
+							default: {
+								throw new NoViableAltException(LT(1), getFilename());
+							}
 						}
 					}
 					if (inputState.guessing == 0) {
@@ -548,12 +481,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression equalityExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression equalityExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		ExpressionKind e2 = null;
-		IExpression e3 = null;
+		CiExpressionKind e2 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = relationalExpression();
@@ -562,23 +495,23 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 					if ((LA(1) == NOT_EQUAL || LA(1) == EQUAL) && (_tokenSet_9.member(LA(2)))) {
 						{
 							switch (LA(1)) {
-							case NOT_EQUAL: {
-								match(NOT_EQUAL);
-								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.NOT_EQUAL;
+								case NOT_EQUAL: {
+									match(NOT_EQUAL);
+									if (inputState.guessing == 0) {
+										e2 = CiExpressionKind.NOT_EQUAL;
+									}
+									break;
 								}
-								break;
-							}
-							case EQUAL: {
-								match(EQUAL);
-								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.EQUAL;
+								case EQUAL: {
+									match(EQUAL);
+									if (inputState.guessing == 0) {
+										e2 = CiExpressionKind.EQUAL;
+									}
+									break;
 								}
-								break;
-							}
-							default: {
-								throw new NoViableAltException(LT(1), getFilename());
-							}
+								default: {
+									throw new NoViableAltException(LT(1), getFilename());
+								}
 							}
 						}
 						e3 = relationalExpression();
@@ -602,11 +535,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression exclusiveOrExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression exclusiveOrExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = andExpression();
@@ -616,7 +549,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						match(BXOR);
 						e3 = andExpression();
 						if (inputState.guessing == 0) {
-							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.BXOR, e3);
+							ee = pcon.ExpressionBuilder_build(ee, CiExpressionKind.BXOR, e3);
 						}
 					} else {
 						break _loop60;
@@ -635,8 +568,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression expression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression expression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
 
@@ -723,8 +656,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return gen;
 	}
 
-	public final @Nullable IdentExpression ident() throws RecognitionException, TokenStreamException {
-		IdentExpression id;
+	public final @Nullable CiIdentExpression ident() throws RecognitionException, TokenStreamException {
+		CiIdentExpression id;
 
 		Token r1 = null;
 		id = null;
@@ -733,7 +666,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 			r1 = LT(1);
 			match(IDENT);
 			if (inputState.guessing == 0) {
-				id = pcon.newIdentExpressionImpl(r1, cur);
+				id = pcon.newIdentExpressionImpl(r1, null);
 			}
 		} catch (RecognitionException ex) {
 			if (inputState.guessing == 0) {
@@ -746,44 +679,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return id;
 	}
 
-	public final void identList(@NotNull IdentList ail) throws RecognitionException, TokenStreamException {
-
-		IdentExpression s = null;
-
-		try { // for error handling
-			s = ident();
-			if (inputState.guessing == 0) {
-				ail.push(s);
-			}
-			{
-				_loop33: do {
-					if ((LA(1) == COMMA)) {
-						match(COMMA);
-						s = ident();
-						if (inputState.guessing == 0) {
-							ail.push(s);
-						}
-					} else {
-						break _loop33;
-					}
-
-				} while (true);
-			}
-		} catch (RecognitionException ex) {
-			if (inputState.guessing == 0) {
-				reportError(ex);
-				recover(ex, _tokenSet_0);
-			} else {
-				throw ex;
-			}
-		}
-	}
-
-	public final @Nullable IExpression inclusiveOrExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression inclusiveOrExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = exclusiveOrExpression();
@@ -793,7 +693,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						match(BOR);
 						e3 = exclusiveOrExpression();
 						if (inputState.guessing == 0) {
-							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.BOR, e3);
+							ee = pcon.ExpressionBuilder_build(ee, CiExpressionKind.BOR, e3);
 						}
 					} else {
 						break _loop57;
@@ -856,17 +756,17 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		try { // for error handling
 			{
 				switch (LA(1)) {
-				case LITERAL_lib: {
-					match(LITERAL_lib);
-					break;
-				}
-				case LITERAL_libraries: {
-					match(LITERAL_libraries);
-					break;
-				}
-				default: {
-					throw new NoViableAltException(LT(1), getFilename());
-				}
+					case LITERAL_lib: {
+						match(LITERAL_lib);
+						break;
+					}
+					case LITERAL_libraries: {
+						match(LITERAL_libraries);
+						break;
+					}
+					default: {
+						throw new NoViableAltException(LT(1), getFilename());
+					}
 				}
 			}
 			{
@@ -904,21 +804,21 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		try { // for error handling
 			{
 				switch (LA(1)) {
-				case IDENT: {
-					i1 = LT(1);
-					match(IDENT);
-					match(TOK_COLON);
-					if (inputState.guessing == 0) {
-						lsp.setName(i1);
+					case IDENT: {
+						i1 = LT(1);
+						match(IDENT);
+						match(TOK_COLON);
+						if (inputState.guessing == 0) {
+							lsp.setName(i1);
+						}
+						break;
 					}
-					break;
-				}
-				case STRING_LITERAL: {
-					break;
-				}
-				default: {
-					throw new NoViableAltException(LT(1), getFilename());
-				}
+					case STRING_LITERAL: {
+						break;
+					}
+					default: {
+						throw new NoViableAltException(LT(1), getFilename());
+					}
 				}
 			}
 			dirname = LT(1);
@@ -928,35 +828,35 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 			}
 			{
 				switch (LA(1)) {
-				case LBRACK: {
-					match(LBRACK);
-					{
-						_loop12: do {
-							if ((LA(1) == IDENT)) {
-								i2 = LT(1);
-								match(IDENT);
-								match(TOK_COLON);
-								expr = expression();
-							} else {
-								break _loop12;
-							}
+					case LBRACK: {
+						match(LBRACK);
+						{
+							_loop12: do {
+								if ((LA(1) == IDENT)) {
+									i2 = LT(1);
+									match(IDENT);
+									match(TOK_COLON);
+									expr = expression();
+								} else {
+									break _loop12;
+								}
 
-						} while (true);
+							} while (true);
+						}
+						if (inputState.guessing == 0) {
+							lsp.addDirective(i2, expr);
+						}
+						match(RBRACK);
+						break;
 					}
-					if (inputState.guessing == 0) {
-						lsp.addDirective(i2, expr);
+					case IDENT:
+					case STRING_LITERAL:
+					case LITERAL_generate: {
+						break;
 					}
-					match(RBRACK);
-					break;
-				}
-				case IDENT:
-				case STRING_LITERAL:
-				case LITERAL_generate: {
-					break;
-				}
-				default: {
-					throw new NoViableAltException(LT(1), getFilename());
-				}
+					default: {
+						throw new NoViableAltException(LT(1), getFilename());
+					}
 				}
 			}
 		} catch (RecognitionException ex) {
@@ -970,11 +870,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return lsp;
 	}
 
-	public final @Nullable IExpression logicalAndExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression logicalAndExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = inclusiveOrExpression();
@@ -984,7 +884,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						match(LAND);
 						e3 = inclusiveOrExpression();
 						if (inputState.guessing == 0) {
-							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.LAND, e3);
+							ee = pcon.ExpressionBuilder_build(ee, CiExpressionKind.LAND, e3);
 						}
 					} else {
 						break _loop54;
@@ -1003,11 +903,11 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression logicalOrExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression logicalOrExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = logicalAndExpression();
@@ -1017,7 +917,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						match(LOR);
 						e3 = logicalAndExpression();
 						if (inputState.guessing == 0) {
-							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.LOR, e3);
+							ee = pcon.ExpressionBuilder_build(ee, CiExpressionKind.LOR, e3);
 						}
 					} else {
 						break _loop51;
@@ -1036,12 +936,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression multiplicativeExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression multiplicativeExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
-		ExpressionKind e2 = null;
+		CiExpression e3 = null;
+		CiExpressionKind e2 = null;
 
 		try { // for error handling
 			ee = unaryExpression();
@@ -1050,30 +950,30 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 					if (((LA(1) >= STAR && LA(1) <= MOD)) && (_tokenSet_9.member(LA(2)))) {
 						{
 							switch (LA(1)) {
-							case STAR: {
-								match(STAR);
-								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.MULTIPLY;
+								case STAR: {
+									match(STAR);
+									if (inputState.guessing == 0) {
+										e2 = CiExpressionKind.MULTIPLY;
+									}
+									break;
 								}
-								break;
-							}
-							case DIV: {
-								match(DIV);
-								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.DIVIDE;
+								case DIV: {
+									match(DIV);
+									if (inputState.guessing == 0) {
+										e2 = CiExpressionKind.DIVIDE;
+									}
+									break;
 								}
-								break;
-							}
-							case MOD: {
-								match(MOD);
-								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.MODULO;
+								case MOD: {
+									match(MOD);
+									if (inputState.guessing == 0) {
+										e2 = CiExpressionKind.MODULO;
+									}
+									break;
 								}
-								break;
-							}
-							default: {
-								throw new NoViableAltException(LT(1), getFilename());
-							}
+								default: {
+									throw new NoViableAltException(LT(1), getFilename());
+								}
 							}
 						}
 						e3 = unaryExpression();
@@ -1102,16 +1002,16 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		try { // for error handling
 			{
 				switch (LA(1)) {
-				case SEMI: {
-					match(SEMI);
-					break;
-				}
-				case EOF: {
-					break;
-				}
-				default: {
-					throw new NoViableAltException(LT(1), getFilename());
-				}
+					case SEMI: {
+						match(SEMI);
+						break;
+					}
+					case EOF: {
+						break;
+					}
+					default: {
+						throw new NoViableAltException(LT(1), getFilename());
+					}
 				}
 			}
 		} catch (RecognitionException ex) {
@@ -1124,8 +1024,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		}
 	}
 
-	public final @Nullable IExpression postfixExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression postfixExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		Token lb = null;
 		Token rb = null;
@@ -1133,9 +1033,8 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		Token in = null;
 		Token de = null;
 		ee = null;
-		TypeCastExpression tc = null;
-		TypeName tn = null;
-		IExpression e3 = null;
+		CiTypeCastExpression tc = null;
+		CiExpression e3 = null;
 		CiExpressionList el = null;
 
 		try { // for error handling
@@ -1155,14 +1054,14 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						match(RBRACK);
 						if (inputState.guessing == 0) {
 							ee = pcon.newGetItemExpressionImpl(ee, expr);
-							((GetItemExpression) ee).parens(lb, rb);
+							((CiGetItemExpression) ee).parens(lb, rb);
 						}
 						{
 							if ((LA(1) == BECOMES) && (_tokenSet_9.member(LA(2)))) {
 								match(BECOMES);
 								expr = expression();
 								if (inputState.guessing == 0) {
-									ee = pcon.newSetItemExpressionImpl((GetItemExpression) ee, expr);
+									ee = pcon.newSetItemExpressionImpl((CiGetItemExpression) ee, expr);
 								}
 							} else if ((_tokenSet_5.member(LA(1))) && (_tokenSet_10.member(LA(2)))) {
 							} else {
@@ -1175,32 +1074,32 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						match(LPAREN);
 						{
 							switch (LA(1)) {
-							case IDENT:
-							case STRING_LITERAL:
-							case LBRACK:
-							case CHAR_LITERAL:
-							case NUM_INT:
-							case NUM_FLOAT:
-							case LPAREN:
-							case PLUS:
-							case MINUS:
-							case INC:
-							case DEC:
-							case BNOT:
-							case LNOT:
-							case LITERAL_true:
-							case LITERAL_false:
-							case LITERAL_this:
-							case LITERAL_null: {
-								el = expressionList2();
-								break;
-							}
-							case RPAREN: {
-								break;
-							}
-							default: {
-								throw new NoViableAltException(LT(1), getFilename());
-							}
+								case IDENT:
+								case STRING_LITERAL:
+								case LBRACK:
+								case CHAR_LITERAL:
+								case NUM_INT:
+								case NUM_FLOAT:
+								case LPAREN:
+								case PLUS:
+								case MINUS:
+								case INC:
+								case DEC:
+								case BNOT:
+								case LNOT:
+								case LITERAL_true:
+								case LITERAL_false:
+								case LITERAL_this:
+								case LITERAL_null: {
+									el = expressionList2();
+									break;
+								}
+								case RPAREN: {
+									break;
+								}
+								default: {
+									throw new NoViableAltException(LT(1), getFilename());
+								}
 							}
 						}
 						if (inputState.guessing == 0) {
@@ -1221,13 +1120,13 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 					in = LT(1);
 					match(INC);
 					if (inputState.guessing == 0) {
-						ee.setKind(ExpressionKind.POST_INCREMENT);
+						ee.setKind(CiExpressionKind.POST_INCREMENT);
 					}
 				} else if ((LA(1) == DEC) && (_tokenSet_5.member(LA(2)))) {
 					de = LT(1);
 					match(DEC);
 					if (inputState.guessing == 0) {
-						ee.setKind(ExpressionKind.POST_DECREMENT);
+						ee.setKind(CiExpressionKind.POST_DECREMENT);
 					}
 				} else if ((_tokenSet_5.member(LA(1))) && (_tokenSet_10.member(LA(2)))) {
 				} else {
@@ -1246,70 +1145,70 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression primaryExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression primaryExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		FuncExpr ppc = null;
-		IdentExpression e = null;
+		//FuncExpr        ppc = null;
+		CiExpression     e  = null;
 		CiExpressionList el = null;
 
 		try { // for error handling
 			switch (LA(1)) {
-			case IDENT: {
-				e = ident();
-				if (inputState.guessing == 0) {
-					ee = e;
+				case IDENT: {
+					e = ident();
+					if (inputState.guessing == 0) {
+						ee = e;
+					}
+					break;
 				}
-				break;
-			}
-			case STRING_LITERAL:
-			case CHAR_LITERAL:
-			case NUM_INT:
-			case NUM_FLOAT: {
-				ee = constantValue();
-				break;
-			}
-			case LITERAL_true: {
-				match(LITERAL_true);
-				break;
-			}
-			case LITERAL_false: {
-				match(LITERAL_false);
-				break;
-			}
-			case LITERAL_this: {
-				match(LITERAL_this);
-				break;
-			}
-			case LITERAL_null: {
-				match(LITERAL_null);
-				break;
-			}
-			case LPAREN: {
-				match(LPAREN);
-				ee = assignmentExpression();
-				match(RPAREN);
-				if (inputState.guessing == 0) {
-					ee = pcon.newSubExpressionImpl(ee);
+				case STRING_LITERAL:
+				case CHAR_LITERAL:
+				case NUM_INT:
+				case NUM_FLOAT: {
+					ee = constantValue();
+					break;
 				}
-				break;
-			}
-			case LBRACK: {
-				match(LBRACK);
-				if (inputState.guessing == 0) {
-					ee = pcon.newListExpressionImpl();
+				case LITERAL_true: {
+					match(LITERAL_true);
+					break;
 				}
-				el = expressionList2();
-				if (inputState.guessing == 0) {
-					((CiListExpression) ee).setContents(el);
+				case LITERAL_false: {
+					match(LITERAL_false);
+					break;
 				}
-				match(RBRACK);
-				break;
-			}
-			default: {
-				throw new NoViableAltException(LT(1), getFilename());
-			}
+				case LITERAL_this: {
+					match(LITERAL_this);
+					break;
+				}
+				case LITERAL_null: {
+					match(LITERAL_null);
+					break;
+				}
+				case LPAREN: {
+					match(LPAREN);
+					ee = assignmentExpression();
+					match(RPAREN);
+					if (inputState.guessing == 0) {
+						ee = pcon.newSubExpressionImpl(ee);
+					}
+					break;
+				}
+				case LBRACK: {
+					match(LBRACK);
+					if (inputState.guessing == 0) {
+						ee = pcon.newListExpressionImpl();
+					}
+					el = expressionList2();
+					if (inputState.guessing == 0) {
+						((CiListExpression) ee).setContents(el);
+					}
+					match(RBRACK);
+					break;
+				}
+				default: {
+					throw new NoViableAltException(LT(1), getFilename());
+				}
 			}
 		} catch (RecognitionException ex) {
 			if (inputState.guessing == 0) {
@@ -1330,37 +1229,37 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		try { // for error handling
 			{
 				switch (LA(1)) {
-				case LITERAL_indexing: {
-					indexingStatement(ci.indexingStatement());
-					break;
-				}
-				case LITERAL_program:
-				case LITERAL_library:
-				case LITERAL_shared: {
-					break;
-				}
-				default: {
-					throw new NoViableAltException(LT(1), getFilename());
-				}
+					case LITERAL_indexing: {
+						indexingStatement(ci.indexingStatement());
+						break;
+					}
+					case LITERAL_program:
+					case LITERAL_library:
+					case LITERAL_shared: {
+						break;
+					}
+					default: {
+						throw new NoViableAltException(LT(1), getFilename());
+					}
 				}
 			}
 			{
 				switch (LA(1)) {
-				case LITERAL_program: {
-					match(LITERAL_program);
-					break;
-				}
-				case LITERAL_library: {
-					match(LITERAL_library);
-					break;
-				}
-				case LITERAL_shared: {
-					match(LITERAL_shared);
-					break;
-				}
-				default: {
-					throw new NoViableAltException(LT(1), getFilename());
-				}
+					case LITERAL_program: {
+						match(LITERAL_program);
+						break;
+					}
+					case LITERAL_library: {
+						match(LITERAL_library);
+						break;
+					}
+					case LITERAL_shared: {
+						match(LITERAL_shared);
+						break;
+					}
+					default: {
+						throw new NoViableAltException(LT(1), getFilename());
+					}
 				}
 			}
 			i1 = LT(1);
@@ -1385,12 +1284,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		}
 	}
 
-	public final @NotNull Qualident qualident() throws RecognitionException, TokenStreamException {
-		Qualident q;
+	public final @NotNull CiQualident CiQualident() throws RecognitionException, TokenStreamException {
+		CiQualident q;
 
 		Token d1 = null;
 		q = pcon.newQualidentImpl();
-		IdentExpression r1 = null, r2 = null;
+		CiIdentExpression r1 = null, r2 = null;
 
 		try { // for error handling
 			r1 = ident();
@@ -1424,12 +1323,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return q;
 	}
 
-	public final void qualidentList(@NotNull QualidentList qal) throws RecognitionException, TokenStreamException {
+	public final void CiQualidentList(@NotNull CiQualidentList qal) throws RecognitionException, TokenStreamException {
 
-		Qualident qid;
+		CiQualident qid;
 
 		try { // for error handling
-			qid = qualident();
+			qid = CiQualident();
 			if (inputState.guessing == 0) {
 				qal.add(qid);
 			}
@@ -1437,7 +1336,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 				_loop37: do {
 					if ((LA(1) == COMMA)) {
 						match(COMMA);
-						qid = qualident();
+						qid = CiQualident();
 						if (inputState.guessing == 0) {
 							qal.add(qid);
 						}
@@ -1457,13 +1356,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		}
 	}
 
-	public final @Nullable IExpression relationalExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression relationalExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		ExpressionKind e2 = null; // should never be null (below)
-		IExpression e3 = null;
-		TypeName tn = null;
+		CiExpressionKind e2 = null; // should never be null (below)
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = shiftExpression();
@@ -1473,43 +1371,43 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						if (((LA(1) >= LT_ && LA(1) <= GE)) && (_tokenSet_9.member(LA(2)))) {
 							{
 								switch (LA(1)) {
-								case LT_: {
-									match(LT_);
-									if (inputState.guessing == 0) {
-										e2 = ExpressionKind.LT_;
+									case LT_: {
+										match(LT_);
+										if (inputState.guessing == 0) {
+											e2 = CiExpressionKind.LT_;
+										}
+										break;
 									}
-									break;
-								}
-								case GT: {
-									match(GT);
-									if (inputState.guessing == 0) {
-										e2 = ExpressionKind.GT;
+									case GT: {
+										match(GT);
+										if (inputState.guessing == 0) {
+											e2 = CiExpressionKind.GT;
+										}
+										break;
 									}
-									break;
-								}
-								case LE: {
-									match(LE);
-									if (inputState.guessing == 0) {
-										e2 = ExpressionKind.LE;
+									case LE: {
+										match(LE);
+										if (inputState.guessing == 0) {
+											e2 = CiExpressionKind.LE;
+										}
+										break;
 									}
-									break;
-								}
-								case GE: {
-									match(GE);
-									if (inputState.guessing == 0) {
-										e2 = ExpressionKind.GE;
+									case GE: {
+										match(GE);
+										if (inputState.guessing == 0) {
+											e2 = CiExpressionKind.GE;
+										}
+										break;
 									}
-									break;
-								}
-								default: {
-									throw new NoViableAltException(LT(1), getFilename());
-								}
+									default: {
+										throw new NoViableAltException(LT(1), getFilename());
+									}
 								}
 							}
 							e3 = shiftExpression();
 							if (inputState.guessing == 0) {
-								final OS_Type t = pcon.newOS_BuiltinType(BuiltInTypes.Boolean);
-								ee = pcon.ExpressionBuilder_build(ee, e2, e3, t);
+								//final OS_Type t = pcon.newOS_BuiltinType(BuiltInTypes.Boolean);
+								ee = pcon.ExpressionBuilder_build(ee, e2, e3, null);
 							}
 						} else {
 							break _loop72;
@@ -1529,12 +1427,12 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression shiftExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression shiftExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		ExpressionKind e2 = null;
-		IExpression e3 = null;
+		CiExpressionKind e2 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			ee = additiveExpression();
@@ -1543,30 +1441,30 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 					if (((LA(1) >= SL && LA(1) <= BSR)) && (_tokenSet_9.member(LA(2)))) {
 						{
 							switch (LA(1)) {
-							case SL: {
-								match(SL);
-								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.LSHIFT;
+								case SL: {
+									match(SL);
+									if (inputState.guessing == 0) {
+										e2 = CiExpressionKind.LSHIFT;
+									}
+									break;
 								}
-								break;
-							}
-							case SR: {
-								match(SR);
-								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.RSHIFT;
+								case SR: {
+									match(SR);
+									if (inputState.guessing == 0) {
+										e2 = CiExpressionKind.RSHIFT;
+									}
+									break;
 								}
-								break;
-							}
-							case BSR: {
-								match(BSR);
-								if (inputState.guessing == 0) {
-									e2 = ExpressionKind.BSHIFTR;
+								case BSR: {
+									match(BSR);
+									if (inputState.guessing == 0) {
+										e2 = CiExpressionKind.BSHIFTR;
+									}
+									break;
 								}
-								break;
-							}
-							default: {
-								throw new NoViableAltException(LT(1), getFilename());
-							}
+								default: {
+									throw new NoViableAltException(LT(1), getFilename());
+								}
 							}
 						}
 						e3 = additiveExpression();
@@ -1590,65 +1488,65 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression unaryExpression() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression unaryExpression() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			switch (LA(1)) {
-			case INC: {
-				match(INC);
-				ee = unaryExpression();
-				if (inputState.guessing == 0) {
-					ee.setKind(ExpressionKind.INCREMENT);
+				case INC: {
+					match(INC);
+					ee = unaryExpression();
+					if (inputState.guessing == 0) {
+						ee.setKind(CiExpressionKind.INCREMENT);
+					}
+					break;
 				}
-				break;
-			}
-			case DEC: {
-				match(DEC);
-				ee = unaryExpression();
-				if (inputState.guessing == 0) {
-					ee.setKind(ExpressionKind.DECREMENT);
+				case DEC: {
+					match(DEC);
+					ee = unaryExpression();
+					if (inputState.guessing == 0) {
+						ee.setKind(CiExpressionKind.DECREMENT);
+					}
+					break;
 				}
-				break;
-			}
-			case MINUS: {
-				match(MINUS);
-				ee = unaryExpression();
-				if (inputState.guessing == 0) {
-					ee.setKind(ExpressionKind.NEG);
+				case MINUS: {
+					match(MINUS);
+					ee = unaryExpression();
+					if (inputState.guessing == 0) {
+						ee.setKind(CiExpressionKind.NEG);
+					}
+					break;
 				}
-				break;
-			}
-			case PLUS: {
-				match(PLUS);
-				ee = unaryExpression();
-				if (inputState.guessing == 0) {
-					ee.setKind(ExpressionKind.POS);
+				case PLUS: {
+					match(PLUS);
+					ee = unaryExpression();
+					if (inputState.guessing == 0) {
+						ee.setKind(CiExpressionKind.POS);
+					}
+					break;
 				}
-				break;
-			}
-			case IDENT:
-			case STRING_LITERAL:
-			case LBRACK:
-			case CHAR_LITERAL:
-			case NUM_INT:
-			case NUM_FLOAT:
-			case LPAREN:
-			case BNOT:
-			case LNOT:
-			case LITERAL_true:
-			case LITERAL_false:
-			case LITERAL_this:
-			case LITERAL_null: {
-				ee = unaryExpressionNotPlusMinus();
-				break;
-			}
-			default: {
-				throw new NoViableAltException(LT(1), getFilename());
-			}
+				case IDENT:
+				case STRING_LITERAL:
+				case LBRACK:
+				case CHAR_LITERAL:
+				case NUM_INT:
+				case NUM_FLOAT:
+				case LPAREN:
+				case BNOT:
+				case LNOT:
+				case LITERAL_true:
+				case LITERAL_false:
+				case LITERAL_this:
+				case LITERAL_null: {
+					ee = unaryExpressionNotPlusMinus();
+					break;
+				}
+				default: {
+					throw new NoViableAltException(LT(1), getFilename());
+				}
 			}
 		} catch (RecognitionException ex) {
 			if (inputState.guessing == 0) {
@@ -1661,47 +1559,47 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression unaryExpressionNotPlusMinus() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression unaryExpressionNotPlusMinus() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		ee = null;
-		IExpression e3 = null;
+		CiExpression e3 = null;
 
 		try { // for error handling
 			switch (LA(1)) {
-			case BNOT: {
-				match(BNOT);
-				ee = unaryExpression();
-				if (inputState.guessing == 0) {
-					ee.setKind(ExpressionKind.BNOT);
+				case BNOT: {
+					match(BNOT);
+					ee = unaryExpression();
+					if (inputState.guessing == 0) {
+						ee.setKind(CiExpressionKind.BNOT);
+					}
+					break;
 				}
-				break;
-			}
-			case LNOT: {
-				match(LNOT);
-				ee = unaryExpression();
-				if (inputState.guessing == 0) {
-					ee.setKind(ExpressionKind.LNOT);
+				case LNOT: {
+					match(LNOT);
+					ee = unaryExpression();
+					if (inputState.guessing == 0) {
+						ee.setKind(CiExpressionKind.LNOT);
+					}
+					break;
 				}
-				break;
-			}
-			case IDENT:
-			case STRING_LITERAL:
-			case LBRACK:
-			case CHAR_LITERAL:
-			case NUM_INT:
-			case NUM_FLOAT:
-			case LPAREN:
-			case LITERAL_true:
-			case LITERAL_false:
-			case LITERAL_this:
-			case LITERAL_null: {
-				ee = postfixExpression();
-				break;
-			}
-			default: {
-				throw new NoViableAltException(LT(1), getFilename());
-			}
+				case IDENT:
+				case STRING_LITERAL:
+				case LBRACK:
+				case CHAR_LITERAL:
+				case NUM_INT:
+				case NUM_FLOAT:
+				case LPAREN:
+				case LITERAL_true:
+				case LITERAL_false:
+				case LITERAL_this:
+				case LITERAL_null: {
+					ee = postfixExpression();
+					break;
+				}
+				default: {
+					throw new NoViableAltException(LT(1), getFilename());
+				}
 			}
 		} catch (RecognitionException ex) {
 			if (inputState.guessing == 0) {
@@ -1714,14 +1612,14 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 		return ee;
 	}
 
-	public final @Nullable IExpression variableReference() throws RecognitionException, TokenStreamException {
-		IExpression ee;
+	public final @Nullable CiExpression variableReference() throws RecognitionException, TokenStreamException {
+		CiExpression ee;
 
 		Token lp = null;
-		ProcedureCallExpression pcx;
+		CiProcedureCallExpression pcx;
 		CiExpressionList el = null;
 		ee = null;
-		IdentExpression r1 = null, r2 = null;
+		CiIdentExpression r1 = null, r2 = null;
 
 		try { // for error handling
 			r1 = ident();
@@ -1730,68 +1628,66 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 			}
 			{
 				switch (LA(1)) {
-				case DOT: {
-					match(DOT);
-					r2 = ident();
-					if (inputState.guessing == 0) {
-						ee = pcon.newDotExpressionImpl(ee, r2);
-					}
-					break;
-				}
-				case LBRACK: {
-					match(LBRACK);
-					expr = expression();
-					match(RBRACK);
-					if (inputState.guessing == 0) {
-						ee = pcon.newGetItemExpressionImpl(ee, expr);
-					}
-					break;
-				}
-				case LPAREN: {
-					lp = LT(1);
-					match(LPAREN);
-					{
-						switch (LA(1)) {
-						case IDENT:
-						case STRING_LITERAL:
-						case LBRACK:
-						case CHAR_LITERAL:
-						case NUM_INT:
-						case NUM_FLOAT:
-						case LPAREN:
-						case PLUS:
-						case MINUS:
-						case INC:
-						case DEC:
-						case BNOT:
-						case LNOT:
-						case LITERAL_true:
-						case LITERAL_false:
-						case LITERAL_this:
-						case LITERAL_null: {
-							el = expressionList2();
-							break;
+					case DOT: {
+						match(DOT);
+						r2 = ident();
+						if (inputState.guessing == 0) {
+							ee = pcon.newDotExpressionImpl(ee, r2);
 						}
-						case RPAREN: {
-							break;
-						}
-						default: {
-							throw new NoViableAltException(LT(1), getFilename());
-						}
-						}
+						break;
 					}
-					if (inputState.guessing == 0) {
-						CiProcedureCallExpression pce = pcon.newCiProcedureCallExpressionImpl();
-						pce.identifier(ee);
-						pce.setArgs(el);
-						ee = pce;
+					case LBRACK: {
+						match(LBRACK);
+						expr = expression();
+						match(RBRACK);
+						if (inputState.guessing == 0) {
+							ee = pcon.newGetItemExpressionImpl(ee, expr);
+						}
+						break;
 					}
-					match(RPAREN);
-					break;
-				}
-				default: {
-					throw new NoViableAltException(LT(1), getFilename());
-				}
+					case LPAREN: {
+						lp = LT(1);
+						match(LPAREN);
+						{
+							switch (LA(1)) {
+								case IDENT:
+								case STRING_LITERAL:
+								case LBRACK:
+								case CHAR_LITERAL:
+								case NUM_INT:
+								case NUM_FLOAT:
+								case LPAREN:
+								case PLUS:
+								case MINUS:
+								case INC:
+								case DEC:
+								case BNOT:
+								case LNOT:
+								case LITERAL_true:
+								case LITERAL_false:
+								case LITERAL_this:
+								case LITERAL_null: {
+									el = expressionList2();
+									break;
+								}
+								case RPAREN: {
+									break;
+								}
+								default: {
+									throw new NoViableAltException(LT(1), getFilename());
+								}
+							}
+						}
+						if (inputState.guessing == 0) {
+							CiProcedureCallExpression pce = pcon.newCiProcedureCallExpressionImpl(ee, el);
+							ee = pce;
+						}
+						match(RPAREN);
+						break;
+					}
+					default: {
+						throw new NoViableAltException(LT(1), getFilename());
+					}
 				}
 			}
 		} catch (RecognitionException ex) {
