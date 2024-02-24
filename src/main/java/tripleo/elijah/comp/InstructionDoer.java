@@ -17,7 +17,7 @@ public class InstructionDoer implements CompletableProcess<CompilerInstructions>
 
 	@Override
 	public void add(final CompilerInstructions item) {
-		ICompilationRunner __cr = compilation1.getCompilationEnclosure().getCompilationRunner();
+//		ICompilationRunner __cr = compilation1.getCompilationEnclosure().getCompilationRunner();
 		if (root == null) {
 			root = item;
 			try {
