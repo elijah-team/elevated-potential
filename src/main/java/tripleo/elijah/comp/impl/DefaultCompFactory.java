@@ -36,7 +36,6 @@ import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah.world.impl.DefaultLivingRepo;
 import tripleo.elijah.world.impl.DefaultWorldModule;
-import tripleo.wrap.File;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -169,7 +168,7 @@ public class DefaultCompFactory implements CompFactory {
 
 	@NotNull
 	@Override
-	public PW_CompilerController createPwController(CompilationImpl aCompilation) {
+	public PW_CompilerController createPwController(Compilation aCompilation) {
 		return new PW_CompilerController(aCompilation);
 	}
 
