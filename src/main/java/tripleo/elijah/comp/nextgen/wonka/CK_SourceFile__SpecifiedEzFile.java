@@ -1,7 +1,6 @@
 package tripleo.elijah.comp.nextgen.wonka;
 
 import com.google.common.base.*;
-import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.CompilationClosure;
@@ -36,7 +35,11 @@ public class CK_SourceFile__SpecifiedEzFile extends __CK_SourceFile__AbstractEzF
 		process_query(cc.io(), null);
 	}
 
-	private Operation2<CompilerInstructions> process_query(final IO io, final @NotNull EzCache ezCache) {
+	private Operation2<CompilerInstructions> process_query(final IO io, final EzCache ezCache) {
+		if (ezCache == null) {
+			System.err.println("ezCache is null");
+			return Operation2.failure("ezCache is null");
+		}
 		final String fileName = file_name();
 		Preconditions.checkArgument(isEzFile(fileName));
 
