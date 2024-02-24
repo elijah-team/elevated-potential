@@ -38,6 +38,8 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 		this.gr          = gr;
 		this.pa          = ce.getPipelineAccess();
 		this.ce          = ce;
+
+		var trouble  = ce.getCompilation().modelFactory().getLang("c");
 	}
 
 	@org.jetbrains.annotations.Nullable

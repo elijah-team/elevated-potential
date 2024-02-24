@@ -123,4 +123,10 @@ public class Default__Elevated_CM_Factory implements Elevated_CM_Factory {
 		fn2cmm.put(aFileName, result);
 		return spec;
 	}
+
+	@Override
+	public CM_Lang getLang(String c) {
+//		return null;
+		throw new UnintendedUseException("implement me");
+	}
 }
