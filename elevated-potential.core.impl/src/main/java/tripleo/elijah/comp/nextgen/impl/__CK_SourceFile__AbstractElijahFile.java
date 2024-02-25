@@ -9,7 +9,6 @@ import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.util.*;
 
 import java.util.*;
 import java.util.regex.*;

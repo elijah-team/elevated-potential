@@ -37,7 +37,6 @@ import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah.stages.deduce.fluffy.impl.FluffyCompImpl;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.stages.logging.ElLog_;
-import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah.world.i.WorldModule;
 
