@@ -44,8 +44,11 @@ public class TestIdentNormal {
 		boilerplate.get();
 		boilerplate.getGenerateFiles(boilerplate.defaultMod());
 
-		final GenerateFunctions generateFunctions = new GenerateFunctions(boilerplate.defaultMod(),
-				boilerplate.pipelineLogic, (IPipelineAccess) boilerplate.comp.pa());
+		final GenFnC genfc = new GenFnC();
+		genfc.set(boilerplate.pipelineLogic);
+		genfc.set((IPipelineAccess) boilerplate.comp.pa());
+
+		final GenerateFunctions generateFunctions = new GenerateFunctions(boilerplate.defaultMod(), genfc);
 
 		final EvaFunction generatedFunction = new EvaFunction(fd);
 		final VariableSequence seq = new VariableSequenceImpl(ctx1);

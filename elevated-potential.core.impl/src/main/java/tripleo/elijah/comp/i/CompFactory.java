@@ -68,4 +68,24 @@ public interface CompFactory {
 
 		String getThreadName();
 	}
+
+	EOT_OutputTree createOutputTree();
+
+	EIT_InputTree createInputTree();
+
+	CX_ParseElijahFile.ElijahSpecReader defaultElijahSpecReader(CP_Path aLocalPrelude);
+
+	@NotNull CK_Monitor createCkMonitor();
+
+	@NotNull PW_CompilerController createPwController(CompilationImpl aCompilation);
+
+	@NotNull Finally_ createFinally();
+
+	@NotNull LivingRepo getLivingRepo();
+
+	CompilerInputMaster createCompilerInputMaster();
+
+	CM_UleLog getULog(); // sp?
+
+	ILazyCompilerInstructions createLazyCompilerInstructions(CompilerInput aCarrier);
 }

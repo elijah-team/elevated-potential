@@ -1,39 +1,37 @@
-/*
- * Elijjah compiler, copyright Tripleo <oluoluolu+elijah@gmail.com>
- *
- * The contents of this library are released under the LGPL licence v3,
- * the GNU Lesser General Public License text was downloaded from
- * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- */
 package tripleo.elijah.stages.gen_fn;
 
-import com.google.common.collect.*;
+import com.google.common.collect.Collections2;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jdeferred2.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.notation.*;
+import org.jdeferred2.DoneCallback;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.Finally;
+import tripleo.elijah.comp.notation.GN_PL_Run2;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.g.GGenerateFunctions;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
-import tripleo.elijah.lang2.*;
-import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.lang2.SpecialFunctions;
+import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah.pre_world.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn_c.GenFnC;
 import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.inter.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.work.*;
+import tripleo.elijah.stages.inter.ModuleThing;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.ElLog_;
+import tripleo.elijah.util.Helpers0;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.work.WorkList;
+import tripleo.elijah.work.WorkManager;
 import tripleo.util.range.Range;
 
 import java.util.*;
 
-import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
+import static tripleo.elijah.util.Helpers.List_of;
 
 /**
  * Created 9/10/20 2:28 PM
@@ -43,8 +41,8 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 
 	final                  OS_Module     module;
 	final                  GeneratePhase phase;
-	private final @NotNull ElLog         LOG;
-	private final          GenFnC        bc;
+	private final @NotNull ElLog  LOG;
+	private final          GenFnC bc;
 	//private final IPipelineAccess pa;
 
 	public GenerateFunctions(final OS_Module aModule, final GenFnC aBc) {

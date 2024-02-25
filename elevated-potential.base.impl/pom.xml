@@ -7,18 +7,17 @@
 	<parent>
 		<groupId>tripleo.elijah</groupId>
 		<artifactId>elevated-potential</artifactId>
-		<version>2024.elevated-potential.3</version>
+		<version>2024.elevated-potential.2</version>
 	</parent>
 
 	<artifactId>elevated-potential-base-impl</artifactId>
-	<version>2024.elevated-potential.3</version>
+	<version>2024.elevated-potential.2</version>
 
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -29,23 +28,9 @@
 
 		<dependency>
 			<groupId>tripleo.elijah</groupId>
-			<artifactId>elijah-core-api</artifactId>
-			<version>2024.elevated-potential.5</version>
+			<artifactId>elevated-potential-core-api-xxx</artifactId>
+			<version>2024.elevated-potential.2</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>tripleo.elijah</groupId>
-			<artifactId>elevated-potential-core-impl</artifactId>
-			<version>2024.elevated-potential.3</version>
-			<scope>compile</scope>
-		</dependency>
-		<!--
-				<dependency>
-					<groupId>tripleo.elijah</groupId>
-					<artifactId>elevated-potential-core-api-xxx</artifactId>
-					<version>2024.elevated-potential.3</version>
-					<scope>compile</scope>
-				</dependency>
-		-->
 	</dependencies>
 </project>

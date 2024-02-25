@@ -144,13 +144,6 @@ public class DefaultCompilationBus implements ICompilationBus {
 		final Startable task = this.c.con().askConcurrent(s);
 		task.start();
 
-/*
-		try {
- 			// TODO 10/20 Remove this soon
-			final Thread thread = task.stealThread();
-
-			thread.join();// TimeUnit.MINUTES.toMillis(1));
-*/
 		try {
 			await()
 					.atMost(5, TimeUnit.SECONDS)
@@ -169,11 +162,6 @@ public class DefaultCompilationBus implements ICompilationBus {
 		} catch (ConditionTimeoutException cte) {
 			System.err.println("9998-158 cte timeout in DefaultCompilationBus");
 		}
-/*			thread.stop();
-		} catch (InterruptedException aE) {
-			throw new RuntimeException(aE);
-		}
-*/
 	}
 
 	private void logProgess(final int code, final String message) {
