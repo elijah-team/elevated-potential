@@ -1,6 +1,6 @@
 package tripleo.elijah.comp.percy;
 
-import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.i.CompilerInput;
 
 public interface CN_CompilerInputWatcher {
 	void event(e aEvent, CompilerInput aCompilerInput, final Object aObject);

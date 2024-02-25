@@ -1,6 +1,6 @@
-package tripleo.elijah.comp;
+package tripleo.elijah.comp.i;
 
-import tripleo.elijah.comp.i.ILazyCompilerInstructions;
+import tripleo.elijah.comp.CompilerInputMaster;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.util.Maybe;
 import tripleo.wrap.File;

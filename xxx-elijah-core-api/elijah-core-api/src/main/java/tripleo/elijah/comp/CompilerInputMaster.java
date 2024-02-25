@@ -1,5 +1,6 @@
 package tripleo.elijah.comp;
 
+import tripleo.elijah.comp.i.CompilerInput;
 import tripleo.elijah.comp.i.extra.*;
 
 public interface CompilerInputMaster {

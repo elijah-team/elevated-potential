@@ -1,6 +1,5 @@
 package tripleo.elijah.comp.graph.i;
 
-import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
