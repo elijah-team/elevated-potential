@@ -25,14 +25,20 @@
 			<version>4.13.2</version>
 			<scope>compile</scope>
 		</dependency>
-<!--
 		<dependency>
-			<groupId>tripleo.elijah</groupId>
-			<artifactId>elevated-potential-core-api</artifactId>
-			<version>2024.elevated-potential.2</version>
+			<groupId>org.jetbrains</groupId>
+			<artifactId>annotations</artifactId>
+			<version>24.1.0</version>
 			<scope>compile</scope>
 		</dependency>
--->
+		<!--
+				<dependency>
+					<groupId>tripleo.elijah</groupId>
+					<artifactId>elevated-potential-core-api</artifactId>
+					<version>2024.elevated-potential.2</version>
+					<scope>compile</scope>
+				</dependency>
+		-->
 	</dependencies>
 
 	<build>
@@ -49,8 +55,8 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>../xxx-model-status/src/main/java</source>
-								<source>../xxx-annotations/src/main/java</source>
+								<source>./xxx-model-status/src/main/java</source>
+								<source>./xxx-annotations/src/main/java</source>
 
 								<source>./dlog/src/main/java</source>
 								<source>./elijah-core-api/src/main/java</source>

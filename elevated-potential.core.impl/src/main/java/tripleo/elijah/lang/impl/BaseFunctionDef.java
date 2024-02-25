@@ -103,7 +103,7 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 	@Override // OS_Element
 	public Context getContext() {
 		if (_a == null) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("903106 creation logic error [IllegalStateException]");
+			SimplePrintLoggerToRemoveSoon.println_err_4("903106 creation logic error [IllegalStateException]");
 			return null;
 		}
 		return _a.getContext();
