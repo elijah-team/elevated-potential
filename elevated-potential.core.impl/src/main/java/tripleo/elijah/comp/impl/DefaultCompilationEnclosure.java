@@ -459,8 +459,11 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 
 	@Override
 	public void writeLogs() {
-		final PipelineLogic pipelineLogic = this.getPipelineLogic();
-		final GN_WriteLogs  notable       = new GN_WriteLogs(this.getCompilationAccess(), pipelineLogic._pa().getCompilationEnclosure().getLogs());
+		final ICompilationAccess   compilationAccess    = this.getCompilationAccess();
+		final CompilationEnclosure compilationEnclosure = pa.getCompilationEnclosure();
+		final List<ElLog>          logs                 = compilationEnclosure.getLogs();
+
+		final GN_WriteLogs         notable              = new GN_WriteLogs(compilationAccess, logs);
 
 		pa.notate(Provenance.DefaultCompilationAccess__writeLogs, notable);
 	}
