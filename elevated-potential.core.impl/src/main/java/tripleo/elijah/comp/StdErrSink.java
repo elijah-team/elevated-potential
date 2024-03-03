@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class StdErrSink implements ErrSink {
 	private final @NotNull List<Pair<Errors, Object>> _list = new ArrayList<>();
-	private int _errorCount;
+	private                int                        _errorCount;
 
 	@Override
 	public void reportError(final int code, final String message) {
