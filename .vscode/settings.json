@@ -2,7 +2,7 @@
   "java.format.settings.url": "eclipse-formatter.xml",
   "recommended": [
     "vscjava.vscode-java-debug",
-    "vscjava.vscode-java-pack", // redundant
+    "vscjava.vscode-java-pack",
     "redhat.java",
     "esbenp.prettier-vscode",
     "vscjava.vscode-maven",
