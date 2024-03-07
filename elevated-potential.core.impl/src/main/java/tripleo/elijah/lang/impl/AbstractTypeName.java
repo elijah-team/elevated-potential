@@ -1,19 +1,11 @@
-/*
- * Elijjah compiler, copyright Tripleo <oluoluolu+elijah@gmail.com>
- *
- * The contents of this library are released under the LGPL licence v3,
- * the GNU Lesser General Public License text was downloaded from
- * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
 package tripleo.elijah.lang.impl;
 
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util.Helpers;
 
 import java.util.*;
 
 public abstract class AbstractTypeName implements NormalTypeName {
-
 	protected boolean pr_out;
 	protected boolean pr_constant;
 	protected boolean pr_in;
@@ -23,12 +15,16 @@ public abstract class AbstractTypeName implements NormalTypeName {
 	private boolean isNullable = false;
 
 	@Override
+	public boolean nameEquals(final String aName) {
+		return Helpers.String_equals(pr_name.asSimpleString(), aName);
+	}
+
+	@Override
 	public boolean equals(final Object o) {
 		if (this == o)
 			return true;
-		if (!(o instanceof NormalTypeName))
+		if (!(o instanceof final NormalTypeName that))
 			return false;
-		final NormalTypeName that = (NormalTypeName) o;
 		return getConstant() == that.getConstant() && getReference() == that.getReference() && getOut() == that.getOut()
 				&& getIn() == that.getIn() &&
 //				type == that.type &&
@@ -100,7 +96,3 @@ public abstract class AbstractTypeName implements NormalTypeName {
 		pr_reference = s;
 	}
 }
-
-//
-//
-//

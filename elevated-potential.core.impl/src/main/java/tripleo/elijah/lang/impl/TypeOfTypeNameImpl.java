@@ -1,6 +1,7 @@
 package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
@@ -10,9 +11,9 @@ import java.io.*;
 /**
  * Created 8/16/20 7:42 AM
  */
-public class TypeOfTypeNameImpl implements TypeName, tripleo.elijah.lang.i.TypeOfTypeName {
-	private Context _ctx;
-	private Qualident _typeOf;
+public class TypeOfTypeNameImpl implements TypeName, TypeOfTypeName {
+	private Context       _ctx;
+	private Qualident     _typeOf;
 	private TypeModifiers modifiers;
 
 	public TypeOfTypeNameImpl(final Context cur) {
@@ -28,6 +29,11 @@ public class TypeOfTypeNameImpl implements TypeName, tripleo.elijah.lang.i.TypeO
 	@Override
 	public int getColumnEnd() {
 		return _typeOf.parts().get(_typeOf.parts().size()).getColumnEnd();
+	}
+
+	@Override
+	public boolean nameEquals(final String aName) {
+		throw new UnintendedUseException("niy");
 	}
 
 	@Override
@@ -68,7 +74,7 @@ public class TypeOfTypeNameImpl implements TypeName, tripleo.elijah.lang.i.TypeO
 
 	// region Locatable
 
-	public @Nullable TypeName resolve(@NotNull Context ctx, @NotNull DeduceTypes2 deduceTypes2) throws GResolveError {
+	public @Nullable TypeName resolve(@NotNull final Context ctx, @NotNull final DeduceTypes2 deduceTypes2) throws GResolveError {
 		return deduceTypes2.HACKMAYBE_resolve_TypeName(this, ctx);
 	}
 

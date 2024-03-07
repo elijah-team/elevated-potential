@@ -16,6 +16,9 @@ public interface FuncTypeName extends TypeName {
 	int getColumnEnd();
 
 	@Override
+	boolean nameEquals(String aName);
+
+	@Override
 	Context getContext();
 
 	@Override
