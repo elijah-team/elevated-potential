@@ -1,11 +1,3 @@
-/*
- * Elijjah compiler, copyright Tripleo <oluoluolu+elijah@gmail.com>
- *
- * The contents of this library are released under the LGPL licence v3,
- * the GNU Lesser General Public License text was downloaded from
- * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
 package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.*;
@@ -72,6 +64,8 @@ public class ClassContext extends ContextImpl implements IClassContext {
 								   final @NotNull LookupResultList Result,
 								   final @NotNull ISearchList alreadySearched,
 								   final boolean one) {
+		assert !name.contains(".");
+
 		alreadySearched.add(carrier.getContext());
 		for (final ClassItem item : carrier.getItems()) {
 			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
@@ -92,7 +86,7 @@ public class ClassContext extends ContextImpl implements IClassContext {
 			}
 		}
 
-		for (Map.Entry<TypeName, ClassStatement> entry : inheritance().entrySet()) {
+		for (final Map.Entry<TypeName, ClassStatement> entry : inheritance().entrySet()) {
 			final ClassStatement best = entry.getValue();
 			final LookupResultList lrl2 = best.getContext().lookup(name);
 			final OS_Element best2 = lrl2.chooseBest(null);
@@ -101,10 +95,10 @@ public class ClassContext extends ContextImpl implements IClassContext {
 				Result.add(name, level, best2, this, new ClassInfo(best, INHERITED));
 		}
 
-		for (TypeName tn1 : carrier.getGenericPart()) {
+		for (final TypeName tn1 : carrier.getGenericPart()) {
 			if (tn1 instanceof final @NotNull NormalTypeName tn) {
 				final String name1 = tn.getName(); // TODO this may return a string with DOTs in it.
-				if (name1.equals(name)) {
+				if (tn.nameEquals(name)) {
 //					LookupResultList lrl = tn.getContext().lookup(name);
 //					OS_Element best = lrl.chooseBest(null);
 //					if (best == null) {
@@ -128,7 +122,3 @@ public class ClassContext extends ContextImpl implements IClassContext {
 		return Result;
 	}
 }
-
-//
-//
-//
