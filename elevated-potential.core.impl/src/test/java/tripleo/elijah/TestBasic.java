@@ -11,8 +11,7 @@ package tripleo.elijah;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.AssOutFile;
-import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.DefaultCompilerController;
 import tripleo.elijah.diagnostic.Diagnostic;
@@ -34,6 +33,7 @@ import com.google.common.base.Charsets;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah_elevated.comp.input.CompilerInput_;
 
 import java.nio.file.Path;
@@ -107,9 +107,10 @@ public class TestBasic {
 
 			final NonOpinionatedBuilder nob = new NonOpinionatedBuilder();
 
-			c.feedInputs(
-					nob.inputs(List_of(s, "-sO")),
-					new DefaultCompilerController(((CompilationImpl) c).getCompilationAccess3()));
+			final ICompilationAccess3 compilationAccess3 = ((CompilationImpl) c).getCompilationAccess3();
+			final CompilerController  controller         = nob.createCompilerController(compilationAccess3.getComp());
+			final List<CompilerInput> inputs             = nob.inputs(List_of(s, "-sO"));
+			c.feedInputs(inputs, controller);
 
 			if (c.errorCount() != 0)
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
@@ -131,7 +132,7 @@ public class TestBasic {
 				if (l == ErrSink.Errors.DIAGNOSTIC) {
 					((Diagnostic) r).report(System.out);
 				} else {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(r);
+					SimplePrintLoggerToRemoveSoon.println_out_4(r);
 				}
 			}
 		}
@@ -181,7 +182,7 @@ public class TestBasic {
 
 		var l = new ArrayList<>();
 		((CompilationImpl)c).world().eachModule(m -> l.add(m.module().getFileName()));
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("184 "+l);
+		SimplePrintLoggerToRemoveSoon.println_err_4("184 "+l);
 
 //    const fun = function (f) { // <--
 
@@ -297,7 +298,7 @@ public class TestBasic {
 
 			var aofs = c.getCompilationEnclosure().OutputFileAsserts();
 			for (Triple<AssOutFile, EOT_FileNameProvider, NG_OutputRequest> aof : aofs) {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(aof);
+				SimplePrintLoggerToRemoveSoon.println_err_4(aof);
 			}
 
 			assertTrue(aofs.contains("/Prelude/Prelude.c"));
@@ -306,38 +307,23 @@ public class TestBasic {
 
 	@Disabled @Test
 	public final void testBasic_fact1_002() throws Exception {
-
 		testBasic_fact1 f = new testBasic_fact1();
 		f.start();
 
 		//assertEquals(25, f.c.errorCount()); // TODO Error count obviously should be 0
 
-		var cot = f.c.getOutputTree();
-
-
-		Multimap<String, EG_Statement> mms = ArrayListMultimap.create();
-
+		final EOT_OutputTree                 cot = f.c.getOutputTree();
+		final Multimap<String, EG_Statement> mms = ArrayListMultimap.create();
 
 		for (EOT_OutputFile outputFile : cot.getList()) {
 			if (outputFile.getType() != EOT_OutputType.SOURCES) continue;
 
 			final String filename = outputFile.getFilename();
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(filename);
+			SimplePrintLoggerToRemoveSoon.println_err_4(filename);
 
 			var ss = outputFile.getStatementSequence();
 
 			mms.put(filename, ss);
-/*
-			if (ss instanceof EG_SequenceStatement seq) {
-				for (EG_Statement statement : seq._list()) {
-					var exp = statement.getExplanation();
-
-					String txt = statement.getText();
-				}
-			}
-
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(ss);
-*/
 		}
 
 		List<Pair<String, String>> sspl = new ArrayList<>();
@@ -351,7 +337,13 @@ public class TestBasic {
 			sspl.add(Pair.of(fn, ss));
 		}
 
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(sspl);
+		SimplePrintLoggerToRemoveSoon.println_err_4("sspl");
+		SimplePrintLoggerToRemoveSoon.println_err_4("-----");
+		for (final Pair<String, String> pair : sspl) {
+			final String formatted = ("**--** %s %s").formatted(pair.getKey(), pair.getRight());
+			SimplePrintLoggerToRemoveSoon.println_err_4(formatted);
+		}
+
 
 		//tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("nothing");
 	}
