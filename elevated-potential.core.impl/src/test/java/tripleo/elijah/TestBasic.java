@@ -1,11 +1,3 @@
-/*
- * Elijjah compiler, copyright Tripleo <oluoluolu+elijah@gmail.com>
- *
- * The contents of this library are released under the LGPL licence v3,
- * the GNU Lesser General Public License text was downloaded from
- * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
 package tripleo.elijah;
 
 import org.junit.jupiter.api.Disabled;
@@ -234,7 +226,7 @@ public class TestBasic {
 	}
 
 
-	@Disabled @Test
+	@Test
 	public final void testBasic_listfolders3__() {
 		String s = "test/basic/listfolders3/listfolders3.ez";
 
@@ -262,7 +254,6 @@ public class TestBasic {
 		}
 	}
 
-	@Disabled
 	@Test
 	public final void testBasic_listfolders4() throws Exception {
 		String s = "test/basic/listfolders4/listfolders4.ez";
@@ -348,8 +339,7 @@ public class TestBasic {
 		//tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("nothing");
 	}
 
-	class testBasic_fact1 {
-
+	static class testBasic_fact1 {
 		Compilation0 c;
 
 		public void start() throws Exception {
@@ -364,7 +354,3 @@ public class TestBasic {
 		}
 	}
 }
-
-//
-//
-//
