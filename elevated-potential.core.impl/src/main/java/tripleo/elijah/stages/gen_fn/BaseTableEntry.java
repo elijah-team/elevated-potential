@@ -1,11 +1,3 @@
-/*
- * Elijjah compiler, copyright Tripleo <oluoluolu+elijah@gmail.com>
- *
- * The contents of this library are released under the LGPL licence v3,
- * the GNU Lesser General Public License text was downloaded from
- * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
 package tripleo.elijah.stages.gen_fn;
 
 import org.jdeferred2.Deferred;
@@ -39,10 +31,10 @@ public abstract class BaseTableEntry {
 		@Override
 		public Deferred<OS_Element, Diagnostic, Void> resolve(final @Nullable OS_Element resolve) {
 			if (resolve == null) {
-				if (BaseTableEntry.this instanceof VariableTableEntry vte) {
+				if (BaseTableEntry.this instanceof final VariableTableEntry vte) {
 					switch (vte.getVtt()) {
 					case SELF, TEMP, RESULT -> {
-						return super.resolve(resolve);
+						return super.resolve(resolve); // TODO 24/03/07 resolver, tomasetti
 					}
 					}
 				}
@@ -51,9 +43,10 @@ public abstract class BaseTableEntry {
 			return super.resolve(resolve);
 		}
 	};
-	private final List<StatusListener> statusListenerList = new ArrayList<StatusListener>();
-	protected DeduceTypes2 __dt2;
-	public BaseEvaFunction __gf;
+
+	private final List<StatusListener> statusListenerList = new ArrayList<>();
+	public        BaseEvaFunction      __gf;
+	protected     DeduceTypes2         __dt2;
 
 	// region resolved_element
 
@@ -64,14 +57,14 @@ public abstract class BaseTableEntry {
 
 	public void _fix_table(final DeduceTypes2 aDeduceTypes2, final @NotNull BaseEvaFunction aEvaFunction) {
 		__dt2 = aDeduceTypes2;
-		__gf = aEvaFunction;
+		__gf  = aEvaFunction;
 	}
 
-	public void addStatusListener(StatusListener sl) {
+	public void addStatusListener(final StatusListener sl) {
 		statusListenerList.add(sl);
 	}
 
-	public void elementPromise(@Nullable DoneCallback<OS_Element> dc, @Nullable FailCallback<Diagnostic> fc) {
+	public void elementPromise(@Nullable final DoneCallback<OS_Element> dc, @Nullable final FailCallback<Diagnostic> fc) {
 		if (dc != null)
 			_p_elementPromise.then(dc);
 		if (fc != null)
@@ -80,7 +73,8 @@ public abstract class BaseTableEntry {
 
 	public @Nullable OS_Element getResolvedElement() {
 		if (_p_elementPromise.isResolved()) {
-			final OS_Element[] xx = { null };
+			//return EventualExtract.of(_p_elementPromise);
+			final OS_Element[] xx = {null};
 
 			_p_elementPromise.then(x -> xx[0] = x);
 
@@ -96,14 +90,15 @@ public abstract class BaseTableEntry {
 		return status;
 	}
 
-	public void setResolvedElement(OS_Element aResolved_element) {
+	public void setResolvedElement(final OS_Element aResolved_element) {
 		if (_p_elementPromise.isResolved()) {
 			NotImplementedException.raise();
-		} else
+		} else {
 			_p_elementPromise.resolve(aResolved_element);
+		}
 	}
 
-	public void setStatus(Status newStatus, /* @NotNull */ IElementHolder eh) {
+	public void setStatus(final Status newStatus, /* @NotNull */ final IElementHolder eh) {
 		status = newStatus;
 		assert newStatus != Status.KNOWN || eh != null && eh.getElement() != null;
 		for (int i = 0; i < statusListenerList.size(); i++) {
@@ -128,7 +123,3 @@ public abstract class BaseTableEntry {
 		return typeResolve.typeResolution();
 	}
 }
-
-//
-//
-//
