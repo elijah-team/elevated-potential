@@ -54,11 +54,13 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 	@Override
 	public void add(final @NotNull CB_Action action) {
-		pq.add(new SingleActionProcess(action, "CB_FindStdLibProcess"));
+		System.err.println("DefaultCompilationBus::add (Action) "+action.name());
+		pq.add(new SingleActionProcess(action, "default processName CB_FindStdLibProcess"));
 	}
 
 	@Override
 	public void add(final @NotNull CB_Process aProcess) {
+		System.err.println("DefaultCompilationBus::add (Process) "+aProcess.name());
 		pq.add(aProcess);
 	}
 
