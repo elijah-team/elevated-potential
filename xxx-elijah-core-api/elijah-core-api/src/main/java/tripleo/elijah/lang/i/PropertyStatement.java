@@ -22,10 +22,10 @@ public interface PropertyStatement extends OS_Element, OS_NamedElement, ClassIte
 	@Override
 	String name();
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	//@Override
+	//default void serializeTo(SmallWriter sw) {
+	//
+	//}
 
 	FunctionDef set_fn();
 

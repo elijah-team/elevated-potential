@@ -24,10 +24,10 @@ public interface MatchConditional extends OS_Element, StatementItem, FunctionIte
 
 	void postConstruct();
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	//@Override
+	//default void serializeTo(SmallWriter sw) {
+	//
+	//}
 
 	void setContext(MatchContext ctx);
 

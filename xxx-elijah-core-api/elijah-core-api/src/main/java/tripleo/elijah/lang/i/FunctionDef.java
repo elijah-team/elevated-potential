@@ -38,10 +38,10 @@ public interface FunctionDef extends OS_Element, OS_NamedElement, Documentable, 
 
 	void scope(Scope3 sco);
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	//@Override
+	//default void serializeTo(SmallWriter sw) {
+	//
+	//}
 
 	void set(FunctionModifiers mod);
 

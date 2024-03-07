@@ -57,10 +57,10 @@ public interface ClassStatement extends ModuleItem, StatementItem, FunctionItem,
 
 	PropertyStatement prop();
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	//@Override
+	//default void serializeTo(SmallWriter sw) {
+	//
+	//}
 
 	void setContext(IClassContext ctx);
 

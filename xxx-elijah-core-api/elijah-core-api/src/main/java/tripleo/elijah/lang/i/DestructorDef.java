@@ -5,10 +5,10 @@ public interface DestructorDef extends OS_Element {
 
 	void scope(Scope3 aSco);
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	//@Override
+	//default void serializeTo(SmallWriter sw) {
+	//
+	//}
 
 	void setFal(FormalArgList aFal);
 

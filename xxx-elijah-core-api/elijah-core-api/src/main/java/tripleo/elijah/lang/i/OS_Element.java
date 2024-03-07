@@ -17,7 +17,9 @@ public interface OS_Element {
 	@Nullable
 	OS_Element getParent();
 
-	void serializeTo(SmallWriter sw);
+	default void serializeTo(SmallWriter sw) {
+		// do nothing by default
+	}
 
 	void visitGen(ElElementVisitor visit);
 }

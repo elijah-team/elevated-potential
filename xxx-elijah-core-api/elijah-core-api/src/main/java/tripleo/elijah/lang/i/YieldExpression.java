@@ -10,9 +10,7 @@ public interface YieldExpression extends IExpression, OS_Element {
 	OS_Element getParent();
 
 	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	void serializeTo(SmallWriter sw);
 
 	@Override
 	void visitGen(ElElementVisitor visit);

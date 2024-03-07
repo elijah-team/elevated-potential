@@ -15,10 +15,10 @@ package tripleo.elijah.lang.i;
  */
 public interface ModuleItem extends OS_Element, OS_NamedElement {
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	//@Override
+	//default void serializeTo(SmallWriter sw) {
+	//
+	//}
 }
 
 //

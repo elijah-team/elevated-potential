@@ -25,10 +25,10 @@ public interface CaseConditional extends OS_Element, StatementItem, FunctionItem
 
 	void scope(Scope3 aSco, IExpression aExpr1);
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	//@Override
+	//default void serializeTo(SmallWriter sw) {
+	//
+	//}
 
 	void setContext(ICaseContext ctx);
 

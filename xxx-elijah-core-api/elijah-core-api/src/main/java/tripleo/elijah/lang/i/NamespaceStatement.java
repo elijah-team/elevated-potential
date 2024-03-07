@@ -38,10 +38,10 @@ public interface NamespaceStatement extends ModuleItem, StatementItem, FunctionI
 
 	void postConstruct();
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	//@Override
+	//default void serializeTo(SmallWriter sw) {
+	//
+	//}
 
 	void setContext(NamespaceContext aCtx);
 

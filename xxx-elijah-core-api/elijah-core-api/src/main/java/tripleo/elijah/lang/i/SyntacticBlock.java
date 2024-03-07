@@ -25,10 +25,10 @@ public interface SyntacticBlock extends FunctionItem {
 
 	void scope(Scope3 sco);
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	//@Override
+	//default void serializeTo(SmallWriter sw) {
+	//
+	//}
 
 	void setContext(ISyntacticBlockContext ctx);
 

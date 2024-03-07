@@ -17,10 +17,10 @@ import java.util.*;
 public interface ImportStatement extends ModuleItem, ClassItem, StatementItem {
 	List<Qualident> parts();
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	//@Override
+	//default void serializeTo(SmallWriter sw) {
+	//
+	//}
 
 	void setAccess(AccessNotation aNotation);
 

@@ -35,10 +35,10 @@ public interface FuncExpr extends IExpression, OS_Element {
 
 	void scope(Scope3 aSco);
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	//@Override
+	//default void serializeTo(SmallWriter sw) {
+	//
+	//}
 
 	void setArgList(FormalArgList argList);
 

@@ -22,10 +22,10 @@ public interface ClassItem extends OS_Element {
 
 	El_Category getCategory();
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	//@Override
+	//default void serializeTo(SmallWriter sw) {
+	//
+	//}
 
 	void setAccess(AccessNotation aNotation);
 
