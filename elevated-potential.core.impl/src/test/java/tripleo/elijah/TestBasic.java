@@ -305,7 +305,7 @@ public class TestBasic {
 		}
 	}
 
-	@Disabled @Test
+	@Test
 	public final void testBasic_fact1_002() throws Exception {
 		testBasic_fact1 f = new testBasic_fact1();
 		f.start();
