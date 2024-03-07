@@ -11,11 +11,6 @@ public interface MC1 extends OS_Element, Documentable {
 
 	Iterable<? extends FunctionItem> getItems();
 
-	//@Override
-	//default void serializeTo(SmallWriter sw) {
-	//
-	//}
-
 	@Override
 	default void visitGen(@NotNull ElElementVisitor visit) {
 		visit.visitMC1(this);

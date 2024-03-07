@@ -9,11 +9,6 @@ public interface StatementWrapper extends OS_Element {
 	 */
 	IExpression getExpr();
 
-	//@Override
-	//default void serializeTo(SmallWriter sw) {
-	//
-	//}
-
 	@Override
 	String toString();
 }

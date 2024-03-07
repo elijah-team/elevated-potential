@@ -28,11 +28,6 @@ public interface IfConditional extends StatementItem, FunctionItem, OS_Element {
 
 	void scope(Scope3 aSco);
 
-	//@Override
-	//default void serializeTo(SmallWriter sw) {
-	//
-	//}
-
 	void setContext(IfConditionalContext ifConditionalContext);
 
 	@Override

@@ -17,11 +17,6 @@ public interface FormalArgListItem extends OS_Element, OS_NamedElement, ClassIte
 	// OS_Element2
 	String name();
 
-	//@Override
-	//default void serializeTo(SmallWriter sw) {
-	//
-	//}
-
 	void setName(IdentExpression s);
 
 	void setTypeName(TypeName tn1);

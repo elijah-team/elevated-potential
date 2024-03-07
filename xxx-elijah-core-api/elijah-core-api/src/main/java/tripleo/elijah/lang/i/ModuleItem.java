@@ -14,11 +14,6 @@ package tripleo.elijah.lang.i;
  * @see {@link OS_Module#add(OS_Element) }
  */
 public interface ModuleItem extends OS_Element, OS_NamedElement {
-
-	//@Override
-	//default void serializeTo(SmallWriter sw) {
-	//
-	//}
 }
 
 //

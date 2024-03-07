@@ -11,11 +11,6 @@ public interface TypeAliasStatement extends OS_Element {
 
 	void make(IdentExpression x, Qualident y);
 
-	//@Override
-	//default void serializeTo(SmallWriter sw) {
-	//
-	//}
-
 	void setBecomes(Qualident qq);
 
 	void setIdent(IdentExpression aToken);

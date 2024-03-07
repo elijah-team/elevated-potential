@@ -19,11 +19,6 @@ public interface VariableStatement extends @NotNull Locatable, OS_Element {
 	@NotNull
 	IExpression initialValue();
 
-	//@Override
-	//default void serializeTo(SmallWriter sw) {
-	//
-	//}
-
 	void set(TypeModifiers y);
 
 	void setName(IdentExpression s);

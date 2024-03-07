@@ -14,9 +14,6 @@ package tripleo.elijah.lang.i;
  * @see {@link FunctionDef#add(OS_Element)}
  */
 public interface FunctionItem extends OS_Element {
-	//@Override
-	//void serializeTo(SmallWriter sw);
-
 	// void visitFunctionItem(FunctionItemVisitor five);
 }
 

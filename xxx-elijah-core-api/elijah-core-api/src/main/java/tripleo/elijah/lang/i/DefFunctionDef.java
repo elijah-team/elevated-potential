@@ -18,11 +18,6 @@ public interface DefFunctionDef extends FunctionDef {
 	@Nullable
 	TypeName returnType();
 
-	//@Override
-	//default void serializeTo(SmallWriter sw) {
-	//
-	//}
-
 	@Override
 	void setAnnotations(List<AnnotationClause> aAs);
 
