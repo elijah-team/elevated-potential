@@ -2,12 +2,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>tripleo.elijah</groupId>
-	<artifactId>elevated-potential</artifactId>
-	<packaging>pom</packaging>
-	<version>2024.elevated-potential.2</version>
 	<name>elevated-potential</name>
 	<url>http://github.com/elijah-lang/elevated-potential</url>
+	<packaging>pom</packaging>
+
+	<groupId>tripleo.elijah</groupId>
+	<artifactId>elevated-potential</artifactId>
+	<version>2024.elevated-potential.2</version>
 
 	<properties>
 		<project.build.outputTimestamp>1</project.build.outputTimestamp>
@@ -335,23 +336,26 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+<!--
 				<configuration>
 					<failIfNoTests>true</failIfNoTests>
 				</configuration>
+-->
+<!--
 				<dependencies>
-					<!-- force to run with JUnit4 -->
-					<!-- don't copy everything... -->
-					<!--
+					&lt;!&ndash; force to run with JUnit4 &ndash;&gt;
+					&lt;!&ndash; don't copy everything... &ndash;&gt;
+					&lt;!&ndash;
 						<dependency>
 							<groupId>org.apache.maven.surefire</groupId>
 							<artifactId>surefire-junit47</artifactId>
 							<version>${maven-surefire-version}</version>
 						</dependency>
-					-->
+					&ndash;&gt;
 				</dependencies>
+-->
 			</plugin>
 
-			<!-- To use the plugin goals in your POM or parent POM -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
@@ -359,54 +363,62 @@
 			</plugin>
 
 			<!--
-						<plugin>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok-maven-plugin</artifactId>
-							<version>1.18.20.0</version>
-							<executions>
-								<execution>
-									<phase>generate-sources</phase>
-									<goals>
-										<goal>delombok</goal>
-									</goals>
-								</execution>
-							</executions>
-						</plugin>
+			<plugin>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok-maven-plugin</artifactId>
+			<version>1.18.20.0</version>
+			<executions>
+			<execution>
+			<phase>generate-sources</phase>
+			<goals>
+			<goal>delombok</goal>
+			</goals>
+			</execution>
+			</executions>
 			-->
 
 			<!--
-				<plugin>
-					<groupId>org.eclipse.xtend</groupId>
-					<artifactId>xtend-maven-plugin</artifactId>
-					<version>${xtend-maven-plugin.version}</version>
+			<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr-runtime</artifactId>
+			<version>3.5.3</version>
+			</dependency>
+			</plugin>
+			-->
 
-					<executions>
-						<execution>
-							<goals>
-								<goal>compile</goal>
-								<goal>testCompile</goal>
-							</goals>
-							<configuration>
-								<outputDirectory>${project.build.directory}/xtend-gen/main</outputDirectory>
-								<testOutputDirectory>${project.build.directory}/xtend-gen/test</testOutputDirectory>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
+			<!--
+			<plugin>
+			<groupId>org.eclipse.xtend</groupId>
+			<artifactId>xtend-maven-plugin</artifactId>
+			<version>${xtend-maven-plugin.version}</version>
+
+			<executions>
+			<execution>
+			<goals>
+			<goal>compile</goal>
+			<goal>testCompile</goal>
+			</goals>
+			<configuration>
+			<outputDirectory>${project.build.directory}/xtend-gen/main</outputDirectory>
+			<testOutputDirectory>${project.build.directory}/xtend-gen/test</testOutputDirectory>
+			</configuration>
+			</execution>
+			</executions>
+			</plugin>
 			-->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.12.1</version>
+				<version>${maven-compiler-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>default-compile</id>
-						<phase>none</phase>
+						<phase>compile</phase>
 					</execution>
 					<execution>
 						<id>default-testCompile</id>
-						<phase>none</phase>
+						<phase>test-compile</phase>
 					</execution>
 					<execution>
 						<id>compile</id>
@@ -431,30 +443,26 @@
 		</plugins>
 	</build>
 
-	<!--
-		<reporting>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>3.3.0</version>
-					<configuration>
-						<configLocation>checkstyle.xml</configLocation>
-					</configuration>
-					<reportSets>
-						<reportSet>
-							<reports>
-								<report>checkstyle</report>
-							</reports>
-						</reportSet>
-					</reportSets>
-				</plugin>
-			</plugins>
-		</reporting>
-	-->
-
 	<reporting>
 		<plugins>
+			<!--
+			<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-checkstyle-plugin</artifactId>
+			<version>3.3.0</version>
+			<configuration>
+			<configLocation>checkstyle.xml</configLocation>
+			</configuration>
+			<reportSets>
+			<reportSet>
+			<reports>
+			<report>checkstyle</report>
+			</reports>
+			</reportSet>
+			</reportSets>
+			</plugin>
+			-->
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>
