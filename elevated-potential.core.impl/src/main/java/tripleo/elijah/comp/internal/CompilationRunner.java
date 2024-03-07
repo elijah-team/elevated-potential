@@ -90,37 +90,10 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 		// FIXME only run once 06/16
 		if (startAction == null) {
 			startAction = new CB_StartCompilationRunnerAction(this, (IPipelineAccess) pa, aRootCI);
+
 			// FIXME CompilerDriven vs Process ('steps' matches "CK", so...)
-			cb.add(startAction.cb_Process());
-
-			// FIXME calling automatically for some reason?
-			final CB_Monitor                monitor           = cb.getMonitor();
-			final CompilerDriver            compilationDriver = ((IPipelineAccess) pa).getCompilationEnclosure().getCompilationDriver();
-			final Operation<CompilerDriven> ocrsd             = compilationDriver.get(CompilationImpl.CompilationAlways.Tokens.COMPILATION_RUNNER_START);
-
-			final @NotNull CB_Output cbOutput = startAction.getO();
-
-			switch (ocrsd.mode()) {
-			case SUCCESS -> {
-				final CD_CompilationRunnerStart compilationRunnerStart = (CD_CompilationRunnerStart) ocrsd.success();
-				final CR_State                  crState1               = this.getCrState();
-
-				// assert !(started);
-				if (CB_StartCompilationRunnerAction.started) {
-					//throw new AssertionError();
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("twice for " + startAction);
-				} else {
-					compilationRunnerStart.start(aRootCI, crState1, cbOutput);
-					CB_StartCompilationRunnerAction.started = true;
-				}
-
-				monitor.reportSuccess(startAction, cbOutput);
-			}
-			case FAILURE, NOTHING -> {
-				monitor.reportFailure(startAction, cbOutput);
-				throw new IllegalStateException("Error");
-			}
-			}
+			final CB_Process process = startAction.cb_Process();
+			cb.add(process);
 		} else {
 			assert false;
 		}
