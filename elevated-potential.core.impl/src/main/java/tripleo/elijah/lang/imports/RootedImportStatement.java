@@ -81,11 +81,6 @@ public class RootedImportStatement extends _BaseImportStatement {
 	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	@Override
 	public void setContext(final IImportContext ctx) {
 		_ctx = (Context) ctx;
 	}
@@ -98,7 +93,3 @@ public class RootedImportStatement extends _BaseImportStatement {
 		this.root = root;
 	}
 }
-
-//
-//
-//

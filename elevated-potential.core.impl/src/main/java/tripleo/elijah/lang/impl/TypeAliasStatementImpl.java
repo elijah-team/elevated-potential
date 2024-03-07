@@ -46,11 +46,6 @@ public class TypeAliasStatementImpl implements OS_Element, tripleo.elijah.lang.i
 	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	@Override
 	public void setBecomes(final Qualident qq) {
 		y = qq;
 	}

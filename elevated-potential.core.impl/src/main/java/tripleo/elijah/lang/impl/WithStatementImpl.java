@@ -10,6 +10,7 @@ package tripleo.elijah.lang.impl;
 
 import antlr.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
@@ -86,7 +87,7 @@ public class WithStatementImpl implements OS_Element, OS_Container, StatementIte
 
 	@Override
 	public void serializeTo(final SmallWriter sw) {
-
+		throw new UnintendedUseException("niy");
 	}
 
 	@Override

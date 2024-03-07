@@ -274,7 +274,7 @@ public class CaseConditionalImpl implements CaseConditional {
 
 	@Override
 	public void serializeTo(final SmallWriter sw) {
-		throw new UnsupportedOperationException();
+		throw new UnintendedUseException("miy");
 	}
 
 	@Override

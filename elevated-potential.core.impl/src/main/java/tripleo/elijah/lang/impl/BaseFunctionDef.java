@@ -196,10 +196,10 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 		scope3 = sco;
 	}
 
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
+	//@Override
+	//public void serializeTo(final SmallWriter sw) {
+	//
+	//}
 
 	@Override
 	public void set(final FunctionModifiers mod) {

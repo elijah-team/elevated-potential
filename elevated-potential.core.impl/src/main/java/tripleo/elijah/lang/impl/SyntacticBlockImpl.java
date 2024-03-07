@@ -85,11 +85,6 @@ public class SyntacticBlockImpl
 	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	@Override
 	public void setContext(final ISyntacticBlockContext ctx) {
 		this.ctx = ctx;
 	}

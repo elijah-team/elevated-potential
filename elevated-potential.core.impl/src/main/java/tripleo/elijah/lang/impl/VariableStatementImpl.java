@@ -77,11 +77,6 @@ public class VariableStatementImpl implements OS_Element, tripleo.elijah.lang.i.
 	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	@Override
 	public void visitGen(final @NotNull ElElementVisitor visit) {
 		visit.visitVariableStatement(this);
 	}

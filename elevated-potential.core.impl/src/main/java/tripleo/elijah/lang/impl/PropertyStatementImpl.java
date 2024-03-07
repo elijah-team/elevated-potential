@@ -136,11 +136,6 @@ public class PropertyStatementImpl implements PropertyStatement {
 	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	@Override
 	public FunctionDef set_fn() {
 		return set_fn;
 	}
