@@ -414,11 +414,11 @@
 				<executions>
 					<execution>
 						<id>default-compile</id>
-						<phase>compile</phase>
+						<phase>none</phase>
 					</execution>
 					<execution>
 						<id>default-testCompile</id>
-						<phase>test-compile</phase>
+						<phase>none</phase>
 					</execution>
 					<execution>
 						<id>compile</id>
