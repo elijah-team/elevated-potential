@@ -7,7 +7,9 @@ import java.io.*;
 import tripleo.wrap.File;
 
 public class CA_getHashForFile {
-	public @NotNull Operation<String> apply(String s, File f) {
+	private CA_getHashForFile() {}
+
+	public static @NotNull Operation<String> apply(String s, File f) {
 		try {
 			final String hdigest = new DigestUtils(MessageDigestAlgorithms.SHA_256).digestAsHex(f.wrapped());
 
