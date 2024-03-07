@@ -1,13 +1,7 @@
-/*
- * Elijjah compiler, copyright Tripleo <oluoluolu+elijah@gmail.com>
- *
- * The contents of this library are released under the LGPL licence v3,
- * the GNU Lesser General Public License text was downloaded from
- * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- */
 package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.Helpers0;
 
@@ -17,7 +11,6 @@ import java.io.*;
  * Created on Aug 30, 2005 9:05:24 PM
  */
 public class RegularTypeNameImpl extends AbstractTypeName2 implements NormalTypeName, RegularTypeName { // TODO 10/15 both?
-
 	private @Nullable Context _ctx;
 	// private OS_Type _resolved;
 	private OS_Element _resolvedElement;
@@ -37,7 +30,7 @@ public class RegularTypeNameImpl extends AbstractTypeName2 implements NormalType
 	/*
 	 * Null context. Possibly only for testing.
 	 */
-	public static @NotNull RegularTypeName makeWithStringTypeName(@NotNull String aTypeName) {
+	public static @NotNull RegularTypeName makeWithStringTypeName(@NotNull final String aTypeName) {
 		final RegularTypeName R = new RegularTypeNameImpl(null);
 		R.setName(Helpers0.string_to_qualident(aTypeName));
 		return R;
@@ -57,6 +50,11 @@ public class RegularTypeNameImpl extends AbstractTypeName2 implements NormalType
 	@Override
 	public int getColumnEnd() {
 		return getRealName().parts().get(getRealName().parts().size()).getColumnEnd();
+	}
+
+	@Override
+	public boolean nameEquals(final String aName) {
+		throw new UnintendedUseException("niy");
 	}
 
 	@Override
@@ -129,13 +127,13 @@ public class RegularTypeNameImpl extends AbstractTypeName2 implements NormalType
 		_resolvedElement = element;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public @NotNull String toString() {
+		return asString();
+	}
+
+	//@Override
+	public @NotNull String asString() {
 		final StringBuilder sb = new StringBuilder();
 		for (final TypeModifiers modifier : _ltm) {
 			switch (modifier) {
@@ -184,20 +182,21 @@ public class RegularTypeNameImpl extends AbstractTypeName2 implements NormalType
 				throw new IllegalStateException("Cant be here!");
 			}
 		}
+
+		final String s;
 		if (typeName != null) {
 			if (genericPart != null) {
-				sb.append(String.format("%s[%s]", getName(), genericPart.toString()));
-			} else
-				sb.append(getName());
-		} else
-			sb.append("<RegularTypeName empty>");
+				s = String.format("%s[%s]", getName(), genericPart.toString());
+			} else {
+				s = getName();
+			}
+		} else {
+			s = "<RegularTypeName empty>";
+		}
+		sb.append(s);
+
 		return sb.toString();
 	}
 
 	// endregion
-
 }
-
-//
-//
-//

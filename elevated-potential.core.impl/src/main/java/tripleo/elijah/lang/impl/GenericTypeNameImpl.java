@@ -1,18 +1,9 @@
-/*
- * Elijjah compiler, copyright Tripleo <oluoluolu+elijah@gmail.com>
- *
- * The contents of this library are released under the LGPL licence v3,
- * the GNU Lesser General Public License text was downloaded from
- * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
-/**
- *
- */
 package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.Context;
+import tripleo.elijah.lang.i.GenericTypeName;
 import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah.lang.i.TypeModifiers;
 import tripleo.elijah.lang.i.TypeName;
@@ -23,11 +14,11 @@ import java.io.File;
 /**
  * Created 8/16/20 7:42 AM
  */
-public class GenericTypeNameImpl implements tripleo.elijah.lang.i.GenericTypeName {
-	private final Context _ctx;
-	private Qualident _typeName;
-	private TypeName constraint;
-	private TypeModifiers modifiers;
+public class GenericTypeNameImpl implements GenericTypeName {
+	private final Context       _ctx;
+	private       Qualident     _typeName;
+	private       TypeName      constraint; //
+	private       TypeModifiers modifiers;
 
 	public GenericTypeNameImpl(final Context cur) {
 		_ctx = cur;
@@ -41,6 +32,11 @@ public class GenericTypeNameImpl implements tripleo.elijah.lang.i.GenericTypeNam
 	@Override
 	public int getColumnEnd() {
 		return _typeName.parts().get(_typeName.parts().size() - 1).getColumnEnd();
+	}
+
+	@Override
+	public boolean nameEquals(final String aName) {
+		throw new UnintendedUseException("niy");
 	}
 
 	@Override
@@ -81,7 +77,7 @@ public class GenericTypeNameImpl implements tripleo.elijah.lang.i.GenericTypeNam
 	}
 
 	@Override
-	public void setConstraint(TypeName aConstraint) {
+	public void setConstraint(final TypeName aConstraint) {
 		constraint = aConstraint;
 	}
 
@@ -102,7 +98,3 @@ public class GenericTypeNameImpl implements tripleo.elijah.lang.i.GenericTypeNam
 
 	// endregion
 }
-
-//
-//
-//

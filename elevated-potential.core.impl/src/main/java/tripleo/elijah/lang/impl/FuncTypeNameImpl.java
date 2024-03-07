@@ -2,6 +2,7 @@ package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.Helpers;
 import tripleo.elijah.util.NotImplementedException;
@@ -13,10 +14,10 @@ import java.util.ArrayList;
  * Created 8/16/20 2:16 AM
  */
 public class FuncTypeNameImpl implements tripleo.elijah.lang.i.FuncTypeName {
-	private final Context _ctx;
-	public @Nullable TypeNameList _arglist = null/* new TypeNameList() */;
-	private TypeModifiers _modifiers;
-	private @Nullable TypeName _returnValue = null /* new RegularTypeNameImpl() */; // TODO warning
+	private final     Context       _ctx;
+	public @Nullable  TypeNameList  _arglist     = null/* new TypeNameList() */;
+	private           TypeModifiers _modifiers;
+	private @Nullable TypeName      _returnValue = null /* new RegularTypeNameImpl() */; // TODO warning
 
 	public FuncTypeNameImpl(final Context cur) {
 		_ctx = cur;
@@ -24,8 +25,8 @@ public class FuncTypeNameImpl implements tripleo.elijah.lang.i.FuncTypeName {
 
 	@Override
 	public void argList(final @NotNull FormalArgList op) {
-		TypeNameList tnl = new TypeNameListImpl();
-		for (FormalArgListItem fali : op.falis()) {
+		final TypeNameList tnl = new TypeNameListImpl();
+		for (final FormalArgListItem fali : op.falis()) {
 			final TypeName tn = fali.typeName();
 			if (tn != null)
 				tnl.add(tn);
@@ -54,6 +55,12 @@ public class FuncTypeNameImpl implements tripleo.elijah.lang.i.FuncTypeName {
 	@Override
 	public int getColumnEnd() {
 		return -1;
+	}
+
+	@Override
+	public boolean nameEquals(final String aName) {
+		//return Helpers.String_equals(this.);
+		throw new UnintendedUseException("FuncTypeName has no name"); // TODO>>
 	}
 
 	@Override
@@ -98,17 +105,17 @@ public class FuncTypeNameImpl implements tripleo.elijah.lang.i.FuncTypeName {
 
 	@Override
 	public String toString() {
-		var sb = new StringBuilder();
-		var ls = new ArrayList<String>();
+		final var sb = new StringBuilder();
+		final var ls = new ArrayList<String>();
 
-		for (TypeName typeName : _arglist.p()) {
+		for (final TypeName typeName : _arglist.p()) {
 			ls.add("%s".formatted(typeName.toString()));
 		}
 		return "function (" + Helpers.String_join(", ", ls) +
-		// "_ctx=" + _ctx +
-		// ", _arglist=" + _arglist +
-		// ", _modifiers=" + _modifiers +
-		// ", _returnValue=" + _returnValue +
+				// "_ctx=" + _ctx +
+				// ", _arglist=" + _arglist +
+				// ", _modifiers=" + _modifiers +
+				// ", _returnValue=" + _returnValue +
 				')';
 	}
 
