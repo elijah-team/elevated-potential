@@ -4,9 +4,7 @@ public interface AliasStatement extends OS_Element, ModuleItem, ClassItem, Funct
 	Qualident getExpression();
 
 	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	void serializeTo(SmallWriter sw);
 
 	void setExpression(Qualident aXy);
 
