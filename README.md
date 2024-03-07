@@ -46,7 +46,7 @@ Goals (2024)
 
 1. [G6][6] Delete architecture with LCM
 
-2. [G7][7] Clojure (Promesa, Missionary, M*)
+2. [G7][7] Clojure (Promesa, Missionary, Manifold)
 
 3. [G1][1] Make progress towards results (cf `meson-demo`)
 
@@ -66,9 +66,9 @@ Revised Goals
 - ...
 
 
-[1]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/ginitiatives/G1.md
-[2]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/ginitiatives/G2.md
-[3]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/ginitiatives/G3.md
-[4]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/ginitiatives/G4.md
-[6]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/ginitiatives/G6.md
-[7]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/ginitiatives/G7.md
+[1]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G7.md
+[2]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G2.md
+[3]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G3.md
+[4]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G4.md
+[6]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G6.md
+[7]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G7.md
