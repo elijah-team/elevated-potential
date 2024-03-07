@@ -20,12 +20,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.2</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>tripleo.elijah</groupId>
 			<artifactId>elevated-potential-core-api</artifactId>
 			<version>2024.elevated-potential.2</version>
@@ -49,8 +43,9 @@
 							<sources>
 								<source>../xxx-model-status/src/main/java</source>
 								<source>../xxx-annotations/src/main/java</source>
-
+								<!--
 								<source>./dlog/src/main/java</source>
+								-->
 								<source>./elijah-core-api/src/main/java</source>
 								<source>./src/main/java</source>
 								<source>./elijah-ek/src/main/java</source>
@@ -59,6 +54,31 @@
 								<source>./elijah-util/src/main/java</source>
 								<source>./tripleo-reactive/src/main/java</source>
 								<source>./tripleo-small/src/main/java</source>
+							</sources>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>add-test-source</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>../xxx-model-status/src/test/java</source>
+								<source>../xxx-annotations/src/test/java</source>
+								<!--
+								<source>./dlog/src/test/java</source>
+								-->
+								<source>./elijah-core-api/src/test/java</source>
+								<source>./src/test/java</source>
+								<source>./elijah-ek/src/test/java</source>
+								<source>./elijah-nextgen-outputstatement/src/test/java</source>
+								<source>./elijah-stateful/src/test/java</source>
+								<source>./elijah-util/src/test/java</source>
+								<source>./tripleo-reactive/src/test/java</source>
+								<source>./tripleo-small/src/test/java</source>
 							</sources>
 						</configuration>
 					</execution>
