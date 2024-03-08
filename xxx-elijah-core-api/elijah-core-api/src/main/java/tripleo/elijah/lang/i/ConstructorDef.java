@@ -13,11 +13,6 @@ public interface ConstructorDef extends FunctionDef {
 	void postConstruct();
 
 	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
-
-	@Override
 	void setFal(FormalArgList aFal);
 
 	@Override

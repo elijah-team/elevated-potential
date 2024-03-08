@@ -103,11 +103,6 @@ public class NamespaceStatementImpl extends _CommonNC implements Documentable, C
 	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	@Override
 	public void setCategory(El_Category aCategory) {
 		// TODO Auto-generated method stub
 

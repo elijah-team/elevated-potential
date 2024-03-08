@@ -2509,11 +2509,6 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 		}
 
 		@Override
-		public void serializeTo(final SmallWriter sw) {
-
-		}
-
-		@Override
 		public void visitGen(final ElElementVisitor visit) {
 			throw new IllegalArgumentException("not implemented");
 		}

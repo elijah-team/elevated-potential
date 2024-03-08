@@ -1,6 +1,7 @@
 package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
 
@@ -35,7 +36,7 @@ public class OS_TypeNameElementImpl implements OS_TypeNameElement {
 
 	@Override
 	public void serializeTo(final SmallWriter sw) {
-		throw new UnsupportedOperationException();
+		throw new UnintendedUseException("not implemented yet");
 	}
 
 	@Override

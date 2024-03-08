@@ -118,11 +118,6 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	@Override
 	public void setContext(final ILoopContext ctx) {
 		_a.setContext(ctx);
 	}

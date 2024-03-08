@@ -25,11 +25,6 @@ public interface VariableSequence extends FunctionItem, StatementItem, ClassItem
 	VariableStatement next();
 
 	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
-
-	@Override
 	void setCategory(El_Category aCategory);
 
 	void setContext(Context ctx);

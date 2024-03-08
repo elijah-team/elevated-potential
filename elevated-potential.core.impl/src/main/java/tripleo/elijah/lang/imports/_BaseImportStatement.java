@@ -43,11 +43,6 @@ public abstract class _BaseImportStatement implements ImportStatement {
 		return __n;
 	}
 
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
 	// endregion
 
 	@Override

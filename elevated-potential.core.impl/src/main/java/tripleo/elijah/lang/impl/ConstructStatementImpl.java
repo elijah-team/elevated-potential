@@ -8,6 +8,7 @@
 package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
 
@@ -55,7 +56,7 @@ public class ConstructStatementImpl implements ConstructStatement {
 
 	@Override
 	public void serializeTo(final SmallWriter sw) {
-		throw new UnsupportedOperationException();
+		throw new UnintendedUseException("niy");
 	}
 
 	@Override

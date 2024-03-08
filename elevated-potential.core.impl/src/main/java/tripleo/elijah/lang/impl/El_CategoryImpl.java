@@ -10,6 +10,7 @@ package tripleo.elijah.lang.impl;
 
 import antlr.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
 import tripleo.elijah.util.*;
@@ -47,7 +48,7 @@ public class El_CategoryImpl implements El_Category {
 
 	@Override
 	public void serializeTo(final SmallWriter sw) {
-		throw new UnsupportedOperationException();
+		throw new UnintendedUseException("niy");
 	}
 
 	@Override

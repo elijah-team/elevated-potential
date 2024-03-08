@@ -12,11 +12,6 @@ public interface AccessNotation extends OS_Element {
 	@Override
 	OS_Element getParent();
 
-	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
-
 	void setCategory(Token category);
 
 	void setShortHand(Token shorthand);

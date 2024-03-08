@@ -1,16 +1,9 @@
-/*
- * Elijjah compiler, copyright Tripleo <oluoluolu+elijah@gmail.com>
- *
- * The contents of this library are released under the LGPL licence v3,
- * the GNU Lesser General Public License text was downloaded from
- * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
 package tripleo.elijah.lang.impl;
 
 import antlr.Token;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.contexts.MatchConditionalContext;
 import tripleo.elijah.contexts.MatchContext;
 import tripleo.elijah.lang.i.*;
@@ -25,9 +18,12 @@ import java.util.List;
  *         Created Apr 15, 2020 at 10:11:16 PM
  */
 public class MatchConditionalImpl implements MatchConditional, OS_Element, StatementItem, FunctionItem {
+	public MatchConditionalImpl(final OS_Element parent, final Context ignoredParentContext) {
+		this.parent = parent;
+//		this._ctx = new SingleIdentContext(parentContext, this);
+	}
 
 	public class MatchArm_TypeMatch__ implements MatchArm_TypeMatch {
-
 		// private final List<FunctionItem> items = new ArrayList<FunctionItem>();
 		private final Context ___ctx = new MatchConditionalContext(// MatchConditional.this.getContext(), this);
 				getParent().getParent().getContext(), this);
@@ -38,15 +34,11 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 
 		@Override
 		public void add(final FunctionItem aItem) {
-			scope3.add((OS_Element) aItem);
-			// items.add(aItem);
+			scope3.add(aItem);
 		}
 
 		@Override
 		public void addDocString(final Token text) {
-//			if (docstrings == null)
-//				docstrings = new ArrayList<Token>();
-//			docstrings.add(text);
 			scope3.addDocString(text);
 		}
 
@@ -62,7 +54,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 
 		@Override
 		public @NotNull List<FunctionItem> getItems() {
-			List<FunctionItem> collection = new ArrayList<FunctionItem>();
+			List<FunctionItem> collection = new ArrayList<>();
 			for (OS_Element element : scope3.items()) {
 				if (element instanceof FunctionItem)
 					collection.add((FunctionItem) element);
@@ -93,7 +85,7 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 
 		@Override
 		public void serializeTo(final SmallWriter sw) {
-
+			throw new UnintendedUseException("niy");
 		}
 
 		@Override
@@ -103,25 +95,17 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 	}
 
 	public class MatchConditionalPart2 implements MC1, IMatchConditionalPart2 {
-
 		private final Context ___ctx = new MatchConditionalContext(MatchConditionalImpl.this.getContext(), this);
-
-		// private final List<FunctionItem> items = new ArrayList<FunctionItem>();
-//		private List<Token> docstrings = new ArrayList<Token>();
 		private IExpression matching_expression;
 		private Scope3 scope3;
 
 		@Override
 		public void add(final FunctionItem aItem) {
-			scope3.add((OS_Element) aItem);
-			// items.add(aItem);
+			scope3.add(aItem);
 		}
 
 		@Override
 		public void addDocString(final Token text) {
-//			if (docstrings == null)
-//				docstrings = new ArrayList<Token>();
-//			docstrings.add(text);
 			scope3.addDocString(text);
 		}
 
@@ -163,22 +147,31 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 
 		@Override
 		public void serializeTo(final SmallWriter sw) {
-
+			throw new UnintendedUseException("niy");
 		}
 	}
+
+	// private final SingleIdentContext _ctx;
+	private final List<MC1> parts = new ArrayList<MC1>();
+
+	private MatchContext __ctx;
+
+	private IExpression expr;
+
+	private OS_Element parent;
 
 	public class MatchConditionalPart3__ implements MatchConditionalPart3 {
 
 		private final Context ___ctx = new MatchConditionalContext(MatchConditionalImpl.this.getContext(), this);
 
 		// private final List<FunctionItem> items = new ArrayList<FunctionItem>();
-		private @Nullable List<Token> docstrings = null;
-		private IdentExpression matching_expression;
+		private final @Nullable List<Token>     docstrings = null;
+		private                 IdentExpression matching_expression;
 		private Scope3 scope3;
 
 		@Override
 		public void add(final FunctionItem aItem) {
-			scope3.add((OS_Element) aItem);
+			scope3.add(aItem);
 			// items.add(aItem);
 		}
 
@@ -223,22 +216,8 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 
 		@Override
 		public void serializeTo(final SmallWriter sw) {
-
+			throw new UnintendedUseException("niy");
 		}
-	}
-
-	// private final SingleIdentContext _ctx;
-	private final List<MC1> parts = new ArrayList<MC1>();
-
-	private MatchContext __ctx;
-
-	private IExpression expr;
-
-	private OS_Element parent;
-
-	public MatchConditionalImpl(final OS_Element parent, final Context parentContext) {
-		this.parent = parent;
-//		this._ctx = new SingleIdentContext(parentContext, this);
 	}
 
 	@Override
@@ -288,11 +267,6 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 	public void postConstruct() {
 	}
 
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
 	public void setContext(final MatchContext ctx) {
 		__ctx = ctx;
 	}
@@ -326,9 +300,4 @@ public class MatchConditionalImpl implements MatchConditional, OS_Element, State
 	public void visitGen(final @NotNull ElElementVisitor visit) {
 		visit.visitMatchConditional(this);
 	}
-
 }
-
-//
-//
-//

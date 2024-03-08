@@ -1,12 +1,3 @@
-/* -*- Mode: Java; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*- */
-/*
- * Elijjah compiler, copyright Tripleo <oluoluolu+elijah@gmail.com>
- *
- * The contents of this library are released under the LGPL licence v3,
- * the GNU Lesser General Public License text was downloaded from
- * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
- *
- */
 package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
@@ -37,12 +28,12 @@ public class WrappedStatementWrapper extends StatementWrapperImpl implements OS_
 
 	@Override
 	public @Nullable Context getContext() {
-		throw new UnintendedUseException();
+		throw new UnintendedUseException("niy");
 	}
 
 	@Override
 	public @Nullable OS_Element getParent() {
-		throw new UnintendedUseException();
+		throw new UnintendedUseException("niy");
 	}
 
 	public VariableStatementImpl getVariableStatement() {
@@ -55,18 +46,15 @@ public class WrappedStatementWrapper extends StatementWrapperImpl implements OS_
 
 	@Override
 	public void serializeTo(final SmallWriter sw) {
-		throw new UnintendedUseException();
+		throw new UnintendedUseException("niy");
 	}
 
 	@Override
 	public void visitGen(ElElementVisitor visit) {
-		// TODO Auto-generated method stub
-//		visit.visitStatementWrapper(this);
-		throw new UnintendedUseException();
+		throw new UnintendedUseException("niy");
 	}
 
 	class Wrapped extends AbstractExpression {
-
 		private final IExpression expression;
 		private final VariableStatementImpl variableStatement;
 
@@ -79,10 +67,5 @@ public class WrappedStatementWrapper extends StatementWrapperImpl implements OS_
 		public boolean is_simple() {
 			return expression.is_simple();
 		}
-
 	}
 }
-
-//
-// vim:set shiftwidth=4 softtabstop=0 noexpandtab:
-//

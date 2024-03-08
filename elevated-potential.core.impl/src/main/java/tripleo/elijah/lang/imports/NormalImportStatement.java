@@ -101,17 +101,7 @@ public class NormalImportStatement extends _BaseImportStatement {
 	}
 
 	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
-
-	@Override
 	public void setContext(final IImportContext ctx) {
 		_ctx = (Context) ctx;
 	}
-
 }
-
-//
-//
-//

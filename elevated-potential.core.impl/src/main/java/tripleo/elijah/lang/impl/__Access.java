@@ -10,10 +10,10 @@ public abstract class __Access implements ClassItem {
 		return _an;
 	}
 
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
+	//@Override
+	//public void serializeTo(final SmallWriter sw) {
+	//
+	//}
 
 	@Override
 	public void setAccess(AccessNotation an) {

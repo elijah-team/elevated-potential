@@ -19,11 +19,6 @@ public interface DefFunctionDef extends FunctionDef {
 	TypeName returnType();
 
 	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
-
-	@Override
 	void setAnnotations(List<AnnotationClause> aAs);
 
 	void setBody(IExpression aExpression);

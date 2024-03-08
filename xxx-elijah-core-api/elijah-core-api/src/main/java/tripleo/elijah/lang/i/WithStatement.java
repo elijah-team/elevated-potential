@@ -30,9 +30,7 @@ public interface WithStatement extends FunctionItem {
 	void scope(Scope3 sco);
 
 	@Override
-	default void serializeTo(SmallWriter sw) {
-
-	}
+	void serializeTo(SmallWriter sw);
 
 	void setContext(IWithContext ctx);
 

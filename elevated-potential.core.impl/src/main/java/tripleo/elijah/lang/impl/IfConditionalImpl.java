@@ -10,6 +10,7 @@ package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
@@ -113,30 +114,8 @@ public class IfConditionalImpl implements tripleo.elijah.lang.i.IfConditional {
 
 	@Override
 	public void serializeTo(SmallWriter sw) {
-		throw new UnsupportedOperationException();
+		throw new UnintendedUseException("niy");
 	}
-
-	/*
-	 * private class IfConditionalScopeImpl extends AbstractScope2 { private
-	 * List<Token> mDocs;
-	 *
-	 * protected IfConditionalScope(OS_Element aParent) { super(aParent); assert
-	 * aParent == IfConditional.this; }
-	 *
-	 * @Override public void addDocString(final Token s) { if (mDocs == null) mDocs
-	 * = new ArrayList<Token>(); mDocs.add(s); }
-	 *
-	 * // /*@ requires parent != null; * / // @Override // public void
-	 * statementWrapper(final IExpression aExpr) { // //if (parent_scope == null)
-	 * throw new IllegalStateException("parent is null"); // add(new
-	 * StatementWrapper(aExpr, getContext(), getParent())); // }
-	 *
-	 * @Override public StatementClosure statementClosure() { return new
-	 * AbstractStatementClosure(this); // TODO }
-	 *
-	 * @Override public void add(final StatementItem aItem) {
-	 * IfConditional.this.add(aItem); } }
-	 */
 
 	@Override
 	public void setContext(final IfConditionalContext ifConditionalContext) {

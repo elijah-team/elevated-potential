@@ -64,10 +64,10 @@ public class FormalArgListItemImpl implements FormalArgListItem {
 		return name.getText();
 	}
 
-	@Override
-	public void serializeTo(final SmallWriter sw) {
-
-	}
+	//@Override
+	//public void serializeTo(final SmallWriter sw) {
+	//
+	//}
 
 	@Override
 	public void setAccess(AccessNotation aNotation) {

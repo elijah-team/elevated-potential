@@ -93,7 +93,6 @@ public class VariableSequenceImpl implements tripleo.elijah.lang.i.VariableSeque
 		for (final VariableStatement stmt : stmts) {
 			sw.fieldString("stmt%d".formatted(i++), stmt.getName());
 		}
-
 	}
 
 	@Override
