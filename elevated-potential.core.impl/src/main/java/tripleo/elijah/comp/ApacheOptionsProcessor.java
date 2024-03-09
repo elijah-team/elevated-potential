@@ -35,8 +35,8 @@ public class ApacheOptionsProcessor implements OptionsProcessor {
 			// c.getCompilationEnclosure().getCompilationBus().option();
 
 			if (CompilationImpl.isGitlab_ci() || cmd.hasOption("silent")) {
-				aCb.addCompilerChange(CC_SetSilent.class);
-//				new CC_SetSilent(true).apply(c);
+				//aCb.addCompilerChange(CC_SetSilent.class);
+				new CC_SetSilent(true).apply(c);
 			}
 
 			return Operation.success(Ok.instance());
