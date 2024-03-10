@@ -93,10 +93,10 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@SuppressWarnings("BooleanVariableAlwaysNegated")
 	private          boolean                             _inside;
 	private          CompilerInput                       __advisement;
-	private          ICompilationAccess3                 compilationAccess3;
-	private @NotNull CK_Monitor                          defaultMonitor;
-	private          CPX_Signals                         cpxSignals;
-	private          Eventual<CP_Paths>                  _p_pathsEventual = new Eventual<>();
+	private                ICompilationAccess3 compilationAccess3;
+	private final @NotNull CK_Monitor          defaultMonitor;
+	private                CPX_Signals         cpxSignals;
+	private final Eventual<CP_Paths> _p_pathsEventual = new Eventual<>();
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink            = aErrSink;
@@ -407,7 +407,6 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	public void pushItem(CompilerInstructions aci) {
 		if (xxx.contains(aci)) {
 			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("** [CompilerInstructions::pushItem] duplicate instructions: " + aci.getFilename());
-			return;
 		} else {
 			xxx.add(aci);
 			_cis.onNext(aci);
@@ -644,12 +643,12 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public void checkFinishEventuals() {
-		throw new UnintendedUseException();
+		getFluffy().checkFinishEventuals();
 	}
 
 	@Override
 	public <P> void register(final Eventual<P> aEventual) {
-		//throw new UnintendedUseException();
+		getFluffy().register(aEventual);
 	}
 
 	@Override
@@ -733,5 +732,5 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		return cpxSignals;
 	}
 
-	private Eventual<CP_Paths> pathsEventual = new Eventual<>();
+	private final Eventual<CP_Paths> pathsEventual = new Eventual<>();
 }
