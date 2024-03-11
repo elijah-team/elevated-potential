@@ -212,8 +212,9 @@ class CRI_Ident {
 				// TODO make tests pass but I dont like this (should emit a dummy function or
 				// placeholder)
 				if (sl.size() == 0) {
-					text[0] = Emit.emit("/*149*/") + text1; // TODO check if it belongs somewhere else (what does this
-															// mean?)
+					throw new IllegalStateException("unknown in CRI_Ident");
+//					text[0] = Emit.emit("/*149*/") + text1; // TODO check if it belongs somewhere else (what does this
+//															// mean?)
 				} else {
 					text[0] = Emit.emit("/*152*/") + "vm" + text1;
 				}
