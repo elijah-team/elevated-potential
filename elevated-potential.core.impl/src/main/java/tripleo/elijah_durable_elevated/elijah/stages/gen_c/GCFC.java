@@ -25,8 +25,8 @@ public class GCFC implements Reactivable {
 		for (C2C_Result r : rs) {
 			// TODO store a Map<TY, Buffer/*GRI??*/> in rs
 			switch (r.ty()) {
-			case GenerateResult.TY.HEADER -> buf = r.getBuffer();
-			case GenerateResult.TY.IMPL -> bufHdr = r.getBuffer();
+			case HEADER -> buf = r.getBuffer();
+			case IMPL -> bufHdr = r.getBuffer();
 			default -> throw new IllegalStateException();
 			}
 		}
