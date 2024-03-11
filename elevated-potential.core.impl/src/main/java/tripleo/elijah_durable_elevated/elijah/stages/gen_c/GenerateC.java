@@ -609,6 +609,10 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		return LOG;
 	}
 
+	public ZoneITE zoneGet(final IdentIA aIdentIa) {
+		return _zone.get(aIdentIa);
+	}
+
 	enum GetTypeName {
 		;
 

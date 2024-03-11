@@ -95,7 +95,7 @@ public class GetRealTargetNameTest {
 		//
 
 		final GenerateC generateC = (GenerateC) boilerplate.getGenerateFiles2(mod);
-		final ZoneITE   zi        = generateC._zone.get(ident_ia);
+		final ZoneITE   zi        = generateC.zoneGet(ident_ia);
 		final String    x         = zi.getRealTargetName2(Generate_Code_For_Method.AOG.GET, null);
 		assertEquals("vvx->vmfoo", x);
 	}
