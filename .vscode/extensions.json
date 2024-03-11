@@ -1,0 +1,25 @@
+{
+    "recommendations": [
+        // "yzhang.markdown-all-in-one",
+        // "svsool.markdown-memo",
+        // "bierner.markdown-checkbox",
+        // "houkanshan.vscode-markdown-footnote",
+        // "mdickin.markdown-shortcuts",
+        // "mushan.vscode-paste-image",
+        // "sean10.markless-sean10",
+        // "gruntfuggly.todo-tree",
+        // "bbenoist.nix"
+        "esbenp.prettier-vscode",
+#        "github.vscode-pull-request-github", # ??
+#        "gitpod.gitpod-theme",
+        "jeanp413.test-java-extension-pack",
+        "redhat.java",
+        "richardwillis.vscode-gradle",
+        "vscjava.vscode-gradle",
+        "vscjava.vscode-java-debug",
+        "vscjava.vscode-java-dependency",
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-java-test",
+        "vscjava.vscode-maven",
+    ]
+}
