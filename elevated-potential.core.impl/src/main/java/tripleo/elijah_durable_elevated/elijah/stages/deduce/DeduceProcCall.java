@@ -14,8 +14,6 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.util.ReadySupplier_1;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.deduce.tastic.*;
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Operation;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableStatementImpl;
