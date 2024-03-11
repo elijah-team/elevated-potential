@@ -1,36 +1,27 @@
 package tripleo.elijah_durable_elevated.elijah.comp;
 
-import tripleo.elijah_durable_elevated.elijah.comp.functionality.f291.U;
-import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah_durable_elevated.elijah.comp.internal.CompilationImpl;
-
-import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.g.GPipelineMember;
-
-import tripleo.elijah.comp.nextgen.i.CP_Path;
-import tripleo.elijah.comp.nextgen.i.CP_Paths;
-import tripleo.elijah.comp.nextgen.i.CP_RootType;
-
-import tripleo.elijah.nextgen.outputstatement.EG_Naming;
-import tripleo.elijah.nextgen.outputstatement.EG_SequenceStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_SingleStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.nextgen.ER_Node;
-
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.nextgen.comp_model.CM_UleLog;
-
 import io.smallrye.mutiny.tuples.Functions;
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.CB_Output;
+import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.g.GPipelineMember;
+import tripleo.elijah.nextgen.ER_Node;
+import tripleo.elijah.nextgen.comp_model.CM_UleLog;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.stages.logging.LogEntry;
 import tripleo.elijah.util.Ok;
+import tripleo.elijah_durable_elevated.elijah.comp.functionality.f291.U;
+import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah_durable_elevated.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah_durable_elevated.elijah.nextgen.outputtree.EOT_OutputFileImpl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 public class WriteOutputTreePipeline extends PipelineMember implements GPipelineMember {
 	private final int WRITE_OUTPUT_TREE__ADD_NODE_OUTPUT = 106;

@@ -1,26 +1,24 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import org.apache.commons.lang3.tuple.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.diagnostic.Diagnostic.*;
-import tripleo.elijah.lang.i.*;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.diagnostic.Diagnostic.Severity;
+import tripleo.elijah.diagnostic.ExceptionDiagnostic;
+import tripleo.elijah.lang.i.IdentExpression;
 import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.Operation2;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.ClassInvocation;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DeduceElement3_ProcTableEntry;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
-import java.text.*;
-import java.util.*;
-import java.util.function.*;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.function.Consumer;
 
 class GI_ProcIA implements GenerateC_Item {
 	private final          GenerateC      gc;

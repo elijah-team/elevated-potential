@@ -1,8 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.comp.nextgen.pn;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.nextgen.pn.*;
-import tripleo.elijah.stages.write_stage.pipeline_impl.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.nextgen.pn.SC_Fai;
 import tripleo.elijah_durable_elevated.elijah.stages.write_stage.pipeline_impl.WP_State_Control;
 
 // Factory

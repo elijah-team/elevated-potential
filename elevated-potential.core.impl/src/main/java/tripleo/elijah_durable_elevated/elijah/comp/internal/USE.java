@@ -4,27 +4,21 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.specs.ElijahCache;
+import tripleo.elijah.compiler_model.CM_Module;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.util.*;
 import tripleo.elijah_durable_elevated.elijah.ci_impl.LibraryStatementPartImpl;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.comp.caches.DefaultElijahCache;
-import tripleo.elijah.compiler_model.CM_Module;
-import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.comp.i.CompilationClosure;
-import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.comp.i.USE_Reasoning;
 import tripleo.elijah_durable_elevated.elijah.comp.nextgen.CX_ParseElijahFile;
-import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.diagnostic.ExceptionDiagnostic;
-import tripleo.elijah.diagnostic.FileNotFoundDiagnostic;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.util.*;
-
-import java.io.*;
-
 import tripleo.elijah_durable_elevated.elijah.util.Helpers0;
 import tripleo.wrap.File;
-import java.util.regex.*;
+
+import java.io.*;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("UnnecessaryLocalVariable")
 public class USE {

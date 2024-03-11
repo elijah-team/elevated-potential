@@ -1,16 +1,17 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
+import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated.comp.compilation_bus.SingleActionProcess;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 public class CB_FindStdLibProcess implements CB_Process {
 	private final CB_FindStdLibAction action;

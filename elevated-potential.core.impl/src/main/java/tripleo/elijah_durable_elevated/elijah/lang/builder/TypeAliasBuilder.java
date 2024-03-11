@@ -8,9 +8,8 @@
  */
 package tripleo.elijah_durable_elevated.elijah.lang.builder;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.TypeAliasStatementImpl;
 
 /**

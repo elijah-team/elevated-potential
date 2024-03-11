@@ -1,15 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_durable_elevated.elijah.comp.DeducePipeline;
-import tripleo.elijah_durable_elevated.elijah.comp.EvaPipeline;
-import tripleo.elijah_durable_elevated.elijah.comp.LawabidingcitizenPipeline;
-import tripleo.elijah_durable_elevated.elijah.comp.PipelineMember;
-import tripleo.elijah_durable_elevated.elijah.comp.WriteMakefilePipeline;
-import tripleo.elijah_durable_elevated.elijah.comp.WriteMesonPipeline;
-import tripleo.elijah_durable_elevated.elijah.comp.WriteOutputTreePipeline;
-import tripleo.elijah_durable_elevated.elijah.comp.WritePipeline;
 import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah_durable_elevated.elijah.comp.*;
 
 public abstract class __Plugins {
 	public static class WriteMakefilePipelinePlugin implements PipelinePlugin {

@@ -11,9 +11,7 @@ package tripleo.elijah_durable_elevated.elijah.lang.impl;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.AnnotationPart;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 8/15/20 6:31 PM

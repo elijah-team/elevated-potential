@@ -9,9 +9,9 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.ParserClosure;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.ParserClosureImpl;
 
 public class Out {

@@ -1,34 +1,11 @@
 package tripleo.elijah_durable_elevated.elijah.comp;
 
 import antlr.Token;
-import tripleo.elijah.ci.CiExpression;
-import tripleo.elijah.ci.CiExpressionList;
-import tripleo.elijah.ci.CiProcedureCallExpression;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.ci.ExpressionKind;
-import tripleo.elijah.ci.GenerateStatement;
-import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.ci.cii.GetItemExpression;
-import tripleo.elijah.ci.cii.IdentExpression;
-import tripleo.elijah.ci.cii.Qualident;
-import tripleo.elijah.ci.cil.CharLitExpressionImpl;
-import tripleo.elijah.ci.cil.CiListExpressionImpl;
-import tripleo.elijah.ci.cil.DotExpressionImpl;
-import tripleo.elijah.ci.cil.ExpressionBuilder;
-import tripleo.elijah.ci.cil.FloatExpressionImpl;
-import tripleo.elijah.ci.cil.GetItemExpressionImpl;
-import tripleo.elijah.ci.cil.IdentExpressionImpl;
-import tripleo.elijah.ci.cil.NumericExpressionImpl;
-import tripleo.elijah.ci.cil.QualidentImpl;
-import tripleo.elijah.ci.cil.SetItemExpressionImpl;
-import tripleo.elijah.ci.cil.StringExpressionImpl;
-import tripleo.elijah.ci.cil.SubExpressionImpl;
-import tripleo.elijah_durable_elevated.elijah.ci_impl.CiExpressionListImpl;
-import tripleo.elijah_durable_elevated.elijah.ci_impl.CiProcedureCallExpressionImpl;
-import tripleo.elijah_durable_elevated.elijah.ci_impl.CompilerInstructionsImpl;
-import tripleo.elijah_durable_elevated.elijah.ci_impl.GenerateStatementImpl;
-import tripleo.elijah_durable_elevated.elijah.ci_impl.LibraryStatementPartImpl;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.ci.cii.*;
+import tripleo.elijah.ci.cil.*;
 import tripleo.elijah.lang.i.OS_Type;
+import tripleo.elijah_durable_elevated.elijah.ci_impl.*;
 
 public class PCon {
 	public CiExpression ExpressionBuilder_build(final CiExpression aEe, final ExpressionKind aEk,

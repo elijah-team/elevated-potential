@@ -1,18 +1,13 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.Eventual;
 import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.NamespaceInvocation;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
-
-import org.jetbrains.annotations.NotNull;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.ICodeRegistrar;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;

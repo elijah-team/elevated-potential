@@ -1,6 +1,5 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.IdentTableEntry;
 
 public interface ITE_Resolver {

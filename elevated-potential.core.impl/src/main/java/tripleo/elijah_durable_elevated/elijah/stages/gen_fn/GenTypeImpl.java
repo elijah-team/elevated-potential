@@ -8,15 +8,11 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
-import org.jdeferred2.*;
+import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.lang.types.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
+import tripleo.elijah.lang.types.OS_FuncType;
 import tripleo.elijah.util.*;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.BaseFunctionDef;
 import tripleo.elijah_durable_elevated.elijah.lang.types.*;

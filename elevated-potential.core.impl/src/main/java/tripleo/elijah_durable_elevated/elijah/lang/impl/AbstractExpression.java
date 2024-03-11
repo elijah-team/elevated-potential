@@ -9,7 +9,8 @@
 
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
 
 public abstract class AbstractExpression implements IExpression {

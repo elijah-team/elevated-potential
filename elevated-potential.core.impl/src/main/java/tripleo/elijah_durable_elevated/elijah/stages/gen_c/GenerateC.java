@@ -8,10 +8,20 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import org.apache.commons.lang3.tuple.*;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.nextgen.outputstatement.ReasonedStringListStatement;
+import tripleo.elijah.nextgen.reactive.ReactiveDimension;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.util.IFixedList;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.work.*;
+import tripleo.elijah_durable_elevated.elijah.lang.types.OS_FuncExprType;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DeduceElement3_ProcTableEntry;
 import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishClass;
@@ -21,23 +31,9 @@ import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.G
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 import tripleo.elijah_durable_elevated.elijah.stages.logging.ElLog_;
 import tripleo.elijah_durable_elevated.elijah.work.WorkList__;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.types.OS_FuncExprType;
-import tripleo.elijah.lang2.BuiltInTypes;
-import tripleo.elijah.nextgen.outputstatement.ReasonedStringListStatement;
-import tripleo.elijah.nextgen.reactive.ReactiveDimension;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.work.*;
 import tripleo.elijah_durable_elevated.elijah.world.i.LivingClass;
 import tripleo.elijah_durable_elevated.elijah.world.i.LivingNamespace;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.util.buffer.Buffer;
 
 import java.util.*;

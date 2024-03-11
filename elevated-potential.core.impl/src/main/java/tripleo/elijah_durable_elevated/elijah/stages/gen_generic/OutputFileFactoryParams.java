@@ -1,12 +1,12 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_generic;
 
 import org.jetbrains.annotations.Contract;
-import tripleo.elijah_durable_elevated.elijah.comp.PipelineLogic;
-import tripleo.elijah_durable_elevated.elijah.stages.logging.ElLog_;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah_durable_elevated.elijah.comp.PipelineLogic;
+import tripleo.elijah_durable_elevated.elijah.stages.logging.ElLog_;
 import tripleo.elijah_durable_elevated.elijah.world.i.WorldModule;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 public class OutputFileFactoryParams {
 	private final CompilationEnclosure compilationEnclosure;

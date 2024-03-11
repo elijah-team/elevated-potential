@@ -3,22 +3,16 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
-
 import tripleo.elijah.comp.i.CompProgress;
-
 import tripleo.elijah.nextgen.reactive.Reactivable;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
-
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_durable_elevated.elijah.DebugFlags;
 import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishNamespace;
 import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishNamespace__addClass_1;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNamespace;
-
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah_durable_elevated.elijah.DebugFlags;
-
 import tripleo.elijah_durable_elevated.elijah.world.i.LivingNamespace;
 import tripleo.elijah_durable_elevated.elijah.world.i.LivingRepo;
 

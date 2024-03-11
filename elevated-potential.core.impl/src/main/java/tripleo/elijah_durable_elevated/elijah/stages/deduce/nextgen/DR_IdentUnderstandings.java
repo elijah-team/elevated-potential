@@ -1,10 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.lang.i.OS_Element;
+import tripleo.elijah.lang.i.VariableStatement;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DG_ClassStatement;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.ProcTableEntry;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;

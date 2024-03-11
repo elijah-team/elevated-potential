@@ -1,7 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.comp.impl;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.i.CompilationChange;
 
 public class CC_SetSilent implements CompilationChange {

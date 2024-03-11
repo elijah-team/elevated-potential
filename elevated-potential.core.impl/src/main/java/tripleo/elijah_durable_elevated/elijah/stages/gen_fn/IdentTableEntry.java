@@ -11,25 +11,24 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
 //import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.Promise;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.Eventual;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.nextgen.reactive.DefaultReactive;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.Resolve_Ident_IA.*;
-import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.Resolve_Ident_IA.DeduceElementIdent;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen.DR_Ident;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Consumer;
 
 /**
  * Created 9/12/20 10:27 PM

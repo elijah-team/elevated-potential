@@ -8,21 +8,17 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.LangGlobals;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen.DR_Ident;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DG_ClassStatement;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
-import java.util.*;
+import java.util.Map;
 
 /**
  * Created 9/10/21 3:42 AM

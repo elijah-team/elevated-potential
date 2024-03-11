@@ -1,13 +1,14 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import com.google.common.collect.*;
-import org.jetbrains.annotations.*;
+import com.google.common.collect.Lists;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.NotImplementedException;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Created 8/3/20 8:41 AM

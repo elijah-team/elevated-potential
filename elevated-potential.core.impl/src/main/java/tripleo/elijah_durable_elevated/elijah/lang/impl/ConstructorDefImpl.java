@@ -8,10 +8,11 @@
  */
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.nextgen.names.i.*;
-import tripleo.elijah.lang2.*;
+import tripleo.elijah.lang.nextgen.names.i.EN_Name;
+import tripleo.elijah.lang2.ElElementVisitor;
 import tripleo.elijah_durable_elevated.elijah.contexts.FunctionContextImpl;
 
 /**

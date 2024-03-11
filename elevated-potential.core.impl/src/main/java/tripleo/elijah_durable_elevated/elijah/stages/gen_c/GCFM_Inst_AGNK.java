@@ -1,8 +1,6 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.Instruction;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.IntegerIA;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
 class GCFM_Inst_AGNK {
 

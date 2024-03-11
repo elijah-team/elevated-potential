@@ -1,19 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.world.impl;
 
-import java.util.Optional;
-import java.util.function.Function;
-
-import org.jetbrains.annotations.*;
-
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah._ElTaggableMixin;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.i.NamespaceStatement;
 import tripleo.elijah.stages.d.Stages;
-import tripleo.elijah.stages.garish.*;
-import tripleo.elijah.stages.gen_c.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.world.i.*;
 import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishNamespace;
 import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishNamespace_Generator;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_c.GenerateC;
@@ -23,6 +14,9 @@ import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah_durable_elevated.elijah.world.i.LivingCreatorSpec;
 import tripleo.elijah_durable_elevated.elijah.world.i.LivingNamespace;
+
+import java.util.Optional;
+import java.util.function.Function;
 
 public class DefaultLivingNamespace extends _ElTaggableMixin implements LivingNamespace {
 	private final EvaNamespace    node;

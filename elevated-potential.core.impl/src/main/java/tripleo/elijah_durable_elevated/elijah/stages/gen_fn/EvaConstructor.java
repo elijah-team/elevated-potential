@@ -10,13 +10,13 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.*;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.nextgen.reactive.DefaultReactive;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 /**
  * Created 6/27/21 9:45 AM

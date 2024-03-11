@@ -8,8 +8,9 @@
  */
 package tripleo.elijah_durable_elevated.elijah.lang.types;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.lang.i.OS_Element;
+import tripleo.elijah.lang.i.OS_Type;
 
 /**
  * Created 1/22/21 8:34 AM

@@ -10,9 +10,7 @@ package tripleo.elijah_durable_elevated.elijah.lang.impl;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.TypeName;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /*
  * Created on Aug 30, 2005 9:01:37 PM

@@ -1,23 +1,18 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
 import org.jetbrains.annotations.NotNull;
-
-import tripleo.elijah_durable_elevated.elijah.DebugFlags;
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
-
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah_durable_elevated.elijah.world.i.WorldModule;
-
-import tripleo.elijah_durable_elevated.elijah.comp.nextgen.CX_ParseElijahFile;
 import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.comp.specs.ElijahSpec;
-
+import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.util.Operation2;
+import tripleo.elijah_durable_elevated.elijah.DebugFlags;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
+import tripleo.elijah_durable_elevated.elijah.comp.nextgen.CX_ParseElijahFile;
+import tripleo.elijah_durable_elevated.elijah.world.i.WorldModule;
+import tripleo.wrap.File;
 
 import java.io.IOException;
 import java.util.Optional;
-
-import tripleo.wrap.File;
 
 public enum CX_realParseElijjahFile2 {
 	;

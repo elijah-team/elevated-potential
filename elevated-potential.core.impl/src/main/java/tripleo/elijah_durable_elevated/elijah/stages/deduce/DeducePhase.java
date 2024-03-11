@@ -10,31 +10,25 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
 import com.google.common.collect.*;
-import lombok.*;
-import org.apache.commons.lang3.tuple.*;
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.g.*;
+import lombok.Getter;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.g.GFunctionMapHook;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.*;
-import tripleo.elijah.nextgen.diagnostic.*;
-import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.stages.deduce.declarations.*;
-import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.stages.post_deduce.*;
-import tripleo.elijah.stateful.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.nextgen.ClassDefinition;
+import tripleo.elijah.nextgen.reactive.ReactiveDimension;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stateful.State;
+import tripleo.elijah.stateful._RegistrationTarget;
+import tripleo.elijah.util.Maybe;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.work.*;
-import tripleo.elijah.world.i.*;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.comp.PipelineLogic;
 import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
@@ -56,10 +50,11 @@ import tripleo.elijah_durable_elevated.elijah.world.i.WorldModule;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 /**
  * Created 12/24/20 3:59 AM

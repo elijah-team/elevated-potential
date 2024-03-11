@@ -8,19 +8,19 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
+import org.jdeferred2.Promise;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.g.GClassInvocation;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UnknownType;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UserClassType;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaClass;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaContainer;
 
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Supplier;
 
 /**
  * Created 3/5/21 3:51 AM

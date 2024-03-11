@@ -1,15 +1,11 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import com.google.common.base.*;
-import org.jetbrains.annotations.*;
+import com.google.common.base.Preconditions;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.deduce.tastic.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah.work.*;
+import tripleo.elijah.work.WorkList;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UserType;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
@@ -18,7 +14,6 @@ import tripleo.elijah_durable_elevated.elijah.stages.deduce.tastic.FCA_Stop;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
-import java.util.Objects;
 import java.util.*;
 
 public class Implement_construct {

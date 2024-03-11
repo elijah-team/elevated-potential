@@ -2,17 +2,18 @@ package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
-import tripleo.elijah_durable_elevated.elijah.DebugFlags;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah_durable_elevated.elijah.nextgen.inputtree.EIT_ModuleList_;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.i.Asseveration;
 import tripleo.elijah.comp.specs.EzSpec;
 import tripleo.elijah.compiler_model.CM_Module;
-import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
+import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.util.Operation;
+import tripleo.elijah_durable_elevated.elijah.DebugFlags;
+import tripleo.elijah_durable_elevated.elijah.nextgen.inputtree.EIT_ModuleList_;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 public class DefaultObjectTree implements CK_ObjectTree {
 	private final CompilationImpl compilation;

@@ -1,6 +1,6 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.stateful.*;
 
 public interface IStateRunnable extends Stateful {

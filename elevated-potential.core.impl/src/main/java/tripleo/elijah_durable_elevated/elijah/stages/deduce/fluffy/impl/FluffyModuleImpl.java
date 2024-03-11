@@ -1,17 +1,16 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.fluffy.impl;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.fluffy.i.*;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.entrypoints.MainClassEntryPoint;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.OS_ModuleImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.fluffy.i.*;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class FluffyModuleImpl implements FluffyModule {
 	static class FluffyModuleImplInjector {

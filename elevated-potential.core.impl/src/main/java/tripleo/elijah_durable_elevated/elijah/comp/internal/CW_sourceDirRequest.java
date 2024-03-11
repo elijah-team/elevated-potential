@@ -1,14 +1,15 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.ci.LibraryStatementPart;
+import tripleo.elijah.comp.i.USE_Reasoning;
+import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.inputtree.EIT_InputType;
-import tripleo.elijah.util.*;
-
+import tripleo.elijah.util.Mode;
+import tripleo.elijah.util.Operation2;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.wrap.File;
-import java.util.function.*;
+
+import java.util.function.Function;
 
 public class CW_sourceDirRequest {
 	@SuppressWarnings("CallToPrintStackTrace")

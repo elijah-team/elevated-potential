@@ -1,14 +1,15 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.g.*;
-import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.comp.*;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.IFunctionMapHook;
 import tripleo.elijah_durable_elevated.elijah.stages.logging.ElLog_;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 public class DefaultCompilationAccess implements ICompilationAccess {
 	protected final Compilation compilation;

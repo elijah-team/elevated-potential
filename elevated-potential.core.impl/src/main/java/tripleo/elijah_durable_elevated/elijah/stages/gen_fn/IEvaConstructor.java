@@ -1,11 +1,11 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_generic.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.lang.i.FunctionDef;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.reactive.Reactive;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.Dependency;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.IDependencyReferent;

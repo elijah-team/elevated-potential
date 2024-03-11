@@ -1,15 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.stages.garish;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.g.GGarishClass;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_c.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.util.BufferTabbedOutputStream;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UnknownType;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UserClassType;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.ClassInvocation;
@@ -20,7 +15,7 @@ import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah_durable_elevated.elijah.world.i.LivingClass;
 
-import java.util.*;
+import java.util.Map;
 
 public class GarishClass implements GGarishClass {
 	private final LivingClass _lc;

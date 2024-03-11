@@ -1,13 +1,13 @@
 package tripleo.elijah_durable_elevated.elijah.nextgen.output;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.nextgen.outputtree.EOT_FileNameProvider;
+import tripleo.elijah.util.BufferTabbedOutputStream;
 import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishNamespace;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNamespace;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah_durable_elevated.elijah.stages.generate.OutputStrategyC;
-import tripleo.elijah.util.BufferTabbedOutputStream;
 
 import java.util.List;
 

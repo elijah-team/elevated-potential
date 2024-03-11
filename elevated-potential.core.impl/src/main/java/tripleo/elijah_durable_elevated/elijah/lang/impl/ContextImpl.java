@@ -8,11 +8,11 @@
  */
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
-import com.google.common.collect.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.contexts.*;
+import com.google.common.collect.ImmutableList;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.contexts.ModuleContext;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.nextgen.names.i.*;
+import tripleo.elijah.lang.nextgen.names.i.EN_Name;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.contexts.ModuleContext__;
 

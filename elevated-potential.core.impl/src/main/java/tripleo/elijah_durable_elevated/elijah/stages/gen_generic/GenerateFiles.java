@@ -1,12 +1,11 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_generic;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 
 import java.util.Collection;
 import java.util.List;

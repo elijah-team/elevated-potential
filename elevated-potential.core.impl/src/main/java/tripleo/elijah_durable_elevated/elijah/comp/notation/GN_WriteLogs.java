@@ -4,16 +4,13 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
-import tripleo.elijah_durable_elevated.elijah.comp.functionality.f202.F202;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.notation.GN_Notable;
 import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
+import tripleo.elijah_durable_elevated.elijah.comp.functionality.f202.F202;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GN_WriteLogs implements GN_Notable {
 	private final @NotNull ICompilationAccess ca;

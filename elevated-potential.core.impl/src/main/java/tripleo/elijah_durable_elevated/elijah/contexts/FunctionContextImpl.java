@@ -12,9 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.contexts.IFunctionContext;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.BaseFunctionDef;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.ContextImpl;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableSequenceImpl;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 
 /**
  * @author Tripleo

@@ -9,9 +9,17 @@ package tripleo.elijah_durable_elevated.elijah.comp;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_durable_elevated.elijah.DebugFlags;
 import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.CB_OutputString;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.lang.i.FunctionDef;
+import tripleo.elijah.lang.i.OS_NamedElement;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah_durable_elevated.elijah.DebugFlags;
 import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_durable_elevated.elijah.comp.internal.Provenance;
 import tripleo.elijah_durable_elevated.elijah.comp.notation.GN_GenerateNodesIntoSink;
@@ -21,16 +29,6 @@ import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.DoubleLatch;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_NamedElement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.util.Ok;
 
 import java.util.*;
 

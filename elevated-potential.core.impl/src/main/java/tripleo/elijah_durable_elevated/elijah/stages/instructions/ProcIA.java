@@ -8,10 +8,9 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.instructions;
 
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.ProcTableEntry;
-
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Created 1/12/21 4:22 AM

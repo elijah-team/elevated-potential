@@ -1,11 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.lang.i.ClassStatement;
+import tripleo.elijah.lang.i.ConstructorDef;
 import tripleo.elijah_durable_elevated.elijah.comp.notation.GM_GenerateModule;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeducePhase;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;

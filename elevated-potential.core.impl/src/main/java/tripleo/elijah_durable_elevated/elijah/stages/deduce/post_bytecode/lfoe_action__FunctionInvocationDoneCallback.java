@@ -1,24 +1,18 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
 import org.jdeferred2.DoneCallback;
-
-import tripleo.elijah_durable_elevated.elijah.DebugFlags;
-import tripleo.elijah.ReadySupplier_1;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.LangGlobals;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.ProcTableEntry;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.work.WorkList;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.ReadySupplier_1;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.work.WorkList;
+import tripleo.elijah_durable_elevated.elijah.DebugFlags;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.LangGlobals;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.ProcTableEntry;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 
 class lfoe_action__FunctionInvocationDoneCallback implements DoneCallback<FunctionInvocation> {

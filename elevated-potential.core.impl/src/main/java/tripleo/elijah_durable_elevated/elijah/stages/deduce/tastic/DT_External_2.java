@@ -1,20 +1,14 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.tastic;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.Promise;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.Finally.Outs;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.lang.nextgen.names.i.*;
-import tripleo.elijah.lang.nextgen.names.impl.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.declarations.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.lang.nextgen.names.i.EN_Understanding;
+import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.AliasStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.lang.nextgen.names.impl.ENU_ResolveToFunction;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;

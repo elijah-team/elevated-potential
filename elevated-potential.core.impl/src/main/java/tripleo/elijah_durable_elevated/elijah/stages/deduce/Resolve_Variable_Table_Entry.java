@@ -8,26 +8,26 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.jdeferred2.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.contexts.*;
-import tripleo.elijah.diagnostic.*;
+import org.jdeferred2.DoneCallback;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.contexts.IFunctionContext;
+import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.deduce.tastic.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.work.*;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.Operation2;
+import tripleo.elijah.work.WorkList;
+import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_FuncExprType;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.tastic.DT_External_2;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created 9/5/21 2:54 AM

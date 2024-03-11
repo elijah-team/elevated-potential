@@ -1,14 +1,12 @@
 package tripleo.elijah_durable_elevated.elijah.comp.notation;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.internal.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.notation.GN_Env;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_durable_elevated.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.*;
@@ -19,7 +17,7 @@ import tripleo.elijah_durable_elevated.elijah.world.i.WorldModule;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 	private final List<ProcessedNode>  lgc;

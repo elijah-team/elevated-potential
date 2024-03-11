@@ -9,17 +9,17 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_generic;
 
 import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.subjects.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.stages.gen_c.*;
-import tripleo.elijah.stages.gen_fn.*;
+import io.reactivex.rxjava3.subjects.ReplaySubject;
+import io.reactivex.rxjava3.subjects.Subject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_c.OutputFileC;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
-import tripleo.util.buffer.*;
+import tripleo.util.buffer.Buffer;
 
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Consumer;
 
 /**
  * Created 4/27/21 1:11 AM

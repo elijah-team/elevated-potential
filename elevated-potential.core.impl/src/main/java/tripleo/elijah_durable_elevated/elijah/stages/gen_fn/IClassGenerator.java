@@ -1,13 +1,11 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.work.WorkList;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.ICodeRegistrar;
 
 
 public interface IClassGenerator {

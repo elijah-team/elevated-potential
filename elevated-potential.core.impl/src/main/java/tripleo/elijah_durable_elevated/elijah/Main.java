@@ -1,9 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah;
 
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
-import tripleo.elijah_durable_elevated.elijah.comp.IO_;
-import tripleo.elijah_durable_elevated.elijah.comp.StdErrSink;
 import tripleo.elijah.comp.i.CompilerController;
+import tripleo.elijah_durable_elevated.elijah.comp.*;
 import tripleo.elijah_durable_elevated.elijah.factory.NonOpinionatedBuilder;
 import tripleo.elijah_durable_elevated.elijah.factory.comp.CompilationFactory;
 

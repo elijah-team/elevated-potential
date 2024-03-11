@@ -10,10 +10,7 @@ package tripleo.elijah_durable_elevated.elijah.entrypoints;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.entrypoints.EntryPoint;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.NamespaceStatement;
-import tripleo.elijah.lang.i.OS_Element;
+import tripleo.elijah.lang.i.*;
 
 /**
  * Created 6/14/21 7:24 AM

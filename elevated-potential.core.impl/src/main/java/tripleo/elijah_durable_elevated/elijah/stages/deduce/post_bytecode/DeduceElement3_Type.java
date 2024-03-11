@@ -1,9 +1,9 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
 import tripleo.elijah.lang.i.Context;
+import tripleo.elijah.util.Operation2;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenType;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.TypeTableEntry;
-import tripleo.elijah.util.Operation2;
 
 /**
  * Also {@link DeduceType3}

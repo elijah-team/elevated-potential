@@ -1,19 +1,19 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
+import org.jdeferred2.Promise;
+import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.lang.i.Context;
+import tripleo.elijah.lang.i.OS_Type;
+import tripleo.elijah.util.Maybe;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenType;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.VariableTableEntry;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public interface PostBC_Processor {
 	abstract class __PostBC_Processor__VTE implements PostBC_Processor {

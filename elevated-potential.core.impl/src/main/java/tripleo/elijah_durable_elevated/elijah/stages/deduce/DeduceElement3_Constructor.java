@@ -1,7 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.ReadySupplier_1;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DED;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.IDeduceElement3;
@@ -9,12 +12,6 @@ import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 import tripleo.elijah_durable_elevated.elijah.stages.inter.ModuleThing;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.inter.*;
 
 public class DeduceElement3_Constructor implements IDeduceElement3 {
 	private final EvaConstructor evaConstructor;

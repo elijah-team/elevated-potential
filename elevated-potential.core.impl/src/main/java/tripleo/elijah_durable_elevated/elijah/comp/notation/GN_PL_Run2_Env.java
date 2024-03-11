@@ -1,8 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.comp.notation;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_durable_elevated.elijah.comp.PipelineLogic;
 import tripleo.elijah.comp.notation.GN_Env;
+import tripleo.elijah_durable_elevated.elijah.comp.PipelineLogic;
 import tripleo.elijah_durable_elevated.elijah.world.i.WorldModule;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 

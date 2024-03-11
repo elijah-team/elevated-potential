@@ -1,10 +1,12 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.diagnostic.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.CB_Output;
+import tripleo.elijah.comp.i.CB_OutputString;
+import tripleo.elijah.diagnostic.Diagnostic;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CB_ListBackedOutput implements CB_Output {
 	private final List<CB_OutputString> x = new ArrayList<>();

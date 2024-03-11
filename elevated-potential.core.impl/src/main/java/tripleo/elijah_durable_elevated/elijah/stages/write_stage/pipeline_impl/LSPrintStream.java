@@ -1,11 +1,11 @@
 package tripleo.elijah_durable_elevated.elijah.stages.write_stage.pipeline_impl;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah.nextgen.inputtree.EIT_Input;
 import tripleo.elijah.nextgen.inputtree.EIT_InputType;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,26 +1,19 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
-import org.jdeferred2.*;
+import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.*;
-
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah.comp.Finally.Outs;
-import tripleo.elijah.contexts.*;
+import tripleo.elijah.contexts.ModuleContext;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.lang.imports.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stateful.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.contexts.ModuleContext__;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.BaseFunctionDef;
 import tripleo.elijah_durable_elevated.elijah.lang.imports.NormalImportStatement;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen.DR_Ident;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DED.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stateful.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DED.DED_ITE;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 

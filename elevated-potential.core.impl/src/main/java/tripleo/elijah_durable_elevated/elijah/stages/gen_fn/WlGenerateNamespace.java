@@ -13,12 +13,12 @@ import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.NamespaceStatement;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.NamespaceInvocation;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.work.WorkJob;
 import tripleo.elijah.work.WorkManager;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeducePhase;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.NamespaceInvocation;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.ICodeRegistrar;
 
 /**
  * Created 5/31/21 3:01 AM

@@ -1,21 +1,16 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_fn_c;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.entrypoints.EntryPoint;
+import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah_durable_elevated.elijah.comp.FunctionStatement;
 import tripleo.elijah_durable_elevated.elijah.comp.PipelineLogic;
 import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_durable_elevated.elijah.entrypoints.ArbitraryFunctionEntryPoint;
-import tripleo.elijah.entrypoints.EntryPoint;
 import tripleo.elijah_durable_elevated.elijah.entrypoints.MainClassEntryPoint;
-import tripleo.elijah_durable_elevated.elijah.pre_world.Mirror_ArbitraryFunctionEntryPoint;
-import tripleo.elijah_durable_elevated.elijah.pre_world.Mirror_EntryPoint;
-import tripleo.elijah_durable_elevated.elijah.pre_world.Mirror_MainClassEntryPoint;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenerateFunctions;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GeneratePhase;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.IClassGenerator;
+import tripleo.elijah_durable_elevated.elijah.pre_world.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.inter.ModuleThing;
-import tripleo.elijah.stages.logging.ElLog;
 
 public class GenFnC {
 	private IPipelineAccess pa;

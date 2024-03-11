@@ -1,7 +1,9 @@
 package tripleo.elijah_durable_elevated.elijah.lang.types;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.lang.i.OS_Element;
+import tripleo.elijah.lang.i.OS_Type;
 
 public class OS_UnitType extends __Abstract_OS_Type {
 

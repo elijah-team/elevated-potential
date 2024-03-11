@@ -8,10 +8,8 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.gen_generic;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.lang.i.OS_Element;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 

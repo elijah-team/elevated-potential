@@ -2,14 +2,12 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import tripleo.elijah.Eventual;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.nextgen.reactive.Reactive;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceElement;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.OnGenClass;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.Dependency;
-import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 import tripleo.util.range.Range;
 

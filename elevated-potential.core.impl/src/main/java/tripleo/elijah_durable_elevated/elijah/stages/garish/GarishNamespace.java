@@ -1,12 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.stages.garish;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.stages.gen_c.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.util.BufferTabbedOutputStream;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNamespace;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;

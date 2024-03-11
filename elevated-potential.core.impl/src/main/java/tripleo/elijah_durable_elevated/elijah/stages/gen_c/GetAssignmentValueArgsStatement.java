@@ -7,7 +7,7 @@ import tripleo.elijah_durable_elevated.elijah.stages.instructions.Instruction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 public class GetAssignmentValueArgsStatement implements EG_Statement {
 	private final List<String> sll = new ArrayList<>();

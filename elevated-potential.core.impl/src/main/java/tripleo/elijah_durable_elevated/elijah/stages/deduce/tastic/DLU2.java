@@ -1,9 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.tastic;
 
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.LookupResultList;
 import tripleo.elijah.lang.i.OS_Element;
-
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.BiConsumer;

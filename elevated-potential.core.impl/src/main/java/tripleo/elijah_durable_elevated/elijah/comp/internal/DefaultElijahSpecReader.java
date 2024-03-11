@@ -1,11 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
-
-import tripleo.elijah_durable_elevated.elijah.comp.nextgen.CX_ParseElijahFile;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.util.Operation;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
+import tripleo.elijah_durable_elevated.elijah.comp.nextgen.CX_ParseElijahFile;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;

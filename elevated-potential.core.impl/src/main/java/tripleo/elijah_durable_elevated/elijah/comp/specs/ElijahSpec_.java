@@ -1,11 +1,11 @@
 package tripleo.elijah_durable_elevated.elijah.comp.specs;
 
-import java.io.*;
-import java.util.Objects;
-
 import tripleo.elijah.comp.specs.ElijahSpec;
 import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.wrap.File;
+
+import java.io.InputStream;
+import java.util.Objects;
 
 public final class ElijahSpec_ implements ElijahSpec {
 	private final String      file_name;

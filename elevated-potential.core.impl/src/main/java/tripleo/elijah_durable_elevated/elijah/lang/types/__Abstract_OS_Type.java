@@ -1,9 +1,9 @@
 package tripleo.elijah_durable_elevated.elijah.lang.types;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.lang2.*;
+import tripleo.elijah.lang2.BuiltInTypes;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.AliasStatementImpl;
 
 abstract class __Abstract_OS_Type implements OS_Type {

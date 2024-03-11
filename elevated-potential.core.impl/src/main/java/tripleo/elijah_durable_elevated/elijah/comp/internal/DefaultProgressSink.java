@@ -1,7 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.IProgressSink;
+import tripleo.elijah.comp.i.ProgressSinkComponent;
 
 public class DefaultProgressSink implements IProgressSink {
 	@Override

@@ -5,10 +5,7 @@ import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.FormalArgListItem;
 import tripleo.elijah.lang.i.OS_Type;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UserType;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenType;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.TypeTableEntry;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.VariableTableEntry;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 
 public class FT_FCA_FormalArgListItem {
 	private final FormalArgListItem fali;

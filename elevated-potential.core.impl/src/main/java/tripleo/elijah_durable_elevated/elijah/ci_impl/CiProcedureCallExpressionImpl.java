@@ -1,9 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.ci_impl;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.ci.ExpressionKind;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.ci.*;
 
 public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression {
 	private CiExpression      _left;

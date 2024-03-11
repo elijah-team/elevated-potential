@@ -2,13 +2,7 @@ package tripleo.elijah_durable_elevated.elijah.world.impl;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.g.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.garish.*;
-import tripleo.elijah.stages.gen_c.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishClass;
 import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishClass_Generator;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_c.GenerateC;

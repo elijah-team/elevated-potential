@@ -3,10 +3,7 @@
  */
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
-import tripleo.elijah.lang.i.DotExpression;
-import tripleo.elijah.lang.i.ExpressionKind;
-import tripleo.elijah.lang.i.IExpression;
-import tripleo.elijah.lang.i.IdentExpression;
+import tripleo.elijah.lang.i.*;
 
 /**
  * @author Tripleo(envy)

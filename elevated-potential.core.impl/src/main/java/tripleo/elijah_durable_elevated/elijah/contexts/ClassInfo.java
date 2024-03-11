@@ -9,9 +9,10 @@
  */
 package tripleo.elijah_durable_elevated.elijah.contexts;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.contexts.ContextInfo;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.i.ClassStatement;
+import tripleo.elijah.lang.i.NormalTypeName;
 
 /**
  * Created 11/29/21 12:24 AM

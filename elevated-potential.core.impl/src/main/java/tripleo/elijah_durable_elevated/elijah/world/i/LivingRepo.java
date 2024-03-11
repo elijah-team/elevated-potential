@@ -4,20 +4,15 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.g.GLivingRepo;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.lang.i.OS_Package;
-import tripleo.elijah.lang.i.Qualident;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.BaseFunctionDef;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNamespace;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.CompletableProcess;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.BaseFunctionDef;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.world.impl.DefaultLivingNamespace;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public interface LivingRepo extends GLivingRepo {
 	Collection<WorldModule> getMods__();

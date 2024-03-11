@@ -8,11 +8,11 @@
  */
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.contexts.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.contexts.NamespaceContext;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.contexts.NamespaceContext__;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UserNamespaceType;
 

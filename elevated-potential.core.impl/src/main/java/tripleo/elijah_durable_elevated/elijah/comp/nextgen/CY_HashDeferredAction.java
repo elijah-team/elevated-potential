@@ -1,14 +1,14 @@
 package tripleo.elijah_durable_elevated.elijah.comp.nextgen;
 
-import org.apache.commons.codec.digest.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.util.*;
+import org.apache.commons.codec.digest.DigestUtils;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.comp.IO;
+import tripleo.elijah.util.DeferredAction;
 import tripleo.elijah_durable_elevated.elijah.comp.IO_;
 
-import java.util.*;
+import java.util.List;
 
-import static org.apache.commons.codec.digest.MessageDigestAlgorithms.*;
+import static org.apache.commons.codec.digest.MessageDigestAlgorithms.SHA_256;
 
 class CY_HashDeferredAction implements DeferredAction<String> {
     private final Eventual<String> e = new Eventual<>(); // FIXME SingleShotEventual

@@ -1,20 +1,17 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
-import com.google.common.base.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import com.google.common.base.Preconditions;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ReadySupplier_1;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.AliasStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.IdentIA;
 
-import java.util.*;
+import java.util.List;
 
 public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 	private static class STOP extends Exception {

@@ -2,14 +2,12 @@ package tripleo.elijah_durable_elevated.elijah.stages.inter;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.entrypoints.EntryPoint;
-import tripleo.elijah.g.*;
+import tripleo.elijah.g.GModuleThing;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaFunction;
 import tripleo.small.ES_Symbol;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ModuleThing implements GModuleThing {
 	public static final class GeneralDescription {

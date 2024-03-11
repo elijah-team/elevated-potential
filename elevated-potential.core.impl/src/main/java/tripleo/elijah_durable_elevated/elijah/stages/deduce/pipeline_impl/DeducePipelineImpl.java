@@ -1,12 +1,13 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.pipeline_impl;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.comp.PipelineLogic;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeducePipelineImpl {
 	private final @NotNull IPipelineAccess             pa;

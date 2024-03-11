@@ -11,10 +11,10 @@ package tripleo.elijah_durable_elevated.elijah.comp;
 import org.jetbrains.annotations.Contract;
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah_durable_elevated.elijah.comp.i.ProcessRecord;
-import tripleo.elijah_durable_elevated.elijah.comp.internal.CR_State;
 import tripleo.elijah.util.Ok;
 import tripleo.elijah.util.Operation;
+import tripleo.elijah_durable_elevated.elijah.comp.i.ProcessRecord;
+import tripleo.elijah_durable_elevated.elijah.comp.internal.CR_State;
 
 // FIXME 10/18 move to Processbuilder (Steps)
 class DStageProcess implements RuntimeProcess {

@@ -1,16 +1,12 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import org.apache.commons.lang3.tuple.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.stages.garish.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.nextgen.reactive.Reactivable;
+import tripleo.elijah.nextgen.reactive.ReactiveDimension;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.DebugFlags;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishClass;

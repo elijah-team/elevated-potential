@@ -1,16 +1,19 @@
 package tripleo.elijah_durable_elevated.elijah.comp;
 
-import io.reactivex.rxjava3.annotations.*;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.ci.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.ICompilerInstructionsObserver;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
 import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.util.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompilerInstructionsObserver implements Observer<CompilerInstructions>, ICompilerInstructionsObserver {
 	private final Compilation               compilation;

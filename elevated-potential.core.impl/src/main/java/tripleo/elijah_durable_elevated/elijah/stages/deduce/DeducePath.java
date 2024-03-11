@@ -9,14 +9,11 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.jdeferred2.*;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.FailCallback;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.ContextImpl;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen.DR_Ident;
@@ -24,7 +21,7 @@ import tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen.DR_IdentUnde
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * Created 7/9/21 6:10 AM

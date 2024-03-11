@@ -1,9 +1,9 @@
 package tripleo.elijah_durable_elevated.elijah.contexts;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.contexts.OS_TypeNameElement;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.*;
+import tripleo.elijah.lang2.ElElementVisitor;
 
 /**
  * An Element that only holds a {@link TypeName}.

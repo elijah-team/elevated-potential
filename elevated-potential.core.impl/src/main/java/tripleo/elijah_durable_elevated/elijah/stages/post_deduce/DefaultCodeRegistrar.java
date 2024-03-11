@@ -1,9 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.stages.post_deduce;
 
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNamespace;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah_durable_elevated.elijah.world.i.LivingRepo;
 

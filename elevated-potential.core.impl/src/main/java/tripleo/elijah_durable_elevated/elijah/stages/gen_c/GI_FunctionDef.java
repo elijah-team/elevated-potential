@@ -4,9 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah_durable_elevated.elijah.world.i.LivingFunction;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.world.i.LivingFunction;
 
 class GI_FunctionDef implements GenerateC_Item {
 	private final FunctionDef    _e;

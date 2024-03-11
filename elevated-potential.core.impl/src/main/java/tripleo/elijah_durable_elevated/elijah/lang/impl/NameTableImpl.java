@@ -3,10 +3,12 @@
  */
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.lang.i.OS_Element;
+import tripleo.elijah.lang.i.OS_Type;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Tripleo

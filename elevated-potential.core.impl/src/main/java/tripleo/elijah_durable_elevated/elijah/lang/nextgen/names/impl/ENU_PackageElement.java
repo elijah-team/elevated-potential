@@ -1,10 +1,11 @@
 package tripleo.elijah_durable_elevated.elijah.lang.nextgen.names.impl;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.nextgen.names.i.*;
+import org.jdeferred2.Promise;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.lang.i.OS_Element;
+import tripleo.elijah.lang.i.OS_Package;
+import tripleo.elijah.lang.nextgen.names.i.EN_Understanding;
 
 /*
  * A package element will `resolve' to a Package or a Item

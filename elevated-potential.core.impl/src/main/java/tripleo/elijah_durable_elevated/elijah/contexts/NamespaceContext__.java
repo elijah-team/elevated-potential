@@ -14,9 +14,7 @@ package tripleo.elijah_durable_elevated.elijah.contexts;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.contexts.NamespaceContext;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.AliasStatementImpl;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.ContextImpl;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableSequenceImpl;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 
 /**
  * @author Tripleo

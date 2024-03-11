@@ -1,10 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.world.i;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.g.GEvaClass;
-import tripleo.elijah.g.GGarishClass;
-import tripleo.elijah.g.GGenerateResult;
-import tripleo.elijah.g.GGenerateResultSink;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateFiles;
 

@@ -1,9 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.comp.caches;
 
-import tripleo.elijah.ci.*;
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
+import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.Compilation0;
-import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.comp.specs.EzCache;
+import tripleo.elijah.comp.specs.EzSpec;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 
 import java.util.*;
 

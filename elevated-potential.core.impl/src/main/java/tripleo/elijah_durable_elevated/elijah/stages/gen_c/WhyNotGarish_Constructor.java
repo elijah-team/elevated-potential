@@ -1,30 +1,21 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import tripleo.elijah_durable_elevated.elijah.DebugFlags;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah_durable_elevated.elijah.comp.notation.GM_GenerateModule;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.ConstructorDef;
-import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.LangGlobals;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishConstructor__addFunction;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.Old_GenerateResult;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.work.WorkList;
-
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import org.apache.commons.lang3.tuple.Pair;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.work.WorkList;
+import tripleo.elijah_durable_elevated.elijah.DebugFlags;
+import tripleo.elijah_durable_elevated.elijah.comp.notation.GM_GenerateModule;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.LangGlobals;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
+import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishConstructor__addFunction;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah_durable_elevated.elijah.stages.logging.ElLog_;
 
 import java.util.List;

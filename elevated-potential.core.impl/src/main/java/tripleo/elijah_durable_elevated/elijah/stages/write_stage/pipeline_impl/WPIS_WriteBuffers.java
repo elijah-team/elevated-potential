@@ -1,24 +1,19 @@
 package tripleo.elijah_durable_elevated.elijah.stages.write_stage.pipeline_impl;
 
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.graph.i.*;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
-import tripleo.elijah.comp.nextgen.pn.*;
-import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.comp.nextgen.pn.SC_I;
+import tripleo.elijah.nextgen.inputtree.EIT_Input;
 import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.util.*;
-
-import java.io.*;
-import java.nio.file.*;
-import java.util.*;
-
-import static tripleo.elijah.util.Helpers.List_of;
-
+import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.comp.WritePipeline;
 import tripleo.elijah_durable_elevated.elijah.comp.nextgen.pn.SC_Fai_;
@@ -27,6 +22,12 @@ import tripleo.elijah_durable_elevated.elijah.nextgen.outputtree.EOT_OutputFileI
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah_prolific.v.V;
 import tripleo.wrap.File;
+
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.util.List;
+
+import static tripleo.elijah.util.Helpers.List_of;
 
 public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
 	private final WritePipeline                           writePipeline;

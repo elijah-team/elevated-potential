@@ -1,20 +1,21 @@
 package tripleo.elijah_durable_elevated.elijah.stages.hooligan.pipeline_impl;
 
-import org.jetbrains.annotations.*;
-
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.nextgen.inputtree.EIT_Input;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
+import tripleo.elijah.util.CompletableProcess;
 import tripleo.elijah_durable_elevated.elijah.DebugFlags;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.nextgen.inputtree.*;
-import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.nextgen.outputtree.EOT_OutputFileImpl;
 import tripleo.elijah_durable_elevated.elijah.world.i.WorldModule;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class LawabidingcitizenPipelineImpl {
 	public void run(final @NotNull Compilation compilation) {

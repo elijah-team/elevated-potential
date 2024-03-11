@@ -5,16 +5,15 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.Context;
 import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah_durable_elevated.elijah.lang.types.OS_BuiltinType;
 import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_durable_elevated.elijah.lang.types.OS_BuiltinType;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2.DeduceTypes2Injector;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.FoundElement;
-import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.IdentIA;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.util.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Collection;

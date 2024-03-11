@@ -4,11 +4,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.Eventual;
 import tripleo.elijah.EventualRegister;
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
-
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.util.io.DisposableCharSink;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.wrap.File;
 
 import java.io.IOException;

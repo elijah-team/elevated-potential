@@ -1,8 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.comp.notation;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.work.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.work.WorkList;
+import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.*;
 import tripleo.elijah_durable_elevated.elijah.work.WorkList__;
 

@@ -3,11 +3,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.ConstructableElementHolder;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.NULL_DeduceTypes2;
-import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 
 // DeduceGrand

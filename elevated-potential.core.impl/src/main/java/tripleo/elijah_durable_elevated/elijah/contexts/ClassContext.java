@@ -8,15 +8,16 @@
  */
 package tripleo.elijah_durable_elevated.elijah.contexts;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.contexts.IClassContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import static tripleo.elijah_durable_elevated.elijah.contexts.ClassInfo.ClassInfoType.*;
+import static tripleo.elijah_durable_elevated.elijah.contexts.ClassInfo.ClassInfoType.GENERIC;
+import static tripleo.elijah_durable_elevated.elijah.contexts.ClassInfo.ClassInfoType.INHERITED;
 
 /**
  * @author Tripleo

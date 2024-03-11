@@ -13,13 +13,13 @@
  */
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
-import antlr.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import antlr.Token;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.NotImplementedException;
 
-import java.util.*;
+import java.util.List;
 
 public class FloatExpressionImpl implements FloatExpression {
 	private final float carrier;

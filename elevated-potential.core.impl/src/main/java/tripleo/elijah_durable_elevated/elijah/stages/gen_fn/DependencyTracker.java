@@ -9,9 +9,9 @@
 
 package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
-import java.util.List;
-
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
+
+import java.util.List;
 
 /**
  * Created 6/22/21 3:40 AM

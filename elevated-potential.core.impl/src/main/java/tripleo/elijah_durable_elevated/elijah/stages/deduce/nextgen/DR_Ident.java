@@ -1,14 +1,11 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-
-import tripleo.elijah_durable_elevated.elijah.DebugFlags;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah_durable_elevated.elijah.DebugFlags;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DG_ClassStatement;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.IdentIA;

@@ -9,20 +9,14 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_c.c_ast1.C_Assignment;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_c.c_ast1.C_ProcedureCall;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaContainerNC;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNode;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.VariableTableEntry;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.IdentIA;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.ProcIA;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.ClassInvocation;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_c.c_ast1.C_Assignment;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_c.c_ast1.C_ProcedureCall;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
 import java.util.ArrayList;
 import java.util.List;

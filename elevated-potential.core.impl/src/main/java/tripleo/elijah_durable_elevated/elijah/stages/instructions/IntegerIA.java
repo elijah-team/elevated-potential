@@ -10,7 +10,6 @@ package tripleo.elijah_durable_elevated.elijah.stages.instructions;
 
 import org.jdeferred2.Promise;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 
 /**

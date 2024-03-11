@@ -1,8 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import lombok.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.gen_fn.*;
+import lombok.Getter;
+import tripleo.elijah.lang.i.ClassStatement;
+import tripleo.elijah.lang.i.Context;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.IdentTableEntry;
 

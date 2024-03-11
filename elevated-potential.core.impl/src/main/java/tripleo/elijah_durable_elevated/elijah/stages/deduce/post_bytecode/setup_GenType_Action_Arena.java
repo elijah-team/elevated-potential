@@ -1,9 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class setup_GenType_Action_Arena {
 	private final Map<String, Object> arenaVars = new HashMap<>();

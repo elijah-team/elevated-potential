@@ -1,13 +1,13 @@
 package tripleo.elijah_durable_elevated.elijah.nextgen.output;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
-import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_c.C2C_Result;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult.*;
 import tripleo.elijah_durable_elevated.elijah.nextgen.inputtree.EIT_ModuleInputImpl;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_c.C2C_Result;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult.TY;
 
 public class NG_OutputFunctionStatement implements NG_OutputStatement {
 	private final          EG_Statement x;

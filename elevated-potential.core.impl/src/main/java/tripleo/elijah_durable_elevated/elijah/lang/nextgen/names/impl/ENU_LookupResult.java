@@ -1,12 +1,13 @@
 package tripleo.elijah_durable_elevated.elijah.lang.nextgen.names.impl;
 
-import com.google.common.collect.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.nextgen.names.i.*;
+import com.google.common.collect.ImmutableList;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.lang.i.Context;
+import tripleo.elijah.lang.i.LookupResultList;
+import tripleo.elijah.lang.nextgen.names.i.EN_Understanding;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ENU_LookupResult implements EN_Understanding {
 

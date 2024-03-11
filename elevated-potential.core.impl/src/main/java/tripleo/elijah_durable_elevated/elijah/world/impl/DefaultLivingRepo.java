@@ -1,13 +1,11 @@
 package tripleo.elijah_durable_elevated.elijah.world.impl;
 
-import com.google.common.collect.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.util.CompletableProcess;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.entrypoints.MainClassEntryPoint;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.BaseFunctionDef;
@@ -17,8 +15,8 @@ import tripleo.elijah_durable_elevated.elijah.util.ObservableCompletableProcess;
 import tripleo.elijah_durable_elevated.elijah.world.i.*;
 
 import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class DefaultLivingRepo implements LivingRepo {
 	private final @NotNull ObservableCompletableProcess<WorldModule> wmo = new ObservableCompletableProcess<>();

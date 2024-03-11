@@ -3,9 +3,10 @@ package tripleo.elijah_durable_elevated.elijah.entrypoints;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.entrypoints.EntryPoint;
+import tripleo.elijah.work.WorkList;
+import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeducePhase;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenerateFunctions;
-import tripleo.elijah.work.*;
 import tripleo.elijah_durable_elevated.elijah.work.WorkList__;
 
 import java.util.ArrayList;

@@ -1,35 +1,30 @@
 package tripleo.elijah_durable_elevated.elijah.comp.i.extra;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.notation.*;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.graph.i.CK_Steps;
+import tripleo.elijah.comp.graph.i.CK_StepsContext;
+import tripleo.elijah.comp.notation.GN_Env;
+import tripleo.elijah.comp.notation.GN_Notable;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.g.GPipelineMember;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.output.*;
-import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah_durable_elevated.elijah.comp.*;
 import tripleo.elijah_durable_elevated.elijah.comp.i.ProcessRecord;
 import tripleo.elijah_durable_elevated.elijah.comp.internal.Provenance;
 import tripleo.elijah_durable_elevated.elijah.nextgen.output.NG_OutputItem;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_c.GenerateC;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNamespace;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNode;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateFiles;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah_durable_elevated.elijah.stages.write_stage.pipeline_impl.WP_Flow;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.List;
+import java.util.function.Consumer;
 
 public interface IPipelineAccess extends GPipelineAccess {
 	void _send_GeneratedClass(EvaNode aClass);

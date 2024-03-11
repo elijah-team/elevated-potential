@@ -10,7 +10,7 @@ package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
 import tripleo.elijah.lang.i.*;
 
-import java.util.*;
+import java.util.Objects;
 
 public abstract class AbstractTypeName implements NormalTypeName {
 

@@ -8,9 +8,7 @@
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.lang.i.OS_Package;
-import tripleo.elijah.lang.i.Qualident;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 
 /*

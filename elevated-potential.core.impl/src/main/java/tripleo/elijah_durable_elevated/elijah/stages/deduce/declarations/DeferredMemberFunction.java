@@ -18,11 +18,7 @@ import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.lang.i.OS_Element;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaConstructor;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenType;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 
 /**
  * Created 11/21/21 6:32 AM

@@ -1,7 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.IProgressSink;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 

@@ -9,14 +9,12 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.jdeferred2.*;
-import org.jetbrains.annotations.*;
+import org.jdeferred2.DoneCallback;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.declarations.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.AliasStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.declarations.DeferredMember;

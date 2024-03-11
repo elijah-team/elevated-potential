@@ -11,22 +11,15 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
 import org.jdeferred2.DoneCallback;
 import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UserType;
-import tripleo.elijah.util.Mode;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.RegisterClassInvocation_env;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DeduceElement3_VarTableEntry;
-import tripleo.elijah.util.Maybe;
-import tripleo.elijah.util.Operation;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 2/28/21 3:23 AM

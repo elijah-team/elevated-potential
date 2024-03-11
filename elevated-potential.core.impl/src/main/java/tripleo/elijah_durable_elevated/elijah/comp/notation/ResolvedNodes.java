@@ -1,17 +1,14 @@
 package tripleo.elijah_durable_elevated.elijah.comp.notation;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.world.i.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah_durable_elevated.elijah.comp.PipelineLogic;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeducePhase;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah_durable_elevated.elijah.world.i.WorldModule;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class ResolvedNodes {
 	final         List<EvaNode>  resolved_nodes = new ArrayList<EvaNode>();

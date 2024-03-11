@@ -2,13 +2,10 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_c.c_ast1;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
-import tripleo.elijah_durable_elevated.elijah.comp.Finally_;
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaContainerNC;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNamespace;
 import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
+import tripleo.elijah_durable_elevated.elijah.comp.Finally_;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 
 import java.util.function.Supplier;
 

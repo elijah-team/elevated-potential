@@ -1,24 +1,27 @@
 package tripleo.elijah_durable_elevated.elijah.comp.nextgen.impl;
 
-import tripleo.elijah.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.graph.i.Asseverate;
+import tripleo.elijah.comp.graph.i.CK_SourceFile;
+import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.comp.i.CompilationClosure;
+import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.comp.specs.EzCache;
+import tripleo.elijah.comp.specs.EzSpec;
+import tripleo.elijah.diagnostic.ExceptionDiagnostic;
+import tripleo.elijah.nextgen.inputtree.EIT_Input;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
+import tripleo.elijah.util.*;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.comp.nextgen.CX_ParseEzFile;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.comp.nextgen.i.*;
-import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.nextgen.inputtree.*;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.util.*;
-
-import java.io.*;
-import java.util.*;
-import java.util.regex.*;
 import tripleo.wrap.File;
+
+import java.io.PrintStream;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("rawtypes")
 abstract class __CK_SourceFile__AbstractEzFile implements CK_SourceFile {

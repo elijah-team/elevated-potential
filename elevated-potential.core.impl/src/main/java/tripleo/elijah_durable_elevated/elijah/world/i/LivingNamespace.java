@@ -1,19 +1,15 @@
 package tripleo.elijah_durable_elevated.elijah.world.i;
 
-import java.util.Optional;
-import java.util.function.Function;
-
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.i.NamespaceStatement;
 import tripleo.elijah.stages.d.Stages;
-import tripleo.elijah.stages.garish.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishNamespace;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNamespace;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateFiles;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
+
+import java.util.Optional;
+import java.util.function.Function;
 
 public interface LivingNamespace extends LivingNode {
 	EvaNamespace evaNode();

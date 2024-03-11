@@ -8,16 +8,17 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.generate;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResultItem;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.Old_GenerateResult;
 
-import java.text.*;
-import java.util.*;
-import java.util.function.*;
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * Created 1/8/21 11:02 PM

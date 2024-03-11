@@ -1,19 +1,14 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
 import org.jdeferred2.DoneCallback;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.contexts.*;
+import tripleo.elijah.contexts.OS_TypeNameElement;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.Mode;
-import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.util.*;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen.DR_Type;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Operation2;
 
 import java.util.function.Supplier;
 

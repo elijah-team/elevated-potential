@@ -1,13 +1,9 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.logging.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.LangGlobals;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
@@ -15,7 +11,7 @@ import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.Deduce
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
-import java.util.*;
+import java.util.List;
 
 class FnCallArgs_Statement2 implements EG_Statement {
 	private final GenerateC                    generateC;

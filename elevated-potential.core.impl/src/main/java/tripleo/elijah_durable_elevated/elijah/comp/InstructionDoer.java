@@ -1,9 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.comp;
 
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.util.CompletableProcess;
 import tripleo.elijah_durable_elevated.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah_durable_elevated.elijah.comp.internal.USE_Reasonings;
 

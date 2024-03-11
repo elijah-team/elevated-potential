@@ -2,9 +2,9 @@ package tripleo.elijah_durable_elevated.elijah.pre_world;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_durable_elevated.elijah.entrypoints.ArbitraryFunctionEntryPoint;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.lang.i.FunctionDef;
+import tripleo.elijah_durable_elevated.elijah.entrypoints.ArbitraryFunctionEntryPoint;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.ClassInvocation;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenerateFunctions;

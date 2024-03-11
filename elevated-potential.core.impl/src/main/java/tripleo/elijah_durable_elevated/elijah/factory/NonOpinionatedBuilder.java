@@ -1,11 +1,11 @@
 package tripleo.elijah_durable_elevated.elijah.factory;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.work.WorkList;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah_durable_elevated.elijah.comp.internal.DefaultCompilerController;
-import tripleo.elijah.work.WorkList;
 import tripleo.elijah_durable_elevated.elijah.work.WorkList__;
 import tripleo.elijah_elevated.comp.input.CompilerInput_;
 

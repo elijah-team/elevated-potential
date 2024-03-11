@@ -9,13 +9,10 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.contexts.*;
+import tripleo.elijah.contexts.IFunctionContext;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.lang2.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UnknownType;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;

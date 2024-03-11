@@ -1,19 +1,13 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.lang.i.TypeName;
-import tripleo.elijah.nextgen.outputstatement.IReasonedString;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_c.Generate_Code_For_Method.AOG;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.stages.instructions.*;
-
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import org.apache.commons.lang3.tuple.Pair;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.outputstatement.IReasonedString;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_c.Generate_Code_For_Method.AOG;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
 import java.util.List;

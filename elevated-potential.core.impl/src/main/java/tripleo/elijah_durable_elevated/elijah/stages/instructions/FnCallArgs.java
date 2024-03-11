@@ -9,11 +9,9 @@
 package tripleo.elijah_durable_elevated.elijah.stages.instructions;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.ProcTableEntry;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.TypeTableEntry;
 import tripleo.elijah.util.Helpers;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 
 import java.util.Collection;
 import java.util.List;

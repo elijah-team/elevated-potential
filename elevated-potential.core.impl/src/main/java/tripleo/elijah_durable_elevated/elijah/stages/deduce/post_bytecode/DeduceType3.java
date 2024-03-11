@@ -1,11 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.lang.i.OS_Type;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 

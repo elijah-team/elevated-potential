@@ -5,24 +5,16 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.FormalArgListItem;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.lang.i.TypeName;
-import tripleo.elijah_durable_elevated.elijah.lang.types.OS_GenericTypeNameType;
-import tripleo.elijah.nextgen.outputstatement.EG_DottedStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Rule;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_c.c_ast1.C_HeaderString;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.VariableTableType;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.util.Helpers;
+import tripleo.elijah_durable_elevated.elijah.lang.types.OS_GenericTypeNameType;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_c.c_ast1.C_HeaderString;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.VariableTableType;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 class Generate_Method_Header {

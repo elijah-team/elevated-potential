@@ -1,9 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah_durable_elevated.elijah.util.Helpers0;
-
-import org.jetbrains.annotations.NotNull;
 
 public enum LangGlobals {
 	;

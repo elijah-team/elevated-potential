@@ -2,11 +2,12 @@ package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
 import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.*;
-import tripleo.elijah_durable_elevated.elijah.comp.*;
+import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.g.GPipeline;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
+import tripleo.elijah_durable_elevated.elijah.comp.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.vendor.mal.stepA_mal;
 import tripleo.vendor.mal.types;

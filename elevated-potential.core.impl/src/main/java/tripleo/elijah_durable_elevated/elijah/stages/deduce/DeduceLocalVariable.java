@@ -9,17 +9,13 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.lang.types.*;
-import tripleo.elijah.stages.deduce.declarations.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.lang.types.OS_FuncType;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.AliasStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.BaseFunctionDef;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.declarations.DeferredMemberFunction;
@@ -27,8 +23,9 @@ import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.Deduce
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created 11/30/21 1:32 AM

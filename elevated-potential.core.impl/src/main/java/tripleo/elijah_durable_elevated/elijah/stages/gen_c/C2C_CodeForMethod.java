@@ -1,15 +1,14 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.util.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.util.BufferTabbedOutputStream;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.util.buffer.*;
+import tripleo.util.buffer.Buffer;
 
-import java.util.*;
+import java.util.List;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 public class C2C_CodeForMethod implements Generate_Code_For_Method.C2C_Results {
 	private final GenerateResult           gr;

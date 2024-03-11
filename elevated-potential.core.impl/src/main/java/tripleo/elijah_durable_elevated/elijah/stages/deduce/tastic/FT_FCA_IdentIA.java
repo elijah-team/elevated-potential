@@ -9,19 +9,14 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.tastic;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
+import org.jdeferred2.Promise;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.lang2.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.declarations.*;
-import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.AliasStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
@@ -31,10 +26,11 @@ import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 import tripleo.elijah_prolific.v.V;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
-import static tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2.*;
+import static tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2.to_int;
 
 /*static*/ public class FT_FCA_IdentIA {
 

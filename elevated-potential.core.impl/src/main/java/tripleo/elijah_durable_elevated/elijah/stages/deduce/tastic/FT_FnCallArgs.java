@@ -10,22 +10,21 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.tastic;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.ReadySupplier_1;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
-import static tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2.*;
+import static tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2.to_int;
 
 public class FT_FnCallArgs implements ITastic {
 	public ElLog LOG() {

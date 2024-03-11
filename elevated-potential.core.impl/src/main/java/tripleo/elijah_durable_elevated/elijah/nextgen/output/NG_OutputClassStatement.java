@@ -1,14 +1,14 @@
 package tripleo.elijah_durable_elevated.elijah.nextgen.output;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import tripleo.elijah.util.BufferTabbedOutputStream;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_durable_elevated.elijah.nextgen.inputtree.EIT_ModuleInputImpl;
-import tripleo.util.buffer.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult.TY;
+import tripleo.util.buffer.Buffer;
 
 public class NG_OutputClassStatement implements NG_OutputStatement {
 	private final          Buffer    buf;

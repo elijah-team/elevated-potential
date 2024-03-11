@@ -1,17 +1,17 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.ProcIA;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
 
 public class DTR_VariableStatement {
 	static final class DTR_VS_Ctx {

@@ -9,11 +9,9 @@
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.IExpression;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.lang.i.TypeName;
-import tripleo.elijah_durable_elevated.elijah.lang.types.OS_BuiltinType;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah_durable_elevated.elijah.lang.types.OS_BuiltinType;
 
 /**
  * @author Tripleo

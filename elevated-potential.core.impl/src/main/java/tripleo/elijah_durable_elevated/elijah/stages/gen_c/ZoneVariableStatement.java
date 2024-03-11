@@ -1,6 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.i.OS_Element;
+import tripleo.elijah.lang.i.VariableStatement;
 
 public class ZoneVariableStatement {
 

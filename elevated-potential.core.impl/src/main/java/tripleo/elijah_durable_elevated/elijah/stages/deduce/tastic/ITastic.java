@@ -3,9 +3,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.deduce.tastic;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.Context;
 import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.IdentTableEntry;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.VariableTableEntry;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.FnCallArgs;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.Instruction;
 

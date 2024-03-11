@@ -1,22 +1,22 @@
 package tripleo.elijah_durable_elevated.elijah.comp.nextgen.impl;
 
-import tripleo.elijah.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.inputtree.*;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.util.*;
-
-import java.util.*;
-import java.util.regex.*;
-
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.comp.CompilerInput;
+import tripleo.elijah.comp.graph.i.CK_SourceFile;
+import tripleo.elijah.comp.i.CompilationClosure;
+import tripleo.elijah.comp.specs.ElijahCache;
+import tripleo.elijah.comp.specs.ElijahSpec;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.inputtree.EIT_Input;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
+import tripleo.elijah.util.Operation2;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.comp.nextgen.CK_GlobalRef;
 import tripleo.elijah_durable_elevated.elijah.comp.nextgen.CX_ParseElijahFile;
 import tripleo.wrap.File;
+
+import java.util.Optional;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("rawtypes")
 abstract class __CK_SourceFile__AbstractElijahFile implements CK_SourceFile {

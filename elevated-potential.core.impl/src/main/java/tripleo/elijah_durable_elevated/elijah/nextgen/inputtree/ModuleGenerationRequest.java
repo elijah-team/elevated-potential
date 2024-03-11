@@ -1,10 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.nextgen.inputtree;
 
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.g.*;
+import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNode;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.work.WorkManager;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 import java.util.List;
 import java.util.function.Consumer;

@@ -9,7 +9,8 @@
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
 import antlr.Token;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.i.IExpression;
+import tripleo.elijah.lang.i.IInvariantStatement;
 
 /**
  * @author Tripleo

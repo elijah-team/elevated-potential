@@ -1,7 +1,6 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah_durable_elevated.elijah.util.Helpers0;
 

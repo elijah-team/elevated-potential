@@ -1,18 +1,20 @@
 package tripleo.elijah_durable_elevated.elijah.comp.impl;
 
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.queries.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.util.*;
-
-import java.util.*;
-import java.util.function.*;
-
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.ci.LibraryStatementPart;
+import tripleo.elijah.comp.graph.i.Asseverate;
+import tripleo.elijah.comp.i.CompilationClosure;
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.queries.QSEZ_Reasoning;
+import tripleo.elijah.diagnostic.ExceptionDiagnostic;
+import tripleo.elijah.util.Operation2;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.comp.queries.QuerySearchEzFiles;
 import tripleo.wrap.File;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 
 import static tripleo.elijah.nextgen.inputtree.EIT_InputType.EZ_FILE;
 

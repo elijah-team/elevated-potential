@@ -1,17 +1,14 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.i.IdentExpression;
 import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.Helpers;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.ExpressionConfession;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.ProcTableEntry;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
-import java.util.*;
+import java.util.List;
 
 public class GCX_FunctionCall implements EG_Statement {
 	private final GenerateC gc;

@@ -4,14 +4,10 @@ import org.jdeferred2.Promise;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.AliasStatementImpl;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceLookupUtils;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.ResolveError;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.AliasStatementImpl;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 
 public class DG_AliasStatement implements DG_Item {
 	private final          AliasStatementImpl                          aliasStatement;

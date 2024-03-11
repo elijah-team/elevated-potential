@@ -1,7 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.impl.DeferredObject;
 
 public class DT_Resolvable11<T> {
 	private final DeferredObject<T, ResolveError, Void> _p_res = new DeferredObject<>();

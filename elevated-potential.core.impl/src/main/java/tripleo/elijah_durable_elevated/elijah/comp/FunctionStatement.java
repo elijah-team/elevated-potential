@@ -2,11 +2,10 @@ package tripleo.elijah_durable_elevated.elijah.comp;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.Eventual;
-import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.lang.i.FormalArgListItem;
 import tripleo.elijah.lang.i.OS_NamedElement;
 import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.Instruction;
 import tripleo.elijah_durable_elevated.elijah.world.i.LivingFunction;

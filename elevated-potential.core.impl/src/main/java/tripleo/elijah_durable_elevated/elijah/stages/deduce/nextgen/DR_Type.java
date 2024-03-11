@@ -1,10 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen;
 
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.nextgen.names.i.*;
-import tripleo.elijah.lang.nextgen.names.impl.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.lang.nextgen.names.i.EN_Usage;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.lang.nextgen.names.impl.ENU_IsTypeName;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
 

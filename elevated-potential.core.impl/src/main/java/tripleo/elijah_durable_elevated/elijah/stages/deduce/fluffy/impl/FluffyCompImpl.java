@@ -1,12 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.fluffy.impl;
 
-import com.google.common.collect.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.internal.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.Eventual;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.fluffy.i.*;
 import tripleo.elijah_durable_elevated.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah_durable_elevated.elijah.entrypoints.MainClassEntryPoint;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.OS_ModuleImpl;
@@ -14,7 +12,7 @@ import tripleo.elijah_durable_elevated.elijah.stages.deduce.fluffy.i.FluffyComp;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.fluffy.i.FluffyModule;
 
 import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 public class FluffyCompImpl implements FluffyComp {
 

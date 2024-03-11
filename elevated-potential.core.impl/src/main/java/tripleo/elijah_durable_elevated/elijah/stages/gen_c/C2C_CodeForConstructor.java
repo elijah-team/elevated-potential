@@ -1,16 +1,12 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaContainerNC;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNamespace;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNode;
+import tripleo.elijah.util.BufferTabbedOutputStream;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.util.BufferTabbedOutputStream;
 import tripleo.util.buffer.Buffer;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 

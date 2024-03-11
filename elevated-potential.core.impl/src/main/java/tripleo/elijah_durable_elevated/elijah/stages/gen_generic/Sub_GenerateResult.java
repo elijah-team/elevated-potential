@@ -1,18 +1,18 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_generic;
 
 import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.subjects.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.stages.gen_c.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.util.*;
+import io.reactivex.rxjava3.subjects.ReplaySubject;
+import io.reactivex.rxjava3.subjects.Subject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.ci.LibraryStatementPart;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_c.OutputFileC;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
-import tripleo.util.buffer.*;
+import tripleo.util.buffer.Buffer;
 
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class Sub_GenerateResult implements GenerateResult {
 	final List<Old_GenerateResultItem> _res = new ArrayList<Old_GenerateResultItem>();

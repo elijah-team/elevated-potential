@@ -24,10 +24,8 @@
 */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.lang.i.Context;
+import tripleo.elijah.lang.i.OS_Element;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.FoundElement;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;

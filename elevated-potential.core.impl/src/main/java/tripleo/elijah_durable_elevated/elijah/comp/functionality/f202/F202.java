@@ -10,9 +10,10 @@ package tripleo.elijah_durable_elevated.elijah.comp.functionality.f202;
 
 import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.LogEntry;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 
 import java.io.File;
 import java.util.Collection;

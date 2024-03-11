@@ -1,9 +1,9 @@
 package tripleo.elijah_durable_elevated.elijah.comp.nextgen.pw;
 
-import tripleo.elijah_durable_elevated.elijah.comp.internal.PW_CompilerController;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pw.PW_Controller;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
+import tripleo.elijah_durable_elevated.elijah.comp.internal.PW_CompilerController;
 
 public final class PW_signalCalculateFinishParse implements PW_PushWork {
 	private final static PW_signalCalculateFinishParse INSTANCE = new PW_signalCalculateFinishParse();

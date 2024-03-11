@@ -1,9 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.CB_Action;
-import tripleo.elijah.comp.i.CB_Monitor;
-import tripleo.elijah.comp.i.CB_OutputString;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.notation.GN_Notable;
 
 import java.util.ArrayList;

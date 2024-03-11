@@ -1,16 +1,13 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.apache.commons.lang3.tuple.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.nextgen.inputtree.*;
-import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.stages.gen_c.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.world.i.*;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
+import tripleo.elijah.nextgen.reactive.Reactivable;
+import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah_durable_elevated.elijah.comp.notation.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaClass;
@@ -23,10 +20,10 @@ import tripleo.elijah_durable_elevated.elijah.work.WorkList__;
 import tripleo.elijah_durable_elevated.elijah.work.WorkManager__;
 import tripleo.elijah_durable_elevated.elijah.world.i.WorldModule;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.List;
+import java.util.function.Consumer;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 class DE3_ActivePTE implements DE3_Active {
 	private final          DeduceTypes2    deduceTypes2;

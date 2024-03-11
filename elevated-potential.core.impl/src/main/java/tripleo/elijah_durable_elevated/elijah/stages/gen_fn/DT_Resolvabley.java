@@ -1,14 +1,13 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.Helpers;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.IdentIA;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DT_Resolvabley {
 	private final List<DT_Resolvable> x;

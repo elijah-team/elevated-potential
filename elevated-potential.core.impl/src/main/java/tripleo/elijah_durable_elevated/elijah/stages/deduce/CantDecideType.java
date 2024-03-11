@@ -8,17 +8,17 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.gen_fn.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.diagnostic.Locatable;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.TypeTableEntry;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.VariableTableEntry;
 
-import java.io.*;
-import java.util.*;
-import java.util.stream.*;
+import java.io.PrintStream;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created 4/13/21 5:46 AM

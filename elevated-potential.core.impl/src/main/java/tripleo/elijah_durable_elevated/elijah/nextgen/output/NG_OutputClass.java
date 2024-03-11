@@ -1,13 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.nextgen.output;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.garish.*;
-import tripleo.elijah.stages.gen_c.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.generate.*;
-import tripleo.elijah.util.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.nextgen.outputtree.EOT_FileNameProvider;
+import tripleo.elijah.util.BufferTabbedOutputStream;
 import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishClass;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaClass;
@@ -15,9 +10,9 @@ import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateFiles;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah_durable_elevated.elijah.stages.generate.OutputStrategyC;
 
-import java.util.*;
+import java.util.List;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 public class NG_OutputClass implements NG_OutputItem {
 	private GarishClass   garishClass;

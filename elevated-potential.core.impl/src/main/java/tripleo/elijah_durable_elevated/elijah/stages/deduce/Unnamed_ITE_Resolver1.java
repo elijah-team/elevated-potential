@@ -1,23 +1,14 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
 import org.jdeferred2.DoneCallback;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util.*;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.BaseFunctionDef;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableStatementImpl;
-import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_FuncTypeImpl;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.IdentIA;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.ProcIA;
-import tripleo.elijah.util.Mode;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Operation;
-
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
 import java.util.List;
 

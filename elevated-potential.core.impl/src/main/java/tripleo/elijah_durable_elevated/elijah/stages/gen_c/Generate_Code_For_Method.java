@@ -8,25 +8,20 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import com.google.common.base.*;
-import org.apache.commons.lang3.tuple.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah_durable_elevated.elijah.DebugFlags;
+import com.google.common.base.Supplier;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.util.*;
+import tripleo.elijah.work.WorkList;
+import tripleo.elijah_durable_elevated.elijah.DebugFlags;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UnitType;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.work.*;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen.DR_Ident;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen.DR_Item;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DeduceElement3_VariableTableEntry;

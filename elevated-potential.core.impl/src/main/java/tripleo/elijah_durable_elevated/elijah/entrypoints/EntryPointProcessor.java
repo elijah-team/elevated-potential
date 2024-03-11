@@ -1,16 +1,11 @@
 package tripleo.elijah_durable_elevated.elijah.entrypoints;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.entrypoints.EntryPoint;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.work.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.lang.i.ClassStatement;
+import tripleo.elijah.lang.i.FunctionDef;
+import tripleo.elijah.work.WorkList;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.BaseFunctionDef;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.ICodeRegistrar;

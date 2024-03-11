@@ -8,29 +8,37 @@
  */
 package tripleo.elijah_durable_elevated.elijah.comp;
 
-import com.google.common.collect.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.i.*;
+import com.google.common.collect.Multimap;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
-import tripleo.elijah.g.*;
-import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.g.GPipelineMember;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
+import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.io.CharSink;
+import tripleo.elijah.util.io.FileCharSink;
 import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_durable_elevated.elijah.nextgen.outputtree.EOT_OutputFileImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.functionality.f292.F292_WriteRoot;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.io.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.*;
 import tripleo.elijah_prolific.v.V;
 
-import java.io.*;
-import java.util.*;
-import java.util.function.*;
-import java.util.regex.*;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.String_join;
 
 /**
  * Created 9/13/21 11:58 PM

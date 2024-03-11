@@ -2,12 +2,12 @@ package tripleo.elijah_durable_elevated.elijah.factory.comp;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah_durable_elevated.elijah.comp.IO_;
 import tripleo.elijah_durable_elevated.elijah.comp.StdErrSink;
 import tripleo.elijah_durable_elevated.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.IFunctionMapHook;
-import tripleo.elijah_durable_elevated.elijah.comp.IO_;
 
 import java.util.List;
 

@@ -5,12 +5,9 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.IExpression;
 import tripleo.elijah.lang.i.IdentExpression;
 import tripleo.elijah.nextgen.outputstatement.ReasonedStringListStatement;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.Instruction;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionFixedList;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.IntegerIA;
 import tripleo.elijah.util.Helpers;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
 import java.util.List;
 

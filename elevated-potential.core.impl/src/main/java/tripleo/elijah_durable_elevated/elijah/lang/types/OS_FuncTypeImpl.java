@@ -12,18 +12,18 @@
  */
 package tripleo.elijah_durable_elevated.elijah.lang.types;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.GClosure_OS_FuncType_resolvedFunction0;
 import tripleo.elijah.lang.types.OS_FuncType;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.Mode;
+import tripleo.elijah.util.Operation;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenType;
 
-import java.text.*;
-import java.util.*;
+import java.text.MessageFormat;
+import java.util.List;
 
 public class OS_FuncTypeImpl extends __Abstract_OS_Type implements OS_FuncType {
 

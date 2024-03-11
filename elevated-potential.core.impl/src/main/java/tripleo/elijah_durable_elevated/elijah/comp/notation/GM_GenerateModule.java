@@ -1,20 +1,15 @@
 package tripleo.elijah_durable_elevated.elijah.comp.notation;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.gen_c.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.work.*;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_c.GenerateC;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNode;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah_durable_elevated.elijah.work.WorkList__;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class GM_GenerateModule {
 	private final GM_GenerateModuleRequest gmr;

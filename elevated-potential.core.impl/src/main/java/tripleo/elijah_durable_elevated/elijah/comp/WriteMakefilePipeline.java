@@ -1,21 +1,23 @@
 package tripleo.elijah_durable_elevated.elijah.comp;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.g.*;
-import tripleo.elijah.nextgen.outputstatement.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.CB_Output;
+import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_durable_elevated.elijah.nextgen.outputtree.EOT_OutputFileImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.Old_GenerateResult;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 public class WriteMakefilePipeline extends PipelineMember implements Consumer<Supplier<Old_GenerateResult>> {
 	private final IPipelineAccess pa;

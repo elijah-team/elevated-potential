@@ -1,9 +1,9 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_generic;
 
-import tripleo.elijah_durable_elevated.elijah.comp.notation.GM_GenerateModule;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
+import tripleo.elijah_durable_elevated.elijah.comp.notation.GM_GenerateModule;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 
 import java.util.Objects;
 

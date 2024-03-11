@@ -8,10 +8,9 @@
  */
 package tripleo.elijah_durable_elevated.elijah.lang.imports;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.lang.nextgen.names.i.*;
+import tripleo.elijah.lang.nextgen.names.i.EN_Name;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.AccessNotationImpl;
 
 /**

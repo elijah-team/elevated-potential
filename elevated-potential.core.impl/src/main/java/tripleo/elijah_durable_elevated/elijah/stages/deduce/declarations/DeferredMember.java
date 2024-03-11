@@ -8,11 +8,10 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.declarations;
 
+import lombok.Getter;
 import org.jdeferred2.Promise;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
-
-import lombok.Getter;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.VariableStatement;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableStatementImpl;

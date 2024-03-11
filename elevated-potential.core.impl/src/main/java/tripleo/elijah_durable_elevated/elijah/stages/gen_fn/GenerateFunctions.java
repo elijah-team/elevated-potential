@@ -7,19 +7,21 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
-import com.google.common.collect.*;
+import com.google.common.collect.Collections2;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jdeferred2.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.entrypoints.*;
+import org.jdeferred2.DoneCallback;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.Finally;
+import tripleo.elijah.entrypoints.EntryPoint;
 import tripleo.elijah.g.GGenerateFunctions;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.lang2.*;
-import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.pre_world.*;
-import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.nextgen.reactive.ReactiveDimension;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.work.WorkList;
+import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_durable_elevated.elijah.comp.notation.GN_PL_Run2;
 import tripleo.elijah_durable_elevated.elijah.entrypoints.ArbitraryFunctionEntryPoint;
 import tripleo.elijah_durable_elevated.elijah.entrypoints.MainClassEntryPoint;
@@ -29,11 +31,6 @@ import tripleo.elijah_durable_elevated.elijah.lang2.SpecialFunctions;
 import tripleo.elijah_durable_elevated.elijah.pre_world.*;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn_c.GenFnC;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.inter.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.work.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 import tripleo.elijah_durable_elevated.elijah.stages.inter.ModuleThing;
 import tripleo.elijah_durable_elevated.elijah.stages.logging.ElLog_;
@@ -42,8 +39,8 @@ import tripleo.util.range.Range;
 
 import java.util.*;
 
-import static tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2.*;
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2.to_int;
 
 /**
  * Created 9/10/20 2:28 PM

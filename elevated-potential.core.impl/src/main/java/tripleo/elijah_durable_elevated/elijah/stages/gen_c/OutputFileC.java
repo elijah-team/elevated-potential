@@ -9,14 +9,10 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.Dependency;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.DependencyRef;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.IOutputFile;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.*;
 import tripleo.util.buffer.Buffer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 

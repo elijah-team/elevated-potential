@@ -8,15 +8,11 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
-import org.jdeferred2.Deferred;
-import org.jdeferred2.DoneCallback;
-import org.jdeferred2.FailCallback;
-import org.jdeferred2.Promise;
+import org.jdeferred2.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 

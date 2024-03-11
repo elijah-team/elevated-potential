@@ -1,17 +1,15 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import com.google.common.base.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import com.google.common.base.Preconditions;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.IReasonedString;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.Helpers;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
-import java.util.*;
+import java.util.LinkedList;
 
 public class ZoneITE__1 implements ZoneITE {
 	private final IdentTableEntry identTableEntry;

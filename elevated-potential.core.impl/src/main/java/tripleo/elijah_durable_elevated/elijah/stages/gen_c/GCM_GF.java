@@ -2,17 +2,12 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.lang.i.RegularTypeName;
-import tripleo.elijah.lang.i.TypeName;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_GenericTypeNameType;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.VariableTableType;
-import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
 class GCM_GF implements GCM_D {
 	private final GenerateC   gc;

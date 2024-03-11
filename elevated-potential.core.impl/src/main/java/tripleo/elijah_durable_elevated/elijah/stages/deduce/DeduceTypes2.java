@@ -9,43 +9,35 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import io.reactivex.rxjava3.annotations.*;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.subjects.*;
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.Nullable;
+import io.reactivex.rxjava3.subjects.Subject;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.g.*;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.ReadySupplier_1;
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.g.GCompilationEnclosure;
+import tripleo.elijah.g.GModuleThing;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah.lang.nextgen.names.i.*;
-import tripleo.elijah.lang.nextgen.names.impl.*;
-import tripleo.elijah.lang2.*;
-import tripleo.elijah.nextgen.*;
-import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah_durable_elevated.elijah.lang.types.*;
-import tripleo.elijah_durable_elevated.elijah.lang2.SpecialFunctions;
-import tripleo.elijah_durable_elevated.elijah.lang2.SpecialVariables;
-import tripleo.elijah.stages.deduce.declarations.*;
-import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.deduce.tastic.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.inter.*;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.lang2.BuiltInTypes;
+import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.nextgen.ClassDefinition;
+import tripleo.elijah.nextgen.reactive.Reactivable;
+import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah_durable_elevated.elijah.lang.nextgen.names.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.types.*;
+import tripleo.elijah_durable_elevated.elijah.lang2.SpecialFunctions;
+import tripleo.elijah_durable_elevated.elijah.lang2.SpecialVariables;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.declarations.DeferredMember;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.declarations.DeferredMemberFunction;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen.*;
@@ -63,8 +55,9 @@ import tripleo.elijah_durable_elevated.elijah.work.WorkManager__;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 import java.util.*;
-import java.util.function.*;
-import java.util.regex.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.regex.Pattern;
 
 /**
  * Created 9/15/20 12:51 PM

@@ -8,11 +8,11 @@
  */
 package tripleo.elijah_durable_elevated.elijah.lang.types;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.contexts.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.contexts.OS_TypeNameElement;
 import tripleo.elijah.lang.i.*;
 
-import java.text.*;
+import java.text.MessageFormat;
 
 /**
  * Created 7/8/21 6:00 AM

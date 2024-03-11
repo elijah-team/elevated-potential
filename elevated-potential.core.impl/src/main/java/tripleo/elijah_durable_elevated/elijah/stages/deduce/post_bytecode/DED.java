@@ -1,7 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.stages.gen_fn.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 
 public interface DED {

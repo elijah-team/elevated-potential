@@ -8,33 +8,33 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
-import org.apache.commons.lang3.tuple.*;
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.Promise;
+import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.diagnostic.Diagnostic.*;
+import tripleo.elijah.ReadySupplier_1;
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.diagnostic.Diagnostic.Severity;
+import tripleo.elijah.diagnostic.Locatable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stateful.*;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.Operation2;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
-import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DED.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.stateful.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DED.DED_VTE;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
-import java.io.*;
+import java.io.PrintStream;
 import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
-import static tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2.*;
+import static tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2.to_int;
 
 public class DeduceElement3_VariableTableEntry extends DefaultStateful implements IDeduceElement3 {
 

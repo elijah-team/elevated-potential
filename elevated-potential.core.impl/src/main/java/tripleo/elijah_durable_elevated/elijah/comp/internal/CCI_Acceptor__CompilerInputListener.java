@@ -1,16 +1,17 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
-import tripleo.elijah.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.*;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.i.extra.CompilerInputListener;
 import tripleo.elijah.util.*;
 import tripleo.elijah_durable_elevated.elijah.DebugFlags;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.comp.InstructionDoer;
 
-import java.util.*;
+import java.util.List;
 
 public /* static */ class CCI_Acceptor__CompilerInputListener implements CompilerInputListener {
 	public final  InstructionDoer   id;

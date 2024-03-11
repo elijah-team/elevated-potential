@@ -8,19 +8,17 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.Eventual;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
+import tripleo.elijah.work.WorkJob;
+import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.ClassInvocation;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.FunctionInvocation;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen.DeduceCreationContext;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.work.WorkJob;
-import tripleo.elijah.work.WorkManager;
-
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Created 5/31/21 2:26 AM

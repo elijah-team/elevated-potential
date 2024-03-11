@@ -8,10 +8,11 @@
  */
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
-import antlr.*;
-import org.jetbrains.annotations.*;
+import antlr.Token;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.Helpers;
+import tripleo.elijah.util.NotImplementedException;
 
 public class StringExpressionImpl extends AbstractExpression implements StringExpression {
 

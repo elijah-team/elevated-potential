@@ -8,18 +8,18 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
-import lombok.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.work.*;
+import lombok.Getter;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.lang.i.ClassStatement;
+import tripleo.elijah.util.Holder;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.work.WorkJob;
+import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.ICodeRegistrar;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 /**
  * Created 5/16/21 12:41 AM

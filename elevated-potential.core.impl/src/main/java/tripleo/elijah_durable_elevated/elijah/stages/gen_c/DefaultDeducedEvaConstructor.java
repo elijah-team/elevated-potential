@@ -1,15 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import io.reactivex.rxjava3.subjects.*;
-
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import io.reactivex.rxjava3.subjects.Subject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.Eventual;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
@@ -17,7 +12,8 @@ import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.Dependency;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 import tripleo.util.range.Range;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 public class DefaultDeducedEvaConstructor implements DeducedEvaConstructor {
     private final EvaConstructor carrier;

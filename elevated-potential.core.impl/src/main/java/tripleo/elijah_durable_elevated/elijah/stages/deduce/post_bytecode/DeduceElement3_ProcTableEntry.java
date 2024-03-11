@@ -1,19 +1,17 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.diagnostic.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.ReadySupplier_1;
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.lang.types.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.work.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
+import tripleo.elijah.lang.types.OS_FuncType;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.work.WorkList;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.IdentExpressionImpl;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.LangGlobals;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.ICodeRegistrar;
@@ -22,7 +20,7 @@ import tripleo.elijah_durable_elevated.elijah.work.WorkList__;
 import tripleo.elijah_prolific.v.V;
 
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 

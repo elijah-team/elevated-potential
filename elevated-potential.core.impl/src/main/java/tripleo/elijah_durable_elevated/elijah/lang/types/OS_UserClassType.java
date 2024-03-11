@@ -1,14 +1,15 @@
 package tripleo.elijah_durable_elevated.elijah.lang.types;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.Mode;
+import tripleo.elijah.util.Operation;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenType;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 public class OS_UserClassType extends __Abstract_OS_Type {
 	private final ClassStatement _classStatement;

@@ -5,8 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CB_Output;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.util.*;
 
 import java.util.ArrayList;
 import java.util.List;

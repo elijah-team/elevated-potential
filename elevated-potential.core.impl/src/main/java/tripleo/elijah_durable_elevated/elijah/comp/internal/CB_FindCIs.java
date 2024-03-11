@@ -2,12 +2,12 @@ package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
-import tripleo.elijah_durable_elevated.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.util.Maybe;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
+import tripleo.elijah_durable_elevated.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.wrap.File;
 
 import java.nio.file.NotDirectoryException;

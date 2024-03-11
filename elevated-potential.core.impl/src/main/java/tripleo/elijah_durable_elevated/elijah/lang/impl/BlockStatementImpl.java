@@ -9,10 +9,7 @@
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.FormalArgList;
-import tripleo.elijah.lang.i.NormalTypeName;
-import tripleo.elijah.lang.i.Scope;
-import tripleo.elijah.lang.i.StatementClosure;
+import tripleo.elijah.lang.i.*;
 
 // Referenced classes of package pak2:
 //			Statement, StatementClosure, FormalArgList

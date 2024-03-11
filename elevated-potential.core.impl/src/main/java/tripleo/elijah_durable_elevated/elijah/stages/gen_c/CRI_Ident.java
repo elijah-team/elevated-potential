@@ -2,17 +2,14 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.IdentIA;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.List;
+import java.util.function.Consumer;
 
 class CRI_Ident {
 	@Contract(value = "_, _ -> new", pure = true)

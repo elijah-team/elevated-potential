@@ -8,20 +8,20 @@
  */
 package tripleo.elijah_durable_elevated.elijah.lang.impl;
 
-import com.google.common.collect.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.contexts.*;
+import com.google.common.collect.ImmutableList;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.contexts.IClassContext;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.nextgen.names.i.*;
-import tripleo.elijah.lang.nextgen.names.impl.*;
-import tripleo.elijah.lang2.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.lang.nextgen.names.i.EN_Name;
+import tripleo.elijah.lang2.ElElementVisitor;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.contexts.ClassContext;
 import tripleo.elijah_durable_elevated.elijah.lang.nextgen.names.impl.ENU_ClassName;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UserClassType;
 
 import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 /**
  * Represents a "class"

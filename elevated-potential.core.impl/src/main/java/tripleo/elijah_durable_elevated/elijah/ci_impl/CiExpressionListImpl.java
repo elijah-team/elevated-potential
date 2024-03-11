@@ -5,10 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CiExpression;
 import tripleo.elijah.ci.CiExpressionList;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class CiExpressionListImpl implements CiExpressionList {
 	private final List<CiExpression> exprs = new ArrayList<>();

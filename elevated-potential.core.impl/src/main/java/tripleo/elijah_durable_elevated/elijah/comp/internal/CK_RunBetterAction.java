@@ -1,13 +1,13 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
 import tripleo.elijah.comp.Compilation0;
-import tripleo.elijah_durable_elevated.elijah.comp.Pipeline;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah_durable_elevated.elijah.comp.Pipeline;
 import tripleo.elijah_durable_elevated.elijah.comp.i.ProcessRecord;
 import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.util.*;
 
 public class CK_RunBetterAction implements CK_Action {
 	@Override

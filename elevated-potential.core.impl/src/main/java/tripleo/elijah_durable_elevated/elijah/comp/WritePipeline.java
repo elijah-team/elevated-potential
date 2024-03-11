@@ -9,6 +9,7 @@
 package tripleo.elijah_durable_elevated.elijah.comp;
 
 //import com.google.common.base.Preconditions;
+
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -17,25 +18,21 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
 import tripleo.elijah.Eventual;
-//import tripleo.elijah.comp.AccessBus.AB_GenerateResultListener;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.g.GPipelineMember;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_c.CDependencyRef;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_c.OutputFileC;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah_durable_elevated.elijah.stages.generate.ElSystem;
-import tripleo.elijah_durable_elevated.elijah.stages.generate.OutputStrategy;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah_durable_elevated.elijah.stages.logging.ElLog_;
-import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.util.Ok;
+import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_c.CDependencyRef;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_c.OutputFileC;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.*;
+import tripleo.elijah_durable_elevated.elijah.stages.generate.ElSystem;
+import tripleo.elijah_durable_elevated.elijah.stages.generate.OutputStrategy;
+import tripleo.elijah_durable_elevated.elijah.stages.logging.ElLog_;
 import tripleo.elijah_durable_elevated.elijah.stages.write_stage.pipeline_impl.*;
 
 import java.util.*;
@@ -43,7 +40,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 /**
  * Created 8/21/21 10:19 PM

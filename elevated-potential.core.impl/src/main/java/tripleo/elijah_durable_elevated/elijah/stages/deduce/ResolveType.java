@@ -9,16 +9,14 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.jetbrains.annotations.*;
-
-import tripleo.elijah_durable_elevated.elijah.DebugFlags;
-import tripleo.elijah.contexts.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.contexts.IClassContext;
+import tripleo.elijah.contexts.OS_TypeNameElement;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_durable_elevated.elijah.DebugFlags;
 import tripleo.elijah_durable_elevated.elijah.contexts.ClassContext;
 import tripleo.elijah_durable_elevated.elijah.contexts.OS_TypeNameElementImpl;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.AliasStatementImpl;
@@ -29,7 +27,7 @@ import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.IDeduc
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenType;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenTypeImpl;
 
-import java.util.function.*;
+import java.util.function.Consumer;
 
 /**
  * Created 11/18/21 10:51 PM

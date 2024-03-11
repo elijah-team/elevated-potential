@@ -8,9 +8,9 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UnitType;
 import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UserType;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.ClassInvocation;

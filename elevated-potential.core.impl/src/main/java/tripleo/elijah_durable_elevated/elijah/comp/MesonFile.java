@@ -1,16 +1,18 @@
 package tripleo.elijah_durable_elevated.elijah.comp;
 
-import com.google.common.collect.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
+import com.google.common.collect.Multimap;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
-import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 import tripleo.elijah_prolific.v.V;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.String_join;
 
 class MesonFile implements EG_Statement {
 

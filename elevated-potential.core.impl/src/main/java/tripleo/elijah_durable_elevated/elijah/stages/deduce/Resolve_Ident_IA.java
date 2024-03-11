@@ -9,27 +9,24 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
 import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
+import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
+import tripleo.elijah.ReadySupplier_1;
+import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.lang.nextgen.names.impl.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.work.*;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.util.Holder;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.work.WorkList;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah_durable_elevated.elijah.lang.nextgen.names.impl.ENU_ClassName;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
-import java.text.*;
-import java.util.*;
+import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created 7/8/21 2:31 AM

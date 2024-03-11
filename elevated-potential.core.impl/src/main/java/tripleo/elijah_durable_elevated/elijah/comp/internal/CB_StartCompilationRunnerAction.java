@@ -5,8 +5,8 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.util.Operation;
+import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
 
 import java.util.List;
 

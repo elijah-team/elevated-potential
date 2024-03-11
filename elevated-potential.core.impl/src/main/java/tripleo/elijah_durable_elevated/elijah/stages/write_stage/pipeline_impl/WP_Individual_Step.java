@@ -1,7 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.stages.write_stage.pipeline_impl;
 
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.Operation;
 
 public interface WP_Individual_Step extends CK_Action {
 	void act(final WritePipelineSharedState st, final WP_State_Control sc);

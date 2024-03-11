@@ -1,19 +1,16 @@
 package tripleo.elijah_durable_elevated.elijah.nextgen.output;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.gen_c.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.generate.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.nextgen.outputtree.EOT_FileNameProvider;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_c.C2C_Result;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateFiles;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;
 import tripleo.elijah_durable_elevated.elijah.stages.generate.OutputStrategyC;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NG_OutputFunction implements NG_OutputItem {
 	private List<C2C_Result> collect;

@@ -2,7 +2,6 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.ConstantTableEntry;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.VariableTableEntry;
-import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
 class GCFM_Inst_JE {

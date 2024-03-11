@@ -9,17 +9,17 @@
  */
 package tripleo.elijah_durable_elevated.elijah.comp.notation;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.i.ModuleListener;
 import tripleo.elijah.comp.notation.GN_Env;
 import tripleo.elijah.comp.notation.GN_Notable;
-import tripleo.elijah.g.*;
-import tripleo.elijah.work.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.g.GWorldModule;
+import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_durable_elevated.elijah.work.WorkManager__;
 import tripleo.elijah_durable_elevated.elijah.world.i.WorldModule;
 
-import java.util.*;
+import java.util.Collection;
 
 public class GN_GenerateNodesIntoSink implements GN_Notable, ModuleListener {
 	private final GN_GenerateNodesIntoSinkEnv env;

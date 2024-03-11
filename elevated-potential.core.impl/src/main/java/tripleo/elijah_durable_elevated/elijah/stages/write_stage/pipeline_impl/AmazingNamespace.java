@@ -1,9 +1,9 @@
 package tripleo.elijah_durable_elevated.elijah.stages.write_stage.pipeline_impl;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah_durable_elevated.elijah.nextgen.output.NG_OutputNamespace;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNamespace;

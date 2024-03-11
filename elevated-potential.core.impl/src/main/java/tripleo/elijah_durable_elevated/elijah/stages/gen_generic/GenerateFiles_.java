@@ -2,10 +2,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_generic;
 
 import com.google.common.collect.Collections2;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNode;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.IEvaConstructor;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 
 import java.util.Collection;
 

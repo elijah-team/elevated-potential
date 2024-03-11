@@ -3,10 +3,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.nextgen.outputstatement.IReasonedString;
 import tripleo.elijah.nextgen.outputstatement.ReasonedStringListStatement;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.IdentIA;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.Instruction;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.IntegerIA;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
 import java.util.function.Supplier;
 

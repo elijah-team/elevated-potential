@@ -9,14 +9,14 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import org.apache.commons.lang3.tuple.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.*;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah.util.Operation2;
 import tripleo.elijah_durable_elevated.elijah.DebugFlags;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
@@ -24,10 +24,11 @@ import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.String_join;
 
 /**
  * Created 1/9/21 7:12 AM

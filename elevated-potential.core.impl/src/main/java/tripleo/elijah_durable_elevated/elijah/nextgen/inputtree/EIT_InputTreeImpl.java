@@ -1,9 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.nextgen.inputtree;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
-import tripleo.elijah.util.*;
+import tripleo.elijah.util.Operation;
 
 import java.util.Objects;
 

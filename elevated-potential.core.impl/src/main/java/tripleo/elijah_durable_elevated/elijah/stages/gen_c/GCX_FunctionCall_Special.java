@@ -4,14 +4,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.IdentExpression;
 import tripleo.elijah.lang.i.OS_Element;
+import tripleo.elijah.util.Helpers;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceElement;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.ProcTableEntry;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.IdentIA;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.Instruction;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah_durable_elevated.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 
 import java.util.List;
 import java.util.Map;

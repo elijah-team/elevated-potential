@@ -1,7 +1,6 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.stages.gen_fn.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah_durable_elevated.elijah.lang2.SpecialVariables;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.VariableTableEntry;

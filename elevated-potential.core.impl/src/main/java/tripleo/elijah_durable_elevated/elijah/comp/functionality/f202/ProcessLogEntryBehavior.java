@@ -10,7 +10,7 @@
 package tripleo.elijah_durable_elevated.elijah.comp.functionality.f202;
 
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.logging.LogEntry;
 
 import java.io.File;
 

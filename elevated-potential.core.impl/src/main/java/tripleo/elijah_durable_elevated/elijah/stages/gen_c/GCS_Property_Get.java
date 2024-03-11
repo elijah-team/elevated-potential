@@ -1,10 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.NamespaceStatement;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.PropertyStatement;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
 

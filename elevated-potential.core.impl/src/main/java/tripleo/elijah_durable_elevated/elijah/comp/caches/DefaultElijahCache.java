@@ -2,12 +2,9 @@ package tripleo.elijah_durable_elevated.elijah.comp.caches;
 
 import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.comp.specs.ElijahSpec;
-
 import tripleo.elijah.lang.i.OS_Module;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class DefaultElijahCache implements ElijahCache {
 	private final Map<String, OS_Module> fn2m = new HashMap<>();

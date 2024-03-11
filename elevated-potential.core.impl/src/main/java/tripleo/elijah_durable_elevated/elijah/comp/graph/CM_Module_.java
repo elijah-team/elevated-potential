@@ -1,21 +1,21 @@
 package tripleo.elijah_durable_elevated.elijah.comp.graph;
 
-import java.io.InputStream;
-
 import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah.comp.Compilation0;
-import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.comp.specs.ElijahSpec;
+import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.elijah.g.GLivingRepo;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Operation2;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.world.i.LivingRepo;
 import tripleo.elijah_durable_elevated.elijah.world.i.WorldModule;
+
+import java.io.InputStream;
 
 public class CM_Module_ implements CM_Module {
 	private Operation2<OS_Module> moduleOperation;

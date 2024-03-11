@@ -1,6 +1,6 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
 
 enum __Tests_OS_Type {

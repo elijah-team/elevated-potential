@@ -1,8 +1,6 @@
 package tripleo.elijah_durable_elevated.elijah.stages.write_stage.pipeline_impl;
 
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaNamespace;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;
 
 import java.util.List;

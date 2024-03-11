@@ -9,38 +9,37 @@
  */
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
-import org.apache.commons.lang3.tuple.*;
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.notation.*;
-import tripleo.elijah.g.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.output.*;
-import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.stages.gen_c.*;
-import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.comp.i.CB_Action;
+import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.comp.notation.GN_Env;
+import tripleo.elijah.comp.notation.GN_Notable;
+import tripleo.elijah.g.GCR_State;
+import tripleo.elijah.g.GPipelineMember;
+import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah_durable_elevated.elijah.comp.*;
 import tripleo.elijah_durable_elevated.elijah.comp.i.ProcessRecord;
-import tripleo.elijah_durable_elevated.elijah.comp.nextgen.CK_DefaultStepRunner;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateFiles;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah_durable_elevated.elijah.comp.nextgen.CK_DefaultStepRunner;
 import tripleo.elijah_durable_elevated.elijah.nextgen.output.NG_OutputItem;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateFiles;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah_durable_elevated.elijah.stages.write_stage.pipeline_impl.WP_Flow;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Consumer;
 
 public class CR_State implements GCR_State {
 

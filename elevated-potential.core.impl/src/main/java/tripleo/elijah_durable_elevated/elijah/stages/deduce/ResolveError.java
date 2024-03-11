@@ -8,14 +8,16 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.g.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.diagnostic.Locatable;
+import tripleo.elijah.g.GResolveError;
 import tripleo.elijah.lang.i.*;
 
-import java.io.*;
-import java.util.*;
-import java.util.stream.*;
+import java.io.PrintStream;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created 12/26/20 5:08 AM

@@ -1,12 +1,13 @@
 package tripleo.elijah_durable_elevated.elijah.nextgen.outputtree;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.nextgen.inputtree.*;
-import tripleo.elijah.nextgen.outputstatement.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.nextgen.inputtree.EIT_Input;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah_durable_elevated.elijah.nextgen.inputtree.EIT_Input_HashSourceFile_Triple;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EOT_OutputFileImpl implements EOT_OutputFile {
 	public static class DefaultFileNameProvider implements EOT_FileNameProvider {

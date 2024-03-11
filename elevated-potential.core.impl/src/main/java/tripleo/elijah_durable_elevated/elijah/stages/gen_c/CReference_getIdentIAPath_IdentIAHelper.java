@@ -1,13 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.world.impl.*;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.AliasStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableStatementImpl;
@@ -16,7 +13,7 @@ import tripleo.elijah_durable_elevated.elijah.stages.instructions.IdentIA;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah_durable_elevated.elijah.world.impl.DefaultLivingRepo;
 
-import java.util.*;
+import java.util.List;
 
 class CReference_getIdentIAPath_IdentIAHelper {
 	static class CodeResolver {

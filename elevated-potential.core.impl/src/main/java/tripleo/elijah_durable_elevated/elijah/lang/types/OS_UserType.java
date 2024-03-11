@@ -1,9 +1,10 @@
 package tripleo.elijah_durable_elevated.elijah.lang.types;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
 
-import java.text.*;
+import java.text.MessageFormat;
 
 public class OS_UserType extends __Abstract_OS_Type {
 	private final TypeName typeName;

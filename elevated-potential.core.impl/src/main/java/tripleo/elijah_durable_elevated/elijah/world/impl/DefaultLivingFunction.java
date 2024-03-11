@@ -4,13 +4,12 @@ import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.Eventual;
-import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah.lang.i.FunctionDef;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.fluffy.i.FluffyComp;
-import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.world.i.LF_CodeRegistration;
 import tripleo.elijah_durable_elevated.elijah.world.i.LivingFunction;
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 
 public class DefaultLivingFunction implements LivingFunction {
 	private final           FunctionDef       _element;

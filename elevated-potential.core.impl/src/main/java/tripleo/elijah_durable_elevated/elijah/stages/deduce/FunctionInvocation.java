@@ -9,17 +9,13 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
 import lombok.Getter;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
-import tripleo.elijah.UnintendedUseException;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.LangGlobals;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen.DeduceCreationContext;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.__LFOE_Q;
-import tripleo.elijah.stages.gen_fn.*;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.work.WorkList__;
 

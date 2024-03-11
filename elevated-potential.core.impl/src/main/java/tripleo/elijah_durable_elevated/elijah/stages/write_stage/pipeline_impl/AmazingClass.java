@@ -1,14 +1,11 @@
 package tripleo.elijah_durable_elevated.elijah.stages.write_stage.pipeline_impl;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.output.*;
 import tripleo.elijah_durable_elevated.elijah.nextgen.output.NG_OutputClass;
 import tripleo.elijah_durable_elevated.elijah.stages.garish.GarishClass;
-import tripleo.elijah.stages.gen_c.*;
-import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_c.GenerateC;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.EvaClass;
 

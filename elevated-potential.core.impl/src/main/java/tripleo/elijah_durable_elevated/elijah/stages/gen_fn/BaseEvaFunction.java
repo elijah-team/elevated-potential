@@ -8,19 +8,14 @@
  */
 package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
-import org.jdeferred2.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import org.jdeferred2.DoneCallback;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
-import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.inter.*;
+import tripleo.elijah.nextgen.reactive.DefaultReactive;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.impl.*;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.LangGlobals;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.nextgen.*;
@@ -32,9 +27,9 @@ import tripleo.elijah_durable_elevated.elijah.world.impl.DefaultLivingFunction;
 import tripleo.util.range.Range;
 
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Consumer;
 
-import static tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2.*;
+import static tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2.to_int;
 
 /**
  * Created 9/10/20 2:57 PM

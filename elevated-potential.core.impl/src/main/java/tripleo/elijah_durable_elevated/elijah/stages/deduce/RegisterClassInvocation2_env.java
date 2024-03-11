@@ -1,8 +1,8 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
-import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenerateFunctions;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenerateFunctions;
 
 import java.util.Objects;
 import java.util.function.Supplier;
