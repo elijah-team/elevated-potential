@@ -10,7 +10,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.TypeTableEntry;

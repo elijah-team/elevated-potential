@@ -3,7 +3,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 import com.google.common.base.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.deduce.tastic.*;
 import tripleo.elijah.stages.gen_fn.*;

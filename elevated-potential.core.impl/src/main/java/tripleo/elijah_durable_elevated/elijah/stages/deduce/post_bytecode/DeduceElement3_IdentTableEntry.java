@@ -7,7 +7,7 @@ import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah.comp.Finally.Outs;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah.lang.imports.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.nextgen.*;

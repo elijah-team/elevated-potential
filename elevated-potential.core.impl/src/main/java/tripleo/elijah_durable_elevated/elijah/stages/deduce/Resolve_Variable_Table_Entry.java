@@ -14,7 +14,7 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.deduce.tastic.*;
 import tripleo.elijah.stages.gen_fn.*;

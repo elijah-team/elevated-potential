@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.UnintendedUseException;
 import tripleo.elijah.g.GEvaNamespace;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;
 import tripleo.elijah.nextgen.reactive.Reactive;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.*;

@@ -15,7 +15,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.g.GGenerateFunctions;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah.lang2.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.pre_world.*;

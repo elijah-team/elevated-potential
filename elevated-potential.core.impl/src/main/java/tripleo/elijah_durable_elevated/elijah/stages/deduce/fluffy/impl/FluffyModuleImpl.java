@@ -2,7 +2,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.deduce.fluffy.impl;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.fluffy.i.*;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah_durable_elevated.elijah.entrypoints.MainClassEntryPoint;

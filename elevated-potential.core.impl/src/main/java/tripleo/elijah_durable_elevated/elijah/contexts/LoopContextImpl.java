@@ -14,7 +14,7 @@ package tripleo.elijah_durable_elevated.elijah.contexts;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.contexts.ILoopContext;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah_durable_elevated.elijah.util.ProgramIsLikelyWrong;
 

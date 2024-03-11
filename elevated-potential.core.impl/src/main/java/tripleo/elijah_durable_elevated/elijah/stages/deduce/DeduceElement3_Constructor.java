@@ -10,7 +10,7 @@ import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
 import tripleo.elijah_durable_elevated.elijah.stages.inter.ModuleThing;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;

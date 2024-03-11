@@ -13,7 +13,7 @@ import org.apache.commons.codec.digest.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah.util.Operation;
 import tripleo.elijah.util.TabbedOutputStream;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.*;

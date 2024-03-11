@@ -4,7 +4,7 @@ import antlr.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.builder.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah.lang.imports.*;
 import tripleo.elijah.lang2.*;
 import tripleo.elijah_durable_elevated.elijah.contexts.*;

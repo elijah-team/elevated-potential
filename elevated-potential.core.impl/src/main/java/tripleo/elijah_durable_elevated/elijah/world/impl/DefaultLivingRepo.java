@@ -4,7 +4,7 @@ import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
@@ -67,7 +67,7 @@ public class DefaultLivingRepo implements LivingRepo {
 			if (livingClass.getCode() == 0) {
 				livingClass.setCode(nextClassCode());
 			} else {
-				assert 2 != 3 || true;
+				assert true;
 			}
 		}
 		case MAIN_FUNCTION -> {

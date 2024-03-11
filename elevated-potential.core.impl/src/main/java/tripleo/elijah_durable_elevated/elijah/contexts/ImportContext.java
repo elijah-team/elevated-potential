@@ -12,7 +12,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.contexts.IImportContext;
 import tripleo.elijah.contexts.NamespaceContext;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
 import tripleo.elijah.lang.nextgen.names.i.*;
 import tripleo.elijah.lang.nextgen.names.impl.*;
 import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
