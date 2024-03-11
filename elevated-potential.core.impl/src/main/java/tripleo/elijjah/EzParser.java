@@ -22,7 +22,7 @@ import tripleo.elijah.ci.cii.Qualident;
 import tripleo.elijah.ci.cii.QualidentList;
 import tripleo.elijah.ci.cii.TypeCastExpression;
 import tripleo.elijah.ci.cii.TypeName;
-import tripleo.elijah.comp.PCon;
+import tripleo.elijah_durable_elevated.elijah.comp.PCon;
 import tripleo.elijah.xlang.LocatableString;
 
 public class EzParser extends antlr.LLkParser implements EzTokenTypes {
@@ -177,7 +177,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							ee = pcon.ExpressionBuilder_build(ee, e2, e3);
 						}
 					} else {
-						break _loop80;
+						break;
 					}
 
 				} while (true);
@@ -210,7 +210,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.BAND, e3);
 						}
 					} else {
-						break _loop63;
+						break;
 					}
 
 				} while (true);
@@ -536,7 +536,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							ee = pcon.ExpressionBuilder_build(ee, e2, e3);
 						}
 					} else {
-						break _loop67;
+						break;
 					}
 
 				} while (true);
@@ -569,7 +569,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.BXOR, e3);
 						}
 					} else {
-						break _loop60;
+						break;
 					}
 
 				} while (true);
@@ -622,7 +622,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							el.next(expr);
 						}
 					} else {
-						break _loop41;
+						break;
 					}
 
 				} while (true);
@@ -657,7 +657,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							gen.addDirective(i1, expr);
 						}
 					} else {
-						break _loop15;
+						break;
 					}
 
 				} while (true);
@@ -713,7 +713,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.BOR, e3);
 						}
 					} else {
-						break _loop57;
+						break;
 					}
 
 				} while (true);
@@ -751,7 +751,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							idx.setExprs(el);
 						}
 					} else {
-						break _loop18;
+						break;
 					}
 
 				} while (true);
@@ -794,7 +794,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							ci.add(lsp);
 						}
 					} else {
-						break _loop7;
+						break;
 					}
 
 				} while (true);
@@ -855,7 +855,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 								match(TOK_COLON);
 								expr = expression();
 							} else {
-								break _loop12;
+								break;
 							}
 
 						} while (true);
@@ -904,7 +904,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.LAND, e3);
 						}
 					} else {
-						break _loop54;
+						break;
 					}
 
 				} while (true);
@@ -937,7 +937,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							ee = pcon.ExpressionBuilder_build(ee, ExpressionKind.LOR, e3);
 						}
 					} else {
-						break _loop51;
+						break;
 					}
 
 				} while (true);
@@ -998,7 +998,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							ee = pcon.ExpressionBuilder_build(ee, e2, e3);
 						}
 					} else {
-						break _loop84;
+						break;
 					}
 
 				} while (true);
@@ -1128,7 +1128,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 						}
 						match(RPAREN);
 					} else {
-						break _loop92;
+						break;
 					}
 
 				} while (true);
@@ -1325,7 +1325,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							q.append(r2);
 						}
 					} else {
-						break _loop22;
+						break;
 					}
 
 				} while (true);
@@ -1359,7 +1359,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							qal.add(qid);
 						}
 					} else {
-						break _loop37;
+						break;
 					}
 
 				} while (true);
@@ -1429,7 +1429,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 								ee = pcon.ExpressionBuilder_build(ee, e2, e3, null);
 							}
 						} else {
-							break _loop72;
+							break;
 						}
 
 					} while (true);
@@ -1491,7 +1491,7 @@ public class EzParser extends antlr.LLkParser implements EzTokenTypes {
 							ee = pcon.ExpressionBuilder_build(ee, e2, e3);
 						}
 					} else {
-						break _loop76;
+						break;
 					}
 
 				} while (true);

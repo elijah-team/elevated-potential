@@ -1,7 +1,7 @@
 package tripleo.elijah_prolific.v;
 
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.GenerateResultItem;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResult;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResultItem;
 
 import java.io.PrintStream;
 
@@ -17,11 +17,11 @@ public class V {
 //			stream.println(ab.counter);
 			final String ty = "" + ab.__ty();
 //			stream.println(ty);
-			final String ou = "" + ab.output();
+			final String ou = ab.output();
 //			stream.println(ou);
-			final String ns = "" + ab.node().identityString();
+			final String ns = ab.node().identityString();
 //			stream.println(ns);
-			final String bt = "" + ab.buffer().getText();
+			final String bt = ab.buffer().getText();
 //			stream.println(bt);
 			System.err.println("{{V.gr}} " + ty + " " + ou + " " + ns);
 		}

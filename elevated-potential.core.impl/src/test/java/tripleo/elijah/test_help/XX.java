@@ -2,10 +2,11 @@ package tripleo.elijah.test_help;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.lang.types.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UserType;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.TypeTableEntry;
+import tripleo.elijah_durable_elevated.elijah.util.Helpers0;
 
 public enum XX {
 	;
@@ -16,7 +17,7 @@ public enum XX {
 	}
 
 	public static @NotNull TypeTableEntry regularTypeName_specifyTableEntry(final IdentExpression aIdentExpression,
-	                                                                        final @NotNull BaseEvaFunction aBaseGeneratedFunction, final @NotNull String aTypeName) {
+																			final @NotNull BaseEvaFunction aBaseGeneratedFunction, final @NotNull String aTypeName) {
 		final RegularTypeName typeName = RegularTypeNameImpl.makeWithStringTypeName(aTypeName);
 		final OS_Type type = new OS_UserType(typeName);
 		final TypeTableEntry tte = aBaseGeneratedFunction.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, type,
@@ -26,7 +27,7 @@ public enum XX {
 	}
 
 	public static @NotNull VariableStatementImpl sequenceAndVarNamed(final IdentExpression aIdentExpression) {
-		final VariableSequenceImpl seq = new VariableSequenceImpl();
+		final VariableSequenceImpl  seq   = new VariableSequenceImpl();
 		final VariableStatementImpl x_var = new VariableStatementImpl(seq);
 
 		x_var.setName(aIdentExpression);

@@ -1,11 +1,11 @@
 package tripleo.elijah.nextgen.expansion;
 
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.stages.gen_generic.OutputFileFactoryParams;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.OutputFileFactoryParams;
 import tripleo.elijah.test_help.Boilerplate;
-import tripleo.elijah.world.impl.DefaultWorldModule;
+import tripleo.elijah_durable_elevated.elijah.world.impl.DefaultWorldModule;
 
 @SuppressWarnings("NewClassNamingConvention")
 public class SX_NodeTest {

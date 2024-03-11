@@ -1,0 +1,16 @@
+package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
+
+import org.jetbrains.annotations.NotNull;
+
+interface GCR_Rule {
+	static @NotNull GCR_Rule withMessage(@NotNull String message) {
+		return new GCR_Rule() {
+			@Override
+			public String text() {
+				return message;
+			}
+		};
+	}
+
+	String text();
+}

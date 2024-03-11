@@ -14,25 +14,27 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tripleo.elijah.comp.*;
+import tripleo.elijah_durable_elevated.elijah.comp.IO_;
+import tripleo.elijah_durable_elevated.elijah.comp.StdErrSink;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.util.Helpers0;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.comp.internal.DefaultCompilationAccess;
+import tripleo.elijah_durable_elevated.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah_durable_elevated.elijah.comp.internal.DefaultCompilationAccess;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.stages.gen_c.CReference;
-import tripleo.elijah.stages.gen_c.Emit;
-import tripleo.elijah.stages.gen_c.GenerateC;
-import tripleo.elijah.stages.gen_c.Generate_Code_For_Method;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.stages.gen_generic.OutputFileFactoryParams;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah.stages.instructions.VariableTableType;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_c.CReference;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_c.Emit;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_c.GenerateC;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_c.Generate_Code_For_Method;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.GenerateResultEnv;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.OutputFileFactoryParams;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.IdentIA;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.IntegerIA;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.VariableTableType;
 import tripleo.elijah.test_help.Boilerplate;
-import tripleo.elijah.util.*;
-import tripleo.elijah.world.impl.DefaultWorldModule;
+import tripleo.elijah_durable_elevated.elijah.world.impl.DefaultWorldModule;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -40,10 +42,10 @@ import static org.mockito.Mockito.when;
 public class GetIdentIAPathTest_ForC {
 
 	EvaFunction gf;
-	OS_Module mod;
+	OS_Module   mod;
 	private GenerateC generateC;
 	private CompilationImpl compilation;
-	private StdErrSink errSink;
+	private StdErrSink      errSink;
 
 	String getIdentIAPath(final @NotNull IdentIA ia2, EvaFunction generatedFunction, @NotNull GenerateC gc,
 			CompilationEnclosure ce) {
@@ -87,8 +89,8 @@ public class GetIdentIAPathTest_ForC {
 		OS_Type type = null;
 		TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, type, x_ident);
 		int int_index = gf.addVariableTableEntry("x", VariableTableType.VAR, tte, mock(VariableStatement.class));
-		int ite_index = gf.addIdentTableEntry(foo_ident, null);
-		IdentTableEntry ite = gf.getIdentTableEntry(ite_index);
+		int             ite_index = gf.addIdentTableEntry(foo_ident, null);
+		IdentTableEntry ite       = gf.getIdentTableEntry(ite_index);
 		ite.setResolvedElement(foo_vs);
 		ite.setBacklink(new IntegerIA(int_index, gf));
 		IdentIA ident_ia = new IdentIA(ite_index, gf);
@@ -131,7 +133,7 @@ public class GetIdentIAPathTest_ForC {
 		 */
 
 		GenerateFunctions gen = generatePhase.getGenerateFunctions(mod);
-		Context ctx = mock(Context.class);
+		Context           ctx = mock(Context.class);
 		//
 		DotExpression expr = new DotExpressionImpl(x_ident, foo_ident);
 		InstructionArgument xx = gen.simplify_expression(expr, gf, ctx);

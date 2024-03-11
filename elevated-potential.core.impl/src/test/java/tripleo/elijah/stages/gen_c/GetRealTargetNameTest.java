@@ -11,12 +11,15 @@ package tripleo.elijah.stages.gen_c;
 import org.junit.jupiter.api.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.test_help.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah_durable_elevated.elijah.contexts.ModuleContext__;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeducePhase;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceTypes2;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_c.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.*;
+import tripleo.elijah_durable_elevated.elijah.util.Helpers0;
 
 import java.util.*;
 

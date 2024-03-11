@@ -12,10 +12,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.*;
 
-import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.entrypoints.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah_durable_elevated.elijah.comp.*;
+import tripleo.elijah_durable_elevated.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah_durable_elevated.elijah.entrypoints.MainClassEntryPoint;
 
 import java.util.*;
 import java.util.stream.*;
@@ -32,8 +33,8 @@ public class FindClassesInDemoElNormalTest {
 	@Disabled @Test
 	public final void testListFolders() throws Exception {
 		final List<String> args = List_of("test/demo-el-normal/listfolders/", "-sE");
-		final ErrSink      eee = new StdErrSink();
-		final Compilation  c   = new CompilationImpl(eee, new IO_());
+		final ErrSink      eee  = new StdErrSink();
+		final Compilation  c    = new CompilationImpl(eee, new IO_());
 
 		c.feedCmdLine(args);
 

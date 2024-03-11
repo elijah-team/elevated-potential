@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 
-import tripleo.elijah.comp.Compilation;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.CompilerInputMaster;
 

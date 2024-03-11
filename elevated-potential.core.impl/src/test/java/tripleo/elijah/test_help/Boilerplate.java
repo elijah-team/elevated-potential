@@ -2,26 +2,28 @@ package tripleo.elijah.test_help;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
+import tripleo.elijah_durable_elevated.elijah.comp.*;
+import tripleo.elijah_durable_elevated.elijah.comp.internal.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.*;
+import tripleo.elijah_durable_elevated.elijah.stages.logging.ElLog_;
+import tripleo.elijah_durable_elevated.elijah.work.WorkList__;
+import tripleo.elijah_durable_elevated.elijah.work.WorkManager__;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.i.ProcessRecord;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.notation.GM_GenerateModule;
-import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
+import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah_durable_elevated.elijah.comp.i.ProcessRecord;
+import tripleo.elijah_durable_elevated.elijah.comp.notation.GM_GenerateModule;
+import tripleo.elijah_durable_elevated.elijah.comp.notation.GM_GenerateModuleRequest;
+import tripleo.elijah_durable_elevated.elijah.comp.notation.GN_GenerateNodesIntoSink;
+import tripleo.elijah_durable_elevated.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.lang.impl.OS_ModuleImpl;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.OS_ModuleImpl;
 import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
-import tripleo.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.work.*;
-import tripleo.elijah.world.impl.DefaultWorldModule;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeducePhase;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
+import tripleo.elijah_durable_elevated.elijah.world.impl.DefaultWorldModule;
 
 import java.util.List;
 
@@ -91,8 +93,8 @@ public class Boilerplate {
 			final CompilationEnclosure ce = (CompilationEnclosure) comp.getCompilationEnclosure();
 			EIT_ModuleList        moduleList  = ce.getModuleList();
 			//Object             moduleList = null;
-			ElLog_.Verbosity   verbosity  = ElLog_.Verbosity.SILENT;
-			Old_GenerateResult gr         = new Old_GenerateResult();
+			ElLog_.Verbosity   verbosity = ElLog_.Verbosity.SILENT;
+			Old_GenerateResult gr        = new Old_GenerateResult();
 //			CompilationEnclosure ce          = pa.getCompilationEnclosure();
 
 			final GN_GenerateNodesIntoSinkEnv generateNodesIntoSinkEnv = new GN_GenerateNodesIntoSinkEnv(
@@ -112,11 +114,11 @@ public class Boilerplate {
 			final GM_GenerateModuleRequest gmr = new GM_GenerateModuleRequest(generateNodesIntoSink, worldModule,
 					generateNodesIntoSinkEnv);
 			GenerateResultEnv fileGen = new GenerateResultEnv(resultSink1, gr, workManager, workList,
-					new GM_GenerateModule(gmr));
+															  new GM_GenerateModule(gmr));
 
 			var wm = new DefaultWorldModule(mod, ce);
 
-			final @NotNull String lang = CompilationImpl.CompilationAlways.defaultPrelude();
+			final @NotNull String         lang   = CompilationImpl.CompilationAlways.defaultPrelude();
 			final OutputFileFactoryParams params = new OutputFileFactoryParams(wm, ce);
 
 			generateFiles = OutputFileFactory.create(lang, params, fileGen);

@@ -12,13 +12,14 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah_durable_elevated.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn_c.GenFnC;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.stages.instructions.InstructionArgument;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.*;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn_c.GenFnC;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.IdentIA;
+import tripleo.elijah_durable_elevated.elijah.stages.instructions.InstructionArgument;
 import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.util.NotImplementedException;
 
@@ -51,9 +52,9 @@ public class TestIdentNormal {
 
 		final GenerateFunctions generateFunctions = new GenerateFunctions(boilerplate.defaultMod(), genfc);
 
-		final EvaFunction generatedFunction = new EvaFunction(fd);
-		final VariableSequence seq = new VariableSequenceImpl(ctx1);
-		final VariableStatement vs = new VariableStatementImpl(seq);
+		final EvaFunction       generatedFunction = new EvaFunction(fd);
+		final VariableSequence  seq               = new VariableSequenceImpl(ctx1);
+		final VariableStatement vs                = new VariableStatementImpl(seq);
 		final IdentExpression x = IdentExpressionImpl.forString("x");
 		vs.setName(x);
 		final IdentExpression foo = IdentExpressionImpl.forString("foo");
@@ -80,8 +81,8 @@ public class TestIdentNormal {
 
 		final IdentIA identIA = new IdentIA(1, generatedFunction);
 
-		final DeducePhase phase = boilerplate.getDeducePhase();
-		final DeduceTypes2 d2 = new DeduceTypes2(boilerplate.defaultMod(), phase);
+		final DeducePhase  phase = boilerplate.getDeducePhase();
+		final DeduceTypes2 d2    = new DeduceTypes2(boilerplate.defaultMod(), phase);
 
 		final List<InstructionArgument> ss = BaseEvaFunction._getIdentIAPathList(identIA);
 		d2.resolveIdentIA2_(ctx2, null, ss/* identIA */, generatedFunction, new FoundElement(phase) {
@@ -155,9 +156,9 @@ public class TestIdentNormal {
 		final ClassHeader ch = new ClassHeaderImpl(false, List_of());
 		cs.setHeader(ch);
 
-		ClassInvocation ci = phase.registerClassInvocation(cs);
-		ProcTableEntry pte2 = null;
-		FunctionInvocation fi = new FunctionInvocation(fd, pte2, ci, generatePhase);
+		ClassInvocation    ci   = phase.registerClassInvocation(cs);
+		ProcTableEntry     pte2 = null;
+		FunctionInvocation fi   = new FunctionInvocation(fd, pte2, ci, generatePhase);
 //		when(fd.returnType()).thenReturn(null);
 		final FormalArgList formalArgList = new FormalArgListImpl();
 //		when(fd.fal()).thenReturn(formalArgList);

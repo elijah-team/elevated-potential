@@ -16,8 +16,9 @@ import org.junit.jupiter.api.Test;
 import tripleo.elijah.lang.i.DotExpression;
 import tripleo.elijah.lang.i.IExpression;
 import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.lang.impl.DotExpressionImpl;
-import tripleo.elijah.util.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.DotExpressionImpl;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.DeduceLookupUtils;
+import tripleo.elijah_durable_elevated.elijah.util.Helpers0;
 
 import java.util.Stack;
 

@@ -1,0 +1,14 @@
+package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
+
+import org.junit.jupiter.api.Test;
+
+public class GenerateCTest {
+
+	@Test
+	public void getRealTargetName() {
+
+//		fd = new FunctionDefImpl(element, context);
+//
+//		gf = new EvaFunction(fd);
+	}
+}
