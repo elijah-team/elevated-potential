@@ -1,0 +1,1673 @@
+Apache Maven 3.9.6 (bc0240f3c744dd6b6ec2920b3cd08dcc295161ae)
+Maven home: /home/gitpod/.sdkman/candidates/maven/current
+Java version: 17.0.10, vendor: Eclipse Adoptium, runtime: /home/gitpod/.sdkman/candidates/java/17.0.10-tem
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "6.1.75-060175-generic", arch: "amd64", family: "unix"
+[DEBUG] Created new class realm maven.api
+[DEBUG] Importing foreign packages into class realm maven.api
+[DEBUG]   Imported: javax.annotation.* < plexus.core
+[DEBUG]   Imported: javax.annotation.security.* < plexus.core
+[DEBUG]   Imported: javax.inject.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.artifact < plexus.core
+[DEBUG]   Imported: org.apache.maven.classrealm < plexus.core
+[DEBUG]   Imported: org.apache.maven.cli < plexus.core
+[DEBUG]   Imported: org.apache.maven.configuration < plexus.core
+[DEBUG]   Imported: org.apache.maven.exception < plexus.core
+[DEBUG]   Imported: org.apache.maven.execution < plexus.core
+[DEBUG]   Imported: org.apache.maven.execution.scope < plexus.core
+[DEBUG]   Imported: org.apache.maven.graph < plexus.core
+[DEBUG]   Imported: org.apache.maven.lifecycle < plexus.core
+[DEBUG]   Imported: org.apache.maven.model < plexus.core
+[DEBUG]   Imported: org.apache.maven.monitor < plexus.core
+[DEBUG]   Imported: org.apache.maven.plugin < plexus.core
+[DEBUG]   Imported: org.apache.maven.profiles < plexus.core
+[DEBUG]   Imported: org.apache.maven.project < plexus.core
+[DEBUG]   Imported: org.apache.maven.reporting < plexus.core
+[DEBUG]   Imported: org.apache.maven.repository < plexus.core
+[DEBUG]   Imported: org.apache.maven.rtinfo < plexus.core
+[DEBUG]   Imported: org.apache.maven.settings < plexus.core
+[DEBUG]   Imported: org.apache.maven.toolchain < plexus.core
+[DEBUG]   Imported: org.apache.maven.usability < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.authentication < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.authorization < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.events < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.observers < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.proxy < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.repository < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.resource < plexus.core
+[DEBUG]   Imported: org.codehaus.classworlds < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.* < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.classworlds < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.component < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.configuration < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.container < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.context < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.lifecycle < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.logging < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.personality < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.Xpp3Dom < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParser < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParserException < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlSerializer < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.* < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.artifact < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.collection < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.deployment < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.graph < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.impl < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.installation < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.internal.impl < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.metadata < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.repository < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.resolution < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.spi < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.transfer < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.util < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.version < plexus.core
+[DEBUG]   Imported: org.fusesource.jansi.* < plexus.core
+[DEBUG]   Imported: org.slf4j.* < plexus.core
+[DEBUG]   Imported: org.slf4j.event.* < plexus.core
+[DEBUG]   Imported: org.slf4j.helpers.* < plexus.core
+[DEBUG]   Imported: org.slf4j.spi.* < plexus.core
+[DEBUG] Populating class realm maven.api
+[DEBUG] Created adapter factory; available factories [file-lock, rwlock-local, semaphore-local, noop]; available name mappers [discriminating, file-gav, file-hgav, file-static, gav, static]
+[INFO] Error stacktraces are turned on.
+[DEBUG] Message scheme: color
+[DEBUG] Message styles: debug info warning error success failure strong mojo project
+[DEBUG] Reading global settings from /home/gitpod/.sdkman/candidates/maven/current/conf/settings.xml
+[DEBUG] Reading user settings from /home/gitpod/.m2/settings.xml
+[DEBUG] Reading global toolchains from /home/gitpod/.sdkman/candidates/maven/current/conf/toolchains.xml
+[DEBUG] Reading user toolchains from /home/gitpod/.m2/toolchains.xml
+[DEBUG] Using local repository at /workspace/m2-repository
+[DEBUG] Using manager EnhancedLocalRepositoryManager with priority 10.0 for /workspace/m2-repository
+[INFO] Scanning for projects...
+[DEBUG] Extension realms for project tripleo.elijah:elevated-potential:pom:2024.elevated-potential.2: (none)
+[DEBUG] Looking up lifecycle mappings for packaging pom from ClassRealm[plexus.core, parent: null]
+[DEBUG] Extension realms for project tripleo.elijah:elevated-potential-base-impl:jar:2024.elevated-potential.2: (none)
+[DEBUG] Looking up lifecycle mappings for packaging jar from ClassRealm[plexus.core, parent: null]
+[DEBUG] Extension realms for project tripleo.elijah:elevated-potential-core-api:jar:2024.elevated-potential.2: (none)
+[DEBUG] Looking up lifecycle mappings for packaging jar from ClassRealm[plexus.core, parent: null]
+[DEBUG] Extension realms for project tripleo.elijah:elevated-potential-core-impl:jar:2024.elevated-potential.2: (none)
+[DEBUG] Looking up lifecycle mappings for packaging jar from ClassRealm[plexus.core, parent: null]
+[DEBUG] Extension realms for project tripleo.elijah:elevated-potential-core-api-xxx:jar:2024.elevated-potential.2: (none)
+[DEBUG] Looking up lifecycle mappings for packaging jar from ClassRealm[plexus.core, parent: null]
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-base-impl:jar:2024.elevated-potential.2
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /workspace/elevated-potential/pom.xml, line 328, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-core-api:jar:2024.elevated-potential.2
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /workspace/elevated-potential/pom.xml, line 328, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-core-impl:jar:2024.elevated-potential.2
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /workspace/elevated-potential/pom.xml, line 328, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-core-api-xxx:jar:2024.elevated-potential.2
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /workspace/elevated-potential/pom.xml, line 328, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential:pom:2024.elevated-potential.2
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ line 328, column 12
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] elevated-potential                                                 [pom]
+[INFO] elevated-potential-core-api                                        [jar]
+[INFO] elevated-potential-core-api-xxx                                    [jar]
+[INFO] elevated-potential-base-impl                                       [jar]
+[INFO] elevated-potential-core-impl                                       [jar]
+[DEBUG] === REACTOR BUILD PLAN ================================================
+[DEBUG] Project: tripleo.elijah:elevated-potential:pom:2024.elevated-potential.2
+[DEBUG] Tasks:   [test]
+[DEBUG] Style:   Regular
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Project: tripleo.elijah:elevated-potential-core-api:jar:2024.elevated-potential.2
+[DEBUG] Tasks:   [test]
+[DEBUG] Style:   Regular
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Project: tripleo.elijah:elevated-potential-core-api-xxx:jar:2024.elevated-potential.2
+[DEBUG] Tasks:   [test]
+[DEBUG] Style:   Regular
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Project: tripleo.elijah:elevated-potential-base-impl:jar:2024.elevated-potential.2
+[DEBUG] Tasks:   [test]
+[DEBUG] Style:   Regular
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Project: tripleo.elijah:elevated-potential-core-impl:jar:2024.elevated-potential.2
+[DEBUG] Tasks:   [test]
+[DEBUG] Style:   Regular
+[DEBUG] =======================================================================
+[INFO] 
+[INFO] -----------------< tripleo.elijah:elevated-potential >------------------
+[INFO] Building elevated-potential 2024.elevated-potential.2              [1/5]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[DEBUG] Creating adapter using nameMapper 'gav' and factory 'rwlock-local'
+[DEBUG] Could not find metadata org.apache.maven.plugins:maven-surefire-plugin/maven-metadata.xml in local (/workspace/m2-repository)
+[DEBUG] Skipped remote request for org.apache.maven.plugins:maven-surefire-plugin/maven-metadata.xml, locally cached metadata up-to-date
+[DEBUG] Resolved plugin version for org.apache.maven.plugins:maven-surefire-plugin to 3.2.5 from repository central (https://repo.maven.apache.org/maven2, default, releases)
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] === PROJECT BUILD PLAN ================================================
+[DEBUG] Project:       tripleo.elijah:elevated-potential:2024.elevated-potential.2
+[DEBUG] Dependencies (collect): []
+[DEBUG] Dependencies (resolve): [compile, test]
+[DEBUG] Repositories (dependencies): [jitpack.io (https://jitpack.io, default, releases+snapshots), central (https://repo.maven.apache.org/maven2, default, releases)]
+[DEBUG] Repositories (plugins)     : [central (https://repo.maven.apache.org/maven2, default, releases)]
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-compiler-plugin:3.12.1:compile (compile)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <annotationProcessorPathsUseDepMgmt default-value="false"/>
+  <basedir default-value="${basedir}"/>
+  <buildDirectory default-value="${project.build.directory}"/>
+  <compilePath default-value="${project.compileClasspathElements}"/>
+  <compileSourceRoots default-value="${project.compileSourceRoots}"/>
+  <compilerId default-value="javac">${maven.compiler.compilerId}</compilerId>
+  <compilerReuseStrategy default-value="${reuseCreated}">${maven.compiler.compilerReuseStrategy}</compilerReuseStrategy>
+  <compilerVersion>${maven.compiler.compilerVersion}</compilerVersion>
+  <createMissingPackageInfoClass default-value="true">${maven.compiler.createMissingPackageInfoClass}</createMissingPackageInfoClass>
+  <debug default-value="true">${maven.compiler.debug}</debug>
+  <debugFileName default-value="javac"/>
+  <debuglevel>${maven.compiler.debuglevel}</debuglevel>
+  <enablePreview default-value="false">${maven.compiler.enablePreview}</enablePreview>
+  <encoding default-value="${project.build.sourceEncoding}">${encoding}</encoding>
+  <executable>${maven.compiler.executable}</executable>
+  <failOnError default-value="true">${maven.compiler.failOnError}</failOnError>
+  <failOnWarning default-value="false">${maven.compiler.failOnWarning}</failOnWarning>
+  <fileExtensions default-value="class,jar"/>
+  <forceJavacCompilerUse default-value="false">${maven.compiler.forceJavacCompilerUse}</forceJavacCompilerUse>
+  <fork default-value="false">${maven.compiler.fork}</fork>
+  <generatedSourcesDirectory default-value="${project.build.directory}/generated-sources/annotations"/>
+  <implicit>${maven.compiler.implicit}</implicit>
+  <maxmem>${maven.compiler.maxmem}</maxmem>
+  <meminitial>${maven.compiler.meminitial}</meminitial>
+  <mojoExecution default-value="${mojoExecution}"/>
+  <optimize default-value="false">${maven.compiler.optimize}</optimize>
+  <outputDirectory default-value="${project.build.outputDirectory}">${maven.compiler.outputDirectory}</outputDirectory>
+  <outputTimestamp default-value="${project.build.outputTimestamp}"/>
+  <parameters default-value="false">${maven.compiler.parameters}</parameters>
+  <project default-value="${project}"/>
+  <projectArtifact default-value="${project.artifact}"/>
+  <release>${maven.compiler.release}</release>
+  <session default-value="${session}"/>
+  <showCompilationChanges default-value="false">${maven.compiler.showCompilationChanges}</showCompilationChanges>
+  <showDeprecation default-value="false">${maven.compiler.showDeprecation}</showDeprecation>
+  <showWarnings default-value="true">${maven.compiler.showWarnings}</showWarnings>
+  <skipMain>${maven.main.skip}</skipMain>
+  <skipMultiThreadWarning default-value="false">${maven.compiler.skipMultiThreadWarning}</skipMultiThreadWarning>
+  <source default-value="1.8">17</source>
+  <staleMillis default-value="0">${lastModGranularityMs}</staleMillis>
+  <target default-value="1.8">17</target>
+  <useIncrementalCompilation default-value="true">${maven.compiler.useIncrementalCompilation}</useIncrementalCompilation>
+  <verbose default-value="false">${maven.compiler.verbose}</verbose>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-compiler-plugin:3.12.1:testCompile (testCompile)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <annotationProcessorPathsUseDepMgmt default-value="false"/>
+  <basedir default-value="${basedir}"/>
+  <buildDirectory default-value="${project.build.directory}"/>
+  <compileSourceRoots default-value="${project.testCompileSourceRoots}"/>
+  <compilerId default-value="javac">${maven.compiler.compilerId}</compilerId>
+  <compilerReuseStrategy default-value="${reuseCreated}">${maven.compiler.compilerReuseStrategy}</compilerReuseStrategy>
+  <compilerVersion>${maven.compiler.compilerVersion}</compilerVersion>
+  <createMissingPackageInfoClass default-value="true">${maven.compiler.createMissingPackageInfoClass}</createMissingPackageInfoClass>
+  <debug default-value="true">${maven.compiler.debug}</debug>
+  <debugFileName default-value="javac-test"/>
+  <debuglevel>${maven.compiler.debuglevel}</debuglevel>
+  <enablePreview default-value="false">${maven.compiler.enablePreview}</enablePreview>
+  <encoding default-value="${project.build.sourceEncoding}">${encoding}</encoding>
+  <executable>${maven.compiler.executable}</executable>
+  <failOnError default-value="true">${maven.compiler.failOnError}</failOnError>
+  <failOnWarning default-value="false">${maven.compiler.failOnWarning}</failOnWarning>
+  <fileExtensions default-value="class,jar"/>
+  <forceJavacCompilerUse default-value="false">${maven.compiler.forceJavacCompilerUse}</forceJavacCompilerUse>
+  <fork default-value="false">${maven.compiler.fork}</fork>
+  <generatedTestSourcesDirectory default-value="${project.build.directory}/generated-test-sources/test-annotations"/>
+  <implicit>${maven.compiler.implicit}</implicit>
+  <maxmem>${maven.compiler.maxmem}</maxmem>
+  <meminitial>${maven.compiler.meminitial}</meminitial>
+  <mojoExecution default-value="${mojoExecution}"/>
+  <optimize default-value="false">${maven.compiler.optimize}</optimize>
+  <outputDirectory default-value="${project.build.testOutputDirectory}"/>
+  <outputTimestamp default-value="${project.build.outputTimestamp}"/>
+  <parameters default-value="false">${maven.compiler.parameters}</parameters>
+  <project default-value="${project}"/>
+  <release>${maven.compiler.release}</release>
+  <session default-value="${session}"/>
+  <showCompilationChanges default-value="false">${maven.compiler.showCompilationChanges}</showCompilationChanges>
+  <showDeprecation default-value="false">${maven.compiler.showDeprecation}</showDeprecation>
+  <showWarnings default-value="true">${maven.compiler.showWarnings}</showWarnings>
+  <skip>${maven.test.skip}</skip>
+  <skipMultiThreadWarning default-value="false">${maven.compiler.skipMultiThreadWarning}</skipMultiThreadWarning>
+  <source default-value="1.8">17</source>
+  <staleMillis default-value="0">${lastModGranularityMs}</staleMillis>
+  <target default-value="1.8">17</target>
+  <testPath default-value="${project.testClasspathElements}"/>
+  <testRelease>${maven.compiler.testRelease}</testRelease>
+  <testSource>${maven.compiler.testSource}</testSource>
+  <testTarget>${maven.compiler.testTarget}</testTarget>
+  <useIncrementalCompilation default-value="true">${maven.compiler.useIncrementalCompilation}</useIncrementalCompilation>
+  <useModulePath default-value="true"/>
+  <verbose default-value="false">${maven.compiler.verbose}</verbose>
+</configuration>
+[DEBUG] =======================================================================
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=1013329, ConflictMarker.markTime=383240, ConflictMarker.nodeCount=96, ConflictIdSorter.graphTime=453040, ConflictIdSorter.topsortTime=465251, ConflictIdSorter.conflictIdCount=52, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=8792640, ConflictResolver.conflictItemCount=77, DfDependencyCollector.collectTime=257186442, DfDependencyCollector.transformTime=12922869}
+[DEBUG] tripleo.elijah:elevated-potential:pom:2024.elevated-potential.2
+[DEBUG]    org.junit.jupiter:junit-jupiter-api:jar:5.10.2:test
+[DEBUG]       org.opentest4j:opentest4j:jar:1.3.0:test
+[DEBUG]       org.junit.platform:junit-platform-commons:jar:1.10.2:test
+[DEBUG]       org.apiguardian:apiguardian-api:jar:1.1.2:test
+[DEBUG]    org.assertj:assertj-core:jar:3.25.3:test
+[DEBUG]       net.bytebuddy:byte-buddy:jar:1.14.11:test
+[DEBUG]    com.google.truth:truth:jar:1.4.2:test
+[DEBUG]       org.checkerframework:checker-qual:jar:3.42.0:compile
+[DEBUG]       junit:junit:jar:4.13.2:test
+[DEBUG]          org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]       com.google.auto.value:auto-value-annotations:jar:1.10.4:test
+[DEBUG]       com.google.errorprone:error_prone_annotations:jar:2.25.0:compile
+[DEBUG]       org.ow2.asm:asm:jar:9.6:test
+[DEBUG]    org.antlr:antlr-runtime:jar:3.5.3:compile
+[DEBUG]    io.smallrye.reactive:mutiny:jar:2.5.8:compile
+[DEBUG]       io.smallrye.common:smallrye-common-annotation:jar:2.2.0:compile
+[DEBUG]    org.clojure:clojure:jar:1.10.3:compile
+[DEBUG]       org.clojure:spec.alpha:jar:0.2.194:compile
+[DEBUG]       org.clojure:core.specs.alpha:jar:0.2.56:compile
+[DEBUG]    org.mockito:mockito-core:jar:5.11.0:test
+[DEBUG]       net.bytebuddy:byte-buddy-agent:jar:1.14.12:test
+[DEBUG]       org.objenesis:objenesis:jar:3.3:test
+[DEBUG]    com.gitlab.tripleo1:buffers:jar:3038ff102c:compile
+[DEBUG]    com.gitlab.Tripleo:range:jar:v0.0.3b:compile
+[DEBUG]    javax.annotation:javax.annotation-api:jar:1.3.2:compile
+[DEBUG]    org.eclipse.jdt:org.eclipse.jdt.annotation:jar:2.2.800:compile
+[DEBUG]    org.apache.commons:commons-lang3:jar:3.14.0:compile
+[DEBUG]    org.slf4j:slf4j-simple:jar:2.0.12:compile
+[DEBUG]    org.slf4j:slf4j-api:jar:2.0.12:compile
+[DEBUG]    com.github.spotbugs:spotbugs-annotations:jar:4.8.3:compile
+[DEBUG]       com.google.code.findbugs:jsr305:jar:3.0.2:compile
+[DEBUG]    com.google.guava:guava:jar:33.0.0-jre:compile
+[DEBUG]       com.google.guava:failureaccess:jar:1.0.2:compile
+[DEBUG]       com.google.guava:listenablefuture:jar:9999.0-empty-to-avoid-conflict-with-guava:compile
+[DEBUG]       com.google.j2objc:j2objc-annotations:jar:2.8:compile
+[DEBUG]    com.tngtech.archunit:archunit-junit4:jar:1.2.1:test
+[DEBUG]       com.tngtech.archunit:archunit:jar:1.2.1:test
+[DEBUG]    io.reactivex.rxjava3:rxjava:jar:3.1.8:compile
+[DEBUG]    org.reactivestreams:reactive-streams:jar:1.0.4:compile
+[DEBUG]    commons-codec:commons-codec:jar:1.16.1:compile
+[DEBUG]    antlr:antlr:jar:2.7.7:compile
+[DEBUG]    org.projectlombok:lombok:jar:1.18.30:provided
+[DEBUG]    org.jdeferred.v2:jdeferred-core:jar:2.0.0:compile
+[DEBUG]    org.jetbrains:annotations:jar:24.1.0:compile
+[DEBUG]    com.google.auto.service:auto-service:jar:1.1.1:compile (optional)
+[DEBUG]       com.google.auto.service:auto-service-annotations:jar:1.1.1:compile (optional)
+[DEBUG]       com.google.auto:auto-common:jar:1.2.1:compile (optional)
+[DEBUG]    org.jctools:jctools-core:jar:4.0.3:compile
+[DEBUG]    org.junit.jupiter:junit-jupiter:jar:5.10.2:test
+[DEBUG]       org.junit.jupiter:junit-jupiter-params:jar:5.10.2:test
+[DEBUG]       org.junit.jupiter:junit-jupiter-engine:jar:5.10.2:test
+[DEBUG]          org.junit.platform:junit-platform-engine:jar:1.10.2:test
+[INFO] 
+[INFO] --- compiler:3.12.1:compile (compile) @ elevated-potential ---
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for apache.snapshots (http://repository.apache.org/snapshots).
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=196790, ConflictMarker.markTime=130290, ConflictMarker.nodeCount=21, ConflictIdSorter.graphTime=37030, ConflictIdSorter.topsortTime=23650, ConflictIdSorter.conflictIdCount=15, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=478330, ConflictResolver.conflictItemCount=21, DfDependencyCollector.collectTime=52484796, DfDependencyCollector.transformTime=891240}
+[DEBUG] org.apache.maven.plugins:maven-compiler-plugin:jar:3.12.1
+[DEBUG]    org.apache.maven.shared:maven-shared-utils:jar:3.4.2:compile
+[DEBUG]       org.slf4j:slf4j-api:jar:1.7.36:compile
+[DEBUG]       commons-io:commons-io:jar:2.11.0:compile
+[DEBUG]    org.apache.maven.shared:maven-shared-incremental:jar:1.1:compile
+[DEBUG]       org.codehaus.plexus:plexus-component-annotations:jar:1.5.5:compile
+[DEBUG]    org.codehaus.plexus:plexus-java:jar:1.2.0:compile
+[DEBUG]       org.ow2.asm:asm:jar:9.6:compile
+[DEBUG]       com.thoughtworks.qdox:qdox:jar:2.0.3:compile
+[DEBUG]    org.codehaus.plexus:plexus-compiler-api:jar:2.14.2:compile
+[DEBUG]    org.codehaus.plexus:plexus-compiler-manager:jar:2.14.2:compile
+[DEBUG]       javax.inject:javax.inject:jar:1:compile
+[DEBUG]       org.codehaus.plexus:plexus-xml:jar:3.0.0:compile (version managed from default)
+[DEBUG]    org.codehaus.plexus:plexus-compiler-javac:jar:2.14.2:runtime
+[DEBUG]    org.codehaus.plexus:plexus-utils:jar:4.0.0:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.12.1
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.12.1
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.12.1
+[DEBUG]   Included: org.apache.maven.plugins:maven-compiler-plugin:jar:3.12.1
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-utils:jar:3.4.2
+[DEBUG]   Included: commons-io:commons-io:jar:2.11.0
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-incremental:jar:1.1
+[DEBUG]   Included: org.codehaus.plexus:plexus-component-annotations:jar:1.5.5
+[DEBUG]   Included: org.codehaus.plexus:plexus-java:jar:1.2.0
+[DEBUG]   Included: org.ow2.asm:asm:jar:9.6
+[DEBUG]   Included: com.thoughtworks.qdox:qdox:jar:2.0.3
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-api:jar:2.14.2
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-manager:jar:2.14.2
+[DEBUG]   Included: org.codehaus.plexus:plexus-xml:jar:3.0.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-javac:jar:2.14.2
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:4.0.0
+[DEBUG] Loading mojo org.apache.maven.plugins:maven-compiler-plugin:3.12.1:compile from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-compiler-plugin:3.12.1, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a]
+[DEBUG] Configuring mojo execution 'org.apache.maven.plugins:maven-compiler-plugin:3.12.1:compile:compile' with basic configurator -->
+[DEBUG]   (f) annotationProcessorPathsUseDepMgmt = false
+[DEBUG]   (f) basedir = /workspace/elevated-potential
+[DEBUG]   (f) buildDirectory = /workspace/elevated-potential/target
+[DEBUG]   (f) compilePath = [/workspace/elevated-potential/target/classes, /workspace/m2-repository/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar, /workspace/m2-repository/com/google/errorprone/error_prone_annotations/2.25.0/error_prone_annotations-2.25.0.jar, /workspace/m2-repository/org/antlr/antlr-runtime/3.5.3/antlr-runtime-3.5.3.jar, /workspace/m2-repository/io/smallrye/reactive/mutiny/2.5.8/mutiny-2.5.8.jar, /workspace/m2-repository/io/smallrye/common/smallrye-common-annotation/2.2.0/smallrye-common-annotation-2.2.0.jar, /workspace/m2-repository/org/clojure/clojure/1.10.3/clojure-1.10.3.jar, /workspace/m2-repository/org/clojure/spec.alpha/0.2.194/spec.alpha-0.2.194.jar, /workspace/m2-repository/org/clojure/core.specs.alpha/0.2.56/core.specs.alpha-0.2.56.jar, /workspace/m2-repository/com/gitlab/tripleo1/buffers/3038ff102c/buffers-3038ff102c.jar, /workspace/m2-repository/com/gitlab/Tripleo/range/v0.0.3b/range-v0.0.3b.jar, /workspace/m2-repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar, /workspace/m2-repository/org/eclipse/jdt/org.eclipse.jdt.annotation/2.2.800/org.eclipse.jdt.annotation-2.2.800.jar, /workspace/m2-repository/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar, /workspace/m2-repository/org/slf4j/slf4j-simple/2.0.12/slf4j-simple-2.0.12.jar, /workspace/m2-repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar, /workspace/m2-repository/com/github/spotbugs/spotbugs-annotations/4.8.3/spotbugs-annotations-4.8.3.jar, /workspace/m2-repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar, /workspace/m2-repository/com/google/guava/guava/33.0.0-jre/guava-33.0.0-jre.jar, /workspace/m2-repository/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar, /workspace/m2-repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar, /workspace/m2-repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar, /workspace/m2-repository/io/reactivex/rxjava3/rxjava/3.1.8/rxjava-3.1.8.jar, /workspace/m2-repository/org/reactivestreams/reactive-streams/1.0.4/reactive-streams-1.0.4.jar, /workspace/m2-repository/commons-codec/commons-codec/1.16.1/commons-codec-1.16.1.jar, /workspace/m2-repository/antlr/antlr/2.7.7/antlr-2.7.7.jar, /workspace/m2-repository/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar, /workspace/m2-repository/org/jdeferred/v2/jdeferred-core/2.0.0/jdeferred-core-2.0.0.jar, /workspace/m2-repository/org/jetbrains/annotations/24.1.0/annotations-24.1.0.jar, /workspace/m2-repository/com/google/auto/service/auto-service/1.1.1/auto-service-1.1.1.jar, /workspace/m2-repository/com/google/auto/service/auto-service-annotations/1.1.1/auto-service-annotations-1.1.1.jar, /workspace/m2-repository/com/google/auto/auto-common/1.2.1/auto-common-1.2.1.jar, /workspace/m2-repository/org/jctools/jctools-core/4.0.3/jctools-core-4.0.3.jar]
+[DEBUG]   (f) compileSourceRoots = [/workspace/elevated-potential/src/main/java]
+[DEBUG]   (f) compilerId = javac
+[DEBUG]   (f) createMissingPackageInfoClass = true
+[DEBUG]   (f) debug = true
+[DEBUG]   (f) debugFileName = javac
+[DEBUG]   (f) enablePreview = false
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) failOnError = true
+[DEBUG]   (f) failOnWarning = false
+[DEBUG]   (f) fileExtensions = [jar, class]
+[DEBUG]   (f) forceJavacCompilerUse = false
+[DEBUG]   (f) fork = false
+[DEBUG]   (f) generatedSourcesDirectory = /workspace/elevated-potential/target/generated-sources/annotations
+[DEBUG]   (f) mojoExecution = org.apache.maven.plugins:maven-compiler-plugin:3.12.1:compile {execution: compile}
+[DEBUG]   (f) optimize = false
+[DEBUG]   (f) outputDirectory = /workspace/elevated-potential/target/classes
+[DEBUG]   (f) outputTimestamp = 1
+[DEBUG]   (f) parameters = false
+[DEBUG]   (f) project = MavenProject: tripleo.elijah:elevated-potential:2024.elevated-potential.2 @ /workspace/elevated-potential/pom.xml
+[DEBUG]   (f) projectArtifact = tripleo.elijah:elevated-potential:pom:2024.elevated-potential.2
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@66213a0d
+[DEBUG]   (f) showCompilationChanges = false
+[DEBUG]   (f) showDeprecation = false
+[DEBUG]   (f) showWarnings = true
+[DEBUG]   (f) skipMultiThreadWarning = false
+[DEBUG]   (f) source = 17
+[DEBUG]   (f) staleMillis = 0
+[DEBUG]   (s) target = 17
+[DEBUG]   (f) useIncrementalCompilation = true
+[DEBUG]   (f) verbose = false
+[DEBUG] -- end configuration --
+[DEBUG] Using compiler 'javac'.
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- compiler:3.12.1:testCompile (testCompile) @ elevated-potential ---
+[DEBUG] Loading mojo org.apache.maven.plugins:maven-compiler-plugin:3.12.1:testCompile from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-compiler-plugin:3.12.1, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a]
+[DEBUG] Configuring mojo execution 'org.apache.maven.plugins:maven-compiler-plugin:3.12.1:testCompile:testCompile' with basic configurator -->
+[DEBUG]   (f) annotationProcessorPathsUseDepMgmt = false
+[DEBUG]   (f) basedir = /workspace/elevated-potential
+[DEBUG]   (f) buildDirectory = /workspace/elevated-potential/target
+[DEBUG]   (f) compileSourceRoots = [/workspace/elevated-potential/src/test/java]
+[DEBUG]   (f) compilerId = javac
+[DEBUG]   (f) createMissingPackageInfoClass = true
+[DEBUG]   (f) debug = true
+[DEBUG]   (f) debugFileName = javac-test
+[DEBUG]   (f) enablePreview = false
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) failOnError = true
+[DEBUG]   (f) failOnWarning = false
+[DEBUG]   (f) fileExtensions = [jar, class]
+[DEBUG]   (f) forceJavacCompilerUse = false
+[DEBUG]   (f) fork = false
+[DEBUG]   (f) generatedTestSourcesDirectory = /workspace/elevated-potential/target/generated-test-sources/test-annotations
+[DEBUG]   (f) mojoExecution = org.apache.maven.plugins:maven-compiler-plugin:3.12.1:testCompile {execution: testCompile}
+[DEBUG]   (f) optimize = false
+[DEBUG]   (f) outputDirectory = /workspace/elevated-potential/target/test-classes
+[DEBUG]   (f) outputTimestamp = 1
+[DEBUG]   (f) parameters = false
+[DEBUG]   (f) project = MavenProject: tripleo.elijah:elevated-potential:2024.elevated-potential.2 @ /workspace/elevated-potential/pom.xml
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@66213a0d
+[DEBUG]   (f) showCompilationChanges = false
+[DEBUG]   (f) showDeprecation = false
+[DEBUG]   (f) showWarnings = true
+[DEBUG]   (f) skipMultiThreadWarning = false
+[DEBUG]   (f) source = 17
+[DEBUG]   (f) staleMillis = 0
+[DEBUG]   (s) target = 17
+[DEBUG]   (f) testPath = [/workspace/elevated-potential/target/test-classes, /workspace/elevated-potential/target/classes, /workspace/m2-repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar, /workspace/m2-repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar, /workspace/m2-repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar, /workspace/m2-repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar, /workspace/m2-repository/org/assertj/assertj-core/3.25.3/assertj-core-3.25.3.jar, /workspace/m2-repository/net/bytebuddy/byte-buddy/1.14.11/byte-buddy-1.14.11.jar, /workspace/m2-repository/com/google/truth/truth/1.4.2/truth-1.4.2.jar, /workspace/m2-repository/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar, /workspace/m2-repository/junit/junit/4.13.2/junit-4.13.2.jar, /workspace/m2-repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar, /workspace/m2-repository/com/google/auto/value/auto-value-annotations/1.10.4/auto-value-annotations-1.10.4.jar, /workspace/m2-repository/com/google/errorprone/error_prone_annotations/2.25.0/error_prone_annotations-2.25.0.jar, /workspace/m2-repository/org/ow2/asm/asm/9.6/asm-9.6.jar, /workspace/m2-repository/org/antlr/antlr-runtime/3.5.3/antlr-runtime-3.5.3.jar, /workspace/m2-repository/io/smallrye/reactive/mutiny/2.5.8/mutiny-2.5.8.jar, /workspace/m2-repository/io/smallrye/common/smallrye-common-annotation/2.2.0/smallrye-common-annotation-2.2.0.jar, /workspace/m2-repository/org/clojure/clojure/1.10.3/clojure-1.10.3.jar, /workspace/m2-repository/org/clojure/spec.alpha/0.2.194/spec.alpha-0.2.194.jar, /workspace/m2-repository/org/clojure/core.specs.alpha/0.2.56/core.specs.alpha-0.2.56.jar, /workspace/m2-repository/org/mockito/mockito-core/5.11.0/mockito-core-5.11.0.jar, /workspace/m2-repository/net/bytebuddy/byte-buddy-agent/1.14.12/byte-buddy-agent-1.14.12.jar, /workspace/m2-repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar, /workspace/m2-repository/com/gitlab/tripleo1/buffers/3038ff102c/buffers-3038ff102c.jar, /workspace/m2-repository/com/gitlab/Tripleo/range/v0.0.3b/range-v0.0.3b.jar, /workspace/m2-repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar, /workspace/m2-repository/org/eclipse/jdt/org.eclipse.jdt.annotation/2.2.800/org.eclipse.jdt.annotation-2.2.800.jar, /workspace/m2-repository/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar, /workspace/m2-repository/org/slf4j/slf4j-simple/2.0.12/slf4j-simple-2.0.12.jar, /workspace/m2-repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar, /workspace/m2-repository/com/github/spotbugs/spotbugs-annotations/4.8.3/spotbugs-annotations-4.8.3.jar, /workspace/m2-repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar, /workspace/m2-repository/com/google/guava/guava/33.0.0-jre/guava-33.0.0-jre.jar, /workspace/m2-repository/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar, /workspace/m2-repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar, /workspace/m2-repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar, /workspace/m2-repository/com/tngtech/archunit/archunit-junit4/1.2.1/archunit-junit4-1.2.1.jar, /workspace/m2-repository/com/tngtech/archunit/archunit/1.2.1/archunit-1.2.1.jar, /workspace/m2-repository/io/reactivex/rxjava3/rxjava/3.1.8/rxjava-3.1.8.jar, /workspace/m2-repository/org/reactivestreams/reactive-streams/1.0.4/reactive-streams-1.0.4.jar, /workspace/m2-repository/commons-codec/commons-codec/1.16.1/commons-codec-1.16.1.jar, /workspace/m2-repository/antlr/antlr/2.7.7/antlr-2.7.7.jar, /workspace/m2-repository/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar, /workspace/m2-repository/org/jdeferred/v2/jdeferred-core/2.0.0/jdeferred-core-2.0.0.jar, /workspace/m2-repository/org/jetbrains/annotations/24.1.0/annotations-24.1.0.jar, /workspace/m2-repository/com/google/auto/service/auto-service/1.1.1/auto-service-1.1.1.jar, /workspace/m2-repository/com/google/auto/service/auto-service-annotations/1.1.1/auto-service-annotations-1.1.1.jar, /workspace/m2-repository/com/google/auto/auto-common/1.2.1/auto-common-1.2.1.jar, /workspace/m2-repository/org/jctools/jctools-core/4.0.3/jctools-core-4.0.3.jar, /workspace/m2-repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar, /workspace/m2-repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar, /workspace/m2-repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar, /workspace/m2-repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar]
+[DEBUG]   (f) useIncrementalCompilation = true
+[DEBUG]   (f) useModulePath = true
+[DEBUG]   (f) verbose = false
+[DEBUG] -- end configuration --
+[DEBUG] Using compiler 'javac'.
+[INFO] No sources to compile
+[INFO] 
+[INFO] -------------< tripleo.elijah:elevated-potential-core-api >-------------
+[INFO] Building elevated-potential-core-api 2024.elevated-potential.2     [2/5]
+[INFO]   from elevated-potential.core.api/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] === PROJECT BUILD PLAN ================================================
+[DEBUG] Project:       tripleo.elijah:elevated-potential-core-api:2024.elevated-potential.2
+[DEBUG] Dependencies (collect): []
+[DEBUG] Dependencies (resolve): [compile, test]
+[DEBUG] Repositories (dependencies): [jitpack.io (https://jitpack.io, default, releases+snapshots), central (https://repo.maven.apache.org/maven2, default, releases)]
+[DEBUG] Repositories (plugins)     : [central (https://repo.maven.apache.org/maven2, default, releases)]
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-resources-plugin:3.3.1:resources (default-resources)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <addDefaultExcludes default-value="true"/>
+  <buildFilters default-value="${project.build.filters}"/>
+  <encoding default-value="${project.build.sourceEncoding}"/>
+  <escapeWindowsPaths default-value="true"/>
+  <fileNameFiltering default-value="false"/>
+  <includeEmptyDirs default-value="false"/>
+  <outputDirectory default-value="${project.build.outputDirectory}"/>
+  <overwrite default-value="false"/>
+  <project default-value="${project}"/>
+  <resources default-value="${project.resources}"/>
+  <session default-value="${session}"/>
+  <skip default-value="false">${maven.resources.skip}</skip>
+  <supportMultiLineFiltering default-value="false"/>
+  <useBuildFilters default-value="true"/>
+  <useDefaultDelimiters default-value="true"/>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-compiler-plugin:3.12.1:compile (compile)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <annotationProcessorPathsUseDepMgmt default-value="false"/>
+  <basedir default-value="${basedir}"/>
+  <buildDirectory default-value="${project.build.directory}"/>
+  <compilePath default-value="${project.compileClasspathElements}"/>
+  <compileSourceRoots default-value="${project.compileSourceRoots}"/>
+  <compilerId default-value="javac">${maven.compiler.compilerId}</compilerId>
+  <compilerReuseStrategy default-value="${reuseCreated}">${maven.compiler.compilerReuseStrategy}</compilerReuseStrategy>
+  <compilerVersion>${maven.compiler.compilerVersion}</compilerVersion>
+  <createMissingPackageInfoClass default-value="true">${maven.compiler.createMissingPackageInfoClass}</createMissingPackageInfoClass>
+  <debug default-value="true">${maven.compiler.debug}</debug>
+  <debugFileName default-value="javac"/>
+  <debuglevel>${maven.compiler.debuglevel}</debuglevel>
+  <enablePreview default-value="false">${maven.compiler.enablePreview}</enablePreview>
+  <encoding default-value="${project.build.sourceEncoding}">${encoding}</encoding>
+  <executable>${maven.compiler.executable}</executable>
+  <failOnError default-value="true">${maven.compiler.failOnError}</failOnError>
+  <failOnWarning default-value="false">${maven.compiler.failOnWarning}</failOnWarning>
+  <fileExtensions default-value="class,jar"/>
+  <forceJavacCompilerUse default-value="false">${maven.compiler.forceJavacCompilerUse}</forceJavacCompilerUse>
+  <fork default-value="false">${maven.compiler.fork}</fork>
+  <generatedSourcesDirectory default-value="${project.build.directory}/generated-sources/annotations"/>
+  <implicit>${maven.compiler.implicit}</implicit>
+  <maxmem>${maven.compiler.maxmem}</maxmem>
+  <meminitial>${maven.compiler.meminitial}</meminitial>
+  <mojoExecution default-value="${mojoExecution}"/>
+  <optimize default-value="false">${maven.compiler.optimize}</optimize>
+  <outputDirectory default-value="${project.build.outputDirectory}">${maven.compiler.outputDirectory}</outputDirectory>
+  <outputTimestamp default-value="${project.build.outputTimestamp}"/>
+  <parameters default-value="false">${maven.compiler.parameters}</parameters>
+  <project default-value="${project}"/>
+  <projectArtifact default-value="${project.artifact}"/>
+  <release>${maven.compiler.release}</release>
+  <session default-value="${session}"/>
+  <showCompilationChanges default-value="false">${maven.compiler.showCompilationChanges}</showCompilationChanges>
+  <showDeprecation default-value="false">${maven.compiler.showDeprecation}</showDeprecation>
+  <showWarnings default-value="true">${maven.compiler.showWarnings}</showWarnings>
+  <skipMain>${maven.main.skip}</skipMain>
+  <skipMultiThreadWarning default-value="false">${maven.compiler.skipMultiThreadWarning}</skipMultiThreadWarning>
+  <source default-value="1.8">17</source>
+  <staleMillis default-value="0">${lastModGranularityMs}</staleMillis>
+  <target default-value="1.8">17</target>
+  <useIncrementalCompilation default-value="true">${maven.compiler.useIncrementalCompilation}</useIncrementalCompilation>
+  <verbose default-value="false">${maven.compiler.verbose}</verbose>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-resources-plugin:3.3.1:testResources (default-testResources)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <addDefaultExcludes default-value="true"/>
+  <buildFilters default-value="${project.build.filters}"/>
+  <encoding default-value="${project.build.sourceEncoding}"/>
+  <escapeWindowsPaths default-value="true"/>
+  <fileNameFiltering default-value="false"/>
+  <includeEmptyDirs default-value="false"/>
+  <outputDirectory default-value="${project.build.testOutputDirectory}"/>
+  <overwrite default-value="false"/>
+  <project default-value="${project}"/>
+  <resources default-value="${project.testResources}"/>
+  <session default-value="${session}"/>
+  <skip default-value="false">${maven.test.skip}</skip>
+  <supportMultiLineFiltering default-value="false"/>
+  <useBuildFilters default-value="true"/>
+  <useDefaultDelimiters default-value="true"/>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-compiler-plugin:3.12.1:testCompile (testCompile)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <annotationProcessorPathsUseDepMgmt default-value="false"/>
+  <basedir default-value="${basedir}"/>
+  <buildDirectory default-value="${project.build.directory}"/>
+  <compileSourceRoots default-value="${project.testCompileSourceRoots}"/>
+  <compilerId default-value="javac">${maven.compiler.compilerId}</compilerId>
+  <compilerReuseStrategy default-value="${reuseCreated}">${maven.compiler.compilerReuseStrategy}</compilerReuseStrategy>
+  <compilerVersion>${maven.compiler.compilerVersion}</compilerVersion>
+  <createMissingPackageInfoClass default-value="true">${maven.compiler.createMissingPackageInfoClass}</createMissingPackageInfoClass>
+  <debug default-value="true">${maven.compiler.debug}</debug>
+  <debugFileName default-value="javac-test"/>
+  <debuglevel>${maven.compiler.debuglevel}</debuglevel>
+  <enablePreview default-value="false">${maven.compiler.enablePreview}</enablePreview>
+  <encoding default-value="${project.build.sourceEncoding}">${encoding}</encoding>
+  <executable>${maven.compiler.executable}</executable>
+  <failOnError default-value="true">${maven.compiler.failOnError}</failOnError>
+  <failOnWarning default-value="false">${maven.compiler.failOnWarning}</failOnWarning>
+  <fileExtensions default-value="class,jar"/>
+  <forceJavacCompilerUse default-value="false">${maven.compiler.forceJavacCompilerUse}</forceJavacCompilerUse>
+  <fork default-value="false">${maven.compiler.fork}</fork>
+  <generatedTestSourcesDirectory default-value="${project.build.directory}/generated-test-sources/test-annotations"/>
+  <implicit>${maven.compiler.implicit}</implicit>
+  <maxmem>${maven.compiler.maxmem}</maxmem>
+  <meminitial>${maven.compiler.meminitial}</meminitial>
+  <mojoExecution default-value="${mojoExecution}"/>
+  <optimize default-value="false">${maven.compiler.optimize}</optimize>
+  <outputDirectory default-value="${project.build.testOutputDirectory}"/>
+  <outputTimestamp default-value="${project.build.outputTimestamp}"/>
+  <parameters default-value="false">${maven.compiler.parameters}</parameters>
+  <project default-value="${project}"/>
+  <release>${maven.compiler.release}</release>
+  <session default-value="${session}"/>
+  <showCompilationChanges default-value="false">${maven.compiler.showCompilationChanges}</showCompilationChanges>
+  <showDeprecation default-value="false">${maven.compiler.showDeprecation}</showDeprecation>
+  <showWarnings default-value="true">${maven.compiler.showWarnings}</showWarnings>
+  <skip>${maven.test.skip}</skip>
+  <skipMultiThreadWarning default-value="false">${maven.compiler.skipMultiThreadWarning}</skipMultiThreadWarning>
+  <source default-value="1.8">17</source>
+  <staleMillis default-value="0">${lastModGranularityMs}</staleMillis>
+  <target default-value="1.8">17</target>
+  <testPath default-value="${project.testClasspathElements}"/>
+  <testRelease>${maven.compiler.testRelease}</testRelease>
+  <testSource>${maven.compiler.testSource}</testSource>
+  <testTarget>${maven.compiler.testTarget}</testTarget>
+  <useIncrementalCompilation default-value="true">${maven.compiler.useIncrementalCompilation}</useIncrementalCompilation>
+  <useModulePath default-value="true"/>
+  <verbose default-value="false">${maven.compiler.verbose}</verbose>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-surefire-plugin:3.2.2:test (default-test)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <additionalClasspathDependencies>${maven.test.additionalClasspathDependencies}</additionalClasspathDependencies>
+  <additionalClasspathElements>${maven.test.additionalClasspath}</additionalClasspathElements>
+  <argLine>${argLine}</argLine>
+  <basedir default-value="${basedir}"/>
+  <childDelegation default-value="false">${childDelegation}</childDelegation>
+  <classesDirectory default-value="${project.build.outputDirectory}"/>
+  <classpathDependencyExcludes>${maven.test.dependency.excludes}</classpathDependencyExcludes>
+  <debugForkedProcess>${maven.surefire.debug}</debugForkedProcess>
+  <dependenciesToScan>${dependenciesToScan}</dependenciesToScan>
+  <disableXmlReport default-value="false">${disableXmlReport}</disableXmlReport>
+  <enableAssertions default-value="true">${enableAssertions}</enableAssertions>
+  <enableProcessChecker>${surefire.enableProcessChecker}</enableProcessChecker>
+  <encoding default-value="${project.reporting.outputEncoding}">${surefire.encoding}</encoding>
+  <excludeJUnit5Engines>${surefire.excludeJUnit5Engines}</excludeJUnit5Engines>
+  <excludedEnvironmentVariables>${surefire.excludedEnvironmentVariables}</excludedEnvironmentVariables>
+  <excludedGroups>${excludedGroups}</excludedGroups>
+  <excludes>${surefire.excludes}</excludes>
+  <excludesFile>${surefire.excludesFile}</excludesFile>
+  <failIfNoSpecifiedTests default-value="true">${surefire.failIfNoSpecifiedTests}</failIfNoSpecifiedTests>
+  <failIfNoTests default-value="false">true</failIfNoTests>
+  <failOnFlakeCount default-value="0">${surefire.failOnFlakeCount}</failOnFlakeCount>
+  <forkCount default-value="1">${forkCount}</forkCount>
+  <forkNode>${surefire.forkNode}</forkNode>
+  <forkedProcessExitTimeoutInSeconds default-value="30">${surefire.exitTimeout}</forkedProcessExitTimeoutInSeconds>
+  <forkedProcessTimeoutInSeconds>${surefire.timeout}</forkedProcessTimeoutInSeconds>
+  <groups>${groups}</groups>
+  <includeJUnit5Engines>${surefire.includeJUnit5Engines}</includeJUnit5Engines>
+  <includes>${surefire.includes}</includes>
+  <includesFile>${surefire.includesFile}</includesFile>
+  <junitArtifactName default-value="junit:junit">${junitArtifactName}</junitArtifactName>
+  <jvm>${jvm}</jvm>
+  <objectFactory>${objectFactory}</objectFactory>
+  <parallel>${parallel}</parallel>
+  <parallelMavenExecution default-value="${session.parallel}"/>
+  <parallelOptimized default-value="true">${parallelOptimized}</parallelOptimized>
+  <parallelTestsTimeoutForcedInSeconds>${surefire.parallel.forcedTimeout}</parallelTestsTimeoutForcedInSeconds>
+  <parallelTestsTimeoutInSeconds>${surefire.parallel.timeout}</parallelTestsTimeoutInSeconds>
+  <perCoreThreadCount default-value="true">${perCoreThreadCount}</perCoreThreadCount>
+  <pluginArtifactMap>${plugin.artifactMap}</pluginArtifactMap>
+  <pluginDescriptor default-value="${plugin}"/>
+  <printSummary default-value="true">${surefire.printSummary}</printSummary>
+  <project default-value="${project}"/>
+  <projectArtifactMap>${project.artifactMap}</projectArtifactMap>
+  <projectBuildDirectory default-value="${project.build.directory}"/>
+  <redirectTestOutputToFile default-value="false">${maven.test.redirectTestOutputToFile}</redirectTestOutputToFile>
+  <reportFormat default-value="brief">${surefire.reportFormat}</reportFormat>
+  <reportNameSuffix default-value="">${surefire.reportNameSuffix}</reportNameSuffix>
+  <reportsDirectory default-value="${project.build.directory}/surefire-reports"/>
+  <rerunFailingTestsCount default-value="0">${surefire.rerunFailingTestsCount}</rerunFailingTestsCount>
+  <reuseForks default-value="true">${reuseForks}</reuseForks>
+  <runOrder default-value="filesystem">${surefire.runOrder}</runOrder>
+  <runOrderRandomSeed>${surefire.runOrder.random.seed}</runOrderRandomSeed>
+  <session default-value="${session}"/>
+  <shutdown default-value="exit">${surefire.shutdown}</shutdown>
+  <skip default-value="false">${maven.test.skip}</skip>
+  <skipAfterFailureCount default-value="0">${surefire.skipAfterFailureCount}</skipAfterFailureCount>
+  <skipExec>${maven.test.skip.exec}</skipExec>
+  <skipTests default-value="false">${skipTests}</skipTests>
+  <suiteXmlFiles>${surefire.suiteXmlFiles}</suiteXmlFiles>
+  <systemPropertiesFile>${surefire.systemPropertiesFile}</systemPropertiesFile>
+  <tempDir default-value="surefire">${tempDir}</tempDir>
+  <test>${test}</test>
+  <testClassesDirectory default-value="${project.build.testOutputDirectory}"/>
+  <testFailureIgnore default-value="false">${maven.test.failure.ignore}</testFailureIgnore>
+  <testNGArtifactName default-value="org.testng:testng">${testNGArtifactName}</testNGArtifactName>
+  <testSourceDirectory default-value="${project.build.testSourceDirectory}"/>
+  <threadCount>${threadCount}</threadCount>
+  <threadCountClasses default-value="0">${threadCountClasses}</threadCountClasses>
+  <threadCountMethods default-value="0">${threadCountMethods}</threadCountMethods>
+  <threadCountSuites default-value="0">${threadCountSuites}</threadCountSuites>
+  <trimStackTrace default-value="false">${trimStackTrace}</trimStackTrace>
+  <useFile default-value="true">${surefire.useFile}</useFile>
+  <useManifestOnlyJar default-value="true">${surefire.useManifestOnlyJar}</useManifestOnlyJar>
+  <useModulePath default-value="true">${surefire.useModulePath}</useModulePath>
+  <useSystemClassLoader default-value="true">${surefire.useSystemClassLoader}</useSystemClassLoader>
+  <useUnlimitedThreads default-value="false">${useUnlimitedThreads}</useUnlimitedThreads>
+  <workingDirectory>${basedir}</workingDirectory>
+</configuration>
+[DEBUG] =======================================================================
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=299710, ConflictMarker.markTime=137530, ConflictMarker.nodeCount=96, ConflictIdSorter.graphTime=98330, ConflictIdSorter.topsortTime=47320, ConflictIdSorter.conflictIdCount=52, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=1901530, ConflictResolver.conflictItemCount=77, DfDependencyCollector.collectTime=5044889, DfDependencyCollector.transformTime=2549370}
+[DEBUG] tripleo.elijah:elevated-potential-core-api:jar:2024.elevated-potential.2
+[DEBUG]    org.junit.jupiter:junit-jupiter-api:jar:5.10.2:test
+[DEBUG]       org.opentest4j:opentest4j:jar:1.3.0:test
+[DEBUG]       org.junit.platform:junit-platform-commons:jar:1.10.2:test
+[DEBUG]       org.apiguardian:apiguardian-api:jar:1.1.2:test
+[DEBUG]    org.assertj:assertj-core:jar:3.25.3:test
+[DEBUG]       net.bytebuddy:byte-buddy:jar:1.14.11:test
+[DEBUG]    com.google.truth:truth:jar:1.4.2:test
+[DEBUG]       org.checkerframework:checker-qual:jar:3.42.0:compile
+[DEBUG]       junit:junit:jar:4.13.2:test
+[DEBUG]          org.hamcrest:hamcrest-core:jar:1.3:test
+[DEBUG]       com.google.auto.value:auto-value-annotations:jar:1.10.4:test
+[DEBUG]       com.google.errorprone:error_prone_annotations:jar:2.25.0:compile
+[DEBUG]       org.ow2.asm:asm:jar:9.6:test
+[DEBUG]    org.antlr:antlr-runtime:jar:3.5.3:compile
+[DEBUG]    io.smallrye.reactive:mutiny:jar:2.5.8:compile
+[DEBUG]       io.smallrye.common:smallrye-common-annotation:jar:2.2.0:compile
+[DEBUG]    org.clojure:clojure:jar:1.10.3:compile
+[DEBUG]       org.clojure:spec.alpha:jar:0.2.194:compile
+[DEBUG]       org.clojure:core.specs.alpha:jar:0.2.56:compile
+[DEBUG]    org.mockito:mockito-core:jar:5.11.0:test
+[DEBUG]       net.bytebuddy:byte-buddy-agent:jar:1.14.12:test
+[DEBUG]       org.objenesis:objenesis:jar:3.3:test
+[DEBUG]    com.gitlab.tripleo1:buffers:jar:3038ff102c:compile
+[DEBUG]    com.gitlab.Tripleo:range:jar:v0.0.3b:compile
+[DEBUG]    javax.annotation:javax.annotation-api:jar:1.3.2:compile
+[DEBUG]    org.eclipse.jdt:org.eclipse.jdt.annotation:jar:2.2.800:compile
+[DEBUG]    org.apache.commons:commons-lang3:jar:3.14.0:compile
+[DEBUG]    org.slf4j:slf4j-simple:jar:2.0.12:compile
+[DEBUG]    org.slf4j:slf4j-api:jar:2.0.12:compile
+[DEBUG]    com.github.spotbugs:spotbugs-annotations:jar:4.8.3:compile
+[DEBUG]       com.google.code.findbugs:jsr305:jar:3.0.2:compile
+[DEBUG]    com.google.guava:guava:jar:33.0.0-jre:compile
+[DEBUG]       com.google.guava:failureaccess:jar:1.0.2:compile
+[DEBUG]       com.google.guava:listenablefuture:jar:9999.0-empty-to-avoid-conflict-with-guava:compile
+[DEBUG]       com.google.j2objc:j2objc-annotations:jar:2.8:compile
+[DEBUG]    com.tngtech.archunit:archunit-junit4:jar:1.2.1:test
+[DEBUG]       com.tngtech.archunit:archunit:jar:1.2.1:test
+[DEBUG]    io.reactivex.rxjava3:rxjava:jar:3.1.8:compile
+[DEBUG]    org.reactivestreams:reactive-streams:jar:1.0.4:compile
+[DEBUG]    commons-codec:commons-codec:jar:1.16.1:compile
+[DEBUG]    antlr:antlr:jar:2.7.7:compile
+[DEBUG]    org.projectlombok:lombok:jar:1.18.30:provided
+[DEBUG]    org.jdeferred.v2:jdeferred-core:jar:2.0.0:compile
+[DEBUG]    org.jetbrains:annotations:jar:24.1.0:compile
+[DEBUG]    com.google.auto.service:auto-service:jar:1.1.1:compile (optional)
+[DEBUG]       com.google.auto.service:auto-service-annotations:jar:1.1.1:compile (optional)
+[DEBUG]       com.google.auto:auto-common:jar:1.2.1:compile (optional)
+[DEBUG]    org.jctools:jctools-core:jar:4.0.3:compile
+[DEBUG]    org.junit.jupiter:junit-jupiter:jar:5.10.2:test
+[DEBUG]       org.junit.jupiter:junit-jupiter-params:jar:5.10.2:test
+[DEBUG]       org.junit.jupiter:junit-jupiter-engine:jar:5.10.2:test
+[DEBUG]          org.junit.platform:junit-platform-engine:jar:1.10.2:test
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ elevated-potential-core-api ---
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=77969, ConflictMarker.markTime=29720, ConflictMarker.nodeCount=13, ConflictIdSorter.graphTime=31400, ConflictIdSorter.topsortTime=19340, ConflictIdSorter.conflictIdCount=9, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=434229, ConflictResolver.conflictItemCount=13, DfDependencyCollector.collectTime=41127827, DfDependencyCollector.transformTime=620000}
+[DEBUG] org.apache.maven.plugins:maven-resources-plugin:jar:3.3.1
+[DEBUG]    org.codehaus.plexus:plexus-interpolation:jar:1.26:runtime
+[DEBUG]    org.codehaus.plexus:plexus-utils:jar:3.5.1:compile
+[DEBUG]    org.apache.maven.shared:maven-filtering:jar:3.3.1:compile
+[DEBUG]       javax.inject:javax.inject:jar:1:compile
+[DEBUG]       org.slf4j:slf4j-api:jar:1.7.36:compile
+[DEBUG]       org.sonatype.plexus:plexus-build-api:jar:0.0.7:compile
+[DEBUG]    commons-io:commons-io:jar:2.11.0:compile
+[DEBUG]    org.apache.commons:commons-lang3:jar:3.12.0:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.3.1
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.3.1
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.3.1
+[DEBUG]   Included: org.apache.maven.plugins:maven-resources-plugin:jar:3.3.1
+[DEBUG]   Included: org.codehaus.plexus:plexus-interpolation:jar:1.26
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:3.5.1
+[DEBUG]   Included: org.apache.maven.shared:maven-filtering:jar:3.3.1
+[DEBUG]   Included: org.sonatype.plexus:plexus-build-api:jar:0.0.7
+[DEBUG]   Included: commons-io:commons-io:jar:2.11.0
+[DEBUG]   Included: org.apache.commons:commons-lang3:jar:3.12.0
+[DEBUG] Loading mojo org.apache.maven.plugins:maven-resources-plugin:3.3.1:resources from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-resources-plugin:3.3.1, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a]
+[DEBUG] Configuring mojo execution 'org.apache.maven.plugins:maven-resources-plugin:3.3.1:resources:default-resources' with basic configurator -->
+[DEBUG]   (f) addDefaultExcludes = true
+[DEBUG]   (f) buildFilters = []
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) escapeWindowsPaths = true
+[DEBUG]   (f) fileNameFiltering = false
+[DEBUG]   (s) includeEmptyDirs = false
+[DEBUG]   (s) outputDirectory = /workspace/elevated-potential/elevated-potential.core.api/target/classes
+[DEBUG]   (s) overwrite = false
+[DEBUG]   (f) project = MavenProject: tripleo.elijah:elevated-potential-core-api:2024.elevated-potential.2 @ /workspace/elevated-potential/elevated-potential.core.api/pom.xml
+[DEBUG]   (s) resources = [Resource {targetPath: null, filtering: false, FileSet {directory: /workspace/elevated-potential/elevated-potential.core.api/src/main/resources, PatternSet [includes: {}, excludes: {}]}}]
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@66213a0d
+[DEBUG]   (f) skip = false
+[DEBUG]   (f) supportMultiLineFiltering = false
+[DEBUG]   (f) useBuildFilters = true
+[DEBUG]   (s) useDefaultDelimiters = true
+[DEBUG] -- end configuration --
+[DEBUG] properties used:
+[DEBUG] build-helper-maven-plugin-version: 3.3.0
+[DEBUG] classworlds.conf: /home/gitpod/.sdkman/candidates/maven/current/bin/m2.conf
+[DEBUG] downloadSources: true
+[DEBUG] env.APACHE_DOCROOT_IN_REPO: public
+[DEBUG] env.AR: ar
+[DEBUG] env.AS: as
+[DEBUG] env.BROWSER: /.supervisor/browser.sh
+[DEBUG] env.CARGO_HOME: /workspace/.cargo
+[DEBUG] env.CC: gcc
+[DEBUG] env.CONFIG_SHELL: /nix/store/5l50g7kzj7v0rdhshld1vx46rf2k5lf9-bash-5.2p26/bin/bash
+[DEBUG] env.CXX: g++
+[DEBUG] env.EDITOR: /ide/bin/remote-cli/gitpod-code
+[DEBUG] env.GEM_HOME: /home/gitpod/.rvm/gems/ruby-3.2.3
+[DEBUG] env.GEM_PATH: /home/gitpod/.rvm/gems/ruby-3.2.3:/home/gitpod/.rvm/gems/ruby-3.2.3@global
+[DEBUG] env.GITPOD_ANALYTICS_SEGMENT_ENDPOINT: https://gitpod.io/analytics
+[DEBUG] env.GITPOD_ANALYTICS_WRITER: segment
+[DEBUG] env.GITPOD_CONFIGCAT_ENABLED: true
+[DEBUG] env.GITPOD_DEFAULT_WORKSPACE_IMAGE: gitpod/workspace-full:latest
+[DEBUG] env.GITPOD_GIT_USER_EMAIL: oluoluolu+gh@gmail.com
+[DEBUG] env.GITPOD_GIT_USER_NAME: triple o
+[DEBUG] env.GITPOD_HOST: https://gitpod.io
+[DEBUG] env.GITPOD_IDE_ALIAS: code
+[DEBUG] env.GITPOD_INSTANCE_ID: 8452d515-5e49-4090-bd05-40fa48341a87
+[DEBUG] env.GITPOD_INTERVAL: 30000
+[DEBUG] env.GITPOD_MEMORY: 3489
+[DEBUG] env.GITPOD_OWNER_ID: fc9b8cf9-d487-4c06-a98f-4a7c47c909a9
+[DEBUG] env.GITPOD_PREVENT_METADATA_ACCESS: true
+[DEBUG] env.GITPOD_REPO_ROOT: /workspace/elevated-potential
+[DEBUG] env.GITPOD_REPO_ROOTS: /workspace/elevated-potential
+[DEBUG] env.GITPOD_SSH_CA_PUBLIC_KEY: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQPGLZ5GCM03ISbMVdPZE9YO3KjbXcaxpdcUNPRNnbJ Gitpod-CA
+[DEBUG] env.GITPOD_TASKS: [{"init":"mvn install -DskipTests=false"}]
+[DEBUG] env.GITPOD_THEIA_PORT: 23000
+[DEBUG] env.GITPOD_WORKSPACE_CLASS: g1-standard
+[DEBUG] env.GITPOD_WORKSPACE_CLASS_INFO: {"id":"g1-standard","category":"GENERAL PURPOSE","displayName":"Standard","description":"Up to 4 cores, 8GB RAM, 30GB storage","powerups":1,"isDefault":true,"deprecated":false}
+[DEBUG] env.GITPOD_WORKSPACE_CLUSTER_HOST: ws-us108.gitpod.io
+[DEBUG] env.GITPOD_WORKSPACE_CONTEXT: {"isFile":false,"path":"","title":"elijah-team/elevated-potential - b6f59f1e:","revision":"b6f59f1eed8d1083a1006944954efccf18a7e039","repository":{"cloneUrl":"https://github.com/elijah-team/elevated-potential.git","host":"github.com","defaultBranch":"rolling","name":"elevated-potential","owner":"elijah-team","private":false},"normalizedContextURL":"https://github.com/elijah-team/elevated-potential/tree/b6f59f1eed8d1083a1006944954efccf18a7e039","checkoutLocation":"elevated-potential"}
+[DEBUG] env.GITPOD_WORKSPACE_CONTEXT_URL: https://github.com/elijah-team/elevated-potential/tree/b6f59f1eed8d1083a1006944954efccf18a7e039
+[DEBUG] env.GITPOD_WORKSPACE_ID: elijahteam-elevatedpote-bmuo900lri1
+[DEBUG] env.GITPOD_WORKSPACE_URL: https://elijahteam-elevatedpote-bmuo900lri1.ws-us108.gitpod.io
+[DEBUG] env.GIT_EDITOR: /ide/bin/remote-cli/gitpod-code --wait
+[DEBUG] env.GOPATH: /workspace/go
+[DEBUG] env.GOROOT: /home/gitpod/go
+[DEBUG] env.GO_VERSION: 1.22.0
+[DEBUG] env.GP_EXTERNAL_BROWSER: /ide/bin/remote-cli/gitpod-code --openExternal
+[DEBUG] env.GP_OPEN_EDITOR: /ide/bin/remote-cli/gitpod-code
+[DEBUG] env.GP_PREVIEW_BROWSER: /ide/bin/remote-cli/gitpod-code --preview
+[DEBUG] env.GRADLE_HOME: /home/gitpod/.sdkman/candidates/gradle/current
+[DEBUG] env.GRADLE_USER_HOME: /workspace/.gradle/
+[DEBUG] env.HISTFILE: /workspace/.gitpod/.shell_history
+[DEBUG] env.HOME: /home/gitpod
+[DEBUG] env.HOMEBREW_NO_AUTO_UPDATE: 1
+[DEBUG] env.HOSTNAME: elijahteam-elevatedpote-bmuo900lri1
+[DEBUG] env.HOST_PATH: /nix/store/4wv531l4dikmjr71czl0hikaklhshcjm-lazygit-0.40.2/bin:/nix/store/bicmg5gd50q6igk0y5mga1v0p1lk8f26-coreutils-9.4/bin:/nix/store/p6fd7piqrin2h0mqxzmvyxyr6pyivndj-findutils-4.9.0/bin:/nix/store/2d582qba31ii28nyrww9bzb00aq06d1g-diffutils-3.10/bin:/nix/store/vd92lhcxs39hbdnzj8ycak5wvj466s3l-gnused-4.9/bin:/nix/store/mn911d51n5lklwr3zy4mdhxa77wzancb-gnugrep-3.11/bin:/nix/store/h53ycc406fmbq3ff0n0rjxdzb6lk9zcn-gawk-5.2.2/bin:/nix/store/1ds6c0i7z4advdr0z210sxgvmq786h09-gnutar-1.35/bin:/nix/store/nf4fhdqgjka360nkibx1yg14gybwb018-gzip-1.13/bin:/nix/store/v3hp6kidlb9yz6j51a0wlbnpclqpi94f-bzip2-1.0.8-bin/bin:/nix/store/15xrks0frcgils8qxfkhspyg6gi9rxdh-gnumake-4.4.1/bin:/nix/store/5l50g7kzj7v0rdhshld1vx46rf2k5lf9-bash-5.2p26/bin:/nix/store/2pi9hb31np2vhy8r9lfih47rf9n51crz-patch-2.7.6/bin:/nix/store/h8vfiwhq6kmvrnj96w52n36c6qm4lbyl-xz-5.4.6-bin/bin:/nix/store/rn6yfzxwp12z0zqavxx1841mh0ypr7jg-file-5.45/bin
+[DEBUG] env.INFOPATH: :/home/linuxbrew/.linuxbrew/share/info
+[DEBUG] env.IN_NIX_SHELL: impure
+[DEBUG] env.IRBRC: /home/gitpod/.rvm/rubies/ruby-3.2.3/.irbrc
+[DEBUG] env.JAVA_HOME: /home/gitpod/.sdkman/candidates/java/current
+[DEBUG] env.JAVA_TOOL_OPTIONS:  -Xmx3489m
+[DEBUG] env.LANG: en_US.UTF-8
+[DEBUG] env.LD: ld
+[DEBUG] env.LESSCLOSE: /usr/bin/lesspipe %s %s
+[DEBUG] env.LESSOPEN: | /usr/bin/lesspipe %s
+[DEBUG] env.LS_COLORS: rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+[DEBUG] env.MANPATH: /home/gitpod/.nix-profile/share/man:/home/gitpod/.nix-profile/share/man::/home/linuxbrew/.linuxbrew/share/man
+[DEBUG] env.MAVEN_CMD_LINE_ARGS:  -X test
+[DEBUG] env.MAVEN_HOME: /home/gitpod/.sdkman/candidates/maven/current
+[DEBUG] env.MAVEN_PROJECTBASEDIR: /workspace/elevated-potential
+[DEBUG] env.MY_RUBY_HOME: /home/gitpod/.rvm/rubies/ruby-3.2.3
+[DEBUG] env.NGINX_DOCROOT_IN_REPO: public
+[DEBUG] env.NIX_BINTOOLS: /nix/store/c53f8hagyblvx52zylsnqcc0b3nxbrcl-binutils-wrapper-2.40
+[DEBUG] env.NIX_BINTOOLS_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu: 1
+[DEBUG] env.NIX_BUILD_CORES: 16
+[DEBUG] env.NIX_BUILD_TOP: /tmp
+[DEBUG] env.NIX_CC: /nix/store/4cjqvbp1jbkps185wl8qnbjpf8bdy8j9-gcc-wrapper-13.2.0
+[DEBUG] env.NIX_CC_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu: 1
+[DEBUG] env.NIX_CFLAGS_COMPILE:  -frandom-seed=6kgrsh1vlv
+[DEBUG] env.NIX_ENFORCE_NO_NATIVE: 1
+[DEBUG] env.NIX_HARDENING_ENABLE: bindnow format fortify fortify3 pic relro stackprotector strictoverflow
+[DEBUG] env.NIX_LDFLAGS: -rpath /nix/store/6kgrsh1vlv8axvdgl2qgmh6v8cgv4a1n-shell/lib 
+[DEBUG] env.NIX_PROFILES: /nix/var/nix/profiles/default /home/gitpod/.nix-profile
+[DEBUG] env.NIX_SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
+[DEBUG] env.NIX_STORE: /nix/store
+[DEBUG] env.NIX_VERSION: 2.19.2
+[DEBUG] env.NM: nm
+[DEBUG] env.NODE_VERSION: 20.11.1
+[DEBUG] env.NVM_DIR: /home/gitpod/.nvm
+[DEBUG] env.OBJCOPY: objcopy
+[DEBUG] env.OBJDUMP: objdump
+[DEBUG] env.OLDPWD: /workspace/elevated-potential
+[DEBUG] env.PATH: /nix/store/1zslabm02hi75anb2w8zjrqwzgs0vrs3-bash-interactive-5.2p26/bin:/nix/store/v3b4la4kh5l7dqzdyraqb1lyfrajfl5w-patchelf-0.15.0/bin:/nix/store/4cjqvbp1jbkps185wl8qnbjpf8bdy8j9-gcc-wrapper-13.2.0/bin:/nix/store/qs1nwzbp2ml3cxzsxihn82hl0w73snr0-gcc-13.2.0/bin:/nix/store/36wymklsa60bigdhb0p3139ws02r46lw-glibc-2.38-44-bin/bin:/nix/store/bicmg5gd50q6igk0y5mga1v0p1lk8f26-coreutils-9.4/bin:/nix/store/c53f8hagyblvx52zylsnqcc0b3nxbrcl-binutils-wrapper-2.40/bin:/nix/store/2ab5740x0cy1d74qvbpl5s28qikmppl5-binutils-2.40/bin:/nix/store/4wv531l4dikmjr71czl0hikaklhshcjm-lazygit-0.40.2/bin:/nix/store/bicmg5gd50q6igk0y5mga1v0p1lk8f26-coreutils-9.4/bin:/nix/store/p6fd7piqrin2h0mqxzmvyxyr6pyivndj-findutils-4.9.0/bin:/nix/store/2d582qba31ii28nyrww9bzb00aq06d1g-diffutils-3.10/bin:/nix/store/vd92lhcxs39hbdnzj8ycak5wvj466s3l-gnused-4.9/bin:/nix/store/mn911d51n5lklwr3zy4mdhxa77wzancb-gnugrep-3.11/bin:/nix/store/h53ycc406fmbq3ff0n0rjxdzb6lk9zcn-gawk-5.2.2/bin:/nix/store/1ds6c0i7z4advdr0z210sxgvmq786h09-gnutar-1.35/bin:/nix/store/nf4fhdqgjka360nkibx1yg14gybwb018-gzip-1.13/bin:/nix/store/v3hp6kidlb9yz6j51a0wlbnpclqpi94f-bzip2-1.0.8-bin/bin:/nix/store/15xrks0frcgils8qxfkhspyg6gi9rxdh-gnumake-4.4.1/bin:/nix/store/5l50g7kzj7v0rdhshld1vx46rf2k5lf9-bash-5.2p26/bin:/nix/store/2pi9hb31np2vhy8r9lfih47rf9n51crz-patch-2.7.6/bin:/nix/store/h8vfiwhq6kmvrnj96w52n36c6qm4lbyl-xz-5.4.6-bin/bin:/nix/store/rn6yfzxwp12z0zqavxx1841mh0ypr7jg-file-5.45/bin:/workspace/.cargo/bin:/home/gitpod/.pyenv/shims:/workspace/go/bin:/home/gitpod/.nix-profile/bin:/home/gitpod/.sdkman/candidates/maven/current/bin:/home/gitpod/.sdkman/candidates/java/current/bin:/home/gitpod/.sdkman/candidates/gradle/current/bin:/workspace/.cargo/bin:/home/gitpod/.rvm/gems/ruby-3.2.3/bin:/home/gitpod/.rvm/gems/ruby-3.2.3@global/bin:/home/gitpod/.rvm/rubies/ruby-3.2.3/bin:/workspace/go/bin:/home/gitpod/.nix-profile/bin:/ide/bin/remote-cli:/home/gitpod/go/bin:/home/gitpod/go-packages/bin:/home/gitpod/.nvm/versions/node/v20.11.1/bin:/home/gitpod/.yarn/bin:/home/gitpod/.pnpm:/home/gitpod/.pyenv/bin:/home/gitpod/.rvm/bin:/home/gitpod/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:/home/gitpod/.local/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/gitpod/.nvm/versions/node/v20.11.1/bin:/home/gitpod/.rvm/bin:/home/gitpod/.nvm/versions/node/v20.11.1/bin:/home/gitpod/.rvm/bin
+[DEBUG] env.PIPENV_VENV_IN_PROJECT: true
+[DEBUG] env.PIP_CACHE_DIR: /workspace/.pyenv_mirror/pip_cache
+[DEBUG] env.PNPM_HOME: /home/gitpod/.pnpm
+[DEBUG] env.POETRY_CACHE_DIR: /workspace/.pyenv_mirror/poetry
+[DEBUG] env.PROMPT_COMMAND: _direnv_hook;history -a
+[DEBUG] env.PWD: /workspace/elevated-potential
+[DEBUG] env.PYCHARM_PYTHON_PATH: /home/gitpod/.pyenv/shims/python
+[DEBUG] env.PYENV_FAKEROOT: /workspace/.pyenv_mirror/fakeroot
+[DEBUG] env.PYENV_HOOK_PATH: /home/gitpod/.gp_pyenv.d
+[DEBUG] env.PYENV_INIT_LOCK: /tmp/.pyenv_init.lock
+[DEBUG] env.PYENV_MIRROR: /workspace/.pyenv_mirror
+[DEBUG] env.PYENV_ROOT: /home/gitpod/.pyenv
+[DEBUG] env.PYENV_SHELL: bash
+[DEBUG] env.PYTHONUSERBASE: /workspace/.pyenv_mirror/user/current
+[DEBUG] env.PYTHONUSERBASE_VERSION_FILE: /workspace/.pyenv_mirror/user/.mounted_version
+[DEBUG] env.RANLIB: ranlib
+[DEBUG] env.READELF: readelf
+[DEBUG] env.RUBY_VERSION: ruby-3.2.3
+[DEBUG] env.RUST_VERSION: 1.76.0
+[DEBUG] env.SDKMAN_CANDIDATES_API: https://api.sdkman.io/2
+[DEBUG] env.SDKMAN_CANDIDATES_DIR: /home/gitpod/.sdkman/candidates
+[DEBUG] env.SDKMAN_DIR: /home/gitpod/.sdkman
+[DEBUG] env.SDKMAN_PLATFORM: linuxx64
+[DEBUG] env.SHELL: /nix/store/1zslabm02hi75anb2w8zjrqwzgs0vrs3-bash-interactive-5.2p26/bin/bash
+[DEBUG] env.SHLVL: 2
+[DEBUG] env.SIZE: size
+[DEBUG] env.SOURCE_DATE_EPOCH: 315532800
+[DEBUG] env.STRINGS: strings
+[DEBUG] env.STRIP: strip
+[DEBUG] env.SUPERVISOR_ADDR: localhost:22999
+[DEBUG] env.TEMP: /tmp
+[DEBUG] env.TEMPDIR: /tmp
+[DEBUG] env.TERM: xterm-256color
+[DEBUG] env.THEIA_MINI_BROWSER_HOST_PATTERN: browser-{{hostname}}
+[DEBUG] env.THEIA_RATELIMIT_LOG: 50
+[DEBUG] env.THEIA_WEBVIEW_EXTERNAL_ENDPOINT: webview-{{hostname}}
+[DEBUG] env.THEIA_WORKSPACE_ROOT: /workspace/elevated-potential
+[DEBUG] env.TMP: /tmp
+[DEBUG] env.TMPDIR: /tmp
+[DEBUG] env.TRIGGER_REBUILD: 1
+[DEBUG] env.USER: gitpod
+[DEBUG] env.VISUAL: /ide/bin/remote-cli/gitpod-code
+[DEBUG] env.VSX_REGISTRY_URL: https://open-vsx.gitpod.io
+[DEBUG] env.WORKSPACEKIT_WRAP_NETNS: true
+[DEBUG] env.XDG_DATA_DIRS: /nix/store/v3b4la4kh5l7dqzdyraqb1lyfrajfl5w-patchelf-0.15.0/share:/usr/local/share:/usr/share:/home/gitpod/.nix-profile/share:/nix/var/nix/profiles/default/share:/home/gitpod/.nix-profile/share:/nix/var/nix/profiles/default/share
+[DEBUG] env._: /home/gitpod/.sdkman/candidates/maven/current/bin/mvn
+[DEBUG] env.__structuredAttrs: 
+[DEBUG] env.binary_input: /home/gitpod/.sdkman/tmp/java-17.0.10-tem.bin
+[DEBUG] env.buildCommandPath: /tmp/nix-shell-1902-0/.attr-0
+[DEBUG] env.buildInputs: /nix/store/4wv531l4dikmjr71czl0hikaklhshcjm-lazygit-0.40.2
+[DEBUG] env.builder: /nix/store/5l50g7kzj7v0rdhshld1vx46rf2k5lf9-bash-5.2p26/bin/bash
+[DEBUG] env.cmakeFlags: 
+[DEBUG] env.configureFlags: 
+[DEBUG] env.depsBuildBuild: 
+[DEBUG] env.depsBuildBuildPropagated: 
+[DEBUG] env.depsBuildTarget: 
+[DEBUG] env.depsBuildTargetPropagated: 
+[DEBUG] env.depsHostHost: 
+[DEBUG] env.depsHostHostPropagated: 
+[DEBUG] env.depsTargetTarget: 
+[DEBUG] env.depsTargetTargetPropagated: 
+[DEBUG] env.doCheck: 
+[DEBUG] env.doInstallCheck: 
+[DEBUG] env.enableParallelBuilding: 1
+[DEBUG] env.enableParallelChecking: 1
+[DEBUG] env.enableParallelInstalling: 1
+[DEBUG] env.mesonFlags: 
+[DEBUG] env.name: shell
+[DEBUG] env.nativeBuildInputs: 
+[DEBUG] env.out: /nix/store/6kgrsh1vlv8axvdgl2qgmh6v8cgv4a1n-shell
+[DEBUG] env.outputs: out
+[DEBUG] env.passAsFile: buildCommand
+[DEBUG] env.patches: 
+[DEBUG] env.propagatedBuildInputs: 
+[DEBUG] env.propagatedNativeBuildInputs: 
+[DEBUG] env.rvm_bin_path: /home/gitpod/.rvm/bin
+[DEBUG] env.rvm_path: /home/gitpod/.rvm
+[DEBUG] env.rvm_prefix: /home/gitpod
+[DEBUG] env.rvm_version: 1.29.12 (latest)
+[DEBUG] env.shell: /nix/store/5l50g7kzj7v0rdhshld1vx46rf2k5lf9-bash-5.2p26/bin/bash
+[DEBUG] env.stdenv: /nix/store/yq9qag5ak3w15nhcqplnhxpny6295l36-stdenv-linux
+[DEBUG] env.strictDeps: 
+[DEBUG] env.system: x86_64-linux
+[DEBUG] env.zip_output: /home/gitpod/.sdkman/tmp/java-17.0.10-tem.zip
+[DEBUG] file.encoding: UTF-8
+[DEBUG] file.separator: /
+[DEBUG] guava.version: 33.0.0-jre
+[DEBUG] jacoco.version: 0.8.9
+[DEBUG] java.class.path: /home/gitpod/.sdkman/candidates/maven/current/boot/plexus-classworlds-2.7.0.jar
+[DEBUG] java.class.version: 61.0
+[DEBUG] java.home: /home/gitpod/.sdkman/candidates/java/17.0.10-tem
+[DEBUG] java.io.tmpdir: /tmp
+[DEBUG] java.library.path: /usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib
+[DEBUG] java.runtime.name: OpenJDK Runtime Environment
+[DEBUG] java.runtime.version: 17.0.10+7
+[DEBUG] java.specification.name: Java Platform API Specification
+[DEBUG] java.specification.vendor: Oracle Corporation
+[DEBUG] java.specification.version: 17
+[DEBUG] java.vendor: Eclipse Adoptium
+[DEBUG] java.vendor.url: https://adoptium.net/
+[DEBUG] java.vendor.url.bug: https://github.com/adoptium/adoptium-support/issues
+[DEBUG] java.vendor.version: Temurin-17.0.10+7
+[DEBUG] java.version: 17.0.10
+[DEBUG] java.version.date: 2024-01-16
+[DEBUG] java.vm.compressedOopsMode: Zero based
+[DEBUG] java.vm.info: mixed mode, sharing
+[DEBUG] java.vm.name: OpenJDK 64-Bit Server VM
+[DEBUG] java.vm.specification.name: Java Virtual Machine Specification
+[DEBUG] java.vm.specification.vendor: Oracle Corporation
+[DEBUG] java.vm.specification.version: 17
+[DEBUG] java.vm.vendor: Eclipse Adoptium
+[DEBUG] java.vm.version: 17.0.10+7
+[DEBUG] jdeferred.version: 2.0.0
+[DEBUG] jdk.debug: release
+[DEBUG] library.jansi.path: /home/gitpod/.sdkman/candidates/maven/current/lib/jansi-native
+[DEBUG] line.separator: 
+
+[DEBUG] maven-compiler-plugin.version: 3.8.1
+[DEBUG] maven-surefire-version: 3.0.0
+[DEBUG] maven.build.timestamp: 2024-03-11T06:05:39Z
+[DEBUG] maven.build.version: Apache Maven 3.9.6 (bc0240f3c744dd6b6ec2920b3cd08dcc295161ae)
+[DEBUG] maven.compiler.source: 17
+[DEBUG] maven.compiler.target: 17
+[DEBUG] maven.conf: /home/gitpod/.sdkman/candidates/maven/current/conf
+[DEBUG] maven.home: /home/gitpod/.sdkman/candidates/maven/current
+[DEBUG] maven.multiModuleProjectDirectory: /workspace/elevated-potential
+[DEBUG] maven.version: 3.9.6
+[DEBUG] native.encoding: UTF-8
+[DEBUG] os.arch: amd64
+[DEBUG] os.name: Linux
+[DEBUG] os.version: 6.1.75-060175-generic
+[DEBUG] path.separator: :
+[DEBUG] project.baseUri: file:/workspace/elevated-potential/elevated-potential.core.api/
+[DEBUG] project.build.outputTimestamp: 1
+[DEBUG] project.build.sourceEncoding: UTF-8
+[DEBUG] sun.arch.data.model: 64
+[DEBUG] sun.boot.library.path: /home/gitpod/.sdkman/candidates/java/17.0.10-tem/lib
+[DEBUG] sun.cpu.endian: little
+[DEBUG] sun.io.unicode.encoding: UnicodeLittle
+[DEBUG] sun.java.command: org.codehaus.plexus.classworlds.launcher.Launcher -X test
+[DEBUG] sun.java.launcher: SUN_STANDARD
+[DEBUG] sun.jnu.encoding: UTF-8
+[DEBUG] sun.management.compiler: HotSpot 64-Bit Tiered Compilers
+[DEBUG] sun.stderr.encoding: UTF-8
+[DEBUG] user.country: US
+[DEBUG] user.dir: /workspace/elevated-potential
+[DEBUG] user.home: /home/gitpod
+[DEBUG] user.language: en
+[DEBUG] user.name: gitpod
+[DEBUG] Using 'UTF-8' encoding to copy filtered resources.
+[DEBUG] Using 'UTF-8' encoding to copy filtered properties files.
+[DEBUG] resource with targetPath null
+directory /workspace/elevated-potential/elevated-potential.core.api/src/main/resources
+excludes []
+includes []
+[INFO] skip non existing resourceDirectory /workspace/elevated-potential/elevated-potential.core.api/src/main/resources
+[DEBUG] no user filter components
+[INFO] 
+[INFO] --- compiler:3.12.1:compile (compile) @ elevated-potential-core-api ---
+[DEBUG] Loading mojo org.apache.maven.plugins:maven-compiler-plugin:3.12.1:compile from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-compiler-plugin:3.12.1, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a]
+[DEBUG] Configuring mojo execution 'org.apache.maven.plugins:maven-compiler-plugin:3.12.1:compile:compile' with basic configurator -->
+[DEBUG]   (f) annotationProcessorPathsUseDepMgmt = false
+[DEBUG]   (f) basedir = /workspace/elevated-potential/elevated-potential.core.api
+[DEBUG]   (f) buildDirectory = /workspace/elevated-potential/elevated-potential.core.api/target
+[DEBUG]   (f) compilePath = [/workspace/elevated-potential/elevated-potential.core.api/target/classes, /workspace/m2-repository/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar, /workspace/m2-repository/com/google/errorprone/error_prone_annotations/2.25.0/error_prone_annotations-2.25.0.jar, /workspace/m2-repository/org/antlr/antlr-runtime/3.5.3/antlr-runtime-3.5.3.jar, /workspace/m2-repository/io/smallrye/reactive/mutiny/2.5.8/mutiny-2.5.8.jar, /workspace/m2-repository/io/smallrye/common/smallrye-common-annotation/2.2.0/smallrye-common-annotation-2.2.0.jar, /workspace/m2-repository/org/clojure/clojure/1.10.3/clojure-1.10.3.jar, /workspace/m2-repository/org/clojure/spec.alpha/0.2.194/spec.alpha-0.2.194.jar, /workspace/m2-repository/org/clojure/core.specs.alpha/0.2.56/core.specs.alpha-0.2.56.jar, /workspace/m2-repository/com/gitlab/tripleo1/buffers/3038ff102c/buffers-3038ff102c.jar, /workspace/m2-repository/com/gitlab/Tripleo/range/v0.0.3b/range-v0.0.3b.jar, /workspace/m2-repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar, /workspace/m2-repository/org/eclipse/jdt/org.eclipse.jdt.annotation/2.2.800/org.eclipse.jdt.annotation-2.2.800.jar, /workspace/m2-repository/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar, /workspace/m2-repository/org/slf4j/slf4j-simple/2.0.12/slf4j-simple-2.0.12.jar, /workspace/m2-repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar, /workspace/m2-repository/com/github/spotbugs/spotbugs-annotations/4.8.3/spotbugs-annotations-4.8.3.jar, /workspace/m2-repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar, /workspace/m2-repository/com/google/guava/guava/33.0.0-jre/guava-33.0.0-jre.jar, /workspace/m2-repository/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar, /workspace/m2-repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar, /workspace/m2-repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar, /workspace/m2-repository/io/reactivex/rxjava3/rxjava/3.1.8/rxjava-3.1.8.jar, /workspace/m2-repository/org/reactivestreams/reactive-streams/1.0.4/reactive-streams-1.0.4.jar, /workspace/m2-repository/commons-codec/commons-codec/1.16.1/commons-codec-1.16.1.jar, /workspace/m2-repository/antlr/antlr/2.7.7/antlr-2.7.7.jar, /workspace/m2-repository/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar, /workspace/m2-repository/org/jdeferred/v2/jdeferred-core/2.0.0/jdeferred-core-2.0.0.jar, /workspace/m2-repository/org/jetbrains/annotations/24.1.0/annotations-24.1.0.jar, /workspace/m2-repository/com/google/auto/service/auto-service/1.1.1/auto-service-1.1.1.jar, /workspace/m2-repository/com/google/auto/service/auto-service-annotations/1.1.1/auto-service-annotations-1.1.1.jar, /workspace/m2-repository/com/google/auto/auto-common/1.2.1/auto-common-1.2.1.jar, /workspace/m2-repository/org/jctools/jctools-core/4.0.3/jctools-core-4.0.3.jar]
+[DEBUG]   (f) compileSourceRoots = [/workspace/elevated-potential/elevated-potential.core.api/src/main/java]
+[DEBUG]   (f) compilerId = javac
+[DEBUG]   (f) createMissingPackageInfoClass = true
+[DEBUG]   (f) debug = true
+[DEBUG]   (f) debugFileName = javac
+[DEBUG]   (f) enablePreview = false
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) failOnError = true
+[DEBUG]   (f) failOnWarning = false
+[DEBUG]   (f) fileExtensions = [jar, class]
+[DEBUG]   (f) forceJavacCompilerUse = false
+[DEBUG]   (f) fork = false
+[DEBUG]   (f) generatedSourcesDirectory = /workspace/elevated-potential/elevated-potential.core.api/target/generated-sources/annotations
+[DEBUG]   (f) mojoExecution = org.apache.maven.plugins:maven-compiler-plugin:3.12.1:compile {execution: compile}
+[DEBUG]   (f) optimize = false
+[DEBUG]   (f) outputDirectory = /workspace/elevated-potential/elevated-potential.core.api/target/classes
+[DEBUG]   (f) outputTimestamp = 1
+[DEBUG]   (f) parameters = false
+[DEBUG]   (f) project = MavenProject: tripleo.elijah:elevated-potential-core-api:2024.elevated-potential.2 @ /workspace/elevated-potential/elevated-potential.core.api/pom.xml
+[DEBUG]   (f) projectArtifact = tripleo.elijah:elevated-potential-core-api:jar:2024.elevated-potential.2
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@66213a0d
+[DEBUG]   (f) showCompilationChanges = false
+[DEBUG]   (f) showDeprecation = false
+[DEBUG]   (f) showWarnings = true
+[DEBUG]   (f) skipMultiThreadWarning = false
+[DEBUG]   (f) source = 17
+[DEBUG]   (f) staleMillis = 0
+[DEBUG]   (s) target = 17
+[DEBUG]   (f) useIncrementalCompilation = true
+[DEBUG]   (f) verbose = false
+[DEBUG] -- end configuration --
+[DEBUG] Using compiler 'javac'.
+[DEBUG] Adding /workspace/elevated-potential/elevated-potential.core.api/target/generated-sources/annotations to compile source roots:
+  /workspace/elevated-potential/elevated-potential.core.api/src/main/java
+[DEBUG] New compile source roots:
+  /workspace/elevated-potential/elevated-potential.core.api/src/main/java
+  /workspace/elevated-potential/elevated-potential.core.api/target/generated-sources/annotations
+[DEBUG] CompilerReuseStrategy: reuseCreated
+[DEBUG] useIncrementalCompilation enabled
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ elevated-potential-core-api ---
+[DEBUG] Loading mojo org.apache.maven.plugins:maven-resources-plugin:3.3.1:testResources from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-resources-plugin:3.3.1, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a]
+[DEBUG] Configuring mojo execution 'org.apache.maven.plugins:maven-resources-plugin:3.3.1:testResources:default-testResources' with basic configurator -->
+[DEBUG]   (f) addDefaultExcludes = true
+[DEBUG]   (f) buildFilters = []
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) escapeWindowsPaths = true
+[DEBUG]   (f) fileNameFiltering = false
+[DEBUG]   (s) includeEmptyDirs = false
+[DEBUG]   (s) outputDirectory = /workspace/elevated-potential/elevated-potential.core.api/target/test-classes
+[DEBUG]   (s) overwrite = false
+[DEBUG]   (f) project = MavenProject: tripleo.elijah:elevated-potential-core-api:2024.elevated-potential.2 @ /workspace/elevated-potential/elevated-potential.core.api/pom.xml
+[DEBUG]   (s) resources = [Resource {targetPath: null, filtering: false, FileSet {directory: /workspace/elevated-potential/elevated-potential.core.api/src/test/resources, PatternSet [includes: {}, excludes: {}]}}]
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@66213a0d
+[DEBUG]   (f) skip = false
+[DEBUG]   (f) supportMultiLineFiltering = false
+[DEBUG]   (f) useBuildFilters = true
+[DEBUG]   (s) useDefaultDelimiters = true
+[DEBUG] -- end configuration --
+[DEBUG] properties used:
+[DEBUG] build-helper-maven-plugin-version: 3.3.0
+[DEBUG] classworlds.conf: /home/gitpod/.sdkman/candidates/maven/current/bin/m2.conf
+[DEBUG] downloadSources: true
+[DEBUG] env.APACHE_DOCROOT_IN_REPO: public
+[DEBUG] env.AR: ar
+[DEBUG] env.AS: as
+[DEBUG] env.BROWSER: /.supervisor/browser.sh
+[DEBUG] env.CARGO_HOME: /workspace/.cargo
+[DEBUG] env.CC: gcc
+[DEBUG] env.CONFIG_SHELL: /nix/store/5l50g7kzj7v0rdhshld1vx46rf2k5lf9-bash-5.2p26/bin/bash
+[DEBUG] env.CXX: g++
+[DEBUG] env.EDITOR: /ide/bin/remote-cli/gitpod-code
+[DEBUG] env.GEM_HOME: /home/gitpod/.rvm/gems/ruby-3.2.3
+[DEBUG] env.GEM_PATH: /home/gitpod/.rvm/gems/ruby-3.2.3:/home/gitpod/.rvm/gems/ruby-3.2.3@global
+[DEBUG] env.GITPOD_ANALYTICS_SEGMENT_ENDPOINT: https://gitpod.io/analytics
+[DEBUG] env.GITPOD_ANALYTICS_WRITER: segment
+[DEBUG] env.GITPOD_CONFIGCAT_ENABLED: true
+[DEBUG] env.GITPOD_DEFAULT_WORKSPACE_IMAGE: gitpod/workspace-full:latest
+[DEBUG] env.GITPOD_GIT_USER_EMAIL: oluoluolu+gh@gmail.com
+[DEBUG] env.GITPOD_GIT_USER_NAME: triple o
+[DEBUG] env.GITPOD_HOST: https://gitpod.io
+[DEBUG] env.GITPOD_IDE_ALIAS: code
+[DEBUG] env.GITPOD_INSTANCE_ID: 8452d515-5e49-4090-bd05-40fa48341a87
+[DEBUG] env.GITPOD_INTERVAL: 30000
+[DEBUG] env.GITPOD_MEMORY: 3489
+[DEBUG] env.GITPOD_OWNER_ID: fc9b8cf9-d487-4c06-a98f-4a7c47c909a9
+[DEBUG] env.GITPOD_PREVENT_METADATA_ACCESS: true
+[DEBUG] env.GITPOD_REPO_ROOT: /workspace/elevated-potential
+[DEBUG] env.GITPOD_REPO_ROOTS: /workspace/elevated-potential
+[DEBUG] env.GITPOD_SSH_CA_PUBLIC_KEY: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQPGLZ5GCM03ISbMVdPZE9YO3KjbXcaxpdcUNPRNnbJ Gitpod-CA
+[DEBUG] env.GITPOD_TASKS: [{"init":"mvn install -DskipTests=false"}]
+[DEBUG] env.GITPOD_THEIA_PORT: 23000
+[DEBUG] env.GITPOD_WORKSPACE_CLASS: g1-standard
+[DEBUG] env.GITPOD_WORKSPACE_CLASS_INFO: {"id":"g1-standard","category":"GENERAL PURPOSE","displayName":"Standard","description":"Up to 4 cores, 8GB RAM, 30GB storage","powerups":1,"isDefault":true,"deprecated":false}
+[DEBUG] env.GITPOD_WORKSPACE_CLUSTER_HOST: ws-us108.gitpod.io
+[DEBUG] env.GITPOD_WORKSPACE_CONTEXT: {"isFile":false,"path":"","title":"elijah-team/elevated-potential - b6f59f1e:","revision":"b6f59f1eed8d1083a1006944954efccf18a7e039","repository":{"cloneUrl":"https://github.com/elijah-team/elevated-potential.git","host":"github.com","defaultBranch":"rolling","name":"elevated-potential","owner":"elijah-team","private":false},"normalizedContextURL":"https://github.com/elijah-team/elevated-potential/tree/b6f59f1eed8d1083a1006944954efccf18a7e039","checkoutLocation":"elevated-potential"}
+[DEBUG] env.GITPOD_WORKSPACE_CONTEXT_URL: https://github.com/elijah-team/elevated-potential/tree/b6f59f1eed8d1083a1006944954efccf18a7e039
+[DEBUG] env.GITPOD_WORKSPACE_ID: elijahteam-elevatedpote-bmuo900lri1
+[DEBUG] env.GITPOD_WORKSPACE_URL: https://elijahteam-elevatedpote-bmuo900lri1.ws-us108.gitpod.io
+[DEBUG] env.GIT_EDITOR: /ide/bin/remote-cli/gitpod-code --wait
+[DEBUG] env.GOPATH: /workspace/go
+[DEBUG] env.GOROOT: /home/gitpod/go
+[DEBUG] env.GO_VERSION: 1.22.0
+[DEBUG] env.GP_EXTERNAL_BROWSER: /ide/bin/remote-cli/gitpod-code --openExternal
+[DEBUG] env.GP_OPEN_EDITOR: /ide/bin/remote-cli/gitpod-code
+[DEBUG] env.GP_PREVIEW_BROWSER: /ide/bin/remote-cli/gitpod-code --preview
+[DEBUG] env.GRADLE_HOME: /home/gitpod/.sdkman/candidates/gradle/current
+[DEBUG] env.GRADLE_USER_HOME: /workspace/.gradle/
+[DEBUG] env.HISTFILE: /workspace/.gitpod/.shell_history
+[DEBUG] env.HOME: /home/gitpod
+[DEBUG] env.HOMEBREW_NO_AUTO_UPDATE: 1
+[DEBUG] env.HOSTNAME: elijahteam-elevatedpote-bmuo900lri1
+[DEBUG] env.HOST_PATH: /nix/store/4wv531l4dikmjr71czl0hikaklhshcjm-lazygit-0.40.2/bin:/nix/store/bicmg5gd50q6igk0y5mga1v0p1lk8f26-coreutils-9.4/bin:/nix/store/p6fd7piqrin2h0mqxzmvyxyr6pyivndj-findutils-4.9.0/bin:/nix/store/2d582qba31ii28nyrww9bzb00aq06d1g-diffutils-3.10/bin:/nix/store/vd92lhcxs39hbdnzj8ycak5wvj466s3l-gnused-4.9/bin:/nix/store/mn911d51n5lklwr3zy4mdhxa77wzancb-gnugrep-3.11/bin:/nix/store/h53ycc406fmbq3ff0n0rjxdzb6lk9zcn-gawk-5.2.2/bin:/nix/store/1ds6c0i7z4advdr0z210sxgvmq786h09-gnutar-1.35/bin:/nix/store/nf4fhdqgjka360nkibx1yg14gybwb018-gzip-1.13/bin:/nix/store/v3hp6kidlb9yz6j51a0wlbnpclqpi94f-bzip2-1.0.8-bin/bin:/nix/store/15xrks0frcgils8qxfkhspyg6gi9rxdh-gnumake-4.4.1/bin:/nix/store/5l50g7kzj7v0rdhshld1vx46rf2k5lf9-bash-5.2p26/bin:/nix/store/2pi9hb31np2vhy8r9lfih47rf9n51crz-patch-2.7.6/bin:/nix/store/h8vfiwhq6kmvrnj96w52n36c6qm4lbyl-xz-5.4.6-bin/bin:/nix/store/rn6yfzxwp12z0zqavxx1841mh0ypr7jg-file-5.45/bin
+[DEBUG] env.INFOPATH: :/home/linuxbrew/.linuxbrew/share/info
+[DEBUG] env.IN_NIX_SHELL: impure
+[DEBUG] env.IRBRC: /home/gitpod/.rvm/rubies/ruby-3.2.3/.irbrc
+[DEBUG] env.JAVA_HOME: /home/gitpod/.sdkman/candidates/java/current
+[DEBUG] env.JAVA_TOOL_OPTIONS:  -Xmx3489m
+[DEBUG] env.LANG: en_US.UTF-8
+[DEBUG] env.LD: ld
+[DEBUG] env.LESSCLOSE: /usr/bin/lesspipe %s %s
+[DEBUG] env.LESSOPEN: | /usr/bin/lesspipe %s
+[DEBUG] env.LS_COLORS: rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+[DEBUG] env.MANPATH: /home/gitpod/.nix-profile/share/man:/home/gitpod/.nix-profile/share/man::/home/linuxbrew/.linuxbrew/share/man
+[DEBUG] env.MAVEN_CMD_LINE_ARGS:  -X test
+[DEBUG] env.MAVEN_HOME: /home/gitpod/.sdkman/candidates/maven/current
+[DEBUG] env.MAVEN_PROJECTBASEDIR: /workspace/elevated-potential
+[DEBUG] env.MY_RUBY_HOME: /home/gitpod/.rvm/rubies/ruby-3.2.3
+[DEBUG] env.NGINX_DOCROOT_IN_REPO: public
+[DEBUG] env.NIX_BINTOOLS: /nix/store/c53f8hagyblvx52zylsnqcc0b3nxbrcl-binutils-wrapper-2.40
+[DEBUG] env.NIX_BINTOOLS_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu: 1
+[DEBUG] env.NIX_BUILD_CORES: 16
+[DEBUG] env.NIX_BUILD_TOP: /tmp
+[DEBUG] env.NIX_CC: /nix/store/4cjqvbp1jbkps185wl8qnbjpf8bdy8j9-gcc-wrapper-13.2.0
+[DEBUG] env.NIX_CC_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu: 1
+[DEBUG] env.NIX_CFLAGS_COMPILE:  -frandom-seed=6kgrsh1vlv
+[DEBUG] env.NIX_ENFORCE_NO_NATIVE: 1
+[DEBUG] env.NIX_HARDENING_ENABLE: bindnow format fortify fortify3 pic relro stackprotector strictoverflow
+[DEBUG] env.NIX_LDFLAGS: -rpath /nix/store/6kgrsh1vlv8axvdgl2qgmh6v8cgv4a1n-shell/lib 
+[DEBUG] env.NIX_PROFILES: /nix/var/nix/profiles/default /home/gitpod/.nix-profile
+[DEBUG] env.NIX_SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
+[DEBUG] env.NIX_STORE: /nix/store
+[DEBUG] env.NIX_VERSION: 2.19.2
+[DEBUG] env.NM: nm
+[DEBUG] env.NODE_VERSION: 20.11.1
+[DEBUG] env.NVM_DIR: /home/gitpod/.nvm
+[DEBUG] env.OBJCOPY: objcopy
+[DEBUG] env.OBJDUMP: objdump
+[DEBUG] env.OLDPWD: /workspace/elevated-potential
+[DEBUG] env.PATH: /nix/store/1zslabm02hi75anb2w8zjrqwzgs0vrs3-bash-interactive-5.2p26/bin:/nix/store/v3b4la4kh5l7dqzdyraqb1lyfrajfl5w-patchelf-0.15.0/bin:/nix/store/4cjqvbp1jbkps185wl8qnbjpf8bdy8j9-gcc-wrapper-13.2.0/bin:/nix/store/qs1nwzbp2ml3cxzsxihn82hl0w73snr0-gcc-13.2.0/bin:/nix/store/36wymklsa60bigdhb0p3139ws02r46lw-glibc-2.38-44-bin/bin:/nix/store/bicmg5gd50q6igk0y5mga1v0p1lk8f26-coreutils-9.4/bin:/nix/store/c53f8hagyblvx52zylsnqcc0b3nxbrcl-binutils-wrapper-2.40/bin:/nix/store/2ab5740x0cy1d74qvbpl5s28qikmppl5-binutils-2.40/bin:/nix/store/4wv531l4dikmjr71czl0hikaklhshcjm-lazygit-0.40.2/bin:/nix/store/bicmg5gd50q6igk0y5mga1v0p1lk8f26-coreutils-9.4/bin:/nix/store/p6fd7piqrin2h0mqxzmvyxyr6pyivndj-findutils-4.9.0/bin:/nix/store/2d582qba31ii28nyrww9bzb00aq06d1g-diffutils-3.10/bin:/nix/store/vd92lhcxs39hbdnzj8ycak5wvj466s3l-gnused-4.9/bin:/nix/store/mn911d51n5lklwr3zy4mdhxa77wzancb-gnugrep-3.11/bin:/nix/store/h53ycc406fmbq3ff0n0rjxdzb6lk9zcn-gawk-5.2.2/bin:/nix/store/1ds6c0i7z4advdr0z210sxgvmq786h09-gnutar-1.35/bin:/nix/store/nf4fhdqgjka360nkibx1yg14gybwb018-gzip-1.13/bin:/nix/store/v3hp6kidlb9yz6j51a0wlbnpclqpi94f-bzip2-1.0.8-bin/bin:/nix/store/15xrks0frcgils8qxfkhspyg6gi9rxdh-gnumake-4.4.1/bin:/nix/store/5l50g7kzj7v0rdhshld1vx46rf2k5lf9-bash-5.2p26/bin:/nix/store/2pi9hb31np2vhy8r9lfih47rf9n51crz-patch-2.7.6/bin:/nix/store/h8vfiwhq6kmvrnj96w52n36c6qm4lbyl-xz-5.4.6-bin/bin:/nix/store/rn6yfzxwp12z0zqavxx1841mh0ypr7jg-file-5.45/bin:/workspace/.cargo/bin:/home/gitpod/.pyenv/shims:/workspace/go/bin:/home/gitpod/.nix-profile/bin:/home/gitpod/.sdkman/candidates/maven/current/bin:/home/gitpod/.sdkman/candidates/java/current/bin:/home/gitpod/.sdkman/candidates/gradle/current/bin:/workspace/.cargo/bin:/home/gitpod/.rvm/gems/ruby-3.2.3/bin:/home/gitpod/.rvm/gems/ruby-3.2.3@global/bin:/home/gitpod/.rvm/rubies/ruby-3.2.3/bin:/workspace/go/bin:/home/gitpod/.nix-profile/bin:/ide/bin/remote-cli:/home/gitpod/go/bin:/home/gitpod/go-packages/bin:/home/gitpod/.nvm/versions/node/v20.11.1/bin:/home/gitpod/.yarn/bin:/home/gitpod/.pnpm:/home/gitpod/.pyenv/bin:/home/gitpod/.rvm/bin:/home/gitpod/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:/home/gitpod/.local/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/gitpod/.nvm/versions/node/v20.11.1/bin:/home/gitpod/.rvm/bin:/home/gitpod/.nvm/versions/node/v20.11.1/bin:/home/gitpod/.rvm/bin
+[DEBUG] env.PIPENV_VENV_IN_PROJECT: true
+[DEBUG] env.PIP_CACHE_DIR: /workspace/.pyenv_mirror/pip_cache
+[DEBUG] env.PNPM_HOME: /home/gitpod/.pnpm
+[DEBUG] env.POETRY_CACHE_DIR: /workspace/.pyenv_mirror/poetry
+[DEBUG] env.PROMPT_COMMAND: _direnv_hook;history -a
+[DEBUG] env.PWD: /workspace/elevated-potential
+[DEBUG] env.PYCHARM_PYTHON_PATH: /home/gitpod/.pyenv/shims/python
+[DEBUG] env.PYENV_FAKEROOT: /workspace/.pyenv_mirror/fakeroot
+[DEBUG] env.PYENV_HOOK_PATH: /home/gitpod/.gp_pyenv.d
+[DEBUG] env.PYENV_INIT_LOCK: /tmp/.pyenv_init.lock
+[DEBUG] env.PYENV_MIRROR: /workspace/.pyenv_mirror
+[DEBUG] env.PYENV_ROOT: /home/gitpod/.pyenv
+[DEBUG] env.PYENV_SHELL: bash
+[DEBUG] env.PYTHONUSERBASE: /workspace/.pyenv_mirror/user/current
+[DEBUG] env.PYTHONUSERBASE_VERSION_FILE: /workspace/.pyenv_mirror/user/.mounted_version
+[DEBUG] env.RANLIB: ranlib
+[DEBUG] env.READELF: readelf
+[DEBUG] env.RUBY_VERSION: ruby-3.2.3
+[DEBUG] env.RUST_VERSION: 1.76.0
+[DEBUG] env.SDKMAN_CANDIDATES_API: https://api.sdkman.io/2
+[DEBUG] env.SDKMAN_CANDIDATES_DIR: /home/gitpod/.sdkman/candidates
+[DEBUG] env.SDKMAN_DIR: /home/gitpod/.sdkman
+[DEBUG] env.SDKMAN_PLATFORM: linuxx64
+[DEBUG] env.SHELL: /nix/store/1zslabm02hi75anb2w8zjrqwzgs0vrs3-bash-interactive-5.2p26/bin/bash
+[DEBUG] env.SHLVL: 2
+[DEBUG] env.SIZE: size
+[DEBUG] env.SOURCE_DATE_EPOCH: 315532800
+[DEBUG] env.STRINGS: strings
+[DEBUG] env.STRIP: strip
+[DEBUG] env.SUPERVISOR_ADDR: localhost:22999
+[DEBUG] env.TEMP: /tmp
+[DEBUG] env.TEMPDIR: /tmp
+[DEBUG] env.TERM: xterm-256color
+[DEBUG] env.THEIA_MINI_BROWSER_HOST_PATTERN: browser-{{hostname}}
+[DEBUG] env.THEIA_RATELIMIT_LOG: 50
+[DEBUG] env.THEIA_WEBVIEW_EXTERNAL_ENDPOINT: webview-{{hostname}}
+[DEBUG] env.THEIA_WORKSPACE_ROOT: /workspace/elevated-potential
+[DEBUG] env.TMP: /tmp
+[DEBUG] env.TMPDIR: /tmp
+[DEBUG] env.TRIGGER_REBUILD: 1
+[DEBUG] env.USER: gitpod
+[DEBUG] env.VISUAL: /ide/bin/remote-cli/gitpod-code
+[DEBUG] env.VSX_REGISTRY_URL: https://open-vsx.gitpod.io
+[DEBUG] env.WORKSPACEKIT_WRAP_NETNS: true
+[DEBUG] env.XDG_DATA_DIRS: /nix/store/v3b4la4kh5l7dqzdyraqb1lyfrajfl5w-patchelf-0.15.0/share:/usr/local/share:/usr/share:/home/gitpod/.nix-profile/share:/nix/var/nix/profiles/default/share:/home/gitpod/.nix-profile/share:/nix/var/nix/profiles/default/share
+[DEBUG] env._: /home/gitpod/.sdkman/candidates/maven/current/bin/mvn
+[DEBUG] env.__structuredAttrs: 
+[DEBUG] env.binary_input: /home/gitpod/.sdkman/tmp/java-17.0.10-tem.bin
+[DEBUG] env.buildCommandPath: /tmp/nix-shell-1902-0/.attr-0
+[DEBUG] env.buildInputs: /nix/store/4wv531l4dikmjr71czl0hikaklhshcjm-lazygit-0.40.2
+[DEBUG] env.builder: /nix/store/5l50g7kzj7v0rdhshld1vx46rf2k5lf9-bash-5.2p26/bin/bash
+[DEBUG] env.cmakeFlags: 
+[DEBUG] env.configureFlags: 
+[DEBUG] env.depsBuildBuild: 
+[DEBUG] env.depsBuildBuildPropagated: 
+[DEBUG] env.depsBuildTarget: 
+[DEBUG] env.depsBuildTargetPropagated: 
+[DEBUG] env.depsHostHost: 
+[DEBUG] env.depsHostHostPropagated: 
+[DEBUG] env.depsTargetTarget: 
+[DEBUG] env.depsTargetTargetPropagated: 
+[DEBUG] env.doCheck: 
+[DEBUG] env.doInstallCheck: 
+[DEBUG] env.enableParallelBuilding: 1
+[DEBUG] env.enableParallelChecking: 1
+[DEBUG] env.enableParallelInstalling: 1
+[DEBUG] env.mesonFlags: 
+[DEBUG] env.name: shell
+[DEBUG] env.nativeBuildInputs: 
+[DEBUG] env.out: /nix/store/6kgrsh1vlv8axvdgl2qgmh6v8cgv4a1n-shell
+[DEBUG] env.outputs: out
+[DEBUG] env.passAsFile: buildCommand
+[DEBUG] env.patches: 
+[DEBUG] env.propagatedBuildInputs: 
+[DEBUG] env.propagatedNativeBuildInputs: 
+[DEBUG] env.rvm_bin_path: /home/gitpod/.rvm/bin
+[DEBUG] env.rvm_path: /home/gitpod/.rvm
+[DEBUG] env.rvm_prefix: /home/gitpod
+[DEBUG] env.rvm_version: 1.29.12 (latest)
+[DEBUG] env.shell: /nix/store/5l50g7kzj7v0rdhshld1vx46rf2k5lf9-bash-5.2p26/bin/bash
+[DEBUG] env.stdenv: /nix/store/yq9qag5ak3w15nhcqplnhxpny6295l36-stdenv-linux
+[DEBUG] env.strictDeps: 
+[DEBUG] env.system: x86_64-linux
+[DEBUG] env.zip_output: /home/gitpod/.sdkman/tmp/java-17.0.10-tem.zip
+[DEBUG] file.encoding: UTF-8
+[DEBUG] file.separator: /
+[DEBUG] guava.version: 33.0.0-jre
+[DEBUG] jacoco.version: 0.8.9
+[DEBUG] java.class.path: /home/gitpod/.sdkman/candidates/maven/current/boot/plexus-classworlds-2.7.0.jar
+[DEBUG] java.class.version: 61.0
+[DEBUG] java.home: /home/gitpod/.sdkman/candidates/java/17.0.10-tem
+[DEBUG] java.io.tmpdir: /tmp
+[DEBUG] java.library.path: /usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib
+[DEBUG] java.runtime.name: OpenJDK Runtime Environment
+[DEBUG] java.runtime.version: 17.0.10+7
+[DEBUG] java.specification.name: Java Platform API Specification
+[DEBUG] java.specification.vendor: Oracle Corporation
+[DEBUG] java.specification.version: 17
+[DEBUG] java.vendor: Eclipse Adoptium
+[DEBUG] java.vendor.url: https://adoptium.net/
+[DEBUG] java.vendor.url.bug: https://github.com/adoptium/adoptium-support/issues
+[DEBUG] java.vendor.version: Temurin-17.0.10+7
+[DEBUG] java.version: 17.0.10
+[DEBUG] java.version.date: 2024-01-16
+[DEBUG] java.vm.compressedOopsMode: Zero based
+[DEBUG] java.vm.info: mixed mode, sharing
+[DEBUG] java.vm.name: OpenJDK 64-Bit Server VM
+[DEBUG] java.vm.specification.name: Java Virtual Machine Specification
+[DEBUG] java.vm.specification.vendor: Oracle Corporation
+[DEBUG] java.vm.specification.version: 17
+[DEBUG] java.vm.vendor: Eclipse Adoptium
+[DEBUG] java.vm.version: 17.0.10+7
+[DEBUG] jdeferred.version: 2.0.0
+[DEBUG] jdk.debug: release
+[DEBUG] library.jansi.path: /home/gitpod/.sdkman/candidates/maven/current/lib/jansi-native
+[DEBUG] line.separator: 
+
+[DEBUG] maven-compiler-plugin.version: 3.8.1
+[DEBUG] maven-surefire-version: 3.0.0
+[DEBUG] maven.build.timestamp: 2024-03-11T06:05:39Z
+[DEBUG] maven.build.version: Apache Maven 3.9.6 (bc0240f3c744dd6b6ec2920b3cd08dcc295161ae)
+[DEBUG] maven.compiler.source: 17
+[DEBUG] maven.compiler.target: 17
+[DEBUG] maven.conf: /home/gitpod/.sdkman/candidates/maven/current/conf
+[DEBUG] maven.home: /home/gitpod/.sdkman/candidates/maven/current
+[DEBUG] maven.multiModuleProjectDirectory: /workspace/elevated-potential
+[DEBUG] maven.version: 3.9.6
+[DEBUG] native.encoding: UTF-8
+[DEBUG] os.arch: amd64
+[DEBUG] os.name: Linux
+[DEBUG] os.version: 6.1.75-060175-generic
+[DEBUG] path.separator: :
+[DEBUG] project.baseUri: file:/workspace/elevated-potential/elevated-potential.core.api/
+[DEBUG] project.build.outputTimestamp: 1
+[DEBUG] project.build.sourceEncoding: UTF-8
+[DEBUG] sun.arch.data.model: 64
+[DEBUG] sun.boot.library.path: /home/gitpod/.sdkman/candidates/java/17.0.10-tem/lib
+[DEBUG] sun.cpu.endian: little
+[DEBUG] sun.io.unicode.encoding: UnicodeLittle
+[DEBUG] sun.java.command: org.codehaus.plexus.classworlds.launcher.Launcher -X test
+[DEBUG] sun.java.launcher: SUN_STANDARD
+[DEBUG] sun.jnu.encoding: UTF-8
+[DEBUG] sun.management.compiler: HotSpot 64-Bit Tiered Compilers
+[DEBUG] sun.stderr.encoding: UTF-8
+[DEBUG] user.country: US
+[DEBUG] user.dir: /workspace/elevated-potential
+[DEBUG] user.home: /home/gitpod
+[DEBUG] user.language: en
+[DEBUG] user.name: gitpod
+[DEBUG] Using 'UTF-8' encoding to copy filtered resources.
+[DEBUG] Using 'UTF-8' encoding to copy filtered properties files.
+[DEBUG] resource with targetPath null
+directory /workspace/elevated-potential/elevated-potential.core.api/src/test/resources
+excludes []
+includes []
+[INFO] skip non existing resourceDirectory /workspace/elevated-potential/elevated-potential.core.api/src/test/resources
+[DEBUG] no user filter components
+[INFO] 
+[INFO] --- compiler:3.12.1:testCompile (testCompile) @ elevated-potential-core-api ---
+[DEBUG] Loading mojo org.apache.maven.plugins:maven-compiler-plugin:3.12.1:testCompile from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-compiler-plugin:3.12.1, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a]
+[DEBUG] Configuring mojo execution 'org.apache.maven.plugins:maven-compiler-plugin:3.12.1:testCompile:testCompile' with basic configurator -->
+[DEBUG]   (f) annotationProcessorPathsUseDepMgmt = false
+[DEBUG]   (f) basedir = /workspace/elevated-potential/elevated-potential.core.api
+[DEBUG]   (f) buildDirectory = /workspace/elevated-potential/elevated-potential.core.api/target
+[DEBUG]   (f) compileSourceRoots = [/workspace/elevated-potential/elevated-potential.core.api/src/test/java]
+[DEBUG]   (f) compilerId = javac
+[DEBUG]   (f) createMissingPackageInfoClass = true
+[DEBUG]   (f) debug = true
+[DEBUG]   (f) debugFileName = javac-test
+[DEBUG]   (f) enablePreview = false
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) failOnError = true
+[DEBUG]   (f) failOnWarning = false
+[DEBUG]   (f) fileExtensions = [jar, class]
+[DEBUG]   (f) forceJavacCompilerUse = false
+[DEBUG]   (f) fork = false
+[DEBUG]   (f) generatedTestSourcesDirectory = /workspace/elevated-potential/elevated-potential.core.api/target/generated-test-sources/test-annotations
+[DEBUG]   (f) mojoExecution = org.apache.maven.plugins:maven-compiler-plugin:3.12.1:testCompile {execution: testCompile}
+[DEBUG]   (f) optimize = false
+[DEBUG]   (f) outputDirectory = /workspace/elevated-potential/elevated-potential.core.api/target/test-classes
+[DEBUG]   (f) outputTimestamp = 1
+[DEBUG]   (f) parameters = false
+[DEBUG]   (f) project = MavenProject: tripleo.elijah:elevated-potential-core-api:2024.elevated-potential.2 @ /workspace/elevated-potential/elevated-potential.core.api/pom.xml
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@66213a0d
+[DEBUG]   (f) showCompilationChanges = false
+[DEBUG]   (f) showDeprecation = false
+[DEBUG]   (f) showWarnings = true
+[DEBUG]   (f) skipMultiThreadWarning = false
+[DEBUG]   (f) source = 17
+[DEBUG]   (f) staleMillis = 0
+[DEBUG]   (s) target = 17
+[DEBUG]   (f) testPath = [/workspace/elevated-potential/elevated-potential.core.api/target/test-classes, /workspace/elevated-potential/elevated-potential.core.api/target/classes, /workspace/m2-repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar, /workspace/m2-repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar, /workspace/m2-repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar, /workspace/m2-repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar, /workspace/m2-repository/org/assertj/assertj-core/3.25.3/assertj-core-3.25.3.jar, /workspace/m2-repository/net/bytebuddy/byte-buddy/1.14.11/byte-buddy-1.14.11.jar, /workspace/m2-repository/com/google/truth/truth/1.4.2/truth-1.4.2.jar, /workspace/m2-repository/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar, /workspace/m2-repository/junit/junit/4.13.2/junit-4.13.2.jar, /workspace/m2-repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar, /workspace/m2-repository/com/google/auto/value/auto-value-annotations/1.10.4/auto-value-annotations-1.10.4.jar, /workspace/m2-repository/com/google/errorprone/error_prone_annotations/2.25.0/error_prone_annotations-2.25.0.jar, /workspace/m2-repository/org/ow2/asm/asm/9.6/asm-9.6.jar, /workspace/m2-repository/org/antlr/antlr-runtime/3.5.3/antlr-runtime-3.5.3.jar, /workspace/m2-repository/io/smallrye/reactive/mutiny/2.5.8/mutiny-2.5.8.jar, /workspace/m2-repository/io/smallrye/common/smallrye-common-annotation/2.2.0/smallrye-common-annotation-2.2.0.jar, /workspace/m2-repository/org/clojure/clojure/1.10.3/clojure-1.10.3.jar, /workspace/m2-repository/org/clojure/spec.alpha/0.2.194/spec.alpha-0.2.194.jar, /workspace/m2-repository/org/clojure/core.specs.alpha/0.2.56/core.specs.alpha-0.2.56.jar, /workspace/m2-repository/org/mockito/mockito-core/5.11.0/mockito-core-5.11.0.jar, /workspace/m2-repository/net/bytebuddy/byte-buddy-agent/1.14.12/byte-buddy-agent-1.14.12.jar, /workspace/m2-repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar, /workspace/m2-repository/com/gitlab/tripleo1/buffers/3038ff102c/buffers-3038ff102c.jar, /workspace/m2-repository/com/gitlab/Tripleo/range/v0.0.3b/range-v0.0.3b.jar, /workspace/m2-repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar, /workspace/m2-repository/org/eclipse/jdt/org.eclipse.jdt.annotation/2.2.800/org.eclipse.jdt.annotation-2.2.800.jar, /workspace/m2-repository/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar, /workspace/m2-repository/org/slf4j/slf4j-simple/2.0.12/slf4j-simple-2.0.12.jar, /workspace/m2-repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar, /workspace/m2-repository/com/github/spotbugs/spotbugs-annotations/4.8.3/spotbugs-annotations-4.8.3.jar, /workspace/m2-repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar, /workspace/m2-repository/com/google/guava/guava/33.0.0-jre/guava-33.0.0-jre.jar, /workspace/m2-repository/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar, /workspace/m2-repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar, /workspace/m2-repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar, /workspace/m2-repository/com/tngtech/archunit/archunit-junit4/1.2.1/archunit-junit4-1.2.1.jar, /workspace/m2-repository/com/tngtech/archunit/archunit/1.2.1/archunit-1.2.1.jar, /workspace/m2-repository/io/reactivex/rxjava3/rxjava/3.1.8/rxjava-3.1.8.jar, /workspace/m2-repository/org/reactivestreams/reactive-streams/1.0.4/reactive-streams-1.0.4.jar, /workspace/m2-repository/commons-codec/commons-codec/1.16.1/commons-codec-1.16.1.jar, /workspace/m2-repository/antlr/antlr/2.7.7/antlr-2.7.7.jar, /workspace/m2-repository/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar, /workspace/m2-repository/org/jdeferred/v2/jdeferred-core/2.0.0/jdeferred-core-2.0.0.jar, /workspace/m2-repository/org/jetbrains/annotations/24.1.0/annotations-24.1.0.jar, /workspace/m2-repository/com/google/auto/service/auto-service/1.1.1/auto-service-1.1.1.jar, /workspace/m2-repository/com/google/auto/service/auto-service-annotations/1.1.1/auto-service-annotations-1.1.1.jar, /workspace/m2-repository/com/google/auto/auto-common/1.2.1/auto-common-1.2.1.jar, /workspace/m2-repository/org/jctools/jctools-core/4.0.3/jctools-core-4.0.3.jar, /workspace/m2-repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar, /workspace/m2-repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar, /workspace/m2-repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar, /workspace/m2-repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar]
+[DEBUG]   (f) useIncrementalCompilation = true
+[DEBUG]   (f) useModulePath = true
+[DEBUG]   (f) verbose = false
+[DEBUG] -- end configuration --
+[DEBUG] Using compiler 'javac'.
+[DEBUG] Adding /workspace/elevated-potential/elevated-potential.core.api/target/generated-test-sources/test-annotations to test-compile source roots:
+  /workspace/elevated-potential/elevated-potential.core.api/src/test/java
+[DEBUG] New test-compile source roots:
+  /workspace/elevated-potential/elevated-potential.core.api/src/test/java
+  /workspace/elevated-potential/elevated-potential.core.api/target/generated-test-sources/test-annotations
+[DEBUG] CompilerReuseStrategy: reuseCreated
+[DEBUG] useIncrementalCompilation enabled
+[INFO] 	Stale source detected: /workspace/elevated-potential/elevated-potential.core.api/src/test/java/tripleo/vendor/com_baeldung_guava_eventbus/GuavaEventBusUnitTest.java
+[INFO] Recompiling the module because of changed source code.
+[DEBUG] Classpath:
+[DEBUG]  /workspace/elevated-potential/elevated-potential.core.api/target/test-classes
+[DEBUG]  /workspace/elevated-potential/elevated-potential.core.api/target/classes
+[DEBUG]  /workspace/m2-repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar
+[DEBUG]  /workspace/m2-repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar
+[DEBUG]  /workspace/m2-repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar
+[DEBUG]  /workspace/m2-repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar
+[DEBUG]  /workspace/m2-repository/org/assertj/assertj-core/3.25.3/assertj-core-3.25.3.jar
+[DEBUG]  /workspace/m2-repository/net/bytebuddy/byte-buddy/1.14.11/byte-buddy-1.14.11.jar
+[DEBUG]  /workspace/m2-repository/com/google/truth/truth/1.4.2/truth-1.4.2.jar
+[DEBUG]  /workspace/m2-repository/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar
+[DEBUG]  /workspace/m2-repository/junit/junit/4.13.2/junit-4.13.2.jar
+[DEBUG]  /workspace/m2-repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+[DEBUG]  /workspace/m2-repository/com/google/auto/value/auto-value-annotations/1.10.4/auto-value-annotations-1.10.4.jar
+[DEBUG]  /workspace/m2-repository/com/google/errorprone/error_prone_annotations/2.25.0/error_prone_annotations-2.25.0.jar
+[DEBUG]  /workspace/m2-repository/org/ow2/asm/asm/9.6/asm-9.6.jar
+[DEBUG]  /workspace/m2-repository/org/antlr/antlr-runtime/3.5.3/antlr-runtime-3.5.3.jar
+[DEBUG]  /workspace/m2-repository/io/smallrye/reactive/mutiny/2.5.8/mutiny-2.5.8.jar
+[DEBUG]  /workspace/m2-repository/io/smallrye/common/smallrye-common-annotation/2.2.0/smallrye-common-annotation-2.2.0.jar
+[DEBUG]  /workspace/m2-repository/org/clojure/clojure/1.10.3/clojure-1.10.3.jar
+[DEBUG]  /workspace/m2-repository/org/clojure/spec.alpha/0.2.194/spec.alpha-0.2.194.jar
+[DEBUG]  /workspace/m2-repository/org/clojure/core.specs.alpha/0.2.56/core.specs.alpha-0.2.56.jar
+[DEBUG]  /workspace/m2-repository/org/mockito/mockito-core/5.11.0/mockito-core-5.11.0.jar
+[DEBUG]  /workspace/m2-repository/net/bytebuddy/byte-buddy-agent/1.14.12/byte-buddy-agent-1.14.12.jar
+[DEBUG]  /workspace/m2-repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar
+[DEBUG]  /workspace/m2-repository/com/gitlab/tripleo1/buffers/3038ff102c/buffers-3038ff102c.jar
+[DEBUG]  /workspace/m2-repository/com/gitlab/Tripleo/range/v0.0.3b/range-v0.0.3b.jar
+[DEBUG]  /workspace/m2-repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
+[DEBUG]  /workspace/m2-repository/org/eclipse/jdt/org.eclipse.jdt.annotation/2.2.800/org.eclipse.jdt.annotation-2.2.800.jar
+[DEBUG]  /workspace/m2-repository/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar
+[DEBUG]  /workspace/m2-repository/org/slf4j/slf4j-simple/2.0.12/slf4j-simple-2.0.12.jar
+[DEBUG]  /workspace/m2-repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar
+[DEBUG]  /workspace/m2-repository/com/github/spotbugs/spotbugs-annotations/4.8.3/spotbugs-annotations-4.8.3.jar
+[DEBUG]  /workspace/m2-repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar
+[DEBUG]  /workspace/m2-repository/com/google/guava/guava/33.0.0-jre/guava-33.0.0-jre.jar
+[DEBUG]  /workspace/m2-repository/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar
+[DEBUG]  /workspace/m2-repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+[DEBUG]  /workspace/m2-repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar
+[DEBUG]  /workspace/m2-repository/com/tngtech/archunit/archunit-junit4/1.2.1/archunit-junit4-1.2.1.jar
+[DEBUG]  /workspace/m2-repository/com/tngtech/archunit/archunit/1.2.1/archunit-1.2.1.jar
+[DEBUG]  /workspace/m2-repository/io/reactivex/rxjava3/rxjava/3.1.8/rxjava-3.1.8.jar
+[DEBUG]  /workspace/m2-repository/org/reactivestreams/reactive-streams/1.0.4/reactive-streams-1.0.4.jar
+[DEBUG]  /workspace/m2-repository/commons-codec/commons-codec/1.16.1/commons-codec-1.16.1.jar
+[DEBUG]  /workspace/m2-repository/antlr/antlr/2.7.7/antlr-2.7.7.jar
+[DEBUG]  /workspace/m2-repository/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar
+[DEBUG]  /workspace/m2-repository/org/jdeferred/v2/jdeferred-core/2.0.0/jdeferred-core-2.0.0.jar
+[DEBUG]  /workspace/m2-repository/org/jetbrains/annotations/24.1.0/annotations-24.1.0.jar
+[DEBUG]  /workspace/m2-repository/com/google/auto/service/auto-service/1.1.1/auto-service-1.1.1.jar
+[DEBUG]  /workspace/m2-repository/com/google/auto/service/auto-service-annotations/1.1.1/auto-service-annotations-1.1.1.jar
+[DEBUG]  /workspace/m2-repository/com/google/auto/auto-common/1.2.1/auto-common-1.2.1.jar
+[DEBUG]  /workspace/m2-repository/org/jctools/jctools-core/4.0.3/jctools-core-4.0.3.jar
+[DEBUG]  /workspace/m2-repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar
+[DEBUG]  /workspace/m2-repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar
+[DEBUG]  /workspace/m2-repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar
+[DEBUG]  /workspace/m2-repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar
+[DEBUG] Source roots:
+[DEBUG]  /workspace/elevated-potential/elevated-potential.core.api/src/test/java
+[DEBUG]  /workspace/elevated-potential/elevated-potential.core.api/target/generated-test-sources/test-annotations
+[DEBUG] Command line options:
+[DEBUG] -d /workspace/elevated-potential/elevated-potential.core.api/target/test-classes -classpath /workspace/elevated-potential/elevated-potential.core.api/target/test-classes:/workspace/elevated-potential/elevated-potential.core.api/target/classes:/workspace/m2-repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/workspace/m2-repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/workspace/m2-repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/workspace/m2-repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/workspace/m2-repository/org/assertj/assertj-core/3.25.3/assertj-core-3.25.3.jar:/workspace/m2-repository/net/bytebuddy/byte-buddy/1.14.11/byte-buddy-1.14.11.jar:/workspace/m2-repository/com/google/truth/truth/1.4.2/truth-1.4.2.jar:/workspace/m2-repository/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar:/workspace/m2-repository/junit/junit/4.13.2/junit-4.13.2.jar:/workspace/m2-repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/workspace/m2-repository/com/google/auto/value/auto-value-annotations/1.10.4/auto-value-annotations-1.10.4.jar:/workspace/m2-repository/com/google/errorprone/error_prone_annotations/2.25.0/error_prone_annotations-2.25.0.jar:/workspace/m2-repository/org/ow2/asm/asm/9.6/asm-9.6.jar:/workspace/m2-repository/org/antlr/antlr-runtime/3.5.3/antlr-runtime-3.5.3.jar:/workspace/m2-repository/io/smallrye/reactive/mutiny/2.5.8/mutiny-2.5.8.jar:/workspace/m2-repository/io/smallrye/common/smallrye-common-annotation/2.2.0/smallrye-common-annotation-2.2.0.jar:/workspace/m2-repository/org/clojure/clojure/1.10.3/clojure-1.10.3.jar:/workspace/m2-repository/org/clojure/spec.alpha/0.2.194/spec.alpha-0.2.194.jar:/workspace/m2-repository/org/clojure/core.specs.alpha/0.2.56/core.specs.alpha-0.2.56.jar:/workspace/m2-repository/org/mockito/mockito-core/5.11.0/mockito-core-5.11.0.jar:/workspace/m2-repository/net/bytebuddy/byte-buddy-agent/1.14.12/byte-buddy-agent-1.14.12.jar:/workspace/m2-repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/workspace/m2-repository/com/gitlab/tripleo1/buffers/3038ff102c/buffers-3038ff102c.jar:/workspace/m2-repository/com/gitlab/Tripleo/range/v0.0.3b/range-v0.0.3b.jar:/workspace/m2-repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:/workspace/m2-repository/org/eclipse/jdt/org.eclipse.jdt.annotation/2.2.800/org.eclipse.jdt.annotation-2.2.800.jar:/workspace/m2-repository/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar:/workspace/m2-repository/org/slf4j/slf4j-simple/2.0.12/slf4j-simple-2.0.12.jar:/workspace/m2-repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar:/workspace/m2-repository/com/github/spotbugs/spotbugs-annotations/4.8.3/spotbugs-annotations-4.8.3.jar:/workspace/m2-repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/workspace/m2-repository/com/google/guava/guava/33.0.0-jre/guava-33.0.0-jre.jar:/workspace/m2-repository/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar:/workspace/m2-repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/workspace/m2-repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar:/workspace/m2-repository/com/tngtech/archunit/archunit-junit4/1.2.1/archunit-junit4-1.2.1.jar:/workspace/m2-repository/com/tngtech/archunit/archunit/1.2.1/archunit-1.2.1.jar:/workspace/m2-repository/io/reactivex/rxjava3/rxjava/3.1.8/rxjava-3.1.8.jar:/workspace/m2-repository/org/reactivestreams/reactive-streams/1.0.4/reactive-streams-1.0.4.jar:/workspace/m2-repository/commons-codec/commons-codec/1.16.1/commons-codec-1.16.1.jar:/workspace/m2-repository/antlr/antlr/2.7.7/antlr-2.7.7.jar:/workspace/m2-repository/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar:/workspace/m2-repository/org/jdeferred/v2/jdeferred-core/2.0.0/jdeferred-core-2.0.0.jar:/workspace/m2-repository/org/jetbrains/annotations/24.1.0/annotations-24.1.0.jar:/workspace/m2-repository/com/google/auto/service/auto-service/1.1.1/auto-service-1.1.1.jar:/workspace/m2-repository/com/google/auto/service/auto-service-annotations/1.1.1/auto-service-annotations-1.1.1.jar:/workspace/m2-repository/com/google/auto/auto-common/1.2.1/auto-common-1.2.1.jar:/workspace/m2-repository/org/jctools/jctools-core/4.0.3/jctools-core-4.0.3.jar:/workspace/m2-repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar:/workspace/m2-repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar:/workspace/m2-repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/workspace/m2-repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar: -sourcepath /workspace/elevated-potential/elevated-potential.core.api/src/test/java:/workspace/elevated-potential/elevated-potential.core.api/target/generated-test-sources/test-annotations: -s /workspace/elevated-potential/elevated-potential.core.api/target/generated-test-sources/test-annotations -g -target 17 -source 17 -encoding UTF-8 -XDuseUnsharedTable=true
+[DEBUG] incrementalBuildHelper#beforeRebuildExecution
+[INFO] Compiling 1 source file with javac [debug target 17] to target/test-classes
+[DEBUG] incrementalBuildHelper#afterRebuildExecution
+[INFO] 
+[INFO] --- surefire:3.2.2:test (default-test) @ elevated-potential-core-api ---
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for jboss-public-repository-group (http://repository.jboss.org/nexus/content/groups/public).
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=587531, ConflictMarker.markTime=163180, ConflictMarker.nodeCount=78, ConflictIdSorter.graphTime=239740, ConflictIdSorter.topsortTime=45840, ConflictIdSorter.conflictIdCount=39, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=2372540, ConflictResolver.conflictItemCount=76, DfDependencyCollector.collectTime=90538293, DfDependencyCollector.transformTime=3447100}
+[DEBUG] org.apache.maven.plugins:maven-surefire-plugin:jar:3.2.2
+[DEBUG]    org.apache.maven.surefire:maven-surefire-common:jar:3.2.2:compile
+[DEBUG]       org.apache.maven.surefire:surefire-api:jar:3.2.2:compile
+[DEBUG]          org.apache.maven.surefire:surefire-logger-api:jar:3.2.2:compile
+[DEBUG]       org.apache.maven.surefire:surefire-extensions-api:jar:3.2.2:compile
+[DEBUG]       org.apache.maven.surefire:surefire-booter:jar:3.2.2:compile
+[DEBUG]          org.apache.maven.surefire:surefire-extensions-spi:jar:3.2.2:compile
+[DEBUG]       org.eclipse.aether:aether-util:jar:1.0.0.v20140518:compile
+[DEBUG]          org.eclipse.aether:aether-api:jar:1.0.0.v20140518:compile
+[DEBUG]       org.apache.maven.shared:maven-common-artifact-filters:jar:3.1.1:compile (version managed from default) (exclusions managed from default)
+[DEBUG]          org.apache.maven:maven-artifact:jar:3.2.5:provided (scope managed from default) (version managed from default)
+[DEBUG]             org.codehaus.plexus:plexus-utils:jar:4.0.0:provided (version managed from default)
+[DEBUG]          org.apache.maven:maven-core:jar:3.2.5:provided (scope managed from default) (version managed from default)
+[DEBUG]             org.apache.maven:maven-settings:jar:3.2.5:provided (version managed from default)
+[DEBUG]             org.apache.maven:maven-settings-builder:jar:3.2.5:provided
+[DEBUG]             org.apache.maven:maven-repository-metadata:jar:3.2.5:provided
+[DEBUG]             org.apache.maven:maven-model-builder:jar:3.2.5:provided
+[DEBUG]             org.apache.maven:maven-aether-provider:jar:3.2.5:provided
+[DEBUG]                org.eclipse.aether:aether-spi:jar:1.0.0.v20140518:provided
+[DEBUG]             org.eclipse.aether:aether-impl:jar:1.0.0.v20140518:provided
+[DEBUG]             org.eclipse.sisu:org.eclipse.sisu.plexus:jar:0.9.0.M2:provided (version managed from default)
+[DEBUG]                javax.annotation:javax.annotation-api:jar:1.2:provided
+[DEBUG]                javax.enterprise:cdi-api:jar:1.2:provided
+[DEBUG]                org.eclipse.sisu:org.eclipse.sisu.inject:jar:0.9.0.M2:provided (version managed from default)
+[DEBUG]             org.sonatype.sisu:sisu-guice:jar:no_aop:3.2.3:provided
+[DEBUG]                javax.inject:javax.inject:jar:1:provided
+[DEBUG]                aopalliance:aopalliance:jar:1.0:provided
+[DEBUG]                com.google.guava:guava:jar:16.0.1:provided
+[DEBUG]             org.codehaus.plexus:plexus-interpolation:jar:1.21:provided
+[DEBUG]             org.codehaus.plexus:plexus-classworlds:jar:2.5.2:provided
+[DEBUG]             org.codehaus.plexus:plexus-component-annotations:jar:1.5.5:provided
+[DEBUG]             org.sonatype.plexus:plexus-sec-dispatcher:jar:1.3:provided
+[DEBUG]                org.sonatype.plexus:plexus-cipher:jar:1.4:provided
+[DEBUG]          org.apache.maven:maven-plugin-api:jar:3.2.5:provided (scope managed from default) (version managed from default)
+[DEBUG]          commons-io:commons-io:jar:2.12.0:compile (version managed from default)
+[DEBUG]       org.codehaus.plexus:plexus-java:jar:1.2.0:compile (version managed from default)
+[DEBUG]          org.ow2.asm:asm:jar:9.6:compile
+[DEBUG]          com.thoughtworks.qdox:qdox:jar:2.0.3:compile
+[DEBUG]       org.apache.maven.surefire:surefire-shared-utils:jar:3.2.2:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-surefire-plugin:3.2.2
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-surefire-plugin:3.2.2
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-surefire-plugin:3.2.2
+[DEBUG]   Included: org.apache.maven.plugins:maven-surefire-plugin:jar:3.2.2
+[DEBUG]   Included: org.apache.maven.surefire:maven-surefire-common:jar:3.2.2
+[DEBUG]   Included: org.apache.maven.surefire:surefire-api:jar:3.2.2
+[DEBUG]   Included: org.apache.maven.surefire:surefire-logger-api:jar:3.2.2
+[DEBUG]   Included: org.apache.maven.surefire:surefire-extensions-api:jar:3.2.2
+[DEBUG]   Included: org.apache.maven.surefire:surefire-booter:jar:3.2.2
+[DEBUG]   Included: org.apache.maven.surefire:surefire-extensions-spi:jar:3.2.2
+[DEBUG]   Included: org.apache.maven.shared:maven-common-artifact-filters:jar:3.1.1
+[DEBUG]   Included: commons-io:commons-io:jar:2.12.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-java:jar:1.2.0
+[DEBUG]   Included: org.ow2.asm:asm:jar:9.6
+[DEBUG]   Included: com.thoughtworks.qdox:qdox:jar:2.0.3
+[DEBUG]   Included: org.apache.maven.surefire:surefire-shared-utils:jar:3.2.2
+[DEBUG] Loading mojo org.apache.maven.plugins:maven-surefire-plugin:3.2.2:test from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-surefire-plugin:3.2.2, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@2cdf8d8a]
+[DEBUG] Configuring mojo execution 'org.apache.maven.plugins:maven-surefire-plugin:3.2.2:test:default-test' with basic configurator -->
+[DEBUG]   (f) additionalClasspathDependencies = []
+[DEBUG]   (s) additionalClasspathElements = []
+[DEBUG]   (s) basedir = /workspace/elevated-potential/elevated-potential.core.api
+[DEBUG]   (s) childDelegation = false
+[DEBUG]   (f) classesDirectory = /workspace/elevated-potential/elevated-potential.core.api/target/classes
+[DEBUG]   (s) classpathDependencyExcludes = []
+[DEBUG]   (s) dependenciesToScan = []
+[DEBUG]   (s) disableXmlReport = false
+[DEBUG]   (s) enableAssertions = true
+[DEBUG]   (s) excludeJUnit5Engines = []
+[DEBUG]   (f) excludedEnvironmentVariables = []
+[DEBUG]   (s) excludes = []
+[DEBUG]   (s) failIfNoSpecifiedTests = true
+[DEBUG]   (s) failIfNoTests = true
+[DEBUG]   (s) failOnFlakeCount = 0
+[DEBUG]   (f) forkCount = 1
+[DEBUG]   (s) forkedProcessExitTimeoutInSeconds = 30
+[DEBUG]   (s) includeJUnit5Engines = []
+[DEBUG]   (s) includes = []
+[DEBUG]   (s) junitArtifactName = junit:junit
+[DEBUG]   (f) parallelMavenExecution = false
+[DEBUG]   (s) parallelOptimized = true
+[DEBUG]   (s) perCoreThreadCount = true
+[DEBUG]   (s) pluginArtifactMap = {org.apache.maven.plugins:maven-surefire-plugin=org.apache.maven.plugins:maven-surefire-plugin:maven-plugin:3.2.2:, org.apache.maven.surefire:maven-surefire-common=org.apache.maven.surefire:maven-surefire-common:jar:3.2.2:compile, org.apache.maven.surefire:surefire-api=org.apache.maven.surefire:surefire-api:jar:3.2.2:compile, org.apache.maven.surefire:surefire-logger-api=org.apache.maven.surefire:surefire-logger-api:jar:3.2.2:compile, org.apache.maven.surefire:surefire-extensions-api=org.apache.maven.surefire:surefire-extensions-api:jar:3.2.2:compile, org.apache.maven.surefire:surefire-booter=org.apache.maven.surefire:surefire-booter:jar:3.2.2:compile, org.apache.maven.surefire:surefire-extensions-spi=org.apache.maven.surefire:surefire-extensions-spi:jar:3.2.2:compile, org.eclipse.aether:aether-util=org.eclipse.aether:aether-util:jar:1.0.0.v20140518:compile, org.eclipse.aether:aether-api=org.eclipse.aether:aether-api:jar:1.0.0.v20140518:compile, org.apache.maven.shared:maven-common-artifact-filters=org.apache.maven.shared:maven-common-artifact-filters:jar:3.1.1:compile, commons-io:commons-io=commons-io:commons-io:jar:2.12.0:compile, org.codehaus.plexus:plexus-java=org.codehaus.plexus:plexus-java:jar:1.2.0:compile, org.ow2.asm:asm=org.ow2.asm:asm:jar:9.6:compile, com.thoughtworks.qdox:qdox=com.thoughtworks.qdox:qdox:jar:2.0.3:compile, org.apache.maven.surefire:surefire-shared-utils=org.apache.maven.surefire:surefire-shared-utils:jar:3.2.2:compile}
+[DEBUG]   (f) pluginDescriptor = Component Descriptor: role: 'org.apache.maven.plugin.Mojo', implementation: 'org.apache.maven.plugins.maven_surefire_plugin.HelpMojo', role hint: 'org.apache.maven.plugins:maven-surefire-plugin:3.2.2:help'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'org.apache.maven.plugin.surefire.SurefirePlugin', role hint: 'org.apache.maven.plugins:maven-surefire-plugin:3.2.2:test'
+---
+[DEBUG]   (s) printSummary = true
+[DEBUG]   (s) project = MavenProject: tripleo.elijah:elevated-potential-core-api:2024.elevated-potential.2 @ /workspace/elevated-potential/elevated-potential.core.api/pom.xml
+[DEBUG]   (s) projectArtifactMap = {org.junit.jupiter:junit-jupiter-api=org.junit.jupiter:junit-jupiter-api:jar:5.10.2:test, org.opentest4j:opentest4j=org.opentest4j:opentest4j:jar:1.3.0:test, org.junit.platform:junit-platform-commons=org.junit.platform:junit-platform-commons:jar:1.10.2:test, org.apiguardian:apiguardian-api=org.apiguardian:apiguardian-api:jar:1.1.2:test, org.assertj:assertj-core=org.assertj:assertj-core:jar:3.25.3:test, net.bytebuddy:byte-buddy=net.bytebuddy:byte-buddy:jar:1.14.11:test, com.google.truth:truth=com.google.truth:truth:jar:1.4.2:test, org.checkerframework:checker-qual=org.checkerframework:checker-qual:jar:3.42.0:compile, junit:junit=junit:junit:jar:4.13.2:test, org.hamcrest:hamcrest-core=org.hamcrest:hamcrest-core:jar:1.3:test, com.google.auto.value:auto-value-annotations=com.google.auto.value:auto-value-annotations:jar:1.10.4:test, com.google.errorprone:error_prone_annotations=com.google.errorprone:error_prone_annotations:jar:2.25.0:compile, org.ow2.asm:asm=org.ow2.asm:asm:jar:9.6:test, org.antlr:antlr-runtime=org.antlr:antlr-runtime:jar:3.5.3:compile, io.smallrye.reactive:mutiny=io.smallrye.reactive:mutiny:jar:2.5.8:compile, io.smallrye.common:smallrye-common-annotation=io.smallrye.common:smallrye-common-annotation:jar:2.2.0:compile, org.clojure:clojure=org.clojure:clojure:jar:1.10.3:compile, org.clojure:spec.alpha=org.clojure:spec.alpha:jar:0.2.194:compile, org.clojure:core.specs.alpha=org.clojure:core.specs.alpha:jar:0.2.56:compile, org.mockito:mockito-core=org.mockito:mockito-core:jar:5.11.0:test, net.bytebuddy:byte-buddy-agent=net.bytebuddy:byte-buddy-agent:jar:1.14.12:test, org.objenesis:objenesis=org.objenesis:objenesis:jar:3.3:test, com.gitlab.tripleo1:buffers=com.gitlab.tripleo1:buffers:jar:3038ff102c:compile, com.gitlab.Tripleo:range=com.gitlab.Tripleo:range:jar:v0.0.3b:compile, javax.annotation:javax.annotation-api=javax.annotation:javax.annotation-api:jar:1.3.2:compile, org.eclipse.jdt:org.eclipse.jdt.annotation=org.eclipse.jdt:org.eclipse.jdt.annotation:jar:2.2.800:compile, org.apache.commons:commons-lang3=org.apache.commons:commons-lang3:jar:3.14.0:compile, org.slf4j:slf4j-simple=org.slf4j:slf4j-simple:jar:2.0.12:compile, org.slf4j:slf4j-api=org.slf4j:slf4j-api:jar:2.0.12:compile, com.github.spotbugs:spotbugs-annotations=com.github.spotbugs:spotbugs-annotations:jar:4.8.3:compile, com.google.code.findbugs:jsr305=com.google.code.findbugs:jsr305:jar:3.0.2:compile, com.google.guava:guava=com.google.guava:guava:jar:33.0.0-jre:compile, com.google.guava:failureaccess=com.google.guava:failureaccess:jar:1.0.2:compile, com.google.guava:listenablefuture=com.google.guava:listenablefuture:jar:9999.0-empty-to-avoid-conflict-with-guava:compile, com.google.j2objc:j2objc-annotations=com.google.j2objc:j2objc-annotations:jar:2.8:compile, com.tngtech.archunit:archunit-junit4=com.tngtech.archunit:archunit-junit4:jar:1.2.1:test, com.tngtech.archunit:archunit=com.tngtech.archunit:archunit:jar:1.2.1:test, io.reactivex.rxjava3:rxjava=io.reactivex.rxjava3:rxjava:jar:3.1.8:compile, org.reactivestreams:reactive-streams=org.reactivestreams:reactive-streams:jar:1.0.4:compile, commons-codec:commons-codec=commons-codec:commons-codec:jar:1.16.1:compile, antlr:antlr=antlr:antlr:jar:2.7.7:compile, org.projectlombok:lombok=org.projectlombok:lombok:jar:1.18.30:provided, org.jdeferred.v2:jdeferred-core=org.jdeferred.v2:jdeferred-core:jar:2.0.0:compile, org.jetbrains:annotations=org.jetbrains:annotations:jar:24.1.0:compile, com.google.auto.service:auto-service=com.google.auto.service:auto-service:jar:1.1.1:compile, com.google.auto.service:auto-service-annotations=com.google.auto.service:auto-service-annotations:jar:1.1.1:compile, com.google.auto:auto-common=com.google.auto:auto-common:jar:1.2.1:compile, org.jctools:jctools-core=org.jctools:jctools-core:jar:4.0.3:compile, org.junit.jupiter:junit-jupiter=org.junit.jupiter:junit-jupiter:jar:5.10.2:test, org.junit.jupiter:junit-jupiter-params=org.junit.jupiter:junit-jupiter-params:jar:5.10.2:test, org.junit.jupiter:junit-jupiter-engine=org.junit.jupiter:junit-jupiter-engine:jar:5.10.2:test, org.junit.platform:junit-platform-engine=org.junit.platform:junit-platform-engine:jar:1.10.2:test}
+[DEBUG]   (s) projectBuildDirectory = /workspace/elevated-potential/elevated-potential.core.api/target
+[DEBUG]   (s) redirectTestOutputToFile = false
+[DEBUG]   (s) reportFormat = brief
+[DEBUG]   (s) reportsDirectory = /workspace/elevated-potential/elevated-potential.core.api/target/surefire-reports
+[DEBUG]   (f) rerunFailingTestsCount = 0
+[DEBUG]   (f) reuseForks = true
+[DEBUG]   (s) runOrder = filesystem
+[DEBUG]   (s) session = org.apache.maven.execution.MavenSession@66213a0d
+[DEBUG]   (f) shutdown = exit
+[DEBUG]   (s) skip = false
+[DEBUG]   (f) skipAfterFailureCount = 0
+[DEBUG]   (s) skipTests = false
+[DEBUG]   (s) suiteXmlFiles = []
+[DEBUG]   (s) tempDir = surefire
+[DEBUG]   (s) testClassesDirectory = /workspace/elevated-potential/elevated-potential.core.api/target/test-classes
+[DEBUG]   (s) testFailureIgnore = false
+[DEBUG]   (s) testNGArtifactName = org.testng:testng
+[DEBUG]   (s) testSourceDirectory = /workspace/elevated-potential/elevated-potential.core.api/src/test/java
+[DEBUG]   (s) threadCountClasses = 0
+[DEBUG]   (s) threadCountMethods = 0
+[DEBUG]   (s) threadCountSuites = 0
+[DEBUG]   (s) trimStackTrace = false
+[DEBUG]   (s) useFile = true
+[DEBUG]   (s) useManifestOnlyJar = true
+[DEBUG]   (f) useModulePath = true
+[DEBUG]   (s) useSystemClassLoader = true
+[DEBUG]   (s) useUnlimitedThreads = false
+[DEBUG]   (s) workingDirectory = /workspace/elevated-potential/elevated-potential.core.api
+[DEBUG] -- end configuration --
+[DEBUG] Using JVM: /home/gitpod/.sdkman/candidates/java/17.0.10-tem/bin/java with Java version 17.0
+[DEBUG] Resolved included and excluded patterns: **/Test*.java, **/*Test.java, **/*Tests.java, **/*TestCase.java, !**/*$*
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for elevated-potential 2024.elevated-potential.2:
+[INFO] 
+[INFO] elevated-potential ................................. SUCCESS [  0.565 s]
+[INFO] elevated-potential-core-api ........................ FAILURE [  1.356 s]
+[INFO] elevated-potential-core-api-xxx .................... SKIPPED
+[INFO] elevated-potential-base-impl ....................... SKIPPED
+[INFO] elevated-potential-core-impl ....................... SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.032 s
+[INFO] Finished at: 2024-03-11T06:05:40Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.2:test (default-test) on project elevated-potential-core-api: No tests were executed!  (Set -DfailIfNoTests=false to ignore this error.) -> [Help 1]
+org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.2:test (default-test) on project elevated-potential-core-api: No tests were executed!  (Set -DfailIfNoTests=false to ignore this error.)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:333)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:906)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:283)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:206)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:77)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:568)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:283)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:226)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:407)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:348)
+Caused by: org.apache.maven.plugin.MojoFailureException: No tests were executed!  (Set -DfailIfNoTests=false to ignore this error.)
+    at org.apache.maven.plugin.surefire.AbstractSurefireMojo.execute (AbstractSurefireMojo.java:891)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:126)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:328)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:906)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:283)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:206)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:77)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:568)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:283)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:226)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:407)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:348)
+[ERROR] 
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <args> -rf :elevated-potential-core-api
+[DEBUG] Shutting down adapter factory; available factories [file-lock, rwlock-local, semaphore-local, noop]; available name mappers [discriminating, file-gav, file-hgav, file-static, gav, static]
+[DEBUG] Shutting down 'file-lock' factory
+[DEBUG] Shutting down 'rwlock-local' factory
+[DEBUG] Shutting down 'semaphore-local' factory
+[DEBUG] Shutting down 'noop' factory
