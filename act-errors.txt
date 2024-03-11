@@ -1,0 +1,874 @@
+Error: unknown flag: --action-offline-modetial]$ nix-shell -p act --command act
+
+[olu@STARSHIP:/home/user/elevated-potential]$ mv .actrc .actrc-
+
+[olu@STARSHIP:/home/user/elevated-potential]$ cat .actrc- 
+--action-offline-mode
+
+[olu@STARSHIP:/home/user/elevated-potential]$ nix-shell -p act --command "act --action-offline-mode"
+Error: unknown flag: --action-offline-mode
+
+[olu@STARSHIP:/home/user/elevated-potential]$ nix-shell -p act --command act
+[Java CI with Maven/build] 🚀  Start image=node:16-buster-slim
+INFO[0000] Parallel tasks (0) below minimum, setting to 1 
+[Java CI with Maven/build]   🐳  docker pull image=node:16-buster-slim platform= username= forcePull=true
+INFO[0003] Parallel tasks (0) below minimum, setting to 1 
+[Java CI with Maven/build]   🐳  docker create image=node:16-buster-slim platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Java CI with Maven/build]   🐳  docker run image=node:16-buster-slim platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Java CI with Maven/build]   ☁  git clone 'https://github.com/actions/setup-java' # ref=v4
+[Java CI with Maven/build]   ☁  git clone 'https://github.com/stCarolas/setup-maven' # ref=v4.5
+[Java CI with Maven/build]   ☁  git clone 'https://github.com/actions/cache' # ref=v4
+[Java CI with Maven/build] ⭐ Run Main actions/checkout@v4
+[Java CI with Maven/build]   🐳  docker cp src=/home/user/elevated-potential/. dst=/home/user/elevated-potential
+[Java CI with Maven/build]   ✅  Success - Main actions/checkout@v4
+[Java CI with Maven/build] ⭐ Run Main Set up JDK 17
+[Java CI with Maven/build]   🐳  docker cp src=/home/user/.cache/act/actions-setup-java@v4/ dst=/var/run/act/actions/actions-setup-java@v4/
+[Java CI with Maven/build]   🐳  docker exec cmd=[node /var/run/act/actions/actions-setup-java@v4/dist/setup/index.js] user= workdir=
+[Java CI with Maven/build]   ❓  ::group::Installed distributions
+| Trying to resolve the latest version from remote
+| Resolved latest version as 17.0.10+7
+| Trying to download...
+| Downloading Java 17.0.10+7 (Temurin-Hotspot) from https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.10%2B7/OpenJDK17U-jdk_x64_linux_hotspot_17.0.10_7.tar.gz ...
+[Java CI with Maven/build]   💬  ::debug::Downloading https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.10%252B7/OpenJDK17U-jdk_x64_linux_hotspot_17.0.10_7.tar.gz
+[Java CI with Maven/build]   💬  ::debug::Destination /tmp/1ca8bdc6-a89b-4ffa-8d7b-06fbdb817714
+[Java CI with Maven/build]   💬  ::debug::download complete
+| Extracting Java archive...
+[Java CI with Maven/build]   💬  ::debug::Checking tar --version
+[Java CI with Maven/build]   💬  ::debug::tar (GNU tar) 1.30%0ACopyright (C) 2017 Free Software Foundation, Inc.%0ALicense GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.%0AThis is free software: you are free to change and redistribute it.%0AThere is NO WARRANTY, to the extent permitted by law.%0A%0AWritten by John Gilmore and Jay Fenlason.
+| [command]/bin/tar xz --warning=no-unknown-keyword --overwrite -C /tmp/ac1d9bac-beb1-464b-b23f-1757064dd113 -f /tmp/1ca8bdc6-a89b-4ffa-8d7b-06fbdb817714
+[Java CI with Maven/build]   💬  ::debug::Caching tool Java_Temurin-Hotspot_jdk 17.0.10-7 x64
+[Java CI with Maven/build]   💬  ::debug::source dir: /tmp/ac1d9bac-beb1-464b-b23f-1757064dd113/jdk-17.0.10+7
+[Java CI with Maven/build]   💬  ::debug::destination /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.10-7/x64
+[Java CI with Maven/build]   💬  ::debug::finished caching tool
+| Java 17.0.10+7 was downloaded
+| Setting Java 17.0.10+7 as the default
+| Creating toolchains.xml for JDK version 17 from temurin
+| Writing to /root/.m2/toolchains.xml
+| 
+| Java configuration:
+|   Distribution: temurin
+|   Version: 17.0.10+7
+|   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.10-7/x64
+| 
+[Java CI with Maven/build]   ❓  ::endgroup::
+[Java CI with Maven/build]   ❓ add-matcher /run/act/actions/actions-setup-java@v4/.github/java.json
+| Creating settings.xml with server-id: github
+| Writing to /root/.m2/settings.xml
+[Java CI with Maven/build]   💬  ::debug::followSymbolicLinks 'true'
+[Java CI with Maven/build]   💬  ::debug::followSymbolicLinks 'true'
+[Java CI with Maven/build]   💬  ::debug::implicitDescendants 'true'
+[Java CI with Maven/build]   💬  ::debug::matchDirectories 'true'
+[Java CI with Maven/build]   💬  ::debug::omitBrokenSymbolicLinks 'true'
+[Java CI with Maven/build]   💬  ::debug::Search path '/home/user/elevated-potential'
+[Java CI with Maven/build]   💬  ::debug::/home/user/elevated-potential/elevated-potential.base.impl/pom.xml
+[Java CI with Maven/build]   💬  ::debug::/home/user/elevated-potential/elevated-potential.core.api/pom.xml
+[Java CI with Maven/build]   💬  ::debug::Broken symlink '/home/user/elevated-potential/elevated-potential.core.impl/COMP'
+[Java CI with Maven/build]   💬  ::debug::/home/user/elevated-potential/elevated-potential.core.impl/pom.xml
+[Java CI with Maven/build]   💬  ::debug::/home/user/elevated-potential/pom.xml
+[Java CI with Maven/build]   💬  ::debug::/home/user/elevated-potential/xxx-elijah-core-api/pom.xml
+[Java CI with Maven/build]   💬  ::debug::Found 5 files to hash.
+[Java CI with Maven/build]   💬  ::debug::primary key is setup-java-Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99
+[Java CI with Maven/build]   💬  ::debug::Resolved Keys:
+[Java CI with Maven/build]   💬  ::debug::["setup-java-Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99"]
+[Java CI with Maven/build]   💬  ::debug::Checking zstd --quiet --version
+[Java CI with Maven/build]   💬  ::debug::Unable to locate executable file: zstd. Please verify either the file path exists or the file can be found within a directory specified by the PATH environment variable. Also check the file mode to verify the file is executable.
+[Java CI with Maven/build]   💬  ::debug::
+[Java CI with Maven/build]   💬  ::debug::zstd version: null
+[Java CI with Maven/build]   💬  ::debug::Resource Url: http://192.168.1.154:33901/_apis/artifactcache/cache?keys=setup-java-Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99&version=8d58339cc18dc887f124d043992813d7f2746a84d570b184639ecf15c8d640f7
+[Java CI with Maven/build]   ⚙  ***
+[Java CI with Maven/build]   💬  ::debug::Cache Result:
+[Java CI with Maven/build]   💬  ::debug::{"archiveLocation":"***","cacheKey":"setup-java-linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99","result":"hit"}
+[Java CI with Maven/build]   💬  ::debug::Archive Path: /tmp/dfb64465-2b96-482e-ac59-a6f29f6b5117/cache.tgz
+[Java CI with Maven/build]   💬  ::debug::Use Azure SDK: false
+[Java CI with Maven/build]   💬  ::debug::Download concurrency: 8
+[Java CI with Maven/build]   💬  ::debug::Request timeout (ms): 30000
+[Java CI with Maven/build]   💬  ::debug::Cache segment download timeout mins env var: undefined
+[Java CI with Maven/build]   💬  ::debug::Segment download timeout (ms): 600000
+[Java CI with Maven/build]   💬  ::debug::Lookup only: false
+| Cache Size: ~29 MB (30719329 B)
+| [command]/bin/tar -xf /tmp/dfb64465-2b96-482e-ac59-a6f29f6b5117/cache.tgz -P -C /home/user/elevated-potential -z
+| Cache restored successfully
+| Cache restored from key: setup-java-linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99
+[Java CI with Maven/build]   ✅  Success - Main Set up JDK 17
+[Java CI with Maven/build]   ⚙  ::set-env:: JAVA_HOME=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.10-7/x64
+[Java CI with Maven/build]   ⚙  ::set-env:: JAVA_HOME_17_X64=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.10-7/x64
+[Java CI with Maven/build]   ⚙  ::set-output:: distribution=Temurin-Hotspot
+[Java CI with Maven/build]   ⚙  ::set-output:: path=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.10-7/x64
+[Java CI with Maven/build]   ⚙  ::set-output:: version=17.0.10+7
+[Java CI with Maven/build]   ⚙  ::set-output:: cache-hit=false
+[Java CI with Maven/build]   ⚙  ::add-path:: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.10-7/x64/bin
+[Java CI with Maven/build] ⭐ Run Main Set up Maven
+[Java CI with Maven/build]   🐳  docker cp src=/home/user/.cache/act/stCarolas-setup-maven@v4.5/ dst=/var/run/act/actions/stCarolas-setup-maven@v4.5/
+[Java CI with Maven/build]   🐳  docker exec cmd=[node /var/run/act/actions/stCarolas-setup-maven@v4.5/lib/setup-maven.js] user= workdir=
+[Java CI with Maven/build]   💬  ::debug::isExplicit: 3.8.2
+[Java CI with Maven/build]   💬  ::debug::explicit? true
+[Java CI with Maven/build]   💬  ::debug::checking cache: /opt/hostedtoolcache/maven/3.8.2/x64
+[Java CI with Maven/build]   💬  ::debug::not found
+| downloading https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.8.2/apache-maven-3.8.2-bin.tar.gz
+[Java CI with Maven/build]   💬  ::debug::Downloading https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.8.2/apache-maven-3.8.2-bin.tar.gz
+[Java CI with Maven/build]   💬  ::debug::Downloading /tmp/f98254a5-d5f0-4f64-a175-075979ebdab2
+[Java CI with Maven/build]   💬  ::debug::download complete
+| [command]tar --version
+| tar (GNU tar) 1.30
+| Copyright (C) 2017 Free Software Foundation, Inc.
+| License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+| This is free software: you are free to change and redistribute it.
+| There is NO WARRANTY, to the extent permitted by law.
+| 
+| Written by John Gilmore and Jay Fenlason.
+| [command]tar xz --warning=no-unknown-keyword -C /tmp/52439164-5189-4a0b-92d7-2f04fbeda79c -f /tmp/f98254a5-d5f0-4f64-a175-075979ebdab2
+[Java CI with Maven/build]   💬  ::debug::Caching tool maven 3.8.2 x64
+[Java CI with Maven/build]   💬  ::debug::source dir: /tmp/52439164-5189-4a0b-92d7-2f04fbeda79c/apache-maven-3.8.2
+[Java CI with Maven/build]   💬  ::debug::destination /opt/hostedtoolcache/maven/3.8.2/x64
+[Java CI with Maven/build]   💬  ::debug::finished caching tool
+[Java CI with Maven/build]   ✅  Success - Main Set up Maven
+[Java CI with Maven/build]   ⚙  ::add-path:: /opt/hostedtoolcache/maven/3.8.2/x64/bin
+[Java CI with Maven/build]   🐳  docker exec cmd=[node /var/run/act/workflow/hashfiles/index.js] user= workdir=
+[Java CI with Maven/build] ⭐ Run Main Cache maven
+[Java CI with Maven/build]   🐳  docker cp src=/home/user/.cache/act/actions-cache@v4/ dst=/var/run/act/actions/actions-cache@v4/
+[Java CI with Maven/build]   🐳  docker exec cmd=[node /var/run/act/actions/actions-cache@v4/dist/restore/index.js] user= workdir=
+[Java CI with Maven/build]   💬  ::debug::Resolved Keys:
+[Java CI with Maven/build]   💬  ::debug::["Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99","Linux-maven-"]
+[Java CI with Maven/build]   💬  ::debug::Checking zstd --quiet --version
+[Java CI with Maven/build]   💬  ::debug::Unable to locate executable file: zstd. Please verify either the file path exists or the file can be found within a directory specified by the PATH environment variable. Also check the file mode to verify the file is executable.
+[Java CI with Maven/build]   💬  ::debug::
+[Java CI with Maven/build]   💬  ::debug::zstd version: null
+[Java CI with Maven/build]   💬  ::debug::Resource Url: http://192.168.1.154:33901/_apis/artifactcache/cache?keys=Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99%252CLinux-maven-&version=c538a492dc53daaed119aaacbe9be444dd6f0478f3c1e96eef74be5e3b7be6fa
+[Java CI with Maven/build]   💬  ::debug::Failed to delete archive: Error: ENOENT: no such file or directory, unlink ''
+| Cache not found for input keys: Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99, Linux-maven-
+[Java CI with Maven/build]   ✅  Success - Main Cache maven
+[Java CI with Maven/build] ⭐ Run Main Run tests
+[Java CI with Maven/build]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/4] user= workdir=
+| [INFO] Error stacktraces are turned on.
+| [INFO] Scanning for projects...
+| [WARNING] 
+| [WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-base-impl:jar:2024.elevated-potential.2
+| [WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /home/user/elevated-potential/pom.xml, line 335, column 12
+| [WARNING] 
+| [WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-core-api:jar:2024.elevated-potential.2
+| [WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /home/user/elevated-potential/pom.xml, line 335, column 12
+| [WARNING] 
+| [WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-core-impl:jar:2024.elevated-potential.2
+| [WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /home/user/elevated-potential/pom.xml, line 335, column 12
+| [WARNING] 
+| [WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-core-api-xxx:jar:2024.elevated-potential.2
+| [WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /home/user/elevated-potential/pom.xml, line 335, column 12
+| [WARNING] 
+| [WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential:pom:2024.elevated-potential.2
+| [WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ line 335, column 12
+| [WARNING] 
+| [WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+| [WARNING] 
+| [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+| [WARNING] 
+| [INFO] ------------------------------------------------------------------------
+| [INFO] Reactor Build Order:
+| [INFO] 
+| [INFO] elevated-potential                                                 [pom]
+| [INFO] elevated-potential-core-api                                        [jar]
+| [INFO] elevated-potential-core-api-xxx                                    [jar]
+| [INFO] elevated-potential-base-impl                                       [jar]
+| [INFO] elevated-potential-core-impl                                       [jar]
+| [INFO] 
+| [INFO] -----------------< tripleo.elijah:elevated-potential >------------------
+| [INFO] Building elevated-potential 2024.elevated-potential.2              [1/5]
+| [INFO] --------------------------------[ pom ]---------------------------------
+| [INFO] 
+| [INFO] --- maven-compiler-plugin:3.12.1:compile (compile) @ elevated-potential ---
+| [INFO] No sources to compile
+| [INFO] 
+| [INFO] --- maven-compiler-plugin:3.12.1:testCompile (testCompile) @ elevated-potential ---
+| [INFO] No sources to compile
+| [INFO] 
+| [INFO] -------------< tripleo.elijah:elevated-potential-core-api >-------------
+| [INFO] Building elevated-potential-core-api 2024.elevated-potential.2     [2/5]
+| [INFO] --------------------------------[ jar ]---------------------------------
+| [INFO] 
+| [INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ elevated-potential-core-api ---
+| [INFO] Using 'UTF-8' encoding to copy filtered resources.
+| [INFO] skip non existing resourceDirectory /home/user/elevated-potential/elevated-potential.core.api/src/main/resources
+| [INFO] 
+| [INFO] --- maven-compiler-plugin:3.12.1:compile (compile) @ elevated-potential-core-api ---
+| [INFO] Recompiling the module because of changed source code.
+| [INFO] Compiling 7 source files with javac [debug target 17] to target/classes
+| [INFO] 
+| [INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ elevated-potential-core-api ---
+| [INFO] Using 'UTF-8' encoding to copy filtered resources.
+| [INFO] skip non existing resourceDirectory /home/user/elevated-potential/elevated-potential.core.api/src/test/resources
+| [INFO] 
+| [INFO] --- maven-compiler-plugin:3.12.1:testCompile (testCompile) @ elevated-potential-core-api ---
+| [INFO] Recompiling the module because of changed dependency.
+| [INFO] Compiling 2 source files with javac [debug target 17] to target/test-classes
+| [INFO] 
+| [INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ elevated-potential-core-api ---
+| [INFO] Surefire report directory: /home/user/elevated-potential/elevated-potential.core.api/target/surefire-reports
+| 
+| -------------------------------------------------------
+|  T E S T S
+| -------------------------------------------------------
+| 
+| Results :
+| 
+| Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+| 
+| [INFO] ------------------------------------------------------------------------
+| [INFO] Reactor Summary for elevated-potential 2024.elevated-potential.2:
+| [INFO] 
+| [INFO] elevated-potential ................................. SUCCESS [  0.458 s]
+| [INFO] elevated-potential-core-api ........................ FAILURE [  2.351 s]
+| [INFO] elevated-potential-core-api-xxx .................... SKIPPED
+| [INFO] elevated-potential-base-impl ....................... SKIPPED
+| [INFO] elevated-potential-core-impl ....................... SKIPPED
+| [INFO] ------------------------------------------------------------------------
+| [INFO] BUILD FAILURE
+| [INFO] ------------------------------------------------------------------------
+| [INFO] Total time:  2.919 s
+| [INFO] Finished at: 2024-03-11T03:40:54Z
+| [INFO] ------------------------------------------------------------------------
+| [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test (default-test) on project elevated-potential-core-api: No tests were executed!  (Set -DfailIfNoTests=false to ignore this error.) -> [Help 1]
+| org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test (default-test) on project elevated-potential-core-api: No tests were executed!  (Set -DfailIfNoTests=false to ignore this error.)
+|     at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:215)
+|     at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:156)
+|     at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:148)
+|     at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+|     at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+|     at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+|     at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+|     at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+|     at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+|     at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+|     at org.apache.maven.cli.MavenCli.execute (MavenCli.java:972)
+|     at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:293)
+|     at org.apache.maven.cli.MavenCli.main (MavenCli.java:196)
+|     at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+|     at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:77)
+|     at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+|     at java.lang.reflect.Method.invoke (Method.java:568)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:282)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:225)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)
+| Caused by: org.apache.maven.plugin.MojoFailureException: No tests were executed!  (Set -DfailIfNoTests=false to ignore this error.)
+|     at org.apache.maven.plugin.surefire.SurefireHelper.reportExecution (SurefireHelper.java:56)
+|     at org.apache.maven.plugin.surefire.SurefirePlugin.writeSummary (SurefirePlugin.java:176)
+|     at org.apache.maven.plugin.surefire.SurefirePlugin.handleSummary (SurefirePlugin.java:150)
+|     at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeAfterPreconditionsChecked (AbstractSurefireMojo.java:650)
+|     at org.apache.maven.plugin.surefire.AbstractSurefireMojo.execute (AbstractSurefireMojo.java:586)
+|     at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:137)
+|     at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:210)
+|     at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:156)
+|     at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:148)
+|     at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+|     at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+|     at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+|     at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+|     at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+|     at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+|     at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+|     at org.apache.maven.cli.MavenCli.execute (MavenCli.java:972)
+|     at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:293)
+|     at org.apache.maven.cli.MavenCli.main (MavenCli.java:196)
+|     at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+|     at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:77)
+|     at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+|     at java.lang.reflect.Method.invoke (Method.java:568)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:282)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:225)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)
+| [ERROR] 
+| [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+| [ERROR] 
+| [ERROR] For more information about the errors and possible solutions, please read the following articles:
+| [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+| [ERROR] 
+| [ERROR] After correcting the problems, you can resume the build with the command
+| [ERROR]   mvn <args> -rf :elevated-potential-core-api
+[Java CI with Maven/build]   ❌  Failure - Main Run tests
+[Java CI with Maven/build] exitcode '1': failure
+[Java CI with Maven/build]   🐳  docker exec cmd=[node /var/run/act/workflow/hashfiles/index.js] user= workdir=
+[Java CI with Maven/build] ⭐ Run Post Set up JDK 17
+[Java CI with Maven/build]   🐳  docker exec cmd=[node /var/run/act/actions/actions-setup-java@v4/dist/cleanup/index.js] user= workdir=
+[Java CI with Maven/build]   💬  ::debug::Checking zstd --quiet --version
+[Java CI with Maven/build]   💬  ::debug::Unable to locate executable file: zstd. Please verify either the file path exists or the file can be found within a directory specified by the PATH environment variable. Also check the file mode to verify the file is executable.
+[Java CI with Maven/build]   💬  ::debug::
+[Java CI with Maven/build]   💬  ::debug::zstd version: null
+[Java CI with Maven/build]   💬  ::debug::implicitDescendants 'false'
+[Java CI with Maven/build]   💬  ::debug::followSymbolicLinks 'true'
+[Java CI with Maven/build]   💬  ::debug::implicitDescendants 'false'
+[Java CI with Maven/build]   💬  ::debug::omitBrokenSymbolicLinks 'true'
+[Java CI with Maven/build]   💬  ::debug::Search path '/root/.m2/repository'
+[Java CI with Maven/build]   💬  ::debug::Matched: ../../../root/.m2/repository
+[Java CI with Maven/build]   💬  ::debug::Cache Paths:
+[Java CI with Maven/build]   💬  ::debug::["../../../root/.m2/repository"]
+[Java CI with Maven/build]   💬  ::debug::Archive Path: /tmp/a838914d-6f7a-4a9d-bf61-ac62b6e2d37e/cache.tgz
+| [command]/bin/tar --posix -cf cache.tgz --exclude cache.tgz -P -C /home/user/elevated-potential --files-from manifest.txt -z
+[Java CI with Maven/build]   💬  ::debug::File Size: 30712652
+[Java CI with Maven/build]   💬  ::debug::Reserving Cache
+[Java CI with Maven/build]   💬  ::debug::Resource Url: http://192.168.1.154:33901/_apis/artifactcache/caches
+ERRO[0030] POST /_apis/artifactcache/caches: already exist  module=artifactcache
+[Java CI with Maven/build]   🚧  ::warning::Failed to save: {"error":"already exist"}
+| Cache saved with the key: setup-java-Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99
+[Java CI with Maven/build]   ✅  Success - Post Set up JDK 17
+[Java CI with Maven/build] 🏁  Job failed
+Error: Job 'build' failed
+
+[olu@STARSHIP:/home/user/elevated-potential]$ cd elevated-potential.core.api/
+
+[olu@STARSHIP:/home/user/elevated-potential/elevated-potential.core.api]$ mvn test
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-core-api:jar:2024.elevated-potential.2
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /home/user/elevated-potential/pom.xml, line 335, column 12
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] 
+[INFO] -------------< tripleo.elijah:elevated-potential-core-api >-------------
+[INFO] Building elevated-potential-core-api 2024.elevated-potential.2
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ elevated-potential-core-api ---
+[INFO] skip non existing resourceDirectory /home/user/elevated-potential/elevated-potential.core.api/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.12.1:compile (compile) @ elevated-potential-core-api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ elevated-potential-core-api ---
+[INFO] skip non existing resourceDirectory /home/user/elevated-potential/elevated-potential.core.api/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.12.1:testCompile (testCompile) @ elevated-potential-core-api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 2 source files with javac [debug target 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ elevated-potential-core-api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running dummy.DummyTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.053 s -- in dummy.DummyTest
+[INFO] Running tripleo.elijah.DummyTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in tripleo.elijah.DummyTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.666 s
+[INFO] Finished at: 2024-03-11T00:19:58-04:00
+[INFO] ------------------------------------------------------------------------
+
+[olu@STARSHIP:/home/user/elevated-potential/elevated-potential.core.api]$ cd ..
+
+[olu@STARSHIP:/home/user/elevated-potential]$ mvn test -rf :elevated-potential-core-api
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-base-impl:jar:2024.elevated-potential.2
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /home/user/elevated-potential/pom.xml, line 335, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-core-api:jar:2024.elevated-potential.2
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /home/user/elevated-potential/pom.xml, line 335, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-core-impl:jar:2024.elevated-potential.2
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /home/user/elevated-potential/pom.xml, line 335, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-core-api-xxx:jar:2024.elevated-potential.2
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /home/user/elevated-potential/pom.xml, line 335, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential:pom:2024.elevated-potential.2
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ line 335, column 12
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] elevated-potential-core-api                                        [jar]
+[INFO] elevated-potential-core-api-xxx                                    [jar]
+[INFO] elevated-potential-base-impl                                       [jar]
+[INFO] elevated-potential-core-impl                                       [jar]
+[INFO] 
+[INFO] -------------< tripleo.elijah:elevated-potential-core-api >-------------
+[INFO] Building elevated-potential-core-api 2024.elevated-potential.2     [1/4]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ elevated-potential-core-api ---
+[INFO] skip non existing resourceDirectory /home/user/elevated-potential/elevated-potential.core.api/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.12.1:compile (compile) @ elevated-potential-core-api ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ elevated-potential-core-api ---
+[INFO] skip non existing resourceDirectory /home/user/elevated-potential/elevated-potential.core.api/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.12.1:testCompile (testCompile) @ elevated-potential-core-api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 2 source files with javac [debug target 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ elevated-potential-core-api ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running dummy.DummyTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.057 s -- in dummy.DummyTest
+[INFO] Running tripleo.elijah.DummyTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in tripleo.elijah.DummyTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] -----------< tripleo.elijah:elevated-potential-core-api-xxx >-----------
+[INFO] Building elevated-potential-core-api-xxx 2024.elevated-potential.2 [2/4]
+[INFO]   from /home/user/elevated-potential/xxx-elijah-core-api/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- build-helper:3.5.0:add-source (default) @ elevated-potential-core-api-xxx ---
+[INFO] Source directory: /home/user/elevated-potential/xxx-model-status/src/main/java added.
+[INFO] Source directory: /home/user/elevated-potential/xxx-annotations/src/main/java added.
+[INFO] Source directory: /home/user/elevated-potential/xxx-elijah-core-api/elijah-core-api/src/main/java added.
+[INFO] Source directory: /home/user/elevated-potential/xxx-elijah-core-api/src/main/java added.
+[INFO] Source directory: /home/user/elevated-potential/xxx-elijah-core-api/elijah-ek/src/main/java added.
+[INFO] Source directory: /home/user/elevated-potential/xxx-elijah-core-api/elijah-nextgen-outputstatement/src/main/java added.
+[INFO] Source directory: /home/user/elevated-potential/xxx-elijah-core-api/elijah-stateful/src/main/java added.
+[INFO] Source directory: /home/user/elevated-potential/xxx-elijah-core-api/elijah-util/src/main/java added.
+[INFO] Source directory: /home/user/elevated-potential/xxx-elijah-core-api/tripleo-reactive/src/main/java added.
+[INFO] Source directory: /home/user/elevated-potential/xxx-elijah-core-api/tripleo-small/src/main/java added.
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ elevated-potential-core-api-xxx ---
+[INFO] skip non existing resourceDirectory /home/user/elevated-potential/xxx-elijah-core-api/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.12.1:compile (compile) @ elevated-potential-core-api-xxx ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 556 source files with javac [debug target 17] to target/classes
+[INFO] /home/user/elevated-potential/xxx-elijah-core-api/elijah-core-api/src/main/java/tripleo/vendor/org_apache_commons_cli/TypeHandler.java: /home/user/elevated-potential/xxx-elijah-core-api/elijah-core-api/src/main/java/tripleo/vendor/org_apache_commons_cli/TypeHandler.java uses or overrides a deprecated API.
+[INFO] /home/user/elevated-potential/xxx-elijah-core-api/elijah-core-api/src/main/java/tripleo/vendor/org_apache_commons_cli/TypeHandler.java: Recompile with -Xlint:deprecation for details.
+[INFO] /home/user/elevated-potential/xxx-elijah-core-api/elijah-core-api/src/main/java/tripleo/elijah/comp/i/CompProgress.java: Some input files use unchecked or unsafe operations.
+[INFO] /home/user/elevated-potential/xxx-elijah-core-api/elijah-core-api/src/main/java/tripleo/elijah/comp/i/CompProgress.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- build-helper:3.5.0:add-test-source (add-test-source) @ elevated-potential-core-api-xxx ---
+[INFO] Test Source directory: /home/user/elevated-potential/xxx-model-status/src/test/java added.
+[INFO] Test Source directory: /home/user/elevated-potential/xxx-annotations/src/test/java added.
+[INFO] Test Source directory: /home/user/elevated-potential/xxx-elijah-core-api/elijah-core-api/src/test/java added.
+[INFO] Test Source directory: /home/user/elevated-potential/xxx-elijah-core-api/src/test/java added.
+[INFO] Test Source directory: /home/user/elevated-potential/xxx-elijah-core-api/elijah-ek/src/test/java added.
+[INFO] Test Source directory: /home/user/elevated-potential/xxx-elijah-core-api/elijah-nextgen-outputstatement/src/test/java added.
+[INFO] Test Source directory: /home/user/elevated-potential/xxx-elijah-core-api/elijah-stateful/src/test/java added.
+[INFO] Test Source directory: /home/user/elevated-potential/xxx-elijah-core-api/elijah-util/src/test/java added.
+[INFO] Test Source directory: /home/user/elevated-potential/xxx-elijah-core-api/tripleo-reactive/src/test/java added.
+[INFO] Test Source directory: /home/user/elevated-potential/xxx-elijah-core-api/tripleo-small/src/test/java added.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ elevated-potential-core-api-xxx ---
+[INFO] skip non existing resourceDirectory /home/user/elevated-potential/xxx-elijah-core-api/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.12.1:testCompile (testCompile) @ elevated-potential-core-api-xxx ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 2 source files with javac [debug target 17] to target/test-classes
+[WARNING] Supported source version 'RELEASE_8' from annotation processor 'tripleo.elijah.stateful.annotation.processor.StatefulProcessor' less than -source '17'
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ elevated-potential-core-api-xxx ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running dummy.Dummy3Test
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.051 s -- in dummy.Dummy3Test
+[INFO] Running tripleo.vendor.batoull22.Expert__SystemTest
+[WARNING] Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.004 s -- in tripleo.vendor.batoull22.Expert__SystemTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[WARNING] Tests run: 2, Failures: 0, Errors: 0, Skipped: 1
+[INFO] 
+[INFO] 
+[INFO] ------------< tripleo.elijah:elevated-potential-base-impl >-------------
+[INFO] Building elevated-potential-base-impl 2024.elevated-potential.2    [3/4]
+[INFO]   from /home/user/elevated-potential/elevated-potential.base.impl/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ elevated-potential-base-impl ---
+[INFO] skip non existing resourceDirectory /home/user/elevated-potential/elevated-potential.base.impl/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.12.1:compile (compile) @ elevated-potential-base-impl ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 2 source files with javac [debug target 17] to target/classes
+[WARNING] Supported source version 'RELEASE_8' from annotation processor 'tripleo.elijah.stateful.annotation.processor.StatefulProcessor' less than -source '17'
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ elevated-potential-base-impl ---
+[INFO] skip non existing resourceDirectory /home/user/elevated-potential/elevated-potential.base.impl/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.12.1:testCompile (testCompile) @ elevated-potential-base-impl ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug target 17] to target/test-classes
+[WARNING] Supported source version 'RELEASE_8' from annotation processor 'tripleo.elijah.stateful.annotation.processor.StatefulProcessor' less than -source '17'
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ elevated-potential-base-impl ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running tripleo.elijah.Dummy2Test
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.065 s -- in tripleo.elijah.Dummy2Test
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] ------------< tripleo.elijah:elevated-potential-core-impl >-------------
+[INFO] Building elevated-potential-core-impl 2024.elevated-potential.2    [4/4]
+[INFO]   from /home/user/elevated-potential/elevated-potential.core.impl/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+Downloading from jitpack.io: https://jitpack.io/tripleo/elijah/elevated-potential/2024.elevated-potential.2/elevated-potential-2024.elevated-potential.2.pom
+Downloading from central: https://repo.maven.apache.org/maven2/tripleo/elijah/elevated-potential/2024.elevated-potential.2/elevated-potential-2024.elevated-potential.2.pom
+[WARNING] The POM for tripleo.elijah:elevated-potential:jar:2024.elevated-potential.2 is missing, no dependency information available
+Downloading from jitpack.io: https://jitpack.io/tripleo/elijah/elevated-potential/2024.elevated-potential.2/elevated-potential-2024.elevated-potential.2.jar
+Downloading from central: https://repo.maven.apache.org/maven2/tripleo/elijah/elevated-potential/2024.elevated-potential.2/elevated-potential-2024.elevated-potential.2.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for elevated-potential-core-api 2024.elevated-potential.2:
+[INFO] 
+[INFO] elevated-potential-core-api ........................ SUCCESS [  2.592 s]
+[INFO] elevated-potential-core-api-xxx .................... SUCCESS [  4.888 s]
+[INFO] elevated-potential-base-impl ....................... SUCCESS [  1.449 s]
+[INFO] elevated-potential-core-impl ....................... FAILURE [  0.874 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.912 s
+[INFO] Finished at: 2024-03-11T00:21:42-04:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal on project elevated-potential-core-impl: Could not resolve dependencies for project tripleo.elijah:elevated-potential-core-impl:jar:2024.elevated-potential.2: The following artifacts could not be resolved: tripleo.elijah:elevated-potential:jar:2024.elevated-potential.2 (absent): Could not find artifact tripleo.elijah:elevated-potential:jar:2024.elevated-potential.2 in jitpack.io (https://jitpack.io) -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <args> -rf :elevated-potential-core-impl
+
+[olu@STARSHIP:/home/user/elevated-potential]$ nix-shell -p act --command act
+[Java CI with Maven/build] 🚀  Start image=node:16-buster-slim
+INFO[0000] Parallel tasks (0) below minimum, setting to 1 
+[Java CI with Maven/build]   🐳  docker pull image=node:16-buster-slim platform= username= forcePull=true
+INFO[0002] Parallel tasks (0) below minimum, setting to 1 
+[Java CI with Maven/build]   🐳  docker create image=node:16-buster-slim platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Java CI with Maven/build]   🐳  docker run image=node:16-buster-slim platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Java CI with Maven/build]   ☁  git clone 'https://github.com/actions/setup-java' # ref=v4
+[Java CI with Maven/build]   ☁  git clone 'https://github.com/stCarolas/setup-maven' # ref=v4.5
+[Java CI with Maven/build]   ☁  git clone 'https://github.com/actions/cache' # ref=v4
+[Java CI with Maven/build] ⭐ Run Main actions/checkout@v4
+[Java CI with Maven/build]   🐳  docker cp src=/home/user/elevated-potential/. dst=/home/user/elevated-potential
+[Java CI with Maven/build]   ✅  Success - Main actions/checkout@v4
+[Java CI with Maven/build] ⭐ Run Main Set up JDK 17
+[Java CI with Maven/build]   🐳  docker cp src=/home/user/.cache/act/actions-setup-java@v4/ dst=/var/run/act/actions/actions-setup-java@v4/
+[Java CI with Maven/build]   🐳  docker exec cmd=[node /var/run/act/actions/actions-setup-java@v4/dist/setup/index.js] user= workdir=
+[Java CI with Maven/build]   ❓  ::group::Installed distributions
+| Trying to resolve the latest version from remote
+| Resolved latest version as 17.0.10+7
+| Trying to download...
+| Downloading Java 17.0.10+7 (Temurin-Hotspot) from https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.10%2B7/OpenJDK17U-jdk_x64_linux_hotspot_17.0.10_7.tar.gz ...
+[Java CI with Maven/build]   💬  ::debug::Downloading https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.10%252B7/OpenJDK17U-jdk_x64_linux_hotspot_17.0.10_7.tar.gz
+[Java CI with Maven/build]   💬  ::debug::Destination /tmp/7198a527-9fa3-49a1-91d8-7bdb0f68dae9
+[Java CI with Maven/build]   💬  ::debug::download complete
+| Extracting Java archive...
+[Java CI with Maven/build]   💬  ::debug::Checking tar --version
+[Java CI with Maven/build]   💬  ::debug::tar (GNU tar) 1.30%0ACopyright (C) 2017 Free Software Foundation, Inc.%0ALicense GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.%0AThis is free software: you are free to change and redistribute it.%0AThere is NO WARRANTY, to the extent permitted by law.%0A%0AWritten by John Gilmore and Jay Fenlason.
+| [command]/bin/tar xz --warning=no-unknown-keyword --overwrite -C /tmp/5a3c241a-7d7d-4487-9754-90045b9cf32c -f /tmp/7198a527-9fa3-49a1-91d8-7bdb0f68dae9
+[Java CI with Maven/build]   💬  ::debug::Caching tool Java_Temurin-Hotspot_jdk 17.0.10-7 x64
+[Java CI with Maven/build]   💬  ::debug::source dir: /tmp/5a3c241a-7d7d-4487-9754-90045b9cf32c/jdk-17.0.10+7
+[Java CI with Maven/build]   💬  ::debug::destination /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.10-7/x64
+[Java CI with Maven/build]   💬  ::debug::finished caching tool
+| Java 17.0.10+7 was downloaded
+| Setting Java 17.0.10+7 as the default
+| Creating toolchains.xml for JDK version 17 from temurin
+| Writing to /root/.m2/toolchains.xml
+| 
+| Java configuration:
+|   Distribution: temurin
+|   Version: 17.0.10+7
+|   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.10-7/x64
+| 
+[Java CI with Maven/build]   ❓  ::endgroup::
+[Java CI with Maven/build]   ❓ add-matcher /run/act/actions/actions-setup-java@v4/.github/java.json
+| Creating settings.xml with server-id: github
+| Writing to /root/.m2/settings.xml
+[Java CI with Maven/build]   💬  ::debug::followSymbolicLinks 'true'
+[Java CI with Maven/build]   💬  ::debug::followSymbolicLinks 'true'
+[Java CI with Maven/build]   💬  ::debug::implicitDescendants 'true'
+[Java CI with Maven/build]   💬  ::debug::matchDirectories 'true'
+[Java CI with Maven/build]   💬  ::debug::omitBrokenSymbolicLinks 'true'
+[Java CI with Maven/build]   💬  ::debug::Search path '/home/user/elevated-potential'
+[Java CI with Maven/build]   💬  ::debug::/home/user/elevated-potential/elevated-potential.base.impl/pom.xml
+[Java CI with Maven/build]   💬  ::debug::/home/user/elevated-potential/elevated-potential.core.api/pom.xml
+[Java CI with Maven/build]   💬  ::debug::Broken symlink '/home/user/elevated-potential/elevated-potential.core.impl/COMP'
+[Java CI with Maven/build]   💬  ::debug::/home/user/elevated-potential/elevated-potential.core.impl/pom.xml
+[Java CI with Maven/build]   💬  ::debug::/home/user/elevated-potential/pom.xml
+[Java CI with Maven/build]   💬  ::debug::/home/user/elevated-potential/xxx-elijah-core-api/pom.xml
+[Java CI with Maven/build]   💬  ::debug::Found 5 files to hash.
+[Java CI with Maven/build]   💬  ::debug::primary key is setup-java-Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99
+[Java CI with Maven/build]   💬  ::debug::Resolved Keys:
+[Java CI with Maven/build]   💬  ::debug::["setup-java-Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99"]
+[Java CI with Maven/build]   💬  ::debug::Checking zstd --quiet --version
+[Java CI with Maven/build]   💬  ::debug::Unable to locate executable file: zstd. Please verify either the file path exists or the file can be found within a directory specified by the PATH environment variable. Also check the file mode to verify the file is executable.
+[Java CI with Maven/build]   💬  ::debug::
+[Java CI with Maven/build]   💬  ::debug::zstd version: null
+[Java CI with Maven/build]   💬  ::debug::Resource Url: http://192.168.1.154:39711/_apis/artifactcache/cache?keys=setup-java-Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99&version=8d58339cc18dc887f124d043992813d7f2746a84d570b184639ecf15c8d640f7
+[Java CI with Maven/build]   ⚙  ***
+[Java CI with Maven/build]   💬  ::debug::Cache Result:
+[Java CI with Maven/build]   💬  ::debug::{"archiveLocation":"***","cacheKey":"setup-java-linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99","result":"hit"}
+[Java CI with Maven/build]   💬  ::debug::Archive Path: /tmp/af9c75ca-67e5-40f2-8532-13a6b6eb4aa8/cache.tgz
+[Java CI with Maven/build]   💬  ::debug::Use Azure SDK: false
+[Java CI with Maven/build]   💬  ::debug::Download concurrency: 8
+[Java CI with Maven/build]   💬  ::debug::Request timeout (ms): 30000
+[Java CI with Maven/build]   💬  ::debug::Cache segment download timeout mins env var: undefined
+[Java CI with Maven/build]   💬  ::debug::Segment download timeout (ms): 600000
+[Java CI with Maven/build]   💬  ::debug::Lookup only: false
+| Cache Size: ~29 MB (30719329 B)
+| [command]/bin/tar -xf /tmp/af9c75ca-67e5-40f2-8532-13a6b6eb4aa8/cache.tgz -P -C /home/user/elevated-potential -z
+| Cache restored successfully
+| Cache restored from key: setup-java-linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99
+[Java CI with Maven/build]   ✅  Success - Main Set up JDK 17
+[Java CI with Maven/build]   ⚙  ::set-env:: JAVA_HOME=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.10-7/x64
+[Java CI with Maven/build]   ⚙  ::set-env:: JAVA_HOME_17_X64=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.10-7/x64
+[Java CI with Maven/build]   ⚙  ::set-output:: path=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.10-7/x64
+[Java CI with Maven/build]   ⚙  ::set-output:: version=17.0.10+7
+[Java CI with Maven/build]   ⚙  ::set-output:: cache-hit=false
+[Java CI with Maven/build]   ⚙  ::set-output:: distribution=Temurin-Hotspot
+[Java CI with Maven/build]   ⚙  ::add-path:: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.10-7/x64/bin
+[Java CI with Maven/build] ⭐ Run Main Set up Maven
+[Java CI with Maven/build]   🐳  docker cp src=/home/user/.cache/act/stCarolas-setup-maven@v4.5/ dst=/var/run/act/actions/stCarolas-setup-maven@v4.5/
+[Java CI with Maven/build]   🐳  docker exec cmd=[node /var/run/act/actions/stCarolas-setup-maven@v4.5/lib/setup-maven.js] user= workdir=
+[Java CI with Maven/build]   💬  ::debug::isExplicit: 3.8.2
+[Java CI with Maven/build]   💬  ::debug::explicit? true
+[Java CI with Maven/build]   💬  ::debug::checking cache: /opt/hostedtoolcache/maven/3.8.2/x64
+[Java CI with Maven/build]   💬  ::debug::not found
+| downloading https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.8.2/apache-maven-3.8.2-bin.tar.gz
+[Java CI with Maven/build]   💬  ::debug::Downloading https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.8.2/apache-maven-3.8.2-bin.tar.gz
+[Java CI with Maven/build]   💬  ::debug::Downloading /tmp/bc0c0748-812f-4453-acb3-5ce8cdc214c5
+[Java CI with Maven/build]   💬  ::debug::download complete
+| [command]tar --version
+| tar (GNU tar) 1.30
+| Copyright (C) 2017 Free Software Foundation, Inc.
+| License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+| This is free software: you are free to change and redistribute it.
+| There is NO WARRANTY, to the extent permitted by law.
+| 
+| Written by John Gilmore and Jay Fenlason.
+| [command]tar xz --warning=no-unknown-keyword -C /tmp/764fb8ef-9981-4444-8307-40560981777e -f /tmp/bc0c0748-812f-4453-acb3-5ce8cdc214c5
+[Java CI with Maven/build]   💬  ::debug::Caching tool maven 3.8.2 x64
+[Java CI with Maven/build]   💬  ::debug::source dir: /tmp/764fb8ef-9981-4444-8307-40560981777e/apache-maven-3.8.2
+[Java CI with Maven/build]   💬  ::debug::destination /opt/hostedtoolcache/maven/3.8.2/x64
+[Java CI with Maven/build]   💬  ::debug::finished caching tool
+[Java CI with Maven/build]   ✅  Success - Main Set up Maven
+[Java CI with Maven/build]   ⚙  ::add-path:: /opt/hostedtoolcache/maven/3.8.2/x64/bin
+[Java CI with Maven/build]   🐳  docker exec cmd=[node /var/run/act/workflow/hashfiles/index.js] user= workdir=
+[Java CI with Maven/build] ⭐ Run Main Cache maven
+[Java CI with Maven/build]   🐳  docker cp src=/home/user/.cache/act/actions-cache@v4/ dst=/var/run/act/actions/actions-cache@v4/
+[Java CI with Maven/build]   🐳  docker exec cmd=[node /var/run/act/actions/actions-cache@v4/dist/restore/index.js] user= workdir=
+[Java CI with Maven/build]   💬  ::debug::Resolved Keys:
+[Java CI with Maven/build]   💬  ::debug::["Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99","Linux-maven-"]
+[Java CI with Maven/build]   💬  ::debug::Checking zstd --quiet --version
+[Java CI with Maven/build]   💬  ::debug::Unable to locate executable file: zstd. Please verify either the file path exists or the file can be found within a directory specified by the PATH environment variable. Also check the file mode to verify the file is executable.
+[Java CI with Maven/build]   💬  ::debug::
+[Java CI with Maven/build]   💬  ::debug::zstd version: null
+[Java CI with Maven/build]   💬  ::debug::Resource Url: http://192.168.1.154:39711/_apis/artifactcache/cache?keys=Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99%252CLinux-maven-&version=c538a492dc53daaed119aaacbe9be444dd6f0478f3c1e96eef74be5e3b7be6fa
+[Java CI with Maven/build]   💬  ::debug::Failed to delete archive: Error: ENOENT: no such file or directory, unlink ''
+| Cache not found for input keys: Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99, Linux-maven-
+[Java CI with Maven/build]   ✅  Success - Main Cache maven
+[Java CI with Maven/build] ⭐ Run Main Run tests
+[Java CI with Maven/build]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/4] user= workdir=
+| [INFO] Error stacktraces are turned on.
+| [INFO] Scanning for projects...
+| [WARNING] 
+| [WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-base-impl:jar:2024.elevated-potential.2
+| [WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /home/user/elevated-potential/pom.xml, line 335, column 12
+| [WARNING] 
+| [WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-core-api:jar:2024.elevated-potential.2
+| [WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /home/user/elevated-potential/pom.xml, line 335, column 12
+| [WARNING] 
+| [WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-core-impl:jar:2024.elevated-potential.2
+| [WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /home/user/elevated-potential/pom.xml, line 335, column 12
+| [WARNING] 
+| [WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential-core-api-xxx:jar:2024.elevated-potential.2
+| [WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ tripleo.elijah:elevated-potential:2024.elevated-potential.2, /home/user/elevated-potential/pom.xml, line 335, column 12
+| [WARNING] 
+| [WARNING] Some problems were encountered while building the effective model for tripleo.elijah:elevated-potential:pom:2024.elevated-potential.2
+| [WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-surefire-plugin is missing. @ line 335, column 12
+| [WARNING] 
+| [WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+| [WARNING] 
+| [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+| [WARNING] 
+| [INFO] ------------------------------------------------------------------------
+| [INFO] Reactor Build Order:
+| [INFO] 
+| [INFO] elevated-potential                                                 [pom]
+| [INFO] elevated-potential-core-api                                        [jar]
+| [INFO] elevated-potential-core-api-xxx                                    [jar]
+| [INFO] elevated-potential-base-impl                                       [jar]
+| [INFO] elevated-potential-core-impl                                       [jar]
+| [INFO] 
+| [INFO] -----------------< tripleo.elijah:elevated-potential >------------------
+| [INFO] Building elevated-potential 2024.elevated-potential.2              [1/5]
+| [INFO] --------------------------------[ pom ]---------------------------------
+| [INFO] 
+| [INFO] --- maven-compiler-plugin:3.12.1:compile (compile) @ elevated-potential ---
+| [INFO] No sources to compile
+| [INFO] 
+| [INFO] --- maven-compiler-plugin:3.12.1:testCompile (testCompile) @ elevated-potential ---
+| [INFO] No sources to compile
+| [INFO] 
+| [INFO] -------------< tripleo.elijah:elevated-potential-core-api >-------------
+| [INFO] Building elevated-potential-core-api 2024.elevated-potential.2     [2/5]
+| [INFO] --------------------------------[ jar ]---------------------------------
+| [INFO] 
+| [INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ elevated-potential-core-api ---
+| [INFO] Using 'UTF-8' encoding to copy filtered resources.
+| [INFO] skip non existing resourceDirectory /home/user/elevated-potential/elevated-potential.core.api/src/main/resources
+| [INFO] 
+| [INFO] --- maven-compiler-plugin:3.12.1:compile (compile) @ elevated-potential-core-api ---
+| [INFO] Recompiling the module because of changed source code.
+| [INFO] Compiling 7 source files with javac [debug target 17] to target/classes
+| [INFO] 
+| [INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ elevated-potential-core-api ---
+| [INFO] Using 'UTF-8' encoding to copy filtered resources.
+| [INFO] skip non existing resourceDirectory /home/user/elevated-potential/elevated-potential.core.api/src/test/resources
+| [INFO] 
+| [INFO] --- maven-compiler-plugin:3.12.1:testCompile (testCompile) @ elevated-potential-core-api ---
+| [INFO] Recompiling the module because of changed dependency.
+| [INFO] Compiling 2 source files with javac [debug target 17] to target/test-classes
+| [INFO] 
+| [INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ elevated-potential-core-api ---
+| [INFO] Surefire report directory: /home/user/elevated-potential/elevated-potential.core.api/target/surefire-reports
+| 
+| -------------------------------------------------------
+|  T E S T S
+| -------------------------------------------------------
+| 
+| Results :
+| 
+| Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+| 
+| [INFO] ------------------------------------------------------------------------
+| [INFO] Reactor Summary for elevated-potential 2024.elevated-potential.2:
+| [INFO] 
+| [INFO] elevated-potential ................................. SUCCESS [  0.519 s]
+| [INFO] elevated-potential-core-api ........................ FAILURE [  2.545 s]
+| [INFO] elevated-potential-core-api-xxx .................... SKIPPED
+| [INFO] elevated-potential-base-impl ....................... SKIPPED
+| [INFO] elevated-potential-core-impl ....................... SKIPPED
+| [INFO] ------------------------------------------------------------------------
+| [INFO] BUILD FAILURE
+| [INFO] ------------------------------------------------------------------------
+| [INFO] Total time:  3.192 s
+| [INFO] Finished at: 2024-03-11T04:23:08Z
+| [INFO] ------------------------------------------------------------------------
+| [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test (default-test) on project elevated-potential-core-api: No tests were executed!  (Set -DfailIfNoTests=false to ignore this error.) -> [Help 1]
+| org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test (default-test) on project elevated-potential-core-api: No tests were executed!  (Set -DfailIfNoTests=false to ignore this error.)
+|     at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:215)
+|     at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:156)
+|     at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:148)
+|     at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+|     at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+|     at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+|     at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+|     at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+|     at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+|     at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+|     at org.apache.maven.cli.MavenCli.execute (MavenCli.java:972)
+|     at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:293)
+|     at org.apache.maven.cli.MavenCli.main (MavenCli.java:196)
+|     at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+|     at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:77)
+|     at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+|     at java.lang.reflect.Method.invoke (Method.java:568)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:282)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:225)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)
+| Caused by: org.apache.maven.plugin.MojoFailureException: No tests were executed!  (Set -DfailIfNoTests=false to ignore this error.)
+|     at org.apache.maven.plugin.surefire.SurefireHelper.reportExecution (SurefireHelper.java:56)
+|     at org.apache.maven.plugin.surefire.SurefirePlugin.writeSummary (SurefirePlugin.java:176)
+|     at org.apache.maven.plugin.surefire.SurefirePlugin.handleSummary (SurefirePlugin.java:150)
+|     at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeAfterPreconditionsChecked (AbstractSurefireMojo.java:650)
+|     at org.apache.maven.plugin.surefire.AbstractSurefireMojo.execute (AbstractSurefireMojo.java:586)
+|     at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:137)
+|     at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:210)
+|     at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:156)
+|     at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:148)
+|     at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+|     at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+|     at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+|     at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+|     at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+|     at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+|     at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+|     at org.apache.maven.cli.MavenCli.execute (MavenCli.java:972)
+|     at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:293)
+|     at org.apache.maven.cli.MavenCli.main (MavenCli.java:196)
+|     at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+|     at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:77)
+|     at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+|     at java.lang.reflect.Method.invoke (Method.java:568)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:282)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:225)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
+|     at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)
+| [ERROR] 
+| [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+| [ERROR] 
+| [ERROR] For more information about the errors and possible solutions, please read the following articles:
+| [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+| [ERROR] 
+| [ERROR] After correcting the problems, you can resume the build with the command
+| [ERROR]   mvn <args> -rf :elevated-potential-core-api
+[Java CI with Maven/build]   ❌  Failure - Main Run tests
+[Java CI with Maven/build] exitcode '1': failure
+[Java CI with Maven/build]   🐳  docker exec cmd=[node /var/run/act/workflow/hashfiles/index.js] user= workdir=
+[Java CI with Maven/build] ⭐ Run Post Set up JDK 17
+[Java CI with Maven/build]   🐳  docker exec cmd=[node /var/run/act/actions/actions-setup-java@v4/dist/cleanup/index.js] user= workdir=
+[Java CI with Maven/build]   💬  ::debug::Checking zstd --quiet --version
+[Java CI with Maven/build]   💬  ::debug::Unable to locate executable file: zstd. Please verify either the file path exists or the file can be found within a directory specified by the PATH environment variable. Also check the file mode to verify the file is executable.
+[Java CI with Maven/build]   💬  ::debug::
+[Java CI with Maven/build]   💬  ::debug::zstd version: null
+[Java CI with Maven/build]   💬  ::debug::implicitDescendants 'false'
+[Java CI with Maven/build]   💬  ::debug::followSymbolicLinks 'true'
+[Java CI with Maven/build]   💬  ::debug::implicitDescendants 'false'
+[Java CI with Maven/build]   💬  ::debug::omitBrokenSymbolicLinks 'true'
+[Java CI with Maven/build]   💬  ::debug::Search path '/root/.m2/repository'
+[Java CI with Maven/build]   💬  ::debug::Matched: ../../../root/.m2/repository
+[Java CI with Maven/build]   💬  ::debug::Cache Paths:
+[Java CI with Maven/build]   💬  ::debug::["../../../root/.m2/repository"]
+[Java CI with Maven/build]   💬  ::debug::Archive Path: /tmp/2ebdb092-bcae-4363-8213-3c67b128ce2f/cache.tgz
+| [command]/bin/tar --posix -cf cache.tgz --exclude cache.tgz -P -C /home/user/elevated-potential --files-from manifest.txt -z
+[Java CI with Maven/build]   💬  ::debug::File Size: 30712508
+[Java CI with Maven/build]   💬  ::debug::Reserving Cache
+[Java CI with Maven/build]   💬  ::debug::Resource Url: http://192.168.1.154:39711/_apis/artifactcache/caches
+ERRO[0027] POST /_apis/artifactcache/caches: already exist  module=artifactcache
+[Java CI with Maven/build]   🚧  ::warning::Failed to save: {"error":"already exist"}
+| Cache saved with the key: setup-java-Linux-maven-6b75ef7e325bc870236564bd0f7298ca230768bc93d49e6ec73695dbf7c70d99
+[Java CI with Maven/build]   ✅  Success - Post Set up JDK 17
+[Java CI with Maven/build] 🏁  Job failed
+Error: Job 'build' failed
+
+[olu@STARSHIP:/home/user/elevated-potential]$ 
+
+
