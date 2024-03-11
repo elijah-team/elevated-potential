@@ -38,7 +38,7 @@ nix-shell -p maven gradle jdk17 --pure --command "mvn clean test"
 https://gitpod.io/#https://github.com/elijah-team/elevated-potential
 
 ```shell
-sdk install java1 17.0.10-tem
+sdk install java 17.0.10-tem
 mvn compile
 ```
 
