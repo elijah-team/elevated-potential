@@ -2,7 +2,7 @@ package tripleo.elijah_durable_elevated.elijah.comp;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.comp.i.ModuleListener;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.OS_Module;

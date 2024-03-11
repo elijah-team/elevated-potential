@@ -3,7 +3,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.write_stage.pipeline_impl;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;

@@ -2,7 +2,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
 import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.IReasonedString;
 import tripleo.elijah.util.Helpers;

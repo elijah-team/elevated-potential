@@ -1,7 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.lang.i.IdentExpression;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseEvaFunction;

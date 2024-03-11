@@ -10,7 +10,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.g.GEvaNamespace;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;

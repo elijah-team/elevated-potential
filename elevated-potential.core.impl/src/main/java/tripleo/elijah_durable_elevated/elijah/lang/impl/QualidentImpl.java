@@ -11,7 +11,7 @@ package tripleo.elijah_durable_elevated.elijah.lang.impl;
 import antlr.Token;
 import com.google.common.collect.Collections2;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.Helpers;
 

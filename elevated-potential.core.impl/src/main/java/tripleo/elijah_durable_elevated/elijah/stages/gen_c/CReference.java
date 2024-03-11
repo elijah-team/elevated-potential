@@ -12,7 +12,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.util.NotImplementedException;

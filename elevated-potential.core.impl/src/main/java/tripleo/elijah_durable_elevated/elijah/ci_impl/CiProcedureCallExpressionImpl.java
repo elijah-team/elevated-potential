@@ -1,7 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.ci_impl;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.ci.*;
 
 public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression {

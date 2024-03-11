@@ -2,7 +2,7 @@ package tripleo.elijah_durable_elevated.elijah.comp.nextgen;
 
 import io.smallrye.mutiny.Uni;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.nextgen.ER_Node;
 import tripleo.elijah.util.Ok;

@@ -16,7 +16,7 @@ import org.jdeferred2.DoneCallback;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.g.GFunctionMapHook;

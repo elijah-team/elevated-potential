@@ -1,6 +1,6 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.util.Operation2;
 import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.BaseTableEntry;

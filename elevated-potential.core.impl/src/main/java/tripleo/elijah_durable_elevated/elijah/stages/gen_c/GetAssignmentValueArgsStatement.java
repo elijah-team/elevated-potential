@@ -1,7 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah_durable_elevated.elijah.stages.instructions.Instruction;
 

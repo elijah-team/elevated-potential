@@ -2,7 +2,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.reactive.Reactive;

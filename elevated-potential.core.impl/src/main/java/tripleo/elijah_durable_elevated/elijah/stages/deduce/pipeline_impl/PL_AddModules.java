@@ -2,7 +2,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.deduce.pipeline_impl;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.util.CompletableProcess;
 import tripleo.elijah_durable_elevated.elijah.comp.PipelineLogic;

@@ -1,7 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.comp.internal;
 
 import io.smallrye.mutiny.Multi;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pw.*;

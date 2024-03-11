@@ -1,6 +1,6 @@
 package tripleo.elijah_durable_elevated.elijah.comp.graph;
 
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;

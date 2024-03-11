@@ -11,7 +11,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
 import org.jdeferred2.Promise;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.ReadySupplier_1;
+import tripleo.elijah.util.ReadySupplier_1;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.nextgen.*;

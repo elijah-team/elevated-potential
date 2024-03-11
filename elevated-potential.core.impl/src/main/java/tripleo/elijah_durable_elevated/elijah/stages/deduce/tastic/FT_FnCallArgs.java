@@ -10,8 +10,8 @@
 package tripleo.elijah_durable_elevated.elijah.stages.deduce.tastic;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.ReadySupplier_1;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.ReadySupplier_1;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.BuiltInTypes;

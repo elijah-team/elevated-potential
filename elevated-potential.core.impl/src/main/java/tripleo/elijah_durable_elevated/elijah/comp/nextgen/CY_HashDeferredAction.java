@@ -1,7 +1,7 @@
 package tripleo.elijah_durable_elevated.elijah.comp.nextgen;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.util.DeferredAction;
 import tripleo.elijah_durable_elevated.elijah.comp.IO_;

@@ -2,8 +2,8 @@ package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.ReadySupplier_1;
+import tripleo.elijah.util.Eventual;
+import tripleo.elijah.util.ReadySupplier_1;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.*;

@@ -2,8 +2,8 @@ package tripleo.elijah_durable_elevated.elijah.stages.deduce;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ReadySupplier_1;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.ReadySupplier_1;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.VariableStatementImpl;
 import tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode.DED;

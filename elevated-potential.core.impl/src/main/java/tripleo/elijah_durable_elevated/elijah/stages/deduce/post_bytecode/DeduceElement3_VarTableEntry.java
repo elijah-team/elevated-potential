@@ -3,7 +3,7 @@ package tripleo.elijah_durable_elevated.elijah.stages.deduce.post_bytecode;
 import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ReadySupplier_1;
+import tripleo.elijah.util.ReadySupplier_1;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah_durable_elevated.elijah.lang.impl.AliasStatementImpl;
