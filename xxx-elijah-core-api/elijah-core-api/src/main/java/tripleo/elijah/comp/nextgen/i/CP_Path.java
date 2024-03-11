@@ -11,9 +11,9 @@ import tripleo.wrap.File;
 
 public interface CP_Path {
 	//
-	CP_Path child(String aPath0);
+	CP_Path child(String aSubPath);
 
-	CP_SubFile subFile(String aFile);
+	CP_SubFile subFile(String aSubFile);
 
 	//
 	CP_Path getParent();

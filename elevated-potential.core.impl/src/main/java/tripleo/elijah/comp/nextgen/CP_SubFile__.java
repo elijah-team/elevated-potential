@@ -75,9 +75,9 @@ public class CP_SubFile__ implements CP_SubFile {
 		}
 
 		@Override
-		public @NotNull CP_Path child(final String aPath0) {
-			x = aPath0;
-			return new CP_Path1(this, aPath0);
+		public @NotNull CP_Path child(final String aSubPath) {
+			x = aSubPath;
+			return new CP_Path1(this, aSubPath);
 		}
 
 		@Override
@@ -128,9 +128,9 @@ public class CP_SubFile__ implements CP_SubFile {
 		}
 
 		@Override
-		public @NotNull CP_SubFile subFile(final String aFile) {
-			x = aFile;
-			return new CP_SubFile__((_CP_RootPath) null /* this */, aFile);
+		public @NotNull CP_SubFile subFile(final String aSubFile) {
+			x = aSubFile;
+			return new CP_SubFile__(null /* this */, aSubFile);
 		}
 
 		@Override

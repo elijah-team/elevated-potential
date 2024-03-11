@@ -31,7 +31,7 @@ public interface CP_StdlibPath extends CP_Path, _CP_RootPath {
 	@NotNull _CP_RootPath getRootPath();
 
 	@Override
-	@Nullable CP_SubFile subFile(String aFile);
+	@Nullable CP_SubFile subFile(String aSubFile);
 
 	@Override
 	@NotNull File toFile();

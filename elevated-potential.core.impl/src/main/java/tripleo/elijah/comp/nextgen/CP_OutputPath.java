@@ -166,8 +166,8 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 	}
 
 	@Override
-	public @NotNull CP_SubFile subFile(final String aFile) { // s ;)
-		return new CP_SubFile__(this, aFile);
+	public @NotNull CP_SubFile subFile(final String aSubFile) { // s ;)
+		return new CP_SubFile__(this, aSubFile);
 	}
 
 	public void testShim() {
