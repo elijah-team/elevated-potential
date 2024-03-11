@@ -42,6 +42,12 @@ sdk install java 17.0.10-tem
 mvn compile
 ```
 
+... they also have nix, so you can still do this:
+
+```shell
+nix-shell -p maven gradle jdk17 --pure --command "mvn test"
+```
+
 See: https://gitlab.com/elijah-team/crft-elevated-potential.git
 
 Goals
