@@ -560,8 +560,8 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 	}
 
 	@NotNull
-	EvaFunction generateFunction(@NotNull final FunctionDef fd, final OS_Element parent,
-			@NotNull FunctionInvocation aFunctionInvocation) {
+	public EvaFunction generateFunction(@NotNull final FunctionDef fd, final OS_Element parent,
+										@NotNull FunctionInvocation aFunctionInvocation) {
 //		LOG.err("601.1 fn "+fd.name() + " " + parent);
 		final @NotNull EvaFunction gf = new EvaFunction(fd);
 		if (parent instanceof ClassStatement)
@@ -821,8 +821,8 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		return x;
 	}
 
-	InstructionArgument simplify_expression(@NotNull final IExpression expression, final @NotNull BaseEvaFunction gf,
-			final @NotNull Context cctx) {
+	public InstructionArgument simplify_expression(@NotNull final IExpression expression, final @NotNull BaseEvaFunction gf,
+												   final @NotNull Context cctx) {
 		final ExpressionKind expressionKind = expression.getKind();
 		switch (expressionKind) {
 		case PROCEDURE_CALL:

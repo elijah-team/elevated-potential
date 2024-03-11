@@ -368,7 +368,7 @@ public enum DeduceLookupUtils {
 	 * @see {@link tripleo.elijah.stages.deduce.DotExpressionToStackTest}
 	 */
 	@NotNull
-	static Stack<IExpression> dot_expression_to_stack(final @NotNull DotExpression de) {
+	public static Stack<IExpression> dot_expression_to_stack(final @NotNull DotExpression de) {
 		final @NotNull Stack<IExpression> right_stack = new Stack<IExpression>();
 		IExpression right = de.getRight();
 		right_stack.push(de.getLeft());
