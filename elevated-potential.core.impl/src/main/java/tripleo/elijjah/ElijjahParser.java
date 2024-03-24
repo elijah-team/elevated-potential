@@ -5,13 +5,16 @@ package tripleo.elijjah;
 import antlr.*;
 import antlr.collections.impl.BitSet;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.contexts.*;
-import tripleo.elijah.lang.builder.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.lang.imports.*;
 import tripleo.elijah.lang2.*;
+import tripleo.elijah_durable_elevated.elijah.comp.internal.Out;
+import tripleo.elijah_durable_elevated.elijah.comp.internal.PConParser;
+import tripleo.elijah_durable_elevated.elijah.contexts.*;
+import tripleo.elijah_durable_elevated.elijah.lang.builder.TypeAliasBuilder;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.BaseFunctionDef;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.ExpressionBuilder;
+import tripleo.elijah_durable_elevated.elijah.lang.imports.*;
 
 import java.util.*;
 
@@ -634,7 +637,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							ee = ExpressionBuilder.build(ee, e2, e3);
 						}
 					} else {
-						break _loop213;
+						break;
 					}
 
 				} while (true);
@@ -695,7 +698,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							ee = ExpressionBuilder.build(ee, ExpressionKind.BAND, e3);
 						}
 					} else {
-						break _loop196;
+						break;
 					}
 
 				} while (true);
@@ -757,7 +760,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 						}
 					} else {
 						if (_cnt34 >= 1) {
-							break _loop34;
+							break;
 						} else {
 							throw new NoViableAltException(LT(1), getFilename());
 						}
@@ -904,7 +907,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 
 	public final void caseConditional(CaseConditional mc) throws RecognitionException, TokenStreamException {
 
-		CaseContext ctx = null;
+		CaseContext ctx   = null;
 		IExpression expr1 = null;
 
 		try { // for error handling
@@ -923,7 +926,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							mc.scope(sco, expr1);
 						}
 					} else {
-						break _loop255;
+						break;
 					}
 
 				} while (true);
@@ -1158,7 +1161,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							ci.add(tn);
 						}
 					} else {
-						break _loop54;
+						break;
 					}
 
 				} while (true);
@@ -1191,9 +1194,9 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 	public final void classScope(ClassStatement cr) throws RecognitionException, TokenStreamException {
 
 		AccessNotation acs = null;
-		TypeAliasStatement tal = null;
-		BaseFunctionDef fd = null;
-		List<AnnotationClause> as = new ArrayList<AnnotationClause>();
+		TypeAliasStatement     tal = null;
+		BaseFunctionDef        fd  = null;
+		List<AnnotationClause> as  = new ArrayList<AnnotationClause>();
 		AnnotationClause a = null;
 
 		try { // for error handling
@@ -1240,7 +1243,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 											as.add(a);
 										}
 									} else {
-										break _loop26;
+										break;
 									}
 
 								} while (true);
@@ -1259,7 +1262,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 										match(BOR);
 										match(IDENT);
 									} else {
-										break _loop28;
+										break;
 									}
 
 								} while (true);
@@ -1777,7 +1780,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 								}
 							} else {
 								if (_cnt61 >= 1) {
-									break _loop61;
+									break;
 								} else {
 									throw new NoViableAltException(LT(1), getFilename());
 								}
@@ -1956,7 +1959,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							ee = ExpressionBuilder.build(ee, e2, e3);
 						}
 					} else {
-						break _loop200;
+						break;
 					}
 
 				} while (true);
@@ -1989,7 +1992,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							ee = ExpressionBuilder.build(ee, ExpressionKind.BXOR, e3);
 						}
 					} else {
-						break _loop193;
+						break;
 					}
 
 				} while (true);
@@ -2042,7 +2045,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							el.next(expr);
 						}
 					} else {
-						break _loop169;
+						break;
 					}
 
 				} while (true);
@@ -2093,7 +2096,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 								match(COMMA);
 								formalArgListItem_priv(fal.next());
 							} else {
-								break _loop302;
+								break;
 							}
 
 						} while (true);
@@ -2434,7 +2437,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							} else if ((LA(1) == LITERAL_extend || LA(1) == LITERAL_class)) {
 								classStatement(sc.getParent(), cur, null/* annotations */);
 							} else {
-								break _loop241;
+								break;
 							}
 
 						} while (true);
@@ -2663,7 +2666,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 								}
 								opt_semi();
 							} else {
-								break _loop122;
+								break;
 							}
 
 						} while (true);
@@ -3025,7 +3028,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 								}
 								opt_semi();
 							} else {
-								break _loop93;
+								break;
 							}
 
 						} while (true);
@@ -3355,7 +3358,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							ail.push(s);
 						}
 					} else {
-						break _loop157;
+						break;
 					}
 
 				} while (true);
@@ -3411,7 +3414,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 					if (synPredMatched245) {
 						elseif_part(ifex.elseif());
 					} else {
-						break _loop246;
+						break;
 					}
 
 				} while (true);
@@ -3615,7 +3618,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 									match(COMMA);
 									importPart1((AssigningImportStatement) pc);
 								} else {
-									break _loop42;
+									break;
 								}
 
 							} while (true);
@@ -3651,7 +3654,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 										match(COMMA);
 										importPart2((QualifiedImportStatement) pc);
 									} else {
-										break _loop46;
+										break;
 									}
 
 								} while (true);
@@ -3670,7 +3673,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 										match(COMMA);
 										importPart3((NormalImportStatement) pc);
 									} else {
-										break _loop48;
+										break;
 									}
 
 								} while (true);
@@ -3715,7 +3718,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							ee = ExpressionBuilder.build(ee, ExpressionKind.BOR, e3);
 						}
 					} else {
-						break _loop190;
+						break;
 					}
 
 				} while (true);
@@ -3756,7 +3759,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							idx.add(item);
 						}
 					} else {
-						break _loop7;
+						break;
 					}
 
 				} while (true);
@@ -3840,7 +3843,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							isp.setExpr(expr);
 						}
 					} else {
-						break _loop173;
+						break;
 					}
 
 				} while (true);
@@ -3872,7 +3875,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							ee = ExpressionBuilder.build(ee, ExpressionKind.LAND, e3);
 						}
 					} else {
-						break _loop187;
+						break;
 					}
 
 				} while (true);
@@ -3905,7 +3908,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							ee = ExpressionBuilder.build(ee, ExpressionKind.LOR, e3);
 						}
 					} else {
-						break _loop184;
+						break;
 					}
 
 				} while (true);
@@ -3986,7 +3989,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 						}
 					} else {
 						if (_cnt252 >= 1) {
-							break _loop252;
+							break;
 						} else {
 							throw new NoViableAltException(LT(1), getFilename());
 						}
@@ -4054,7 +4057,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							ee = ExpressionBuilder.build(ee, e2, e3);
 						}
 					} else {
-						break _loop217;
+						break;
 					}
 
 				} while (true);
@@ -4116,7 +4119,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 													as.add(a);
 												}
 											} else {
-												break _loop71;
+												break;
 											}
 
 										} while (true);
@@ -4131,7 +4134,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 						}
 						opt_semi();
 					} else {
-						break _loop72;
+						break;
 					}
 
 				} while (true);
@@ -4497,7 +4500,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							sc.addPostCondition(po);
 						}
 					} else {
-						break _loop101;
+						break;
 					}
 
 				} while (true);
@@ -4603,7 +4606,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 						}
 						match(RPAREN);
 					} else {
-						break _loop225;
+						break;
 					}
 
 				} while (true);
@@ -4739,7 +4742,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							sc.addPreCondition(p);
 						}
 					} else {
-						break _loop97;
+						break;
 					}
 
 				} while (true);
@@ -4949,7 +4952,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 								as.add(a);
 							}
 						} else {
-							break _loop131;
+							break;
 						}
 
 					} while (true);
@@ -5128,7 +5131,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							q.append(r2);
 						}
 					} else {
-						break _loop11;
+						break;
 					}
 
 				} while (true);
@@ -5162,7 +5165,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							qal.add(qid);
 						}
 					} else {
-						break _loop162;
+						break;
 					}
 
 				} while (true);
@@ -5197,7 +5200,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							qal.add(qid);
 						}
 					} else {
-						break _loop165;
+						break;
 					}
 
 				} while (true);
@@ -5351,7 +5354,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 									ee = ExpressionBuilder.build(ee, e2, e3, t);
 								}
 							} else {
-								break _loop205;
+								break;
 							}
 
 						} while (true);
@@ -5459,7 +5462,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 						}
 						opt_semi();
 					} else {
-						break _loop81;
+						break;
 					}
 
 				} while (true);
@@ -5521,7 +5524,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							ee = ExpressionBuilder.build(ee, e2, e3);
 						}
 					} else {
-						break _loop209;
+						break;
 					}
 
 				} while (true);
@@ -5774,7 +5777,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							cr.add(tn);
 						}
 					} else {
-						break _loop295;
+						break;
 					}
 
 				} while (true);
@@ -5986,7 +5989,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 							match(COMMA);
 							varStmt_i3(vsq.next());
 						} else {
-							break _loop137;
+							break;
 						}
 
 					} while (true);
@@ -6247,7 +6250,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 					}
 					if (inputState.guessing == 0) {
 						ctx = pcon.new_LoopContext(cur, loop);
-						loop.setContext((LoopContextImpl) ctx);
+						loop.setContext(ctx);
 						cur = ctx;
 					}
 					sco = scope3(loop);
@@ -6263,7 +6266,7 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 					}
 					if (inputState.guessing == 0) {
 						ctx = pcon.new_LoopContext(cur, loop);
-						loop.setContext((LoopContextImpl) ctx);
+						loop.setContext(ctx);
 						cur = ctx;
 					}
 					sco = scope3(loop);

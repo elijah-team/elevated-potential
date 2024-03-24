@@ -15,15 +15,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.*;
+import tripleo.elijah_durable_elevated.elijah.stages.deduce.*;
+import tripleo.elijah_durable_elevated.elijah.util.Helpers0;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.contexts.IFunctionContext;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.lang.types.OS_UserType;
-import tripleo.elijah.stages.gen_fn.GenType;
+import tripleo.elijah_durable_elevated.elijah.lang.types.OS_UserType;
+import tripleo.elijah_durable_elevated.elijah.stages.gen_fn.GenType;
 import tripleo.elijah.test_help.Boilerplate;
-import tripleo.elijah.util.*;
-import tripleo.elijah.world.impl.DefaultWorldModule;
+import tripleo.elijah_durable_elevated.elijah.world.impl.DefaultWorldModule;
 
 import java.util.Objects;
 

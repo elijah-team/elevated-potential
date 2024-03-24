@@ -4,9 +4,10 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import tripleo.elijah.comp.Compilation;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
-import tripleo.elijah.factory.comp.CompilationFactory;
+import tripleo.elijah_durable_elevated.elijah.comp.nextgen.CP_OutputPath;
+import tripleo.elijah_durable_elevated.elijah.factory.comp.CompilationFactory;
 
 import static com.google.common.truth.Truth.assertThat;
 

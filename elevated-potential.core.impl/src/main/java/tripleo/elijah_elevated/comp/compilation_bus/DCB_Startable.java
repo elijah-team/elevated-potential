@@ -1,7 +1,8 @@
 package tripleo.elijah_elevated.comp.compilation_bus;
 
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.internal.INTEGER_MARKER_CODES;
+import tripleo.elijah_durable_elevated.elijah.comp.i.CompFactory;
+import tripleo.elijah_durable_elevated.elijah.comp.internal.INTEGER_MARKER_CODES;
 
 import java.util.Queue;
 

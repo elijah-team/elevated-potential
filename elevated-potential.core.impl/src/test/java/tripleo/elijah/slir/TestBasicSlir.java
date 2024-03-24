@@ -12,14 +12,15 @@ package tripleo.elijah.slir;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import tripleo.elijah.comp.Compilation;
+import tripleo.elijah_durable_elevated.elijah.comp.Compilation;
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.OS_Package;
-import tripleo.elijah.lang.impl.OS_ModuleImpl;
-import tripleo.elijah.lang.impl.OS_PackageImpl;
-import tripleo.elijah.lang.imports.NormalImportStatement;
-import tripleo.elijah.util.*;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.OS_ModuleImpl;
+import tripleo.elijah_durable_elevated.elijah.lang.impl.OS_PackageImpl;
+import tripleo.elijah_durable_elevated.elijah.lang.imports.NormalImportStatement;
+import tripleo.elijah_durable_elevated.elijah.slir.*;
+import tripleo.elijah_durable_elevated.elijah.util.Helpers0;
 
 import java.io.IOException;
 
@@ -95,7 +96,7 @@ public class TestBasicSlir {
 //
 //		c.feedCmdLine(List_of(s, "-sO"));
 
-		final RootSlirNode rsn = new RootSlirNode((Compilation) mock(Compilation0.class));
+		final RootSlirNode   rsn = new RootSlirNode((Compilation) mock(Compilation0.class));
 		final SlirSourceFile sf3 = new SlirSourceFile("lib_elijjah/lib-c/std.collections/collections.elijjah");
 		final SlirSourceFile sf2 = new SlirSourceFile("Prelude.elijah");
 		final SlirSourceFile sf0 = new SlirSourceFile(s0 + "/fact1.elijah");
@@ -114,7 +115,7 @@ public class TestBasicSlir {
 
 			final NormalImportStatement importStatement = new NormalImportStatement(mod);
 			importStatement.addNormalPart(Helpers0.string_to_qualident("wprust.demo.fact"));
-			final SlirImportNode sin1 = sn1.addImport(importStatement);
+			final SlirImportNode    sin1                  = sn1.addImport(importStatement);
 			final SlirNamespaceNode fact_module_namespace = new SlirNamespaceNode(sf0, null, null);
 			fact_module_namespace.markUsed("factorial", SlirPos.ALIAS);
 			sin1.markImported(fact_module_namespace);

@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: tripleo.elijah.Main
+Main-Class: tripleo.elijah_durable_elevated.elijah.Main
 

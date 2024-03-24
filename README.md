@@ -15,7 +15,7 @@ Elijah is:
 - ... implemented in Java (17, for now; 8 is great and Graal is you're paal)
 - ... of the impression that build systems don't matter (tldr maven for now)
 - ... mortal enemies of Scala and Kotlin
-- ... philosophically excited about Clojure (and Xtend nad EMF/MBSE)
+- ... philosophically excited about Clojure (and Xtend and EMF/MBSE)
 - ... also secretly jealous of Lombok and AOP
 
 
@@ -75,7 +75,7 @@ Revised Goals
 - ...
 
 
-[1]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G7.md
+[1]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G1.md
 [2]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G2.md
 [3]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G3.md
 [4]: https://gitlab.com/elijah-team/documentation/petal-to-the-medal/-/blob/main/ginitiatives/G4.md

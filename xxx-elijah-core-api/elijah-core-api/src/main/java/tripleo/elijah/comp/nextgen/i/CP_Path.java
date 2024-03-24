@@ -4,16 +4,16 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.Path;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.util.io.DisposableCharSink;
 import tripleo.wrap.File;
 
 public interface CP_Path {
 	//
-	CP_Path child(String aPath0);
+	CP_Path child(String aSubPath);
 
-	CP_SubFile subFile(String aFile);
+	CP_SubFile subFile(String aSubFile);
 
 	//
 	CP_Path getParent();

@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.wrap.File;
 
 public interface CP_StdlibPath extends CP_Path, _CP_RootPath {
@@ -31,7 +31,7 @@ public interface CP_StdlibPath extends CP_Path, _CP_RootPath {
 	@NotNull _CP_RootPath getRootPath();
 
 	@Override
-	@Nullable CP_SubFile subFile(String aFile);
+	@Nullable CP_SubFile subFile(String aSubFile);
 
 	@Override
 	@NotNull File toFile();

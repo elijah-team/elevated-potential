@@ -1,7 +1,7 @@
 package tripleo.elijah.ci.cil;
 
 import antlr.Token;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.ci.CiExpressionList;
 import tripleo.elijah.ci.CiListExpression;
 import tripleo.elijah.diagnostic.Locatable;

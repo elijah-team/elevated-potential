@@ -16,8 +16,6 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.GenBuffer;
 import tripleo.elijah.gen.CompilerContext;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.lang.impl.*;
 
 /**
  * @author Tripleo(sb)

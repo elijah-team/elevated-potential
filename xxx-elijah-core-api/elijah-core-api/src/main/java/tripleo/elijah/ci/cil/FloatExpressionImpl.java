@@ -15,16 +15,12 @@
 package tripleo.elijah.ci.cil;
 
 import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.ci.CiExpression;
 import tripleo.elijah.ci.CiExpressionList;
 import tripleo.elijah.ci.ExpressionKind;
 import tripleo.elijah.ci.cii.FloatExpression;
 import tripleo.elijah.util.NotImplementedException;
-
-
-import java.util.List;
 
 public class FloatExpressionImpl implements FloatExpression {
 	private final Token n;

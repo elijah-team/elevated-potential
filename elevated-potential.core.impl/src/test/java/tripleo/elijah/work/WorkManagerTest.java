@@ -11,6 +11,8 @@ package tripleo.elijah.work;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import tripleo.elijah_durable_elevated.elijah.work.WorkList__;
+import tripleo.elijah_durable_elevated.elijah.work.WorkManager__;
 
 import java.util.ArrayList;
 import java.util.List;

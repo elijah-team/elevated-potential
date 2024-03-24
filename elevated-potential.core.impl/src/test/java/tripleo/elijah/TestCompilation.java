@@ -1,8 +1,10 @@
 package tripleo.elijah;
 
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.factory.comp.CompilationFactory;
+import tripleo.elijah_durable_elevated.elijah.comp.IO_;
+import tripleo.elijah_durable_elevated.elijah.comp.StdErrSink;
+import tripleo.elijah_durable_elevated.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah_durable_elevated.elijah.factory.comp.CompilationFactory;
 
 import static tripleo.elijah.util.Helpers.List_of;
 

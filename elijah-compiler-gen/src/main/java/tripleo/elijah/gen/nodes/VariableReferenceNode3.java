@@ -14,7 +14,6 @@ import tripleo.elijah.gen.CompilerContext;
 import tripleo.elijah.gen.Node;
 import tripleo.elijah.gen.TypeRef;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.util.NotImplementedException;
 
 public class VariableReferenceNode3 implements IExpressionNode {

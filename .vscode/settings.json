@@ -8,5 +8,6 @@
     "vscjava.vscode-maven",
     "vscjava.vscode-java-dependency",
     "vscjava.vscode-java-test"
-  ]
+  ],
+  "java.configuration.updateBuildConfiguration": "automatic"
 }

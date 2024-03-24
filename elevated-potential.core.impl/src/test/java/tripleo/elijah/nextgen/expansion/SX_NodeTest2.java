@@ -4,15 +4,16 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.comp.internal.DefaultCompilerController;
-import tripleo.elijah.factory.NonOpinionatedBuilder;
+import tripleo.elijah_durable_elevated.elijah.comp.IO_;
+import tripleo.elijah_durable_elevated.elijah.comp.StdErrSink;
+import tripleo.elijah_durable_elevated.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah_durable_elevated.elijah.comp.internal.DefaultCompilerController;
+import tripleo.elijah_durable_elevated.elijah.factory.NonOpinionatedBuilder;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputTree;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputType;
 import tripleo.elijah.util.Helpers;
-import tripleo.elijah_elevated.comp.input.CompilerInput_;
 import tripleo.small.ES_Symbol;
 
 import java.util.List;
@@ -114,9 +115,9 @@ public class SX_NodeTest2 {
 	@Disabled
 	@Test
 	public void testFullText() {
-		final StdErrSink errSink = new StdErrSink();
-		final IO io = new IO_();
-		final CompilationImpl comp = new CompilationImpl(errSink, io);
+		final StdErrSink      errSink = new StdErrSink();
+		final IO              io      = new IO_();
+		final CompilationImpl comp    = new CompilationImpl(errSink, io);
 
 		final String f = "test/basic2/while100/";
 
