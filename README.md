@@ -38,8 +38,14 @@ nix-shell -p maven gradle jdk17 --pure --command "mvn clean test"
 https://gitpod.io/#https://github.com/elijah-team/elevated-potential
 
 ```shell
-sdk install java1 17.0.10-tem
+sdk install java 17.0.10-tem
 mvn compile
+```
+
+... they also have nix, so you can still do this:
+
+```shell
+nix-shell -p maven gradle jdk17 --pure --command "mvn test"
 ```
 
 See: https://gitlab.com/elijah-team/crft-elevated-potential.git

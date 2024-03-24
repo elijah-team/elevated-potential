@@ -1,16 +1,19 @@
-//package tripleo.vendor.com_baeldung_guava_eventbus;
-//
+package tripleo.vendor.com_baeldung_guava_eventbus;
+
 //import com.google.common.eventbus.EventBus;
 //
 //import tripleo.elijah.nextgen.comp_model.CM_UleLog;
 //
 //import org.junit.jupiter.api.AfterEach;
 //import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//
+import org.junit.jupiter.api.Test;
+
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 //
-//public class GuavaEventBusUnitTest {
+public class GuavaEventBusUnitTest {
+
+    @Test public void dummy() {}
+
 //	private EventListener listener;
 //	private EventBus eventBus;
 //
@@ -59,4 +62,4 @@
 //	public void tearDown() {
 //		eventBus.unregister(listener);
 //	}
-//}
+}
