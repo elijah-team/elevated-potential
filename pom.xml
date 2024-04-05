@@ -1,5 +1,5 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>tripleo.elijah</groupId>
@@ -22,7 +22,7 @@
 		<jacoco.version>0.8.9</jacoco.version>
 		<guava.version>33.1.0-jre</guava.version>
 
-<!--
+		<!--
 		<buffers.version>0.0.3</buffers.version>
 		<range.version>0.0.3b</range.version>
 -->
@@ -31,24 +31,31 @@
 
 		<jdeferred.version>2.0.0</jdeferred.version>
 
-<!--
+		<!--
 		<kotlin.version>1.9.22</kotlin.version>
 
 		<org.eclipse.xtend.lib.version>2.31.0.M3</org.eclipse.xtend.lib.version>
 		<xtend-maven-plugin.version>2.31.0.M3</xtend-maven-plugin.version>
 -->
 	</properties>
-	
+
 	<modules>
-	  <module>./elevated-potential.base.impl</module>
-	  <module>./elevated-potential.core.api</module>
-	  <module>./elevated-potential.core.impl</module>
+		<module>./elevated-potential.base.impl</module>
+		<module>./elevated-potential.core.api</module>
+		<module>./elevated-potential.core.impl</module>
 		<module>./xxx-elijah-core-api</module>
 	</modules>
 
 	<dependencies>
 
-<!--
+		<!-- https://mvnrepository.com/artifact/org.tukaani/xz -->
+		<dependency>
+			<groupId>org.tukaani</groupId>
+			<artifactId>xz</artifactId>
+			<version>1.9</version>
+		</dependency>
+
+		<!--
 		<dependency>
 			<groupId>com.google.dagger</groupId>
 			<artifactId>dagger</artifactId>
@@ -61,7 +68,7 @@
 			<version>2.38.1</version>
 			<scope>provided</scope>
 		</dependency>
--->
+		-->
 
 		<dependency>
 			<groupId>org.antlr</groupId>
@@ -168,7 +175,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-<!--
+		<!--
 		<dependency>
 			<groupId>org.eclipse.xtend</groupId>
 			<artifactId>org.eclipse.xtend.lib</artifactId>
@@ -234,7 +241,7 @@
 			<version>24.1.0</version>
 			<scope>compile</scope>
 		</dependency>
-<!--
+		<!--
 		<dependency>
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-stdlib-jdk8</artifactId>
@@ -297,7 +304,7 @@
 			-->
 
 
-<!--
+			<!--
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
@@ -354,7 +361,7 @@
 		</plugins>
 	</build>
 
-<!--
+	<!--
 	<reporting>
 		<plugins>
 			<plugin>
