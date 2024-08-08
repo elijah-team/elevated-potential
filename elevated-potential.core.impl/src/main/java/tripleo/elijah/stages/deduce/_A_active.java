@@ -21,4 +21,8 @@ class _A_active {
 	private DE3_Active createPTE(final DeduceTypes2 aDeduceTypes2, final ProcTableEntry aProcTableEntry, final ClassInvocation aClassInvocation) {
 		return deduceTypes2._inj().new_DE3_ActivePTE(aDeduceTypes2, aProcTableEntry, aClassInvocation);
 	}
+
+	public void addToPhase(final DeducePhase aPhase2) {
+		aPhase2.addActives(this._actives);
+	}
 }
