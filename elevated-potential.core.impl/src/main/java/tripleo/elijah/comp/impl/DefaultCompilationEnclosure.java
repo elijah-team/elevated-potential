@@ -29,7 +29,7 @@ import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -93,9 +93,9 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 			throw new UnintendedUseException();
 		}
 	};
-	private AccessBus           ab;
-	private ICompilationAccess  ca;
-	private ICompilationBus     compilationBus;
+	private AccessBus          ab;
+	private ICompilationAccess compilationAccess;
+	private ICompilationBus    compilationBus;
 	private CompilationRunner   compilationRunner;
 	private CompilerDriver      compilerDriver;
 	private List<CompilerInput> inp;
@@ -266,15 +266,13 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 	@Override
 	@Contract(pure = true)
 	public @NotNull ICompilationAccess getCompilationAccess() {
-		return ca;
+		return compilationAccess;
 	}
 
 	@Override
 	public void setCompilationAccess(@NotNull ICompilationAccess aca) {
-		ca = aca;
+		compilationAccess = aca;
 	}
-
-	// @Contract(pure = true) //??
 
 	@Override
 	@Contract(pure = true)
@@ -366,6 +364,11 @@ public class DefaultCompilationEnclosure implements CompilationEnclosure {
 		aCompProgress.deprecated_print(x, System.out, System.err);
 	}
 
+	/**
+	 * This method demonstrates that we can simplify, but "choose" not to because of "legacy" concerns
+	 *
+	 * @param aWorldModule A module noticed by {@link PipelineLogic.ModuleCompletableProcess }
+	 */
 	@Override
 	public void noteAccept(final @NotNull WorldModule aWorldModule) {
 		var mod = aWorldModule.module();

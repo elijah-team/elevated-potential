@@ -7,31 +7,25 @@
  */
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.DebugFlags;
-import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah.comp.i.CB_OutputString;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal.Provenance;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_NamedElement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.DoubleLatch;
+import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.*;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 /**
  * Created 8/21/21 10:16 PM
@@ -231,30 +225,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 	@Override
 	public void run(final Ok aSt, final CB_Output aOutput) {
 		_processState  = null;
-		_processOutput = new CB_Output() {
-			private final List<CB_OutputString> _o = new ArrayList<>();
-
-			@Override
-			public @NotNull List<CB_OutputString> get() {
-				return //_o;
-						aOutput.get();
-			}
-
-			@Override
-			public void logProgress(final int number, final String text) {
-				aOutput.logProgress(number, text);
-			}
-
-			@Override
-			public void print(final String s) {
-				aOutput.print(s);
-			}
-
-			@Override
-			public void logProgress(final Diagnostic aDiagnostic) {
-				aOutput.logProgress(aDiagnostic);
-			}
-		};
+		_processOutput = new CB_ForwardingOutput(aOutput);
 
 		latch2.notifyLatch(Ok.instance());
 	}
@@ -263,4 +234,5 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 	public String finishPipeline_asString() {
 		return this.getClass().toString();
 	}
+
 }

@@ -4,10 +4,10 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.g.GCompilationEnclosure;
+import tripleo.elijah.g.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah_prolific.v.V;
+import tripleo.elijah_elevated.comp.backbone.*;
+import tripleo.elijah_prolific.v.*;
 
 import java.util.*;
 
@@ -21,15 +21,11 @@ public class DefaultCompilerController implements CompilerController {
 		ca3 = aCa3;
 	}
 
-	public void _setInputs(final Compilation0 aCompilation, final List<CompilerInput> aInputs) {
-		c      = (Compilation) aCompilation;
-		inputs = aInputs;
-	}
-
 	@Override
-	public void setEnclosure(final GCompilationEnclosure aCompilationEnclosure) {
-		final CompilationEnclosure ce = (CompilationEnclosure) aCompilationEnclosure;
-		_setInputs(ce.getCompilation(), ce.getCompilerInput());
+	public void setEnclosure(final GCompilationEnclosure ce/*aCompilationEnclosure*/) {
+		//final CompilationEnclosure ce = (CompilationEnclosure) aCompilationEnclosure;
+		c      = ce.getCompilation();
+		inputs = ce.getCompilerInput();
 	}
 
 	@Override
@@ -95,7 +91,7 @@ public class DefaultCompilerController implements CompilerController {
 		((DefaultCompilationBus) cb).runProcesses();
 
 		c.getFluffy().checkFinishEventuals();
-		V.exit();
+		V.exit(c);
 	}
 
 	public static class _DefaultCon implements Con {

@@ -13,6 +13,7 @@ import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
@@ -24,11 +25,14 @@ import tripleo.elijah.nextgen.output.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.GenerateFiles;
+import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
+import tripleo.elijah.util.*;
+import tripleo.elijah_elevated.comp.backbone.*;
+import tripleo.elijah_elevated_durable.aware.*;
+import tripleo.elijah_prolific.v.*;
 
 import java.lang.reflect.*;
 import java.util.*;
@@ -49,6 +53,10 @@ public class CR_State implements GCR_State {
 		ce = (CompilationEnclosure) ca.getCompilationEnclosure();
 
 		ce._resolvePipelineAccessPromise(new ProcessRecord_PipelineAccess());
+
+		ce.getCompilation().spi((AccessBusAware) this);
+
+		_p_
 	}
 
 	public CompilationEnclosure getCompilationEnclosure() {
@@ -103,7 +111,7 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public void writeLogs() {
-			final CompilationEnclosure ce            = pa.getCompilationEnclosure();
+			final CompilationEnclosure ce = pa.getCompilationEnclosure();
 			ce.writeLogs();
 		}
 	}
@@ -116,7 +124,7 @@ public class CR_State implements GCR_State {
 		private final          Map<OS_Module, DeferredObject<GenerateC, Void, Void>> gc2m_map           = new HashMap<>();
 		@SuppressWarnings("rawtypes")
 		private final @NotNull Map<Provenance, Pair<Class, Class>>                   installs           = new HashMap<>();
-		private final          DeferredObject<List<EvaNode>, Void, Void>             nlp                = new DeferredObject<>();
+		private final Eventual<List<EvaNode>> _p_EvaNodeList = new Eventual<>();
 		private final          List<NG_OutputItem>                                   outputs            = new ArrayList<NG_OutputItem>();
 		private final @NotNull DeferredObject<PipelineLogic, Void, Void>             ppl                = new DeferredObject<>();
 		@NotNull
@@ -134,6 +142,9 @@ public class CR_State implements GCR_State {
 		@Override
 		public void _setAccessBus(final AccessBus ab) {
 			_ab = ab;
+
+			Compilation c = null;
+			c.spi((AccessBusAware) this);
 		}
 
 		@Override
@@ -149,11 +160,6 @@ public class CR_State implements GCR_State {
 		@Override
 		public void activeNamespace(final EvaNamespace aEvaNamespace) {
 			activeNamespaces.add(aEvaNamespace);
-		}
-
-		@Override
-		public void addLog(final ElLog aLOG) {
-			getCompilationEnclosure().addLog(aLOG);
 		}
 
 		@Override
@@ -211,15 +217,15 @@ public class CR_State implements GCR_State {
 			return pr;
 		}
 
-		// @Override
-		// public @NotNull List<NG_OutputItem> getOutputs() {
-		// return outputs;
-		// }
-
 		@Override
 		public WritePipeline getWitePipeline() {
 			return _wpl;
 		}
+
+		// @Override
+		// public @NotNull List<NG_OutputItem> getOutputs() {
+		// return outputs;
+		// }
 
 		@Override
 		public void install_notate(final Provenance aProvenance,
@@ -277,7 +283,7 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public void registerNodeList(final DoneCallback<List<EvaNode>> done) {
-			nlp.then(done);
+			_p_EvaNodeList.then(done);
 		}
 
 		@Override
@@ -300,7 +306,7 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public void setNodeList(final @NotNull List<EvaNode> aEvaNodeList) {
-			nlp/* ;) */.resolve(new ArrayList<>(aEvaNodeList));
+			_p_EvaNodeList/* ;) */.resolve(new ArrayList<>(aEvaNodeList));
 		}
 
 		@Override
@@ -317,8 +323,12 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public void finishPipeline(final GPipelineMember aPM, final WP_Flow.OPS aOps) {
-			final String formatted = "[FinishPipeline] %s %s".formatted(aPM.finishPipeline_asString(), aOps);
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(formatted);
+			final String formatteded = "%s %s".formatted(aPM.finishPipeline_asString(), aOps);
+
+			V.asv(V.e.CR_State_FinishedPipeline, formatteded);
+
+			//final String formatted  = "[FinishPipeline] "+ formatteded;
+			//tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(formatted);
 		}
 
 		@Override
@@ -331,7 +341,7 @@ public class CR_State implements GCR_State {
 		public void addFunctionStatement(final EG_Statement aStatement) {
 			if (aStatement instanceof FunctionStatement fs) {
 				addFunctionStatement(fs);
-			}
+			} else throw new ProgramIsLikelyWrong("9996-0340");
 		}
 
 		@Override
@@ -366,6 +376,11 @@ public class CR_State implements GCR_State {
 			} else {
 				EvaPipelinePromise.resolve(agp);
 			}
+		}
+
+		@Override
+		public void addLog(final ElLog aLOG) {
+			getCompilationEnclosure().addLog(aLOG);
 		}
 	}
 }

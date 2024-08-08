@@ -1,12 +1,11 @@
 package tripleo.elijah.comp.internal;
 
-import tripleo.elijah.comp.Compilation0;
-import tripleo.elijah.comp.Pipeline;
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.util.*;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 public class CK_RunBetterAction implements CK_Action {
 	@Override
@@ -37,8 +36,9 @@ public class CK_RunBetterAction implements CK_Action {
 				if (res.mode() == Mode.FAILURE) {
 					//Logger.getLogger(OStageProcess.class.getName()).log(Level.SEVERE, null, ex);
 
-					final Exception ex = res.failure();
-					ex.printStackTrace();
+
+					final Throwable ex = res.failure();
+					aMonitor._______printStackTrace(ex);
 
 					//return Operation.failure(ex); eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 				}

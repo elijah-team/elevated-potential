@@ -8,33 +8,31 @@
  */
 package tripleo.elijah.comp;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import io.reactivex.rxjava3.annotations.NonNull;
-import org.jdeferred2.DoneCallback;
-import org.jetbrains.annotations.NotNull;
+import com.google.common.collect.*;
+import io.reactivex.rxjava3.annotations.*;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal.Provenance;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.comp.notation.GN_PL_Run2;
-import tripleo.elijah.comp.notation.GN_PL_Run2_Env;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.g.GPipelineLogic;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.stages.deduce.DeducePhase;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.stages.logging.ElLog.Verbosity;
-import tripleo.elijah.util.CompletableProcess;
-import tripleo.elijah.world.i.WorldModule;
-import tripleo.elijah.world.impl.DefaultWorldModule;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.logging.ElLog.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.world.i.*;
+import tripleo.elijah.world.impl.*;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
-import static tripleo.elijah.util.Helpers0.List_of;
+import static tripleo.elijah.util.Helpers0.*;
 
 /**
  * Created 12/30/20 2:14 AM
@@ -203,6 +201,10 @@ public class PipelineLogic implements EventualRegister, GPipelineLogic {
 			// System.err.printf("7070 %s %d%n", mod.getFileName(), mod.entryPoints.size());
 
 			final CompilationEnclosure  ce            = pa.getCompilationEnclosure();
+
+
+			//ce.getCompilation(). //
+
 			final Consumer<WorldModule> worldConsumer = ce::noteAccept; // FIXME not data...
 			final GN_PL_Run2_Env        pl_run2       = new GN_PL_Run2_Env(PipelineLogic.this, aWorldModule, ce, worldConsumer);
 

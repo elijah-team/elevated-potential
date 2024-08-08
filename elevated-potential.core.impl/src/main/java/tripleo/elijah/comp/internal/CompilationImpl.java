@@ -8,51 +8,43 @@
  */
 package tripleo.elijah.comp.internal;
 
-import com.google.common.base.Preconditions;
+import com.google.common.base.*;
 import io.reactivex.rxjava3.core.Observer;
-import org.apache.commons.lang3.tuple.Triple;
-import org.jetbrains.annotations.NotNull;
+import org.apache.commons.lang3.tuple.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
-import tripleo.elijah.ci.CompilerInstructions;
+import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.*;
-import tripleo.elijah.comp.graph.i.CK_Monitor;
-import tripleo.elijah.comp.graph.i.CK_ObjectTree;
+import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.CompilerInputListener;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.impl.DefaultCompilationEnclosure;
-import tripleo.elijah.comp.impl.LCM_Event_RootCI;
-import tripleo.elijah.comp.nextgen.CP_Paths__;
-import tripleo.elijah.comp.nextgen.i.CPX_CalculateFinishParse;
-import tripleo.elijah.comp.nextgen.i.CP_Paths;
-import tripleo.elijah.comp.nextgen.pn.PN_Ping;
-import tripleo.elijah.comp.nextgen.pw.PW_Controller;
-import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
-import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.impl.*;
+import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.comp.nextgen.pn.*;
+import tripleo.elijah.comp.nextgen.pw.*;
+import tripleo.elijah.comp.percy.*;
 import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.compiler_model.CM_Module;
-import tripleo.elijah.factory.NonOpinionatedBuilder;
-import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.g.GWorldModule;
+import tripleo.elijah.compiler_model.*;
+import tripleo.elijah.factory.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
-import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
+import tripleo.elijah.nextgen.comp_model.*;
+import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.deduce.IFunctionMapHook;
-import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
-import tripleo.elijah.stages.deduce.fluffy.impl.FluffyCompImpl;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.stages.logging.ElLog_;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.deduce.fluffy.i.*;
+import tripleo.elijah.stages.deduce.fluffy.impl.*;
+import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.LivingRepo;
-import tripleo.elijah.world.i.WorldModule;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah_elevated.comp.input.CompilerInput_;
+import tripleo.elijah.world.i.*;
+import tripleo.elijah_elevated.comp.backbone.*;
+import tripleo.elijah_elevated_durable.aware.*;
+import tripleo.elijah_elevated_durable.comp.*;
 
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class CompilationImpl implements Compilation, EventualRegister {
 	private final List<CN_CompilerInputWatcher>                                  _ciws;
@@ -92,27 +84,33 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private          IO                                  io;
 	@SuppressWarnings("BooleanVariableAlwaysNegated")
 	private          boolean                             _inside;
-	private          CompilerInput                       __advisement;
-	private          ICompilationAccess3                 compilationAccess3;
-	private @NotNull CK_Monitor                          defaultMonitor;
+	private          CompilerInput       __advisement;
+	private final    ICompilationAccess3 _compilationAccess3;
+	private @NotNull CK_Monitor          defaultMonitor;
 	private          CPX_Signals                         cpxSignals;
 	private          Eventual<CP_Paths>                  _p_pathsEventual = new Eventual<>();
 
 	public CompilationImpl(final @NotNull ErrSink aErrSink, final IO aIo) {
-		errSink            = aErrSink;
-		io                 = aIo;
-		_con               = new DefaultCompFactory(this);
-		lcm                = new LCM(this);
+		errSink = aErrSink;
+		io      = aIo;
+
 		specToModuleMap    = new HashMap<>();
 		moduleToCMMap      = new HashMap<>();
 		specToEzMap        = new HashMap<>();
 		xxx                = new ArrayList<>();
+		_ciws       = new ArrayList<>();
+		_ci_models  = new HashMap<>();
+		_ciw_buffer = new ArrayList<>();
 		_compilationNumber = new Random().nextInt(Integer.MAX_VALUE);
-		_fluffyComp        = new FluffyCompImpl(this);
-		cfg                = new CompilationConfig();
-		use                = new USE(this.getCompilationClosure());
-		_cis               = new CIS();
-		paths              = new CP_Paths__(this);
+
+		_con = new DefaultCompFactory(this);
+		lcm  = new LCM(this);
+
+		_fluffyComp = new FluffyCompImpl(this);
+		cfg         = new CompilationConfig();
+		use         = new USE(this.getCompilationClosure());
+		_cis        = new CIS();
+		paths       = new CP_Paths__(this);
 		_p_pathsEventual.resolve(paths);
 		_repo                = _con.getLivingRepo();
 		compilationEnclosure = new DefaultCompilationEnclosure(this);
@@ -124,9 +122,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		cci_listener         = new CCI_Acceptor__CompilerInputListener(this);
 		master.addListener(cci_listener);
 
-		_ciws       = new ArrayList<>();
-		_ci_models  = new HashMap<>();
-		_ciw_buffer = new ArrayList<>();
+		_compilationAccess3 = new EDL_ICompilationAccess3(this);
 	}
 
 	@Override
@@ -141,8 +137,12 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	@Override
-	public PW_CompilerController get_pw() {
-		return (PW_CompilerController) this.pw_controller;
+	public void spi(final Object aObject) {
+		if (aObject instanceof AccessBusAware aba) {
+			compilationEnclosure.getAccessBusPromise().then(aba::adviseAccessBus);
+		} else {
+			throw new UnintendedUseException("unforseen: " + aObject.getClass().getName());
+		}
 	}
 
 	public JarWork getJarwork() throws WorkException {
@@ -181,80 +181,31 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		feedInputs(inputs, controller);
 	}
 
+	@Override
 	public ICompilationAccess3 getCompilationAccess3() {
-		var _c = this;
-		if (compilationAccess3 == null) {
-			compilationAccess3 = new ICompilationAccess3() {
-				@Override
-				public Compilation getComp() {
-					return _c;
-				}
-
-				@Override
-				public boolean getSilent() {
-					return getComp().cfg().silent;
-				}
-
-				@Override
-				public void addLog(final ElLog aLog) {
-					getComp().getCompilationEnclosure().addLog(aLog);
-				}
-
-				@Override
-				public List<ElLog> getLogs() {
-					return getComp().getCompilationEnclosure().getLogs();
-				}
-
-				@Override
-				public void writeLogs(final boolean aSilent) {
-					assert !aSilent;
-					getComp().getCompilationEnclosure().writeLogs();
-				}
-
-				@Override
-				public PipelineLogic getPipelineLogic() {
-					return getComp().getCompilationEnclosure().getPipelineLogic();
-				}
-			};
-		}
-		return compilationAccess3;
-	}
-
-	@NotNull
-	public List<CompilerInput> stringListToInputList(final @NotNull List<String> args) {
-		final List<CompilerInput> inputs = args.stream()
-				.map(s -> {
-					final CompilerInput    input = new CompilerInput_(s, Optional.of(this));
-					final CM_CompilerInput cm    = this.get(input);
-					if (cm.inpSameAs(s)) {
-						input.setSourceRoot();
-					} else {
-						assert false;
-					}
-					return input;
-				})
-				.collect(Collectors.toList());
-		return inputs;
+		return _compilationAccess3;
 	}
 
 	@Override
 	public void feedInputs(final @NotNull List<CompilerInput> aCompilerInputs,
-						   final @NotNull CompilerController aController) {
+						   final @NotNull CompilerController ctl) {
 		if (aCompilerInputs.isEmpty()) {
-			aController.printUsage();
+			ctl.printUsage();
 			return;
 		}
 
 		// FIXME 12/04 This seems like alot (esp here)
 		compilationEnclosure.setCompilerInput(aCompilerInputs);
-		aController.setEnclosure(compilationEnclosure);
+		ctl.setEnclosure(compilationEnclosure);
 
 		for (final CompilerInput compilerInput : aCompilerInputs) {
 			compilerInput.setMaster(master); // FIXME this is too much i think
 		}
 
-		aController.processOptions();
-		aController.runner();
+		ctl.processOptions();
+		ctl.runner();
+
+		//V.exit(this); // is in ctl#runner in this one
 	}
 
 	@Override
@@ -406,7 +357,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	@Override
 	public void pushItem(CompilerInstructions aci) {
 		if (xxx.contains(aci)) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("** [CompilerInstructions::pushItem] duplicate instructions: " + aci.getFilename());
+			SimplePrintLoggerToRemoveSoon.println_err_4("** [CompilerInstructions::pushItem] duplicate instructions: " + aci.getFilename());
 			return;
 		} else {
 			xxx.add(aci);
@@ -637,11 +588,6 @@ public class CompilationImpl implements Compilation, EventualRegister {
 		// pipelineLogic.dp.
 	}
 
-	public CP_Paths _paths() {
-		assert paths != null;
-		return paths;
-	}
-
 	@Override
 	public void checkFinishEventuals() {
 		throw new UnintendedUseException();
@@ -697,12 +643,17 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	static class __CK_Monitor implements CK_Monitor {
 		@Override
 		public void reportSuccess() {
-			throw new UnintendedUseException();
+			throw new UnintendedUseException("take this from over there");
 		}
 
 		@Override
 		public void reportFailure() {
-			throw new UnintendedUseException();
+			throw new UnintendedUseException("take this from over there");
+		}
+
+		@Override
+		public void _______printStackTrace(final Throwable aEx) {
+			aEx.printStackTrace();
 		}
 	}
 
@@ -734,4 +685,5 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	private Eventual<CP_Paths> pathsEventual = new Eventual<>();
+
 }

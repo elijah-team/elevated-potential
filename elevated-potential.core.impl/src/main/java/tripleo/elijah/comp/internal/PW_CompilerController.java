@@ -1,18 +1,15 @@
 package tripleo.elijah.comp.internal;
 
-import java.time.Duration;
-import java.util.concurrent.Flow.Publisher;
-import java.util.concurrent.Flow.Subscriber;
-
-import io.smallrye.mutiny.Multi;
-import tripleo.elijah.Eventual;
+import io.smallrye.mutiny.*;
+import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.comp.nextgen.i.CP_Paths;
-import tripleo.elijah.comp.nextgen.pw.PW_Controller;
-import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
-import tripleo.elijah.comp.nextgen.pw.PW_PushWorkQueue;
-import tripleo.elijah.util.Ok;
+import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.comp.nextgen.pw.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah_elevated.comp.backbone.*;
+
+import java.time.*;
+import java.util.concurrent.Flow.*;
 
 public class PW_CompilerController implements PW_Controller, Runnable {
 	private final CompilationImpl compilation;
@@ -109,7 +106,7 @@ public class PW_CompilerController implements PW_Controller, Runnable {
 	}
 
 	public CP_Paths paths() {
-		return compilation._paths();
+		return compilation.paths();
 	}
 }
 

@@ -3,15 +3,25 @@ package tripleo.elijah.comp.i;
 import org.apache.commons.lang3.tuple.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.queries.CompilerInstructions_Result;
+import tripleo.elijah.comp.queries.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.util.*;
 
 import java.io.*;
-import java.util.List;
+import java.util.*;
 
-// FIXME use emojis??
-// NOTE strange pattern (ie why not just directly?)
+/**
+ * <p>This class demonstrates the dissonance between generated code (intended usage)
+ * and the "over-mavenizing" approach</p>
+ * <p>
+ * NOTE strange pattern (ie why not just directly?)
+ * </p>
+ * <p>
+ * FIXME use emojis?? 24/08/08 hmm
+ * </p>
+ * <br/>
+ * <p>tldr: do a annotation anyway...</p>
+ */
 public enum CompProgress {
 	Compilation__hasInstructions__empty {
 		@Override
@@ -115,6 +125,11 @@ public enum CompProgress {
 			};
 
 			out.printf("[-- DriverPhase ] %s %s%n", codeText, message);
+		}
+	}, CP_OutputPath_RenderNodes {
+		@Override
+		public void deprecated_print(final Object x, final PrintStream out, final PrintStream err) {
+
 		}
 	};
 

@@ -9,37 +9,28 @@
 package tripleo.elijah.comp;
 
 //import com.google.common.base.Preconditions;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
+
+import com.google.common.collect.*;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import lombok.Getter;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-
-import tripleo.elijah.Eventual;
-//import tripleo.elijah.comp.AccessBus.AB_GenerateResultListener;
+import lombok.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.g.GPipelineMember;
-import tripleo.elijah.stages.gen_c.CDependencyRef;
-import tripleo.elijah.stages.gen_c.OutputFileC;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.generate.ElSystem;
-import tripleo.elijah.stages.generate.OutputStrategy;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.stages.logging.ElLog_;
+import tripleo.elijah.stages.generate.*;
+import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.*;
 
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import java.util.function.*;
+import java.util.stream.*;
 
 import static tripleo.elijah.util.Helpers.*;
 
@@ -53,23 +44,13 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 	private final @NotNull WritePipelineSharedState                   st;
 	private final @NotNull CompletedItemsHandler                      cih;
 	private final @NotNull DoubleLatch<GenerateResult> latch;
-
 	private WP_Flow.OPS ops;
-
-	private final CK_Monitor monitor = new CK_Monitor() {
-		@Override
-		public void reportSuccess() {
-			int y=2;
-		}
-
-		@Override
-		public void reportFailure() {
-			int y=2;
-		}
-	};
+	private final CK_Monitor monitor;
 
 	public WritePipeline(final @NotNull GPipelineAccess pa0) {
 		final IPipelineAccess pa = (IPipelineAccess) pa0;
+
+		monitor = ((IPipelineAccess) pa0).getCompilation().con().createCkMonitor();
 
 		st = new WritePipelineSharedState(pa);
 
@@ -195,8 +176,7 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 		public CompletedItemsHandler(final WritePipelineSharedState aSharedState) {
 			sharedState = aSharedState;
 
-			final ElLog_.Verbosity verbosity = sharedState.c.cfg().silent ? ElLog_.Verbosity.SILENT
-					: ElLog_.Verbosity.VERBOSE;
+			final ElLog_.Verbosity verbosity = sharedState.c.cfg().verbosity();
 
 			LOG = new ElLog_("(WRITE-PIPELINE)", verbosity, "(write-pipeline)");
 
