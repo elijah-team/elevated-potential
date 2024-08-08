@@ -109,6 +109,11 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 	}
 
 	@Override
+	public DeducedEvaConstructor ool() {
+		return this.__deduced;
+	}
+
+	@Override
 	public WhyNotGarish_DeclaringContext declaringContext() {
 		return __declaringContext;
 	}
