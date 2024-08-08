@@ -1433,6 +1433,14 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 		return result;
 	}
 
+	public PromiseExpectations _expectations() {
+		return this.expectations;
+	}
+
+	public Iterable<? extends DT_External> _externals() {
+		return this.externals;
+	}
+
 	public enum ProcessElement {
 		;
 
