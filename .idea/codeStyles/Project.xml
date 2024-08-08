@@ -4,6 +4,7 @@
       <option name="PARAMETER_NAME_PREFIX" value="a" />
       <option name="GENERATE_FINAL_LOCALS" value="true" />
       <option name="GENERATE_FINAL_PARAMETERS" value="true" />
+      <option name="USE_SINGLE_CLASS_IMPORTS" value="false" />
       <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="3" />
     </JavaCodeStyleSettings>
     <ScalaCodeStyleSettings>
