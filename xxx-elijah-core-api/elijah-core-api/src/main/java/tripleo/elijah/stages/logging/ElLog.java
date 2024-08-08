@@ -15,6 +15,8 @@ public interface ElLog {
 
 	void info(String aMessage);
 
+	public enum Progress {INFO, ERR}
+
 	public enum Verbosity {
 		SILENT, VERBOSE
 	}

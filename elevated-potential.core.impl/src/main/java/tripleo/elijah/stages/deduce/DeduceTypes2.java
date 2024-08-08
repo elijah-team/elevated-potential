@@ -193,76 +193,76 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 
 		for (final @NotNull Instruction instruction : generatedFunction.instructions()) {
 			final Context context = generatedFunction.getContextFromPC(instruction.getIndex());
-//			LOG.info("8006 " + instruction);
 			dw.adviseContext(context);
 
-			switch (instruction.getName()) {
-			case E:
-				onEnterFunction(generatedFunction, context);
-				break;
-			case X:
-				onExitFunction(fd_ctx, context, dw);
-				break;
-			case ES:
-				break;
-			case XS:
-				break;
-			case AGN:
-				do_assign_normal(generatedFunction, fd_ctx, instruction, context);
-				break;
-			case AGNK:
-				do_agnk(generatedFunction, instruction);
-				break;
-			case AGNT:
-				break;
-			case AGNF:
-				LOG.info("292 Encountered AGNF");
-				break;
-			case JE:
-				LOG.info("296 Encountered JE");
-				break;
-			case JNE:
-				break;
-			case JL:
-				break;
-			case JMP:
-				break;
-			case CALL:
-				do_call(generatedFunction, fd, instruction, context);
-				break;
-			case CALLS:
-				do_calls(generatedFunction, fd_ctx, instruction);
-				break;
-			case RET:
-				break;
-			case YIELD:
-				break;
-			case TRY:
-				break;
-			case PC:
-				break;
-			case CAST_TO:
-				// README potentialType info is already added by MatchConditional
-				break;
-			case DECL:
-				// README for GenerateC, etc: marks the spot where a declaration should go.
-				// Wouldn't be necessary if we had proper Range's
-				break;
-			case IS_A:
-				implement_is_a(generatedFunction, instruction);
-				break;
-			case NOP:
-				break;
-			case CONSTRUCT:
-				implement_construct(generatedFunction, instruction, context);
-				break;
-			default:
-				throw new IllegalStateException("Unexpected value: " + instruction.getName());
-			}
+			final String s = "8006 " + instruction;
+			LOG.info(s); // FIXME this, somewhere, something
+
+			this.logProgressRunnable(s, ElLog.Progress.INFO, new Runnable() {
+				@Override
+				public void run() {
+					switch (instruction.getName()) {
+					case E -> onEnterFunction(generatedFunction, context);
+					case X -> onExitFunction(fd_ctx, context, dw);
+					case ES -> {
+					}
+					case XS -> {
+					}
+					case AGN -> do_assign_normal(generatedFunction, fd_ctx, instruction, context);
+					case AGNK -> do_agnk(generatedFunction, instruction);
+					case AGNT -> {
+					}
+					case AGNF -> LOG.info("292 Encountered AGNF");
+					case JE -> LOG.info("296 Encountered JE");
+					case JNE -> {
+					}
+					case JL -> {
+					}
+					case JMP -> {
+					}
+					case CALL -> do_call(generatedFunction, fd, instruction, context);
+					case CALLS -> do_calls(generatedFunction, fd_ctx, instruction);
+					case RET -> {
+					}
+					case YIELD -> {
+					}
+					case TRY -> {
+					}
+					case PC -> {
+					}
+					case CAST_TO -> {
+						// README potentialType info is already added by MatchConditional
+					}
+					case DECL -> {
+						// README for GenerateC, etc: marks the spot where a declaration should go.
+						// Wouldn't be necessary if we had proper Range's
+					}
+					case IS_A -> implement_is_a(generatedFunction, instruction);
+					case NOP -> {
+					}
+					case CONSTRUCT -> implement_construct(generatedFunction, instruction, context);
+					default -> throw new IllegalStateException("Unexpected value: " + instruction.getName());
+					}
+				}
+			});
 		}
 		__post_vte_list_001(generatedFunction);
 		__post_vte_list_002(generatedFunction, fd_ctx);
 		__post_deferred_calls(generatedFunction, fd_ctx);
+	}
+
+	private void logProgressRunnable(final String aS, final ElLog.Progress aProgress, final Runnable aRunnable) {
+		switch (aProgress) {
+		case INFO -> {
+			LOG.info(aS);
+		}
+		case ERR -> {
+			LOG.err(aS);
+		}
+		default -> throw new ProgramIsLikelyWrong("Unexpected value: " + aProgress);
+		}
+
+		aRunnable.run();
 	}
 
 	public void fix_tables(final @NotNull BaseEvaFunction evaFunction) {
