@@ -67,8 +67,8 @@ public class GenTypeImpl implements GenType {
 			case USER_CLASS:
 				ClassStatement best = genType.getResolved().getClassOf();
 				//
-				final Operation<ClassInvocation> oi = DeduceTypes2.ClassInvocationMake.withGenericPart(best,
-						constructorName, aTyn1, deduceTypes2);
+				final Operation<ClassInvocation> oi = ClassInvocationMake.withGenericPart(best,
+																						  constructorName, aTyn1, deduceTypes2);
 				assert oi.mode() == Mode.SUCCESS;
 
 				ClassInvocation clsinv2 = oi.success();
@@ -94,8 +94,8 @@ public class GenTypeImpl implements GenType {
 			@Nullable
 			ClassInvocation clsinv;
 			if (genType.getCi() == null) {
-				final Operation<ClassInvocation> oi = DeduceTypes2.ClassInvocationMake.withGenericPart(best,
-						constructorName, (NormalTypeName) aGenericTypeName, deduceTypes2);
+				final Operation<ClassInvocation> oi = ClassInvocationMake.withGenericPart(best,
+																						  constructorName, (NormalTypeName) aGenericTypeName, deduceTypes2);
 				assert oi.mode() == Mode.SUCCESS;
 				clsinv = oi.success();
 				if (clsinv == null)
@@ -128,8 +128,8 @@ public class GenTypeImpl implements GenType {
 			@Nullable
 			ClassInvocation clsinv;
 			if (genType.getCi() == null) {
-				final Operation<ClassInvocation> oi = DeduceTypes2.ClassInvocationMake.withGenericPart(best,
-						constructorName, (NormalTypeName) aGenericTypeName, deduceTypes2);
+				final Operation<ClassInvocation> oi = ClassInvocationMake.withGenericPart(best,
+																						  constructorName, (NormalTypeName) aGenericTypeName, deduceTypes2);
 				assert oi.mode() == Mode.SUCCESS;
 				clsinv = oi.success();
 				if (clsinv == null)
