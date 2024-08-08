@@ -1,13 +1,12 @@
-package tripleo.elijah.stages.gen_c;
+package tripleo.elijah.stages.gen_c.internal;
 
 import io.reactivex.rxjava3.subjects.*;
-
 import org.jetbrains.annotations.*;
-
-import tripleo.elijah.Eventual;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.instructions.*;
@@ -114,7 +113,7 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 
 	@Override
 	public int getCode() {
-		return carrier.getCode();
+		return _code;
 	}
 
 	@Override
