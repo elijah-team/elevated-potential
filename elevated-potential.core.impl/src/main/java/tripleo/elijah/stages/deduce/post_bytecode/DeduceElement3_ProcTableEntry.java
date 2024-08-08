@@ -324,10 +324,10 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 
 		final __LFOE_Q                     q                = new __LFOE_Q(aDeduceTypes2.wm, wl, aDeduceTypes2);
 		final Eventual<FunctionInvocation> efi              = new Eventual<>();
-		efi.then(new lfoe_action__FunctionInvocationDoneCallback(this, aDeduceTypes2, addJobs::add, q, wl));
+		efi.then(new lfoe_action__FunctionInvocationDoneCallback(this, aDeduceTypes2, addJobs, q, wl));
 
 		final List<? extends Object>       actualResultList = new ArrayList<>();
-		final LFOE_Action_Results virtualResult = new LFOE_Action_Results(aDeduceTypes2, wl, addJobs::add, actualResultList, efi);
+		final LFOE_Action_Results virtualResult = new LFOE_Action_Results(aDeduceTypes2, wl, addJobs, actualResultList, efi);
 		final FunctionInvocation fi2 = principal.getFunctionInvocation();
 
 		try {
