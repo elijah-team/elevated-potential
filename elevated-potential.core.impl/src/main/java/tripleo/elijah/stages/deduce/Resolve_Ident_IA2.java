@@ -278,7 +278,7 @@ class Resolve_Ident_IA2 {
 						invocation = phase.registerClassInvocation(attached1.getClassOf(), null,
 								new ReadySupplier_1<>(deduceTypes2)); // TODO will fail one day
 						// TODO dont know if next line is right
-						final Operation<ClassInvocation> oi = DeduceTypes2.ClassInvocationMake.withGenericPart(
+						final Operation<ClassInvocation> oi = ClassInvocationMake.withGenericPart(
 								attached1.getClassOf(), null, (NormalTypeName) tte.genType.getNonGenericTypeName(),
 								deduceTypes2);
 						assert oi.mode() == Mode.SUCCESS;
