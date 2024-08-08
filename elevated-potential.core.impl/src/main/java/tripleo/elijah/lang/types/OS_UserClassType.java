@@ -6,7 +6,6 @@ import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.util.*;
 
-import java.text.*;
 import java.util.*;
 
 public class OS_UserClassType extends __Abstract_OS_Type {
@@ -53,8 +52,8 @@ public class OS_UserClassType extends __Abstract_OS_Type {
 		@Nullable
 		ClassInvocation clsinv;
 		if (genType.getCi() == null) {
-			final Operation<ClassInvocation> oi = DeduceTypes2.ClassInvocationMake.withGenericPart(best,
-					constructorName, (NormalTypeName) aGenericTypeName, deduceTypes2);
+			final Operation<ClassInvocation> oi = ClassInvocationMake.withGenericPart(best,
+																					  constructorName, (NormalTypeName) aGenericTypeName, deduceTypes2);
 			assert oi.mode() == Mode.SUCCESS;
 			clsinv = oi.success();
 			if (clsinv == null)
