@@ -78,6 +78,10 @@ public class WhyNotGarish_Class implements WhyNotGarish_Item {
 		generateC._ce().logProgress(CompProgress.GenerateC, Pair.of(code, message));
 	}
 
+	public EvaClass __evaClass() {
+		return gc;
+	}
+
 	public String getTypeNameString() {
 		return GenerateC.GetTypeName.forGenClass(gc);
 	}
