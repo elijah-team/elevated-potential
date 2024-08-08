@@ -107,13 +107,13 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 	}
 
 	public @NotNull Operation<Ok> renderNode(final @NotNull ER_Node node) {
-		final Path         path = node.getPath().getPath(); // TODO 12/07
+		final Path path = node.getNioPath();
 		final EG_Statement seq  = node.getStatement();
 
 		c.getCompilationEnclosure().logProgress(CompProgress.__CP_OutputPath_renderNode, node);
 
-		V.asv(e.);
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("401b Writing path: " + path.toFile());
+		//V.asv(e.); // README down below, silly!
+		//tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("401b Writing path: " + path.toFile());
 		path.getParent().toFile().mkdirs();
 
 		try (final DisposableCharSink xx = c.getIO().openWrite(path)) {
