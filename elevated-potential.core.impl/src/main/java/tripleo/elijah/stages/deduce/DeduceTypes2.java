@@ -9,48 +9,50 @@
  */
 package tripleo.elijah.stages.deduce;
 
-//import com.sun.security.auth.NTNumericCredential;
-import io.reactivex.rxjava3.annotations.*;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.subjects.*;
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.Nullable;
+import io.reactivex.rxjava3.subjects.Subject;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.g.*;
 import tripleo.elijah.Eventual;
+import tripleo.elijah.ReadySupplier_1;
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.g.GCompilationEnclosure;
+import tripleo.elijah.g.GModuleThing;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.nextgen.names.i.*;
 import tripleo.elijah.lang.nextgen.names.impl.*;
 import tripleo.elijah.lang.types.*;
 import tripleo.elijah.lang2.*;
-import tripleo.elijah.nextgen.*;
-import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.stages.deduce.Resolve_Ident_IA.*;
-import tripleo.elijah.stages.deduce.declarations.*;
+import tripleo.elijah.nextgen.ClassDefinition;
+import tripleo.elijah.nextgen.reactive.Reactivable;
+import tripleo.elijah.stages.deduce.Resolve_Ident_IA.DeduceElementIdent;
+import tripleo.elijah.stages.deduce.declarations.DeferredMember;
+import tripleo.elijah.stages.deduce.declarations.DeferredMemberFunction;
 import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.deduce.tastic.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.inter.*;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.inter.ModuleThing;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.ElLog_;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-//import tripleo.elijah_fluffy.util.DiagnosticException;
 
 import java.util.*;
-import java.util.function.*;
-import java.util.regex.*;
+import java.util.function.Supplier;
+import java.util.regex.Pattern;
 
 /**
  * Created 9/15/20 12:51 PM
@@ -67,11 +69,11 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 	private final          DeduceCentral            _p_central;
 	private final          Map<OS_Element, DG_Item> _map_dgs;
 	private final @NotNull List<Runnable>           onRunnables;
+	@SuppressWarnings("FieldCanBeLocal")
 	private final          List<FunctionInvocation> functionInvocations; // TODO never used
 	private final          List<IDeduceResolvable>  _pendingResolves;
 	private final          ErrSink                  errSink;
 	private final          PromiseExpectations      expectations;
-	private final          List<DE3_Active>         _actives;
 	private final          DeduceCreationContext    _defaultCreationContext;
 	private final @NotNull List<DT_External>        externals;
 
@@ -87,7 +89,6 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 		onRunnables             = _inj().new_ArrayList__Runnable();
 		_pendingResolves        = _inj().new_ArrayList__IDeduceResolvable();
 		expectations            = _inj().new_PromiseExpectations(this);
-		_actives                = _inj().new_ArrayList__DE3_Active();
 		_defaultCreationContext = _inj().new_DefaultDeduceCreationContext(this);
 		externals               = _inj().new_LinkedList__DT_External();
 		functionInvocations     = _inj().new_ArrayList__FunctionInvocation();
@@ -136,16 +137,18 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 		return _p_zero.getIdent(aIdentTableEntryBte, aGf, aDt2);
 	}
 
-	public void activePTE(@NotNull ProcTableEntry pte, ClassInvocation classInvocation) {
-		// TODO Auto-generated method stub
-		_actives.add(_inj().new_DE3_ActivePTE(this, pte, classInvocation));
+	private final _A_active _a_active = new _A_active(this);
+
+	public void activePTE(@NotNull ProcTableEntry aProcTableEntry, ClassInvocation aClassInvocation) {
+		_a_active.activePTE(this, aProcTableEntry, aClassInvocation);
 	}
 
 	public void addExternal(final DT_External aExt) {
 		externals.add(aExt);
 	}
 
-	public void addResolvePending(final IDeduceResolvable aResolvable, final IDeduceElement_old aDeduceElement,
+	public void addResolvePending(final IDeduceResolvable aResolvable,
+								  final IDeduceElement_old aDeduceElement,
 								  final Holder<OS_Element> aHolder) {
 		assert !hasResolvePending(aResolvable);
 
@@ -328,111 +331,30 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 	public void onExitFunction(final @NotNull BaseEvaFunction generatedFunction,
 							   final Context aFd_ctx,
 							   final Context aContext) {
-		//
-		// resolve var table. moved from `E'
-		//
-		for (@NotNull VariableTableEntry vte : generatedFunction.vte_list) {
-			vte.resolve_var_table_entry_for_exit_function();
-		}
-		for (@NotNull Runnable runnable : onRunnables) {
-			runnable.run();
-		}
+		final DW_onExitFunction dw = new DW_onExitFunction(this, generatedFunction, aFd_ctx, aContext);
+
+		dw.resolve_var_table();
+		dw.runRunnables();
 //					LOG.info("167 "+generatedFunction);
-		//
-		// ATTACH A TYPE TO VTE'S
-		// CONVERT USER TYPES TO USER_CLASS TYPES
-		//
-		for (final @NotNull VariableTableEntry vte : generatedFunction.vte_list) {
-//                                              LOG.info("704 "+vte.type.attached+" "+vte.potentialTypes());
-			final DeduceElement3_VariableTableEntry vte_de = vte.getDeduceElement3();
-			vte_de.setDeduceTypes2(this, generatedFunction);
-			vte_de.mvState(null, DeduceElement3_VariableTableEntry.ST.EXIT_CONVERT_USER_TYPES);
-		}
-		__checkVteList(generatedFunction);
-		//
-		// ATTACH A TYPE TO IDTE'S
-		//
-		for (@NotNull final IdentTableEntry ite : generatedFunction.idte_list) {
-			final DeduceElement3_IdentTableEntry ite_de = ite.getDeduceElement3(this, generatedFunction);
-			ite_de._ctxts(aFd_ctx, aContext);
-			ite_de.mvState(null, DeduceElement3_IdentTableEntry.ST.EXIT_GET_TYPE);
-		}
-		{
-			// TODO why are we doing this?
-			final Resolve_each_typename ret = _inj().new_Resolve_each_typename(phase, this, errSink);
-			for (final TypeTableEntry typeTableEntry : generatedFunction.tte_list) {
-				ret.action(typeTableEntry);
-			}
-		}
-		{
-			final @NotNull WorkManager  workManager = wm;// _inj().new_WorkManager();
-			@NotNull final Dependencies deps        = _inj().new_Dependencies(/* this, *//* phase, this, errSink */workManager, this);
-			deps.subscribeTypes(generatedFunction.dependentTypesSubject());
-			deps.subscribeFunctions(generatedFunction.dependentFunctionSubject());
-//                                              for (@NotNull GenType genType : generatedFunction.dependentTypes()) {
-//                                                      deps.action_type(genType, workManager);
-//                                              }
-//                                              for (@NotNull FunctionInvocation dependentFunction : generatedFunction.dependentFunctions()) {
-//                                                      deps.action_function(dependentFunction, workManager);
-//                                              }
-			final int x = workManager.totalSize();
 
-			// FIXME 06/14
-			workManager.drain();
+		dw.attachVTEs(generatedFunction, this);
+		dw.checkVteList(generatedFunction, this);
+		dw.attachIDTEs(generatedFunction, aFd_ctx, aContext, this);
+		dw.resolveEachTypename(generatedFunction, this);
+		dw.doDependencySubscriptions(generatedFunction, this);
+		dw.resolveFunctionReturnType(generatedFunction, this);
+		dw.doExitPostVteSomething(generatedFunction, aFd_ctx, this);
+		dw.doLoookupFunctions(generatedFunction, this);
+		dw.doCheckEvaClassVarTable(generatedFunction, this);
+		dw.doCheckExpectations(this);
+		dw.addActivesToPhase(phase, this);
 
-			phase.addDrs(generatedFunction, generatedFunction.drs);
+		dw.addDrIdents(generatedFunction, this);
+		dw.addDrVTEs(generatedFunction);
 
-			phase.doneWait(this, generatedFunction);
-		}
+		dw.addDrsToPhase(generatedFunction, phase);
 
-		//
-		// RESOLVE FUNCTION RETURN TYPES
-		//
-		resolve_function_return_type(generatedFunction);
-
-		__on_exit__post_vte_something(generatedFunction, aFd_ctx);
-
-		//
-		// LOOKUP FUNCTIONS
-		//
-		{
-			@NotNull
-			WorkList wl = _inj().new_WorkList();
-
-			for (@NotNull
-			ProcTableEntry pte : generatedFunction.prte_list) {
-				final DeduceElement3_ProcTableEntry de3_pte = convertPTE(generatedFunction, pte);
-				de3_pte.lfoe_action(DeduceTypes2.this, wl, (j) -> wm.addJobs(j), new Consumer<DeduceElement3_ProcTableEntry.LFOE_Action_Results>() {
-					@Override
-					public void accept(final DeduceElement3_ProcTableEntry.LFOE_Action_Results aLFOEActionResults) {
-						int y=2;
-					}
-				});
-			}
-
-			wm.addJobs(wl);
-			// wm.drain();
-		}
-
-		checkEvaClassVarTable(generatedFunction);
-
-		expectations.check();
-
-		phase.addActives(_actives);
-
-		for (IdentTableEntry identTableEntry : generatedFunction.idte_list) {
-			generatedFunction.drs.add(_inj().new_DR_Ident(identTableEntry, generatedFunction, this));
-		}
-		for (VariableTableEntry variableTableEntry : generatedFunction.vte_list) {
-			generatedFunction.drs.add(DR_Ident.create(variableTableEntry, generatedFunction));
-		}
-
-		phase.addDrs(generatedFunction, generatedFunction.drs);
-
-		for (DT_External external : externals) {
-			// external.onTargetModule(tm -> {phase.modulePromise(tm, external::actualise);}); //[T1160118]
-			phase.modulePromise(external.targetModule(), external::actualise);
-		}
+		dw.phaseResolveModulePromises(this);
 	}
 
 	public void do_assign_normal(final @NotNull BaseEvaFunction generatedFunction, final @NotNull Context aFd_ctx,
