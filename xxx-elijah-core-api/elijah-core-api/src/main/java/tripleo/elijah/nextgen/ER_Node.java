@@ -2,8 +2,10 @@ package tripleo.elijah.nextgen;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.nextgen.i.CP_Path;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.nextgen.outputstatement.*;
+
+import java.nio.file.*;
 
 /**
  * See
@@ -36,4 +38,8 @@ public interface ER_Node {
 	CP_Path getPath();
 
 	EG_Statement getStatement();
+
+	default Path getNioPath() {
+		return getPath().getPath();
+	}
 }
