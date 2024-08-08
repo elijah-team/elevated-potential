@@ -5,7 +5,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.diagnostic.*;
 
 /**
- * An emulation of Rust's Result type
+ * A workaround for the lack of Union Types
  *
  * @param <T> the success type
  */
