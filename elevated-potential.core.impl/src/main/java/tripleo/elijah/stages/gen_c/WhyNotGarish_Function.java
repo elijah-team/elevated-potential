@@ -88,6 +88,11 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 	}
 
 	@Override
+	public DeducedBaseEvaFunction ool() {
+		return this.__deduced;
+	}
+
+	@Override
 	public WhyNotGarish_DeclaringContext declaringContext() {
 		return __declaringContext;
 	}
