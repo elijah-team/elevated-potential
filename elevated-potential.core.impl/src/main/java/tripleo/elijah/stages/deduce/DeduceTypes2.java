@@ -9,6 +9,7 @@
  */
 package tripleo.elijah.stages.deduce;
 
+//import com.sun.security.auth.NTNumericCredential;
 import io.reactivex.rxjava3.annotations.*;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -44,7 +45,7 @@ import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah_prolific.v.V;
+//import tripleo.elijah_fluffy.util.DiagnosticException;
 
 import java.util.*;
 import java.util.function.*;
@@ -1017,7 +1018,7 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 			try {
 				cte.getTypeTableEntry().setAttached(resolve_type(_inj().new_OS_BuiltinType(aBuiltInType), aContext));
 			} catch (ResolveError resolveError) {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("117 Can't be here");
+				SimplePrintLoggerToRemoveSoon.println_out_2("117 Can't be here");
 				resolveError.printStackTrace(); // TODO print diagnostic
 			}
 		}
@@ -1533,6 +1534,32 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 				}
 			}
 			return Operation.success(clsinv);
+		}
+
+		public static DeduceTypes2Injector.DerivedClassInvocation2 withGenericPart2(final ClassStatement aClassStatement, final String aO, final NormalTypeName aNormalTypeName, final DeduceTypes2 aDeduceTypes2) {
+			@NotNull final Operation<ClassInvocation> x = withGenericPart(aClassStatement, aO, aNormalTypeName, aDeduceTypes2);
+			final DeduceTypes2Injector.DerivedClassInvocation2 result = new DeduceTypes2Injector.DerivedClassInvocation2() {
+				@Override
+				public void into(final Eventual<IInvocation> ev) {
+					switch (x.mode()) {
+					case SUCCESS -> {
+						ev.resolve(x.success());
+					}
+					case FAILURE -> {
+						final Throwable           failure = x.failure();
+						final ExceptionDiagnostic ed      = new ExceptionDiagnostic(failure);
+						ev.reject(ed);
+					}
+					default -> {
+						// hmm!
+						final Throwable           failure = new IllegalStateException("Unexpected value: " + x.mode());
+						final ExceptionDiagnostic ed      = new ExceptionDiagnostic(failure);
+						ev.reject(ed);
+					}
+					}
+				}
+			};
+			return result;
 		}
 	}
 
@@ -2436,6 +2463,33 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 
 		public Zero new_Zero(final DeduceTypes2 aDeduceTypes2) {
 			return aDeduceTypes2.new Zero();
+		}
+
+		public abstract static class DerivedClassInvocation2 {
+			public IInvocation asInvocation() {
+				return carrier;
+			}
+
+			protected IInvocation carrier;
+
+			public abstract void into(final Eventual<IInvocation> aInvocationP);
+		}
+
+		@SuppressWarnings("UnnecessaryLocalVariable")
+		public DerivedClassInvocation2 new_DerivedClassInvocation2(final ClassStatement aDeclAnchor,
+																   final ClassInvocation aDeclaredInvocation,
+																   final ReadySupplier_1<DeduceTypes2> dtSupplier) {
+			final DerivedClassInvocation2 result = new DerivedClassInvocation2() {
+				@Override
+				public void into(final Eventual<IInvocation> aInvocationP) {
+					if (this.carrier == null) {
+						this.carrier = new_DerivedClassInvocation(aDeclAnchor, aDeclaredInvocation, dtSupplier);
+					}
+
+					aInvocationP.resolve(this.carrier);
+				}
+			};
+			return result;
 		}
 	}
 

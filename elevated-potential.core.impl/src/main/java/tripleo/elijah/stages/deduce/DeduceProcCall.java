@@ -13,6 +13,7 @@ import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
+import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
@@ -35,11 +36,20 @@ public class DeduceProcCall {
 		 * <p>
 		 * {@link file:///./Screenshot-from-2023-08-13 12-25-11.png}
 		 */
-		public DeclTarget(final @NotNull OS_Element aBest, final @NotNull OS_Element aDeclAnchor,
-				final @NotNull DeclAnchor.AnchorType aAnchorType) throws FCA_Stop {
+		public DeclTarget(final @NotNull OS_Element aBest,
+						  final @NotNull OS_Element aDeclAnchor,
+						  final @NotNull DeclAnchor.AnchorType aAnchorType) throws FCA_Stop {
 			element = aBest;
 			anchor = _g_deduceTypes2._inj().new_DeclAnchor(aDeclAnchor, aAnchorType);
-			final IInvocation invocation;
+			final Eventual<IInvocation> invocationP = new Eventual<>();
+			invocationP.then(anchor::setInvocation);
+			invocationP.onFail(new FailCallback<Diagnostic>() {
+				@Override
+				public void onFail(final Diagnostic result) {
+					throw new UnintendedUseException("bork for now");
+				}
+			});
+
 			switch (aAnchorType) {
 			case VAR -> {
 				DR_Variable v = _g_generatedFunction.getVar((VariableStatement) element);
@@ -50,32 +60,31 @@ public class DeduceProcCall {
 					final NormalTypeName normalTypeName = (NormalTypeName) ((VariableStatementImpl) element).typeName();
 					final LookupResultList lrl = normalTypeName.getContext().lookup(normalTypeName.getName());
 					final ClassStatement classStatement = (ClassStatement) lrl.chooseBest(null);
-					final Operation<ClassInvocation> oi = DeduceTypes2.ClassInvocationMake
-							.withGenericPart(classStatement, null, normalTypeName, _g_deduceTypes2);
-
-					assert oi.mode() == Mode.SUCCESS;
-					invocation = oi.success();
+					DeduceTypes2.ClassInvocationMake
+							.withGenericPart2(classStatement, null, normalTypeName, _g_deduceTypes2)
+							.into(invocationP);
 				}
 			}
 			default -> {
 				if (element instanceof FunctionDef fd) {
-					invocation = _g_generatedFunction.fi;
+					invocationP.resolve(_g_generatedFunction.fi);
 				} else {
 					IInvocation declaredInvocation = _g_generatedFunction.fi.getClassInvocation();
 					if (declaredInvocation == null) {
 						declaredInvocation = _g_generatedFunction.fi.getNamespaceInvocation();
 					}
+
 					if (aAnchorType == DeclAnchor.AnchorType.INHERITED) {
 						assert declaredInvocation instanceof ClassInvocation;
-						invocation = _g_deduceTypes2._inj().new_DerivedClassInvocation((ClassStatement) aDeclAnchor,
-								(ClassInvocation) declaredInvocation, new ReadySupplier_1<>(_g_deduceTypes2));
+						_g_deduceTypes2._inj().new_DerivedClassInvocation2((ClassStatement) aDeclAnchor,
+								(ClassInvocation) declaredInvocation, new ReadySupplier_1<>(_g_deduceTypes2))
+								.into(invocationP);
 					} else {
-						invocation = declaredInvocation;
+						invocationP.resolve(declaredInvocation);
 					}
 				}
 			}
 			}
-			anchor.setInvocation(invocation);
 		}
 
 		@Contract(pure = true)
