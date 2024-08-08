@@ -319,7 +319,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		//assert aDeduceTypes2 == deduceTypes2;
 		if (aDeduceTypes2 != deduceTypes2) {
 			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("503262 deduceTypes divergence");
-			//throw new AssertionError();
+			throw new AssertionError();
 		}
 
 		final __LFOE_Q                     q                = new __LFOE_Q(aDeduceTypes2.wm, wl, aDeduceTypes2);
