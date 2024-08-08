@@ -19,7 +19,6 @@ import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.deduce.tastic.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.util.*;
 
 /**
  * Created 11/30/21 11:56 PM
@@ -60,7 +59,7 @@ public class DeduceProcCall {
 					final NormalTypeName normalTypeName = (NormalTypeName) ((VariableStatementImpl) element).typeName();
 					final LookupResultList lrl = normalTypeName.getContext().lookup(normalTypeName.getName());
 					final ClassStatement classStatement = (ClassStatement) lrl.chooseBest(null);
-					DeduceTypes2.ClassInvocationMake
+					ClassInvocationMake
 							.withGenericPart2(classStatement, null, normalTypeName, _g_deduceTypes2)
 							.into(invocationP);
 				}
