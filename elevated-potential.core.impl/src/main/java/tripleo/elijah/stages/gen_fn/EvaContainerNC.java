@@ -101,9 +101,6 @@ public abstract class EvaContainerNC extends AbstractDependencyTracker implement
 
 	public abstract void generateCode(GenerateResultEnv aFileGen, CodeGenerator aGgc);
 
-	@Deprecated
-	public abstract int getCode();
-
 	public @NotNull Dependency getDependency() {
 		return dependency;
 	}
