@@ -189,15 +189,19 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 		}
 		//
 		//
+		final DW_onExitFunction dw = new DW_onExitFunction(this, generatedFunction, fd_ctx, null);
+
 		for (final @NotNull Instruction instruction : generatedFunction.instructions()) {
 			final Context context = generatedFunction.getContextFromPC(instruction.getIndex());
 //			LOG.info("8006 " + instruction);
+			dw.adviseContext(context);
+
 			switch (instruction.getName()) {
 			case E:
 				onEnterFunction(generatedFunction, context);
 				break;
 			case X:
-				onExitFunction(generatedFunction, fd_ctx, context);
+				onExitFunction(fd_ctx, context, dw);
 				break;
 			case ES:
 				break;
@@ -323,33 +327,31 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 		generatedFunction.resolve_arguments_table(aContext);
 	}
 
-	public void onExitFunction(final @NotNull BaseEvaFunction generatedFunction,
-							   final Context aFd_ctx,
-							   final Context aContext) {
-		final DW_onExitFunction dw = new DW_onExitFunction(this, generatedFunction, aFd_ctx, aContext);
-
+	public void onExitFunction(final Context aFd_ctx,
+							   final Context aContext,
+							   final DW_onExitFunction dw) {
 		dw.resolve_var_table();
 		dw.runRunnables();
 //					LOG.info("167 "+generatedFunction);
 
-		dw.attachVTEs(generatedFunction, this);
-		dw.checkVteList(generatedFunction, this);
-		dw.attachIDTEs(generatedFunction, aFd_ctx, aContext, this);
-		dw.resolveEachTypename(generatedFunction, this);
-		dw.doDependencySubscriptions(generatedFunction, this);
-		dw.resolveFunctionReturnType(generatedFunction, this);
-		dw.doExitPostVteSomething(generatedFunction, aFd_ctx, this);
-		dw.doLoookupFunctions(generatedFunction, this);
-		dw.doCheckEvaClassVarTable(generatedFunction, this);
-		dw.doCheckExpectations(this);
-		dw.addActivesToPhase(phase, this);
+		dw.attachVTEs();
+		dw.checkVteList();
+		dw.attachIDTEs(aFd_ctx, aContext);
+		dw.resolveEachTypename();
+		dw.doDependencySubscriptions();
+		dw.resolveFunctionReturnType();
+		dw.doExitPostVteSomething(aFd_ctx);
+		dw.doLoookupFunctions();
+		dw.doCheckEvaClassVarTable();
+		dw.doCheckExpectations();
+		dw.addActivesToPhase(phase);
 
-		dw.addDrIdents(generatedFunction, this);
-		dw.addDrVTEs(generatedFunction);
+		dw.addDrIdents();
+		dw.addDrVTEs();
 
-		dw.addDrsToPhase(generatedFunction, phase);
+		dw.addDrsToPhase(phase);
 
-		dw.phaseResolveModulePromises(this);
+		dw.phaseResolveModulePromises();
 	}
 
 	public void do_assign_normal(final @NotNull BaseEvaFunction generatedFunction, final @NotNull Context aFd_ctx,
