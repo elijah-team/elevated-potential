@@ -13,7 +13,8 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
-import tripleo.elijah_prolific.v.V;
+import tripleo.elijah_fluffy.adt.*;
+import tripleo.elijah_prolific.v.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -313,7 +314,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 
 	public void lfoe_action(final @NotNull DeduceTypes2 aDeduceTypes2,
 							final @NotNull WorkList wl,
-							final @NotNull Consumer<WorkList> addJobs,
+							final @NotNull Adder<WorkList> addJobs,
 							final @NotNull Consumer<LFOE_Action_Results> resultconsumer) {
 		//assert aDeduceTypes2 == deduceTypes2;
 		if (aDeduceTypes2 != deduceTypes2) {
