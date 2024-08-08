@@ -1,9 +1,11 @@
 package tripleo.elijah;
 
 import org.jdeferred2.DoneCallback;
+import org.jdeferred2.FailCallback;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.diagnostic.ExceptionDiagnostic;
 
 public class Eventual<P> {
 	private final DeferredObject<P, Diagnostic, Void> prom = new DeferredObject<>();
@@ -45,5 +47,14 @@ public class Eventual<P> {
 
 	public boolean isPending() {
 		return prom.isPending();
+	}
+
+	public void reject(final Exception aFailure) {
+		final Diagnostic x = new ExceptionDiagnostic(aFailure);
+		reject(x);
+	}
+
+	public void onFail(final FailCallback<Diagnostic> cb) {
+		prom.fail(cb);
 	}
 }
