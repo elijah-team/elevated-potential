@@ -110,7 +110,7 @@ public interface Compilation extends Compilation0 {
 
 	class CompilationConfig implements GCompilationConfig {
 		private boolean showTree = false; // FIXME make something out of this, i dare you
-		private boolean silent   = false;
+		public boolean silent = false;
 
 		@Override
 		public void setSilent(final boolean b) {

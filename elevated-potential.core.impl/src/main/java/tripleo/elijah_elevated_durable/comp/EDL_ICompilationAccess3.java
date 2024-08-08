@@ -7,15 +7,15 @@ import tripleo.elijah.stages.logging.*;
 import java.util.*;
 
 public class EDL_ICompilationAccess3 implements ICompilationAccess3 {
-	private final CompilationImpl a_c;
+	private final CompilationImpl compilation;
 
-	public EDL_ICompilationAccess3(final CompilationImpl a_c) {
-		this.a_c = a_c;
+	public EDL_ICompilationAccess3(final CompilationImpl aCompilation) {
+		this.compilation = aCompilation;
 	}
 
 	@Override
 	public Compilation getComp() {
-		return a_c;
+		return compilation;
 	}
 
 	@Override
