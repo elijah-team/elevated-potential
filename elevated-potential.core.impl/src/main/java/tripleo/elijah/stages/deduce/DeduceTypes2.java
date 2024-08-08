@@ -9,50 +9,45 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.annotations.*;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.subjects.Subject;
-import org.jdeferred2.DoneCallback;
-import org.jdeferred2.impl.DeferredObject;
+import io.reactivex.rxjava3.subjects.*;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.ReadySupplier_1;
-import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.g.GCompilationEnclosure;
-import tripleo.elijah.g.GModuleThing;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.nextgen.names.i.*;
 import tripleo.elijah.lang.nextgen.names.impl.*;
 import tripleo.elijah.lang.types.*;
 import tripleo.elijah.lang2.*;
-import tripleo.elijah.nextgen.ClassDefinition;
-import tripleo.elijah.nextgen.reactive.Reactivable;
-import tripleo.elijah.stages.deduce.Resolve_Ident_IA.DeduceElementIdent;
-import tripleo.elijah.stages.deduce.declarations.DeferredMember;
-import tripleo.elijah.stages.deduce.declarations.DeferredMemberFunction;
+import tripleo.elijah.nextgen.*;
+import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.stages.deduce.Resolve_Ident_IA.*;
+import tripleo.elijah.stages.deduce.declarations.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.deduce.tastic.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.inter.ModuleThing;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.stages.logging.ElLog_;
+import tripleo.elijah.stages.inter.*;
+import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 import java.util.*;
-import java.util.function.Supplier;
-import java.util.regex.Pattern;
+import java.util.function.*;
+import java.util.regex.*;
 
 /**
  * Created 9/15/20 12:51 PM
@@ -67,10 +62,10 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 	private final          Zero                     _p_zero;
 	private final          ITasticMap               _p_tasticMap;
 	private final          DeduceCentral            _p_central;
-	private final          Map<OS_Element, DG_Item> _map_dgs;
-	private final @NotNull List<Runnable>           onRunnables;
+	private final  Map<OS_Element, DG_Item> _map_dgs;
+	final @NotNull List<Runnable>           onRunnables;
 	@SuppressWarnings("FieldCanBeLocal")
-	private final          List<FunctionInvocation> functionInvocations; // TODO never used
+	private final  List<FunctionInvocation> functionInvocations; // TODO never used
 	private final          List<IDeduceResolvable>  _pendingResolves;
 	private final          ErrSink                  errSink;
 	private final          PromiseExpectations      expectations;
@@ -137,7 +132,7 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 		return _p_zero.getIdent(aIdentTableEntryBte, aGf, aDt2);
 	}
 
-	private final _A_active _a_active = new _A_active(this);
+	final _A_active _a_active = new _A_active(this);
 
 	public void activePTE(@NotNull ProcTableEntry aProcTableEntry, ClassInvocation aClassInvocation) {
 		_a_active.activePTE(this, aProcTableEntry, aClassInvocation);
@@ -735,12 +730,6 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 		}
 	}
 
-	private void __checkVteList(final @NotNull BaseEvaFunction generatedFunction) {
-		for (final @NotNull VariableTableEntry vte : generatedFunction.vte_list) {
-			__checkVteList_each(vte);
-		}
-	}
-
 	void resolve_function_return_type(@NotNull BaseEvaFunction generatedFunction) {
 		final DeduceElement3_Function f = _p_zero.get(DeduceTypes2.this, generatedFunction);
 
@@ -748,55 +737,6 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 		if (gt != null)
 			// phase.typeDecided((EvaFunction) generatedFunction, gt);
 			generatedFunction.resolveTypeDeferred(gt);
-	}
-
-	private void __on_exit__post_vte_something(final @NotNull BaseEvaFunction generatedFunction,
-											   final Context aFd_ctx) {
-		int y = 2;
-		for (VariableTableEntry variableTableEntry : generatedFunction.vte_list) {
-			final @NotNull Collection<TypeTableEntry> pot = variableTableEntry.potentialTypes();
-			if (pot.size() == 1 && variableTableEntry.getGenType().isNull()) {
-				final OS_Type x = pot.iterator().next().getAttached();
-				if (x != null)
-					if (x.getType() == OS_Type.Type.USER_CLASS) {
-						try {
-							final @NotNull GenType yy = resolve_type(x, aFd_ctx);
-							// HACK TIME
-							if (yy.getResolved() == null && yy.getTypeName().getType() == OS_Type.Type.USER_CLASS) {
-								yy.setResolved(yy.getTypeName());
-								yy.setTypeName(null);
-							}
-
-							yy.genCIForGenType2(this);
-							variableTableEntry.resolveType(yy);
-							variableTableEntry.resolveTypeToClass(yy.getNode());
-//								variableTableEntry.dlv.type.resolve(yy);
-						} catch (ResolveError aResolveError) {
-							aResolveError.printStackTrace();
-						}
-					}
-			}
-		}
-	}
-
-	@NotNull
-	private DeduceElement3_ProcTableEntry convertPTE(final @NotNull BaseEvaFunction generatedFunction,
-													 final @NotNull ProcTableEntry pte) {
-		final DeduceElement3_ProcTableEntry de3_pte = pte.getDeduceElement3(DeduceTypes2.this, generatedFunction);
-		return de3_pte;
-	}
-
-	private void checkEvaClassVarTable(final @NotNull BaseEvaFunction generatedFunction) {
-		// for (VariableTableEntry variableTableEntry : generatedFunction.vte_list) {
-		// variableTableEntry.setDeduceTypes2(this, aContext, generatedFunction);
-		// }
-		for (IdentTableEntry identTableEntry : generatedFunction.idte_list) {
-			identTableEntry.getDeduceElement3(this, generatedFunction).mvState(
-					null,
-					DeduceElement3_IdentTableEntry.ST.CHECK_EVA_CLASS_VAR_TABLE);
-			// identTableEntry.setDeduceTypes2(this, aContext, generatedFunction);
-
-		}
 	}
 
 	public static int to_int(@NotNull final InstructionArgument arg) {
@@ -943,31 +883,6 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 			} catch (ResolveError resolveError) {
 				SimplePrintLoggerToRemoveSoon.println_out_2("117 Can't be here");
 				resolveError.printStackTrace(); // TODO print diagnostic
-			}
-		}
-	}
-
-	private void __checkVteList_each(final @NotNull VariableTableEntry vte) {
-		if (vte.getVtt() == VariableTableType.ARG) {
-			final TypeTableEntry vteType = vte.getTypeTableEntry();
-
-			if (vteType.genType instanceof ForwardingGenType fgt)
-				fgt.unsparkled();
-
-			if (vteType.genType != null) {
-				var vte_genType = vte.getGenType();
-				if (vte_genType.getNode() != null)
-					return;
-			}
-
-			final OS_Type attached = vteType.getAttached();
-			if (attached != null) {
-				if (attached.getType() == OS_Type.Type.USER) {
-					// throw new AssertionError();
-					errSink.reportError("369 ARG USER type (not deduced) " + vte);
-				}
-			} else {
-				// 08/13 errSink.reportError("457 ARG type not deduced/attached " + vte);
 			}
 		}
 	}

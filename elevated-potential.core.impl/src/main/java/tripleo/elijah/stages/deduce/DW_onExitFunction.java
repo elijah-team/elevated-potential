@@ -6,8 +6,10 @@ import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.deduce.tastic.*;
 import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.work.*;
 
+import java.util.*;
 import java.util.function.*;
 
 class DW_onExitFunction {
@@ -54,7 +56,9 @@ class DW_onExitFunction {
 	}
 
 	void checkVteList(final @NotNull BaseEvaFunction generatedFunction, final DeduceTypes2 aDeduceTypes2) {
-		aDeduceTypes2.__checkVteList(generatedFunction);
+		for (final @NotNull VariableTableEntry vte : generatedFunction.vte_list) {
+			__checkVteList_each(vte, aDeduceTypes2);
+		}
 	}
 
 	void attachIDTEs(final @NotNull BaseEvaFunction generatedFunction, final Context aFd_ctx, final Context aContext, final DeduceTypes2 aDeduceTypes2) {
@@ -68,15 +72,15 @@ class DW_onExitFunction {
 		}
 	}
 
-	void resolveEachTypename(final @NotNull BaseEvaFunction generatedFunction, final DeduceTypes2 aDeduceTypes2) {
+	void resolveEachTypename(final @NotNull BaseEvaFunction generatedFunction, final @NotNull DeduceTypes2 aDeduceTypes2) {
 		// TODO why are we doing this?
-		final DeduceTypes2.Resolve_each_typename ret = aDeduceTypes2._inj().new_Resolve_each_typename(aDeduceTypes2.phase, aDeduceTypes2, aDeduceTypes2.errSink);
+		final DeduceTypes2.Resolve_each_typename ret = aDeduceTypes2._inj().new_Resolve_each_typename(aDeduceTypes2.phase, aDeduceTypes2, aDeduceTypes2._errSink());
 		for (final TypeTableEntry typeTableEntry : generatedFunction.tte_list) {
 			ret.action(typeTableEntry);
 		}
 	}
 
-	void doDependencySubscriptions(final @NotNull BaseEvaFunction generatedFunction, final DeduceTypes2 aDeduceTypes2) {
+	void doDependencySubscriptions(final @NotNull BaseEvaFunction generatedFunction, final @NotNull DeduceTypes2 aDeduceTypes2) {
 		final @NotNull WorkManager               workManager = aDeduceTypes2.wm;// _inj().new_WorkManager();
 		@NotNull final DeduceTypes2.Dependencies deps        = aDeduceTypes2._inj().new_Dependencies(/* this, *//* phase, this, errSink */workManager, aDeduceTypes2);
 		deps.subscribeTypes(generatedFunction.dependentTypesSubject());
@@ -97,7 +101,7 @@ class DW_onExitFunction {
 		aDeduceTypes2.phase.doneWait(aDeduceTypes2, generatedFunction);
 	}
 
-	void resolveFunctionReturnType(final @NotNull BaseEvaFunction generatedFunction, final DeduceTypes2 aDeduceTypes2) {
+	void resolveFunctionReturnType(final @NotNull BaseEvaFunction generatedFunction, final @NotNull DeduceTypes2 aDeduceTypes2) {
 		//
 		// RESOLVE FUNCTION RETURN TYPES
 		//
@@ -105,10 +109,10 @@ class DW_onExitFunction {
 	}
 
 	void doExitPostVteSomething(final @NotNull BaseEvaFunction generatedFunction, final Context aFd_ctx, final DeduceTypes2 aDeduceTypes2) {
-		aDeduceTypes2.__on_exit__post_vte_something(generatedFunction, aFd_ctx);
+		__on_exit__post_vte_something(generatedFunction, aFd_ctx, aDeduceTypes2);
 	}
 
-	void doLoookupFunctions(final @NotNull BaseEvaFunction generatedFunction, final DeduceTypes2 aDeduceTypes2) {
+	void doLoookupFunctions(final @NotNull BaseEvaFunction generatedFunction, final @NotNull DeduceTypes2 aDeduceTypes2) {
 		//
 		// LOOKUP FUNCTIONS
 		//
@@ -118,7 +122,7 @@ class DW_onExitFunction {
 
 			for (@NotNull
 			ProcTableEntry pte : generatedFunction.prte_list) {
-				final DeduceElement3_ProcTableEntry de3_pte = aDeduceTypes2.convertPTE(generatedFunction, pte);
+				final DeduceElement3_ProcTableEntry de3_pte = convertPTE(generatedFunction, pte, aDeduceTypes2);
 				de3_pte.lfoe_action(aDeduceTypes2, wl, (j) -> aDeduceTypes2.wm.addJobs(j), new Consumer<DeduceElement3_ProcTableEntry.LFOE_Action_Results>() {
 					@Override
 					public void accept(final DeduceElement3_ProcTableEntry.LFOE_Action_Results aLFOEActionResults) {
@@ -133,15 +137,16 @@ class DW_onExitFunction {
 	}
 
 	void doCheckEvaClassVarTable(final @NotNull BaseEvaFunction generatedFunction, final DeduceTypes2 aDeduceTypes2) {
-		aDeduceTypes2.checkEvaClassVarTable(generatedFunction);
+		checkEvaClassVarTable(generatedFunction, aDeduceTypes2);
 	}
 
-	void doCheckExpectations(final DeduceTypes2 aDeduceTypes2) {
-		aDeduceTypes2.expectations.check();
+	void doCheckExpectations(final @NotNull DeduceTypes2 aDeduceTypes2) {
+		aDeduceTypes2._expectations().check();
 	}
 
-	void addActivesToPhase(final DeducePhase phase2, final DeduceTypes2 aDeduceTypes2) {
-		phase2.addActives(aDeduceTypes2._a_active.list());
+	void addActivesToPhase(final DeducePhase phase2, final @NotNull DeduceTypes2 aDeduceTypes2) {
+		// TODO 24/08/08 May be too much indirection for my taste
+		aDeduceTypes2._a_active.addToPhase(phase2);
 	}
 
 	void addDrIdents(final @NotNull BaseEvaFunction generatedFunction, final DeduceTypes2 aDeduceTypes2) {
@@ -162,9 +167,83 @@ class DW_onExitFunction {
 	}
 
 	void phaseResolveModulePromises(final DeduceTypes2 aDeduceTypes2) {
-		for (DT_External external : aDeduceTypes2.externals) {
+		for (DT_External external : aDeduceTypes2._externals()) {
+			// TODO there is a plugin for this...
 			// external.onTargetModule(tm -> {phase.modulePromise(tm, external::actualise);}); //[T1160118]
 			aDeduceTypes2.phase.modulePromise(external.targetModule(), external::actualise);
+		}
+	}
+
+	private void __checkVteList_each(final @NotNull VariableTableEntry vte, final DeduceTypes2 aDeduceTypes2) {
+		if (vte.getVtt() == VariableTableType.ARG) {
+			final TypeTableEntry vteType = vte.getTypeTableEntry();
+
+			if (vteType.genType instanceof ForwardingGenType fgt)
+				fgt.unsparkled();
+
+			if (vteType.genType != null) {
+				var vte_genType = vte.getGenType();
+				if (vte_genType.getNode() != null)
+					return;
+			}
+
+			final OS_Type attached = vteType.getAttached();
+			if (attached != null) {
+				if (attached.getType() == OS_Type.Type.USER) {
+					// throw new AssertionError();
+					aDeduceTypes2._errSink().reportError("369 ARG USER type (not deduced) " + vte);
+				}
+			} else {
+				// 08/13 errSink.reportError("457 ARG type not deduced/attached " + vte);
+			}
+		}
+	}
+
+	void __on_exit__post_vte_something(final @NotNull BaseEvaFunction generatedFunction,
+									   final Context aFd_ctx, final DeduceTypes2 aDeduceTypes2) {
+		int y = 2;
+		for (VariableTableEntry variableTableEntry : generatedFunction.vte_list) {
+			final @NotNull Collection<TypeTableEntry> pot = variableTableEntry.potentialTypes();
+			if (pot.size() == 1 && variableTableEntry.getGenType().isNull()) {
+				final OS_Type x = pot.iterator().next().getAttached();
+				if (x != null)
+					if (x.getType() == OS_Type.Type.USER_CLASS) {
+						try {
+							final @NotNull GenType yy = aDeduceTypes2.resolve_type(x, aFd_ctx);
+							// HACK TIME
+							if (yy.getResolved() == null && yy.getTypeName().getType() == OS_Type.Type.USER_CLASS) {
+								yy.setResolved(yy.getTypeName());
+								yy.setTypeName(null);
+							}
+
+							yy.genCIForGenType2(aDeduceTypes2);
+							variableTableEntry.resolveType(yy);
+							variableTableEntry.resolveTypeToClass(yy.getNode());
+//								variableTableEntry.dlv.type.resolve(yy);
+						} catch (ResolveError aResolveError) {
+							aResolveError.printStackTrace();
+						}
+					}
+			}
+		}
+	}
+
+	@NotNull DeduceElement3_ProcTableEntry convertPTE(final @NotNull BaseEvaFunction generatedFunction,
+													  final @NotNull ProcTableEntry pte, final DeduceTypes2 aDeduceTypes2) {
+		final DeduceElement3_ProcTableEntry de3_pte = pte.getDeduceElement3(aDeduceTypes2, generatedFunction);
+		return de3_pte;
+	}
+
+	private void checkEvaClassVarTable(final @NotNull BaseEvaFunction generatedFunction, final DeduceTypes2 aDeduceTypes2) {
+		// for (VariableTableEntry variableTableEntry : generatedFunction.vte_list) {
+		// variableTableEntry.setDeduceTypes2(this, aContext, generatedFunction);
+		// }
+		for (IdentTableEntry identTableEntry : generatedFunction.idte_list) {
+			identTableEntry.getDeduceElement3(aDeduceTypes2, generatedFunction).mvState(
+					null,
+					DeduceElement3_IdentTableEntry.ST.CHECK_EVA_CLASS_VAR_TABLE);
+			// identTableEntry.setDeduceTypes2(this, aContext, generatedFunction);
+
 		}
 	}
 }
