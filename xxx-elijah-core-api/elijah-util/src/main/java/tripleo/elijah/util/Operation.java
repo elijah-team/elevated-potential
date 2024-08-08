@@ -1,6 +1,8 @@
 package tripleo.elijah.util;
 
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.util.DiagnosticException;
 
 import static tripleo.elijah.util.Mode.FAILURE;
 import static tripleo.elijah.util.Mode.SUCCESS;
@@ -10,9 +12,9 @@ import static tripleo.elijah.util.Mode.SUCCESS;
  *
  * @param <T> the success type
  */
-public class Operation<T> /* extends Operation2<T> */ {
-	public static <T> @NotNull Operation<T> failure(final Exception aException) {
-		final Operation<T> op = new Operation<>(null, aException, FAILURE);
+public class Operation<T> {
+	public static <T> @NotNull Operation<T> failure(final Throwable aThrowable) {
+		final Operation<T> op = new Operation<>(null, aThrowable, FAILURE);
 		return op;
 	}
 
@@ -25,9 +27,9 @@ public class Operation<T> /* extends Operation2<T> */ {
 
 	private final T succ;
 
-	private final Exception exc;
+	private final Throwable exc;
 
-	public Operation(final T aSuccess, final Exception aException, final Mode aMode) {
+	public Operation(final T aSuccess, final Throwable aException, final Mode aMode) {
 		succ = aSuccess;
 		exc = aException;
 		mode = aMode;
@@ -37,11 +39,11 @@ public class Operation<T> /* extends Operation2<T> */ {
 
 	public static <T> Operation<T> convert(final Operation2<T> aOperation2) {
 		switch (aOperation2.mode()) {
-//		case FAILURE -> {
-//
-//			return
-//					Operation.failure(null);//new ExceptionDiagnostic(aOperation2.failure()))
-//		}
+		case FAILURE -> {
+			final Diagnostic failure = aOperation2.failure();
+			final DiagnosticException de = new DiagnosticException(failure);
+			return Operation.failure(de);
+		}
 		case SUCCESS -> {
 			return Operation.success(aOperation2.success());
 		}
@@ -49,7 +51,7 @@ public class Operation<T> /* extends Operation2<T> */ {
 		}
 	}
 
-	public Exception failure() {
+	public Throwable failure() {
 		return exc;
 	}
 
