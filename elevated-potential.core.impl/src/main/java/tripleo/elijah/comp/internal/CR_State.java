@@ -56,7 +56,7 @@ public class CR_State implements GCR_State {
 
 		ce.getCompilation().spi((AccessBusAware) this);
 
-		_p_
+		//_p_
 	}
 
 	public CompilationEnclosure getCompilationEnclosure() {
@@ -306,7 +306,7 @@ public class CR_State implements GCR_State {
 
 		@Override
 		public void setNodeList(final @NotNull List<EvaNode> aEvaNodeList) {
-			_p_EvaNodeList/* ;) */.resolve(new ArrayList<>(aEvaNodeList));
+			_p_EvaNodeList.resolve(new ArrayList<>(aEvaNodeList));
 		}
 
 		@Override
