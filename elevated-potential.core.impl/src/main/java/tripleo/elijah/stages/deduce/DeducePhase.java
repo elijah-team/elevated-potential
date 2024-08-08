@@ -39,6 +39,7 @@ import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah.world.i.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
+import tripleo.elijah_fluffy.util.DefaultEventualRegister;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -49,7 +50,7 @@ import static tripleo.elijah.util.Helpers.*;
 /**
  * Created 12/24/20 3:59 AM
  */
-public class DeducePhase extends _RegistrationTarget implements ReactiveDimension {
+public class DeducePhase extends _RegistrationTarget implements ReactiveDimension, EventualRegister {
 	public final @NotNull  GeneratedClasses                             generatedClasses;
 	public final @NotNull  GeneratePhase                                generatePhase;
 	final                  Multimap<OS_Module, Consumer<DeduceTypes2>>  iWantModules            = ArrayListMultimap.create();
@@ -81,6 +82,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 	private final @NotNull DRS                                          drs                     = _inj().new_DRS();
 	private final @NotNull WAITS                                        waits                   = _inj().new_WAITS();
 	public                 IPipelineAccess                              pa;
+	private EventualRegister der = new DefaultEventualRegister();
 
 	public DeducePhase(final @NotNull CompilationEnclosure ace) {
 		this(ace.getCompilationAccess(), ace.getPipelineAccess(), ace.getPipelineLogic());
@@ -332,6 +334,8 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		}
 
 		waits.clear();
+
+		checkFinishEventuals();
 	}
 
 	public void forFunction(@NotNull DeduceTypes2 deduceTypes2,
@@ -745,6 +749,16 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 
 	public ClassInvocation registerClassInvocation(final ClassStatement aCs) {
 		return registerClassInvocation(aCs, null);
+	}
+
+	@Override
+	public void checkFinishEventuals() {
+		der.checkFinishEventuals();
+	}
+
+	@Override
+	public <P> void register(final Eventual<P> ev) {
+		der.register(ev);
 	}
 
 	public interface Country {
