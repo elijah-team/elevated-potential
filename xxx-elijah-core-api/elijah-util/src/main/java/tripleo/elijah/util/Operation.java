@@ -8,7 +8,7 @@ import static tripleo.elijah.util.Mode.FAILURE;
 import static tripleo.elijah.util.Mode.SUCCESS;
 
 /**
- * An emulation of Rust's Result type
+ * A workaround for the lack of Union Types
  *
  * @param <T> the success type
  */
