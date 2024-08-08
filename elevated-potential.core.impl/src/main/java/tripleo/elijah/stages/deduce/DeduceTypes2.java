@@ -9,46 +9,51 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import io.reactivex.rxjava3.annotations.*;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.subjects.*;
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.Nullable;
+import io.reactivex.rxjava3.subjects.Subject;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.g.*;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.ReadySupplier_1;
+import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.g.GCompilationEnclosure;
+import tripleo.elijah.g.GModuleThing;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.nextgen.names.i.*;
 import tripleo.elijah.lang.nextgen.names.impl.*;
 import tripleo.elijah.lang.types.*;
 import tripleo.elijah.lang2.*;
-import tripleo.elijah.nextgen.*;
-import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.stages.deduce.Resolve_Ident_IA.*;
-import tripleo.elijah.stages.deduce.declarations.*;
+import tripleo.elijah.nextgen.ClassDefinition;
+import tripleo.elijah.nextgen.reactive.Reactivable;
+import tripleo.elijah.stages.deduce.Resolve_Ident_IA.DeduceElementIdent;
+import tripleo.elijah.stages.deduce.declarations.DeferredMember;
+import tripleo.elijah.stages.deduce.declarations.DeferredMemberFunction;
 import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.deduce.tastic.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah.stages.instructions.*;
-import tripleo.elijah.stages.inter.*;
-import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.inter.ModuleThing;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.ElLog_;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah_prolific.v.V;
 
 import java.util.*;
-import java.util.function.*;
-import java.util.regex.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.regex.Pattern;
 
 /**
  * Created 9/15/20 12:51 PM
@@ -1017,7 +1022,7 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 			try {
 				cte.getTypeTableEntry().setAttached(resolve_type(_inj().new_OS_BuiltinType(aBuiltInType), aContext));
 			} catch (ResolveError resolveError) {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("117 Can't be here");
+				SimplePrintLoggerToRemoveSoon.println_out_2("117 Can't be here");
 				resolveError.printStackTrace(); // TODO print diagnostic
 			}
 		}
@@ -1534,6 +1539,17 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 			}
 			return Operation.success(clsinv);
 		}
+	}
+
+	public <T> Eventual<T> eventual(final String aDescription) {
+		final Eventual<T> result = new Eventual<T>() {
+			@Override
+			public String description() {
+				return aDescription;
+			}
+		};
+		result.register(this._phase());
+		return result;
 	}
 
 	public enum ProcessElement {
@@ -2465,10 +2481,6 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("1860 who cares // assert genericTypeName != null");
 
 			}
-			/*
-			 * for (boolean aB : _inj().new_boolean[]{genericTypeName != null,
-			 * genericTypeName instanceof NormalTypeName}) { assert aB; }
-			 */
 
 			return (NormalTypeName) genericTypeName;
 		}
