@@ -32,8 +32,6 @@ public class DeduceProcCall {
 		 * $element(FunctionDef Directory.listFiles) is a $anchorType(MEMBER) of
 		 * anchorElement(ClassSt std.io::Directory) and invocation just happens to be
 		 * around (invocation.pte is the call site (MainLogic::main))
-		 * <p>
-		 * {@link file:///./Screenshot-from-2023-08-13 12-25-11.png}
 		 */
 		public DeclTarget(final @NotNull OS_Element aBest,
 						  final @NotNull OS_Element aDeclAnchor,
