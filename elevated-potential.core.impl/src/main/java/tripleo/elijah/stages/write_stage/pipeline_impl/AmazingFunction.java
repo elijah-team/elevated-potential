@@ -1,25 +1,23 @@
 package tripleo.elijah.stages.write_stage.pipeline_impl;
 
-import com.google.common.base.Preconditions;
-import org.jdeferred2.DoneCallback;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
+import com.google.common.base.*;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.notation.*;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.output.NG_OutputFunction;
-import tripleo.elijah.stages.gen_c.C2C_Result;
-import tripleo.elijah.stages.gen_c.GenerateC;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.output.*;
+import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
-import tripleo.elijah.stages.logging.ElLog_;
-import tripleo.elijah.work.WorkList__;
-import tripleo.elijah.work.WorkManager__;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.work.*;
+import tripleo.elijah_elevated.comp.backbone.*;
 
-import java.util.List;
+import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 class AmazingFunction implements Amazing {
 	private final NG_OutputFunction                of;
@@ -80,7 +78,7 @@ class AmazingFunction implements Amazing {
 
 			ProgressiveGenerateFiles
 					.of(this)
-					.then(ggc1 -> {
+					.onFileGen(ggc1 -> {
 						if (f instanceof EvaFunction ff) {
 							ggc1.generateCodeForMethod(fileGen, ff);
 						} else if (f instanceof EvaConstructor fc) {
@@ -107,7 +105,7 @@ class AmazingFunction implements Amazing {
 		}
 
 		@Override
-		public ProgressiveGenerateFiles_Amazing_ then(final DoneCallback<GenerateC> aGenerateC) {
+		public ProgressiveGenerateFiles_Amazing_ onFileGen(final DoneCallback<GenerateC> aGenerateC) {
 			this.cb = aGenerateC;
 			return this;
 		}
@@ -124,7 +122,7 @@ class AmazingFunction implements Amazing {
 			return new ProgressiveGenerateFiles_AmazingFunction(amazingFunction);
 		}
 
-		ProgressiveGenerateFiles_Amazing_ then(DoneCallback<GenerateC> aGenerateC);
+		ProgressiveGenerateFiles_Amazing_ onFileGen(DoneCallback<GenerateC> aGenerateC);
 	}
 
 	private static class MyGenerateResultSink extends DeadGenerateResultSink {
