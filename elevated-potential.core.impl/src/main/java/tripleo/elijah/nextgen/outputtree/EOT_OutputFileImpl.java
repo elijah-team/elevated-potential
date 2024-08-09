@@ -7,19 +7,6 @@ import tripleo.elijah.nextgen.outputstatement.*;
 import java.util.*;
 
 public class EOT_OutputFileImpl implements EOT_OutputFile {
-	public static class DefaultFileNameProvider implements EOT_FileNameProvider {
-		private final String r;
-
-		public DefaultFileNameProvider(final String aR) {
-			r = aR;
-		}
-
-		@Override
-		public String getFilename() {
-			return r;
-		}
-	}
-
 	private final @NotNull EOT_FileNameProvider _filename;
 	private final          List<EIT_Input>      _inputs = new ArrayList<>();
 	private final @NotNull EOT_OutputType _type;
@@ -36,7 +23,7 @@ public class EOT_OutputFileImpl implements EOT_OutputFile {
 
 	public EOT_OutputFileImpl(final @NotNull List<EIT_Input> inputs, final @NotNull String filename,
 							  final @NotNull EOT_OutputType type, final @NotNull EG_Statement sequence) {
-		this(inputs, new DefaultFileNameProvider(filename), type, sequence);
+		this(inputs, new _U_OF.DefaultFileNameProvider(filename), type, sequence);
 	}
 
 	@Override
