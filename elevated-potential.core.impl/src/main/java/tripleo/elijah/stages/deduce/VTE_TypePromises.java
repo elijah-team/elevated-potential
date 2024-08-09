@@ -203,7 +203,7 @@ public enum VTE_TypePromises {
 		aCi.resolvePromise().done(new DoneCallback<EvaClass>() {
 			@Override
 			public void onDone(final @NotNull EvaClass result) {
-				for (EvaContainer.VarTableEntry varTableEntry : result.varTable) {
+				for (VarTableEntry varTableEntry : result.varTable) {
 					if (varTableEntry.nameToken.getText().equals(variableStatement.getName())) {
 						assert varTableEntry.varType.getClassOf() == fd.getParent();
 

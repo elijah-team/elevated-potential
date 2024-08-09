@@ -899,7 +899,7 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 	}
 
 	public void deduceOneClass(final @NotNull EvaClass aEvaClass) {
-		for (EvaContainer.VarTableEntry entry : aEvaClass.varTable) {
+		for (VarTableEntry entry : aEvaClass.varTable) {
 			final OS_Type vt      = entry.varType;
 			GenType       genType = GenType.makeFromOSType(vt, aEvaClass.ci.genericPart(), this, phase, LOG, errSink);
 			if (genType != null) {
@@ -1429,9 +1429,9 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 			evaConstructor.onGenClass((EvaClass aGeneratedClass) -> {
 				pe_evaClass.satisfy(aGeneratedClass);
 
-				final List<EvaContainer.VarTableEntry> vt = (aGeneratedClass).varTable;
+				final List<VarTableEntry> vt = (aGeneratedClass).varTable;
 
-				for (EvaContainer.VarTableEntry gc_vte : vt) {
+				for (VarTableEntry gc_vte : vt) {
 					if (gc_vte.nameToken.getText().equals(aName)) {
 						gc_vte.connect(aVte, evaConstructor);
 						break;

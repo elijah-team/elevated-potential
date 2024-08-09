@@ -218,7 +218,7 @@ public class DTR_VariableStatement {
 						assert gt.getCi() != null;
 						assert gt.getNode() != null;
 
-						for (EvaContainer.VarTableEntry entry : ((EvaContainerNC) gt.getNode()).varTable) {
+						for (VarTableEntry entry : ((EvaContainerNC) gt.getNode()).varTable) {
 							if (entry.nameToken.getText().equals(variableStatement.getName())) {
 								entry.resolve_varType_cb(result -> {
 									int y = 2;

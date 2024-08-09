@@ -38,8 +38,8 @@ import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah.world.i.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah_fluffy.util.DefaultEventualRegister;
+import tripleo.elijah_elevated.comp.backbone.*;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -429,12 +429,12 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 				final NamespaceInvocation         nsi    = registerNamespaceInvocation(parent);
 				nsi.resolveDeferred().done(result -> {
 					@NotNull
-					Maybe<EvaContainer.VarTableEntry> v_m = result
+					Maybe<VarTableEntry> v_m = result
 							.getVariable(deferredMember.getVariableStatement().getName());
 
 					assert !v_m.isException();
 
-					EvaContainer.VarTableEntry v = v_m.o;
+					VarTableEntry v = v_m.o;
 
 					// TODO varType, potentialTypes and _resolved: which?
 					// final OS_Type varType = v.varType;
@@ -474,8 +474,8 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 				final @Nullable ClassInvocation ci = registerClassInvocation(parent, null, new NULL_DeduceTypes2());
 				assert ci != null;
 				ci.resolvePromise().then(result -> {
-					final List<EvaContainer.VarTableEntry> vt = result.varTable;
-					for (EvaContainer.VarTableEntry gc_vte : vt) {
+					final List<VarTableEntry> vt = result.varTable;
+					for (VarTableEntry gc_vte : vt) {
 						if (gc_vte.nameToken.getText().equals(name)) {
 							// check connections
 							// unify pot. types (prol. shuld be done already -- we don't want to be
@@ -483,7 +483,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 							// call typePromises and externalRefPromisess
 
 							// TODO just getting first element here (without processing of any kind); HACK
-							final List<EvaContainer.VarTableEntry.ConnectionPair> connectionPairs = gc_vte.connectionPairs;
+							final List<VarTableEntry.ConnectionPair> connectionPairs = gc_vte.connectionPairs;
 							if (!connectionPairs.isEmpty()) {
 								final GenType ty = connectionPairs.get(0).vte.getTypeTableEntry().genType;
 								assert ty.getResolved() != null;
@@ -575,12 +575,12 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 				Collection<ResolvedVariables> x = resolved_variables.get(evaContainer.getElement());
 				for (@NotNull
 				DeducePhase.ResolvedVariables resolvedVariables : x) {
-					final @NotNull Maybe<EvaContainer.VarTableEntry> variable_m = evaContainer
+					final @NotNull Maybe<VarTableEntry> variable_m = evaContainer
 							.getVariable(resolvedVariables.varName);
 
 					assert !variable_m.isException();
 
-					final @NotNull EvaContainer.VarTableEntry variable = variable_m.o;
+					final @NotNull VarTableEntry variable = variable_m.o;
 
 					final TypeTableEntry type = resolvedVariables.identTableEntry.type;
 					if (type != null)
