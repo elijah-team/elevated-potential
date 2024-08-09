@@ -11,7 +11,7 @@ import tripleo.util.range.Range;
 
 import java.util.*;
 
-public interface IEvaFunctionBase {
+public interface IEvaFunctionBase extends EvaNode {
 	int add(InstructionName aName, List<InstructionArgument> args_, Context ctx);
 
 	void addContext(Context context, Range r);
