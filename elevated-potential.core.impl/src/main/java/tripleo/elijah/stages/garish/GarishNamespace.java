@@ -30,7 +30,7 @@ public class GarishNamespace {
 		tosHdr.put_string_ln("typedef struct {");
 		tosHdr.incr_tabs();
 		// tosHdr.put_string_ln("int _tag;");
-		for (EvaNamespace.VarTableEntry o : x.varTable) {
+		for (VarTableEntry o : x.varTable) {
 			final String typeName = aGenerateC.getTypeNameGNCForVarTableEntry(o);
 
 			tosHdr.put_string_ln(String.format("%s* vm%s;", o.varType == null ? "void " : typeName, o.nameToken));
@@ -48,7 +48,7 @@ public class GarishNamespace {
 
 		tosHdr.put_string_ln("");
 		tosHdr.put_string_ln("");
-		for (EvaNamespace.VarTableEntry o : x.varTable) {
+		for (VarTableEntry o : x.varTable) {
 			// final String typeName = getTypeNameForVarTableEntry(o);
 			tosHdr.put_string_ln(String.format("R->vm%s = 0;", o.nameToken));
 		}
