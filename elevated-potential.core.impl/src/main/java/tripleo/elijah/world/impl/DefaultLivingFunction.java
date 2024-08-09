@@ -7,6 +7,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.*;
 import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.stages.gen_c.internal.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.world.i.*;
 
@@ -22,8 +23,17 @@ public class DefaultLivingFunction implements LivingFunction {
 	}
 
 	@Override
-	public int getCode() {
-		return _gf.getCode();
+	public Eventual<Integer> getCode() {
+		final Eventual<Integer> ev = new Eventual<>();
+
+		// FIXME/HACK does not account for failure, non-resolving
+		ESwitch.flep(_gf, new DoneCallback<DeducedBaseEvaFunction>() {
+			@Override
+			public void onDone(final DeducedBaseEvaFunction result) {
+				ev.resolve(result.getCode());
+			}
+		});
+		return ev;
 	}
 
 	@Override
@@ -49,7 +59,13 @@ public class DefaultLivingFunction implements LivingFunction {
 			// 3. setup
 			codeCallback.then(i -> {
 				final IEvaFunctionBase evaFunction = evaNode();
-				evaFunction.setCode(i);
+				// SupplierOp (ala SupplierEx!)
+				final BaseEvaFunction baseEvaFunction = (BaseEvaFunction) evaFunction;
+				ESwitch.flup(baseEvaFunction, () -> {
+					final DefaultDeducedBaseEvaFunction deduced = new DefaultDeducedBaseEvaFunction(baseEvaFunction);
+					deduced.setCode(i);
+					return deduced;
+				});
 				__registered = true;
 			});
 		}
