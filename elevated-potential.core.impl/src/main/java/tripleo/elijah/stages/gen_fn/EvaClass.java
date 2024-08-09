@@ -8,27 +8,27 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.g.GEvaClass;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
-import tripleo.elijah.nextgen.reactive.DefaultReactive;
-import tripleo.elijah.nextgen.reactive.Reactive;
+import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.stages.*;
 import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.garish.GarishClass_Generator;
+import tripleo.elijah.stages.garish.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.LivingClass;
+import tripleo.elijah.world.i.*;
 
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 /**
  * Created 10/29/20 4:26 AM
  */
-public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
+public class EvaClass extends EvaContainerNC implements GEvaClass {
 	public class _Reactive_EvaClass extends DefaultReactive {
 		@Override
 		public <T> void addListener(final Consumer<T> t) {
@@ -263,12 +263,6 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 		return _gcg;
 	}
 
-	@Deprecated
-	@Override
-	public int getCode() {
-		return world().getCode();
-	}
-
 	@Override
 	public OS_Element getElement() {
 		return getKlass();
@@ -305,7 +299,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 
 	@NotNull
 	private String getNameHelper(@NotNull Map<TypeName, OS_Type> aGenericPart) {
-		final List<String> ls = new ArrayList<String>();
+		final List<String> ls = new ArrayList<>();
 		for (Map.Entry<TypeName, OS_Type> entry : aGenericPart.entrySet()) { // TODO Is this guaranteed to be in order?
 			final OS_Type value = entry.getValue(); // This can be another ClassInvocation using GenType
 			final String name;
@@ -320,18 +314,8 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 		return Helpers.String_join(", ", ls);
 	}
 
-	@NotNull
-	public String getNumberedName() {
-		return getKlass().getName() + "_" + getCode();
-	}
-
 	private boolean getPragma(String auto_construct) { // TODO this should be part of ContextImpl
 		return false;
-	}
-
-	@Override
-	public @NotNull Role getRole() {
-		return Role.CLASS;
 	}
 
 	@Override
@@ -350,11 +334,6 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 
 	public Reactive reactive() {
 		return reactiveEvaClass;
-	}
-
-	@Override
-	public void register(final @NotNull ICodeRegistrar aCr) {
-		aCr.registerClass1(this);
 	}
 
 	public boolean resolve_var_table_entries(@NotNull DeducePhase aDeducePhase) {
@@ -376,17 +355,23 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 		world().setCode(aCode);
 	}
 
-	public void setLiving(LivingClass _living) {
-		this._living = _living;
+	public void setLiving(LivingClass aLivingClass) {
+		ESwitch.flap(this, aLivingClass);
+		this._living = aLivingClass;
 	}
 
 	@Override
 	public @NotNull String toString() {
-		return "EvaClass{" + "klass=" + klass + ", code=" + getCode() + ", module=" + module.getFileName() + ", ci="
-				+ ci.finalizedGenericPrintable() + '}';
+		return "EvaClass{"
+				+ "klass=" + klass
+				//+ ", code=" + getCode()
+				+ ", module=" + module.getFileName()
+				+ ", ci=" + ci.finalizedGenericPrintable()
+				+ '}';
 	}
 
 	public LivingClass world() {
+		//return ESwitch.florp(this, LivingClass.class);
 		return _living;
 	}
 }
