@@ -17,7 +17,7 @@ import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -564,7 +564,7 @@ public class CReference {
 			// refs.add(e);
 			item.setReference(e);
 		};
-		final CRI_Ident criIdent = CRI_Ident.of(idte, gf);
+		final CRI_Ident criIdent = CRI_Ident.of(idte, gf, this._repo().generateC);
 		text = criIdent.getIdentIAPath(i, sSize, aog, sl, aValue, referenceConsumer, s, ia2, this, item);
 
 		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("181181 " + text + " " + item.getText());

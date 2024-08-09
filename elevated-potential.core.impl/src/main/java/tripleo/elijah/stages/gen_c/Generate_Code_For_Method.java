@@ -11,13 +11,13 @@ package tripleo.elijah.stages.gen_c;
 import com.google.common.base.*;
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.DebugFlags;
-import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
 import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.stages.deduce.DeduceTypes2;
+import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
@@ -34,8 +34,8 @@ import java.util.*;
  * Created 6/21/21 5:53 AM
  */
 public class Generate_Code_For_Method {
-	final         BufferTabbedOutputStream tos             = new BufferTabbedOutputStream();
-	final         BufferTabbedOutputStream tosHdr          = new BufferTabbedOutputStream();
+	final BufferTabbedOutputStream tos    = new BufferTabbedOutputStream();
+	final BufferTabbedOutputStream tosHdr = new BufferTabbedOutputStream();
 	final         ElLog                    LOG;
 	private final GenerateC                gc;
 	boolean is_constructor = false, is_unit_type = false;
@@ -43,280 +43,6 @@ public class Generate_Code_For_Method {
 	public Generate_Code_For_Method(@NotNull final GenerateC aGenerateC, final ElLog aLog) {
 		gc = aGenerateC;
 		LOG = aLog; // use log from GenerateC
-	}
-
-	private @NotNull Operation2<EG_Statement> _action_DECL(final @NotNull Instruction instruction,
-	                                                       final @NotNull WhyNotGarish_BaseFunction yf) {
-		final SymbolIA decl_type = (SymbolIA) instruction.getArg(0);
-		final IntegerIA vte_num = (IntegerIA) instruction.getArg(1);
-
-		final GCR_VTE_Target target = new GCR_VTE_Target(yf, vte_num);
-		target.feed(AOG.GET, gc);
-
-		final String target_name = target.target_name;
-
-		final VariableTableEntry vte = vte_num.getEntry();
-
-		DeduceTypes2    dt2 = null;
-		BaseEvaFunction gf1 = null;
-		boolean         qqq = false;
-		{
-			List<DR_Item> x = yf.getGf().drs;
-
-			if (!x.isEmpty()) {
-				if (x.get(0) instanceof DR_Ident ident) {
-					dt2 = ident.identTableEntry()._deduceTypes2();
-					gf1 = ident.identTableEntry().__gf;
-
-					qqq = true;
-				}
-			}
-		}
-
-		final DeduceElement3_VariableTableEntry de_vte;
-
-		if (qqq) {
-			de_vte = vte.getDeduceElement3(dt2, gf1);
-		} else {
-			de_vte = vte.getDeduceElement3();
-		}
-
-		final Operation2<OS_Type> diag1 = de_vte.decl_test_001(yf.cheat());
-
-		if (diag1.mode() == Mode.FAILURE) {
-			final Diagnostic diag_ = diag1.failure();
-			final GCFM_Diagnostic diag = (GCFM_Diagnostic) diag_;
-
-			switch (diag.severity()) {
-			case INFO:
-				LOG.info(diag._message());
-				break;
-			case ERROR:
-				LOG.err(diag._message());
-				break;
-			case LINT:
-			case WARN:
-			default:
-				throw new NotImplementedException();
-			}
-
-			return Operation2.failure(diag_);
-		}
-
-		final EvaNode res = vte.resolvedType();
-		if (res instanceof EvaClass) {
-			final String z = GenerateC.GetTypeName.forGenClass((EvaClass) res);
-			final String s = String.format("%s* %s;", z, target_name);
-			return Operation2
-					.success(new EG_SingleStatement(s, EX_Explanation.withMessage("actionDECL with resolved type")));
-		}
-
-		final OS_Type x = diag1.success(); // vte.type.getAttached();
-
-		if (x != null) {
-			switch (x.getType()) {
-			case USER_CLASS:
-				final String z = GenerateC.GetTypeName.forOSType(x, LOG);
-				final String s = String.format("%s* %s;", z, target_name);
-				return Operation2
-						.success(new EG_SingleStatement(s, EX_Explanation.withMessage("actionDECL with USER_CLASS")));
-			case USER:
-				final TypeName typeName = x.getTypeName();
-				if (typeName instanceof NormalTypeName) {
-					final String z2;
-					if (((NormalTypeName) typeName).getName().equals("Any"))
-						z2 = "void *"; // TODO Technically this is wrong
-					else
-						z2 = GenerateC.GetTypeName.forTypeName(typeName, gc.errSink);
-					final String s1 = String.format("%s %s;", z2, target_name);
-					return Operation2
-							.success(new EG_SingleStatement(s1, EX_Explanation.withMessage("actionDECL with USER")));
-				}
-
-				if (typeName != null) {
-					//
-					// VARIABLE WASN'T FULLY DEDUCED YET
-					//
-					return Operation2.failure(new Diagnostic_8887(typeName));
-				}
-				break;
-			case BUILT_IN:
-				return Operation2.success(new actionDECL_with_BUILT_IN(yf, target_name, x, gc));
-			case FUNC_EXPR:
-				return Operation2.success(new EG_Statement() {
-					@Override
-					public @NotNull EX_Explanation getExplanation() {
-						return EX_Explanation.withMessage("gcfm:type:func_decl");
-					}
-
-					@Override
-					public @NotNull String getText() {
-						return "void (*fun)()";
-					}
-				});
-			}
-		}
-
-		//
-		// VARIABLE WASN'T FULLY DEDUCED YET
-		// MTL A TEMP VARIABLE
-		//
-		@NotNull
-		final Collection<TypeTableEntry> pt_ = vte.potentialTypes();
-		final List<TypeTableEntry> pt = new ArrayList<TypeTableEntry>(pt_);
-		if (pt.size() == 1) {
-			final TypeTableEntry ty = pt.get(0);
-			if (ty.genType.getNode() != null) {
-				final EvaNode node1 = ty.genType.getNode();
-				if (node1 instanceof EvaFunction ef) {
-					var node = gc.a_lookup(ef);
-
-					final var y = node;
-//					((EvaFunction)node).typeDeferred()
-					// get signature
-					final String z = /* Emit.emit("/ *552* /") + */ "bool (*%s)(char*)".formatted(target_name);
-					final String s = String.format("/*8889*/%s;", z);
-					return Operation2.success(new EG_SingleStatement(s, null));
-				}
-			} else {
-//				LOG.err("8885 " +ty.attached);
-				final @Nullable OS_Type attached = ty.getAttached();
-				final String z;
-				if (attached != null)
-					z = gc.getTypeName(attached);
-				else
-					z = Emit.emit("/*763*/") + "Unknown";
-				final String s = String.format("/*8890*/Z<%s> %s;", z, target_name);
-				return Operation2.success(new EG_SingleStatement(s, null));
-			}
-		}
-
-		return Operation2.failure(new Diagnostic_8886());
-	}
-
-	private void action_AGN(final WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
-		GCFM_Inst_AGN inst = new GCFM_Inst_AGN(this, gc, gf, aInstruction);
-
-		final String s = inst.getText();
-
-		tos.put_string_ln(s);
-	}
-
-	private void action_AGNK(final WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
-		GCFM_Inst_AGNK inst = new GCFM_Inst_AGNK(this, gc, gf, aInstruction);
-
-		final String s = inst.getText();
-
-		tos.put_string_ln(s);
-	}
-
-	private void action_CALL(final WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
-		// LOG.err("9000 "+inst.getName());
-
-		final GCX_FunctionCall gcx_fc = new GCX_FunctionCall(gf, gc, aInstruction);
-
-		tos.put_string_ln(gcx_fc.getText());
-	}
-
-	private void action_CALLS(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
-		final InstructionArgument x = aInstruction.getArg(0);
-
-		assert x instanceof ProcIA;
-
-		final ProcTableEntry pte = gf.getProcTableEntry(DeduceTypes2.to_int(x));
-
-		final GCX_FunctionCall_Special gcx_fc = new GCX_FunctionCall_Special(pte, gf, gc, aInstruction);
-
-		tos.put_string_ln(gcx_fc.getText());
-	}
-
-	private void action_CAST(final @NotNull Instruction instruction, final @NotNull BufferTabbedOutputStream tos,
-			final @NotNull WhyNotGarish_BaseFunction gf) {
-		final IntegerIA vte_num_ = (IntegerIA) instruction.getArg(0);
-		final IntegerIA vte_type_ = (IntegerIA) instruction.getArg(1);
-		final IntegerIA vte_targ_ = (IntegerIA) instruction.getArg(2);
-		final String target_name = gc.getRealTargetName(gf, vte_num_, AOG.GET);
-		final TypeTableEntry target_type_ = gf.getTypeTableEntry(vte_type_.getIndex());
-//		final String target_type = gc.getTypeName(target_type_.getAttached());
-		final String target_type = gc.getTypeName(target_type_.genType.getNode());
-		final String source_target = gc.getRealTargetName(gf, vte_targ_, AOG.GET);
-
-		tos.put_string_ln(String.format("%s = (%s)%s;", target_name, target_type, source_target));
-	}
-
-	private void action_CONSTRUCT(final WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
-		final InstructionArgument _arg0 = aInstruction.getArg(0);
-		assert _arg0 instanceof ProcIA;
-
-		final GI_ProcIA gi_proc = gc._repo.itemFor((ProcIA) _arg0);
-
-		final GCX_Construct gcx_construct = new GCX_Construct(gi_proc, aInstruction, gc);
-
-		tos.put_string_ln(gcx_construct.getText());
-	}
-
-	private void action_DECL(final @NotNull Instruction instruction, final @NotNull BufferTabbedOutputStream tos,
-			final @NotNull WhyNotGarish_BaseFunction gf) {
-		final Operation2<EG_Statement> op = _action_DECL(instruction, gf);
-
-		if (op.mode() == Mode.SUCCESS) {
-			tos.put_string_ln(op.success().getText());
-		} else {
-			// throw new
-			// ignore
-		}
-	}
-
-	private void action_E(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull Generate_Method_Header aGmh) {
-		tos.put_string_ln("bool vsb;");
-		int state = 0;
-
-		if (gf.pointsToConstructor())
-			state = 2;
-		else if (aGmh.tte == null)
-			state = 3;
-		else if (aGmh.tte.isResolved())
-			state = 1;
-		else if (aGmh.tte.getAttached() instanceof OS_UnitType)
-			state = 4;
-
-		switch (state) {
-		case 0:
-			tos.put_string_ln("Error_TTE_Not_Resolved " + aGmh.tte);
-			break;
-		case 1:
-			final String ty = GenerateC.GetTypeName.forTypeTableEntry(aGmh.tte);
-			tos.put_string_ln(String.format("%s* vsr;", ty));
-			break;
-		case 2:
-			is_constructor = true;
-			break;
-		case 3:
-			// TODO don't know what this is for now
-			// Assuming ctor
-			is_constructor = gf.pointsToConstructor2();
-			final EvaNode genClass = gf.getGenClass();
-			final String ty2 = GenerateC.GetTypeName.getTypeNameForEvaNode(genClass);
-
-			final String return_type1 = aGmh.__find_return_type(gf, gc.LOG);
-			if (return_type1 != null) {
-				tos.put_string_ln(String.format("%s vsr;", return_type1));
-			} else {
-				tos.put_string_ln(String.format("// *171* %s vsr;", ty2));
-			}
-			break;
-		case 4:
-			// don't print anything
-			is_unit_type = true;
-			break;
-		}
-		tos.put_string_ln("{");
-		tos.incr_tabs();
-	}
-
-	private void action_ES() {
-		tos.put_string_ln("{");
-		tos.incr_tabs();
 	}
 
 	void action_invariant(final @NotNull WhyNotGarish_BaseFunction yf, final Generate_Method_Header aGmh) {
@@ -403,36 +129,95 @@ public class Generate_Code_For_Method {
 		tos.put_string_ln("}");
 	}
 
-	private void action_IS_A(final @NotNull Instruction instruction, final @NotNull BufferTabbedOutputStream tos,
-			final @NotNull WhyNotGarish_BaseFunction gf) {
-		final IntegerIA testing_var_ = (IntegerIA) instruction.getArg(0);
-		final IntegerIA testing_type_ = (IntegerIA) instruction.getArg(1);
-		final Label target_label = ((LabelIA) instruction.getArg(2)).label;
+	private void action_E(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull Generate_Method_Header aGmh) {
+		tos.put_string_ln("bool vsb;");
+		int state = 0;
 
-		final VariableTableEntry testing_var = gf.getVarTableEntry(testing_var_.getIndex());
-		final TypeTableEntry testing_type__ = gf.getTypeTableEntry(testing_type_.getIndex());
+		if (gf.pointsToConstructor())
+			state = 2;
+		else if (aGmh.tte == null)
+			state = 3;
+		else if (aGmh.tte.isResolved())
+			state = 1;
+		else if (aGmh.tte.getAttached() instanceof OS_UnitType)
+			state = 4;
 
-		final EvaNode testing_type = testing_type__.resolved();
-		final int z = ((EvaContainerNC) testing_type).getCode();
+		switch (state) {
+		case 0:
+			tos.put_string_ln("Error_TTE_Not_Resolved " + aGmh.tte);
+			break;
+		case 1:
+			final String ty = GenerateC.GetTypeName.forTypeTableEntry(aGmh.tte, gc);
+			tos.put_string_ln(String.format("%s* vsr;", ty));
+			break;
+		case 2:
+			is_constructor = true;
+			break;
+		case 3:
+			// TODO don't know what this is for now
+			// Assuming ctor
+			is_constructor = gf.pointsToConstructor2();
+			final EvaNode genClass = gf.getGenClass();
+			final String ty2 = GenerateC.GetTypeName.getTypeNameForEvaNode(genClass, gc);
 
-		var bt = new BT();
+			final String return_type1 = aGmh.__find_return_type(gf, gc.LOG);
+			if (return_type1 != null) {
+				tos.put_string_ln(String.format("%s vsr;", return_type1));
+			} else {
+				tos.put_string_ln(String.format("// *171* %s vsr;", ty2));
+			}
+			break;
+		case 4:
+			// don't print anything
+			is_unit_type = true;
+			break;
+		}
+		tos.put_string_ln("{");
+		tos.incr_tabs();
+	}
 
-		bt.text0("vsb = ");
+	private void action_X(final @NotNull Generate_Method_Header aGmh) {
+		// TODO functions are being marked as constructor when they are not
 
-		// ZS%d_is_a(%s
-		bt.text0("ZS");
-		bt.text0("" + z);
-		bt.text0("_is_a");
+		if (is_constructor) {
+			tos.dec_tabs();
+			tos.put_string_ln("}");
+			return;
+		}
 
-		bt.text("(");
-		bt.text0(gc.getRealTargetName(gf, testing_var_, AOG.GET));
-		bt.text(");");
+		tos.dec_tabs();
+		tos.put_string_ln("}");
+		if (!is_unit_type) {
+			if (aGmh.tte != null && aGmh.tte.isResolved()) {
+				tos.put_string_ln("return vsr;");
+			}
+		}
+	}
 
-		bt.text0("if (!vsb) goto ");
-		bt.text0(target_label.getName());
-		bt.text(";");
+	private void action_ES() {
+		tos.put_string_ln("{");
+		tos.incr_tabs();
+	}
 
-		tos.put_string_ln(bt.getText());
+	private void action_XS() {
+		tos.dec_tabs();
+		tos.put_string_ln("}");
+	}
+
+	private void action_AGN(final WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
+		GCFM_Inst_AGN inst = new GCFM_Inst_AGN(this, gc, gf, aInstruction);
+
+		final String s = inst.getText();
+
+		tos.put_string_ln(s);
+	}
+
+	private void action_AGNK(final WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
+		GCFM_Inst_AGNK inst = new GCFM_Inst_AGNK(this, gc, gf, aInstruction);
+
+		final String s = inst.getText();
+
+		tos.put_string_ln(s);
 	}
 
 	private void action_JE(final WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
@@ -441,6 +226,35 @@ public class Generate_Code_For_Method {
 		final String s = inst.getText();
 
 		tos.put_string_ln(s);
+	}
+
+	private void action_JNE(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
+		final InstructionArgument lhs    = aInstruction.getArg(0);
+		final InstructionArgument rhs    = aInstruction.getArg(1);
+		final InstructionArgument target = aInstruction.getArg(2);
+
+		final Label realTarget = (Label) target;
+
+		final VariableTableEntry vte = gf.getVarTableEntry(((IntegerIA) lhs).getIndex());
+		assert rhs != null;
+
+		if (rhs instanceof ConstTableIA) {
+			final ConstantTableEntry cte            = gf.getConstTableEntry(((ConstTableIA) rhs).getIndex());
+			final String             realTargetName = gc.getRealTargetName(gf, (IntegerIA) lhs, AOG.GET);
+			tos.put_string_ln(
+					String.format("vsb = %s != %s;", realTargetName, gc.getAssignmentValue(gf.getSelf(), rhs, gf)));
+			tos.put_string_ln(String.format("if (!vsb) goto %s;", realTarget.getName()));
+		} else {
+			//
+			// TODO need to lookup special __ne__ function ??
+			//
+			final String realTargetName = gc.getRealTargetName(gf, (IntegerIA) lhs, AOG.GET);
+			tos.put_string_ln(
+					String.format("vsb = %s != %s;", realTargetName, gc.getAssignmentValue(gf.getSelf(), rhs, gf)));
+			tos.put_string_ln(String.format("if (!vsb) goto %s;", realTarget.getName()));
+
+			final int y = 2;
+		}
 	}
 
 	private void action_JL(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
@@ -501,56 +315,275 @@ public class Generate_Code_For_Method {
 		tos.put_string_ln(bt.getText());
 	}
 
-	private void action_JNE(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
-		final InstructionArgument lhs = aInstruction.getArg(0);
-		final InstructionArgument rhs = aInstruction.getArg(1);
-		final InstructionArgument target = aInstruction.getArg(2);
+	private void action_CONSTRUCT(final WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
+		final InstructionArgument _arg0 = aInstruction.getArg(0);
+		assert _arg0 instanceof ProcIA;
 
-		final Label realTarget = (Label) target;
+		final GI_ProcIA gi_proc = gc._repo.itemFor((ProcIA) _arg0);
 
-		final VariableTableEntry vte = gf.getVarTableEntry(((IntegerIA) lhs).getIndex());
-		assert rhs != null;
+		final GCX_Construct gcx_construct = new GCX_Construct(gi_proc, aInstruction, gc);
 
-		if (rhs instanceof ConstTableIA) {
-			final ConstantTableEntry cte = gf.getConstTableEntry(((ConstTableIA) rhs).getIndex());
-			final String realTargetName = gc.getRealTargetName(gf, (IntegerIA) lhs, AOG.GET);
-			tos.put_string_ln(
-					String.format("vsb = %s != %s;", realTargetName, gc.getAssignmentValue(gf.getSelf(), rhs, gf)));
-			tos.put_string_ln(String.format("if (!vsb) goto %s;", realTarget.getName()));
+		tos.put_string_ln(gcx_construct.getText());
+	}
+
+	private void action_CALL(final WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
+		// LOG.err("9000 "+inst.getName());
+
+		final GCX_FunctionCall gcx_fc = new GCX_FunctionCall(gf, gc, aInstruction);
+
+		tos.put_string_ln(gcx_fc.getText());
+	}
+
+	private void action_CALLS(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull Instruction aInstruction) {
+		final InstructionArgument x = aInstruction.getArg(0);
+
+		assert x instanceof ProcIA;
+
+		final ProcTableEntry pte = gf.getProcTableEntry(DeduceTypes2.to_int(x));
+
+		final GCX_FunctionCall_Special gcx_fc = new GCX_FunctionCall_Special(pte, gf, gc, aInstruction);
+
+		tos.put_string_ln(gcx_fc.getText());
+	}
+
+	private void action_IS_A(final @NotNull Instruction instruction,
+							 final @NotNull BufferTabbedOutputStream tos,
+							 final @NotNull WhyNotGarish_BaseFunction gf) {
+
+		final IntegerIA testing_var_  = (IntegerIA) instruction.getArg(0);
+		final IntegerIA testing_type_ = (IntegerIA) instruction.getArg(1);
+		final Label     target_label  = ((LabelIA) instruction.getArg(2)).label;
+
+		final VariableTableEntry testing_var    = gf.getVarTableEntry(testing_var_.getIndex());
+		final TypeTableEntry     testing_type__ = gf.getTypeTableEntry(testing_type_.getIndex());
+
+		final EvaNode        testing_type = testing_type__.resolved();
+		final EvaContainerNC nc           = (EvaContainerNC) testing_type;
+
+		final DeducedEvaNode den;
+		if (nc instanceof EvaClass rec) {
+			den = this.gc.a_lookup(rec).ool();
+		} else if (nc instanceof EvaNamespace ren) {
+			den = this.gc.a_lookup(ren).ool();
 		} else {
-			//
-			// TODO need to lookup special __ne__ function ??
-			//
-			final String realTargetName = gc.getRealTargetName(gf, (IntegerIA) lhs, AOG.GET);
-			tos.put_string_ln(
-					String.format("vsb = %s != %s;", realTargetName, gc.getAssignmentValue(gf.getSelf(), rhs, gf)));
-			tos.put_string_ln(String.format("if (!vsb) goto %s;", realTarget.getName()));
+			den = null;
+		}
 
-			final int y = 2;
+		final int z;
+		if (den == null) {
+			z = -500;
+		} else {
+			z = den.getCode();
+		}
+
+		var bt = new BT();
+
+		bt.text0("vsb = ");
+
+		// ZS%d_is_a(%s
+		bt.text0("ZS");
+		bt.text0("" + z);
+		bt.text0("_is_a");
+
+		bt.text("(");
+		bt.text0(gc.getRealTargetName(gf, testing_var_, AOG.GET));
+		bt.text(");");
+
+		bt.text0("if (!vsb) goto ");
+		bt.text0(target_label.getName());
+		bt.text(";");
+
+		tos.put_string_ln(bt.getText());
+	}
+
+	private void action_DECL(final @NotNull Instruction instruction, final @NotNull BufferTabbedOutputStream tos,
+							 final @NotNull WhyNotGarish_BaseFunction gf) {
+		final Operation2<EG_Statement> op = _action_DECL(instruction, gf);
+
+		if (op.mode() == Mode.SUCCESS) {
+			tos.put_string_ln(op.success().getText());
+		} else {
+			// throw new
+			// ignore
 		}
 	}
 
-	private void action_X(final @NotNull Generate_Method_Header aGmh) {
-		// TODO functions are being marked as constructor when they are not
+	private void action_CAST(final @NotNull Instruction instruction, final @NotNull BufferTabbedOutputStream tos,
+							 final @NotNull WhyNotGarish_BaseFunction gf) {
+		final IntegerIA      vte_num_     = (IntegerIA) instruction.getArg(0);
+		final IntegerIA      vte_type_    = (IntegerIA) instruction.getArg(1);
+		final IntegerIA      vte_targ_    = (IntegerIA) instruction.getArg(2);
+		final String         target_name  = gc.getRealTargetName(gf, vte_num_, AOG.GET);
+		final TypeTableEntry target_type_ = gf.getTypeTableEntry(vte_type_.getIndex());
+//		final String target_type = gc.getTypeName(target_type_.getAttached());
+		final String target_type   = gc.getTypeName(target_type_.genType.getNode());
+		final String source_target = gc.getRealTargetName(gf, vte_targ_, AOG.GET);
 
-		if (is_constructor) {
-			tos.dec_tabs();
-			tos.put_string_ln("}");
-			return;
-		}
+		tos.put_string_ln(String.format("%s = (%s)%s;", target_name, target_type, source_target));
+	}
 
-		tos.dec_tabs();
-		tos.put_string_ln("}");
-		if (!is_unit_type) {
-			if (aGmh.tte != null && aGmh.tte.isResolved()) {
-				tos.put_string_ln("return vsr;");
+	private @NotNull Operation2<EG_Statement> _action_DECL(final @NotNull Instruction instruction,
+														   final @NotNull WhyNotGarish_BaseFunction yf) {
+		final SymbolIA  decl_type = (SymbolIA) instruction.getArg(0);
+		final IntegerIA vte_num   = (IntegerIA) instruction.getArg(1);
+
+		final GCR_VTE_Target target = new GCR_VTE_Target(yf, vte_num);
+		target.feed(AOG.GET, gc);
+
+		final String target_name = target.target_name;
+
+		final VariableTableEntry vte = vte_num.getEntry();
+
+		DeduceTypes2    dt2 = null;
+		BaseEvaFunction gf1 = null;
+		boolean         qqq = false;
+		{
+			List<DR_Item> x = yf.getGf().drs;
+
+			if (!x.isEmpty()) {
+				if (x.get(0) instanceof DR_Ident ident) {
+					dt2 = ident.identTableEntry()._deduceTypes2();
+					gf1 = ident.identTableEntry().__gf;
+
+					qqq = true;
+				}
 			}
 		}
-	}
 
-	private void action_XS() {
-		tos.dec_tabs();
-		tos.put_string_ln("}");
+		final DeduceElement3_VariableTableEntry de_vte;
+
+		if (qqq) {
+			de_vte = vte.getDeduceElement3(dt2, gf1);
+		} else {
+			de_vte = vte.getDeduceElement3();
+		}
+
+		final Operation2<OS_Type> diag1 = de_vte.decl_test_001(yf.cheat());
+
+		if (diag1.mode() == Mode.FAILURE) {
+			final Diagnostic      diag_ = diag1.failure();
+			final GCFM_Diagnostic diag  = (GCFM_Diagnostic) diag_;
+
+			switch (diag.severity()) {
+			case INFO:
+				LOG.info(diag._message());
+				break;
+			case ERROR:
+				LOG.err(diag._message());
+				break;
+			case LINT:
+			case WARN:
+			default:
+				throw new NotImplementedException();
+			}
+
+			return Operation2.failure(diag_);
+		}
+
+		final EvaNode res = vte.resolvedType();
+		//if (res instanceof final @NotNull EvaContainerNC nc) {
+		//	if (nc instanceof EvaClass rec) {
+		//	} else if (nc instanceof EvaNamespace ren) {
+		//		den = this.gc.a_lookup(ren).ool();
+		//	} else {
+		//		den = null;
+		//	}
+		//	if (den != null) {
+		//		int code = den.getCode();
+		//		return "Z" + code;
+		//	}
+		//}
+
+		final DeducedEvaNode den;
+		if (res instanceof final EvaClass evaClass) {
+			den = this.gc.a_lookup(evaClass).ool();
+
+			final String z = GenerateC.GetTypeName.forGenClass(evaClass, gc);
+			final String s = String.format("%s* %s;", z, target_name);
+			return Operation2
+					.success(new EG_SingleStatement(s, EX_Explanation.withMessage("actionDECL with resolved type")));
+		}
+
+		final OS_Type x = diag1.success(); // vte.type.getAttached();
+
+		if (x != null) {
+			switch (x.getType()) {
+			case USER_CLASS:
+				final String z = GenerateC.GetTypeName.forOSType(x, LOG);
+				final String s = String.format("%s* %s;", z, target_name);
+				return Operation2
+						.success(new EG_SingleStatement(s, EX_Explanation.withMessage("actionDECL with USER_CLASS")));
+			case USER:
+				final TypeName typeName = x.getTypeName();
+				if (typeName instanceof NormalTypeName) {
+					final String z2;
+					if (((NormalTypeName) typeName).getName().equals("Any"))
+						z2 = "void *"; // TODO Technically this is wrong
+					else
+						z2 = GenerateC.GetTypeName.forTypeName(typeName, gc.errSink);
+					final String s1 = String.format("%s %s;", z2, target_name);
+					return Operation2
+							.success(new EG_SingleStatement(s1, EX_Explanation.withMessage("actionDECL with USER")));
+				}
+
+				if (typeName != null) {
+					//
+					// VARIABLE WASN'T FULLY DEDUCED YET
+					//
+					return Operation2.failure(new Diagnostic_8887(typeName));
+				}
+				break;
+			case BUILT_IN:
+				return Operation2.success(new actionDECL_with_BUILT_IN(yf, target_name, x, gc));
+			case FUNC_EXPR:
+				return Operation2.success(new EG_Statement() {
+					@Override
+					public @NotNull EX_Explanation getExplanation() {
+						return EX_Explanation.withMessage("gcfm:type:func_decl");
+					}
+
+					@Override
+					public @NotNull String getText() {
+						return "void (*fun)()";
+					}
+				});
+			}
+		}
+
+		//
+		// VARIABLE WASN'T FULLY DEDUCED YET
+		// MTL A TEMP VARIABLE
+		//
+		@NotNull final Collection<TypeTableEntry> pt_ = vte.potentialTypes();
+		final List<TypeTableEntry>                pt  = new ArrayList<TypeTableEntry>(pt_);
+		if (pt.size() == 1) {
+			final TypeTableEntry ty = pt.get(0);
+			if (ty.genType.getNode() != null) {
+				final EvaNode node1 = ty.genType.getNode();
+				if (node1 instanceof EvaFunction ef) {
+					var node = gc.a_lookup(ef);
+
+					final var y = node;
+//					((EvaFunction)node).typeDeferred()
+					// get signature
+					final String z = /* Emit.emit("/ *552* /") + */ "bool (*%s)(char*)".formatted(target_name);
+					final String s = String.format("/*8889*/%s;", z);
+					return Operation2.success(new EG_SingleStatement(s, null));
+				}
+			} else {
+//				LOG.err("8885 " +ty.attached);
+				final @Nullable OS_Type attached = ty.getAttached();
+				final String            z;
+				if (attached != null)
+					z = gc.getTypeName(attached);
+				else
+					z = Emit.emit("/*763*/") + "Unknown";
+				final String s = String.format("/*8890*/Z<%s> %s;", z, target_name);
+				return Operation2.success(new EG_SingleStatement(s, null));
+			}
+		}
+
+		return Operation2.failure(new Diagnostic_8886());
 	}
 
 	void generateCodeForConstructor(final @NotNull DeducedEvaConstructor dgf,
@@ -638,32 +671,16 @@ public class Generate_Code_For_Method {
 		}
 	}
 
+	private void logProgress(int code, String message) {
+		gc.ce.logProgress(CompProgress.GenerateC, Pair.of(code, message));
+	}
+
 	public GenerateC _gc() {
 		return this.gc;
 	}
 
 	public enum AOG {
 		ASSIGN, GET
-	}
-
-	class BT {
-		private final @NotNull BufferTabbedOutputStream btos = new BufferTabbedOutputStream();
-
-		public String getText() {
-			return btos.getBuffer().getText();
-		}
-
-		public void text(String s) {
-			btos.put_string_ln(s);
-		}
-
-		public void text0(String s) {
-			btos.put_string(s);
-		}
-
-		public void text2(@NotNull Supplier<String> s) {
-			btos.put_string_ln(s.get());
-		}
 	}
 
 	interface C2C_Results {
@@ -696,8 +713,24 @@ public class Generate_Code_For_Method {
 		}
 	}
 
-	private void logProgress(int code, String message) {
-		gc.ce.logProgress(CompProgress.GenerateC, Pair.of(code, message));
+	class BT { // hmm
+		private final @NotNull BufferTabbedOutputStream btos = new BufferTabbedOutputStream();
+
+		public String getText() {
+			return btos.getBuffer().getText();
+		}
+
+		public void text(String s) {
+			btos.put_string_ln(s);
+		}
+
+		public void text0(String s) {
+			btos.put_string(s);
+		}
+
+		public void text2(@NotNull Supplier<String> s) {
+			btos.put_string_ln(s.get());
+		}
 	}
 }
 

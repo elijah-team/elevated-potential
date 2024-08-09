@@ -1,18 +1,15 @@
 package tripleo.elijah.stages.gen_fn;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import tripleo.elijah.Eventual;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.stages.deduce.DeduceElement;
-import tripleo.elijah.stages.deduce.OnGenClass;
-import tripleo.elijah.stages.gen_generic.Dependency;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.util.range.Range;
 
-import java.util.List;
+import java.util.*;
 
 public interface IEvaFunctionBase {
 	int add(InstructionName aName, List<InstructionArgument> args_, Context ctx);
@@ -35,7 +32,8 @@ public interface IEvaFunctionBase {
 
 	@NotNull InstructionArgument get_assignment_path(@NotNull IExpression expression, @NotNull GenerateFunctions generateFunctions, Context context);
 
-	int getCode();
+	@Deprecated
+	void setCode(int aCode);
 
 	@NotNull ConstantTableEntry getConstTableEntry(int index);
 
@@ -61,6 +59,8 @@ public interface IEvaFunctionBase {
 	Instruction getInstruction(int anIndex);
 
 	EvaContainerNC getParent();
+
+	void setParent(EvaContainerNC aGeneratedContainerNC);
 
 	@NotNull
 	ProcTableEntry getProcTableEntry(int index);
@@ -88,7 +88,7 @@ public interface IEvaFunctionBase {
 
 	@NotNull
 	TypeTableEntry newTypeTableEntry(TypeTableEntry.Type type1, OS_Type type, IExpression expression,
-			TableEntryIV aTableEntryIV);
+									 TableEntryIV aTableEntryIV);
 
 	@NotNull
 	TypeTableEntry newTypeTableEntry(TypeTableEntry.Type type1, OS_Type type, TableEntryIV aTableEntryIV);
@@ -100,10 +100,6 @@ public interface IEvaFunctionBase {
 	void resolveTypeDeferred(GenType aType);
 
 	void setClass(@NotNull EvaNode aNode);
-
-	void setCode(int aCode);
-
-	void setParent(EvaContainerNC aGeneratedContainerNC);
 
 	Eventual<GenType> typeDeferred();
 
@@ -117,5 +113,6 @@ public interface IEvaFunctionBase {
 	 */
 	void onGenClass(@NotNull OnGenClass aOnGenClass);
 
-	interface BaseEvaFunction_Reactive extends Reactive {}
+	interface BaseEvaFunction_Reactive extends Reactive {
+	}
 }

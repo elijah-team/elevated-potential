@@ -1,28 +1,20 @@
 package tripleo.elijah.stages.gen_c;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.FormalArgListItem;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.lang.i.TypeName;
-import tripleo.elijah.lang.types.OS_GenericTypeNameType;
-import tripleo.elijah.nextgen.outputstatement.EG_DottedStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Rule;
-import tripleo.elijah.stages.gen_c.c_ast1.C_HeaderString;
+import com.google.common.base.*;
+import com.google.common.collect.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.*;
+import tripleo.elijah.stages.gen_c.c_ast1.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.VariableTableType;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.util.*;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 class Generate_Method_Header {
 
@@ -68,11 +60,8 @@ class Generate_Method_Header {
 		// NOTE getGenClass is always a class or namespace, getParent can be a function
 		final EvaContainerNC parent = (EvaContainerNC) gf.getGenClass();
 
-		if (parent instanceof EvaClass) {
-			final EvaClass st = (EvaClass) parent;
-
-			@NotNull
-			final C_HeaderString chs = C_HeaderString.forClass(st, () -> GenerateC.GetTypeName.forGenClass(st),
+		if (parent instanceof EvaClass st) {
+			@NotNull final C_HeaderString chs = C_HeaderString.forClass(st, () -> GenerateC.GetTypeName.forGenClass(st, this.gc),
 					return_type, name, args_string, LOG);
 
 			result = chs.getResult();
@@ -100,9 +89,20 @@ class Generate_Method_Header {
 			// Get it from resolved
 			tte = gf.tte_for_self();
 			final EvaNode res = tte.resolved();
+
 			if (res instanceof final @NotNull EvaContainerNC nc) {
-				final int code = nc.getCode();
-				return String.format("Z%d*", code);
+				final DeducedEvaNode den;
+				if (nc instanceof EvaClass rec) {
+					den = this.gc.a_lookup(rec).ool();
+				} else if (nc instanceof EvaNamespace ren) {
+					den = this.gc.a_lookup(ren).ool();
+				} else {
+					den = null;
+				}
+				if (den != null) {
+					int code = den.getCode();
+					return String.format("Z%d*", code);
+				}
 			}
 
 			// Get it from type.attached
@@ -127,21 +127,27 @@ class Generate_Method_Header {
 
 			final EvaNode res = tte.resolved();
 			if (res instanceof final @NotNull EvaContainerNC nc) {
-				final int code = nc.getCode();
+				final int[] code = new int[1];
 
-				// HACK
-				if (res instanceof EvaClass ec) {
-					var classStatement = ec.getKlass();
+				if (nc instanceof EvaClass evaClass) {
+					ESwitch.flep(evaClass, (DeducedEvaClass result) -> {
+						code[0] = result.getCode();
 
-					final OS_Module module = classStatement.getContext().module();
-					final String classStatementName = classStatement.getName();
+						// HACK
+						if (res instanceof EvaClass ec) {
+							var classStatement = ec.getKlass();
 
-					if (module.isPrelude() && classStatementName.equals("Integer64")) {
-						return "/*190*/int";
-					}
+							final OS_Module module             = classStatement.getContext().module();
+							final String    classStatementName = classStatement.getName();
+
+							if (module.isPrelude() && classStatementName.equals("Integer64")) {
+								return "/*190*/int";
+							}
+						}
+					});
 				}
 
-				return String.format("Z%d*", code);
+				return String.format("Z%d*", code[0]);
 			}
 
 			// Get it from type.attached
@@ -190,7 +196,7 @@ class Generate_Method_Header {
 		final List<String> args_list = gf.vte_list.stream().filter(input -> input.getVtt() == VariableTableType.ARG)
 
 				// rule=vte:args_at
-				.map(input -> String.format("%s va%s", GenerateC.GetTypeName.forVTE(input), input.getName()))
+				.map(input -> String.format("%s va%s", GenerateC.GetTypeName.forVTE(input, gc), input.getName()))
 				.collect(Collectors.toList());
 		final EG_Statement args = new EG_DottedStatement(", ", args_list, new EX_Rule(rule));
 
@@ -224,7 +230,7 @@ class Generate_Method_Header {
 				@Override
 				public String apply(@Nullable final VariableTableEntry input) {
 					assert input != null;
-					return String.format("%s va%s", GenerateC.GetTypeName.forVTE(input), input.getName());
+					return String.format("%s va%s", GenerateC.GetTypeName.forVTE(input, gc), input.getName());
 				}
 			}));
 		}

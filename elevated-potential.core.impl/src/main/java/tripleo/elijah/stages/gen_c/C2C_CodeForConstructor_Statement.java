@@ -1,10 +1,9 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
-import tripleo.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah.util.BufferTabbedOutputStream;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.util.*;
 
 class C2C_CodeForConstructor_Statement implements EG_Statement {
 
@@ -49,7 +48,7 @@ class C2C_CodeForConstructor_Statement implements EG_Statement {
 			else if (decl.prim_decl.equals("bool"))
 				tos.put_string_ln("R->vsv = false;");
 		} else {
-			for (final EvaClass.VarTableEntry o : x.varTable) {
+			for (final VarTableEntry o : x.varTable) {
 //					final String typeName = getTypeNameForVarTableEntry(o);
 				// TODO this should be the result of getDefaultValue for each type
 				tos.put_string_ln(String.format("R->vm%s = 0;", o.nameToken));

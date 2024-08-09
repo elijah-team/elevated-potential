@@ -1,17 +1,12 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.lang.i.RegularTypeName;
-import tripleo.elijah.lang.i.TypeName;
-import tripleo.elijah.lang.types.OS_GenericTypeNameType;
-import tripleo.elijah.stages.deduce.ClassInvocation;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah.stages.instructions.VariableTableType;
-import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.stages.logging.*;
 
 class GCM_GF implements GCM_D {
 	private final GenerateC gc;
@@ -59,8 +54,18 @@ class GCM_GF implements GCM_D {
 		tte = gf.getTypeTableEntry(((IntegerIA) result_index).getIndex());
 		final EvaNode res = tte.resolved();
 		if (res instanceof final @NotNull EvaContainerNC nc) {
-			final int code = nc.getCode();
-			return String.format("Z%d*", code);
+			final DeducedEvaNode den;
+			if (nc instanceof EvaClass rec) {
+				den = this.gc.a_lookup(rec).ool();
+			} else if (nc instanceof EvaNamespace ren) {
+				den = this.gc.a_lookup(ren).ool();
+			} else {
+				den = null;
+			}
+			if (den != null) {
+				int code = den.getCode();
+				return String.format("Z%d*", code);
+			}
 		}
 
 		// Get it from type.attached

@@ -1,20 +1,15 @@
 package tripleo.elijah.stages.gen_c;
 
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah.stages.gen_fn.EvaContainerNC;
-import tripleo.elijah.stages.gen_fn.EvaNamespace;
-import tripleo.elijah.stages.gen_fn.EvaNode;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.util.BufferTabbedOutputStream;
-import tripleo.util.buffer.Buffer;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.*;
+import tripleo.util.buffer.*;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.*;
 
-import java.util.List;
-
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 	final                  GenerateResult           gr;
@@ -69,8 +64,10 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 				final CClassDecl decl = new CClassDecl(x);
 				decl.evaluatePrimitive();
 
-				final String class_name = GenerateC.GetTypeName.forGenClass(x);
-				final int    class_code = x.getCode();
+				final GenerateC generateC = generateCodeForMethod._gc();
+
+				final String class_name = GenerateC.GetTypeName.forGenClass(x, generateC);
+				final int    class_code = generateC.a_lookup(x).ool().getCode();
 
 				assert yf.cd() != null; // TODO 10/16 can we remove this?
 
@@ -79,7 +76,7 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 				xx.getTextInto(tos); // README created because non-recursive interpreter
 				this.st = xx;
 
-				var gmh = new Generate_Method_Header(yf, generateCodeForMethod._gc(), generateCodeForMethod._gc().LOG);
+				var gmh = new Generate_Method_Header(yf, generateC, generateC.LOG);
 				generateCodeForMethod.action_invariant(yf, gmh);
 
 				tos.put_string_ln("return R;");

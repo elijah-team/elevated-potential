@@ -83,7 +83,7 @@ public class WhyNotGarish_Class implements WhyNotGarish_Item {
 	}
 
 	public String getTypeNameString() {
-		return GenerateC.GetTypeName.forGenClass(gc);
+		return GenerateC.GetTypeName.forGenClass(gc, generateC);
 	}
 
 	@Override

@@ -8,13 +8,8 @@ public class DefaultDeducedEvaNamespace implements DeducedEvaNamespace {
 	@Delegate
 	EvaNamespace carrier;
 
-	//@Override
-	//public String identityString() {
-	//	return carrier.identityString();
-	//}
-	//
-	//@Override
-	//public OS_Module module() {
-	//	return carrier.module();
-	//}
+	@Override
+	public Object garish() {
+		return null;
+	}
 }

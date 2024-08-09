@@ -1,26 +1,17 @@
 package tripleo.elijah.stages.write_stage.pipeline_impl;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.nextgen.inputtree.EIT_Input_HashSourceFile_Triple;
-import tripleo.elijah.nextgen.outputstatement.EG_Naming;
-import tripleo.elijah.nextgen.outputstatement.EG_SequenceStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.util.Mode;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
-import tripleo.util.buffer.DefaultBuffer;
-import tripleo.util.buffer.TextBuffer;
+import tripleo.elijah.util.*;
+import tripleo.util.buffer.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 public class WPIS_WriteInputs implements WP_Individual_Step {
 	private final Map<String, Operation<String>> ops = new HashMap<>();
@@ -69,7 +60,7 @@ public class WPIS_WriteInputs implements WP_Individual_Step {
 			String string = "inputs.txt";// pp.toFile().toString(); //fn1.getPath().toFile().toString();
 
 			final EOT_OutputFileImpl off = new EOT_OutputFileImpl(List_of(),
-																  new EOT_OutputFileImpl.DefaultFileNameProvider(string),
+																  new _U_OF.DefaultFileNameProvider(string),
 																  EOT_OutputType.INPUTS,
 																  seq);
 

@@ -1,15 +1,17 @@
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.lang.i.FormalArgListItem;
-import tripleo.elijah.lang.i.OS_NamedElement;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.*;
+import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.Instruction;
-import tripleo.elijah.world.i.LivingFunction;
-import tripleo.elijah.world.i.LivingRepo;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.world.i.*;
 
 public class FunctionStatement implements EG_Statement {
 	private final IEvaFunctionBase evaFunction;
@@ -29,22 +31,31 @@ public class FunctionStatement implements EG_Statement {
 		final StringBuilder sb = new StringBuilder();
 		final var           z  = new ReasonedStringListStatement();
 
-		final String str = "FUNCTION %d %s %s\n".formatted(evaFunction.getCode(),
-														   evaFunction.getFunctionName(),
-														   ((OS_NamedElement) evaFunction.getFD().getParent()).name());
-		z.append(str, "function-statement-header");
+		ESwitch.flep((BaseEvaFunction) evaFunction, new DoneCallback<DeducedBaseEvaFunction>() {
+			@Override
+			public void onDone(final DeducedBaseEvaFunction result) {
+				final String str = "FUNCTION %d %s %s\n".formatted(result.getCode(),
+																   evaFunction.getFunctionName(),
+																   ((OS_NamedElement) evaFunction.getFD().getParent()).name());
+				z.append(str, "function-statement-header");
 
-		z.append("Instructions \n", "function-statement-header2");
-		final EvaFunction gf = (EvaFunction) evaFunction;
-		for (Instruction instruction : gf.instructionsList) {
-			z.append("\t", "function-statement-instruction-spacer-left");
-			z.append("" + instruction, "function-statement-instruction-text");
-			z.append("\n", "function-statement-instruction-spacer-right");
-		}
+				z.append("Instructions \n", "function-statement-header2");
+				final EvaFunction gf = (EvaFunction) evaFunction;
+				for (Instruction instruction : gf.instructionsList) {
+					z.append("\t", "function-statement-instruction-spacer-left");
+					z.append("" + instruction, "function-statement-instruction-text");
+					z.append("\n", "function-statement-instruction-spacer-right");
+				}
 
-		{
-			//	EvaFunction.printTables(gf);
-			{
+				q(gf, z);
+
+			}
+
+			private void q(final EvaFunction gf, final ReasonedStringListStatement z) {
+				if (false) {
+					EvaFunction.printTables(gf);
+				}
+
 				for (FormalArgListItem formalArgListItem : gf.getFD().getArgs()) {
 					z.append("ARGUMENT " + formalArgListItem.name() + " " + formalArgListItem.typeName() + "\n", "...fali");
 				}
@@ -69,41 +80,56 @@ public class FunctionStatement implements EG_Statement {
 					z.append("\t" + identTableEntry + "\n", "...idte-list-item");
 				}
 			}
-		}
+		});
 
 		return sb.toString();
 	}
 
-	public @NotNull String getFilename(@NotNull IPipelineAccess pa) {
+	public @NotNull String getFilename(@NotNull final IPipelineAccess pa) {
 		// HACK 07/07 register if not registered
 		if (filename == null) {
 			final EvaFunction v    = (EvaFunction) evaFunction;
-			final int         code = v.getCode();
 
-			final var            ce    = pa.getCompilationEnclosure();
-			final var            world = ce.getCompilation().world();
-			final LivingFunction funct = world.addFunction(v, LivingRepo.Add.NONE);
+			ESwitch.flep(v, (DeducedBaseEvaFunction result) -> {
+				final int code = result.getCode();
 
-			funct.codeRegistration((final EvaFunction ef, final Eventual<Integer> ccb) -> {
-				int code1 = ef.getCode();
-				assert code1 == 0;
-				var cr = ce.getPipelineLogic().dp.getCodeRegistrar();
-				cr.registerFunction1(ef);
+				final var            ce    = pa.getCompilationEnclosure();
+				final var            world = ce.getCompilation().world();
+				final LivingFunction funct = world.addFunction(v, LivingRepo.Add.NONE);
 
-				code1 = ef.getCode();
-				assert code1 != 0;
+				funct.codeRegistration(new LF_CodeRegistration() {
+					@Override
+					public void accept(final EvaFunction ef, final Eventual<Integer> ccb) {
+						funct.waitDeduced(new DoneCallback<DeducedBaseEvaFunction>() {
+							@Override
+							public void onDone(final DeducedBaseEvaFunction dbef) {
+								int code1 = dbef.getCode();
+								if (code1 != 0) {
+									throw new AssertionError();
+								} else {
+									ICodeRegistrar cr = ce.getPipelineLogic().dp.getCodeRegistrar();
+									cr.registerFunction1(ef);
 
-				ccb.resolve(code1);
-			});
+									code1 = dbef.getCode();
+									assert code1 != 0;
 
-			assert funct.isRegistered();
+									ccb.resolve(code1);
+								}
+							}
+						});
+					}
+				});
 
-			funct.listenRegister((Integer code2) -> {
-				assert code2.intValue() != 0;
+				assert funct.isRegistered();
 
-				filename = String.format("F_%d%s", code2, evaFunction.getFunctionName());
+				funct.listenRegister((Integer code2) -> {
+					assert code2.intValue() != 0;
+
+					filename = String.format("F_%d%s", code2, evaFunction.getFunctionName());
+				});
 			});
 		}
+
 		return filename;
 	}
 }

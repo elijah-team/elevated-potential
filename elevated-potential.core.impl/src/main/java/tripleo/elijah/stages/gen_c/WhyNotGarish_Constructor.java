@@ -7,6 +7,7 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.stages.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.garish.*;
 import tripleo.elijah.stages.gen_c.internal.*;
@@ -30,6 +31,8 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 	public WhyNotGarish_Constructor(final EvaConstructor aGf, final GenerateC aGenerateC) {
 		gf        = aGf;
 		generateC = aGenerateC;
+
+		ESwitch.flap(this, aGf);
 
 		fileGenPromise.then(this::onFileGen);
 		__declaringContext = new WhyNotGarish_DeclaringContext() {

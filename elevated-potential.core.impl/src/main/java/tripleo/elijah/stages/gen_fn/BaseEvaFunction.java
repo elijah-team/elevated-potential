@@ -57,7 +57,7 @@ public abstract class BaseEvaFunction
 	private          int                            label_count       = 0;
 	private          EvaContainerNC                 parent;
 
-	static void printTables(@NotNull EvaFunction gf) {
+	public static void printTables(@NotNull EvaFunction gf) {
 		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("VariableTable ");
 		for (VariableTableEntry variableTableEntry : gf.vte_list) {
 			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("\t" + variableTableEntry);

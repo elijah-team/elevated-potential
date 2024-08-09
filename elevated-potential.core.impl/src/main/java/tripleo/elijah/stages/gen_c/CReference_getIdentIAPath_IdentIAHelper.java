@@ -37,7 +37,8 @@ class CReference_getIdentIAPath_IdentIAHelper {
 		}
 
 		public void provide(final @NotNull EvaContainerNC aNc, final String aReason) {
-			code = aNc.getCode();
+			code = -500; // aNc.getCode();
+			assert false;
 			reason = aReason;
 			is_set = true;
 		}

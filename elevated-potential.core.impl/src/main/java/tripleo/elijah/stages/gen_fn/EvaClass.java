@@ -29,29 +29,23 @@ import java.util.function.*;
  * Created 10/29/20 4:26 AM
  */
 public class EvaClass extends EvaContainerNC implements GEvaClass {
-	public class _Reactive_EvaClass extends DefaultReactive {
-		@Override
-		public <T> void addListener(final Consumer<T> t) {
-			throw new UnintendedUseException();
-		}
-	}
-
-	private       LivingClass    _living;
-	private final ClassStatement  klass;
+	final         _Reactive_EvaClass    reactiveEvaClass = new _Reactive_EvaClass();
+	private final ClassStatement        klass;
 	private final   OS_Module                            module;
+	// TODO Reactive??
+	private final GarishClass_Generator _gcg             = new GarishClass_Generator(this);
 	public          ClassInvocation                      ci;
 	public @NotNull Map<ConstructorDef, IEvaConstructor> constructors = new HashMap<>();
-
+	private       LivingClass           _living;
 	private boolean resolve_var_table_entries_already = false;
-
-	final _Reactive_EvaClass reactiveEvaClass = new _Reactive_EvaClass();
-
-	// TODO Reactive??
-	private final GarishClass_Generator _gcg = new GarishClass_Generator(this);
 
 	public EvaClass(ClassStatement aClassStatement, OS_Module aModule) {
 		klass = aClassStatement;
 		module = aModule;
+	}
+
+	public String getNumberedName() {
+		throw new AssertionError();
 	}
 
 	public void addAccessNotation(AccessNotation an) {
@@ -83,6 +77,10 @@ public class EvaClass extends EvaContainerNC implements GEvaClass {
 		}
 	}
 
+	private boolean getPragma(String auto_construct) { // TODO this should be part of ContextImpl
+		return false;
+	}
+
 	public void fixupUserClasses(final @NotNull DeduceTypes2 aDeduceTypes2, final Context aContext) {
 		for (VarTableEntry varTableEntry : varTable) {
 			varTableEntry.updatePotentialTypesCB = new VarTableEntry.UpdatePotentialTypesCB() {
@@ -107,9 +105,8 @@ public class EvaClass extends EvaContainerNC implements GEvaClass {
 							OS_BuiltinType resolved = (OS_BuiltinType) potentialTypes.get(1).getResolved();
 
 							try {
-								@NotNull
-								final GenType rt = ResolveType.resolve_type(resolvedClass1.getContext().module(),
-																			resolved, resolvedClass1.getContext(), aDeduceTypes2._LOG(), aDeduceTypes2);
+								@NotNull final GenType rt = ResolveType.resolve_type(resolvedClass1.getContext().module(),
+																					 resolved, resolvedClass1.getContext(), aDeduceTypes2._LOG(), aDeduceTypes2);
 								int y = 2;
 
 								potentialTypes = Helpers.List_of(rt);
@@ -121,8 +118,7 @@ public class EvaClass extends EvaContainerNC implements GEvaClass {
 							OS_BuiltinType resolved = (OS_BuiltinType) potentialTypes.get(0).getResolved();
 
 							try {
-								@NotNull
-								final GenType rt = aDeduceTypes2.resolve_type(resolved, resolvedClass2.getContext());
+								@NotNull final GenType rt = aDeduceTypes2.resolve_type(resolved, resolvedClass2.getContext());
 								int y = 2;
 
 								potentialTypes = Helpers.List_of(rt);
@@ -157,7 +153,7 @@ public class EvaClass extends EvaContainerNC implements GEvaClass {
 								if (t.getType() == OS_Type.Type.USER) {
 									try {
 										final @NotNull GenType genType = aDeduceTypes2.resolve_type(t,
-												t.getTypeName().getContext());
+																									t.getTypeName().getContext());
 										if (genType.getResolved() instanceof OS_GenericTypeNameType) {
 											final ClassInvocation xxci = ((EvaClass) aEvaContainer).ci;
 
@@ -259,6 +255,11 @@ public class EvaClass extends EvaContainerNC implements GEvaClass {
 		aCodeGenerator.generate_class(aFileGen, this);
 	}
 
+	@Override
+	public void setCode(final int aCode) {
+		world().setCode(aCode);
+	}
+
 	public GarishClass_Generator generator() {
 		return _gcg;
 	}
@@ -274,6 +275,16 @@ public class EvaClass extends EvaContainerNC implements GEvaClass {
 
 	public LivingClass getLiving() {
 		return world();
+	}
+
+	public void setLiving(LivingClass aLivingClass) {
+		ESwitch.flap(this, aLivingClass);
+		this._living = aLivingClass;
+	}
+
+	public LivingClass world() {
+		//return ESwitch.florp(this, LivingClass.class);
+		return _living;
 	}
 
 	@NotNull
@@ -314,22 +325,18 @@ public class EvaClass extends EvaContainerNC implements GEvaClass {
 		return Helpers.String_join(", ", ls);
 	}
 
-	private boolean getPragma(String auto_construct) { // TODO this should be part of ContextImpl
-		return false;
-	}
-
 	@Override
 	public String identityString() {
 		return String.valueOf(klass);
 	}
 
-	public boolean isGeneric() {
-		return klass.getGenericPart().size() > 0;
-	}
-
 	@Override
 	public OS_Module module() {
 		return module;
+	}
+
+	public boolean isGeneric() {
+		return klass.getGenericPart().size() > 0;
 	}
 
 	public Reactive reactive() {
@@ -351,16 +358,6 @@ public class EvaClass extends EvaContainerNC implements GEvaClass {
 	}
 
 	@Override
-	public void setCode(final int aCode) {
-		world().setCode(aCode);
-	}
-
-	public void setLiving(LivingClass aLivingClass) {
-		ESwitch.flap(this, aLivingClass);
-		this._living = aLivingClass;
-	}
-
-	@Override
 	public @NotNull String toString() {
 		return "EvaClass{"
 				+ "klass=" + klass
@@ -370,9 +367,11 @@ public class EvaClass extends EvaContainerNC implements GEvaClass {
 				+ '}';
 	}
 
-	public LivingClass world() {
-		//return ESwitch.florp(this, LivingClass.class);
-		return _living;
+	public class _Reactive_EvaClass extends DefaultReactive {
+		@Override
+		public <T> void addListener(final Consumer<T> t) {
+			throw new UnintendedUseException();
+		}
 	}
 }
 

@@ -1,25 +1,20 @@
 package tripleo.elijah.stages.gen_c;
 
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_Type;
-import tripleo.elijah.lang.i.TypeName;
-import tripleo.elijah.nextgen.outputstatement.IReasonedString;
-import tripleo.elijah.stages.gen_c.Generate_Code_For_Method.AOG;
+import org.apache.commons.lang3.tuple.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.gen_c.Generate_Code_For_Method.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
+import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.instructions.*;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	/**
 	 * In places where this is used, change to "something else"
+	 *
 	 * @return
 	 */
 	@Deprecated
@@ -73,6 +68,8 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 		return declaringContext().pointsToConstructor();
 	}
 
+	public abstract WhyNotGarish_DeclaringContext declaringContext();
+
 	public boolean pointsToConstructor2() {
 		return declaringContext().pointsToConstructor2();
 	}
@@ -101,8 +98,8 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 
 	public @NotNull TypeTableEntry tte_for_self() {
 		@Nullable final InstructionArgument result_index = getGf().vte_lookup("self");
-		final IntegerIA resultIA = (IntegerIA) result_index;
-		@NotNull final VariableTableEntry vte = resultIA.getEntry();
+		final IntegerIA                   resultIA = (IntegerIA) result_index;
+		@NotNull final VariableTableEntry vte      = resultIA.getEntry();
 		assert vte.getVtt() == VariableTableType.SELF;
 
 		var tte1 = getGf().getTypeTableEntry(resultIA.getIndex());
@@ -114,32 +111,25 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 		return getGf().vte_lookup(aText);
 	}
 
-	public abstract WhyNotGarish_DeclaringContext declaringContext();
-
 	public String getRealTargetName(final GenerateC gc, final IntegerIA target, final Generate_Code_For_Method.AOG aAOG) {
 		return gc.getRealTargetName(getGf(), target, aAOG);
 	}
 
-	public String getAssignmentValue(final GenerateC gc, final InstructionArgument value) {
-		var gf = getGf();
+	public String getAssignmentValue(final @NotNull GenerateC gc, final InstructionArgument value) {
+		final BaseEvaFunction gf = getGf();
+		//noinspection UnnecessaryLocalVariable
 		final String assignmentValue = gc.getAssignmentValue(gf.getSelf(), value, gf);
 		return assignmentValue;
-	}
-
-	//public String getRealTargetName(final GenerateC gc, final IdentIA target, final Generate_Code_For_Method.AOG aAOG, final String assignmentValue) {
-	//	final ZoneITE zi = gc._zone.get(target);
-	//
-	//	return zi.getRealTargetName2(aAOG, assignmentValue);
-	//}
-
-	public Garish_TargetName getRealTargetName(final GenerateC gc, final IdentIA target, final String assignmentValue) {
-		final ZoneITE zi = gc._zone.get(target);
-
-		return zi.getRealTargetName3(assignmentValue);
 	}
 
 	public IReasonedString getRealTargetNameReasonedString(final GenerateC aGc, final IdentIA aTarget, final String aAssignmentValue, final String aReason, AOG aAOG) {
 		Garish_TargetName text = getRealTargetName(aGc, aTarget, aAssignmentValue);
 		return text.reasonedForAOG(aAOG);
+	}
+
+	public Garish_TargetName getRealTargetName(final @NotNull GenerateC gc, final IdentIA target, final String assignmentValue) {
+		final ZoneITE zi = gc._zone.get(target);
+
+		return zi.getRealTargetName3(assignmentValue);
 	}
 }
