@@ -1,6 +1,5 @@
 package tripleo.elijah.stages.gen_c.internal;
 
-import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.gen_c.*;
 
 public class DefaultDeducedEvaClass implements DeducedEvaClass {
@@ -30,15 +29,5 @@ public class DefaultDeducedEvaClass implements DeducedEvaClass {
 	@Override
 	public Object garish() {
 		return this._garish;
-	}
-
-	@Override
-	public String identityString() {
-		return _garish.__evaClass().identityString();
-	}
-
-	@Override
-	public OS_Module module() {
-		return _garish.__evaClass().module();
 	}
 }
