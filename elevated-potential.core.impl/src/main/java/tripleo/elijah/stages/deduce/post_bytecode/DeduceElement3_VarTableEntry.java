@@ -25,28 +25,28 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err2(String.format("** [noteNonsenseErr] %d %s%n", code, message));
 	}
 
-	private final EvaContainer.VarTableEntry _principal;
+	private final VarTableEntry _principal;
 
 	private final DeduceTypes2 _deduceTypes2;
 
 	public RegisterClassInvocation_env __passthru;
 
 	@Contract(pure = true)
-	public DeduceElement3_VarTableEntry(final EvaContainer.VarTableEntry aVarTableEntry) {
+	public DeduceElement3_VarTableEntry(final VarTableEntry aVarTableEntry) {
 		_principal = aVarTableEntry;
 		_deduceTypes2 = null;
 	}
 
 	@Contract(pure = true)
-	public DeduceElement3_VarTableEntry(final @NotNull EvaContainer.VarTableEntry aVarTableEntry,
+	public DeduceElement3_VarTableEntry(final @NotNull VarTableEntry aVarTableEntry,
 			final @NotNull DeduceTypes2 aDeduceTypes2) {
 		_principal = aVarTableEntry;
 		_deduceTypes2 = aDeduceTypes2;
 	}
 
 	private void __one_potential(final @NotNull DeducePhase aDeducePhase,
-			final EvaContainer.@NotNull VarTableEntry varTableEntry, final @NotNull List<TypeTableEntry> potentialTypes,
-			final TypeName typeName, final @NotNull ClassInvocation ci) throws STOP {
+								 final @NotNull VarTableEntry varTableEntry, final @NotNull List<TypeTableEntry> potentialTypes,
+								 final TypeName typeName, final @NotNull ClassInvocation ci) throws STOP {
 		boolean sc = false;
 
 		TypeTableEntry potentialType = potentialTypes.get(0);
@@ -120,7 +120,7 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 	}
 
 	@Contract("_, null -> fail")
-	private void __zero_potential(final EvaContainer.@NotNull VarTableEntry varTableEntry, final TypeName tn) {
+	private void __zero_potential(final @NotNull VarTableEntry varTableEntry, final TypeName tn) {
 		Preconditions.checkNotNull(tn);
 		assert tn instanceof NormalTypeName;
 
@@ -140,7 +140,7 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 	}
 
 	private void __zero_potential__1(
-			final @NotNull EvaContainer.VarTableEntry varTableEntry,
+			final @NotNull VarTableEntry varTableEntry,
 			final @NotNull NormalTypeName aNormalTypeName) {
 		// 0. preflight
 		if (aNormalTypeName.isNull())
@@ -221,7 +221,7 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 	}
 
 	public void resolve_var_table_entries(final @NotNull DeducePhase aDeducePhase, final @NotNull ClassInvocation ci) {
-		final EvaContainer.VarTableEntry varTableEntry = _principal;
+		final VarTableEntry varTableEntry = _principal;
 
 		final List<TypeTableEntry> potentialTypes = varTableEntry.potentialTypes;
 		final TypeName typeName = varTableEntry.typeName;

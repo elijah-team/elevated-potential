@@ -120,7 +120,7 @@ public interface DED {
 		return new DED_CTE(aCte);
 	}
 
-	static DED dispatch(EvaContainer.VarTableEntry aPrincipal) {
+	static DED dispatch(VarTableEntry aPrincipal) {
 		throw new IllegalStateException("Error");
 	}
 

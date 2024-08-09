@@ -2,9 +2,8 @@ package tripleo.elijah.stages.deduce.post_bytecode;
 
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
-
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.Finally.Outs;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.Finally.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -55,7 +54,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 							if (result.getCi() == null && result.getNode() == null)
 								result.genCIForGenType2(de3_ite.deduceTypes2());
 
-							for (EvaContainer.VarTableEntry entry : ((EvaContainerNC) result.getNode()).varTable) {
+							for (VarTableEntry entry : ((EvaContainerNC) result.getNode()).varTable) {
 								if (!entry.isResolved()) {
 									tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("629 entry not resolved " + entry.nameToken);
 								}
