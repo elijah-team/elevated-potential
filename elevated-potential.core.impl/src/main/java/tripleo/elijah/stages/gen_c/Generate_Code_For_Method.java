@@ -588,7 +588,7 @@ public class Generate_Code_For_Method {
 
 	void generateCodeForConstructor(final @NotNull DeducedEvaConstructor dgf,
 									final @NotNull GenerateResultEnv fileGen) {
-		final EvaConstructor           gf        = dgf.getCarrier();
+		final IEvaConstructor gf = dgf.getCarrier();
 		final GenerateResult           gr        = fileGen.gr();
 		final WorkList                 aWorkList = fileGen.wl();
 		final WhyNotGarish_Constructor yf        = gc.a_lookup(gf);
@@ -599,9 +599,9 @@ public class Generate_Code_For_Method {
 
 //		GenerateResult gr = cfm.getGenerateResult();
 
-		final GCFC gcfc = new GCFC(rs, gf, gr);
+		final GCFC gcfc = new GCFC(rs, (BaseEvaFunction) gf, gr);
 
-		gf.reactive().add(gcfc);
+		((EvaConstructor) gf).reactive().add(gcfc);
 
 		if (!DebugFlags.MANUAL_DISABLED) {
 			gcfc.respondTo(this.gc);

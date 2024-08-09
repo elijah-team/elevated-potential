@@ -238,10 +238,12 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 
 	private void generateCodeForConstructor(final @NotNull GenerateResultEnv aGenerateResultEnv,
 											final @NotNull EvaConstructor aEvaConstructor) {
-		var yf = a_lookup(aEvaConstructor);
+		var yf = a_lookup((IEvaConstructor) aEvaConstructor);
 
 		if (true) {
-			if (aEvaConstructor.getFD() == null) return;
+			if (aEvaConstructor.getFD() == null) {
+				return;
+			}
 
 			//var inj = _inj // TODO this virus hasn't spread this far?
 
@@ -352,7 +354,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		}
 	}
 
-	public WhyNotGarish_Function a_lookup(final BaseEvaFunction aGf) {
+	public WhyNotGarish_Function a_lookup(final IEvaFunctionBase aGf) {
 		if (a_directory.containsKey(aGf)) {
 			return (WhyNotGarish_Function) a_directory.get(aGf);
 		}
@@ -498,7 +500,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 	//	return this.LOG;
 	//}
 
-	public WhyNotGarish_Constructor a_lookup(final EvaConstructor aGf) {
+	public WhyNotGarish_Constructor a_lookup(final IEvaConstructor aGf) {
 		if (a_directory.containsKey(aGf)) {
 			return (WhyNotGarish_Constructor) a_directory.get(aGf);
 		}
@@ -730,7 +732,7 @@ public class GenerateC implements CodeGenerator, GenerateFiles, ReactiveDimensio
 		return LOG;
 	}
 
-	public void generateCodeForConstructor_1(@NotNull EvaConstructor aEvaConstructor, final @NotNull GenerateResultEnv aGenerateResultEnv) {
+	public void generateCodeForConstructor_1(@NotNull IEvaConstructor aEvaConstructor, final @NotNull GenerateResultEnv aGenerateResultEnv) {
 		final WhyNotGarish_Constructor yf = a_lookup(aEvaConstructor);
 		yf.resolveFileGenPromise(aGenerateResultEnv);
 	}

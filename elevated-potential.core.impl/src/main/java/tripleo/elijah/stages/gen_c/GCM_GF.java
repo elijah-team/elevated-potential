@@ -1,6 +1,7 @@
 package tripleo.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
 import tripleo.elijah.stages.deduce.*;
@@ -20,24 +21,26 @@ class GCM_GF implements GCM_D {
 	}
 
 	@Override
-	public String find_return_type(final Generate_Method_Header aGenerate_method_header__) {
+	public void find_return_type(final Generate_Method_Header aGenerate_method_header__, final Eventual<@NotNull String> ev) {
 		var fd = gf.getFD();
 
 		if (fd.returnType() instanceof RegularTypeName rtn) {
 			var n = rtn.getName();
 			if ("Unit".equals(n)) {
-				return "void"; // why not??
+				ev.resolve("void");  // why not??
+				return;
 			} else if ("SystemInteger".equals(n)) {
-				return "int"; // FIXME doesn't seem like much to do, but
+				// FIXME doesn't seem like much to do, but
+				ev.resolve("int");  // why not??
+				return;
 			}
 		}
 
-		String returnType = null;
+		String returnType;
 		final TypeTableEntry tte;
 		final OS_Type type;
 
-		@Nullable
-		InstructionArgument result_index = gf.vte_lookup("Result");
+		@Nullable InstructionArgument result_index = gf.vte_lookup("Result");
 		if (result_index == null) {
 			// if there is no Result, there should be Value
 			result_index = gf.vte_lookup("Value");
@@ -46,8 +49,11 @@ class GCM_GF implements GCM_D {
 			final VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
 			if (vte.getVtt() != VariableTableType.RESULT)
 				result_index = null;
-			if (result_index == null)
-				return "void"; // README Assuming Unit
+			if (result_index == null) {
+				// README Assuming Unit
+				ev.resolve("void");  // why not??
+				return;
+			}
 		}
 
 		// Get it from resolved
@@ -64,7 +70,9 @@ class GCM_GF implements GCM_D {
 			}
 			if (den != null) {
 				int code = den.getCode();
-				return String.format("Z%d*", code);
+				final String s = String.format("Z%d*", code);
+				ev.resolve(s);
+				return;
 			}
 		}
 
@@ -80,7 +88,7 @@ class GCM_GF implements GCM_D {
 		} else if (type.isUnitType()) {
 			// returnType = "void/*Unit-74*/";
 			returnType = "void";
-		} else if (type != null) {
+		} else {
 			if (type instanceof final @NotNull OS_GenericTypeNameType genericTypeNameType) {
 				final TypeName tn = genericTypeNameType.getRealTypeName();
 
@@ -92,12 +100,9 @@ class GCM_GF implements GCM_D {
 				returnType = String.format("/*267*/%s*", gc.getTypeName(realType));
 			} else
 				returnType = String.format("/*267-1*/%s*", gc.getTypeName(type));
-		} else {
-			throw new IllegalStateException();
-//					LOG.err("656 Shouldn't be here (can't reason about type)");
-//					returnType = "void/*656*/";
 		}
 
-		return returnType;
+		ev.resolve(returnType);
+		return;
 	}
 }

@@ -28,11 +28,11 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 	private       DefaultDeducedEvaConstructor __deduced;
 	private       List<C2C_Result>             _c2c_results;
 
-	public WhyNotGarish_Constructor(final EvaConstructor aGf, final GenerateC aGenerateC) {
-		gf        = aGf;
+	public WhyNotGarish_Constructor(final IEvaConstructor aGf, final GenerateC aGenerateC) {
+		gf = (EvaConstructor) aGf;
 		generateC = aGenerateC;
 
-		ESwitch.flap(this, aGf);
+		ESwitch.flap(this, gf);
 
 		fileGenPromise.then(this::onFileGen);
 		__declaringContext = new WhyNotGarish_DeclaringContext() {
@@ -64,7 +64,7 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 	void onFileGen(final @NotNull GenerateResultEnv aFileGen) {
 		final Generate_Code_For_Method gcfm = new Generate_Code_For_Method(generateC, generateC.elLog());
 
-		var yf = generateC.a_lookup(gf);
+		var yf = generateC.a_lookup((IEvaConstructor) gf);
 		assert yf == this;
 
 		// TODO separate into method and method_header??

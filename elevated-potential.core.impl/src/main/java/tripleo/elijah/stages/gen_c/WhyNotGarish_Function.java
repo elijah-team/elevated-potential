@@ -18,8 +18,8 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 	private final DeferredObject<GenerateResultEnv, Void, Void> fileGenPromise = new DeferredObject<>();
 	private DefaultDeducedBaseEvaFunction __deduced;
 
-	public WhyNotGarish_Function(final BaseEvaFunction aGf, final GenerateC aGenerateC) {
-		gf        = aGf;
+	public WhyNotGarish_Function(final IEvaFunctionBase aGf, final GenerateC aGenerateC) {
+		gf = (BaseEvaFunction) aGf; // !! // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 		generateC = aGenerateC;
 
 		fileGenPromise.then(this::onFileGen);

@@ -36,22 +36,21 @@ public abstract class BaseEvaFunction
 	private final    Eventual<EvaClass>             _p_assignEvaClass = new Eventual<>();
 	private final    Eventual<GenType>              _p_assignGenType  = new Eventual<>();
 	private final    Dependency                     dependency        = new Dependency(this);
-	private final    List<Label>                    labelList         = new ArrayList<Label>();
+	private final    List<Label>                    labelList        = new ArrayList<>();
 	public @NotNull  List<DR_Item>                  drs               = new ArrayList<>();
 	public           DefaultLivingFunction          _living;
-	public @NotNull  List<ConstantTableEntry>       cte_list          = new ArrayList<ConstantTableEntry>();
+	public @NotNull  List<ConstantTableEntry>       cte_list         = new ArrayList<>();
 	public           boolean                        deducedAlready;
-	public @NotNull  List<Integer>                  deferred_calls    = new ArrayList<Integer>();
+	public @NotNull  List<Integer>                  deferred_calls   = new ArrayList<>();
 	public           FunctionInvocation             fi;
-	public @NotNull  List<IdentTableEntry>          idte_list         = new ArrayList<IdentTableEntry>();
-	public @NotNull  List<Instruction>              instructionsList  = new ArrayList<Instruction>();
-	public @NotNull  List<ProcTableEntry>           prte_list         = new ArrayList<ProcTableEntry>();
-	public @NotNull  List<TypeTableEntry>           tte_list          = new ArrayList<TypeTableEntry>();
-	public @NotNull  List<VariableTableEntry>       vte_list          = new ArrayList<VariableTableEntry>();
-	private @NotNull Map<OS_Element, DeduceElement> elements          = new HashMap<OS_Element, DeduceElement>();
+	public @NotNull  List<IdentTableEntry>          idte_list        = new ArrayList<>();
+	public @NotNull  List<Instruction>              instructionsList = new ArrayList<>();
+	public @NotNull  List<ProcTableEntry>           prte_list        = new ArrayList<>();
+	public @NotNull  List<TypeTableEntry>           tte_list         = new ArrayList<>();
+	public @NotNull  List<VariableTableEntry>       vte_list         = new ArrayList<>();
+	private @NotNull Map<OS_Element, DeduceElement> elements         = new HashMap<>();
 	private          int                            _nextTemp         = 0;
 	private          __Reactive                     _reactive;
-	private          int                            code              = 0;
 	private          EvaNode                        genClass;
 	private          int                            instruction_index = 0;
 	private          int                            label_count       = 0;
@@ -542,7 +541,7 @@ public abstract class BaseEvaFunction
 
 	@Override
 	public void setCode(int aCode) {
-		code = aCode;
+		assert false;
 	}
 
 	public @NotNull DR_Type buildDrTypeFromNonGenericTypeName(final TypeName aNonGenericTypeName) {

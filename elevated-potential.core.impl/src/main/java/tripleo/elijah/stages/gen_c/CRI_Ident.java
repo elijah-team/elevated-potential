@@ -1,8 +1,10 @@
 package tripleo.elijah.stages.gen_c;
 
+import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.stages.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
@@ -129,10 +131,15 @@ class CRI_Ident {
 								final String text3 = String.format("zN%d_instance",
 																   ((EvaNamespace) externalRef).getCode());
 								addRef.accept(new CReference.Reference(text3, CReference.Ref.LITERAL, null));
-							} else if (externalRef instanceof EvaClass) {
+							} else if (externalRef instanceof EvaClass erc) {
 								assert false;
-								final String text3 = String.format("zN%d_instance", ((EvaClass) externalRef).getCode());
-								addRef.accept(new CReference.Reference(text3, CReference.Ref.LITERAL, null));
+								ESwitch.flep(erc, new DoneCallback<DeducedEvaClass>() {
+									@Override
+									public void onDone(final DeducedEvaClass result) {
+										final String text3 = String.format("zN%d_instance", result.getCode());
+										addRef.accept(new CReference.Reference(text3, CReference.Ref.LITERAL, null));
+									}
+								});
 							} else {
 								throw new IllegalStateException();
 							}

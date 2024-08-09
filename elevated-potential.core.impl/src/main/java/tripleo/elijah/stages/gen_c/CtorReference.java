@@ -8,25 +8,19 @@
  */
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.gen_c.c_ast1.C_Assignment;
-import tripleo.elijah.stages.gen_c.c_ast1.C_ProcedureCall;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_fn.EvaContainerNC;
-import tripleo.elijah.stages.gen_fn.EvaNode;
-import tripleo.elijah.stages.gen_fn.VariableTableEntry;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah.stages.instructions.ProcIA;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.stages.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_c.c_ast1.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import static tripleo.elijah.stages.deduce.DeduceTypes2.to_int;
+import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 
 /**
  * Created 3/7/21 1:22 AM
@@ -37,11 +31,7 @@ public class CtorReference {
 	List<CReference.Reference> refs = new ArrayList<CReference.Reference>();
 	private EvaNode _resolved;
 	private List<String> args;
-	private String ctorName = "";
-
-	void addRef(String text, CReference.Ref type) {
-		refs.add(new CReference.Reference(text, type));
-	}
+	private String  ctorName = "";
 
 	/**
 	 * Call before you call build
@@ -53,9 +43,10 @@ public class CtorReference {
 	}
 
 	public String build(@NotNull ClassInvocation aClsinv) {
-		StringBuilder sb = new StringBuilder();
-		boolean open = false, needs_comma = false;
-//		List<String> sl = new ArrayList<String>();
+		StringBuilder   sb          = new StringBuilder();
+		final boolean[] open        = {false};
+		boolean         needs_comma = false;
+
 		String text = "";
 		for (CReference.Reference ref : refs) {
 			switch (ref.type) {
@@ -75,31 +66,11 @@ public class CtorReference {
 				text = Emit.emit("/*1240*/") + "vsc->vm" + ref.text;
 				sb.append(text);
 				break;
-			case FUNCTION: {
+			case FUNCTION, CONSTRUCTOR, PROPERTY_GET: {
 				final String s = sb.toString();
 				text = String.format("%s(%s", ref.text, s);
-				sb = new StringBuilder();
-				open = true;
-				if (!s.equals(""))
-					needs_comma = true;
-				sb.append(text);
-				break;
-			}
-			case CONSTRUCTOR: {
-				final String s = sb.toString();
-				text = String.format("%s(%s", ref.text, s);
-				sb = new StringBuilder();
-				open = true;
-				if (!s.equals(""))
-					needs_comma = true;
-				sb.append(text);
-				break;
-			}
-			case PROPERTY_GET: {
-				final String s = sb.toString();
-				text = String.format("%s(%s", ref.text, s);
-				sb = new StringBuilder();
-				open = true;
+				sb      = new StringBuilder();
+				open[0] = true;
 				if (!s.equals(""))
 					needs_comma = true;
 				sb.append(text);
@@ -108,39 +79,52 @@ public class CtorReference {
 			default:
 				throw new IllegalStateException("Unexpected value: " + ref.type);
 			}
-//			sl.add(text);
 		}
 		{
 			// Assuming constructor call
-			int code;
+			final Eventual<Integer> codeP = new Eventual();
 			if (_resolved != null) {
-				code = ((EvaContainerNC) _resolved).getCode();
+				ESwitch.flep(((EvaConstructor) _resolved), new DoneCallback<DeducedEvaConstructor>() {
+					@Override
+					public void onDone(final DeducedEvaConstructor result) {
+						codeP.resolve(result.getCode());
+					}
+				});
 			} else {
-				code = -3;
+				codeP.resolve(-3);
 			}
-			if (code == 0) {
-				SimplePrintLoggerToRemoveSoon
-						.println_err_2("** 32135 ClassStatement with 0 code " + aClsinv.getKlass());
+			if (!(codeP.isResolved())) {
+				SimplePrintLoggerToRemoveSoon.println_err_2("** 32135 ClassStatement with 0 code " + aClsinv.getKlass());
 			}
 
-			final String n = sb.toString();
+			final C_Assignment[] cas     = new C_Assignment[1];
+			final StringBuilder  finalSb = sb;
+			codeP.then(new DoneCallback<Integer>() {
+				@Override
+				public void onDone(final Integer code) {
+					final String n = finalSb.toString();
 
-			// TODO Garish(?)Constructor.calculateCtorName(?)/Code
-			String text2 = String.format("ZC%d%s", code, ctorName); // TODO what about named constructors
-			sb.append(" = ");
-			sb.append(text2);
-			sb.append("(");
-			assert !open;
-			open = true;
+					// TODO Garish(?)Constructor.calculateCtorName(?)/Code
+					String text2 = String.format("ZC%d%s", code, ctorName); // TODO what about named constructors
+					finalSb.append(" = ");
+					finalSb.append(text2);
+					finalSb.append("(");
+					assert !open[0];
+					open[0] = true;
 
-			final C_ProcedureCall pc = new C_ProcedureCall();
-			pc.setTargetName(text2);
-			pc.setArgs(args);
-			final C_Assignment cas = new C_Assignment();
-			cas.setLeft(n);
-			cas.setRight(pc);
+					final C_ProcedureCall pc = new C_ProcedureCall();
+					pc.setTargetName(text2);
+					pc.setArgs(args);
 
-			return cas.getString();
+					cas[0] = new C_Assignment();
+					cas[0].setLeft(n);
+					cas[0].setRight(pc);
+				}
+			});
+
+			assert !codeP.isPending();
+
+			return cas[0].getString();
 		}
 
 		/*
@@ -182,6 +166,10 @@ public class CtorReference {
 			}
 //			sl.add(text);
 		}
+	}
+
+	void addRef(String text, CReference.Ref type) {
+		refs.add(new CReference.Reference(text, type));
 	}
 }
 
