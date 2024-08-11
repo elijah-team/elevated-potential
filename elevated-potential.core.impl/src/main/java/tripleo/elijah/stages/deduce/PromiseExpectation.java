@@ -3,14 +3,14 @@ package tripleo.elijah.stages.deduce;
 public class PromiseExpectation<B> {
 
 	private final DeduceTypes2 deduceTypes2;
-	private final DeduceTypes2.ExpectationBase base;
+	private final ExpectationBase base;
 	private final String desc;
 	private boolean _printed;
 	private long counter;
 	private B result;
 	private boolean satisfied;
 
-	public PromiseExpectation(final DeduceTypes2 aDeduceTypes2, DeduceTypes2.ExpectationBase aBase, String aDesc) {
+	public PromiseExpectation(final DeduceTypes2 aDeduceTypes2, ExpectationBase aBase, String aDesc) {
 		deduceTypes2 = aDeduceTypes2;
 		base = aBase;
 		desc = aDesc;

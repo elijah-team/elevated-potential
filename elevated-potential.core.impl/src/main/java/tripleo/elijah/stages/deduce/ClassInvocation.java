@@ -8,16 +8,17 @@
  */
 package tripleo.elijah.stages.deduce;
 
+import java.util.*;
+import java.util.function.*;
+
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
 import tripleo.elijah.stages.gen_fn.*;
-
-import java.util.*;
-import java.util.function.*;
 
 /**
  * Created 3/5/21 3:51 AM
@@ -99,7 +100,7 @@ public class ClassInvocation implements IInvocation, GClassInvocation {
 		constructorName = aConstructorName;
 	}
 
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
+	private DeduceTypes2Injector _inj() {
 		return _dt2s.get()._inj();
 	}
 

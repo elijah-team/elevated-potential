@@ -17,9 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.deduce.IInvocation;
+import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah.stages.gen_fn.EvaConstructor;
 import tripleo.elijah.stages.gen_fn.EvaFunction;
@@ -38,9 +36,9 @@ public class DeferredMemberFunction {
 	/**
 	 * A {@link tripleo.elijah.stages.deduce.ClassInvocation} or
 	 * {@link tripleo.elijah.stages.deduce.NamespaceInvocation}. useless if parent
-	 * is a {@link tripleo.elijah.stages.deduce.DeduceTypes2.OS_SpecialVariable} and
+	 * is a {@link OS_SpecialVariable} and
 	 * its
-	 * {@link tripleo.elijah.stages.deduce.DeduceTypes2.OS_SpecialVariable#memberInvocation}
+	 * {@link OS_SpecialVariable#memberInvocation}
 	 * role value is
 	 * {@link tripleo.elijah.stages.deduce.DeduceTypes2.MemberInvocation.Role#INHERITED}
 	 */
@@ -76,7 +74,7 @@ public class DeferredMemberFunction {
 		});
 	}
 
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
+	private DeduceTypes2Injector _inj() {
 		return deduceTypes2._inj();
 	}
 
@@ -98,7 +96,7 @@ public class DeferredMemberFunction {
 
 	public @Nullable IInvocation getInvocation() {
 		if (invocation == null) {
-			if (parent instanceof final DeduceTypes2.@NotNull OS_SpecialVariable specialVariable) {
+			if (parent instanceof @NotNull OS_SpecialVariable specialVariable) {
 				invocation = specialVariable.getInvocation(deduceTypes2);
 			}
 		}

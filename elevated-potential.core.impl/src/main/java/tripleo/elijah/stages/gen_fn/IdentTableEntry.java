@@ -11,9 +11,13 @@ package tripleo.elijah.stages.gen_fn;
 
 //import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import java.util.*;
+import java.util.function.*;
+
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.*;
@@ -24,14 +28,11 @@ import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
 
-import java.util.*;
-import java.util.function.*;
-
 /**
  * Created 9/12/20 10:27 PM
  */
 public class IdentTableEntry extends BaseTableEntry1
-		implements Constructable, TableEntryIV, DeduceTypes2.ExpectationBase, IDeduceResolvable {
+		implements Constructable, TableEntryIV, ExpectationBase, IDeduceResolvable {
 	private class __StatusListener__ITE_SetResolvedElement implements StatusListener {
 		@Override
 		public void onChange(@NotNull IElementHolder eh, Status newStatus) {

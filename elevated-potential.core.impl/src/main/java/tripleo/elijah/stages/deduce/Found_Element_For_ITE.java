@@ -11,7 +11,8 @@ package tripleo.elijah.stages.deduce;
 
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.i.ErrSink;
+
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.declarations.*;
@@ -25,14 +26,14 @@ class Found_Element_For_ITE {
 
 	private final DeduceCentral central;
 	private final Context ctx;
-	private final DeduceTypes2.DeduceClient1 dc;
-	private final ErrSink                    errSink;
+	private final DeduceClient1 dc;
+	private final ErrSink errSink;
 	private final BaseEvaFunction            generatedFunction;
 	private final ElLog LOG;
 	private final DeduceTypes2 deduceTypes2;
 
 	public Found_Element_For_ITE(BaseEvaFunction aGeneratedFunction, Context aCtx, final @NotNull DT_Env aEnv,
-			DeduceTypes2.DeduceClient1 aDeduceClient1) {
+			DeduceClient1 aDeduceClient1) {
 		generatedFunction = aGeneratedFunction;
 		ctx = aCtx;
 		dc = aDeduceClient1;
@@ -44,7 +45,7 @@ class Found_Element_For_ITE {
 		deduceTypes2 = dc._deduceTypes2();
 	}
 
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
+	private DeduceTypes2Injector _inj() {
 		return deduceTypes2._inj();
 	}
 

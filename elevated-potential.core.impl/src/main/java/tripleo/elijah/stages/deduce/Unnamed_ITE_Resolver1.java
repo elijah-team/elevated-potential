@@ -1,25 +1,17 @@
 package tripleo.elijah.stages.deduce;
 
-import org.jdeferred2.DoneCallback;
+import java.util.*;
+
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.BaseFunctionDef;
-import tripleo.elijah.lang.impl.VariableStatementImpl;
+import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_fn.IdentTableEntry.ITE_Resolver_Result;
-import tripleo.elijah.stages.instructions.IdentIA;
-import tripleo.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah.stages.instructions.ProcIA;
-import tripleo.elijah.util.Mode;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Operation;
-
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
+import tripleo.elijah.stages.gen_fn.IdentTableEntry.*;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.util.*;
 
 class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 	private final DeduceTypes2    dt2;
@@ -140,7 +132,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 		}
 	}
 
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
+	private DeduceTypes2Injector _inj() {
 		return dt2._inj();
 	}
 

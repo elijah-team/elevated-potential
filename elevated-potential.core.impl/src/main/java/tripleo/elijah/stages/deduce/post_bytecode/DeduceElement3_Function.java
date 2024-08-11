@@ -8,7 +8,7 @@ import tripleo.elijah.lang.i.OS_Element;
 import tripleo.elijah.lang.types.OS_BuiltinType;
 import tripleo.elijah.lang2.BuiltInTypes;
 import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.deduce.DeduceTypes2.DeduceTypes2Injector;
+import tripleo.elijah.stages.deduce.DeduceTypes2Injector;
 import tripleo.elijah.stages.deduce.FoundElement;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.IdentIA;

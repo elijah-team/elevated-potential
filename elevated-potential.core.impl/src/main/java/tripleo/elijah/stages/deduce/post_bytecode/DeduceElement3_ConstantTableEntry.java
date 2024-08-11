@@ -4,7 +4,6 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.DeduceTypes2.*;
 import tripleo.elijah.stages.deduce.post_bytecode.DED.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;

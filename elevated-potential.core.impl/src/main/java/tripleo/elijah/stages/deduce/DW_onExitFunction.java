@@ -1,6 +1,10 @@
 package tripleo.elijah.stages.deduce;
 
+import java.util.*;
+import java.util.function.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
@@ -8,9 +12,6 @@ import tripleo.elijah.stages.deduce.tastic.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.work.*;
-
-import java.util.*;
-import java.util.function.*;
 
 class DW_onExitFunction {
 	private final DeduceTypes2    deduceTypes2;
@@ -73,15 +74,18 @@ class DW_onExitFunction {
 
 	void resolveEachTypename() {
 		// TODO why are we doing this?
-		final DeduceTypes2.Resolve_each_typename ret = deduceTypes2._inj().new_Resolve_each_typename(deduceTypes2.phase, deduceTypes2, deduceTypes2._errSink());
+		final Resolve_each_typename ret = deduceTypes2._inj().new_Resolve_each_typename(deduceTypes2.phase,
+				deduceTypes2, deduceTypes2._errSink());
 		for (final TypeTableEntry typeTableEntry : generatedFunction.tte_list) {
 			ret.action(typeTableEntry);
 		}
 	}
 
 	void doDependencySubscriptions() {
-		final @NotNull WorkManager               workManager = deduceTypes2.wm;// _inj().new_WorkManager();
-		@NotNull final DeduceTypes2.Dependencies deps        = deduceTypes2._inj().new_Dependencies(/* this, *//* phase, this, errSink */workManager, deduceTypes2);
+		final @NotNull WorkManager workManager = deduceTypes2.wm;// _inj().new_WorkManager();
+		@NotNull
+		final Dependencies deps = deduceTypes2._inj().new_Dependencies(/* this, *//* phase, this, errSink */workManager,
+				deduceTypes2);
 		deps.subscribeTypes(generatedFunction.dependentTypesSubject());
 		deps.subscribeFunctions(generatedFunction.dependentFunctionSubject());
 //                                              for (@NotNull GenType genType : generatedFunction.dependentTypes()) {

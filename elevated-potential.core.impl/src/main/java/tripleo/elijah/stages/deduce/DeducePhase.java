@@ -9,52 +9,45 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import com.google.common.collect.*;
-import lombok.Getter;
-import org.apache.commons.lang3.tuple.Pair;
-import org.jdeferred2.DoneCallback;
-import org.jdeferred2.impl.DeferredObject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.g.GFunctionMapHook;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.types.OS_UnknownType;
-import tripleo.elijah.nextgen.ClassDefinition;
-import tripleo.elijah.nextgen.ClassDefinition__;
-import tripleo.elijah.nextgen.diagnostic.CouldntGenerateClass;
-import tripleo.elijah.nextgen.reactive.ReactiveDimension;
-import tripleo.elijah.stages.deduce.declarations.DeferredMember;
-import tripleo.elijah.stages.deduce.declarations.DeferredMemberFunction;
-import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.stages.logging.ElLog_;
-import tripleo.elijah.stages.post_deduce.DefaultCodeRegistrar;
-import tripleo.elijah.stateful.State;
-import tripleo.elijah.stateful._RegistrationTarget;
-import tripleo.elijah.util.Maybe;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.work.*;
-import tripleo.elijah.world.i.WorldModule;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah_fluffy.util.DefaultEventualRegister;
+import static tripleo.elijah.util.Helpers.*;
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.function.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import org.apache.commons.lang3.tuple.*;
+import org.jdeferred2.*;
+import org.jdeferred2.impl.*;
+import org.jetbrains.annotations.*;
+
+import com.google.common.collect.*;
+
+import lombok.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.types.*;
+import tripleo.elijah.nextgen.*;
+import tripleo.elijah.nextgen.diagnostic.*;
+import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.stages.deduce.declarations.*;
+import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.deduce.post_bytecode.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.post_deduce.*;
+import tripleo.elijah.stateful.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.work.*;
+import tripleo.elijah.world.i.*;
+import tripleo.elijah_elevated.comp.backbone.*;
+import tripleo.elijah_fluffy.util.*;
 
 /**
  * Created 12/24/20 3:59 AM
@@ -1006,7 +999,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 		<T extends EvaNode> void defaultAction(final T result) {
 			final OS_Element p = deferredMemberFunction.getParent();
 
-			if (p instanceof final DeduceTypes2.@NotNull OS_SpecialVariable specialVariable) {
+			if (p instanceof final @NotNullOS_SpecialVariable specialVariable) {
 				onSpecialVariable(specialVariable);
 				int y = 2;
 			} else if (p instanceof ClassStatement) {
@@ -1042,7 +1035,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 			return x;
 		}
 
-		public void onSpecialVariable(final DeduceTypes2.@NotNull OS_SpecialVariable aSpecialVariable) {
+		public void onSpecialVariable(final @NotNull OS_SpecialVariable aSpecialVariable) {
 			final DeduceLocalVariable.MemberInvocation mi = aSpecialVariable.memberInvocation;
 
 			switch (mi.role) {

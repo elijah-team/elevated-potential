@@ -4,8 +4,8 @@ import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.comp.Compilation0;
-import tripleo.elijah.comp.Finally.Outs;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.Finally.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.nextgen.names.i.*;
@@ -117,7 +117,7 @@ public class DT_External_2 implements DT_External {
 		});
 	}
 
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
+	private DeduceTypes2Injector _inj() {
 		return dc._deduceTypes2();
 	}
 

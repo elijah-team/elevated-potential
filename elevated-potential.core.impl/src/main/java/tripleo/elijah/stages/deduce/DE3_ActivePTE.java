@@ -1,7 +1,13 @@
 package tripleo.elijah.stages.deduce;
 
+import static tripleo.elijah.util.Helpers.*;
+
+import java.util.*;
+import java.util.function.*;
+
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.notation.*;
@@ -15,17 +21,12 @@ import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah.world.i.*;
 
-import java.util.*;
-import java.util.function.*;
-
-import static tripleo.elijah.util.Helpers.*;
-
 class DE3_ActivePTE implements DE3_Active {
 	private final          DeduceTypes2                      deduceTypes2;
 	private final @NotNull ProcTableEntry                    pte;
 	private final          ClassInvocation                   ci;
-	private final @NotNull List<Reactivable>                 ables;
-	private final          DeduceTypes2.DeduceTypes2Injector __inj;
+	private final @NotNull List<Reactivable> ables;
+	private final DeduceTypes2Injector __inj;
 
 	public DE3_ActivePTE(final @NotNull DeduceTypes2 aDeduceTypes2, final @NotNull ProcTableEntry pte,
 	                     final ClassInvocation classInvocation) {
@@ -63,7 +64,7 @@ class DE3_ActivePTE implements DE3_Active {
 		});
 	}
 
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
+	private DeduceTypes2Injector _inj() {
 		return __inj;
 	}
 

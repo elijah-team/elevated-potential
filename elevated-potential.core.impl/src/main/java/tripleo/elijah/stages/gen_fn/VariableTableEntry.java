@@ -8,22 +8,23 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
+import java.util.*;
+
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
 
-import java.util.*;
-
 /**
  * Created 9/10/20 4:51 PM
  */
 public class VariableTableEntry extends BaseTableEntry1
-		implements Constructable, TableEntryIV, DeduceTypes2.ExpectationBase {
+		implements Constructable, TableEntryIV, ExpectationBase {
 	private final DeferredObject2<GenType, Void, Void> typeDeferred = new DeferredObject2<GenType, Void, Void>();
 	private final VariableTableType vtt;
 	private final int index;
@@ -171,7 +172,7 @@ public class VariableTableEntry extends BaseTableEntry1
 		return name;
 	}
 
-	public @NotNull PostBC_Processor getPostBC_Processor(Context aFd_ctx, DeduceTypes2.DeduceClient1 aDeduceClient1) {
+	public @NotNull PostBC_Processor getPostBC_Processor(Context aFd_ctx, DeduceClient1 aDeduceClient1) {
 		return PostBC_Processor.make_VTE(this, aFd_ctx, aDeduceClient1);
 	}
 

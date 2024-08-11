@@ -8,10 +8,17 @@
  */
 package tripleo.elijah.stages.deduce.post_bytecode;
 
+import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
+
+import java.io.*;
+import java.util.*;
+import java.util.stream.*;
+
 import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.*;
@@ -25,12 +32,6 @@ import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
-
-import java.io.*;
-import java.util.*;
-import java.util.stream.*;
-
-import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 
 public class DeduceElement3_VariableTableEntry extends DefaultStateful implements IDeduceElement3 {
 
@@ -595,7 +596,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 	}
 
 	public void _action_002_no_resolved_element(final @NotNull ErrSink errSink, final @NotNull ProcTableEntry pte,
-			final @NotNull IdentTableEntry ite, final DeduceTypes2.@NotNull DeduceClient3 dc,
+			final @NotNull IdentTableEntry ite, final @NotNull DeduceClient3 dc,
 			final @NotNull DeducePhase phase) {
 		final DeferredObject<Context, Void, Void> d = new DeferredObject<Context, Void, Void>();
 		d.then(context -> {
@@ -631,7 +632,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 	}
 
 	private void action_002_1(@NotNull final ProcTableEntry pte, @NotNull final IdentTableEntry ite,
-			final boolean setClassInvocation, final DeduceTypes2.@NotNull DeduceClient3 dc,
+			final boolean setClassInvocation, final @NotNull DeduceClient3 dc,
 			final @NotNull DeducePhase phase) {
 		final OS_Element resolvedElement = ite.getResolvedElement();
 
@@ -641,7 +642,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 	}
 
 	private void action_002_1_001(final @NotNull ProcTableEntry pte, final boolean setClassInvocation,
-			final DeduceTypes2.@NotNull DeduceClient3 dc, final @NotNull DeducePhase phase,
+			final @NotNull DeduceClient3 dc, final @NotNull DeducePhase phase,
 			final @NotNull OS_Element resolvedElement) {
 		if (pte.getFunctionInvocation() != null)
 			return;
@@ -663,7 +664,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 	}
 
 	private @Nullable Pair<ClassInvocation, FunctionInvocation> action_002_1_002_1(final @NotNull ProcTableEntry pte,
-			final DeduceTypes2.@NotNull DeduceClient3 dc, final @NotNull DeducePhase phase,
+			final @NotNull DeduceClient3 dc, final @NotNull DeducePhase phase,
 			final @NotNull OS_Element resolvedElement) {
 		final Pair<ClassInvocation, FunctionInvocation> p;
 		final FunctionInvocation fi;

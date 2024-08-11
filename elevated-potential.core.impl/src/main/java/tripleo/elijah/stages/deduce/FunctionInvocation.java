@@ -8,23 +8,20 @@
  */
 package tripleo.elijah.stages.deduce;
 
-import lombok.Getter;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
-import tripleo.elijah.UnintendedUseException;
+import static tripleo.elijah.util.Helpers.*;
+
+import java.util.*;
+
+import org.jetbrains.annotations.*;
+
+import lombok.*;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.LangGlobals;
-import tripleo.elijah.stages.deduce.nextgen.DeduceCreationContext;
-import tripleo.elijah.stages.deduce.post_bytecode.__LFOE_Q;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.work.*;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-
-import static tripleo.elijah.util.Helpers.List_of;
 
 /**
  * Created 1/21/21 9:04 PM
@@ -117,7 +114,7 @@ public class FunctionInvocation implements IInvocation {
 
 		// TODO 10/15 is this q?; 10/17 yes, now find a way to use it
 		final __LFOE_Q q = new __LFOE_Q(null, new WorkList__(), deduceTypes2);
-		final DeduceTypes2.DeduceTypes2Injector injector = deduceTypes2._inj();
+		final DeduceTypes2Injector injector = deduceTypes2._inj();
 
 		if (fd == LangGlobals.defaultVirtualCtor) {
 			xxx___forDefaultVirtualCtor(cl, injector, module).then(eef::resolve);
@@ -137,7 +134,7 @@ public class FunctionInvocation implements IInvocation {
 	}
 
 	private Eventual<BaseEvaFunction> xxx___forDefaultVirtualCtor(final @NotNull DeduceCreationContext cl,
-																  final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
+			final @NotNull DeduceTypes2Injector injector,
 																  final @NotNull OS_Module module) {
 		final @NotNull WlGenerateDefaultCtor wlgdc = injector.new_WlGenerateDefaultCtor(module, this, cl);
 		wlgdc.run(null);
@@ -147,7 +144,7 @@ public class FunctionInvocation implements IInvocation {
 	@NotNull
 	private BaseEvaFunction xxxForConstructorDef(final @NotNull DeduceCreationContext cl,
 												 final @NotNull ConstructorDef cd,
-												 final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
+			final @NotNull DeduceTypes2Injector injector,
 												 final @NotNull OS_Module module) {
 		final @NotNull WlGenerateCtor wlgf = injector.new_WlGenerateCtor(module, cd.getNameNode(), this, cl);
 		wlgf.run(null);
@@ -158,7 +155,7 @@ public class FunctionInvocation implements IInvocation {
 
 	@NotNull
 	private BaseEvaFunction xxx__forFunction(final @NotNull DeduceCreationContext cl,
-											 final DeduceTypes2.@NotNull DeduceTypes2Injector injector,
+			final @NotNull DeduceTypes2Injector injector,
 											 final @NotNull OS_Module module) {
 
 		final GeneratePhase generatePhase = cl.getGeneratePhase();

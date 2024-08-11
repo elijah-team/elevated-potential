@@ -37,7 +37,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 
 	public void _action_002_no_resolved_element(final InstructionArgument _backlink,
 												final @NotNull ProcTableEntry backlink,
-												final DeduceTypes2.@NotNull DeduceClient3 dc,
+			final @NotNull DeduceClient3 dc,
 												final @NotNull IdentTableEntry ite,
 												final @NotNull ErrSink errSink,
 												final @NotNull DeducePhase phase) {
@@ -59,13 +59,13 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		action_002_1(principal, ite, false, phase, dc);
 	}
 
-	DeduceTypes2.DeduceTypes2Injector _inj() {
+	DeduceTypes2Injector _inj() {
 		return Objects.requireNonNull(deduceTypes2())._inj();
 	}
 
 	private void action_002_1(@NotNull final ProcTableEntry pte, @NotNull final IdentTableEntry ite,
 							  final boolean setClassInvocation, final @NotNull DeducePhase phase,
-							  final DeduceTypes2.@NotNull DeduceClient3 dc) {
+			final @NotNull DeduceClient3 dc) {
 		final OS_Element resolvedElement = ite.getResolvedElement();
 
 		assert resolvedElement != null;

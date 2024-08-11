@@ -8,9 +8,13 @@
  */
 package tripleo.elijah.stages.deduce;
 
+import java.text.*;
+import java.util.*;
+
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
@@ -22,9 +26,6 @@ import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
-
-import java.text.*;
-import java.util.*;
 
 /**
  * Created 7/8/21 2:31 AM
@@ -156,15 +157,15 @@ public class Resolve_Ident_IA {
 	}
 
 	class GenericElementHolderWithDC implements IElementHolder {
-		private final DeduceTypes2.DeduceClient3 deduceClient3;
+		private final DeduceClient3 deduceClient3;
 		private final OS_Element element;
 
-		public GenericElementHolderWithDC(final OS_Element aElement, final DeduceTypes2.DeduceClient3 aDeduceClient3) {
+		public GenericElementHolderWithDC(final OS_Element aElement, final DeduceClient3 aDeduceClient3) {
 			element = aElement;
 			deduceClient3 = aDeduceClient3;
 		}
 
-		public DeduceTypes2.DeduceClient3 getDC() {
+		public DeduceClient3 getDC() {
 			return deduceClient3;
 		}
 
@@ -211,8 +212,8 @@ public class Resolve_Ident_IA {
 
 	private final @NotNull Context context;
 	private final          DeduceElementIdent         dei;
-	private final @NotNull ErrSink                    errSink;
-	private final @NotNull DeduceTypes2.DeduceClient3 dc;
+	private final @NotNull ErrSink errSink;
+	private final @NotNull DeduceClient3 dc;
 	private final @NotNull FoundElement foundElement;
 	private final BaseEvaFunction generatedFunction;
 	private final @NotNull IdentIA identIA;
@@ -227,7 +228,7 @@ public class Resolve_Ident_IA {
 	@Nullable
 	OS_Element el;
 
-	public Resolve_Ident_IA(final DeduceTypes2.@NotNull DeduceClient3 aDeduceClient3, final @NotNull Context aContext,
+	public Resolve_Ident_IA(final @NotNull DeduceClient3 aDeduceClient3, final @NotNull Context aContext,
 			final DeduceElementIdent aDei, final BaseEvaFunction aGeneratedFunction,
 			final @NotNull FoundElement aFoundElement, final @NotNull ErrSink aErrSink) {
 		dc = aDeduceClient3;
@@ -245,7 +246,7 @@ public class Resolve_Ident_IA {
 	}
 
 	@Contract(pure = true)
-	public Resolve_Ident_IA(final @NotNull DeduceTypes2.DeduceClient3 aDeduceClient3, final @NotNull Context aContext,
+	public Resolve_Ident_IA(final @NotNull DeduceClient3 aDeduceClient3, final @NotNull Context aContext,
 			final @NotNull IdentIA aIdentIA, final @NotNull BaseEvaFunction aGeneratedFunction,
 			final @NotNull FoundElement aFoundElement, final @NotNull ErrSink aErrSink) {
 		dc = aDeduceClient3;

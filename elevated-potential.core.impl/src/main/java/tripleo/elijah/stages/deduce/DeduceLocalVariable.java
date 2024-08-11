@@ -9,9 +9,13 @@
  */
 package tripleo.elijah.stages.deduce;
 
+import java.util.*;
+import java.util.stream.*;
+
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
@@ -20,9 +24,6 @@ import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
-
-import java.util.*;
-import java.util.stream.*;
 
 /**
  * Created 11/30/21 1:32 AM
@@ -103,7 +104,7 @@ public class DeduceLocalVariable {
 			assert self2 instanceof IntegerIA;
 			Self = deduceTypes2._inj().new_DeduceTypes2_OS_SpecialVariable(((IntegerIA) self2).getEntry(),
 					VariableTableType.SELF, generatedFunction);
-			((DeduceTypes2.OS_SpecialVariable) Self).memberInvocation = deduceTypes2._inj().new_MemberInvocation(b,
+			((OS_SpecialVariable) Self).memberInvocation = deduceTypes2._inj().new_MemberInvocation(b,
 					MemberInvocation.Role.INHERITED);
 			break;
 		default:
@@ -165,7 +166,7 @@ public class DeduceLocalVariable {
 			assert self2 instanceof IntegerIA;
 			Self = deduceTypes2._inj().new_DeduceTypes2_OS_SpecialVariable(((IntegerIA) self2).getEntry(),
 					VariableTableType.SELF, generatedFunction);
-			((DeduceTypes2.OS_SpecialVariable) Self).memberInvocation = deduceTypes2._inj().new_MemberInvocation(b,
+			((OS_SpecialVariable) Self).memberInvocation = deduceTypes2._inj().new_MemberInvocation(b,
 					MemberInvocation.Role.INHERITED);
 			break;
 		default:

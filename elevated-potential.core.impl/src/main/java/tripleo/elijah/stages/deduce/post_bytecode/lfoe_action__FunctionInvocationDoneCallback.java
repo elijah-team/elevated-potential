@@ -1,25 +1,18 @@
 package tripleo.elijah.stages.deduce.post_bytecode;
 
-import org.jdeferred2.DoneCallback;
+import java.util.*;
+import java.util.function.*;
 
-import tripleo.elijah.DebugFlags;
-import tripleo.elijah.ReadySupplier_1;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.LangGlobals;
-import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.gen_fn.ProcTableEntry;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.work.WorkList;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Consumer;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.work.*;
 
 class lfoe_action__FunctionInvocationDoneCallback implements DoneCallback<FunctionInvocation> {
 	private final          DeduceElement3_ProcTableEntry deduceElement3ProcTableEntry;
@@ -58,7 +51,7 @@ class lfoe_action__FunctionInvocationDoneCallback implements DoneCallback<Functi
 		FunctionDef fd3 = fi.getFunction();
 
 		final ProcTableEntry principal = deduceElement3ProcTableEntry.getTablePrincipal();
-		final DeduceTypes2.DeduceTypes2Injector deduceTypes2Injector = deduceElement3ProcTableEntry._inj();
+		final DeduceTypes2Injector deduceTypes2Injector = deduceElement3ProcTableEntry._inj();
 
 		if (fd3 == LangGlobals.defaultVirtualCtor) {
 			if (ci == null) {
