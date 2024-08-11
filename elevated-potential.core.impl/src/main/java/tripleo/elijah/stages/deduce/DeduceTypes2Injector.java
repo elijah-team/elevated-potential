@@ -143,7 +143,7 @@ public class DeduceTypes2Injector {
 	}
 
 	public DeduceClient4 new_DeduceClient4(final DeduceTypes2 aDeduceTypes2) {
-		return new DeduceClient4(aDeduceTypes2, aDeduceTypes2);
+		return new DeduceClient4(aDeduceTypes2);
 	}
 
 	public DeduceElement3_Function new_DeduceElement3_Function(final DeduceTypes2 aDeduceTypes2,
@@ -515,7 +515,7 @@ public class DeduceTypes2Injector {
 
 	public Resolve_each_typename new_Resolve_each_typename(final DeducePhase aPhase,
 			final DeduceTypes2 aDeduceTypes2, final ErrSink aErrSink) {
-		return new Resolve_each_typename(aDeduceTypes2, aPhase, aDeduceTypes2, aErrSink);
+		return new Resolve_each_typename(aDeduceTypes2, aPhase, aErrSink);
 	}
 
 	public Resolve_Ident_IA new_Resolve_Ident_IA(final DeduceClient3 aDeduceClient3, final Context aContext,

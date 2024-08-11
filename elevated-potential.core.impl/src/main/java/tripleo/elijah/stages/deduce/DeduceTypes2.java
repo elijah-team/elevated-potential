@@ -277,7 +277,7 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 	}
 
 	public void onEnterFunction(final @NotNull BaseEvaFunction generatedFunction1, final Context aContext) {
-		final DT_Function generatedFunction = new _DT_Function(this, generatedFunction1, this);
+		final DT_Function generatedFunction = new _DT_Function(this, generatedFunction1);
 
 		for (VariableTableEntry variableTableEntry : generatedFunction.vte_list()) {
 			variableTableEntry.setDeduceTypes2(this, aContext, generatedFunction.get());
@@ -1141,7 +1141,8 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 		return true;
 	}
 
-	private @NotNull DeferredMember deferred_member(final @NotNull DeduceElementWrapper aParent,
+	@NotNull
+	DeferredMember deferred_member(final @NotNull DeduceElementWrapper aParent,
 			final /* @NotNull */ IInvocation aInvocation, final @NotNull VariableStatementImpl aVariableStatement,
 			final @NotNull IdentTableEntry ite) {
 		@NotNull
@@ -1225,7 +1226,8 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 		return module.getFileName();
 	}
 
-	private @Nullable IInvocation getInvocationFromBacklink(@Nullable InstructionArgument aBacklink) {
+	@Nullable
+	IInvocation getInvocationFromBacklink(@Nullable InstructionArgument aBacklink) {
 		if (aBacklink == null) {
 			return null;
 		} else {

@@ -5,6 +5,7 @@ import java.util.regex.*;
 
 import org.jetbrains.annotations.*;
 
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
 import tripleo.elijah.stages.gen_fn.*;
@@ -106,7 +107,7 @@ class Implement_Calls_ {
 						return true;
 				}
 
-				deduceTypes2.errSink.reportError("Special Function not found " + pn);
+				getErrSink().reportError("Special Function not found " + pn);
 			} else {
 				throw new NotImplementedException(); // Cant find vte, should never happen
 			}
@@ -136,7 +137,7 @@ class Implement_Calls_ {
 					return true;
 				} catch (ResolveError resolveError) {
 					resolveError.printStackTrace();
-					deduceTypes2.errSink.reportDiagnostic(resolveError);
+					getErrSink().reportDiagnostic(resolveError);
 					return false;
 				}
 			}
@@ -172,7 +173,11 @@ class Implement_Calls_ {
 
 		if (!found) {
 			// throw new NotImplementedException(); // TODO
-			deduceTypes2.errSink.reportError("Special Function not found " + pn);
+			getErrSink().reportError("Special Function not found " + pn);
 		}
+	}
+
+	private ErrSink getErrSink() {
+		return deduceTypes2._errSink();
 	}
 }
