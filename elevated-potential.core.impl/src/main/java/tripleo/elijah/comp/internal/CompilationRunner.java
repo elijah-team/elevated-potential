@@ -1,7 +1,10 @@
 package tripleo.elijah.comp.internal;
 
-import lombok.*;
+import java.util.function.*;
+
 import org.jetbrains.annotations.*;
+
+import lombok.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.caches.*;
@@ -11,20 +14,17 @@ import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.g.*;
 import tripleo.elijah.stateful.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-
-import java.util.function.*;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 public class CompilationRunner extends _RegistrationTarget implements ICompilationRunner {
-	public final @NotNull  EzCache                         ezCache;
-	private final @NotNull Compilation                     _compilation;
-	private final @NotNull ICompilationBus                 cb;
+	public final @NotNull EzCache ezCache;
+	private final @NotNull Compilation _compilation;
+	private final @NotNull ICompilationBus cb;
 	@Getter
-	private final @NotNull CR_State                        crState;
+	private final @NotNull CR_State crState;
 	@Getter
-	private final @NotNull IProgressSink                   progressSink;
-	private /*@NotNull*/   CB_StartCompilationRunnerAction startAction;
+	private final @NotNull IProgressSink progressSink;
+	private /* @NotNull */ CB_StartCompilationRunnerAction startAction;
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca, final CR_State aCrState) {
 		this(
@@ -35,7 +35,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 	}
 
 	public CompilationRunner(final @NotNull ICompilationAccess aca,
-							 final @NotNull CR_State aCrState,
+			final @NotNull CR_State aCrState,
 							 final Supplier<ICompilationBus> scb) {
 		_compilation = (Compilation) aca.getCompilation();
 
@@ -43,7 +43,7 @@ public class CompilationRunner extends _RegistrationTarget implements ICompilati
 
 		compilationEnclosure.setCompilationAccess(aca);
 
-		//final @NotNull CIS    cis = _compilation._cis();
+		// final @NotNull CIS cis = _compilation._cis();
 		final ICompilationBus compilationBus = compilationEnclosure.getCompilationBus();
 
 		if (compilationBus == null) {

@@ -1,11 +1,12 @@
 package tripleo.elijah.stages.logging;
 
-import org.jetbrains.annotations.*;
-
 import java.util.*;
 
+import org.jetbrains.annotations.*;
+
 public interface ElLog {
-	@NotNull List<LogEntry> getEntries();
+	@NotNull
+	List<LogEntry> getEntries();
 
 	String getFileName();
 

@@ -8,15 +8,16 @@
  */
 package tripleo.elijah.lang.impl;
 
-import antlr.*;
+import java.io.*;
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
+import antlr.*;
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.nextgen.names.i.*;
 import tripleo.elijah.util.*;
-
-import java.io.*;
-import java.util.*;
 
 /**
  * @author Tripleo(sb)
@@ -25,9 +26,9 @@ import java.util.*;
  */
 public class IdentExpressionImpl implements IdentExpression {
 
-	private final @NotNull EN_Name  name;
-	private @NotNull       Attached _a;
-	private @NotNull       Token    text;
+	private final @NotNull EN_Name name;
+	private @NotNull Attached _a;
+	private @NotNull Token text;
 	private @Nullable      String   _fileName;
 
 	public IdentExpressionImpl(final @NotNull Token r1, @NotNull String aFilename) {

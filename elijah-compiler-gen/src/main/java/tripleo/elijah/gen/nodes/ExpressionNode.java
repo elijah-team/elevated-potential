@@ -146,7 +146,7 @@ public class ExpressionNode implements IExpressionNode {
 		return "vai"; // TODO hardcoded
 	}
 
-	static @NotNull String getStringPCE(final @NotNull ProcedureCallExpression expr) {
+	static @NotNull  String getStringPCE(final @NotNull  ProcedureCallExpression expr) {
 		final int code = 1000; // TODO hardcoded
 		return Helpers.getFunctionName(code, expr.getLeft().toString(), expr.exprList());
 	}
@@ -157,7 +157,7 @@ public class ExpressionNode implements IExpressionNode {
 	}
 
 	@Override
-	public @NotNull String genType() {
+	public @NotNull  String genType() {
 		return "u64";  // TODO harcoded
 	}
 

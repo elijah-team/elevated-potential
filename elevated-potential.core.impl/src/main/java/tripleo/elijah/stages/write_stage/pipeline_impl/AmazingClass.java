@@ -1,11 +1,12 @@
 package tripleo.elijah.stages.write_stage.pipeline_impl;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.output.*;
-import tripleo.elijah.stages.garish.GarishClass;
+import tripleo.elijah.stages.garish.*;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
 
@@ -16,7 +17,7 @@ class AmazingClass implements Amazing {
 	private final EvaClass                         c;
 
 	public AmazingClass(final @NotNull EvaClass c,
-	                    final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems,
+			final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems,
 	                    final IPipelineAccess aPa) {
 		this.c      = c;
 		mod         = c.module();

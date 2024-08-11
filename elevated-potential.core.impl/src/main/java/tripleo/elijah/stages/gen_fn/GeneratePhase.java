@@ -8,41 +8,41 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.i.ModuleListener;
-import tripleo.elijah.g.*;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.reactive.ReactiveDimension;
-import tripleo.elijah.stages.gen_fn_c.GenFnC;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.stages.logging.ElLog.Verbosity;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.work.*;
+import java.util.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.jetbrains.annotations.*;
+
+import lombok.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.stages.gen_fn_c.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.stages.logging.ElLog.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.work.*;
 
 /**
  * Created 5/16/21 12:35 AM
  */
 public class GeneratePhase implements ReactiveDimension, ModuleListener {
-	private @NotNull final PipelineLogic   pipelineLogic;
+	private @NotNull final PipelineLogic pipelineLogic;
 	private @NotNull final IPipelineAccess pa;
 
 	@Getter
 	private final @NotNull ElLog_.Verbosity verbosity;
 	@Getter
-	private final @NotNull WorkManager      wm = new WorkManager__();
+	private final @NotNull WorkManager wm = new WorkManager__();
 	private final @NotNull Map<OS_Module, GenerateFunctions> generateFunctions = new HashMap<OS_Module, GenerateFunctions>();
 	@Getter
 	private @Nullable ICodeRegistrar codeRegistrar;
 
-	public GeneratePhase(ElLog_.Verbosity aVerbosity, final @NotNull IPipelineAccess aPa, PipelineLogic aPipelineLogic) {
+	public GeneratePhase(ElLog_.Verbosity aVerbosity, final @NotNull IPipelineAccess aPa,
+			PipelineLogic aPipelineLogic) {
 		verbosity = aVerbosity;
 		pipelineLogic = aPipelineLogic;
 		pa = aPa;

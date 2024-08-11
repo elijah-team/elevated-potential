@@ -1,6 +1,7 @@
 package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
@@ -105,7 +106,8 @@ public class __Add_Proc_Table_Listeners {
 		InstructionArgument en = pte.expression_num;
 		if (en != null) {
 			if (en instanceof final @NotNull IdentIA identIA) {
-				@NotNull IdentTableEntry idte = identIA.getEntry();
+				@NotNull
+				IdentTableEntry idte = identIA.getEntry();
 				idte.addStatusListener(new SL(generatedFunction, idte, pte, identIA, aDeduceTypes2));
 			} else if (en instanceof IntegerIA) {
 				// TODO this code does nothing so commented out

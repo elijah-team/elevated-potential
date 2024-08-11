@@ -1,15 +1,16 @@
 package tripleo.elijah.stages.gen_c;
 
+import static tripleo.elijah.util.Helpers.*;
+
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.util.*;
 import tripleo.util.buffer.*;
-
-import java.util.*;
-
-import static tripleo.elijah.util.Helpers.*;
 
 class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 	final                  GenerateResult           gr;
@@ -23,8 +24,8 @@ class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 	private C2C_Result bufHdr;
 
 	public C2C_CodeForConstructor(final Generate_Code_For_Method aGenerateCodeForMethod,
-	                              final @NotNull GenerateResultEnv aFileGen,
-	                              final @NotNull WhyNotGarish_Constructor aYf) {
+			final @NotNull GenerateResultEnv aFileGen,
+			final @NotNull WhyNotGarish_Constructor aYf) {
 		generateCodeForMethod = aGenerateCodeForMethod;
 
 		this.yf = aYf;

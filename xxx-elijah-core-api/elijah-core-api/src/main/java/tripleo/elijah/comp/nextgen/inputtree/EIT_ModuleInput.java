@@ -1,17 +1,18 @@
 package tripleo.elijah.comp.nextgen.inputtree;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 
 import tripleo.elijah.g.*;
-import tripleo.elijah.nextgen.inputtree.EIT_Input;
-import tripleo.elijah.nextgen.inputtree.EIT_InputType;
-import tripleo.elijah.nextgen.model.SM_Module;
+import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.nextgen.model.*;
 
 public interface EIT_ModuleInput extends EIT_Input {
-	@NotNull SM_Module computeSourceModel();
+	@NotNull
+	SM_Module computeSourceModel();
 
 	void doGenerate(GModuleGenerationRequest r);
 
 	@Override
-	@NotNull EIT_InputType getType();
+	@NotNull
+	EIT_InputType getType();
 }

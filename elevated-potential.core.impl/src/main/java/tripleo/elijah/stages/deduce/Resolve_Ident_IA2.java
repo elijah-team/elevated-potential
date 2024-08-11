@@ -583,7 +583,8 @@ class Resolve_Ident_IA2 {
 					}
 				} else if (ia2 instanceof ProcIA) {
 					LOG.err("1373 ProcIA");
-//						@NotNull ProcTableEntry pte = ((ProcIA) ia2).getEntry(); // README ectx seems to be set up already
+					// @NotNull ProcTableEntry pte = ((ProcIA) ia2).getEntry(); // README ectx seems
+					// to be set up already
 					return;
 				} else
 					throw new NotImplementedException();

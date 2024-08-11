@@ -8,10 +8,17 @@
  */
 package tripleo.elijah.comp;
 
-import com.google.common.collect.*;
-import io.reactivex.rxjava3.annotations.*;
+import static tripleo.elijah.util.Helpers0.*;
+
+import java.util.*;
+import java.util.function.*;
+
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
+import com.google.common.collect.*;
+
+import io.reactivex.rxjava3.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
@@ -29,17 +36,12 @@ import tripleo.elijah.world.i.*;
 import tripleo.elijah.world.impl.*;
 import tripleo.elijah_elevated.comp.backbone.*;
 
-import java.util.*;
-import java.util.function.*;
-
-import static tripleo.elijah.util.Helpers0.*;
-
 /**
  * Created 12/30/20 2:14 AM
  */
 public class PipelineLogic implements EventualRegister, GPipelineLogic {
-	public final @NotNull  GeneratePhase            generatePhase;
-	public final @NotNull  DeducePhase              dp;
+	public final @NotNull GeneratePhase generatePhase;
+	public final @NotNull DeducePhase dp;
 	final @NonNull         ModMap                   modMap     = new ModMap();
 	private final          ICompilationAccess       ca;
 	private final @NonNull ModuleCompletableProcess mcp        = new ModuleCompletableProcess();

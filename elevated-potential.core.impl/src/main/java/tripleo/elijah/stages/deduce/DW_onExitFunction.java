@@ -30,14 +30,16 @@ class DW_onExitFunction {
 		//
 		// resolve var table. moved from `E'
 		//
-		for (@NotNull VariableTableEntry vte : generatedFunction.vte_list) {
+		for (@NotNull
+		VariableTableEntry vte : generatedFunction.vte_list) {
 			vte.resolve_var_table_entry_for_exit_function();
 		}
 
 	}
 
 	public void runRunnables() {
-		for (@NotNull Runnable runnable : deduceTypes2.onRunnables) {
+		for (@NotNull
+		Runnable runnable : deduceTypes2.onRunnables) {
 			runnable.run();
 		}
 	}
@@ -65,7 +67,8 @@ class DW_onExitFunction {
 		//
 		// ATTACH A TYPE TO IDTE'S
 		//
-		for (@NotNull final IdentTableEntry ite : generatedFunction.idte_list) {
+		for (@NotNull
+		final IdentTableEntry ite : generatedFunction.idte_list) {
 			final DeduceElement3_IdentTableEntry ite_de = ite.getDeduceElement3(deduceTypes2, generatedFunction);
 			ite_de._ctxts(aFd_ctx, aContext);
 			ite_de.mvState(null, DeduceElement3_IdentTableEntry.ST.EXIT_GET_TYPE);
@@ -88,10 +91,11 @@ class DW_onExitFunction {
 				deduceTypes2);
 		deps.subscribeTypes(generatedFunction.dependentTypesSubject());
 		deps.subscribeFunctions(generatedFunction.dependentFunctionSubject());
-//                                              for (@NotNull GenType genType : generatedFunction.dependentTypes()) {
+		// for (@NotNull GenType genType : generatedFunction.dependentTypes()) {
 //                                                      deps.action_type(genType, workManager);
 //                                              }
-//                                              for (@NotNull FunctionInvocation dependentFunction : generatedFunction.dependentFunctions()) {
+// for (@NotNull FunctionInvocation dependentFunction :
+// generatedFunction.dependentFunctions()) {
 //                                                      deps.action_function(dependentFunction, workManager);
 //                                              }
 		final int x = workManager.totalSize();
@@ -230,7 +234,8 @@ class DW_onExitFunction {
 		}
 	}
 
-	@NotNull DeduceElement3_ProcTableEntry convertPTE(final @NotNull ProcTableEntry pte) {
+	@NotNull
+	DeduceElement3_ProcTableEntry convertPTE(final @NotNull ProcTableEntry pte) {
 		final DeduceElement3_ProcTableEntry de3_pte = pte.getDeduceElement3(deduceTypes2, generatedFunction);
 		return de3_pte;
 	}

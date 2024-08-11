@@ -38,18 +38,18 @@ public abstract class BaseEvaFunction
 	private final    Eventual<GenType>              _p_assignGenType  = new Eventual<>();
 	private final    Dependency                     dependency        = new Dependency(this);
 	private final    List<Label>                    labelList        = new ArrayList<>();
-	public @NotNull  List<DR_Item>                  drs               = new ArrayList<>();
+	public @NotNull List<DR_Item> drs = new ArrayList<>();
 	public           DefaultLivingFunction          _living;
-	public @NotNull  List<ConstantTableEntry>       cte_list         = new ArrayList<>();
+	public @NotNull List<ConstantTableEntry> cte_list = new ArrayList<>();
 	public           boolean                        deducedAlready;
-	public @NotNull  List<Integer>                  deferred_calls   = new ArrayList<>();
+	public @NotNull List<Integer> deferred_calls = new ArrayList<>();
 	public           FunctionInvocation             fi;
-	public @NotNull  List<IdentTableEntry>          idte_list        = new ArrayList<>();
-	public @NotNull  List<Instruction>              instructionsList = new ArrayList<>();
-	public @NotNull  List<ProcTableEntry>           prte_list        = new ArrayList<>();
-	public @NotNull  List<TypeTableEntry>           tte_list         = new ArrayList<>();
-	public @NotNull  List<VariableTableEntry>       vte_list         = new ArrayList<>();
-	private @NotNull Map<OS_Element, DeduceElement> elements         = new HashMap<>();
+	public @NotNull List<IdentTableEntry> idte_list = new ArrayList<>();
+	public @NotNull List<Instruction> instructionsList = new ArrayList<>();
+	public @NotNull List<ProcTableEntry> prte_list = new ArrayList<>();
+	public @NotNull List<TypeTableEntry> tte_list = new ArrayList<>();
+	public @NotNull List<VariableTableEntry> vte_list = new ArrayList<>();
+	private @NotNull Map<OS_Element, DeduceElement> elements = new HashMap<>();
 	private          int                            _nextTemp         = 0;
 	private          __Reactive                     _reactive;
 	private          EvaNode                        genClass;
@@ -225,8 +225,8 @@ public abstract class BaseEvaFunction
 
 	@Override
 	public @NotNull InstructionArgument get_assignment_path(final @NotNull IExpression expression,
-															final @NotNull GenerateFunctions generateFunctions,
-															final @NotNull Context context) {
+			final @NotNull GenerateFunctions generateFunctions,
+			final @NotNull Context context) {
 		switch (expression.getKind()) {
 		case DOT_EXP -> {
 			final DotExpression       de        = (DotExpression) expression;
@@ -561,9 +561,9 @@ public abstract class BaseEvaFunction
 	}
 
 	private @NotNull InstructionArgument get_assignment_path(@NotNull final InstructionArgument prev,
-															 @NotNull final IExpression expression,
-															 @NotNull final GenerateFunctions generateFunctions,
-															 @NotNull final Context context) {
+			@NotNull final IExpression expression,
+			@NotNull final GenerateFunctions generateFunctions,
+			@NotNull final Context context) {
 		switch (expression.getKind()) {
 		case DOT_EXP: {
 			final DotExpression       de        = (DotExpression) expression;

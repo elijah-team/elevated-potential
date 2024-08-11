@@ -1,6 +1,10 @@
 package tripleo.elijah.stages.deduce.post_bytecode;
 
+import java.util.*;
+import java.util.function.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.*;
@@ -15,9 +19,6 @@ import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah_fluffy.adt.*;
 import tripleo.elijah_prolific.v.*;
-
-import java.util.*;
-import java.util.function.*;
 
 public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 
@@ -36,11 +37,11 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 	}
 
 	public void _action_002_no_resolved_element(final InstructionArgument _backlink,
-												final @NotNull ProcTableEntry backlink,
+			final @NotNull ProcTableEntry backlink,
 			final @NotNull DeduceClient3 dc,
-												final @NotNull IdentTableEntry ite,
-												final @NotNull ErrSink errSink,
-												final @NotNull DeducePhase phase) {
+			final @NotNull IdentTableEntry ite,
+			final @NotNull ErrSink errSink,
+			final @NotNull DeducePhase phase) {
 		final OS_Element resolvedElement = backlink.getResolvedElement();
 
 		if (resolvedElement == null)
@@ -64,7 +65,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 	}
 
 	private void action_002_1(@NotNull final ProcTableEntry pte, @NotNull final IdentTableEntry ite,
-							  final boolean setClassInvocation, final @NotNull DeducePhase phase,
+			final boolean setClassInvocation, final @NotNull DeducePhase phase,
 			final @NotNull DeduceClient3 dc) {
 		final OS_Element resolvedElement = ite.getResolvedElement();
 
@@ -75,7 +76,8 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		var dt2 = dc._deduceTypes2();
 
 		if (pte.getFunctionInvocation() == null) {
-			@NotNull final FunctionInvocation fi;
+			@NotNull
+			final FunctionInvocation fi;
 
 			if (resolvedElement instanceof ClassStatement) {
 				// assuming no constructor name or generic parameters based on function syntax
@@ -245,17 +247,17 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 	}
 
 	public static final class LFOE_Action_Results {
-		private final @NotNull DeduceTypes2                 aDeduceTypes2;
-		private final @NotNull WorkList                     wl;
-		private final @NotNull Consumer<WorkList>           addJobs;
-		private final @NotNull List<? extends Object>       actualResults;
+		private final @NotNull DeduceTypes2 aDeduceTypes2;
+		private final @NotNull WorkList wl;
+		private final @NotNull Consumer<WorkList> addJobs;
+		private final @NotNull List<? extends Object> actualResults;
 		private final @NotNull Eventual<FunctionInvocation> createdFunctionInvocation;
 
 		public LFOE_Action_Results(@NotNull DeduceTypes2 aDeduceTypes2, // input/not really needed
-								   @NotNull WorkList wl,                // input/not really needed
-								   @NotNull Consumer<WorkList> addJobs, // input/not really needed
-								   @NotNull List<? extends Object> actualResults,
-								   @NotNull Eventual<FunctionInvocation> createdFunctionInvocation
+				@NotNull WorkList wl, // input/not really needed
+				@NotNull Consumer<WorkList> addJobs, // input/not really needed
+				@NotNull List<? extends Object> actualResults,
+				@NotNull Eventual<FunctionInvocation> createdFunctionInvocation
 								  ) {
 			this.aDeduceTypes2             = aDeduceTypes2;
 			this.wl                        = wl;
@@ -313,9 +315,9 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 	}
 
 	public void lfoe_action(final @NotNull DeduceTypes2 aDeduceTypes2,
-							final @NotNull WorkList wl,
-							final @NotNull Adder<WorkList> addJobs,
-							final @NotNull Consumer<LFOE_Action_Results> resultconsumer) {
+			final @NotNull WorkList wl,
+			final @NotNull Adder<WorkList> addJobs,
+			final @NotNull Consumer<LFOE_Action_Results> resultconsumer) {
 		//assert aDeduceTypes2 == deduceTypes2;
 		if (aDeduceTypes2 != deduceTypes2) {
 			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("503262 deduceTypes divergence");
@@ -351,7 +353,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		private final          WorkList           workList;
 		private final          DeducePhase        deducePhase;
 		private final          Consumer<WorkList> addJobs;
-		private final @NotNull __LFOE_Q           q;
+		private final @NotNull __LFOE_Q q;
 
 		public _1(
 				FunctionInvocation functionInvocation,
@@ -427,9 +429,9 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		private final @NotNull FunctionInvocation functionInvocation;
 		private final          ClassInvocation    classInvocation;
 		private final          ClassStatement     parentClass;
-		private final @NotNull DeducePhase        deducePhase;
+		private final @NotNull DeducePhase deducePhase;
 		private final          Consumer<WorkList> addJobs;
-		private final @NotNull _LFOE_Q            q;
+		private final @NotNull _LFOE_Q q;
 
 		public _0(
 				@NotNull FunctionInvocation functionInvocation,
@@ -502,7 +504,8 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 	}
 
 	void __lfoe_action__proceed(_0 o0) {
-		@NotNull FunctionInvocation fi = o0.functionInvocation();
+		@NotNull
+		FunctionInvocation fi = o0.functionInvocation();
 		ClassInvocation ci = o0.classInvocation();
 		ClassStatement aParent = o0.parentClass();
 		final Consumer<WorkList> addJobs = o0.addJobs();
@@ -511,7 +514,8 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 
 		ci = phase.registerClassInvocation(ci);
 
-		@NotNull ClassStatement kl = ci.getKlass(); // TODO Don't you see aParent??
+		@NotNull
+		ClassStatement kl = ci.getKlass(); // TODO Don't you see aParent??
 		assert kl != null;
 
 		final FunctionDef fd2   = fi.getFunction();
@@ -565,12 +569,12 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 	}
 
 	void __lfoe_action__proceed(_1 o1) {
-		final @NotNull FunctionInvocation fi      = o1.functionInvocation();
+		final @NotNull FunctionInvocation fi = o1.functionInvocation();
 		final @NotNull NamespaceStatement aParent = o1.parentNamespace();
-		final @NotNull WorkList           wl      = o1.workList();
-		final @NotNull DeducePhase        phase   = o1.deducePhase();
+		final @NotNull WorkList wl = o1.workList();
+		final @NotNull DeducePhase phase = o1.deducePhase();
 		final @NotNull Consumer<WorkList> addJobs = o1.addJobs();
-		final @NotNull _LFOE_Q            q       = o1.q();
+		final @NotNull _LFOE_Q q = o1.q();
 
 		// ci = phase.registerClassInvocation(ci);
 
@@ -587,8 +591,9 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 	}
 
 	// TODO class Action<FunctionInvocation>
-	private static @NotNull Eventual<FunctionInvocation> __lfoe_action__getFunctionInvocation(final @NotNull ProcTableEntry pte,
-																							  final @NotNull DeduceTypes2 aDeduceTypes2) {
+	private static @NotNull Eventual<FunctionInvocation> __lfoe_action__getFunctionInvocation(
+			final @NotNull ProcTableEntry pte,
+			final @NotNull DeduceTypes2 aDeduceTypes2) {
 		final Eventual<FunctionInvocation> efi = new Eventual<>();
 
 		// Action<FunctionInvocation> action = new ...
@@ -599,8 +604,8 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		if (pte.__debug_expression != null && pte.expression_num != null) {
 			if (pte.__debug_expression instanceof final @NotNull ProcedureCallExpression exp) {
 				if (exp.getLeft() instanceof final @NotNull IdentExpression expLeft) {
-					final @NotNull String           left = expLeft.getText();
-					final @NotNull LookupResultList lrl  = expLeft.getContext().lookup(left);
+					final @NotNull String left = expLeft.getText();
+					final @NotNull LookupResultList lrl = expLeft.getContext().lookup(left);
 					final @Nullable OS_Element      e    = lrl.chooseBest(null);
 					if (e != null) {
 						if (e instanceof ClassStatement classStatement) {
@@ -638,7 +643,8 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		final DeduceElement3_ProcTableEntry de3_pte = pte.getDeduceElement3(aDeduceTypes2, pte.__gf); // !! pte.__gf
 		//de3_pte.();
 
-		@NotNull FunctionInvocation fi2 = aDeduceTypes2._phase().newFunctionInvocation(LangGlobals.defaultVirtualCtor, pte,
+		@NotNull
+		FunctionInvocation fi2 = aDeduceTypes2._phase().newFunctionInvocation(LangGlobals.defaultVirtualCtor, pte,
 																					   invocation);
 
 		final _LFOE_Q q = new __LFOE_Q(aDeduceTypes2.wm, new WorkList__(), aDeduceTypes2);
@@ -657,8 +663,9 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 
 		return efi;
 	}
+
 	public boolean sneakResolve_IDTE(@NotNull OS_Element el,
-									 @NotNull DeduceElement3_IdentTableEntry aDeduceElement3IdentTableEntry) {
+			@NotNull DeduceElement3_IdentTableEntry aDeduceElement3IdentTableEntry) {
 		boolean b = false;
 
 		final IExpression left = principal.__debug_expression.getLeft();

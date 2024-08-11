@@ -33,7 +33,7 @@
 //	public void test_decl() throws ParseError {
 //		Parser                             p         = new Parser();
 //		Decl_AST                           e         = p.parse_decl("foo f x = f(3) - f(x)");
-//		@NotNull List<TypInf.TypeEquation> equations = List_of();
+//		@NotNull  List<TypInf.TypeEquation> equations = List_of();
 //		TypInf.assign_typenames(e.expr);
 //		TypInf.generate_equations(e.expr, equations);
 //		assertTrue(has_equation(equations, "t1", "(Int -> t4)"));
@@ -48,7 +48,7 @@
 //	 * @param eqs
 //	 * @return
 //	 */
-//	boolean has_equation(@NotNull List<TypInf.TypeEquation> eqs, String left, String right) {
+//	boolean has_equation(@NotNull  List<TypInf.TypeEquation> eqs, String left, String right) {
 //		for (TypInf.TypeEquation e : eqs) {
 //			if (str(e.left()).equals(left) && str(e.right()).equals(right))
 //				return true;
@@ -61,7 +61,7 @@
 //		TypInf.reset_type_counter();
 //	}
 //
-//	public String str(@NotNull Object a) {
+//	public String str(@NotNull  Object a) {
 //		return a.toString();
 //	}
 //

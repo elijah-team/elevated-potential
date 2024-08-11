@@ -259,8 +259,10 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 						fi.generateDeferred().then(new DoneCallback<BaseEvaFunction>() {
 							@Override
 							public void onDone(BaseEvaFunction result) {
-								@NotNull IEvaConstructor constructorDef = (IEvaConstructor) result;
-								@NotNull FunctionDef     ele            = constructorDef.getFD();
+								@NotNull
+								IEvaConstructor constructorDef = (IEvaConstructor) result;
+								@NotNull
+								FunctionDef ele = constructorDef.getFD();
 
 								try {
 									LookupResultList lrl = DeduceLookupUtils.lookupExpression(ite.getIdent(),
@@ -361,7 +363,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 
 									if (ite.getCallablePTE() != null) {
 										final @Nullable ProcTableEntry pte        = ite.getCallablePTE();
-										final @NotNull IInvocation     invocation = result.getCi();
+										final @NotNull IInvocation invocation = result.getCi();
 										final @NotNull FunctionInvocation fi = dt2.newFunctionInvocation(
 												(BaseFunctionDef) ele2, pte, invocation, dt2.phase);
 
@@ -435,7 +437,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 				ite.setStatus(BaseTableEntry.Status.KNOWN, dt2._inj().new_GenericElementHolder(best));
 //									ite.setResolvedElement(best);
 
-				final @NotNull ClassStatement klass = (ClassStatement) ele;
+final @NotNull ClassStatement klass = (ClassStatement) ele;
 
 				dt2.register_and_resolve(vte, klass);
 			} catch (ResolveError resolveError) {
@@ -455,7 +457,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 				assert best != null;
 				ite.setResolvedElement(best);
 
-				final @NotNull GenType          genType  = dt2._inj().new_GenTypeImpl(klass);
+				final @NotNull GenType genType = dt2._inj().new_GenTypeImpl(klass);
 				final TypeName                  typeName = vte.getTypeTableEntry().genType.getNonGenericTypeName();
 				final @Nullable ClassInvocation ci       = genType.genCI(typeName, dt2, dt2._errSink(), dt2.phase);
 //							resolve_vte_for_class(vte, klass);
@@ -471,7 +473,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 		}
 
 		private @Nullable GenType getTY2(final @NotNull VariableStatementImpl aVariableStatement,
-										 @NotNull TypeName aTypeName, @NotNull OS_Type aTy) throws ResolveError {
+				@NotNull TypeName aTypeName, @NotNull OS_Type aTy) throws ResolveError {
 			if (aTy.getType() != OS_Type.Type.USER) {
 				assert false;
 				@NotNull
@@ -524,7 +526,7 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 //			ite.onType(phase, _inj().new_OnType() {
 //
 //				@Override
-//				public void typeDeduced(@NotNull OS_Type aType) {
+// public void typeDeduced(@NotNull OS_Type aType) {
 //					// TODO Auto-generated method stub
 //					pe.satisfy(aType);
 //				}
@@ -549,7 +551,8 @@ class Unnamed_ITE_Resolver1 implements ITE_Resolver {
 //							try {
 //								OS_Type ty3 = resolve_type(attached1, attached1.getTypeName().getContext());
 //								// no expression or TableEntryIV below
-//								@NotNull TypeTableEntry tte4 = generatedFunction.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null);
+// @NotNull TypeTableEntry tte4 =
+// generatedFunction.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null);
 //								// README trying to keep genType up to date
 //								tte4.setAttached(attached1);
 //								tte4.setAttached(ty3);

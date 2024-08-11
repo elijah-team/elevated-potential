@@ -8,9 +8,13 @@
  */
 package tripleo.elijah.stages.gen_c;
 
-import com.google.common.base.*;
+import java.util.*;
+
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
+
+import com.google.common.base.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.*;
@@ -27,8 +31,6 @@ import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
-
-import java.util.*;
 
 /**
  * Created 6/21/21 5:53 AM
@@ -48,7 +50,8 @@ public class Generate_Code_For_Method {
 	void action_invariant(final @NotNull WhyNotGarish_BaseFunction yf, final Generate_Method_Header aGmh) {
 		tos.incr_tabs();
 		//
-		@NotNull final List<Instruction> instructions = yf.instructions();
+		@NotNull
+		final List<Instruction> instructions = yf.instructions();
 
 		for (int instruction_index = 0; instruction_index < instructions.size(); instruction_index++) {
 			final Instruction instruction = instructions.get(instruction_index);
@@ -347,8 +350,8 @@ public class Generate_Code_For_Method {
 	}
 
 	private void action_IS_A(final @NotNull Instruction instruction,
-							 final @NotNull BufferTabbedOutputStream tos,
-							 final @NotNull WhyNotGarish_BaseFunction gf) {
+			final @NotNull BufferTabbedOutputStream tos,
+			final @NotNull WhyNotGarish_BaseFunction gf) {
 
 		final IntegerIA testing_var_  = (IntegerIA) instruction.getArg(0);
 		final IntegerIA testing_type_ = (IntegerIA) instruction.getArg(1);
@@ -397,7 +400,7 @@ public class Generate_Code_For_Method {
 	}
 
 	private void action_DECL(final @NotNull Instruction instruction, final @NotNull BufferTabbedOutputStream tos,
-							 final @NotNull WhyNotGarish_BaseFunction gf) {
+			final @NotNull WhyNotGarish_BaseFunction gf) {
 		final Operation2<EG_Statement> op = _action_DECL(instruction, gf);
 
 		if (op.mode() == Mode.SUCCESS) {
@@ -409,7 +412,7 @@ public class Generate_Code_For_Method {
 	}
 
 	private void action_CAST(final @NotNull Instruction instruction, final @NotNull BufferTabbedOutputStream tos,
-							 final @NotNull WhyNotGarish_BaseFunction gf) {
+			final @NotNull WhyNotGarish_BaseFunction gf) {
 		final IntegerIA      vte_num_     = (IntegerIA) instruction.getArg(0);
 		final IntegerIA      vte_type_    = (IntegerIA) instruction.getArg(1);
 		final IntegerIA      vte_targ_    = (IntegerIA) instruction.getArg(2);
@@ -423,7 +426,7 @@ public class Generate_Code_For_Method {
 	}
 
 	private @NotNull Operation2<EG_Statement> _action_DECL(final @NotNull Instruction instruction,
-														   final @NotNull WhyNotGarish_BaseFunction yf) {
+			final @NotNull WhyNotGarish_BaseFunction yf) {
 		final SymbolIA  decl_type = (SymbolIA) instruction.getArg(0);
 		final IntegerIA vte_num   = (IntegerIA) instruction.getArg(1);
 
@@ -481,7 +484,7 @@ public class Generate_Code_For_Method {
 		}
 
 		final EvaNode res = vte.resolvedType();
-		//if (res instanceof final @NotNull EvaContainerNC nc) {
+		// if (res instanceof final @NotNull EvaContainerNC nc) {
 		//	if (nc instanceof EvaClass rec) {
 		//	} else if (nc instanceof EvaNamespace ren) {
 		//		den = this.gc.a_lookup(ren).ool();
@@ -554,7 +557,8 @@ public class Generate_Code_For_Method {
 		// VARIABLE WASN'T FULLY DEDUCED YET
 		// MTL A TEMP VARIABLE
 		//
-		@NotNull final Collection<TypeTableEntry> pt_ = vte.potentialTypes();
+		@NotNull
+		final Collection<TypeTableEntry> pt_ = vte.potentialTypes();
 		final List<TypeTableEntry>                pt  = new ArrayList<TypeTableEntry>(pt_);
 		if (pt.size() == 1) {
 			final TypeTableEntry ty = pt.get(0);
@@ -587,7 +591,7 @@ public class Generate_Code_For_Method {
 	}
 
 	void generateCodeForConstructor(final @NotNull DeducedEvaConstructor dgf,
-									final @NotNull GenerateResultEnv fileGen) {
+			final @NotNull GenerateResultEnv fileGen) {
 		final IEvaConstructor gf = dgf.getCarrier();
 		final GenerateResult           gr        = fileGen.gr();
 		final WorkList                 aWorkList = fileGen.wl();
@@ -609,34 +613,35 @@ public class Generate_Code_For_Method {
 	}
 
 /*
-	public void generateCodeForMethod2(final @NotNull DeducedBaseEvaFunction dgf, final @NotNull GenerateResultEnv aFileGen) {
-		assert false;
-
-		final BaseEvaFunction gf = (BaseEvaFunction) dgf.getCarrier();
-
-		assert gf.deducedAlready;
-
-		var yf = gc.a_lookup(gf);
-		//var dgf = yf.deduced(gf);
-
-        //assert dgf != null;
-        generateCodeForMethod(dgf, aFileGen);
-	}
-*/
+ * public void generateCodeForMethod2(final @NotNull DeducedBaseEvaFunction dgf,
+ * final @NotNull GenerateResultEnv aFileGen) {
+ * assert false;
+ * 
+ * final BaseEvaFunction gf = (BaseEvaFunction) dgf.getCarrier();
+ * 
+ * assert gf.deducedAlready;
+ * 
+ * var yf = gc.a_lookup(gf);
+ * //var dgf = yf.deduced(gf);
+ * 
+ * //assert dgf != null;
+ * generateCodeForMethod(dgf, aFileGen);
+ * }
+ */
 
 /*
-	public void generateCodeForMethod2(final @NotNull EvaConstructor gf) {
-		assert gf.deducedAlready;
+ * public void generateCodeForMethod2(final @NotNull EvaConstructor gf) {
+ * assert gf.deducedAlready;
+ * 
+ * final var yf = gc.a_lookup(gf);
+ * final var dgf = yf.deduced(gf);
+ * 
+ * assert dgf != null;
+ * generateCodeForConstructor(dgf, null); // TODO !! will fail
+ * }
+ */
 
-		final var yf = gc.a_lookup(gf);
-		final var dgf = yf.deduced(gf);
-
-		assert dgf != null;
-		generateCodeForConstructor(dgf, null); // TODO !! will fail
-	}
-*/
-
-	void generateCodeForMethod(final WhyNotGarish_Function yf, final @NotNull GenerateResultEnv aFileGen) {
+void generateCodeForMethod(final WhyNotGarish_Function yf, final @NotNull GenerateResultEnv aFileGen) {
 		final DeducedBaseEvaFunction dgf = yf.deduced();
 		final IEvaFunctionBase       gf  = dgf.getCarrier();
 		final BaseEvaFunction        bef = (BaseEvaFunction) gf;

@@ -1,21 +1,22 @@
 package tripleo.elijah.comp.notation;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.world.i.WorldModule;
+import java.util.*;
+import java.util.function.*;
 
-import java.util.Objects;
-import java.util.function.Consumer;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.comp.*;
+import tripleo.elijah.world.i.*;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 public final class GN_PL_Run2_Env implements GN_Env {
-	private final @NotNull PipelineLogic         pipelineLogic;
-	private final @NotNull WorldModule           mod;
-	private final @NotNull CompilationEnclosure  ce;
+	private final @NotNull PipelineLogic pipelineLogic;
+	private final @NotNull WorldModule mod;
+	private final @NotNull CompilationEnclosure ce;
 	private final @NotNull Consumer<WorldModule> worldConsumer;
 
 	public GN_PL_Run2_Env(@NotNull PipelineLogic pipelineLogic, @NotNull WorldModule mod,
-						  @NotNull CompilationEnclosure ce, @NotNull Consumer<WorldModule> worldConsumer) {
+			@NotNull CompilationEnclosure ce, @NotNull Consumer<WorldModule> worldConsumer) {
 		this.pipelineLogic = pipelineLogic;
 		this.mod           = mod;
 		this.ce            = ce;

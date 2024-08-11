@@ -45,8 +45,8 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 	}
 
 	private void __one_potential(final @NotNull DeducePhase aDeducePhase,
-								 final @NotNull VarTableEntry varTableEntry, final @NotNull List<TypeTableEntry> potentialTypes,
-								 final TypeName typeName, final @NotNull ClassInvocation ci) throws STOP {
+			final @NotNull VarTableEntry varTableEntry, final @NotNull List<TypeTableEntry> potentialTypes,
+			final TypeName typeName, final @NotNull ClassInvocation ci) throws STOP {
 		boolean sc = false;
 
 		TypeTableEntry potentialType = potentialTypes.get(0);

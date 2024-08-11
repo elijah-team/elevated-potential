@@ -7,8 +7,13 @@
  */
 package tripleo.elijah.comp;
 
+import static tripleo.elijah.util.Helpers.*;
+
+import java.util.*;
+
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
@@ -26,19 +31,15 @@ import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.backbone.*;
 
-import java.util.*;
-
-import static tripleo.elijah.util.Helpers.*;
-
 /**
  * Created 8/21/21 10:16 PM
  */
 public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListener {
 	private final          CompilationEnclosure       ce;
-	private final @NotNull IPipelineAccess            pa;
-	private final @NotNull DefaultGenerateResultSink  grs;
+	private final @NotNull IPipelineAccess pa;
+	private final @NotNull DefaultGenerateResultSink grs;
 	private final @NotNull DoubleLatch<List<EvaNode>> latch2;
-	private final @NotNull List<FunctionStatement>    functionStatements = new ArrayList<>();
+	private final @NotNull List<FunctionStatement> functionStatements = new ArrayList<>();
 	private                CB_Output                  _processOutput;
 	private                Object/*CR_State*/         _processState;
 	@SuppressWarnings("unused")

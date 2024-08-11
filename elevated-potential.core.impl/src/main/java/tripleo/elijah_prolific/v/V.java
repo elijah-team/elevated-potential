@@ -1,16 +1,17 @@
 package tripleo.elijah_prolific.v;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.gen_generic.*;
+import static tripleo.elijah.util.Helpers.*;
 
 import java.io.*;
 import java.util.*;
 import java.util.stream.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.comp.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.stages.gen_generic.*;
 
 public class V {
 	private static final List<String> logs = new ArrayList<>();
@@ -49,7 +50,7 @@ public class V {
 		final String x = "{{V.exit}}";
 		addLog(x);
 
-		final @NotNull EOT_OutputTree ot            = aCompilation.getOutputTree();
+		final @NotNull EOT_OutputTree ot = aCompilation.getOutputTree();
 		final EG_Naming               naming        = new EG_Naming("placeholder-naming");
 		final List<EG_Statement>      statementList = logs.stream().map(EG_SingleStatement::new).collect(Collectors.toList());
 		final EG_Statement            statement     = new EG_SequenceStatement(naming, statementList);

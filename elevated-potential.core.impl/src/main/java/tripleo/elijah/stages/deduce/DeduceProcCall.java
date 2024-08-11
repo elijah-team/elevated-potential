@@ -11,6 +11,7 @@ package tripleo.elijah.stages.deduce;
 
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.*;
@@ -34,8 +35,8 @@ public class DeduceProcCall {
 		 * around (invocation.pte is the call site (MainLogic::main))
 		 */
 		public DeclTarget(final @NotNull OS_Element aBest,
-						  final @NotNull OS_Element aDeclAnchor,
-						  final @NotNull DeclAnchor.AnchorType aAnchorType) throws FCA_Stop {
+				final @NotNull OS_Element aDeclAnchor,
+				final @NotNull DeclAnchor.AnchorType aAnchorType) throws FCA_Stop {
 			element = aBest;
 			anchor = _g_deduceTypes2._inj().new_DeclAnchor(aDeclAnchor, aAnchorType);
 			final Eventual<IInvocation> invocationP = new Eventual<>();

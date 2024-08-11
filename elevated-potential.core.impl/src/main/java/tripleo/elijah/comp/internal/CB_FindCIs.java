@@ -1,17 +1,16 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
-import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
-import tripleo.elijah.util.Maybe;
-import tripleo.wrap.File;
+import java.nio.file.*;
+import java.util.*;
 
-import java.nio.file.NotDirectoryException;
-import java.util.List;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.percy.*;
+import tripleo.elijah.nextgen.comp_model.*;
+import tripleo.elijah.util.*;
+import tripleo.wrap.*;
 
 class CB_FindCIs implements CB_Action {
 	private final CompilationRunner   compilationRunner;
@@ -61,8 +60,8 @@ class CB_FindCIs implements CB_Action {
 	}
 
 	private void _processInput(final @NotNull CompilationClosure c,
-							   final @NotNull ErrSink aErrSink,
-							   final @NotNull CompilerInput input) {
+			final @NotNull ErrSink aErrSink,
+			final @NotNull CompilerInput input) {
 		// FIXME 24/01/09 oop
 		switch (input.ty()) {
 		case NULL, SOURCE_ROOT -> {}

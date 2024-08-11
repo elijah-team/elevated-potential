@@ -1,6 +1,9 @@
 package tripleo.elijah.stages.gen_fn;
 
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.*;
@@ -8,8 +11,6 @@ import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.util.range.Range;
-
-import java.util.*;
 
 public interface IEvaFunctionBase extends EvaNode {
 	int add(InstructionName aName, List<InstructionArgument> args_, Context ctx);
@@ -20,9 +21,11 @@ public interface IEvaFunctionBase extends EvaNode {
 
 	int addIdentTableEntry(IdentExpression ident, Context context);
 
-	@NotNull Label addLabel();
+	@NotNull
+	Label addLabel();
 
-	@NotNull Label addLabel(String base_name, boolean append_int);
+	@NotNull
+	Label addLabel(String base_name, boolean append_int);
 
 	int addVariableTableEntry(String name, VariableTableType vtt, TypeTableEntry type, OS_Element el);
 
@@ -30,12 +33,15 @@ public interface IEvaFunctionBase extends EvaNode {
 
 	@Nullable Label findLabel(int index);
 
-	@NotNull InstructionArgument get_assignment_path(@NotNull IExpression expression, @NotNull GenerateFunctions generateFunctions, Context context);
+	@NotNull
+	InstructionArgument get_assignment_path(@NotNull IExpression expression,
+			@NotNull GenerateFunctions generateFunctions, Context context);
 
 	@Deprecated
 	void setCode(int aCode);
 
-	@NotNull ConstantTableEntry getConstTableEntry(int index);
+	@NotNull
+	ConstantTableEntry getConstTableEntry(int index);
 
 	Context getContextFromPC(int pc);
 

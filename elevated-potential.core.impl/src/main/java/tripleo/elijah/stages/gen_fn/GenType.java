@@ -84,7 +84,7 @@ public interface GenType {
 						final @Nullable OS_Element el2 = lrl2.chooseBest(null);
 
 						// TODO test next 4 lines are copies of above
-						if (el2 instanceof final @NotNull ClassStatement classStatement2) {
+							if (el2 instanceof final @NotNull ClassStatement classStatement2) {
 							gt.setResolved(classStatement2.getOS_Type());
 						} else
 							throw new NotImplementedException();

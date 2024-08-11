@@ -1,16 +1,14 @@
 package tripleo.elijah.ci.cil;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.ci.CiExpression;
-import tripleo.elijah.ci.CiExpressionList;
-import tripleo.elijah.ci.ExpressionKind;
-import tripleo.elijah.ci.cii.NumericExpression;
-import tripleo.elijah.util.NotImplementedException;
+import java.io.*;
 
+import org.jetbrains.annotations.*;
 
-import java.io.File;
+import antlr.*;
+import tripleo.elijah.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.ci.cii.*;
+import tripleo.elijah.util.*;
 
 public class NumericExpressionImpl implements NumericExpression {
 
@@ -26,7 +24,7 @@ public class NumericExpressionImpl implements NumericExpression {
 		carrier = Integer.parseInt(n.getText());
 	}
 
-	//public @NotNull List<FormalArgListItem> getArgs() {
+	// public @NotNull List<FormalArgListItem> getArgs() {
 	//	return null;
 	//}
 

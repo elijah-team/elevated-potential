@@ -39,7 +39,7 @@ public class TypInf {
 	 * @param subst
 	 * @return
 	 */
-	static @Nullable HashMap<String, Type> unify_variable(@NotNull TypeVar v, Type typ, @NotNull HashMap<String, Type> subst) {
+	static @Nullable HashMap<String, Type> unify_variable(@NotNull  TypeVar v, Type typ, @NotNull  HashMap<String, Type> subst) {
 		if (subst.containsKey(v.name)) {
 			return unify(subst.get(v.name), typ, subst);
 		} else if ((typ instanceof TypeVar) && subst.containsKey(((TypeVar) typ).name)) {
@@ -53,7 +53,7 @@ public class TypInf {
 		}
 	}
 
-	private static @NotNull HashMap<String, Type> dict_combine(@NotNull HashMap<String, Type> a, HashMap<String, Type> b) {
+	private static @NotNull  HashMap<String, Type> dict_combine(@NotNull  HashMap<String, Type> a, HashMap<String, Type> b) {
 		HashMap<String, Type> r = new HashMap<String, Type>();
 		for (Map.Entry<String, Type> entry : a.entrySet()) {
 			r.put(entry.getKey(), entry.getValue());
@@ -64,7 +64,7 @@ public class TypInf {
 		return r;
 	}
 
-	static <K, V> @NotNull HashMap<K, V> mapping(K k, V v) {
+	static <K, V> @NotNull  HashMap<K, V> mapping(K k, V v) {
 		HashMap<K, V> r = new HashMap<K, V>();
 		r.put(k, v);
 		return r;
@@ -78,7 +78,7 @@ public class TypInf {
 	 * @param eqs
 	 * @return
 	 */
-	public static HashMap<String, Type> unify_all_equations(@NotNull List<TypeEquation> eqs) {
+	public static HashMap<String, Type> unify_all_equations(@NotNull  List<TypeEquation> eqs) {
 		HashMap<String, Type> subst = new HashMap<>();
 		for (TypeEquation eq : eqs) {
 			subst = unify(eq.left, eq.right, subst);
@@ -103,7 +103,7 @@ public class TypInf {
 	 * @param rename_types
 	 * @return
 	 */
-	public static Type get_expression_type(@NotNull AstNode expr, HashMap<String, Type> subst, boolean rename_types) {
+	public static Type get_expression_type(@NotNull  AstNode expr, HashMap<String, Type> subst, boolean rename_types) {
 		Type typ = apply_unifier(expr.get_type(), subst);
 		if (rename_types) {
 			Counter                 namecounter = new Counter();
@@ -394,7 +394,7 @@ public class TypInf {
 		return Helpers.String_join("\n", lines);
 	}
 
-	void show_rec(AstNode node, @NotNull List<String> lines) {
+	void show_rec(AstNode node, @NotNull  List<String> lines) {
 		lines.add(String.format("%60s %s", node, node.get_type()));
 		node.visit_children(node1 -> show_rec(node1, lines));
 	}

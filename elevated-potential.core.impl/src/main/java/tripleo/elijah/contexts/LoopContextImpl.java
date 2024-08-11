@@ -12,6 +12,7 @@
 package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.util.*;
@@ -37,7 +38,7 @@ public class LoopContextImpl extends ContextImpl implements ILoopContext {
 
 	@Override
 	public LookupResultList lookup(final @NotNull String name, final int level, final @NotNull LookupResultList Result,
-								   final @NotNull ISearchList alreadySearched, final boolean one) {
+			final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
 		if (carrier.getIterNameToken() != null) {

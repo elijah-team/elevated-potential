@@ -84,7 +84,7 @@ public class ExitGetType implements State {
 					switch (ite.type.getAttached().getType()) {
 					case USER -> {
 						try {
-							final @NotNull GenType xx = dt2.resolve_type(ite.type.getAttached(), aFunctionContext);
+								final @NotNull GenType xx = dt2.resolve_type(ite.type.getAttached(), aFunctionContext);
 							ite.type.setAttached(xx);
 						} catch (final ResolveError resolveError) {
 							dt2._LOG().info("192 Can't attach type to " + path);
@@ -99,15 +99,15 @@ public class ExitGetType implements State {
 						// TODO All this for nothing
 						// the ite points to a function, not a function call,
 						// so there is no point in resolving it
-						if (ite.type.tableEntry instanceof final @NotNull ProcTableEntry pte) {
+							if (ite.type.tableEntry instanceof final @NotNull ProcTableEntry pte) {
 
-						} else if (ite.type.tableEntry instanceof final @NotNull IdentTableEntry identTableEntry) {
+							} else if (ite.type.tableEntry instanceof final @NotNull IdentTableEntry identTableEntry) {
 							if (identTableEntry.getCallablePTE() != null) {
 								@Nullable
 								final ProcTableEntry cpte = identTableEntry.getCallablePTE();
 								cpte.typePromise().then(new DoneCallback<GenType>() {
 									@Override
-									public void onDone(@NotNull final GenType result) {
+										public void onDone(@NotNull final GenType result) {
 										SimplePrintLoggerToRemoveSoon
 												.println2("1483 " + result.getResolved() + " " + result.getNode());
 									}

@@ -7,13 +7,14 @@
  */
 package tripleo.elijah.stages.gen_generic;
 
+import java.util.*;
+import java.util.stream.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.ci.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.util.buffer.*;
-
-import java.util.*;
-import java.util.stream.*;
 
 /**
  * Created 4/27/21 1:12 AM
@@ -30,10 +31,10 @@ public class Old_GenerateResultItem implements GenerateResultItem {
 
 	@Contract(pure = true)
 	public Old_GenerateResultItem(final @NotNull Old_GenerateResult.TY aTy,
-								  final @NotNull Buffer aBuffer,
-								  final @NotNull EvaNode aNode,
-								  final @NotNull LibraryStatementPart aLsp,
-								  final @NotNull Dependency aDependency,
+			final @NotNull Buffer aBuffer,
+			final @NotNull EvaNode aNode,
+			final @NotNull LibraryStatementPart aLsp,
+			final @NotNull Dependency aDependency,
 								  final int aCounter) {
 		ty = aTy;
 		buffer = aBuffer;

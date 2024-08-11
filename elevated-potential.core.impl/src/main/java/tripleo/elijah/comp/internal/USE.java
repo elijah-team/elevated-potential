@@ -1,28 +1,22 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.ci_impl.LibraryStatementPartImpl;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.caches.DefaultElijahCache;
-import tripleo.elijah.compiler_model.CM_Module;
-import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.comp.i.CompilationClosure;
-import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.comp.i.USE_Reasoning;
-import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
-import tripleo.elijah.comp.specs.*;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.diagnostic.ExceptionDiagnostic;
-import tripleo.elijah.diagnostic.FileNotFoundDiagnostic;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.util.*;
-
 import java.io.*;
-import tripleo.wrap.File;
 import java.util.regex.*;
+
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.ci.*;
+import tripleo.elijah.ci_impl.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.caches.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.compiler_model.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util.*;
+import tripleo.wrap.File;
 
 @SuppressWarnings("UnnecessaryLocalVariable")
 public class USE {
@@ -31,8 +25,8 @@ public class USE {
 				|| Pattern.matches(".+\\.elijjah$", file_name);
 		return matches;
 	};
-	private final @NotNull Compilation   c;
-	private final @NotNull ErrSink        errSink;
+	private final @NotNull Compilation c;
+	private final @NotNull ErrSink errSink;
 
 	public ElijahCache getElijahCache() {
 		return elijahCache;
@@ -42,7 +36,7 @@ public class USE {
 
 	@Contract(pure = true)
 	public USE(final @NotNull CompilationClosure cc) {
-		c       = (@NotNull Compilation) cc.getCompilation();
+		c = (@NotNull Compilation) cc.getCompilation();
 		errSink = cc.errSink();
 	}
 
@@ -55,8 +49,8 @@ public class USE {
 	}
 
 	private Operation2<OS_Module> parseElijjahFile(final @NotNull File f,
-	                                               final @NotNull String file_name,
-	                                               final @NotNull LibraryStatementPart lsp) {
+			final @NotNull String file_name,
+			final @NotNull LibraryStatementPart lsp) {
 		logProgress(CompProgress.USE__parseElijjahFile, f.getAbsolutePath());
 
 		if (!f.exists()) {
@@ -70,7 +64,7 @@ public class USE {
 		try {
 			var rdr = new CX_ParseElijahFile.ElijahSpecReader() {
 				@Override
-				public @NotNull Operation<InputStream> get()  {
+				public @NotNull Operation<InputStream> get() {
 					try {
 						final InputStream readFile = c.getIO().readFile(f);
 						return Operation.success(readFile);

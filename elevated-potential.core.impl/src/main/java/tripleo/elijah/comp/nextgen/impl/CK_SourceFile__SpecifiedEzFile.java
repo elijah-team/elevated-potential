@@ -1,13 +1,15 @@
 package tripleo.elijah.comp.nextgen.impl;
 
-import com.google.common.base.*;
+import java.io.*;
+
 import org.jetbrains.annotations.*;
+
+import com.google.common.base.*;
+
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.specs.*;
 import tripleo.elijah.util.*;
-
-import java.io.*;
 import tripleo.wrap.File;
 
 public class CK_SourceFile__SpecifiedEzFile extends __CK_SourceFile__AbstractEzFile {
@@ -20,7 +22,7 @@ public class CK_SourceFile__SpecifiedEzFile extends __CK_SourceFile__AbstractEzF
 	@Override
 	public Operation2<CompilerInstructions> process_query() {
 		final IO               io       = compilation.getIO();
-		final @NotNull EzCache ezCache  = compilation.getCompilationEnclosure().getCompilationRunner().ezCache();
+		final @NotNull EzCache ezCache = compilation.getCompilationEnclosure().getCompilationRunner().ezCache();
 		final String fileName = file_name();
 		Preconditions.checkArgument(isEzFile(fileName));
 

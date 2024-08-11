@@ -1,6 +1,7 @@
 package tripleo.elijah.stages.gen_c.internal;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
@@ -15,15 +16,16 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 		carrier = aEvaFunction;
 	}
 
-	//public void addDependentFunction(@NotNull final FunctionInvocation aFunction) {
+	// public void addDependentFunction(@NotNull final FunctionInvocation aFunction)
+	// {
 	//	carrier.addDependentFunction(aFunction);
 	//}
 	//
-	//public void addDependentType(@NotNull final GenType aType) {
+	// public void addDependentType(@NotNull final GenType aType) {
 	//	carrier.addDependentType(aType);
 	//}
 	//
-	//public @NotNull List<FunctionInvocation> dependentFunctions() {
+	// public @NotNull List<FunctionInvocation> dependentFunctions() {
 	//	return carrier.dependentFunctions();
 	//}
 	//
@@ -31,7 +33,7 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	//	return carrier.dependentFunctionSubject();
 	//}
 	//
-	//public @NotNull List<GenType> dependentTypes() {
+	// public @NotNull List<GenType> dependentTypes() {
 	//	return carrier.dependentTypes();
 	//}
 	//
@@ -39,11 +41,12 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	//	return carrier.dependentTypesSubject();
 	//}
 	//
-	//public void noteDependencies(final @NotNull Dependency d) {
+	// public void noteDependencies(final @NotNull Dependency d) {
 	//	carrier.noteDependencies(d);
 	//}
 	//
-	//public @NotNull DT_Resolvabley _getIdentIAResolvable(final @NotNull IdentIA aIdentIA) {
+	// public @NotNull DT_Resolvabley _getIdentIAResolvable(final @NotNull IdentIA
+	// aIdentIA) {
 	//	return carrier._getIdentIAResolvable(aIdentIA);
 	//}
 	//
@@ -68,12 +71,13 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	//}
 	//
 	//@Override
-	//public @NotNull Label addLabel() {
+	// public @NotNull Label addLabel() {
 	//	return carrier.addLabel();
 	//}
 	//
 	//@Override
-	//public @NotNull Label addLabel(final String base_name, final boolean append_int) {
+	// public @NotNull Label addLabel(final String base_name, final boolean
+	// append_int) {
 	//	return carrier.addLabel(base_name, append_int);
 	//}
 	//
@@ -82,7 +86,8 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	//	return carrier.addVariableTableEntry(name, vtt, type, el);
 	//}
 	//
-	//public @NotNull DR_Type buildDrTypeFromNonGenericTypeName(final TypeName aNonGenericTypeName) {
+	// public @NotNull DR_Type buildDrTypeFromNonGenericTypeName(final TypeName
+	// aNonGenericTypeName) {
 	//	return carrier.buildDrTypeFromNonGenericTypeName(aNonGenericTypeName);
 	//}
 	//
@@ -101,7 +106,9 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	//}
 	//
 	//@Override
-	//public @NotNull InstructionArgument get_assignment_path(final @NotNull IExpression expression, final @NotNull GenerateFunctions generateFunctions, final @NotNull Context context) {
+	// public @NotNull InstructionArgument get_assignment_path(final @NotNull
+	// IExpression expression, final @NotNull GenerateFunctions generateFunctions,
+	// final @NotNull Context context) {
 	//	return carrier.get_assignment_path(expression, generateFunctions, context);
 	//}
 
@@ -122,7 +129,7 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	//@Override
-	//public @NotNull ConstantTableEntry getConstTableEntry(final int index) {
+	// public @NotNull ConstantTableEntry getConstTableEntry(final int index) {
 	//	return carrier.getConstTableEntry(index);
 	//}
 	//
@@ -132,12 +139,12 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	//}
 	//
 	//@Override
-	//public @NotNull Dependency getDependency() {
+	// public @NotNull Dependency getDependency() {
 	//	return carrier.getDependency();
 	//}
 	//
 	//@Override
-	//public @NotNull String getFunctionName() {
+	// public @NotNull String getFunctionName() {
 	//	return carrier.getFunctionName();
 	//}
 	//
@@ -159,17 +166,18 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	//@Override
-	//public @NotNull String getIdentIAPathNormal(final @NotNull IdentIA ia2) {
+	// public @NotNull String getIdentIAPathNormal(final @NotNull IdentIA ia2) {
 	//	return carrier.getIdentIAPathNormal(ia2);
 	//}
 	//
 	//@Override
-	//public @NotNull IdentTableEntry getIdentTableEntry(final int index) {
+	// public @NotNull IdentTableEntry getIdentTableEntry(final int index) {
 	//	return carrier.getIdentTableEntry(index);
 	//}
 	//
 	//@Override
-	//public @Nullable IdentTableEntry getIdentTableEntryFor(final @NotNull IExpression expression) {
+	// public @Nullable IdentTableEntry getIdentTableEntryFor(final @NotNull
+	// IExpression expression) {
 	//	return carrier.getIdentTableEntryFor(expression);
 	//}
 	//
@@ -188,12 +196,12 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	//@Override
-	//public @NotNull ProcTableEntry getProcTableEntry(final int index) {
+	// public @NotNull ProcTableEntry getProcTableEntry(final int index) {
 	//	return carrier.getProcTableEntry(index);
 	//}
 	//
 	//@Override
-	//public @NotNull TypeTableEntry getTypeTableEntry(final int index) {
+	// public @NotNull TypeTableEntry getTypeTableEntry(final int index) {
 	//	return carrier.getTypeTableEntry(index);
 	//}
 
@@ -202,32 +210,36 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	//@Override
-	//public @NotNull VariableTableEntry getVarTableEntry(final int index) {
+	// public @NotNull VariableTableEntry getVarTableEntry(final int index) {
 	//	return carrier.getVarTableEntry(index);
 	//}
 	//
 	//@Override
-	//public @NotNull List<Instruction> instructions() {
+	// public @NotNull List<Instruction> instructions() {
 	//	return carrier.instructions();
 	//}
 	//
 	//@Override
-	//public @NotNull List<Label> labels() {
+	// public @NotNull List<Label> labels() {
 	//	return carrier.labels();
 	//}
 	//
 	//@Override
-	//public @NotNull TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1, final OS_Type type) {
+	// public @NotNull TypeTableEntry newTypeTableEntry(final
+	// TypeTableEntry.@NotNull Type type1, final OS_Type type) {
 	//	return carrier.newTypeTableEntry(type1, type);
 	//}
 	//
 	//@Override
-	//public @NotNull TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1, final OS_Type type, final IExpression expression) {
+	// public @NotNull TypeTableEntry newTypeTableEntry(final
+	// TypeTableEntry.@NotNull Type type1, final OS_Type type, final IExpression
+	// expression) {
 	//	return carrier.newTypeTableEntry(type1, type, expression);
 	//}
 	//
 	//@Override
-	//public @NotNull TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1,
+	// public @NotNull TypeTableEntry newTypeTableEntry(final
+	// TypeTableEntry.@NotNull Type type1,
 	//                                        final OS_Type type,
 	//                                        final IExpression expression,
 	//                                        final TableEntryIV aTableEntryIV) {
@@ -235,7 +247,8 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	//}
 	//
 	//@Override
-	//public @NotNull TypeTableEntry newTypeTableEntry(final TypeTableEntry.@NotNull Type type1,
+	// public @NotNull TypeTableEntry newTypeTableEntry(final
+	// TypeTableEntry.@NotNull Type type1,
 	//                                                 final OS_Type type,
 	//                                                 final TableEntryIV aTableEntryIV) {
 	//	return carrier.newTypeTableEntry(type1, type, aTableEntryIV);
@@ -247,12 +260,12 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	//}
 	//
 	//@Override
-	//public void onGenClass(final @NotNull OnGenClass aOnGenClass) {
+	// public void onGenClass(final @NotNull OnGenClass aOnGenClass) {
 	//	carrier.onGenClass(aOnGenClass);
 	//}
 	//
 	//@Override
-	//public void place(final @NotNull Label label) {
+	// public void place(final @NotNull Label label) {
 	//	carrier.place(label);
 	//}
 
@@ -277,12 +290,12 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	//@Override
-	//public void resolveTypeDeferred(final @NotNull GenType aType) {
+	// public void resolveTypeDeferred(final @NotNull GenType aType) {
 	//	carrier.resolveTypeDeferred(aType);
 	//}
 	//
 	//@Override
-	//public void setClass(@NotNull final EvaNode aNode) {
+	// public void setClass(@NotNull final EvaNode aNode) {
 	//	carrier.setClass(aNode);
 	//}
 	//
@@ -315,7 +328,7 @@ public class DefaultDeducedBaseEvaFunction implements DeducedBaseEvaFunction {
 	}
 
 	//@Override
-	//public @NotNull FunctionDef getFD() {
+	// public @NotNull FunctionDef getFD() {
 	//	return carrier.getFD();
 	//}
 	//

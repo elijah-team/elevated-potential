@@ -1,9 +1,8 @@
 package tripleo.elijah.stateful;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import java.util.*;
 
-import java.util.Objects;
+import org.jetbrains.annotations.*;
 
 public final class StateRegistrationToken {
 	private final int token;

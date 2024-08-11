@@ -23,7 +23,7 @@ import tripleo.elijah.world.i.*;
 
 class DE3_ActivePTE implements DE3_Active {
 	private final          DeduceTypes2                      deduceTypes2;
-	private final @NotNull ProcTableEntry                    pte;
+	private final @NotNull ProcTableEntry pte;
 	private final          ClassInvocation                   ci;
 	private final @NotNull List<Reactivable> ables;
 	private final DeduceTypes2Injector __inj;
@@ -43,7 +43,7 @@ class DE3_ActivePTE implements DE3_Active {
 	                      final EvaClass node,
 	                      final DeducePhase deducePhase,
 	                      final GenerateResultSink resultSink,
-	                      final @NotNull Eventual<GenerateResultEnv> efg) {
+			final @NotNull Eventual<GenerateResultEnv> efg) {
 		efg.then(fg -> {
 			final DeducePhase.GeneratedClasses classes = deducePhase.generatedClasses;
 			final int                          size1   = classes.size();

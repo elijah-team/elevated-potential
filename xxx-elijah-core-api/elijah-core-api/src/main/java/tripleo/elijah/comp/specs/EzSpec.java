@@ -1,15 +1,16 @@
 package tripleo.elijah.comp.specs;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.util.*;
-
 import java.io.*;
-import java.util.Objects;
+import java.util.*;
 
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.util.*;
 import tripleo.wrap.File;
 
 public interface EzSpec {
-	@NotNull Operation<String> absolute1();
+	@NotNull
+	Operation<String> absolute1();
 
 	String file_name();
 

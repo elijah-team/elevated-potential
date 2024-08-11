@@ -1,7 +1,11 @@
 package tripleo.elijah.comp.notation;
 
+import java.util.*;
+import java.util.function.*;
+
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
@@ -10,10 +14,7 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.world.i.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-
-import java.util.*;
-import java.util.function.*;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 	private final List<ProcessedNode>  lgc;
@@ -60,7 +61,7 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 
 	@NotNull
 	static GenerateFiles getGenerateFiles(final @NotNull OutputFileFactoryParams params, final @NotNull WorldModule wm,
-										  final @NotNull Supplier<GenerateResultEnv> fgs) {
+			final @NotNull Supplier<GenerateResultEnv> fgs) {
 		final GenerateResultEnv fileGen;
 		final OS_Module         mod = wm.module();
 
@@ -87,7 +88,7 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 	@Contract("_, _ -> new")
 	@NotNull
 	OutputFileFactoryParams getParams(final WorldModule mod,
-									  final @NotNull GN_GenerateNodesIntoSink aGNGenerateNodesIntoSink) {
+			final @NotNull GN_GenerateNodesIntoSink aGNGenerateNodesIntoSink) {
 		return new OutputFileFactoryParams(mod, aGNGenerateNodesIntoSink._env().ce());
 	}
 

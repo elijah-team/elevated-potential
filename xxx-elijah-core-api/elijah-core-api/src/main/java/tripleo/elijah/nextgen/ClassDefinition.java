@@ -1,17 +1,18 @@
 package tripleo.elijah.nextgen;
 
+import java.util.*;
+
 import org.jetbrains.annotations.*;
-import tripleo.elijah.g.GClassInvocation;
-import tripleo.elijah.g.GEvaClass;
+
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.composable.*;
-
-import java.util.*;
 
 public interface ClassDefinition {
 	IComposable getComposable();
 
-	@NotNull Set<ClassStatement> getExtended();
+	@NotNull
+	Set<ClassStatement> getExtended();
 
 	GClassInvocation getInvocation();
 

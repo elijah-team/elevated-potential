@@ -1,15 +1,16 @@
 package tripleo.elijah.stages.gen_c;
 
+import java.util.*;
+
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.stages.gen_c.Generate_Code_For_Method.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.instructions.*;
-
-import java.util.*;
 
 public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	/**
@@ -84,7 +85,8 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 			// if there is no Result, there should be Value
 			result_index = getGf().vte_lookup("Value");
 			// but Value might be passed in. If it is, discard value
-			@NotNull final VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
+			@NotNull
+			final VariableTableEntry vte = ((IntegerIA) result_index).getEntry();
 			if (vte.getVtt() != VariableTableType.RESULT)
 				result_index = null;
 			if (result_index == null)
@@ -99,7 +101,8 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	public @NotNull TypeTableEntry tte_for_self() {
 		@Nullable final InstructionArgument result_index = getGf().vte_lookup("self");
 		final IntegerIA                   resultIA = (IntegerIA) result_index;
-		@NotNull final VariableTableEntry vte      = resultIA.getEntry();
+		@NotNull
+		final VariableTableEntry vte = resultIA.getEntry();
 		assert vte.getVtt() == VariableTableType.SELF;
 
 		var tte1 = getGf().getTypeTableEntry(resultIA.getIndex());
@@ -127,7 +130,8 @@ public abstract class WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 		return text.reasonedForAOG(aAOG);
 	}
 
-	public Garish_TargetName getRealTargetName(final @NotNull GenerateC gc, final IdentIA target, final String assignmentValue) {
+	public Garish_TargetName getRealTargetName(final @NotNull GenerateC gc, final IdentIA target,
+			final String assignmentValue) {
 		final ZoneITE zi = gc._zone.get(target);
 
 		return zi.getRealTargetName3(assignmentValue);

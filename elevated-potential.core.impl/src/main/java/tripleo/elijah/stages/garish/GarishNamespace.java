@@ -1,6 +1,7 @@
 package tripleo.elijah.stages.garish;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
@@ -19,12 +20,12 @@ public class GarishNamespace {
 
 	public void garish(final GenerateC aGenerateC,
 	                   final GenerateResult gr,
-	                   final @NotNull GenerateResultSink aResultSink) {
+			final @NotNull GenerateResultSink aResultSink) {
 		getLiving().generateWith(aResultSink, this, gr, aGenerateC);
 	}
 
 	public @NotNull BufferTabbedOutputStream getHeaderBuffer(final @NotNull GenerateC aGenerateC,
-	                                                         final @NotNull EvaNamespace x, final String class_name, final int class_code) {
+			final @NotNull EvaNamespace x, final String class_name, final int class_code) {
 		final BufferTabbedOutputStream tosHdr = new BufferTabbedOutputStream();
 
 		tosHdr.put_string_ln("typedef struct {");

@@ -15,12 +15,12 @@ import tripleo.elijah.util.NotImplementedException;
  */
 public class LocalDeclAgnNode {
 
-//	public LocalDeclAgnNode(String string, @NotNull OS_Integer integer) {
+//	public LocalDeclAgnNode(String string, @NotNull  OS_Integer integer) {
 //		// TODO Auto-generated constructor stub
 //		NotImplementedException.raise();
 //	}
 
-	public LocalDeclAgnNode(final String string, @NotNull final NumericExpression integer) {
+	public LocalDeclAgnNode(final String string, @NotNull  final NumericExpression integer) {
 		// TODO Auto-generated constructor stub
 		NotImplementedException.raise();
 	}

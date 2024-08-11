@@ -1,11 +1,12 @@
 package tripleo.elijah.lang.i;
 
-import antlr.*;
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
+import antlr.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang2.*;
-
-import java.util.*;
 
 public interface CaseScope extends OS_Container, OS_Element, CaseConditional {
 	/*
@@ -55,7 +56,8 @@ public interface CaseScope extends OS_Container, OS_Element, CaseConditional {
 	 * @see tripleo.elijah.lang.impl.CaseConditional#getParent()
 	 */
 	@Override
-	@NotNull OS_Element getParent();
+	@NotNull
+	OS_Element getParent();
 
 	@Override
 	@Nullable HashMap<IExpression, CaseScope> getScopes();

@@ -1,9 +1,14 @@
 package tripleo.elijah.stages.gen_c;
 
-import com.google.common.base.*;
-import com.google.common.collect.*;
+import java.util.*;
+import java.util.stream.*;
+
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
+import com.google.common.base.*;
+import com.google.common.collect.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
@@ -16,21 +21,19 @@ import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah_fluffy.util.*;
 
-import java.util.*;
-import java.util.stream.*;
-
 class Generate_Method_Header {
 
 	final                  String  args_string;
-	final @NotNull         String  header_string;
+	final @NotNull String header_string;
 	private final @NotNull EG_Statement args_statement;
 	private final @NotNull GenerateC gc;
 	private final          String  name;
-	private final @NotNull String  return_type;
+	private final @NotNull String return_type;
 	@Nullable              OS_Type type;
 	TypeTableEntry tte;
 
-	public Generate_Method_Header(final @NotNull WhyNotGarish_BaseFunction yf, final @NotNull GenerateC aGenerateC, final @NotNull ElLog LOG) {
+	public Generate_Method_Header(final @NotNull WhyNotGarish_BaseFunction yf, final @NotNull GenerateC aGenerateC,
+			final @NotNull ElLog LOG) {
 		var gf = yf.cheat();
 
 		gc = aGenerateC;
@@ -42,13 +45,15 @@ class Generate_Method_Header {
 		header_string = find_header_string(gf, LOG);
 	}
 
-	@NotNull String find_return_type(final BaseEvaFunction gf, final ElLog LOG) {
+	@NotNull
+	String find_return_type(final BaseEvaFunction gf, final ElLog LOG) {
 		final Eventual<String> ev = new Eventual<>();
 		discriminator(gf, LOG, gc).find_return_type(this, ev);
 		return EventualExtract.of(ev);
 	}
 
-	@NotNull EG_Statement find_args_statement(final @NotNull BaseEvaFunction gf) {
+	@NotNull
+	EG_Statement find_args_statement(final @NotNull BaseEvaFunction gf) {
 
 		final String rule = "gen_c:gcfm:Generate_Method_Header:find_args_statement";
 
@@ -62,7 +67,8 @@ class Generate_Method_Header {
 		return args;
 	}
 
-	@NotNull String find_header_string(final @NotNull BaseEvaFunction gf, final @NotNull ElLog LOG) {
+	@NotNull
+	String find_header_string(final @NotNull BaseEvaFunction gf, final @NotNull ElLog LOG) {
 		// NOTE getGenClass is always a class or namespace, getParent can be a function
 		final EvaContainerNC parent = (EvaContainerNC) gf.getGenClass();
 
@@ -102,16 +108,21 @@ class Generate_Method_Header {
 		final EvaContainerNC parent = (EvaContainerNC) gf.getGenClass();
 
 		if (parent instanceof EvaClass st) {
-			@NotNull final C_HeaderString chs = C_HeaderString.forClass(st, () -> GenerateC.GetTypeName.forGenClass(st, this.gc), return_type, name, args_string, LOG);
+			@NotNull
+			final C_HeaderString chs = C_HeaderString.forClass(st, () -> GenerateC.GetTypeName.forGenClass(st, this.gc),
+					return_type, name, args_string, LOG);
 
 			result = chs.getResult();
 		} else if (parent instanceof EvaNamespace) {
 			final EvaNamespace st = (EvaNamespace) parent;
 
-			@NotNull final C_HeaderString chs = C_HeaderString.forNamespace(st, () -> GenerateC.GetTypeName.forGenNamespace(st), return_type, name, args_string, LOG);
+			@NotNull
+			final C_HeaderString chs = C_HeaderString.forNamespace(st, () -> GenerateC.GetTypeName.forGenNamespace(st),
+					return_type, name, args_string, LOG);
 			result = chs.getResult();
 		} else {
-			@NotNull final C_HeaderString chs = C_HeaderString.forOther(parent, return_type, name, args_string);
+			@NotNull
+			final C_HeaderString chs = C_HeaderString.forOther(parent, return_type, name, args_string);
 			// result = String.format("%s %s(%s)", return_type, name, args_string);
 			result = chs.getResult();
 		}
@@ -119,12 +130,14 @@ class Generate_Method_Header {
 		return result;
 	}
 
-	@NotNull String __find_return_type(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull ElLog LOG) {
+	@NotNull
+	String __find_return_type(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull ElLog LOG) {
 		final _Closure__find_return_type cl = new _Closure__find_return_type();
 		return cl.call(gf, LOG, this);
 	}
 
-	@NotNull String find_args_string(final @NotNull BaseEvaFunction gf) {
+	@NotNull
+	String find_args_string(final @NotNull BaseEvaFunction gf) {
 		final String args;
 		if (false) {
 			args = Helpers.String_join(", ", Collections2.transform(gf.getFD().fal().falis(), new Function<FormalArgListItem, String>() {
@@ -157,16 +170,17 @@ class Generate_Method_Header {
 
 	class _Closure__find_return_type {
 
-		private String call(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull ElLog LOG, final Generate_Method_Header aGenerateMethodHeader) {
+		private String call(final @NotNull WhyNotGarish_BaseFunction gf, final @NotNull ElLog LOG,
+				final Generate_Method_Header aGenerateMethodHeader) {
 			Eventual<String> ev = new Eventual();
 			xcall(gf, LOG, aGenerateMethodHeader, ev);
 			return EventualExtract.of(ev);
 		}
 
 		private void xcall(final @NotNull WhyNotGarish_BaseFunction yf,
-						   final @NotNull ElLog LOG,
-						   final @NotNull Generate_Method_Header aGenerateMethodHeader,
-						   final @NotNull Eventual<String> ev) {
+				final @NotNull ElLog LOG,
+				final @NotNull Generate_Method_Header aGenerateMethodHeader,
+				final @NotNull Eventual<String> ev) {
 			String returnType = null;
 			if (yf.pointsToConstructor2()) {
 				// Get it from resolved

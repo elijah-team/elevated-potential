@@ -1,6 +1,7 @@
 package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 
 public interface ModuleContext extends Context {
@@ -11,7 +12,7 @@ public interface ModuleContext extends Context {
 
 	@Override
 	LookupResultList lookup(String name, int level, @NotNull LookupResultList Result,
-							@NotNull ISearchList alreadySearched, boolean one);
+			@NotNull ISearchList alreadySearched, boolean one);
 
 	void setCarrier(OS_Module aCarrier);
 }

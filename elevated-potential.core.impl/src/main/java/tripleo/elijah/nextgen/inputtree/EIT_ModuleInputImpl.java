@@ -1,30 +1,24 @@
 package tripleo.elijah.nextgen.inputtree;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.EvaPipeline;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
-import tripleo.elijah.comp.notation.GM_GenerateModule;
-import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
-import tripleo.elijah.g.GModuleGenerationRequest;
-import tripleo.elijah.lang.i.ModuleItem;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.model.SM_Module;
-import tripleo.elijah.nextgen.model.SM_ModuleItem;
-import tripleo.elijah.stages.gen_c.GenerateC;
-import tripleo.elijah.stages.gen_fn.EvaNode;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
-import tripleo.elijah.work.*;
-import tripleo.elijah.world.i.WorldModule;
-
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.*;
+
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.nextgen.inputtree.*;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.model.*;
+import tripleo.elijah.stages.gen_c.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
+import tripleo.elijah.work.*;
+import tripleo.elijah.world.i.*;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 public class EIT_ModuleInputImpl implements EIT_ModuleInput {
 	private final Compilation c;
@@ -64,8 +58,8 @@ public class EIT_ModuleInputImpl implements EIT_ModuleInput {
 
 	private void doGenerate(final List<EvaNode> nodes,
 						   final WorkManager wm,
-						   final @NotNull Consumer<GenerateResult> resultConsumer,
-						   final @NotNull CompilationEnclosure ce) {
+			final @NotNull Consumer<GenerateResult> resultConsumer,
+			final @NotNull CompilationEnclosure ce) {
 		// 0. get lang
 		final String lang = langOfModule();
 

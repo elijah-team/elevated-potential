@@ -14,17 +14,11 @@
  */
 package tripleo.elijah.ci.cil;
 
-import antlr.Token;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.ci.CiExpression;
-import tripleo.elijah.ci.CiExpressionList;
-import tripleo.elijah.ci.ExpressionKind;
-import tripleo.elijah.ci.cii.FloatExpression;
-import tripleo.elijah.util.NotImplementedException;
-
-
-import java.util.List;
+import antlr.*;
+import tripleo.elijah.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.ci.cii.*;
+import tripleo.elijah.util.*;
 
 public class FloatExpressionImpl implements FloatExpression {
 	private final Token n;
@@ -35,7 +29,7 @@ public class FloatExpressionImpl implements FloatExpression {
 		carrier = Float.parseFloat(n.getText());
 	}
 
-	//public @NotNull List<FormalArgListItem> getArgs() {
+	// public @NotNull List<FormalArgListItem> getArgs() {
 	//	return null;
 	//}
 

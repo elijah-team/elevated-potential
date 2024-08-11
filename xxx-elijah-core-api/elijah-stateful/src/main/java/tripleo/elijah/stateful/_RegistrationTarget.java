@@ -1,9 +1,8 @@
 package tripleo.elijah.stateful;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.jetbrains.annotations.*;
 
 public abstract class _RegistrationTarget {
 	public State registerState(final @NotNull State aState) {

@@ -1,16 +1,12 @@
 package tripleo.elijah.stages.gen_generic.pipeline_impl;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.stages.gen_fn.EvaClass;
-import tripleo.elijah.stages.gen_fn.EvaContainerNC;
-import tripleo.elijah.stages.gen_fn.EvaNode;
-import tripleo.elijah.stages.gen_generic.GenerateFiles;
-import tripleo.elijah.stages.gen_generic.GenerateFiles_;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
+import java.util.*;
 
-import java.util.Collection;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
 
 public class ProcessedNode1 implements ProcessedNode {
 
@@ -38,7 +34,8 @@ public class ProcessedNode1 implements ProcessedNode {
 	public void processClassMap(final @NotNull GenerateFiles ggc, final @NotNull GenerateResultEnv aFileGen) {
 		final EvaContainerNC nc = (EvaContainerNC) evaNode;
 
-		final @NotNull Collection<EvaNode> gn2 = GenerateFiles_.classes_to_list_of_generated_nodes(nc.classMap.values());
+		final @NotNull Collection<EvaNode> gn2 = GenerateFiles_
+				.classes_to_list_of_generated_nodes(nc.classMap.values());
 		GenerateResult gr4 = ggc.generateCode(gn2, aFileGen);
 		aFileGen.gr().additional(gr4);
 		aFileGen.resultSink().additional(gr4);
@@ -49,7 +46,8 @@ public class ProcessedNode1 implements ProcessedNode {
 		final EvaContainerNC nc = (EvaContainerNC) evaNode;
 
 		if (nc instanceof final @NotNull EvaClass evaClass) {
-			final @NotNull Collection<EvaNode> gn2 = GenerateFiles_.constructors_to_list_of_generated_nodes(evaClass.constructors.values());
+			final @NotNull Collection<EvaNode> gn2 = GenerateFiles_
+					.constructors_to_list_of_generated_nodes(evaClass.constructors.values());
 			GenerateResult gr3 = ggc.generateCode(gn2, aFileGen);
 
 			aFileGen.gr().additional(gr3);
@@ -75,7 +73,8 @@ public class ProcessedNode1 implements ProcessedNode {
 	public void processFunctions(final @NotNull GenerateFiles ggc, final @NotNull GenerateResultEnv aFileGen) {
 		final EvaContainerNC nc = (EvaContainerNC) evaNode;
 
-		final @NotNull Collection<EvaNode> gn1 = GenerateFiles_.functions_to_list_of_generated_nodes(nc.functionMap.values());
+		final @NotNull Collection<EvaNode> gn1 = GenerateFiles_
+				.functions_to_list_of_generated_nodes(nc.functionMap.values());
 		GenerateResult gr2 = ggc.generateCode(gn1, aFileGen);
 		aFileGen.gr().additional(gr2);
 		aFileGen.resultSink().additional(gr2);

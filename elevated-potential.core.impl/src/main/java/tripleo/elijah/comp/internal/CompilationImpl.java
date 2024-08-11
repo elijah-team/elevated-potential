@@ -8,10 +8,15 @@
  */
 package tripleo.elijah.comp.internal;
 
-import com.google.common.base.*;
-import io.reactivex.rxjava3.core.Observer;
+import java.util.*;
+import java.util.function.Supplier;
+
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
+
+import com.google.common.base.*;
+
+import io.reactivex.rxjava3.core.Observer;
 import tripleo.elijah.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.*;
@@ -42,9 +47,6 @@ import tripleo.elijah.world.i.*;
 import tripleo.elijah_elevated.comp.backbone.*;
 import tripleo.elijah_elevated_durable.aware.*;
 import tripleo.elijah_elevated_durable.comp.*;
-
-import java.util.*;
-import java.util.function.Supplier;
 
 public class CompilationImpl implements Compilation, EventualRegister {
 	private final List<CN_CompilerInputWatcher>                                  _ciws;
@@ -86,7 +88,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	private          boolean                             _inside;
 	private          CompilerInput       __advisement;
 	private final    ICompilationAccess3 _compilationAccess3;
-	private @NotNull CK_Monitor          defaultMonitor;
+	private @NotNull CK_Monitor defaultMonitor;
 	private          CPX_Signals                         cpxSignals;
 	private          Eventual<CP_Paths>                  _p_pathsEventual = new Eventual<>();
 
@@ -188,7 +190,7 @@ public class CompilationImpl implements Compilation, EventualRegister {
 
 	@Override
 	public void feedInputs(final @NotNull List<CompilerInput> aCompilerInputs,
-						   final @NotNull CompilerController ctl) {
+			final @NotNull CompilerController ctl) {
 		if (aCompilerInputs.isEmpty()) {
 			ctl.printUsage();
 			return;
@@ -289,7 +291,8 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	@Override
-	public Operation<Ok> hasInstructions(final @NotNull List<CompilerInstructions> cis, final @NotNull IPipelineAccess pa) {
+	public Operation<Ok> hasInstructions(final @NotNull List<CompilerInstructions> cis,
+			final @NotNull IPipelineAccess pa) {
 		if (DebugFlags._pancake_lcm_gate) {
 			assert cis.size() > 0;
 
@@ -511,7 +514,8 @@ public class CompilationImpl implements Compilation, EventualRegister {
 	}
 
 	@Override
-	public Operation<Ok> hasInstructions2(@NotNull final List<CompilerInstructions> cis, @NotNull final IPipelineAccess pa) {
+	public Operation<Ok> hasInstructions2(@NotNull final List<CompilerInstructions> cis,
+			@NotNull final IPipelineAccess pa) {
 		return hasInstructions(cis, get_pa());
 	}
 

@@ -8,34 +8,37 @@
  */
 package tripleo.elijah.comp;
 
-import com.google.common.collect.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.ci.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.nextgen.i.CP_Path;
-import tripleo.elijah.g.*;
-import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.stages.functionality.f292.F292_WriteRoot;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.io.*;
-import tripleo.elijah_prolific.v.V;
+import static tripleo.elijah.util.Helpers.*;
 
 import java.io.*;
 import java.util.*;
 import java.util.function.*;
 import java.util.regex.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import org.jetbrains.annotations.*;
+
+import com.google.common.collect.*;
+
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.stages.functionality.f292.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.util.io.*;
+import tripleo.elijah_prolific.v.*;
 
 /**
  * Created 9/13/21 11:58 PM
  */
-public class WriteMesonPipeline extends PipelineMember implements @NotNull Consumer<Supplier<Old_GenerateResult>>, GPipelineMember {
+public class WriteMesonPipeline extends PipelineMember
+		implements @NotNull Consumer<Supplier<Old_GenerateResult>>, GPipelineMember {
 	final                  Pattern         pullPat = Pattern.compile("/[^/]+/(.+)");
-	private final @NotNull Compilation     c;
+	private final @NotNull Compilation c;
 	private final @NotNull IPipelineAccess pa;
 	private final          WritePipeline   writePipeline;
 	@NotNull
@@ -146,7 +149,7 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 	}
 
 	private void write_root(@NotNull Multimap<CompilerInstructions, String> lsp_outputs,
-							@NotNull List<String> aDep_dirs) throws IOException {
+			@NotNull List<String> aDep_dirs) throws IOException {
 		final CP_Path path2_ = getPath2("meson.build");
 
 		path2_.getPathPromise().then(path2 -> {
@@ -180,7 +183,8 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 			path.getPathPromise().then(pp -> {
 				final MesonFile mesonFile = new MesonFile(this, aSub_dir, lsp_outputs, compilerInstructions, path);
 
-				@NotNull final EG_Statement stmt = mesonFile;
+				@NotNull
+				final EG_Statement stmt = mesonFile;
 
 				mesonFile.getPath().getPathPromise().then(ppp -> {
 
@@ -221,7 +225,8 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 			sb.append(String.format("%s_dep = declare_dependency( link_with: %s )", "Prelude", "Prelude")); // include_directories
 			sb.append("\n");
 
-			@NotNull final EG_Statement stmt = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("WriteMesonPipeline"));
+			@NotNull
+			final EG_Statement stmt = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("WriteMesonPipeline"));
 			final String         s   = ppath.toString();
 
 			V.asv(V.e.WMP_write_prelude, ""+ppath);

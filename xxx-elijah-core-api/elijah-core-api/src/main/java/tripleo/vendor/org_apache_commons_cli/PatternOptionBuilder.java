@@ -17,13 +17,11 @@
 
 package tripleo.vendor.org_apache_commons_cli;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import java.io.*;
+import java.net.*;
+import java.util.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.net.URL;
-import java.util.Date;
+import org.jetbrains.annotations.*;
 
 /**
  * Allows Options to be created from a single String. The pattern contains

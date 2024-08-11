@@ -1,15 +1,14 @@
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.impl.CC_SetSilent;
-import tripleo.elijah.comp.internal.CompilationImpl;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
-import tripleo.vendor.org_apache_commons_cli.*;
+import java.util.*;
 
-import java.util.List;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.impl.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.util.*;
+import tripleo.vendor.org_apache_commons_cli.*;
 
 public class ApacheOptionsProcessor implements OptionsProcessor {
 	private final CommandLineParser clp     = new DefaultParser();
@@ -22,7 +21,7 @@ public class ApacheOptionsProcessor implements OptionsProcessor {
 	}
 
 	public Operation<Ok> process(final @NotNull Compilation c,
-								 final @NotNull List<CompilerInput> aInputs,
+			final @NotNull List<CompilerInput> aInputs,
 								 final ICompilationBus aCb) {
 		try {
 			final CommandLine cmd = clp.parse(options, aInputs);

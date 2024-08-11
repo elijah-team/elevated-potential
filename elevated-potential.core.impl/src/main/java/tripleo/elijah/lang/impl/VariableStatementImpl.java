@@ -8,15 +8,13 @@
  */
 package tripleo.elijah.lang.impl;
 
+import java.io.*;
+import java.util.*;
+
+import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import tripleo.elijah.lang2.*;
 
 public class VariableStatementImpl implements OS_Element, tripleo.elijah.lang.i.VariableStatement {
 
@@ -25,7 +23,7 @@ public class VariableStatementImpl implements OS_Element, tripleo.elijah.lang.i.
 	private           IExpression            initialValue = LangGlobals.UNASSIGNED;
 	private           IdentExpression        name;
 	private           TypeModifiers          typeModifiers;
-	private @NotNull  TypeName               typeName     = new VariableTypeNameImpl();
+	private @NotNull TypeName typeName = new VariableTypeNameImpl();
 
 	public VariableStatementImpl(final VariableSequence aSequence) {
 		_parent = aSequence;

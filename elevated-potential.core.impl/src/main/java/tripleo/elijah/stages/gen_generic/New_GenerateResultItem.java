@@ -1,20 +1,21 @@
 package tripleo.elijah.stages.gen_generic;
 
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.ci.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.util.buffer.*;
-
-import java.util.*;
 
 public class New_GenerateResultItem implements GenerateResultItem {
 	private final Old_GenerateResultItem ogri;
 
 	public New_GenerateResultItem(final GenerateResult.@NotNull TY aTy,
-								  final @NotNull Buffer aBuffer,
-								  final @NotNull EvaNode aNode,
-								  final @NotNull LibraryStatementPart aLsp,
-								  final @NotNull Dependency aDependency,
+			final @NotNull Buffer aBuffer,
+			final @NotNull EvaNode aNode,
+			final @NotNull LibraryStatementPart aLsp,
+			final @NotNull Dependency aDependency,
 								  final int aCounter) {
 		ogri = new Old_GenerateResultItem(aTy, aBuffer, aNode, aLsp, aDependency, aCounter);
 	}

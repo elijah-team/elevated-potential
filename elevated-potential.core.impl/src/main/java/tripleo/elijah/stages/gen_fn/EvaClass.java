@@ -8,7 +8,11 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
+import java.util.*;
+import java.util.function.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
@@ -21,9 +25,6 @@ import tripleo.elijah.stages.garish.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
-
-import java.util.*;
-import java.util.function.*;
 
 /**
  * Created 10/29/20 4:26 AM
@@ -105,7 +106,8 @@ public class EvaClass extends EvaContainerNC implements GEvaClass {
 							OS_BuiltinType resolved = (OS_BuiltinType) potentialTypes.get(1).getResolved();
 
 							try {
-								@NotNull final GenType rt = ResolveType.resolve_type(resolvedClass1.getContext().module(),
+								@NotNull
+								final GenType rt = ResolveType.resolve_type(resolvedClass1.getContext().module(),
 																					 resolved, resolvedClass1.getContext(), aDeduceTypes2._LOG(), aDeduceTypes2);
 								int y = 2;
 
@@ -118,7 +120,8 @@ public class EvaClass extends EvaContainerNC implements GEvaClass {
 							OS_BuiltinType resolved = (OS_BuiltinType) potentialTypes.get(0).getResolved();
 
 							try {
-								@NotNull final GenType rt = aDeduceTypes2.resolve_type(resolved, resolvedClass2.getContext());
+								@NotNull
+								final GenType rt = aDeduceTypes2.resolve_type(resolved, resolvedClass2.getContext());
 								int y = 2;
 
 								potentialTypes = Helpers.List_of(rt);

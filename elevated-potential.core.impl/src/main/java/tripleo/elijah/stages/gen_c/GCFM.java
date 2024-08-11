@@ -1,13 +1,14 @@
 package tripleo.elijah.stages.gen_c;
 
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.ci.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.util.buffer.*;
-
-import java.util.*;
 
 public class GCFM implements Reactivable {
 
@@ -16,7 +17,8 @@ public class GCFM implements Reactivable {
 	private final @NotNull DeducedBaseEvaFunction gf;
 	private final GenerateResult gr;
 
-	public GCFM(final @NotNull List<C2C_Result> aRs, final @NotNull DeducedBaseEvaFunction aGf, final GenerateResult aGr) {
+	public GCFM(final @NotNull List<C2C_Result> aRs, final @NotNull DeducedBaseEvaFunction aGf,
+			final GenerateResult aGr) {
 		gf = aGf;
 		gr = aGr;
 

@@ -39,7 +39,7 @@ public class ExpressionNodeBuilder {
 
 	@NotNull
 	@Contract("_, _, _, _ -> new")
-	public static IExpression binex(final TypeRef rt, final VariableReferenceImpl left, final @NotNull ExpressionOperators middle, final IExpression right) {
+	public static IExpression binex(final TypeRef rt, final VariableReferenceImpl left, final @NotNull  ExpressionOperators middle, final IExpression right) {
 		// TODO Auto-generated method stub
 		final ExpressionKind middle1 = Helpers.ExpressionOperatorToExpressionType(middle);
 		return new BasicBinaryExpressionImpl(left, middle1, right);
@@ -47,7 +47,7 @@ public class ExpressionNodeBuilder {
 
 	@NotNull
 	@Contract("_, _, _, _ -> new")
-	public static IExpression binex(final TypeRef rt, final VariableReferenceImpl left, final @NotNull ExpressionOperators middle, final @NotNull TmpSSACtxNode right) { // todo wrong again
+	public static IExpression binex(final TypeRef rt, final VariableReferenceImpl left, final @NotNull  ExpressionOperators middle, final @NotNull  TmpSSACtxNode right) { // todo wrong again
 		// TODO Auto-generated method stub
 		final ExpressionKind middle1 = Helpers.ExpressionOperatorToExpressionType(middle);
 		return new BasicBinaryExpressionImpl(left, middle1, new StringExpressionImpl(tripleo.elijah.util.Helpers0.makeToken(right.text()))); // TODO !!!
@@ -62,7 +62,7 @@ public class ExpressionNodeBuilder {
 
 	@NotNull
 	@Contract(value = "_, _, _, _ -> new", pure = true)
-	public static IExpressionNode binex(final @NotNull TypeRef rt, final VariableReferenceNode3 varref, final ExpressionOperators operators, final TmpSSACtxNode node) {
+	public static IExpressionNode binex(final @NotNull  TypeRef rt, final VariableReferenceNode3 varref, final ExpressionOperators operators, final TmpSSACtxNode node) {
 		return new IExpressionNode() {
 			@Override
 			public @org.jetbrains.annotations.Nullable IExpression getExpr() {
@@ -112,7 +112,7 @@ public class ExpressionNodeBuilder {
 	}
 
 	@NotNull
-	public static IExpressionNode fncall(final @NotNull MethRef aMeth, final @NotNull List<LocalAgnTmpNode> of) { // TODO no so wrong anymore
+	public static IExpressionNode fncall(final @NotNull  MethRef aMeth, final @NotNull  List<LocalAgnTmpNode> of) { // TODO no so wrong anymore
 		final ProcedureCallExpression pce1 = new ProcedureCallExpressionImpl();
 		final Qualident               xyz  = new QualidentImpl();
 		final Token                   t    = new CommonToken();
@@ -126,7 +126,7 @@ public class ExpressionNodeBuilder {
 		//
 		return new IExpressionNode() {
 			@Override
-			public @NotNull IExpression getExpr() {
+			public @NotNull  IExpression getExpr() {
 				return pce1;
 			}
 
@@ -151,7 +151,7 @@ public class ExpressionNodeBuilder {
 			}
 
 			@Override
-			public @NotNull String genText(final CompilerContext cctx) {
+			public @NotNull  String genText(final CompilerContext cctx) {
 				final TypeRef       p    = aMeth.getParent();
 				final int           code = p.getCode();
 				final String        s    = String.format("z%d%s", code, pce1.getLeft().toString());
@@ -175,7 +175,7 @@ public class ExpressionNodeBuilder {
 					@Nullable
 					@Override
 					public String apply(@Nullable IExpression input) {
-						@NotNull final IExpression arg = input;
+						@NotNull  final IExpression arg = input;
 						final String               s2;
 						if (arg instanceof VariableReferenceImpl) {
 							s2 = ((VariableReferenceImpl) arg).getName();
@@ -210,7 +210,7 @@ public class ExpressionNodeBuilder {
 		};
 	}
 
-	public static @NotNull IExpressionNode fncall(final String string, final @NotNull List<LocalAgnTmpNode> of) { // todo wrong
+	public static @NotNull  IExpressionNode fncall(final String string, final @NotNull  List<LocalAgnTmpNode> of) { // todo wrong
 		// TODO Auto-generated method stub
 		final ProcedureCallExpression pce1 = new ProcedureCallExpressionImpl();
 		final Qualident               xyz  = new QualidentImpl();
@@ -223,7 +223,7 @@ public class ExpressionNodeBuilder {
 		//
 		return new IExpressionNode() {
 			@Override
-			public @NotNull IExpression getExpr() {
+			public @NotNull  IExpression getExpr() {
 				return pce1;
 			}
 
@@ -273,7 +273,7 @@ public class ExpressionNodeBuilder {
 		};
 	}
 
-//	public static IExpressionNode fncall(String string, List<@NotNull NumericExpression> list_of) {
+//	public static IExpressionNode fncall(String string, List<@NotNull  NumericExpression> list_of) {
 //		final ExpressionList expl = Helpers.LocalAgnTmpNodeToListVarRef(of);
 //		return fncall(string, expl);
 //	}
@@ -322,7 +322,7 @@ public class ExpressionNodeBuilder {
 			_right  = right;
 		}
 
-		static @NotNull String printableExpression(@NotNull final IExpression expression) {
+		static @NotNull  String printableExpression(@NotNull  final IExpression expression) {
 //			if (expression instanceof OS_Integer) {
 //				return Integer.toString(((OS_Integer) expression).getValue());
 //			} else

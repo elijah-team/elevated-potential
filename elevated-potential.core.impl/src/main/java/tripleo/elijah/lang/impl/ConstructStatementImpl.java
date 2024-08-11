@@ -8,6 +8,7 @@
 package tripleo.elijah.lang.impl;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
 
@@ -22,8 +23,8 @@ public class ConstructStatementImpl implements ConstructStatement {
 	private final @NotNull OS_Element parent;
 
 	public ConstructStatementImpl(@NotNull final OS_Element aParent,
-								  @NotNull final Context aContext,
-								  @NotNull final IExpression aExpr,
+			@NotNull final Context aContext,
+			@NotNull final IExpression aExpr,
 								  @Nullable final String aConstructorName,
 								  @Nullable final ExpressionList aExpressionList) {
 		parent          = aParent;

@@ -1,12 +1,11 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
-import tripleo.util.buffer.Buffer;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.util.buffer.*;
 
 class Default_C2C_Result implements C2C_Result {
 	private final Buffer buffer;
@@ -21,7 +20,7 @@ class Default_C2C_Result implements C2C_Result {
 	public Default_C2C_Result(final Buffer aBuffer,
 							  final GenerateResult.TY aTY,
 							  final String aExplanationMessage,
-							  final @NotNull WhyNotGarish_BaseFunction aWhyNotGarishFunction) {
+			final @NotNull WhyNotGarish_BaseFunction aWhyNotGarishFunction) {
 		buffer = aBuffer;
 		_ty = aTY;
 		explanation_message = aExplanationMessage;

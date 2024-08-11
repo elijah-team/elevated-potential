@@ -44,7 +44,7 @@ public class FactorialR /* extends TestCase */ {
 	protected void tearDown() throws Exception {
 	}
 
-	void main2_el(final CompilerContext cctx, final @NotNull GenBuffer gbn) {
+	void main2_el(final CompilerContext cctx, final @NotNull  GenBuffer gbn) {
 		final ModuleRef prelude = new ModuleRef(null, -1);
 		final TypeRef   sys_int = new TypeRef(prelude, prelude, "SystemInteger", BuiltInTypes.SystemInteger.getCode());
 		final ModuleRef main2   = new ModuleRef("main2/main2.elijjah", 10000);
@@ -93,18 +93,18 @@ public class FactorialR /* extends TestCase */ {
 	}
 	
 	
-	private @NotNull NumericExpression convertToLocalAgnTmpNode2(final IExpressionNode fncall) {
+	private @NotNull  NumericExpression convertToLocalAgnTmpNode2(final IExpressionNode fncall) {
 		throw new NotImplementedException();
 	}
 
-	private List<LocalAgnTmpNode> convertToLocalAgnTmpNode(final List<@NotNull NumericExpression> list_of) {
+	private List<LocalAgnTmpNode> convertToLocalAgnTmpNode(final List<@NotNull  NumericExpression> list_of) {
 		// TODO Auto-generated method stub
 		final List<LocalAgnTmpNode> r = null;
 		throw new NotImplementedException();
 //		return r;
 	}
 
-	public void factorial_r(final @NotNull CompilerContext cctx, final @NotNull GenBuffer gbn) {
+	public void factorial_r(final @NotNull  CompilerContext cctx, final @NotNull  GenBuffer gbn) {
 		final ModuleRef prelude = new ModuleRef(null, -1);
 		final TypeRef   u64     = new TypeRef(prelude, prelude, "u64", 81);
 		final ModuleRef main_m  = new ModuleRef("fact.elijah", -2);
@@ -167,7 +167,7 @@ public class FactorialR /* extends TestCase */ {
 
 	}
 
-	public void GenMethHdr(final @NotNull CompilerContext cctx, final @NotNull MethHdrNode node, final @NotNull GenBuffer gbn) {
+	public void GenMethHdr(final @NotNull  CompilerContext cctx, final @NotNull  MethHdrNode node, final @NotNull  GenBuffer gbn) {
 		final TextBuffer buf = gbn.moduleBufHdr(cctx.module());
 		buf.append_s(node.returnType().genType());
 		buf.append(node.genName());
@@ -180,7 +180,7 @@ public class FactorialR /* extends TestCase */ {
 		buf.append(");");
 	}
 
-	private void BeginMeth(final @NotNull CompilerContext cctx, final @NotNull MethHdrNode node, final @NotNull GenBuffer gbn) {
+	private void BeginMeth(final @NotNull  CompilerContext cctx, final @NotNull  MethHdrNode node, final @NotNull  GenBuffer gbn) {
 		// TODO Auto-generated method stub
 		final TextBuffer buf=gbn.moduleBufImpl(cctx.module());
 /*
@@ -209,7 +209,7 @@ public class FactorialR /* extends TestCase */ {
 		buf.incr_i();
 		}
 
-	private void BeginCaseStatement(final @NotNull CompilerContext cctx, final @NotNull CaseHdrNode node, final @NotNull GenBuffer gbn) {
+	private void BeginCaseStatement(final @NotNull  CompilerContext cctx, final @NotNull  CaseHdrNode node, final @NotNull  GenBuffer gbn) {
 		final TextBuffer buf = gbn.moduleBufImpl(cctx.module());
 		final boolean is_simple = node.getExpr().is_simple();
 		buf.append_s("switch (");
@@ -222,7 +222,7 @@ public class FactorialR /* extends TestCase */ {
 		buf.incr_i();
 	}
 
-	private void BeginCaseChoice(final @NotNull CompilerContext cctx, final @NotNull CaseChoiceNode node, final @NotNull GenBuffer gbn) {
+	private void BeginCaseChoice(final @NotNull  CompilerContext cctx, final @NotNull  CaseChoiceNode node, final @NotNull  GenBuffer gbn) {
 		// TODO Auto-generated method stub
 		final TextBuffer buf=gbn.moduleBufImpl(cctx.module());
 		final boolean is_simple = node.left.is_const_expr();
@@ -238,7 +238,7 @@ public class FactorialR /* extends TestCase */ {
 		}
 	}
 
-	private void GenReturnAgn(final @NotNull CompilerContext cctx, final @NotNull ReturnAgnNode node, final @NotNull GenBuffer gbn) {
+	private void GenReturnAgn(final @NotNull  CompilerContext cctx, final @NotNull  ReturnAgnNode node, final @NotNull  GenBuffer gbn) {
 		final TextBuffer buf=gbn.moduleBufImpl(cctx.module());
 		buf.append("vsr =");
 		buf.append(node.getExpr().genText(cctx));
@@ -246,7 +246,7 @@ public class FactorialR /* extends TestCase */ {
 		// if(node.usesRetKW()) {buf.append ("return vsr;");}
 	}
 
-	private void CloseCaseChoice(final @NotNull CompilerContext cctx, final CloseCaseNode node, final @NotNull GenBuffer gbn) {
+	private void CloseCaseChoice(final @NotNull  CompilerContext cctx, final CloseCaseNode node, final @NotNull  GenBuffer gbn) {
 		// TODO Auto-generated method stub
 		final TextBuffer buf = gbn.moduleBufImpl(cctx.module());
 		buf.decr_i();
@@ -254,7 +254,7 @@ public class FactorialR /* extends TestCase */ {
 //		buf.append_nl("} // close select ("+node.hdr_node.left.genName+")"); // TODO left was expr
 	}
 
-	private void BeginDefaultCaseStatement(final @NotNull CompilerContext cctx, final @NotNull CaseChoiceNode node, final @NotNull GenBuffer gbn) {
+	private void BeginDefaultCaseStatement(final @NotNull  CompilerContext cctx, final @NotNull  CaseChoiceNode node, final @NotNull  GenBuffer gbn) {
 		// TODO Auto-generated method stub
 		final TextBuffer buf=gbn.moduleBufImpl(cctx.module());
 		buf.incr_i();
@@ -289,7 +289,7 @@ public class FactorialR /* extends TestCase */ {
 		}
 	}
 
-	public static @NotNull TextBuffer BeginTmpSSACtx(final @NotNull CompilerContext cctx, final @NotNull TmpSSACtxNode node, final @NotNull GenBuffer gbn) {
+	public static @NotNull  TextBuffer BeginTmpSSACtx(final @NotNull  CompilerContext cctx, final @NotNull  TmpSSACtxNode node, final @NotNull  GenBuffer gbn) {
 		// TODO Auto-generated method stub
 		final TextBuffer buf=gbn.moduleBufImpl(cctx.module());
 		buf.incr_i();
@@ -305,7 +305,7 @@ public class FactorialR /* extends TestCase */ {
 		return buf;
 	}
 
-	public static @NotNull TextBuffer GenLocalAgn(final @NotNull CompilerContext cctx, final @NotNull LocalAgnTmpNode node, final @NotNull GenBuffer gbn) {
+	public static @NotNull  TextBuffer GenLocalAgn(final @NotNull  CompilerContext cctx, final @NotNull  LocalAgnTmpNode node, final @NotNull  GenBuffer gbn) {
 		// TODO Auto-generated method stub
 		final TextBuffer buf=gbn.moduleBufImpl(cctx.module());
 //		if (node instanceof LocalAgnTmpNode) {
@@ -322,19 +322,19 @@ public class FactorialR /* extends TestCase */ {
 		return buf;
 	}
 
-	private void CloseTmpCtx(final @NotNull CompilerContext cctx, final LocalAgnTmpNode lamn, final @NotNull GenBuffer gbn) {
+	private void CloseTmpCtx(final @NotNull  CompilerContext cctx, final LocalAgnTmpNode lamn, final @NotNull  GenBuffer gbn) {
 		final TextBuffer buf=gbn.moduleBufImpl(cctx.module());
 		buf.append_cb(""); // close-brace
 	}
 	
-	private void EndCaseStatement(final @NotNull CompilerContext cctx, final @NotNull CaseHdrNode node, final @NotNull GenBuffer gbn) {
+	private void EndCaseStatement(final @NotNull  CompilerContext cctx, final @NotNull  CaseHdrNode node, final @NotNull  GenBuffer gbn) {
 		// TODO Auto-generated method stub
 		final TextBuffer buf=gbn.moduleBufImpl(cctx.module());
 		buf.decr_i();
 		buf.append_nl("} // close select "+node.getExpr().genText());
 	}
 
-	private void EndMeth(final @NotNull CompilerContext cctx, final MethHdrNode mhn, final @NotNull GenBuffer gbn) {
+	private void EndMeth(final @NotNull  CompilerContext cctx, final MethHdrNode mhn, final @NotNull  GenBuffer gbn) {
 		final TextBuffer buf=gbn.moduleBufImpl(cctx.module());
 		buf.append_ln("return vsr;");
 		buf.decr_i();
@@ -342,7 +342,7 @@ public class FactorialR /* extends TestCase */ {
 	}
 
 	@Deprecated
-	private void GenReturnAgnSimpleInt(final @NotNull CompilerContext cctx, final @NotNull ReturnAgnSimpleIntNode rasin, final @NotNull GenBuffer gbn) {
+	private void GenReturnAgnSimpleInt(final @NotNull  CompilerContext cctx, final @NotNull  ReturnAgnSimpleIntNode rasin, final @NotNull  GenBuffer gbn) {
 		final TextBuffer buf=gbn.moduleBufImpl(cctx.module());
 		buf.append("vsr = ");
 		buf.append(((Integer)rasin.getValue()).toString());
@@ -355,7 +355,7 @@ public class FactorialR /* extends TestCase */ {
 		 */
 //		@Override
 		@Override
-		public void transform(final @NotNull ArgumentNode na, final @NotNull DefaultBuffer bufbldr) {
+		public void transform(final @NotNull  ArgumentNode na, final @NotNull  DefaultBuffer bufbldr) {
 			bufbldr.append_s(na.getGenType(), XX.SPACE);
 			bufbldr.append(na.getVarName());
 		}

@@ -1,15 +1,14 @@
 package tripleo.elijah.stages.inter;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.entrypoints.EntryPoint;
-import tripleo.elijah.g.*;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.stages.gen_fn.EvaFunction;
-import tripleo.small.ES_Symbol;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.entrypoints.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.small.*;
 
 public class ModuleThing implements GModuleThing {
 	public static final class GeneralDescription {
@@ -52,8 +51,8 @@ public class ModuleThing implements GModuleThing {
 
 		}
 
-	private final @NotNull List<EntryPoint> entryPoints;
-	private final @NotNull List<EvaFunction> evaFunctions = new ArrayList<>();
+		private final @NotNull List<EntryPoint> entryPoints;
+		private final @NotNull List<EvaFunction> evaFunctions = new ArrayList<>();
 	private final OS_Module mod;
 
 	private GeneralDescription generalDescription;

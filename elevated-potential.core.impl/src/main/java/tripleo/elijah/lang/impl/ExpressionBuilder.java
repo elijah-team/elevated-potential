@@ -13,11 +13,9 @@
  */
 package tripleo.elijah.lang.impl;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.lang.i.ExpressionKind;
-import tripleo.elijah.lang.i.IBinaryExpression;
-import tripleo.elijah.lang.i.IExpression;
-import tripleo.elijah.lang.i.OS_Type;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.lang.i.*;
 
 public class ExpressionBuilder {
 
@@ -30,7 +28,8 @@ public class ExpressionBuilder {
 		};
 	}
 
-	public static @NotNull IBinaryExpression build(final IExpression left, final ExpressionKind aType, final IExpression aExpression) {
+	public static @NotNull IBinaryExpression build(final IExpression left, final ExpressionKind aType,
+			final IExpression aExpression) {
 		return new BasicBinaryExpressionImpl(left, aType, aExpression);
 	}
 

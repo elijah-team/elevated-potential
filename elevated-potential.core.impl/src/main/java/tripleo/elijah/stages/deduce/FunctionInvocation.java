@@ -135,7 +135,7 @@ public class FunctionInvocation implements IInvocation {
 
 	private Eventual<BaseEvaFunction> xxx___forDefaultVirtualCtor(final @NotNull DeduceCreationContext cl,
 			final @NotNull DeduceTypes2Injector injector,
-																  final @NotNull OS_Module module) {
+			final @NotNull OS_Module module) {
 		final @NotNull WlGenerateDefaultCtor wlgdc = injector.new_WlGenerateDefaultCtor(module, this, cl);
 		wlgdc.run(null);
 		return wlgdc.getGenerated();
@@ -143,9 +143,9 @@ public class FunctionInvocation implements IInvocation {
 
 	@NotNull
 	private BaseEvaFunction xxxForConstructorDef(final @NotNull DeduceCreationContext cl,
-												 final @NotNull ConstructorDef cd,
+			final @NotNull ConstructorDef cd,
 			final @NotNull DeduceTypes2Injector injector,
-												 final @NotNull OS_Module module) {
+			final @NotNull OS_Module module) {
 		final @NotNull WlGenerateCtor wlgf = injector.new_WlGenerateCtor(module, cd.getNameNode(), this, cl);
 		wlgf.run(null);
 
@@ -156,7 +156,7 @@ public class FunctionInvocation implements IInvocation {
 	@NotNull
 	private BaseEvaFunction xxx__forFunction(final @NotNull DeduceCreationContext cl,
 			final @NotNull DeduceTypes2Injector injector,
-											 final @NotNull OS_Module module) {
+			final @NotNull OS_Module module) {
 
 		final GeneratePhase generatePhase = cl.getGeneratePhase();
 		final DeducePhase   deducePhase   = cl.getDeducePhase();

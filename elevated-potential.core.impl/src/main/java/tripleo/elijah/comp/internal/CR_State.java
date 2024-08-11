@@ -9,10 +9,15 @@
  */
 package tripleo.elijah.comp.internal;
 
+import java.lang.reflect.*;
+import java.util.*;
+import java.util.function.*;
+
 import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
@@ -33,10 +38,6 @@ import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.backbone.*;
 import tripleo.elijah_elevated_durable.aware.*;
 import tripleo.elijah_prolific.v.*;
-
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.function.*;
 
 public class CR_State implements GCR_State {
 
@@ -79,7 +80,7 @@ public class CR_State implements GCR_State {
 		// private final DeducePipeline dpl;
 		private final @NotNull ICompilationAccess ca;
 		private                IPipelineAccess    pa;
-		private @NotNull       PipelineLogic      pipelineLogic;
+		private @NotNull PipelineLogic pipelineLogic;
 
 		public ProcessRecordImpl(final @NotNull ICompilationAccess ca0) {
 			ca = ca0;
@@ -117,16 +118,16 @@ public class CR_State implements GCR_State {
 	}
 
 	class ProcessRecord_PipelineAccess implements IPipelineAccess {
-		private final @NotNull List<EvaNode>                                         _l_classes         = new ArrayList<>();
-		private final @NotNull List<EvaClass>                                        activeClasses      = new ArrayList<>();
-		private final @NotNull List<EvaNamespace>                                    activeNamespaces   = new ArrayList<>();
+		private final @NotNull List<EvaNode> _l_classes = new ArrayList<>();
+		private final @NotNull List<EvaClass> activeClasses = new ArrayList<>();
+		private final @NotNull List<EvaNamespace> activeNamespaces = new ArrayList<>();
 		private final          DeferredObject<EvaPipeline, Void, Void>               EvaPipelinePromise = new DeferredObject<>();
 		private final          Map<OS_Module, DeferredObject<GenerateC, Void, Void>> gc2m_map           = new HashMap<>();
 		@SuppressWarnings("rawtypes")
-		private final @NotNull Map<Provenance, Pair<Class, Class>>                   installs           = new HashMap<>();
+		private final @NotNull Map<Provenance, Pair<Class, Class>> installs = new HashMap<>();
 		private final Eventual<List<EvaNode>> _p_EvaNodeList = new Eventual<>();
 		private final          List<NG_OutputItem>                                   outputs            = new ArrayList<NG_OutputItem>();
-		private final @NotNull DeferredObject<PipelineLogic, Void, Void>             ppl                = new DeferredObject<>();
+		private final @NotNull DeferredObject<PipelineLogic, Void, Void> ppl = new DeferredObject<>();
 		@NotNull
 		List<BaseEvaFunction> activeFunctions = new ArrayList<BaseEvaFunction>();
 		private AccessBus           _ab;

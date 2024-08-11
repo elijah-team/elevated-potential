@@ -1,21 +1,18 @@
 package tripleo.elijah.stateful.annotation.processor;
 
-import com.google.auto.service.AutoService;
-import org.jetbrains.annotations.NotNull;
+import java.io.*;
+import java.util.*;
+import java.util.stream.*;
 
 import javax.annotation.processing.*;
-import javax.lang.model.SourceVersion;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.ExecutableType;
-import javax.tools.Diagnostic;
-import javax.tools.JavaFileObject;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
+import javax.lang.model.*;
+import javax.lang.model.element.*;
+import javax.lang.model.type.*;
+import javax.tools.*;
+
+import org.jetbrains.annotations.*;
+
+import com.google.auto.service.*;
 
 @SupportedAnnotationTypes("tripleo.elijah.stateful.annotation.processor.StatefulProperty")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)

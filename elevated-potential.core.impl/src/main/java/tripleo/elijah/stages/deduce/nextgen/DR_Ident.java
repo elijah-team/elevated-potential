@@ -1,16 +1,16 @@
 package tripleo.elijah.stages.deduce.nextgen;
 
+import java.util.*;
+
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.DebugFlags;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
-
-import java.util.*;
 
 public abstract class DR_Ident implements DR_Item {
 	public interface Understanding {
@@ -43,7 +43,8 @@ public abstract class DR_Ident implements DR_Item {
 		};
 	}
 
-	public static @NotNull DR_Ident create(@NotNull IdentTableEntry aIdentTableEntry, BaseEvaFunction aGeneratedFunction) {
+	public static @NotNull DR_Ident create(@NotNull IdentTableEntry aIdentTableEntry,
+			BaseEvaFunction aGeneratedFunction) {
 		return new DR_Ident(aIdentTableEntry, aGeneratedFunction) {
 			@Override
 			public _S _s() {
@@ -67,7 +68,8 @@ public abstract class DR_Ident implements DR_Item {
 		};
 	}
 
-	public static @NotNull DR_Ident create(final VariableTableEntry aVariableTableEntry, final BaseEvaFunction aGeneratedFunction) {
+	public static @NotNull DR_Ident create(final VariableTableEntry aVariableTableEntry,
+			final BaseEvaFunction aGeneratedFunction) {
 		return new DR_Ident(aVariableTableEntry, aGeneratedFunction) {
 			@Override
 			public _S _s() {

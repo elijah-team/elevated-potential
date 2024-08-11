@@ -1,10 +1,11 @@
 package tripleo.vendor.batoull22;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.Operation;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
+
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.util.*;
 
 /**
  * @author batoul

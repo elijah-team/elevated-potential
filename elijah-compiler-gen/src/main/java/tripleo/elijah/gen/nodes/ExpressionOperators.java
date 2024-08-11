@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 public enum ExpressionOperators {
 	OP_MINUS, OP_MULT;
 
-	@NotNull
+	@NotNull 
 	public String getSymbol() {
 		final String middle1;
 		switch (this) {

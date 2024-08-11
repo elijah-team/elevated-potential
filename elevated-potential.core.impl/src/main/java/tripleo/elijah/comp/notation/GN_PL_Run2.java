@@ -1,23 +1,21 @@
 package tripleo.elijah.comp.notation;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
-import tripleo.elijah.comp.PipelineLogic;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.factory.NonOpinionatedBuilder;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah.stages.gen_fn.DefaultClassGenerator;
-import tripleo.elijah.stages.gen_fn.IClassGenerator;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.stages.inter.ModuleThing;
-import tripleo.elijah.world.i.WorldModule;
-import tripleo.elijah.world.impl.DefaultWorldModule;
+import java.util.*;
+import java.util.function.*;
 
-import java.util.Objects;
-import java.util.function.Consumer;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.factory.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.inter.*;
+import tripleo.elijah.world.i.*;
+import tripleo.elijah.world.impl.*;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 public class GN_PL_Run2 implements GN_Notable, EventualRegister {
 	private final NonOpinionatedBuilder __nob;
@@ -39,7 +37,7 @@ public class GN_PL_Run2 implements GN_Notable, EventualRegister {
 	@Contract(pure = true)
 	public GN_PL_Run2(final PipelineLogic aPipelineLogic, final @NotNull WorldModule aMod,
 			final CompilationEnclosure aCe, final Consumer<WorldModule> aWorldConsumer,
-					  final @NotNull NonOpinionatedBuilder aNob) {
+			final @NotNull NonOpinionatedBuilder aNob) {
 		pipelineLogic = aPipelineLogic;
 		mod = aMod;
 		ce = aCe;

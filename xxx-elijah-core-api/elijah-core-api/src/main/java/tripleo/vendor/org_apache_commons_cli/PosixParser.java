@@ -80,7 +80,8 @@
 //	 * @param stopAtNonOption Specifies whether to stop processing at the first
 //	 *                        non-Option encountered.
 //	 */
-//	protected void burstToken(final @NotNull String token, final boolean stopAtNonOption) {
+// protected void burstToken(final @NotNull String token, final boolean
+/// stopAtNonOption) {
 //		for (int i = 1; i < token.length(); i++) {
 //			final String ch = String.valueOf(token.charAt(i));
 //
@@ -142,7 +143,8 @@
 //	 * @return The flattened {@code arguments} String array.
 //	 */
 //	@Override
-//	protected String @NotNull [] flatten(final @NotNull Options options, final String[] arguments,
+// protected String @NotNull [] flatten(final @NotNull Options options, final
+/// String[] arguments,
 //			final boolean stopAtNonOption) throws ParseException {
 //		init();
 //		this.options = options;
@@ -209,7 +211,7 @@
 //	 *
 //	 * @param iter An iterator over the remaining tokens
 //	 */
-//	private void gobble(final @NotNull Iterator<String> iter) {
+// private void gobble(final @NotNull Iterator<String> iter) {
 //		if (eatTheRest) {
 //			while (iter.hasNext()) {
 //				tokens.add(iter.next());
@@ -227,7 +229,8 @@
 //	}
 //
 //	@Override
-//	public CommandLine parse(Options options, @NotNull List<CompilerInput> aInputs) {
+// public CommandLine parse(Options options, @NotNull List<CompilerInput>
+/// aInputs) {
 //		throw new NotImplementedException();
 //	}
 //

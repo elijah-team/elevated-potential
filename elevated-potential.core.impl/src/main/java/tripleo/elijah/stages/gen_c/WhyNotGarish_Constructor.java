@@ -1,7 +1,10 @@
 package tripleo.elijah.stages.gen_c;
 
+import java.util.*;
+
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.notation.*;
@@ -17,8 +20,6 @@ import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
-
-import java.util.*;
 
 public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	private final WhyNotGarish_DeclaringContext __declaringContext;
@@ -169,7 +170,7 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 	private void generateIdent(@NotNull IdentTableEntry identTableEntry, @NotNull GenerateResultEnv aFileGen) {
 		assert identTableEntry.isResolved();
 
-		final @NotNull EvaNode x  = identTableEntry.resolvedType();
+		final @NotNull EvaNode x = identTableEntry.resolvedType();
 		final WorkList         wl = aFileGen.wl();
 
 		if (x instanceof final EvaClass evaClass) {

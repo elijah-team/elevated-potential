@@ -17,10 +17,10 @@
 
 package tripleo.vendor.org_apache_commons_cli;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.Serializable;
+import java.io.*;
 import java.util.*;
+
+import org.jetbrains.annotations.*;
 
 /**
  * Main entry-point into the library.
