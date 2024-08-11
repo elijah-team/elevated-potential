@@ -9,6 +9,7 @@
 package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 
@@ -26,7 +27,8 @@ public class IfConditionalContext__ extends ContextImpl implements IfConditional
 		_prev_ctx = null; // TOP if statement
 	}
 
-	public IfConditionalContext__(final @NotNull Context ctx, final IfConditional ifConditional, final boolean _ignored) {
+	public IfConditionalContext__(final @NotNull Context ctx, final IfConditional ifConditional,
+			final boolean _ignored) {
 		_prev_ctx = ctx;
 		_parent = ((IfConditionalContext__) ctx)._parent;
 		carrier = ifConditional;
@@ -39,7 +41,7 @@ public class IfConditionalContext__ extends ContextImpl implements IfConditional
 
 	@Override
 	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
-								   final @NotNull ISearchList alreadySearched, final boolean one) {
+			final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 		for (final OS_Element/* StatementItem */ item : carrier.getItems()) {
 			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)

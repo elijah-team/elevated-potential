@@ -8,19 +8,16 @@
  */
 package tripleo.elijah.stages.generate;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.ci.LibraryStatementPart;
+import java.io.*;
+
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.ci.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.LangGlobals;
+import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
-
-import java.io.File;
+import tripleo.elijah.stages.gen_generic.*;
 
 /**
  * Created 1/13/21 5:54 AM
@@ -332,7 +329,7 @@ public class OutputStrategyC {
 	}
 
 	public @NotNull EOT_FileNameProvider nameForFunction1(final @NotNull EvaFunction aGf,
-														  final GenerateResult.@NotNull TY aTy) {
+			final GenerateResult.@NotNull TY aTy) {
 		return new OSC_NFF(nameForFunction(aGf, aTy));
 	}
 
@@ -372,7 +369,7 @@ public class OutputStrategyC {
 	}
 
 	public EOT_FileNameProvider nameForNamespace1(final @NotNull EvaNamespace aX,
-												  final GenerateResult.@NotNull TY aTy) {
+			final GenerateResult.@NotNull TY aTy) {
 		return new OSC_NFN_(aX, aTy);
 	}
 

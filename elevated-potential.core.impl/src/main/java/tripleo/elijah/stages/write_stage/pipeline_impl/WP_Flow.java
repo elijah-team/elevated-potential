@@ -1,24 +1,22 @@
 package tripleo.elijah.stages.write_stage.pipeline_impl;
 
-import org.apache.commons.lang3.tuple.Pair;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.WritePipeline;
+import java.util.*;
+
+import org.apache.commons.lang3.tuple.*;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import tripleo.elijah.util.*;
 
 public class WP_Flow extends CK_AbstractStepsContext {
 	private final List<WP_Individual_Step> steps = new ArrayList<>();
 	private       WritePipeline            writePipeline;
 	private final OPS                     myOps;
 
-	public WP_Flow(final WritePipeline aWritePipeline, final @NotNull IPipelineAccess aPa, final @NotNull Collection<? extends WP_Individual_Step> s) {
+	public WP_Flow(final WritePipeline aWritePipeline, final @NotNull IPipelineAccess aPa,
+			final @NotNull Collection<? extends WP_Individual_Step> s) {
 		writePipeline = aWritePipeline;
 		steps.addAll(s);
 		myOps = new OPS(writePipeline, this);

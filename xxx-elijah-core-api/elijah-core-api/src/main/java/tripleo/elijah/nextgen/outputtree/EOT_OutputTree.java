@@ -1,15 +1,16 @@
 package tripleo.elijah.nextgen.outputtree;
 
-import org.jetbrains.annotations.*;
-
 import java.util.*;
+
+import org.jetbrains.annotations.*;
 
 public interface EOT_OutputTree {
 	void add(@NotNull EOT_OutputFile aOff);
 
 	void addAll(@NotNull List<EOT_OutputFile> aLeof);
 
-	@NotNull List<EOT_OutputFile> getList();
+	@NotNull
+	List<EOT_OutputFile> getList();
 
 	void recompute();
 

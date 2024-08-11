@@ -8,12 +8,10 @@
  */
 package tripleo.elijah.contexts;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.BaseFunctionDef;
-import tripleo.elijah.lang.impl.ContextImpl;
-import tripleo.elijah.lang.impl.VariableSequenceImpl;
+import tripleo.elijah.lang.impl.*;
 
 /**
  * @author Tripleo
@@ -43,7 +41,7 @@ public class FunctionContextImpl extends ContextImpl implements IFunctionContext
 
 	@Override
 	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
-								   final @NotNull ISearchList alreadySearched, final boolean one) {
+			final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 		for (final FunctionItem item : carrier.getItems()) {
 			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)

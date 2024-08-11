@@ -1,7 +1,10 @@
 package tripleo.elijah.stages.deduce.post_bytecode;
 
+import java.util.*;
+
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.Finally.*;
 import tripleo.elijah.contexts.*;
@@ -15,8 +18,6 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
-
-import java.util.*;
 
 public class DeduceElement3_IdentTableEntry extends DefaultStateful implements IDeduceElement3 {
 
@@ -460,7 +461,9 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 		return el;
 	}
 
-	private static OS_Element __sneak_el_null__bl1_not_null__resolve_part(final @NotNull IdentExpression ident, final OS_Element[] elx, OS_Element el, final @NotNull VariableTableEntry vte_bl1, final DeduceTypeResolve tr) {
+	private static OS_Element __sneak_el_null__bl1_not_null__resolve_part(final @NotNull IdentExpression ident,
+			final OS_Element[] elx, OS_Element el, final @NotNull VariableTableEntry vte_bl1,
+			final DeduceTypeResolve tr) {
 		if (vte_bl1.typeDeferred_isResolved()) {
 			vte_bl1.typePromise().then(type1 -> {
 				if (tr.typeResolution().isPending()) {

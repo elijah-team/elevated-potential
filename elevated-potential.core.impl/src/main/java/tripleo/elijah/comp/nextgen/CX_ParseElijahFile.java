@@ -1,7 +1,12 @@
 package tripleo.elijah.comp.nextgen;
 
-import antlr.*;
+import static tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.*;
+
+import java.io.*;
+
 import org.jetbrains.annotations.*;
+
+import antlr.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
@@ -11,11 +16,7 @@ import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.util.*;
 import tripleo.elijjah.*;
-
-import java.io.*;
 import tripleo.wrap.File;
-
-import static tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.*;
 
 public class CX_ParseElijahFile {
 
@@ -97,13 +98,14 @@ public class CX_ParseElijahFile {
 
 	public static Operation2<OS_Module> __parseEzFile(String file_name,
 													  File file,
-													  @NotNull ElijahSpecReader r,
-													  @NotNull CY_ElijahSpecParser parser) {
+			@NotNull ElijahSpecReader r,
+			@NotNull CY_ElijahSpecParser parser) {
 		final ElijahSpec             spec = new ElijahSpec_(file_name, file, r.get().success());
 		return parser.parse(spec);
 	}
 
 	public interface ElijahSpecReader {
-		@NotNull Operation<InputStream> get();
+		@NotNull
+		Operation<InputStream> get();
 	}
 }

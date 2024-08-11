@@ -1,25 +1,25 @@
 package tripleo.elijah.comp;
 
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.util.io.*;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Path;
-import java.util.List;
-
 import tripleo.wrap.File;
 
 public interface IO {
-	@Nullable CharSource openRead(@NotNull Path p);
+	@Nullable
+	CharSource openRead(@NotNull Path p);
 
-	@NotNull DisposableCharSink openWrite(@NotNull Path p) throws IOException;
+	@NotNull
+	DisposableCharSink openWrite(@NotNull Path p) throws IOException;
 
-	@NotNull InputStream readFile(@NotNull tripleo.wrap.File f) throws FileNotFoundException;
+	@NotNull
+	InputStream readFile(@NotNull tripleo.wrap.File f) throws FileNotFoundException;
 
 	_IO_ReadFile readFile2(@NotNull File f) throws FileNotFoundException;
 

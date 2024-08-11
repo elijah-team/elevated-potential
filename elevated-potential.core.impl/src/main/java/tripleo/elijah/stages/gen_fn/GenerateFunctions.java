@@ -7,14 +7,21 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import com.google.common.collect.*;
+import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
+import static tripleo.elijah.util.Helpers.*;
+
+import java.util.*;
+
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
+import com.google.common.collect.*;
+
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.entrypoints.*;
-import tripleo.elijah.g.GGenerateFunctions;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
@@ -22,18 +29,13 @@ import tripleo.elijah.lang2.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.pre_world.*;
 import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.gen_fn_c.GenFnC;
+import tripleo.elijah.stages.gen_fn_c.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.inter.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.util.range.Range;
-
-import java.util.*;
-
-import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
-import static tripleo.elijah.util.Helpers.*;
 
 /**
  * Created 9/10/20 2:28 PM
@@ -43,7 +45,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 
 	final                  OS_Module     module;
 	final                  GeneratePhase phase;
-	private final @NotNull ElLog         LOG;
+	private final @NotNull ElLog LOG;
 	private final          GenFnC        bc;
 	//private final IPipelineAccess pa;
 
@@ -58,7 +60,8 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		bc.addLog(LOG);
 	}
 
-	//public GenerateFunctions(final OS_Module aModule, @NotNull PipelineLogic aPipelineLogic,
+	// public GenerateFunctions(final OS_Module aModule, @NotNull PipelineLogic
+	// aPipelineLogic,
 	//		final IPipelineAccess pa0) {
 	//	pa = pa0;
 	//	phase = aPipelineLogic.generatePhase;
@@ -105,7 +108,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 	private int addConstantTableEntry2(final String name,
 									   final IExpression initialValue,
 									   final OS_Type type,
-									   final @NotNull BaseEvaFunction gf) {
+			final @NotNull BaseEvaFunction gf) {
 		final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, type, initialValue);
 		final @NotNull ConstantTableEntry cte = new ConstantTableEntry(gf.cte_list.size(), name, initialValue, tte);
 
@@ -139,7 +142,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 
 	private int addTempTableEntry(final OS_Type type,
 								  final @Nullable IdentExpression name,
-								  final @NotNull  BaseEvaFunction gf,
+			final @NotNull BaseEvaFunction gf,
 								  final @Nullable OS_Element el) {
 		final @org.jetbrains.annotations.Nullable String theName;
 		final int num;
@@ -339,7 +342,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 	private void generate_item_assignment(final StatementWrapper aStatementWrapper, @NotNull final IExpression x,
 			@NotNull final BaseEvaFunction gf, final @NotNull Context cctx) {
 //		LOG.err(String.format("801 %s %s", x.getLeft(), ((BasicBinaryExpressionImpl) x).getRight()));
-		final @NotNull BasicBinaryExpression bbe = (BasicBinaryExpression) x;
+final @NotNull BasicBinaryExpression bbe = (BasicBinaryExpression) x;
 		final IExpression right1 = bbe.getRight();
 		final @NotNull Generate_item_assignment gia = new Generate_item_assignment();
 		switch (right1.getKind()) {
@@ -460,7 +463,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 
 	public @NotNull EvaConstructor generateConstructor(@NotNull ConstructorDef aConstructorDef,
 													   ClassStatement parent, // TODO Namespace constructors
-													   @NotNull FunctionInvocation aFunctionInvocation) {
+			@NotNull FunctionInvocation aFunctionInvocation) {
 		final @NotNull EvaConstructor gf = new EvaConstructor(aConstructorDef);
 		gf.setFunctionInvocation(aFunctionInvocation);
 		if (parent instanceof ClassStatement) {
@@ -521,8 +524,8 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 
 	public void generateFromEntryPoints(final @NotNull GN_PL_Run2.GenerateFunctionsRequest rq) {
 		final @NotNull List<EntryPoint> epl = rq.mod().entryPoints();
-		final @NotNull IClassGenerator dcg  = rq.classGenerator();
-		final @NotNull ModuleThing      mt  = null;//rq.mt();
+		final @NotNull IClassGenerator dcg = rq.classGenerator();
+		final @NotNull ModuleThing mt = null;// rq.mt();
 
 		if (epl.isEmpty()) {
 			return;
@@ -556,7 +559,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 	EvaFunction generateFunction(@NotNull final FunctionDef fd, final OS_Element parent,
 			@NotNull FunctionInvocation aFunctionInvocation) {
 //		LOG.err("601.1 fn "+fd.name() + " " + parent);
-		final @NotNull EvaFunction gf = new EvaFunction(fd);
+final @NotNull EvaFunction gf = new EvaFunction(fd);
 		if (parent instanceof ClassStatement)
 			gf.addVariableTableEntry("self", VariableTableType.SELF, gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED,
 																						  ((ClassStatement) parent).getOS_Type(), IdentExpressionImpl.forString("self")), null);
@@ -645,7 +648,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 				throw new NotImplementedException();
 			} else if (item instanceof FunctionDef) {
 				// throw new NotImplementedException();
-//				@NotNull EvaFunction f = generateFunction((FunctionDef) item, namespace1);
+				// @NotNull EvaFunction f = generateFunction((FunctionDef) item, namespace1);
 //				gn.addFunction((FunctionDef) item, f);
 			} else if (item instanceof DefFunctionDef) {
 				throw new NotImplementedException();
@@ -676,9 +679,10 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 	// region add-table-entries
 	//
 
-	@NotNull List<TypeTableEntry> get_args_types(final @org.jetbrains.annotations.Nullable ExpressionList args,
-	                                    final @NotNull BaseEvaFunction gf,
-	                                    final @NotNull Context aContext) {
+	@NotNull
+	List<TypeTableEntry> get_args_types(final @org.jetbrains.annotations.Nullable ExpressionList args,
+			final @NotNull BaseEvaFunction gf,
+			final @NotNull Context aContext) {
 		final @NotNull List<TypeTableEntry> R = new ArrayList<TypeTableEntry>();
 		if (args != null) {
 			for (final @NotNull IExpression arg : args) {
@@ -696,8 +700,8 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 	}
 
 	private static TypeTableEntry craftTypeForIdentExpression(final @NotNull BaseEvaFunction gf,
-	                                                          final @NotNull Context aContext,
-	                                                          final @NotNull IExpression arg,
+			final @NotNull Context aContext,
+			final @NotNull IExpression arg,
 	                                                          final IdentExpression identExpression) {
 		final @org.jetbrains.annotations.Nullable InstructionArgument x = gf.vte_lookup(identExpression.getText());
 		final TypeTableEntry                                          tte;
@@ -806,8 +810,8 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 	}
 
 	private @NotNull InstructionArgument simplify_dot_expression(final @NotNull DotExpression dotExpression,
-																 final @NotNull BaseEvaFunction gf,
-																 final @NotNull Context cctx) {
+			final @NotNull BaseEvaFunction gf,
+			final @NotNull Context cctx) {
 		@NotNull
 		InstructionArgument x = gf.get_assignment_path(dotExpression, this, cctx);
 		LOG.info("1117 " + x);
@@ -991,7 +995,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 				final @NotNull IdentExpression expr_kind_name = Helpers0
 						.string_to_ident(SpecialFunctions.of(expressionKind));
 //					TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null, expr_kind_name);
-				final @NotNull TypeTableEntry tte_left = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null,
+final @NotNull TypeTableEntry tte_left = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null,
 						left);
 				final @NotNull TypeTableEntry tte_right = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null,
 						right);
@@ -1030,7 +1034,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 				final @NotNull IdentExpression expr_kind_name = Helpers0
 						.string_to_ident(SpecialFunctions.of(expressionKind));
 //					TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null, expr_kind_name);
-				final @NotNull TypeTableEntry tte_left = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null,
+final @NotNull TypeTableEntry tte_left = gf.newTypeTableEntry(TypeTableEntry.Type.TRANSIENT, null,
 						left);
 				final int pte = addProcTableEntry(expr_kind_name, null, List_of(tte_left), gf);
 				final int tmp = addTempTableEntry(new OS_BuiltinType(BuiltInTypes.Boolean), gf);
@@ -1177,21 +1181,21 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 
 	static class GIA__procedure_call__one {
 
-		private final @NotNull Instruction               expression_to_call;
+		private final @NotNull Instruction expression_to_call;
 		private final          IExpression               left;
 		private final @NotNull List<InstructionArgument> list_of_fn_call;
 		private final          InstructionArgument       lookup;
-		private final @NotNull TypeTableEntry            tte;
+		private final @NotNull TypeTableEntry tte;
 		private final          Context                   cctx;
 		private final @NotNull Generate_item_assignment generate_item_assign;
 		private final BaseEvaFunction gf;
 		private final GenerateFunctions gfs;
 
 		public GIA__procedure_call__one(final @NotNull BasicBinaryExpression bbe,
-										final @NotNull BaseEvaFunction gf,
-										final @NotNull Context cctx,
-										final @NotNull Generate_item_assignment generate_item_assignment,
-										final @NotNull ProcedureCallExpression pce,
+				final @NotNull BaseEvaFunction gf,
+				final @NotNull Context cctx,
+				final @NotNull Generate_item_assignment generate_item_assignment,
+				final @NotNull ProcedureCallExpression pce,
 										final GenerateFunctions gfs1) {
 			this.gf = gf;
 			this.cctx = cctx;
@@ -1267,7 +1271,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		}
 
 		int addVariableTableEntry(final String aText, final @NotNull TypeTableEntry aTte,
-								  final @NotNull BaseEvaFunction aGf, final IdentExpression aIdentExpression) {
+				final @NotNull BaseEvaFunction aGf, final IdentExpression aIdentExpression) {
 			return gfs.addVariableTableEntry(aText, aTte, aGf, aIdentExpression);
 		}
 
@@ -1315,20 +1319,21 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 //				throw new NotImplementedException();
 			} else if (item instanceof ClassStatement) {
 //				final ClassStatement classStatement = (ClassStatement) item;
-//				@NotNull EvaClass gen_c = generateClass(classStatement);
+// @NotNull EvaClass gen_c = generateClass(classStatement);
 //				gc.addClass(classStatement, gen_c);
 			} else if (item instanceof ConstructorDef) {
 //				final ConstructorDef constructorDef = (ConstructorDef) item;
-//				@NotNull GeneratedConstructor f = generateConstructor(constructorDef, klass, null); // TODO remove this null
+// @NotNull GeneratedConstructor f = generateConstructor(constructorDef, klass,
+// null); // TODO remove this null
 //				gc.addConstructor(constructorDef, f);
 			} else if (item instanceof DestructorDef) {
 				throw new NotImplementedException();
 			} else if (item instanceof DefFunctionDef) {
-//				@NotNull EvaFunction f = generateFunction((DefFunctionDef) item, klass);
+				// @NotNull EvaFunction f = generateFunction((DefFunctionDef) item, klass);
 //				gc.addFunction((DefFunctionDef) item, f);
 			} else if (item instanceof FunctionDef) {
 				// README handled in WlGenerateFunction
-//				@NotNull EvaFunction f = generateFunction((FunctionDef) item, klass);
+				// @NotNull EvaFunction f = generateFunction((FunctionDef) item, klass);
 //				gc.addFunction((FunctionDef) item, f);
 			} else if (item instanceof NamespaceStatement) {
 				throw new NotImplementedException();
@@ -1344,7 +1349,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 				//
 				an = (AccessNotation) item;
 //				gc.addAccessNotation(an);
-			} else if (item instanceof @NotNull final PropertyStatement ps) {
+} else if (item instanceof @NotNull final PropertyStatement ps) {
 				LOG.err("307 Skipping property for now");
 			} else {
 				LOG.err("305 " + item.getClass().getName());
@@ -1369,7 +1374,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		}
 
 		public void generate_construct_statement(@NotNull ConstructStatement aConstructStatement,
-												 @NotNull BaseEvaFunction gf, @NotNull Context cctx) {
+				@NotNull BaseEvaFunction gf, @NotNull Context cctx) {
 			final IExpression left = aConstructStatement.getExpr(); // TODO need type of this expr, not expr!!
 			final ExpressionList args = aConstructStatement.getArgs();
 			//
@@ -1470,7 +1475,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 			add_i(gf, InstructionName.AGNK, List_of(new IntegerIA(loop_iterator, gf), ia1), cctx);
 //			else
 //				add_i(gf, InstructionName.AGN, List_of(new IntegerIA(loop_iterator), ia1), cctx);
-			final @NotNull Label label_top = gf.addLabel("top", true);
+final @NotNull Label label_top = gf.addLabel("top", true);
 			gf.place(label_top);
 			final @NotNull Label label_bottom = gf.addLabel("bottom" + label_top.getIndex(), false);
 			add_i(gf, InstructionName.JE, List_of(new IntegerIA(loop_iterator, gf),
@@ -1489,7 +1494,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		}
 
 		private void generate_loop_FROM_TO_TYPE(@NotNull Loop loop, @NotNull BaseEvaFunction gf,
-												@NotNull Context cctx) {
+				@NotNull Context cctx) {
 			final IdentExpression iterNameToken = loop.getIterNameToken();
 			final String iterName = iterNameToken.getText();
 			final int iter_temp = addTempTableEntry(null, iterNameToken, gf, iterNameToken); // TODO deduce later
@@ -1525,7 +1530,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 				final InstructionArgument i = simplify_expression(expr, gf, cctx);
 //				LOG.info("710 " + i);
 
-				@NotNull
+@NotNull
 				Label label_next = gf.addLabel();
 				final @NotNull Label label_end = gf.addLabel();
 
@@ -1590,7 +1595,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		}
 
 		private void generate_statement_wrapper(final StatementWrapper aStatementWrapper, @NotNull IExpression x,
-												@NotNull ExpressionKind expressionKind, @NotNull BaseEvaFunction gf, @NotNull Context cctx) {
+				@NotNull ExpressionKind expressionKind, @NotNull BaseEvaFunction gf, @NotNull Context cctx) {
 //			LOG.err("106-1 "+x.getKind()+" "+x);
 			if (x.is_simple()) {
 //				int i = addTempTableEntry(x.getType(), gf);
@@ -1655,7 +1660,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		}
 
 		private void generate_variable_sequence(@NotNull VariableSequence item, @NotNull BaseEvaFunction gf,
-												@NotNull Context cctx) {
+				@NotNull Context cctx) {
 			for (final @NotNull VariableStatement vs : item.items()) {
 				int state = 0;
 //				LOG.info("8004 " + vs);
@@ -1734,7 +1739,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 	class Generate_item_assignment {
 
 		public void dot(@NotNull BaseEvaFunction gf, @NotNull DotExpression left, @NotNull IExpression right,
-						@NotNull Context cctx) {
+				@NotNull Context cctx) {
 			final InstructionArgument simple_left = simplify_expression(left, gf, cctx);
 			final InstructionArgument simple_right = simplify_expression(right, gf, cctx);
 
@@ -1801,7 +1806,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		}
 
 		public void mathematical(@NotNull BaseEvaFunction gf, @NotNull IExpression left, ExpressionKind kind,
-								 @NotNull IExpression right1, @NotNull Context cctx) {
+				@NotNull IExpression right1, @NotNull Context cctx) {
 			// TODO doesn't use kind
 			final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null, right1);
 
@@ -1823,7 +1828,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		}
 
 		public void neg(@NotNull BaseEvaFunction gf, @NotNull IExpression left, ExpressionKind aKind,
-						@NotNull IExpression right1, @NotNull Context cctx) {
+				@NotNull IExpression right1, @NotNull Context cctx) {
 			// TODO doesn't use kind
 			final @NotNull TypeTableEntry tte = gf.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, null, right1);
 
@@ -1845,7 +1850,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		}
 
 		public void numeric(@NotNull BaseEvaFunction gf, @NotNull IExpression left, @NotNull NumericExpression ne,
-							@NotNull Context cctx) {
+				@NotNull Context cctx) {
 			@NotNull
 			final InstructionArgument agn_path = gf.get_assignment_path(left, GenerateFunctions.this, cctx);
 			final int cte = addConstantTableEntry("", ne, null, gf);
@@ -1855,7 +1860,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		}
 
 		public void procedure_call(final StatementWrapper aStatementWrapper, @NotNull BaseEvaFunction gf,
-								   @NotNull BasicBinaryExpression bbe, @NotNull ProcedureCallExpression pce, @NotNull Context cctx) {
+				@NotNull BasicBinaryExpression bbe, @NotNull ProcedureCallExpression pce, @NotNull Context cctx) {
 			/*
 			 * final IExpression left = bbe.getLeft();
 			 *
@@ -1902,7 +1907,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		}
 
 		public void string_literal(@NotNull BaseEvaFunction gf, @NotNull IExpression left, StringExpression right,
-								   @NotNull Context aContext) {
+				@NotNull Context aContext) {
 			@NotNull
 			final InstructionArgument agn_path = gf.get_assignment_path(left, GenerateFunctions.this, aContext);
 			final int cte = addConstantTableEntry("", right,
@@ -1925,7 +1930,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		}
 
 		public void generate_construct_statement(@NotNull ConstructStatement aConstructStatement,
-												 @NotNull BaseEvaFunction gf, @NotNull Context cctx) {
+				@NotNull BaseEvaFunction gf, @NotNull Context cctx) {
 			final IExpression left = aConstructStatement.getExpr(); // TODO need type of this expr, not expr!!
 			final ExpressionList args = aConstructStatement.getArgs();
 			//
@@ -2026,7 +2031,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 			add_i(gf, InstructionName.AGNK, List_of(new IntegerIA(loop_iterator, gf), ia1), cctx);
 //			else
 //				add_i(gf, InstructionName.AGN, List_of(new IntegerIA(loop_iterator), ia1), cctx);
-			final @NotNull Label label_top = gf.addLabel("top", true);
+final @NotNull Label label_top = gf.addLabel("top", true);
 			gf.place(label_top);
 			final @NotNull Label label_bottom = gf.addLabel("bottom" + label_top.getIndex(), false);
 			add_i(gf, InstructionName.JE, List_of(new IntegerIA(loop_iterator, gf),
@@ -2080,7 +2085,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 				final InstructionArgument i = simplify_expression(expr, gf, cctx);
 //				LOG.info("710 " + i);
 
-				@NotNull
+@NotNull
 				Label label_next = gf.addLabel();
 				final @NotNull Label label_end = gf.addLabel();
 
@@ -2145,7 +2150,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		}
 
 		private void generate_statement_wrapper(final StatementWrapper aStatementWrapper, @NotNull IExpression x,
-												@NotNull ExpressionKind expressionKind, @NotNull BaseEvaFunction gf, @NotNull Context cctx) {
+				@NotNull ExpressionKind expressionKind, @NotNull BaseEvaFunction gf, @NotNull Context cctx) {
 //			LOG.err("106-1 "+x.getKind()+" "+x);
 			if (x.is_simple()) {
 //				int i = addTempTableEntry(x.getType(), gf);
@@ -2210,7 +2215,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 		}
 
 		private void generate_variable_sequence(@NotNull VariableSequence item, @NotNull EvaFunction gf,
-												@NotNull Context cctx) {
+				@NotNull Context cctx) {
 			for (final @NotNull VariableStatement vs : item.items()) {
 				int state = 0;
 //				LOG.info("8004 " + vs);

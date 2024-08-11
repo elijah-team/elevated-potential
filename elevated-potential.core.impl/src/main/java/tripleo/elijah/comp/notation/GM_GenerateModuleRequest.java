@@ -1,22 +1,20 @@
 package tripleo.elijah.comp.notation;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.stages.gen_generic.GenerateFiles;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.stages.gen_generic.OutputFileFactoryParams;
-import tripleo.elijah.world.i.WorldModule;
+import java.util.*;
+import java.util.function.*;
 
-import java.util.Objects;
-import java.util.function.Supplier;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.world.i.*;
 
 public final class GM_GenerateModuleRequest implements GN_Env {
-	private final @NotNull GN_GenerateNodesIntoSink    generateNodesIntoSink;
-	private final @NotNull WorldModule                 mod;
+	private final @NotNull GN_GenerateNodesIntoSink generateNodesIntoSink;
+	private final @NotNull WorldModule mod;
 	private final @NotNull GN_GenerateNodesIntoSinkEnv env;
 
 	public GM_GenerateModuleRequest(@NotNull GN_GenerateNodesIntoSink generateNodesIntoSink,
-									@NotNull WorldModule mod, @NotNull GN_GenerateNodesIntoSinkEnv env) {
+			@NotNull WorldModule mod, @NotNull GN_GenerateNodesIntoSinkEnv env) {
 		this.generateNodesIntoSink = generateNodesIntoSink;
 		this.mod                   = mod;
 		this.env                   = env;

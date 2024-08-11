@@ -1,14 +1,15 @@
 package tripleo.elijah.stages.deduce.pipeline_impl;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-
 import java.util.*;
 
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah_elevated.comp.backbone.*;
+
 public class DeducePipelineImpl {
-	private final @NotNull IPipelineAccess             pa;
+	private final @NotNull IPipelineAccess pa;
 	@SuppressWarnings("TypeMayBeWeakened")
 	private final          List<PipelineLogicRunnable> plrs = new ArrayList<>();
 	private final DeducePipelineImplInjector __inj = new DeducePipelineImplInjector();

@@ -1,6 +1,7 @@
 package tripleo.elijah.world.impl;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.garish.*;
@@ -12,7 +13,7 @@ import tripleo.elijah.world.i.*;
 
 public class DefaultLivingClass implements LivingClass {
 	private final          ClassStatement _element;
-	private final @NotNull EvaClass       _gc;
+	private final @NotNull EvaClass _gc;
 	private @Nullable      GarishClass    _garish;
 
 	private int     _code;
@@ -57,7 +58,7 @@ public class DefaultLivingClass implements LivingClass {
 	@Override
 	@Contract(mutates = "this")
 	public void generateWith(final GGenerateResultSink   aResultSink,
-							 final @NotNull GGarishClass aGarishClass,
+			final @NotNull GGarishClass aGarishClass,
 							 final GGenerateResult       aGenerateResult,
 							 final GenerateFiles        aGenerateFiles) {
 		if (_generatedFlag) { return; }

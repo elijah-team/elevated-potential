@@ -1,12 +1,10 @@
 package tripleo.elijah.world.i;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.g.GEvaClass;
-import tripleo.elijah.g.GGarishClass;
-import tripleo.elijah.g.GGenerateResult;
-import tripleo.elijah.g.GGenerateResultSink;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.stages.gen_generic.GenerateFiles;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.g.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.gen_generic.*;
 
 public interface LivingClass extends LivingNode {
 	GEvaClass evaNode();
@@ -19,5 +17,6 @@ public interface LivingClass extends LivingNode {
 
 	void setCode(int aCode);
 
-	void generateWith(GGenerateResultSink aResultSink, @NotNull GGarishClass aGarishClass, GGenerateResult aGr, GenerateFiles aGenerateFiles);
+	void generateWith(GGenerateResultSink aResultSink, @NotNull GGarishClass aGarishClass, GGenerateResult aGr,
+			GenerateFiles aGenerateFiles);
 }

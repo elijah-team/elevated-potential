@@ -1,6 +1,7 @@
 package tripleo.elijah.test_help;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
@@ -16,7 +17,7 @@ public enum XX {
 	}
 
 	public static @NotNull TypeTableEntry regularTypeName_specifyTableEntry(final IdentExpression aIdentExpression,
-	                                                                        final @NotNull BaseEvaFunction aBaseGeneratedFunction, final @NotNull String aTypeName) {
+			final @NotNull BaseEvaFunction aBaseGeneratedFunction, final @NotNull String aTypeName) {
 		final RegularTypeName typeName = RegularTypeNameImpl.makeWithStringTypeName(aTypeName);
 		final OS_Type type = new OS_UserType(typeName);
 		final TypeTableEntry tte = aBaseGeneratedFunction.newTypeTableEntry(TypeTableEntry.Type.SPECIFIED, type,

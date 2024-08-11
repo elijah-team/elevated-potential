@@ -8,9 +8,10 @@
  */
 package tripleo.elijah.contexts;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.ContextImpl;
+import tripleo.elijah.lang.impl.*;
 
 /**
  * Created 8/15/20 6:32 PM
@@ -31,7 +32,7 @@ public class PackageContext extends ContextImpl implements IPackageContext {
 
 	@Override
 	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
-								   final @NotNull ISearchList alreadySearched, final boolean one) {
+			final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(this);
 		for (OS_Element element : carrier.getElements()) {
 			if (element instanceof final @NotNull OS_NamedElement element2) {

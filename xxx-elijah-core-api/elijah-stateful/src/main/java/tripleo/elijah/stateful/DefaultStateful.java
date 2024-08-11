@@ -1,7 +1,6 @@
 package tripleo.elijah.stateful;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 
 public abstract class DefaultStateful implements Stateful {
 	private State _state;

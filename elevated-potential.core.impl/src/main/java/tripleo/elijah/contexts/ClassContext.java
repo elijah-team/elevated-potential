@@ -8,13 +8,14 @@
  */
 package tripleo.elijah.contexts;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.*;
+import static tripleo.elijah.contexts.ClassInfo.ClassInfoType.*;
 
 import java.util.*;
 
-import static tripleo.elijah.contexts.ClassInfo.ClassInfoType.*;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.*;
 
 /**
  * @author Tripleo
@@ -69,8 +70,8 @@ public class ClassContext extends ContextImpl implements IClassContext {
 	@Override
 	public LookupResultList lookup(final @NotNull String name,
 								   final int level,
-								   final @NotNull LookupResultList Result,
-								   final @NotNull ISearchList alreadySearched,
+			final @NotNull LookupResultList Result,
+			final @NotNull ISearchList alreadySearched,
 								   final boolean one) {
 		alreadySearched.add(carrier.getContext());
 		for (final ClassItem item : carrier.getItems()) {

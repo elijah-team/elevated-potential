@@ -1,20 +1,19 @@
 package tripleo.elijah.comp.queries;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.graph.i.CK_SourceFile;
-import tripleo.elijah.comp.i.CompilationClosure;
-import tripleo.elijah.comp.nextgen.impl.CK_SourceFileFactory;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.diagnostic.Locatable;
-import tripleo.elijah.util.Operation2;
-import tripleo.wrap.File;
-
 import java.io.*;
-import java.util.List;
-import java.util.regex.Pattern;
+import java.util.*;
+import java.util.regex.*;
+
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.graph.i.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.nextgen.impl.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.util.*;
+import tripleo.wrap.File;
 
 public class QuerySearchEzFiles {
 	private final          Compilation        c;
@@ -47,28 +46,29 @@ public class QuerySearchEzFiles {
 	}
 
 /*
-	public @NotNull List<Operation2<CompilerInstructions>> process2(final @NotNull File directory) {
-		final List<Operation2<CompilerInstructions>> R       = new ArrayList<>();
-		final ErrSink                                errSink = cc.errSink();
-
-		final String[] list = directory.list(ez_files_filter);
-		if (list != null) {
-			QSEZ_Reasoning reasoning = QSEZ_Reasonings.create(null);
-			List<Operation2<CompilerInstructions>> operation2s = CW_ezDirRequest.apply(
-					list,
-					directory,
-					null,
-					(File file1) -> parseEzFile(file1, file1.toString(), cc),
-					cc,
-					reasoning
-			);
-
-			R.addAll(operation2s);
-		}
-
-		return R;
-	}
-*/
+ * public @NotNull List<Operation2<CompilerInstructions>>
+ * process2(final @NotNull File directory) {
+ * final List<Operation2<CompilerInstructions>> R = new ArrayList<>();
+ * final ErrSink errSink = cc.errSink();
+ * 
+ * final String[] list = directory.list(ez_files_filter);
+ * if (list != null) {
+ * QSEZ_Reasoning reasoning = QSEZ_Reasonings.create(null);
+ * List<Operation2<CompilerInstructions>> operation2s = CW_ezDirRequest.apply(
+ * list,
+ * directory,
+ * null,
+ * (File file1) -> parseEzFile(file1, file1.toString(), cc),
+ * cc,
+ * reasoning
+ * );
+ * 
+ * R.addAll(operation2s);
+ * }
+ * 
+ * return R;
+ * }
+ */
 
 	public static class Diagnostic_9995 implements Diagnostic {
 		private final File file;

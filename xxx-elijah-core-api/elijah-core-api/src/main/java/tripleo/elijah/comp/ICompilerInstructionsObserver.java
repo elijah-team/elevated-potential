@@ -1,12 +1,13 @@
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.ci.*;
+import tripleo.elijah.util.*;
 
 public interface ICompilerInstructionsObserver {
-	@NotNull Operation<Ok> almostComplete();
+	@NotNull
+	Operation<Ok> almostComplete();
 
 	void onComplete();
 

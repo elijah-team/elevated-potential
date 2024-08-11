@@ -1,11 +1,11 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.util.*;
 
 public class CK_ProcessInitialAction implements CK_Action {
 	private final CompilerInstructions rootCI;
@@ -32,7 +32,7 @@ public class CK_ProcessInitialAction implements CK_Action {
 	}
 
 	//@Override
-	//public @NotNull String name() {
+	// public @NotNull String name() {
 	//	return "process initial";
 	//}
 

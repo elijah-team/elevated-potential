@@ -1,12 +1,14 @@
 package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
 
 public interface OS_TypeNameElement extends OS_Element {
 	@Override
-	@NotNull Context getContext();
+	@NotNull
+	Context getContext();
 
 	@Override
 	OS_Element getParent();

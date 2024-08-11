@@ -30,11 +30,13 @@ class DeduceType3 implements DED {
 		diagnostic = aDiagnostic1;
 	}
 
-//	public static IDeduceElement3 dispatch(final @NotNull IdentTableEntry aIdentTableEntry) {
+	// public static IDeduceElement3 dispatch(final @NotNull IdentTableEntry
+	// aIdentTableEntry) {
 //		return aIdentTableEntry.getDeduceElement3(null/*aDeduceTypes2*/, null/*aGeneratedFunction*/);
 //	}
 
-//	public static IDeduceElement3 dispatch(final @NotNull ConstantTableEntry aConstantTableEntry) {
+// public static IDeduceElement3 dispatch(final @NotNull ConstantTableEntry
+// aConstantTableEntry) {
 //		return aConstantTableEntry.getDeduceElement3();
 //	}
 

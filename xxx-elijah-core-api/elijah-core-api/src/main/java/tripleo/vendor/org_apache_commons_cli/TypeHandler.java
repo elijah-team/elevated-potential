@@ -17,14 +17,11 @@
 
 package tripleo.vendor.org_apache_commons_cli;
 
-import org.jetbrains.annotations.NotNull;
+import java.io.*;
+import java.net.*;
+import java.util.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Date;
+import org.jetbrains.annotations.*;
 
 /**
  * This is a temporary implementation. TypeHandler will handle the pluggableness

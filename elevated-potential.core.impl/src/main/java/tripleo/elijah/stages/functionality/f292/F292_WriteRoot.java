@@ -1,17 +1,19 @@
 package tripleo.elijah.stages.functionality.f292;
 
-import com.google.common.collect.Multimap;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.comp.nextgen.i.CP_Path;
-import tripleo.elijah.util.io.CharSink;
-import tripleo.elijah_prolific.v.V;
+import static tripleo.elijah.util.Helpers.*;
 
-import java.nio.file.Path;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.nio.file.*;
+import java.util.*;
+import java.util.stream.*;
 
-import static tripleo.elijah.util.Helpers.String_join;
+import org.jetbrains.annotations.*;
+
+import com.google.common.collect.*;
+
+import tripleo.elijah.ci.*;
+import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.util.io.*;
+import tripleo.elijah_prolific.v.*;
 
 public class F292_WriteRoot {
 	private final String project_name;
@@ -21,7 +23,7 @@ public class F292_WriteRoot {
 	}
 
 	public void write_root(final @NotNull Multimap<CompilerInstructions, String> lsp_outputs,
-						   final @NotNull List<String> aDep_dirs,
+			final @NotNull List<String> aDep_dirs,
 						   final Path path2,
 						   final CharSink root_file,
 						   final CP_Path path2_) {

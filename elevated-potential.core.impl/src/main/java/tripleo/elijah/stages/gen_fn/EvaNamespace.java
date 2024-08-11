@@ -8,21 +8,19 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
+import java.util.function.*;
+
+import org.jetbrains.annotations.*;
+
 import lombok.*;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.g.GEvaNamespace;
+import tripleo.elijah.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.nextgen.reactive.DefaultReactive;
-import tripleo.elijah.nextgen.reactive.Reactive;
-import tripleo.elijah.stages.gen_generic.CodeGenerator;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
+import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.impl.DefaultLivingNamespace;
-
-import java.util.function.Consumer;
+import tripleo.elijah.world.impl.*;
 
 /**
  * Created 12/22/20 5:39 PM
@@ -106,7 +104,7 @@ public class EvaNamespace extends EvaContainerNC implements GNCoded, GEvaNamespa
 	}
 
 //	@Override
-//	public @NotNull Maybe<VarTableEntry> getVariable(String aVarName) {
+// public @NotNull Maybe<VarTableEntry> getVariable(String aVarName) {
 //		for (VarTableEntry varTableEntry : varTable) {
 //			if (varTableEntry.nameToken.getText().equals(aVarName))
 //				return new Maybe<>(varTableEntry, null);

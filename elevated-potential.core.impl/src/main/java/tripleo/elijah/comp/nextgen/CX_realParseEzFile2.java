@@ -3,9 +3,10 @@ package tripleo.elijah.comp.nextgen;
 public class CX_realParseEzFile2 {
 
 	//@NotNull
-	//public static Operation<CompilerInstructions> realParseEzFile(final @NotNull Compilation c,
-	//                                                              final @NotNull EzSpec ezSpec,
-	//                                                              final @NotNull EzCache ezCache) {
+	// public static Operation<CompilerInstructions> realParseEzFile(final @NotNull
+	// Compilation c,
+	// final @NotNull EzSpec ezSpec,
+	// final @NotNull EzCache ezCache) {
 	//
 	//	final CM_Ez cm = c.megaGrande(ezSpec);
 	//

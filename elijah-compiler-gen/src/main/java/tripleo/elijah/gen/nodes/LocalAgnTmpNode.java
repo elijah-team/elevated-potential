@@ -23,7 +23,7 @@ public class LocalAgnTmpNode {
 	private int             n;
 	private @Nullable String declared = null;
 
-	public LocalAgnTmpNode(final @NotNull TmpSSACtxNode tmpSSACtxNode, final IExpressionNode node) {
+	public LocalAgnTmpNode(final @NotNull  TmpSSACtxNode tmpSSACtxNode, final IExpressionNode node) {
 		// TODO Auto-generated constructor stub
 		this.agnTo = tmpSSACtxNode;
 //		this.expr = expression;
@@ -73,7 +73,7 @@ public class LocalAgnTmpNode {
 		this.agnWhat = agnWhat;
 	}
 
-	public @NotNull ExpressionNode getLeft() {
+	public @NotNull  ExpressionNode getLeft() {
 		return new VariableReferenceNode2(declared, "Z0*", false); // TODO semi-hardcoded
 	}
 }

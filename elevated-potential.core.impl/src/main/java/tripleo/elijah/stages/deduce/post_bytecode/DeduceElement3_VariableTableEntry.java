@@ -120,8 +120,8 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 
 		static class ExitConvertUserTypes implements State {
 			private static void apply_normal(final @NotNull VariableTableEntry vte, final @NotNull DeduceTypes2 dt2,
-											 final @NotNull ErrSink errSink, final DeducePhase phase, final @NotNull ElLog LOG,
-											 final @NotNull OS_Type attached, final @NotNull TypeName x, final @NotNull String tn) {
+					final @NotNull ErrSink errSink, final DeducePhase phase, final @NotNull ElLog LOG,
+					final @NotNull OS_Type attached, final @NotNull TypeName x, final @NotNull String tn) {
 				final LookupResultList lrl = x.getContext().lookup(tn);
 				@Nullable
 				OS_Element best = lrl.chooseBest(null);

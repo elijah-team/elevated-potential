@@ -25,7 +25,7 @@ public class ReturnAgnNode {
 	public  ExpressionNode  expr;
 	private LocalAgnTmpNode _latn;
 
-	public ReturnAgnNode(final @NotNull IExpression expression) {
+	public ReturnAgnNode(final @NotNull  IExpression expression) {
 		// TODO Auto-generated constructor stub
 		expr = new ExpressionNode(expression);
 	}

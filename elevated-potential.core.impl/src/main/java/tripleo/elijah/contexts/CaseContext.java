@@ -10,7 +10,7 @@ package tripleo.elijah.contexts;
 
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.DebugFlags;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.util.*;
@@ -36,7 +36,7 @@ public class CaseContext extends ContextImpl implements ICaseContext {
 	public LookupResultList lookup(final String name,
 								   final int level,
 								   final LookupResultList Result,
-								   final @NotNull ISearchList alreadySearched,
+			final @NotNull ISearchList alreadySearched,
 								   final boolean one) {
 		alreadySearched.add(carrier.getContext());
 

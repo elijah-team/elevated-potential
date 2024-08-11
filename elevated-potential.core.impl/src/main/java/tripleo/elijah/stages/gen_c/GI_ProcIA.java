@@ -1,8 +1,13 @@
 package tripleo.elijah.stages.gen_c;
 
+import java.text.*;
+import java.util.*;
+import java.util.function.*;
+
 import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.diagnostic.Diagnostic.*;
@@ -14,10 +19,6 @@ import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
-
-import java.text.*;
-import java.util.*;
-import java.util.function.*;
 
 class GI_ProcIA implements GenerateC_Item {
 	private final GenerateC gc;
@@ -32,7 +33,7 @@ class GI_ProcIA implements GenerateC_Item {
 	}
 
 	public @NotNull Operation2<EG_Statement> action_CONSTRUCT(@NotNull Instruction aInstruction,
-															  @NotNull GenerateC gc) {
+			@NotNull GenerateC gc) {
 		final ProcTableEntry       pte = carrier.getEntry();
 		final List<TypeTableEntry> x   = pte.getArgs();
 		final int                  y   = aInstruction.getArgsSize();
@@ -49,7 +50,8 @@ class GI_ProcIA implements GenerateC_Item {
 
 			if (target instanceof IdentIA) {
 				// how to tell between named ctors and just a path?
-				@NotNull final IdentTableEntry target2 = ((IdentIA) target).getEntry();
+				@NotNull
+				final IdentTableEntry target2 = ((IdentIA) target).getEntry();
 				final String str = target2.getIdent().getText();
 
 				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("130  " + str);
@@ -102,7 +104,7 @@ class GI_ProcIA implements GenerateC_Item {
 	}
 
 	public @Nullable String getIdentIAPath_Proc(final @NotNull ProcTableEntry pte,
-												final @NotNull Consumer<Pair<String, CReference.Ref>> addRef) {
+			final @NotNull Consumer<Pair<String, CReference.Ref>> addRef) {
 		final String[]           text = new String[1];
 		final FunctionInvocation fi   = pte.getFunctionInvocation();
 

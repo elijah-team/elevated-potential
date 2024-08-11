@@ -9,8 +9,16 @@
  */
 package tripleo.elijah.stages.gen_c;
 
+import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
+import static tripleo.elijah.util.Helpers.*;
+
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.nextgen.outputstatement.*;
@@ -18,13 +26,6 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.backbone.*;
-
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
-
-import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
-import static tripleo.elijah.util.Helpers.*;
 
 /**
  * Created 1/9/21 7:12 AM
@@ -461,7 +462,7 @@ public class CReference {
 	}
 
 	public SpecialText getIdentIAPath(final @NotNull IdentIA ia2,
-									  final Generate_Code_For_Method.@NotNull AOG aog,
+			final Generate_Code_For_Method.@NotNull AOG aog,
 									  final String aValue) {
 		final BaseEvaFunction generatedFunction = ia2.gf;
 		final List<InstructionArgument> s = _getIdentIAPathList(ia2);

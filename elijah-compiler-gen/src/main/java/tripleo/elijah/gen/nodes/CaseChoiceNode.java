@@ -23,7 +23,7 @@ public class CaseChoiceNode {
 	public @Nullable        ScopeNode              right;
 	private @Nullable       String                 _defaultName;
 
-	public CaseChoiceNode(final @NotNull NumericExpression expr1, final CaseHdrNode header) {
+	public CaseChoiceNode(final @NotNull  NumericExpression expr1, final CaseHdrNode header) {
 		// TODO Auto-generated constructor stub
 		left         = new ExpressionNode(expr1);
 		this.header  = header;

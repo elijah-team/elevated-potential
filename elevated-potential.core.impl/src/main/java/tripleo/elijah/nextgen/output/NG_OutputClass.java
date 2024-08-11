@@ -1,6 +1,11 @@
 package tripleo.elijah.nextgen.output;
 
+import static tripleo.elijah.util.Helpers.*;
+
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.garish.*;
 import tripleo.elijah.stages.gen_c.*;
@@ -8,10 +13,6 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.generate.*;
 import tripleo.elijah.util.*;
-
-import java.util.*;
-
-import static tripleo.elijah.util.Helpers.*;
 
 public class NG_OutputClass implements NG_OutputItem {
 	private GarishClass   garishClass;
@@ -34,7 +35,7 @@ public class NG_OutputClass implements NG_OutputItem {
 
 	@Override
 	public EOT_FileNameProvider outName(final @NotNull OutputStrategyC aOutputStrategyC,
-										final GenerateResult.@NotNull TY ty) {
+			final GenerateResult.@NotNull TY ty) {
 		final EvaClass x = (EvaClass) garishClass.getLiving().evaNode();
 
 		return aOutputStrategyC.nameForClass1(x, ty);

@@ -1,15 +1,16 @@
 package tripleo.elijah.stages.gen_fn;
 
+import java.util.*;
+
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.util.*;
-
-import java.util.*;
 
 public class VarTableEntry {
 	public static class ConnectionPair {
@@ -28,15 +29,15 @@ public class VarTableEntry {
 	}
 
 	public final           IExpression                                        initialValue;
-	public final @NotNull  IdentExpression                                    nameToken;
+	public final @NotNull IdentExpression nameToken;
 	public final           VariableStatement                                  vs;
 	private final          DeferredObject<OS_Type, Void, Void>                _p_resolve_varType               = new DeferredObject<>();
-	private final @NotNull OS_Element                                         parent;
+	private final @NotNull OS_Element parent;
 	private final          RegisterClassInvocation_env                        passthruEnv;
-	public @NotNull        List<ConnectionPair>                               connectionPairs                  = new ArrayList<>();
-	public @NotNull        List<TypeTableEntry>                               potentialTypes                   = new ArrayList<TypeTableEntry>();
+	public @NotNull List<ConnectionPair> connectionPairs = new ArrayList<>();
+	public @NotNull List<TypeTableEntry> potentialTypes = new ArrayList<TypeTableEntry>();
 	public                 TypeName                                           typeName;
-	public @NotNull        DeferredObject<UpdatePotentialTypesCB, Void, Void> _p_updatePotentialTypesCBPromise = new DeferredObject<>();
+	public @NotNull DeferredObject<UpdatePotentialTypesCB, Void, Void> _p_updatePotentialTypesCBPromise = new DeferredObject<>();
 	public                 OS_Type                                            varType;
 
 	UpdatePotentialTypesCB updatePotentialTypesCB;
@@ -46,8 +47,8 @@ public class VarTableEntry {
 	DeduceElement3_VarTableEntry _de3;
 
 	public VarTableEntry(final VariableStatement aVs, final @NotNull IdentExpression aNameToken,
-						 final IExpression aInitialValue, final @NotNull TypeName aTypeName,
-						 final @NotNull OS_Element aElement) {
+			final IExpression aInitialValue, final @NotNull TypeName aTypeName,
+			final @NotNull OS_Element aElement) {
 		vs           = aVs;
 		nameToken    = aNameToken;
 		initialValue = aInitialValue;

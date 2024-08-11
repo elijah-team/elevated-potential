@@ -51,7 +51,7 @@
 //		assertEquals(ty, str(inferred));
 //	}
 //
-//	public String str(@NotNull Object a) {
+//	public String str(@NotNull  Object a) {
 //		if (a instanceof IntType it) {
 //			return a.toString();
 //		}

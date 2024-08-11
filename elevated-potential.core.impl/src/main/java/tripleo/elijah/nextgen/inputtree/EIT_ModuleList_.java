@@ -1,10 +1,10 @@
 package tripleo.elijah.nextgen.inputtree;
 
-import tripleo.elijah.g.*;
-import tripleo.elijah.world.i.*;
-
 import java.util.*;
 import java.util.stream.*;
+
+import tripleo.elijah.g.*;
+import tripleo.elijah.world.i.*;
 
 //import org.jetbrains.annotations.*;
 //import tripleo.elijah.comp.*;
@@ -24,7 +24,7 @@ import java.util.stream.*;
 public class EIT_ModuleList_ implements EIT_ModuleList {
 	private final List<WorldModule> mods = Collections.EMPTY_LIST; //new ArrayList<>();
 
-//	private void __process__PL__each(final @NotNull _ProcessParams plp) {
+	// private void __process__PL__each(final @NotNull _ProcessParams plp) {
 //		final List<EvaNode> resolved_nodes = new ArrayList<EvaNode>();
 //
 //		final WorldModule mod = plp.getMod();
@@ -78,9 +78,9 @@ public class EIT_ModuleList_ implements EIT_ModuleList {
 	}
 
 //	public void process__PL(final Function<WorldModule, GenerateFunctions> ggf,
-//			final @NotNull PipelineLogic pipelineLogic) {
+// final @NotNull PipelineLogic pipelineLogic) {
 //		for (final WorldModule mod : mods) {
-//			final @NotNull EntryPointList epl = null; // mod.entryPoints;
+// final @NotNull EntryPointList epl = null; // mod.entryPoints;
 //
 //			//
 //			//
@@ -104,7 +104,7 @@ public class EIT_ModuleList_ implements EIT_ModuleList {
 //			final GenerateFunctions gfm = ggf.apply(mod);
 //
 //			final DeducePhase deducePhase = pipelineLogic.dp;
-//			// final DeducePhase.@NotNull GeneratedClasses lgc =
+// // final DeducePhase.@NotNull GeneratedClasses lgc =
 //			// deducePhase.generatedClasses;
 //
 //			final _ProcessParams plp = new _ProcessParams(mod, pipelineLogic, gfm, epl, deducePhase);
@@ -120,17 +120,19 @@ public class EIT_ModuleList_ implements EIT_ModuleList {
 	}
 
 	//	private static class _ProcessParams {
-//		private final @NotNull DeducePhase deducePhase;
+	// private final @NotNull DeducePhase deducePhase;
 //		@NotNull
 //		private final EntryPointList epl;
-//		private final @NotNull GenerateFunctions gfm;
+// private final @NotNull GenerateFunctions gfm;
 //		private final WorldModule mod;
-//		private final @NotNull PipelineLogic pipelineLogic;
+// private final @NotNull PipelineLogic pipelineLogic;
 //
 //		@Contract(pure = true)
-//		private _ProcessParams(@NotNull final WorldModule aModule, @NotNull final PipelineLogic aPipelineLogic,
-//				@NotNull final GenerateFunctions aGenerateFunctions, @NotNull final EntryPointList aEntryPointList,
-//				@NotNull final DeducePhase aDeducePhase) {
+// private _ProcessParams(@NotNull final WorldModule aModule, @NotNull final
+// PipelineLogic aPipelineLogic,
+// @NotNull final GenerateFunctions aGenerateFunctions, @NotNull final
+// EntryPointList aEntryPointList,
+// @NotNull final DeducePhase aDeducePhase) {
 //			mod = aModule;
 //			pipelineLogic = aPipelineLogic;
 //			gfm = aGenerateFunctions;
@@ -147,7 +149,7 @@ public class EIT_ModuleList_ implements EIT_ModuleList {
 //		}
 //
 //		@Contract(pure = true)
-//		public DeducePhase.@NotNull GeneratedClasses getLgc() {
+// public DeducePhase.@NotNull GeneratedClasses getLgc() {
 //			return deducePhase.generatedClasses;
 //		}
 //
@@ -157,12 +159,12 @@ public class EIT_ModuleList_ implements EIT_ModuleList {
 //		}
 //
 //		@Contract(pure = true)
-//		public ElLog.@NotNull Verbosity getVerbosity() {
+// public ElLog.@NotNull Verbosity getVerbosity() {
 //			return pipelineLogic.getVerbosity();
 //		}
 //
 //		@Contract(pure = true)
-//		public @NotNull Supplier<WorkManager> getWorkManagerSupplier() {
+// public @NotNull Supplier<WorkManager> getWorkManagerSupplier() {
 //			return () -> pipelineLogic.generatePhase.getWm();
 //		}
 //

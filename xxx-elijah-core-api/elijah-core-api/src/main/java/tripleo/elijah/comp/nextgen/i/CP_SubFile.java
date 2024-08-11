@@ -1,11 +1,12 @@
 package tripleo.elijah.comp.nextgen.i;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
 
-import tripleo.wrap.File;
+import tripleo.wrap.*;
 
 public interface CP_SubFile {
 	CP_Path getPath();
 
-	@NotNull File toFile();
+	@NotNull
+	File toFile();
 }

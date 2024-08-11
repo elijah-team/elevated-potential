@@ -12,14 +12,15 @@
  */
 package tripleo.elijah.lang.types;
 
+import java.text.*;
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.util.*;
-
-import java.text.*;
-import java.util.*;
 
 public class OS_FuncTypeImpl extends __Abstract_OS_Type implements OS_FuncType {
 
@@ -33,7 +34,7 @@ public class OS_FuncTypeImpl extends __Abstract_OS_Type implements OS_FuncType {
 		public GClosure_OS_FuncType_resolvedFunction(@NotNull GenType genType,
 													 TypeName aGenericTypeName,
 													 DeduceTypes2 deduceTypes2,
-													 @NotNull DeducePhase phase) {
+				@NotNull DeducePhase phase) {
 			this.genType = genType;
 			genericTypeName = aGenericTypeName;
 			this.deduceTypes2 = deduceTypes2;
@@ -88,7 +89,7 @@ public class OS_FuncTypeImpl extends __Abstract_OS_Type implements OS_FuncType {
 
 	@NotNull
 	public ClassInvocation resolvedFunction(final @NotNull GenType genType, final TypeName aGenericTypeName,
-											final DeduceTypes2 deduceTypes2, final @NotNull DeducePhase phase) {
+			final DeduceTypes2 deduceTypes2, final @NotNull DeducePhase phase) {
 		// TODO what to do here?
 		final OS_Element ele = function_def;
 		final @Nullable ClassStatement best = (ClassStatement) ele.getParent();// genType.resolved.getClassOf();

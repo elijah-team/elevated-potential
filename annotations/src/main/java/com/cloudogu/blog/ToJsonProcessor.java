@@ -62,7 +62,7 @@ public class ToJsonProcessor extends AbstractProcessor {
 	}
 
 	@Override
-	public boolean process(@NotNull Set<? extends TypeElement> annotations, @NotNull RoundEnvironment roundEnv) {
+	public boolean process(@NotNull  Set<? extends TypeElement> annotations, @NotNull  RoundEnvironment roundEnv) {
 		for (TypeElement annotation : annotations) {
 			for (Element element : roundEnv.getElementsAnnotatedWith(annotation)) {
 				try {
@@ -83,11 +83,11 @@ public class ToJsonProcessor extends AbstractProcessor {
 		}
 	}
 
-	private void error(@NotNull IOException e) {
+	private void error(@NotNull  IOException e) {
 		processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "failed to write extension file: " + e.getMessage());
 	}
 
-	private void writeJsonWriterClass(Element element, @NotNull Scope scope) throws IOException {
+	private void writeJsonWriterClass(Element element, @NotNull  Scope scope) throws IOException {
 		Filer          filer      = processingEnv.getFiler();
 		JavaFileObject fileObject = filer.createSourceFile(scope.getTargetClassNameWithPackage(), element);
 		try (Writer writer = fileObject.openWriter()) {
@@ -95,7 +95,7 @@ public class ToJsonProcessor extends AbstractProcessor {
 		}
 	}
 
-	private @NotNull Scope createModel(@NotNull TypeElement element) {
+	private @NotNull  Scope createModel(@NotNull  TypeElement element) {
 		String packageName     = getPackageName(element);
 		String sourceClassName = getSimpleNameAsString(element);
 
@@ -104,11 +104,11 @@ public class ToJsonProcessor extends AbstractProcessor {
 		return scope;
 	}
 
-	private String getPackageName(@NotNull TypeElement classElement) {
+	private String getPackageName(@NotNull  TypeElement classElement) {
 		return ((PackageElement) classElement.getEnclosingElement()).getQualifiedName().toString();
 	}
 
-	private String getSimpleNameAsString(@NotNull Element element) {
+	private String getSimpleNameAsString(@NotNull  Element element) {
 		return element.getSimpleName().toString();
 	}
 
@@ -116,7 +116,7 @@ public class ToJsonProcessor extends AbstractProcessor {
 		return element instanceof TypeElement;
 	}
 
-	private void appendFields(TypeElement element, @NotNull Scope scope) {
+	private void appendFields(TypeElement element, @NotNull  Scope scope) {
 		if (isTypeElement(element)) {
 			for (String getterMethod : getAllGetterMethodNames(element)) {
 				scope.addGetter(getterMethod);
@@ -124,7 +124,7 @@ public class ToJsonProcessor extends AbstractProcessor {
 		}
 	}
 
-	private @NotNull List<String> getAllGetterMethodNames(TypeElement typeElement) {
+	private @NotNull  List<String> getAllGetterMethodNames(TypeElement typeElement) {
 		return processingEnv.getElementUtils().getAllMembers(typeElement)
 				.stream()
 				.filter(el -> el.getKind() == ElementKind.METHOD)

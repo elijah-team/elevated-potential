@@ -31,7 +31,7 @@ public class WriteMakefilePipeline implements PipelineMember, Consumer<Supplier<
 			sb.append(s);
 		}
 
-		public @NotNull String getText() {
+		public @NotNull  String getText() {
 			return sb.toString();
 		}
 	}
@@ -48,7 +48,7 @@ public class WriteMakefilePipeline implements PipelineMember, Consumer<Supplier<
 
 	}
 
-	private void process(final @NotNull G aG, final @NotNull List<EOT_OutputFile> aL) {
+	private void process(final @NotNull  G aG, final @NotNull  List<EOT_OutputFile> aL) {
 		final StringBuilder sb = new StringBuilder();
 
 		for (EOT_OutputFile off : aL) {
@@ -74,7 +74,7 @@ public class WriteMakefilePipeline implements PipelineMember, Consumer<Supplier<
 		aG.append(sb.toString());
 	}
 
-	private void process1(final @NotNull G aG) {
+	private void process1(final @NotNull  G aG) {
 		aG.append_string("\tcc \\\n");
 		for (String object : aG.objects) {
 			aG.append_string("\t\tB/%s \\\n".formatted(object));
@@ -84,7 +84,7 @@ public class WriteMakefilePipeline implements PipelineMember, Consumer<Supplier<
 	}
 
 	@Override
-	public void run(@NotNull CR_State st, CB_Output aOutput) throws Exception {
+	public void run(@NotNull  CR_State st, CB_Output aOutput) throws Exception {
 		final Compilation c = st.ca().getCompilation();
 		var cot = c.getOutputTree();
 
@@ -97,7 +97,7 @@ public class WriteMakefilePipeline implements PipelineMember, Consumer<Supplier<
 	}
 
 	@NotNull
-	EOT_OutputFile testable_part(final @NotNull List<EOT_OutputFile> list1) {
+	EOT_OutputFile testable_part(final @NotNull  List<EOT_OutputFile> list1) {
 		var list = list1.stream().filter(off -> off.getType() == EOT_OutputType.SOURCES).collect(Collectors.toList());
 
 		var sb = new StringBuilder();

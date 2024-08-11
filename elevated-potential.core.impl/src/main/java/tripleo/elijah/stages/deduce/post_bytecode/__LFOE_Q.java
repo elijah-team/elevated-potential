@@ -1,25 +1,20 @@
 package tripleo.elijah.stages.deduce.post_bytecode;
 
-import tripleo.elijah.Eventual;
-import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.deduce.NamespaceInvocation;
+import java.util.function.*;
+
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.work.WorkList;
-import tripleo.elijah.work.WorkManager;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.work.*;
 
 public class __LFOE_Q implements _LFOE_Q {
 	private final @NotNull GenerateFunctions generateFunctions;
 	private final          WorkList          wl;
-	private final @NotNull DeduceTypes2      deduceTypes2;
+	private final @NotNull DeduceTypes2 deduceTypes2;
 
 	public __LFOE_Q(WorkManager aWorkManager, WorkList aWorkList, final @NotNull DeduceTypes2 aDeduceTypes2) {
 		generateFunctions = aDeduceTypes2.phase.generatePhase.getGenerateFunctions(aDeduceTypes2.module);
@@ -38,7 +33,7 @@ public class __LFOE_Q implements _LFOE_Q {
 
 	@Override
 	public void enqueue_default_ctor(final GenerateFunctions generateFunctions1,
-									 final @NotNull FunctionInvocation fi,
+			final @NotNull FunctionInvocation fi,
 									 final Consumer<Eventual<BaseEvaFunction>> cef) {
 		// assert generateFunctions1 == generateFunctions;
 		final ICodeRegistrar codeRegistrar = deduceTypes2._phase().getCodeRegistrar();
@@ -47,7 +42,7 @@ public class __LFOE_Q implements _LFOE_Q {
 
 	@Override
 	public void enqueue_default_ctor(final GenerateFunctions generateFunctions1,
-									 final @NotNull FunctionInvocation fi,
+			final @NotNull FunctionInvocation fi,
 									 final ICodeRegistrar codeRegistrar,
 									 final Consumer<Eventual<BaseEvaFunction>> cef) {
 		assert generateFunctions1 == generateFunctions;
@@ -72,14 +67,14 @@ public class __LFOE_Q implements _LFOE_Q {
 
 	@Override
 	public void enqueue_function(final @NotNull Supplier<GenerateFunctions> som,
-								 final @NotNull FunctionInvocation aFi, final ICodeRegistrar cr) {
+			final @NotNull FunctionInvocation aFi, final ICodeRegistrar cr) {
 		final WlGenerateFunction wlgf = deduceTypes2._inj().new_WlGenerateFunction(som.get(), aFi, cr);
 		wl.addJob(wlgf);
 	}
 
 	@Override
 	public void enqueue_namespace(final @NotNull Supplier<GenerateFunctions> som,
-								  final @NotNull NamespaceInvocation aNsi, final DeducePhase.GeneratedClasses aGeneratedClasses,
+			final @NotNull NamespaceInvocation aNsi, final DeducePhase.GeneratedClasses aGeneratedClasses,
 								  final ICodeRegistrar aCr) {
 		wl.addJob(deduceTypes2._inj().new_WlGenerateNamespace(som.get(), aNsi, aGeneratedClasses, aCr));
 	}

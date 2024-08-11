@@ -1,10 +1,9 @@
 package tripleo.elijah.diagnostic;
 
-import org.jetbrains.annotations.NotNull;
+import java.io.*;
+import java.util.*;
 
-import java.io.File;
-import java.io.PrintStream;
-import java.util.List;
+import org.jetbrains.annotations.*;
 
 public class FileNotFoundDiagnostic implements Diagnostic {
 	private final File f;

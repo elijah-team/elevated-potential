@@ -1,11 +1,15 @@
 package tripleo.elijah.comp;
 
+import java.util.*;
+import java.util.function.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.nextgen.i.CP_Paths;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.nextgen.pn.*;
 import tripleo.elijah.comp.nextgen.pw.*;
 import tripleo.elijah.comp.specs.*;
@@ -15,9 +19,6 @@ import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.util.*;
 
-import java.util.*;
-import java.util.function.Supplier;
-
 public interface Compilation0 /*extends GCompilation*/ {
 
     //	CompilerBeginning beginning(final CompilationRunner compilationRunner);
@@ -26,9 +27,9 @@ public interface Compilation0 /*extends GCompilation*/ {
 
     int errorCount();
 
-    void feedCmdLine(@NotNull List<String> args) throws Exception;
+	void feedCmdLine(@NotNull List<String> args) throws Exception;
 
-    void feedInputs(@NotNull List<CompilerInput> inputs, CompilerController controller);
+	void feedInputs(@NotNull List<CompilerInput> inputs, CompilerController controller);
 
     CompilationClosure getCompilationClosure();
 
@@ -42,7 +43,7 @@ public interface Compilation0 /*extends GCompilation*/ {
     @Contract(pure = true)
     List<CompilerInput> getInputs();
 
-    OS_Package getPackage(@NotNull Qualident pkg_name);
+	OS_Package getPackage(@NotNull Qualident pkg_name);
 
     String getProjectName();
 
@@ -50,13 +51,13 @@ public interface Compilation0 /*extends GCompilation*/ {
 
     void setRootCI(CompilerInstructions aRoot);
 
-    boolean isPackage(@NotNull String pkg);
+	boolean isPackage(@NotNull String pkg);
 
     OS_Package makePackage(Qualident pkg_name);
 
     void pushItem(CompilerInstructions aci);
 
-    void use(@NotNull CompilerInstructions compilerInstructions, USE_Reasoning aReasoning);
+	void use(@NotNull CompilerInstructions compilerInstructions, USE_Reasoning aReasoning);
 
     ElijahCache use_elijahCache();
 

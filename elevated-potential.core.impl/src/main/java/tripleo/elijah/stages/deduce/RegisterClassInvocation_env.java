@@ -1,14 +1,14 @@
 package tripleo.elijah.stages.deduce;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.*;
+import java.util.function.*;
 
-import java.util.Objects;
-import java.util.function.Supplier;
+import org.jetbrains.annotations.*;
 
 public final class RegisterClassInvocation_env {
-	private final @NotNull ClassInvocation        classInvocation;
+	private final @NotNull ClassInvocation classInvocation;
 	private final @NotNull Supplier<DeduceTypes2> deduceTypes2Supplier;
-	private final @NotNull Supplier<DeducePhase>  deducePhaseSupplier;
+	private final @NotNull Supplier<DeducePhase> deducePhaseSupplier;
 
 	public RegisterClassInvocation_env(
 			@NotNull ClassInvocation classInvocation,

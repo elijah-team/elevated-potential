@@ -1,6 +1,7 @@
 package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
@@ -32,7 +33,7 @@ public class ModuleBuilder {
 			}
 
 			final @Nullable Compilation compilation = (Compilation) mod.getCompilation();
-			final @NotNull LivingRepo   world       = compilation.world();
+			final @NotNull LivingRepo world = compilation.world();
 			world.addModule(mod, _fn, compilation);
 		}
 		return mod;

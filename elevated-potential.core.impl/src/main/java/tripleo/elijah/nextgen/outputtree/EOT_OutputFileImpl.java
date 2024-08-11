@@ -1,10 +1,11 @@
 package tripleo.elijah.nextgen.outputtree;
 
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputstatement.*;
-
-import java.util.*;
 
 public class EOT_OutputFileImpl implements EOT_OutputFile {
 	private final @NotNull EOT_FileNameProvider _filename;
@@ -14,7 +15,7 @@ public class EOT_OutputFileImpl implements EOT_OutputFile {
 	public List<EIT_Input_HashSourceFile_Triple> x;
 
 	public EOT_OutputFileImpl(final @NotNull List<EIT_Input> inputs, final @NotNull EOT_FileNameProvider filename,
-							  final @NotNull EOT_OutputType type, final @NotNull EG_Statement sequence) {
+			final @NotNull EOT_OutputType type, final @NotNull EG_Statement sequence) {
 		_filename = filename;
 		_type = type;
 		_sequence = sequence;
@@ -22,7 +23,7 @@ public class EOT_OutputFileImpl implements EOT_OutputFile {
 	}
 
 	public EOT_OutputFileImpl(final @NotNull List<EIT_Input> inputs, final @NotNull String filename,
-							  final @NotNull EOT_OutputType type, final @NotNull EG_Statement sequence) {
+			final @NotNull EOT_OutputType type, final @NotNull EG_Statement sequence) {
 		this(inputs, new _U_OF.DefaultFileNameProvider(filename), type, sequence);
 	}
 

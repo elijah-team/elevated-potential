@@ -8,9 +8,9 @@
  */
 package tripleo.elijah.lang.impl;
 
-import tripleo.elijah.lang.i.*;
+import org.jetbrains.annotations.*;
 
-import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.lang.i.*;
 
 // TODO is ExpressionList an IExpression?
 public class ProcedureCallExpressionImpl implements ProcedureCallExpression {
@@ -107,7 +107,7 @@ public class ProcedureCallExpressionImpl implements ProcedureCallExpression {
 		throw new IllegalArgumentException();
 	}
 
-	//public @NotNull String getReturnTypeString() {
+	// public @NotNull String getReturnTypeString() {
 	//	return "int"; // TODO hardcoded
 	//}
 

@@ -1,22 +1,17 @@
 package tripleo.elijah.comp.internal;
 
-import org.jetbrains.annotations.NotNull;
+import java.io.*;
+import java.util.*;
 
-import tripleo.elijah.DebugFlags;
-import tripleo.elijah.comp.Compilation;
+import org.jetbrains.annotations.*;
 
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.world.i.WorldModule;
-
-import tripleo.elijah.comp.nextgen.CX_ParseElijahFile;
-import tripleo.elijah.comp.specs.ElijahCache;
-import tripleo.elijah.comp.specs.ElijahSpec;
-
-import tripleo.elijah.util.Operation2;
-
-import java.io.IOException;
-import java.util.Optional;
-
+import tripleo.elijah.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.nextgen.*;
+import tripleo.elijah.comp.specs.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.world.i.*;
 import tripleo.wrap.File;
 
 public enum CX_realParseElijjahFile2 {
@@ -29,7 +24,8 @@ public enum CX_realParseElijjahFile2 {
 	 * 4. Create WorldModule and World#addModule2 <br/>
 	 * 5. Return success <br/>
 	 */
-	public static Operation2<OS_Module> realParseElijjahFile2(final ElijahSpec spec, final @NotNull ElijahCache aElijahCache, final @NotNull Compilation aC) {
+	public static Operation2<OS_Module> realParseElijjahFile2(final ElijahSpec spec,
+			final @NotNull ElijahCache aElijahCache, final @NotNull Compilation aC) {
 		final File file = spec.file();
 
 		final String absolutePath;

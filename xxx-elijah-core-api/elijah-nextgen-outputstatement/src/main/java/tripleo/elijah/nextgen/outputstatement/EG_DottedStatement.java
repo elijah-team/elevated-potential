@@ -1,8 +1,8 @@
 package tripleo.elijah.nextgen.outputstatement;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.*;
 
-import java.util.List;
+import org.jetbrains.annotations.*;
 
 public class EG_DottedStatement implements EG_Statement {
 	private final EX_Explanation explanation;

@@ -8,11 +8,12 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
-
-import java.util.*;
 
 /**
  * Created 6/27/21 9:40 AM
@@ -67,9 +68,9 @@ public class EvaFunction extends BaseEvaFunction {
 		if (fd == null) {
 			return "<EvaFunction {{unattached}}>";
 		} else {
-			final @NotNull Collection<FormalArgListItem> args   = fd.getArgs();
+			final @NotNull Collection<FormalArgListItem> args = fd.getArgs();
 			final @Nullable OS_Element                    parent = fd.getParent();
-			final @NotNull String                        name   = fd.name();
+			final @NotNull String name = fd.name();
 
 			//noinspection SpellCheckingInspection
 			String pparent;

@@ -8,19 +8,15 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
+import org.jetbrains.annotations.*;
+
 import lombok.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.NamespaceStatement;
-import tripleo.elijah.lang.i.OS_Element;
-import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.nextgen.DeduceCreationContext;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
-import tripleo.elijah.work.WorkJob;
-import tripleo.elijah.work.WorkManager;
+import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.work.*;
 
 /**
  * Created 5/16/21 12:46 AM
@@ -44,7 +40,7 @@ public class WlGenerateFunction implements WorkJob {
 
 	public WlGenerateFunction(final OS_Module aModule,
 							  final FunctionInvocation aFunctionInvocation,
-							  final @NotNull DeduceCreationContext aCl) {
+			final @NotNull DeduceCreationContext aCl) {
 		this(aCl.getGeneratePhase().getGenerateFunctions(aModule),
 			 aFunctionInvocation,
 			 aCl.getDeducePhase().getCodeRegistrar());

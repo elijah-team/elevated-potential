@@ -17,14 +17,10 @@
 
 package tripleo.vendor.org_apache_commons_cli;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import java.io.*;
+import java.util.*;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import org.jetbrains.annotations.*;
 
 /**
  * A group of mutually exclusive options.

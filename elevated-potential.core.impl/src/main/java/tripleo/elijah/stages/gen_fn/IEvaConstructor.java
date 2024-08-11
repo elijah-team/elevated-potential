@@ -18,7 +18,8 @@ public interface IEvaConstructor extends
 	Eventual<DeduceElement3_Constructor> de3_Promise();
 
 	@Override
-	@NotNull FunctionDef getFD();
+	@NotNull
+	FunctionDef getFD();
 
 	@Override
 	@Nullable VariableTableEntry getSelf();
@@ -27,7 +28,8 @@ public interface IEvaConstructor extends
 	String identityString();
 
 	@Override
-	@NotNull OS_Module module();
+	@NotNull
+	OS_Module module();
 
 	String name();
 

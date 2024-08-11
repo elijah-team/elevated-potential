@@ -16,12 +16,15 @@ import tripleo.elijah.work.*;
 
 class lfoe_action__FunctionInvocationDoneCallback implements DoneCallback<FunctionInvocation> {
 	private final          DeduceElement3_ProcTableEntry deduceElement3ProcTableEntry;
-	private final @NotNull DeduceTypes2                  deduceTypes2;
-	private final @NotNull Consumer<WorkList>            addJobs;
+	private final @NotNull DeduceTypes2 deduceTypes2;
+	private final @NotNull Consumer<WorkList> addJobs;
 	private final          __LFOE_Q                      q;
-	private final @NotNull WorkList                      wl;
+	private final @NotNull WorkList wl;
 
-	public lfoe_action__FunctionInvocationDoneCallback(final DeduceElement3_ProcTableEntry aDeduceElement3ProcTableEntry, final @NotNull DeduceTypes2 aDeduceTypes2, final @NotNull Consumer<WorkList> aAddJobs, final __LFOE_Q aQ, final @NotNull WorkList aWl) {
+	public lfoe_action__FunctionInvocationDoneCallback(
+			final DeduceElement3_ProcTableEntry aDeduceElement3ProcTableEntry,
+			final @NotNull DeduceTypes2 aDeduceTypes2, final @NotNull Consumer<WorkList> aAddJobs, final __LFOE_Q aQ,
+			final @NotNull WorkList aWl) {
 		deduceElement3ProcTableEntry = aDeduceElement3ProcTableEntry;
 		deduceTypes2                 = aDeduceTypes2;
 		addJobs                      = aAddJobs;
@@ -67,7 +70,8 @@ class lfoe_action__FunctionInvocationDoneCallback implements DoneCallback<Functi
 			Collection<ConstructorDef> cis = klass.getConstructors();
 
 			if (DebugFlags.FORCE_IGNORE) {
-				for (@NotNull ConstructorDef constructorDef : cis) {
+				for (@NotNull
+				ConstructorDef constructorDef : cis) {
 					final Iterable<FormalArgListItem> constructorDefArgs = constructorDef.getArgs();
 
 					if (!constructorDefArgs.iterator().hasNext()) { // zero-sized arg list

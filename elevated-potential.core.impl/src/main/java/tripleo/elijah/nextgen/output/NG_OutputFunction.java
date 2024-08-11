@@ -1,14 +1,15 @@
 package tripleo.elijah.nextgen.output;
 
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.generate.*;
-
-import java.util.*;
 
 public class NG_OutputFunction implements NG_OutputItem {
 	private List<C2C_Result> collect;
@@ -33,7 +34,7 @@ public class NG_OutputFunction implements NG_OutputItem {
 
 	@Override
 	public EOT_FileNameProvider outName(final @NotNull OutputStrategyC aOutputStrategyC,
-										final GenerateResult.@NotNull TY ty) {
+			final GenerateResult.@NotNull TY ty) {
 		if (gf instanceof EvaFunction) {
 			return aOutputStrategyC.nameForFunction1((EvaFunction) gf, ty);
 		} else {

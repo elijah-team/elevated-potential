@@ -1,6 +1,7 @@
 package tripleo.elijah.stages.gen_c;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
@@ -21,7 +22,8 @@ class GCM_GF implements GCM_D {
 	}
 
 	@Override
-	public void find_return_type(final Generate_Method_Header aGenerate_method_header__, final Eventual<@NotNull String> ev) {
+	public void find_return_type(final Generate_Method_Header aGenerate_method_header__,
+			final Eventual<@NotNull String> ev) {
 		var fd = gf.getFD();
 
 		if (fd.returnType() instanceof RegularTypeName rtn) {

@@ -7,17 +7,15 @@
  */
 package tripleo.elijah.lang.impl;
 
-import tripleo.elijah.UnintendedUseException;
+import java.util.*;
+
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.NotImplementedException;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
+import tripleo.elijah.lang2.*;
+import tripleo.elijah.util.*;
 
 /*
  * Created on Aug 30, 2005 8:43:27 PM
@@ -25,7 +23,7 @@ import java.util.List;
 public class DefFunctionDefImpl extends BaseFunctionDef implements tripleo.elijah.lang.i.DefFunctionDef {
 
 	private final          OS_Element         parent;
-	private final @NotNull List<FunctionItem> _items      = new ArrayList<FunctionItem>();
+	private final @NotNull List<FunctionItem> _items = new ArrayList<FunctionItem>();
 	private                IExpression        _expr;
 	private @Nullable      TypeName           _returnType = null;
 

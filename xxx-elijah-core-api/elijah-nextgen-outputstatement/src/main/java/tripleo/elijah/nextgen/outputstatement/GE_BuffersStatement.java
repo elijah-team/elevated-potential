@@ -1,11 +1,11 @@
 package tripleo.elijah.nextgen.outputstatement;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.util.buffer.Buffer;
-
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.*;
+
+import org.jetbrains.annotations.*;
+
+import tripleo.util.buffer.*;
 
 // TODO 11/29 looks a little bit like it doesn't belong
 public class GE_BuffersStatement implements EG_Statement {

@@ -1,6 +1,9 @@
 package tripleo.elijah.stages.garish;
 
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
@@ -11,8 +14,6 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.*;
-
-import java.util.*;
 
 public class GarishClass implements GGarishClass {
 	private final LivingClass _lc;
@@ -51,11 +52,13 @@ public class GarishClass implements GGarishClass {
 		return sb.toString();
 	}
 
-	public void garish(final GenerateC aGenerateC, final GenerateResult gr, final @NotNull GenerateResultSink aResultSink) {
+	public void garish(final GenerateC aGenerateC, final GenerateResult gr,
+			final @NotNull GenerateResultSink aResultSink) {
 		getLiving().generateWith(aResultSink, this, gr, aGenerateC);
 	}
 
-	public @NotNull BufferTabbedOutputStream getImplBuffer(final @NotNull EvaClass x, final @NotNull CClassDecl decl, final String class_name, final int class_code) {
+	public @NotNull BufferTabbedOutputStream getImplBuffer(final @NotNull EvaClass x, final @NotNull CClassDecl decl,
+			final String class_name, final int class_code) {
 		final BufferTabbedOutputStream tos = new BufferTabbedOutputStream();
 
 		// TODO remove this block when constructors are added in dependent functions,
@@ -112,7 +115,8 @@ public class GarishClass implements GGarishClass {
 		return getHeaderBuffer(aGenerateC, evaClass, decl, class_name);
 	}
 
-	public @NotNull BufferTabbedOutputStream getHeaderBuffer(final @NotNull GenerateC aGenerateC, final @NotNull EvaClass x, final @NotNull CClassDecl decl, final String class_name) {
+	public @NotNull BufferTabbedOutputStream getHeaderBuffer(final @NotNull GenerateC aGenerateC,
+			final @NotNull EvaClass x, final @NotNull CClassDecl decl, final String class_name) {
 		final BufferTabbedOutputStream tosHdr = new BufferTabbedOutputStream();
 
 		tosHdr.put_string_ln("typedef struct {");

@@ -1,6 +1,7 @@
 package tripleo.elijah.entrypoints;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -81,7 +82,7 @@ public interface EntryPointProcessor {
 
 			final @NotNull FunctionInvocation fi = deducePhase.newFunctionInvocation((BaseFunctionDef) f, null, ci);
 //				fi.setPhase(deducePhase);
-			final @NotNull WlGenerateFunction job1 = new WlGenerateFunction(generateFunctions, fi, cr);
+final @NotNull WlGenerateFunction job1 = new WlGenerateFunction(generateFunctions, fi, cr);
 			wl.addJob(job1);
 		}
 	}

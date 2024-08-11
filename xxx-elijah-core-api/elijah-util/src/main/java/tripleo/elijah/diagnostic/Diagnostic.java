@@ -9,10 +9,10 @@
 
 package tripleo.elijah.diagnostic;
 
-import org.jetbrains.annotations.*;
-
 import java.io.*;
 import java.util.*;
+
+import org.jetbrains.annotations.*;
 
 /**
  * Created 12/26/20 5:31 AM

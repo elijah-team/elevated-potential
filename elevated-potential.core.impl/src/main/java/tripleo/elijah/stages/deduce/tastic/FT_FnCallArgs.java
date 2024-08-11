@@ -55,7 +55,7 @@ public class FT_FnCallArgs implements ITastic {
 		 *
 		 */
 		public DoAssignCall(DeduceClient4 dc,
-							@NotNull BaseEvaFunction generatedFunction) {
+				@NotNull BaseEvaFunction generatedFunction) {
 			this.dc                = dc;
 			this.generatedFunction = generatedFunction;
 		}
@@ -103,8 +103,8 @@ public class FT_FnCallArgs implements ITastic {
 
 		}
 
-	private final @NotNull ElLog        LOG;
-	private final @NotNull DeduceTypes2 deduceTypes2;
+		private final @NotNull ElLog LOG;
+		private final @NotNull DeduceTypes2 deduceTypes2;
 	private final          FnCallArgs   fca;
 
 	@Contract(pure = true)
@@ -117,13 +117,13 @@ public class FT_FnCallArgs implements ITastic {
 
 	public static final class Packet_do_assign_call implements Packet {
 		private final @NotNull BaseEvaFunction generatedFunction;
-		private final @NotNull Context         ctx;
+		private final @NotNull Context ctx;
 		private final @NotNull IdentTableEntry idte;
 		private final          int             instructionIndex;
 
 		public Packet_do_assign_call(@NotNull BaseEvaFunction generatedFunction,
-									 @NotNull Context ctx,
-									 @NotNull IdentTableEntry idte,
+				@NotNull Context ctx,
+				@NotNull IdentTableEntry idte,
 									 int instructionIndex) {
 			this.generatedFunction = generatedFunction;
 			this.ctx               = ctx;
@@ -175,10 +175,10 @@ public class FT_FnCallArgs implements ITastic {
 
 	@Override
 	public void do_assign_call(final @NotNull BaseEvaFunction generatedFunction,
-							   final @NotNull Context ctx,
-							   final @NotNull IdentTableEntry idte,
-							   final @NotNull FnCallArgs fca,
-							   final @NotNull Instruction instruction) {
+			final @NotNull Context ctx,
+			final @NotNull IdentTableEntry idte,
+			final @NotNull FnCallArgs fca,
+			final @NotNull Instruction instruction) {
 		final int                     instructionIndex = instruction.getIndex();
 		final @NotNull ProcTableEntry pte = generatedFunction.getProcTableEntry(to_int(fca.getArg(0)));
 		for (final @NotNull TypeTableEntry tte : pte.getArgs()) {
@@ -193,7 +193,8 @@ public class FT_FnCallArgs implements ITastic {
 			}
 			case IDENT -> {
 				final @Nullable InstructionArgument vte_ia = generatedFunction.vte_lookup(((IdentExpression) e).getText());
-				final @NotNull List<TypeTableEntry> ll = deduceTypes2.getPotentialTypesVte((EvaFunction) generatedFunction, vte_ia);
+				final @NotNull List<TypeTableEntry> ll = deduceTypes2
+						.getPotentialTypesVte((EvaFunction) generatedFunction, vte_ia);
 
 				if (ll.size() == 1) {
 					tte.setAttached(ll.get(0).getAttached());
@@ -230,12 +231,13 @@ public class FT_FnCallArgs implements ITastic {
 	private void do_assign_call__callback(@Nullable OS_Element best, Packet ap) {
 		final Packet_do_assign_call   p                 = (Packet_do_assign_call) ap;
 		final BaseEvaFunction         generatedFunction = p.generatedFunction();
-		final @NotNull ProcTableEntry pte               = generatedFunction.getProcTableEntry(to_int(fca.getArg(0)));
+		final @NotNull ProcTableEntry pte = generatedFunction.getProcTableEntry(to_int(fca.getArg(0)));
 
 		do_assign_call__callback(generatedFunction, best, pte);
 	}
 
-	private void do_assign_call__callback(final @NotNull BaseEvaFunction generatedFunction, final @Nullable OS_Element best, final @NotNull ProcTableEntry pte) {
+	private void do_assign_call__callback(final @NotNull BaseEvaFunction generatedFunction,
+			final @Nullable OS_Element best, final @NotNull ProcTableEntry pte) {
 		if (best != null) {
 			pte.setResolvedElement(best);
 
@@ -269,14 +271,14 @@ public class FT_FnCallArgs implements ITastic {
 
 	@Override
 	public void do_assign_call(final @NotNull BaseEvaFunction generatedFunction,
-	                           final @NotNull Context ctx,
-	                           final @NotNull VariableTableEntry vte,
-	                           final @NotNull Instruction instruction,
+			final @NotNull Context ctx,
+			final @NotNull VariableTableEntry vte,
+			final @NotNull Instruction instruction,
 	                           final OS_Element aName) {
 		final DeduceClient4 client4 = deduceTypes2._inj().new_DeduceClient4(deduceTypes2);
 		final DoAssignCall dac = deduceTypes2._inj().new_DoAssignCall(client4, generatedFunction, this);
 		final int                        instructionIndex = instruction.getIndex();
-		final @NotNull ProcTableEntry    pte              = ((ProcIA) fca.getArg(0)).getEntry();
+		final @NotNull ProcTableEntry pte = ((ProcIA) fca.getArg(0)).getEntry();
 
 		if (aName instanceof IdentExpression ie) {
 			ie.getName().addUnderstanding(deduceTypes2._inj().new_ENU_FunctionCallTarget(pte));

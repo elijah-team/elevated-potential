@@ -1,12 +1,14 @@
 package tripleo.elijah.work;
 
-import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
+
+import com.google.common.collect.*;
 
 public interface WorkList {
 	void addJob(WorkJob aJob);
 
-	@NotNull ImmutableList<WorkJob> getJobs();
+	@NotNull
+	ImmutableList<WorkJob> getJobs();
 
 	boolean isDone();
 

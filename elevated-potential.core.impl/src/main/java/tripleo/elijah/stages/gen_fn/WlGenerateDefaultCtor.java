@@ -9,6 +9,7 @@
 package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -22,7 +23,7 @@ import tripleo.elijah.work.*;
  */
 public class WlGenerateDefaultCtor implements WorkJob {
 	private final          FunctionInvocation    functionInvocation;
-	private final @NotNull GenerateFunctions     generateFunctions;
+	private final @NotNull GenerateFunctions generateFunctions;
 	private final          ICodeRegistrar        codeRegistrar;
 	private                boolean               _isDone = false;
 	private                BaseEvaFunction       Result;
@@ -36,7 +37,7 @@ public class WlGenerateDefaultCtor implements WorkJob {
 
 	public WlGenerateDefaultCtor(final OS_Module module,
 								 final FunctionInvocation aFunctionInvocation,
-								 final @NotNull DeduceCreationContext crcl) {
+			final @NotNull DeduceCreationContext crcl) {
 		this(crcl.getGeneratePhase().getGenerateFunctions(module),
 			 aFunctionInvocation,
 			 crcl,
@@ -87,7 +88,8 @@ public class WlGenerateDefaultCtor implements WorkJob {
 				final OS_Element classStatement = cd.getParent();
 				assert classStatement instanceof ClassStatement;
 
-				final @NotNull EvaConstructor gf = generateFunctions.generateConstructor(cd, (ClassStatement) classStatement, functionInvocation);
+				final @NotNull EvaConstructor gf = generateFunctions.generateConstructor(cd,
+						(ClassStatement) classStatement, functionInvocation);
 				// lgf.add(gf);
 
 				final ClassInvocation ci = functionInvocation.getClassInvocation();

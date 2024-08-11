@@ -1,31 +1,26 @@
 package tripleo.elijah.test_help;
 
-import org.jetbrains.annotations.NotNull;
+import static tripleo.elijah.util.Helpers.*;
+
+import java.util.*;
+
+import org.jetbrains.annotations.*;
+
 import tripleo.elijah.comp.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.i.ProcessRecord;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.notation.GM_GenerateModule;
-import tripleo.elijah.comp.notation.GM_GenerateModuleRequest;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
-import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.lang.impl.OS_ModuleImpl;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
-import tripleo.elijah.stages.deduce.DeducePhase;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.nextgen.inputtree.*;
+import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.DefaultGenerateResultSink;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.ProcessedNode;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.work.*;
-import tripleo.elijah.world.impl.DefaultWorldModule;
-
-import java.util.List;
-
-import static tripleo.elijah.util.Helpers.List_of;
+import tripleo.elijah.world.impl.*;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 // TODO replace with CompilationFlow
 public class Boilerplate {
@@ -55,7 +50,8 @@ public class Boilerplate {
 		CR_State crState;
 		crState = new CR_State(aca);
 		cr = new CompilationRunner(aca, crState,
-				() -> new DefaultCompilationBus((@NotNull CompilationEnclosure) aca.getCompilation().getCompilationEnclosure()));
+				() -> new DefaultCompilationBus(
+						(@NotNull CompilationEnclosure) aca.getCompilation().getCompilationEnclosure()));
 		crState.setRunner(cr);
 
 		final CompilationEnclosure compilationEnclosure = (CompilationEnclosure) comp.getCompilationEnclosure();

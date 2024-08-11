@@ -1,8 +1,9 @@
 package tripleo.elijah.contexts;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.ContextImpl;
+import tripleo.elijah.lang.impl.*;
 
 /**
  * Created 8/30/20 6:51 PM
@@ -24,7 +25,7 @@ public class SingleIdentContext extends ContextImpl {
 
 	@Override
 	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
-								   final @NotNull ISearchList alreadySearched, final boolean one) {
+			final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(element.getContext());
 
 		if (carrier != null && carrier.getText().equals(name))

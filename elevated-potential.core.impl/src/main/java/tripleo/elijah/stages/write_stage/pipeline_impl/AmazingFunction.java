@@ -1,8 +1,14 @@
 package tripleo.elijah.stages.write_stage.pipeline_impl;
 
-import com.google.common.base.*;
+import static tripleo.elijah.util.Helpers.*;
+
+import java.util.*;
+
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
+import com.google.common.base.*;
+
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.lang.i.*;
@@ -15,10 +21,6 @@ import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah_elevated.comp.backbone.*;
 
-import java.util.*;
-
-import static tripleo.elijah.util.Helpers.*;
-
 class AmazingFunction implements Amazing {
 	private final NG_OutputFunction                of;
 	private final BaseEvaFunction                  f;
@@ -28,9 +30,9 @@ class AmazingFunction implements Amazing {
 	private final IPipelineAccess                  pa;
 
 	public AmazingFunction(final @NotNull BaseEvaFunction aBaseEvaFunction,
-						   final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems,
-						   final @NotNull GenerateResult aGenerateResult,
-						   final @NotNull IPipelineAccess aPa) {
+			final @NotNull WPIS_GenerateOutputs.OutputItems aOutputItems,
+			final @NotNull GenerateResult aGenerateResult,
+			final @NotNull IPipelineAccess aPa) {
 		// given
 		f      = aBaseEvaFunction;
 		mod    = aBaseEvaFunction.module();

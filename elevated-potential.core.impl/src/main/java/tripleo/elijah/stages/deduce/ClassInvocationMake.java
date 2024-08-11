@@ -18,14 +18,14 @@ public enum ClassInvocationMake {
 	public static @NotNull Operation<ClassInvocation> withGenericPart(@NotNull ClassStatement best,
 																	  String constructorName,
 																	  @Nullable NormalTypeName aTyn1,
-																	  @NotNull DeduceTypes2 dt2) {
+			@NotNull DeduceTypes2 dt2) {
 		Eventual<Operation<ClassInvocation>> ev = dt2.eventual("ClassInvocationMake::withGenericPart");
 
 		if (aTyn1 == null) {
 			// throw new IllegalStateException("blank typename");
 		}
 
-		final @NotNull GenericPart      genericPart = dt2._inj().new_GenericPart(best, aTyn1);
+		final @NotNull GenericPart genericPart = dt2._inj().new_GenericPart(best, aTyn1);
 		final @Nullable ClassInvocation clsinv      = dt2._inj().new_ClassInvocation(best, constructorName, new ReadySupplier_1<>(dt2));
 
 		if (genericPart.hasGenericPart()) {
@@ -67,7 +67,8 @@ public enum ClassInvocationMake {
 
 	public static DeduceTypes2Injector.DerivedClassInvocation2 withGenericPart2(final ClassStatement aClassStatement,
 			final String aO, final NormalTypeName aNormalTypeName, final DeduceTypes2 aDeduceTypes2) {
-		@NotNull final Operation<ClassInvocation> x = withGenericPart(aClassStatement, aO, aNormalTypeName, aDeduceTypes2);
+		@NotNull
+		final Operation<ClassInvocation> x = withGenericPart(aClassStatement, aO, aNormalTypeName, aDeduceTypes2);
 		final DeduceTypes2Injector.DerivedClassInvocation2 result = new DeduceTypes2Injector.DerivedClassInvocation2() {
 			@Override
 			public void into(final Eventual<IInvocation> ev) {

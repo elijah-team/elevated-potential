@@ -1,26 +1,25 @@
 package tripleo.elijah.stages.write_stage.pipeline_impl;
 
+import static tripleo.elijah.util.Helpers.*;
+
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
+
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.nextgen.i.CP_Path;
-import tripleo.elijah.comp.nextgen.i.CP_Paths;
+import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.nextgen.pn.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.util.*;
-
-import java.io.*;
-import java.nio.file.*;
-import java.util.*;
-
-import static tripleo.elijah.util.Helpers.List_of;
-
-import tripleo.elijah_prolific.v.V;
+import tripleo.elijah_prolific.v.*;
 import tripleo.wrap.File;
 
 public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
@@ -45,8 +44,8 @@ public class WPIS_WriteBuffers implements WP_Individual_Step, SC_I {
 	}
 	@NotNull
 	private static EOT_OutputFile createOutputFile(final LSPrintStream.LSResult ls,
-												   final @NotNull Compilation c,
-												   final @NotNull CP_Paths paths) {
+			final @NotNull Compilation c,
+			final @NotNull CP_Paths paths) {
 		final CP_Path or    = paths.outputRoot();
 		final File    file1 = or.subFile("buffers.txt").toFile(); // TODO subFile vs child
 

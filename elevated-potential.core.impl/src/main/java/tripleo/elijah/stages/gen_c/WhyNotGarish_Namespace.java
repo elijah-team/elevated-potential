@@ -3,6 +3,7 @@ package tripleo.elijah.stages.gen_c;
 import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.nextgen.reactive.*;
@@ -38,7 +39,7 @@ public class WhyNotGarish_Namespace implements WhyNotGarish_Item {
 
 		final LivingRepo                  world = generateC._ce().getCompilation().world();
 		final GarishNamespace             gn    = world.getNamespace(en).getGarish();
-		final @NotNull GenerateResultSink sink  = aFileGen.resultSink();
+		final @NotNull GenerateResultSink sink = aFileGen.resultSink();
 
 		if (sink != null) {
 			new GarishNamespace__addClass_1(gn, aFileGen.gr(), generateC).action(sink);

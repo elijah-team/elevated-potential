@@ -1,8 +1,12 @@
 package tripleo.elijah_elevated.comp.backbone;
 
-import io.reactivex.rxjava3.annotations.*;
+import java.util.*;
+import java.util.function.*;
+
 import org.jetbrains.annotations.*;
-import tripleo.elijah.Eventual;
+
+import io.reactivex.rxjava3.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
@@ -10,28 +14,25 @@ import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.comp.impl.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.nextgen.i.*;
-import tripleo.elijah.g.GCompilationEnclosure;
-import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
+import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.pre_world.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.generate.*;
 import tripleo.elijah.stages.inter.*;
-import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 import tripleo.elijah.world.i.*;
-
-import java.util.*;
-import java.util.function.*;
 
 public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure {
 	void addEntryPoint(@NotNull Mirror_EntryPoint aMirrorEntryPoint, IClassGenerator dcg);
 
 	void addModuleListener(ModuleListener aModuleListener);
 
-	@NotNull ModuleThing addModuleThing(OS_Module aMod);
+	@NotNull
+	ModuleThing addModuleThing(OS_Module aMod);
 
 	void addReactive(@NotNull Reactivable r);
 
@@ -41,7 +42,8 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 
 	void AssertOutFile(@NotNull NG_OutputRequest aOutputRequest);
 
-	@NotNull Eventual<AccessBus> getAccessBusPromise();
+	@NotNull
+	Eventual<AccessBus> getAccessBusPromise();
 
 	@Contract(pure = true)
 	CB_Output getCB_Output();
@@ -50,7 +52,8 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	Compilation getCompilation();
 
 	@Contract(pure = true)
-	@NotNull ICompilationAccess getCompilationAccess();
+	@NotNull
+	ICompilationAccess getCompilationAccess();
 
 	void setCompilationAccess(@NotNull ICompilationAccess aca);
 
@@ -81,7 +84,8 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	IPipelineAccess getPipelineAccess();
 
 	@Contract(pure = true)
-	@NotNull Eventual<IPipelineAccess> getPipelineAccessPromise();
+	@NotNull
+	Eventual<IPipelineAccess> getPipelineAccessPromise();
 
 	@Contract(pure = true)
 	PipelineLogic getPipelineLogic();

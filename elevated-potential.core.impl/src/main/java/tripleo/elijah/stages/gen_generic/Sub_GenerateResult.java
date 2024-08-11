@@ -1,16 +1,17 @@
 package tripleo.elijah.stages.gen_generic;
 
+import java.util.*;
+import java.util.function.*;
+
+import org.jetbrains.annotations.*;
+
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.subjects.*;
-import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.util.*;
 import tripleo.util.buffer.*;
-
-import java.util.*;
-import java.util.function.*;
 
 public class Sub_GenerateResult implements GenerateResult {
 	final List<Old_GenerateResultItem> _res = new ArrayList<Old_GenerateResultItem>();
@@ -64,8 +65,8 @@ public class Sub_GenerateResult implements GenerateResult {
 	 */
 	@Override
 	public void addConstructor(@NotNull EvaConstructor aEvaConstructor,
-							   @NotNull Buffer aBuffer,
-							   @NotNull TY aTY,
+			@NotNull Buffer aBuffer,
+			@NotNull TY aTY,
 							   LibraryStatementPart aLsp) {
 		addFunction(aEvaConstructor, aBuffer, aTY, aLsp);
 	}

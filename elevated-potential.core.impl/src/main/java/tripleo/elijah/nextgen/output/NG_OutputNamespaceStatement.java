@@ -1,8 +1,9 @@
 package tripleo.elijah.nextgen.output;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
+import tripleo.elijah.comp.nextgen.inputtree.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputstatement.*;
@@ -12,11 +13,11 @@ import tripleo.util.buffer.*;
 
 public class NG_OutputNamespaceStatement implements NG_OutputStatement {
 	private final          TY                       ty;
-	private final @NotNull NG_OutDep                moduleDependency;
+	private final @NotNull NG_OutDep moduleDependency;
 	private final          Buffer                   buf;
 
 	public NG_OutputNamespaceStatement(final BufferTabbedOutputStream aBufferTabbedOutputStream,
-	                                   final @NotNull OS_Module aModule,
+			final @NotNull OS_Module aModule,
 	                                   final TY aTY) {
 		buf              = aBufferTabbedOutputStream.getBuffer();
 		ty               = aTY;

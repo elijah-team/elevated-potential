@@ -1,8 +1,10 @@
 package tripleo.elijah.lang.i;
 
-import antlr.*;
-import org.jetbrains.annotations.*;
 import java.util.*;
+
+import org.jetbrains.annotations.*;
+
+import antlr.*;
 
 public interface MatchConditionalPart3 extends MC1 {
 	@Override
@@ -14,13 +16,16 @@ public interface MatchConditionalPart3 extends MC1 {
 	void expr(IdentExpression expr);
 
 	@Override
-	@NotNull Context getContext();
+	@NotNull
+	Context getContext();
 
 	@Override
-	@NotNull List<FunctionItem> getItems();
+	@NotNull
+	List<FunctionItem> getItems();
 
 	@Override
-	@NotNull OS_Element getParent();
+	@NotNull
+	OS_Element getParent();
 
 	void scope(Scope3 sco);
 

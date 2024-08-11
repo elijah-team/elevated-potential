@@ -1,9 +1,10 @@
 package tripleo.elijah.contexts;
 
-import org.jetbrains.annotations.*;
-import tripleo.elijah.lang.i.*;
-
 import java.util.*;
+
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.lang.i.*;
 
 public interface IClassContext extends Context {
 	ClassStatement getCarrier();
@@ -16,7 +17,7 @@ public interface IClassContext extends Context {
 	@Override
 	LookupResultList lookup(@NotNull String name,
 							int level,
-							@NotNull LookupResultList Result,
-							@NotNull ISearchList alreadySearched,
+			@NotNull LookupResultList Result,
+			@NotNull ISearchList alreadySearched,
 							boolean one);
 }

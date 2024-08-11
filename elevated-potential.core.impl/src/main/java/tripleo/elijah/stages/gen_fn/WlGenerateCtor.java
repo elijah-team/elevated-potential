@@ -8,8 +8,11 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
+import java.util.*;
+
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.*;
@@ -17,8 +20,6 @@ import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
-
-import java.util.*;
 
 /**
  * Created 7/3/21 6:24 AM
@@ -33,7 +34,7 @@ public class WlGenerateCtor implements WorkJob {
 
 	@Contract(pure = true)
 	public WlGenerateCtor(@NotNull GenerateFunctions aGenerateFunctions,
-						  @NotNull FunctionInvocation aFunctionInvocation,
+			@NotNull FunctionInvocation aFunctionInvocation,
 						  @Nullable IdentExpression aConstructorName,
 						  final ICodeRegistrar aCodeRegistrar) {
 		generateFunctions = aGenerateFunctions;
@@ -45,7 +46,7 @@ public class WlGenerateCtor implements WorkJob {
 	public WlGenerateCtor(final OS_Module aModule,
 						  final IdentExpression aNameNode,
 						  final FunctionInvocation aFunctionInvocation,
-						  final @NotNull DeduceCreationContext aCl) {
+			final @NotNull DeduceCreationContext aCl) {
 		this(aCl.getGeneratePhase().getGenerateFunctions(aModule),
 			 aFunctionInvocation,
 			 aNameNode,

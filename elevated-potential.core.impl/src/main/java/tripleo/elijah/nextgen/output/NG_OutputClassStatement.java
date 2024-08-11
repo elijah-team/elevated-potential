@@ -1,8 +1,9 @@
 package tripleo.elijah.nextgen.output;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
+import tripleo.elijah.comp.nextgen.inputtree.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputstatement.*;
@@ -16,7 +17,7 @@ public class NG_OutputClassStatement implements NG_OutputStatement {
 	private final @NotNull NG_OutDep moduleDependency;
 
 	public NG_OutputClassStatement(final @NotNull BufferTabbedOutputStream aBufferTabbedOutputStream,
-	                               final @NotNull OS_Module aModuleDependency,
+			final @NotNull OS_Module aModuleDependency,
 	                               final TY aTy) {
 		buf              = aBufferTabbedOutputStream.getBuffer();
 		ty               = aTy;

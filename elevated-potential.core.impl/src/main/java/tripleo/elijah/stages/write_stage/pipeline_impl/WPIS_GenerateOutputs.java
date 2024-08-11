@@ -1,11 +1,16 @@
 package tripleo.elijah.stages.write_stage.pipeline_impl;
 
+import java.util.*;
+import java.util.function.*;
+
+import org.jetbrains.annotations.*;
+
 import com.google.common.base.*;
 import com.google.common.collect.*;
-import org.jetbrains.annotations.*;
+
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
+import tripleo.elijah.comp.nextgen.inputtree.*;
 import tripleo.elijah.comp.nextgen.pn.*;
 import tripleo.elijah.comp.nextgen.pw.*;
 import tripleo.elijah.lang.i.*;
@@ -18,10 +23,7 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.generate.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-
-import java.util.*;
-import java.util.function.*;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalculateFinishParse {
 
@@ -75,9 +77,9 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 	}
 
 	private void pmPN_signalCalculateFinishParse(final @NotNull GenerateResult result,
-												 final @NotNull List<EvaClass> cs,
-												 final @NotNull List<EvaNamespace> ns,
-												 final @NotNull List<BaseEvaFunction> fs,
+			final @NotNull List<EvaClass> cs,
+			final @NotNull List<EvaNamespace> ns,
+			final @NotNull List<BaseEvaFunction> fs,
 												 final OutputItems itms) {
 		var p = new PM_signalCalculateFinishParse(result, cs, ns, fs, itms);
 		ping(p);
@@ -154,8 +156,8 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 	private static class MyWritable implements Writable {
 		final          Collection<EG_Statement> value;
 		final          EOT_FileNameProvider     filename;
-		final @NotNull List<EG_Statement>       list;
-		final @NotNull EG_SequenceStatement            statement;
+		final @NotNull List<EG_Statement> list;
+		final @NotNull EG_SequenceStatement statement;
 		private final  NG_OutputRequest                outputRequest;
 
 		public MyWritable(final Map.@NotNull Entry<NG_OutputRequest, Collection<EG_Statement>> aEntry) {

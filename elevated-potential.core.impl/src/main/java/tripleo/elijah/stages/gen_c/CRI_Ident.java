@@ -1,16 +1,17 @@
 package tripleo.elijah.stages.gen_c;
 
+import java.util.*;
+import java.util.function.*;
+
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
-
-import java.util.*;
-import java.util.function.*;
 
 class CRI_Ident {
 	private final BaseEvaFunction generatedFunction;
@@ -24,14 +25,15 @@ class CRI_Ident {
 	}
 
 	@Contract(value = "_, _, _ -> new", pure = true)
-	public static @NotNull CRI_Ident of(final IdentTableEntry aIdte, final BaseEvaFunction aGf, final GenerateC aGenerateC) {
+	public static @NotNull CRI_Ident of(final IdentTableEntry aIdte, final BaseEvaFunction aGf,
+			final GenerateC aGenerateC) {
 		return new CRI_Ident(aIdte, aGf, aGenerateC);
 	}
 
 	public @Nullable String getIdentIAPath(int i, final int sSize, final Generate_Code_For_Method.@NotNull AOG aog,
-										   final @NotNull List<String> sl, final String aValue, final @NotNull Consumer<CReference.Reference> addRef,
-										   final @NotNull List<InstructionArgument> s, final IdentIA ia2, final @NotNull CReference aCReference,
-										   final @NotNull CR_ReferenceItem item) {
+			final @NotNull List<String> sl, final String aValue, final @NotNull Consumer<CReference.Reference> addRef,
+			final @NotNull List<InstructionArgument> s, final IdentIA ia2, final @NotNull CReference aCReference,
+			final @NotNull CR_ReferenceItem item) {
 		final boolean[] skip = {false};
 		final OS_Element resolved_element = ite.getResolvedElement();
 		final String[]  text = {null};
@@ -188,12 +190,12 @@ class CRI_Ident {
 	}
 
 	private @Nullable EvaNode _re_is_PropertyStatement(final @NotNull Consumer<CReference.Reference> addRef,
-													   final Generate_Code_For_Method.@NotNull AOG aog,
+			final Generate_Code_For_Method.@NotNull AOG aog,
 													   final int sSize,
 													   final int i,
 													   final String aValue,
-													   final @NotNull Consumer<Void> skip,
-													   final @NotNull Consumer<String> text) {
+			final @NotNull Consumer<Void> skip,
+			final @NotNull Consumer<String> text) {
 		NotImplementedException.raise();
 		final EvaNode resolved1 = ite.type.resolved();
 		final int     code;

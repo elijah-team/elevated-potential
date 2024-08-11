@@ -10,12 +10,20 @@ package tripleo.elijah.comp;
 
 //import com.google.common.base.Preconditions;
 
+import static tripleo.elijah.util.Helpers.*;
+
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
+import org.jetbrains.annotations.*;
+
 import com.google.common.collect.*;
+
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import lombok.*;
-import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
@@ -28,12 +36,6 @@ import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stages.write_stage.pipeline_impl.*;
 import tripleo.elijah.util.*;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
-
-import static tripleo.elijah.util.Helpers.*;
-
 /**
  * Created 8/21/21 10:19 PM
  */
@@ -41,8 +43,8 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 	@Getter
 	private final          Eventual<GenerateResult> generateResultPromise = new Eventual<>();
 	@Getter
-	private final @NotNull WritePipelineSharedState                   st;
-	private final @NotNull CompletedItemsHandler                      cih;
+	private final @NotNull WritePipelineSharedState st;
+	private final @NotNull CompletedItemsHandler cih;
 	private final @NotNull DoubleLatch<GenerateResult> latch;
 	private WP_Flow.OPS ops;
 	private final CK_Monitor monitor;

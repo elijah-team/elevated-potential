@@ -1,20 +1,17 @@
 package tripleo.elijah.ci.cil;
 
-import antlr.Token;
-import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
-import org.checkerframework.checker.nullness.qual.Nullable;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.CiExpression;
-import tripleo.elijah.ci.CiExpressionList;
-import tripleo.elijah.ci.ExpressionKind;
-import tripleo.elijah.ci.cii.DotExpression;
-import tripleo.elijah.ci.cii.IdentExpression;
-import tripleo.elijah.ci.cii.Qualident;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.Objects;
+
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jetbrains.annotations.*;
+
+import com.google.common.base.*;
+import com.google.common.collect.*;
+
+import antlr.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.ci.cii.*;
 
 /**
  * Created Mar 27, 2019 at 2:24:09 PM
@@ -83,7 +80,7 @@ public class QualidentImpl implements Qualident {
 		return true;// Objects.equals(_type, qualident._type);
 	}
 
-	//public @NotNull List<FormalArgListItem> getArgs() {
+	// public @NotNull List<FormalArgListItem> getArgs() {
 	//	return null;
 	//}
 

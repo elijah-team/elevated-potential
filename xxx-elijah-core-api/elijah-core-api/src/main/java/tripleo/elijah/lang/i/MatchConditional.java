@@ -1,10 +1,11 @@
 package tripleo.elijah.lang.i;
 
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang2.*;
-
-import java.util.*;
 
 public interface MatchConditional extends OS_Element, StatementItem, FunctionItem {
 
@@ -20,7 +21,8 @@ public interface MatchConditional extends OS_Element, StatementItem, FunctionIte
 
 	List<MC1> getParts();
 
-	@NotNull IMatchConditionalPart2 normal();
+	@NotNull
+	IMatchConditionalPart2 normal();
 
 	void postConstruct();
 
@@ -36,7 +38,8 @@ public interface MatchConditional extends OS_Element, StatementItem, FunctionIte
 	//
 	//
 	//
-	@NotNull MatchArm_TypeMatch typeMatch();
+	@NotNull
+	MatchArm_TypeMatch typeMatch();
 
 	MatchConditionalPart3 valNormal();
 

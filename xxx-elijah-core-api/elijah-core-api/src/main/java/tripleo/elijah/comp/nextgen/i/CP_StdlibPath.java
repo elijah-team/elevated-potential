@@ -1,12 +1,11 @@
 package tripleo.elijah.comp.nextgen.i;
 
-import java.nio.file.Path;
+import java.nio.file.*;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 
-import tripleo.elijah.Eventual;
-import tripleo.wrap.File;
+import tripleo.elijah.*;
+import tripleo.wrap.*;
 
 public interface CP_StdlibPath extends CP_Path, _CP_RootPath {
 	@Override
@@ -19,22 +18,26 @@ public interface CP_StdlibPath extends CP_Path, _CP_RootPath {
 	@Nullable CP_Path getParent();
 
 	@Override
-	@NotNull Path getPath();
+	@NotNull
+	Path getPath();
 
 	@Override
-	@NotNull Eventual<Path> getPathPromise();
+	@NotNull
+	Eventual<Path> getPathPromise();
 
 	@Override
 	@Nullable File getRootFile();
 
 	@Override
-	@NotNull _CP_RootPath getRootPath();
+	@NotNull
+	_CP_RootPath getRootPath();
 
 	@Override
 	@Nullable CP_SubFile subFile(String aFile);
 
 	@Override
-	@NotNull File toFile();
+	@NotNull
+	File toFile();
 
 	@Override
 	String toString();

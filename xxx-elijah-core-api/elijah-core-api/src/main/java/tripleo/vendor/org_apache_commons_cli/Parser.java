@@ -17,10 +17,9 @@
 
 package tripleo.vendor.org_apache_commons_cli;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.*;
+
+import org.jetbrains.annotations.*;
 
 /**
  * {@code Parser} creates {@link CommandLine}s.

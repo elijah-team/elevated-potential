@@ -1,9 +1,9 @@
 package tripleo.elijah.diagnostic;
 
-import org.jetbrains.annotations.*;
-
 import java.io.*;
 import java.util.*;
+
+import org.jetbrains.annotations.*;
 
 public class ExceptionDiagnostic implements Diagnostic {
 	private final Throwable e;

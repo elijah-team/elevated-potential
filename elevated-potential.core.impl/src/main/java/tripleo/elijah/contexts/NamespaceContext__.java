@@ -11,11 +11,10 @@
  */
 package tripleo.elijah.contexts;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.AliasStatementImpl;
-import tripleo.elijah.lang.impl.ContextImpl;
-import tripleo.elijah.lang.impl.VariableSequenceImpl;
+import tripleo.elijah.lang.impl.*;
 
 /**
  * @author Tripleo
@@ -45,8 +44,8 @@ public class NamespaceContext__ extends ContextImpl implements NamespaceContext 
 	@Override
 	public LookupResultList lookup(final String name,
 								   final int level,
-								   final @NotNull LookupResultList Result,
-								   final @NotNull ISearchList alreadySearched,
+			final @NotNull LookupResultList Result,
+			final @NotNull ISearchList alreadySearched,
 								   final boolean one) {
 		alreadySearched.add(carrier.getContext());
 

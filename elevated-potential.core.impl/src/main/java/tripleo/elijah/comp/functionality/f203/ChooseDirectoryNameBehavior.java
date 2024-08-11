@@ -4,5 +4,6 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.wrap.File;
 
 public interface ChooseDirectoryNameBehavior {
-	@NotNull File chooseDirectory();
+	@NotNull
+	File chooseDirectory();
 }

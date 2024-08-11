@@ -1,40 +1,31 @@
 package tripleo.elijah.comp;
 
-import tripleo.elijah.comp.functionality.f291.U;
-import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal.CompilationImpl;
-
-import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.g.GPipelineMember;
-
-import tripleo.elijah.comp.nextgen.i.CP_Path;
-import tripleo.elijah.comp.nextgen.i.CP_Paths;
-import tripleo.elijah.comp.nextgen.i.CP_RootType;
-
-import tripleo.elijah.nextgen.outputstatement.EG_Naming;
-import tripleo.elijah.nextgen.outputstatement.EG_SequenceStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_SingleStatement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.nextgen.ER_Node;
-
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.nextgen.comp_model.CM_UleLog;
-
-import io.smallrye.mutiny.tuples.Functions;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.stages.logging.LogEntry;
-import tripleo.elijah.util.Ok;
+import static tripleo.elijah.util.Helpers.*;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import org.jetbrains.annotations.*;
+
+import io.smallrye.mutiny.tuples.*;
+import tripleo.elijah.comp.functionality.f291.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.nextgen.*;
+import tripleo.elijah.nextgen.comp_model.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.util.*;
 
 public class WriteOutputTreePipeline extends PipelineMember implements GPipelineMember {
 	private final int WRITE_OUTPUT_TREE__ADD_NODE_OUTPUT = 106;
 
-	private static void addLogs(final @NotNull Functions.TriConsumer<List, EOT_FileNameProvider, EG_Statement> outputSink, final List<ElLog> logs) {
+	private static void addLogs(
+			final @NotNull Functions.TriConsumer<List, EOT_FileNameProvider, EG_Statement> outputSink,
+			final List<ElLog> logs) {
 		final String s1 = logs.get(0).getFileName();
 
 		for (final ElLog log : logs) {

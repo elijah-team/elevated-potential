@@ -52,7 +52,7 @@ public class VariableReferenceNode2 extends ExpressionNode {
 //		return null;
 //	}
 
-	private void setText(final @NotNull IdentExpression identExpression) {
+	private void setText(final @NotNull  IdentExpression identExpression) {
 		//NotImplementedException.raise();
 		_declared = identExpression.getText();
 		_perm     = true;

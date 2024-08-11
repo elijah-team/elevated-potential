@@ -8,9 +8,10 @@
  */
 package tripleo.elijah.contexts;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.impl.ContextImpl;
+import tripleo.elijah.lang.impl.*;
 
 /**
  * Created 9/24/20 6:11 PM
@@ -31,7 +32,7 @@ public class MatchContext__ extends ContextImpl implements MatchContext {
 
 	@Override
 	public LookupResultList lookup(final String name, final int level, final LookupResultList Result,
-								   final @NotNull ISearchList alreadySearched, final boolean one) {
+			final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
 
 		/*

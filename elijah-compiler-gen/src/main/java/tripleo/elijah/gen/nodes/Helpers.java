@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class Helpers {
 	@NotNull
-	static ExpressionList LocalAgnTmpNodeToListVarRef(final @NotNull List<LocalAgnTmpNode> of) {
+	static ExpressionList LocalAgnTmpNodeToListVarRef(final @NotNull  List<LocalAgnTmpNode> of) {
 		final ExpressionList expl = new ExpressionListImpl();
 		for (final LocalAgnTmpNode node : of) {
 			final VariableReferenceImpl vr = new VariableReferenceImpl();
@@ -31,7 +31,7 @@ public class Helpers {
 	}
 
 	@NotNull
-	static ExpressionKind ExpressionOperatorToExpressionType(final @NotNull ExpressionOperators middle) {
+	static ExpressionKind ExpressionOperatorToExpressionType(final @NotNull  ExpressionOperators middle) {
 		final ExpressionKind middle1;
 		switch (middle) {
 		case OP_MINUS:
@@ -47,7 +47,7 @@ public class Helpers {
 	}
 
 	@NotNull
-	public static String getFunctionName(final int code, final String aStr, final @NotNull ExpressionList expressionList) {
+	public static String getFunctionName(final int code, final String aStr, final @NotNull  ExpressionList expressionList) {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("z");
 		sb.append(code);
