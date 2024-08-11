@@ -18,7 +18,7 @@ public class DeduceClient2 {
 	}
 
 	public @NotNull ClassInvocation genCI(@NotNull GenType genType, TypeName typeName) {
-		return genType.genCI(typeName, deduceTypes2, deduceTypes2.errSink, deduceTypes2.phase);
+		return genType.genCI(typeName, deduceTypes2, deduceTypes2._errSink(), deduceTypes2.phase);
 	}
 
 	public @NotNull ElLog getLOG() {

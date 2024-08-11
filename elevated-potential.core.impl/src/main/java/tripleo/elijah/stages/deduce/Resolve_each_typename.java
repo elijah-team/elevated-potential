@@ -14,7 +14,6 @@ class Resolve_each_typename {
 	private final DeducePhase phase;
 
 	public Resolve_each_typename(final DeduceTypes2 aDeduceTypes2, final DeducePhase aPhase,
-			final DeduceTypes2 aDeduceTypes2,
 			final ErrSink aErrSink) {
 		deduceTypes2 = aDeduceTypes2;
 		phase = aPhase;

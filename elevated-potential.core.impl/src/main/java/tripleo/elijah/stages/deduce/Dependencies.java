@@ -18,12 +18,13 @@ import tripleo.elijah.work.*;
 
 class Dependencies {
 	private final DeduceTypes2 deduceTypes2;
-	final WorkList wl = deduceTypes2._inj().new_WorkList();
+	final WorkList wl;
 	final WorkManager wm;
 
 	Dependencies(final DeduceTypes2 aDeduceTypes2, final WorkManager aWm) {
 		deduceTypes2 = aDeduceTypes2;
 		wm = aWm;
+		wl = deduceTypes2._inj().new_WorkList();
 	}
 
 	public void subscribeFunctions(final @NotNull Subject<FunctionInvocation> aDependentFunctionSubject) {

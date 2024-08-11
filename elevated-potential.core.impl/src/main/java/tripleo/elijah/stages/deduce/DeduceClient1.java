@@ -42,7 +42,7 @@ public class DeduceClient1 {
 	}
 
 	public void genCI(final @NotNull GenType aResult, final TypeName aNonGenericTypeName) {
-		aResult.genCI(aNonGenericTypeName, dt2, dt2.errSink, dt2.phase);
+		aResult.genCI(aNonGenericTypeName, dt2, dt2._errSink(), dt2.phase);
 	}
 
 	public void genCIForGenType2(final @NotNull GenType genType) {

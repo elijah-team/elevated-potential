@@ -15,10 +15,8 @@ import tripleo.elijah.stages.logging.*;
 
 public class DeduceClient4 {
 	private final DeduceTypes2 deduceTypes2;
-	private final DeduceTypes2 deduceTypes2;
 
-	public DeduceClient4(final DeduceTypes2 aDeduceTypes2, final DeduceTypes2 aDeduceTypes2) {
-		deduceTypes2 = aDeduceTypes2;
+	public DeduceClient4(final DeduceTypes2 aDeduceTypes2) {
 		deduceTypes2 = aDeduceTypes2;
 	}
 
@@ -48,7 +46,7 @@ public class DeduceClient4 {
 	}
 
 	public ClassInvocation genCI(final @NotNull GenType aType, final TypeName aGenericTypeName) {
-		return aType.genCI(aGenericTypeName, deduceTypes2, deduceTypes2.errSink, deduceTypes2.phase);
+		return aType.genCI(aGenericTypeName, deduceTypes2, __errSink(), deduceTypes2.phase);
 	}
 
 	public DeduceTypes2 get() {
@@ -56,7 +54,7 @@ public class DeduceClient4 {
 	}
 
 	public ErrSink getErrSink() {
-		return deduceTypes2.errSink;
+		return __errSink();
 	}
 
 	public IInvocation getInvocation(final @NotNull EvaFunction aGeneratedFunction) {
@@ -140,7 +138,11 @@ public class DeduceClient4 {
 	}
 
 	public void reportDiagnostic(final ResolveError aResolveError) {
-		deduceTypes2.errSink.reportDiagnostic(aResolveError);
+		__errSink().reportDiagnostic(aResolveError);
+	}
+
+	private ErrSink __errSink() {
+		return deduceTypes2._errSink();
 	}
 
 	public @NotNull GenType resolve_type(final @NotNull OS_Type aTy, final Context aCtx) throws ResolveError {

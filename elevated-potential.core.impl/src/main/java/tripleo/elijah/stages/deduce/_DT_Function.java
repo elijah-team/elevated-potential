@@ -11,11 +11,8 @@ class _DT_Function implements DT_Function {
 
 	private final DeduceTypes2 deduceTypes2;
 	private final BaseEvaFunction carrier;
-	private final DeduceTypes2 deduceTypes2;
 
-	public _DT_Function(final DeduceTypes2 aDeduceTypes2, BaseEvaFunction aGeneratedFunction,
-			final DeduceTypes2 aDeduceTypes2) {
-		deduceTypes2 = aDeduceTypes2;
+	public _DT_Function(final DeduceTypes2 aDeduceTypes2, BaseEvaFunction aGeneratedFunction) {
 		carrier = aGeneratedFunction;
 		deduceTypes2 = aDeduceTypes2;
 	}
