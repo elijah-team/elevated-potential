@@ -6,7 +6,8 @@ import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.graph.CM_Ez;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.internal.CIS;
+import tripleo.elijah.comp.internal.CompilationRunner;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
 import tripleo.elijah.comp.nextgen.pw.PW_PushWork;
@@ -18,6 +19,8 @@ import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah.stages.deduce.fluffy.i.FluffyComp;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.ElLog_;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.i.LivingRepo;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
@@ -52,6 +55,8 @@ public interface Compilation extends Compilation0 {
 	CIS _cis();
 
 	CompFactory con();
+
+	ICompilationAccess3 getCompilationAccess3();
 
 	void setIO(IO io);
 
@@ -104,17 +109,22 @@ public interface Compilation extends Compilation0 {
 
 	void ____m();
 
-	PW_CompilerController get_pw();
+	void spi(Object aObject);
 
 	class CompilationConfig implements GCompilationConfig {
-		public          boolean showTree = false;
-		public          boolean silent   = false;
+		private boolean showTree = false; // FIXME make something out of this, i dare you
+		public  boolean silent   = false;
 
 		@Override
 		public void setSilent(final boolean b) {
 			silent = b;
 		}
 
+		public ElLog.Verbosity verbosity() {
+			return silent
+					? ElLog_.Verbosity.SILENT
+					: ElLog_.Verbosity.VERBOSE;
+		}
 	}
 
 	CPX_Signals signals();

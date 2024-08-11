@@ -8,23 +8,17 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jdeferred2.DoneCallback;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.deduce.nextgen.DeduceCreationContext;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.util.Holder;
-import tripleo.elijah.work.WorkJob;
-import tripleo.elijah.work.WorkManager;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.work.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created 7/3/21 6:24 AM
@@ -102,7 +96,7 @@ public class WlGenerateCtor implements WorkJob {
 				cd = new ConstructorDefImpl(constructorName, (_CommonNC) klass, klass.getContext());
 				Scope3Impl scope3 = new Scope3Impl(cd);
 				cd.scope(scope3);
-				for (EvaContainer.VarTableEntry varTableEntry : genClass.varTable) {
+				for (VarTableEntry varTableEntry : genClass.varTable) {
 					if (varTableEntry.initialValue != LangGlobals.UNASSIGNED) {
 						IExpression left = varTableEntry.nameToken;
 						IExpression right = varTableEntry.initialValue;

@@ -8,7 +8,6 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
@@ -37,28 +36,27 @@ public abstract class BaseEvaFunction
 	private final    Eventual<EvaClass>             _p_assignEvaClass = new Eventual<>();
 	private final    Eventual<GenType>              _p_assignGenType  = new Eventual<>();
 	private final    Dependency                     dependency        = new Dependency(this);
-	private final    List<Label>                    labelList         = new ArrayList<Label>();
+	private final    List<Label>                    labelList        = new ArrayList<>();
 	public @NotNull  List<DR_Item>                  drs               = new ArrayList<>();
 	public           DefaultLivingFunction          _living;
-	public @NotNull  List<ConstantTableEntry>       cte_list          = new ArrayList<ConstantTableEntry>();
+	public @NotNull  List<ConstantTableEntry>       cte_list         = new ArrayList<>();
 	public           boolean                        deducedAlready;
-	public @NotNull  List<Integer>                  deferred_calls    = new ArrayList<Integer>();
+	public @NotNull  List<Integer>                  deferred_calls   = new ArrayList<>();
 	public           FunctionInvocation             fi;
-	public @NotNull  List<IdentTableEntry>          idte_list         = new ArrayList<IdentTableEntry>();
-	public @NotNull  List<Instruction>              instructionsList  = new ArrayList<Instruction>();
-	public @NotNull  List<ProcTableEntry>           prte_list         = new ArrayList<ProcTableEntry>();
-	public @NotNull  List<TypeTableEntry>           tte_list          = new ArrayList<TypeTableEntry>();
-	public @NotNull  List<VariableTableEntry>       vte_list          = new ArrayList<VariableTableEntry>();
-	private @NotNull Map<OS_Element, DeduceElement> elements          = new HashMap<OS_Element, DeduceElement>();
+	public @NotNull  List<IdentTableEntry>          idte_list        = new ArrayList<>();
+	public @NotNull  List<Instruction>              instructionsList = new ArrayList<>();
+	public @NotNull  List<ProcTableEntry>           prte_list        = new ArrayList<>();
+	public @NotNull  List<TypeTableEntry>           tte_list         = new ArrayList<>();
+	public @NotNull  List<VariableTableEntry>       vte_list         = new ArrayList<>();
+	private @NotNull Map<OS_Element, DeduceElement> elements         = new HashMap<>();
 	private          int                            _nextTemp         = 0;
 	private          __Reactive                     _reactive;
-	private          int                            code              = 0;
 	private          EvaNode                        genClass;
 	private          int                            instruction_index = 0;
 	private          int                            label_count       = 0;
 	private          EvaContainerNC                 parent;
 
-	static void printTables(@NotNull EvaFunction gf) {
+	public static void printTables(@NotNull EvaFunction gf) {
 		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("VariableTable ");
 		for (VariableTableEntry variableTableEntry : gf.vte_list) {
 			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("\t" + variableTableEntry);
@@ -263,11 +261,6 @@ public abstract class BaseEvaFunction
 	}
 
 	@Override
-	public int getCode() {
-		return code;
-	}
-
-	@Override
 	@NotNull
 	public ConstantTableEntry getConstTableEntry(final int index) {
 		return cte_list.get(index);
@@ -316,7 +309,6 @@ public abstract class BaseEvaFunction
 	/**
 	 * Returns a string that represents the path encoded by ia2. Does not transform
 	 * the string into target language (ie C). Called from
-	 * {@link DeduceTypes2#do_assign_call(BaseEvaFunction, Context, IdentTableEntry, FnCallArgs, int)}
 	 * or {@link DeduceTypes2#deduce_generated_function(EvaFunction, ModuleThing)}
 	 * or
 	 * {@link DeduceTypes2#resolveIdentIA_(Context, IdentIA, BaseEvaFunction, FoundElement)}
@@ -331,7 +323,7 @@ public abstract class BaseEvaFunction
 		//
 		// TODO NOT LOOKING UP THINGS, IE PROPERTIES, MEMBERS
 		//
-		List<String> sl = new ArrayList<String>();
+		List<String> sl = new ArrayList<>();
 		for (final InstructionArgument ia : s) {
 			final String text;
 			if (ia instanceof IntegerIA) {
@@ -352,7 +344,7 @@ public abstract class BaseEvaFunction
 	}
 
 	public static @NotNull List<InstructionArgument> _getIdentIAPathList(@NotNull InstructionArgument oo) {
-		LinkedList<InstructionArgument> s = new LinkedList<InstructionArgument>();
+		LinkedList<InstructionArgument> s = new LinkedList<>();
 		while (oo != null) {
 			if (oo instanceof IntegerIA) {
 				s.addFirst(oo);
@@ -473,18 +465,15 @@ public abstract class BaseEvaFunction
 
 	@Override
 	public void resolveTypeDeferred(final @NotNull GenType aType) {
-		if (_p_assignGenType.isPending())
+		if (_p_assignGenType.isPending()) {
 			_p_assignGenType.resolve(aType);
-		else {
-			final Holder<GenType> holder = new Holder<GenType>();
-			_p_assignGenType.then(new DoneCallback<GenType>() {
-				@Override
-				public void onDone(final GenType result) {
-					holder.set(result);
-				}
-			});
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(String.format("Trying to resolve function twice 1) %s 2) %s",
-																	  holder.get().asString(), aType.asString()));
+		} else {
+			final Holder<GenType> holder = new Holder<>();
+			_p_assignGenType.then(holder::set);
+			final String s = String.format("Trying to resolve function twice 1) %s 2) %s",
+										   holder.get().asString(),
+										   aType.asString());
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(s);
 		}
 	}
 
@@ -492,11 +481,13 @@ public abstract class BaseEvaFunction
 	public void setClass(@NotNull EvaNode aNode) {
 		assert aNode instanceof EvaClass || aNode instanceof EvaNamespace;
 
+/*
 		//assert ((EvaContainerNC) aNode).getCode() != 0;
 		if (((EvaContainerNC) aNode).getCode() == 0) {
 			//throw new AssertionError();
 			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("504504 node is not coded in setClass "+aNode.identityString());
 		}
+*/
 
 		genClass = aNode;
 
@@ -550,7 +541,7 @@ public abstract class BaseEvaFunction
 
 	@Override
 	public void setCode(int aCode) {
-		code = aCode;
+		assert false;
 	}
 
 	public @NotNull DR_Type buildDrTypeFromNonGenericTypeName(final TypeName aNonGenericTypeName) {

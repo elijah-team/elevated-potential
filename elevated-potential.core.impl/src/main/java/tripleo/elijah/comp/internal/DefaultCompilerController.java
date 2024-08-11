@@ -4,32 +4,27 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.g.GCompilationEnclosure;
+import tripleo.elijah.g.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah_prolific.v.V;
+import tripleo.elijah_elevated.comp.backbone.*;
+import tripleo.elijah_prolific.v.*;
 
 import java.util.*;
 
 public class DefaultCompilerController implements CompilerController {
-	ICompilationBus     cb;
-	List<CompilerInput> inputs;
+	private ICompilationBus     cb;
+	private List<CompilerInput> inputs;
 	private Compilation c;
-	private final ICompilationAccess3 ca3;
+	//private final ICompilationAccess3 ca3;
 
-	public DefaultCompilerController(final ICompilationAccess3 aCa3) {
-		ca3 = aCa3;
-	}
-
-	public void _setInputs(final Compilation0 aCompilation, final List<CompilerInput> aInputs) {
-		c      = (Compilation) aCompilation;
-		inputs = aInputs;
+	public DefaultCompilerController(final ICompilationAccess3 ignoredACa3) {
+		//ca3 = aCa3;
 	}
 
 	@Override
-	public void setEnclosure(final GCompilationEnclosure aCompilationEnclosure) {
-		final CompilationEnclosure ce = (CompilationEnclosure) aCompilationEnclosure;
-		_setInputs(ce.getCompilation(), ce.getCompilerInput());
+	public void setEnclosure(final GCompilationEnclosure ce/*aCompilationEnclosure*/) {
+		c      = (Compilation) ce.getCompilation();
+		inputs = ((CompilationEnclosure) ce).getCompilerInput();
 	}
 
 	@Override
@@ -48,7 +43,10 @@ public class DefaultCompilerController implements CompilerController {
 
 		c._cis().set_cio(cio);
 
-		return op.process(c, inputs, cb); // TODO 09/08 Make this more complicated
+		// TODO 09/08 Make this more complicated
+		//  24/08/08 picocli upsets me
+		//  24/08/08 picoinjector upsets me (a little, should have vendored/forked)
+		return op.process(c, inputs, cb);
 	}
 
 	@Override
@@ -62,6 +60,7 @@ public class DefaultCompilerController implements CompilerController {
 
 	@Override
 	public void runner(final @NotNull Con con) {
+		// hi clojure, from another branch
 		if (false) c.____m();
 
 		c._cis().subscribeTo(c);
@@ -78,24 +77,13 @@ public class DefaultCompilerController implements CompilerController {
 
 		hook(cr);
 
-//		var inputTree = c.getInputTree();
-//
-//		for (CompilerInput input : inputs) {
-//			if (input.isNull()) // README filter out args
-//				inputTree.addNode(input);
-//		}
-
 		cb.add(new CB_FindCIs(cr, inputs));
 		cb.add(new CB_FindStdLibProcess(ce, cr));
-
-//		for (CompilerInput input : inputs) {
-//			input.
-//		}
 
 		((DefaultCompilationBus) cb).runProcesses();
 
 		c.getFluffy().checkFinishEventuals();
-		V.exit();
+		V.exit(c);
 	}
 
 	public static class _DefaultCon implements Con {

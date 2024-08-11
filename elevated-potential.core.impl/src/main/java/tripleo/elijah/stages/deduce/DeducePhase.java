@@ -10,42 +10,51 @@
 package tripleo.elijah.stages.deduce;
 
 import com.google.common.collect.*;
-import lombok.*;
-import org.apache.commons.lang3.tuple.*;
-import org.jdeferred2.*;
-import org.jdeferred2.impl.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
-import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.g.*;
+import lombok.Getter;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jdeferred2.DoneCallback;
+import org.jdeferred2.impl.DeferredObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.EventualRegister;
+import tripleo.elijah.comp.Compilation;
+import tripleo.elijah.comp.PipelineLogic;
+import tripleo.elijah.comp.i.ICompilationAccess;
+import tripleo.elijah.comp.i.extra.IPipelineAccess;
+import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.g.GFunctionMapHook;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.lang.types.*;
-import tripleo.elijah.nextgen.*;
-import tripleo.elijah.nextgen.diagnostic.*;
-import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.stages.deduce.declarations.*;
+import tripleo.elijah.lang.types.OS_UnknownType;
+import tripleo.elijah.nextgen.ClassDefinition;
+import tripleo.elijah.nextgen.ClassDefinition__;
+import tripleo.elijah.nextgen.diagnostic.CouldntGenerateClass;
+import tripleo.elijah.nextgen.reactive.ReactiveDimension;
+import tripleo.elijah.stages.deduce.declarations.DeferredMember;
+import tripleo.elijah.stages.deduce.declarations.DeferredMemberFunction;
 import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.deduce.post_bytecode.*;
+import tripleo.elijah.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.*;
-import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.stages.post_deduce.*;
-import tripleo.elijah.stateful.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.logging.ElLog_;
+import tripleo.elijah.stages.post_deduce.DefaultCodeRegistrar;
+import tripleo.elijah.stateful.State;
+import tripleo.elijah.stateful._RegistrationTarget;
+import tripleo.elijah.util.Maybe;
+import tripleo.elijah.util.NotImplementedException;
 import tripleo.elijah.work.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_fluffy.util.DefaultEventualRegister;
 
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah.util.Helpers.List_of;
 
 /**
  * Created 12/24/20 3:59 AM
@@ -429,12 +438,12 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 				final NamespaceInvocation         nsi    = registerNamespaceInvocation(parent);
 				nsi.resolveDeferred().done(result -> {
 					@NotNull
-					Maybe<EvaContainer.VarTableEntry> v_m = result
+					Maybe<VarTableEntry> v_m = result
 							.getVariable(deferredMember.getVariableStatement().getName());
 
 					assert !v_m.isException();
 
-					EvaContainer.VarTableEntry v = v_m.o;
+					VarTableEntry v = v_m.o;
 
 					// TODO varType, potentialTypes and _resolved: which?
 					// final OS_Type varType = v.varType;
@@ -474,8 +483,8 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 				final @Nullable ClassInvocation ci = registerClassInvocation(parent, null, new NULL_DeduceTypes2());
 				assert ci != null;
 				ci.resolvePromise().then(result -> {
-					final List<EvaContainer.VarTableEntry> vt = result.varTable;
-					for (EvaContainer.VarTableEntry gc_vte : vt) {
+					final List<VarTableEntry> vt = result.varTable;
+					for (VarTableEntry gc_vte : vt) {
 						if (gc_vte.nameToken.getText().equals(name)) {
 							// check connections
 							// unify pot. types (prol. shuld be done already -- we don't want to be
@@ -483,7 +492,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 							// call typePromises and externalRefPromisess
 
 							// TODO just getting first element here (without processing of any kind); HACK
-							final List<EvaContainer.VarTableEntry.ConnectionPair> connectionPairs = gc_vte.connectionPairs;
+							final List<VarTableEntry.ConnectionPair> connectionPairs = gc_vte.connectionPairs;
 							if (!connectionPairs.isEmpty()) {
 								final GenType ty = connectionPairs.get(0).vte.getTypeTableEntry().genType;
 								assert ty.getResolved() != null;
@@ -575,12 +584,12 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 				Collection<ResolvedVariables> x = resolved_variables.get(evaContainer.getElement());
 				for (@NotNull
 				DeducePhase.ResolvedVariables resolvedVariables : x) {
-					final @NotNull Maybe<EvaContainer.VarTableEntry> variable_m = evaContainer
+					final @NotNull Maybe<VarTableEntry> variable_m = evaContainer
 							.getVariable(resolvedVariables.varName);
 
 					assert !variable_m.isException();
 
-					final @NotNull EvaContainer.VarTableEntry variable = variable_m.o;
+					final @NotNull VarTableEntry variable = variable_m.o;
 
 					final TypeTableEntry type = resolvedVariables.identTableEntry.type;
 					if (type != null)

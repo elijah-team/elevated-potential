@@ -11,22 +11,25 @@ package tripleo.elijah.stages.gen_fn;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
-import tripleo.elijah.stages.gen_generic.*;
 
 import java.util.*;
 
 /**
  * Created 6/27/21 9:40 AM
  */
-public class EvaFunction extends BaseEvaFunction implements GNCoded {
+public class EvaFunction extends BaseEvaFunction {
 	private final @Nullable FunctionDef fd;
 
 	public @NotNull Set<DR_Item> _idents = new HashSet<>();
 
 	public EvaFunction(final @Nullable FunctionDef functionDef) {
+		if (functionDef == null) {
+			throw new AssertionError();
+		}
 		fd = functionDef;
 	}
 
+	// FIXME Eventual??
 	@Override
 	public @NotNull FunctionDef getFD() {
 		if (fd == null) {
@@ -34,11 +37,6 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 		} else {
 			return fd;
 		}
-	}
-
-	@Override
-	public @NotNull Role getRole() {
-		return Role.FUNCTION;
 	}
 
 	@Override
@@ -62,11 +60,6 @@ public class EvaFunction extends BaseEvaFunction implements GNCoded {
 
 	public String name() {
 		return getFD().name();
-	}
-
-	@Override
-	public void register(final @NotNull ICodeRegistrar aCr) {
-		aCr.registerFunction1(this);
 	}
 
 	@Override

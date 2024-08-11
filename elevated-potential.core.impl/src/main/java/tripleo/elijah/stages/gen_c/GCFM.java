@@ -1,15 +1,13 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.nextgen.reactive.Reactivable;
-import tripleo.elijah.nextgen.reactive.ReactiveDimension;
-import tripleo.elijah.stages.gen_fn.BaseEvaFunction;
-import tripleo.elijah.stages.gen_fn.EvaFunction;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.util.buffer.Buffer;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.util.buffer.*;
 
-import java.util.List;
+import java.util.*;
 
 public class GCFM implements Reactivable {
 
@@ -36,7 +34,7 @@ public class GCFM implements Reactivable {
 	@Override
 	public void respondTo(final ReactiveDimension aDimension) {
 		if (aDimension instanceof GenerateC generateC) {
-			final LibraryStatementPart lsp = gf.getModule__().getLsp();
+			final LibraryStatementPart lsp = gf.__accessLangModule().getLsp();
 
 			final BaseEvaFunction gf1 = (BaseEvaFunction) gf.getCarrier();
 

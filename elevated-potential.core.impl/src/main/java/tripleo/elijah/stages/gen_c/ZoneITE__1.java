@@ -1,10 +1,12 @@
 package tripleo.elijah.stages.gen_c;
 
 import com.google.common.base.*;
+import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.nextgen.outputstatement.IReasonedString;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
@@ -55,7 +57,8 @@ public class ZoneITE__1 implements ZoneITE {
 	@Override
 	@NotNull
 	public String getRealTargetName2(Generate_Code_For_Method.AOG aog, String value) {
-		int state = 0, code = -1;
+		int         state = 0;
+		final int[] code  = {-1};
 
 		LinkedList<String> ls = new LinkedList<String>();
 		// TODO in Deduce set property lookupType to denote what type of lookup it is: MEMBER, LOCAL, or CLOSURE
@@ -76,19 +79,25 @@ public class ZoneITE__1 implements ZoneITE {
 					int     y  = 2;
 					EvaNode er = identTableEntry.externalRef(); // FIXME move to onExternalRef
 					if (er instanceof final @NotNull EvaContainerNC nc) {
-						if (!(nc instanceof EvaNamespace ns)) {
-							throw new AssertionError();
-						} else {
+						if (nc instanceof EvaNamespace ns) {
 							//if (ns.isInstance()) {}
 							state = 1;
-							code  = nc.getCode();
+							ESwitch.flep(ns, new DoneCallback<DeducedEvaNamespace>() {
+								@Override
+								public void onDone(final DeducedEvaNamespace result) {
+									code[0] = result.getCode();
+									;
+								}
+							});
+						} else {
+							throw new AssertionError();
 						}
 					}
 				}
 			}
 			switch (state) {
 			case 0 -> ls.add(Emit.emit("/*912*/") + "vsc->vm" + text); // TODO blindly adding "vm" might not always work, also put in loop
-			case 1 -> ls.add(Emit.emit("/*845*/") + String.format("zNZ%d_instance->vm%s", code, text));
+			case 1 -> ls.add(Emit.emit("/*845*/") + String.format("zNZ%d_instance->vm%s", code[0], text));
 			default -> throw new IllegalStateException("Can't be here");
 			}
 		} else {

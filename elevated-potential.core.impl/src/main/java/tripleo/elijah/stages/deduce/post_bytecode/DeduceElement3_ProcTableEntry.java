@@ -13,7 +13,8 @@ import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
-import tripleo.elijah_prolific.v.V;
+import tripleo.elijah_fluffy.adt.*;
+import tripleo.elijah_prolific.v.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -313,12 +314,12 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 
 	public void lfoe_action(final @NotNull DeduceTypes2 aDeduceTypes2,
 							final @NotNull WorkList wl,
-							final @NotNull Consumer<WorkList> addJobs,
+							final @NotNull Adder<WorkList> addJobs,
 							final @NotNull Consumer<LFOE_Action_Results> resultconsumer) {
 		//assert aDeduceTypes2 == deduceTypes2;
 		if (aDeduceTypes2 != deduceTypes2) {
 			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("503262 deduceTypes divergence");
-			//throw new AssertionError();
+			throw new AssertionError();
 		}
 
 		final __LFOE_Q                     q                = new __LFOE_Q(aDeduceTypes2.wm, wl, aDeduceTypes2);
@@ -326,7 +327,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 		efi.then(new lfoe_action__FunctionInvocationDoneCallback(this, aDeduceTypes2, addJobs, q, wl));
 
 		final List<? extends Object>       actualResultList = new ArrayList<>();
-		final LFOE_Action_Results          virtualResult    = new LFOE_Action_Results(aDeduceTypes2, wl, addJobs, actualResultList, efi);
+		final LFOE_Action_Results virtualResult = new LFOE_Action_Results(aDeduceTypes2, wl, addJobs, actualResultList, efi);
 		final FunctionInvocation fi2 = principal.getFunctionInvocation();
 
 		try {

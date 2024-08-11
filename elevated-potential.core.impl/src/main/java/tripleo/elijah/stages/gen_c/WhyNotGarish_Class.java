@@ -4,9 +4,10 @@ import org.apache.commons.lang3.tuple.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
-import tripleo.elijah.comp.i.CompProgress;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.garish.*;
+import tripleo.elijah.stages.gen_c.internal.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
@@ -16,12 +17,14 @@ import tripleo.elijah.world.i.*;
 import static tripleo.elijah.DebugFlags.*;
 
 public class WhyNotGarish_Class implements WhyNotGarish_Item {
-	private static final boolean                                       __Oct_13       = false;
-	private final        EvaClass                                      gc;
-	private final        GenerateC                                     generateC;
+	private static final boolean         __Oct_13 = false;
+	private final        EvaClass        gc;
+	private final        GenerateC       generateC;
 	private final DeferredObject<GenerateResultEnv, Void, Void> fileGenPromise = new DeferredObject<>();
 	@SuppressWarnings("TypeMayBeWeakened")
 	private final GCFC                                          gcfc           = new GCFC();
+	private              DeducedEvaClass _dec;
+
 	public WhyNotGarish_Class(final EvaClass aGc, final GenerateC aGenerateC) {
 		gc        = aGc;
 		generateC = aGenerateC;
@@ -75,8 +78,12 @@ public class WhyNotGarish_Class implements WhyNotGarish_Item {
 		generateC._ce().logProgress(CompProgress.GenerateC, Pair.of(code, message));
 	}
 
+	public EvaClass __evaClass() {
+		return gc;
+	}
+
 	public String getTypeNameString() {
-		return GenerateC.GetTypeName.forGenClass(gc);
+		return GenerateC.GetTypeName.forGenClass(gc, generateC);
 	}
 
 	@Override
@@ -87,6 +94,14 @@ public class WhyNotGarish_Class implements WhyNotGarish_Item {
 	@Override
 	public void provideFileGen(final GenerateResultEnv fg) {
 		fileGenPromise.resolve(fg);
+	}
+
+	@Override
+	public DeducedEvaClass ool() {
+		if (this._dec == null) {
+			this._dec = new DefaultDeducedEvaClass(this);
+		}
+		return this._dec;
 	}
 
 	public class GCFC implements Reactivable {

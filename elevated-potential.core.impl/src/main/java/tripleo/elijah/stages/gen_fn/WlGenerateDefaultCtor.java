@@ -8,19 +8,14 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import tripleo.elijah.Eventual;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
-import tripleo.elijah.stages.deduce.ClassInvocation;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.deduce.nextgen.DeduceCreationContext;
-import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.util.Holder;
-import tripleo.elijah.work.WorkJob;
-import tripleo.elijah.work.WorkManager;
-
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.work.*;
 
 /**
  * Created 5/31/21 2:26 AM
@@ -81,7 +76,7 @@ public class WlGenerateDefaultCtor implements WorkJob {
 				final Scope3Impl     scope3 = new Scope3Impl(cd);
 				cd.setName(LangGlobals.emptyConstructorName);
 				cd.scope(scope3);
-				for (final EvaContainer.VarTableEntry varTableEntry : genClass.varTable) {
+				for (final VarTableEntry varTableEntry : genClass.varTable) {
 					OS_Element element;
 					element = __getElement(varTableEntry, cd);
 					if (element != null) {
@@ -117,7 +112,7 @@ public class WlGenerateDefaultCtor implements WorkJob {
 	}
 
 	@NotNull
-	private static OS_Element __getElement(final EvaContainer.VarTableEntry varTableEntry, final ConstructorDef cd) {
+	private static OS_Element __getElement(final VarTableEntry varTableEntry, final ConstructorDef cd) {
 		OS_Element element;
 		if (varTableEntry.initialValue != LangGlobals.UNASSIGNED) {
 			final IExpression left  = varTableEntry.nameToken;

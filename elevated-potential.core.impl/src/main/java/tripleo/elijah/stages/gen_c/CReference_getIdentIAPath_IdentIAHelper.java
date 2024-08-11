@@ -1,9 +1,12 @@
 package tripleo.elijah.stages.gen_c;
 
+import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.stages.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
@@ -12,288 +15,32 @@ import tripleo.elijah.world.impl.*;
 import java.util.*;
 
 class CReference_getIdentIAPath_IdentIAHelper {
-	static class CodeResolver {
-		private int code;
-		private String reason;
-		private boolean is_set;
-		private boolean is_anti;
-
-		public void anti_provide(final int _code, final String _reason) {
-			code = _code;
-			reason = _reason;
-			is_anti = true;
-		}
-
-		int getCode() {
-			return code;
-		}
-
-		public boolean isAnti() {
-			return is_anti;
-		}
-
-		public boolean isSet() {
-			return is_set;
-		}
-
-		public void provide(final @NotNull EvaContainerNC aNc, final String aReason) {
-			code = aNc.getCode();
-			reason = aReason;
-			is_set = true;
-		}
-
-		public void provide(int _code, String _reason) {
-			code = _code;
-			reason = _reason;
-			is_set = true;
-		}
-	}
-
-	interface ICodeResolver {
-		int getCode();
-	}
-
-	@Contract(pure = true)
-	private static void _act_AliasStatement() {
-		final int y = 2;
-		NotImplementedException.raise();
-		// text = Emit.emit("/*167*/")+((AliasStatementImpl)resolved_element).name();
-		// return _getIdentIAPath_IdentIAHelper(text, sl, i, sSize, _res)
-	}
-
 	private final BaseEvaFunction generatedFunction;
-	private final int i;
-	private final EvaNode resolved;
-	private final OS_Element resolved_element;
+	private final int          i;
+	private final EvaNode      resolved;
+	private final OS_Element   resolved_element;
 	private final List<String> sl;
 	private final InstructionArgument ia_next;
-
-	private final int sSize;
-
-	private final String value;
-
-	public int code = -1;
+	private final int          sSize;
+	private final String       value;
+	public        int          code = -1;
 
 	@Contract(pure = true)
 	CReference_getIdentIAPath_IdentIAHelper(final InstructionArgument ia_next, final List<String> sl, final int i,
-			final int sSize, final OS_Element resolved_element, final BaseEvaFunction generatedFunction,
-			final EvaNode aResolved, final String aValue) {
+											final int sSize, final OS_Element resolved_element, final BaseEvaFunction generatedFunction,
+											final EvaNode aResolved, final String aValue) {
 		this.ia_next = ia_next;
-		this.sl = sl;
-		this.i = i;
-		this.sSize = sSize;
+		this.sl      = sl;
+		this.i       = i;
+		this.sSize   = sSize;
 		this.resolved_element = resolved_element;
 		this.generatedFunction = generatedFunction;
-		resolved = aResolved;
-		value = aValue;
-	}
-
-	private boolean _act_ClassStatement(final @NotNull CReference aCReference, boolean b) {
-		// Assuming constructor call
-		final int code;
-		if (getResolved() != null) {
-			code = ((EvaContainerNC) getResolved()).getCode();
-		} else {
-			code = -1;
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err("** 31116 not resolved " + getResolved_element());
-		}
-		// README might be calling reflect or Type or Name
-		// TODO what about named constructors -- should be called with construct keyword
-		if (getIa_next() instanceof IdentIA) {
-			final IdentTableEntry ite = ((IdentIA) getIa_next()).getEntry();
-			final String text = ite.getIdent().getText();
-			if (text.equals("reflect")) {
-				b = true;
-				final String text2 = String.format("ZS%d_reflect", code);
-				aCReference.addRef(text2, CReference.Ref.FUNCTION);
-			} else if (text.equals("Type")) {
-				b = true;
-				final String text2 = String.format("ZST%d", code); // return a TypeInfo structure
-				aCReference.addRef(text2, CReference.Ref.FUNCTION);
-			} else if (text.equals("Name")) {
-				b = true;
-				final String text2 = String.format("ZSN%d", code);
-				aCReference.addRef(text2, CReference.Ref.FUNCTION); // TODO make this not a function
-			} else {
-				assert getI() == getsSize() - 1; // Make sure we are ending with a constructor call
-				// README Assuming this is for named constructors
-				final String text2 = String.format("ZC%d%s", code, text);
-				aCReference.addRef(text2, CReference.Ref.CONSTRUCTOR);
-			}
-		} else {
-			assert getI() == getsSize() - 1; // Make sure we are ending with a constructor call
-			final String text2 = String.format("ZC%d", code);
-			aCReference.addRef(text2, CReference.Ref.CONSTRUCTOR);
-		}
-		return b;
-	}
-
-	private void _act_ConstructorDef(final @NotNull CReference aCReference) {
-		assert getI() == getsSize() - 1; // Make sure we are ending with a constructor call
-		final int code;
-		if (getResolved() != null) {
-			code = ((BaseEvaFunction) getResolved()).getCode();
-		} else {
-			code = -1;
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err("** 31161 not resolved " + getResolved_element());
-		}
-		// README Assuming this is for named constructors
-		final String text = ((ConstructorDef) getResolved_element()).name();
-		final String text2 = String.format("ZC%d%s", code, text);
-		aCReference.addRef(text2, CReference.Ref.CONSTRUCTOR);
-	}
-
-	private void _act_DefFunctionDef(final @NotNull CReference aCReference) {
-		final OS_Element parent = getResolved_element().getParent();
-		int code = -100;
-
-		var cr = new CodeResolver();
-
-		if (getResolved() != null) {
-			if ((getResolved() instanceof BaseEvaFunction rf)) {
-				final EvaNode gc = rf.getGenClass();
-				if (gc instanceof final EvaContainerNC nc) // and not another function
-				{
-					code = nc.getCode();
-
-					cr.provide(nc,
-							"_act_DefFunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-instanceof-EvaContainerNC");
-				} else {
-					code = -2;
-
-					cr.anti_provide(-2,
-							"_act_DefFunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-NOT-instanceof-EvaContainerNC");
-				}
-			} else {
-				assert false;
-			}
-		} else {
-			if (parent instanceof ClassStatement) {
-				code = -3;
-			} else if (parent instanceof NamespaceStatement) {
-				code = -3;
-			} else {
-				// TODO what about FunctionDef, etc
-				code = -1;
-			}
-		}
-		// TODO what about overloaded functions
-		assert getI() == getsSize() - 1; // Make sure we are ending with a ProcedureCall
-		getSl().clear();
-		if (code == -1) {
-//				text2 = String.format("ZT%d_%d", enclosing_function._a.getCode(), closure_index);
-		}
-		final DefFunctionDef defFunctionDef = (DefFunctionDef) getResolved_element();
-		final String text2 = String.format("z%d%s", code, defFunctionDef.name());
-		aCReference.addRef(text2, CReference.Ref.FUNCTION);
-	}
-
-	private void _act_FormalArgListItem(final @NotNull CReference aCReference, final @NotNull FormalArgListItem fali) {
-		final int y = 2;
-		final String text2 = "va" + fali.getNameToken().getText();
-		aCReference.addRef(text2, CReference.Ref.LOCAL); // TODO
-	}
-
-	private void _act_FunctionDef(final @NotNull CReference aCReference) {
-		final OS_Element parent = getResolved_element().getParent();
-		int our_code = -1;
-		final EvaNode resolved_node = getResolved();
-
-		var cr = new CodeResolver();
-
-		if (resolved_node != null) {
-			if (resolved_node instanceof final @NotNull BaseEvaFunction resolvedFunction) {
-
-				resolvedFunction.onGenClass((EvaClass gc) -> {
-					EvaNode gc1 = resolvedFunction.getGenClass();
-					if (gc instanceof EvaContainerNC) // and not another function
-					{
-						this.code = gc.getLiving().getCode();
-
-						if (this.code == 0){
-							var living = gc.getLiving();
-							assert living != null;
-
-							final Compilation0 compilation0 = gc.getElement().getContext().module().getCompilation();
-							final Compilation compilation = (Compilation) compilation0;
-							living.setCode(((DefaultLivingRepo) compilation.world()).nextClassCode());
-//							gc.setCode();
-							this.code = gc.getCode();
-						}
-
-						cr.provide(gc,
-								"_act_FunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-instanceof-EvaContainerNC");
-
-						assert this.code > 0;
-					} else {
-						this.code = -2;
-
-						cr.anti_provide(-2,
-								"_act_FunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-NOT-instanceof-EvaContainerNC");
-					}
-				});
-
-				// TODO 09/06 maybe remove?
-				if (resolvedFunction.getGenClass() instanceof final @NotNull EvaNamespace generatedNamespace) {
-					// FIXME sometimes genClass is not called so above wont work,
-					// so check if a code was set and use it here
-					final int cc = generatedNamespace.getCode();
-					if (cc > 0) {
-						this.code = cc;
-
-						assert this.code == cc;
-					}
-				}
-
-			} else if (resolved_node instanceof final @NotNull EvaClass generatedClass) {
-				this.code = generatedClass.getCode();
-
-				cr.provide(generatedClass, "_act_DefFunctionDef:getResolved-instanceof-EvaClass");
-			}
-		}
-		// TODO what about overloaded functions
-		assert getI() == getsSize() - 1; // Make sure we are ending with a ProcedureCall
-		getSl().clear();
-
-		if (!cr.isSet()) {
-			// README happens because onGenClass isn't resolved
-			our_code = -1;
-		} else {
-			assert cr.isSet();
-			assert !cr.isAnti();
-
-			assert this.code == cr.getCode();
-
-			our_code = cr.getCode(); // this.code;
-		}
-
-		// TODO CodeProviderTarget/EG_Statement
-		final String text2 = String.format("z%d%s", our_code, ((FunctionDef) getResolved_element()).name());
-		aCReference.addRef(text2, CReference.Ref.FUNCTION);
-	}
-
-	private void _act_PropertyStatement(final @NotNull CReference aCReference) {
-		getSl().clear(); // don't we want all the text including from sl?
-
-		final PropertyStatement ps = (PropertyStatement) getResolved_element();
-
-		final GCS_Property_Get propertyGet = new GCS_Property_Get(ps);
-		final String text2 = propertyGet.getText();
-
-		aCReference.addRef(text2, CReference.Ref.PROPERTY_GET);
-
-		aCReference.__cheat_ret = text2;
-	}
-
-	private void _act_VariableStatement(final @NotNull CReference aCReference) {
-		final VariableStatementImpl variableStatement = (VariableStatementImpl) getResolved_element();
-
-		GI_VariableStatement givs = (GI_VariableStatement) aCReference._repo().itemFor(variableStatement);
-		givs._createReferenceForVariableStatement(aCReference, getGeneratedFunction(), getValue());
+		resolved     = aResolved;
+		value        = aValue;
 	}
 
 	boolean action(final CRI_Ident aCRI_ident, final @NotNull CReference aCReference) {
-		boolean b = false;
+		boolean          b               = false;
 		final OS_Element resolvedElement = getResolved_element();
 
 		if (resolvedElement instanceof ClassStatement) {
@@ -321,18 +68,270 @@ class CReference_getIdentIAPath_IdentIAHelper {
 	}
 
 	@Contract(pure = true)
-	public BaseEvaFunction getGeneratedFunction() {
-		return generatedFunction;
+	public OS_Element getResolved_element() {
+		return resolved_element;
+	}
+
+	private boolean _act_ClassStatement(final @NotNull CReference aCReference, boolean bb) {
+		final boolean[] b = new boolean[1];
+		// Assuming constructor call
+		final Eventual<Integer> codeP = new Eventual<>();
+		if (getResolved() != null) {
+			final EvaContainerNC resolved1 = (EvaContainerNC) getResolved();
+			ESwitch.flep((EvaClass) resolved1, (DeducedEvaClass result) -> codeP.resolve(result.getCode()));
+
+		} else {
+			codeP.resolve(-1);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err("** 31116 not resolved " + getResolved_element());
+		}
+		codeP.then(new DoneCallback<Integer>() {
+			@Override
+			public void onDone(final Integer code) {
+				// README might be calling reflect or Type or Name
+				// TODO what about named constructors -- should be called with construct keyword
+				if (getIa_next() instanceof IdentIA) {
+					final IdentTableEntry ite  = ((IdentIA) getIa_next()).getEntry();
+					final String          text = ite.getIdent().getText();
+					if (text.equals("reflect")) { // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+						b[0] = true;
+						final String text2 = String.format("ZS%d_reflect", code);
+						aCReference.addRef(text2, CReference.Ref.FUNCTION);
+					} else if (text.equals("Type")) {
+						b[0] = true;
+						final String text2 = String.format("ZST%d", code); // return a TypeInfo structure
+						aCReference.addRef(text2, CReference.Ref.FUNCTION);
+					} else if (text.equals("Name")) {
+						b[0] = true;
+						final String text2 = String.format("ZSN%d", code);
+						aCReference.addRef(text2, CReference.Ref.FUNCTION); // TODO make this not a function
+					} else {
+						assert getI() == getsSize() - 1; // Make sure we are ending with a constructor call
+						// README Assuming this is for named constructors
+						final String text2 = String.format("ZC%d%s", code, text);
+						aCReference.addRef(text2, CReference.Ref.CONSTRUCTOR);
+					}
+				} else {
+					assert getI() == getsSize() - 1; // Make sure we are ending with a constructor call
+					final String text2 = String.format("ZC%d", code);
+					aCReference.addRef(text2, CReference.Ref.CONSTRUCTOR);
+				}
+			}
+		});
+
+		assert !codeP.isPending();
+
+		//noinspection UnusedAssignment
+		bb = b[0];
+		return b[0];
+	}
+
+	private void _act_ConstructorDef(final @NotNull CReference aCReference) {
+		if (getI() != getsSize() - 1) {
+			// Make sure we are ending with a constructor call
+			throw new AssertionError("9996-0148 Make sure we are ending with a constructor call");
+		}
+
+		final ConstructorDef resolvedConstructor = (ConstructorDef) getResolved_element();
+
+		if (getResolved() != null) {
+			final BaseEvaFunction baseEvaFunction = (BaseEvaFunction) getResolved();
+			ESwitch.flep(baseEvaFunction, new DoneCallback<DeducedBaseEvaFunction>() {
+				@Override
+				public void onDone(final DeducedBaseEvaFunction result) {
+					int code = result.getCode();
+					// README Assuming this is for named constructors
+					final String text  = resolvedConstructor.name();
+					final String text2 = String.format("ZC%d%s", code, text);
+					aCReference.addRef(text2, CReference.Ref.CONSTRUCTOR);
+				}
+			});
+		} else {
+			int code = -1;
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err("** 31161 not resolved " + getResolved_element());
+			// FIXME remove this "fluff"
+			{
+				// README Assuming this is for named constructors
+				final String text  = resolvedConstructor.name();
+				final String text2 = String.format("ZC%d%s", code, text);
+				aCReference.addRef(text2, CReference.Ref.CONSTRUCTOR);
+			}
+		}
+	}
+
+	private void _act_FunctionDef(final @NotNull CReference aCReference) {
+		final OS_Element parent        = getResolved_element().getParent();
+		int              our_code      = -1;
+		final EvaNode    resolved_node = getResolved();
+
+		final var cr = new CodeResolver();
+
+		if (resolved_node != null) {
+			if (resolved_node instanceof final @NotNull BaseEvaFunction resolvedFunction) {
+
+				resolvedFunction.onGenClass((EvaClass gc) -> {
+					EvaNode gc1 = resolvedFunction.getGenClass();
+					if (gc instanceof EvaContainerNC) // and not another function
+					{
+						this.code = gc.getLiving().getCode();
+
+						if (this.code == 0) {
+							var living = gc.getLiving();
+							assert living != null;
+
+							final Compilation0 compilation0 = gc.getElement().getContext().module().getCompilation();
+							final Compilation compilation = (Compilation) compilation0;
+							living.setCode(((DefaultLivingRepo) compilation.world()).nextClassCode());
+//							gc.setCode();
+							ESwitch.flep(gc, new DoneCallback<DeducedEvaClass>() {
+								@Override
+								public void onDone(final DeducedEvaClass result) {
+									code = result.getCode();
+									cr.provide(gc,
+											   "_act_FunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-instanceof-EvaContainerNC");
+								}
+							});
+						}
+
+						assert this.code > 0;
+					} else {
+						this.code = -2;
+
+						cr.anti_provide(-2,
+										"_act_FunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-NOT-instanceof-EvaContainerNC");
+					}
+				});
+
+				// TODO 09/06 maybe remove?
+				if (resolvedFunction.getGenClass() instanceof final @NotNull EvaNamespace generatedNamespace) {
+					// FIXME sometimes genClass is not called so above wont work,
+					// so check if a code was set and use it here
+					final int cc = generatedNamespace.getCode();
+					if (cc > 0) {
+						ESwitch.flep(generatedNamespace, new DoneCallback<DeducedEvaNamespace>() {
+							@Override
+							public void onDone(final DeducedEvaNamespace result) {
+								code = result.getCode();
+								//code = cc;
+								//
+								//assert code == cc;
+							}
+						});
+					}
+				}
+			} else if (resolved_node instanceof final @NotNull EvaClass generatedClass) {
+				ESwitch.flep(generatedClass, new DoneCallback<DeducedEvaClass>() {
+					@Override
+					public void onDone(final DeducedEvaClass result) {
+						code = result.getCode();
+
+						cr.provide(generatedClass, "_act_DefFunctionDef:getResolved-instanceof-EvaClass");
+					}
+				});
+			}
+		}
+		// TODO what about overloaded functions
+		assert getI() == getsSize() - 1; // Make sure we are ending with a ProcedureCall
+		getSl().clear();
+
+		if (!cr.isSet()) {
+			// README happens because onGenClass isn't resolved
+			our_code = -1;
+		} else {
+			assert cr.isSet();
+			assert !cr.isAnti();
+
+			assert this.code == cr.getCode();
+
+			our_code = cr.getCode(); // this.code;
+		}
+
+		// TODO CodeProviderTarget/EG_Statement
+		final String text2 = String.format("z%d%s", our_code, ((FunctionDef) getResolved_element()).name());
+		aCReference.addRef(text2, CReference.Ref.FUNCTION);
+	}
+
+	private void _act_DefFunctionDef(final @NotNull CReference aCReference) {
+		final OS_Element parent = getResolved_element().getParent();
+//		int code = -100;
+		final Eventual<Integer> codeP = new Eventual<>();
+
+		var cr = new CodeResolver();
+
+		if (getResolved() != null) {
+			if ((getResolved() instanceof BaseEvaFunction rf)) {
+				final EvaNode gc = rf.getGenClass();
+				if (gc instanceof final EvaContainerNC nc) // and not another function
+				{
+					ESwitch.flep(((EvaClass) nc), new DoneCallback<DeducedEvaClass>() {
+						@Override
+						public void onDone(final DeducedEvaClass result) {
+							codeP.resolve(result.getCode());
+
+							cr.provide(nc, "_act_DefFunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-instanceof-EvaContainerNC");
+						}
+					});
+				} else {
+					codeP.resolve(-2);
+
+					cr.anti_provide(-2,
+									"_act_DefFunctionDef:getResolved-instanceof-BaseEvaFunction:genClass-NOT-instanceof-EvaContainerNC");
+				}
+			} else {
+				assert false;
+			}
+		} else {
+			if (parent instanceof ClassStatement) {
+				code = -3;
+			} else if (parent instanceof NamespaceStatement) {
+				code = -3;
+			} else {
+				// TODO what about FunctionDef, etc
+				code = -1;
+			}
+		}
+		// TODO what about overloaded functions
+		assert getI() == getsSize() - 1; // Make sure we are ending with a ProcedureCall
+		getSl().clear();
+		if (code == -1) {
+//				text2 = String.format("ZT%d_%d", enclosing_function._a.getCode(), closure_index);
+		}
+		final DefFunctionDef defFunctionDef = (DefFunctionDef) getResolved_element();
+		final String         text2          = String.format("z%d%s", code, defFunctionDef.name());
+		aCReference.addRef(text2, CReference.Ref.FUNCTION);
+	}
+
+	private void _act_VariableStatement(final @NotNull CReference aCReference) {
+		final VariableStatementImpl variableStatement = (VariableStatementImpl) getResolved_element();
+
+		GI_VariableStatement givs = (GI_VariableStatement) aCReference._repo().itemFor(variableStatement);
+		givs._createReferenceForVariableStatement(aCReference, getGeneratedFunction(), getValue());
+	}
+
+	private void _act_PropertyStatement(final @NotNull CReference aCReference) {
+		getSl().clear(); // don't we want all the text including from sl?
+
+		final PropertyStatement ps = (PropertyStatement) getResolved_element();
+
+		final GCS_Property_Get propertyGet = new GCS_Property_Get(ps);
+		final String text2 = propertyGet.getText();
+
+		aCReference.addRef(text2, CReference.Ref.PROPERTY_GET);
+
+		aCReference.__cheat_ret = text2;
 	}
 
 	@Contract(pure = true)
-	public int getI() {
-		return i;
+	private static void _act_AliasStatement() {
+		final int y = 2;
+		NotImplementedException.raise();
+		// text = Emit.emit("/*167*/")+((AliasStatementImpl)resolved_element).name();
+		// return _getIdentIAPath_IdentIAHelper(text, sl, i, sSize, _res)
 	}
 
-	@Contract(pure = true)
-	public InstructionArgument getIa_next() {
-		return ia_next;
+	private void _act_FormalArgListItem(final @NotNull CReference aCReference, final @NotNull FormalArgListItem fali) {
+		final int    y     = 2;
+		final String text2 = "va" + fali.getNameToken().getText();
+		aCReference.addRef(text2, CReference.Ref.LOCAL); // TODO
 	}
 
 	@Contract(pure = true)
@@ -341,13 +340,13 @@ class CReference_getIdentIAPath_IdentIAHelper {
 	}
 
 	@Contract(pure = true)
-	public OS_Element getResolved_element() {
-		return resolved_element;
+	public InstructionArgument getIa_next() {
+		return ia_next;
 	}
 
 	@Contract(pure = true)
-	public List<String> getSl() {
-		return sl;
+	public int getI() {
+		return i;
 	}
 
 	@Contract(pure = true)
@@ -356,7 +355,59 @@ class CReference_getIdentIAPath_IdentIAHelper {
 	}
 
 	@Contract(pure = true)
+	public List<String> getSl() {
+		return sl;
+	}
+
+	@Contract(pure = true)
+	public BaseEvaFunction getGeneratedFunction() {
+		return generatedFunction;
+	}
+
+	@Contract(pure = true)
 	public String getValue() {
 		return value;
+	}
+
+	interface ICodeResolver {
+		int getCode();
+	}
+
+	static class CodeResolver {
+		private int     code;
+		private String  reason;
+		private boolean is_set;
+		private boolean is_anti;
+
+		public void anti_provide(final int _code, final String _reason) {
+			code    = _code;
+			reason  = _reason;
+			is_anti = true;
+		}
+
+		int getCode() {
+			return code;
+		}
+
+		public boolean isAnti() {
+			return is_anti;
+		}
+
+		public boolean isSet() {
+			return is_set;
+		}
+
+		public void provide(final @NotNull EvaContainerNC aNc, final String aReason) {
+			code = -500; // aNc.getCode();
+			assert false;
+			reason = aReason;
+			is_set = true;
+		}
+
+		public void provide(int _code, String _reason) {
+			code   = _code;
+			reason = _reason;
+			is_set = true;
+		}
 	}
 }

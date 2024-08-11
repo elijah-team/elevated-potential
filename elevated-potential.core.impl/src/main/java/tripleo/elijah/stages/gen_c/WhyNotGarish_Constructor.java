@@ -1,32 +1,24 @@
 package tripleo.elijah.stages.gen_c;
 
-import tripleo.elijah.DebugFlags;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.comp.notation.GM_GenerateModule;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.ConstructorDef;
-import tripleo.elijah.lang.i.IdentExpression;
-import tripleo.elijah.lang.impl.LangGlobals;
-import tripleo.elijah.stages.deduce.DeducePhase;
-import tripleo.elijah.stages.deduce.DeduceTypes2;
-import tripleo.elijah.stages.deduce.FunctionInvocation;
-import tripleo.elijah.stages.garish.GarishConstructor__addFunction;
+import org.apache.commons.lang3.tuple.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.impl.*;
+import tripleo.elijah.stages.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.garish.*;
+import tripleo.elijah.stages.gen_c.internal.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.stages.gen_generic.Old_GenerateResult;
-import tripleo.elijah.stages.gen_generic.pipeline_impl.GenerateResultSink;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.work.WorkList;
+import tripleo.elijah.util.*;
+import tripleo.elijah.work.*;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.List;
+import java.util.*;
 
 public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	private final WhyNotGarish_DeclaringContext __declaringContext;
@@ -36,9 +28,11 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 	private       DefaultDeducedEvaConstructor __deduced;
 	private       List<C2C_Result>             _c2c_results;
 
-	public WhyNotGarish_Constructor(final EvaConstructor aGf, final GenerateC aGenerateC) {
-		gf        = aGf;
+	public WhyNotGarish_Constructor(final IEvaConstructor aGf, final GenerateC aGenerateC) {
+		gf = (EvaConstructor) aGf;
 		generateC = aGenerateC;
+
+		ESwitch.flap(this, gf);
 
 		fileGenPromise.then(this::onFileGen);
 		__declaringContext = new WhyNotGarish_DeclaringContext() {
@@ -70,7 +64,7 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 	void onFileGen(final @NotNull GenerateResultEnv aFileGen) {
 		final Generate_Code_For_Method gcfm = new Generate_Code_For_Method(generateC, generateC.elLog());
 
-		var yf = generateC.a_lookup(gf);
+		var yf = generateC.a_lookup((IEvaConstructor) gf);
 		assert yf == this;
 
 		// TODO separate into method and method_header??
@@ -115,6 +109,11 @@ public class WhyNotGarish_Constructor extends WhyNotGarish_BaseFunction implemen
 	@Override
 	public void provideFileGen(final GenerateResultEnv fg) {
 		fileGenPromise.resolve(fg);
+	}
+
+	@Override
+	public DeducedEvaConstructor ool() {
+		return this.__deduced;
 	}
 
 	@Override

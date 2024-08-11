@@ -100,8 +100,8 @@ public class OS_FuncTypeImpl extends __Abstract_OS_Type implements OS_FuncType {
 		@Nullable
 		ClassInvocation clsinv;
 		if (genType.getCi() == null) {
-			final Operation<ClassInvocation> oi = DeduceTypes2.ClassInvocationMake.withGenericPart(best,
-					constructorName, (NormalTypeName) aGenericTypeName, deduceTypes2);
+			final Operation<ClassInvocation> oi = ClassInvocationMake.withGenericPart(best,
+																					  constructorName, (NormalTypeName) aGenericTypeName, deduceTypes2);
 			assert oi.mode() == Mode.SUCCESS;
 			clsinv = oi.success();
 			if (clsinv == null)

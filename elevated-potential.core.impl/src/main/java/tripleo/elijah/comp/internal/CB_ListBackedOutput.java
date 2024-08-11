@@ -7,11 +7,15 @@ import tripleo.elijah.diagnostic.*;
 import java.util.*;
 
 public class CB_ListBackedOutput implements CB_Output {
-	private final List<CB_OutputString> x = new ArrayList<>();
+	private final List<CB_OutputString> backing;
+
+	public CB_ListBackedOutput() {
+		backing = new ArrayList<>();
+	}
 
 	@Override
 	public @NotNull List<CB_OutputString> get() {
-		return x;
+		return backing;
 	}
 
 	@Override
@@ -25,7 +29,7 @@ public class CB_ListBackedOutput implements CB_Output {
 
 	@Override
 	public void print(final String s) {
-		x.add(() -> s);
+		backing.add(() -> s);
 	}
 
 	@Override
@@ -35,6 +39,7 @@ public class CB_ListBackedOutput implements CB_Output {
 		} else {
 			// FIXME 10/20 dont worry about this yet
 //			logProgress(aDiagnostic.code(), aDiagnostic.message());
+			int y = 2;
 		}
 	}
 }

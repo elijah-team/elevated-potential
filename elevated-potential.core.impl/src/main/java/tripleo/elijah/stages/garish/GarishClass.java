@@ -1,7 +1,7 @@
 package tripleo.elijah.stages.garish;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.g.GGarishClass;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
 import tripleo.elijah.stages.deduce.*;
@@ -71,7 +71,7 @@ public class GarishClass implements GGarishClass {
 			if (!decl.prim_decl.equals("bool")) tos.put_string_ln("R->vsv = 0;");
 			else tos.put_string_ln("R->vsv = false;");
 		} else {
-			for (EvaClass.VarTableEntry o : x.varTable) {
+			for (VarTableEntry o : x.varTable) {
 //					final String typeName = getTypeNameForVarTableEntry(o);
 				// TODO this should be the result of getDefaultValue for each type
 				tos.put_string_ln(String.format("R->vm%s = 0;", o.nameToken));
@@ -119,7 +119,7 @@ public class GarishClass implements GGarishClass {
 		tosHdr.incr_tabs();
 		tosHdr.put_string_ln("int _tag;");
 		if (!decl.prim) {
-			for (EvaClass.VarTableEntry o : x.varTable) {
+			for (VarTableEntry o : x.varTable) {
 				final String typeName = aGenerateC.getTypeNameGNCForVarTableEntry(o);
 				tosHdr.put_string_ln(String.format("%s vm%s;", typeName, o.nameToken));
 			}

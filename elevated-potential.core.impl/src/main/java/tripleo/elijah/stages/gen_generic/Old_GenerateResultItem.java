@@ -7,14 +7,13 @@
  */
 package tripleo.elijah.stages.gen_generic;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.ci.LibraryStatementPart;
-import tripleo.elijah.stages.gen_fn.EvaNode;
-import tripleo.util.buffer.Buffer;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.ci.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.util.buffer.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 /**
  * Created 4/27/21 1:12 AM
@@ -27,12 +26,15 @@ public class Old_GenerateResultItem implements GenerateResultItem {
 	public final @NotNull Old_GenerateResult.TY ty;
 	private final @NotNull Dependency dependency;
 	public String output;
-	public IOutputFile outputFile;
+	//public IOutputFile outputFile;
 
 	@Contract(pure = true)
-	public Old_GenerateResultItem(final @NotNull Old_GenerateResult.TY aTy, final @NotNull Buffer aBuffer,
-			final @NotNull EvaNode aNode, final @NotNull LibraryStatementPart aLsp,
-			final @NotNull Dependency aDependency, final int aCounter) {
+	public Old_GenerateResultItem(final @NotNull Old_GenerateResult.TY aTy,
+								  final @NotNull Buffer aBuffer,
+								  final @NotNull EvaNode aNode,
+								  final @NotNull LibraryStatementPart aLsp,
+								  final @NotNull Dependency aDependency,
+								  final int aCounter) {
 		ty = aTy;
 		buffer = aBuffer;
 		node = aNode;
@@ -56,39 +58,23 @@ public class Old_GenerateResultItem implements GenerateResultItem {
 		return this.buffer;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see tripleo.elijah.stages.gen_generic.GenerateResultItem#dependencies()
-	 */
 	@Override
 	public @NotNull List<DependencyRef> dependencies() {
 		List<DependencyRef> x = dependency.getNotedDeps().stream().map(dep -> dep.dref).collect(Collectors.toList());
 		return x;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see tripleo.elijah.stages.gen_generic.GenerateResultItem#getDependency()
-	 */
 	@Override
 	public @NotNull Dependency getDependency() {
 		final List<DependencyRef> ds = dependencies();
 		return dependency;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see tripleo.elijah.stages.gen_generic.GenerateResultItem#jsonString()
-	 */
 	@Override
 	public @NotNull String jsonString() {
-		final String sb = "{\".class\": \"GenerateResultItem\", " + "counter: " + counter + ", " + "ty: " + ty + ", "
-				+ "output: " + output + ", " + "outputFile: " + outputFile + ", " + "lsp: " + lsp + ", " + "node: "
-				+ node + ", " + "buffer: \"\"\"" + buffer.getText() + "\"\"\", " + "dependency: "
-				+ dependency.jsonString() + ", " + "dependencies: " + dependencies() + /* +", " */
+		final String sb = "{\".class\": \"GenerateResultItem\", " + "counter: " + counter + ", " + "ty: " + ty + ", " + "output: " + output + ", "
+				//+ "outputFile: " + outputFile
+				+ ", " + "lsp: " + lsp + ", " + "node: " + node + ", " + "buffer: \"\"\"" + buffer.getText() + "\"\"\", " + "dependency: " + dependency.jsonString() + ", " + "dependencies: " + dependencies() + /* +", " */
 				"}";
 		return sb;
 	}
@@ -108,16 +94,13 @@ public class Old_GenerateResultItem implements GenerateResultItem {
 		return this.output;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see tripleo.elijah.stages.gen_generic.GenerateResultItem#toString()
-	 */
 	@Override
 	public @NotNull String toString() {
 		return "GenerateResultItem{" + "counter=" + counter + ", ty=" + ty + ", buffer=" + buffer.getText() + ", node="
 				+ node.identityString() + ", lsp=" + lsp.getDirName() + ", dependency=" + dependency.jsonString()
-				+ ", output='" + output + '\'' + ", outputFile=" + outputFile + '}';
+				+ ", output='" + output + '\''
+				//+ ", outputFile=" + outputFile
+				+ '}';
 	}
 }
 

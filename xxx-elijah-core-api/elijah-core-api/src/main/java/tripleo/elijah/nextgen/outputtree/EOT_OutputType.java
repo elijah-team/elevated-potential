@@ -6,5 +6,5 @@ public enum EOT_OutputType {
 	DUMP, // inputs.txt
 	INPUTS, // buffers.txt
 	LOGS, // logs/*, // ??: meson build files
-	SWW, SOURCES
+	SWW, DUMP_LOG, SOURCES
 }

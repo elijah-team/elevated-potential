@@ -1,11 +1,10 @@
 package tripleo.elijah.stages.gen_c;
 
-import tripleo.elijah.stages.gen_fn.EvaConstructor;
-import tripleo.elijah.stages.gen_fn.IEvaConstructor.BaseEvaConstructor_Reactive;
-import tripleo.elijah.stages.gen_fn.IEvaFunctionBase;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.stages.gen_fn.IEvaConstructor.*;
 
-public interface DeducedEvaConstructor extends IEvaFunctionBase {
+public interface DeducedEvaConstructor extends DeducedEvaNode {
 	BaseEvaConstructor_Reactive reactive();
 
-    EvaConstructor getCarrier();
+	IEvaConstructor getCarrier();
 }

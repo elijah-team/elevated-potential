@@ -11,10 +11,9 @@ package tripleo.elijah.stages.deduce;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.g.GClassInvocation;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.*;
-import tripleo.elijah.nextgen.*;
 import tripleo.elijah.stages.gen_fn.*;
 
 import java.util.*;
@@ -66,7 +65,7 @@ public class ClassInvocation implements IInvocation, GClassInvocation {
 			genericPart.put(aTypeName, aType);
 		}
 
-		public void record(final TypeName aKey, final EvaContainer.@NotNull VarTableEntry aVarTableEntry) {
+		public void record(final TypeName aKey, final @NotNull VarTableEntry aVarTableEntry) {
 			assert genericPart != null;
 			genericPart.put(aKey, aVarTableEntry.varType);
 		}
@@ -83,7 +82,7 @@ public class ClassInvocation implements IInvocation, GClassInvocation {
 		}
 	}
 
-	private final @NotNull ClassStatement cls;
+	private final @NotNull ClassStatement carrierClass;
 	private final @NotNull Supplier<DeduceTypes2> _dt2s;
 	private final String constructorName;
 	private final DeferredObject<EvaClass, Void, Void> resolvePromise = new DeferredObject<EvaClass, Void, Void>();
@@ -95,7 +94,7 @@ public class ClassInvocation implements IInvocation, GClassInvocation {
 			final @NotNull Supplier<DeduceTypes2> aDeduceTypes2) {
 		this._dt2s = aDeduceTypes2;
 
-		cls = aClassStatement;
+		carrierClass = aClassStatement;
 
 		constructorName = aConstructorName;
 	}
@@ -137,7 +136,7 @@ public class ClassInvocation implements IInvocation, GClassInvocation {
 		}
 
 		if (genericPart_ == null) {
-			genericPart_ = _inj().new_CI_GenericPart(cls.getGenericPart(), this);
+			genericPart_ = _inj().new_CI_GenericPart(carrierClass.getGenericPart(), this);
 		}
 		return genericPart_;
 	}
@@ -147,7 +146,7 @@ public class ClassInvocation implements IInvocation, GClassInvocation {
 	}
 
 	public @NotNull ClassStatement getKlass() {
-		return cls;
+		return carrierClass;
 	}
 
 	public @NotNull DeferredObject<EvaClass, Void, Void> resolveDeferred() {

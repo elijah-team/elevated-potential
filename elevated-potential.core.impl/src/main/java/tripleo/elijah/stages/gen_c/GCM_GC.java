@@ -1,13 +1,13 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.lang.i.OS_Type;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.instructions.InstructionArgument;
-import tripleo.elijah.stages.instructions.IntegerIA;
-import tripleo.elijah.stages.instructions.VariableTableType;
-import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah.stages.instructions.*;
+import tripleo.elijah.stages.logging.*;
 
 class GCM_GC implements GCM_D {
 	private final GenerateC       gc;
@@ -21,7 +21,7 @@ class GCM_GC implements GCM_D {
 	}
 
 	@Override
-	public String find_return_type(final Generate_Method_Header aGenerate_method_header__) {
+	public void find_return_type(final Generate_Method_Header aGenerate_method_header__, final Eventual<String> ev) {
 		final OS_Type type;
 		final TypeTableEntry tte;
 		String returnType = null;
@@ -37,26 +37,37 @@ class GCM_GC implements GCM_D {
 			tte = gf.getTypeTableEntry(integerIA.getIndex());
 			final EvaNode res = tte.resolved();
 			if (res instanceof final @NotNull EvaContainerNC nc) {
-				final int code = nc.getCode();
-				return String.format("Z%d*", code);
+				if (nc instanceof EvaNamespace ens) {
+					ESwitch.flep(ens, new DoneCallback<DeducedEvaNamespace>() {
+						@Override
+						public void onDone(final DeducedEvaNamespace result) {
+							final int code = result.getCode();
+							ev.resolve(String.format("Z%d*", code));
+						}
+					});
+				}
+
+				if (ev.isResolved()) {
+					return;
+				}
 			}
 
 			// Get it from type.attached
 			type = tte.getAttached();
 
 			LOG.info("228-1 " + type);
+			assert type != null;
 			if (type.isUnitType()) {
 				assert false;
-			} else if (type != null) {
-				returnType = String.format("/*267*/%s*", gc.getTypeName(type));
 			} else {
-				LOG.err("655 Shouldn't be here (type is null)");
-				returnType = "void/*2*/";
+				returnType = String.format("/*267*/%s*", gc.getTypeName(type));
 			}
 
-			return returnType;
+			ev.resolve(returnType);
+			return;
 		} else {
-			return "<<cant find self for ctor:57>>";
+			ev.resolve("<<cant find self for ctor:57>>");
+			return;
 		}
 	}
 }

@@ -34,8 +34,9 @@ public class CK_RunBetterAction implements CK_Action {
 				if (res.mode() == Mode.FAILURE) {
 					//Logger.getLogger(OStageProcess.class.getName()).log(Level.SEVERE, null, ex);
 
-					final var ex = res.failure();
-					ex.printStackTrace();
+
+					final Throwable ex = res.failure();
+					aMonitor._______printStackTrace(ex);
 
 					//return Operation.failure(ex); eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 				}

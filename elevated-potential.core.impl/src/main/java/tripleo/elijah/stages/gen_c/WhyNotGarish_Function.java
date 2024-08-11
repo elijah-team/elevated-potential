@@ -5,6 +5,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_c.internal.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.logging.*;
@@ -17,8 +18,8 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 	private final DeferredObject<GenerateResultEnv, Void, Void> fileGenPromise = new DeferredObject<>();
 	private DefaultDeducedBaseEvaFunction __deduced;
 
-	public WhyNotGarish_Function(final BaseEvaFunction aGf, final GenerateC aGenerateC) {
-		gf        = aGf;
+	public WhyNotGarish_Function(final IEvaFunctionBase aGf, final GenerateC aGenerateC) {
+		gf = (BaseEvaFunction) aGf; // !! // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 		generateC = aGenerateC;
 
 		fileGenPromise.then(this::onFileGen);
@@ -84,6 +85,11 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 	@Override
 	public void provideFileGen(final GenerateResultEnv fg) {
 		fileGenPromise.resolve(fg);
+	}
+
+	@Override
+	public DeducedBaseEvaFunction ool() {
+		return this.__deduced;
 	}
 
 	@Override

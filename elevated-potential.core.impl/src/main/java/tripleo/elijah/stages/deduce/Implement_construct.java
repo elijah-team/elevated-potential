@@ -31,8 +31,8 @@ public class Implement_construct {
 				assert aGenType.getCi() instanceof ClassInvocation;
 				clsinv = (ClassInvocation) aGenType.getCi();
 			} else {
-				final Operation<ClassInvocation> oi = DeduceTypes2.ClassInvocationMake.withGenericPart(aBest,
-						constructorName, aTyn1, deduceTypes2);
+				final Operation<ClassInvocation> oi = ClassInvocationMake.withGenericPart(aBest,
+																						  constructorName, aTyn1, deduceTypes2);
 				assert oi.mode() == Mode.SUCCESS;
 
 				ClassInvocation clsinv2 = oi.success();

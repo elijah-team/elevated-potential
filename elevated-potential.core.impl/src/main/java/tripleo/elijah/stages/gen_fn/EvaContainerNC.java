@@ -8,29 +8,16 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.diagnostic.Locatable;
-import tripleo.elijah.lang.i.AccessNotation;
-import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.VariableStatement;
-import tripleo.elijah.stages.deduce.FunctionMapDeferred;
-import tripleo.elijah.stages.deduce.RegisterClassInvocation_env;
-import tripleo.elijah.stages.gen_generic.CodeGenerator;
-import tripleo.elijah.stages.gen_generic.Dependency;
-import tripleo.elijah.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.stages.gen_generic.IDependencyReferent;
-import tripleo.elijah.util.Maybe;
+import com.google.common.collect.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.stages.gen_generic.*;
+import tripleo.elijah.util.*;
 
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 /**
  * Created 3/16/21 10:45 AM
@@ -91,8 +78,13 @@ public abstract class EvaContainerNC extends AbstractDependencyTracker implement
 	public void addVarTableEntry(@Nullable AccessNotation an, @NotNull VariableStatement vs,
 			final RegisterClassInvocation_env aPassthruEnv) {
 		// TODO dont ignore AccessNotationImpl
-		varTable.add(new VarTableEntry(vs, vs.getNameToken(), vs.initialValue(), vs.typeName(),
-				vs.getParent().getParent(), aPassthruEnv));
+		final VarTableEntry varTableEntry = new VarTableEntry(vs,
+															  vs.getNameToken(),
+															  vs.initialValue(),
+															  vs.typeName(),
+															  vs.getParent().getParent(),
+															  aPassthruEnv);
+		varTable.add(varTableEntry);
 	}
 
 	public void functionMapDeferred(final FunctionDef aFunctionDef, final FunctionMapDeferred aFunctionMapDeferred) {
@@ -100,9 +92,6 @@ public abstract class EvaContainerNC extends AbstractDependencyTracker implement
 	}
 
 	public abstract void generateCode(GenerateResultEnv aFileGen, CodeGenerator aGgc);
-
-	@Deprecated
-	public abstract int getCode();
 
 	public @NotNull Dependency getDependency() {
 		return dependency;

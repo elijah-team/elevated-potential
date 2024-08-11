@@ -7,45 +7,42 @@
  */
 package tripleo.elijah.comp;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.DebugFlags;
-import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah.comp.i.CB_OutputString;
-import tripleo.elijah.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.comp.internal.Provenance;
-import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSink;
-import tripleo.elijah.comp.notation.GN_GenerateNodesIntoSinkEnv;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah.lang.i.OS_NamedElement;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.i.extra.*;
+import tripleo.elijah.comp.internal.*;
+import tripleo.elijah.comp.notation.*;
+import tripleo.elijah.g.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.stages.*;
+import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.gen_generic.DoubleLatch;
+import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
-import tripleo.elijah.util.Ok;
+import tripleo.elijah.util.*;
+import tripleo.elijah_elevated.comp.backbone.*;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah.util.Helpers.*;
 
 /**
  * Created 8/21/21 10:16 PM
  */
 public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListener {
-	private final          CompilationEnclosure      ce;
+	private final          CompilationEnclosure       ce;
 	private final @NotNull IPipelineAccess            pa;
 	private final @NotNull DefaultGenerateResultSink  grs;
 	private final @NotNull DoubleLatch<List<EvaNode>> latch2;
-	private final @NotNull List<FunctionStatement> functionStatements = new ArrayList<>();
-	private CB_Output               _processOutput;
-	private Object/*CR_State*/      _processState;
+	private final @NotNull List<FunctionStatement>    functionStatements = new ArrayList<>();
+	private                CB_Output                  _processOutput;
+	private                Object/*CR_State*/         _processState;
 	@SuppressWarnings("unused")
-	private List<EvaNode> _lgc;
+	private                List<EvaNode>              _lgc;
 	@SuppressWarnings("unused")
 	private                PipelineLogic              pipelineLogic;
 
@@ -83,7 +80,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 		var nodesThatWereProcesed = new ArrayList<>(aLgc1);
 
 		final List<ProcessedNode> nodes = processLgc(nodesThatWereProcesed);
-		int                       y     =2;
+		int y = 2;
 
 		for (EvaNode evaNode : nodesThatWereProcesed) {
 			logProgress(160, "EvaPipeline.recieve >> " + evaNode);
@@ -109,8 +106,118 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 		});
 	}
 
+	public static @NotNull List<ProcessedNode> processLgc(final @NotNull List<EvaNode> aLgc) {
+		final List<ProcessedNode> l = new ArrayList<>();
+
+		for (EvaNode evaNode : aLgc) {
+			l.add(new ProcessedNode1(evaNode));
+		}
+
+		return l;
+	}
+
 	private void logProgress(final int code, final String message) {
 		_processOutput.logProgress(code, message);
+	}
+
+	private void nodeToOutputFileDump(final EvaNode evaNode) {
+		final EOT_FileNameProvider[] filename1 = new EOT_FileNameProvider[1];
+		final String[]               filename  = {null};
+		final StringBuffer           sb        = new StringBuffer();
+
+		if (evaNode instanceof EvaClass aEvaClass) {
+			ESwitch.flep(aEvaClass, new DoneCallback<DeducedEvaClass>() {
+				@Override
+				public void onDone(final DeducedEvaClass dec) {
+					assert false;
+					filename[0] = "C_" + dec.getCode() + aEvaClass.getName();
+					sb.append("CLASS %d %s\n".formatted(dec.getCode(), aEvaClass.getName()));
+					for (VarTableEntry varTableEntry : aEvaClass.varTable) {
+						sb.append("MEMBER %s %s".formatted(varTableEntry.nameToken, varTableEntry.varType));
+					}
+					for (Map.Entry<FunctionDef, EvaFunction> functionEntry : aEvaClass.functionMap.entrySet()) {
+						EvaFunction v = functionEntry.getValue();
+
+						ESwitch.flep(v, defunc -> {
+							int code = defunc.getCode();
+							sb.append("FUNCTION %d %s\n".formatted(code, v.getFD().getNameNode().getText()));
+
+							pa.activeFunction(v);
+						});
+					}
+
+					filename1[0] = new EOT_FileNameProvider() {
+						@Override
+						public String getFilename() {
+							var filename2 = "C_" + dec.getCode() + aEvaClass.getName();
+							return filename2;
+						}
+					};
+
+					pa.activeClass(aEvaClass);
+				}
+			});
+		} else if (evaNode instanceof EvaNamespace aEvaNamespace) {
+			filename[0] = "N_" + aEvaNamespace.getCode() + aEvaNamespace.getName();
+			sb.append("NAMESPACE %d %s\n".formatted(aEvaNamespace.getCode(), aEvaNamespace.getName()));
+			for (VarTableEntry varTableEntry : aEvaNamespace.varTable) {
+				sb.append("MEMBER %s %s\n".formatted(varTableEntry.nameToken, varTableEntry.varType));
+			}
+			for (Map.Entry<FunctionDef, EvaFunction> functionEntry : aEvaNamespace.functionMap.entrySet()) {
+				EvaFunction v    = functionEntry.getValue();
+				int         code = -600; // v.getCode()
+				sb.append("FUNCTION %d %s\n".formatted(code, v.getFD().getNameNode().getText()));
+			}
+
+			filename1[0] = new EOT_FileNameProvider() {
+				@Override
+				public String getFilename() {
+					var filename2 = "N_" + aEvaNamespace.getCode() + aEvaNamespace.getName();
+					return filename2;
+				}
+			};
+
+			pa.activeNamespace(aEvaNamespace);
+		} else if (evaNode instanceof EvaFunction evaFunction) {
+			int code = -600; // evaFunction.getCode()
+
+			if (code == 0) {
+				var cr = ce.getPipelineLogic().dp.getCodeRegistrar();
+				cr.registerFunction1(evaFunction); // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!
+
+				//code = evaFunction.getCode();
+				assert code != 0;
+			}
+
+			final String functionName = evaFunction.getFunctionName();
+			filename[0] = "F_" + code + functionName;
+
+			final int finalCode = code;
+			filename1[0] = new EOT_FileNameProvider() {
+				@Override
+				public String getFilename() {
+					final String functionName = evaFunction.getFunctionName();
+					var          filename2    = "F_" + finalCode + functionName;
+					return filename2;
+				}
+			};
+
+			assert Objects.equals(filename[0], filename1[0]);
+
+			final OS_NamedElement namedFdParent = (OS_NamedElement) evaFunction.getFD().getParent();
+			final String          str           = "FUNCTION %d %s %s\n".formatted(code, functionName, namedFdParent.name());
+			sb.append(str);
+			pa.activeFunction(evaFunction);
+		} else {
+			throw new IllegalStateException("Can't determine node");
+		}
+
+		final EG_Statement seq = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("dump"));
+		if (DebugFlags.writeDumps) {
+			final @NotNull EOT_OutputTree cot = pa.getCompilation().getOutputTree();
+			final EOT_OutputFile off = new EOT_OutputFileImpl(List_of(), filename1[0], EOT_OutputType.DUMP, seq);
+			cot.add(off);
+		}
 	}
 
 	private void functionStatementToOutputFileDump(final FunctionStatement functionStatement) {
@@ -121,103 +228,6 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 			final EOT_OutputFile off = new EOT_OutputFileImpl(List_of(), filename, EOT_OutputType.DUMP, seq);
 			cot.add(off);
 		}
-	}
-
-	private void nodeToOutputFileDump(final EvaNode evaNode) {
-		EOT_FileNameProvider filename1;
-		String               filename = null;
-		final StringBuffer   sb       = new StringBuffer();
-
-		if (evaNode instanceof EvaClass aEvaClass) {
-			filename = "C_" + aEvaClass.getCode() + aEvaClass.getName();
-			sb.append("CLASS %d %s\n".formatted(aEvaClass.getCode(), aEvaClass.getName()));
-			for (EvaContainer.VarTableEntry varTableEntry : aEvaClass.varTable) {
-				sb.append("MEMBER %s %s".formatted(varTableEntry.nameToken, varTableEntry.varType));
-			}
-			for (Map.Entry<FunctionDef, EvaFunction> functionEntry : aEvaClass.functionMap.entrySet()) {
-				EvaFunction v = functionEntry.getValue();
-				sb.append("FUNCTION %d %s\n".formatted(v.getCode(), v.getFD().getNameNode().getText()));
-
-				pa.activeFunction(v);
-			}
-
-			filename1 = new EOT_FileNameProvider() {
-				@Override
-				public String getFilename() {
-					var filename2 = "C_" + aEvaClass.getCode() + aEvaClass.getName();
-					return filename2;
-				}
-			};
-
-			pa.activeClass(aEvaClass);
-		} else if (evaNode instanceof EvaNamespace aEvaNamespace) {
-			filename = "N_" + aEvaNamespace.getCode() + aEvaNamespace.getName();
-			sb.append("NAMESPACE %d %s\n".formatted(aEvaNamespace.getCode(), aEvaNamespace.getName()));
-			for (EvaContainer.VarTableEntry varTableEntry : aEvaNamespace.varTable) {
-				sb.append("MEMBER %s %s\n".formatted(varTableEntry.nameToken, varTableEntry.varType));
-			}
-			for (Map.Entry<FunctionDef, EvaFunction> functionEntry : aEvaNamespace.functionMap.entrySet()) {
-				EvaFunction v = functionEntry.getValue();
-				sb.append("FUNCTION %d %s\n".formatted(v.getCode(), v.getFD().getNameNode().getText()));
-			}
-
-			filename1 = new EOT_FileNameProvider() {
-				@Override
-				public String getFilename() {
-					var filename2 = "N_" + aEvaNamespace.getCode() + aEvaNamespace.getName();
-					return filename2;
-				}
-			};
-
-			pa.activeNamespace(aEvaNamespace);
-		} else if (evaNode instanceof EvaFunction evaFunction) {
-			int code = evaFunction.getCode();
-
-			if (code == 0) {
-				var cr = ce.getPipelineLogic().dp.getCodeRegistrar();
-				cr.registerFunction1(evaFunction);
-
-				code = evaFunction.getCode();
-				assert code != 0;
-			}
-
-			final String functionName = evaFunction.getFunctionName();
-			filename = "F_" + code + functionName;
-
-			final int finalCode = code;
-			filename1 = new EOT_FileNameProvider() {
-				@Override
-				public String getFilename() {
-					final String functionName = evaFunction.getFunctionName();
-					var          filename2    = "F_" + finalCode + functionName;
-					return filename2;
-				}
-			};
-
-			final String str = "FUNCTION %d %s %s\n".formatted(code, functionName,
-															   ((OS_NamedElement) evaFunction.getFD().getParent()).name());
-			sb.append(str);
-			pa.activeFunction(evaFunction);
-		} else {
-			throw new IllegalStateException("Can't determine node");
-		}
-
-		final EG_Statement   seq = EG_Statement.of(sb.toString(), EX_Explanation.withMessage("dump"));
-		if (DebugFlags.writeDumps) {
-			final @NotNull EOT_OutputTree cot = pa.getCompilation().getOutputTree();
-			final EOT_OutputFile          off = new EOT_OutputFileImpl(List_of(), filename1, EOT_OutputType.DUMP, seq);
-			cot.add(off);
-		}
-	}
-
-	public static @NotNull List<ProcessedNode> processLgc(final @NotNull List<EvaNode> aLgc) {
-		final List<ProcessedNode> l = new ArrayList<>();
-
-		for (EvaNode evaNode : aLgc) {
-			l.add(new ProcessedNode1(evaNode));
-		}
-
-		return l;
 	}
 
 	public void addFunctionStatement(final FunctionStatement aFunctionStatement) {
@@ -231,30 +241,7 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 	@Override
 	public void run(final Ok aSt, final CB_Output aOutput) {
 		_processState  = null;
-		_processOutput = new CB_Output() {
-			private final List<CB_OutputString> _o = new ArrayList<>();
-
-			@Override
-			public @NotNull List<CB_OutputString> get() {
-				return //_o;
-						aOutput.get();
-			}
-
-			@Override
-			public void logProgress(final int number, final String text) {
-				aOutput.logProgress(number, text);
-			}
-
-			@Override
-			public void print(final String s) {
-				aOutput.print(s);
-			}
-
-			@Override
-			public void logProgress(final Diagnostic aDiagnostic) {
-				aOutput.logProgress(aDiagnostic);
-			}
-		};
+		_processOutput = new CB_ForwardingOutput(aOutput);
 
 		latch2.notifyLatch(Ok.instance());
 	}
@@ -263,4 +250,5 @@ public class EvaPipeline extends PipelineMember implements AccessBus.AB_LgcListe
 	public String finishPipeline_asString() {
 		return this.getClass().toString();
 	}
+
 }

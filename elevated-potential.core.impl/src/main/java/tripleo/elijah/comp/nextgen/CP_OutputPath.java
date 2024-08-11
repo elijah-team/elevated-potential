@@ -1,27 +1,22 @@
 package tripleo.elijah.comp.nextgen;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.comp.Compilation;
-import tripleo.elijah.comp.IO;
-import tripleo.elijah.comp.i.CompProgress;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.nextgen.i.*;
-import tripleo.elijah.nextgen.ER_Node;
-import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
-import tripleo.elijah.util.io.DisposableCharSink;
-import tripleo.elijah_prolific.v.V;
+import tripleo.elijah.nextgen.*;
+import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah.util.io.*;
+import tripleo.elijah_prolific.v.*;
 import tripleo.wrap.File;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.io.*;
+import java.nio.file.*;
+import java.time.*;
+import java.time.format.*;
+import java.util.*;
 
 public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinishParse {
 	private final Eventual<Path> _pathPromise = new Eventual<>();
@@ -42,8 +37,14 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 	// TODO 12/28 latch or Uni? or promise/Eventual: nodes (??)
 	public void _renderNodes(final @NotNull List<ER_Node> nodes) {
 		signalCalculateFinishParse();
-		nodes.stream()
-				.map(this::renderNode);
+		final List<Operation<Ok>> x = new ArrayList<>();
+		for (ER_Node node : nodes) {
+			Operation<Ok> okOperation = renderNode(node);
+			x.add(okOperation);
+		}
+		System.err.println("CP_OutputPath::result " + x); // FIXME logProgress
+
+		c.getCompilationEnclosure().logProgress(CompProgress.CP_OutputPath_RenderNodes, x);
 	}
 
 	@Override
@@ -94,18 +95,25 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 	}
 
 	private void logProgress(final int code, final String message) {
-		if (code == 117117)
+		switch (code) {
+		case 117117 -> {
 			return;
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(String.format("%d %s", code, message));
+		}
+		default -> {
+			final String s = String.format("%d %s", code, message);
+			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(s);
+		}
+		}
 	}
 
-	public @NotNull Operation<Boolean> renderNode(final @NotNull ER_Node node) {
-		final Path         path = node.getPath().getPath(); // TODO 12/07
+	public @NotNull Operation<Ok> renderNode(final @NotNull ER_Node node) {
+		final Path path = node.getNioPath();
 		final EG_Statement seq  = node.getStatement();
 
 		c.getCompilationEnclosure().logProgress(CompProgress.__CP_OutputPath_renderNode, node);
 
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("401b Writing path: " + path.toFile());
+		//V.asv(e.); // README down below, silly!
+		//tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("401b Writing path: " + path.toFile());
 		path.getParent().toFile().mkdirs();
 
 		try (final DisposableCharSink xx = c.getIO().openWrite(path)) {
@@ -113,7 +121,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 
 			V.asv(V.e.WP_write_files, ""+path);
 
-			return Operation.success(true);
+			return Operation.success(Ok.instance());
 		} catch (Exception aE) {
 			return Operation.failure(aE);
 		}

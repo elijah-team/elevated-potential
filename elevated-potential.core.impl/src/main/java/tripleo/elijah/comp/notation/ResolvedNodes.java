@@ -10,7 +10,7 @@ import tripleo.elijah.world.i.*;
 import java.util.*;
 
 class ResolvedNodes {
-	final List<EvaNode> resolved_nodes = new ArrayList<EvaNode>();
+	final List<EvaNode> resolved_nodes = new ArrayList<>();
 	private final ICodeRegistrar cr;
 
 	public ResolvedNodes(final ICodeRegistrar aCr) {
@@ -20,6 +20,7 @@ class ResolvedNodes {
 	public void init(final DeducePhase.@NotNull GeneratedClasses c) {
 		// 09/26 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("2222 " + c);
 
+		// evaNode.readyState(ResolveState.class, this); // etc, etc
 		for (final EvaNode evaNode : c) {
 			if (!(evaNode instanceof final @NotNull GNCoded coded)) {
 				throw new IllegalStateException("node must be coded");
@@ -33,14 +34,14 @@ class ResolvedNodes {
 				final EvaClass evaClass = (EvaClass) evaNode;
 
 				// assert (evaClass.getCode() != 0);
-				if (evaClass.getCode() == 0) {
+				if (true /*evaClass.getCode() == 0*/) {
 					cr.registerClass1(evaClass);
 				}
 
 //					if (generatedClass.getCode() == 0)
 //						generatedClass.setCode(mod.getCompilation().nextClassCode());
 				for (EvaClass evaClass2 : evaClass.classMap.values()) {
-					if (evaClass2.getCode() == 0) {
+					if (true /*evaClass2.getCode() == 0*/) {
 						// evaClass2.setCode(mod.getCompilation().nextClassCode());
 						cr.registerClass1(evaClass2);
 					}
@@ -61,7 +62,7 @@ class ResolvedNodes {
 					cr.registerNamespace(evaNamespace);
 				}
 				for (EvaClass evaClass3 : evaNamespace.classMap.values()) {
-					if (evaClass3.getCode() == 0) {
+					if (true /*evaClass3.getCode() == 0*/) {
 						// evaClass.setCode(mod.getCompilation().nextClassCode());
 						cr.registerClass1(evaClass3);
 					}

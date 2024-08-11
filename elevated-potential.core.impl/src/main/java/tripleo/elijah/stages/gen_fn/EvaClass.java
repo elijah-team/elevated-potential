@@ -8,50 +8,44 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.UnintendedUseException;
-import tripleo.elijah.g.GEvaClass;
+import org.jetbrains.annotations.*;
+import tripleo.elijah.*;
+import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
-import tripleo.elijah.nextgen.reactive.DefaultReactive;
-import tripleo.elijah.nextgen.reactive.Reactive;
+import tripleo.elijah.nextgen.reactive.*;
+import tripleo.elijah.stages.*;
 import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.garish.GarishClass_Generator;
+import tripleo.elijah.stages.garish.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah.world.i.LivingClass;
+import tripleo.elijah.world.i.*;
 
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 /**
  * Created 10/29/20 4:26 AM
  */
-public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
-	public class _Reactive_EvaClass extends DefaultReactive {
-		@Override
-		public <T> void addListener(final Consumer<T> t) {
-			throw new UnintendedUseException();
-		}
-	}
-
-	private       LivingClass    _living;
-	private final ClassStatement  klass;
+public class EvaClass extends EvaContainerNC implements GEvaClass {
+	final         _Reactive_EvaClass    reactiveEvaClass = new _Reactive_EvaClass();
+	private final ClassStatement        klass;
 	private final   OS_Module                            module;
+	// TODO Reactive??
+	private final GarishClass_Generator _gcg             = new GarishClass_Generator(this);
 	public          ClassInvocation                      ci;
 	public @NotNull Map<ConstructorDef, IEvaConstructor> constructors = new HashMap<>();
-
+	private       LivingClass           _living;
 	private boolean resolve_var_table_entries_already = false;
-
-	final _Reactive_EvaClass reactiveEvaClass = new _Reactive_EvaClass();
-
-	// TODO Reactive??
-	private final GarishClass_Generator _gcg = new GarishClass_Generator(this);
 
 	public EvaClass(ClassStatement aClassStatement, OS_Module aModule) {
 		klass = aClassStatement;
 		module = aModule;
+	}
+
+	public String getNumberedName() {
+		throw new AssertionError();
 	}
 
 	public void addAccessNotation(AccessNotation an) {
@@ -83,6 +77,10 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 		}
 	}
 
+	private boolean getPragma(String auto_construct) { // TODO this should be part of ContextImpl
+		return false;
+	}
+
 	public void fixupUserClasses(final @NotNull DeduceTypes2 aDeduceTypes2, final Context aContext) {
 		for (VarTableEntry varTableEntry : varTable) {
 			varTableEntry.updatePotentialTypesCB = new VarTableEntry.UpdatePotentialTypesCB() {
@@ -107,9 +105,8 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 							OS_BuiltinType resolved = (OS_BuiltinType) potentialTypes.get(1).getResolved();
 
 							try {
-								@NotNull
-								final GenType rt = ResolveType.resolve_type(resolvedClass1.getContext().module(),
-																			resolved, resolvedClass1.getContext(), aDeduceTypes2._LOG(), aDeduceTypes2);
+								@NotNull final GenType rt = ResolveType.resolve_type(resolvedClass1.getContext().module(),
+																					 resolved, resolvedClass1.getContext(), aDeduceTypes2._LOG(), aDeduceTypes2);
 								int y = 2;
 
 								potentialTypes = Helpers.List_of(rt);
@@ -121,8 +118,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 							OS_BuiltinType resolved = (OS_BuiltinType) potentialTypes.get(0).getResolved();
 
 							try {
-								@NotNull
-								final GenType rt = aDeduceTypes2.resolve_type(resolved, resolvedClass2.getContext());
+								@NotNull final GenType rt = aDeduceTypes2.resolve_type(resolved, resolvedClass2.getContext());
 								int y = 2;
 
 								potentialTypes = Helpers.List_of(rt);
@@ -157,7 +153,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 								if (t.getType() == OS_Type.Type.USER) {
 									try {
 										final @NotNull GenType genType = aDeduceTypes2.resolve_type(t,
-												t.getTypeName().getContext());
+																									t.getTypeName().getContext());
 										if (genType.getResolved() instanceof OS_GenericTypeNameType) {
 											final ClassInvocation xxci = ((EvaClass) aEvaContainer).ci;
 
@@ -259,14 +255,13 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 		aCodeGenerator.generate_class(aFileGen, this);
 	}
 
-	public GarishClass_Generator generator() {
-		return _gcg;
+	@Override
+	public void setCode(final int aCode) {
+		world().setCode(aCode);
 	}
 
-	@Deprecated
-	@Override
-	public int getCode() {
-		return world().getCode();
+	public GarishClass_Generator generator() {
+		return _gcg;
 	}
 
 	@Override
@@ -280,6 +275,16 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 
 	public LivingClass getLiving() {
 		return world();
+	}
+
+	public void setLiving(LivingClass aLivingClass) {
+		ESwitch.flap(this, aLivingClass);
+		this._living = aLivingClass;
+	}
+
+	public LivingClass world() {
+		//return ESwitch.florp(this, LivingClass.class);
+		return _living;
 	}
 
 	@NotNull
@@ -305,7 +310,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 
 	@NotNull
 	private String getNameHelper(@NotNull Map<TypeName, OS_Type> aGenericPart) {
-		final List<String> ls = new ArrayList<String>();
+		final List<String> ls = new ArrayList<>();
 		for (Map.Entry<TypeName, OS_Type> entry : aGenericPart.entrySet()) { // TODO Is this guaranteed to be in order?
 			final OS_Type value = entry.getValue(); // This can be another ClassInvocation using GenType
 			final String name;
@@ -320,27 +325,9 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 		return Helpers.String_join(", ", ls);
 	}
 
-	@NotNull
-	public String getNumberedName() {
-		return getKlass().getName() + "_" + getCode();
-	}
-
-	private boolean getPragma(String auto_construct) { // TODO this should be part of ContextImpl
-		return false;
-	}
-
-	@Override
-	public @NotNull Role getRole() {
-		return Role.CLASS;
-	}
-
 	@Override
 	public String identityString() {
 		return String.valueOf(klass);
-	}
-
-	public boolean isGeneric() {
-		return klass.getGenericPart().size() > 0;
 	}
 
 	@Override
@@ -348,13 +335,12 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 		return module;
 	}
 
-	public Reactive reactive() {
-		return reactiveEvaClass;
+	public boolean isGeneric() {
+		return klass.getGenericPart().size() > 0;
 	}
 
-	@Override
-	public void register(final @NotNull ICodeRegistrar aCr) {
-		aCr.registerClass1(this);
+	public Reactive reactive() {
+		return reactiveEvaClass;
 	}
 
 	public boolean resolve_var_table_entries(@NotNull DeducePhase aDeducePhase) {
@@ -372,22 +358,20 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 	}
 
 	@Override
-	public void setCode(final int aCode) {
-		world().setCode(aCode);
-	}
-
-	public void setLiving(LivingClass _living) {
-		this._living = _living;
-	}
-
-	@Override
 	public @NotNull String toString() {
-		return "EvaClass{" + "klass=" + klass + ", code=" + getCode() + ", module=" + module.getFileName() + ", ci="
-				+ ci.finalizedGenericPrintable() + '}';
+		return "EvaClass{"
+				+ "klass=" + klass
+				//+ ", code=" + getCode()
+				+ ", module=" + module.getFileName()
+				+ ", ci=" + ci.finalizedGenericPrintable()
+				+ '}';
 	}
 
-	public LivingClass world() {
-		return _living;
+	public class _Reactive_EvaClass extends DefaultReactive {
+		@Override
+		public <T> void addListener(final Consumer<T> t) {
+			throw new UnintendedUseException();
+		}
 	}
 }
 

@@ -1,12 +1,14 @@
 package tripleo.elijah.stages.gen_c;
 
 import org.apache.commons.lang3.tuple.*;
+import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.diagnostic.Diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.*;
+import tripleo.elijah.stages.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
@@ -20,8 +22,8 @@ import java.util.function.*;
 class GI_ProcIA implements GenerateC_Item {
 	private final GenerateC gc;
 	private final @NotNull ProcTableEntry pte;
-	private EvaNode _evaNode;
-	private final ProcIA carrier;
+	private final ProcIA  carrier;
+	private       EvaNode _evaNode;
 
 	public GI_ProcIA(final ProcIA aProcIA, final GenerateC aGenerateC) {
 		carrier = aProcIA;
@@ -30,10 +32,10 @@ class GI_ProcIA implements GenerateC_Item {
 	}
 
 	public @NotNull Operation2<EG_Statement> action_CONSTRUCT(@NotNull Instruction aInstruction,
-			@NotNull GenerateC gc) {
-		final ProcTableEntry pte = carrier.getEntry();
-		final List<TypeTableEntry> x = pte.getArgs();
-		final int y = aInstruction.getArgsSize();
+															  @NotNull GenerateC gc) {
+		final ProcTableEntry       pte = carrier.getEntry();
+		final List<TypeTableEntry> x   = pte.getArgs();
+		final int                  y   = aInstruction.getArgsSize();
 //		InstructionArgument z = instruction.getArg(1);
 
 		final ClassInvocation clsinv = pte.getClassInvocation();
@@ -47,15 +49,14 @@ class GI_ProcIA implements GenerateC_Item {
 
 			if (target instanceof IdentIA) {
 				// how to tell between named ctors and just a path?
-				@NotNull
-				final IdentTableEntry target2 = ((IdentIA) target).getEntry();
+				@NotNull final IdentTableEntry target2 = ((IdentIA) target).getEntry();
 				final String str = target2.getIdent().getText();
 
 				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("130  " + str);
 			}
 
 			final String s = MessageFormat.format("{0}{1};", Emit.emit("/*500*/"),
-					getAssignmentValue(aInstruction, gc));
+												  getAssignmentValue(aInstruction, gc));
 
 			return Operation2.success(new EG_SingleStatement(s, EX_Explanation.withMessage("aaa")));
 		}
@@ -91,14 +92,19 @@ class GI_ProcIA implements GenerateC_Item {
 		return _evaNode;
 	}
 
+	@Override
+	public void setEvaNode(final EvaNode a_evaNaode) {
+		_evaNode = a_evaNaode;
+	}
+
 	public @Nullable String getIdentIAPath(final @NotNull Consumer<Pair<String, CReference.Ref>> addRef) {
 		return getIdentIAPath_Proc(carrier.getEntry(), addRef);
 	}
 
 	public @Nullable String getIdentIAPath_Proc(final @NotNull ProcTableEntry pte,
-			final @NotNull Consumer<Pair<String, CReference.Ref>> addRef) {
-		final String[] text = new String[1];
-		final FunctionInvocation fi = pte.getFunctionInvocation();
+												final @NotNull Consumer<Pair<String, CReference.Ref>> addRef) {
+		final String[]           text = new String[1];
+		final FunctionInvocation fi   = pte.getFunctionInvocation();
 
 		if (fi == null) {
 			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("7777777777777777 fi getIdentIAPath_Proc " + pte);
@@ -107,11 +113,11 @@ class GI_ProcIA implements GenerateC_Item {
 		}
 
 		/* final */
-		BaseEvaFunction generated = fi.getGenerated();
-		final DeduceElement3_ProcTableEntry de_pte = (DeduceElement3_ProcTableEntry) pte.getDeduceElement3();
+		BaseEvaFunction                     generated = fi.getGenerated();
+		final DeduceElement3_ProcTableEntry de_pte    = (DeduceElement3_ProcTableEntry) pte.getDeduceElement3();
 
 		if (generated == null) {
-			logProgress(6464, ""+fi.pte);
+			logProgress(6464, "" + fi.pte);
 
 			final WlGenerateCtor wlgf = new WlGenerateCtor(
 					de_pte.deduceTypes2().getGenerateFunctions(de_pte.getPrincipal().getContext().module()), fi, null,
@@ -132,14 +138,24 @@ class GI_ProcIA implements GenerateC_Item {
 			final String constructorNameText = ac.getConstructorNameText();
 
 			generated.onGenClass(genClass -> {
-				text[0] = String.format("ZC%d%s", genClass.getCode(), constructorNameText);
-				addRef.accept(Pair.of(text[0], CReference.Ref.CONSTRUCTOR));
+				ESwitch.flep(genClass, new DoneCallback<DeducedEvaClass>() {
+					@Override
+					public void onDone(final DeducedEvaClass result) {
+						text[0] = String.format("ZC%d%s", result.getCode(), constructorNameText);
+						addRef.accept(Pair.of(text[0], CReference.Ref.CONSTRUCTOR));
+					}
+				});
 			});
 		} else {
 			final IdentExpression functionName = generated.getFD().getNameNode();
 			generated.onGenClass(genClass -> {
-				text[0] = String.format("z%d%s", genClass.getCode(), functionName.getText());
-				addRef.accept(Pair.of(text[0], CReference.Ref.FUNCTION));
+				ESwitch.flep(genClass, new DoneCallback<DeducedEvaClass>() {
+					@Override
+					public void onDone(final DeducedEvaClass result) {
+						text[0] = String.format("z%d%s", result.getCode(), functionName.getText());
+						addRef.accept(Pair.of(text[0], CReference.Ref.FUNCTION));
+					}
+				});
 			});
 		}
 
@@ -148,11 +164,6 @@ class GI_ProcIA implements GenerateC_Item {
 
 	private void logProgress(final int aI, final String aS) {
 		gc.ce.logProgress(CompProgress.GenerateC, Pair.of(aI, aS));
-	}
-
-	@Override
-	public void setEvaNode(final EvaNode a_evaNaode) {
-		_evaNode = a_evaNaode;
 	}
 }
 

@@ -1,7 +1,10 @@
 package tripleo.elijah.comp;
 
+import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.*;
+import tripleo.elijah.stages.gen_c.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.world.i.*;
@@ -43,8 +46,16 @@ public class Coder {
 	}
 
 	public void codeNodeFunction(@NotNull final BaseEvaFunction generatedFunction, final WorldModule mod) {
-		assert generatedFunction.getCode() == 0;
-		codeRegistrar.registerFunction(generatedFunction);
+		ESwitch.flep(generatedFunction, new DoneCallback<DeducedBaseEvaFunction>() {
+			@Override
+			public void onDone(final DeducedBaseEvaFunction result) {
+				if (result.getCode() == 0) {
+					codeRegistrar.registerFunction(generatedFunction);
+				} else {
+					throw new AssertionError("9993-0056: double register of function");
+				}
+			}
+		});
 	}
 
 	public void codeNodeNamespace(@NotNull final EvaNamespace generatedNamespace, final WorldModule mod) {

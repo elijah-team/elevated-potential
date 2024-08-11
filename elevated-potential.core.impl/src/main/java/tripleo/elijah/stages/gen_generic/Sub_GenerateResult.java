@@ -23,15 +23,11 @@ public class Sub_GenerateResult implements GenerateResult {
 		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("** ctor Sub_GenerateResult");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * tripleo.elijah.stages.gen_generic.GenerateResult#add(tripleo.util.buffer.
-	 * Buffer, tripleo.elijah.stages.gen_fn.EvaNode,
+	/**
+	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#add(tripleo.util.buffer.Buffer,
+	 * tripleo.elijah.stages.gen_fn.EvaNode,
 	 * tripleo.elijah.stages.gen_generic.Old_GenerateResult.TY,
-	 * tripleo.elijah.ci.LibraryStatementPart,
-	 * tripleo.elijah.stages.gen_generic.Dependency)
+	 * tripleo.elijah.ci.LibraryStatementPart, tripleo.elijah.stages.gen_generic.Dependency)
 	 */
 	@Override
 	public void add(@NotNull Buffer b, @NotNull EvaNode n, @NotNull TY ty, @Nullable LibraryStatementPart aLsp,
@@ -50,12 +46,8 @@ public class Sub_GenerateResult implements GenerateResult {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * tripleo.elijah.stages.gen_generic.GenerateResult#addClass(tripleo.elijah.
-	 * stages.gen_generic.Old_GenerateResult.TY,
+	/**
+	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#addClass(tripleo.elijah.stages.gen_generic.Old_GenerateResult.TY,
 	 * tripleo.elijah.stages.gen_fn.EvaClass, tripleo.util.buffer.Buffer,
 	 * tripleo.elijah.ci.LibraryStatementPart)
 	 */
@@ -64,26 +56,24 @@ public class Sub_GenerateResult implements GenerateResult {
 		add(aBuf, aClass, ty, aLsp, aClass.getDependency());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#addConstructor(tripleo.
-	 * elijah.stages.gen_fn.EvaConstructor, tripleo.util.buffer.Buffer,
+	/**
+	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#addConstructor(tripleo.elijah.stages.gen_fn.EvaConstructor,
+	 * tripleo.util.buffer.Buffer,
 	 * tripleo.elijah.stages.gen_generic.Old_GenerateResult.TY,
 	 * tripleo.elijah.ci.LibraryStatementPart)
 	 */
 	@Override
-	public void addConstructor(@NotNull EvaConstructor aEvaConstructor, @NotNull Buffer aBuffer, @NotNull TY aTY,
-			LibraryStatementPart aLsp) {
+	public void addConstructor(@NotNull EvaConstructor aEvaConstructor,
+							   @NotNull Buffer aBuffer,
+							   @NotNull TY aTY,
+							   LibraryStatementPart aLsp) {
 		addFunction(aEvaConstructor, aBuffer, aTY, aLsp);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
 	 * @see
-	 * tripleo.elijah.stages.gen_generic.GenerateResult#addFunction(tripleo.elijah.
-	 * stages.gen_fn.BaseEvaFunction, tripleo.util.buffer.Buffer,
+	 * tripleo.elijah.stages.gen_generic.GenerateResult#addFunction(tripleo.elijah.stages.gen_fn.BaseEvaFunction,
+	 * tripleo.util.buffer.Buffer,
 	 * tripleo.elijah.stages.gen_generic.Old_GenerateResult.TY,
 	 * tripleo.elijah.ci.LibraryStatementPart)
 	 */
@@ -93,12 +83,8 @@ public class Sub_GenerateResult implements GenerateResult {
 		add(aBuffer, aGeneratedFunction, aTY, aLsp, aGeneratedFunction.getDependency());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * tripleo.elijah.stages.gen_generic.GenerateResult#additional(tripleo.elijah.
-	 * stages.gen_generic.GenerateResult)
+	/**
+	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#additional(tripleo.elijah.stages.gen_generic.GenerateResult)
 	 */
 	@Override
 	public void additional(final @NotNull GenerateResult aGenerateResult) {
@@ -107,12 +93,9 @@ public class Sub_GenerateResult implements GenerateResult {
 		_res.addAll(aGenerateResult.results());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * tripleo.elijah.stages.gen_generic.GenerateResult#addNamespace(tripleo.elijah.
-	 * stages.gen_generic.Old_GenerateResult.TY,
+	/**
+	 * @see tripleo.elijah.stages.gen_generic.GenerateResult#addNamespace(
+	 *tripleo.elijah.stages.gen_generic.Old_GenerateResult.TY,
 	 * tripleo.elijah.stages.gen_fn.EvaNamespace, tripleo.util.buffer.Buffer,
 	 * tripleo.elijah.ci.LibraryStatementPart)
 	 */
