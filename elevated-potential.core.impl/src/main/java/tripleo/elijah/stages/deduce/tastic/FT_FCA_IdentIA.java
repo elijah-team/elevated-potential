@@ -9,9 +9,15 @@
  */
 package tripleo.elijah.stages.deduce.tastic;
 
+import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
+
+import java.util.*;
+import java.util.stream.*;
+
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -22,12 +28,7 @@ import tripleo.elijah.stages.deduce.nextgen.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah_prolific.v.V;
-
-import java.util.*;
-import java.util.stream.*;
-
-import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
+import tripleo.elijah_prolific.v.*;
 
 /*static*/ public class FT_FCA_IdentIA {
 
@@ -40,14 +41,14 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 		private final          String             e_text;
 		private final Promise<GenType, Void, Void> p;
 		private final Context ctx;
-		private final DeduceTypes2.@NotNull DeduceClient4 dc;
+		private final @NotNull DeduceClient4 dc;
 		private final @NotNull InstructionArgument vte_ia;
 		boolean isDone;
 
 		public __FT_FCA_IdentIA_Runnable(final DeduceTypes2 aDt2, final @NotNull BaseEvaFunction aGeneratedFunction,
 				final @NotNull VariableTableEntry aVte, final @NotNull VariableTableEntry aVte1, final ErrSink aErrSink,
 				final String aE_text, final Promise<GenType, Void, Void> aP, final Context aCtx,
-				final DeduceTypes2.@NotNull DeduceClient4 aDc, final @NotNull InstructionArgument aVte_ia) {
+				final @NotNull DeduceClient4 aDc, final @NotNull InstructionArgument aVte_ia) {
 			dt2 = aDt2;
 			generatedFunction = aGeneratedFunction;
 			vte = aVte;
@@ -156,13 +157,13 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 	}
 
 	public class FakeDC4 {
-		private final DeduceTypes2.DeduceClient4 dc4;
+		private final DeduceClient4 dc4;
 
-		public FakeDC4(final DeduceTypes2.DeduceClient4 aDc4) {
+		public FakeDC4(final DeduceClient4 aDc4) {
 			dc4 = aDc4;
 		}
 
-		public DeduceTypes2.DeduceTypes2Injector _deduceTypes2() {
+		public DeduceTypes2Injector _deduceTypes2() {
 			return dc4.get()._inj();
 		}
 
@@ -273,11 +274,11 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 		private final BaseEvaFunction            generatedFunction;
 		private final TypeTableEntry             tte;
 		private final Context                    ctx;
-		private final ErrSink                    errSink;
-		private final DeduceTypes2.DeduceClient4 dc;
+		private final ErrSink errSink;
+		private final DeduceClient4 dc;
 
 		public FT_FCA_Ctx(BaseEvaFunction generatedFunction, TypeTableEntry tte, Context ctx, ErrSink errSink,
-						  DeduceTypes2.DeduceClient4 dc) {
+				DeduceClient4 dc) {
 			this.generatedFunction = generatedFunction;
 			this.tte               = tte;
 			this.ctx               = ctx;
@@ -301,7 +302,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 			return errSink;
 		}
 
-		public DeduceTypes2.DeduceClient4 dc() {
+		public DeduceClient4 dc() {
 			return dc;
 		}
 
@@ -357,7 +358,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 	}
 
 	private void __loop1__DOT_EXP(final @NotNull DotExpression de, final @NotNull FT_FCA_Ctx fdctx) {
-		final DeduceTypes2.DeduceClient4 dc = fdctx.dc();
+		final DeduceClient4 dc = fdctx.dc();
 		final ErrSink errSink = fdctx.errSink();
 		final TypeTableEntry tte = fdctx.tte();
 		final BaseEvaFunction generatedFunction = fdctx.generatedFunction();
@@ -400,8 +401,8 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 	private void __loop1__PROCEDURE_CALL(final ProcTableEntry pte,
 										 final @NotNull ProcedureCallExpression pce,
 										 final @NotNull FT_FCA_Ctx fdctx) {
-		final DeduceTypes2.DeduceClient4 dc                = fdctx.dc();
-		final ErrSink                    errSink           = fdctx.errSink();
+		final DeduceClient4 dc = fdctx.dc();
+		final ErrSink errSink = fdctx.errSink();
 		final TypeTableEntry             tte               = fdctx.tte();
 		final BaseEvaFunction            generatedFunction = fdctx.generatedFunction();
 		final Context                    ctx               = fdctx.ctx();
@@ -460,7 +461,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 
 	private void __vte_ia__is_null(final int aInstructionIndex, final @NotNull ProcTableEntry aPte, final int aI,
 			final @NotNull IdentExpression aExpression, final @NotNull BaseEvaFunction generatedFunction,
-			final Context ctx, final TypeTableEntry aTte, final DeduceTypes2.@NotNull DeduceClient4 dc,
+			final Context ctx, final TypeTableEntry aTte, final @NotNull DeduceClient4 dc,
 			final DeduceTypes2 dt2) {
 		int ia = generatedFunction.addIdentTableEntry(aExpression, ctx);
 		@NotNull
@@ -485,7 +486,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 	private void __vte_ia__not_null(final @NotNull VariableTableEntry vte,
 			final @NotNull BaseEvaFunction generatedFunction, final @NotNull InstructionArgument vte_ia,
 			final TypeTableEntry aTte, final DeduceTypes2 dt2, final ErrSink errSink, final String e_text,
-			final Context ctx, final DeduceTypes2.@NotNull DeduceClient4 dc) {
+			final Context ctx, final @NotNull DeduceClient4 dc) {
 		final @NotNull VariableTableEntry vte1 = generatedFunction.getVarTableEntry(to_int(vte_ia));
 		final Promise<GenType, Void, Void> p = VTE_TypePromises.do_assign_call_args_ident_vte_promise(aTte, vte1);
 		@NotNull
@@ -496,7 +497,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 
 	void do_assign_call_args_ident(@NotNull VariableTableEntry vte, int aInstructionIndex, @NotNull ProcTableEntry aPte,
 			int aI, @NotNull IdentExpression aExpression, final @NotNull FT_FCA_Ctx fdctx) {
-		final DeduceTypes2.DeduceClient4 dc = fdctx.dc();
+		final DeduceClient4 dc = fdctx.dc();
 		final ErrSink errSink = fdctx.errSink();
 		final TypeTableEntry aTte = fdctx.tte();
 		final BaseEvaFunction generatedFunction = fdctx.generatedFunction();
@@ -515,7 +516,7 @@ import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 	}
 
 	void do_assign_call_GET_ITEM(@NotNull GetItemExpression gie, final @NotNull FT_FCA_Ctx fdctx) {
-		final DeduceTypes2.DeduceClient4 dc = fdctx.dc();
+		final DeduceClient4 dc = fdctx.dc();
 		final ErrSink errSink = fdctx.errSink();
 		final TypeTableEntry tte = fdctx.tte();
 		final BaseEvaFunction generatedFunction = fdctx.generatedFunction();

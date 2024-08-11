@@ -8,8 +8,11 @@
  */
 package tripleo.elijah.stages.deduce;
 
+import java.util.*;
+
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.diagnostic.*;
@@ -22,8 +25,6 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
-
-import java.util.*;
 
 /**
  * Created 9/5/21 2:54 AM
@@ -49,7 +50,7 @@ class Resolve_Variable_Table_Entry {
 		phase = deduceTypes2._phase();
 	}
 
-	public void action(final @NotNull VariableTableEntry vte, final @NotNull DeduceTypes2.IVariableConnector aConnector) {
+	public void action(final @NotNull VariableTableEntry vte, final @NotNull IVariableConnector aConnector) {
 		switch (vte.getVtt()) {
 		case ARG:
 			action_ARG(vte);
@@ -177,7 +178,7 @@ class Resolve_Variable_Table_Entry {
 
 			@NotNull
 			PromiseExpectation<GenType> pe = deduceTypes2
-					.promiseExpectation(/* pot.genType.node */new DeduceTypes2.ExpectationBase() {
+					.promiseExpectation(/* pot.genType.node */new ExpectationBase() {
 						@Override
 						public @NotNull String expectationString() {
 							return "FuncType..."; // TODO

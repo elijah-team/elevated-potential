@@ -1,17 +1,16 @@
 package tripleo.elijah.stages.deduce;
 
-import org.jdeferred2.DoneCallback;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.ReadySupplier_1;
-import tripleo.elijah.diagnostic.ExceptionDiagnostic;
-import tripleo.elijah.lang.i.*;
-import tripleo.elijah.stages.gen_fn.GenType;
-import tripleo.elijah.util.Operation;
-import tripleo.elijah_fluffy.util.EventualExtract;
+import java.util.*;
 
-import java.util.List;
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.*;
+import tripleo.elijah.diagnostic.*;
+import tripleo.elijah.lang.i.*;
+import tripleo.elijah.stages.gen_fn.*;
+import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.util.*;
 
 public enum ClassInvocationMake {
 	;
@@ -66,9 +65,10 @@ public enum ClassInvocationMake {
 		return EventualExtract.of(ev);
 	}
 
-	public static DeduceTypes2.DeduceTypes2Injector.DerivedClassInvocation2 withGenericPart2(final ClassStatement aClassStatement, final String aO, final NormalTypeName aNormalTypeName, final DeduceTypes2 aDeduceTypes2) {
+	public static DeduceTypes2Injector.DerivedClassInvocation2 withGenericPart2(final ClassStatement aClassStatement,
+			final String aO, final NormalTypeName aNormalTypeName, final DeduceTypes2 aDeduceTypes2) {
 		@NotNull final Operation<ClassInvocation> x = withGenericPart(aClassStatement, aO, aNormalTypeName, aDeduceTypes2);
-		final DeduceTypes2.DeduceTypes2Injector.DerivedClassInvocation2 result = new DeduceTypes2.DeduceTypes2Injector.DerivedClassInvocation2() {
+		final DeduceTypes2Injector.DerivedClassInvocation2 result = new DeduceTypes2Injector.DerivedClassInvocation2() {
 			@Override
 			public void into(final Eventual<IInvocation> ev) {
 				switch (x.mode()) {

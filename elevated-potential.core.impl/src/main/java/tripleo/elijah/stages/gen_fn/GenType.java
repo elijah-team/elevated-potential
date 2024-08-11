@@ -1,20 +1,17 @@
 package tripleo.elijah.stages.gen_fn;
 
-import org.jdeferred2.DoneCallback;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.comp.i.ErrSink;
+import java.util.function.*;
+
+import org.jdeferred2.*;
+import org.jetbrains.annotations.*;
+
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.Mode;
 import tripleo.elijah.stages.deduce.*;
-import tripleo.elijah.stages.deduce.nextgen.DR_Type;
-import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Operation2;
-
-import java.util.function.Supplier;
+import tripleo.elijah.stages.deduce.nextgen.*;
+import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.util.*;
 
 public interface GenType {
 	/**
@@ -65,7 +62,7 @@ public interface GenType {
 			final LookupResultList lrl = tn.getContext().lookup(tn.getName());
 			final @Nullable OS_Element el = lrl.chooseBest(null);
 
-			DeduceTypes2.ProcessElement.processElement(el, new DeduceTypes2.IElementProcessor() {
+			ProcessElement.processElement(el, new IElementProcessor() {
 				private void __hasElement__typeNameElement(
 						final @NotNull OS_TypeNameElement typeNameElement) {
 					assert aGenericPart != null;

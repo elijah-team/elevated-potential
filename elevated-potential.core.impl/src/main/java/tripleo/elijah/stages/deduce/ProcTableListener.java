@@ -8,7 +8,10 @@
  */
 package tripleo.elijah.stages.deduce;
 
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.nextgen.*;
@@ -16,8 +19,6 @@ import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;
-
-import java.util.*;
 
 /**
  * Created 9/10/21 3:42 AM
@@ -145,7 +146,7 @@ public class ProcTableListener implements BaseTableEntry.StatusListener {
 		dcs.attachClass(result); // T168-089
 	}
 
-	private final DeduceTypes2.@NotNull DeduceClient2 dc;
+	private final @NotNull DeduceClient2 dc;
 	private final BaseEvaFunction generatedFunction;
 
 	private final @NotNull ElLog LOG;
@@ -153,7 +154,7 @@ public class ProcTableListener implements BaseTableEntry.StatusListener {
 	private final ProcTableEntry pte;
 
 	public ProcTableListener(ProcTableEntry pte, BaseEvaFunction generatedFunction,
-			DeduceTypes2.@NotNull DeduceClient2 dc) {
+			@NotNull DeduceClient2 dc) {
 		this.pte = pte;
 		this.generatedFunction = generatedFunction;
 		this.dc = dc;

@@ -8,7 +8,10 @@
  */
 package tripleo.elijah.stages.deduce;
 
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -17,8 +20,6 @@ import tripleo.elijah.lang2.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.util.*;
-
-import java.util.*;
 
 /**
  * Created 3/7/21 1:13 AM
@@ -96,8 +97,8 @@ public enum DeduceLookupUtils {
 			final @NotNull DeduceElement3_IdentTableEntry de3_ite,
 			final @NotNull IFunctionContext aFunctionContext) {
 		final IdentExpression                   identExpression      = de3_ite.principal.getIdent();
-		final DeduceTypes2                      deduceTypes2         = de3_ite.principal._deduceTypes2();
-		final DeduceTypes2.DeduceTypes2Injector deduceTypes2Injector = deduceTypes2._inj();
+		final DeduceTypes2 deduceTypes2 = de3_ite.principal._deduceTypes2();
+		final DeduceTypes2Injector deduceTypes2Injector = deduceTypes2._inj();
 		//final IdentTableEntry ite = deduceTypes2Injector.new_IdentTableEntry(0, identExpression,
 		//																	 identExpression.getContext(),
 		//																	 de3_ite.generatedFunction);

@@ -8,10 +8,13 @@
  */
 package tripleo.elijah.stages.deduce;
 
+import java.util.*;
+
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
-import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
@@ -19,8 +22,6 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
-
-import java.util.*;
 
 /**
  * Created 7/21/21 7:33 PM
@@ -134,7 +135,7 @@ class Resolve_Ident_IA2 {
 		LOG = deduceTypes2.LOG;
 	}
 
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
+	private DeduceTypes2Injector _inj() {
 		return deduceTypes2._inj();
 	}
 

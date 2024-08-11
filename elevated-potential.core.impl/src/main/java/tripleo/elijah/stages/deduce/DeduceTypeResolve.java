@@ -9,8 +9,11 @@
  */
 package tripleo.elijah.stages.deduce;
 
+import java.util.function.*;
+
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
@@ -19,8 +22,6 @@ import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
-
-import java.util.function.*;
 
 /**
  * Created 11/18/21 12:02 PM
@@ -59,7 +60,7 @@ public class DeduceTypeResolve {
 		private void _203_backlink_is_VTE(final @NotNull GenType aGenType, final IElementHolder eh,
 				final @NotNull VariableTableEntry variableTableEntry) {
 			if (eh instanceof final Resolve_Ident_IA.@NotNull GenericElementHolderWithDC eh1) {
-				final DeduceTypes2.DeduceClient3 dc = eh1.getDC();
+				final DeduceClient3 dc = eh1.getDC();
 				dc.genCIForGenType2(aGenType);
 			}
 			// maybe set something in ci to INHERITED, but that's what DeduceProcCall is for
@@ -280,11 +281,11 @@ public class DeduceTypeResolve {
 		}
 	}
 
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
+	private DeduceTypes2Injector _inj() {
 		return _dt2s.get()._inj();
 	}
 
-	private void _inj_then(final DoneCallback<DeduceTypes2.DeduceTypes2Injector> i) {
+	private void _inj_then(final DoneCallback<DeduceTypes2Injector> i) {
 		if (_dt2s instanceof PromiseReadySupplier<DeduceTypes2> prs) {
 			prs.then(q -> i.onDone(q._inj()));
 		}

@@ -1,7 +1,12 @@
 package tripleo.elijah.stages.deduce;
 
-import com.google.common.base.*;
+import java.util.*;
+import java.util.Objects;
+
 import org.jetbrains.annotations.*;
+
+import com.google.common.base.*;
+
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.lang.types.*;
@@ -11,9 +16,6 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
-
-import java.util.Objects;
-import java.util.*;
 
 public class Implement_construct {
 	public class ICH {
@@ -133,7 +135,7 @@ public class Implement_construct {
 		}
 	}
 
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
+	private DeduceTypes2Injector _inj() {
 		return deduceTypes2._inj();
 	}
 

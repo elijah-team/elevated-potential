@@ -9,7 +9,12 @@
  */
 package tripleo.elijah.stages.deduce.tastic;
 
+import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
+
+import java.util.*;
+
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
@@ -19,10 +24,6 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.util.*;
-
-import java.util.*;
-
-import static tripleo.elijah.stages.deduce.DeduceTypes2.*;
 
 public class FT_FnCallArgs implements ITastic {
 	public ElLog LOG() {
@@ -34,7 +35,7 @@ public class FT_FnCallArgs implements ITastic {
 	}
 
 	public static class NullFoundElement extends FoundElement {
-		public NullFoundElement(DeduceTypes2.@NotNull DeduceClient4 dc) {
+		public NullFoundElement(@NotNull DeduceClient4 dc) {
 			super(dc.getPhase());
 		}
 
@@ -47,13 +48,13 @@ public class FT_FnCallArgs implements ITastic {
 	 * Created 12/12/21 12:30 AM
 	 */
 		public static final class DoAssignCall {
-		private final          DeduceTypes2.DeduceClient4 dc;
-		private final @NotNull BaseEvaFunction            generatedFunction;
+			private final DeduceClient4 dc;
+			private final @NotNull BaseEvaFunction generatedFunction;
 
 		/**
 		 *
 		 */
-		public DoAssignCall(DeduceTypes2.DeduceClient4 dc,
+		public DoAssignCall(DeduceClient4 dc,
 							@NotNull BaseEvaFunction generatedFunction) {
 			this.dc                = dc;
 			this.generatedFunction = generatedFunction;
@@ -71,7 +72,7 @@ public class FT_FnCallArgs implements ITastic {
 			return dc.getErrSink();
 		}
 
-		public DeduceTypes2.DeduceClient4 dc() {
+		public DeduceClient4 dc() {
 			return dc;
 		}
 
@@ -272,8 +273,8 @@ public class FT_FnCallArgs implements ITastic {
 	                           final @NotNull VariableTableEntry vte,
 	                           final @NotNull Instruction instruction,
 	                           final OS_Element aName) {
-		final DeduceTypes2.DeduceClient4 client4          = deduceTypes2._inj().new_DeduceClient4(deduceTypes2);
-		final DoAssignCall               dac              = deduceTypes2._inj().new_DoAssignCall(client4, generatedFunction, this);
+		final DeduceClient4 client4 = deduceTypes2._inj().new_DeduceClient4(deduceTypes2);
+		final DoAssignCall dac = deduceTypes2._inj().new_DoAssignCall(client4, generatedFunction, this);
 		final int                        instructionIndex = instruction.getIndex();
 		final @NotNull ProcTableEntry    pte              = ((ProcIA) fca.getArg(0)).getEntry();
 

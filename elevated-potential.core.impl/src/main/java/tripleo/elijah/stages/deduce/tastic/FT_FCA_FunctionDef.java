@@ -1,14 +1,15 @@
 package tripleo.elijah.stages.deduce.tastic;
 
+import java.util.*;
+
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.util.*;
-
-import java.util.*;
 
 public class FT_FCA_FunctionDef {
 	private final FunctionDef fd;
@@ -19,7 +20,7 @@ public class FT_FCA_FunctionDef {
 		_dt2 = aDt2;
 	}
 
-	private DeduceTypes2.DeduceTypes2Injector _inj() {
+	private DeduceTypes2Injector _inj() {
 		return _dt2._inj();
 	}
 

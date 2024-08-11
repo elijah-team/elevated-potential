@@ -1,6 +1,7 @@
 package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.*;
@@ -12,7 +13,7 @@ public interface IEvaConstructor extends
 		EvaNode,
 		DependencyTracker,
 		IDependencyReferent,
-		DeduceTypes2.ExpectationBase {
+		ExpectationBase {
 
 	Eventual<DeduceElement3_Constructor> de3_Promise();
 

@@ -8,17 +8,18 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
+import java.util.*;
+
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
+
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.deduce.*;
 import tripleo.elijah.stages.deduce.post_bytecode.*;
 import tripleo.elijah.stages.instructions.*;
 import tripleo.elijah.util.*;
-
-import java.util.*;
 
 /**
  * Created 9/12/20 10:07 PM
@@ -100,7 +101,7 @@ public class ProcTableEntry extends BaseTableEntry implements TableEntryIV {
 		return __dt2;
 	}
 
-	public DeduceTypes2.DeduceTypes2Injector _inj() {
+	public DeduceTypes2Injector _inj() {
 		return _deduceTypes2()._inj();
 	}
 
