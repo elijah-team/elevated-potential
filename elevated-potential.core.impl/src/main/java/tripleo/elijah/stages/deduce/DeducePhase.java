@@ -38,8 +38,8 @@ import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah.world.i.*;
-import tripleo.elijah_elevated.comp.backbone.*;
-import tripleo.elijah_fluffy.util.*;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
+import tripleo.elijah_fluffy.util.DefaultEventualRegister;
 
 import java.util.*;
 import java.util.concurrent.*;

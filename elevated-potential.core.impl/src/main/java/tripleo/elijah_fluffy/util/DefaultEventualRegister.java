@@ -1,11 +1,13 @@
 package tripleo.elijah_fluffy.util;
 
-import tripleo.elijah.*;
+import tripleo.elijah.Eventual;
+import tripleo.elijah.EventualRegister;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DefaultEventualRegister implements EventualRegister {
-	final List<Eventual<?>> _eventuals = new ArrayList<>();
+	final List<Eventual<?>> _eventuals = new ArrayList<Eventual<?>>();
 
 	public DefaultEventualRegister() {
 	}

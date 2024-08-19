@@ -5,7 +5,7 @@ import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.util.*;
-import tripleo.elijah_elevated.comp.backbone.*;
+import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
 public class CK_RunBetterAction implements CK_Action {
 	@Override
@@ -19,9 +19,7 @@ public class CK_RunBetterAction implements CK_Action {
 			final Compilation0         compilation    = ca.getCompilation();
 			final CompilationEnclosure ce             = (CompilationEnclosure) ca.getCompilationEnclosure();
 
-			ce.getPipelineAccessPromise().then(pa -> {
-				//final GPipelineAccess      pa             = compilation.pa();
-				final IPipelineAccess      pipelineAccess = (IPipelineAccess) pa;
+			ce.getPipelineAccessPromise().then(pipelineAccess -> {
 				final ProcessRecord        processRecord  = pipelineAccess.getProcessRecord();
 				final RuntimeProcess       process        = new OStageProcess(processRecord.ca());
 
@@ -36,11 +34,10 @@ public class CK_RunBetterAction implements CK_Action {
 				if (res.mode() == Mode.FAILURE) {
 					//Logger.getLogger(OStageProcess.class.getName()).log(Level.SEVERE, null, ex);
 
-
 					final Throwable ex = res.failure();
 					aMonitor._______printStackTrace(ex);
 
-					//return Operation.failure(ex); eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+					//return Operation.failure(ex); eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 				}
 
 				process.postProcess();
