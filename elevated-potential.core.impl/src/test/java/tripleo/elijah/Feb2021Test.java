@@ -10,8 +10,8 @@ package tripleo.elijah;
 
 import org.junit.jupiter.api.Test;
 
-import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -26,9 +26,9 @@ public class Feb2021Test {
 				.run();
 
 		final int curious_that_this_does_not_fail = 1_000_100;
-		assertThat(t.errorCount())
-				//.isEqualTo(curious_that_this_does_not_fail);
-				.isEqualTo(0);
+		assertThat(t.errorCount(),
+				//equalTo(curious_that_this_does_not_fail);
+				equalTo(0));
 	}
 
 	@Test
@@ -38,9 +38,9 @@ public class Feb2021Test {
 				.run();
 
 		final int curious_that_this_does_not_fail = 1_000_100;
-		assertThat(t.errorCount())
-				//.isEqualTo(curious_that_this_does_not_fail);
-				.isEqualTo(0);
+		assertThat(t.errorCount(),
+				//equalTo(curious_that_this_does_not_fail);
+				equalTo(0));
 
 		// TODO 10/15 cucumber??
 
@@ -48,9 +48,9 @@ public class Feb2021Test {
 		/* TODO investigate: */assertTrue(t.assertLiveClass("Foo"));  // ...
 		/* TODO investigate: */assertTrue(t.assertLiveClass("Main")); // ...
 
-		assertThat(t.c().reports().codeOutputSize())
-				.isGreaterThan(0);
-				//.isEqualTo(0);
+		assertThat(t.c().reports().codeOutputSize(),
+				greaterThan(0));
+				//,equalTo(0));
 	}
 
 	@Test
@@ -60,13 +60,13 @@ public class Feb2021Test {
 				.run();
 
 		final int curious_that_this_does_not_fail = 1_000_100;
-		assertThat(t.errorCount())
-				//.isEqualTo(curious_that_this_does_not_fail);
-				.isEqualTo(0);
+		assertThat(t.errorCount(),
+				//equalTo(curious_that_this_does_not_fail);
+				equalTo(0));
 
-		assertThat(t.c().reports().codeOutputSize())
-				.isGreaterThan(0);
-		//.isEqualTo(0);
+		assertThat(t.c().reports().codeOutputSize()
+				,greaterThan(0));
+				//,equalTo(0));
 	}
 
 	@Test
@@ -76,13 +76,13 @@ public class Feb2021Test {
 				.run();
 
 		final int curious_that_this_does_not_fail = 1_000_100;
-		assertThat(t.errorCount())
-				//.isEqualTo(curious_that_this_does_not_fail);
-				.isEqualTo(0);
+		assertThat(t.errorCount()
+				//equalTo(curious_that_this_does_not_fail);
+				,equalTo(0));
 
-		assertThat(t.c().reports().codeOutputSize())
-				.isGreaterThan(0);
-				//.isEqualTo(0);
+		assertThat(t.c().reports().codeOutputSize()
+				,greaterThan(0));
+				//,equalTo(0));
 	}
 
 	@Test
@@ -92,13 +92,13 @@ public class Feb2021Test {
 				.run();
 
 		final int curious_that_this_does_not_fail = 1_000_100;
-		assertThat(t.errorCount())
-				//.isEqualTo(curious_that_this_does_not_fail);
-				.isEqualTo(0);
+		assertThat(t.errorCount()
+				//equalTo(curious_that_this_does_not_fail);
+				,equalTo(0));
 
-		assertThat(t.c().reports().codeOutputSize())
-				.isGreaterThan(0);
-				//.isEqualTo(0);
+		assertThat(t.c().reports().codeOutputSize()
+				,greaterThan(0));
+				//,equalTo(0));
 	}
 }
 
