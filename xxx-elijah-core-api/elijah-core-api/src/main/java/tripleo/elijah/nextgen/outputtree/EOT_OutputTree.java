@@ -14,4 +14,8 @@ public interface EOT_OutputTree {
 	void recompute();
 
 	void set(@NotNull List<EOT_OutputFile> aLeof);
+
+	default int getSize() {
+		return getList().size();
+	}
 }

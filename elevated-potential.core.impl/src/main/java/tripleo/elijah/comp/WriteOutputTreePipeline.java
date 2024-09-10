@@ -12,6 +12,7 @@ import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.i.CP_RootType;
 
+import tripleo.elijah.nextgen.inputtree.EIT_Input;
 import tripleo.elijah.nextgen.outputstatement.EG_Naming;
 import tripleo.elijah.nextgen.outputstatement.EG_SequenceStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_SingleStatement;
@@ -32,9 +33,10 @@ import java.util.*;
 import static tripleo.elijah.util.Helpers.*;
 
 public class WriteOutputTreePipeline extends PipelineMember implements GPipelineMember {
+	@SuppressWarnings("FieldCanBeLocal")
 	private final int WRITE_OUTPUT_TREE__ADD_NODE_OUTPUT = 106;
 
-	private static void addLogs(final @NotNull Functions.TriConsumer<List, EOT_FileNameProvider, EG_Statement> outputSink, final List<ElLog> logs) {
+	private static void addLogs(final @NotNull Functions.TriConsumer<List<EIT_Input>, EOT_FileNameProvider, EG_Statement> outputSink, final List<ElLog> logs) {
 		final String s1 = logs.get(0).getFileName();
 
 		for (final ElLog log : logs) {

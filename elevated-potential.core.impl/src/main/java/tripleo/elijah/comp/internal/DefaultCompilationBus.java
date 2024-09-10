@@ -105,7 +105,7 @@ public class DefaultCompilationBus implements ICompilationBus {
 
 		try {
 			await()
-				.atMost(5, TimeUnit.SECONDS)
+				.atMost(2, TimeUnit.SECONDS)
 				.until(task::isSignalled);
 		} catch (ConditionTimeoutException cte) {
 			//throw new RuntimeException(cte);
