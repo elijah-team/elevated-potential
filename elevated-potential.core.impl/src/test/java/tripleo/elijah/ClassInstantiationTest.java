@@ -32,7 +32,7 @@ public class ClassInstantiationTest {
 
 		assertThat(t.c().reports().codeOutputSize()
 		           //, greaterThan(0));
-				, equalTo(0)); // FIMXE paf
+				, equalTo(0)); // FIXME paf
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
@@ -57,7 +57,7 @@ public class ClassInstantiationTest {
 
 		assertThat(t.c().reports().codeOutputSize()
 		           //, greaterThan(0));
-				, equalTo(0)); // FIMXE paf
+				, equalTo(0)); // FIXME paf
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class ClassInstantiationTest {
 
 		assertThat(t.c().reports().codeOutputSize()
 		           //, greaterThan(0));
-				, equalTo(0)); // FIMXE paf
+				, equalTo(0)); // FIXME paf
 	}
 
 	@Test
@@ -100,7 +100,7 @@ public class ClassInstantiationTest {
 
 		assertThat(t.c().reports().codeOutputSize()
 		           //, greaterThan(0));
-				, equalTo(0)); // FIMXE paf
+				, equalTo(0)); // FIXME paf
 	}
 }
 
