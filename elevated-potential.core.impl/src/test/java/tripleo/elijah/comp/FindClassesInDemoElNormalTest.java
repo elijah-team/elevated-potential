@@ -8,19 +8,25 @@
  */
 package tripleo.elijah.comp;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.*;
-
-import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.entrypoints.*;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.entrypoints.MainClassEntryPoint;
+import tripleo.elijah.lang.i.ClassStatement;
 
 import java.util.*;
 import java.util.stream.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.hamcrest.MatcherAssert.assertThat;
+//import static org.hamcrest.Matchers.*;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import static tripleo.elijah.util.Helpers.*;
 
 /**
@@ -59,7 +65,7 @@ public class FindClassesInDemoElNormalTest {
 			c.world().eachModule(wm -> l.add(wm.module().getFileName()));
 
 			assertThat(l.size()).isEqualTo(2); // TODO is this correct?
-//		assertThat(l).containsExactlyInAnyOrder("test/demo-el-normal/main2.elijah", "test/demo-el-normal/fact2.elijah");
+			// assertThat(l).containsExactlyInAnyOrder("test/demo-el-normal/main2.elijah", "test/demo-el-normal/fact2.elijah");
 			assertThat(l).containsExactlyInAnyOrder(
 					"Prelude.elijjah", // FIXME this looks bad. (Prelude should have a path)
 					"test/demo-el-normal/fact2.elijah"
@@ -77,11 +83,11 @@ public class FindClassesInDemoElNormalTest {
 
 		assertThat(classNames).containsExactlyInAnyOrder("Main");
 
-//		assertEquals(1, aClassList.size()); // NOTE this may change. be aware
+		// assertEquals(1, aClassList.size()); // NOTE this may change. be aware
 
-		assertThat(c.errorCount()).isEqualTo(0); // NOTE We're being optimistic here
+		// FIXME obviously not (paf)
+		assertThat(c.errorCount()).isEqualTo(0);
 	}
-
 }
 
 //

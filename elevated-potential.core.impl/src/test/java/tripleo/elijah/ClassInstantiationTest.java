@@ -8,11 +8,13 @@
  */
 package tripleo.elijah;
 
-import org.junit.jupiter.api.Test;
-import tripleo.elijah.test_help.*;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
+
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -30,9 +32,9 @@ public class ClassInstantiationTest {
 
 		SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
-		assertThat(t.c().reports().codeOutputSize())
-				.isGreaterThan(0);
-				//.isEqualTo(0);
+		assertThat(t.c().reports().codeOutputSize()
+				, greaterThan(0));
+				//,equalTo(0));
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
@@ -48,17 +50,16 @@ public class ClassInstantiationTest {
 		SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
-		assertThat(t.errorCount())
-				.isEqualTo(curious_that_this_does_not_fail);
+		//assertThat(t.errorCount(), equalTo(curious_that_this_does_not_fail));
+		assertThat(t.errorCount(), equalTo(0));
 
-		assertThat(t.errorCount())
-				//.isEqualTo(2);
-				.isEqualTo(0);
+		assertThat(t.errorCount()
+		           //equalTo(2);
+				, equalTo(0));
 
-		//assert t.c().reports().codeOutputSize() > 0;
-		if (t.c().reports().codeOutputSize() < 1) {
-			//		throw new AcceptedFailure();
-		}
+		assertThat(t.c().reports().codeOutputSize()
+				, greaterThan(0));
+				//,equalTo(0));
 	}
 
 	@Test
@@ -71,17 +72,15 @@ public class ClassInstantiationTest {
 		SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
-		assertThat(t.errorCount())
-				.isEqualTo(curious_that_this_does_not_fail);
+		assertThat(t.errorCount(), equalTo(curious_that_this_does_not_fail));
 
-		assertThat(t.errorCount())
-				//.isEqualTo(2);
-				.isEqualTo(0);
+		assertThat(t.errorCount()
+				//equalTo(2);
+				, equalTo(0));
 
-		//assert t.c().reports().codeOutputSize() > 0;
-		if (t.c().reports().codeOutputSize() < 1) {
-			//		throw new AcceptedFailure();
-		}
+		assertThat(t.c().reports().codeOutputSize()
+				, greaterThan(0));
+				//,equalTo(0));
 	}
 
 	@Test
@@ -94,17 +93,16 @@ public class ClassInstantiationTest {
 		SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
-		assertThat(t.errorCount())
-				.isEqualTo(curious_that_this_does_not_fail);
+		assertThat(t.errorCount(),
+		equalTo(curious_that_this_does_not_fail));
 
-		assertThat(t.errorCount())
-//				.isEqualTo(2);
-				.isEqualTo(0);
+		assertThat(t.errorCount()
+//				equalTo(2);
+				, equalTo(0));
 
-		//assert t.c().reports().codeOutputSize() > 0;
-		if (t.c().reports().codeOutputSize() < 1) {
-			//		throw new AcceptedFailure();
-		}
+		assertThat(t.c().reports().codeOutputSize()
+				, greaterThan(0));
+		//,equalTo(0));
 	}
 }
 
