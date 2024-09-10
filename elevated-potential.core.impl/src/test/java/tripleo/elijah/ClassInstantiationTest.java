@@ -30,11 +30,9 @@ public class ClassInstantiationTest {
 
 		SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
-
-		//assert t.c().reports().codeOutputSize() > 0;
-		if (t.c().reports().codeOutputSize() < 1) {
-	//		throw new AcceptedFailure();
-		}
+		assertThat(t.c().reports().codeOutputSize())
+				.isGreaterThan(0);
+				//.isEqualTo(0);
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
 		assertEquals(curious_that_this_does_not_fail, t.errorCount());
@@ -54,7 +52,8 @@ public class ClassInstantiationTest {
 				.isEqualTo(curious_that_this_does_not_fail);
 
 		assertThat(t.errorCount())
-				.isEqualTo(2);
+				//.isEqualTo(2);
+				.isEqualTo(0);
 
 		//assert t.c().reports().codeOutputSize() > 0;
 		if (t.c().reports().codeOutputSize() < 1) {
@@ -76,7 +75,8 @@ public class ClassInstantiationTest {
 				.isEqualTo(curious_that_this_does_not_fail);
 
 		assertThat(t.errorCount())
-				.isEqualTo(2);
+				//.isEqualTo(2);
+				.isEqualTo(0);
 
 		//assert t.c().reports().codeOutputSize() > 0;
 		if (t.c().reports().codeOutputSize() < 1) {
@@ -98,7 +98,8 @@ public class ClassInstantiationTest {
 				.isEqualTo(curious_that_this_does_not_fail);
 
 		assertThat(t.errorCount())
-				.isEqualTo(2);
+//				.isEqualTo(2);
+				.isEqualTo(0);
 
 		//assert t.c().reports().codeOutputSize() > 0;
 		if (t.c().reports().codeOutputSize() < 1) {

@@ -1,5 +1,12 @@
 package tripleo.elijah;
 
+import com.google.common.base.Charsets;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.io.Files;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tripleo.elijah.comp.*;
@@ -9,42 +16,28 @@ import tripleo.elijah.comp.internal.DefaultCompilerController;
 import tripleo.elijah.diagnostic.Diagnostic;
 import tripleo.elijah.factory.NonOpinionatedBuilder;
 import tripleo.elijah.factory.comp.CompilationFactory;
-import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.stages.gen_c.Emit;
 import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
 import tripleo.elijah.util.Helpers;
-
-import org.jetbrains.annotations.NotNull;
-
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
-
-import com.google.common.base.Charsets;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.io.Files;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah_elevated.comp.input.CompilerInput_;
 
-import java.nio.file.Path;
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tripleo.elijah._TestBasicHelper.assertLiveClass;
 import static tripleo.elijah.util.Helpers.List_of;
 
 /**
  * @author Tripleo(envy)
  */
-//@Disabled
 public class TestBasic {
-
-	private final boolean DISABLED = false;
-
 	@Disabled
 	@Test
 	public final void testBasicParse() throws Exception {
@@ -60,34 +53,6 @@ public class TestBasic {
 		assertEquals(0, c.errorCount());
 	}
 
-	@Disabled
-	@Test
-	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class")
-	public final void testBasic() throws Exception {
-		final List<String>          ez_files   = Files.readLines(Path.of("test/basic/ez_files.txt").toFile(), Charsets.UTF_8);
-		final Map<Integer, Integer> errorCount = new HashMap<Integer, Integer>();
-		int                         index      = 0;
-
-		for (String s : ez_files) {
-//			List<String> args = List_of("test/basic", "-sO"/*, "-out"*/);
-			final ErrSink      eee = new StdErrSink();
-			final Compilation0 c   = new CompilationImpl(eee, new IO_());
-
-			c.feedCmdLine(List_of(s, "-sO"));
-
-			if (c.errorCount() != 0)
-				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
-			errorCount.put(index, c.errorCount());
-			index++;
-		}
-
-		// README this needs changing when running make
-		assertEquals(7, (int) errorCount.get(0)); // TODO Error count obviously should be 0
-		assertEquals(20, (int) errorCount.get(1)); // TODO Error count obviously should be 0
-		assertEquals(9, (int) errorCount.get(2)); // TODO Error count obviously should be 0
-	}
-
-	//@Ignore
 	@Test
 	public final void testBasic_listfolders3() throws Exception {
 		String s = "test/basic/listfolders3/listfolders3.ez";
@@ -106,9 +71,6 @@ public class TestBasic {
 
 			if (c.errorCount() != 0)
 				System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
-
-			//assertEquals(2, c.errorCount()); // TODO Error count obviously should be 0
-
 
 			final List<Pair<ErrSink.Errors, Object>> list = c.getErrSink().list();
 
@@ -129,7 +91,8 @@ public class TestBasic {
 			}
 		}
 
-		assertEquals(2, c.errorCount());
+		// TODO Error count obviously should be 0
+		assertThat(c.errorCount(), equalTo(2));
 
 		assertTrue(c.reports().containsInput("test/basic/import_demo.elijjah"));
 		assertTrue(c.reports().containsInput("test/basic/listfolders3/listfolders3.elijah"));
@@ -181,49 +144,7 @@ public class TestBasic {
 //		/sww/modules-sw-writer
 	}
 
-	private boolean assertLiveNsMemberVariable(final String aClassName, final String aNsMemberVariablName, final Compilation0 c) {
-		return false;
-	}
-
-	private boolean assertLiveConstructor(final String aClassName, final Compilation0 c) {
-		return false;
-	}
-
-	private boolean assertLiveFunction(final String aClassName, final String aFunctionName, final Compilation0 c) {
-		return false;
-	}
-
-	public boolean assertLiveClass(final String aClassName, final String aPackageName, final @NotNull Compilation0 c0) {
-		CompilationImpl c = (CompilationImpl) c0;
-		var ce = c.getCompilationEnclosure();
-		var world = c.world();
-
-		var classes = world.findClass(aClassName);
-
-		var xy = ce.getCompilation();
-
-		final Predicate<ClassStatement> predicate = new Predicate<>() {
-			@Override
-			public boolean test(final ClassStatement classStatement) {
-				boolean result;
-				if (aPackageName == null) {
-					//result = Objects.equals(classStatement.getPackageName(), WorldGlobals.defaultPackage());
-					result = classStatement.getPackageName().getName() == null;
-				} else {
-					result = Helpers.String_equals(classStatement.getPackageName().getName(), aPackageName);
-				}
-				return result;
-			}
-		};
-
-		//noinspection UnnecessaryLocalVariable,SimplifyStreamApiCallChains
-		boolean result = classes.stream()
-				.filter(predicate)
-				.findAny()
-				.isPresent();
-
-		return result;
-	}
+	private final boolean DISABLED = false;
 
 
 	@Test
@@ -266,7 +187,8 @@ public class TestBasic {
 		if (c.errorCount() != 0)
 			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
 
-		assertEquals(4, c.errorCount()); // TODO Error count obviously should be 0
+		// TODO Error count obviously should be 0
+		assertThat(c.errorCount(), equalTo(4));
 	}
 
 	@Test
@@ -283,9 +205,10 @@ public class TestBasic {
 		}
 
 		final @NotNull EOT_OutputTree cot = c.getOutputTree();
-		// pancake 28
-		assertEquals(28, cot.getList().size()); // TODO why not 6?
-		assertEquals(29, cot.getList().size()); // TODO why not 6?
+		// pancake has 28
+		//assertThat(cot.getList().size(), equalTo(6)); // TODO why not 6?;
+		assertThat(cot.getList().size(), equalTo(28));
+		assertThat(cot.getList().size(), equalTo(29)); // TODO why not 6?
 
 
 		if (!DISABLED) {
@@ -310,7 +233,7 @@ public class TestBasic {
 		//assertEquals(25, f.c.errorCount()); // TODO Error count obviously should be 0
 
 		final EOT_OutputTree                 cot = f.c.getOutputTree();
-		final Multimap<String, EG_Statement> mms = ArrayListMultimap.create();
+		final Multimap<String, EG_Statement> statementMultimap = ArrayListMultimap.create();
 
 		for (EOT_OutputFile outputFile : cot.getList()) {
 			if (outputFile.getType() != EOT_OutputType.SOURCES) continue;
@@ -320,16 +243,16 @@ public class TestBasic {
 
 			var ss = outputFile.getStatementSequence();
 
-			mms.put(filename, ss);
+			statementMultimap.put(filename, ss);
 		}
 
 		List<Pair<String, String>> sspl = new ArrayList<>();
 
-		for (Map.Entry<String, Collection<EG_Statement>> entry : mms.asMap().entrySet()) {
+		for (Map.Entry<String, Collection<EG_Statement>> entry : statementMultimap.asMap().entrySet()) {
 			var fn = entry.getKey();
 			var ss = Helpers.String_join("\n", (entry.getValue()).stream().map(st -> st.getText()).collect(Collectors.toList()));
 
-			//tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("216 "+fn+" "+ss);
+			SimplePrintLoggerToRemoveSoon.println_out_4("216 " + fn + " " + ss);
 
 			sspl.add(Pair.of(fn, ss));
 		}
@@ -341,8 +264,7 @@ public class TestBasic {
 			SimplePrintLoggerToRemoveSoon.println_err_4(formatted);
 		}
 
-
-		//tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("nothing");
+		SimplePrintLoggerToRemoveSoon.println_err_4("All done in #testBasic_fact1_002");
 	}
 
 	static class testBasic_fact1 {
