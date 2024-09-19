@@ -10,9 +10,11 @@ package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.NotNull;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertEquals;
+import org.junit.*;
+
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.contexts.*;
@@ -34,16 +36,13 @@ import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
 import static tripleo.elijah.util.Helpers.List_of;
 
 /**
  * Useless tests. We really want to know if a TypeName will resolve to the same
  * types
  */
-@Disabled
+@Ignore
 public class DeduceTypesTest {
 
 	private GenType x;
@@ -52,7 +51,7 @@ public class DeduceTypesTest {
 		return genType.getTypeName().equals(aType);
 	}
 
-	@BeforeEach
+	@Before //Each
 	public void setUp() {
 		final Boilerplate boilerplate = new Boilerplate();
 		boilerplate.get();

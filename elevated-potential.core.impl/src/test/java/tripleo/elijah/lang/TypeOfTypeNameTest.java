@@ -8,8 +8,13 @@
  */
 package tripleo.elijah.lang;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.PipelineLogic;
 import tripleo.elijah.comp.StdErrSink;
@@ -22,14 +27,11 @@ import tripleo.elijah.stages.deduce.ResolveError;
 import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static tripleo.elijah.util.Helpers.List_of;
 
 public class TypeOfTypeNameTest {
 
-	@Disabled
+	@Ignore
 	@Test
 	public void typeOfComplexQualident() throws GResolveError {
 		//
@@ -83,8 +85,8 @@ public class TypeOfTypeNameTest {
 		assertEquals(typeNameString, tn.toString());
 	}
 
-	@Disabled
-	@org.junit.jupiter.api.Test
+	@Ignore
+	@Test
 	public void typeOfComplexQualident2() throws GResolveError {
 		//
 		// CREATE MOCK
@@ -165,7 +167,7 @@ public class TypeOfTypeNameTest {
 		assertEquals(typeNameString, tn.toString());
 	}
 
-	@Disabled
+	@Ignore
 	@Test
 	public void typeOfComplexQualident3() throws GResolveError {
 		//
@@ -234,7 +236,7 @@ public class TypeOfTypeNameTest {
 		assertEquals(typeNameString, tn.toString());
 	}
 
-	@Disabled
+	@Ignore
 	@Test
 	public void typeOfSimpleQualident() throws GResolveError {
 		//

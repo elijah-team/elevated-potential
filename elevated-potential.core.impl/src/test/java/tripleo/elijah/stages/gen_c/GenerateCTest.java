@@ -1,6 +1,7 @@
 package tripleo.elijah.stages.gen_c;
 
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 
 public class GenerateCTest {
 
