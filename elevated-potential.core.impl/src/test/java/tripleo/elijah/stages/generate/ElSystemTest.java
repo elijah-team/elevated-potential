@@ -9,9 +9,7 @@
 
 package tripleo.elijah.stages.generate;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.*;
 import tripleo.elijah.comp.Compilation0;
 
 public class ElSystemTest {
@@ -19,7 +17,7 @@ public class ElSystemTest {
 	ElSystem     sys;
 	Compilation0 c;
 
-	@Disabled
+	@Ignore
 	@Test
 	public void generateOutputs() {
 		OutputStrategy os = new OutputStrategy();
@@ -28,7 +26,7 @@ public class ElSystemTest {
 		// sys.generateOutputs(c.pipelineLogic().gr);
 	}
 
-	@BeforeEach
+	@Before //Each
 	public void setUp() throws Exception {
 		// final StdErrSink eee = new StdErrSink();
 		// c = new Compilation(eee, new IO());

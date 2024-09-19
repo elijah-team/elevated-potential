@@ -10,10 +10,7 @@ package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -34,6 +31,7 @@ import tripleo.elijah.test_help.Boilerplate;
 import tripleo.elijah.util.*;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -53,7 +51,7 @@ public class GetIdentIAPathTest_ForC {
 		return x;// reference.build();
 	}
 
-	@BeforeEach
+	@Before //Each
 	public void setUp() throws Exception {
 		mod = mock(OS_Module.class);
 		FunctionDef fd = mock(FunctionDef.class);
@@ -71,8 +69,8 @@ public class GetIdentIAPathTest_ForC {
 		generateC = new GenerateC(new OutputFileFactoryParams(new DefaultWorldModule(mod, ce), ce), fileGen);
 	}
 
-	@Disabled
-	@org.junit.jupiter.api.Test
+	@Ignore
+	@Test
 	public void testManualXDotFoo() {
 		@NotNull
 		IdentExpression x_ident = IdentExpressionImpl.forString("X");
@@ -96,8 +94,8 @@ public class GetIdentIAPathTest_ForC {
 		assertEquals("vvx->vmfoo", x);
 	}
 
-	@Disabled
-	@org.junit.jupiter.api.Test
+	@Ignore
+	@Test
 	public void testManualXDotFoo2() {
 		@NotNull
 		IdentExpression x_ident = IdentExpressionImpl.forString("x");
@@ -151,7 +149,7 @@ public class GetIdentIAPathTest_ForC {
 		assertEquals("vmx->vmfoo", x);
 	}
 
-	@Disabled
+	@Ignore
 	@Test
 	public void testManualXDotFoo3() {
 		IdentExpression x_ident = Helpers0.string_to_ident("x");
@@ -194,8 +192,8 @@ public class GetIdentIAPathTest_ForC {
 		assertEquals("vvx->vmfoo", x);
 	}
 
-	@Disabled
-	@org.junit.jupiter.api.Test
+	@Ignore
+	@Test
 	public void testManualXDotFooWithFooBeingFunction() {
 		@NotNull
 		IdentExpression x_ident = Helpers0.string_to_ident("x");

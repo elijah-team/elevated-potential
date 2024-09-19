@@ -1,8 +1,9 @@
 package tripleo.elijah.nextgen.expansion;
 
+import org.junit.*;
+
 import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.internal.CompilationImpl;
 import tripleo.elijah.comp.internal.DefaultCompilerController;
@@ -108,7 +109,7 @@ public class SX_NodeTest2 {
 		return enc1;
 	}
 
-	@Disabled
+	@Ignore
 	@Test
 	public void testFullText() {
 		final StdErrSink      errSink = new StdErrSink();

@@ -1,14 +1,23 @@
 package tripleo.elijah;
 
+
+import static org.junit.Assert.*;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
+//import static org.hamcrest.Matchers.equalTo;
+//import org.junit.*;
+import org.junit.Ignore;
+import org.junit.Test;
+
 import com.google.common.base.Charsets;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
+
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
+
 import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.internal.CompilationImpl;
@@ -27,17 +36,34 @@ import tripleo.elijah_elevated.comp.input.CompilerInput_;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 import static tripleo.elijah._TestBasicHelper.assertLiveClass;
+import static tripleo.elijah.util.Helpers.List_of;
+
+
+import org.junit.Ignore;
+import org.junit.Test;
+import tripleo.elijah.comp.*;
+import tripleo.elijah.comp.i.*;
+import tripleo.elijah.comp.internal.CompilationImpl;
+import tripleo.elijah.comp.internal.DefaultCompilerController;
+import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah.factory.NonOpinionatedBuilder;
+import tripleo.elijah.factory.comp.CompilationFactory;
+import tripleo.elijah.nextgen.outputstatement.EG_Statement;
+import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah.stages.gen_c.Emit;
+import tripleo.elijah.stages.write_stage.pipeline_impl.NG_OutputRequest;
+import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah_elevated.comp.input.CompilerInput_;
+
 import static tripleo.elijah.util.Helpers.List_of;
 
 /**
  * @author Tripleo(envy)
  */
 public class TestBasic {
-	@Disabled
+	@Ignore
 	@Test
 	public final void testBasicParse() throws Exception {
 		final List<String> ez_files = Files.readLines(new java.io.File("test/basic/ez_files.txt"), Charsets.UTF_8);
@@ -91,15 +117,15 @@ public class TestBasic {
 		}
 
 		// TODO Error count obviously should be 0
-		//assertThat(c.errorCount(), equalTo(2));
-		assertThat(c.errorCount(), equalTo(0)); // FIXME paf
+		//assertThat(c.errorCount()).isEqualTo(2));
+		assertThat(c.errorCount()).isEqualTo(0); // FIXME paf
 
 		assertFalse(c.reports().containsInput("test/basic/import_demo.elijjah"));  // FIXME paf
 		assertTrue(!c.reports().containsInput("test/basic/listfolders3/listfolders3.elijah"));  // FIXME paf
 
 		// TODO is this (inputCount == 2) correct?
-		//assertThat(c.reports().inputCount(), equalTo(2));
-		assertThat(c.reports().inputCount(), equalTo(0)); // FIXME paf
+		//assertThat(c.reports().inputCount()).isEqualTo(2));
+		assertThat(c.reports().inputCount()).isEqualTo(0); // FIXME paf
 
 		assertTrue(!c.reports().containsCodeOutput("/listfolders3/Main.c"));
 		assertTrue(!c.reports().containsCodeOutput("/listfolders3/Main.h"));
@@ -174,8 +200,8 @@ public class TestBasic {
 			//assertTrue(c.isPackage(qq2.toString()));
 			assertTrue(!c.isPackage(qq2.toString())); // FIXME paf
 
-			//assertThat(c.errorCount(), equalTo(2));
-			assertThat(c.errorCount(), equalTo(0));  // FIXME paf
+			//assertThat(c.errorCount()).isEqualTo(2));
+			assertThat(c.errorCount()).isEqualTo(0);  // FIXME paf
 		}
 	}
 
@@ -192,8 +218,8 @@ public class TestBasic {
 			System.err.printf("Error count should be 0 but is %d for %s%n", c.errorCount(), s);
 
 		// TODO Error count obviously should be 0
-		//assertThat(c.errorCount(), equalTo(4));
-		assertThat(c.errorCount(), equalTo(0)); // FIXME paf
+		//assertThat(c.errorCount()).isEqualTo(4));
+		assertThat(c.errorCount()).isEqualTo(0); // FIXME paf
 	}
 
 	@Test
@@ -211,10 +237,10 @@ public class TestBasic {
 
 		final @NotNull EOT_OutputTree cot = c.getOutputTree();
 		// pancake has 28
-		//assertThat(cot.getSize(), equalTo(6)); // TODO why not 6?;
-		//assertThat(cot.getSize(), equalTo(28));
-		//assertThat(cot.getSize(), equalTo(29)); // TODO why not 6?
-		assertThat(cot.getSize(), equalTo(0)); // FIXME paf
+		//assertThat(cot.getSize()).isEqualTo(6)); // TODO why not 6?;
+		//assertThat(cot.getSize()).isEqualTo(28));
+		//assertThat(cot.getSize()).isEqualTo(29)); // TODO why not 6?
+		assertThat(cot.getSize()).isEqualTo(0); // FIXME paf
 
 
 		if (!DISABLED) {
@@ -241,7 +267,7 @@ public class TestBasic {
 
 		//assertEquals(25, f.c.errorCount()); // TODO Error count obviously should be 0
 
-		final EOT_OutputTree                 cot = f.c.getOutputTree();
+		final EOT_OutputTree                 cot               = f.c.getOutputTree();
 		final Multimap<String, EG_Statement> statementMultimap = ArrayListMultimap.create();
 
 		for (EOT_OutputFile outputFile : cot.getList()) {

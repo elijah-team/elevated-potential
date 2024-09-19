@@ -50,7 +50,9 @@
 								<source>../xxx-model-status/src/main/java</source>
 								<source>../xxx-annotations/src/main/java</source>
 
+<!--
 								<source>./dlog/src/main/java</source>
+-->
 								<source>./elijah-core-api/src/main/java</source>
 								<source>./src/main/java</source>
 								<source>./elijah-ek/src/main/java</source>

@@ -8,12 +8,13 @@
  */
 package tripleo.elijah;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+
+//import static org.hamcrest.MatcherAssert.assertThat;
+//import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Created 3/5/21 4:32 AM
@@ -30,12 +31,12 @@ public class ClassInstantiationTest {
 
 		SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
-		assertThat(t.c().reports().codeOutputSize()
+		assertThat(t.c().reports().codeOutputSize()).isEqualTo(0);
 		           //, greaterThan(0));
-				, equalTo(0)); // FIXME paf
+				   // FIXME paf
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
-		assertEquals(curious_that_this_does_not_fail, t.errorCount());
+		assertThat(t.errorCount()).isEqualTo(curious_that_this_does_not_fail);
 	}
 
 	@Test
@@ -47,17 +48,16 @@ public class ClassInstantiationTest {
 
 		SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
-		final int curious_that_this_does_not_fail = 0/*100*/;
-		//assertThat(t.errorCount(), equalTo(curious_that_this_does_not_fail));
-		assertThat(t.errorCount(), equalTo(0));
+		final int curious_that_this_does_not_fail = 1_000_000;
+		//assertThat(t.errorCount()).isEqualTo(curious_that_this_does_not_fail));
+		assertThat(t.errorCount()).isEqualTo(0);
 
-		assertThat(t.errorCount()
+		assertThat(t.errorCount()).isEqualTo(0);
 		           //equalTo(2);
-				, equalTo(0));
 
-		assertThat(t.c().reports().codeOutputSize()
+		assertThat(t.c().reports().codeOutputSize()).isEqualTo(0);
 		           //, greaterThan(0));
-				, equalTo(0)); // FIXME paf
+				   // FIXME paf
 	}
 
 	@Test
@@ -70,15 +70,15 @@ public class ClassInstantiationTest {
 		SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
-		assertThat(t.errorCount(), equalTo(curious_that_this_does_not_fail));
+		assertThat(t.errorCount()).isEqualTo(curious_that_this_does_not_fail);
 
 		assertThat(t.errorCount()
 				//equalTo(2);
-				, equalTo(0));
+				).isEqualTo(0);
 
 		assertThat(t.c().reports().codeOutputSize()
 		           //, greaterThan(0));
-				, equalTo(0)); // FIXME paf
+				).isEqualTo(0); // FIXME paf
 	}
 
 	@Test
@@ -91,16 +91,15 @@ public class ClassInstantiationTest {
 		SimplePrintLoggerToRemoveSoon.println_err_4("Errorcount is " + t.errorCount());
 
 		final int curious_that_this_does_not_fail = 0/*100*/;
-		assertThat(t.errorCount(),
-		equalTo(curious_that_this_does_not_fail));
+		assertThat(t.errorCount()).isEqualTo(curious_that_this_does_not_fail);
 
 		assertThat(t.errorCount()
 //				equalTo(2);
-				, equalTo(0));
+				).isEqualTo(0);
 
 		assertThat(t.c().reports().codeOutputSize()
 		           //, greaterThan(0));
-				, equalTo(0)); // FIXME paf
+				).isEqualTo(0); // FIXME paf
 	}
 }
 

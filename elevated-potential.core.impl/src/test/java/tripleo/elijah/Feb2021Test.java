@@ -8,11 +8,10 @@
  */
 package tripleo.elijah;
 
-import org.junit.jupiter.api.Test;
-
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertTrue;
+import org.junit.*;
 
 /**
  * Created 9/9/21 4:16 AM

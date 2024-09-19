@@ -1,6 +1,6 @@
 package tripleo.elijah.nextgen.expansion;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.gen_generic.OutputFileFactoryParams;
