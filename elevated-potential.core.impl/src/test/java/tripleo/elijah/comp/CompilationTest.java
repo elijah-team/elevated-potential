@@ -8,7 +8,9 @@
  */
 package tripleo.elijah.comp;
 
-import org.junit.jupiter.api.*;
+import org.junit.Ignore;
+import org.junit.Test;
+
 import tripleo.elijah.comp.internal.*;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.world.i.*;
@@ -16,16 +18,18 @@ import tripleo.wrap.File;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static tripleo.elijah.util.Helpers.*;
 
 /**
  * @author Tripleo(envy)
  */
-//@Disabled
+//@Ignore
 public class CompilationTest {
 
-	@Disabled @Test
+	@Ignore
+	@Test
 	public final void testEz() throws Exception {
 		final List<String> args = List_of("test/comp_test/main3", "-sE"/* , "-out" */);
 		final ErrSink      eee = new StdErrSink();

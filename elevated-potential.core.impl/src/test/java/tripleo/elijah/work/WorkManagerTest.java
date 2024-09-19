@@ -9,8 +9,8 @@
 package tripleo.elijah.work;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class WorkManagerTest {
 		}
 	}
 
-	@Disabled
+	@Ignore
 	@Test
 	public void testWorkManager() {
 		List<String> sink = new ArrayList<>();

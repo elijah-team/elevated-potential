@@ -9,7 +9,7 @@ import tripleo.elijah.util.Operation;
 public class Expert__SystemTest {
 
 	@Test
-	@Disabled
+	@Ignore
 	public void testOpenfile() {
 		final EK_ExpertSystem i = new EK_ExpertSystem();
 

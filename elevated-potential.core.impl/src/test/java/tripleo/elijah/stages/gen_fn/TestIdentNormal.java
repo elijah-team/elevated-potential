@@ -9,8 +9,8 @@
 package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.lang.i.*;
@@ -33,7 +33,7 @@ import static tripleo.elijah.util.Helpers.List_of;
  */
 public class TestIdentNormal {
 
-	@Disabled
+	@Ignore
 	@Test // (expected = IllegalStateException.class) // TODO proves nothing
 	public void test() {
 
@@ -97,7 +97,7 @@ public class TestIdentNormal {
 		});
 	}
 
-	@Disabled
+	@Ignore
 	@Test // TODO just a mess
 	public void test2() {
 		final Boilerplate boilerplate = new Boilerplate();

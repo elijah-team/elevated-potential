@@ -8,7 +8,8 @@
  */
 package tripleo.elijah.stages.gen_c;
 
-import org.junit.jupiter.api.*;
+import org.junit.Before;
+import org.junit.Test;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
@@ -20,7 +21,7 @@ import tripleo.elijah.util.*;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,7 +29,7 @@ public class GetRealTargetNameTest {
 	EvaFunction gf;
 	private Boilerplate boilerplate; // NOTE hmm. (reduce) boilerplate reductionism
 
-	@BeforeEach
+	@Before //Each
 	public void setUp() {
 		final OS_Module       mod2 = new OS_ModuleImpl();
 		final ModuleContext   ctx  = new ModuleContext__(mod2);
@@ -43,7 +44,7 @@ public class GetRealTargetNameTest {
 		boilerplate.get();
 	}
 
-	//	@Disabled
+	//	@Ignore
 	@Test // too complicated
 	public void testManualXDotFoo() {
 		final IdentExpression x_ident   = XX.ident("x");
