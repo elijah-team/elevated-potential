@@ -4,17 +4,18 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.diagnostic.Diagnostic.Severity;
-import tripleo.elijah.diagnostic.ExceptionDiagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic.Severity;
+import tripleo.elijah_fluffy.diagnostic.ExceptionDiagnostic;
 import tripleo.elijah.lang.i.IdentExpression;
 import tripleo.elijah.nextgen.outputstatement.*;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah_fluffy.util.Operation2;
 import tripleo.elijah_elevateder.stages.deduce.ClassInvocation;
 import tripleo.elijah_elevateder.stages.deduce.FunctionInvocation;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.DeduceElement3_ProcTableEntry;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -54,7 +55,7 @@ class GI_ProcIA implements GenerateC_Item {
 				final IdentTableEntry target2 = ((IdentIA) target).getEntry();
 				final String str = target2.getIdent().getText();
 
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("130  " + str);
+				SimplePrintLoggerToRemoveSoon.println_out_4("130  " + str);
 			}
 
 			final String s = MessageFormat.format("{0}{1};", Emit.emit("/*500*/"),
@@ -104,7 +105,7 @@ class GI_ProcIA implements GenerateC_Item {
 		final FunctionInvocation fi   = pte.getFunctionInvocation();
 
 		if (fi == null) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("7777777777777777 fi getIdentIAPath_Proc " + pte);
+			SimplePrintLoggerToRemoveSoon.println_err_2("7777777777777777 fi getIdentIAPath_Proc " + pte);
 
 			return null;// throw new IllegalStateException();
 		}

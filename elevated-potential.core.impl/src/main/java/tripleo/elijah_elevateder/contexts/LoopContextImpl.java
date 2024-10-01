@@ -16,6 +16,7 @@ import tripleo.elijah.contexts.ILoopContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah_elevated_durable.lang_impl.*;
 import tripleo.elijah_fluffy.util.ProgramIsLikelyWrong;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 /**
  * Created Mar 26, 2020 at 9:40:43 PM
@@ -61,7 +62,7 @@ public class LoopContextImpl extends ContextImpl implements ILoopContext {
 				}
 			}
 			if (item instanceof VariableSequenceImpl) {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("1102 " + item);
+				SimplePrintLoggerToRemoveSoon.println_out_2("1102 " + item);
 				for (final VariableStatement vs : ((VariableSequence) item).items()) {
 					if (vs.getName().equals(name)) {
 						Result.add(name, level, vs, this);

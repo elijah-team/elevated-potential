@@ -18,7 +18,7 @@ import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah.g.GCompilationEnclosure;
 import tripleo.elijah.g.GModuleThing;
 import tripleo.elijah.lang.i.*;
@@ -28,7 +28,6 @@ import tripleo.elijah.lang2.ElElementVisitor;
 import tripleo.elijah.nextgen.ClassDefinition;
 import tripleo.elijah.nextgen.reactive.Reactivable;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated_durable.lang_impl.*;
@@ -52,6 +51,7 @@ import tripleo.elijah_elevateder.stages.inter.ModuleThing;
 import tripleo.elijah_elevateder.stages.logging.ElLog_;
 import tripleo.elijah_elevateder.work.EDL_WorkList;
 import tripleo.elijah_elevateder.work.EDL_WorkManager;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -1873,7 +1873,7 @@ public class DeduceTypes2 implements GDeduceTypes2 {
 			// assert genericTypeName != null;
 			if (genericTypeName == null) {
 
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("1860 who cares // assert genericTypeName != null");
+				SimplePrintLoggerToRemoveSoon.println_err_4("1860 who cares // assert genericTypeName != null");
 
 			}
 

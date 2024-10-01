@@ -6,8 +6,8 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.reactive.*;
 
-import tripleo.elijah.util.Eventual;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.Eventual;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 import tripleo.elijah_elevateder.comp.notation.*;
 import tripleo.elijah_elevateder.stages.gen_c.GenerateC;
 import tripleo.elijah_elevateder.stages.gen_fn.EvaClass;
@@ -23,7 +23,7 @@ import tripleo.elijah_elevateder.world.i.WorldModule;
 import java.util.*;
 import java.util.function.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah_fluffy.util.Helpers.*;
 
 class DE3_ActivePTE implements DE3_Active {
 	private final          DeduceTypes2    deduceTypes2;

@@ -27,12 +27,12 @@ import tripleo.elijah.nextgen.comp_model.CM_UleLog;
 import io.smallrye.mutiny.tuples.Functions;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.stages.logging.LogEntry;
-import tripleo.elijah.util.Ok;
+import tripleo.elijah_fluffy.util.Ok;
 import tripleo.elijah_elevateder.nextgen.outputtree.EOT_OutputFileImpl;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah_fluffy.util.Helpers.*;
 
 public class WriteOutputTreePipeline extends PipelineMember implements GPipelineMember {
 	@SuppressWarnings("FieldCanBeLocal")

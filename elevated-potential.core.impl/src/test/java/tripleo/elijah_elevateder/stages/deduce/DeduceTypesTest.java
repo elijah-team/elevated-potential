@@ -16,8 +16,8 @@ import tripleo.elijah.contexts.ModuleContext;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.BuiltInTypes;
-import tripleo.elijah.util.Mode;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah_fluffy.util.Mode;
+import tripleo.elijah_fluffy.util.Operation2;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
 import tripleo.elijah_elevated_durable.lang_impl.*;
@@ -32,11 +32,12 @@ import tripleo.elijah_elevateder.stages.logging.ElLog_;
 import tripleo.elijah_elevateder.test_help.Boilerplate;
 import tripleo.elijah_elevateder.util.Helpers0;
 import tripleo.elijah_elevateder.world.i.WorldModule;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 /**
  * Useless tests. We really want to know if a TypeName will resolve to the same
@@ -116,7 +117,7 @@ public class DeduceTypesTest {
 
 		final DeduceElement3_IdentTableEntry xxx = DeduceLookupUtils.deduceExpression2(de3_ite, fc);
 		this.x = xxx.genType();
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(String.valueOf(this.x));
+		SimplePrintLoggerToRemoveSoon.println_out_2(String.valueOf(this.x));
 	}
 
 	/**

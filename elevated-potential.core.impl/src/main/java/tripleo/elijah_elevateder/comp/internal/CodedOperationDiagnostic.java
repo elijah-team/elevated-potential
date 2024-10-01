@@ -2,7 +2,9 @@ package tripleo.elijah_elevateder.comp.internal;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
+import tripleo.elijah_fluffy.util.Operation;
 
 import java.io.*;
 import java.util.*;

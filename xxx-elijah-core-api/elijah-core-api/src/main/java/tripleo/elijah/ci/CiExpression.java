@@ -1,7 +1,7 @@
 package tripleo.elijah.ci;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 
 public interface CiExpression {
 	@NotNull ExpressionKind getKind();

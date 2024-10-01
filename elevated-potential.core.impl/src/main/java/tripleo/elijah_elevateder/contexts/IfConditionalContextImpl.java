@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.contexts.IfConditionalContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah_elevated_durable.lang_impl.*;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 
 /**
@@ -55,7 +56,7 @@ public class IfConditionalContextImpl extends ContextImpl implements IfCondition
 				}
 			}
 			if (item instanceof VariableSequenceImpl) {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("1102 " + item);
+				SimplePrintLoggerToRemoveSoon.println_out_2("1102 " + item);
 				for (final VariableStatement vs : ((VariableSequenceImpl) item).items()) {
 					if (vs.getName().equals(name))
 						Result.add(name, level, vs, this);

@@ -9,7 +9,6 @@ import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.input.CX_ParseElijahFile;
 import tripleo.elijah_elevated_durable.comp.*;
 import tripleo.elijah_elevateder.ci_impl.LibraryStatementPartImpl;
@@ -17,6 +16,8 @@ import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.comp.caches.DefaultElijahCache;
 import tripleo.elijah_elevateder.comp.internal.INTEGER_MARKER_CODES;
 import tripleo.elijah_elevateder.util.Helpers0;
+import tripleo.elijah_fluffy.diagnostic.*;
+import tripleo.elijah_fluffy.util.*;
 import tripleo.wrap.File;
 
 import java.io.*;

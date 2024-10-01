@@ -6,9 +6,10 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.IReasonedString;
 
 
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.Helpers;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 
 import java.util.*;
 

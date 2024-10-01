@@ -3,7 +3,7 @@ package tripleo.elijah_elevateder.nextgen.inputtree;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
-import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.util.Operation;
 
 import java.util.Objects;
 

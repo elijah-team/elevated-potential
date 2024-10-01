@@ -12,6 +12,7 @@ import tripleo.elijah_elevateder.stages.deduce.DeduceTypes2;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah_elevateder.stages.logging.ElLog_;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements WhyNotGarish_Item {
 	private final BaseEvaFunction               gf;
@@ -99,7 +100,7 @@ public class WhyNotGarish_Function extends WhyNotGarish_BaseFunction implements 
 		if (!fileGenPromise.isResolved()) {
 			fileGenPromise.resolve(aFileGen);
 		} else {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("twice for " + generateC);
+			SimplePrintLoggerToRemoveSoon.println_out_4("twice for " + generateC);
 		}
 	}
 }

@@ -2,9 +2,10 @@ package tripleo.elijah_elevateder.stages.deduce;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 public class __Add_Proc_Table_Listeners {
 	class SL implements BaseTableEntry.StatusListener {
@@ -60,7 +61,7 @@ public class __Add_Proc_Table_Listeners {
 					@Nullable
 					ProcTableEntry procTableEntry = idte2.getCallablePTE();
 					if (procTableEntry == pte)
-						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("940 procTableEntry == pte");
+						SimplePrintLoggerToRemoveSoon.println_err_2("940 procTableEntry == pte");
 					if (procTableEntry != null) {
 						// TODO doesn't seem like we need this
 						procTableEntry.onFunctionInvocation(functionInvocation -> {

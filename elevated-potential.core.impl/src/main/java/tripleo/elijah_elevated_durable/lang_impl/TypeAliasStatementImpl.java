@@ -14,7 +14,7 @@ package tripleo.elijah_elevated_durable.lang_impl;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 
 /**
  * @author Tripleo(sb)

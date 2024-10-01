@@ -14,9 +14,9 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 
 
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.IntegerIA;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 
@@ -62,11 +62,11 @@ public enum VTE_TypePromises {
 								aDeduceTypes2.phase);
 						pte.setFunctionInvocation(fi);
 					} else
-						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("175 pte.fi is not null");
+						SimplePrintLoggerToRemoveSoon.println_out_2("175 pte.fi is not null");
 					aIntegerIA.gf.addDependentFunction(pte.getFunctionInvocation()); // TODO is this needed (here)?
 				} else {
 					int y = 3;
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("3074");
+					SimplePrintLoggerToRemoveSoon.println_out_2("3074");
 				}
 			}
 		});
@@ -177,7 +177,7 @@ public enum VTE_TypePromises {
 			public void onDone(@NotNull GenType result) {
 				// assert result.resolved.getClassOf() == fd.getParent();
 				if (result.getResolved().getClassOf() != fd.getParent()) {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("EVTE-159 violation (likely String vs ConstString)");
+					SimplePrintLoggerToRemoveSoon.println_err_4("EVTE-159 violation (likely String vs ConstString)");
 				}
 
 				final GenType genType1 = aVariableTableEntry.getTypeTableEntry().genType;
@@ -233,7 +233,7 @@ public enum VTE_TypePromises {
 			@Override
 			public void onDone(@NotNull GenType result) {
 				if (result.getResolved().getClassOf() != fd.getParent()) {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("** Failed assertion");
+					SimplePrintLoggerToRemoveSoon.println_err_2("** Failed assertion");
 				}
 
 				@NotNull

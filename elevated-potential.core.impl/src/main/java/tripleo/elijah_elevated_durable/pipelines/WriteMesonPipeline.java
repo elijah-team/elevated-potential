@@ -19,11 +19,13 @@ import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah_elevateder.comp.*;
 import tripleo.elijah_elevateder.stages.functionality.f292.F292_WriteRoot;
 
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.io.*;
+import tripleo.elijah_fluffy.util.Ok;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_elevateder.nextgen.outputtree.EOT_OutputFileImpl;
 import tripleo.elijah_elevateder.stages.gen_generic.*;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah_fluffy.util.io.CharSink;
+import tripleo.elijah_fluffy.util.io.FileCharSink;
 import tripleo.elijah_prolific.v.V;
 
 import java.io.*;
@@ -31,7 +33,7 @@ import java.util.*;
 import java.util.function.*;
 import java.util.regex.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah_fluffy.util.Helpers.*;
 
 /**
  * Created 9/13/21 11:58 PM
@@ -71,7 +73,7 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 			@Override
 			public void accept(final Supplier<Old_GenerateResult> aGenerateResultSupplier) {
 				if (grs != null) {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("234 grs not null " + grs.getClass().getName());
+					SimplePrintLoggerToRemoveSoon.println_err_2("234 grs not null " + grs.getClass().getName());
 					return;
 				}
 
@@ -205,8 +207,8 @@ public class WriteMesonPipeline extends PipelineMember implements @NotNull Consu
 
 			if (false) {
 				ppath1.getPathPromise().then(pp -> {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 215 " + ppath1.toFile());
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 215b " + pp.toFile());
+					SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 215 " + ppath1.toFile());
+					SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 215b " + pp.toFile());
 					pp.toFile().mkdirs(); // README just in case -- but should be unnecessary at this point
 				});
 			}

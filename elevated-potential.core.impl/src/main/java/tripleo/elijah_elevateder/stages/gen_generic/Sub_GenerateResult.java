@@ -6,9 +6,10 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 
 
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.stages.gen_c.OutputFileC;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
+import tripleo.elijah_fluffy.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.util.buffer.*;
 
 import java.util.*;
@@ -39,7 +40,7 @@ public class Sub_GenerateResult implements GenerateResult {
 	public void add(@NotNull Buffer b, @NotNull EvaNode n, @NotNull TY ty, @Nullable LibraryStatementPart aLsp,
 			@NotNull Dependency d) {
 		if (aLsp == null) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("*************************** buffer --> " + b.getText());
+			SimplePrintLoggerToRemoveSoon.println_err_2("*************************** buffer --> " + b.getText());
 			return;
 		}
 

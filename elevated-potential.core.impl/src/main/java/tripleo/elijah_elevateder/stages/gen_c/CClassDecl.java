@@ -13,6 +13,7 @@ import tripleo.elijah.lang.i.*;
 
 import tripleo.elijah_elevateder.stages.gen_fn.EvaClass;
 import tripleo.elijah_elevateder.util.Helpers0;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 
@@ -42,7 +43,7 @@ public class CClassDecl {
 							final String str = ((StringExpression) str0).getText();
 							setDecl(str);
 						} else {
-							tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("Illegal C.repr");
+							SimplePrintLoggerToRemoveSoon.println_out_2("Illegal C.repr");
 						}
 					}
 				}

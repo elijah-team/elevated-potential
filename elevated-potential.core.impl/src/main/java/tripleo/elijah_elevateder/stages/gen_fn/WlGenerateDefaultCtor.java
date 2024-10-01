@@ -11,7 +11,7 @@ package tripleo.elijah_elevateder.stages.gen_fn;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.Eventual;
+import tripleo.elijah_fluffy.util.Eventual;
 import tripleo.elijah.work.WorkJob;
 import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_elevated_durable.lang_impl.*;

@@ -1,7 +1,7 @@
 package tripleo.elijah_elevateder.stages.gen_c;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.diagnostic.Locatable;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
 import tripleo.elijah.lang.i.TypeName;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.GCFM_Diagnostic;
 

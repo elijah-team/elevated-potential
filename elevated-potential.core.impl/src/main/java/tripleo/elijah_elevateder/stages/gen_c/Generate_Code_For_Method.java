@@ -21,7 +21,6 @@ import tripleo.elijah_elevateder.stages.deduce.DeduceTypes2;
 
 
 import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah_elevateder.lang.types.OS_UnitType;
 import tripleo.elijah_elevateder.stages.deduce.nextgen.DR_Ident;
@@ -33,6 +32,8 @@ import tripleo.elijah_elevateder.stages.gen_generic.GenerateResult;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah_elevateder.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 
@@ -40,8 +41,8 @@ import java.util.*;
  * Created 6/21/21 5:53 AM
  */
 public class Generate_Code_For_Method {
-	final         BufferTabbedOutputStream tos             = new BufferTabbedOutputStream();
-	final         BufferTabbedOutputStream tosHdr          = new BufferTabbedOutputStream();
+	final BufferTabbedOutputStream tos    = new BufferTabbedOutputStream();
+	final BufferTabbedOutputStream tosHdr = new BufferTabbedOutputStream();
 	final         ElLog                    LOG;
 	private final GenerateC                gc;
 	boolean is_constructor = false, is_unit_type = false;

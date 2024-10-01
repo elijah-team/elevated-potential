@@ -5,11 +5,11 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 
 
-
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.stages.deduce.ExpressionConfession;
 import tripleo.elijah_elevateder.stages.gen_fn.ProcTableEntry;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.Helpers;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 
@@ -71,7 +71,7 @@ public class GCX_FunctionCall implements EG_Statement {
 
 			final String ss = est.getText();
 
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(ss);
+			SimplePrintLoggerToRemoveSoon.println_out_4(ss);
 		}
 		case exp -> {
 			final CReference reference = new CReference(gc.repo(), gc.ce);

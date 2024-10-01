@@ -5,8 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.specs.EzCache;
-import tripleo.elijah.util.Operation;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah_fluffy.util.Operation;
+import tripleo.elijah_fluffy.util.Operation2;
 import tripleo.elijah_elevateder.comp.specs.EDL_EzSpec;
 import tripleo.wrap.File;
 

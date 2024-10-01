@@ -13,7 +13,7 @@ import tripleo.elijah.lang.i.*;
 import java.io.*;
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah_fluffy.util.Helpers.*;
 
 /*
  * Created on Sep 1, 2005 4:55:12 PM

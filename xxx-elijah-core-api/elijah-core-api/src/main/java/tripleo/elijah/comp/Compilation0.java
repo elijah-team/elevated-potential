@@ -13,7 +13,7 @@ import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.util.Operation2;
 
 import java.util.*;
 import java.util.function.Supplier;

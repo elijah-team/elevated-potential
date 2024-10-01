@@ -1,7 +1,9 @@
 package tripleo.vendor.batoull22;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah_fluffy.util.Operation;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -197,6 +199,6 @@ public class EK_ExpertSystem {
 	}
 
 	private void logProgress(final int code, final String message) {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(code + " " + message);
+		SimplePrintLoggerToRemoveSoon.println_out_4(code + " " + message);
 	}
 }

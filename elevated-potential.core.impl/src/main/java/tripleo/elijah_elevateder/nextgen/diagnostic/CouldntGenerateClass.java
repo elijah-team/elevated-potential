@@ -18,7 +18,9 @@ import tripleo.elijah_elevateder.stages.deduce.ClassInvocation;
 import tripleo.elijah_elevateder.stages.deduce.DeducePhase;
 import tripleo.elijah_elevateder.stages.gen_fn.GenerateFunctions;
 import tripleo.elijah_elevateder.stages.gen_fn.WlGenerateClass;
-import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 
 import java.io.*;
 import java.util.*;

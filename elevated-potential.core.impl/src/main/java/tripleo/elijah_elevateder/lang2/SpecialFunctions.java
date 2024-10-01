@@ -10,6 +10,7 @@ package tripleo.elijah_elevateder.lang2;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 /**
  * Created 10/2/20 10:16 AM
@@ -60,7 +61,7 @@ public enum SpecialFunctions {
 			return null;
 //		if (pn.equals("__eq__"))
 //			return "__req__";
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("reverse_name: " + pn);
+		SimplePrintLoggerToRemoveSoon.println_out_2("reverse_name: " + pn);
 //		assert false;
 		return null;
 	}

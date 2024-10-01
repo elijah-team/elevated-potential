@@ -16,13 +16,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah_elevateder.lang.types.OS_UserType;
-import tripleo.elijah.util.Mode;
+import tripleo.elijah_fluffy.util.Mode;
 import tripleo.elijah_elevateder.stages.deduce.DeduceTypes2;
 import tripleo.elijah_elevateder.stages.deduce.RegisterClassInvocation_env;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.DeduceElement3_VarTableEntry;
-import tripleo.elijah.util.Maybe;
-import tripleo.elijah.util.Operation;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah_fluffy.util.Maybe;
+import tripleo.elijah_fluffy.util.Operation;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -8,6 +8,7 @@ import tripleo.elijah.lang.i.*;
 
 import tripleo.elijah_elevateder.stages.deduce.DeduceTypes2;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 
 class DeduceType3 implements DED {
 	public static IDeduceElement3 dispatch(final @NotNull IdentTableEntry aIdentTableEntry,
@@ -20,7 +21,7 @@ class DeduceType3 implements DED {
 	}
 
 	private final @Nullable IDeduceElement3 deduceElement3;
-	private final Diagnostic diagnostic;
+	private final           Diagnostic      diagnostic;
 
 	private GenType _genType;
 

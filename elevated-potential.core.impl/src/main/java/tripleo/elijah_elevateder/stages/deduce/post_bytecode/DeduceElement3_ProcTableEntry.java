@@ -3,10 +3,9 @@ package tripleo.elijah_elevateder.stages.deduce.post_bytecode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.OS_FuncType;
-import tripleo.elijah.util.*;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah_elevated_durable.lang_impl.*;
 import tripleo.elijah_elevateder.stages.deduce.*;
@@ -14,6 +13,7 @@ import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah_elevateder.stages.instructions.*;
 import tripleo.elijah_elevateder.work.EDL_WorkList;
+import tripleo.elijah_fluffy.util.*;
 import tripleo.elijah_prolific.v.V;
 
 import java.util.*;
@@ -98,7 +98,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 				if (ci != null) {
 					pte.setClassInvocation(ci);
 				} else
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err2("542 Null ClassInvocation");
+					SimplePrintLoggerToRemoveSoon.println_err2("542 Null ClassInvocation");
 			}
 
 			pte.setFunctionInvocation(fi);
@@ -329,7 +329,7 @@ public class DeduceElement3_ProcTableEntry implements IDeduceElement3 {
 							final @NotNull Consumer<LFOE_Action_Results> resultconsumer) {
 		//assert aDeduceTypes2 == deduceTypes2;
 		if (aDeduceTypes2 != deduceTypes2) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("503262 deduceTypes divergence");
+			SimplePrintLoggerToRemoveSoon.println_err_4("503262 deduceTypes divergence");
 			//throw new AssertionError();
 		}
 

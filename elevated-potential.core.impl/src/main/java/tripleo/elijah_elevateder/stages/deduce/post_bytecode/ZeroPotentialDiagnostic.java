@@ -2,9 +2,9 @@ package tripleo.elijah_elevateder.stages.deduce.post_bytecode;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.diagnostic.Locatable;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 
 import java.io.PrintStream;
 import java.util.List;

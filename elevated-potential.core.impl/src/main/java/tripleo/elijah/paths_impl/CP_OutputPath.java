@@ -7,8 +7,8 @@ import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.nextgen.ER_Node;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
-import tripleo.elijah.util.*;
-import tripleo.elijah.util.io.DisposableCharSink;
+import tripleo.elijah_fluffy.util.*;
+import tripleo.elijah_fluffy.util.io.DisposableCharSink;
 import tripleo.elijah_elevated_durable.comp.CY_HashDeferredAction;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_prolific.v.V;
@@ -93,7 +93,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 	private void logProgress(final int code, final String message) {
 		if (code == 117117)
 			return;
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(String.format("%d %s", code, message));
+		SimplePrintLoggerToRemoveSoon.println_err_4(String.format("%d %s", code, message));
 	}
 
 	public @NotNull Operation<Boolean> renderNode(final @NotNull ER_Node node) {
@@ -102,7 +102,7 @@ public class CP_OutputPath implements CP_Path, _CP_RootPath, CPX_CalculateFinish
 
 		c.getCompilationEnclosure().logProgress(CompProgress.__CP_OutputPath_renderNode, node);
 
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("401b Writing path: " + path.toFile());
+		SimplePrintLoggerToRemoveSoon.println_out_4("401b Writing path: " + path.toFile());
 		path.getParent().toFile().mkdirs();
 
 		try (final DisposableCharSink xx = c.getIO().openWrite(path)) {

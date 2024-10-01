@@ -18,7 +18,7 @@ import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import tripleo.elijah.util.Eventual;
+import tripleo.elijah_fluffy.util.Eventual;
 //import tripleo.elijah.comp.AccessBus.AB_GenerateResultListener;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CB_Output;
@@ -33,8 +33,8 @@ import tripleo.elijah_elevateder.stages.generate.ElSystem;
 import tripleo.elijah_elevateder.stages.generate.OutputStrategy;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah_elevateder.stages.logging.ElLog_;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Ok;
+import tripleo.elijah_fluffy.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.Ok;
 import tripleo.elijah_elevateder.stages.write_stage.pipeline_impl.*;
 
 import java.util.*;
@@ -42,7 +42,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah_fluffy.util.Helpers.*;
 
 /**
  * Created 8/21/21 10:19 PM

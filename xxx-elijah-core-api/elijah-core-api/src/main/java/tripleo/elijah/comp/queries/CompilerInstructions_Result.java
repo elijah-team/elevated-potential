@@ -2,7 +2,7 @@ package tripleo.elijah.comp.queries;
 
 import org.apache.commons.lang3.tuple.Pair;
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah_fluffy.util.Operation2;
 
 import java.util.List;
 

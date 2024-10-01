@@ -11,7 +11,6 @@ import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
 
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.comp.nextgen.pn.PN_signalCalculateFinishParse;
@@ -24,6 +23,7 @@ import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResult;
 import tripleo.elijah_elevateder.stages.generate.OutputStrategy;
 import tripleo.elijah_elevateder.stages.generate.OutputStrategyC;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -62,7 +62,7 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 
 
 
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("999053 "+t.getClass().getName());
+				SimplePrintLoggerToRemoveSoon.println_err_4("999053 "+t.getClass().getName());
 
 
 
@@ -151,7 +151,7 @@ public class WPIS_GenerateOutputs implements WP_Individual_Step, PN_signalCalcul
 	static class Default_WPIS_GenerateOutputs_Behavior_PrintDBLString implements WPIS_GenerateOutputs_Behavior_PrintDBLString {
 		@Override
 		public void print(final String sps) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(sps);
+			SimplePrintLoggerToRemoveSoon.println_err_4(sps);
 		}
 	}
 

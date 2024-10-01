@@ -4,6 +4,8 @@ import org.apache.commons.codec.digest.*;
 import org.jetbrains.annotations.*;
 
 import java.io.*;
+
+import tripleo.elijah_fluffy.util.Operation;
 import tripleo.wrap.File;
 
 public class CA_getHashForFile {

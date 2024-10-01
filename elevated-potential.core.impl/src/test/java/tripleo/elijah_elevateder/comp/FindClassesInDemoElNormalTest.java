@@ -14,6 +14,7 @@ import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah_elevated_durable.comp.*;
 import tripleo.elijah_elevateder.entrypoints.MainClassEntryPoint;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 /**
  * @author Tripleo
@@ -68,7 +69,7 @@ public class FindClassesInDemoElNormalTest {
 
 		final List<ClassStatement> aClassList = c.world().findClass("Main");
 		for (final ClassStatement classStatement : aClassList) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(classStatement.getPackageName().getName());
+			SimplePrintLoggerToRemoveSoon.println_out_2(classStatement.getPackageName().getName());
 		}
 
 		final List<String> classNames = aClassList.stream()

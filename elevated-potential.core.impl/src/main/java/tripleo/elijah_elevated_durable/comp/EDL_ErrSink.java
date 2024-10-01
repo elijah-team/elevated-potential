@@ -14,7 +14,8 @@ package tripleo.elijah_elevated_durable.comp;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class EDL_ErrSink implements ErrSink {
 	@Override
 	public void exception(final @NotNull Exception e) {
 		_errorCount++;
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("exception: " + e);
+		SimplePrintLoggerToRemoveSoon.println_err_4("exception: " + e);
 		e.printStackTrace(System.err);
 		_list.add(Pair.of(Errors.EXCEPTION, e));
 	}

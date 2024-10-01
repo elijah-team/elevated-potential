@@ -9,6 +9,7 @@ import tripleo.elijah_elevateder.stages.deduce.DeducePhase;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah_elevateder.world.i.WorldModule;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 
@@ -88,7 +89,7 @@ class ResolvedNodes {
 				.filter(evaNode -> evaNode instanceof GNCoded)
 				.map(evaNode -> (GNCoded) evaNode)
 				.filter(coded -> coded.getCode() == 0).forEach(coded -> {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("-*-*- __processResolvedNodes [NOT CODED] " + coded);
+					SimplePrintLoggerToRemoveSoon.println_err_4("-*-*- __processResolvedNodes [NOT CODED] " + coded);
 					coded.register(cr);
 				});
 	}

@@ -8,7 +8,7 @@
 package tripleo.elijah.comp.i;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.Maybe;
+import tripleo.elijah_fluffy.util.Maybe;
 
 @FunctionalInterface
 public interface CCI {

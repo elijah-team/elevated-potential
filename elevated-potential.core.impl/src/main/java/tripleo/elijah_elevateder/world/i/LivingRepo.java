@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.g.GLivingRepo;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.CompletableProcess;
+import tripleo.elijah_fluffy.util.CompletableProcess;
 import tripleo.elijah_elevated_durable.lang_impl.BaseFunctionDef;
 import tripleo.elijah_elevated_durable.world_impl.DefaultLivingNamespace;
 import tripleo.elijah_elevateder.stages.gen_fn.*;

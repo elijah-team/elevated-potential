@@ -2,8 +2,8 @@ package tripleo.elijah_elevated_durable.comp_process;
 
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah_fluffy.util.Ok;
+import tripleo.elijah_fluffy.util.Operation;
 import tripleo.elijah_elevated_durable.comp.CR_State;
 import tripleo.elijah_elevated_durable.pipelines.Pipeline;
 import tripleo.elijah_elevateder.comp.Compilation;

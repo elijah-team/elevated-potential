@@ -2,8 +2,6 @@ package tripleo.elijah.comp;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.nextgen.inputtree.*;
-import tripleo.elijah.util.*;
-import tripleo.elijah.util.io.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,6 +10,10 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
 
+import tripleo.elijah_fluffy.util.Helpers;
+import tripleo.elijah_fluffy.util.Operation;
+import tripleo.elijah_fluffy.util.io.CharSource;
+import tripleo.elijah_fluffy.util.io.DisposableCharSink;
 import tripleo.wrap.File;
 
 public interface IO {

@@ -11,7 +11,7 @@ package tripleo.elijah_elevateder.contexts;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.contexts.ICaseContext;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevated_durable.lang_impl.ContextImpl;
 import tripleo.elijah_elevateder.DebugFlags;
 

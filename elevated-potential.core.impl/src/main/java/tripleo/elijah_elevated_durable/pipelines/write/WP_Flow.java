@@ -4,8 +4,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah_elevated_durable.pipelines.WritePipeline;
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah_fluffy.util.Ok;
+import tripleo.elijah_fluffy.util.Operation;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 
 import java.util.ArrayList;

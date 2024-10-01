@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah.comp.i.ErrSink;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.wrap.File;
 
 import java.time.LocalDateTime;
@@ -32,13 +33,13 @@ public class F203 {
 
 			p.getPathPromise().then(pp -> {
 				final File file1 = File.wrap(pp.toFile());
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 71b " + file1);
+				SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 71b " + file1);
 				file1.mkdirs();
 			});
 
 			return p.toFile(); // FIXME file1;
 		} else {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 71 " + file);
+			SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 71 " + file);
 			file.mkdirs();
 			final String fn1 = new File(file, "inputs.txt").toString();
 			return file;

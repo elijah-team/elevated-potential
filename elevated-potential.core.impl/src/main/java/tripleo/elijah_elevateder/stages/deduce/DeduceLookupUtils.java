@@ -12,13 +12,14 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.contexts.IFunctionContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.BuiltInTypes;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevated_durable.lang_impl.*;
 import tripleo.elijah_elevateder.lang.types.OS_UnknownType;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.IDeduceElement3;
 import tripleo.elijah_elevateder.stages.gen_fn.GenType;
 import tripleo.elijah_elevateder.util.Helpers0;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 
@@ -326,7 +327,7 @@ public enum DeduceLookupUtils {
 		@Nullable
 		GenType result = deduceTypes2._inj().new_GenTypeImpl();
 		boolean finished = false;
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("979 During deduceProcedureCall " + pce);
+		SimplePrintLoggerToRemoveSoon.println_err_2("979 During deduceProcedureCall " + pce);
 		@Nullable
 		OS_Element best = null;
 		try {
@@ -354,7 +355,7 @@ public enum DeduceLookupUtils {
 																								// somewhere
 					}
 				} else {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("992 " + best.getClass().getName());
+					SimplePrintLoggerToRemoveSoon.println_err_2("992 " + best.getClass().getName());
 					throw new NotImplementedException();
 				}
 			}

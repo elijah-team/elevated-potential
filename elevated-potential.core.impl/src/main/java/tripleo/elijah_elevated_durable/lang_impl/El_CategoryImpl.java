@@ -12,7 +12,7 @@ import antlr.Token;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah_fluffy.util.Helpers;
 
 /**
  * Created 3/26/21 4:47 AM

@@ -14,10 +14,10 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;
 import tripleo.elijah.stages.logging.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 
@@ -313,7 +313,7 @@ public class FT_FnCallArgs implements ITastic {
 
 			// 08/13 out
 			// 10/14 in
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("--------------------- 158" + (generatedFunction._getIdentIAResolvable(identIA).getNormalPath(generatedFunction, identIA)));
+			SimplePrintLoggerToRemoveSoon.println_err_4("--------------------- 158" + (generatedFunction._getIdentIAResolvable(identIA).getNormalPath(generatedFunction, identIA)));
 
 			final FT_FCA_IdentIA             fca_ident = deduceTypes2._inj().new_FT_FCA_IdentIA(FT_FnCallArgs.this, identIA, vte);
 			final FT_FCA_IdentIA.Resolve_VTE rvte      = deduceTypes2._inj().new_FT_FCA_IdentIA_Resolve_VTE(vte, ctx, pte, instruction, fca);

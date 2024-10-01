@@ -3,7 +3,7 @@ package tripleo.elijah_elevateder;
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
 import tripleo.elijah.lang.i.ClassStatement;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah_fluffy.util.Helpers;
 
 import java.util.function.Predicate;
 

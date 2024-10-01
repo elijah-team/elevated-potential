@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah_elevated_durable.lang_impl.VariableStatementImpl;
 import tripleo.elijah_elevateder.lang.types.OS_UserType;
@@ -13,6 +12,7 @@ import tripleo.elijah_elevateder.stages.deduce.post_bytecode.DeduceElement3_Type
 import tripleo.elijah_elevateder.stages.deduce.tastic.FCA_Stop;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 
@@ -170,7 +170,7 @@ public class Implement_construct {
 
 		dpc.targetP2().then((final @NotNull DeduceElement target) -> {
 			DeclAnchor xxv = target.declAnchor();
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("144 " + xxv);
+			SimplePrintLoggerToRemoveSoon.println_out_4("144 " + xxv);
 
 			{
 				// for class_instantiation2: class Bar {constructor x{}} class Main {main(){var

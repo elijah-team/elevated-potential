@@ -2,7 +2,7 @@ package tripleo.elijah_elevateder.comp.nextgen.pn;
 
 import tripleo.elijah.comp.nextgen.pn.SC_I;
 import tripleo.elijah.comp.nextgen.pn.SC_Suc;
-import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 
 // Factory
 public final class SC_Suc_ {

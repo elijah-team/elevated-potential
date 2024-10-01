@@ -12,7 +12,7 @@ import antlr.Token;
 import tripleo.elijah.ci.CiExpression;
 import tripleo.elijah.ci.ExpressionKind;
 import tripleo.elijah.ci.cii.StringExpression;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 
 public class StringExpressionImpl extends CiAbstractExpression implements StringExpression {
 	private String repr_;

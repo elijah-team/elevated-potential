@@ -12,7 +12,7 @@ package tripleo.elijah_elevateder.stages.deduce;
 import org.jdeferred2.DoneCallback;
 import org.jdeferred2.FailCallback;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah_elevated_durable.lang_impl.ContextImpl;
 import tripleo.elijah_elevated_durable.lang_impl.VariableStatementImpl;
@@ -20,6 +20,7 @@ import tripleo.elijah_elevateder.stages.deduce.nextgen.DR_Ident;
 import tripleo.elijah_elevateder.stages.deduce.nextgen.DR_IdentUnderstandings;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.List;
 
@@ -187,7 +188,7 @@ public class DeducePath {
 			// TODO 06/19 maybe redundant
 
 			var drIdent = identTableEntry.getDefinedIdent();
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(""+drIdent);
+			SimplePrintLoggerToRemoveSoon.println_err_4(""+drIdent);
 
 //			identTableEntry.elementPromise((x)->{}, null);
 			identTableEntry.getDeduceElement().resolvedElementPromise().then((x) -> {
@@ -248,7 +249,7 @@ public class DeducePath {
 		if (el == null) {
 			if (procTableEntry.expression_num instanceof IdentIA identIA) {
 				var ite = (identIA.getEntry());
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("139 element not found for " + ite.getIdent().getText());
+				SimplePrintLoggerToRemoveSoon.println_err_4("139 element not found for " + ite.getIdent().getText());
 			}
 			// throw new AssertionError();
 		}

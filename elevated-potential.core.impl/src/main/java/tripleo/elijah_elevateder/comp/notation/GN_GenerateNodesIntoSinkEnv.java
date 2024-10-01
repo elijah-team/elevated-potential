@@ -15,6 +15,7 @@ import tripleo.elijah_elevateder.stages.gen_generic.pipeline_impl.GenerateResult
 import tripleo.elijah_elevateder.stages.gen_generic.pipeline_impl.ProcessedNode;
 import tripleo.elijah_elevateder.stages.logging.ElLog_;
 import tripleo.elijah_elevateder.world.i.WorldModule;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 import java.util.function.*;
@@ -49,7 +50,7 @@ public final class GN_GenerateNodesIntoSinkEnv implements GN_Env {
 		final LibraryStatementPart lsp = mod.getLsp();
 
 		if (lsp == null) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("7777777777777777777 mod.getFilename " + mod.getFileName());
+			SimplePrintLoggerToRemoveSoon.println_err_2("7777777777777777777 mod.getFilename " + mod.getFileName());
 			return null;
 		}
 

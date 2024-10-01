@@ -7,7 +7,7 @@
  */
 package tripleo.elijah.ci.cii;
 
-import tripleo.elijah.diagnostic.Locatable;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
 
 /**
  * Created 8/16/20 2:16 AM

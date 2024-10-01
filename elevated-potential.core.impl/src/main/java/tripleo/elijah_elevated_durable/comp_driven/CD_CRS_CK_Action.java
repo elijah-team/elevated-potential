@@ -1,8 +1,8 @@
 package tripleo.elijah_elevated_durable.comp_driven;
 
 import tripleo.elijah.comp.graph.i.*;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah_fluffy.util.Ok;
+import tripleo.elijah_fluffy.util.Operation;
 import tripleo.elijah_elevateder.comp.internal.CR_Action;
 
 class CD_CRS_CK_Action implements CK_Action {

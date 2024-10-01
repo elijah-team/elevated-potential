@@ -3,7 +3,7 @@ package tripleo.elijah_elevateder.comp;
 import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
 
-import tripleo.elijah.util.Eventual;
+import tripleo.elijah_fluffy.util.Eventual;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
 import tripleo.elijah_elevated_durable.pipelines.PipelineLogic;

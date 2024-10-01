@@ -3,14 +3,12 @@ package tripleo.elijah_elevated.comp.input;
 import antlr.RecognitionException;
 import antlr.TokenStreamException;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.graph.i.Asseverate;
 import tripleo.elijah.comp.i.CY_ElijahSpecParser;
 import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.comp.specs.ElijahSpec;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated_durable.comp.EDL_IO;
 import tripleo.elijah_elevated_durable.parser.Out;
 import tripleo.elijah_elevated_durable.parser.PConParser;
@@ -18,19 +16,20 @@ import tripleo.elijah_elevated_durable.parser.antlr2.ElijjahLexer;
 import tripleo.elijah_elevated_durable.parser.antlr2.ElijjahParser;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.comp.specs.EDL_ElijahSpec;
+import tripleo.elijah_fluffy.util.*;
 import tripleo.wrap.File;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import static tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err2;
+import static tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon.println_err2;
 
 public class CX_ParseElijahFile {
 
 	public static Operation2<OS_Module> parseAndCache(final ElijahSpec aSpec,
-													  final ElijahCache aElijahCache,
-													  final String absolutePath,
-													  final Compilation compilation) {
+	                                                  final ElijahCache aElijahCache,
+	                                                  final String absolutePath,
+	                                                  final Compilation compilation) {
 		final @NotNull Operation2<OS_Module> calm;
 
 		try {

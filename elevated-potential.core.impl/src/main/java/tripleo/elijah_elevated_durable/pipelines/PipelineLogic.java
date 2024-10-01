@@ -14,12 +14,11 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.ICompilationAccess;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah.g.GPipelineLogic;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.stages.logging.ElLog.Verbosity;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated_durable.world_impl.DefaultWorldModule;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
@@ -29,6 +28,7 @@ import tripleo.elijah_elevateder.comp.notation.GN_PL_Run2_Env;
 import tripleo.elijah_elevateder.stages.deduce.DeducePhase;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.world.i.WorldModule;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -39,15 +39,15 @@ import static tripleo.elijah_elevateder.util.Helpers0.List_of;
  * Created 12/30/20 2:14 AM
  */
 public class PipelineLogic implements EventualRegister, GPipelineLogic {
-	public final @NotNull GeneratePhase generatePhase;
-	public final @NotNull DeducePhase   dp;
+	public final @NotNull GeneratePhase             generatePhase;
+	public final @NotNull DeducePhase               dp;
 	final @NonNull         ModMap                   modMap     = new ModMap();
 	private final          ICompilationAccess       ca;
 	private final @NonNull ModuleCompletableProcess mcp        = new ModuleCompletableProcess();
 	private final @NonNull IPipelineAccess   pa;
 	private final          List<Eventual<?>> _eventuals = new ArrayList<>();
 	//	private final @NonNull EIT_ModuleList           mods   = new EIT_ModuleList();
-	public                GDM_Pipeline  pl         = new GDM_Pipeline() {
+	public                GDM_Pipeline       pl         = new GDM_Pipeline() {
 		@Override
 		public GDM_Product submit(final Object aMod) {
 			final PipelineLogic pipelineLogic = PipelineLogic.this;
@@ -130,7 +130,7 @@ public class PipelineLogic implements EventualRegister, GPipelineLogic {
 		for (Eventual<?> eventual : _eventuals) {
 			if (eventual.isResolved()) {
 			} else {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[PipelineLogic::checkEventual] failed for " + eventual.description());
+				SimplePrintLoggerToRemoveSoon.println_err_4("[PipelineLogic::checkEventual] failed for " + eventual.description());
 			}
 		}
 	}

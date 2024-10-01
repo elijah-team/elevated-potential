@@ -1,7 +1,7 @@
 package tripleo.elijah_elevateder.comp;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.Eventual;
+import tripleo.elijah_fluffy.util.Eventual;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.lang.i.FormalArgListItem;
 import tripleo.elijah.lang.i.OS_NamedElement;

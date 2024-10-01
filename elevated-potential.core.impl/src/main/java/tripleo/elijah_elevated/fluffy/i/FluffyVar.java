@@ -1,7 +1,7 @@
 package tripleo.elijah_elevated.fluffy.i;
 
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.diagnostic.Locatable;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
 import tripleo.elijah.nextgen.composable.IComposable;
 
 public interface FluffyVar {

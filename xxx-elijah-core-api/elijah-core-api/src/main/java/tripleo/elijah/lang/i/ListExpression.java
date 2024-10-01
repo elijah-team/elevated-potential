@@ -1,6 +1,6 @@
 package tripleo.elijah.lang.i;
 
-import tripleo.elijah.diagnostic.Locatable;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
 
 import java.io.File;
 

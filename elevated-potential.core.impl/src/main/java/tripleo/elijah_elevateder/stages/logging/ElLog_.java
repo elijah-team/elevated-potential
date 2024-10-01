@@ -11,6 +11,7 @@ package tripleo.elijah_elevateder.stages.logging;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.stages.logging.LogEntry;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 
@@ -36,7 +37,7 @@ public class ElLog_ implements ElLog {
 		long time = System.currentTimeMillis();
 		entries.add(new LogEntry_(time, LogEntry_.Level.ERROR, aMessage));
 		if (verbose == Verbosity.VERBOSE)
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(aMessage);
+			SimplePrintLoggerToRemoveSoon.println_err_2(aMessage);
 	}
 
 	@Override
@@ -59,7 +60,7 @@ public class ElLog_ implements ElLog {
 		long time = System.currentTimeMillis();
 		entries.add(new LogEntry_(time, LogEntry_.Level.INFO, aMessage));
 		if (verbose == Verbosity.VERBOSE)
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(aMessage);
+			SimplePrintLoggerToRemoveSoon.println_out_2(aMessage);
 	}
 }
 

@@ -1,7 +1,7 @@
 package tripleo.elijah_elevateder.stages.gen_c.c_ast1;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah_fluffy.util.Helpers;
 
 import java.util.List;
 

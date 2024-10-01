@@ -1,7 +1,7 @@
 package tripleo.elijah_elevateder.stages.instructions;
 
 import org.jetbrains.annotations.Contract;
-import tripleo.elijah.util.IFixedList;
+import tripleo.elijah_fluffy.util.IFixedList;
 
 public class InstructionFixedList implements IFixedList<InstructionArgument> {
 	private final Instruction instruction;

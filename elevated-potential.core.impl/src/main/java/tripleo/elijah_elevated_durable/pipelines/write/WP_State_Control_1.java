@@ -3,7 +3,7 @@ package tripleo.elijah_elevated_durable.pipelines.write;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.nextgen.pn.*;
 import tripleo.elijah.nextgen.pn.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.util.*;
 
 /**
  * Purpose: to hold an exception for each {@link WP_Individual_Step}
@@ -43,7 +43,7 @@ public class WP_State_Control_1 implements WP_State_Control {
 		}
 
 		// FIXME 10/19 just mark for now
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[%s] markSuccess (%s) (%s)".formatted("Default", this.getClass().getName(), aSuc.asString()));
+		SimplePrintLoggerToRemoveSoon.println_err_4("[%s] markSuccess (%s) (%s)".formatted("Default", this.getClass().getName(), aSuc.asString()));
 		//NotImplementedException.raise_stop();
 	}
 
@@ -56,7 +56,7 @@ public class WP_State_Control_1 implements WP_State_Control {
 		}
 
 		// FIXME 10/19 just mark for now
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[%s] markSuccess (%s) (%s)".formatted("Default", this.getClass().getName(), aFai.sc_fai_asString()));
+		SimplePrintLoggerToRemoveSoon.println_err_4("[%s] markSuccess (%s) (%s)".formatted("Default", this.getClass().getName(), aFai.sc_fai_asString()));
 		//NotImplementedException.raise_stop();
 	}
 

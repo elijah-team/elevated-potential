@@ -13,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated_durable.lang_impl.LangGlobals;
 import tripleo.elijah_elevated_durable.world_impl.DefaultLivingFunction;
 import tripleo.elijah_elevateder.stages.deduce.*;
@@ -22,6 +21,7 @@ import tripleo.elijah_elevateder.stages.gen_generic.Dependency;
 import tripleo.elijah_elevateder.stages.gen_generic.IDependencyReferent;
 import tripleo.elijah_elevateder.stages.instructions.*;
 import tripleo.elijah_elevateder.stages.inter.ModuleThing;
+import tripleo.elijah_fluffy.util.*;
 import tripleo.util.range.Range;
 
 import java.util.*;
@@ -35,8 +35,8 @@ import static tripleo.elijah_elevateder.stages.deduce.DeduceTypes2.to_int;
 public abstract class BaseEvaFunction // FIXME can we do some generic magic with this??
 		extends AbstractDependencyTracker
 		implements EvaNode, DeduceTypes2.ExpectationBase, IDependencyReferent, IEvaFunctionBase {
-	private final    Eventual<EvaClass>             _p_assignEvaClass = new Eventual<>();
-	private final    Eventual<GenType>              _p_assignGenType  = new Eventual<>();
+	private final Eventual<EvaClass> _p_assignEvaClass = new Eventual<>();
+	private final Eventual<GenType>  _p_assignGenType  = new Eventual<>();
 	private final    Dependency                     dependency        = new Dependency(this);
 	private final    List<Label>                    labelList         = new ArrayList<Label>();
 	public @NotNull  List<DR_Item>                  drs               = new ArrayList<>();
@@ -60,25 +60,25 @@ public abstract class BaseEvaFunction // FIXME can we do some generic magic with
 	private          EvaContainerNC                 parent;
 
 	static void printTables(@NotNull EvaFunction gf) {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("VariableTable ");
+		SimplePrintLoggerToRemoveSoon.println_out_2("VariableTable ");
 		for (VariableTableEntry variableTableEntry : gf.vte_list) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("\t" + variableTableEntry);
+			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + variableTableEntry);
 		}
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("ConstantTable ");
+		SimplePrintLoggerToRemoveSoon.println_out_2("ConstantTable ");
 		for (ConstantTableEntry constantTableEntry : gf.cte_list) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("\t" + constantTableEntry);
+			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + constantTableEntry);
 		}
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("ProcTable     ");
+		SimplePrintLoggerToRemoveSoon.println_out_2("ProcTable     ");
 		for (ProcTableEntry procTableEntry : gf.prte_list) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("\t" + procTableEntry);
+			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + procTableEntry);
 		}
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("TypeTable     ");
+		SimplePrintLoggerToRemoveSoon.println_out_2("TypeTable     ");
 		for (TypeTableEntry typeTableEntry : gf.tte_list) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("\t" + typeTableEntry);
+			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + typeTableEntry);
 		}
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("IdentTable    ");
+		SimplePrintLoggerToRemoveSoon.println_out_2("IdentTable    ");
 		for (IdentTableEntry identTableEntry : gf.idte_list) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("\t" + identTableEntry);
+			SimplePrintLoggerToRemoveSoon.println_out_2("\t" + identTableEntry);
 		}
 	}
 
@@ -484,8 +484,8 @@ public abstract class BaseEvaFunction // FIXME can we do some generic magic with
 					holder.set(result);
 				}
 			});
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(String.format("Trying to resolve function twice 1) %s 2) %s",
-			                                                                              holder.get().asString(), aType.asString()));
+			SimplePrintLoggerToRemoveSoon.println_err_2(String.format("Trying to resolve function twice 1) %s 2) %s",
+			                                                          holder.get().asString(), aType.asString()));
 		}
 	}
 
@@ -496,7 +496,7 @@ public abstract class BaseEvaFunction // FIXME can we do some generic magic with
 		//assert ((EvaContainerNC) aNode).getCode() != 0;
 		if (((EvaContainerNC) aNode).getCode() == 0) {
 			//throw new AssertionError();
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("504504 node is not coded in setClass " + aNode.identityString());
+			SimplePrintLoggerToRemoveSoon.println_err_4("504504 node is not coded in setClass " + aNode.identityString());
 		}
 
 		genClass = aNode;

@@ -2,7 +2,7 @@ package tripleo.elijah_elevateder.ci_impl;
 
 import com.google.common.collect.Collections2;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.ci.cii.StringExpression;
 import tripleo.elijah.ci.cil.Helpers;

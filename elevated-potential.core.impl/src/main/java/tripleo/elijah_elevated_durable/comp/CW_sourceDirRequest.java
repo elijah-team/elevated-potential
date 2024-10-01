@@ -4,8 +4,8 @@ import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.i.USE_Reasoning;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.inputtree.EIT_InputType;
-import tripleo.elijah.util.Mode;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah_fluffy.util.Mode;
+import tripleo.elijah_fluffy.util.Operation2;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.wrap.File;
 

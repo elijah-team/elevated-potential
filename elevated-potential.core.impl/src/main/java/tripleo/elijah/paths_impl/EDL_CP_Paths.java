@@ -4,8 +4,8 @@ import io.smallrye.mutiny.Uni;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.nextgen.ER_Node;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.Ok;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 import tripleo.elijah_elevateder.comp.Compilation;
 
 import java.util.ArrayList;

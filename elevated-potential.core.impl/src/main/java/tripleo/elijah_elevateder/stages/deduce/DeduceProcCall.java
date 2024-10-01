@@ -13,11 +13,11 @@ import org.jdeferred2.Promise;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated_durable.lang_impl.VariableStatementImpl;
 import tripleo.elijah_elevateder.stages.deduce.nextgen.DR_Variable;
 import tripleo.elijah_elevateder.stages.deduce.tastic.FCA_Stop;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
+import tripleo.elijah_fluffy.util.*;
 
 /**
  * Created 11/30/21 11:56 PM
@@ -43,7 +43,7 @@ public class DeduceProcCall {
 			case VAR -> {
 				DR_Variable v = _g_generatedFunction.getVar((VariableStatement) element);
 				if (v.declaredTypeIsEmpty()) {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("8787 declaredTypeIsEmpty for " + ((VariableStatement) element).getName());
+					SimplePrintLoggerToRemoveSoon.println_err_4("8787 declaredTypeIsEmpty for " + ((VariableStatement) element).getName());
 					throw new FCA_Stop();
 				} else {
 					final NormalTypeName normalTypeName = (NormalTypeName) ((VariableStatementImpl) element).typeName();

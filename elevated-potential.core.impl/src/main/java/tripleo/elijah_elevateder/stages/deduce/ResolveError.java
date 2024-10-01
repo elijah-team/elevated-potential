@@ -10,8 +10,9 @@ package tripleo.elijah_elevateder.stages.deduce;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.*;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
 
 import java.io.*;
 import java.util.*;

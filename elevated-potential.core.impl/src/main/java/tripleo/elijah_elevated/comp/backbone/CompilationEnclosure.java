@@ -14,7 +14,7 @@ import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.Eventual;
+import tripleo.elijah_fluffy.util.Eventual;
 import tripleo.elijah_elevated_durable.comp.EDL_CompilationEnclosure;
 import tripleo.elijah_elevated_durable.compilation_bus.EDL_CompilationRunner;
 import tripleo.elijah_elevated_durable.pipelines.PipelineLogic;

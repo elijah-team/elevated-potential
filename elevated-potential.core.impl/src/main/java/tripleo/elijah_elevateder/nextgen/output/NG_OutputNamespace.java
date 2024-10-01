@@ -7,11 +7,11 @@ import tripleo.elijah_elevateder.stages.gen_c.GenerateC;
 import tripleo.elijah_elevateder.stages.gen_fn.EvaNamespace;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResult;
 import tripleo.elijah_elevateder.stages.generate.OutputStrategyC;
-import tripleo.elijah.util.BufferTabbedOutputStream;
+import tripleo.elijah_fluffy.util.BufferTabbedOutputStream;
 
 import java.util.List;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 public class NG_OutputNamespace implements NG_OutputItem {
 	private GarishNamespace garishNamespace;

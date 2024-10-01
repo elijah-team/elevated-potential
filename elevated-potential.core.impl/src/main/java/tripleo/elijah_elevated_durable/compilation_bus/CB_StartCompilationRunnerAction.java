@@ -5,15 +5,16 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah_fluffy.util.Operation;
 import tripleo.elijah_elevated_durable.comp.CR_State;
 import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
 import tripleo.elijah_elevated_durable.comp_driven.CD_CompilationRunnerStart;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.List;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 	static        boolean               started;
@@ -53,7 +54,7 @@ class CB_StartCompilationRunnerAction implements CB_Action, CB_Process {
 //			assert !(started);
 			if (started) {
 				//throw new AssertionError();
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("twice for "+this);
+				SimplePrintLoggerToRemoveSoon.println_err_4("twice for "+this);
 			} else {
 				compilationRunnerStart.start(rootCI, crState, o);
 				started = true;

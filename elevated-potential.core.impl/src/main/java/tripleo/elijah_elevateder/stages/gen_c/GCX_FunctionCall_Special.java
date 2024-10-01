@@ -11,7 +11,7 @@ import tripleo.elijah_elevateder.stages.instructions.IdentIA;
 import tripleo.elijah_elevateder.stages.instructions.Instruction;
 import tripleo.elijah_elevateder.stages.instructions.InstructionArgument;
 import tripleo.elijah_elevateder.stages.instructions.IntegerIA;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah_fluffy.util.Helpers;
 
 import java.util.List;
 import java.util.Map;

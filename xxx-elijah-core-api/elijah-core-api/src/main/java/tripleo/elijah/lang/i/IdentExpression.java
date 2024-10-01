@@ -3,6 +3,7 @@ package tripleo.elijah.lang.i;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.nextgen.names.i.*;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
 
 public interface IdentExpression extends IExpression, OS_Element, Locatable {
 

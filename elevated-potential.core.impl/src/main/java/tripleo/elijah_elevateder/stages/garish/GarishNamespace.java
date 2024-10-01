@@ -3,13 +3,12 @@ package tripleo.elijah_elevateder.stages.garish;
 import org.jetbrains.annotations.*;
 
 
-
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.stages.gen_c.GenerateC;
 import tripleo.elijah_elevateder.stages.gen_fn.EvaNamespace;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResult;
 import tripleo.elijah_elevateder.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah_elevateder.world.i.LivingNamespace;
+import tripleo.elijah_fluffy.util.BufferTabbedOutputStream;
 
 public class GarishNamespace {
 	private final LivingNamespace _lc;

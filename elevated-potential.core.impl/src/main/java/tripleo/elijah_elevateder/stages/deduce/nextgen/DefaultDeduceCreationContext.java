@@ -3,7 +3,7 @@ package tripleo.elijah_elevateder.stages.deduce.nextgen;
 import org.jetbrains.annotations.*;
 
 
-import tripleo.elijah.util.Eventual;
+import tripleo.elijah_fluffy.util.Eventual;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah_elevateder.stages.gen_fn.GeneratePhase;

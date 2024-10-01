@@ -15,15 +15,13 @@
 package tripleo.elijah.ci.cil;
 
 import antlr.Token;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 import tripleo.elijah.ci.CiExpression;
 import tripleo.elijah.ci.CiExpressionList;
 import tripleo.elijah.ci.ExpressionKind;
 import tripleo.elijah.ci.cii.FloatExpression;
-import tripleo.elijah.util.NotImplementedException;
-
-
-import java.util.List;
+import tripleo.elijah_fluffy.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 public class FloatExpressionImpl implements FloatExpression {
 	private final Token n;
@@ -80,6 +78,6 @@ public class FloatExpressionImpl implements FloatExpression {
 	@Override
 	public void setKind(final ExpressionKind aType) {
 		// log and ignore
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("Trying to set ExpressionType of FloatExpression to " + aType.toString());
+		SimplePrintLoggerToRemoveSoon.println_err_2("Trying to set ExpressionType of FloatExpression to " + aType.toString());
 	}
 }

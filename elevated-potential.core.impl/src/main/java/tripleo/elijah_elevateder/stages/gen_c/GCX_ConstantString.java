@@ -7,7 +7,7 @@ import tripleo.elijah.lang.i.NumericExpression;
 import tripleo.elijah.lang.i.StringExpression;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputstatement.EX_Explanation;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 
 public class GCX_ConstantString implements EG_Statement {
 

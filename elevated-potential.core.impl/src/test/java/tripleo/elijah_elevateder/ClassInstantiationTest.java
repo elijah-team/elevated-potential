@@ -9,7 +9,7 @@
 package tripleo.elijah_elevateder;
 
 import org.junit.Test;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

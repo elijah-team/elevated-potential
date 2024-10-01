@@ -15,6 +15,7 @@ import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.deduce.declarations.DeferredMemberFunction;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 public class DT_External_2 implements DT_External {
 	private final IdentTableEntry                       ite;
@@ -98,7 +99,7 @@ public class DT_External_2 implements DT_External {
 			assert fi.pte != pte;
 
 			if (fi.pte == null) {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("******************************* Unexpected error");
+				SimplePrintLoggerToRemoveSoon.println_err_4("******************************* Unexpected error");
 				return;
 			}
 
@@ -218,7 +219,7 @@ public class DT_External_2 implements DT_External {
 				if (target0 == null) {
 					@NotNull Compilation0 c = el.getContext().module().getCompilation();
 					if (c.reports().outputOn(Outs.OutDeduce_220))
-						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("542542  ");
+						SimplePrintLoggerToRemoveSoon.println_err_4("542542  ");
 					return;
 				}
 

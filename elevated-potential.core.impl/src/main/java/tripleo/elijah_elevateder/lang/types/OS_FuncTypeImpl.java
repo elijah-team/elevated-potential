@@ -18,9 +18,10 @@ import tripleo.elijah.lang.types.GClosure_OS_FuncType_resolvedFunction0;
 import tripleo.elijah.lang.types.OS_FuncType;
 
 
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.gen_fn.GenType;
+import tripleo.elijah_fluffy.util.Mode;
+import tripleo.elijah_fluffy.util.Operation;
 
 import java.text.*;
 import java.util.*;
@@ -105,7 +106,7 @@ public class OS_FuncTypeImpl extends __Abstract_OS_Type implements OS_FuncType {
 		ClassInvocation clsinv;
 		if (genType.getCi() == null) {
 			final Operation<ClassInvocation> oi = DeduceTypes2.ClassInvocationMake.withGenericPart(best,
-					constructorName, (NormalTypeName) aGenericTypeName, deduceTypes2);
+			                                                                                       constructorName, (NormalTypeName) aGenericTypeName, deduceTypes2);
 			assert oi.mode() == Mode.SUCCESS;
 			clsinv = oi.success();
 			if (clsinv == null)

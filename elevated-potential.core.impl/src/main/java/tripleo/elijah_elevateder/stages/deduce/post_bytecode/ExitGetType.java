@@ -4,11 +4,11 @@ import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stateful.*;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.IdentIA;
-//import tripleo.elijah.stateful.annotation.processor.StatefulProperty;
+//import tripleo.elijah.stateful.annotation.StatefulProperty;
 
 //@StatefulProperty
 public class ExitGetType implements State {
@@ -163,7 +163,7 @@ public class ExitGetType implements State {
 
 				@Override
 				public void foundElement(final @NotNull OS_Element x) {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("590-590 " + x);
+					SimplePrintLoggerToRemoveSoon.println_err_4("590-590 " + x);
 
 					if (ite.getResolvedElement() != x)
 						ite.setStatus(BaseTableEntry.Status.KNOWN, dt2._inj().new_GenericElementHolder(x));
@@ -184,7 +184,7 @@ public class ExitGetType implements State {
 					final ClassStatement cs = aType.getClassOf();
 					if (aEntry.constructable_pte != null) {
 						final int yyy = 3;
-						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println2("use_user_class: " + cs);
+						SimplePrintLoggerToRemoveSoon.println2("use_user_class: " + cs);
 					}
 				}
 			});

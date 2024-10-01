@@ -2,11 +2,12 @@ package tripleo.elijah_elevateder.stages.gen_c;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevated_durable.lang_impl.VariableStatementImpl;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.IdentIA;
 import tripleo.elijah_elevateder.stages.instructions.InstructionArgument;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -149,7 +150,7 @@ class CRI_Ident {
 				switch (state) {
 				case 1:
 					if (resolved == null) {
-						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err("***88*** resolved is null for " + ite);
+						SimplePrintLoggerToRemoveSoon.println_err("***88*** resolved is null for " + ite);
 					}
 					if (sSize >= i + 1) {
 						_getIdentIAPath_IdentIAHelper(null, sl, i, sSize, resolved_element, generatedFunction, resolved,
@@ -218,7 +219,7 @@ class CRI_Ident {
 				} else {
 					text[0] = Emit.emit("/*152*/") + "vm" + text1;
 				}
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err("119 " + ite.getIdent() + " " + ite.getStatus());
+				SimplePrintLoggerToRemoveSoon.println_err("119 " + ite.getIdent() + " " + ite.getStatus());
 				final String text2 = (Emit.emit("/*114*/") + String.format("%s is UNKNOWN", text1));
 				addRef.accept(new CReference.Reference(text2, CReference.Ref.MEMBER));
 				break;

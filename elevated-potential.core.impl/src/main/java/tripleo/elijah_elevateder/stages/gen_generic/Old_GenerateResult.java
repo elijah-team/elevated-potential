@@ -16,6 +16,7 @@ import tripleo.elijah.ci.*;
 
 import tripleo.elijah_elevateder.stages.gen_c.OutputFileC;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.util.buffer.*;
 
 import java.util.*;
@@ -44,7 +45,7 @@ public class Old_GenerateResult implements GenerateResult {
 			throw new IllegalStateException("closed GenerateResult");
 
 		if (aLsp == null) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_3("*************************** buffer --> " + b.getText());
+			SimplePrintLoggerToRemoveSoon.println_err_3("*************************** buffer --> " + b.getText());
 			return;
 		}
 

@@ -4,7 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.queries.QSEZ_Reasoning;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah_fluffy.util.Operation2;
 
 import java.util.ArrayList;
 import java.util.List;

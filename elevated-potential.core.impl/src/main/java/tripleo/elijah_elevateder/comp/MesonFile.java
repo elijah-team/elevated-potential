@@ -11,7 +11,7 @@ import tripleo.elijah_prolific.v.V;
 import java.util.*;
 import java.util.stream.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah_fluffy.util.Helpers.*;
 
 public class MesonFile implements EG_Statement {
 

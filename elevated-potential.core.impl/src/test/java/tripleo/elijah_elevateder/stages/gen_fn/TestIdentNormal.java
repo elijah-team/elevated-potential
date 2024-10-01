@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.Ignore;
 import org.junit.Test;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevated_durable.lang_impl.*;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_elevateder.stages.deduce.*;
@@ -20,12 +20,13 @@ import tripleo.elijah_elevateder.stages.gen_fn_c.GenFnC;
 import tripleo.elijah_elevateder.stages.instructions.IdentIA;
 import tripleo.elijah_elevateder.stages.instructions.InstructionArgument;
 import tripleo.elijah_elevateder.test_help.Boilerplate;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 /**
  * Created 3/4/21 3:53 AM
@@ -62,7 +63,7 @@ public class TestIdentNormal {
 		final InstructionArgument s = generateFunctions.simplify_expression(pce, generatedFunction, ctx2);
 		@NotNull
 		final List<InstructionArgument> l = BaseEvaFunction._getIdentIAPathList(s);
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(String.valueOf(l));
+		SimplePrintLoggerToRemoveSoon.println_out_2(String.valueOf(l));
 //      tripleo.elijah.util.Stupidity.println_out_2(generatedFunction.getIdentIAPathNormal());
 
 		//
@@ -86,7 +87,7 @@ public class TestIdentNormal {
 		d2.resolveIdentIA2_(ctx2, null, ss/* identIA */, generatedFunction, new FoundElement(phase) {
 			@Override
 			public void foundElement(final OS_Element e) {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(""+e);
+				SimplePrintLoggerToRemoveSoon.println_err_4(""+e);
 			}
 
 			@Override

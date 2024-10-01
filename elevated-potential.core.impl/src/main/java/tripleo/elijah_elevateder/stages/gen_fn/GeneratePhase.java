@@ -20,7 +20,7 @@ import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah_elevateder.stages.gen_fn_c.GenFnC;
 import tripleo.elijah_elevateder.stages.gen_generic.ICodeRegistrar;
 import tripleo.elijah.stages.logging.ElLog.Verbosity;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah.work.*;
 import tripleo.elijah_elevateder.stages.logging.ElLog_;
 import tripleo.elijah_elevateder.work.EDL_WorkManager;

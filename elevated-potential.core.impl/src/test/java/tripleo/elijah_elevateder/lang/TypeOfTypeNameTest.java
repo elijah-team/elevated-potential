@@ -24,7 +24,7 @@ import tripleo.elijah_elevateder.util.Helpers0;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 public class TypeOfTypeNameTest {
 

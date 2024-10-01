@@ -6,7 +6,7 @@ import tripleo.elijah_elevated_durable.comp.EDL_ErrSink;
 import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
 import tripleo.elijah_elevateder.factory.comp.CompilationFactory;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 public class TestCompilation {
 	private static final TestCompilation_SimpleTest testCompilationSimpleTest = new TestCompilation_SimpleTest();

@@ -6,15 +6,15 @@ import tripleo.elijah.comp.graph.i.CK_Monitor;
 import tripleo.elijah_elevateder.nextgen.inputtree.EIT_Input_HashSourceFile_Triple;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.nextgen.outputtree.EOT_OutputFileImpl;
 import tripleo.elijah_elevateder.nextgen.outputtree._U_OF;
+import tripleo.elijah_fluffy.util.*;
 import tripleo.util.buffer.DefaultBuffer;
 import tripleo.util.buffer.TextBuffer;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 public class WPIS_WriteInputs implements WP_Individual_Step {
 	private final Map<String, Operation<String>> ops = new HashMap<>();

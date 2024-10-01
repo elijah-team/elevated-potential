@@ -15,7 +15,7 @@ import tripleo.elijah.contexts.IClassContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.nextgen.names.i.EN_Name;
 import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevated_durable.names_impl.ENU_ClassName;
 import tripleo.elijah_elevateder.contexts.ClassContext;
 import tripleo.elijah_elevateder.lang.types.OS_UserClassType;

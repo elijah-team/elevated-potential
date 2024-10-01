@@ -16,13 +16,14 @@ import tripleo.elijah_elevated_durable.comp.EDL_ErrSink;
 import tripleo.elijah_elevated_durable.comp.EDL_IO;
 import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
 import tripleo.elijah_elevateder.world.i.WorldModule;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.wrap.File;
 
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah_fluffy.util.Helpers.*;
 
 /**
  * @author Tripleo(envy)
@@ -52,12 +53,12 @@ public class CompilationTest {
 
 		worldModules.stream().forEach(wm -> {
 			var mod = wm.module();
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
+			SimplePrintLoggerToRemoveSoon.println_out_2(String.format("**48** %s %s", mod, mod.getFileName()));
 		});
 
 		assertEquals(3/*7*//* 12 */, worldModules.size());
 
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("CompilationTest -- 53 " + worldModules.size());
+		SimplePrintLoggerToRemoveSoon.println_err_4("CompilationTest -- 53 " + worldModules.size());
 		assertTrue(worldModules.size() > 2);
 	}
 

@@ -1,7 +1,8 @@
 package tripleo.elijah.comp.i;
 
 import tripleo.elijah.comp.Compilation0;
-import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.util.Ok;
+import tripleo.elijah_fluffy.util.Operation;
 
 public interface RuntimeProcess {
 	void postProcess();

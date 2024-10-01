@@ -9,13 +9,14 @@ import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.comp.specs.EzCache;
 import tripleo.elijah.comp.specs.EzSpec;
-import tripleo.elijah.diagnostic.ExceptionDiagnostic;
+import tripleo.elijah_fluffy.diagnostic.ExceptionDiagnostic;
 import tripleo.elijah.nextgen.inputtree.EIT_Input;
 import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated.comp.input.CX_ParseEzFile;
 import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_fluffy.util.*;
 import tripleo.wrap.File;
 
 import java.io.PrintStream;

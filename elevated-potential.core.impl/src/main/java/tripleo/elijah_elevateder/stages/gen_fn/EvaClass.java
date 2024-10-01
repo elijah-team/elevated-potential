@@ -13,7 +13,6 @@ import tripleo.elijah.g.GEvaClass;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;
 import tripleo.elijah.nextgen.reactive.Reactive;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated_durable.lang_impl.*;
 import tripleo.elijah_elevateder.lang.types.*;
 import tripleo.elijah_elevateder.stages.deduce.*;
@@ -21,6 +20,7 @@ import tripleo.elijah_elevateder.stages.garish.GarishClass_Generator;
 import tripleo.elijah_elevateder.stages.gen_generic.*;
 import tripleo.elijah_elevateder.util.Helpers0;
 import tripleo.elijah_elevateder.world.i.LivingClass;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -251,7 +251,7 @@ public class EvaClass extends EvaContainerNC implements GNCoded, GEvaClass {
 	}
 
 	private static void logProgress(final int code, final String message) {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(code + " " + message);
+		SimplePrintLoggerToRemoveSoon.println_err_4(code + " " + message);
 	}
 
 	@Override

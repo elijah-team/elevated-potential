@@ -8,6 +8,7 @@ import tripleo.elijah_elevated_durable.pipelines.*;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.stages.deduce.IFunctionMapHook;
 import tripleo.elijah_elevateder.stages.logging.ElLog_;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,7 +58,7 @@ public class EDL_CompilationAccess implements ICompilationAccess {
 		//assert compilation.getCompilationEnclosure().getPipelineLogic() == null;
 		if (compilation.getCompilationEnclosure().getPipelineLogic() != null) {
 			//throw new AssertionError();
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("903056 pipelineLogic already set");
+			SimplePrintLoggerToRemoveSoon.println_err_4("903056 pipelineLogic already set");
 		} else {
 			compilation.getCompilationEnclosure().setPipelineLogic(pl);
 		}

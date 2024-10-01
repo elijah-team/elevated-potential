@@ -3,9 +3,11 @@ package tripleo.elijah_elevateder.comp;
 import tripleo.elijah.ci.*;
 
 import tripleo.elijah.diagnostic.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated_durable.compilation_bus.EDL_CompilationRunner;
 import tripleo.elijah_elevated_durable.input.USE_Reasonings;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.util.CompletableProcess;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 public class InstructionDoer implements CompletableProcess<CompilerInstructions> {
 	private final Compilation         compilation1;
@@ -28,7 +30,7 @@ public class InstructionDoer implements CompletableProcess<CompilerInstructions>
 				throw new RuntimeException(aE);
 			}
 		} else {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("second: " + item.getFilename());
+			SimplePrintLoggerToRemoveSoon.println_err_4("second: " + item.getFilename());
 
 			var compilation = __cr.c();
 
@@ -38,21 +40,21 @@ public class InstructionDoer implements CompletableProcess<CompilerInstructions>
 
 	@Override
 	public void complete() {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("InstructionDoer::complete");
+		SimplePrintLoggerToRemoveSoon.println_err_4("InstructionDoer::complete");
 	}
 
 	@Override
 	public void error(final Diagnostic d) {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("InstructionDoer::error");
+		SimplePrintLoggerToRemoveSoon.println_err_4("InstructionDoer::error");
 	}
 
 	@Override
 	public void preComplete() {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("InstructionDoer::preComplete");
+		SimplePrintLoggerToRemoveSoon.println_err_4("InstructionDoer::preComplete");
 	}
 
 	@Override
 	public void start() {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("InstructionDoer::start");
+		SimplePrintLoggerToRemoveSoon.println_err_4("InstructionDoer::start");
 	}
 }

@@ -1,6 +1,6 @@
 package tripleo.elijah.comp.nextgen.i;
 
-import tripleo.elijah.util.Ok;
+import tripleo.elijah_fluffy.util.Ok;
 
 public interface CPX_CalculateFinishParse {
 

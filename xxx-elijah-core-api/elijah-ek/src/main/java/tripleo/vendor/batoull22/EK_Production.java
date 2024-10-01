@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 /**
  * @author tripleo
@@ -66,6 +67,6 @@ class EK_Production {
 	}
 
 	private void logProgress(final int aI, final String aList) {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(aI + " " + aList);
+		SimplePrintLoggerToRemoveSoon.println_out_4(aI + " " + aList);
 	}
 }

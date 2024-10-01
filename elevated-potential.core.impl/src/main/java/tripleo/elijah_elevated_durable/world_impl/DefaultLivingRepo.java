@@ -5,7 +5,7 @@ import com.google.common.collect.Multimap;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.CompletableProcess;
+import tripleo.elijah_fluffy.util.CompletableProcess;
 import tripleo.elijah_elevated_durable.lang_impl.BaseFunctionDef;
 import tripleo.elijah_elevated_durable.lang_impl.OS_PackageImpl;
 import tripleo.elijah_elevateder.comp.Compilation;

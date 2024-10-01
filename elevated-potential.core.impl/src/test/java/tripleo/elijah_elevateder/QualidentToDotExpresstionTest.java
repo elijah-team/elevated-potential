@@ -5,6 +5,7 @@ import tripleo.elijah.lang.i.IExpression;
 import tripleo.elijah.lang.i.Qualident;
 import tripleo.elijah_elevated_durable.lang_impl.QualidentImpl;
 import tripleo.elijah_elevateder.util.Helpers0;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -17,7 +18,7 @@ public class QualidentToDotExpresstionTest {
 		q.append(Helpers0.string_to_ident("b"));
 		q.append(Helpers0.string_to_ident("c"));
 		final IExpression e = Helpers0.qualidentToDotExpression2(q);
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(e);
+		SimplePrintLoggerToRemoveSoon.println_out_2(e);
 		assertThat(e.asString()).isEqualTo("a.b.c");
 	}
 }

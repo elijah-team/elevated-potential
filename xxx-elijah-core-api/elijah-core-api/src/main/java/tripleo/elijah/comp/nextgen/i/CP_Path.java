@@ -4,9 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.Path;
 
-import tripleo.elijah.util.Eventual;
+import tripleo.elijah_fluffy.util.Eventual;
 import tripleo.elijah.comp.IO;
-import tripleo.elijah.util.io.DisposableCharSink;
+import tripleo.elijah_fluffy.util.io.DisposableCharSink;
 import tripleo.wrap.File;
 
 public interface CP_Path {

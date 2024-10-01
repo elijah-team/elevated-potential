@@ -9,6 +9,7 @@
 package tripleo.elijah.lang.i;
 
 import tripleo.elijah.diagnostic.*;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
 
 /**
  * Created 8/16/20 2:16 AM

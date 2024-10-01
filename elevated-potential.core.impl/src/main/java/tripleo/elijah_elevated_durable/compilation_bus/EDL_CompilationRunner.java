@@ -13,6 +13,7 @@ import tripleo.elijah_elevated_durable.comp.*;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.comp.caches.DefaultEzCache;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.function.Supplier;
 
@@ -82,7 +83,7 @@ public class EDL_CompilationRunner extends _RegistrationTarget implements ICompi
 		if (number == 130)
 			return;
 
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_3("%d %s".formatted(number, text));
+		SimplePrintLoggerToRemoveSoon.println_err_3("%d %s".formatted(number, text));
 	}
 
 	@Override
@@ -102,14 +103,14 @@ public class EDL_CompilationRunner extends _RegistrationTarget implements ICompi
 	public static class __CompRunner_Monitor implements CB_Monitor {
 		@Override
 		public void reportFailure(final CB_Action action, final CB_Output output) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(""+output.get());
+			SimplePrintLoggerToRemoveSoon.println_err_4(""+output.get());
 		}
 
 		@Override
 		public void reportSuccess(final CB_Action action, final CB_Output output) {
 			int y=2;
 			for (final CB_OutputString outputString : output.get()) {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
+				SimplePrintLoggerToRemoveSoon.println_out_3("** CompRunnerMonitor ::  " + action.name() + " :: outputString :: " + outputString.getText());
 			}
 		}
 	}

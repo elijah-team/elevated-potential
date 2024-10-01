@@ -8,6 +8,7 @@
  */
 package tripleo.elijah_elevateder.comp.functionality.f202;
 
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah_prolific.v.V;
 
 /**
@@ -17,7 +18,7 @@ public class DefaultProgressBehavior implements ProgressBehavior {
 	@Override
 	public void reportProgress(String a) {
 		V.asv(V.e.f202_writing_logs, a);
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("202 Writing " + a);
+		SimplePrintLoggerToRemoveSoon.println_out_4("202 Writing " + a);
 	}
 }
 

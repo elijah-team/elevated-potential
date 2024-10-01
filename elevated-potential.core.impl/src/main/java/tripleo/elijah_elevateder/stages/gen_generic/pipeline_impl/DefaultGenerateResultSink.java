@@ -3,7 +3,7 @@ package tripleo.elijah_elevateder.stages.gen_generic.pipeline_impl;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah_elevated.anno.ElijahInternal;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.g.GEvaClass;
 import tripleo.elijah.g.GEvaNamespace;

@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.Ignore;
 import org.junit.Test;
 import tripleo.elijah.work.*;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,7 @@ public class WorkManagerTest {
 
 		workManager.drain();
 
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(""+sink);
+		SimplePrintLoggerToRemoveSoon.println_err_4(""+sink);
 	}
 }
 

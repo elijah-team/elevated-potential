@@ -2,9 +2,10 @@ package tripleo.elijah_elevateder.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah_fluffy.util.Helpers;
 import tripleo.elijah_elevateder.stages.deduce.FunctionInvocation;
 import tripleo.elijah_elevateder.stages.instructions.IdentIA;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class DT_Resolvabley {
 
 	private static void logProgress(final int aI, final String z) {
 		if (aI == 67) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("----- 67 Should be " + z);
+			SimplePrintLoggerToRemoveSoon.println_err_4("----- 67 Should be " + z);
 		} else throw new Error();
 	}
 
