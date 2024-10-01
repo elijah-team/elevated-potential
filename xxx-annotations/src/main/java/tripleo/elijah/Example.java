@@ -1,19 +1,19 @@
 //package tripleo.elijah;
 //
-//import java.awt.*;
+//import java.awt.*;;
 //import java.util.*;
-//import javax.swing.*;
+//import javax.swing.*;;
 //
 //// Standard JSR330 annotations
 //import javax.inject.Inject;
-//import javax.inject.Named;
+//import javax.inject.Named;;
 //
 //import com.google.inject.Guice;
 //
 //// Sisu modules for scanning and wiring
 //import org.eclipse.sisu.space.SpaceModule;
 //import org.eclipse.sisu.space.URLClassSpace;
-//import org.eclipse.sisu.wire.WireModule;
+//import org.eclipse.sisu.wire.WireModule;;
 //
 //// let's create some simple Swing tabs...
 //
