@@ -1,6 +1,6 @@
 package tripleo.elijah.foo;
 
-//import tripleo.elijah.stateful.annotation.processor.StatefulProperty;
+//import tripleo.elijah.stateful.annotation.StatefulProperty;
 
 //@StatefulProperty
 public class Foo {
