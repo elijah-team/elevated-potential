@@ -1,30 +1,38 @@
 package tripleo.elijah_elevated.comp.backbone;
 
-import io.reactivex.rxjava3.annotations.*;
-import org.jetbrains.annotations.*;
-import tripleo.elijah.util.Eventual;
-import tripleo.elijah.comp.*;
+import io.reactivex.rxjava3.annotations.NonNull;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.comp.i.extra.*;
-import tripleo.elijah.comp.impl.*;
-import tripleo.elijah.comp.internal.*;
-import tripleo.elijah.comp.nextgen.i.*;
+import tripleo.elijah.comp.nextgen.i.Asseverable;
+import tripleo.elijah.comp.nextgen.i.AsseverationLogProgress;
 import tripleo.elijah.g.GCompilationEnclosure;
 import tripleo.elijah.g.GPipelineAccess;
-import tripleo.elijah.lang.i.*;
+import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
 import tripleo.elijah.nextgen.reactive.*;
-import tripleo.elijah.pre_world.*;
-import tripleo.elijah.stages.gen_fn.*;
-import tripleo.elijah.stages.generate.*;
-import tripleo.elijah.stages.inter.*;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.stages.write_stage.pipeline_impl.*;
-import tripleo.elijah.world.i.*;
+import tripleo.elijah.util.Eventual;
+import tripleo.elijah_elevated_durable.comp.EDL_CompilationEnclosure;
+import tripleo.elijah_elevated_durable.compilation_bus.EDL_CompilationRunner;
+import tripleo.elijah_elevated_durable.pipelines.PipelineLogic;
+import tripleo.elijah_elevated_durable.pipelines.PipelineMember;
+import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.EDL_AccessBus;
+import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
+import tripleo.elijah_elevateder.comp.internal.PipelinePlugin;
+import tripleo.elijah_elevateder.pre_world.Mirror_EntryPoint;
+import tripleo.elijah_elevateder.stages.gen_fn.IClassGenerator;
+import tripleo.elijah_elevateder.stages.generate.OutputStrategyC;
+import tripleo.elijah_elevateder.stages.inter.ModuleThing;
+import tripleo.elijah_elevateder.stages.write_stage.pipeline_impl.NG_OutputRequest;
+import tripleo.elijah_elevateder.world.i.WorldModule;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure {
 	void addEntryPoint(@NotNull Mirror_EntryPoint aMirrorEntryPoint, IClassGenerator dcg);
@@ -41,7 +49,7 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 
 	void AssertOutFile(@NotNull NG_OutputRequest aOutputRequest);
 
-	@NotNull Eventual<AccessBus> getAccessBusPromise();
+	@NotNull Eventual<EDL_AccessBus> getAccessBusPromise();
 
 	@Contract(pure = true)
 	CB_Output getCB_Output();
@@ -66,9 +74,9 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 	CompilerDriver getCompilationDriver();
 
 	@Contract(pure = true)
-	CompilationRunner getCompilationRunner();
+	EDL_CompilationRunner getCompilationRunner();
 
-	void setCompilationRunner(CompilationRunner aCompilationRunner);
+	void setCompilationRunner(EDL_CompilationRunner aCompilationRunner);
 
 	@Contract(pure = true)
 	List<CompilerInput> getCompilerInput();
@@ -92,7 +100,7 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 
 	void noteAccept(@NotNull WorldModule aWorldModule);
 
-	@NonNull DefaultCompilationEnclosure.OFA OutputFileAsserts();
+	@NonNull EDL_CompilationEnclosure.OFA OutputFileAsserts();
 
 	void reactiveJoin(Reactive aReactive);
 
@@ -106,7 +114,7 @@ public interface CompilationEnclosure extends Asseverable, GCompilationEnclosure
 
 	void _resolvePipelineAccessPromise(IPipelineAccess aPa);
 
-	void waitCompilationRunner(Consumer<CompilationRunner> ccr);
+	void waitCompilationRunner(Consumer<EDL_CompilationRunner> ccr);
 
 	@Override
 	void logProgress2(CompProgress aCompProgress, AsseverationLogProgress aAsseverationLogProgress);

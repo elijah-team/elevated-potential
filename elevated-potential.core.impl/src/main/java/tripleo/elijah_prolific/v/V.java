@@ -1,7 +1,7 @@
 package tripleo.elijah_prolific.v;
 
-import tripleo.elijah.stages.gen_generic.GenerateResult;
-import tripleo.elijah.stages.gen_generic.GenerateResultItem;
+import tripleo.elijah_elevateder.stages.gen_generic.GenerateResult;
+import tripleo.elijah_elevateder.stages.gen_generic.GenerateResultItem;
 
 import java.io.PrintStream;
 
