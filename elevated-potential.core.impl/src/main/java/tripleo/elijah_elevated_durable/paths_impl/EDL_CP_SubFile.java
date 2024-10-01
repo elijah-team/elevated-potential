@@ -1,4 +1,4 @@
-package tripleo.elijah.paths_impl;
+package tripleo.elijah_elevated_durable.paths_impl;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

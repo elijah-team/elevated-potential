@@ -10,7 +10,7 @@ import tripleo.elijah_elevated.comp.compilation_bus.DCB_Startable;
 import tripleo.elijah_elevated.comp.compilation_bus.SingleActionProcess;
 import tripleo.elijah_elevated.comp.pushwork.Startable;
 import tripleo.elijah_elevated_durable.compilation_bus.EDL_CompilationRunner;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.internal.INTEGER_MARKER_CODES;
 
 import java.lang.reflect.InvocationTargetException;

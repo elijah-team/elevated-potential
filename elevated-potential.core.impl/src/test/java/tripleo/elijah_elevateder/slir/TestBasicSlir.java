@@ -16,7 +16,7 @@ import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.OS_Package;
 import tripleo.elijah_elevated_durable.lang_impl.OS_ModuleImpl;
 import tripleo.elijah_elevated_durable.lang_impl.OS_PackageImpl;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.lang.imports.NormalImportStatement;
 import tripleo.elijah_elevateder.util.Helpers0;
 

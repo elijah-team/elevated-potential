@@ -13,6 +13,7 @@ import org.junit.Test;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.ClassStatement;
 import tripleo.elijah_elevated_durable.comp.*;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.entrypoints.MainClassEntryPoint;
 import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
@@ -33,8 +34,8 @@ public class FindClassesInDemoElNormalTest {
 	@Ignore @Test
 	public final void testListFolders() throws Exception {
 		final List<String> args = List_of("test/demo-el-normal/listfolders/", "-sE");
-		final ErrSink      eee  = new EDL_ErrSink();
-		final Compilation  c    = new EDL_Compilation(eee, new EDL_IO());
+		final ErrSink     eee = new EDL_ErrSink();
+		final Compilation c   = new EDL_Compilation(eee, new EDL_IO());
 
 		c.feedCmdLine(args);
 

@@ -2,7 +2,6 @@ package tripleo.elijah_elevateder.stages.deduce.post_bytecode;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 
 

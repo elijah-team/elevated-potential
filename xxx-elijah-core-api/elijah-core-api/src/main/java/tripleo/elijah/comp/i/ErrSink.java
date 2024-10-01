@@ -9,7 +9,6 @@
 package tripleo.elijah.comp.i;
 
 import org.apache.commons.lang3.tuple.*;
-import tripleo.elijah.diagnostic.*;
 import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 
 import java.util.*;

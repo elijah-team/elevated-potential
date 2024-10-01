@@ -1,4 +1,4 @@
-package tripleo.elijah.graph_impl;
+package tripleo.elijah_elevated_durable.graph_impl;
 
 import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.NotNull;

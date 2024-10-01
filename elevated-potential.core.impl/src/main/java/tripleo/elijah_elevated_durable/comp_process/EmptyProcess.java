@@ -6,7 +6,7 @@ import tripleo.elijah_fluffy.util.Ok;
 import tripleo.elijah_fluffy.util.Operation;
 import tripleo.elijah_elevated_durable.comp.CR_State;
 import tripleo.elijah_elevated_durable.pipelines.Pipeline;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.i.ProcessRecord;
 
 public final class EmptyProcess implements RuntimeProcess {

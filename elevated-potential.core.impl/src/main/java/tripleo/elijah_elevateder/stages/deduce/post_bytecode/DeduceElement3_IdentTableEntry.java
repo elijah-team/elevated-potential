@@ -7,7 +7,7 @@ import tripleo.elijah.contexts.ModuleContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stateful.*;
 import tripleo.elijah_elevated_durable.lang_impl.BaseFunctionDef;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.contexts.ModuleContextImpl;
 import tripleo.elijah_elevateder.lang.imports.NormalImportStatement;
 import tripleo.elijah_elevateder.stages.deduce.*;

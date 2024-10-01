@@ -10,7 +10,7 @@ import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.stateful._RegistrationTarget;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated_durable.comp.*;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.caches.DefaultEzCache;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;

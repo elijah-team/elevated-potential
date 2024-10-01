@@ -9,7 +9,7 @@ package tripleo.elijah_elevated_durable.lang_impl;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 
 /*
  * Created on Sep 1, 2005 8:16:32 PM

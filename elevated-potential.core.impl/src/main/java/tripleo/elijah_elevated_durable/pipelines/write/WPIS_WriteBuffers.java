@@ -16,7 +16,7 @@ import java.util.*;
 
 import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevated_durable.pipelines.WritePipeline;
 import tripleo.elijah_elevateder.comp.nextgen.pn.SC_Fai_;
 import tripleo.elijah_elevateder.comp.nextgen.pn.SC_Suc_;

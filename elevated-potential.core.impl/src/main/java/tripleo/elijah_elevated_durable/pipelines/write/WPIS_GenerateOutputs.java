@@ -12,7 +12,7 @@ import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
 
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.nextgen.pn.PN_signalCalculateFinishParse;
 import tripleo.elijah_elevated.comp.pushwork.PW_signalCalculateFinishParse;
 import tripleo.elijah_elevateder.nextgen.output.NG_OutputItem;

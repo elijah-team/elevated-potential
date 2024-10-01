@@ -10,7 +10,6 @@
 package tripleo.elijah_elevateder.nextgen.diagnostic;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.g.GClassInvocation;
 import tripleo.elijah.g.GGenerateFunctions;
 import tripleo.elijah.nextgen.ClassDefinition;

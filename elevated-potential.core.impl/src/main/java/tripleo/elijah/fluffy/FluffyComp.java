@@ -1,4 +1,4 @@
-package tripleo.elijah_elevated.fluffy.i;
+package tripleo.elijah.fluffy;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.OS_Module;

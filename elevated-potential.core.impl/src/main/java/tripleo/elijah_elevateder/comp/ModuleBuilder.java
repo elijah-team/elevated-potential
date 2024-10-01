@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.contexts.ModuleContext;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.OS_Module;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_fluffy.util.Mode;
 import tripleo.elijah_fluffy.util.Operation2;
 import tripleo.elijah_elevated_durable.lang_impl.OS_ModuleImpl;

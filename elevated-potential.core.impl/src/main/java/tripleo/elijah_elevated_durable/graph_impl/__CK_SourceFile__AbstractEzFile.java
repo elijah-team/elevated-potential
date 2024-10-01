@@ -1,4 +1,4 @@
-package tripleo.elijah.graph_impl;
+package tripleo.elijah_elevated_durable.graph_impl;
 
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.CompilerInput;
@@ -15,7 +15,7 @@ import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated.comp.input.CX_ParseEzFile;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_fluffy.util.*;
 import tripleo.wrap.File;
 

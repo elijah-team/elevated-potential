@@ -18,7 +18,7 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated_durable.lang_impl.*;
 import tripleo.elijah_elevated_durable.world_impl.DefaultWorldModule;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.lang.types.OS_UserType;
 import tripleo.elijah_elevateder.stages.gen_fn.GenType;
 import tripleo.elijah_elevateder.test_help.Boilerplate;

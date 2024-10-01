@@ -15,6 +15,7 @@ import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah_elevated_durable.comp.EDL_ErrSink;
 import tripleo.elijah_elevated_durable.comp.EDL_IO;
 import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.world.i.WorldModule;
 import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.wrap.File;
@@ -35,8 +36,8 @@ public class CompilationTest {
 	@Test
 	public final void testEz() throws Exception {
 		final List<String> args = List_of("test/comp_test/main3", "-sE"/* , "-out" */);
-		final ErrSink      eee  = new EDL_ErrSink();
-		final Compilation  c    = new EDL_Compilation(eee, new EDL_IO());
+		final ErrSink     eee = new EDL_ErrSink();
+		final Compilation c   = new EDL_Compilation(eee, new EDL_IO());
 
 		c.feedCmdLine(args);
 

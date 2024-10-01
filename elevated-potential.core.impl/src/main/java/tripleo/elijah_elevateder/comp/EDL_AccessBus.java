@@ -3,6 +3,7 @@ package tripleo.elijah_elevateder.comp;
 import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
 
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_fluffy.util.Eventual;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
@@ -27,8 +28,8 @@ public class EDL_AccessBus {
 		void pl_slot(PipelineLogic lgc);
 	}
 
-	public  final  Old_GenerateResult gr = new Old_GenerateResult();
-	private final Compilation       _c;
+	public  final Old_GenerateResult gr = new Old_GenerateResult();
+	private final Compilation        _c;
 	private final IPipelineAccess    _pa;
 	private final @NotNull stepA_mal.MalEnv2 env;
 

@@ -11,7 +11,7 @@ import tripleo.elijah_elevated_durable.compilation_bus.EDL_CompilationRunner;
 import tripleo.elijah_elevated_durable.lang_impl.OS_ModuleImpl;
 import tripleo.elijah_elevated_durable.pipelines.PipelineLogic;
 import tripleo.elijah_elevated_durable.world_impl.DefaultWorldModule;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.i.ProcessRecord;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_elevateder.comp.notation.*;

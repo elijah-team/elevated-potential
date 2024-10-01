@@ -1,8 +1,6 @@
 package tripleo.elijah_fluffy.util;
 
 import org.jetbrains.annotations.*;
-//import tripleo.elijah.comp.diagnostic.*;
-import tripleo.elijah.diagnostic.*;
 import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah_fluffy.diagnostic.ExceptionDiagnostic;
 

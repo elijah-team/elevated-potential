@@ -1,7 +1,7 @@
 package tripleo.elijah_elevated_durable.comp;
 
 import clojure.lang.*;
-import tripleo.elijah_elevateder.comp.internal.WorkException;
+import tripleo.elijah_elevateder.comp.i.WorkException;
 
 import java.io.File;
 import java.io.IOException;

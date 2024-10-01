@@ -4,7 +4,7 @@ import com.google.common.collect.Multimap;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResult;

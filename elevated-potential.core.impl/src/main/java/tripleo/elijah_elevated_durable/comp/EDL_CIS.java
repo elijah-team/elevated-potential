@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.i.IProgressSink;
 import tripleo.elijah_elevateder.DebugFlags;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.CompilerInstructionsObserver;
 import tripleo.elijah_fluffy.util.*;
 

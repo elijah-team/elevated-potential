@@ -7,7 +7,7 @@ import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.nextgen.reactive.Reactivable;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah_fluffy.util.NotImplementedException;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.stages.garish.GarishClass;
 import tripleo.elijah_elevateder.stages.garish.GarishClass__addClass_1;
 import tripleo.elijah_elevateder.stages.gen_fn.EvaClass;

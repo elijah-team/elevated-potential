@@ -2,10 +2,10 @@ package tripleo.elijah_elevated_durable.fluffy_impl;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.fluffy.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_elevated.fluffy.i.*;
 import tripleo.elijah_elevated_durable.lang_impl.OS_ModuleImpl;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.entrypoints.MainClassEntryPoint;
 
 import java.util.List;

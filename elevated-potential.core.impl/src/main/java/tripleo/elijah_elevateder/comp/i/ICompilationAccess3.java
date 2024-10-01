@@ -1,7 +1,8 @@
-package tripleo.elijah_elevateder.comp;
+package tripleo.elijah_elevateder.comp.i;
 
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah_elevated_durable.pipelines.PipelineLogic;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 
 import java.util.List;
 

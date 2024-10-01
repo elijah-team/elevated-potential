@@ -13,7 +13,6 @@ import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah_elevateder.DebugFlags;
 import tripleo.elijah.comp.i.CompProgress;
-import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah_elevateder.stages.deduce.DeduceTypes2;

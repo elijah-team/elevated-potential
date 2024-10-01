@@ -1,4 +1,4 @@
-package tripleo.elijah.paths_impl;
+package tripleo.elijah_elevated_durable.paths_impl;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -7,7 +7,7 @@ import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah_fluffy.util.Eventual;
 import tripleo.elijah_fluffy.util.EventualRegister;
 import tripleo.elijah_fluffy.util.io.DisposableCharSink;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.wrap.File;
 
 import java.io.IOException;

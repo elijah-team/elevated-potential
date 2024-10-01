@@ -1,6 +1,6 @@
 package tripleo.elijah_elevated_durable.pipelines;
 
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.functionality.f291.U;
 import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;

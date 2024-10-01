@@ -3,7 +3,7 @@ package tripleo.elijah_elevated_durable.comp;
 import com.google.common.eventbus.*;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.nextgen.comp_model.CM_UleLog;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.i.LCM_Event;
 import tripleo.elijah_elevateder.comp.i.LCM_HandleEvent;
 

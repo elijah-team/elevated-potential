@@ -5,7 +5,7 @@ import com.google.common.collect.Multimap;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.functionality.f202.F202;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.notation.GN_Notable;

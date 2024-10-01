@@ -9,6 +9,7 @@
 package tripleo.elijah_elevated_durable.pipelines;
 
 //import com.google.common.base.Preconditions;
+
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -17,32 +18,27 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
-import tripleo.elijah_fluffy.util.Eventual;
-//import tripleo.elijah.comp.AccessBus.AB_GenerateResultListener;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.CB_Output;
-import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.g.GPipelineMember;
+import tripleo.elijah.stages.logging.ElLog;
+import tripleo.elijah_elevated_durable.pipelines.write.*;
+import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_elevateder.stages.gen_c.CDependencyRef;
 import tripleo.elijah_elevateder.stages.gen_c.OutputFileC;
-
 import tripleo.elijah_elevateder.stages.gen_generic.*;
 import tripleo.elijah_elevateder.stages.generate.ElSystem;
 import tripleo.elijah_elevateder.stages.generate.OutputStrategy;
-import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah_elevateder.stages.logging.ElLog_;
-import tripleo.elijah_fluffy.util.NotImplementedException;
-import tripleo.elijah_fluffy.util.Ok;
-import tripleo.elijah_elevateder.stages.write_stage.pipeline_impl.*;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static tripleo.elijah_fluffy.util.Helpers.*;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 /**
  * Created 8/21/21 10:19 PM
@@ -51,8 +47,8 @@ public class WritePipeline extends PipelineMember implements Consumer<Supplier<G
 	@Getter
 	private final          Eventual<GenerateResult> generateResultPromise = new Eventual<>();
 	@Getter
-	private final @NotNull WritePipelineSharedState                   st;
-	private final @NotNull CompletedItemsHandler       cih;
+	private final @NotNull WritePipelineSharedState st;
+	private final @NotNull CompletedItemsHandler    cih;
 	private final @NotNull DoubleLatch<GenerateResult> latch;
 
 	private WP_Flow.OPS ops;

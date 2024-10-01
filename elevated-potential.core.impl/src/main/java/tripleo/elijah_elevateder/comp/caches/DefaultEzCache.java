@@ -1,7 +1,7 @@
 package tripleo.elijah_elevateder.comp.caches;
 
 import tripleo.elijah.ci.*;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah.comp.Compilation0;
 import tripleo.elijah.comp.specs.*;
 

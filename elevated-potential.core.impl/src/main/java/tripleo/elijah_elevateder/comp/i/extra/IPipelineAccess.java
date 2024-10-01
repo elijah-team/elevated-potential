@@ -14,8 +14,9 @@ import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated_durable.pipelines.*;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevated_durable.pipelines.write.WP_Flow;
 import tripleo.elijah_elevateder.comp.EDL_AccessBus;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.i.ProcessRecord;
 import tripleo.elijah_elevateder.comp.internal.Provenance;
 import tripleo.elijah_elevateder.nextgen.output.NG_OutputItem;
@@ -23,7 +24,6 @@ import tripleo.elijah_elevateder.stages.gen_c.GenerateC;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateFiles;
 import tripleo.elijah_elevateder.stages.gen_generic.pipeline_impl.GenerateResultSink;
-import tripleo.elijah_elevateder.stages.write_stage.pipeline_impl.WP_Flow;
 
 import java.util.List;
 import java.util.function.Consumer;

@@ -4,7 +4,6 @@ import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 
 

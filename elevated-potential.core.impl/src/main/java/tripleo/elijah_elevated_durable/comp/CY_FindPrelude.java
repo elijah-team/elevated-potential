@@ -7,7 +7,7 @@ import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah_fluffy.util.Operation2;
 import tripleo.elijah_elevated.comp.input.CX_ParseElijahFile;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 
 import java.util.function.Supplier;
 

@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.lang.i.ParserClosure;
 import tripleo.elijah_elevated_durable.lang_impl.ParserClosureImpl;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 
 
 public class Out {

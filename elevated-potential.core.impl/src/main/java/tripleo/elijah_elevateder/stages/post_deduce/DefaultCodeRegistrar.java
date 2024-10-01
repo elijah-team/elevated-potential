@@ -1,6 +1,6 @@
 package tripleo.elijah_elevateder.stages.post_deduce;
 
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah_elevateder.stages.gen_fn.EvaClass;
 import tripleo.elijah_elevateder.stages.gen_fn.EvaNamespace;

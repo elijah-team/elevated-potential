@@ -1,4 +1,4 @@
-package tripleo.elijah.graph_impl;
+package tripleo.elijah_elevated_durable.graph_impl;
 
 import tripleo.elijah.comp.graph.i.*;
 

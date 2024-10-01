@@ -2,7 +2,7 @@ package tripleo.elijah_elevateder.comp.functionality.f203;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.wrap.File;

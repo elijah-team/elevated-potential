@@ -11,7 +11,7 @@ package tripleo.elijah_elevateder.stages.generate;
 import org.jetbrains.annotations.*;
 
 
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResultItem;
 import tripleo.elijah_elevateder.stages.gen_generic.Old_GenerateResult;

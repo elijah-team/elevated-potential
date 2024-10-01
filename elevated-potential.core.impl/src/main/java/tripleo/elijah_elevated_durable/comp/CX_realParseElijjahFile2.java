@@ -7,7 +7,7 @@ import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah_fluffy.util.Operation2;
 import tripleo.elijah_elevated.comp.input.CX_ParseElijahFile;
 import tripleo.elijah_elevateder.DebugFlags;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.world.i.WorldModule;
 import tripleo.wrap.File;
 

@@ -1,4 +1,4 @@
-package tripleo.elijah.paths_impl;
+package tripleo.elijah_elevated_durable.paths_impl;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -10,7 +10,7 @@ import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah_fluffy.util.*;
 import tripleo.elijah_fluffy.util.io.DisposableCharSink;
 import tripleo.elijah_elevated_durable.comp.CY_HashDeferredAction;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_prolific.v.V;
 import tripleo.wrap.File;
 

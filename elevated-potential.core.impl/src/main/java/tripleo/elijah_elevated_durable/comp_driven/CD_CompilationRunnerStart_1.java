@@ -9,7 +9,7 @@ import tripleo.elijah_fluffy.util.Ok;
 import tripleo.elijah_fluffy.util.Operation;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated_durable.comp.*;
-import tripleo.elijah_elevateder.comp.internal.CR_Action;
+import tripleo.elijah_elevateder.comp.i.CR_Action;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package tripleo.elijah_elevateder.comp;
+package tripleo.elijah_elevateder.comp.i;
 
 import io.reactivex.rxjava3.core.Observer;
 import org.jetbrains.annotations.NotNull;
@@ -9,8 +9,7 @@ import tripleo.elijah_elevated_durable.comp.EDL_CIS;
 import tripleo.elijah_elevated_durable.compilation_bus.EDL_CompilationRunner;
 import tripleo.elijah_elevated_durable.comp_model.CM_Ez;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah_elevateder.comp.i.CompFactory;
-import tripleo.elijah_elevateder.comp.i.LCM_CompilerAccess;
+import tripleo.elijah_elevateder.comp.ModuleBuilder;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;
 import tripleo.elijah.comp.nextgen.pn.PN_Ping;
@@ -22,7 +21,7 @@ import tripleo.elijah.g.GCompilationConfig;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah_elevateder.nextgen.comp_model.CM_CompilerInput;
-import tripleo.elijah_elevated.fluffy.i.FluffyComp;
+import tripleo.elijah.fluffy.FluffyComp;
 import tripleo.elijah_elevateder.world.i.LivingRepo;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_fluffy.util.*;

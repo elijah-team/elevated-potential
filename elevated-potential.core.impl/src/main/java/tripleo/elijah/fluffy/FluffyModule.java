@@ -1,4 +1,4 @@
-package tripleo.elijah_elevated.fluffy.i;
+package tripleo.elijah.fluffy;
 
 import tripleo.elijah_elevated_durable.lang_impl.OS_ModuleImpl;
 

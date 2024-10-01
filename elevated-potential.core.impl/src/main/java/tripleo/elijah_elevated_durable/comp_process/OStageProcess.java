@@ -11,9 +11,9 @@ import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated_durable.comp.CR_State;
 import tripleo.elijah_elevated_durable.pipelines.Pipeline;
 import tripleo.elijah_elevated_durable.pipelines.Pipeline.RP_Context_1;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.EDL_AccessBus;
-import tripleo.elijah_elevateder.comp.internal.PipelinePlugin;
+import tripleo.elijah_elevateder.comp.i.PipelinePlugin;
 import tripleo.vendor.mal.stepA_mal;
 import tripleo.vendor.mal.types;
 

@@ -17,7 +17,7 @@ import tripleo.elijah_elevated_durable.lang_impl.ContextImpl;
 import tripleo.elijah_elevated_durable.lang_impl.QualidentImpl;
 import tripleo.elijah_elevated_durable.names_impl.ENU_LookupResult;
 import tripleo.elijah_elevated_durable.names_impl.ENU_PackageRef;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 
 import java.util.*;
 

@@ -6,7 +6,7 @@ import tripleo.elijah.nextgen.outputstatement.*;
 
 import tripleo.elijah_elevateder.stages.gen_c.C2C_Result;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResult.*;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.nextgen.inputtree.EIT_ModuleInputImpl;
 
 public class NG_OutputFunctionStatement implements NG_OutputStatement {
