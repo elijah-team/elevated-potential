@@ -10,6 +10,7 @@ import tripleo.elijah_elevated_durable.pipelines.WriteMesonPipeline;
 import tripleo.elijah_elevated_durable.pipelines.WriteOutputTreePipeline;
 import tripleo.elijah_elevated_durable.pipelines.WritePipeline;
 import tripleo.elijah.g.GPipelineAccess;
+import tripleo.elijah_elevateder.comp.i.PipelinePlugin;
 
 public abstract class __Plugins {
 	public static class WriteMakefilePipelinePlugin implements PipelinePlugin {

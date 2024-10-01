@@ -8,7 +8,7 @@ import tripleo.elijah.compiler_model.CM_Module;
 import tripleo.elijah.g.GLivingRepo;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.world.i.LivingRepo;
 import tripleo.elijah_elevateder.world.i.WorldModule;
 import tripleo.elijah_fluffy.util.*;

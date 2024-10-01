@@ -3,7 +3,7 @@ package tripleo.elijah_elevated_durable.comp_driven;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah_fluffy.util.Ok;
 import tripleo.elijah_fluffy.util.Operation;
-import tripleo.elijah_elevateder.comp.internal.CR_Action;
+import tripleo.elijah_elevateder.comp.i.CR_Action;
 
 class CD_CRS_CK_Action implements CK_Action {
 	private final CD_CompilationRunnerStart_1 CDCompilationRunnerStart1;

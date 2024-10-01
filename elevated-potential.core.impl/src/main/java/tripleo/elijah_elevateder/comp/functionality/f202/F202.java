@@ -10,7 +10,7 @@ package tripleo.elijah_elevateder.comp.functionality.f202;
 
 import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.stages.logging.*;
 

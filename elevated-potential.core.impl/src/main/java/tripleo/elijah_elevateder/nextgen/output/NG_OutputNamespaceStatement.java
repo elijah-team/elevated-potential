@@ -5,7 +5,7 @@ import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResult.*;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.nextgen.inputtree.EIT_ModuleInputImpl;
 import tripleo.elijah_fluffy.util.BufferTabbedOutputStream;
 import tripleo.util.buffer.*;

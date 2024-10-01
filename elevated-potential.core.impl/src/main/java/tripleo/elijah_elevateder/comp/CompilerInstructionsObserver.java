@@ -6,13 +6,14 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.ICompilerInstructionsObserver;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 
 public class CompilerInstructionsObserver implements Observer<CompilerInstructions>, ICompilerInstructionsObserver {
-	private final Compilation               compilation;
+	private final Compilation                compilation;
 	private final List<CompilerInstructions> l = new ArrayList<>();
 
 	public CompilerInstructionsObserver(final Compilation aCompilation) {

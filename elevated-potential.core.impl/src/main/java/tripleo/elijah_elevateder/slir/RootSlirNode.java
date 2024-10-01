@@ -10,7 +10,7 @@
 package tripleo.elijah_elevateder.slir;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 
 import java.util.ArrayList;
 import java.util.List;

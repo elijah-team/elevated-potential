@@ -2,7 +2,7 @@ package tripleo.elijah_elevateder.comp.functionality.f203;
 
 import org.apache.commons.codec.digest.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevated_durable.comp.EDL_IO;
 import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 

@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.CB_OutputString;
 import tripleo.elijah_fluffy.diagnostic.Diagnostic;
-import tripleo.elijah_elevateder.comp.internal.CodedOperationDiagnostic;
+import tripleo.elijah_elevateder.diagnostic.CodedOperationDiagnostic;
 
 import java.util.ArrayList;
 import java.util.List;

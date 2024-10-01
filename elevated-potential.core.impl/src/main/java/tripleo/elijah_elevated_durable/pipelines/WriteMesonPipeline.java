@@ -17,6 +17,7 @@ import tripleo.elijah.g.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah_elevateder.comp.*;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.stages.functionality.f292.F292_WriteRoot;
 
 import tripleo.elijah_fluffy.util.Ok;

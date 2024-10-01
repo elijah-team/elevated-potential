@@ -9,11 +9,11 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevated_durable.comp.EDL_IO;
-import tripleo.elijah.paths_impl.CP_OutputPath;
+import tripleo.elijah_elevated_durable.paths_impl.CP_OutputPath;
 
-import tripleo.elijah.paths_impl.EDL_CP_SubFile;
+import tripleo.elijah_elevated_durable.paths_impl.EDL_CP_SubFile;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.wrap.File;
 

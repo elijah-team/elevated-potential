@@ -8,7 +8,7 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah_fluffy.util.CompletableProcess;
 import tripleo.elijah_elevated_durable.lang_impl.BaseFunctionDef;
 import tripleo.elijah_elevated_durable.lang_impl.OS_PackageImpl;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.entrypoints.MainClassEntryPoint;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.world.i.*;

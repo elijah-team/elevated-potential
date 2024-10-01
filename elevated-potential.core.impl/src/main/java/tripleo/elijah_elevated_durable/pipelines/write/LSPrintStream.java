@@ -1,7 +1,7 @@
 package tripleo.elijah_elevated_durable.pipelines.write;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah.nextgen.inputtree.EIT_Input;
 import tripleo.elijah.nextgen.inputtree.EIT_InputType;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;

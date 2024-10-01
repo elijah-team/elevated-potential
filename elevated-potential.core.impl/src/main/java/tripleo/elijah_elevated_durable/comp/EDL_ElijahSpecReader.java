@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah_fluffy.util.Operation;
 import tripleo.elijah_elevated.comp.input.CX_ParseElijahFile;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;

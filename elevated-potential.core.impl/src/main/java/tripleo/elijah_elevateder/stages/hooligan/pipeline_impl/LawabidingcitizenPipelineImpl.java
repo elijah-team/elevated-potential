@@ -3,11 +3,10 @@ package tripleo.elijah_elevateder.stages.hooligan.pipeline_impl;
 import org.jetbrains.annotations.*;
 
 import tripleo.elijah_elevateder.DebugFlags;
-import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.nextgen.outputtree.EOT_OutputFileImpl;
 import tripleo.elijah_elevateder.world.i.WorldModule;
 import tripleo.elijah_fluffy.diagnostic.Diagnostic;

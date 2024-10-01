@@ -1,4 +1,4 @@
-package tripleo.elijah.paths_impl;
+package tripleo.elijah_elevated_durable.paths_impl;
 
 import io.smallrye.mutiny.Uni;
 import org.jetbrains.annotations.NotNull;
@@ -6,7 +6,7 @@ import tripleo.elijah.comp.nextgen.i.*;
 import tripleo.elijah.nextgen.ER_Node;
 import tripleo.elijah_fluffy.util.Ok;
 import tripleo.elijah_fluffy.util.UnintendedUseException;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 
 import java.util.ArrayList;
 import java.util.List;

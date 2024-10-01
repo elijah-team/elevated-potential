@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.g.*;
 import tripleo.elijah_elevated_durable.pipelines.*;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.stages.deduce.IFunctionMapHook;
 import tripleo.elijah_elevateder.stages.logging.ElLog_;
 import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;

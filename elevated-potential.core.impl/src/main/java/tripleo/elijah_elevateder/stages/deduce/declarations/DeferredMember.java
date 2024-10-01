@@ -12,11 +12,12 @@ import lombok.Getter;
 import org.jdeferred2.Promise;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah.lang.i.VariableStatement;
 import tripleo.elijah_elevateder.stages.deduce.DeduceElementWrapper;
 import tripleo.elijah_elevateder.stages.deduce.IInvocation;
 import tripleo.elijah_elevateder.stages.gen_fn.EvaNode;
 import tripleo.elijah_elevateder.stages.gen_fn.GenType;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 
 /**
  * Created 6/27/21 1:41 AM

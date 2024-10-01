@@ -2,8 +2,8 @@ package tripleo.elijah_elevateder.comp.nextgen;
 
 import org.jetbrains.annotations.NotNull;
 
-import tripleo.elijah.paths_impl.CP_OutputPath;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevated_durable.paths_impl.CP_OutputPath;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah_elevateder.factory.comp.CompilationFactory;
 

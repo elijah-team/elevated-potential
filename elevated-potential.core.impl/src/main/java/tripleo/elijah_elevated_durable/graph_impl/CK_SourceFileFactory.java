@@ -1,4 +1,4 @@
-package tripleo.elijah.graph_impl;
+package tripleo.elijah_elevated_durable.graph_impl;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;

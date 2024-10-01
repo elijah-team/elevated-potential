@@ -3,7 +3,7 @@ package tripleo.elijah_elevateder.nextgen.expansion;
 import org.junit.Test;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah_elevateder.stages.gen_generic.OutputFileFactoryParams;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.test_help.Boilerplate;
 import tripleo.elijah_elevated_durable.world_impl.DefaultWorldModule;
 

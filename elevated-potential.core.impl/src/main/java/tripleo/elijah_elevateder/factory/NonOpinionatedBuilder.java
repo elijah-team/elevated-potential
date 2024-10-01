@@ -2,7 +2,7 @@ package tripleo.elijah_elevateder.factory;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.*;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
 import tripleo.elijah_elevated_durable.comp.EDL_CompilerController;
 import tripleo.elijah.work.WorkList;

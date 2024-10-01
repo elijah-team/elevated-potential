@@ -6,6 +6,8 @@ import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.g.GCompilationEnclosure;
+import tripleo.elijah_elevateder.comp.i.Compilation;
+import tripleo.elijah_elevateder.comp.i.ICompilationAccess3;
 import tripleo.elijah_fluffy.util.Ok;
 import tripleo.elijah_fluffy.util.Operation;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;

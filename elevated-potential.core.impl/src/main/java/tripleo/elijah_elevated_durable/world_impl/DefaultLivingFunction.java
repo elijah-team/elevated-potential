@@ -4,9 +4,9 @@ import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah_fluffy.util.Eventual;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah.lang.i.FunctionDef;
-import tripleo.elijah_elevated.fluffy.i.FluffyComp;
+import tripleo.elijah.fluffy.FluffyComp;
 
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.world.i.LF_CodeRegistration;

@@ -1,7 +1,6 @@
 package tripleo.elijah.comp.graph.i;
 
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.diagnostic.*;
 import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah_fluffy.util.Ok;
 import tripleo.elijah_fluffy.util.Operation;

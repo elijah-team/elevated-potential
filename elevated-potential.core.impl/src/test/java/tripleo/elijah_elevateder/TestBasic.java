@@ -1,44 +1,37 @@
 package tripleo.elijah_elevateder;
 
 
-import static org.junit.Assert.*;
-import static org.assertj.core.api.AssertionsForClassTypes.*;
-//import static org.hamcrest.Matchers.equalTo;
-//import org.junit.*;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import com.google.common.base.Charsets;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.io.Files;
-
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
-
 import org.jetbrains.annotations.NotNull;
-
-import tripleo.elijah.comp.*;
+import org.junit.Ignore;
+import org.junit.Test;
+import tripleo.elijah.comp.Compilation0;
+import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah_elevated_durable.comp.EDL_ErrSink;
-import tripleo.elijah_elevated_durable.comp.EDL_IO;
-import tripleo.elijah_elevateder.comp.*;
-import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
-import tripleo.elijah_elevated_durable.comp.EDL_CompilerController;
-import tripleo.elijah_fluffy.diagnostic.Diagnostic;
-import tripleo.elijah_elevateder.factory.NonOpinionatedBuilder;
-import tripleo.elijah_elevateder.factory.comp.CompilationFactory;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputtree.*;
+import tripleo.elijah_elevated.comp.input.EDL_CompilerInput;
+import tripleo.elijah_elevated_durable.comp.*;
+import tripleo.elijah_elevated_durable.pipelines.write.NG_OutputRequest;
+import tripleo.elijah_elevateder.comp.i.Compilation;
+import tripleo.elijah_elevateder.comp.i.ICompilationAccess3;
+import tripleo.elijah_elevateder.factory.NonOpinionatedBuilder;
+import tripleo.elijah_elevateder.factory.comp.CompilationFactory;
 import tripleo.elijah_elevateder.stages.gen_c.Emit;
-import tripleo.elijah_elevateder.stages.write_stage.pipeline_impl.NG_OutputRequest;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah_fluffy.util.Helpers;
 import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
-import tripleo.elijah_elevated.comp.input.EDL_CompilerInput;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.Assert.*;
 import static tripleo.elijah_elevateder._TestBasicHelper.assertLiveClass;
 import static tripleo.elijah_fluffy.util.Helpers.List_of;
 

@@ -1,7 +1,7 @@
 package tripleo.elijah_elevated_durable.pipelines.write;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah_elevateder.nextgen.output.NG_OutputNamespace;

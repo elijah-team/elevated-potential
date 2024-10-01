@@ -1,7 +1,6 @@
 package tripleo.elijah_elevateder.stages.deduce.pipeline_impl;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.diagnostic.*;
 import tripleo.elijah_elevated_durable.pipelines.PipelineLogic;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_elevateder.world.i.WorldModule;

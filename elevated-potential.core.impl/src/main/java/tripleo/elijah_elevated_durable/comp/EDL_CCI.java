@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah_fluffy.util.Maybe;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 
 public class EDL_CCI implements CCI {
 	// private final @NotNull Compilation compilation;

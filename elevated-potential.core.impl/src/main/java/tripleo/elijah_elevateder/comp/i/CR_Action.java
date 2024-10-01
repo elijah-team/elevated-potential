@@ -1,4 +1,4 @@
-package tripleo.elijah_elevateder.comp.internal;
+package tripleo.elijah_elevateder.comp.i;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.CB_Output;

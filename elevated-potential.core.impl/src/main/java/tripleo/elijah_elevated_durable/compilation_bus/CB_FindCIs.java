@@ -7,7 +7,7 @@ import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
 import tripleo.elijah_fluffy.util.Maybe;
 import tripleo.elijah_elevated_durable.comp.*;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.wrap.File;

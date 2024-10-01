@@ -2,7 +2,7 @@ package tripleo.elijah_elevateder.stages.deduce.pipeline_impl;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevated_durable.pipelines.PipelineLogic;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 

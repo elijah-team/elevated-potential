@@ -13,7 +13,7 @@ import tripleo.elijah_elevated_durable.comp_model.CM_Factory;
 import tripleo.elijah_elevated_durable.parser.PCon;
 import tripleo.elijah_elevated_durable.parser.antlr2.EzLexer;
 import tripleo.elijah_elevated_durable.parser.antlr2.EzParser;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.specs.EDL_EzSpec;
 import tripleo.elijah_fluffy.util.*;
 import tripleo.wrap.File;

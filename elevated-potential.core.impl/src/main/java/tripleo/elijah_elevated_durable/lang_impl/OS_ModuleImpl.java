@@ -21,7 +21,7 @@ import tripleo.elijah.lang2.ElElementVisitor;
 import tripleo.elijah_fluffy.util.Helpers;
 import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevated_durable.fluffy_impl.FluffyModuleImpl;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.entrypoints.MainClassEntryPoint;
 import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 

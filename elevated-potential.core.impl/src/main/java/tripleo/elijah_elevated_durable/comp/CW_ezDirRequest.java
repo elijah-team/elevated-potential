@@ -8,7 +8,7 @@ import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.comp.queries.QSEZ_Reasoning;
 import tripleo.elijah_fluffy.diagnostic.ExceptionDiagnostic;
 import tripleo.elijah_fluffy.util.Operation2;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.queries.QuerySearchEzFiles;
 import tripleo.wrap.File;
 

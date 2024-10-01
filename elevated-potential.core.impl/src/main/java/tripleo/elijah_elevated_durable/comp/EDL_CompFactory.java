@@ -25,7 +25,7 @@ import tripleo.elijah_elevated.comp.pushwork.*;
 import tripleo.elijah_elevated_durable.lang_impl.QualidentImpl;
 import tripleo.elijah_elevated_durable.world_impl.DefaultLivingRepo;
 import tripleo.elijah_elevated_durable.world_impl.DefaultWorldModule;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.elijah_elevateder.comp.i.CompFactory;
 import tripleo.elijah_elevateder.comp.internal.ILazyCompilerInstructions_;
 import tripleo.elijah_elevateder.nextgen.inputtree.EIT_InputTreeImpl;

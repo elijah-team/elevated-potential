@@ -1,4 +1,4 @@
-package tripleo.elijah.graph_impl;
+package tripleo.elijah_elevated_durable.graph_impl;
 
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.graph.i.CK_SourceFile;
@@ -12,7 +12,7 @@ import tripleo.elijah.nextgen.outputtree.EOT_OutputFile;
 import tripleo.elijah_fluffy.util.Operation2;
 import tripleo.elijah_fluffy.util.UnintendedUseException;
 import tripleo.elijah_elevated.comp.input.CX_ParseElijahFile;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 import tripleo.wrap.File;
 
 import java.util.Optional;

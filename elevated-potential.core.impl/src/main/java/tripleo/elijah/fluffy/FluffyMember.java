@@ -1,4 +1,4 @@
-package tripleo.elijah_elevated.fluffy.i;
+package tripleo.elijah.fluffy;
 
 /**
  * Anything inside a module

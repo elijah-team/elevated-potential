@@ -7,7 +7,7 @@ import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.graph.i.CK_SourceFile;
 import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
-import tripleo.elijah.graph_impl.CK_SourceFileFactory;
+import tripleo.elijah_elevated_durable.graph_impl.CK_SourceFileFactory;
 import tripleo.elijah_fluffy.util.Mode;
 import tripleo.elijah_fluffy.util.Operation2;
 

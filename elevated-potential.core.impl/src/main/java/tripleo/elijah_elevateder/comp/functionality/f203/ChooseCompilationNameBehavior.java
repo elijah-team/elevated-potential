@@ -1,7 +1,7 @@
 package tripleo.elijah_elevateder.comp.functionality.f203;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah_elevateder.comp.Compilation;
+import tripleo.elijah_elevateder.comp.i.Compilation;
 
 import java.io.File;
 

@@ -4,15 +4,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.specs.EzSpec;
 import tripleo.elijah_fluffy.diagnostic.ExceptionDiagnostic;
-
-import tripleo.elijah_fluffy.util.Mode;
-import tripleo.elijah_fluffy.util.Operation;
+import tripleo.elijah_fluffy.util.*;
+import tripleo.wrap.File;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.function.Supplier;
-
-import tripleo.wrap.File;
 
 public record EDL_EzSpec(
 		String file_name,
