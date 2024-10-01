@@ -13,7 +13,7 @@ import tripleo.elijah.contexts.NamespaceContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
 import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah_elevateder.contexts.NamespaceContext__;
+import tripleo.elijah_elevateder.contexts.NamespaceContextImpl;
 import tripleo.elijah_elevateder.lang.types.OS_UserNamespaceType;
 
 /**
@@ -40,7 +40,7 @@ public class NamespaceStatementImpl extends _CommonNC implements Documentable, C
 		} else {
 			throw new IllegalStateException(String.format("Cant add NamespaceStatement to %s", aElement));
 		}
-		setContext(new NamespaceContext__(context, this));
+		setContext(new NamespaceContextImpl(context, this));
 	}
 
 	@Override

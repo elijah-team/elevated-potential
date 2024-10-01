@@ -22,7 +22,7 @@ import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
 import tripleo.elijah_elevated_durable.lang_impl.*;
 import tripleo.elijah_elevated_durable.world_impl.DefaultWorldModule;
-import tripleo.elijah_elevateder.contexts.ModuleContext__;
+import tripleo.elijah_elevateder.contexts.ModuleContextImpl;
 import tripleo.elijah_elevateder.lang.types.OS_BuiltinType;
 import tripleo.elijah_elevateder.lang.types.OS_UserType;
 import tripleo.elijah_elevateder.stages.deduce.Resolve_Ident_IA.DeduceElementIdent;
@@ -58,7 +58,7 @@ public class DeduceTypesTest {
 		boilerplate.getGenerateFiles(boilerplate.defaultMod());
 
 		final OS_Module mod = boilerplate.defaultMod();
-		final ModuleContext mctx = new ModuleContext__(mod);
+		final ModuleContext mctx = new ModuleContextImpl(mod);
 		mod.setContext(mctx);
 
 		final ClassStatement cs = new ClassStatementImpl(mod, mod.getContext());

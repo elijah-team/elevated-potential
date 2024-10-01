@@ -22,11 +22,11 @@ import tripleo.elijah_elevated_durable.lang_impl.ContextImpl;
  *         <p>
  *         Created Mar 26, 2020 at 6:33:31 AM
  */
-public class ModuleContext__ extends ContextImpl implements ModuleContext {
+public class ModuleContextImpl extends ContextImpl implements ModuleContext {
 
 	private OS_Module carrier;
 
-	public ModuleContext__(final OS_Module module) {
+	public ModuleContextImpl(final OS_Module module) {
 		this.carrier = module;
 	}
 

@@ -23,8 +23,8 @@ public class PConParser {
 		return new InvariantStatementPartImpl(aCr, aI1);
 	}
 
-	public NamespaceContext__ new_NamespaceContext(final Context aCur, final NamespaceStatement aCls) {
-		return new NamespaceContext__(aCur, aCls);
+	public NamespaceContextImpl new_NamespaceContext(final Context aCur, final NamespaceStatement aCls) {
+		return new NamespaceContextImpl(aCur, aCls);
 	}
 
 	public FunctionDef new_FunctionDefImpl(final OS_Element aParent, final Context aCtx) {
@@ -76,7 +76,7 @@ public class PConParser {
 	}
 
 	public ModuleContext new_ModuleContext(final OS_Module aModule) {
-		return new ModuleContext__(aModule);
+		return new ModuleContextImpl(aModule);
 	}
 
 	public Context new_PackageContext(final Context aCur, final OS_Package aPkg) {

@@ -8,7 +8,7 @@ import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah.util.Mode;
 import tripleo.elijah.util.Operation2;
 import tripleo.elijah_elevated_durable.lang_impl.OS_ModuleImpl;
-import tripleo.elijah_elevateder.contexts.ModuleContext__;
+import tripleo.elijah_elevateder.contexts.ModuleContextImpl;
 import tripleo.elijah_elevateder.world.i.LivingRepo;
 import tripleo.elijah_elevateder.world.i.WorldModule;
 
@@ -43,7 +43,7 @@ public class ModuleBuilder {
 	}
 
 	public @NotNull ModuleBuilder setContext() {
-		final ModuleContext mctx = new ModuleContext__(mod);
+		final ModuleContext mctx = new ModuleContextImpl(mod);
 		mod.setContext(mctx);
 		return this;
 	}

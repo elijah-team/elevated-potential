@@ -6,35 +6,33 @@
  * http://www.gnu.org/licenses/lgpl.html from `Version 3, 29 June 2007'
  *
  */
-/**
- *
- */
 package tripleo.elijah_elevateder.contexts;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.contexts.NamespaceContext;
+import org.jetbrains.annotations.Nullable;
+import tripleo.elijah.contexts.IfConditionalContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah_elevated_durable.lang_impl.*;
 
 
 /**
- * @author Tripleo
- *         <p>
- *         Created Mar 29, 2020 at 8:59:42 PM
+ * Created 8/21/20 3:16 AM
  */
-public class NamespaceContext__ extends ContextImpl implements NamespaceContext {
-
+public class IfConditionalContextImpl extends ContextImpl implements IfConditionalContext {
 	private final Context _parent;
-	public NamespaceStatement carrier;
+	private final @Nullable Context _prev_ctx;
+	private final IfConditional carrier;
 
-	public NamespaceContext__(NamespaceStatement namespaceStatement) {
-		_parent = null;
-		carrier = namespaceStatement;
+	public IfConditionalContextImpl(final Context cur, final IfConditional ifConditional) {
+		_parent = cur;
+		carrier = ifConditional;
+		_prev_ctx = null; // TOP if statement
 	}
 
-	public NamespaceContext__(final Context aParent, final NamespaceStatement ns) {
-		_parent = aParent;
-		carrier = ns;
+	public IfConditionalContextImpl(final @NotNull Context ctx, final IfConditional ifConditional, final boolean _ignored) {
+		_prev_ctx = ctx;
+		_parent = ((IfConditionalContextImpl) ctx)._parent;
+		carrier = ifConditional;
 	}
 
 	@Override
@@ -43,17 +41,13 @@ public class NamespaceContext__ extends ContextImpl implements NamespaceContext 
 	}
 
 	@Override
-	public LookupResultList lookup(final String name,
-								   final int level,
-								   final @NotNull LookupResultList Result,
-								   final @NotNull ISearchList alreadySearched,
-								   final boolean one) {
+	public LookupResultList lookup(final String name, final int level, final @NotNull LookupResultList Result,
+								   final @NotNull ISearchList alreadySearched, final boolean one) {
 		alreadySearched.add(carrier.getContext());
-
-		for (final ClassItem item : carrier.getItems()) {
+		for (final OS_Element/* StatementItem */ item : carrier.getItems()) {
 			if (!(item instanceof ClassStatement) && !(item instanceof NamespaceStatement)
-					&& !(item instanceof VariableSequenceImpl) && !(item instanceof AliasStatementImpl)
-					&& !(item instanceof FunctionDef) && !(item instanceof PropertyStatement))
+					&& !(item instanceof FunctionDef) && !(item instanceof VariableSequenceImpl)
+					&& !(item instanceof AliasStatementImpl))
 				continue;
 			if (item instanceof OS_NamedElement) {
 				if (((OS_NamedElement) item).name().equals(name)) {
@@ -61,22 +55,22 @@ public class NamespaceContext__ extends ContextImpl implements NamespaceContext 
 				}
 			}
 			if (item instanceof VariableSequenceImpl) {
-//				tripleo.elijah.util.Stupidity.println_out_2("[NamespaceContext#lookup] VariableSequenceImpl "+item);
+				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("1102 " + item);
 				for (final VariableStatement vs : ((VariableSequenceImpl) item).items()) {
 					if (vs.getName().equals(name))
 						Result.add(name, level, vs, this);
 				}
 			}
 		}
-
 		if (getParent() != null) {
 			final Context context = getParent();
-
-			if (!alreadySearched.contains(context) || !one) {
+			if (!alreadySearched.contains(context) || !one)
 				return context.lookup(name, level + 1, Result, alreadySearched, false);
-			}
 		}
-
 		return Result;
 	}
 }
+
+//
+//
+//

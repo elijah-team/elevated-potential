@@ -9,7 +9,7 @@ import tripleo.elijah.stateful.*;
 import tripleo.elijah.util.*;
 import tripleo.elijah_elevated_durable.lang_impl.BaseFunctionDef;
 import tripleo.elijah_elevateder.comp.Compilation;
-import tripleo.elijah_elevateder.contexts.ModuleContext__;
+import tripleo.elijah_elevateder.contexts.ModuleContextImpl;
 import tripleo.elijah_elevateder.lang.imports.NormalImportStatement;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.deduce.nextgen.DR_Ident;
@@ -592,7 +592,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 				continue;
 			}
 
-			if (ctx2 instanceof ModuleContext__) {
+			if (ctx2 instanceof ModuleContextImpl) {
 				ctxs.add(ctx2);
 
 				final @NotNull Collection<ModuleItem> itms = ((ModuleContext) ctx2).getCarrier().getItems();

@@ -13,7 +13,7 @@ import org.junit.Test;
 import tripleo.elijah.contexts.ModuleContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah_elevated_durable.lang_impl.*;
-import tripleo.elijah_elevateder.contexts.ModuleContext__;
+import tripleo.elijah_elevateder.contexts.ModuleContextImpl;
 import tripleo.elijah_elevateder.stages.deduce.DeducePhase;
 import tripleo.elijah_elevateder.stages.deduce.DeduceTypes2;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
@@ -35,7 +35,7 @@ public class GetRealTargetNameTest {
 	@Before //Each
 	public void setUp() {
 		final OS_Module       mod2 = new OS_ModuleImpl();
-		final ModuleContext   ctx = new ModuleContext__(mod2);
+		final ModuleContext   ctx = new ModuleContextImpl(mod2);
 		final ClassStatement  cs = new ClassStatementImpl(mod2, ctx);
 		final ClassHeaderImpl ch = new ClassHeaderImpl(false, Collections.emptyList());
 		ch.setName(Helpers0.string_to_ident("__FakeClassName__"));
