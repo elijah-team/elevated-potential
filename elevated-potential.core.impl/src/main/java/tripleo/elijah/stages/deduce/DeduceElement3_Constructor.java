@@ -1,7 +1,8 @@
 package tripleo.elijah.stages.deduce;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
+import tripleo.elijah.util.ReadySupplier_1;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;

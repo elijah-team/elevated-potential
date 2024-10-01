@@ -2,8 +2,8 @@ package tripleo.elijah.comp.notation;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
+import tripleo.elijah.util.Eventual;
+import tripleo.elijah.util.EventualRegister;
 import tripleo.elijah.comp.PipelineLogic;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.factory.NonOpinionatedBuilder;

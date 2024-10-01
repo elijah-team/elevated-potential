@@ -1,7 +1,6 @@
 package tripleo.elijah.stages.deduce.pipeline_impl;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.extra.*;
 import tripleo.elijah.diagnostic.*;

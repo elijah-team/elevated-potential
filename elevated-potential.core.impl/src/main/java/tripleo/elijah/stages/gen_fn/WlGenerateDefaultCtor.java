@@ -8,14 +8,13 @@
  */
 package tripleo.elijah.stages.gen_fn;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.stages.deduce.ClassInvocation;
 import tripleo.elijah.stages.deduce.FunctionInvocation;
 import tripleo.elijah.stages.deduce.nextgen.DeduceCreationContext;
 import tripleo.elijah.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.util.Holder;
 import tripleo.elijah.work.WorkJob;
 import tripleo.elijah.work.WorkManager;
 

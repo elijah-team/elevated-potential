@@ -10,7 +10,6 @@ package tripleo.elijah.lang.impl;
 
 import antlr.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.nextgen.names.i.*;
 import tripleo.elijah.util.*;

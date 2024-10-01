@@ -2,7 +2,6 @@ package tripleo.elijah.stages.deduce;
 
 import org.apache.commons.lang3.tuple.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.notation.*;
 import tripleo.elijah.nextgen.inputtree.*;
@@ -12,6 +11,8 @@ import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.gen_generic.*;
 import tripleo.elijah.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah.stages.logging.*;
+import tripleo.elijah.util.Eventual;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.work.*;
 import tripleo.elijah.world.i.*;
 

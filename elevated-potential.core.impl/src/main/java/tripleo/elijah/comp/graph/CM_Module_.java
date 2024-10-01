@@ -2,7 +2,7 @@ package tripleo.elijah.comp.graph;
 
 import java.io.InputStream;
 
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.Compilation0;

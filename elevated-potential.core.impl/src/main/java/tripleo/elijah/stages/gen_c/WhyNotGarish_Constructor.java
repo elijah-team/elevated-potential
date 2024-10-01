@@ -1,7 +1,7 @@
 package tripleo.elijah.stages.gen_c;
 
 import tripleo.elijah.DebugFlags;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.comp.notation.GM_GenerateModule;
 import tripleo.elijah.lang.i.ClassStatement;

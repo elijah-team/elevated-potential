@@ -2,7 +2,7 @@ package tripleo.elijah_elevated.comp.backbone;
 
 import io.reactivex.rxjava3.annotations.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;

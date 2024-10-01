@@ -1,6 +1,6 @@
 package tripleo.elijah_fluffy.util;
 
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 
 public class EventualExtract {
 	public static <T> T of(final Eventual<T> e) {

@@ -10,7 +10,6 @@
 package tripleo.elijah.stages.deduce.tastic;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.*;

@@ -10,10 +10,11 @@ package tripleo.elijah.stages.gen_fn;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.deduce.*;
+import tripleo.elijah.util.Eventual;
+import tripleo.elijah.util.UnintendedUseException;
 
 import java.util.function.*;
 
@@ -21,8 +22,8 @@ import java.util.function.*;
  * Created 6/27/21 9:45 AM
  */
 public class EvaConstructor extends BaseEvaFunction implements IEvaConstructor {
-	public final @Nullable ConstructorDef cd;
-	private final Eventual<DeduceElement3_Constructor> _de3_Promise = new Eventual<>();
+	public final @Nullable ConstructorDef                       cd;
+	private final          Eventual<DeduceElement3_Constructor> _de3_Promise = new Eventual<>();
 
 	public static class __Reactive extends DefaultReactive implements BaseEvaConstructor_Reactive {
 
