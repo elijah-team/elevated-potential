@@ -9,9 +9,9 @@
 package tripleo.elijah.stages.deduce;
 
 import lombok.Getter;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.EventualRegister;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.Eventual;
+import tripleo.elijah.util.EventualRegister;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.impl.LangGlobals;
 import tripleo.elijah.stages.deduce.nextgen.DeduceCreationContext;

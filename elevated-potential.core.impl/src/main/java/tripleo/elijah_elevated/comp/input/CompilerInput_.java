@@ -14,8 +14,7 @@ import tripleo.elijah.comp.CompilerInputMaster;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.queries.QSEZ_Reasoning;
-import tripleo.elijah.util.Maybe;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah.util.*;
 import tripleo.wrap.File;
 
 import java.util.Optional;

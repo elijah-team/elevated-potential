@@ -5,7 +5,7 @@ import java.util.concurrent.Flow.Publisher;
 import java.util.concurrent.Flow.Subscriber;
 
 import io.smallrye.mutiny.Multi;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.i.CP_Paths;

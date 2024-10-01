@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.subjects.ReplaySubject;
 import io.reactivex.rxjava3.subjects.Subject;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.DebugFlags;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.CompilerInstructionsObserver;

@@ -14,7 +14,6 @@ package tripleo.elijah.stages.gen_fn;
 import org.jdeferred2.*;
 import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
-import tripleo.elijah.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.deduce.*;

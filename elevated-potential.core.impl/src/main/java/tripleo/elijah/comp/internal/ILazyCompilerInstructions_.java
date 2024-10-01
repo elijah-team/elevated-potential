@@ -1,7 +1,7 @@
 package tripleo.elijah.comp.internal;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.Eventual;
+import tripleo.elijah.util.Eventual;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.graph.i.CK_SourceFile;

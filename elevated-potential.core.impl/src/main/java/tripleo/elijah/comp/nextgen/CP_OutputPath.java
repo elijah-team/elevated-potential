@@ -2,8 +2,8 @@ package tripleo.elijah.comp.nextgen;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.Eventual;
-import tripleo.elijah.UnintendedUseException;
+import tripleo.elijah.util.Eventual;
+import tripleo.elijah.util.UnintendedUseException;
 import tripleo.elijah.comp.Compilation;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.i.CompProgress;

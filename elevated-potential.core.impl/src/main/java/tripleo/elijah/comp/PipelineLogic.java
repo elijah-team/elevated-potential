@@ -13,10 +13,10 @@ import com.google.common.collect.Multimap;
 import io.reactivex.rxjava3.annotations.NonNull;
 import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.*;
 import tripleo.elijah.comp.i.ICompilationAccess;
 import tripleo.elijah.comp.i.extra.IPipelineAccess;
 import tripleo.elijah.comp.internal.Provenance;
+import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.notation.GN_PL_Run2;
 import tripleo.elijah.comp.notation.GN_PL_Run2_Env;
@@ -27,7 +27,6 @@ import tripleo.elijah.stages.deduce.DeducePhase;
 import tripleo.elijah.stages.gen_fn.*;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.stages.logging.ElLog.Verbosity;
-import tripleo.elijah.util.CompletableProcess;
 import tripleo.elijah.world.i.WorldModule;
 import tripleo.elijah.world.impl.DefaultWorldModule;
 
@@ -45,10 +44,10 @@ public class PipelineLogic implements EventualRegister, GPipelineLogic {
 	final @NonNull         ModMap                   modMap     = new ModMap();
 	private final          ICompilationAccess       ca;
 	private final @NonNull ModuleCompletableProcess mcp        = new ModuleCompletableProcess();
-	private final @NonNull IPipelineAccess          pa;
-	private final          List<Eventual<?>>        _eventuals = new ArrayList<>();
+	private final @NonNull IPipelineAccess   pa;
+	private final          List<Eventual<?>> _eventuals = new ArrayList<>();
 	//	private final @NonNull EIT_ModuleList           mods   = new EIT_ModuleList();
-	public                 GDM_Pipeline             pl         = new GDM_Pipeline() {
+	public                 GDM_Pipeline      pl         = new GDM_Pipeline() {
 		@Override
 		public GDM_Product submit(final Object aMod) {
 			final PipelineLogic pipelineLogic = PipelineLogic.this;
