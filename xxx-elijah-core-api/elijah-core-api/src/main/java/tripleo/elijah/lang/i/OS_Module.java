@@ -77,4 +77,8 @@ public interface OS_Module extends OS_Element, GOS_Module {
 
 	@Override
 	void visitGen(@NotNull ElElementVisitor visit);
+
+	interface Complaint {
+		void reportWarning(@NotNull OS_Module aModule, String aS);
+	}
 }

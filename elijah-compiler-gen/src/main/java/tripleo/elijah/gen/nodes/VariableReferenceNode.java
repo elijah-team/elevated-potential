@@ -11,7 +11,6 @@ package tripleo.elijah.gen.nodes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.gen.CompilerContext;
-import tripleo.elijah.lang.impl.*;
 import tripleo.elijah.util.NotImplementedException;
 
 public class VariableReferenceNode {

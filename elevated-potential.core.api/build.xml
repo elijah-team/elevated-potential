@@ -108,7 +108,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="tripleo.elijah.Feb2021Test" todir="${junit.output.dir}"/>
+            <test name="tripleo.elijah_elevateder.Feb2021Test" todir="${junit.output.dir}"/>
             <jvmarg line="-ea"/>
             <classpath refid="run.Feb2021Test.testProperty.classpath"/>
         </junit>
