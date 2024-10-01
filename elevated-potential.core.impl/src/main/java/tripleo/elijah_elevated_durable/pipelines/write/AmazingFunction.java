@@ -21,7 +21,7 @@ import tripleo.elijah_elevateder.work.EDL_WorkManager;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah_fluffy.util.Helpers.*;
 
 class AmazingFunction implements Amazing {
 	private final NG_OutputFunction of;

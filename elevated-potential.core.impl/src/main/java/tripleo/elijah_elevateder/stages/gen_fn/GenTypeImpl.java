@@ -13,13 +13,13 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.types.OS_FuncType;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated_durable.lang_impl.BaseFunctionDef;
 import tripleo.elijah_elevateder.lang.types.*;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.deduce.nextgen.DR_Type;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.setup_GenType_Action;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.setup_GenType_Action_Arena;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 
@@ -70,7 +70,7 @@ public class GenTypeImpl implements GenType {
 				ClassStatement best = genType.getResolved().getClassOf();
 				//
 				final Operation<ClassInvocation> oi = DeduceTypes2.ClassInvocationMake.withGenericPart(best,
-						constructorName, aTyn1, deduceTypes2);
+				                                                                                       constructorName, aTyn1, deduceTypes2);
 				assert oi.mode() == Mode.SUCCESS;
 
 				ClassInvocation clsinv2 = oi.success();
@@ -394,7 +394,7 @@ public class GenTypeImpl implements GenType {
 		case USER_CLASS:
 			resolved = aType;
 		default:
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("48 Unknown in set: " + aType);
+			SimplePrintLoggerToRemoveSoon.println_err_2("48 Unknown in set: " + aType);
 		}
 	}
 

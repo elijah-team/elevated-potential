@@ -3,8 +3,8 @@ package tripleo.elijah_elevated_durable.comp;
 import org.apache.commons.codec.digest.DigestUtils;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.paths_impl.CP_OutputPath;
-import tripleo.elijah.util.DeferredAction;
-import tripleo.elijah.util.Eventual;
+import tripleo.elijah_fluffy.util.DeferredAction;
+import tripleo.elijah_fluffy.util.Eventual;
 
 import java.util.List;
 

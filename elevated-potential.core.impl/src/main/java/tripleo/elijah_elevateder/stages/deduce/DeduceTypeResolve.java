@@ -15,11 +15,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.contexts.OS_TypeNameElement;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated_durable.lang_impl.AbstractCodeGen;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.function.Supplier;
 
@@ -103,7 +103,7 @@ public class DeduceTypeResolve {
 		GenType genType = _inj().new_GenTypeImpl();
 
 		public void logProgress(int ignoredCode, String message) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(message);
+			SimplePrintLoggerToRemoveSoon.println_err_2(message);
 		}
 
 		@Override

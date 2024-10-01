@@ -15,7 +15,7 @@ import tripleo.elijah.contexts.IClassContext;
 import tripleo.elijah.contexts.OS_TypeNameElement;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevated_durable.lang_impl.AliasStatementImpl;
 import tripleo.elijah_elevated_durable.lang_impl.IdentExpressionImpl;
 import tripleo.elijah_elevateder.DebugFlags;

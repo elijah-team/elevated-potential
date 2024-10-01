@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.nextgen.names.i.EN_Understanding;
 import tripleo.elijah.lang.nextgen.names.i.EN_Usage;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_elevated_durable.names_impl.ENU_ResolveToFunction;

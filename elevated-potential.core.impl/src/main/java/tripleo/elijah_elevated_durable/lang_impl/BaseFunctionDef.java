@@ -17,6 +17,7 @@ import tripleo.elijah.lang.nextgen.names.i.EN_Name;
 import tripleo.elijah.lang.types.OS_FuncType;
 import tripleo.elijah.lang2.ElElementVisitor;
 import tripleo.elijah_elevateder.lang.types.OS_FuncTypeImpl;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 
@@ -105,7 +106,7 @@ public abstract class BaseFunctionDef implements FunctionDef, Documentable, Clas
 	@Override // OS_Element
 	public Context getContext() {
 		if (_a == null) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("903106 creation logic error [IllegalStateException]");
+			SimplePrintLoggerToRemoveSoon.println_err_4("903106 creation logic error [IllegalStateException]");
 			return null;
 		}
 		return _a.getContext();

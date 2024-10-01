@@ -4,7 +4,7 @@ import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
 import tripleo.elijah.nextgen.outputtree.EOT_Nameable;
-import tripleo.elijah.util.Maybe;
+import tripleo.elijah_fluffy.util.Maybe;
 import tripleo.wrap.File;
 
 public class CM_CompilerInput implements EOT_Nameable {

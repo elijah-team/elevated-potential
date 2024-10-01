@@ -11,7 +11,7 @@ package tripleo.elijah_elevateder.stages.gen_fn;
 import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.Holder;
+import tripleo.elijah_fluffy.util.Holder;
 import tripleo.elijah.work.WorkJob;
 import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_elevated_durable.lang_impl.*;

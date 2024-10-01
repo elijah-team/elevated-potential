@@ -6,7 +6,6 @@ import tripleo.elijah.comp.Finally.Outs;
 import tripleo.elijah.contexts.ModuleContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stateful.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated_durable.lang_impl.BaseFunctionDef;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.contexts.ModuleContextImpl;
@@ -15,6 +14,7 @@ import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.deduce.nextgen.DR_Ident;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 
@@ -56,7 +56,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 
 							for (EvaContainer.VarTableEntry entry : ((EvaContainerNC) result.getNode()).varTable) {
 								if (!entry.isResolved()) {
-									tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("629 entry not resolved " + entry.nameToken);
+									SimplePrintLoggerToRemoveSoon.println_err_4("629 entry not resolved " + entry.nameToken);
 								}
 							}
 						});
@@ -510,7 +510,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 						var pt = dt2._inj().new_DR_PossibleTypeCI(ci, fi);
 						b.addPossibleType(pt);
 					} else {
-						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("460460 Can't create PossibleType because dt2 == null");
+						SimplePrintLoggerToRemoveSoon.println_out_4("460460 Can't create PossibleType because dt2 == null");
 					}
 
 					// deduceTypes2.deducePhase.reg
@@ -558,7 +558,7 @@ public class DeduceElement3_IdentTableEntry extends DefaultStateful implements I
 											var pt2 = dt2._inj().new_DR_PossibleTypeCI(ci11, null);
 											b.addPossibleType(pt2);
 										} else {
-											tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("460507 Can't create PossibleType because dt2 == null");
+											SimplePrintLoggerToRemoveSoon.println_out_4("460507 Can't create PossibleType because dt2 == null");
 										}
 									} else {
 										// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("364 " + principal.getIdent().getText());

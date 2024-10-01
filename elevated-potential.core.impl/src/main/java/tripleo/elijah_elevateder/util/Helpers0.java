@@ -16,10 +16,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.Operation;
-import tripleo.elijah.util.TabbedOutputStream;
+import tripleo.elijah_fluffy.util.Operation;
+import tripleo.elijah_fluffy.util.TabbedOutputStream;
 import tripleo.elijah_elevated_durable.lang_impl.*;
 import tripleo.elijah_elevated_durable.parser.antlr2.ElijjahTokenTypes;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.io.*;
 import java.security.MessageDigest;
@@ -125,7 +126,7 @@ public enum Helpers0 {
 	}
 
 	public static void printXML(final Object obj, @NotNull final TabbedOutputStream tos) {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("** XStream support has been disabled");
+		SimplePrintLoggerToRemoveSoon.println_err_4("** XStream support has been disabled");
 		/*
 		 * final XStream x = new XStream(); //x.setMode(XStream.ID_REFERENCES);
 		 * x.toXML(obj, tos.getStream());

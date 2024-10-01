@@ -7,14 +7,14 @@ import tripleo.elijah_elevateder.stages.gen_fn.EvaNamespace;
 import tripleo.elijah_elevateder.stages.gen_fn.EvaNode;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResult;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResultEnv;
-import tripleo.elijah.util.BufferTabbedOutputStream;
+import tripleo.elijah_fluffy.util.BufferTabbedOutputStream;
 import tripleo.util.buffer.Buffer;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 class C2C_CodeForConstructor implements Generate_Code_For_Method.C2C_Results {
 	final                  GenerateResult           gr;

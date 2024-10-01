@@ -7,8 +7,8 @@ import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah_elevated_durable.comp.CC_SetSilent;
 import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah_fluffy.util.Ok;
+import tripleo.elijah_fluffy.util.Operation;
 import tripleo.vendor.org_apache_commons_cli.*;
 
 import java.util.List;

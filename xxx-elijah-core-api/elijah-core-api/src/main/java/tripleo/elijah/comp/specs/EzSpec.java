@@ -1,11 +1,11 @@
 package tripleo.elijah.comp.specs;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.util.*;
 
 import java.io.*;
 import java.util.Objects;
 
+import tripleo.elijah_fluffy.util.Operation;
 import tripleo.wrap.File;
 
 public interface EzSpec {

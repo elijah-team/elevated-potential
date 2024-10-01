@@ -11,6 +11,7 @@ import tripleo.elijah_elevateder.stages.gen_fn.EvaNode;
 import tripleo.elijah_elevateder.stages.gen_generic.*;
 import tripleo.elijah_elevateder.stages.gen_generic.pipeline_impl.*;
 import tripleo.elijah_elevateder.work.EDL_WorkList;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 import java.util.function.*;
@@ -70,6 +71,6 @@ public class GM_GenerateModule {
 //	}
 	
 	public void logProgress(int code, String message) {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(""+code+" " + message);
+		SimplePrintLoggerToRemoveSoon.println_out_2(""+code+" " + message);
 	}
 }

@@ -1,9 +1,9 @@
 package tripleo.elijah_elevateder.stages.deduce.post_bytecode;
 
 import org.jetbrains.annotations.*;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevateder.stages.deduce.DeduceTypes2;
 import tripleo.elijah_elevateder.stages.deduce.DeduceTypes2.DeduceTypes2Injector;
 import tripleo.elijah_elevateder.stages.deduce.FoundElement;

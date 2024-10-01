@@ -33,7 +33,6 @@ import tripleo.elijah.nextgen.inputtree.EIT_InputTree;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah.paths_impl.EDL_CP_Paths;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated.comp.input.EDL_CompilerInput;
 import tripleo.elijah_elevated.comp.pushwork.PW_CompilerController;
@@ -56,6 +55,7 @@ import tripleo.elijah_elevateder.stages.deduce.IFunctionMapHook;
 import tripleo.elijah_elevateder.stages.logging.ElLog_;
 import tripleo.elijah_elevateder.world.i.LivingRepo;
 import tripleo.elijah_elevateder.world.i.WorldModule;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -66,9 +66,9 @@ public class EDL_Compilation implements Compilation, EventualRegister {
 	private final Map<CompilerInput, CM_CompilerInput>                           _ci_models;
 	private final List<Triple<CN_CompilerInputWatcher.e, CompilerInput, Object>> _ciw_buffer;
 
-	private final    FluffyCompImpl                      _fluffyComp;
+	private final FluffyCompImpl       _fluffyComp;
 	//	@Getter
-	private final    CompilationConfig                   cfg;
+	private final CompilationConfig    cfg;
 	//	@Getter
 	private final CompilationEnclosure compilationEnclosure;
 	//	@Getter
@@ -102,8 +102,8 @@ public class EDL_Compilation implements Compilation, EventualRegister {
 	private          CompilerInput              __advisement;
 	private          ICompilationAccess3        compilationAccess3;
 	private @NotNull CK_Monitor                 defaultMonitor;
-	private          CPX_Signals                         cpxSignals;
-	private          Eventual<CP_Paths>                  _p_pathsEventual = new Eventual<>();
+	private       CPX_Signals        cpxSignals;
+	private       Eventual<CP_Paths> _p_pathsEventual = new Eventual<>();
 
 	public EDL_Compilation(final @NotNull ErrSink aErrSink, final IO aIo) {
 		errSink            = aErrSink;
@@ -413,7 +413,7 @@ public class EDL_Compilation implements Compilation, EventualRegister {
 	@Override
 	public void pushItem(CompilerInstructions aci) {
 		if (xxx.contains(aci)) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("** [CompilerInstructions::pushItem] duplicate instructions: " + aci.getFilename());
+			SimplePrintLoggerToRemoveSoon.println_err_4("** [CompilerInstructions::pushItem] duplicate instructions: " + aci.getFilename());
 			return;
 		} else {
 			xxx.add(aci);

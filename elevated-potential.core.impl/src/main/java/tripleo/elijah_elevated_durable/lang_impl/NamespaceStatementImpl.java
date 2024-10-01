@@ -12,9 +12,10 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.contexts.NamespaceContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevateder.contexts.NamespaceContextImpl;
 import tripleo.elijah_elevateder.lang.types.OS_UserNamespaceType;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 /**
  * @author Tripleo(sb)
@@ -58,7 +59,7 @@ public class NamespaceStatementImpl extends _CommonNC implements Documentable, C
 			items.add((ClassItem) anElement);
 		} else {
 			final String s = String.format("[NamespaceStatement#add] not a ClassItem: %s", anElement);
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(s);
+			SimplePrintLoggerToRemoveSoon.println_err_2(s);
 		}
 	}
 

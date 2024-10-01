@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 public class LSPrintStream implements XPrintStream {
 	private final StringBuilder sb = new StringBuilder();

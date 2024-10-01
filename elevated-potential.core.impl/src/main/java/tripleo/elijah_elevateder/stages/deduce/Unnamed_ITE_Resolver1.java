@@ -3,13 +3,13 @@ package tripleo.elijah_elevateder.stages.deduce;
 import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated_durable.lang_impl.BaseFunctionDef;
 import tripleo.elijah_elevated_durable.lang_impl.VariableStatementImpl;
 import tripleo.elijah_elevateder.lang.types.OS_FuncTypeImpl;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.gen_fn.IdentTableEntry.ITE_Resolver_Result;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.List;
 

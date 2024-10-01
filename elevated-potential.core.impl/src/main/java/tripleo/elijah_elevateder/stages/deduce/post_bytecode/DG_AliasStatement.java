@@ -5,7 +5,7 @@ import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevated_durable.lang_impl.AliasStatementImpl;
 import tripleo.elijah_elevateder.stages.deduce.*;
 

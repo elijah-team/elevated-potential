@@ -18,11 +18,12 @@ import tripleo.elijah.entrypoints.EntryPoint;
 import tripleo.elijah.g.GOS_Module;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.Helpers;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevated_durable.fluffy_impl.FluffyModuleImpl;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.entrypoints.MainClassEntryPoint;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -223,7 +224,7 @@ public class OS_ModuleImpl implements OS_Element, OS_Container, tripleo.elijah.l
 					}
 					assert entryPoints.size() == eps || entryPoints.size() == eps + 1; // TODO this will fail one day
 
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("243 " + entryPoints + " " + _fileName);
+					SimplePrintLoggerToRemoveSoon.println_out_2("243 " + entryPoints + " " + _fileName);
 //					break; // allow for "extend" class
 				}
 			}

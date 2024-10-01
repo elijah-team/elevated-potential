@@ -3,9 +3,10 @@ package tripleo.elijah_elevateder.stages.deduce.tastic;
 import org.jdeferred2.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
+import tripleo.elijah_fluffy.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.ReadySupplier_1;
 
 import java.util.*;
 

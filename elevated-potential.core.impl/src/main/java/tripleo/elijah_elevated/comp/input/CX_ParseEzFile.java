@@ -7,8 +7,7 @@ import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.i.CY_EzSpecParser;
 import tripleo.elijah.comp.specs.EzCache;
 import tripleo.elijah.comp.specs.EzSpec;
-import tripleo.elijah.diagnostic.ExceptionDiagnostic;
-import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.diagnostic.ExceptionDiagnostic;
 import tripleo.elijah_elevated_durable.comp_model.CM_Ez;
 import tripleo.elijah_elevated_durable.comp_model.CM_Factory;
 import tripleo.elijah_elevated_durable.parser.PCon;
@@ -16,6 +15,7 @@ import tripleo.elijah_elevated_durable.parser.antlr2.EzLexer;
 import tripleo.elijah_elevated_durable.parser.antlr2.EzParser;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.comp.specs.EDL_EzSpec;
+import tripleo.elijah_fluffy.util.*;
 import tripleo.wrap.File;
 
 import java.io.IOException;
@@ -42,7 +42,7 @@ public enum CX_ParseEzFile {;
 	public static Operation2<CompilerInstructions> parseAndCache(final EzSpec aSpec,
 	                                                            final EzCache aEzCache,
 	                                                            final String absolutePath) {
-		final @NotNull Operation<InputStream> cis = aSpec.sis();
+		final @NotNull Operation<InputStream>  cis = aSpec.sis();
 		final Operation2<CompilerInstructions> cio;
 
 		if (cis.mode() == Mode.SUCCESS) {

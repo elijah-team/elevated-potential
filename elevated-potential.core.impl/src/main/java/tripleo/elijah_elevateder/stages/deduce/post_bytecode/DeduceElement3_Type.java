@@ -3,7 +3,7 @@ package tripleo.elijah_elevateder.stages.deduce.post_bytecode;
 import tripleo.elijah.lang.i.Context;
 import tripleo.elijah_elevateder.stages.gen_fn.GenType;
 import tripleo.elijah_elevateder.stages.gen_fn.TypeTableEntry;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah_fluffy.util.Operation2;
 
 /**
  * Also {@link DeduceType3}

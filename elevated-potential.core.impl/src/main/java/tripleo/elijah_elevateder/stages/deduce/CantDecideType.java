@@ -9,8 +9,8 @@
 package tripleo.elijah_elevateder.stages.deduce;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.diagnostic.Locatable;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
 import tripleo.elijah_elevated_durable.lang_impl.VariableStatementImpl;
 import tripleo.elijah_elevateder.stages.gen_fn.TypeTableEntry;
 import tripleo.elijah_elevateder.stages.gen_fn.VariableTableEntry;

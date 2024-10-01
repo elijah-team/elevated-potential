@@ -13,6 +13,7 @@ import tripleo.elijah.contexts.ILoopContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
 import tripleo.elijah_elevateder.contexts.LoopContextImpl;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 	public LoopImpl(final OS_Element aParent) {
 		// document assumption
 		if (!(aParent instanceof FunctionDef) && !(aParent instanceof Loop)) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("parent is not FunctionDef or Loop");
+			SimplePrintLoggerToRemoveSoon.println_out_2("parent is not FunctionDef or Loop");
 		}
 		parent = aParent;
 		_a = new AttachedImpl(parent.getContext());
@@ -43,7 +44,7 @@ public class LoopImpl implements tripleo.elijah.lang.i.Loop {
 	public LoopImpl(final OS_Element aParent, final Context ctx) {
 		// document assumption
 		if (!(aParent instanceof FunctionDef) && !(aParent instanceof Loop))
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("parent is not FunctionDef or Loop");
+			SimplePrintLoggerToRemoveSoon.println_out_2("parent is not FunctionDef or Loop");
 		parent = aParent;
 		_a = new AttachedImpl(new LoopContextImpl(ctx, this));
 	}

@@ -12,6 +12,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah_elevateder.stages.deduce.FunctionInvocation;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 
@@ -51,14 +52,14 @@ public class Dependency {
 			if (generatedFunction != null)
 				deps.add(generatedFunction.getDependency());
 			else
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("52 false FunctionInvocation " + dependentFunction);
+				SimplePrintLoggerToRemoveSoon.println_err_2("52 false FunctionInvocation " + dependentFunction);
 		}
 		for (GenType dependentType : aDependentTypes) {
 			final EvaContainerNC node = (EvaContainerNC) dependentType.getNode();
 			if (node != null)
 				deps.add(node.getDependency());
 			else {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2(
+				SimplePrintLoggerToRemoveSoon.println_err_2(
 						"46 node is null " + (dependentType.getResolved() != null ? dependentType.getResolved()
 								: dependentType.getResolvedn()));
 				final Dependency d = new Dependency(null);

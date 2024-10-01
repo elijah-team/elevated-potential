@@ -13,7 +13,7 @@ package tripleo.elijah_elevated_durable.lang_impl;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 
 import java.io.File;
 

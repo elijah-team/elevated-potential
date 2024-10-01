@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.nextgen.reactive.DefaultReactive;
-import tripleo.elijah.util.Eventual;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.Eventual;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.deduce.nextgen.DR_Item;
 

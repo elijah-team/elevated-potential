@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static tripleo.elijah.util.Helpers.String_join;
+import static tripleo.elijah_fluffy.util.Helpers.String_join;
 
 /**
  * (Unrealized) Intent: provide annotations in output code to show what

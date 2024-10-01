@@ -4,7 +4,7 @@ import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah_elevateder.comp.notation.GN_PL_Run2;
 import tripleo.elijah.g.*;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.util.Eventual;
+import tripleo.elijah_fluffy.util.Eventual;
 
 public interface WorldModule extends GWorldModule {
 	EIT_ModuleInput getEITInput();

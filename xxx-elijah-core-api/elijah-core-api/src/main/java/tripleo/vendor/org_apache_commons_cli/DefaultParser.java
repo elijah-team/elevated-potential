@@ -31,7 +31,7 @@ package tripleo.vendor.org_apache_commons_cli;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 
 import java.util.*;
 import java.util.stream.Collectors;

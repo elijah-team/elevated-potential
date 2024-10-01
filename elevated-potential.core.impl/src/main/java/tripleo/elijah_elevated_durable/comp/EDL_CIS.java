@@ -8,11 +8,10 @@ import io.reactivex.rxjava3.subjects.Subject;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.i.IProgressSink;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.DebugFlags;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.comp.CompilerInstructionsObserver;
-import tripleo.elijah_fluffy.util.ObservableCompletableProcess;
+import tripleo.elijah_fluffy.util.*;
 
 public class EDL_CIS implements Observer<CompilerInstructions> {
 	private final ObservableCompletableProcess<CompilerInstructions> ocp_ci                      = new ObservableCompletableProcess<>();

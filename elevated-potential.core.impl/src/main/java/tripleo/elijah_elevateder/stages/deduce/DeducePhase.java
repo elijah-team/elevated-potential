@@ -23,7 +23,6 @@ import tripleo.elijah.nextgen.*;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.logging.*;
 import tripleo.elijah.stateful.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah.work.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevateder.comp.Compilation;
@@ -44,13 +43,14 @@ import tripleo.elijah_elevateder.stages.post_deduce.DefaultCodeRegistrar;
 import tripleo.elijah_elevateder.work.EDL_WorkList;
 import tripleo.elijah_elevateder.work.EDL_WorkManager;
 import tripleo.elijah_elevateder.world.i.WorldModule;
-import tripleo.elijah_fluffy.util.DefaultEventualRegister;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah_fluffy.util.Helpers.*;
 
 /**
  * Created 12/24/20 3:59 AM
@@ -306,7 +306,7 @@ public class DeducePhase extends _RegistrationTarget implements ReactiveDimensio
 
 					if (ef1[0] == null) {
 						// throw new AssertionError();
-						tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("****************************** no function generated");
+						SimplePrintLoggerToRemoveSoon.println_err_4("****************************** no function generated");
 					} else {
 						pa.activeFunction(ef1[0]);
 					}

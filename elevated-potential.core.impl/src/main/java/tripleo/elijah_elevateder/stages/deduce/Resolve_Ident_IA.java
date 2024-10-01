@@ -14,13 +14,13 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.*;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah_elevated_durable.lang_impl.*;
 import tripleo.elijah_elevated_durable.names_impl.ENU_ClassName;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.*;
 
 import java.text.MessageFormat;
 import java.util.Collection;
@@ -66,7 +66,7 @@ public class Resolve_Ident_IA {
 
 		public OS_Element getResolvedElement() {
 			if (deduceTypes2 == null) { // TODO remove this ASAP. Should never happen
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("5454 Should never happen. gf is not deduced.");
+				SimplePrintLoggerToRemoveSoon.println_err_2("5454 Should never happen. gf is not deduced.");
 				return null;
 				// throw new IllegalStateException("5454 Should never happen. gf is not
 				// deduced.");
@@ -342,7 +342,7 @@ public class Resolve_Ident_IA {
 
 			// final OS_Element el2 = dei.getResolvedElement();
 
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("  70 " + el2);
+			SimplePrintLoggerToRemoveSoon.println_out_2("  70 " + el2);
 
 			final @NotNull List<InstructionArgument> s = BaseEvaFunction._getIdentIAPathList(identIA);
 
@@ -460,7 +460,7 @@ public class Resolve_Ident_IA {
 				if (ci != null) {
 					pte.setClassInvocation(ci);
 				} else
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("542 Null ClassInvocation");
+					SimplePrintLoggerToRemoveSoon.println_err_2("542 Null ClassInvocation");
 			}
 
 			pte.setFunctionInvocation(fi);
@@ -647,7 +647,7 @@ public class Resolve_Ident_IA {
 //				assert idte.getStatus() != BaseTableEntry.Status.UNCHECKED;
 			final String normal_path = generatedFunction.getIdentIAPathNormal(identIA);
 			if (idte.resolveExpectation == null) {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("385 idte.resolveExpectation is null for " + idte);
+				SimplePrintLoggerToRemoveSoon.println_err_2("385 idte.resolveExpectation is null for " + idte);
 			} else
 				idte.resolveExpectation.satisfy(normal_path);
 		} else if (idte.getStatus() == BaseTableEntry.Status.KNOWN) {

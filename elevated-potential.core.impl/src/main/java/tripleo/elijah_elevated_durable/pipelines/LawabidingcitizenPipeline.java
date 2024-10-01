@@ -4,7 +4,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.g.GPipelineMember;
-import tripleo.elijah.util.Ok;
+import tripleo.elijah_fluffy.util.Ok;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_elevateder.stages.hooligan.pipeline_impl.LawabidingcitizenPipelineImpl;

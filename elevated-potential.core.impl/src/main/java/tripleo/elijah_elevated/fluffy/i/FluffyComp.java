@@ -2,8 +2,8 @@ package tripleo.elijah_elevated.fluffy.i;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.util.Eventual;
-import tripleo.elijah.util.EventualRegister;
+import tripleo.elijah_fluffy.util.Eventual;
+import tripleo.elijah_fluffy.util.EventualRegister;
 import tripleo.elijah_elevated_durable.lang_impl.OS_ModuleImpl;
 
 public interface FluffyComp extends EventualRegister {

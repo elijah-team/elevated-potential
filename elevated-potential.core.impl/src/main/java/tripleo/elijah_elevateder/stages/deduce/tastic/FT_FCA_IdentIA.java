@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.BuiltInTypes;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevated_durable.lang_impl.AliasStatementImpl;
 import tripleo.elijah_elevated_durable.lang_impl.VariableStatementImpl;
 import tripleo.elijah_elevateder.stages.deduce.*;
@@ -24,6 +24,7 @@ import tripleo.elijah_elevateder.stages.deduce.declarations.DeferredMemberFuncti
 import tripleo.elijah_elevateder.stages.deduce.nextgen.DR_Ident;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah_prolific.v.V;
 
 import java.util.List;
@@ -703,7 +704,7 @@ import java.util.stream.Collectors;
 			case MODULO:
 			case SUBTRACTION:
 				int y = 2;
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("2363");
+				SimplePrintLoggerToRemoveSoon.println_err_2("2363");
 				break;
 			case GET_ITEM:
 				final @NotNull GetItemExpression gie = (GetItemExpression) e;

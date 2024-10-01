@@ -2,15 +2,15 @@ package tripleo.elijah_elevateder.comp;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.world.i.WorldModule;
+import tripleo.elijah_fluffy.util.Operation2;
 
 import java.io.*;
 
 public class InputRequest { // TODO 09/08 Convert to record
 	private final File _file;
-	private final LibraryStatementPart lsp;
-	private Operation2<WorldModule>    op;
+	private final LibraryStatementPart    lsp;
+	private       Operation2<WorldModule> op;
 
 	public InputRequest(final File aFile, final @Nullable LibraryStatementPart aLsp) {
 		_file = aFile;

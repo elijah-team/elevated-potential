@@ -15,8 +15,8 @@ import antlr.Token;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.Helpers;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 
 /**
  * @author Tripleo(sb)

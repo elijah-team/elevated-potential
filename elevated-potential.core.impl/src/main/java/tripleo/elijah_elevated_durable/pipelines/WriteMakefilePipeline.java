@@ -6,17 +6,17 @@ import tripleo.elijah.g.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
 
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_elevateder.nextgen.outputtree.EOT_OutputFileImpl;
 import tripleo.elijah_elevateder.stages.gen_generic.Old_GenerateResult;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah_fluffy.util.Helpers.*;
 
 public class WriteMakefilePipeline extends PipelineMember implements Consumer<Supplier<Old_GenerateResult>> {
 	private final IPipelineAccess pa;

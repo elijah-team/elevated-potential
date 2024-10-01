@@ -10,13 +10,11 @@ import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
 
-import tripleo.elijah.util.*;
-
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevated_durable.pipelines.WritePipeline;
@@ -24,6 +22,7 @@ import tripleo.elijah_elevateder.comp.nextgen.pn.SC_Fai_;
 import tripleo.elijah_elevateder.comp.nextgen.pn.SC_Suc_;
 import tripleo.elijah_elevateder.nextgen.outputtree.EOT_OutputFileImpl;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResult;
+import tripleo.elijah_fluffy.util.*;
 import tripleo.elijah_prolific.v.V;
 import tripleo.wrap.File;
 

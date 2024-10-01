@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.ModuleListener;
 import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.util.Eventual;
+import tripleo.elijah_fluffy.util.Eventual;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
 import tripleo.elijah_elevateder.comp.notation.GN_PL_Run2;
 import tripleo.elijah_elevateder.stages.deduce.DeducePhase;

@@ -4,7 +4,7 @@ import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.ci.LibraryStatementPart;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.compiler_model.CM_Module;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 import tripleo.elijah_elevated_durable.comp.CK_ProcessInitialAction;
 import tripleo.elijah_elevated_durable.compilation_bus.EDL_CompilationRunner;
 import tripleo.wrap.File;

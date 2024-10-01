@@ -20,7 +20,8 @@ package tripleo.vendor.org_apache_commons_cli;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.CompilerInput;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.io.Serializable;
 import java.util.*;
@@ -179,7 +180,7 @@ public class CommandLine implements Serializable {
 		try {
 			return getParsedOptionValue(opt);
 		} catch (final ParseException pe) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("Exception found converting " + opt + " to desired type: " + pe.getMessage());
+			SimplePrintLoggerToRemoveSoon.println_err_4("Exception found converting " + opt + " to desired type: " + pe.getMessage());
 			return null;
 		}
 	}

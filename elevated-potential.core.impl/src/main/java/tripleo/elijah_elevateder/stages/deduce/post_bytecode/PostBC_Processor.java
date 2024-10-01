@@ -8,10 +8,11 @@ import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.lang.i.*;
 
 
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.gen_fn.GenType;
 import tripleo.elijah_elevateder.stages.gen_fn.VariableTableEntry;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.function.*;
 
@@ -233,7 +234,7 @@ public interface PostBC_Processor {
 			case USER:
 				try {
 					final GenType aGenType = deduceTypes2.resolve_type(attached, fd_ctx);
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println2("xxxxxxxxxxxxxx " + aGenType);
+					SimplePrintLoggerToRemoveSoon.println2("xxxxxxxxxxxxxx " + aGenType);
 					r = Maybe.of(aGenType.getResolved()); // TODO incomplete!! (send whole GenType)
 					// -------------------------- vte.type.setAttached(aGenType);
 				} catch (final ResolveError aResolveError) {

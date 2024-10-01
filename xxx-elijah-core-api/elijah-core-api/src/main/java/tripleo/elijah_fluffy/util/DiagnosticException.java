@@ -1,6 +1,6 @@
 package tripleo.elijah_fluffy.util;
 
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 
 public class DiagnosticException extends Throwable {
 	private final Diagnostic d;

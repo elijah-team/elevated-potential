@@ -2,7 +2,7 @@ package tripleo.elijah_elevated_durable.comp;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.nextgen.i.CP_Path;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah_fluffy.util.Operation;
 import tripleo.elijah_elevated.comp.input.CX_ParseElijahFile;
 import tripleo.elijah_elevateder.comp.Compilation;
 

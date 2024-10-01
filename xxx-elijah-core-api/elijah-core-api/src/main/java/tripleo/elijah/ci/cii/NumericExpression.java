@@ -2,7 +2,7 @@ package tripleo.elijah.ci.cii;
 
 import tripleo.elijah.ci.CiExpression;
 import tripleo.elijah.ci.ExpressionKind;
-import tripleo.elijah.diagnostic.Locatable;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
 
 public interface NumericExpression extends CiExpression, Locatable {
 	@Override

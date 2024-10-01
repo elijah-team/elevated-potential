@@ -1,10 +1,10 @@
 package tripleo.elijah.ci.cil;
 
 import antlr.Token;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 import tripleo.elijah.ci.CiExpressionList;
 import tripleo.elijah.ci.CiListExpression;
-import tripleo.elijah.diagnostic.Locatable;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
 
 
 import java.io.File;

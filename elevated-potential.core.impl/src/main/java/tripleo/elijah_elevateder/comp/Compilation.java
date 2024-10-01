@@ -23,9 +23,9 @@ import tripleo.elijah.g.GWorldModule;
 import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah_elevateder.nextgen.comp_model.CM_CompilerInput;
 import tripleo.elijah_elevated.fluffy.i.FluffyComp;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.world.i.LivingRepo;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.List;
 

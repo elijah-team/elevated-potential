@@ -40,6 +40,7 @@ import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateFiles;
 import tripleo.elijah_elevateder.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah_elevateder.stages.write_stage.pipeline_impl.WP_Flow;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -329,7 +330,7 @@ public class CR_State implements GCR_State {
 		@Override
 		public void finishPipeline(final GPipelineMember aPM, final WP_Flow.OPS aOps) {
 			final String formatted = "[FinishPipeline] %s %s".formatted(aPM.finishPipeline_asString(), aOps);
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(formatted);
+			SimplePrintLoggerToRemoveSoon.println_err_4(formatted);
 		}
 
 		@Override

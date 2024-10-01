@@ -17,6 +17,7 @@ import tripleo.elijah_elevateder.stages.deduce.nextgen.DR_Ident;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.DG_ClassStatement;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.Map;
 
@@ -138,7 +139,7 @@ public class ProcTableListener implements BaseTableEntry.StatusListener {
 			final @NotNull ClassStatement e, final @NotNull Constructable co, final @NotNull DG_ClassStatement dcs) {
 		// tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("828282 "+((ClassStatement) e).name());
 		if ((e.name()).equals("Foo")) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("828282 Foo found");
+			SimplePrintLoggerToRemoveSoon.println_out_4("828282 Foo found");
 		}
 
 		co.resolveTypeToClass(result);
@@ -230,7 +231,7 @@ public class ProcTableListener implements BaseTableEntry.StatusListener {
 
 		if (depTracker != null) {
 			if (aGenType == null)
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("247 genType is null");
+				SimplePrintLoggerToRemoveSoon.println_err_2("247 genType is null");
 
 			if (/* aGenType == null && */ aFi.getFunction() instanceof ConstructorDef) {
 				final @NotNull ClassStatement c = aFi.getClassInvocation().getKlass();
@@ -271,7 +272,7 @@ public class ProcTableListener implements BaseTableEntry.StatusListener {
 				final DR_Ident        ident = generatedFunction.getIdent(entry);
 				ident.resolve(eh, pte);
 			} else {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("*************************** i still refuse");
+				SimplePrintLoggerToRemoveSoon.println_err_4("*************************** i still refuse");
 			}
 		}
 	}
@@ -359,7 +360,7 @@ public class ProcTableListener implements BaseTableEntry.StatusListener {
 						if (parent instanceof ClassStatement) {
 							// TODO might be wrong in the case of generics. check.
 							typeName = null;// _inj().new_OS_Type((ClassStatement) parent);
-							tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("NOTE ineresting in genericA/__preinc__");
+							SimplePrintLoggerToRemoveSoon.println_err_2("NOTE ineresting in genericA/__preinc__");
 						}
 					}
 				}

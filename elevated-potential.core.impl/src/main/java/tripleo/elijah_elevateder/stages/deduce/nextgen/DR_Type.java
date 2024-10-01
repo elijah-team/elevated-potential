@@ -2,9 +2,9 @@ package tripleo.elijah_elevateder.stages.deduce.nextgen;
 
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.nextgen.names.i.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated_durable.names_impl.ENU_IsTypeName;
 import tripleo.elijah_elevateder.stages.gen_fn.BaseEvaFunction;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 
 public class DR_Type {
 	private final BaseEvaFunction evaFunction;

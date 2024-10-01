@@ -13,7 +13,7 @@ import tripleo.elijah_elevateder.stages.deduce.DeduceTypes2;
 import tripleo.elijah_elevateder.stages.gen_fn.BaseEvaFunction;
 import tripleo.elijah_elevateder.stages.gen_fn.ProcTableEntry;
 import tripleo.elijah_elevateder.stages.gen_fn.TypeTableEntry;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah_fluffy.util.Helpers;
 
 import java.util.Collection;
 import java.util.List;

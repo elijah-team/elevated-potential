@@ -9,9 +9,8 @@ import tripleo.elijah.comp.i.CompilationClosure;
 import tripleo.elijah.graph_impl.CK_SourceFileFactory;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
 import tripleo.elijah.comp.queries.QSEZ_Reasoning;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.diagnostic.Locatable;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
 import tripleo.wrap.File;
 
 import java.io.*;

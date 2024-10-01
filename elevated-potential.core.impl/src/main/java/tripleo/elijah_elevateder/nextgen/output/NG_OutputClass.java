@@ -2,7 +2,7 @@ package tripleo.elijah_elevateder.nextgen.output;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.nextgen.outputtree.EOT_FileNameProvider;
-import tripleo.elijah.util.BufferTabbedOutputStream;
+import tripleo.elijah_fluffy.util.BufferTabbedOutputStream;
 import tripleo.elijah_elevateder.stages.garish.GarishClass;
 import tripleo.elijah_elevateder.stages.gen_c.GenerateC;
 import tripleo.elijah_elevateder.stages.gen_fn.EvaClass;
@@ -12,7 +12,7 @@ import tripleo.elijah_elevateder.stages.generate.OutputStrategyC;
 
 import java.util.List;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 public class NG_OutputClass implements NG_OutputItem {
 	private GarishClass   garishClass;

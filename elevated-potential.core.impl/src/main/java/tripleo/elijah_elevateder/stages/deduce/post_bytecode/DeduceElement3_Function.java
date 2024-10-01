@@ -13,7 +13,7 @@ import tripleo.elijah_elevateder.stages.deduce.FoundElement;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.IdentIA;
 import tripleo.elijah_elevateder.stages.instructions.InstructionArgument;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Collection;

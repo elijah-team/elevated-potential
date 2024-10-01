@@ -4,7 +4,7 @@
 package tripleo.util.io;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -4,7 +4,7 @@ import tripleo.elijah.comp.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.util.Operation2;
 
 public interface CK_SourceFile<T> {
 	CompilerInput compilerInput();

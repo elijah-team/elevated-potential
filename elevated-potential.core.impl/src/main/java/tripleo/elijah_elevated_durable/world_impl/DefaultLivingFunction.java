@@ -3,7 +3,7 @@ package tripleo.elijah_elevated_durable.world_impl;
 import org.jdeferred2.DoneCallback;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.util.Eventual;
+import tripleo.elijah_fluffy.util.Eventual;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah_elevated.fluffy.i.FluffyComp;

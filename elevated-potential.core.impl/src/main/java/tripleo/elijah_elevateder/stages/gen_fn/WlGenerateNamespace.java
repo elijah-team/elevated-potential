@@ -16,7 +16,7 @@ import tripleo.elijah.lang.i.NamespaceStatement;
 import tripleo.elijah_elevateder.stages.deduce.DeducePhase;
 import tripleo.elijah_elevateder.stages.deduce.NamespaceInvocation;
 import tripleo.elijah_elevateder.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah.work.WorkJob;
 import tripleo.elijah.work.WorkManager;
 

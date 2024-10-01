@@ -25,22 +25,22 @@ import tripleo.elijah_elevated_durable.comp.EDL_IO;
 import tripleo.elijah_elevateder.comp.*;
 import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
 import tripleo.elijah_elevated_durable.comp.EDL_CompilerController;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah_elevateder.factory.NonOpinionatedBuilder;
 import tripleo.elijah_elevateder.factory.comp.CompilationFactory;
 import tripleo.elijah.nextgen.outputstatement.EG_Statement;
 import tripleo.elijah.nextgen.outputtree.*;
 import tripleo.elijah_elevateder.stages.gen_c.Emit;
 import tripleo.elijah_elevateder.stages.write_stage.pipeline_impl.NG_OutputRequest;
-import tripleo.elijah.util.Helpers;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah_fluffy.util.Helpers;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah_elevated.comp.input.EDL_CompilerInput;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static tripleo.elijah_elevateder._TestBasicHelper.assertLiveClass;
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 /**
  * @author Tripleo(envy)

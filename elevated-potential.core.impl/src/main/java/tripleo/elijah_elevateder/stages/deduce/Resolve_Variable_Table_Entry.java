@@ -13,11 +13,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.contexts.IFunctionContext;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_elevated_durable.lang_impl.*;
@@ -25,6 +24,7 @@ import tripleo.elijah_elevateder.lang.types.OS_FuncExprType;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.*;
 import tripleo.elijah_elevateder.stages.deduce.tastic.DT_External_2;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -266,7 +266,7 @@ class Resolve_Variable_Table_Entry {
 						});
 					}
 
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("118118 Making external for " + debugExpression);
+					SimplePrintLoggerToRemoveSoon.println_err_4("118118 Making external for " + debugExpression);
 				}
 			} else if (aPot.tableEntry == null) {
 				final OS_Element el = vte.getResolvedElement();

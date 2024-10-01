@@ -2,7 +2,7 @@ package tripleo.elijah_elevateder.stages.gen_generic;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.Ok;
+import tripleo.elijah_fluffy.util.Ok;
 
 import java.util.function.Consumer;
 

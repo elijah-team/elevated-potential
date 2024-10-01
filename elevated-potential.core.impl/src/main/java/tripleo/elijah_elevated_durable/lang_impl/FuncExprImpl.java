@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.contexts.IFuncExprContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevateder.contexts.FuncExprContextImpl;
 
 import java.util.List;

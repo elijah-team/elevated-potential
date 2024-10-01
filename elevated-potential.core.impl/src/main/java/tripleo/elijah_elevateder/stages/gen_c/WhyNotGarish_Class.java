@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.CompProgress;
 import tripleo.elijah.nextgen.reactive.Reactivable;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.stages.garish.GarishClass;
 import tripleo.elijah_elevateder.stages.garish.GarishClass__addClass_1;

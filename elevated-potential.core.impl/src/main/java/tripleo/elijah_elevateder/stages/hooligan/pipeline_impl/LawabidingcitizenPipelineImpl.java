@@ -7,10 +7,11 @@ import tripleo.elijah.diagnostic.*;
 import tripleo.elijah.nextgen.inputtree.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.nextgen.outputtree.EOT_OutputFileImpl;
 import tripleo.elijah_elevateder.world.i.WorldModule;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.util.CompletableProcess;
 
 import java.util.*;
 import java.util.stream.*;

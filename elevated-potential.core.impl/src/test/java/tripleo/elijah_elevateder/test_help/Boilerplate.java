@@ -24,7 +24,7 @@ import tripleo.elijah_elevateder.work.EDL_WorkManager;
 
 import java.util.List;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 // TODO replace with CompilationFlow
 public class Boilerplate {

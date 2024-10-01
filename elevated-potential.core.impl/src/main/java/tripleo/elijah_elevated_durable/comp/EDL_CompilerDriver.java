@@ -2,7 +2,7 @@ package tripleo.elijah_elevated_durable.comp;
 
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah_fluffy.util.Operation;
 import tripleo.elijah_elevated_durable.comp_driven.CD_CompilationRunnerStart_1;
 import tripleo.elijah_elevated_durable.comp_driven.CD_FindStdLibImpl;
 

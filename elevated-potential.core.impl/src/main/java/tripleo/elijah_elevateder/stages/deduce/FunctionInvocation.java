@@ -12,16 +12,16 @@ import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated_durable.lang_impl.LangGlobals;
 import tripleo.elijah_elevateder.stages.deduce.nextgen.DeduceCreationContext;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.__LFOE_Q;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.work.EDL_WorkList;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.List;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 /**
  * Created 1/21/21 9:04 PM

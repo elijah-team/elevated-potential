@@ -19,7 +19,7 @@ import tripleo.elijah_elevateder.comp.internal.Provenance;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevateder.comp.notation.GN_GenerateNodesIntoSink;
 import tripleo.elijah_elevateder.comp.notation.GN_GenerateNodesIntoSinkEnv;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah.g.GPipelineAccess;
 import tripleo.elijah.lang.i.FunctionDef;
 import tripleo.elijah.lang.i.OS_NamedElement;
@@ -29,13 +29,13 @@ import tripleo.elijah.nextgen.outputtree.*;
 
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.gen_generic.DoubleLatch;
-import tripleo.elijah.util.Ok;
+import tripleo.elijah_fluffy.util.Ok;
 import tripleo.elijah_elevateder.nextgen.outputtree.EOT_OutputFileImpl;
 import tripleo.elijah_elevateder.stages.gen_generic.pipeline_impl.*;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 /**
  * Created 8/21/21 10:16 PM

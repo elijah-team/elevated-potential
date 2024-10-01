@@ -2,7 +2,7 @@ package tripleo.elijah.comp;
 
 import tripleo.elijah.comp.i.ILazyCompilerInstructions;
 import tripleo.elijah.comp.queries.CompilerInstructions_Result;
-import tripleo.elijah.util.Maybe;
+import tripleo.elijah_fluffy.util.Maybe;
 import tripleo.wrap.File;
 
 public interface CompilerInput {

@@ -11,7 +11,8 @@ package tripleo.elijah_elevated_durable.lang_impl;
 import antlr.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.util.Helpers;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 
 public class StringExpressionImpl extends AbstractExpression implements StringExpression {
 

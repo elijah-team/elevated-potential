@@ -14,18 +14,18 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.nextgen.outputstatement.*;
 
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevateder.DebugFlags;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 
 import static tripleo.elijah_elevateder.stages.deduce.DeduceTypes2.*;
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah_fluffy.util.Helpers.*;
 
 /**
  * Created 1/9/21 7:12 AM
@@ -445,19 +445,19 @@ public class CReference {
 		final List<InstructionArgument> pl = _getIdentIAPathList(identIA);
 
 		if (DebugFlags.FORCE_IGNORE) {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("\\ 172-172-172-172-172 ---------------------------------------------");
+			SimplePrintLoggerToRemoveSoon.println_out_4("\\ 172-172-172-172-172 ---------------------------------------------");
 			for (InstructionArgument instructionArgument : pl) {
 				if (instructionArgument instanceof final @NotNull ProcIA procIA) {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(""+procIA.getEntry().__debug_expression);
+					SimplePrintLoggerToRemoveSoon.println_out_4(""+procIA.getEntry().__debug_expression);
 				} else if (instructionArgument instanceof final @NotNull IdentIA argument) {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(argument.getEntry().getIdent().getText());
+					SimplePrintLoggerToRemoveSoon.println_out_4(argument.getEntry().getIdent().getText());
 				} else if (instructionArgument instanceof final @NotNull IntegerIA integerIA) {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(integerIA.getEntry().getName());
+					SimplePrintLoggerToRemoveSoon.println_out_4(integerIA.getEntry().getName());
 				}
 			}
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("- 172-172-172-172-172 ---------------------------------------------");
+			SimplePrintLoggerToRemoveSoon.println_out_4("- 172-172-172-172-172 ---------------------------------------------");
 			System.out.printf("[%d][%s]%n", aPath.length(), aPath);
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("/ 172-172-172-172-172 ---------------------------------------------");
+			SimplePrintLoggerToRemoveSoon.println_out_4("/ 172-172-172-172-172 ---------------------------------------------");
 		}
 	}
 

@@ -20,8 +20,8 @@ import tripleo.elijah_elevateder.stages.instructions.IdentIA;
 import tripleo.elijah_elevateder.stages.instructions.InstructionArgument;
 import tripleo.elijah_elevateder.stages.instructions.IntegerIA;
 import tripleo.elijah_elevateder.stages.instructions.ProcIA;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah_fluffy.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.ArrayList;
 import java.util.List;

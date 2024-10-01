@@ -15,18 +15,18 @@ import org.jdeferred2.Promise;
 import org.jdeferred2.impl.DeferredObject;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.ErrSink;
-import tripleo.elijah.diagnostic.Diagnostic;
-import tripleo.elijah.diagnostic.Diagnostic.Severity;
-import tripleo.elijah.diagnostic.Locatable;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic.Severity;
+import tripleo.elijah_fluffy.diagnostic.Locatable;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.stages.logging.ElLog;
 import tripleo.elijah.stateful.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated_durable.lang_impl.*;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.DED.DED_VTE;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.*;
 
 import java.io.PrintStream;
 import java.util.*;
@@ -658,7 +658,7 @@ public class DeduceElement3_VariableTableEntry extends DefaultStateful implement
 			if (ci != null) {
 				pte.setClassInvocation(ci);
 			} else
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err2("542 Null ClassInvocation");
+				SimplePrintLoggerToRemoveSoon.println_err2("542 Null ClassInvocation");
 		}
 
 		pte.setFunctionInvocation(fi);

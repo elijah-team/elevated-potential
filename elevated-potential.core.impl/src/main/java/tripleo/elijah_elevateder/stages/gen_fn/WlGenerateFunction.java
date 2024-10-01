@@ -18,7 +18,7 @@ import tripleo.elijah.lang.i.OS_Module;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.deduce.nextgen.DeduceCreationContext;
 import tripleo.elijah_elevateder.stages.gen_generic.ICodeRegistrar;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah.work.WorkJob;
 import tripleo.elijah.work.WorkManager;
 

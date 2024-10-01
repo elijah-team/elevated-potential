@@ -21,6 +21,7 @@ import tripleo.elijah_elevateder.stages.gen_generic.OutputFileFactoryParams;
 import tripleo.elijah_elevateder.stages.instructions.*;
 import tripleo.elijah_elevateder.test_help.Boilerplate;
 import tripleo.elijah_elevateder.util.Helpers0;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -38,7 +39,7 @@ public class GetIdentIAPathTest_ForC {
 			CompilationEnclosure ce) {
 		final CReference reference = new CReference(gc.repo(), ce);
 		var x = reference.getIdentIAPath2(ia2, Generate_Code_For_Method.AOG.GET, null);
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("258 " + x);
+		SimplePrintLoggerToRemoveSoon.println_err_4("258 " + x);
 		return x;// reference.build();
 	}
 

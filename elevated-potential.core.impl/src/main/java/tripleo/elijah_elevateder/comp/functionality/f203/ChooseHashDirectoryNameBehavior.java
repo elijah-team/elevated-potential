@@ -4,6 +4,7 @@ import org.apache.commons.codec.digest.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevated_durable.comp.EDL_IO;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.io.*;
 import java.time.*;
@@ -45,7 +46,7 @@ public class ChooseHashDirectoryNameBehavior implements ChooseDirectoryNameBehav
 
 		final File fn00 = new File("COMP", c_name);
 		final File fn0 = new File(fn00, date);
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 71 " + fn0);
+		SimplePrintLoggerToRemoveSoon.println_err_4("mkdirs 71 " + fn0);
 		fn0.mkdirs();
 
 		final String fn1 = new File(fn0, "inputs.txt").toString();

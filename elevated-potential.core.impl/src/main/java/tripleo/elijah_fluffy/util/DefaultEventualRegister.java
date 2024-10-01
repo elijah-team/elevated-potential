@@ -1,8 +1,5 @@
 package tripleo.elijah_fluffy.util;
 
-import tripleo.elijah.util.Eventual;
-import tripleo.elijah.util.EventualRegister;
-
 import java.util.ArrayList;
 import java.util.List;
 

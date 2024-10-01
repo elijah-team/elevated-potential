@@ -2,12 +2,13 @@ package tripleo.elijah.ci.cil;
 
 import antlr.Token;
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 import tripleo.elijah.ci.CiExpression;
 import tripleo.elijah.ci.CiExpressionList;
 import tripleo.elijah.ci.ExpressionKind;
 import tripleo.elijah.ci.cii.NumericExpression;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 
 import java.io.File;
@@ -116,7 +117,7 @@ public class NumericExpressionImpl implements NumericExpression {
 	@Override // CiExpression
 	public void setKind(final ExpressionKind aType) {
 		// log and ignore
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon
+		SimplePrintLoggerToRemoveSoon
 				.println_err_2("Trying to set ExpressionType of NumericExpression to " + aType.toString());
 	}
 

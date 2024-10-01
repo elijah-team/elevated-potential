@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.awaitility.core.ConditionTimeoutException;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.*;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated.comp.compilation_bus.DCB_Startable;
 import tripleo.elijah_elevated.comp.compilation_bus.SingleActionProcess;

@@ -13,10 +13,10 @@ import org.jdeferred2.impl.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.DeduceElement3_ProcTableEntry;
 import tripleo.elijah_elevateder.stages.instructions.*;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 
@@ -48,7 +48,7 @@ public class ProcTableEntry extends BaseTableEntry implements TableEntryIV {
 
 	public final          InstructionArgument        expression_num;
 	public final @NotNull EvaExpression<IExpression> expression;
-	public final int index;
+	public final int                                              index;
 	private final DeferredObject<Ok, Void, Void>                  _p_completeDeferred      = new DeferredObject<Ok, Void, Void>();
 	private final DeferredObject2<FunctionInvocation, Void, Void> _p_onFunctionInvocations = new DeferredObject2<FunctionInvocation, Void, Void>();
 	public @NotNull DeduceProcCall                                dpc                      = new DeduceProcCall(this);
@@ -225,10 +225,10 @@ public class ProcTableEntry extends BaseTableEntry implements TableEntryIV {
 		case 0:
 			throw new IllegalStateException();
 		case 1:
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("136 pte not finished resolving " + this);
+			SimplePrintLoggerToRemoveSoon.println_err_2("136 pte not finished resolving " + this);
 			break;
 		case 2:
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("138 Internal compiler error");
+			SimplePrintLoggerToRemoveSoon.println_err_2("138 Internal compiler error");
 			break;
 		case 3:
 			if (_p_completeDeferred.isPending())

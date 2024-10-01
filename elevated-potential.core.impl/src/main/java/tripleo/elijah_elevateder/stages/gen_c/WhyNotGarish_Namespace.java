@@ -16,7 +16,7 @@ import tripleo.elijah_elevateder.stages.gen_fn.EvaNamespace;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResultEnv;
 import tripleo.elijah_elevateder.stages.gen_generic.pipeline_impl.GenerateResultSink;
 
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevateder.DebugFlags;
 
 import tripleo.elijah_elevateder.world.i.LivingNamespace;

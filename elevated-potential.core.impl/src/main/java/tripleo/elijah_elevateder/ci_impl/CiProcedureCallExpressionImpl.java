@@ -3,7 +3,7 @@ package tripleo.elijah_elevateder.ci_impl;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.ci.ExpressionKind;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 
 public class CiProcedureCallExpressionImpl implements CiProcedureCallExpression {
 	private CiExpression      _left;

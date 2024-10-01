@@ -7,7 +7,7 @@ import org.jetbrains.annotations.*;
 import tripleo.elijah.ci.*;
 import tripleo.elijah.comp.ICompilerInstructionsObserver;
 import tripleo.elijah_elevateder.comp.i.extra.IPipelineAccess;
-import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 

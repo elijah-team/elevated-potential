@@ -1,7 +1,7 @@
 package tripleo.elijah.ci.cil;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 import tripleo.elijah.ci.CiExpression;
 import tripleo.elijah.ci.CiExpressionList;
 import tripleo.elijah.ci.ExpressionKind;

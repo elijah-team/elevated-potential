@@ -1,7 +1,7 @@
 package tripleo.elijah_elevated_durable.pipelines.write;
 
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 
 import tripleo.elijah.g.GEvaClass;
 import tripleo.elijah.g.GEvaNamespace;

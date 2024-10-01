@@ -5,10 +5,11 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.percy.CN_CompilerInputWatcher;
-import tripleo.elijah.util.Maybe;
+import tripleo.elijah_fluffy.util.Maybe;
 import tripleo.elijah_elevated_durable.comp.*;
 import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.nextgen.comp_model.CM_CompilerInput;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.wrap.File;
 
 import java.nio.file.NotDirectoryException;
@@ -40,11 +41,11 @@ public class CB_FindCIs implements CB_Action {
 
 		logProgress_Stating("outputString.size", "" + o.get().size());
 
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
+		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString.size :: " + o.get().size());
 
 		for (final CB_OutputString outputString : o.get()) {
 			// 08/13
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
+			SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: outputString :: " + outputString.getText());
 		}
 
 		// TODO capture action outputs
@@ -112,6 +113,6 @@ public class CB_FindCIs implements CB_Action {
 	}
 
 	private void logProgress_Stating(final String aSection, final String aStatement) {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: %s :: %s".formatted(aSection, aStatement));
+		SimplePrintLoggerToRemoveSoon.println_out_3("** CB_FindCIs :: %s :: %s".formatted(aSection, aStatement));
 	}
 }

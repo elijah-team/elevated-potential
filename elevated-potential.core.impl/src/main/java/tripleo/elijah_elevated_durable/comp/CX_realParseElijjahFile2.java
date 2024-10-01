@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.comp.specs.ElijahSpec;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah_fluffy.util.Operation2;
 import tripleo.elijah_elevated.comp.input.CX_ParseElijahFile;
 import tripleo.elijah_elevateder.DebugFlags;
 import tripleo.elijah_elevateder.comp.Compilation;

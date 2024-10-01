@@ -2,7 +2,7 @@ package tripleo.vendor.batoull22;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
-import tripleo.elijah.util.SimplePrintLoggerToRemoveSoon;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.io.InputStream;
 import java.util.Objects;

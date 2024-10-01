@@ -14,7 +14,7 @@ import tripleo.small.ES_Symbol;
 
 import java.util.Objects;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 public class Mirror_ArbitraryFunctionEntryPoint implements Mirror_EntryPoint {
 	private final ArbitraryFunctionEntryPoint afep;

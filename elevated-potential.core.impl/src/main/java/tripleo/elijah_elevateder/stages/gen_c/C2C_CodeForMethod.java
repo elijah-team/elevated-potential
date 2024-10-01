@@ -2,14 +2,14 @@ package tripleo.elijah_elevateder.stages.gen_c;
 
 import org.jetbrains.annotations.*;
 
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResult;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResultEnv;
+import tripleo.elijah_fluffy.util.BufferTabbedOutputStream;
 import tripleo.util.buffer.*;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.*;
+import static tripleo.elijah_fluffy.util.Helpers.*;
 
 public class C2C_CodeForMethod implements Generate_Code_For_Method.C2C_Results {
 	private final GenerateResult           gr;

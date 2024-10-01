@@ -6,7 +6,7 @@ import tripleo.elijah.comp.i.CB_Process;
 
 import java.util.List;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 public class SingleActionProcess implements CB_Process {
 	// README tape

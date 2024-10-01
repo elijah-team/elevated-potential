@@ -1,7 +1,7 @@
 package tripleo.elijah_elevated_durable.world_impl;
 
 import org.jetbrains.annotations.NotNull;
-import tripleo.elijah.util.Eventual;
+import tripleo.elijah_fluffy.util.Eventual;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah.comp.nextgen.inputtree.EIT_ModuleInput;
 import tripleo.elijah_elevateder.comp.notation.GN_PL_Run2;

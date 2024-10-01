@@ -14,7 +14,7 @@
  */
 package tripleo.elijah.ci.cil;
 
-import tripleo.elijah.util.UnintendedUseException;
+import tripleo.elijah_fluffy.util.UnintendedUseException;
 import tripleo.elijah.ci.CiExpression;
 import tripleo.elijah.ci.ExpressionKind;
 import tripleo.elijah.ci.cii.IBinaryExpression;

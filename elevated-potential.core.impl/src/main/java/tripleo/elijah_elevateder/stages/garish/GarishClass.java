@@ -5,9 +5,6 @@ import tripleo.elijah.g.GGarishClass;
 import tripleo.elijah.lang.i.*;
 
 
-
-
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.lang.types.OS_UnknownType;
 import tripleo.elijah_elevateder.lang.types.OS_UserClassType;
 import tripleo.elijah_elevateder.stages.deduce.ClassInvocation;
@@ -17,6 +14,7 @@ import tripleo.elijah_elevateder.stages.gen_fn.EvaClass;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResult;
 import tripleo.elijah_elevateder.stages.gen_generic.pipeline_impl.GenerateResultSink;
 import tripleo.elijah_elevateder.world.i.LivingClass;
+import tripleo.elijah_fluffy.util.BufferTabbedOutputStream;
 
 import java.util.*;
 

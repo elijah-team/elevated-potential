@@ -4,12 +4,13 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.Eventual;
+import tripleo.elijah_fluffy.util.Eventual;
 import tripleo.elijah_elevated.fluffy.i.FluffyComp;
 import tripleo.elijah_elevated.fluffy.i.FluffyModule;
 import tripleo.elijah_elevated_durable.comp.EDL_Compilation;
 import tripleo.elijah_elevated_durable.lang_impl.OS_ModuleImpl;
 import tripleo.elijah_elevateder.entrypoints.MainClassEntryPoint;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -95,9 +96,9 @@ public class FluffyCompImpl implements FluffyComp {
 		int y = 0;
 		for (Eventual<?> eventual : _eventuals) {
 			if (eventual.isResolved()) {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[FluffyCompImpl::checkEventual] ok for " + eventual.description());
+				SimplePrintLoggerToRemoveSoon.println_err_4("[FluffyCompImpl::checkEventual] ok for " + eventual.description());
 			} else {
-				tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("[FluffyCompImpl::checkEventual] failed for " + eventual.description());
+				SimplePrintLoggerToRemoveSoon.println_err_4("[FluffyCompImpl::checkEventual] failed for " + eventual.description());
 			}
 		}
 	}

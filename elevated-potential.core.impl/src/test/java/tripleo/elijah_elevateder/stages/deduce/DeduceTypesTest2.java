@@ -23,11 +23,12 @@ import tripleo.elijah_elevateder.lang.types.OS_UserType;
 import tripleo.elijah_elevateder.stages.gen_fn.GenType;
 import tripleo.elijah_elevateder.test_help.Boilerplate;
 import tripleo.elijah_elevateder.util.Helpers0;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.Objects;
 
 import static org.junit.Assert.assertTrue;
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 @Ignore
 public class DeduceTypesTest2 {
@@ -116,7 +117,7 @@ public class DeduceTypesTest2 {
 		final DeduceTypes2 d = dp.deduceModule(wm);
 
 		final GenType x = DeduceLookupUtils.deduceExpression(d, x1, fc);
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("-- deduceExpression >>" + x);
+		SimplePrintLoggerToRemoveSoon.println_out_2("-- deduceExpression >>" + x);
 //		assertEquals(new OS_BuiltInType(BuiltInTypes..SystemInteger).getBType(), x.getBType());
 //		final RegularTypeName tn = new RegularTypeNameImpl();
 		final VariableTypeName tn = new VariableTypeNameImpl();

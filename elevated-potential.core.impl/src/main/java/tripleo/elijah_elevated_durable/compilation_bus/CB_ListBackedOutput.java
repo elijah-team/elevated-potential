@@ -3,7 +3,7 @@ package tripleo.elijah_elevated_durable.compilation_bus;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.comp.i.CB_Output;
 import tripleo.elijah.comp.i.CB_OutputString;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah_elevateder.comp.internal.CodedOperationDiagnostic;
 
 import java.util.ArrayList;

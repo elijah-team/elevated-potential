@@ -19,7 +19,7 @@ import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.BuiltInTypes;
 import tripleo.elijah.nextgen.reactive.ReactiveDimension;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah.work.WorkList;
 import tripleo.elijah.work.WorkManager;
 import tripleo.elijah_elevated_durable.lang_impl.*;
@@ -35,11 +35,12 @@ import tripleo.elijah_elevateder.stages.instructions.*;
 import tripleo.elijah_elevateder.stages.inter.ModuleThing;
 import tripleo.elijah_elevateder.stages.logging.ElLog_;
 import tripleo.elijah_elevateder.util.Helpers0;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.util.range.Range;
 
 import java.util.*;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 import static tripleo.elijah_elevateder.stages.deduce.DeduceTypes2.to_int;
 
 /**
@@ -556,7 +557,7 @@ public class GenerateFunctions implements ReactiveDimension, GGenerateFunctions 
 
 	private static void logProgress(int code, String message) {
 		// TODO LOG
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("** "+code+" "+message);
+		SimplePrintLoggerToRemoveSoon.println_err_4("** "+code+" "+message);
 	}
 
 	@NotNull

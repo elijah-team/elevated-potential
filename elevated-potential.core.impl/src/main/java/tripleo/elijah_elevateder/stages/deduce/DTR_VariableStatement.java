@@ -2,11 +2,12 @@ package tripleo.elijah_elevateder.stages.deduce;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.stages.deduce.post_bytecode.DeduceElement3_IdentTableEntry;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.InstructionArgument;
 import tripleo.elijah_elevateder.stages.instructions.ProcIA;
+import tripleo.elijah_fluffy.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 
@@ -223,7 +224,7 @@ public class DTR_VariableStatement {
 							if (entry.nameToken.getText().equals(variableStatement.getName())) {
 								entry.resolve_varType_cb(result -> {
 									int y = 2;
-									tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("7676 DTR_VariableStatement >> " + result);
+									SimplePrintLoggerToRemoveSoon.println_err_4("7676 DTR_VariableStatement >> " + result);
 								});
 								break;
 							}

@@ -7,8 +7,8 @@ import tripleo.elijah.ci.CompilerInstructions;
 import tripleo.elijah.comp.IO;
 import tripleo.elijah.comp.specs.EzCache;
 import tripleo.elijah.comp.specs.EzSpec;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevateder.comp.specs.EDL_EzSpec;
+import tripleo.elijah_fluffy.util.*;
 import tripleo.wrap.File;
 
 import java.io.FileNotFoundException;

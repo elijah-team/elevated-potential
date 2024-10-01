@@ -3,7 +3,8 @@ package tripleo.elijah_elevateder.stages.deduce;
 import com.google.common.collect.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.*;
+import tripleo.elijah_fluffy.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.*;
 import java.util.function.*;
@@ -84,7 +85,7 @@ public class DeduceUtils {
 
 				return !Lists.newArrayList(ctors2).isEmpty();
 			}
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(String.valueOf(o));
+			SimplePrintLoggerToRemoveSoon.println_out_2(String.valueOf(o));
 			return false;
 		}
 	}

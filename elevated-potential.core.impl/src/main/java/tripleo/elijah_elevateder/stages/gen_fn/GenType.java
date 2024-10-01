@@ -7,12 +7,12 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.comp.i.ErrSink;
 import tripleo.elijah.contexts.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.Mode;
+import tripleo.elijah_fluffy.util.Mode;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.deduce.nextgen.DR_Type;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah_fluffy.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.Operation2;
 
 import java.util.function.Supplier;
 

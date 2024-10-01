@@ -2,7 +2,7 @@ package tripleo.elijah_elevateder.stages.gen_c;
 
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.NotImplementedException;
 import tripleo.elijah_elevated_durable.lang_impl.VariableSequenceImpl;
 import tripleo.elijah_elevated_durable.lang_impl.VariableStatementImpl;
 import tripleo.elijah_elevateder.stages.gen_fn.*;

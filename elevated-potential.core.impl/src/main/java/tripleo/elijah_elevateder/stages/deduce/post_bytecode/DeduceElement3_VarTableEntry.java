@@ -4,12 +4,13 @@ import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah.util.NotImplementedException;
-import tripleo.elijah.util.ReadySupplier_1;
+import tripleo.elijah_fluffy.util.NotImplementedException;
+import tripleo.elijah_fluffy.util.ReadySupplier_1;
 import tripleo.elijah_elevated_durable.lang_impl.AliasStatementImpl;
 import tripleo.elijah_elevateder.stages.deduce.*;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.instructions.IdentIA;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.List;
 
@@ -19,11 +20,11 @@ public class DeduceElement3_VarTableEntry implements IDeduceElement3 {
 	}
 
 	private static void noteNonsense(int code, String message) {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(String.format("%d %s%n", code, message));
+		SimplePrintLoggerToRemoveSoon.println_out_2(String.format("%d %s%n", code, message));
 	}
 
 	private static void noteNonsenseErr(int code, String message) {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err2(String.format("** [noteNonsenseErr] %d %s%n", code, message));
+		SimplePrintLoggerToRemoveSoon.println_err2(String.format("** [noteNonsenseErr] %d %s%n", code, message));
 	}
 
 	private final EvaContainer.VarTableEntry _principal;

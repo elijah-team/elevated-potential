@@ -2,6 +2,7 @@ package tripleo.vendor.mal;
 
 import com.google.common.collect.ImmutableMap;
 import org.jetbrains.annotations.NotNull;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.vendor.mal.types.*;
 
 import java.io.File;
@@ -123,14 +124,14 @@ public class core {
 
 	static @NotNull MalFunction prn = new MalFunction() {
 		public MalVal apply(final @NotNull MalList args) throws MalThrowable {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(printer._pr_str_args(args, " ", true));
+			SimplePrintLoggerToRemoveSoon.println_out_4(printer._pr_str_args(args, " ", true));
 			return Nil;
 		}
 	};
 
 	static @NotNull MalFunction println = new MalFunction() {
 		public MalVal apply(final @NotNull MalList args) throws MalThrowable {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(printer._pr_str_args(args, " ", false));
+			SimplePrintLoggerToRemoveSoon.println_out_4(printer._pr_str_args(args, " ", false));
 			return Nil;
 		}
 	};

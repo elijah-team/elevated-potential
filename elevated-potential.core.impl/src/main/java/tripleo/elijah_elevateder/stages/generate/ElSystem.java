@@ -15,6 +15,7 @@ import tripleo.elijah_elevateder.comp.Compilation;
 import tripleo.elijah_elevateder.stages.gen_fn.*;
 import tripleo.elijah_elevateder.stages.gen_generic.GenerateResultItem;
 import tripleo.elijah_elevateder.stages.gen_generic.Old_GenerateResult;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.text.*;
 import java.util.*;
@@ -88,7 +89,7 @@ public class ElSystem {
 		// 30: EvaFunction
 		// 55: EvaConstructor
 		// 140: not above
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2(MessageFormat.format("{0} {1} {2}", code, evaNode.toString(), s));
+		SimplePrintLoggerToRemoveSoon.println_out_2(MessageFormat.format("{0} {1} {2}", code, evaNode.toString(), s));
 	}
 }
 

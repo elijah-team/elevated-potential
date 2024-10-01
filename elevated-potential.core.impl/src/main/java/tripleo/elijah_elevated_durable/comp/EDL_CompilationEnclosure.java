@@ -13,7 +13,7 @@ import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.graph.i.*;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.nextgen.i.AsseverationLogProgress;
-import tripleo.elijah.diagnostic.Diagnostic;
+import tripleo.elijah_fluffy.diagnostic.Diagnostic;
 import tripleo.elijah.g.*;
 import tripleo.elijah.graph_impl.CK_DefaultStepRunner;
 import tripleo.elijah.lang.i.OS_Module;
@@ -21,7 +21,6 @@ import tripleo.elijah.nextgen.inputtree.EIT_ModuleList;
 import tripleo.elijah.nextgen.outputtree.EOT_FileNameProvider;
 import tripleo.elijah.nextgen.reactive.*;
 import tripleo.elijah.stages.logging.ElLog;
-import tripleo.elijah.util.*;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated_durable.compilation_bus.CB_ListBackedOutput;
 import tripleo.elijah_elevated_durable.compilation_bus.EDL_CompilationRunner;
@@ -38,6 +37,7 @@ import tripleo.elijah_elevateder.stages.generate.OutputStrategyC;
 import tripleo.elijah_elevateder.stages.inter.ModuleThing;
 import tripleo.elijah_elevateder.stages.write_stage.pipeline_impl.NG_OutputRequest;
 import tripleo.elijah_elevateder.world.i.WorldModule;
+import tripleo.elijah_fluffy.util.*;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -320,7 +320,7 @@ public class EDL_CompilationEnclosure implements CompilationEnclosure {
 		if (ecr.isPending()) {
 			ecr.resolve(compilationRunner);
 		} else {
-			tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("903365 compilationRunner already set");
+			SimplePrintLoggerToRemoveSoon.println_err_4("903365 compilationRunner already set");
 		}
 	}
 
@@ -379,7 +379,7 @@ public class EDL_CompilationEnclosure implements CompilationEnclosure {
 	public void noteAccept(final @NotNull WorldModule aWorldModule) {
 		var mod = aWorldModule.module();
 		//var aMt = EventualExtract.of(aWorldModule.getErq()).mt();
-		 tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(mod);
+		 SimplePrintLoggerToRemoveSoon.println_err_4(mod);
 		 //tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4(aMt);
 	}
 
@@ -393,7 +393,7 @@ public class EDL_CompilationEnclosure implements CompilationEnclosure {
 		// throw new IllegalStateException("Error");
 
 		// aReactive.join();
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_4("reactiveJoin " + aReactive.toString());
+		SimplePrintLoggerToRemoveSoon.println_err_4("reactiveJoin " + aReactive.toString());
 	}
 
 	@Override

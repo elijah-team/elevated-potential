@@ -6,11 +6,12 @@ import tripleo.elijah.comp.CompilerInput;
 import tripleo.elijah.comp.i.*;
 import tripleo.elijah.comp.i.extra.ICompilationRunner;
 import tripleo.elijah.g.GCompilationEnclosure;
-import tripleo.elijah.util.Ok;
-import tripleo.elijah.util.Operation;
+import tripleo.elijah_fluffy.util.Ok;
+import tripleo.elijah_fluffy.util.Operation;
 import tripleo.elijah_elevated.comp.backbone.CompilationEnclosure;
 import tripleo.elijah_elevated_durable.compilation_bus.*;
 import tripleo.elijah_elevateder.comp.*;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.elijah_prolific.v.V;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class EDL_CompilerController implements CompilerController {
 
 	@Override
 	public void printUsage() {
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_2("Usage: eljc [--showtree] [-sE|O] <directory or .ez file names>");
+		SimplePrintLoggerToRemoveSoon.println_out_2("Usage: eljc [--showtree] [-sE|O] <directory or .ez file names>");
 	}
 
 	@Override

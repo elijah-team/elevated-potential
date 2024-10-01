@@ -6,6 +6,7 @@ package tripleo.elijah_elevated_durable.lang_impl;
 import org.jetbrains.annotations.NotNull;
 import tripleo.elijah.lang.i.OS_Element;
 import tripleo.elijah.lang.i.OS_Type;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class NameTableImpl implements tripleo.elijah.lang.i.NameTable {
 	public void add(final OS_Element element, final String name, final OS_Type dtype) {
 //		element.setType(dtype);
 		members.put(name, new TypedElement(element, dtype));
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_err_2("[NameTable#add] " + members);
+		SimplePrintLoggerToRemoveSoon.println_err_2("[NameTable#add] " + members);
 	}
 }
 

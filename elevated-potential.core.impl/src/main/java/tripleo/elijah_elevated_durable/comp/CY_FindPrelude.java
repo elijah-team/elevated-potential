@@ -5,7 +5,7 @@ import tripleo.elijah.comp.nextgen.i.CP_Path;
 import tripleo.elijah.comp.nextgen.i.CP_StdlibPath;
 import tripleo.elijah.comp.specs.ElijahCache;
 import tripleo.elijah.lang.i.OS_Module;
-import tripleo.elijah.util.Operation2;
+import tripleo.elijah_fluffy.util.Operation2;
 import tripleo.elijah_elevated.comp.input.CX_ParseElijahFile;
 import tripleo.elijah_elevateder.comp.Compilation;
 

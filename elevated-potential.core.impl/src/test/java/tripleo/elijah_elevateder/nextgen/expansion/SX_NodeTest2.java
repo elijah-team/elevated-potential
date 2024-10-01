@@ -12,13 +12,14 @@ import tripleo.elijah_elevated_durable.comp.EDL_CompilerController;
 import tripleo.elijah_elevateder.factory.NonOpinionatedBuilder;
 import tripleo.elijah.nextgen.outputstatement.*;
 import tripleo.elijah.nextgen.outputtree.*;
-import tripleo.elijah.util.Helpers;
+import tripleo.elijah_fluffy.util.Helpers;
+import tripleo.elijah_fluffy.util.SimplePrintLoggerToRemoveSoon;
 import tripleo.small.ES_Symbol;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static tripleo.elijah.util.Helpers.List_of;
+import static tripleo.elijah_fluffy.util.Helpers.List_of;
 
 @SuppressWarnings("NewClassNamingConvention")
 public class SX_NodeTest2 {
@@ -153,10 +154,10 @@ public class SX_NodeTest2 {
 		final EG_SequenceStatement enc1 = getTestStatement();
 
 //		final int yy = 2;
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(enc1.getText());
+		SimplePrintLoggerToRemoveSoon.println_out_4(enc1.getText());
 //		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4();
 //		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(y);
-		tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("");
+		SimplePrintLoggerToRemoveSoon.println_out_4("");
 
 		final List<EOT_OutputFile> l = rt.getList();
 
@@ -170,9 +171,9 @@ public class SX_NodeTest2 {
 		wmainl.stream()
 				.filter(wmain -> wmain.getType() == EOT_OutputType.SOURCES)
 				.forEach(wmain -> {
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4("****************************");
+					SimplePrintLoggerToRemoveSoon.println_out_4("****************************");
 					final EG_Statement seqs = wmain.getStatementSequence();
-					tripleo.elijah.util.SimplePrintLoggerToRemoveSoon.println_out_4(seqs.getText());
+					SimplePrintLoggerToRemoveSoon.println_out_4(seqs.getText());
 				});
 	}
 }
