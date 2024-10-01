@@ -1,4 +1,4 @@
-package tripleo.elijah_elevateder.stages.write_stage.pipeline_impl;
+package tripleo.elijah_elevated_durable.pipelines.write;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;

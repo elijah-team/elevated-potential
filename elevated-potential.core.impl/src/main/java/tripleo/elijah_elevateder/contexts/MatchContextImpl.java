@@ -17,11 +17,11 @@ import tripleo.elijah_elevated_durable.lang_impl.ContextImpl;
 /**
  * Created 9/24/20 6:11 PM
  */
-public class MatchContext__ extends ContextImpl implements MatchContext {
+public class MatchContextImpl extends ContextImpl implements MatchContext {
 	private final Context _parent;
 	private final MatchConditional carrier;
 
-	public MatchContext__(final Context aParent, final MatchConditional mc) {
+	public MatchContextImpl(final Context aParent, final MatchConditional mc) {
 		this._parent = aParent;
 		this.carrier = mc;
 	}

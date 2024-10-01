@@ -4167,9 +4167,9 @@ public class ElijjahParser extends antlr.LLkParser implements ElijjahTokenTypes 
 	public final void namespaceStatement(NamespaceStatement cls, List<AnnotationClause> as)
 			throws RecognitionException, TokenStreamException {
 
-		AnnotationClause   a   = null;
-		NamespaceContext__ ctx = null;
-		IdentExpression    i1  = null;
+		AnnotationClause     a   = null;
+		NamespaceContextImpl ctx = null;
+		IdentExpression      i1  = null;
 
 		try { // for error handling
 			if (inputState.guessing == 0) {

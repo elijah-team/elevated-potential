@@ -14,7 +14,7 @@ import tripleo.elijah.contexts.ModuleContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang.nextgen.names.i.EN_Name;
 import tripleo.elijah_elevateder.comp.Compilation;
-import tripleo.elijah_elevateder.contexts.ModuleContext__;
+import tripleo.elijah_elevateder.contexts.ModuleContextImpl;
 
 import java.util.*;
 
@@ -78,7 +78,7 @@ public abstract class ContextImpl implements tripleo.elijah.lang.i.Context {
 	@Override
 	public @NotNull OS_Module module() {
 		Context ctx = this;// getParent();
-		while (!(ctx instanceof ModuleContext__)) {
+		while (!(ctx instanceof ModuleContextImpl)) {
 			ctx = ctx.getParent();
 		}
 		return ((ModuleContext) ctx).getCarrier();

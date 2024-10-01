@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import tripleo.elijah.contexts.IfConditionalContext;
 import tripleo.elijah.lang.i.*;
 import tripleo.elijah.lang2.ElElementVisitor;
-import tripleo.elijah_elevateder.contexts.IfConditionalContext__;
+import tripleo.elijah_elevateder.contexts.IfConditionalContextImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class IfConditionalImpl implements tripleo.elijah.lang.i.IfConditional {
 	public IfConditionalImpl(final @NotNull IfConditional ifExpression) {
 //		this.sibling = ifExpression;
 		//
-		this._ctx = new IfConditionalContext__(ifExpression.getCtx(), this, true);
+		this._ctx = new IfConditionalContextImpl(ifExpression.getCtx(), this, true);
 		this._parent = ifExpression.getParent();
 	}
 
@@ -44,7 +44,7 @@ public class IfConditionalImpl implements tripleo.elijah.lang.i.IfConditional {
 
 	public IfConditionalImpl(OS_Element aParent, Context aContext) {
 		this._parent = aParent;
-		setContext(new IfConditionalContext__(aContext, this));
+		setContext(new IfConditionalContextImpl(aContext, this));
 	}
 
 	private void add(final StatementItem aItem) {

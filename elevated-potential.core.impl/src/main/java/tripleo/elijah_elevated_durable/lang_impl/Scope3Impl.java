@@ -11,7 +11,7 @@ package tripleo.elijah_elevated_durable.lang_impl;
 import antlr.*;
 import org.jetbrains.annotations.*;
 import tripleo.elijah.lang.i.*;
-import tripleo.elijah_elevateder.contexts.IfConditionalContext__;
+import tripleo.elijah_elevateder.contexts.IfConditionalContextImpl;
 
 import java.util.*;
 
@@ -48,7 +48,7 @@ public class Scope3Impl implements Scope3, Documentable {
 		@Override
 		public @NotNull IfConditional ifConditional(final OS_Element aParent, final Context cur) {
 			IfConditional ifex = new IfConditionalImpl(aParent);
-			ifex.setContext(new IfConditionalContext__(cur, ifex));
+			ifex.setContext(new IfConditionalContextImpl(cur, ifex));
 			add(ifex);
 			return ifex;
 		}
