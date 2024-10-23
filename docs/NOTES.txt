@@ -1,6 +1,6 @@
 1. .sdkmanrc apparently works with 2023.3.2, idk if it will download automatically, tho...
 1a. https://github.com/gvcgo/version-manager https://vdocs.vmr.us.kg ??
-1a2. Kyrgyzstan, you're welcome
+1a2. Kyrgyzstan.  You're welcome.
 
 2. Mustache, yeah
 
